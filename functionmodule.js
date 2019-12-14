@@ -172,7 +172,7 @@ export class Brand_RCM extends Component {
     render() {
         return (
             <View style={styles.Brand_RCM}>
-                <View><Text style={{ fontWeight: 'bold', fontSize: 16, }}>แบรนด์แนะนำ</Text></View>
+                <View><Text style={{ fontWeight: 'bold', fontSize: 16, }}>แบรนด์แนะนำpppppppppp</Text></View>
                 <ScrollView horizontal>
                     <View >
                         <Image

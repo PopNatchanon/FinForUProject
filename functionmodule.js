@@ -15,7 +15,7 @@ import Icons from 'react-native-vector-icons/FontAwesome5';
 
 import styles from './Styles'
 
-const ip = 'http://192.168.0.132';
+const ip = 'http://192.168.0.131';
 
 ///----------------------------------Appbar----------------------------------------///
 
@@ -150,6 +150,8 @@ export class Category extends Component {
                 </Image>
                 <Text style={styles.Text_Cate}>{item.name}</Text>
             </View>
+            
+            
         })
         return (
             <View style={styles.Box_Cata}>
@@ -483,7 +485,6 @@ export class PromotionPopular extends Component {
                         resizeMethod='resize'
                     ></Image>
                     <Image style={styles.Image_icon_Sale} source={require('./icon/Sale.png')} resizeMethod='resize'></Image>
-
                 </View>
             </View>
         })
@@ -526,7 +527,7 @@ export class Product_for_you extends Component {
         let dataProduct_for_you = this.state.dataSourceforyou.map((item, indexs) => {
             //console.log('Product_for_you' + [indexs, item.image].join(' ')),
             dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
-            return <View style={styles.Category} key={indexs}>
+            return <View style={styles.foryouProduct_box} key={indexs}>
                 <Image
                     source={{
                         uri: dataMySQL,
@@ -534,13 +535,13 @@ export class Product_for_you extends Component {
                     style={styles.foryouProduct_image}
                     resizeMethod='resize'
                 />
-                <Text>{item.name}</Text>
-            </View>;
+                <Text>{item.name}</Text>            
+            </View>
         })
         return (
-            <View style={styles.Box}>
-                <Text style={styles.New_productText}>คัดเฉพาะสำหรับคุณ</Text>
-                <ScrollView style={styles.scrollproduct} horizontal>
+            <View style={styles.foryouProduct}>
+                <Text style={styles.foryouProduct_A}>คัดเฉพาะสำหรับคุณ</Text>
+                <ScrollView style={styles.foryouProduct_A} horizontal>
                     <View style={styles.category_A}>
                         {dataProduct_for_you}
                     </View>

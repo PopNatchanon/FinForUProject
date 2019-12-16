@@ -284,7 +284,7 @@ export class Popular_product extends Component {
                                     <Image style={styles.Image_icon_top} source={require('./icon/top.png')}></Image>
                                     <Image
                                         style={styles.Popular_image_Box}
-                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
+                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png' }}
                                         resizeMethod='resize'
                                     ></Image>
                                 </View>
@@ -305,7 +305,7 @@ export class Popular_product extends Component {
                                     <Image style={styles.Image_icon_top} source={require('./icon/top.png')}></Image>
                                     <Image
                                         style={styles.Popular_image_Box}
-                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
+                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png' }}
                                         resizeMethod='resize'
                                     ></Image>
                                 </View>
@@ -326,7 +326,7 @@ export class Popular_product extends Component {
                                     <Image style={styles.Image_icon_top} source={require('./icon/top.png')}></Image>
                                     <Image
                                         style={styles.Popular_image_Box}
-                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
+                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png' }}
                                         resizeMethod='resize'
                                     ></Image>
                                 </View>
@@ -347,7 +347,7 @@ export class Popular_product extends Component {
                                     <Image style={styles.Image_icon_top} source={require('./icon/top.png')}></Image>
                                     <Image
                                         style={styles.Popular_image_Box}
-                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
+                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png' }}
                                         resizeMethod='resize'
                                     ></Image>
                                 </View>

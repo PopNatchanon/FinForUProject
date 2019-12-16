@@ -71,7 +71,7 @@ export default StyleSheet.create({
   Category: {
     width: 80,
     height: 80,
-    marginTop: 20,
+    marginTop: 20,   
   },
   category_A: {
     flexDirection: 'column',
@@ -86,13 +86,13 @@ export default StyleSheet.create({
     height: 60,
     width: 60,
     marginLeft: 15,
-    justifyContent: 'center',
     alignItems: 'center'
   },
   Text_Cate: {
     fontWeight: 'bold',
     textAlign: 'center',
     marginLeft: 15,
+    justifyContent: 'space-around',
   },
 
   ///------------------------------------------------------------------------------------------///
@@ -148,7 +148,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   Popular_Box_D: {
-    borderColor: '#EAEAEA',
+    borderColor: '#FAFAFA',
     borderWidth: 1,
     height: 110,
     width: 100,
@@ -159,9 +159,7 @@ export default StyleSheet.create({
     marginLeft: 10, 
   },
   Text_Popular: {
-    // borderColor: '#EAEAEA',
-    // borderWidth: 1,
-    backgroundColor:'#EAEAEA',
+    backgroundColor:'#FAFAFA',
     fontWeight: 'bold',
     textAlign:'center'
     

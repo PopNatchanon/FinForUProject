@@ -150,6 +150,8 @@ export class Category extends Component {
                 </Image>
                 <Text style={styles.Text_Cate}>{item.name}</Text>
             </View>
+            
+            
         })
         return (
             <View style={styles.Box_Cata}>
@@ -441,7 +443,7 @@ export class Product_for_you extends Component {
         let dataProduct_for_you = this.state.dataSourceforyou.map((item, indexs) => {
             //console.log('Product_for_you' + [indexs, item.image].join(' ')),
             dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
-            return <View style={styles.Category} key={indexs}>
+            return <View style={styles.foryouProduct_box} key={indexs}>
                 <Image
                     source={{
                         uri: dataMySQL,
@@ -449,13 +451,13 @@ export class Product_for_you extends Component {
                     style={styles.foryouProduct_image}
                     resizeMethod='resize'
                 />
-                <Text>{item.name}</Text>
-            </View>;
+                <Text>{item.name}</Text>            
+            </View>
         })
         return (
-            <View style={styles.Box}>
-                <Text style={styles.New_productText}>คัดเฉพาะสำหรับคุณ</Text>
-                <ScrollView style={styles.scrollproduct} horizontal>
+            <View style={styles.foryouProduct}>
+                <Text style={styles.foryouProduct_A}>คัดเฉพาะสำหรับคุณ</Text>
+                <ScrollView style={styles.foryouProduct_A} horizontal>
                     <View style={styles.category_A}>
                         {dataProduct_for_you}
                     </View>
@@ -621,7 +623,7 @@ export class NewProduct extends Component {
                     resizeMethod='resize'
                 />
                 <Text>{item.name}</Text>
-            </View>;
+            </View>
         })
         return (
             <View style={styles.New_Product}>

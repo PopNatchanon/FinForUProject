@@ -40,9 +40,9 @@ export default StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
   },
-  Text_All:{
+  Text_All: {
     fontWeight: 'bold',
-    fontSize: 16, 
+    fontSize: 16,
   },
 
   ///------------------------------------------------------------------------------------------///
@@ -67,11 +67,14 @@ export default StyleSheet.create({
     borderColor: '#EAEAEA',
     borderWidth: 1,
     marginTop: 5,
+    width,
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start'
   },
   Category: {
-    width: 80,
     height: 80,
-    marginTop: 20,   
+    width: 80,
+    marginTop: 20,
   },
   category_A: {
     flexDirection: 'column',
@@ -85,14 +88,12 @@ export default StyleSheet.create({
     borderRadius: 4,
     height: 60,
     width: 60,
-    marginLeft: 15,
-    alignItems: 'center'
+    marginLeft: 25,
   },
   Text_Cate: {
     fontWeight: 'bold',
     textAlign: 'center',
-    marginLeft: 15,
-    justifyContent: 'space-around',
+    marginLeft: 25,
   },
 
   ///------------------------------------------------------------------------------------------///
@@ -116,7 +117,7 @@ export default StyleSheet.create({
     width: 150,
     marginLeft: 5,
     marginTop: 5,
-    marginBottom: 5, 
+    marginBottom: 5,
   },
 
   ///------------------------------------------------------------------------------------------///
@@ -140,7 +141,7 @@ export default StyleSheet.create({
     width: 200,
     flexDirection: 'column',
     marginLeft: 5,
-    
+
   },
   Popular_Box_C: {
     height: 110,
@@ -156,50 +157,53 @@ export default StyleSheet.create({
   Popular_image_Box: {
     height: 80,
     width: 80,
-    marginLeft: 10, 
+    marginLeft: 10,
   },
   Text_Popular: {
-    backgroundColor:'#FAFAFA',
+    backgroundColor: '#FAFAFA',
     fontWeight: 'bold',
-    textAlign:'center'
-    
-    
+    textAlign: 'center'
   },
-  Image_icon_top:{
+  Image_icon_top: {
     height: 25,
     width: 20,
     resizeMode: 'stretch',
   },
 
   ///------------------------------------------------------------------------------------------///
-  
+
   Promotion_popular: {
     backgroundColor: '#FFFFFF',
     borderColor: '#EAEAEA',
     borderWidth: 1,
-    marginTop: 5,  
+    marginTop: 5,
   },
-  Promotion_popular_A:{
-    flexDirection:'row',
+  Promotion_popular_A: {
+    flexDirection: 'row',
     height: 150,
   },
   Promotion_popular_Box: {
-    height:150,
-    marginTop:5,
+    height: 150,
+    marginTop: 5,
   },
-  Promotion_popular_BoxA:{
+  Promotion_popular_BoxA: {
     height: 150,
     width: 180,
-    marginLeft:5,
+    marginLeft: 5,
   },
+
   Promotion_popular_image: {
     height: 80,
     width: 180,
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
   },
-  Image_icon_Sale:{
+  Image_icon_Sale: {
     height: 40,
     width: 180,
     resizeMode: 'stretch',
+    borderBottomRightRadius: 8,
+    borderBottomLeftRadius: 8,
   },
 
   ///--------------------------------------------------------------------------------///
@@ -338,26 +342,60 @@ export default StyleSheet.create({
     marginTop: 5,
   },
   foryouProduct_box: {
-    backgroundColor: '#FFFFFF',
-    borderColor: '#EAEAEA',
+    width: 165,
+    borderColor: '#ECECEC',
     borderWidth: 1,
-    marginTop: 8,
-    marginLeft: 8,
-    marginRight: 8,
-    height: 100,
-    justifyContent: 'center',
-    alignItems: 'center'
+    marginTop: 16,
+    marginBottom: 8,
+    marginLeft: 5,
+  },
+  foryouProductText: {
+    width,
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 16,
+    marginLeft: 9,
   },
   foryouProduct_A: {
     flexDirection: 'column',
-    flexWrap: 'wrap',
-    height: 200,
   },
   foryouProduct_image: {
-    width: 80,
-    height: 80,
+    width: 150,
+    height: 167,
     backgroundColor: '#C4C4C4',
     margin: 6,
+  },
+  foryouProductImageName: {
+    fontSize: 12,
+    marginTop: 12,
+    marginLeft: 8,
+  },
+  foryouProductImagePrice: {
+    fontSize: 10,
+    marginTop: 12,
+    marginLeft: 8,
+    color: '#0A55A6',
+  },
+  foryouProductIconBox: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  foryouProductIcon: {
+    marginBottom: 5,
+    marginRight: 8,
+  },
+  foryouProductIconStar: {
+    paddingTop: 8,
+    marginBottom: 5,
+  },
+  foryouProductIconBoxI: {
+    flexDirection: 'row',
+  },
+  foryouProductIconBoxStar: {
+    flexDirection: 'row',
+    marginLeft: 8,
   },
 
   ///--------------------------------------------------------------------------------///

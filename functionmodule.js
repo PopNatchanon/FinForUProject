@@ -15,7 +15,7 @@ import Icons from 'react-native-vector-icons/FontAwesome5';
 
 import styles from './Styles'
 
-const ip = 'http://192.168.0.131';
+const ip = 'http://192.168.0.179';
 
 ///----------------------------------Appbar----------------------------------------///
 

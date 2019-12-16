@@ -12,6 +12,7 @@ import {
   Slide,
   Category,
   Brand_RCM,
+  FlashSale,
   Popular_product,
   PromotionPopular,
   SaleProduct,
@@ -32,6 +33,7 @@ class App extends Component {
           <Slide />
           <Category />
           <Brand_RCM />
+          <FlashSale/>
           <Popular_product />
           <PromotionPopular />
           <SaleProduct />

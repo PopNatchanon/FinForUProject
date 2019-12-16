@@ -362,6 +362,91 @@ export class Popular_product extends Component {
     }
 }
 
+///-------------------------------------------------------------------------------///
+
+export class FlashSale extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataSale: [],
+        };
+    }
+
+    getFlashSale() {
+        var url = ip + '/mysql/DataService.php?type=sale';
+        axios.get(url)
+            .then((getData) => {
+                // console.log(getData.data);
+                this.setState({
+                    dataSale: getData.data,
+                })
+            })
+    }
+
+    componentDidMount() {
+        this.getFlashSale();
+    }
+
+    render() {
+        let dataFlashSale = this.state.dataSale.map((item, indexs) => {
+            //   console.log('Sale' + [ indexs, item.image ].join(' ')),
+            dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+            return(
+                <View style={styles.FlashSaleBox} key={indexs}>
+                <Image
+                    source={{
+                        uri: dataMySQL,
+                    }}
+                    style={styles.FlashSaleImage}
+                    resizeMethod='resize'
+                />
+                <Text style={styles.FlashSaleImageName}>{item.name}</Text>
+                <NumberFormat
+                    value={item.sale_price}
+                    displayType={'text'}
+                    thousandSeparator={true}
+                    prefix={'฿'}
+                    renderText={
+                        value => <Text style={
+                            styles.FlashSaleImagePrice
+                        }>
+                            {value}
+                        </Text>}
+                />
+                <View style={styles.FlashSaleIconBox}>
+                    <View style={styles.FlashSaleIconBoxStar}>
+                        <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
+                        <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
+                        <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
+                        <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
+                        <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
+                    </View>
+                    <View style={styles.FlashSaleIconBoxI}>
+                        <Icons style={styles.FlashSaleIcon} name='heart' size={10} />
+                        <Icons style={styles.FlashSaleIcon} name='share' size={10} />
+                    </View>
+                </View>
+            </View>
+            );
+        })
+        return (
+            <View style={styles.FlashSale}>
+                <View style={styles.FlashSaleTextBox}>
+                    <Text style={styles.FlashSaleText}>
+                        FLASH SELL
+                    </Text>
+                    <Text style={styles.FlashSaleTextEnd}>
+                        ดูทั้งหมด
+                    </Text>
+                </View>
+                <ScrollView style={styles.scrollSale} horizontal>
+                    {dataFlashSale}
+                </ScrollView>
+            </View>
+        );
+    }
+}
+
 ///--------------------------------------------------------------------------///
 
 export class PromotionPopular extends Component {
@@ -398,7 +483,7 @@ export class PromotionPopular extends Component {
                         resizeMethod='resize'
                     ></Image>
                     <Image style={styles.Image_icon_Sale} source={require('./icon/Sale.png')} resizeMethod='resize'></Image>
-                    
+
                 </View>
             </View>
         })
@@ -494,12 +579,12 @@ export class SaleProduct extends Component {
         let dataSaleProduct = this.state.dataSale.map((item, indexs) => {
             //   console.log('Sale' + [ indexs, item.image ].join(' ')),
             dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
-            return <View style={styles.viewSale} key={indexs}>
+            return <View style={styles.SaleProductBox} key={indexs}>
                 <Image
                     source={{
                         uri: dataMySQL,
                     }}
-                    style={styles.ImageSale}
+                    style={styles.SaleProductImage}
                     resizeMethod='resize'
                 />
                 <Text style={styles.SaleProductImageName}>{item.name}</Text>
@@ -532,12 +617,14 @@ export class SaleProduct extends Component {
         })
         return (
             <View style={styles.SaleProduct}>
-                <Text style={styles.SaleProductText}>
-                    FLASH SELL
-              </Text>
-              <Text style={styles.SaleProductTextEnd}>
-                  ดูทั้งหมด
-              </Text>
+                <View style={styles.SaleProductTextBox}>
+                    <Text style={styles.SaleProductText}>
+                        สินค้าลดราคา
+                    </Text>
+                    <Text style={styles.SaleProductTextEnd}>
+                        ดูทั้งหมด
+                    </Text>
+                </View>
                 <ScrollView style={styles.scrollSale} horizontal>
                     {dataSaleProduct}
                 </ScrollView>
@@ -574,20 +661,20 @@ export class NewStore extends Component {
     render() {
         let dataNewStore = this.state.dataStore.map((item, indexs) => {
             dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
-            return <View style={styles.viewStore} key={indexs}>
+            return <View style={styles.NewStoreBox} key={indexs}>
                 <Image
                     source={{
                         uri: dataMySQL,
                     }}
-                    style={styles.ImageStore}
+                    style={styles.NewStoreImage}
                     resizeMethod='resize'
                 />
                 <Text>{item.name}</Text>
             </View>;
         })
         return (
-            <View style={styles.Newstore}>
-                <Text style={styles.New_storeText}>
+            <View style={styles.NewStore}>
+                <Text style={styles.NewStoreText}>
                     ร้านค้ามาใหม่
                 </Text>
                 <ScrollView style={styles.scrollStore} horizontal>
@@ -604,46 +691,76 @@ export class NewProduct extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            datanawProduct: [],
+            dataNewProduct: [],
         };
     }
 
-    getNewproduct() {
+    getNewProduct() {
         var url = ip + '/mysql/DataService.php?type=product';
         axios.get(url)
             .then((getData) => {
                 // console.log(getData.data);
                 this.setState({
-                    datanawProduct: getData.data,
+                    dataNewProduct: getData.data,
                 })
             })
     }
 
     componentDidMount() {
-        this.getNewproduct();
+        this.getNewProduct();
     }
 
     render() {
-        let dataNewProduct = this.state.datanawProduct.map((item, indexs) => {
-            //   console.log('Store' + [ indexs, item.image ].join(' ')),
+        let dataNewProduct = this.state.dataNewProduct.map((item, indexs) => {
+            //   console.log('Sale' + [ indexs, item.image ].join(' ')),
             dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
-            return <View style={styles.viewproduct} key={indexs}>
+            return <View style={styles.NewProductBox} key={indexs}>
                 <Image
                     source={{
                         uri: dataMySQL,
                     }}
-                    style={styles.Imageproduct}
+                    style={styles.NewProductImage}
                     resizeMethod='resize'
                 />
-                <Text>{item.name}</Text>
+                <Text style={styles.NewProductImageName}>{item.name}</Text>
+                <NumberFormat
+                    value={item.sale_price}
+                    displayType={'text'}
+                    thousandSeparator={true}
+                    prefix={'฿'}
+                    renderText={
+                        value => <Text style={
+                            styles.NewProductImagePrice
+                        }>
+                            {value}
+                        </Text>}
+                />
+                <View style={styles.NewProductIconBox}>
+                    <View style={styles.NewProductIconBoxStar}>
+                        <Icons style={styles.NewProductIconStar} name='star' size={8} />
+                        <Icons style={styles.NewProductIconStar} name='star' size={8} />
+                        <Icons style={styles.NewProductIconStar} name='star' size={8} />
+                        <Icons style={styles.NewProductIconStar} name='star' size={8} />
+                        <Icons style={styles.NewProductIconStar} name='star' size={8} />
+                    </View>
+                    <View style={styles.NewProductIconBoxI}>
+                        <Icons style={styles.NewProductIcon} name='heart' size={10} />
+                        <Icons style={styles.NewProductIcon} name='share' size={10} />
+                    </View>
+                </View>
             </View>;
         })
         return (
-            <View style={styles.New_Product}>
-                <Text style={styles.New_productText}>
-                    สินค้ามาใหม่
-                </Text>
-                <ScrollView style={styles.scrollproduct} horizontal>
+            <View style={styles.NewProduct}>
+                <View style={styles.NewProductTextBox}>
+                    <Text style={styles.NewProductText}>
+                        สินค้ามาใหม่
+                    </Text>
+                    <Text style={styles.NewProductTextEnd}>
+                        ดูทั้งหมด
+                    </Text>
+                </View>
+                <ScrollView style={styles.scrollSale} horizontal>
                     {dataNewProduct}
                 </ScrollView>
             </View>
@@ -658,11 +775,10 @@ export class CategoryProduct extends Component {
         super(props);
         this.state = {
             dataSourceCategory: [],
-            dataSourceCategoryProduct: [],
         }
     }
 
-    getDataCategoryList() {
+    getDataCategory() {
         var url = ip + '/mysql/DataService.php?type=categorylist';
         axios.get(url)
             .then((getData) => {
@@ -674,7 +790,7 @@ export class CategoryProduct extends Component {
     }
 
     componentDidMount() {
-        this.getDataCategoryList();
+        this.getDataCategory();
     }
 
     render() {
@@ -687,11 +803,17 @@ export class CategoryProduct extends Component {
                         <Text style={styles.CategoryProductText}>
                             {item.name}
                         </Text>
-                        <CategoryProductChild name={item.name} />
+                        <CategoryProductSubProduct name={item.name} />
                     </View>
                     <View>
                         <Text style={styles.CategoryProductTextSub}>
                             ร้านค้าแนะนำโดย FIN
+                        </Text>
+                        <CategoryProductSubStore />
+                    </View>
+                    <View>
+                        <Text style={styles.CategoryProductTextSub}>
+                            แบรนด์ร้านแนะนำ
                         </Text>
                     </View>
                 </View>
@@ -705,7 +827,7 @@ export class CategoryProduct extends Component {
 
 ///-------------------------------------------------------------------------------///
 
-export class CategoryProductChild extends Component {
+export class CategoryProductSubProduct extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -713,7 +835,7 @@ export class CategoryProductChild extends Component {
         }
     }
 
-    getDataCategoryProductChild() {
+    getCategoryProductSubProduct() {
         // console.log( 'CategoryProductChild Process' )
         var url = ip + '/mysql/DataService.php?type=categoryproduct&product=' + this.props.name;
         axios.get(url)
@@ -726,7 +848,7 @@ export class CategoryProductChild extends Component {
     }
 
     componentDidMount() {
-        this.getDataCategoryProductChild()
+        this.getCategoryProductSubProduct()
     }
 
     render() {
@@ -780,6 +902,57 @@ export class CategoryProductChild extends Component {
                 <View style={styles.RightItem} />
             </ScrollView>
         )
+    }
+}
+
+///-------------------------------------------------------------------------------///
+
+export class CategoryProductSubStore extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataSourceCategoryProduct: [],
+        }
+    }
+
+    getCategoryProductSubStore() {
+        // console.log( 'CategoryProductChild Process' )
+        var url = ip + '/mysql/DataService.php?type=store';
+        axios.get(url)
+            .then((getData) => {
+                //   console.log(getData.data);
+                this.setState({
+                    dataSourceCategoryProduct: getData.data,
+                })
+            })
+    }
+
+    componentDidMount() {
+        this.getCategoryProductSubStore()
+    }
+
+    render() {
+        let dataCategoryProduct = this.state.dataSourceCategoryProduct.map((item2, indexs2) => {
+            // console.log( 'CategoryProductNo. ' + indexs2 + ' ' + item2.image ),
+            dataMySQL = [ip + '/mysql/uploads', item2.image].join('/');
+            return (
+                <View style={styles.CategoryProductStoreBox} key={indexs2}>
+                    <Image
+                        source={{
+                            uri: dataMySQL,
+                        }}
+                        style={styles.CategoryProductStoreImage}
+                        resizeMethod='resize'
+                    />
+                </View>
+            );
+        })
+        return (
+            <ScrollView horizontal>
+                {dataCategoryProduct}
+                <View style={styles.RightItem} />
+            </ScrollView>
+        );
     }
 }
 

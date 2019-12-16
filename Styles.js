@@ -210,34 +210,80 @@ export default StyleSheet.create({
 
   ///--------------------------------------------------------------------------------///
 
-  SaleProduct: {
+  FlashSale: {
     width,
-    resizeMode: 'contain',
     borderColor: '#EAEAEA',
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
     borderRadius: 5,
+    marginTop: 5,
   },
-  SaleProductText: {
+  FlashSaleTextBox: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  FlashSaleText: {
     fontSize: 16,
     fontWeight: 'bold',
     marginLeft: 8,
     marginTop: 6,
   },
-  viewSale: {
-    width: 106,
-    height: 146,
+  FlashSaleTextEnd:{
+    fontSize: 10,
+    color: '#0A55A6',
+    marginRight: 8,
     marginTop: 10,
+  },
+  FlashSaleBox: {
+    width: 106,
+    borderColor: '#ECECEC',
+    borderWidth: 1,
+    marginTop: 10,
+    marginBottom: 8,
     marginLeft: 10,
   },
-  ImageSale: {
+  FlashSaleImage: {
     width: 99,
     height: 98,
     resizeMode: 'contain',
-    borderColor: '#EAEAEA',
+    // borderColor: '#EAEAEA',
     borderRadius: 5,
+  },
+  FlashSaleImageName:{
+    fontSize: 10,
+    marginTop: 6,
+    marginLeft: 6,
+  },
+  FlashSaleIconBox: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  FlashSaleIcon: {
+    paddingTop: 4,
+    marginBottom: 4,
+    marginRight: 6,
+  },
+  FlashSaleIconStar: {
+    paddingTop: 5,
+    marginBottom: 5,
+  },
+  FlashSaleIconBoxI: {
+    flexDirection: 'row',
+  },
+  FlashSaleIconBoxStar: {
+    flexDirection: 'row',
+    marginLeft: 6,
+  },
+  FlashSaleImagePrice: {
+    fontSize: 8,
+    marginTop: 6,
+    marginLeft: 6,
+    color: '#0A55A6',
   },
 
   ///--------------------------------------------------------------------------------///
-
   SaleProduct: {
     width,
     borderColor: '#EAEAEA',
@@ -246,6 +292,11 @@ export default StyleSheet.create({
     borderRadius: 5,
     marginTop: 5,
   },
+  SaleProductTextBox: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   SaleProductText: {
     fontSize: 16,
     fontWeight: 'bold',
@@ -253,20 +304,30 @@ export default StyleSheet.create({
     marginTop: 6,
   },
   SaleProductTextEnd:{
-
-  },
-  viewSale: {
-    width: 106,
-    // height: 146,
+    fontSize: 10,
+    color: '#0A55A6',
+    marginRight: 8,
     marginTop: 10,
+  },
+  SaleProductBox: {
+    width: 106,
+    borderColor: '#ECECEC',
+    borderWidth: 1,
+    marginTop: 10,
+    marginBottom: 8,
     marginLeft: 10,
   },
-  ImageSale: {
+  SaleProductImage: {
     width: 99,
     height: 98,
     resizeMode: 'contain',
     // borderColor: '#EAEAEA',
     borderRadius: 5,
+  },
+  SaleProductImageName:{
+    fontSize: 10,
+    marginTop: 6,
+    marginLeft: 6,
   },
   SaleProductIconBox: {
     flex: 1,
@@ -287,7 +348,7 @@ export default StyleSheet.create({
   },
   SaleProductIconBoxStar: {
     flexDirection: 'row',
-    marginLeft: 4,
+    marginLeft: 6,
   },
   SaleProductImagePrice: {
     fontSize: 8,
@@ -298,13 +359,14 @@ export default StyleSheet.create({
 
   ///--------------------------------------------------------------------------------///
 
-  Newstore: {
+  NewStore: {
     width,
-    resizeMode: 'contain',
     borderColor: '#EAEAEA',
-    borderRadius: 5,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    marginTop: 5,
   },
-  New_storeText: {
+  NewStoreText: {
     fontSize: 16,
     fontWeight: 'bold',
     marginLeft: 20,
@@ -315,51 +377,95 @@ export default StyleSheet.create({
     marginRight: 'auto',
     marginLeft: 'auto',
   },
-  viewStore: {
+  NewStoreBox: {
     width: 193,
-    height: 150,
+    height: 129,
+    borderColor: '#ECECEC',
+    borderWidth: 1,
     marginTop: 10,
+    marginBottom: 8,
     marginLeft: 10,
   },
-  ImageStore: {
-    width: 180,
+  NewStoreImage: {
+    width: '100%',
     height: 100,
     resizeMode: 'stretch',
     borderColor: '#EAEAEA',
-    borderRadius: 30,
   },
 
   ///--------------------------------------------------------------------------------///
 
-  New_Product: {
+  NewProduct: {
     width,
-    resizeMode: 'contain',
     borderColor: '#EAEAEA',
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
     borderRadius: 5,
+    marginTop: 5,
   },
-  New_productText: {
+  NewProductTextBox: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  NewProductText: {
     fontSize: 16,
     fontWeight: 'bold',
     marginLeft: 8,
     marginTop: 6,
   },
-  scrollproduct: {
-    width: '95%',
-    marginRight: 'auto',
-    marginLeft: 'auto',
-  },
-  viewproduct: {
-    width: 106,
-    height: 146,
+  NewProductTextEnd:{
+    fontSize: 10,
+    color: '#0A55A6',
+    marginRight: 8,
     marginTop: 10,
+  },
+  NewProductBox: {
+    width: 106,
+    borderColor: '#ECECEC',
+    borderWidth: 1,
+    marginTop: 10,
+    marginBottom: 8,
     marginLeft: 10,
   },
-  Imageproduct: {
+  NewProductImage: {
     width: 99,
     height: 98,
     resizeMode: 'contain',
-    borderColor: '#EAEAEA',
+    // borderColor: '#EAEAEA',
     borderRadius: 5,
+  },
+  NewProductImageName:{
+    fontSize: 10,
+    marginTop: 6,
+    marginLeft: 6,
+  },
+  NewProductIconBox: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  NewProductIcon: {
+    paddingTop: 4,
+    marginBottom: 4,
+    marginRight: 6,
+  },
+  NewProductIconStar: {
+    paddingTop: 5,
+    marginBottom: 5,
+  },
+  NewProductIconBoxI: {
+    flexDirection: 'row',
+  },
+  NewProductIconBoxStar: {
+    flexDirection: 'row',
+    marginLeft: 6,
+  },
+  NewProductImagePrice: {
+    fontSize: 8,
+    marginTop: 6,
+    marginLeft: 6,
+    color: '#0A55A6',
   },
 
   ///--------------------------------------------------------------------------------///
@@ -573,7 +679,7 @@ export default StyleSheet.create({
   },
   CategoryProductIconBoxStar: {
     flexDirection: 'row',
-    marginLeft: 8,
+    marginLeft: 6,
   },
   BrannerCategoryImage: {
     width: width - 40,
@@ -586,8 +692,27 @@ export default StyleSheet.create({
   },
   CategoryProductTextSub:{
     fontSize: 12,
+    paddingLeft:8,
+    width:'35%',
     marginTop: 10,
     marginLeft: 6,
+    backgroundColor: '#0A55A6',
+    color: 'white',
+  },
+  CategoryProductStoreBox:{
+    width: 125,
+    height: 70,
+    borderColor: '#ECECEC',
+    marginTop: 10,
+    marginBottom: 8,
+    marginLeft: 10,
+  },
+  CategoryProductStoreImage:{
+    width: '100%',
+    height: '100%',
+    resizeMode: 'stretch',
+    borderColor: '#EAEAEA',
+    borderRadius: 8,
   },
   RightItem: {
     marginRight: 5,

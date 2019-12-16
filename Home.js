@@ -17,7 +17,7 @@ import NumberFormat from 'react-number-format';
 
 export const { width, height } = Dimensions.get('window')
 
-const ip = 'http://192.168.0.132';
+const ip = 'http://192.168.0.131';
 
 
 export default class Home extends Component {
@@ -537,7 +537,7 @@ const styles = StyleSheet.create({
   },
   Brand_image_RCM: {
     height: 100,
-    width: 173,
+    width: 100,
     marginLeft: 20,
     marginTop: 10,
   },

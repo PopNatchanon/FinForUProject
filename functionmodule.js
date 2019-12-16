@@ -12,6 +12,7 @@ import SwiperFlatList from 'react-native-swiper-flatlist';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
 import Icons from 'react-native-vector-icons/FontAwesome5';
+
 import styles from './Styles'
 
 const ip = 'http://192.168.0.132';
@@ -31,13 +32,14 @@ export class AppBar extends Component {
             <View style={styles.Appbar}>
                 <Image
                     style={styles.LOGO}
-                    source={require('./images/logo.png')}
+                    source={require('./images/sj.png')}
                     resizeMethod='resize'
                 ></Image>
                 <TextInput style={styles.TextInput}
                     placeholder="ค้นหาสินค้า/ร้านค้า"
                     onChangeText={(text) => this.state({ text })}></TextInput>
-                <Icons name="shopping-cart" size={25} color="black" />
+                <Icons RightItem name="search" size={20} style={{ marginTop: 5, }} />
+                <Icons RightItem name="shopping-cart" size={20} style={{ marginTop: 5, }} />
             </View>
         );
     }
@@ -150,7 +152,7 @@ export class Category extends Component {
             </View>
         })
         return (
-            <View style={styles.Box}>
+            <View style={styles.Box_Cata}>
                 <ScrollView horizontal >
                     <View style={styles.category_A}>
                         {dataCategory}
@@ -172,42 +174,80 @@ export class Brand_RCM extends Component {
     render() {
         return (
             <View style={styles.Brand_RCM}>
-                <View><Text style={{ fontWeight: 'bold', fontSize: 16, }}>แบรนด์แนะนำ</Text></View>
+                <Text style={{ fontWeight: 'bold', fontSize: 16, }}>แบรนด์แนะนำ</Text>
                 <ScrollView horizontal>
-                    <View >
-                        <Image
-                            style={styles.Brand_image_RCM}
-                            source={{ uri: ip + '/MySQL/uploads/recommend/2019-11-19_12-05-04_banner.jpg' }}
-                            resizeMethod='resize'
-                        ></Image>
-                    </View>
-                    <View >
-                        <Image
-                            style={styles.Brand_image_RCM}
-                            source={{ uri: ip + '/MySQL/uploads/recommend/2019-11-19_12-05-04_banner.jpg' }}
-                            resizeMethod='resize'
-                        ></Image>
-                    </View>
-                    <View >
-                        <Image
-                            style={styles.Brand_image_RCM}
-                            source={{ uri: ip + '/MySQL/uploads/recommend/2019-11-19_12-05-04_banner.jpg' }}
-                            resizeMethod='resize'
-                        ></Image>
-                    </View>
-                    <View >
-                        <Image
-                            style={styles.Brand_image_RCM}
-                            source={{ uri: ip + '/MySQL/uploads/recommend/2019-11-19_12-05-04_banner.jpg' }}
-                            resizeMethod='resize'
-                        ></Image>
-                    </View>
-                    <View >
-                        <Image
-                            style={styles.Brand_image_RCM}
-                            source={{ uri: ip + '/MySQL/uploads/recommend/2019-11-19_12-05-04_banner.jpg' }}
-                            resizeMethod='resize'
-                        ></Image>
+                    <View style={styles.Brand_RCM_Box}>
+                        <View>
+                            <Image
+                                style={styles.Brand_image_RCM}
+                                source={{ uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png' }}
+                                resizeMethod='resize'
+                            ></Image>
+                        </View>
+
+                        <View >
+                            <Image
+                                style={styles.Brand_image_RCM}
+                                source={{ uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png' }}
+                                resizeMethod='resize'
+                            ></Image>
+                        </View>
+                        <View >
+                            <Image
+                                style={styles.Brand_image_RCM}
+                                source={{ uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png' }}
+                                resizeMethod='resize'
+                            ></Image>
+                        </View>
+                        <View >
+                            <Image
+                                style={styles.Brand_image_RCM}
+                                source={{ uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png' }}
+                                resizeMethod='resize'
+                            ></Image>
+                        </View>
+                        <View >
+                            <Image
+                                style={styles.Brand_image_RCM}
+                                source={{ uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png' }}
+                                resizeMethod='resize'
+                            ></Image>
+                        </View>
+                        <View >
+                            <Image
+                                style={styles.Brand_image_RCM}
+                                source={{ uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png' }}
+                                resizeMethod='resize'
+                            ></Image>
+                        </View>
+                        <View >
+                            <Image
+                                style={styles.Brand_image_RCM}
+                                source={{ uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png' }}
+                                resizeMethod='resize'
+                            ></Image>
+                        </View>
+                        <View >
+                            <Image
+                                style={styles.Brand_image_RCM}
+                                source={{ uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png' }}
+                                resizeMethod='resize'
+                            ></Image>
+                        </View>
+                        <View >
+                            <Image
+                                style={styles.Brand_image_RCM}
+                                source={{ uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png' }}
+                                resizeMethod='resize'
+                            ></Image>
+                        </View>
+                        <View >
+                            <Image
+                                style={styles.Brand_image_RCM}
+                                source={{ uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png' }}
+                                resizeMethod='resize'
+                            ></Image>
+                        </View>
                     </View>
                 </ScrollView>
             </View>
@@ -227,66 +267,90 @@ export class Popular_product extends Component {
     render() {
         return (
             <View style={styles.Popular}>
-                <View><Text style={{ fontWeight: 'bold', fontSize: 16, }}>สินค้ายอดนิยม</Text></View>
+                <View><Text style={styles.Text_All}>สินค้ายอดนิยม</Text></View>
                 <View style={styles.Popular_Box_A}>
                     <ScrollView horizontal>
                         <View style={styles.Popular_Box_B}>
                             <View style={styles.Popular_Box_C}>
-                                <Image
-                                    style={styles.Popular_image_Box}
-                                    source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
-                                    resizeMethod='resize'
-                                ></Image>
-                                <Image
-                                    style={styles.Popular_image_Box}
-                                    source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
-                                    resizeMethod='resize'
-                                ></Image>
+                                <View style={styles.Popular_Box_D}>
+                                    <Image style={styles.Image_icon_top} source={require('./icon/top.png')}></Image>
+                                    <Image
+                                        style={styles.Popular_image_Box}
+                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
+                                        resizeMethod='resize'
+                                    ></Image>
+                                </View>
+                                <View style={styles.Popular_Box_D}>
+                                    <Image style={styles.Image_icon_top} source={require('./icon/top.png')}></Image>
+                                    <Image
+                                        style={styles.Popular_image_Box}
+                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
+                                        resizeMethod='resize'
+                                    ></Image>
+                                </View>
                             </View>
                             <Text style={styles.Text_Popular}>สินค้าสุดฮิต</Text>
                         </View>
                         <View style={styles.Popular_Box_B}>
                             <View style={styles.Popular_Box_C}>
-                                <Image
-                                    style={styles.Popular_image_Box}
-                                    source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
-                                    resizeMethod='resize'
-                                ></Image>
-                                <Image
-                                    style={styles.Popular_image_Box}
-                                    source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
-                                    resizeMethod='resize'
-                                ></Image>
+                                <View style={styles.Popular_Box_D}>
+                                    <Image style={styles.Image_icon_top} source={require('./icon/top.png')}></Image>
+                                    <Image
+                                        style={styles.Popular_image_Box}
+                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
+                                        resizeMethod='resize'
+                                    ></Image>
+                                </View>
+                                <View style={styles.Popular_Box_D}>
+                                    <Image style={styles.Image_icon_top} source={require('./icon/top.png')}></Image>
+                                    <Image
+                                        style={styles.Popular_image_Box}
+                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
+                                        resizeMethod='resize'
+                                    ></Image>
+                                </View>
                             </View>
                             <Text style={styles.Text_Popular}>สินค้าราคาโดน</Text>
                         </View>
                         <View style={styles.Popular_Box_B}>
                             <View style={styles.Popular_Box_C}>
-                                <Image
-                                    style={styles.Popular_image_Box}
-                                    source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
-                                    resizeMethod='resize'
-                                ></Image>
-                                <Image
-                                    style={styles.Popular_image_Box}
-                                    source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
-                                    resizeMethod='resize'
-                                ></Image>
+                                <View style={styles.Popular_Box_D}>
+                                    <Image style={styles.Image_icon_top} source={require('./icon/top.png')}></Image>
+                                    <Image
+                                        style={styles.Popular_image_Box}
+                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
+                                        resizeMethod='resize'
+                                    ></Image>
+                                </View>
+                                <View style={styles.Popular_Box_D}>
+                                    <Image style={styles.Image_icon_top} source={require('./icon/top.png')}></Image>
+                                    <Image
+                                        style={styles.Popular_image_Box}
+                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
+                                        resizeMethod='resize'
+                                    ></Image>
+                                </View>
                             </View>
                             <Text style={styles.Text_Popular}>สินค้าราคาโดน</Text>
                         </View>
                         <View style={styles.Popular_Box_B}>
                             <View style={styles.Popular_Box_C}>
-                                <Image
-                                    style={styles.Popular_image_Box}
-                                    source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
-                                    resizeMethod='resize'
-                                ></Image>
-                                <Image
-                                    style={styles.Popular_image_Box}
-                                    source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
-                                    resizeMethod='resize'
-                                ></Image>
+                                <View style={styles.Popular_Box_D}>
+                                    <Image style={styles.Image_icon_top} source={require('./icon/top.png')}></Image>
+                                    <Image
+                                        style={styles.Popular_image_Box}
+                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
+                                        resizeMethod='resize'
+                                    ></Image>
+                                </View>
+                                <View style={styles.Popular_Box_D}>
+                                    <Image style={styles.Image_icon_top} source={require('./icon/top.png')}></Image>
+                                    <Image
+                                        style={styles.Popular_image_Box}
+                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
+                                        resizeMethod='resize'
+                                    ></Image>
+                                </View>
                             </View>
                             <Text style={styles.Text_Popular}>สินค้าราคาโดน</Text>
                         </View>
@@ -298,7 +362,7 @@ export class Popular_product extends Component {
     }
 }
 
-///----------------------------------PromotionPopular----------------------------------------///
+///--------------------------------------------------------------------------///
 
 export class PromotionPopular extends Component {
     constructor(props) {
@@ -325,20 +389,24 @@ export class PromotionPopular extends Component {
             //console.log('PromotionPopular' + [indexs, item.image].join(' ')),
             dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
             return <View style={styles.Promotion_popular_Box} key={indexs}>
-                <Image
-                    source={{
-                        uri: dataMySQL,
-                    }}
-                    style={styles.Promotion_popular_image}
-                    resizeMethod='resize'
-                ></Image>
+                <View style={styles.Promotion_popular_BoxA}>
+                    <Image
+                        source={{
+                            uri: dataMySQL,
+                        }}
+                        style={styles.Promotion_popular_image}
+                        resizeMethod='resize'
+                    ></Image>
+                    <Image style={styles.Image_icon_Sale} source={require('./icon/Sale.png')} resizeMethod='resize'></Image>
+                    
+                </View>
             </View>
         })
         return (
-            <View style={styles.Box}>
-                <View ><Text style={{ fontWeight: 'bold', fontSize: 16, }}>โปรโมชั่นร้านค้ายอดนิยม</Text></View>
+            <View style={styles.Promotion_popular}>
+                <View ><Text style={styles.Text_All}>โปรโมชั่นร้านค้ายอดนิยม</Text></View>
                 <ScrollView horizontal >
-                    <View style={styles.Promotion_popular}>
+                    <View style={styles.Promotion_popular_A}>
                         {dataPromotionPopular}
                     </View>
                 </ScrollView>
@@ -465,7 +533,10 @@ export class SaleProduct extends Component {
         return (
             <View style={styles.SaleProduct}>
                 <Text style={styles.SaleProductText}>
-                    สินค้าลดราคา
+                    FLASH SELL
+              </Text>
+              <Text style={styles.SaleProductTextEnd}>
+                  ดูทั้งหมด
               </Text>
                 <ScrollView style={styles.scrollSale} horizontal>
                     {dataSaleProduct}

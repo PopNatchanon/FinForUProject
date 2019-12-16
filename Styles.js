@@ -3,7 +3,9 @@ import { StyleSheet, Dimensions } from 'react-native';
 export const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
+
   ///------------------------------------------------------------------------------------------///
+
   Toolbar: {
     backgroundColor: '#FFFFFF',
     borderColor: '#EAEAEA',
@@ -12,64 +14,55 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingTop: 5,
-    //backgroundColor: 'blue'
   },
   SafeAreaView: {
     flex: 1,
-    height: '100%',
-    width: '100%',
-    backgroundColor: '#FAFAFA',
   },
   LOGO: {
-    height: 30,
+    height: 40,
     width: 80,
-    // marginTop: 10,
-    resizeMode: 'stretch'
+    resizeMode: 'stretch',
   },
   TextInput: {
-    width: 200,
-    height: 35,
-    backgroundColor: 'azure',
-    fontSize: 14,
+    width: 230,
+    height: 40,
+    fontSize: 15,
     textAlign: 'center',
-    // marginTop: 10,
-    marginBottom: 5,
-    marginLeft: 10,
-    marginRight: 10,
   },
   Appbar: {
     backgroundColor: '#FFFFFF',
     borderColor: '#EAEAEA',
     borderWidth: 1,
     height: 50,
-    // backgroundColor: 'green',
+    width,
     flexDirection: 'row',
-    justifyContent: 'center',
-    paddingTop: 10,
+    justifyContent: 'space-around',
+    paddingTop: 5,
+    paddingBottom: 5,
+  },
+  Text_All:{
+    fontWeight: 'bold',
+    fontSize: 16, 
+  },
 
-  },
-  Image: {
-    height: 40,
-    width: 100,
-    justifyContent: 'flex-start'
-    // resizeMode: 'stretch'
-  },
+  ///------------------------------------------------------------------------------------------///
+
   child: {
     marginTop: 5,
-    height: 147,
+    height: 150,
     width,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   childSlide: {
     width,
-    height: 147,
+    height: 150,
   },
   slide: {
     height: 150,
-    backgroundColor: 'brown',
   },
-  Box: {
+
+  ///------------------------------------------------------------------------------------------///
+
+  Box_Cata: {
     backgroundColor: '#FFFFFF',
     borderColor: '#EAEAEA',
     borderWidth: 1,
@@ -83,12 +76,16 @@ export default StyleSheet.create({
   category_A: {
     flexDirection: 'column',
     flexWrap: 'wrap',
-    height: 200,
+    height: 250,
   },
   Category_box: {
-    height: 50,
-    width: 50,
-    marginLeft: 20,
+    backgroundColor: '#FFFFFF',
+    borderColor: '#EAEAEA',
+    borderWidth: 1,
+    borderRadius: 4,
+    height: 60,
+    width: 60,
+    marginLeft: 15,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -97,82 +94,126 @@ export default StyleSheet.create({
     textAlign: 'center',
     marginLeft: 15,
   },
+
+  ///------------------------------------------------------------------------------------------///
+
   Brand_RCM: {
     backgroundColor: '#FFFFFF',
     borderColor: '#EAEAEA',
     borderWidth: 1,
     marginTop: 5,
-    height: 150,
-    marginTop: 10,
+    height: 160,
+    marginTop: 5,
+  },
+  Brand_RCM_Box: {
+    flexDirection: 'column',
+    flexWrap: 'wrap',
   },
   Brand_image_RCM: {
-    height: 100,
-    width: 173,
-    marginLeft: 20,
-    marginTop: 10,
+    borderColor: '#EAEAEA',
+    borderWidth: 1,
+    height: 50,
+    width: 150,
+    marginLeft: 5,
+    marginTop: 5,
+    marginBottom: 5, 
   },
+
+  ///------------------------------------------------------------------------------------------///
+
   Popular: {
     backgroundColor: '#FFFFFF',
     borderColor: '#EAEAEA',
     borderWidth: 1,
     marginTop: 5,
-    height: 170,
-    marginTop: 10,
+    height: 180,
+    marginTop: 5,
   },
   Popular_Box_A: {
-    height: 130,
-    width: 400,
-    marginLeft: 10,
+    height: 150,
+    width,
+    marginTop: 5,
     flexDirection: 'row',
   },
   Popular_Box_B: {
-    backgroundColor: '#FFFFFF',
-    borderColor: '#EAEAEA',
-    borderWidth: 1,
-    height: 130,
+    height: 140,
     width: 200,
     flexDirection: 'column',
     marginLeft: 5,
+    
   },
   Popular_Box_C: {
-    height: 100,
+    height: 110,
+    width,
+    flexDirection: 'row',
+  },
+  Popular_Box_D: {
+    borderColor: '#EAEAEA',
+    borderWidth: 1,
+    height: 110,
     width: 100,
-    flexDirection: 'row'
   },
   Popular_image_Box: {
     height: 80,
     width: 80,
-    marginLeft: 10,
-    marginTop: 5,
+    marginLeft: 10, 
   },
   Text_Popular: {
+    // borderColor: '#EAEAEA',
+    // borderWidth: 1,
+    backgroundColor:'#EAEAEA',
     fontWeight: 'bold',
-    textAlign: 'center',
-    marginLeft: 20,
+    textAlign:'center'
+    
+    
   },
+  Image_icon_top:{
+    height: 25,
+    width: 20,
+    resizeMode: 'stretch',
+  },
+
+  ///------------------------------------------------------------------------------------------///
+  
   Promotion_popular: {
-    marginTop: 5,
-    height: 100,
-    marginTop: 10,
-    flexDirection: 'row'
+    backgroundColor: '#FFFFFF',
+    borderColor: '#EAEAEA',
+    borderWidth: 1,
+    marginTop: 5,  
+  },
+  Promotion_popular_A:{
+    flexDirection:'row',
+    height: 150,
   },
   Promotion_popular_Box: {
-    height: 100,
-    width: 100,
-    marginLeft: 5,
-
+    height:150,
+    marginTop:5,
+  },
+  Promotion_popular_BoxA:{
+    height: 150,
+    width: 180,
+    marginLeft:5,
   },
   Promotion_popular_image: {
-    height: 100,
-    width: 100,
+    height: 80,
+    width: 180,
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
+  },
+  Image_icon_Sale:{
+    height: 40,
+    width: 180,
+    resizeMode: 'stretch',
+    borderBottomRightRadius: 8,
+    borderBottomLeftRadius: 8,
   },
 
-  /////สินค้าลดรา//////
+  ///--------------------------------------------------------------------------------///
+
   SaleProduct: {
     width,
+    resizeMode: 'contain',
     borderColor: '#EAEAEA',
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1,
     borderRadius: 5,
   },
   SaleProductText: {
@@ -180,6 +221,39 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     marginLeft: 8,
     marginTop: 6,
+  },
+  viewSale: {
+    width: 106,
+    height: 146,
+    marginTop: 10,
+    marginLeft: 10,
+  },
+  ImageSale: {
+    width: 99,
+    height: 98,
+    resizeMode: 'contain',
+    borderColor: '#EAEAEA',
+    borderRadius: 5,
+  },
+
+  ///--------------------------------------------------------------------------------///
+
+  SaleProduct: {
+    width,
+    borderColor: '#EAEAEA',
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderRadius: 5,
+    marginTop: 5,
+  },
+  SaleProductText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginLeft: 8,
+    marginTop: 6,
+  },
+  SaleProductTextEnd:{
+
   },
   viewSale: {
     width: 106,
@@ -221,12 +295,9 @@ export default StyleSheet.create({
     marginLeft: 6,
     color: '#0A55A6',
   },
-  CategoryProductImageName: {
-    fontSize: 10,
-    marginTop: 6,
-    marginLeft: 4,
-  },
-  ///////ร้านค้ามาใหม่////
+
+  ///--------------------------------------------------------------------------------///
+
   Newstore: {
     width,
     resizeMode: 'contain',
@@ -257,7 +328,9 @@ export default StyleSheet.create({
     borderColor: '#EAEAEA',
     borderRadius: 30,
   },
-  ///////สินค้ามาใหม่/////
+
+  ///--------------------------------------------------------------------------------///
+
   New_Product: {
     width,
     resizeMode: 'contain',
@@ -288,7 +361,9 @@ export default StyleSheet.create({
     borderColor: '#EAEAEA',
     borderRadius: 5,
   },
-  /////คัดเฉพาะสำหรับคุณ/////
+
+  ///--------------------------------------------------------------------------------///
+
   foryouProduct: {
     backgroundColor: '#FFFFFF',
     borderColor: '#EAEAEA',
@@ -317,6 +392,7 @@ export default StyleSheet.create({
     backgroundColor: '#C4C4C4',
     margin: 6,
   },
+
   ///----------------------------------------///
   TodayProduct: {
     backgroundColor: '#FFFFFF',

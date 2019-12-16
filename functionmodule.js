@@ -150,8 +150,8 @@ export class Category extends Component {
                 </Image>
                 <Text style={styles.Text_Cate}>{item.name}</Text>
             </View>
-            
-            
+
+
         })
         return (
             <View style={styles.Box_Cata}>
@@ -393,42 +393,42 @@ export class FlashSale extends Component {
         let dataFlashSale = this.state.dataSale.map((item, indexs) => {
             //   console.log('Sale' + [ indexs, item.image ].join(' ')),
             dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
-            return(
+            return (
                 <View style={styles.FlashSaleBox} key={indexs}>
-                <Image
-                    source={{
-                        uri: dataMySQL,
-                    }}
-                    style={styles.FlashSaleImage}
-                    resizeMethod='resize'
-                />
-                <Text style={styles.FlashSaleImageName}>{item.name}</Text>
-                <NumberFormat
-                    value={item.sale_price}
-                    displayType={'text'}
-                    thousandSeparator={true}
-                    prefix={'฿'}
-                    renderText={
-                        value => <Text style={
-                            styles.FlashSaleImagePrice
-                        }>
-                            {value}
-                        </Text>}
-                />
-                <View style={styles.FlashSaleIconBox}>
-                    <View style={styles.FlashSaleIconBoxStar}>
-                        <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
-                        <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
-                        <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
-                        <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
-                        <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
-                    </View>
-                    <View style={styles.FlashSaleIconBoxI}>
-                        <Icons style={styles.FlashSaleIcon} name='heart' size={10} />
-                        <Icons style={styles.FlashSaleIcon} name='share' size={10} />
+                    <Image
+                        source={{
+                            uri: dataMySQL,
+                        }}
+                        style={styles.FlashSaleImage}
+                        resizeMethod='resize'
+                    />
+                    <Text style={styles.FlashSaleImageName}>{item.name}</Text>
+                    <NumberFormat
+                        value={item.sale_price}
+                        displayType={'text'}
+                        thousandSeparator={true}
+                        prefix={'฿'}
+                        renderText={
+                            value => <Text style={
+                                styles.FlashSaleImagePrice
+                            }>
+                                {value}
+                            </Text>}
+                    />
+                    <View style={styles.FlashSaleIconBox}>
+                        <View style={styles.FlashSaleIconBoxStar}>
+                            <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
+                            <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
+                            <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
+                            <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
+                            <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
+                        </View>
+                        <View style={styles.FlashSaleIconBoxI}>
+                            <Icons style={styles.FlashSaleIcon} name='heart' size={10} />
+                            <Icons style={styles.FlashSaleIcon} name='share' size={10} />
+                        </View>
                     </View>
                 </View>
-            </View>
             );
         })
         return (
@@ -441,7 +441,7 @@ export class FlashSale extends Component {
                         ดูทั้งหมด
                     </Text>
                 </View>
-                <ScrollView style={styles.scrollSale} horizontal>
+                <ScrollView horizontal>
                     {dataFlashSale}
                 </ScrollView>
             </View>
@@ -507,47 +507,75 @@ export class Product_for_you extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataSourceforyou: [],
+            dataSourceProductForYou: [],
         };
     }
-    getSourceforyou() {
+    getSourceProductForYou() {
         var url = ip + '/MySQL/DataService.php?type=foryou';
         axios.get(url)
             .then((getData) => {
                 //console.log(getData.data);
                 this.setState({
-                    dataSourceforyou: getData.data
+                    dataSourceProductForYou: getData.data
                 })
             })
     }
     componentDidMount() {
-        this.getSourceforyou();
+        this.getSourceProductForYou();
     }
     render() {
-        let dataProduct_for_you = this.state.dataSourceforyou.map((item, indexs) => {
-            //console.log('Product_for_you' + [indexs, item.image].join(' ')),
+        let dataProductForYou = this.state.dataSourceProductForYou.map((item, indexs) => {
+            //   console.log('Sale' + [ indexs, item.image ].join(' ')),
             dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
-            return <View style={styles.foryouProduct_box} key={indexs}>
+            return <View style={styles.ProductForYouBox} key={indexs}>
                 <Image
                     source={{
                         uri: dataMySQL,
                     }}
-                    style={styles.foryouProduct_image}
+                    style={styles.ProductForYouImage}
                     resizeMethod='resize'
                 />
-                <Text>{item.name}</Text>            
-            </View>
+                <Text style={styles.ProductForYouImageName}>{item.name}</Text>
+                <NumberFormat
+                    value={item.sale_price}
+                    displayType={'text'}
+                    thousandSeparator={true}
+                    prefix={'฿'}
+                    renderText={
+                        value => <Text style={
+                            styles.ProductForYouImagePrice
+                        }>
+                            {value}
+                        </Text>}
+                />
+                <View style={styles.ProductForYouIconBox}>
+                    <View style={styles.ProductForYouIconBoxStar}>
+                        <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
+                        <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
+                        <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
+                        <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
+                        <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
+                    </View>
+                    <View style={styles.ProductForYouIconBoxI}>
+                        <Icons style={styles.ProductForYouIcon} name='heart' size={10} />
+                        <Icons style={styles.ProductForYouIcon} name='share' size={10} />
+                    </View>
+                </View>
+            </View>;
         })
         return (
-            <View style={styles.foryouProduct}>
-                <Text style={styles.foryouProduct_A}>คัดเฉพาะสำหรับคุณ</Text>
-                <ScrollView style={styles.foryouProduct_A} horizontal>
-                    <View style={styles.category_A}>
-                        {dataProduct_for_you}
+            <View style={styles.ProductForYou}>
+                <View style={styles.ProductForYouTextBox}>
+                    <Text style={styles.ProductForYouText}>
+                        คัดเฉพาะสำหรับคุณ
+                    </Text>
+                </View>
+                <ScrollView horizontal>
+                    <View style={styles.ProductForYouFlexBox}>
+                        {dataProductForYou}
                     </View>
                 </ScrollView>
             </View>
-
         );
     }
 }
@@ -626,7 +654,7 @@ export class SaleProduct extends Component {
                         ดูทั้งหมด
                     </Text>
                 </View>
-                <ScrollView style={styles.scrollSale} horizontal>
+                <ScrollView horizontal>
                     {dataSaleProduct}
                 </ScrollView>
             </View>
@@ -678,7 +706,7 @@ export class NewStore extends Component {
                 <Text style={styles.NewStoreText}>
                     ร้านค้ามาใหม่
                 </Text>
-                <ScrollView style={styles.scrollStore} horizontal>
+                <ScrollView horizontal>
                     {dataNewStore}
                 </ScrollView>
             </View>
@@ -761,7 +789,7 @@ export class NewProduct extends Component {
                         ดูทั้งหมด
                     </Text>
                 </View>
-                <ScrollView style={styles.scrollSale} horizontal>
+                <ScrollView horizontal>
                     {dataNewProduct}
                 </ScrollView>
             </View>

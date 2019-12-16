@@ -298,7 +298,7 @@ export class Popular_product extends Component {
     }
 }
 
-///----------------------------------Category----------------------------------------///
+///----------------------------------PromotionPopular----------------------------------------///
 
 export class PromotionPopular extends Component {
     constructor(props) {
@@ -434,7 +434,7 @@ export class SaleProduct extends Component {
                     style={styles.ImageSale}
                     resizeMethod='resize'
                 />
-                <Text>{item.name}</Text>
+                <Text style={styles.SaleProductImageName}>{item.name}</Text>
                 <NumberFormat
                     value={item.sale_price}
                     displayType={'text'}
@@ -442,12 +442,24 @@ export class SaleProduct extends Component {
                     prefix={'฿'}
                     renderText={
                         value => <Text style={
-                            styles.TodayProductImagePrice
+                            styles.SaleProductImagePrice
                         }>
                             {value}
                         </Text>}
                 />
-
+                <View style={styles.SaleProductIconBox}>
+                    <View style={styles.SaleProductIconBoxStar}>
+                        <Icons style={styles.SaleProductIconStar} name='star' size={8} />
+                        <Icons style={styles.SaleProductIconStar} name='star' size={8} />
+                        <Icons style={styles.SaleProductIconStar} name='star' size={8} />
+                        <Icons style={styles.SaleProductIconStar} name='star' size={8} />
+                        <Icons style={styles.SaleProductIconStar} name='star' size={8} />
+                    </View>
+                    <View style={styles.SaleProductIconBoxI}>
+                        <Icons style={styles.SaleProductIcon} name='heart' size={10} />
+                        <Icons style={styles.SaleProductIcon} name='share' size={10} />
+                    </View>
+                </View>
             </View>;
         })
         return (
@@ -599,9 +611,9 @@ export class CategoryProduct extends Component {
             // console.log( 'CategoryNo. ' + indexs + ' ' + item.name + 'name. ' + item.image_head ); 
             dataMySQL = [ip + '/mysql/uploads/head_product', item.image_head].join('/');
             return (
-                <View style={styles.TodayProduct} key={indexs}>
+                <View style={styles.CategoryProduct} key={indexs}>
                     <View>
-                        <Text style={styles.TodayProductText}>
+                        <Text style={styles.CategoryProductText}>
                             {item.name}
                         </Text>
                         <CategoryProductChild name={item.name} />
@@ -653,15 +665,15 @@ export class CategoryProductChild extends Component {
             // console.log( 'CategoryProductNo. ' + indexs2 + ' ' + item2.image ),
             dataMySQL = [ip + '/mysql/uploads', item2.image].join('/');
             return (
-                <View style={styles.TodayProductBox} key={indexs2}>
+                <View style={styles.CategoryProductBox} key={indexs2}>
                     <Image
                         source={{
                             uri: dataMySQL,
                         }}
-                        style={styles.TodayProductImage}
+                        style={styles.CategoryProductImage}
                         resizeMethod='resize'
                     />
-                    <Text style={styles.TodayProductImageName}>
+                    <Text style={styles.CategoryProductImageName}>
                         {item2.name}
                     </Text>
                     <NumberFormat
@@ -671,23 +683,23 @@ export class CategoryProductChild extends Component {
                         prefix={'฿'}
                         renderText={
                             value => <Text style={
-                                styles.TodayProductImagePrice
+                                styles.CategoryProductImagePrice
                             }>
                                 {value}
                             </Text>
                         }
                     />
-                    <View style={styles.TodayProductIconBox}>
-                        <View style={styles.TodayProductIconBoxStar}>
-                            <Icons style={styles.TodayProductIconStar} name='star' size={10} />
-                            <Icons style={styles.TodayProductIconStar} name='star' size={10} />
-                            <Icons style={styles.TodayProductIconStar} name='star' size={10} />
-                            <Icons style={styles.TodayProductIconStar} name='star' size={10} />
-                            <Icons style={styles.TodayProductIconStar} name='star' size={10} />
+                    <View style={styles.CategoryProductIconBox}>
+                        <View style={styles.CategoryProductIconBoxStar}>
+                            <Icons style={styles.CategoryProductIconStar} name='star' size={8} />
+                            <Icons style={styles.CategoryProductIconStar} name='star' size={8} />
+                            <Icons style={styles.CategoryProductIconStar} name='star' size={8} />
+                            <Icons style={styles.CategoryProductIconStar} name='star' size={8} />
+                            <Icons style={styles.CategoryProductIconStar} name='star' size={8} />
                         </View>
-                        <View style={styles.TodayProductIconBoxI}>
-                            <Icons style={styles.TodayProductIcon} name='heart' size={15} />
-                            <Icons style={styles.TodayProductIcon} name='share' size={15} />
+                        <View style={styles.CategoryProductIconBoxI}>
+                            <Icons style={styles.CategoryProductIcon} name='heart' size={10} />
+                            <Icons style={styles.CategoryProductIcon} name='share' size={10} />
                         </View>
                     </View>
                 </View>
@@ -758,15 +770,15 @@ export class TodayProduct extends Component {
                     />
                     <View style={styles.TodayProductIconBox}>
                         <View style={styles.TodayProductIconBoxStar}>
-                            <Icons style={styles.TodayProductIconStar} name='star' size={12} />
-                            <Icons style={styles.TodayProductIconStar} name='star' size={12} />
-                            <Icons style={styles.TodayProductIconStar} name='star' size={12} />
-                            <Icons style={styles.TodayProductIconStar} name='star' size={12} />
-                            <Icons style={styles.TodayProductIconStar} name='star' size={12} />
+                            <Icons style={styles.TodayProductIconStar} name='star' size={8} />
+                            <Icons style={styles.TodayProductIconStar} name='star' size={8} />
+                            <Icons style={styles.TodayProductIconStar} name='star' size={8} />
+                            <Icons style={styles.TodayProductIconStar} name='star' size={8} />
+                            <Icons style={styles.TodayProductIconStar} name='star' size={8} />
                         </View>
                         <View style={styles.TodayProductIconBoxI}>
-                            <Icons style={styles.TodayProductIcon} name='heart' size={17} />
-                            <Icons style={styles.TodayProductIcon} name='share' size={17} />
+                            <Icons style={styles.TodayProductIcon} name='heart' size={10} />
+                            <Icons style={styles.TodayProductIcon} name='share' size={10} />
                         </View>
                     </View>
                 </View>

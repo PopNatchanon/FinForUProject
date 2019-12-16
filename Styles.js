@@ -161,9 +161,11 @@ export default StyleSheet.create({
   Text_Popular: {
     // borderColor: '#EAEAEA',
     // borderWidth: 1,
+    backgroundColor:'#EAEAEA',
     fontWeight: 'bold',
-    marginTop:5,
-    // textAlign: 'center',
+    textAlign:'center'
+    
+    
   },
   Image_icon_top:{
     height: 25,

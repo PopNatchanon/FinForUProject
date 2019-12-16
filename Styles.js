@@ -40,9 +40,9 @@ export default StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
   },
-  Text_All: {
+  Text_All:{
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 16, 
   },
 
   ///------------------------------------------------------------------------------------------///
@@ -67,13 +67,10 @@ export default StyleSheet.create({
     borderColor: '#EAEAEA',
     borderWidth: 1,
     marginTop: 5,
-    width,
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start'
   },
   Category: {
-    height: 80,
     width: 80,
+    height: 80,
     marginTop: 20,
   },
   category_A: {
@@ -88,12 +85,14 @@ export default StyleSheet.create({
     borderRadius: 4,
     height: 60,
     width: 60,
-    marginLeft: 25,
+    marginLeft: 15,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   Text_Cate: {
     fontWeight: 'bold',
     textAlign: 'center',
-    marginLeft: 25,
+    marginLeft: 15,
   },
 
   ///------------------------------------------------------------------------------------------///
@@ -117,7 +116,7 @@ export default StyleSheet.create({
     width: 150,
     marginLeft: 5,
     marginTop: 5,
-    marginBottom: 5,
+    marginBottom: 5, 
   },
 
   ///------------------------------------------------------------------------------------------///
@@ -141,7 +140,7 @@ export default StyleSheet.create({
     width: 200,
     flexDirection: 'column',
     marginLeft: 5,
-
+    
   },
   Popular_Box_C: {
     height: 110,
@@ -149,7 +148,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   Popular_Box_D: {
-    borderColor: '#FAFAFA',
+    borderColor: '#EAEAEA',
     borderWidth: 1,
     height: 110,
     width: 100,
@@ -157,48 +156,51 @@ export default StyleSheet.create({
   Popular_image_Box: {
     height: 80,
     width: 80,
-    marginLeft: 10,
+    marginLeft: 10, 
   },
   Text_Popular: {
-    backgroundColor: '#FAFAFA',
+    // borderColor: '#EAEAEA',
+    // borderWidth: 1,
+    backgroundColor:'#EAEAEA',
     fontWeight: 'bold',
-    textAlign: 'center'
+    textAlign:'center'
+    
+    
   },
-  Image_icon_top: {
+  Image_icon_top:{
     height: 25,
     width: 20,
     resizeMode: 'stretch',
   },
 
   ///------------------------------------------------------------------------------------------///
-
+  
   Promotion_popular: {
     backgroundColor: '#FFFFFF',
     borderColor: '#EAEAEA',
     borderWidth: 1,
-    marginTop: 5,
+    marginTop: 5,  
   },
-  Promotion_popular_A: {
-    flexDirection: 'row',
+  Promotion_popular_A:{
+    flexDirection:'row',
     height: 150,
   },
   Promotion_popular_Box: {
-    height: 150,
-    marginTop: 5,
+    height:150,
+    marginTop:5,
   },
-  Promotion_popular_BoxA: {
+  Promotion_popular_BoxA:{
     height: 150,
     width: 180,
-    marginLeft: 5,
+    marginLeft:5,
   },
-
   Promotion_popular_image: {
     height: 80,
     width: 180,
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
   },
-  Image_icon_Sale: {
+  Image_icon_Sale:{
     height: 40,
     width: 180,
     resizeMode: 'stretch',
@@ -208,11 +210,92 @@ export default StyleSheet.create({
 
   ///--------------------------------------------------------------------------------///
 
+  FlashSale: {
+    width,
+    borderColor: '#EAEAEA',
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderRadius: 5,
+    marginTop: 5,
+  },
+  FlashSaleTextBox: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  FlashSaleText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginLeft: 8,
+    marginTop: 6,
+  },
+  FlashSaleTextEnd:{
+    fontSize: 10,
+    color: '#0A55A6',
+    marginRight: 8,
+    marginTop: 10,
+  },
+  FlashSaleBox: {
+    width: 106,
+    borderColor: '#ECECEC',
+    borderWidth: 1,
+    marginTop: 10,
+    marginBottom: 8,
+    marginLeft: 10,
+  },
+  FlashSaleImage: {
+    width: 99,
+    height: 98,
+    resizeMode: 'contain',
+    // borderColor: '#EAEAEA',
+    borderRadius: 5,
+  },
+  FlashSaleImageName:{
+    fontSize: 10,
+    marginTop: 6,
+    marginLeft: 6,
+  },
+  FlashSaleIconBox: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  FlashSaleIcon: {
+    paddingTop: 4,
+    marginBottom: 4,
+    marginRight: 6,
+  },
+  FlashSaleIconStar: {
+    paddingTop: 5,
+    marginBottom: 5,
+  },
+  FlashSaleIconBoxI: {
+    flexDirection: 'row',
+  },
+  FlashSaleIconBoxStar: {
+    flexDirection: 'row',
+    marginLeft: 6,
+  },
+  FlashSaleImagePrice: {
+    fontSize: 8,
+    marginTop: 6,
+    marginLeft: 6,
+    color: '#0A55A6',
+  },
+
+  ///--------------------------------------------------------------------------------///
   SaleProduct: {
     width,
-    resizeMode: 'contain',
     borderColor: '#EAEAEA',
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
     borderRadius: 5,
+    marginTop: 5,
+  },
+  SaleProductTextBox: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   SaleProductText: {
     fontSize: 16,
@@ -220,62 +303,70 @@ export default StyleSheet.create({
     marginLeft: 8,
     marginTop: 6,
   },
-  viewSale: {
-    width: 106,
-    height: 146,
+  SaleProductTextEnd:{
+    fontSize: 10,
+    color: '#0A55A6',
+    marginRight: 8,
     marginTop: 10,
+  },
+  SaleProductBox: {
+    width: 106,
+    borderColor: '#ECECEC',
+    borderWidth: 1,
+    marginTop: 10,
+    marginBottom: 8,
     marginLeft: 10,
   },
-  ImageSale: {
+  SaleProductImage: {
     width: 99,
     height: 98,
     resizeMode: 'contain',
-    borderColor: '#EAEAEA',
+    // borderColor: '#EAEAEA',
     borderRadius: 5,
   },
-
-  ///--------------------------------------------------------------------------------///
-
-  SaleProduct: {
-    width,
-    resizeMode: 'contain',
-    borderColor: '#EAEAEA',
-    borderRadius: 5,
-  },
-  SaleProductText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginLeft: 8,
+  SaleProductImageName:{
+    fontSize: 10,
     marginTop: 6,
+    marginLeft: 6,
   },
-  scrollSale: {
-    width: '95%',
-    marginRight: 'auto',
-    marginLeft: 'auto',
+  SaleProductIconBox: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
-  viewSale: {
-    width: 106,
-    height: 146,
-    marginTop: 10,
-    marginLeft: 10,
+  SaleProductIcon: {
+    paddingTop: 4,
+    marginBottom: 4,
+    marginRight: 6,
   },
-  ImageSale: {
-    width: 99,
-    height: 98,
-    resizeMode: 'contain',
-    borderColor: '#EAEAEA',
-    borderRadius: 5,
+  SaleProductIconStar: {
+    paddingTop: 5,
+    marginBottom: 5,
+  },
+  SaleProductIconBoxI: {
+    flexDirection: 'row',
+  },
+  SaleProductIconBoxStar: {
+    flexDirection: 'row',
+    marginLeft: 6,
+  },
+  SaleProductImagePrice: {
+    fontSize: 8,
+    marginTop: 6,
+    marginLeft: 6,
+    color: '#0A55A6',
   },
 
   ///--------------------------------------------------------------------------------///
 
-  Newstore: {
+  NewStore: {
     width,
-    resizeMode: 'contain',
     borderColor: '#EAEAEA',
-    borderRadius: 5,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    marginTop: 5,
   },
-  New_storeText: {
+  NewStoreText: {
     fontSize: 16,
     fontWeight: 'bold',
     marginLeft: 20,
@@ -286,51 +377,95 @@ export default StyleSheet.create({
     marginRight: 'auto',
     marginLeft: 'auto',
   },
-  viewStore: {
+  NewStoreBox: {
     width: 193,
-    height: 150,
+    height: 129,
+    borderColor: '#ECECEC',
+    borderWidth: 1,
     marginTop: 10,
+    marginBottom: 8,
     marginLeft: 10,
   },
-  ImageStore: {
-    width: 180,
+  NewStoreImage: {
+    width: '100%',
     height: 100,
     resizeMode: 'stretch',
     borderColor: '#EAEAEA',
-    borderRadius: 30,
   },
 
   ///--------------------------------------------------------------------------------///
 
-  New_Product: {
+  NewProduct: {
     width,
-    resizeMode: 'contain',
     borderColor: '#EAEAEA',
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
     borderRadius: 5,
+    marginTop: 5,
   },
-  New_productText: {
+  NewProductTextBox: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  NewProductText: {
     fontSize: 16,
     fontWeight: 'bold',
     marginLeft: 8,
     marginTop: 6,
   },
-  scrollproduct: {
-    width: '95%',
-    marginRight: 'auto',
-    marginLeft: 'auto',
-  },
-  viewproduct: {
-    width: 106,
-    height: 146,
+  NewProductTextEnd:{
+    fontSize: 10,
+    color: '#0A55A6',
+    marginRight: 8,
     marginTop: 10,
+  },
+  NewProductBox: {
+    width: 106,
+    borderColor: '#ECECEC',
+    borderWidth: 1,
+    marginTop: 10,
+    marginBottom: 8,
     marginLeft: 10,
   },
-  Imageproduct: {
+  NewProductImage: {
     width: 99,
     height: 98,
     resizeMode: 'contain',
-    borderColor: '#EAEAEA',
+    // borderColor: '#EAEAEA',
     borderRadius: 5,
+  },
+  NewProductImageName:{
+    fontSize: 10,
+    marginTop: 6,
+    marginLeft: 6,
+  },
+  NewProductIconBox: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  NewProductIcon: {
+    paddingTop: 4,
+    marginBottom: 4,
+    marginRight: 6,
+  },
+  NewProductIconStar: {
+    paddingTop: 5,
+    marginBottom: 5,
+  },
+  NewProductIconBoxI: {
+    flexDirection: 'row',
+  },
+  NewProductIconBoxStar: {
+    flexDirection: 'row',
+    marginLeft: 6,
+  },
+  NewProductImagePrice: {
+    fontSize: 8,
+    marginTop: 6,
+    marginLeft: 6,
+    color: '#0A55A6',
   },
 
   ///--------------------------------------------------------------------------------///
@@ -342,64 +477,29 @@ export default StyleSheet.create({
     marginTop: 5,
   },
   foryouProduct_box: {
-    width: 165,
-    borderColor: '#ECECEC',
+    backgroundColor: '#FFFFFF',
+    borderColor: '#EAEAEA',
     borderWidth: 1,
-    marginTop: 16,
-    marginBottom: 8,
-    marginLeft: 5,
-  },
-  foryouProductText: {
-    width,
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginTop: 16,
-    marginLeft: 9,
+    marginTop: 8,
+    marginLeft: 8,
+    marginRight: 8,
+    height: 100,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   foryouProduct_A: {
     flexDirection: 'column',
+    flexWrap: 'wrap',
+    height: 200,
   },
   foryouProduct_image: {
-    width: 150,
-    height: 167,
+    width: 80,
+    height: 80,
     backgroundColor: '#C4C4C4',
     margin: 6,
   },
-  foryouProductImageName: {
-    fontSize: 12,
-    marginTop: 12,
-    marginLeft: 8,
-  },
-  foryouProductImagePrice: {
-    fontSize: 10,
-    marginTop: 12,
-    marginLeft: 8,
-    color: '#0A55A6',
-  },
-  foryouProductIconBox: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-  },
-  foryouProductIcon: {
-    marginBottom: 5,
-    marginRight: 8,
-  },
-  foryouProductIconStar: {
-    paddingTop: 8,
-    marginBottom: 5,
-  },
-  foryouProductIconBoxI: {
-    flexDirection: 'row',
-  },
-  foryouProductIconBoxStar: {
-    flexDirection: 'row',
-    marginLeft: 8,
-  },
 
-  ///--------------------------------------------------------------------------------///
-
+  ///----------------------------------------///
   TodayProduct: {
     backgroundColor: '#FFFFFF',
     borderColor: '#EAEAEA',
@@ -460,9 +560,127 @@ export default StyleSheet.create({
     flexDirection: 'row',
     marginLeft: 8,
   },
-
-  ///--------------------------------------------------------------------------------///
-
+  TodayProduct: {
+    backgroundColor: '#FFFFFF',
+    borderColor: '#EAEAEA',
+    borderWidth: 1,
+    marginTop: 8,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  TodayProductText: {
+    width,
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 16,
+    marginLeft: 9,
+  },
+  TodayProductBox: {
+    width: 113,
+    borderColor: '#ECECEC',
+    borderWidth: 1,
+    marginTop: 16,
+    marginBottom: 8,
+    marginLeft: 5,
+  },
+  TodayProductImage: {
+    width: 100,
+    height: 115,
+    backgroundColor: '#C4C4C4',
+    margin: 6,
+  },
+  TodayProductImageName: {
+    fontSize: 8,
+    marginTop: 12,
+    marginLeft: 8,
+  },
+  TodayProductImagePrice: {
+    fontSize: 10,
+    marginTop: 12,
+    marginLeft: 8,
+    color: '#0A55A6',
+  },
+  TodayProductIconBox: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  TodayProductIcon: {
+    paddingTop: 4,
+    marginBottom: 4,
+    marginRight: 6,
+  },
+  TodayProductIconStar: {
+    paddingTop: 5,
+    marginBottom: 5,
+  },
+  TodayProductIconBoxI: {
+    flexDirection: 'row',
+  },
+  TodayProductIconBoxStar: {
+    flexDirection: 'row',
+    marginLeft: 8,
+  },
+  ///------------------------------------------------------------------///
+  CategoryProduct: {
+    backgroundColor: '#FFFFFF',
+    borderColor: '#EAEAEA',
+    borderWidth: 1,
+    marginTop: 6,
+  },
+  CategoryProductText: {
+    width,
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 14,
+    marginLeft: 9,
+  },
+  CategoryProductBox: {
+    width: 113,
+    borderColor: '#ECECEC',
+    borderWidth: 1,
+    marginTop: 16,
+    marginBottom: 6,
+    marginLeft: 5,
+  },
+  CategoryProductImage: {
+    width: 100,
+    height: 115,
+    backgroundColor: '#C4C4C4',
+    margin: 5,
+  },
+  CategoryProductImageName: {
+    fontSize: 10,
+    marginTop: 6,
+    marginLeft: 6,
+  },
+  CategoryProductImagePrice: {
+    fontSize: 8,
+    marginTop: 6,
+    marginLeft: 6,
+    color: '#0A55A6',
+  },
+  CategoryProductIconBox: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  CategoryProductIcon: {
+    paddingTop: 4,
+    marginBottom: 4,
+    marginRight: 6,
+  },
+  CategoryProductIconStar: {
+    paddingTop: 5,
+    marginBottom: 5,
+  },
+  CategoryProductIconBoxI: {
+    flexDirection: 'row',
+  },
+  CategoryProductIconBoxStar: {
+    flexDirection: 'row',
+    marginLeft: 6,
+  },
   BrannerCategoryImage: {
     width: width - 40,
     height: 58,
@@ -471,6 +689,30 @@ export default StyleSheet.create({
     marginRight: 'auto',
     marginLeft: 'auto',
     marginBottom: 8,
+  },
+  CategoryProductTextSub:{
+    fontSize: 12,
+    paddingLeft:8,
+    width:'35%',
+    marginTop: 10,
+    marginLeft: 6,
+    backgroundColor: '#0A55A6',
+    color: 'white',
+  },
+  CategoryProductStoreBox:{
+    width: 125,
+    height: 70,
+    borderColor: '#ECECEC',
+    marginTop: 10,
+    marginBottom: 8,
+    marginLeft: 10,
+  },
+  CategoryProductStoreImage:{
+    width: '100%',
+    height: '100%',
+    resizeMode: 'stretch',
+    borderColor: '#EAEAEA',
+    borderRadius: 8,
   },
   RightItem: {
     marginRight: 5,

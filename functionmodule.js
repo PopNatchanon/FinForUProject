@@ -366,6 +366,27 @@ export class Popular_product extends Component {
 
 ///-------------------------------------------------------------------------------///
 
+export  class Banner_SALE extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
+
+  render() {
+    return ( <View style={styles.Banner_SALE}>
+        <Image
+            style={styles.Banner_SALE_image}
+            source={{ uri: ip + '/MySQL/uploads/slide/banner_sale.jpg' }}
+            resizeMethod='resize'
+        ></Image>
+    </View>
+    );
+  }
+}
+
+///-------------------------------------------------------------------------------///
+
 export class FlashSale extends Component {
     constructor(props) {
         super(props);

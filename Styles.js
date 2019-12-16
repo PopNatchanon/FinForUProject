@@ -717,4 +717,14 @@ export default StyleSheet.create({
   RightItem: {
     marginRight: 5,
   },
+  Banner_SALE:{
+    backgroundColor: '#FFFFFF',
+    borderColor: '#EAEAEA',
+    borderWidth: 1,
+    marginTop:5,
+  },
+  Banner_SALE_image:{
+    width:'auto',
+    height:100,
+  }
 });

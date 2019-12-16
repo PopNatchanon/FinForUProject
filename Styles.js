@@ -508,6 +508,11 @@ export default StyleSheet.create({
     marginLeft: 'auto',
     marginBottom: 8,
   },
+  CategoryProductTextSub:{
+    fontSize: 12,
+    marginTop: 10,
+    marginLeft: 6,
+  },
   RightItem: {
     marginRight: 5,
   },

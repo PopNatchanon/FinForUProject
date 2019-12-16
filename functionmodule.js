@@ -618,13 +618,11 @@ export class CategoryProduct extends Component {
                         </Text>
                         <CategoryProductChild name={item.name} />
                     </View>
-                    <Image
-                        source={{
-                            uri: dataMySQL,
-                        }}
-                        style={styles.BrannerCategoryImage}
-                        resizeMethod='resize'
-                    />
+                    <View>
+                        <Text style={styles.CategoryProductTextSub}>
+                            ร้านค้าแนะนำโดย FIN
+                        </Text>
+                    </View>
                 </View>
             );
         })

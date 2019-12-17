@@ -118,6 +118,22 @@ export default StyleSheet.create({
     marginTop: 5,
     marginBottom: 5, 
   },
+  Brand_RCMTextBox: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  Brand_RCMText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginLeft: 8,
+    marginTop: 6,
+  },
+  Brand_RCMTextEnd:{
+    fontSize: 10,
+    color: '#0A55A6',
+    marginRight: 8,
+    marginTop: 10,
+  },
 
   ///------------------------------------------------------------------------------------------///
 
@@ -158,23 +174,44 @@ export default StyleSheet.create({
     width: 80,
     marginLeft: 10, 
   },
-  Text_Popular: {
-    // borderColor: '#EAEAEA',
-    // borderWidth: 1,
-    backgroundColor:'#EAEAEA',
+  PopularTextBox: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  PopularText: {
+    fontSize: 16,
     fontWeight: 'bold',
-    textAlign:'center'
-    
-    
+    marginLeft: 8,
+    marginTop: 6,
+  },
+  PopularTextEnd:{
+    fontSize: 10,
+    color: '#0A55A6',
+    marginRight: 8,
+    marginTop: 10,
   },
   Image_icon_top:{
     height: 25,
     width: 20,
     resizeMode: 'stretch',
   },
-
-  ///------------------------------------------------------------------------------------------///
-  
+  Promotion_popularTextBox: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  Promotion_popularText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginLeft: 8,
+    marginTop: 6,
+  },
+  Promotion_popularTextEnd:{
+    fontSize: 10,
+    color: '#0A55A6',
+    marginRight: 8,
+    marginTop: 10,
+  },
   Promotion_popular: {
     backgroundColor: '#FFFFFF',
     borderColor: '#EAEAEA',
@@ -367,12 +404,6 @@ export default StyleSheet.create({
     borderWidth: 1,
     marginTop: 5,
   },
-  NewStoreText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginLeft: 20,
-    marginTop: 6,
-  },
   NewStoreBox: {
     width: 193,
     height: 129,
@@ -387,6 +418,22 @@ export default StyleSheet.create({
     height: 100,
     resizeMode: 'stretch',
     borderColor: '#EAEAEA',
+  },
+  NewStoreTextBox: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  NewStoreText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginLeft: 8,
+    marginTop: 6,
+  },
+  NewStoreTextEnd:{
+    fontSize: 10,
+    color: '#0A55A6',
+    marginRight: 8,
+    marginTop: 10,
   },
 
   ///--------------------------------------------------------------------------------///
@@ -468,7 +515,7 @@ export default StyleSheet.create({
 
   ProductForYou: {
     width,
-    height: 340,
+    height: 370,
     borderColor: '#EAEAEA',
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
@@ -479,6 +526,10 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     flexWrap: 'wrap',
+  },
+  ProductForYouTextBox: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   ProductForYouText: {
     fontSize: 16,
@@ -496,8 +547,8 @@ export default StyleSheet.create({
     width: 106,
     borderColor: '#ECECEC',
     borderWidth: 1,
-    marginTop: 10,
-    marginBottom: 8,
+    marginTop: 8,
+    marginBottom: 4,
     marginLeft: 10,
   },
   ProductForYouImage: {
@@ -513,7 +564,6 @@ export default StyleSheet.create({
     marginLeft: 6,
   },
   ProductForYouIconBox: {
-    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -671,11 +721,20 @@ export default StyleSheet.create({
     marginTop: 6,
   },
   CategoryProductText: {
-    width,
     fontSize: 16,
     fontWeight: 'bold',
-    marginTop: 14,
-    marginLeft: 9,
+    marginLeft: 8,
+    marginTop: 6,
+  },
+  CategoryProductTextBox: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  CategoryProductTextEnd:{
+    fontSize: 10,
+    color: '#0A55A6',
+    marginRight: 8,
+    marginTop: 10,
   },
   CategoryProductBox: {
     width: 113,
@@ -732,13 +791,14 @@ export default StyleSheet.create({
     marginLeft: 'auto',
     marginBottom: 8,
   },
-  CategoryProductTextSub:{
-    fontSize: 12,
-    paddingLeft:8,
+  linearGradienttSub:{
     width:'35%',
-    marginTop: 10,
+  },
+  linearGradienttSubText:{
+    fontSize: 12,
     marginLeft: 6,
-    backgroundColor: '#0A55A6',
+    marginBottom: 2,
+    marginTop: 2,
     color: 'white',
   },
   CategoryProductStoreBox:{
@@ -757,6 +817,6 @@ export default StyleSheet.create({
     borderRadius: 8,
   },
   RightItem: {
-    marginRight: 5,
+    marginRight: 6,
   },
 });

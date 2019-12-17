@@ -1226,7 +1226,7 @@ export class TodayProduct extends Component {
         return (
             <View style={styles.TodayProduct}>
                 <Text style={styles.TodayProductText}>
-                    สินค้าประจำวัน
+                    สินค้าคัดสรรเพื่อคุณ
                 </Text>
                 {dataToday}
             </View>

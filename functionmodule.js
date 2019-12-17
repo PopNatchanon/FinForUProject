@@ -516,7 +516,11 @@ export class PromotionPopular extends Component {
                         style={styles.Promotion_popular_image}
                         resizeMethod='resize'
                     ></Image>
-                    <Image style={styles.Image_icon_Sale} source={require('./icon/Sale.png')} resizeMethod='resize'></Image>
+                    <Image 
+                        style={styles.Image_icon_Sale} 
+                        source={require('./icon/Sale.png')} 
+                        resizeMethod='resize'
+                    ></Image>
                 </View>
             </View>
         })
@@ -943,24 +947,22 @@ export class CategoryProduct extends Component {
                         <CategoryProductSubProduct name={item.name} />
                     </View>
                     <View>
-                        <View
-                            style={styles.linearGradienttSub}
-                        >
-                            <Text style={styles.linearGradienttSubText}>
-                                ร้านค้าแนะนำโดย FIN
-                            </Text>
-                        </View>
+                        <Text>
+                            ร้านค้าแนะนำโดย FIN
+                        </Text>
                         <CategoryProductSubStore />
                     </View>
                     <View>
-                        <View
-                            style={styles.linearGradienttSub}
-                        >
-                            <Text style={styles.linearGradienttSubText}>
-                                แบรนด์ร้านแนะนำ
-                            </Text>
-                        </View>
+                        <Text>
+                            แบรนด์ร้านแนะนำ
+                        </Text>
                         <CategoryProductSubBrand />
+                    </View>
+                    <View>
+                        <Text>
+                            โปรโมชั่นสุดพิเศษ!!
+                        </Text>
+                        <CategoryProductSubPromotion />
                     </View>
                 </View>
             );
@@ -998,11 +1000,11 @@ export class CategoryProductSubProduct extends Component {
     }
 
     render() {
-        let dataCategoryProduct = this.state.dataSourceCategoryProduct.map((item2, indexs2) => {
-            // console.log( 'CategoryProductNo. ' + indexs2 + ' ' + item2.image ),
-            var dataMySQL = [ip + '/mysql/uploads', item2.image].join('/');
+        let dataCategoryProductSubProduct = this.state.dataSourceCategoryProduct.map((item, indexs) => {
+            // console.log( 'CategoryProductNo. ' + indexs + ' ' + item.image ),
+            var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
             return (
-                <View style={styles.CategoryProductBox} key={indexs2}>
+                <View style={styles.CategoryProductBox} key={indexs}>
                     <Image
                         source={{
                             uri: dataMySQL,
@@ -1011,10 +1013,10 @@ export class CategoryProductSubProduct extends Component {
                         resizeMethod='resize'
                     />
                     <Text style={styles.CategoryProductImageName}>
-                        {item2.name}
+                        {item.name}
                     </Text>
                     <NumberFormat
-                        value={item2.full_price}
+                        value={item.full_price}
                         displayType={'text'}
                         thousandSeparator={true}
                         prefix={'฿'}
@@ -1044,7 +1046,7 @@ export class CategoryProductSubProduct extends Component {
         })
         return (
             <ScrollView horizontal>
-                {dataCategoryProduct}
+                {dataCategoryProductSubProduct}
                 <View style={styles.RightItem} />
             </ScrollView>
         )
@@ -1078,11 +1080,11 @@ export class CategoryProductSubStore extends Component {
     }
 
     render() {
-        let dataCategoryProduct = this.state.dataSourceCategoryProduct.map((item2, indexs2) => {
-            // console.log( 'CategoryProductNo. ' + indexs2 + ' ' + item2.image ),
-            var dataMySQL = [ip + '/mysql/uploads', item2.image].join('/');
+        let dataCategoryProductSubStore = this.state.dataSourceCategoryProduct.map((item, indexs) => {
+            // console.log( 'CategoryProductNo. ' + indexs + ' ' + item.image ),
+            var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
             return (
-                <View style={styles.CategoryProductStoreBox} key={indexs2}>
+                <View style={styles.CategoryProductStoreBox} key={indexs}>
                     <Image
                         source={{
                             uri: dataMySQL,
@@ -1095,7 +1097,7 @@ export class CategoryProductSubStore extends Component {
         })
         return (
             <ScrollView horizontal>
-                {dataCategoryProduct}
+                {dataCategoryProductSubStore}
                 <View style={styles.RightItem} />
             </ScrollView>
         );
@@ -1114,7 +1116,7 @@ export class CategoryProductSubBrand extends Component {
 
     getCategoryProductSubBrand() {
         // console.log( 'CategoryProductChild Process' )
-        var url = ip + '/mysql/DataService.php?type=store';
+        var url = ip + '/mysql/DataService.php?type=brand';
         axios.get(url)
             .then((getData) => {
                 //   console.log(getData.data);
@@ -1129,16 +1131,16 @@ export class CategoryProductSubBrand extends Component {
     }
 
     render() {
-        let dataCategoryProduct = this.state.dataSourceCategoryProduct.map((item2, indexs2) => {
-            // console.log( 'CategoryProductNo. ' + indexs2 + ' ' + item2.image ),
-            var dataMySQL = [ip + '/mysql/uploads', item2.image].join('/');
+        let dataCategoryProductSubBrand = this.state.dataSourceCategoryProduct.map((item, indexs) => {
+            console.log(item)
+            var dataMySQL = [ip + '/mysql/uploads/publish/popular_promotions', item.image].join('/');
             return (
-                <View style={styles.CategoryProductStoreBox} key={indexs2}>
+                <View style={styles.CategoryProductSubBrandBox} key={indexs}>
                     <Image
                         source={{
-                            uri: dataMySQL,
+                            uri: ip + '/mysql/uploads/icon_brand/brand18.png',
                         }}
-                        style={styles.CategoryProductStoreImage}
+                        style={styles.CategoryProductSubBrandImage}
                         resizeMethod='resize'
                     />
                 </View>
@@ -1146,7 +1148,63 @@ export class CategoryProductSubBrand extends Component {
         })
         return (
             <ScrollView horizontal>
-                {dataCategoryProduct}
+                {dataCategoryProductSubBrand}
+                <View style={styles.RightItem} />
+            </ScrollView>
+        );
+    }
+}
+
+///-------------------------------------------------------------------------------///
+
+export class CategoryProductSubPromotion extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataSourceCategoryProduct: [],
+        }
+    }
+
+    getCategoryProductSubPromotion() {
+        // console.log( 'CategoryProductChild Process' )
+        var url = ip + '/mysql/DataService.php?type=brand';
+        axios.get(url)
+            .then((getData) => {
+                //   console.log(getData.data);
+                this.setState({
+                    dataSourceCategoryProduct: getData.data,
+                })
+            })
+    }
+
+    componentDidMount() {
+        this.getCategoryProductSubPromotion()
+    }
+
+    render() {
+        let dataCategoryProductSubPromotion = this.state.dataSourceCategoryProduct.map((item, indexs) => {
+            console.log(item)
+            var dataMySQL = [ip + '/mysql/uploads/publish/popular_promotions', item.image].join('/');
+            return (
+                <View style={styles.PromotionCategoryProductStoreBox} key={indexs}>
+                    <Image
+                        source={{
+                            uri: dataMySQL,
+                        }}
+                        style={styles.PromotionCategoryProductImage}
+                        resizeMethod='resize'
+                    ></Image>
+                    <Image 
+                        style={styles.PromotionCategoryProductImageIcon} 
+                        source={require('./icon/Sale.png')} 
+                        resizeMethod='resize'
+                    ></Image>
+                </View>
+            );
+        })
+        return (
+            <ScrollView horizontal>
+                {dataCategoryProductSubPromotion}
                 <View style={styles.RightItem} />
             </ScrollView>
         );

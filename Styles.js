@@ -729,6 +729,6 @@ export default StyleSheet.create({
   Banner_SALE_image:{
     width:'auto',
     height:70,
-    // resizeMode: 'stretch',
+    resizeMode: 'stretch',
   }
 });

@@ -659,6 +659,7 @@ export default StyleSheet.create({
     marginLeft: 8,
   },
   ///------------------------------------------------------------------///
+
   CategoryProduct: {
     backgroundColor: '#FFFFFF',
     borderColor: '#EAEAEA',
@@ -800,4 +801,71 @@ export default StyleSheet.create({
   RightItem: {
     marginRight: 6,
   },
+
+  ///------------------------------------------------------------------///
+
+  Banner_SALE:{
+    backgroundColor: '#FFFFFF',
+    borderColor: '#EAEAEA',
+    borderWidth: 1,
+    marginTop:5,
+  },
+  Banner_SALE_image:{
+    width,
+    height:70,
+    resizeMode: 'stretch',
+  },
+
+  ///------------------------------------------------------------------///
+
+  ConfidentialTextBox: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  ConfidentialText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginLeft: 8,
+    marginTop: 6,
+  },
+  ConfidentialTextEnd:{
+    fontSize: 10,
+    color: '#0A55A6',
+    marginRight: 8,
+    marginTop: 10,
+  },
+  Confidential: {
+    backgroundColor: '#FFFFFF',
+    borderColor: '#EAEAEA',
+    borderWidth: 1,
+    marginTop: 5,  
+  },
+  Confidential_A:{
+    flexDirection:'row',
+    height: 150,
+  },
+  Confidential_Box: {
+    height:150,
+    marginTop:5,
+  },
+  Confidential_BoxA:{
+    height: 150,
+    width: 200,
+    marginLeft:5,
+  },
+  Confidential_image: {
+    height: 80,
+    width: 180,
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8, 
+  },
+  Text_box_Confidential:{
+    height:40,
+    fontSize:10,
+    color:'white',
+    backgroundColor:'#0A55A6',
+    borderBottomRightRadius: 8,
+    borderBottomLeftRadius: 8,
+  },
+ 
 });

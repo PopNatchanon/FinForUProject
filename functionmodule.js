@@ -15,7 +15,7 @@ import Icons from 'react-native-vector-icons/FontAwesome5';
 
 import styles from './Styles'
 
-const ip = 'http://192.168.0.132';
+const ip = 'http://192.168.0.131';
 
 ///----------------------------------Appbar----------------------------------------///
 
@@ -297,7 +297,7 @@ export class Popular_product extends Component {
                                     <Image style={styles.Image_icon_top} source={require('./icon/top.png')}></Image>
                                     <Image
                                         style={styles.Popular_image_Box}
-                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
+                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png' }}
                                         resizeMethod='resize'
                                     ></Image>
                                 </View>
@@ -318,7 +318,7 @@ export class Popular_product extends Component {
                                     <Image style={styles.Image_icon_top} source={require('./icon/top.png')}></Image>
                                     <Image
                                         style={styles.Popular_image_Box}
-                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
+                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png' }}
                                         resizeMethod='resize'
                                     ></Image>
                                 </View>
@@ -339,7 +339,7 @@ export class Popular_product extends Component {
                                     <Image style={styles.Image_icon_top} source={require('./icon/top.png')}></Image>
                                     <Image
                                         style={styles.Popular_image_Box}
-                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
+                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png' }}
                                         resizeMethod='resize'
                                     ></Image>
                                 </View>
@@ -360,7 +360,7 @@ export class Popular_product extends Component {
                                     <Image style={styles.Image_icon_top} source={require('./icon/top.png')}></Image>
                                     <Image
                                         style={styles.Popular_image_Box}
-                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
+                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png' }}
                                         resizeMethod='resize'
                                     ></Image>
                                 </View>
@@ -371,6 +371,27 @@ export class Popular_product extends Component {
                 </View>
             </View>
 
+        );
+    }
+}
+
+///-------------------------------------------------------------------------------///
+
+export class Banner_SALE extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
+    render() {
+        return (<View style={styles.Banner_SALE}>
+            <Image
+                style={styles.Banner_SALE_image}
+                source={{ uri: ip + '/MySQL/uploads/slide/banner_sale.jpg' }}
+                resizeMethod='resize'
+            ></Image>
+        </View>
         );
     }
 }
@@ -428,7 +449,7 @@ export class FlashSale extends Component {
                     />
                     <View style={styles.FlashSaleIconBox}>
                         <View style={styles.FlashSaleIconBoxStar}>
-                            <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
+                            <Icons style={styles.FlashSaleIconStar} name='star' size={8} color='yellow' />
                             <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
                             <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
                             <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
@@ -523,6 +544,64 @@ export class PromotionPopular extends Component {
     }
 }
 
+///----------------------------------Confidential_PRO---------------------------------------///
+
+export class Confidential_PRO extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataSourcebrand: [],
+        };
+    }
+    getDatabrand() {
+        var url = ip + '/MySQL/DataService.php?type=brand';
+        axios.get(url)
+            .then((getData) => {
+                //console.log(getData.data);
+                this.setState({
+                    dataSourcebrand: getData.data,
+                })
+            })
+    }
+    componentDidMount() {
+        this.getDatabrand()
+    }
+    render() {
+        let dataConfidential_PRO = this.state.dataSourcebrand.map((item, indexs) => {
+            //console.log('PromotionPopular' + [indexs, item.image].join(' ')),
+            var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
+            return <View style={styles.Confidential_Box} key={indexs}>
+                <View style={styles.Promotion_popular_BoxA}>
+                    <Image
+                        source={{
+                            uri: dataMySQL,
+                        }}
+                        style={styles.Confidential_image}
+                        resizeMethod='resize'
+                    ></Image>
+                    <Text style={styles.Text_box_Confidential}>Gala Germs จัดโปรโมชั่นสำหรับผู้มียอดสั่งซื้อครบ 5,000 บาท</Text>
+                </View>
+            </View>
+        })
+        return (
+            <View style={styles.Confidential}>
+                <View style={styles.Promotion_popularTextBox}>
+                    <Text style={styles.ConfidentialText}>
+                        โปรลับ เฉพาะที่นี่ที่เดียว
+                    </Text>
+                    <Text style={styles.ConfidentialTextEnd}>
+                        ดูทั้งหมด
+                    </Text>
+                </View>
+                <ScrollView horizontal >
+                    <View style={styles.Confidential_A}>
+                        {dataConfidential_PRO}
+                    </View>
+                </ScrollView>
+            </View>
+        );
+    }
+}
 ///----------------------------------Product_for_you ---------------------------------------///
 
 export class Product_for_you extends Component {

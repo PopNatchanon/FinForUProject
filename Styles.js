@@ -652,68 +652,6 @@ export default StyleSheet.create({
     flexDirection: 'row',
     marginLeft: 8,
   },
-  TodayProduct: {
-    backgroundColor: '#FFFFFF',
-    borderColor: '#EAEAEA',
-    borderWidth: 1,
-    marginTop: 8,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  TodayProductText: {
-    width,
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginTop: 16,
-    marginLeft: 9,
-  },
-  TodayProductBox: {
-    width: 113,
-    borderColor: '#ECECEC',
-    borderWidth: 1,
-    marginTop: 16,
-    marginBottom: 8,
-    marginLeft: 5,
-  },
-  TodayProductImage: {
-    width: 100,
-    height: 115,
-    backgroundColor: '#C4C4C4',
-    margin: 6,
-  },
-  TodayProductImageName: {
-    fontSize: 8,
-    marginTop: 12,
-    marginLeft: 8,
-  },
-  TodayProductImagePrice: {
-    fontSize: 10,
-    marginTop: 12,
-    marginLeft: 8,
-    color: '#0A55A6',
-  },
-  TodayProductIconBox: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  TodayProductIcon: {
-    paddingTop: 4,
-    marginBottom: 4,
-    marginRight: 6,
-  },
-  TodayProductIconStar: {
-    paddingTop: 5,
-    marginBottom: 5,
-  },
-  TodayProductIconBoxI: {
-    flexDirection: 'row',
-  },
-  TodayProductIconBoxStar: {
-    flexDirection: 'row',
-    marginLeft: 8,
-  },
-
   ///------------------------------------------------------------------///
 
   CategoryProduct: {

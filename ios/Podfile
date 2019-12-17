@@ -34,12 +34,21 @@ target 'FinForUProject' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
+
+
+
+
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+
   target 'FinForUProjectTests' do
     inherit! :search_paths
     # Pods for testing
   end
 
   use_native_modules!
+  use_frameworks!
 end
 
 target 'FinForUProject-tvOS' do

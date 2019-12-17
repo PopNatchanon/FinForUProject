@@ -495,9 +495,9 @@ export class PromotionPopular extends Component {
                         style={styles.Promotion_popular_image}
                         resizeMethod='resize'
                     ></Image>
-                    <Image 
-                        style={styles.Image_icon_Sale} 
-                        source={require('./icon/Sale.png')} 
+                    <Image
+                        style={styles.Image_icon_Sale}
+                        source={require('./icon/Sale.png')}
                         resizeMethod='resize'
                     ></Image>
                 </View>
@@ -1053,7 +1053,7 @@ export class CategoryProductSubBrand extends Component {
 
     render() {
         let dataCategoryProductSubBrand = this.state.dataSourceCategoryProduct.map((item, indexs) => {
-            console.log(item)
+            // console.log(item)
             var dataMySQL = [ip + '/mysql/uploads/publish/popular_promotions', item.image].join('/');
             return (
                 <View style={styles.CategoryProductSubBrandBox} key={indexs}>
@@ -1104,7 +1104,7 @@ export class CategoryProductSubPromotion extends Component {
 
     render() {
         let dataCategoryProductSubPromotion = this.state.dataSourceCategoryProduct.map((item, indexs) => {
-            console.log(item)
+            // console.log(item)
             var dataMySQL = [ip + '/mysql/uploads/publish/popular_promotions', item.image].join('/');
             return (
                 <View style={styles.PromotionCategoryProductStoreBox} key={indexs}>
@@ -1115,9 +1115,9 @@ export class CategoryProductSubPromotion extends Component {
                         style={styles.PromotionCategoryProductImage}
                         resizeMethod='resize'
                     ></Image>
-                    <Image 
-                        style={styles.PromotionCategoryProductImageIcon} 
-                        source={require('./icon/Sale.png')} 
+                    <Image
+                        style={styles.PromotionCategoryProductImageIcon}
+                        source={require('./icon/Sale.png')}
                         resizeMethod='resize'
                     ></Image>
                 </View>
@@ -1205,9 +1205,11 @@ export class TodayProduct extends Component {
         return (
             <View style={styles.TodayProduct}>
                 <Text style={styles.TodayProductText}>
-                    สินค้าประจำวัน
+                    สินค้าคัดสรรเพื่อคุณ
                 </Text>
-                {dataToday}
+                <View style={styles.TodayProductBoxProduct}>
+                    {dataToday}
+                </View>
             </View>
         )
     }

@@ -490,7 +490,7 @@ export default StyleSheet.create({
   foryouProduct_A: {
     flexDirection: 'column',
     flexWrap: 'wrap',
-    height: 200,
+    height: 150,
   },
   foryouProduct_image: {
     width: 80,
@@ -717,6 +717,9 @@ export default StyleSheet.create({
   RightItem: {
     marginRight: 5,
   },
+
+  ///------------------------------------------------------------------///
+
   Banner_SALE:{
     backgroundColor: '#FFFFFF',
     borderColor: '#EAEAEA',
@@ -725,6 +728,7 @@ export default StyleSheet.create({
   },
   Banner_SALE_image:{
     width:'auto',
-    height:100,
+    height:70,
+    // resizeMode: 'stretch',
   }
 });

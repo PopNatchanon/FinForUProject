@@ -12,11 +12,10 @@ import SwiperFlatList from 'react-native-swiper-flatlist';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
 import Icons from 'react-native-vector-icons/FontAwesome5';
-import LinearGradient from 'react-native-linear-gradient';
 
 import styles from './Styles'
 
-const ip = 'http://192.168.0.132';
+const ip = 'http://192.168.0.131';
 
 ///----------------------------------Appbar----------------------------------------///
 
@@ -378,23 +377,23 @@ export class Popular_product extends Component {
 
 ///-------------------------------------------------------------------------------///
 
-export  class Banner_SALE extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
+export class Banner_SALE extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
 
-  render() {
-    return ( <View style={styles.Banner_SALE}>
-        <Image
-            style={styles.Banner_SALE_image}
-            source={{ uri: ip + '/MySQL/uploads/slide/banner_sale.jpg' }}
-            resizeMethod='resize'
-        ></Image>
-    </View>
-    );
-  }
+    render() {
+        return (<View style={styles.Banner_SALE}>
+            <Image
+                style={styles.Banner_SALE_image}
+                source={{ uri: ip + '/MySQL/uploads/slide/banner_sale.jpg' }}
+                resizeMethod='resize'
+            ></Image>
+        </View>
+        );
+    }
 }
 
 ///-------------------------------------------------------------------------------///
@@ -450,7 +449,7 @@ export class FlashSale extends Component {
                     />
                     <View style={styles.FlashSaleIconBox}>
                         <View style={styles.FlashSaleIconBoxStar}>
-                            <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
+                            <Icons style={styles.FlashSaleIconStar} name='star' size={8} color='yellow' />
                             <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
                             <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
                             <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
@@ -517,7 +516,7 @@ export class PromotionPopular extends Component {
                         style={styles.Promotion_popular_image}
                         resizeMethod='resize'
                     ></Image>
-                    <Image style={styles.Image_icon_Sale} source={require('./icon/Sale.png')} resizeMethod='resize'></Image>   
+                    <Image style={styles.Image_icon_Sale} source={require('./icon/Sale.png')} resizeMethod='resize'></Image>
                 </View>
             </View>
         })
@@ -541,6 +540,64 @@ export class PromotionPopular extends Component {
     }
 }
 
+///----------------------------------Confidential_PRO---------------------------------------///
+
+export class Confidential_PRO extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataSourcebrand: [],
+        };
+    }
+    getDatabrand() {
+        var url = ip + '/MySQL/DataService.php?type=brand';
+        axios.get(url)
+            .then((getData) => {
+                //console.log(getData.data);
+                this.setState({
+                    dataSourcebrand: getData.data,
+                })
+            })
+    }
+    componentDidMount() {
+        this.getDatabrand()
+    }
+    render() {
+        let dataConfidential_PRO = this.state.dataSourcebrand.map((item, indexs) => {
+            //console.log('PromotionPopular' + [indexs, item.image].join(' ')),
+            var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
+            return <View style={styles.Confidential_Box} key={indexs}>
+                <View style={styles.Promotion_popular_BoxA}>
+                    <Image
+                        source={{
+                            uri: dataMySQL,
+                        }}
+                        style={styles.Confidential_image}
+                        resizeMethod='resize'
+                    ></Image>
+                    <Text style={styles.Text_box_Confidential}>Gala Germs จัดโปรโมชั่นสำหรับผู้มียอดสั่งซื้อครบ 5,000 บาท</Text>
+                </View>
+            </View>
+        })
+        return (
+            <View style={styles.Confidential}>
+                <View style={styles.Promotion_popularTextBox}>
+                    <Text style={styles.ConfidentialText}>
+                        โปรลับ เฉพาะที่นี่ที่เดียว
+                    </Text>
+                    <Text style={styles.ConfidentialTextEnd}>
+                        ดูทั้งหมด
+                    </Text>
+                </View>
+                <ScrollView horizontal >
+                    <View style={styles.Confidential_A}>
+                        {dataConfidential_PRO}
+                    </View>
+                </ScrollView>
+            </View>
+        );
+    }
+}
 ///----------------------------------Product_for_you ---------------------------------------///
 
 export class Product_for_you extends Component {
@@ -886,26 +943,23 @@ export class CategoryProduct extends Component {
                         <CategoryProductSubProduct name={item.name} />
                     </View>
                     <View>
-                        <LinearGradient
-                            start={{ x: 1, y: 0 }} end={{ x: 1, y: 1 }}
-                            colors={['#0A55A6', 'rgba(241, 190, 10, 0)']}
+                        <View
                             style={styles.linearGradienttSub}
                         >
                             <Text style={styles.linearGradienttSubText}>
                                 ร้านค้าแนะนำโดย FIN
                             </Text>
-                        </LinearGradient>
+                        </View>
                         <CategoryProductSubStore />
                     </View>
                     <View>
-                        <LinearGradient
-                            colors={['#0A55A6', '#3b5998']}
+                        <View
                             style={styles.linearGradienttSub}
                         >
                             <Text style={styles.linearGradienttSubText}>
                                 แบรนด์ร้านแนะนำ
                             </Text>
-                        </LinearGradient>
+                        </View>
                         <CategoryProductSubBrand />
                     </View>
                 </View>

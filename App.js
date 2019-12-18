@@ -24,9 +24,9 @@ import {
   CategoryProduct,
   TodayProduct,
   Toolbar,
-} from './functionmodule';
+} from './MainModule';
 
-class App extends Component {
+export default class MainPage extends Component {
   render() {
     return (
       <SafeAreaView style={styles.SafeAreaView}>
@@ -35,19 +35,19 @@ class App extends Component {
           <Slide />
           <Category />
           <Brand_RCM />
-          <Popular_product /> 
-          <Banner_SALE/>  
-          <FlashSale/>
+          <Popular_product />
+          <Banner_SALE />
+          <FlashSale />
           <PromotionPopular />
           <SaleProduct />
-          <Banner_SALE/> 
+          <Banner_SALE />
           <NewStore />
           <NewProduct />
-          <Confidential_PRO/>
+          <Confidential_PRO />
           <Product_for_you />
-          <Banner_SALE/> 
+          <Banner_SALE />
           <CategoryProduct />
-          <Banner_SALE/> 
+          <Banner_SALE />
           <TodayProduct />
         </ScrollView>
         <Toolbar />
@@ -56,4 +56,32 @@ class App extends Component {
   }
 }
 
-export default App;
+export class StorePage extends Component {
+  render() {
+    return (
+      <SafeAreaView style={styles.SafeAreaView}>
+        <AppBar />
+        <ScrollView>
+          {/* <Slide />
+          <Category />
+          <Brand_RCM />
+          <Popular_product />
+          <Banner_SALE />
+          <FlashSale />
+          <PromotionPopular />
+          <SaleProduct />
+          <Banner_SALE />
+          <NewStore />
+          <NewProduct />
+          <Confidential_PRO />
+          <Product_for_you />
+          <Banner_SALE />
+          <CategoryProduct />
+          <Banner_SALE /> */}
+          <TodayProduct />
+        </ScrollView>
+        <Toolbar />
+      </SafeAreaView>
+    );
+  }
+}

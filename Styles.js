@@ -682,9 +682,17 @@ export default StyleSheet.create({
     marginRight: 8,
     marginTop: 10,
   },
+  CategoryProductImageHead:{
+    marginTop: 4,
+    width,
+    height: height * 0.19,
+    resizeMode: 'stretch',
+    marginBottom: -50,
+  },
   CategoryProductBox: {
     width: 113,
     borderColor: '#ECECEC',
+    backgroundColor: 'white',
     borderWidth: 1,
     marginTop: 16,
     marginBottom: 6,
@@ -693,7 +701,7 @@ export default StyleSheet.create({
   CategoryProductImage: {
     width: 100,
     height: 115,
-    backgroundColor: '#C4C4C4',
+    backgroundColor: 'white',
     margin: 5,
   },
   CategoryProductImageName: {

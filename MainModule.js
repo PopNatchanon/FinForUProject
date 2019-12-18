@@ -176,11 +176,33 @@ export class Button_Bar extends Component {
     render() {
         return (
             <View style={styles.Button_Bar}>
-                <View >
-                    <Image style={styles.Button_Bar_icon}
-                     source={{ uri: ip + '/MySQL/uploads/icon_brand/DEW.png' }}
-                        resizeMethod='resize'></Image>
-                </View>
+                <ScrollView horizontal>
+                    <View style={styles.Button_Bar_Box}>
+                        <Image style={styles.Button_Bar_icon}
+                            source={{ uri: ip + '/MySQL/uploads/icon_brand/DEW1.png' }}
+                            resizeMethod='resize'></Image>
+                    </View>
+                    <View style={styles.Button_Bar_Box}>
+                        <Image style={styles.Button_Bar_icon}
+                            source={{ uri: ip + '/MySQL/uploads/icon_brand/Fincoin2.png' }}
+                            resizeMethod='resize'></Image>
+                    </View>
+                    <View style={styles.Button_Bar_Box}>
+                        <Image style={styles.Button_Bar_icon}
+                            source={{ uri: ip + '/MySQL/uploads/icon_brand/Campaign3.png' }}
+                            resizeMethod='resize'></Image>
+                    </View>
+                    <View style={styles.Button_Bar_Box}>
+                        <Image style={styles.Button_Bar_icon}
+                            source={{ uri: ip + '/MySQL/uploads/icon_brand/Coupon4.png' }}
+                            resizeMethod='resize'></Image>
+                    </View>
+                    <View style={styles.Button_Bar_Box}>
+                        <Image style={styles.Button_Bar_icon}
+                            source={{ uri: ip + '/MySQL/uploads/icon_brand/Payment5.png' }}
+                            resizeMethod='resize'></Image>
+                    </View>
+                </ScrollView>
             </View>
         );
     }

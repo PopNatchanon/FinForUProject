@@ -27,6 +27,8 @@ import {
   Toolbar,
 } from './MainModule';
 
+///-----------------------------------------------------------------------------------------------///
+
 export default class MainPage extends Component {
   render() {
     return (
@@ -84,6 +86,24 @@ export class StorePage extends Component {
         </ScrollView>
         <Toolbar />
       </SafeAreaView>
+    );
+  }
+}
+
+///-----------------------------------------------------------------------------------------------///
+
+export  class Product_Detail extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
+
+  render() {
+    return (
+      <View>
+        <Text> Product_Detail </Text>
+      </View>
     );
   }
 }

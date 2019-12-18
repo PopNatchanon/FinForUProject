@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import { Row } from 'reactstrap';
 
 export const { width, height } = Dimensions.get('window');
 
@@ -69,14 +70,14 @@ export default StyleSheet.create({
     marginTop: 5,
   },
   Category: {
-    width: 80,
+    width: 100,
     height: 80,
-    marginTop: 20,
+    marginTop: 10,
   },
   category_A: {
     flexDirection: 'column',
     flexWrap: 'wrap',
-    height: 250,
+    height: 200,
   },
   Category_box: {
     backgroundColor: '#FFFFFF',
@@ -92,7 +93,6 @@ export default StyleSheet.create({
   Text_Cate: {
     fontWeight: 'bold',
     textAlign: 'center',
-    marginLeft: 15,
   },
 
   ///------------------------------------------------------------------------------------------///
@@ -180,6 +180,9 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
   },
   PopularText: {
+    backgroundColor: '#FFFFFF',
+    borderColor: '#EAEAEA',
+    borderWidth: 1,
     fontSize: 16,
     fontWeight: 'bold',
     marginLeft: 8,
@@ -879,15 +882,27 @@ export default StyleSheet.create({
   ///------------------------------------------------------------------///
 
   Button_Bar:{
-    height:200,
-    width,
     backgroundColor: '#FFFFFF',
     borderColor: '#EAEAEA',
     borderWidth: 1,
-    marginTop:5,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingTop: 5,
+    paddingBottom: 5,
+    
+  },
+  Button_Bar_Box:{
+    height:50,
+    paddingTop:10,
+    paddingBottom:10,
+    flexDirection: 'row',  
+    marginLeft:10,
   },
   Button_Bar_icon:{
-    height: 200,
+    borderRadius:4,
+    height:'100%',
+    width:100,
     resizeMode: 'stretch',
+    
   },
 });

@@ -79,11 +79,15 @@ export default StyleSheet.create({
     flexWrap: 'wrap',
     height: 200,
   },
+  Category_image:{
+    height:40,
+    width:40,
+  },
   Category_box: {
     backgroundColor: '#FFFFFF',
     borderColor: '#EAEAEA',
     borderWidth: 1,
-    borderRadius: 4,
+    borderRadius: 8,
     height: 60,
     width: 60,
     marginLeft: 15,
@@ -139,8 +143,8 @@ export default StyleSheet.create({
 
   Popular: {
     backgroundColor: '#FFFFFF',
-    borderColor: '#EAEAEA',
-    borderWidth: 1,
+    borderColor: '#FAFAFA',
+    borderWidth: 0.5,
     marginTop: 5,
     height: 180,
     marginTop: 5,
@@ -180,9 +184,6 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
   },
   PopularText: {
-    backgroundColor: '#FFFFFF',
-    borderColor: '#EAEAEA',
-    borderWidth: 1,
     fontSize: 16,
     fontWeight: 'bold',
     marginLeft: 8,
@@ -237,15 +238,15 @@ export default StyleSheet.create({
   Promotion_popular_image: {
     height: 80,
     width: 180,
-    borderTopLeftRadius: 8,
-    borderTopRightRadius: 8,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
   },
   Image_icon_Sale:{
-    height: 40,
+    height: 35,
     width: 180,
     resizeMode: 'stretch',
-    borderBottomRightRadius: 8,
-    borderBottomLeftRadius: 8,
+    borderBottomRightRadius: 10,
+    borderBottomLeftRadius: 10,
   },
 
   ///--------------------------------------------------------------------------------///

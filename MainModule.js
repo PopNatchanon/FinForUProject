@@ -141,13 +141,15 @@ export class Category extends Component {
             var dataMySQL = [ip + '/mysql/uploads/head_product/menu', item.image_menu].join('/');
             {/* console.log(dataMySQL); */ }
             return <View style={styles.Category} key={indexs}>
+            <View style={styles.Category_box}>
                 <Image
                     source={{
                         uri: dataMySQL,
                     }}
-                    style={styles.Category_box}
+                    style={styles.Category_image}
                     resizeMethod='resize' >
                 </Image>
+                </View>
                 <Text style={styles.Text_Cate}>{item.name}</Text>
             </View>
 

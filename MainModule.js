@@ -15,7 +15,7 @@ import Icons from 'react-native-vector-icons/FontAwesome5';
 
 import styles from './Styles'
 
-const ip = 'http://192.168.0.131';
+const ip = 'http://192.168.0.132';
 
 ///----------------------------------Appbar----------------------------------------///
 
@@ -488,7 +488,7 @@ export class FlashSale extends Component {
             <View style={styles.FlashSale}>
                 <View style={styles.FlashSaleTextBox}>
                     <Text style={styles.FlashSaleText}>
-                        FLASH SELL
+                        FLASH SALE
                     </Text>
                     <Text style={styles.FlashSaleTextEnd}>
                         ดูทั้งหมด
@@ -954,6 +954,7 @@ export class CategoryProduct extends Component {
 
     render() {
         let dataCategory = this.state.dataSourceCategory.map((item, indexs) => {
+            var dataMySQL = [ip + '/mysql/uploads/head_product', item.image_head].join('/');
             return (
                 <View style={styles.CategoryProduct} key={indexs}>
                     <View>
@@ -965,6 +966,13 @@ export class CategoryProduct extends Component {
                                 ดูทั้งหมด
                             </Text>
                         </View>
+                        <Image
+                            source={{
+                                uri: dataMySQL,
+                            }}
+                            style={styles.CategoryProductImageHead}
+                            resizeMethod='resize'
+                        />
                         <CategoryProductSubProduct name={item.name} />
                     </View>
                     <View>

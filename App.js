@@ -13,16 +13,18 @@ import {
   Category,
   Button_Bar,
   Brand_RCM,
-  Banner_SALE,
+  BannerBar_ONE,
   FlashSale,
   Popular_product,
   PromotionPopular,
   SaleProduct,
+  BannerBar_TWO,
   NewStore,
   NewProduct,
   Confidential_PRO,
   Product_for_you,
   CategoryProduct,
+  BannerBar_THREE,
   TodayProduct,
   Toolbar,
 } from './MainModule';
@@ -40,18 +42,17 @@ export default class MainPage extends Component {
           <Button_Bar/>
           <Brand_RCM />
           <Popular_product />
-          <Banner_SALE />
+          <BannerBar_ONE />
           <FlashSale />
           <PromotionPopular />
           <SaleProduct />
-          <Banner_SALE />
+          <BannerBar_TWO />
           <NewStore />
           <NewProduct />
           <Confidential_PRO />
           <Product_for_you />
-          <Banner_SALE />
           <CategoryProduct />
-          <Banner_SALE />
+          <BannerBar_THREE />
           <TodayProduct />
         </ScrollView>
         <Toolbar />

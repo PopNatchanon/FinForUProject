@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { 
+    Image,
+    View,
+    ScrollView,
+    Text,
+    TextInput, } from 'react-native';
 
 export default class Product_Detail extends Component {
   constructor(props) {

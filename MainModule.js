@@ -15,7 +15,7 @@ import Icons from 'react-native-vector-icons/FontAwesome5';
 
 import styles from './Styles'
 
-const ip = 'http://192.168.0.131';
+const ip = 'http://192.168.1.34';
 
 ///----------------------------------Appbar----------------------------------------///
 
@@ -88,7 +88,7 @@ export class Slide extends Component {
     render() {
         let dataSlide = this.state.dataSourceSlide.map((item, indexs) => {
             // console.log('Slide'+[indexs, item.image].join(' ')),
-            var dataMySQL = [ip + '/mysql/uploads/slide', item.image].join('/');
+            var dataMySQL = [ip + '/mysql/uploads/slide/slide', item.image].join('/');
             return <View style={styles.child} key={indexs}>
                 <Image
                     source={{
@@ -141,14 +141,14 @@ export class Category extends Component {
             var dataMySQL = [ip + '/mysql/uploads/head_product/menu', item.image_menu].join('/');
             {/* console.log(dataMySQL); */ }
             return <View style={styles.Category} key={indexs}>
-            <View style={styles.Category_box}>
-                <Image
-                    source={{
-                        uri: dataMySQL,
-                    }}
-                    style={styles.Category_image}
-                    resizeMethod='resize' >
-                </Image>
+                <View style={styles.Category_box}>
+                    <Image
+                        source={{
+                            uri: dataMySQL,
+                        }}
+                        style={styles.Category_image}
+                        resizeMethod='resize' >
+                    </Image>
                 </View>
                 <Text style={styles.Text_Cate}>{item.name}</Text>
             </View>
@@ -177,7 +177,7 @@ export class Button_Bar extends Component {
     }
     render() {
         return (
-            <View style={styles.Button_Bar}>
+            <View style={styles.Button_Bar} >
                 <ScrollView horizontal>
                     <View style={styles.Button_Bar_Box}>
                         <Image style={styles.Button_Bar_icon}
@@ -347,7 +347,7 @@ export class Popular_product extends Component {
                                     ></Image>
                                 </View>
                             </View>
-                            <Text style={styles.Text_Popular}>สินค้าสุดฮิต</Text>
+                            <View style={styles.PopularText_A} ><Text style={styles.Text_Popular}>สินค้าสุดฮิต</Text></View>
                         </View>
                         <View style={styles.Popular_Box_B}>
                             <View style={styles.Popular_Box_C}>
@@ -368,7 +368,7 @@ export class Popular_product extends Component {
                                     ></Image>
                                 </View>
                             </View>
-                            <Text style={styles.Text_Popular}>สินค้าราคาโดน</Text>
+                            <View style={styles.PopularText_A} ><Text style={styles.Text_Popular}>สินค้าราคาโดน</Text></View>
                         </View>
                         <View style={styles.Popular_Box_B}>
                             <View style={styles.Popular_Box_C}>
@@ -389,7 +389,7 @@ export class Popular_product extends Component {
                                     ></Image>
                                 </View>
                             </View>
-                            <Text style={styles.Text_Popular}>สินค้าราคาโดน</Text>
+                            <View style={styles.PopularText_A} ><Text style={styles.Text_Popular}>สินค้าราคาโดน</Text></View>
                         </View>
                         <View style={styles.Popular_Box_B}>
                             <View style={styles.Popular_Box_C}>
@@ -410,7 +410,7 @@ export class Popular_product extends Component {
                                     ></Image>
                                 </View>
                             </View>
-                            <Text style={styles.Text_Popular}>สินค้าราคาโดน</Text>
+                            <View style={styles.PopularText_A} ><Text style={styles.Text_Popular}>สินค้าราคาโดน</Text></View>
                         </View>
                     </ScrollView>
                 </View>
@@ -422,7 +422,7 @@ export class Popular_product extends Component {
 
 ///-------------------------------------------------------------------------------///
 
-export class Banner_SALE extends Component {
+export class BannerBar_ONE extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -430,9 +430,51 @@ export class Banner_SALE extends Component {
     }
 
     render() {
-        return (<View style={styles.Banner_SALE}>
+        return (<View style={styles.Banner_Bar}>
             <Image
-                style={styles.Banner_SALE_image}
+                style={styles.Banner_Bar_image}
+                source={{ uri: ip + '/MySQL/uploads/slide/Banner_type/shoes_BannerBar.jpg' }}
+                resizeMethod='resize'
+            ></Image>
+        </View>
+        );
+    }
+}
+
+///-------------------------------------------------------------------------------///
+
+export class BannerBar_TWO extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
+    render() {
+        return (<View style={styles.Banner_Bar}>
+            <Image
+                style={styles.Banner_Bar_image}
+                source={{ uri: ip + '/MySQL/uploads/slide/Banner_type/GlassesBannerBar.jpg' }}
+                resizeMethod='resize'
+            ></Image>
+        </View>
+        );
+    }
+}
+
+///-------------------------------------------------------------------------------///
+
+export class BannerBar_THREE extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
+    render() {
+        return (<View style={styles.Banner_Bar}>
+            <Image
+                style={styles.Banner_Bar_image}
                 source={{ uri: ip + '/MySQL/uploads/slide/banner_sale.jpg' }}
                 resizeMethod='resize'
             ></Image>
@@ -561,11 +603,7 @@ export class PromotionPopular extends Component {
                         style={styles.Promotion_popular_image}
                         resizeMethod='resize'
                     ></Image>
-                    <Image
-                        style={styles.Image_icon_Sale}
-                        source={require('./icon/Sale.png')}
-                        resizeMethod='resize'
-                    ></Image>
+                    <Text style={styles.Text_icon_Sale}>ร้าน AVIRA ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                 </View>
             </View>
         })
@@ -838,7 +876,7 @@ export class NewStore extends Component {
 
     render() {
         let dataNewStore = this.state.dataStore.map((item, indexs) => {
-            var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+            var dataMySQL = [ip + '/mysql/uploads/slide/NewStore', item.image].join('/');
             return <View style={styles.NewStoreBox} key={indexs}>
                 <Image
                     source={{
@@ -847,7 +885,7 @@ export class NewStore extends Component {
                     style={styles.NewStoreImage}
                     resizeMethod='resize'
                 />
-                <Text>{item.name}</Text>
+                <Text style={styles.NewStoreText_bar}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50% </Text>
             </View>;
         })
         return (
@@ -1000,21 +1038,18 @@ export class CategoryProduct extends Component {
                         <CategoryProductSubProduct name={item.name} />
                     </View>
                     <View>
-                        <Text>
-                            ร้านค้าแนะนำโดย FIN
-                        </Text>
+                        <Image style={styles.Text_Bar_Image} source={{ uri: ip + '/MySQL/uploads/Text/storeFIN1.png' }}
+                            resizeMethod='resize'></Image>
                         <CategoryProductSubStore />
                     </View>
                     <View>
-                        <Text>
-                            แบรนด์ร้านแนะนำ
-                        </Text>
+                        <Image style={styles.Text_Bar_Image} source={{ uri: ip + '/MySQL/uploads/Text/beand.png' }}
+                            resizeMethod='resize'></Image>
                         <CategoryProductSubBrand />
                     </View>
                     <View>
-                        <Text>
-                            โปรโมชั่นสุดพิเศษ!!
-                        </Text>
+                    <Image style={styles.Text_Bar_Image} source={{ uri: ip + '/MySQL/uploads/Text/propro.png' }}
+                                        resizeMethod='resize'></Image>
                         <CategoryProductSubPromotion />
                     </View>
                 </View>
@@ -1135,7 +1170,7 @@ export class CategoryProductSubStore extends Component {
     render() {
         let dataCategoryProductSubStore = this.state.dataSourceCategoryProduct.map((item, indexs) => {
             // console.log( 'CategoryProductNo. ' + indexs + ' ' + item.image ),
-            var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+            var dataMySQL = [ip + '/MySQL/uploads/slide/Store_recommendFIN', item.image].join('/');
             return (
                 <View style={styles.CategoryProductStoreBox} key={indexs}>
                     <Image
@@ -1191,7 +1226,7 @@ export class CategoryProductSubBrand extends Component {
                 <View style={styles.CategoryProductSubBrandBox} key={indexs}>
                     <Image
                         source={{
-                            uri: ip + '/mysql/uploads/icon_brand/brand18.png',
+                            uri: ip + '/mysql/uploads/slide/Icon_brand/brand24.png',
                         }}
                         style={styles.CategoryProductSubBrandImage}
                         resizeMethod='resize'
@@ -1220,7 +1255,7 @@ export class CategoryProductSubPromotion extends Component {
 
     getCategoryProductSubPromotion() {
         // console.log( 'CategoryProductChild Process' )
-        var url = ip + '/mysql/DataService.php?type=brand';
+        var url = ip + '/mysql/DataService.php?type=store';
         axios.get(url)
             .then((getData) => {
                 //   console.log(getData.data);
@@ -1237,7 +1272,7 @@ export class CategoryProductSubPromotion extends Component {
     render() {
         let dataCategoryProductSubPromotion = this.state.dataSourceCategoryProduct.map((item, indexs) => {
             // console.log(item)
-            var dataMySQL = [ip + '/mysql/uploads/publish/popular_promotions', item.image].join('/');
+            var dataMySQL = [ip + '/MySQL/uploads/slide/Store_recommendFIN', item.image].join('/');
             return (
                 <View style={styles.PromotionCategoryProductStoreBox} key={indexs}>
                     <Image
@@ -1247,11 +1282,7 @@ export class CategoryProductSubPromotion extends Component {
                         style={styles.PromotionCategoryProductImage}
                         resizeMethod='resize'
                     ></Image>
-                    <Image
-                        style={styles.PromotionCategoryProductImageIcon}
-                        source={require('./icon/Sale.png')}
-                        resizeMethod='resize'
-                    ></Image>
+                   <Text style={styles.PromotionCategoryProductImageIcon}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
                 </View>
             );
         })

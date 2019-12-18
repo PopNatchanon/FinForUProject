@@ -9,7 +9,7 @@ export default StyleSheet.create({
 
   Toolbar: {
     backgroundColor: '#FFFFFF',
-    borderColor: '#EAEAEA',
+    borderColor: '#ECECEC',
     borderWidth: 1,
     height: 50,
     flexDirection: 'row',
@@ -32,7 +32,7 @@ export default StyleSheet.create({
   },
   Appbar: {
     backgroundColor: '#FFFFFF',
-    borderColor: '#EAEAEA',
+    borderColor: '#ECECEC',
     borderWidth: 1,
     height: 50,
     width,
@@ -41,15 +41,15 @@ export default StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
   },
-  Text_All:{
+  Text_All: {
     fontWeight: 'bold',
-    fontSize: 16, 
+    fontSize: 16,
   },
 
   ///------------------------------------------------------------------------------------------///
 
   child: {
-    marginTop: 5,
+    marginTop: 10,
     height: 150,
     width,
   },
@@ -65,9 +65,9 @@ export default StyleSheet.create({
 
   Box_Cata: {
     backgroundColor: '#FFFFFF',
-    borderColor: '#EAEAEA',
+    borderColor: '#ECECEC',
     borderWidth: 1,
-    marginTop: 5,
+    marginTop: 10,
   },
   Category: {
     width: 100,
@@ -79,13 +79,13 @@ export default StyleSheet.create({
     flexWrap: 'wrap',
     height: 200,
   },
-  Category_image:{
-    height:40,
-    width:40,
+  Category_image: {
+    height: 40,
+    width: 40,
   },
   Category_box: {
     backgroundColor: '#FFFFFF',
-    borderColor: '#EAEAEA',
+    borderColor: '#ECECEC',
     borderWidth: 1,
     borderRadius: 8,
     height: 60,
@@ -103,24 +103,23 @@ export default StyleSheet.create({
 
   Brand_RCM: {
     backgroundColor: '#FFFFFF',
-    borderColor: '#EAEAEA',
+    borderColor: '#ECECEC',
     borderWidth: 1,
-    marginTop: 5,
+    marginTop: 10,
     height: 160,
-    marginTop: 5,
   },
   Brand_RCM_Box: {
     flexDirection: 'column',
     flexWrap: 'wrap',
   },
   Brand_image_RCM: {
-    borderColor: '#EAEAEA',
+    borderColor: '#ECECEC',
     borderWidth: 1,
     height: 50,
     width: 150,
-    marginLeft: 5,
+    marginLeft: 10,
     marginTop: 5,
-    marginBottom: 5, 
+    marginBottom: 5,
   },
   Brand_RCMTextBox: {
     flexDirection: 'row',
@@ -132,7 +131,7 @@ export default StyleSheet.create({
     marginLeft: 8,
     marginTop: 6,
   },
-  Brand_RCMTextEnd:{
+  Brand_RCMTextEnd: {
     fontSize: 10,
     color: '#0A55A6',
     marginRight: 8,
@@ -143,24 +142,21 @@ export default StyleSheet.create({
 
   Popular: {
     backgroundColor: '#FFFFFF',
-    borderColor: '#FAFAFA',
-    borderWidth: 0.5,
-    marginTop: 5,
+    borderColor: '#ECECEC',
+    borderWidth: 1,
+    marginTop: 10,
     height: 180,
-    marginTop: 5,
   },
   Popular_Box_A: {
     height: 150,
     width,
-    marginTop: 5,
     flexDirection: 'row',
   },
   Popular_Box_B: {
     height: 140,
     width: 200,
     flexDirection: 'column',
-    marginLeft: 5,
-    
+    marginLeft: 10,
   },
   Popular_Box_C: {
     height: 110,
@@ -168,7 +164,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   Popular_Box_D: {
-    borderColor: '#EAEAEA',
+    borderColor: '#ECECEC',
     borderWidth: 1,
     height: 110,
     width: 100,
@@ -176,7 +172,7 @@ export default StyleSheet.create({
   Popular_image_Box: {
     height: 80,
     width: 80,
-    marginLeft: 10, 
+    marginLeft: 10,
   },
   PopularTextBox: {
     flex: 1,
@@ -186,20 +182,30 @@ export default StyleSheet.create({
   PopularText: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginLeft: 8,
-    marginTop: 6,
+    marginLeft: 10,
+    marginTop:5,
   },
-  PopularTextEnd:{
+  PopularText_A: {
+    backgroundColor: '#ECECEC',
+    borderColor: '#ECECEC',
+    borderWidth:0.5,
+    height: 20,
+    width: 200,
+  },
+  PopularTextEnd: {
     fontSize: 10,
     color: '#0A55A6',
     marginRight: 8,
-    marginTop: 10,
+    marginTop: 5,
   },
-  Image_icon_top:{
+  Image_icon_top: {
     height: 25,
     width: 20,
     resizeMode: 'stretch',
   },
+
+  ///------------------------------------------------------------------------------------------///
+
   Promotion_popularTextBox: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -210,7 +216,7 @@ export default StyleSheet.create({
     marginLeft: 8,
     marginTop: 6,
   },
-  Promotion_popularTextEnd:{
+  Promotion_popularTextEnd: {
     fontSize: 10,
     color: '#0A55A6',
     marginRight: 8,
@@ -218,22 +224,22 @@ export default StyleSheet.create({
   },
   Promotion_popular: {
     backgroundColor: '#FFFFFF',
-    borderColor: '#EAEAEA',
+    borderColor: '#ECECEC',
     borderWidth: 1,
-    marginTop: 5,  
+    marginTop: 10,
   },
-  Promotion_popular_A:{
-    flexDirection:'row',
+  Promotion_popular_A: {
+    flexDirection: 'row',
     height: 150,
   },
   Promotion_popular_Box: {
-    height:150,
-    marginTop:5,
+    height: 150,
+    marginTop: 5,
   },
-  Promotion_popular_BoxA:{
+  Promotion_popular_BoxA: {
     height: 150,
     width: 180,
-    marginLeft:5,
+    marginLeft: 10,
   },
   Promotion_popular_image: {
     height: 80,
@@ -241,10 +247,12 @@ export default StyleSheet.create({
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
-  Image_icon_Sale:{
-    height: 35,
+  Text_icon_Sale: {
+    fontSize:10,
+    backgroundColor:'#0A55A6',
+    color:'#FFFFFF',
+    height: 40,
     width: 180,
-    resizeMode: 'stretch',
     borderBottomRightRadius: 10,
     borderBottomLeftRadius: 10,
   },
@@ -253,11 +261,11 @@ export default StyleSheet.create({
 
   FlashSale: {
     width,
-    borderColor: '#EAEAEA',
+    borderColor: '#ECECEC',
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderRadius: 5,
-    marginTop: 5,
+    marginTop: 10,
   },
   FlashSaleTextBox: {
     flex: 1,
@@ -267,10 +275,10 @@ export default StyleSheet.create({
   FlashSaleText: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginLeft: 8,
+    marginLeft: 10,
     marginTop: 6,
   },
-  FlashSaleTextEnd:{
+  FlashSaleTextEnd: {
     fontSize: 10,
     color: '#0A55A6',
     marginRight: 8,
@@ -288,10 +296,10 @@ export default StyleSheet.create({
     width: 99,
     height: 98,
     resizeMode: 'contain',
-    // borderColor: '#EAEAEA',
+    // borderColor: '#ECECEC',
     borderRadius: 5,
   },
-  FlashSaleImageName:{
+  FlashSaleImageName: {
     fontSize: 10,
     marginTop: 6,
     marginLeft: 6,
@@ -325,14 +333,14 @@ export default StyleSheet.create({
   },
 
   ///--------------------------------------------------------------------------------///
-  
+
   SaleProduct: {
     width,
-    borderColor: '#EAEAEA',
+    borderColor: '#ECECEC',
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderRadius: 5,
-    marginTop: 5,
+    marginTop: 10,
   },
   SaleProductTextBox: {
     flex: 1,
@@ -345,7 +353,7 @@ export default StyleSheet.create({
     marginLeft: 8,
     marginTop: 6,
   },
-  SaleProductTextEnd:{
+  SaleProductTextEnd: {
     fontSize: 10,
     color: '#0A55A6',
     marginRight: 8,
@@ -363,10 +371,10 @@ export default StyleSheet.create({
     width: 99,
     height: 98,
     resizeMode: 'contain',
-    // borderColor: '#EAEAEA',
+    // borderColor: '#ECECEC',
     borderRadius: 5,
   },
-  SaleProductImageName:{
+  SaleProductImageName: {
     fontSize: 10,
     marginTop: 6,
     marginLeft: 6,
@@ -403,10 +411,10 @@ export default StyleSheet.create({
 
   NewStore: {
     width,
-    borderColor: '#EAEAEA',
+    borderColor: '#ECECEC',
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
-    marginTop: 5,
+    marginTop: 10,
   },
   NewStoreBox: {
     width: 193,
@@ -421,7 +429,7 @@ export default StyleSheet.create({
     width: '100%',
     height: 100,
     resizeMode: 'stretch',
-    borderColor: '#EAEAEA',
+    borderColor: '#ECECEC',
   },
   NewStoreTextBox: {
     flexDirection: 'row',
@@ -433,22 +441,25 @@ export default StyleSheet.create({
     marginLeft: 8,
     marginTop: 6,
   },
-  NewStoreTextEnd:{
+  NewStoreTextEnd: {
     fontSize: 10,
     color: '#0A55A6',
     marginRight: 8,
     marginTop: 10,
+  },
+  NewStoreText_bar:{
+    fontSize: 11,
   },
 
   ///--------------------------------------------------------------------------------///
 
   NewProduct: {
     width,
-    borderColor: '#EAEAEA',
+    borderColor: '#ECECEC',
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderRadius: 5,
-    marginTop: 5,
+    marginTop: 10,
   },
   NewProductTextBox: {
     flex: 1,
@@ -461,7 +472,7 @@ export default StyleSheet.create({
     marginLeft: 8,
     marginTop: 6,
   },
-  NewProductTextEnd:{
+  NewProductTextEnd: {
     fontSize: 10,
     color: '#0A55A6',
     marginRight: 8,
@@ -479,10 +490,10 @@ export default StyleSheet.create({
     width: 99,
     height: 98,
     resizeMode: 'contain',
-    // borderColor: '#EAEAEA',
+    // borderColor: '#ECECEC',
     borderRadius: 5,
   },
-  NewProductImageName:{
+  NewProductImageName: {
     fontSize: 10,
     marginTop: 6,
     marginLeft: 6,
@@ -520,11 +531,11 @@ export default StyleSheet.create({
   ProductForYou: {
     width,
     height: 370,
-    borderColor: '#EAEAEA',
+    borderColor: '#ECECEC',
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderRadius: 5,
-    marginTop: 5,
+    marginTop: 10,
   },
   ProductForYouFlexBox: {
     flex: 1,
@@ -541,7 +552,7 @@ export default StyleSheet.create({
     marginLeft: 8,
     marginTop: 6,
   },
-  ProductForYouTextEnd:{
+  ProductForYouTextEnd: {
     fontSize: 10,
     color: '#0A55A6',
     marginRight: 8,
@@ -559,10 +570,10 @@ export default StyleSheet.create({
     width: 99,
     height: 98,
     resizeMode: 'contain',
-    // borderColor: '#EAEAEA',
+    // borderColor: '#ECECEC',
     borderRadius: 5,
   },
-  ProductForYouImageName:{
+  ProductForYouImageName: {
     fontSize: 10,
     marginTop: 6,
     marginLeft: 6,
@@ -598,7 +609,7 @@ export default StyleSheet.create({
 
   TodayProduct: {
     backgroundColor: '#FFFFFF',
-    borderColor: '#EAEAEA',
+    borderColor: '#ECECEC',
     borderWidth: 1,
     marginTop: 8,
     paddingBottom: 8,
@@ -612,9 +623,9 @@ export default StyleSheet.create({
     marginTop: 16,
     marginLeft: 9,
   },
-  TodayProductBoxProduct:{
+  TodayProductBoxProduct: {
     width,
-    marginTop: 4, 
+    marginTop: 4,
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
@@ -622,13 +633,13 @@ export default StyleSheet.create({
     width: width * 0.323,
     height: height * 0.3,
     borderColor: '#ECECEC',
-    borderWidth: 1,
+    borderWidth:0.5,
+
   },
   TodayProductImage: {
     width: '100%',
     height: '60%',
     resizeMode: 'stretch',
-    backgroundColor: '#C4C4C4',
     padding: 4,
   },
   TodayProductImageName: {
@@ -666,9 +677,9 @@ export default StyleSheet.create({
 
   CategoryProduct: {
     backgroundColor: '#FFFFFF',
-    borderColor: '#EAEAEA',
+    borderColor: '#ECECEC',
     borderWidth: 1,
-    marginTop: 6,
+    marginTop: 10,
   },
   CategoryProductText: {
     fontSize: 16,
@@ -680,13 +691,13 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  CategoryProductTextEnd:{
+  CategoryProductTextEnd: {
     fontSize: 10,
     color: '#0A55A6',
     marginRight: 8,
     marginTop: 10,
   },
-  CategoryProductImageHead:{
+  CategoryProductImageHead: {
     marginTop: 4,
     width,
     height: height * 0.19,
@@ -749,48 +760,48 @@ export default StyleSheet.create({
     marginLeft: 'auto',
     marginBottom: 8,
   },
-  linearGradienttSub:{
-    width:'35%',
+  linearGradienttSub: {
+    width: '35%',
   },
-  linearGradienttSubText:{
+  linearGradienttSubText: {
     fontSize: 12,
     marginLeft: 6,
     marginBottom: 2,
     marginTop: 2,
     color: 'white',
   },
-  CategoryProductStoreBox:{
-    width: 108,
-    height: 55,
+  CategoryProductStoreBox: {
+    width: 160,
+    height: 60,
     borderColor: '#ECECEC',
     marginTop: 10,
     marginBottom: 8,
     marginLeft: 10,
   },
-  CategoryProductStoreImage:{
+  CategoryProductStoreImage: {
     width: '100%',
     height: '100%',
     resizeMode: 'stretch',
-    borderColor: '#EAEAEA',
+    borderColor: '#ECECEC',
     borderRadius: 8,
   },
-  CategoryProductSubBrandBox:{
+  CategoryProductSubBrandBox: {
     width: 80,
     height: 30,
-    borderColor: '#EAEAEA',
+    borderColor: '#ECECEC',
     borderWidth: 1,
     marginTop: 10,
     marginBottom: 10,
     marginLeft: 10,
   },
-  CategoryProductSubBrandImage:{
+  CategoryProductSubBrandImage: {
     width: '100%',
     height: '100%',
     resizeMode: 'stretch',
-    borderColor: '#EAEAEA',
+    borderColor: '#ECECEC',
     borderRadius: 8,
   },
-  PromotionCategoryProductStoreBox:{
+  PromotionCategoryProductStoreBox: {
     width: 165,
     height: 110,
     borderColor: '#ECECEC',
@@ -804,27 +815,26 @@ export default StyleSheet.create({
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
   },
-  PromotionCategoryProductImageIcon:{
+  PromotionCategoryProductImageIcon: {
+    fontSize:10,
+    color: 'white',
+    backgroundColor: '#0A55A6',
     width: '100%',
     height: '30%',
     borderBottomRightRadius: 8,
     borderBottomLeftRadius: 8,
   },
-  RightItem: {
-    marginRight: 6,
-  },
 
   ///------------------------------------------------------------------///
 
-  Banner_SALE:{
+  Banner_Bar: {
     backgroundColor: '#FFFFFF',
-    borderColor: '#EAEAEA',
-    borderWidth: 1,
-    marginTop:5,
+    borderColor: '#ECECEC',
+    marginTop: 10,
   },
-  Banner_SALE_image:{
+  Banner_Bar_image: {
     width,
-    height:70,
+    height: 70,
     resizeMode: 'stretch',
   },
 
@@ -840,7 +850,7 @@ export default StyleSheet.create({
     marginLeft: 8,
     marginTop: 6,
   },
-  ConfidentialTextEnd:{
+  ConfidentialTextEnd: {
     fontSize: 10,
     color: '#0A55A6',
     marginRight: 8,
@@ -848,62 +858,70 @@ export default StyleSheet.create({
   },
   Confidential: {
     backgroundColor: '#FFFFFF',
-    borderColor: '#EAEAEA',
+    borderColor: '#ECECEC',
     borderWidth: 1,
-    marginTop: 5,  
+    marginTop: 10,
   },
-  Confidential_A:{
-    flexDirection:'row',
+  Confidential_A: {
+    flexDirection: 'row',
     height: 150,
   },
   Confidential_Box: {
-    height:150,
-    marginTop:5,
+    height: 150,
+    marginTop: 5,
   },
-  Confidential_BoxA:{
+  Confidential_BoxA: {
     height: 150,
     width: 200,
-    marginLeft:5,
+    marginLeft: 5,
   },
   Confidential_image: {
     height: 80,
     width: 180,
     borderTopLeftRadius: 8,
-    borderTopRightRadius: 8, 
+    borderTopRightRadius: 8,
   },
-  Text_box_Confidential:{
-    height:40,
-    fontSize:10,
-    color:'white',
-    backgroundColor:'#0A55A6',
+  Text_box_Confidential: {
+    height: 40,
+    fontSize: 10,
+    color: 'white',
+    backgroundColor: '#0A55A6',
     borderBottomRightRadius: 8,
     borderBottomLeftRadius: 8,
   },
 
   ///------------------------------------------------------------------///
 
-  Button_Bar:{
+  Button_Bar: {
     backgroundColor: '#FFFFFF',
-    borderColor: '#EAEAEA',
+    borderColor: '#ECECEC',
     borderWidth: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingTop: 5,
     paddingBottom: 5,
-    
+
   },
-  Button_Bar_Box:{
-    height:50,
-    paddingTop:10,
-    paddingBottom:10,
-    flexDirection: 'row',  
-    marginLeft:10,
+  Button_Bar_Box: {
+    height: 50,
+    paddingTop: 10,
+    paddingBottom: 10,
+    flexDirection: 'row',
+    marginLeft: 10,
   },
-  Button_Bar_icon:{
-    borderRadius:4,
-    height:'100%',
-    width:100,
+  Button_Bar_icon: {
+    elevation: 10,
+    borderRadius: 4,
+    height: '100%',
+    width: 100,
     resizeMode: 'stretch',
-    
+  },
+
+  ///------------------------------------------------------------------///
+
+  Text_Bar_Image:{
+    height:15, 
+    width:120 , 
+    marginTop:10,
   },
 });

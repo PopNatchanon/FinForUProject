@@ -165,6 +165,27 @@ export class Category extends Component {
     }
 }
 
+///----------------------------------Button_Bar----------------------------------------///
+
+export class Button_Bar extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+    render() {
+        return (
+            <View style={styles.Button_Bar}>
+                <View >
+                    <Image style={styles.Button_Bar_icon}
+                     source={{ uri: ip + '/MySQL/uploads/icon_brand/DEW.png' }}
+                        resizeMethod='resize'></Image>
+                </View>
+            </View>
+        );
+    }
+}
+
 ///----------------------------------Brand_RCM----------------------------------------///
 
 export class Brand_RCM extends Component {

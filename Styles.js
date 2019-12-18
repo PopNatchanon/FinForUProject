@@ -867,5 +867,19 @@ export default StyleSheet.create({
     borderBottomRightRadius: 8,
     borderBottomLeftRadius: 8,
   },
- 
+
+  ///------------------------------------------------------------------///
+
+  Button_Bar:{
+    height:200,
+    width,
+    backgroundColor: '#FFFFFF',
+    borderColor: '#EAEAEA',
+    borderWidth: 1,
+    marginTop:5,
+  },
+  Button_Bar_icon:{
+    height: 200,
+    resizeMode: 'stretch',
+  },
 });

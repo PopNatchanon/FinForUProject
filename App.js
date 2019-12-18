@@ -11,6 +11,7 @@ import {
   AppBar,
   Slide,
   Category,
+  Button_Bar,
   Brand_RCM,
   Banner_SALE,
   FlashSale,
@@ -34,6 +35,7 @@ class App extends Component {
         <ScrollView>
           <Slide />
           <Category />
+          <Button_Bar/>
           <Brand_RCM />
           <Popular_product /> 
           <Banner_SALE/>  

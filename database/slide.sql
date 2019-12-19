@@ -11,7 +11,7 @@
  Target Server Version : 100410
  File Encoding         : 65001
 
- Date: 18/12/2019 10:53:39
+ Date: 19/12/2019 15:56:09
 */
 
 SET NAMES utf8mb4;
@@ -38,7 +38,7 @@ CREATE TABLE `slide`  (
   `start_period` datetime(0) NULL DEFAULT NULL,
   `end_period` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 105 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 108 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of slide
@@ -102,5 +102,8 @@ INSERT INTO `slide` VALUES (000099, 'ทดสอบโฆษณา', 'เพช
 INSERT INTO `slide` VALUES (000100, 'แบรนด์เสื้อผ้า', 'เสื้อผ้าลด 90 %', NULL, 'https://www.looksi.com/women/clothing/', 'dunkins.png', 'uploads/publish/Popular_promotions', 'promotions', '1', 6, '2019-11-27 15:24:14', NULL, NULL, '2019-12-20 15:24:22', '2020-01-03 15:24:26');
 INSERT INTO `slide` VALUES (000103, 'Fin', 'ราคาพิเศษลดราคา 50%', 'ทดสอบ insert', NULL, 'Jubillee.jpg', 'uploads/publish/Popular_promotions', 'promotions', '1', 10, '2019-12-11 11:30:04', NULL, NULL, '2019-12-11 00:00:00', '2019-12-31 23:59:59');
 INSERT INTO `slide` VALUES (000104, 'FinFF', 'ลดราคา', 'ทดสอบ insert url', 'https://www.finforu.com/', 'pandora.jpg', 'uploads/publish/Popular_promotions', 'promotions', '1', 10, '2019-12-11 13:39:37', NULL, NULL, '2019-12-11 00:00:00', '2019-12-11 23:59:59');
+INSERT INTO `slide` VALUES (000105, 'โปรลับเฉพาะ', 'Gala Germs จัดโปรโมชั่นสำหรับผู้มียอดสั่งซื้อครบ 5,000 บาท', NULL, NULL, 'banner-bridal5.png', 'uploads/slide/Confidential_PRO', 'Confidential_PRO', '1', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `slide` VALUES (000106, 'โปรลับเฉพาะ', 'Gala Germs จัดโปรโมชั่นสำหรับผู้มียอดสั่งซื้อครบ 5,000 บาท', NULL, NULL, 'banner-bridal-lifetime34.png', 'uploads/slide/Confidential_PRO', 'Confidential_PRO', '1', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `slide` VALUES (000107, 'โปรลับเฉพาะ', 'Gala Germs จัดโปรโมชั่นสำหรับผู้มียอดสั่งซื้อครบ 5,000 บาท', NULL, NULL, 'banner.png', 'uploads/slide/Confidential_PRO', 'Confidential_PRO', '1', NULL, NULL, NULL, NULL, NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

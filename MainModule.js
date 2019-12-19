@@ -15,7 +15,7 @@ import Icons from 'react-native-vector-icons/FontAwesome5';
 
 import styles from './Styles'
 
-const ip = 'http://192.168.1.34';
+const ip = 'http://192.168.0.131';
 
 ///----------------------------------Appbar----------------------------------------///
 
@@ -1013,7 +1013,7 @@ export class CategoryProduct extends Component {
     componentDidMount() {
         this.getDataCategory();
     }
-
+s
     render() {
         let dataCategory = this.state.dataSourceCategory.map((item, indexs) => {
             var dataMySQL = [ip + '/mysql/uploads/head_product', item.image_head].join('/');

@@ -14,7 +14,7 @@ import SwiperFlatList from 'react-native-swiper-flatlist';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
 import Icons from 'react-native-vector-icons/FontAwesome5';
-import styles from './Styles'
+import styles from './StylesMainScreen'
 
 const ip = 'http://192.168.0.131';
 
@@ -25,7 +25,7 @@ export default class MainScreen extends Component {
         return (
             //console.log(this.props.navigation.navigate),
             <SafeAreaView style={styles.SafeAreaView}>
-                <AppBar navigation={this.props.navigation}/>
+                <AppBar navigation={this.props.navigation} />
                 <ScrollView>
                     <Slide />
                     <Category />
@@ -33,7 +33,7 @@ export default class MainScreen extends Component {
                     <Brand_RCM />
                     <Popular_product />
                     <BannerBar_ONE />
-                    <FlashSale />
+                    <FlashSale navigation={this.props.navigation}/>
                     <PromotionPopular />
                     <SaleProduct />
                     <BannerBar_TWO />
@@ -71,7 +71,7 @@ export class AppBar extends Component {
                 <TextInput style={styles.TextInput}
                     placeholder="ค้นหาสินค้า/ร้านค้า"
                     onChangeText={(text) => this.state({ text })}></TextInput>
-                <Icons RightItem name="search" size={20} style={{ marginTop: 5, }}/>
+                <Icons RightItem name="search" size={20} style={{ marginTop: 5, }} />
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreScreen')}>
                     <Icons RightItem name="shopping-cart" size={20} style={{ marginTop: 5, }} />
                 </TouchableOpacity>
@@ -548,41 +548,43 @@ export class FlashSale extends Component {
             //   console.log('Sale' + [ indexs, item.image ].join(' ')),
             var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
             return (
-                <View style={styles.FlashSaleBox} key={indexs}>
-                    <Image
-                        source={{
-                            uri: dataMySQL,
-                        }}
-                        style={styles.FlashSaleImage}
-                        resizeMethod='resize'
-                    />
-                    <Text style={styles.FlashSaleImageName}>{item.name}</Text>
-                    <NumberFormat
-                        value={item.sale_price}
-                        displayType={'text'}
-                        thousandSeparator={true}
-                        prefix={'฿'}
-                        renderText={
-                            value => <Text style={
-                                styles.FlashSaleImagePrice
-                            }>
-                                {value}
-                            </Text>}
-                    />
-                    <View style={styles.FlashSaleIconBox}>
-                        <View style={styles.FlashSaleIconBoxStar}>
-                            <Icons style={styles.FlashSaleIconStar} name='star' size={8} color='yellow' />
-                            <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
-                            <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
-                            <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
-                            <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
-                        </View>
-                        <View style={styles.FlashSaleIconBoxI}>
-                            <Icons style={styles.FlashSaleIcon} name='heart' size={10} />
-                            <Icons style={styles.FlashSaleIcon} name='share' size={10} />
+                <TouchableOpacity key={indexs} onPress={()=> this.props.navigation.navigate('DetailScreen')}>
+                    <View style={styles.FlashSaleBox}>
+                        <Image
+                            source={{
+                                uri: dataMySQL,
+                            }}
+                            style={styles.FlashSaleImage}
+                            resizeMethod='resize'
+                        />
+                        <Text style={styles.FlashSaleImageName}>{item.name}</Text>
+                        <NumberFormat
+                            value={item.sale_price}
+                            displayType={'text'}
+                            thousandSeparator={true}
+                            prefix={'฿'}
+                            renderText={
+                                value => <Text style={
+                                    styles.FlashSaleImagePrice
+                                }>
+                                    {value}
+                                </Text>}
+                        />
+                        <View style={styles.FlashSaleIconBox}>
+                            <View style={styles.FlashSaleIconBoxStar}>
+                                <Icons style={styles.FlashSaleIconStar} name='star' size={8} color='yellow' />
+                                <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
+                                <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
+                                <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
+                                <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
+                            </View>
+                            <View style={styles.FlashSaleIconBoxI}>
+                                <Icons style={styles.FlashSaleIcon} name='heart' size={10} />
+                                <Icons style={styles.FlashSaleIcon} name='share' size={10} />
+                            </View>
                         </View>
                     </View>
-                </View>
+                </TouchableOpacity>
             );
         })
         return (
@@ -672,7 +674,7 @@ export class Confidential_PRO extends Component {
         };
     }
     getDatabrand() {
-        var url = ip + '/MySQL/DataService.php?type=brand';
+        var url = ip + '/MySQL/DataService.php?type=Confidential_PRO';
         axios.get(url)
             .then((getData) => {
                 //console.log(getData.data);
@@ -697,7 +699,7 @@ export class Confidential_PRO extends Component {
                         style={styles.Confidential_image}
                         resizeMethod='resize'
                     ></Image>
-                    <Text style={styles.Text_box_Confidential}>Gala Germs จัดโปรโมชั่นสำหรับผู้มียอดสั่งซื้อครบ 5,000 บาท</Text>
+                    <Text style={styles.Text_box_Confidential}>Gala Germs จัดโปรโมชั่นสำหรับผู้มียอดสั่งซื้อครบ 5,000 บาท </Text>
                 </View>
             </View>
         })
@@ -1048,7 +1050,7 @@ export class CategoryProduct extends Component {
     componentDidMount() {
         this.getDataCategory();
     }
-s
+    s
     render() {
         let dataCategory = this.state.dataSourceCategory.map((item, indexs) => {
             var dataMySQL = [ip + '/mysql/uploads/head_product', item.image_head].join('/');

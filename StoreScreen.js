@@ -15,9 +15,9 @@ import NumberFormat from 'react-number-format';
 import Icons from 'react-native-vector-icons/FontAwesome5';
 import IconsFeather from 'react-native-vector-icons/Feather';
 
-import styles from './Styles'
+import styles from './StylesMainScreen'
 
-const ip = 'http://192.168.0.132';
+const ip = 'http://192.168.0.131';
 
 ///----------------------------------Appbar----------------------------------------///
 

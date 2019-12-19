@@ -5,6 +5,8 @@ import {
     ScrollView,
     Text,
     TextInput,
+    SafeAreaView,
+    TouchableOpacity,
 } from 'react-native';
 //import { styles } from 'mystyles';
 
@@ -12,12 +14,42 @@ import SwiperFlatList from 'react-native-swiper-flatlist';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
 import Icons from 'react-native-vector-icons/FontAwesome5';
-
 import styles from './Styles'
 
 const ip = 'http://192.168.0.131';
 
 ///----------------------------------Appbar----------------------------------------///
+
+export default class MainScreen extends Component {
+    render() {
+        return (
+            //console.log(this.props.navigation.navigate),
+            <SafeAreaView style={styles.SafeAreaView}>
+                <AppBar navigation={this.props.navigation}/>
+                <ScrollView>
+                    <Slide />
+                    <Category />
+                    <Button_Bar />
+                    <Brand_RCM />
+                    <Popular_product />
+                    <BannerBar_ONE />
+                    <FlashSale />
+                    <PromotionPopular />
+                    <SaleProduct />
+                    <BannerBar_TWO />
+                    <NewStore />
+                    <NewProduct />
+                    <Confidential_PRO />
+                    <Product_for_you />
+                    <CategoryProduct />
+                    <BannerBar_THREE />
+                    <TodayProduct />
+                </ScrollView>
+                <Toolbar />
+            </SafeAreaView>
+        );
+    }
+}
 
 export class AppBar extends Component {
     constructor(props) {
@@ -25,6 +57,7 @@ export class AppBar extends Component {
         this.state = {
             text: '',
         };
+        // console.log(this.props.navigation.navigate)
     }
 
     render() {
@@ -38,8 +71,10 @@ export class AppBar extends Component {
                 <TextInput style={styles.TextInput}
                     placeholder="ค้นหาสินค้า/ร้านค้า"
                     onChangeText={(text) => this.state({ text })}></TextInput>
-                <Icons RightItem name="search" size={20} style={{ marginTop: 5, }} />
-                <Icons RightItem name="shopping-cart" size={20} style={{ marginTop: 5, }} />
+                <Icons RightItem name="search" size={20} style={{ marginTop: 5, }}/>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreScreen')}>
+                    <Icons RightItem name="shopping-cart" size={20} style={{ marginTop: 5, }} />
+                </TouchableOpacity>
             </View>
         );
     }
@@ -1048,8 +1083,8 @@ s
                         <CategoryProductSubBrand />
                     </View>
                     <View>
-                    <Image style={styles.Text_Bar_Image} source={{ uri: ip + '/MySQL/uploads/Text/propro.png' }}
-                                        resizeMethod='resize'></Image>
+                        <Image style={styles.Text_Bar_Image} source={{ uri: ip + '/MySQL/uploads/Text/propro.png' }}
+                            resizeMethod='resize'></Image>
                         <CategoryProductSubPromotion />
                     </View>
                 </View>
@@ -1282,7 +1317,7 @@ export class CategoryProductSubPromotion extends Component {
                         style={styles.PromotionCategoryProductImage}
                         resizeMethod='resize'
                     ></Image>
-                   <Text style={styles.PromotionCategoryProductImageIcon}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
+                    <Text style={styles.PromotionCategoryProductImageIcon}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
                 </View>
             );
         })

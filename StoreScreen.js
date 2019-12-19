@@ -5,6 +5,7 @@ import {
     ScrollView,
     Text,
     TextInput,
+    SafeAreaView,
 } from 'react-native';
 //import { styles } from 'mystyles';
 
@@ -12,12 +13,23 @@ import SwiperFlatList from 'react-native-swiper-flatlist';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
 import Icons from 'react-native-vector-icons/FontAwesome5';
+import IconsFeather from 'react-native-vector-icons/Feather';
 
 import styles from './Styles'
 
-const ip = 'http://192.168.0.131';
+const ip = 'http://192.168.0.132';
 
 ///----------------------------------Appbar----------------------------------------///
+
+export default class StoreScreen extends Component {
+    render() {
+        return (
+            <SafeAreaView style={styles.SafeAreaView}>
+                <AppBar navigation={this.props.navigation}/>
+            </SafeAreaView>
+        );
+    }
+}
 
 export class AppBar extends Component {
     constructor(props) {
@@ -30,16 +42,13 @@ export class AppBar extends Component {
     render() {
         return (
             <View style={styles.Appbar}>
-                <Image
-                    style={styles.LOGO}
-                    source={require('./images/sj.png')}
-                    resizeMethod='resize'
-                ></Image>
+            <Icons RightItem name="arrow-left" size={20} style={{ marginTop: 5, }} onPress={()=>this.props.navigation.goBack()}/>
                 <TextInput style={styles.TextInput}
                     placeholder="ค้นหาสินค้า/ร้านค้า"
-                    onChangeText={(text) => this.state({ text })}></TextInput>
-                <Icons RightItem name="search" size={20} style={{ marginTop: 5, }} />
-                <Icons RightItem name="shopping-cart" size={20} style={{ marginTop: 5, }} />
+                    onChangeText={(text) => this.state({ text })}
+                ></TextInput>
+                <IconsFeather RightItem name="filter" size={20} style={{ marginTop: 5, }} />
+                <Icons RightItem name="ellipsis-h" size={20} style={{ marginTop: 5, }} />
             </View>
         );
     }

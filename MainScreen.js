@@ -14,9 +14,8 @@ import SwiperFlatList from 'react-native-swiper-flatlist';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
 import Icons from 'react-native-vector-icons/FontAwesome5';
-import styles from './Styles'
-
-const ip = 'http://192.168.0.132';
+import styles from './StylesMainScreen';
+import { ip } from './IpConfig'
 
 ///----------------------------------Appbar----------------------------------------///
 
@@ -25,7 +24,7 @@ export default class MainScreen extends Component {
         return (
             //console.log(this.props.navigation.navigate),
             <SafeAreaView style={styles.SafeAreaView}>
-                <AppBar navigation={this.props.navigation}/>
+                <AppBar navigation={this.props.navigation} />
                 <ScrollView>
                     <Slide />
                     <Category />
@@ -71,7 +70,7 @@ export class AppBar extends Component {
                 <TextInput style={styles.TextInput}
                     placeholder="ค้นหาสินค้า/ร้านค้า"
                     onChangeText={(text) => this.state({ text })}></TextInput>
-                <Icons RightItem name="search" size={20} style={{ marginTop: 5, }}/>
+                <Icons RightItem name="search" size={20} style={{ marginTop: 5, }} />
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreScreen')}>
                     <Icons RightItem name="shopping-cart" size={20} style={{ marginTop: 5, }} />
                 </TouchableOpacity>

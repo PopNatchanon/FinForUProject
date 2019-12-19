@@ -6,6 +6,7 @@ import {
     Text,
     TextInput,
     SafeAreaView,
+    TouchableOpacity,
 } from 'react-native';
 //import { styles } from 'mystyles';
 
@@ -14,10 +15,8 @@ import axios from 'axios';
 import NumberFormat from 'react-number-format';
 import Icons from 'react-native-vector-icons/FontAwesome5';
 import IconsFeather from 'react-native-vector-icons/Feather';
-
-import styles from './Styles'
-
-const ip = 'http://192.168.0.132';
+import styles from './StylesMainScreen'
+import { ip } from './IpConfig'
 
 ///----------------------------------Appbar----------------------------------------///
 
@@ -25,7 +24,7 @@ export default class StoreScreen extends Component {
     render() {
         return (
             <SafeAreaView style={styles.SafeAreaView}>
-                <AppBar navigation={this.props.navigation}/>
+                <AppBar navigation={this.props.navigation} />
             </SafeAreaView>
         );
     }
@@ -42,7 +41,9 @@ export class AppBar extends Component {
     render() {
         return (
             <View style={styles.Appbar}>
-            <Icons RightItem name="arrow-left" size={20} style={{ marginTop: 5, }} onPress={()=>this.props.navigation.goBack()}/>
+                <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+                    <Icons RightItem name="arrow-left" size={20} style={{ marginTop: 5, }} />
+                </TouchableOpacity>
                 <TextInput style={styles.TextInput}
                     placeholder="ค้นหาสินค้า/ร้านค้า"
                     onChangeText={(text) => this.state({ text })}

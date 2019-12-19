@@ -910,7 +910,6 @@ export default StyleSheet.create({
     marginLeft: 10,
   },
   Button_Bar_icon: {
-    elevation: 10,
     borderRadius: 4,
     height: '100%',
     width: 100,

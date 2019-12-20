@@ -36,7 +36,7 @@ export default class MainScreen extends Component {
                     <PromotionPopular />
                     <SaleProduct />
                     <BannerBar_TWO />
-                    <NewStore />
+                    <NewStore  navigation={this.props.navigation} />
                     <NewProduct />
                     <Confidential_PRO />
                     <Product_for_you />
@@ -71,7 +71,7 @@ export class AppBar extends Component {
                     placeholder="ค้นหาสินค้า/ร้านค้า"
                     onChangeText={(text) => this.state({ text })}></TextInput>
                 <Icons RightItem name="search" size={20} style={{ marginTop: 5, }} />
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreScreen')}>
+                <TouchableOpacity>
                     <Icons RightItem name="shopping-cart" size={20} style={{ marginTop: 5, }} />
                 </TouchableOpacity>
             </View>
@@ -913,7 +913,7 @@ export class NewStore extends Component {
     render() {
         let dataNewStore = this.state.dataStore.map((item, indexs) => {
             var dataMySQL = [ip + '/mysql/uploads/slide/NewStore', item.image].join('/');
-            return <View style={styles.NewStoreBox} key={indexs}>
+            return <View style={styles.NewStoreBox} key={indexs}  onPress={() => this.props.navigation.navigate('StoreScreen',item)}>
                 <Image
                     source={{
                         uri: dataMySQL,

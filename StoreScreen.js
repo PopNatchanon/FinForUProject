@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
     Image,
+    ImageBackground,
     View,
     ScrollView,
     Text,
@@ -8,7 +9,6 @@ import {
     SafeAreaView,
     TouchableOpacity,
 } from 'react-native';
-//import { styles } from 'mystyles';
 
 import SwiperFlatList from 'react-native-swiper-flatlist';
 import axios from 'axios';
@@ -23,11 +23,11 @@ import { ip } from './IpConfig'
 export default class StoreScreen extends Component {
     render() {
         return (
-            console.log(JSON.stringify(navigation.getParam(item))),
+            // console.log(item={this.props.navigation.getParam('item')}),
             <SafeAreaView style={styles.SafeAreaView}>
                 <AppBar navigation={this.props.navigation} />
                 <ScrollView>
-                    <StoreHead />
+                    <StoreHead navigation={this.props.navigation} />
                 </ScrollView>
             </SafeAreaView>
         );
@@ -63,16 +63,43 @@ export class StoreHead extends Component {
         super(props);
     }
     render() {
+        item = this.props.navigation.getParam('item')
+        var dataMySQL = [ip + '/mysql/uploads/slide/NewStore', item.image].join('/');
+        // console.log(dataMySQL)
         return (
-            <View style={styles.Appbar}>
+            <View style={styles.StoreHead}>
                 <View>
-                    <Image
+                    <ImageBackground
                         source={{
-                            uri: dataMySQL,
+                            uri: ip + '/mysql/uploads/LK19_G_WebBanner_IT_1200x400_EN_7_2_2019_8_17_22_AM.jpg',
                         }}
-                        style={styles.childSlide}
+                        style={styles.StoreHeadImage}
                         resizeMethod='resize'
-                    />
+                    >
+                        <View>
+                            <Image
+                                source={{
+                                    uri: dataMySQL,
+                                }}
+                                style={styles.StoreHeadFace}
+                                resizeMethod='resize'
+                            />
+                        </View>
+                        <View>
+                            <Text style={styles.StoreHeadText}>
+                                {item.name}
+                            </Text>
+                            <Text style={styles.StoreHeadTextOther}>
+                                Active เมื่อ 1 ชั่วโมงที่ผ่านมา
+                            </Text>
+                            <Text style={styles.StoreHeadTextOther2}>
+                                ผู้ติดตาม 20.2 พัน | กำลังติดตาม 2
+                            </Text>
+                        </View>
+                        <View>
+
+                        </View>
+                    </ImageBackground>
                 </View>
             </View>
         );

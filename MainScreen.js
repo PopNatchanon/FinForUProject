@@ -32,11 +32,11 @@ export default class MainScreen extends Component {
                     <Brand_RCM />
                     <Popular_product />
                     <BannerBar_ONE />
-                    <FlashSale navigation={this.props.navigation}/>
+                    <FlashSale navigation={this.props.navigation} />
                     <PromotionPopular />
                     <SaleProduct />
                     <BannerBar_TWO />
-                    <NewStore  navigation={this.props.navigation} />
+                    <NewStore navigation={this.props.navigation} />
                     <NewProduct />
                     <Confidential_PRO />
                     <Product_for_you />
@@ -71,8 +71,9 @@ export class AppBar extends Component {
                     placeholder="ค้นหาสินค้า/ร้านค้า"
                     onChangeText={(text) => this.state({ text })}></TextInput>
                 <Icons RightItem name="search" size={20} style={{ marginTop: 5, }} />
-                    <Icons RightItem name="shopping-cart" size={20} style={{ marginTop: 5, }} 
-                    onPress={() => this.props.navigation.navigate('StoreScreen')}/>
+                {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreScreen')}> */}
+                <Icons RightItem name="shopping-cart" size={20} style={{ marginTop: 5, }} />
+                {/* </TouchableOpacity> */}
             </View>
         );
     }
@@ -345,7 +346,7 @@ export class Brand_RCM extends Component {
 ///----------------------------------Popular_product---------------------------------------///
 
 export class Popular_product extends Component {
-    
+
     render() {
         return (
             <View style={styles.Popular}>
@@ -445,7 +446,7 @@ export class Popular_product extends Component {
             </View>
         )
     }
- }
+}
 
 ///-------------------------------------------------------------------------------///
 
@@ -540,7 +541,7 @@ export class FlashSale extends Component {
             //   console.log('Sale' + [ indexs, item.image ].join(' ')),
             var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
             return (
-                <TouchableOpacity key={indexs} onPress={()=> this.props.navigation.navigate('DetailScreen')}>
+                <TouchableOpacity key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen')}>
                     <View style={styles.FlashSaleBox}>
                         <Image
                             source={{
@@ -906,16 +907,20 @@ export class NewStore extends Component {
     render() {
         let dataNewStore = this.state.dataStore.map((item, indexs) => {
             var dataMySQL = [ip + '/mysql/uploads/slide/NewStore', item.image].join('/');
-            return <View style={styles.NewStoreBox} key={indexs}  onPress={() => this.props.navigation.navigate('StoreScreen',item)}>
-                <Image
-                    source={{
-                        uri: dataMySQL,
-                    }}
-                    style={styles.NewStoreImage}
-                    resizeMethod='resize'
-                />
-                <Text style={styles.NewStoreText_bar}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50% </Text>
-            </View>;
+            return (
+                <TouchableOpacity key={indexs} onPress={() => this.props.navigation.navigate('StoreScreen',{item: item})}>
+                    <View style={styles.NewStoreBox}>
+                        <Image
+                            source={{
+                                uri: dataMySQL,
+                            }}
+                            style={styles.NewStoreImage}
+                            resizeMethod='resize'
+                        />
+                        <Text style={styles.NewStoreText_bar}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50% </Text>
+                    </View>
+                </TouchableOpacity>
+            )
         })
         return (
             <View style={styles.NewStore}>
@@ -1045,7 +1050,7 @@ export class CategoryProduct extends Component {
     s
     render() {
         let dataCategory = this.state.dataSourceCategory.map((item, indexs) => {
-            var dataMySQL = [ip + '/mysql/uploads/head_product', item.image_head].join('/');
+            var dataMySQL = [ip + '/mysql/uploads/head_product/catagory_Ten_Baner', item.image_head].join('/');
             return (
                 <View style={styles.CategoryProduct} key={indexs}>
                     <View>

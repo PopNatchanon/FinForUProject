@@ -13,22 +13,22 @@ export default StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         paddingTop: 5,
-      },
-      SafeAreaView: {
+    },
+    SafeAreaView: {
         flex: 1,
-      },
-      LOGO: {
+    },
+    LOGO: {
         height: 40,
         width: 80,
         resizeMode: 'stretch',
-      },
-      TextInput: {
+    },
+    TextInput: {
         width: 230,
         height: 40,
         fontSize: 15,
         textAlign: 'center',
-      },
-      Appbar: {
+    },
+    Appbar: {
         backgroundColor: '#FFFFFF',
         borderColor: '#ECECEC',
         borderWidth: 1,
@@ -38,28 +38,137 @@ export default StyleSheet.create({
         justifyContent: 'space-around',
         paddingTop: 5,
         paddingBottom: 5,
-      },
-      Icon_appbar:{
+    },
+    Icon_appbar: {
         marginTop: 5,
-      },
-      
-      Text_All: {
+    },
+
+    Text_All: {
         fontWeight: 'bold',
         fontSize: 16,
-      },
+    },
 
-      ///--------------------------------------------------------------------------///
+    ///--------------------------------------------------------------------------///
 
-      Detail_Image:{
-        backgroundColor:'blue',
-        width,
-        height:300,
-      },
-      Icon_Back:{
-        borderRadius:20,
-        width:30,
+    Icon_Back: {
+        borderRadius: 20,
+        width: 30,
         marginTop: 5,
-        marginLeft:5,
-        backgroundColor:'#ECECEC',
-      },
+        marginLeft: 5,
+        backgroundColor: '#ECECEC',
+    },
+    Detail_Image: {
+        marginTop: 5,
+        backgroundColor: 'blue',
+        width,
+        height: 400,
+        backgroundColor: '#FFFFFF',
+        borderColor: 'black',
+        borderWidth: 1,
+    },
+    Image: {
+        backgroundColor: 'green',
+        width,
+        height: 300,
+    },
+    Price: {
+        backgroundColor: 'pink',
+        width,
+        height: 100,
+    },
+
+    ///--------------------------------------------------------------------------///
+
+    Store: {
+        width,
+        height: 150,
+        backgroundColor: 'yellow',
+        marginTop: 10,
+    },
+
+    ///--------------------------------------------------------------------------///
+
+    Coupon: {
+        width,
+        height: 80,
+        backgroundColor: 'orange',
+        marginTop: 10,
+    },
+
+    ///--------------------------------------------------------------------------///
+
+    Selector: {
+        width,
+        height: 80,
+        backgroundColor: 'purple',
+        marginTop: 10,
+    },
+
+    ///--------------------------------------------------------------------------///
+
+    Detail: {
+        width,
+        height: 150,
+        backgroundColor: 'blue',
+        marginTop: 10,
+    },
+
+    ///--------------------------------------------------------------------------///
+
+    Score: {
+        width,
+        height: 80,
+        backgroundColor: 'green',
+        marginTop: 10,
+    },
+
+    ///--------------------------------------------------------------------------///
+
+    Reviews: {
+        width,
+        height: 150,
+        backgroundColor: 'orange',
+    },
+
+    ///--------------------------------------------------------------------------///
+
+    Banner_Bar: {
+        backgroundColor: '#FFFFFF',
+        borderColor: '#ECECEC',
+        marginTop: 10,
+    },
+    Banner_Bar_image: {
+        width,
+        height: 70,
+        resizeMode: 'stretch',
+    },
+
+    ///--------------------------------------------------------------------------///
+
+    Same_Store: {
+        width,
+        height: 150,
+        backgroundColor: 'green',
+        marginTop: 10,
+    },
+
+    ///--------------------------------------------------------------------------///
+
+    Similar_Product: {
+        width,
+        height: 150,
+        backgroundColor: 'yellow',
+        marginTop: 10,
+    },
+
+    ///--------------------------------------------------------------------------///
+
+    Might_like: {
+        width,
+        height: 600,
+        backgroundColor: 'orange',
+        marginTop: 10,
+    },
+    
+    ///--------------------------------------------------------------------------///
 })

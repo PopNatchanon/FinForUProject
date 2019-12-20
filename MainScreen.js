@@ -71,9 +71,8 @@ export class AppBar extends Component {
                     placeholder="ค้นหาสินค้า/ร้านค้า"
                     onChangeText={(text) => this.state({ text })}></TextInput>
                 <Icons RightItem name="search" size={20} style={{ marginTop: 5, }} />
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreScreen')}>
-                    <Icons RightItem name="shopping-cart" size={20} style={{ marginTop: 5, }} />
-                </TouchableOpacity>
+                    <Icons RightItem name="shopping-cart" size={20} style={{ marginTop: 5, }} 
+                    onPress={() => this.props.navigation.navigate('StoreScreen')}/>
             </View>
         );
     }
@@ -346,12 +345,7 @@ export class Brand_RCM extends Component {
 ///----------------------------------Popular_product---------------------------------------///
 
 export class Popular_product extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-
+    
     render() {
         return (
             <View style={styles.Popular}>
@@ -449,10 +443,9 @@ export class Popular_product extends Component {
                     </ScrollView>
                 </View>
             </View>
-
-        );
+        )
     }
-}
+ }
 
 ///-------------------------------------------------------------------------------///
 

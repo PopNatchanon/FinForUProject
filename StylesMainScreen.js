@@ -678,7 +678,7 @@ export default StyleSheet.create({
   CategoryProduct: {
     backgroundColor: '#FFFFFF',
     borderColor: '#ECECEC',
-    borderWidth: 1,
+    // borderWidth: 1,
     marginTop: 10,
   },
   CategoryProductText: {
@@ -861,7 +861,7 @@ export default StyleSheet.create({
     borderColor: '#ECECEC',
     borderWidth: 1,
     marginTop: 10,
-    height:140,
+    height:150,
   },
   Confidential_A: {
     flexDirection: 'row',
@@ -869,12 +869,12 @@ export default StyleSheet.create({
   },
   Confidential_Box: {
     width:230,
-    height: 140,
+    height: 150,
     marginTop: 10,
     marginRight:10,
   },
   Confidential_BoxA: {
-    height: 140,
+    height: 150,
     width,
       
   },
@@ -926,5 +926,6 @@ export default StyleSheet.create({
     height:15, 
     width:120 , 
     marginTop:10,
+    marginLeft:10,
   },
 });

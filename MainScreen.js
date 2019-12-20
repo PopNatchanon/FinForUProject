@@ -1045,7 +1045,7 @@ export class CategoryProduct extends Component {
     s
     render() {
         let dataCategory = this.state.dataSourceCategory.map((item, indexs) => {
-            var dataMySQL = [ip + '/mysql/uploads/head_product', item.image_head].join('/');
+            var dataMySQL = [ip + '/mysql/uploads/head_product/catagory_Ten_Baner', item.image_head].join('/');
             return (
                 <View style={styles.CategoryProduct} key={indexs}>
                     <View>

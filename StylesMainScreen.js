@@ -861,7 +861,7 @@ export default StyleSheet.create({
     borderColor: '#ECECEC',
     borderWidth: 1,
     marginTop: 10,
-    height:130,
+    height:140,
   },
   Confidential_A: {
     flexDirection: 'row',
@@ -869,12 +869,12 @@ export default StyleSheet.create({
   },
   Confidential_Box: {
     width:230,
-    height: 130,
+    height: 140,
     marginTop: 10,
     marginRight:10,
   },
   Confidential_BoxA: {
-    height: 130,
+    height: 140,
     width,
       
   },

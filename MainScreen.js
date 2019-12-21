@@ -541,7 +541,7 @@ export class FlashSale extends Component {
             //   console.log('Sale' + [ indexs, item.image ].join(' ')),
             var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
             return (
-                <TouchableOpacity key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen')}>
+                <TouchableOpacity key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen',{item: item})}>
                     <View style={styles.FlashSaleBox}>
                         <Image
                             source={{

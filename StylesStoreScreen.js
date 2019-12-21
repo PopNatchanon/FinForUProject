@@ -1,5 +1,4 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { Row } from 'reactstrap';
 
 export const { width, height } = Dimensions.get('window');
 
@@ -37,6 +36,7 @@ export default StyleSheet.create({
         justifyContent: 'space-around',
         paddingTop: 5,
         paddingBottom: 5,
+        backgroundColor: 'transparent',
     },
     Text_All: {
         fontWeight: 'bold',
@@ -50,36 +50,106 @@ export default StyleSheet.create({
     StoreHeadImage: {
         width,
         height: 132,
+        opacity: 0.9,
         flex: 1,
-        flexDirection: 'row',
-        opacity: 0.5,
         // justifyContent: 'space-around',
     },
+    StoreHeadBox: {
+        flexDirection: 'row',
+    },
     StoreHeadFace: {
-        width: 55,
-        height: 55,
+        width: 60,
+        height: 60,
         borderRadius: 30,
-        marginTop: 40,
+        marginTop: 60,
         marginLeft: 19,
-        opacity: 1,
     },
     StoreHeadText: {
-        fontSize: 18,
+        fontSize: 14,
         color: '#FFFFFF',
-        marginTop: 40,
+        marginTop: 70,
         marginLeft: 23,
-        opacity: 1,
     },
     StoreHeadTextOther: {
-        fontSize: 12,
+        fontSize: 10,
         marginLeft: 23,
         color: '#BEBDBD',
-        opacity: 1,
     },
     StoreHeadTextOther2: {
-        fontSize: 12,
+        fontSize: 10,
         marginLeft: 23,
         color: '#FFFFFF',
-        opacity: 1,
+    },
+    StoreHeadButtom: {
+        borderColor: '#FFFFFF',
+        borderWidth: 1,
+        borderRadius: 30,
+        width: 70,
+        height: 20,
+        marginLeft: 30,
+        marginTop: 6,
+    },
+    StoreHeadButtomText: {
+        color: '#FFFFFF',
+        fontSize: 14,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: 'auto',
+        marginBottom: 'auto',
+    },
+    StoreHeadDetails: {
+        width,
+        flex: 1,
+        paddingTop: 10,
+        flexDirection: 'row',
+        backgroundColor: '#FFFFFF',
+        borderColor: '#ECECEC',
+        borderBottomWidth: 1,
+        paddingBottom: 14,
+    },
+    StoreHeadDetailsText1: {
+        fontSize: 11,
+        marginLeft: 20,
+        marginTop: 8,
+    },
+    StoreHeadDetailsText2_1: {
+        fontSize: 11,
+        marginLeft: 30,
+        marginTop: 8,
+    },
+    StoreHeadDetailsText2_2: {
+        fontSize: 11,
+        color: '#0A55A6',
+        marginLeft: 30,
+        marginTop: 8,
+    },
+    StoreHeadDetailsText2_3: {
+        fontSize: 9,
+        color: '#A5A5A5',
+        marginLeft: 6,
+        marginTop: 8,
+    },
+    ///-------------------------------------------------------///
+    Menubar: {
+        width,
+        backgroundColor: '#FFFFFF',
+        borderColor: '#ECECEC',
+        borderWidth: 1,
+        marginTop: 10,
+    },
+    ///---------------------------------------------------///
+
+    Banner: {
+        marginTop: 10,
+        backgroundColor: '#FFFFFF',
+        borderColor: '#ECECEC',
+        width,
+    },
+    BannerBox: {
+        borderWidth: 1,
+    },
+    BannerSlide: {
+        width,
+        height: 138,
     },
 })

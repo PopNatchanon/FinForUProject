@@ -33,7 +33,7 @@ export default class MainScreen extends Component {
                     <Popular_product />
                     <BannerBar_ONE />
                     <FlashSale navigation={this.props.navigation} />
-                    <PromotionPopular />
+                    <PromotionPopular navigation={this.props.navigation} />
                     <SaleProduct />
                     <BannerBar_TWO />
                     <NewStore navigation={this.props.navigation} />
@@ -106,7 +106,7 @@ export class Slide extends Component {
         };
     }
     getDataSlide() {
-        var url = ip + '/mysql/DataService.php?type=slide';
+        var url = ip + '/mysql/DataServiceMain.php?type=slide';
         axios.get(url)
             .then((getData) => {
                 // console.log(getData.data);
@@ -158,7 +158,7 @@ export class Category extends Component {
         };
     }
     getDatatype() {
-        var url = ip + '/MySQL/DataService.php?type=type';
+        var url = ip + '/MySQL/DataServiceMain.php?type=type';
         axios.get(url)
             .then((getData) => {
                 this.setState({
@@ -522,7 +522,7 @@ export class FlashSale extends Component {
     }
 
     getFlashSale() {
-        var url = ip + '/mysql/DataService.php?type=sale';
+        var url = ip + '/mysql/DataServiceMain.php?type=sale';
         axios.get(url)
             .then((getData) => {
                 // console.log(getData.data);
@@ -608,7 +608,7 @@ export class PromotionPopular extends Component {
         };
     }
     getDatabrand() {
-        var url = ip + '/MySQL/DataService.php?type=brand';
+        var url = ip + '/MySQL/DataServiceMain.php?type=brand';
         axios.get(url)
             .then((getData) => {
                 //console.log(getData.data);
@@ -622,20 +622,24 @@ export class PromotionPopular extends Component {
     }
     render() {
         let dataPromotionPopular = this.state.dataSourcebrand.map((item, indexs) => {
-            //console.log('PromotionPopular' + [indexs, item.image].join(' ')),
             var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
-            return <View style={styles.Promotion_popular_Box} key={indexs}>
-                <View style={styles.Promotion_popular_BoxA}>
-                    <Image
-                        source={{
-                            uri: dataMySQL,
-                        }}
-                        style={styles.Promotion_popular_image}
-                        resizeMethod='resize'
-                    ></Image>
-                    <Text style={styles.Text_icon_Sale}>ร้าน AVIRA ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
-                </View>
-            </View>
+            // console.log(dataMySQL)
+            return (
+                <TouchableOpacity key={indexs} onPress={() => this.props.navigation.navigate('StoreScreen', { item: item })}>
+                    <View style={styles.Promotion_popular_Box} key={indexs}>
+                        <View style={styles.Promotion_popular_BoxA}>
+                            <Image
+                                source={{
+                                    uri: dataMySQL,
+                                }}
+                                style={styles.Promotion_popular_image}
+                                resizeMethod='resize'
+                            ></Image>
+                            <Text style={styles.Text_icon_Sale}>ร้าน AVIRA ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
+                        </View>
+                    </View>
+                </TouchableOpacity>
+            )
         })
         return (
             <View style={styles.Promotion_popular}>
@@ -667,7 +671,7 @@ export class Confidential_PRO extends Component {
         };
     }
     getDatabrand() {
-        var url = ip + '/MySQL/DataService.php?type=Confidential_PRO';
+        var url = ip + '/MySQL/DataServiceMain.php?type=Confidential_PRO';
         axios.get(url)
             .then((getData) => {
                 //console.log(getData.data);
@@ -683,18 +687,20 @@ export class Confidential_PRO extends Component {
         let dataConfidential_PRO = this.state.dataSourcebrand.map((item, indexs) => {
             //console.log('PromotionPopular' + [indexs, item.image].join(' ')),
             var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
-            return <View style={styles.Confidential_Box} key={indexs}>
-                <View style={styles.Promotion_popular_BoxA}>
-                    <Image
-                        source={{
-                            uri: dataMySQL,
-                        }}
-                        style={styles.Confidential_image}
-                        resizeMethod='resize'
-                    ></Image>
-                    <Text style={styles.Text_box_Confidential}>Gala Germs จัดโปรโมชั่นสำหรับผู้มียอดสั่งซื้อครบ 5,000 บาท </Text>
+            return (
+                <View style={styles.Confidential_Box} key={indexs}>
+                    <View style={styles.Promotion_popular_BoxA}>
+                        <Image
+                            source={{
+                                uri: dataMySQL,
+                            }}
+                            style={styles.Confidential_image}
+                            resizeMethod='resize'
+                        ></Image>
+                        <Text style={styles.Text_box_Confidential}>Gala Germs จัดโปรโมชั่นสำหรับผู้มียอดสั่งซื้อครบ 5,000 บาท </Text>
+                    </View>
                 </View>
-            </View>
+            )
         })
         return (
             <View style={styles.Confidential}>
@@ -725,7 +731,7 @@ export class Product_for_you extends Component {
         };
     }
     getSourceProductForYou() {
-        var url = ip + '/MySQL/DataService.php?type=foryou';
+        var url = ip + '/MySQL/DataServiceMain.php?type=foryou';
         axios.get(url)
             .then((getData) => {
                 //console.log(getData.data);
@@ -741,41 +747,43 @@ export class Product_for_you extends Component {
         let dataProductForYou = this.state.dataSourceProductForYou.map((item, indexs) => {
             //   console.log('Sale' + [ indexs, item.image ].join(' ')),
             var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
-            return <View style={styles.ProductForYouBox} key={indexs}>
-                <Image
-                    source={{
-                        uri: dataMySQL,
-                    }}
-                    style={styles.ProductForYouImage}
-                    resizeMethod='resize'
-                />
-                <Text style={styles.ProductForYouImageName}>{item.name}</Text>
-                <NumberFormat
-                    value={item.sale_price}
-                    displayType={'text'}
-                    thousandSeparator={true}
-                    prefix={'฿'}
-                    renderText={
-                        value => <Text style={
-                            styles.ProductForYouImagePrice
-                        }>
-                            {value}
-                        </Text>}
-                />
-                <View style={styles.ProductForYouIconBox}>
-                    <View style={styles.ProductForYouIconBoxStar}>
-                        <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
-                        <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
-                        <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
-                        <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
-                        <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
-                    </View>
-                    <View style={styles.ProductForYouIconBoxI}>
-                        <Icons style={styles.ProductForYouIcon} name='heart' size={10} />
-                        <Icons style={styles.ProductForYouIcon} name='share' size={10} />
+            return (
+                <View style={styles.ProductForYouBox} key={indexs}>
+                    <Image
+                        source={{
+                            uri: dataMySQL,
+                        }}
+                        style={styles.ProductForYouImage}
+                        resizeMethod='resize'
+                    />
+                    <Text style={styles.ProductForYouImageName}>{item.name}</Text>
+                    <NumberFormat
+                        value={item.sale_price}
+                        displayType={'text'}
+                        thousandSeparator={true}
+                        prefix={'฿'}
+                        renderText={
+                            value => <Text style={
+                                styles.ProductForYouImagePrice
+                            }>
+                                {value}
+                            </Text>}
+                    />
+                    <View style={styles.ProductForYouIconBox}>
+                        <View style={styles.ProductForYouIconBoxStar}>
+                            <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
+                            <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
+                            <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
+                            <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
+                            <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
+                        </View>
+                        <View style={styles.ProductForYouIconBoxI}>
+                            <Icons style={styles.ProductForYouIcon} name='heart' size={10} />
+                            <Icons style={styles.ProductForYouIcon} name='share' size={10} />
+                        </View>
                     </View>
                 </View>
-            </View>;
+            )
         })
         return (
             <View style={styles.ProductForYou}>
@@ -807,7 +815,7 @@ export class SaleProduct extends Component {
     }
 
     getSaleProduct() {
-        var url = ip + '/mysql/DataService.php?type=sale';
+        var url = ip + '/mysql/DataServiceMain.php?type=sale';
         axios.get(url)
             .then((getData) => {
                 // console.log(getData.data);
@@ -890,7 +898,7 @@ export class NewStore extends Component {
     }
 
     getNewstore() {
-        var url = ip + '/mysql/DataService.php?type=store';
+        var url = ip + '/mysql/DataServiceMain.php?type=store';
         axios.get(url)
             .then((getData) => {
                 // console.log(getData.data);
@@ -908,7 +916,7 @@ export class NewStore extends Component {
         let dataNewStore = this.state.dataStore.map((item, indexs) => {
             var dataMySQL = [ip + '/mysql/uploads/slide/NewStore', item.image].join('/');
             return (
-                <TouchableOpacity key={indexs} onPress={() => this.props.navigation.navigate('StoreScreen',{item: item})}>
+                <TouchableOpacity key={indexs} onPress={() => this.props.navigation.navigate('StoreScreen', { item: item })}>
                     <View style={styles.NewStoreBox}>
                         <Image
                             source={{
@@ -951,7 +959,7 @@ export class NewProduct extends Component {
     }
 
     getNewProduct() {
-        var url = ip + '/mysql/DataService.php?type=product';
+        var url = ip + '/mysql/DataServiceMain.php?type=product';
         axios.get(url)
             .then((getData) => {
                 // console.log(getData.data);
@@ -1034,7 +1042,7 @@ export class CategoryProduct extends Component {
     }
 
     getDataCategory() {
-        var url = ip + '/mysql/DataService.php?type=categorylist';
+        var url = ip + '/mysql/DataServiceMain.php?type=categorylist';
         axios.get(url)
             .then((getData) => {
                 //   console.log(getData.data);
@@ -1107,7 +1115,7 @@ export class CategoryProductSubProduct extends Component {
 
     getCategoryProductSubProduct() {
         // console.log( 'CategoryProductChild Process' )
-        var url = ip + '/mysql/DataService.php?type=categoryproduct&product=' + this.props.name;
+        var url = ip + '/mysql/DataServiceMain.php?type=categoryproduct&product=' + this.props.name;
         axios.get(url)
             .then((getData) => {
                 //   console.log(getData.data);
@@ -1187,7 +1195,7 @@ export class CategoryProductSubStore extends Component {
 
     getCategoryProductSubStore() {
         // console.log( 'CategoryProductChild Process' )
-        var url = ip + '/mysql/DataService.php?type=store';
+        var url = ip + '/mysql/DataServiceMain.php?type=store';
         axios.get(url)
             .then((getData) => {
                 //   console.log(getData.data);
@@ -1238,7 +1246,7 @@ export class CategoryProductSubBrand extends Component {
 
     getCategoryProductSubBrand() {
         // console.log( 'CategoryProductChild Process' )
-        var url = ip + '/mysql/DataService.php?type=brand';
+        var url = ip + '/mysql/DataServiceMain.php?type=brand';
         axios.get(url)
             .then((getData) => {
                 //   console.log(getData.data);
@@ -1289,7 +1297,7 @@ export class CategoryProductSubPromotion extends Component {
 
     getCategoryProductSubPromotion() {
         // console.log( 'CategoryProductChild Process' )
-        var url = ip + '/mysql/DataService.php?type=store';
+        var url = ip + '/mysql/DataServiceMain.php?type=store';
         axios.get(url)
             .then((getData) => {
                 //   console.log(getData.data);
@@ -1340,7 +1348,7 @@ export class TodayProduct extends Component {
     }
 
     getDataTodayProduct() {
-        var url = ip + '/mysql/DataService.php?type=todayproduct';
+        var url = ip + '/mysql/DataServiceMainMainMain.php?type=todayproduct';
         axios.get(url)
             .then((getData) => {
                 //   console.log(getData.data);

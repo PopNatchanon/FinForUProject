@@ -52,7 +52,7 @@ export default StyleSheet.create({
         height: 132,
         flex: 1,
         flexDirection: 'row',
-        opacity: 0.5,
+        // opacity: 0.5,
         // justifyContent: 'space-around',
     },
     StoreHeadFace: {
@@ -61,25 +61,25 @@ export default StyleSheet.create({
         borderRadius: 30,
         marginTop: 40,
         marginLeft: 19,
-        opacity: 1,
+        // opacity: 1,
     },
     StoreHeadText: {
         fontSize: 18,
         color: '#FFFFFF',
         marginTop: 40,
         marginLeft: 23,
-        opacity: 1,
+        // opacity: 1,
     },
     StoreHeadTextOther: {
         fontSize: 12,
         marginLeft: 23,
         color: '#BEBDBD',
-        opacity: 1,
+        // opacity: 1,
     },
     StoreHeadTextOther2: {
         fontSize: 12,
         marginLeft: 23,
         color: '#FFFFFF',
-        opacity: 1,
+        // opacity: 1,
     },
 })

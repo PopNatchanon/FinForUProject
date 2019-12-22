@@ -37,6 +37,8 @@ export default class StoreScreen extends Component {
                     <Menubar />
                     <Banner navigation={this.props.navigation} />
                     <TicketLine />
+                    <DealTop />
+                    <NewProduct />
                 </ScrollView>
             </SafeAreaView>
         );
@@ -258,7 +260,7 @@ export class Banner extends Component {
         const { dataSourceSlide, activeSlide } = this.state;
         // console.log(width)
         return (
-            <View style={{marginTop:-60 }}>
+            <View style={{ marginTop: -60 }}>
                 <Pagination
                     dotsLength={dataSourceSlide.length}
                     activeDotIndex={activeSlide}
@@ -268,7 +270,7 @@ export class Banner extends Component {
                         height: 15,
                         borderRadius: 30,
                         backgroundColor: 'rgba(0, 0, 0, 0)',
-                        borderColor:'rgba(255, 255, 255, 0.92)',
+                        borderColor: 'rgba(255, 255, 255, 0.92)',
                         borderWidth: 2,
                     }}
                     inactiveDotStyle={{
@@ -328,6 +330,7 @@ export class TicketLine extends Component {
             dataSourceSlide: [],
         };
     }
+
     render() {
         return (
             <View style={styles.TicketLine}>
@@ -355,8 +358,210 @@ export class TicketLine extends Component {
                             <View style={styles.TicketEnd}></View>
                         </ImageBackground>
                     </View>
+                    <View style={{ marginLeft: 12 }}>
+                        <ImageBackground
+                            source={require('./icon/BoxTicket.jpg')}
+                            style={styles.TicketLineBox}
+                        >
+                            <View style={{ flexDirection: 'row' }}>
+                                <View>
+                                    <Text style={styles.TicketLineText}>
+                                        ฿100.00
+                                    </Text>
+                                    <Text style={styles.TicketLineText2}>
+                                        ซื้อขั้นต่ำครบ ฿10,000.00
+                                    </Text>
+                                </View>
+                                <View style={styles.TicketLineButtom}>
+                                    <Text style={styles.TicketLineButtomText}>
+                                        เก็บ
+                                    </Text>
+                                </View>
+                            </View>
+                            <View style={styles.TicketEnd}></View>
+                        </ImageBackground>
+                    </View>
+                    <View style={{ marginLeft: 12 }}>
+                        <ImageBackground
+                            source={require('./icon/BoxTicket.jpg')}
+                            style={styles.TicketLineBox}
+                        >
+                            <View style={{ flexDirection: 'row' }}>
+                                <View>
+                                    <Text style={styles.TicketLineText}>
+                                        ฿100.00
+                                    </Text>
+                                    <Text style={styles.TicketLineText2}>
+                                        ซื้อขั้นต่ำครบ ฿10,000.00
+                                    </Text>
+                                </View>
+                                <View style={styles.TicketLineButtom}>
+                                    <Text style={styles.TicketLineButtomText}>
+                                        เก็บ
+                                    </Text>
+                                </View>
+                            </View>
+                            <View style={styles.TicketEnd}></View>
+                        </ImageBackground>
+                    </View>
                 </ScrollView>
             </View>
         )
+    }
+}
+
+export class DealTop extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataSale: [],
+        };
+    }
+
+    getDealTop() {
+        var url = ip + '/mysql/DataServiceStore.php?type=sale';
+        axios.get(url)
+            .then((getData) => {
+                // console.log(getData.data);
+                this.setState({
+                    dataSale: getData.data,
+                })
+            })
+    }
+
+    componentDidMount() {
+        this.getDealTop();
+    }
+
+    render() {
+        let dataDealTop = this.state.dataSale.map((item, indexs) => {
+            //   console.log('Sale' + [ indexs, item.image ].join(' ')),
+            var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+            return <View style={styles.DealTopBox} key={indexs}>
+                <Image
+                    source={{
+                        uri: dataMySQL,
+                    }}
+                    style={styles.DealTopImage}
+                    resizeMethod='resize'
+                />
+                <Text style={styles.DealTopImageName}>{item.name}</Text>
+                <NumberFormat
+                    value={item.sale_price}
+                    displayType={'text'}
+                    thousandSeparator={true}
+                    prefix={'฿'}
+                    renderText={
+                        value => <Text style={
+                            styles.DealTopImagePrice
+                        }>
+                            {value}
+                        </Text>}
+                />
+                <View style={styles.DealTopIconBox}>
+                    <View style={styles.DealTopIconBoxStar}>
+                        <Icons style={styles.DealTopIconStar} name='star' size={8} />
+                        <Icons style={styles.DealTopIconStar} name='star' size={8} />
+                        <Icons style={styles.DealTopIconStar} name='star' size={8} />
+                        <Icons style={styles.DealTopIconStar} name='star' size={8} />
+                        <Icons style={styles.DealTopIconStar} name='star' size={8} />
+                    </View>
+                    <View style={styles.DealTopIconBoxI}>
+                        <Icons style={styles.DealTopIcon} name='heart' size={10} />
+                        <Icons style={styles.DealTopIcon} name='share' size={10} />
+                    </View>
+                </View>
+            </View>;
+        })
+        return (
+            <View style={styles.DealTop}>
+                <View style={styles.DealTopTextBox}>
+                    <Text style={styles.DealTopText}>
+                        ดีลเด็ด
+                    </Text>
+                </View>
+                <ScrollView horizontal>
+                    {dataDealTop}
+                </ScrollView>
+            </View>
+        );
+    }
+}
+
+export class NewProduct extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataSale: [],
+        };
+    }
+
+    getNewProduct() {
+        var url = ip + '/mysql/DataServiceStore.php?type=newproduct';
+        axios.get(url)
+            .then((getData) => {
+                // console.log(getData.data);
+                this.setState({
+                    dataSale: getData.data,
+                })
+            })
+    }
+
+    componentDidMount() {
+        this.getNewProduct();
+    }
+
+    render() {
+        let dataNewProduct = this.state.dataSale.map((item, indexs) => {
+            //   console.log('Sale' + [ indexs, item.image ].join(' ')),
+            var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+            return <View style={styles.NewProductBox} key={indexs}>
+                <Image
+                    source={{
+                        uri: dataMySQL,
+                    }}
+                    style={styles.NewProductImage}
+                    resizeMethod='resize'
+                />
+                <Text style={styles.NewProductImageName}>{item.name}</Text>
+                <NumberFormat
+                    value={item.sale_price}
+                    displayType={'text'}
+                    thousandSeparator={true}
+                    prefix={'฿'}
+                    renderText={
+                        value => <Text style={
+                            styles.NewProductImagePrice
+                        }>
+                            {value}
+                        </Text>}
+                />
+                <View style={styles.NewProductIconBox}>
+                    <View style={styles.NewProductIconBoxStar}>
+                        <Icons style={styles.NewProductIconStar} name='star' size={8} />
+                        <Icons style={styles.NewProductIconStar} name='star' size={8} />
+                        <Icons style={styles.NewProductIconStar} name='star' size={8} />
+                        <Icons style={styles.NewProductIconStar} name='star' size={8} />
+                        <Icons style={styles.NewProductIconStar} name='star' size={8} />
+                    </View>
+                    <View style={styles.NewProductIconBoxI}>
+                        <Icons style={styles.NewProductIcon} name='heart' size={10} />
+                        <Icons style={styles.NewProductIcon} name='share' size={10} />
+                    </View>
+                </View>
+            </View>;
+        })
+        return (
+            <View style={styles.NewProduct}>
+                <View style={styles.NewProductTextBox}>
+                    <Text style={styles.NewProductText}>
+                        สินค้ามาใหม่
+                    </Text>
+                </View>
+                <ScrollView horizontal>
+                    {dataNewProduct}
+                </ScrollView>
+            </View>
+        );
     }
 }

@@ -180,8 +180,8 @@ export class Store extends Component {
   // }
   componentDidMount() {
     const item = this.props.navigation.getParam('item')
-    console.log('Store|componentDidMount')
-    console.log(item)
+    // console.log('Store|componentDidMount')
+    // console.log(item)
     this.getStoreProduct(item)
     // this.getcountstore(item)
   }
@@ -189,8 +189,8 @@ export class Store extends Component {
     let dataCategoryProductSubStore = this.state.dataSourceStoreProduct.map((item, indexs) => {
     // console.log( 'CategoryProductNo. ' + indexs + ' ' + item.image ),
     var dataMySQL = [ip + '/mysql/uploads/slide/NewStore', item.image].join('/');
-    console.log('Store|render')
-    console.log(dataMySQL)
+    // console.log('Store|render')
+    // console.log(dataMySQL)
     return (
         <View style={styles.Store} key={indexs}>
         <View style={styles.Store_Box}>

@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import {
-    Image,
     View,
+    Image,
+    ImageBackground,
     ScrollView,
     Text,
     TextInput,
     SafeAreaView,
     TouchableOpacity,
+    Dimensions,
 } from 'react-native';
-//import { styles } from 'mystyles';
-
-import SwiperFlatList from 'react-native-swiper-flatlist';
+import Carousel, { Pagination } from 'react-native-snap-carousel';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
 import Icons from 'react-native-vector-icons/FontAwesome5';
 import styles from './StylesMainScreen';
 import { ip } from './IpConfig'
+export const { width, height } = Dimensions.get('window');
 
 ///----------------------------------Appbar----------------------------------------///
 
@@ -103,6 +104,7 @@ export class Slide extends Component {
         super(props);
         this.state = {
             dataSourceSlide: [],
+            activeSlide: 0,
         };
     }
     getDataSlide() {
@@ -118,31 +120,67 @@ export class Slide extends Component {
     componentDidMount() {
         this.getDataSlide()
     }
-
-    render() {
-        let dataSlide = this.state.dataSourceSlide.map((item, indexs) => {
-            // console.log('Slide'+[indexs, item.image].join(' ')),
-            var dataMySQL = [ip + '/mysql/uploads/slide/slide', item.image].join('/');
-            return <View style={styles.child} key={indexs}>
-                <Image
+    _renderItem = ({ item, indexs }) => {
+        var dataMySQL = [ip + '/mysql/uploads/slide/slide', item.image].join('/');
+        return (
+            <View style={styles.child} key={indexs}>
+                <ImageBackground
                     source={{
                         uri: dataMySQL,
                     }}
                     style={styles.childSlide}
                     resizeMethod='resize'
                 />
-            </View>;
-        })
+            </View>
+        );
+    }
+
+    get pagination() {
+        const { dataSourceSlide, activeSlide } = this.state;
+        // console.log(width)
+        return (
+            <View style={{ marginTop: -60 }}>
+                <Pagination
+                    dotsLength={dataSourceSlide.length}
+                    activeDotIndex={activeSlide}
+                    // containerStyle={{ backgroundColor: 'rgba(120, 120, 120, 0.1)' }}
+                    dotStyle={{
+                        width: 15,
+                        height: 15,
+                        borderRadius: 30,
+                        backgroundColor: 'rgba(0, 0, 0, 0)',
+                        borderColor: 'rgba(255, 255, 255, 0.92)',
+                        borderWidth: 2,
+                    }}
+                    inactiveDotStyle={{
+                        width: 15,
+                        height: 5,
+                        borderRadius: 5,
+                        backgroundColor: 'rgba(255, 255, 255, 0.92)',
+                    }}
+                    tappableDots={!!this.activeSlide}
+                    // inactiveDotOpacity={0.6}
+                    inactiveDotScale={0.6}
+                />
+            </View>
+        );
+    }
+    render() {
         return (
             <View>
-                <SwiperFlatList
-                    // autoplay
-                    // autoplayDelay={3}
-                    // autoplayLoop
-                    showPagination
-                >
-                    {dataSlide}
-                </SwiperFlatList>
+                <Carousel
+                    data={this.state.dataSourceSlide}
+                    renderItem={this._renderItem}
+                    sliderWidth={width * 1}
+                    itemWidth={width * 1}
+                    sliderHeight={height * 0.5}
+                    loop={true}
+                    autoplay={true}
+                    autoplayDelay={3000}
+                    autoplayInterval={3000}
+                    onSnapToItem={(index) => this.setState({ activeSlide: index })}
+                />
+                {this.pagination}
             </View>
         );
     }
@@ -541,7 +579,7 @@ export class FlashSale extends Component {
             //   console.log('Sale' + [ indexs, item.image ].join(' ')),
             var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
             return (
-                <TouchableOpacity key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen',{item: item})}>
+                <TouchableOpacity key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen', { item: item })}>
                     <View style={styles.FlashSaleBox}>
                         <Image
                             source={{
@@ -1348,7 +1386,7 @@ export class TodayProduct extends Component {
     }
 
     getDataTodayProduct() {
-        var url = ip + '/mysql/DataServiceMainMainMain.php?type=todayproduct';
+        var url = ip + '/mysql/DataServiceMain.php?type=todayproduct';
         axios.get(url)
             .then((getData) => {
                 //   console.log(getData.data);

@@ -143,13 +143,78 @@ export default StyleSheet.create({
         marginTop: 10,
         backgroundColor: '#FFFFFF',
         borderColor: '#ECECEC',
+        borderWidth: 1,
         width,
+        padding: 8,
     },
     BannerBox: {
-        borderWidth: 1,
-    },
-    BannerSlide: {
         width,
         height: 138,
+    },
+    BannerSlide: {
+        width: '100%',
+        height: '100%',
+        resizeMode: 'stretch',
+        marginBottom: 8,
+    },
+    BannerTextHead: {
+        marginTop: 8,
+    },
+    BannerTextTail: {
+        backgroundColor: '#FFFFFF',
+        borderColor: '#ECECEC',
+        borderWidth: 1,
+        borderTopWidth: 0,
+        padding: 8,
+    },
+    ///-------------------------------------------------------------///
+    TicketLine: {
+        width,
+        backgroundColor: '#FFFFFF',
+        borderColor: '#ECECEC',
+        borderWidth: 1,
+        marginTop: 10,
+        padding: 8,
+    },
+    TicketLineBox: {
+        flex: 1,
+        width: 160,
+        height: 70,
+        padding: 8,
+    },
+    TicketLineText: {
+        fontSize: 12,
+        marginTop: 10,
+        color: '#FFFFFF',
+    },
+    
+    TicketLineText2: {
+        fontSize: 8,
+        marginTop: 6,
+        marginBottom:5,
+        color: '#FFFFFF',
+    },
+    TicketEnd: {
+        width:'100%',
+        backgroundColor: '#FFFFFF',
+        borderColor: '#ECECEC',
+        borderTopWidth: 1,
+    },
+    TicketLineButtom: {
+        borderColor: '#FFFFFF',
+        borderWidth: 1,
+        borderRadius: 30,
+        width: 40,
+        height: 20,
+        marginLeft: 30,
+        marginTop: 6,
+    },
+    TicketLineButtomText: {
+        color: '#FFFFFF',
+        fontSize: 8,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: 'auto',
+        marginBottom: 'auto',
     },
 })

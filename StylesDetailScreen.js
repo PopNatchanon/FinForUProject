@@ -140,15 +140,14 @@ export default StyleSheet.create({
         height: 160,
         marginTop: 10,
         paddingTop: 10,
-        flexDirection: 'column',
     },
     Store_Box: {
         height: 90,
         width,
         flexDirection: 'row',
-        justifyContent: 'space-between',
     },
     Store_Box2: {
+        width,
         flexDirection: 'row',
     },
     Store_Image: {
@@ -158,9 +157,8 @@ export default StyleSheet.create({
         marginLeft: 10,
     },
     Store_Text_Box: {
-        height: 100,
-        width: 50,
-        marginLeft: 10.,
+        marginLeft: 10,
+
     },
     Store_Text: {
         fontSize: 12,
@@ -169,16 +167,18 @@ export default StyleSheet.create({
     },
     Store_Buttom_Box: {
         height: 20,
-        flexDirection: 'row',
+        width: 60,
+        marginLeft: 30,
+        marginTop: 10,
+
     },
     Store_Text_Button: {
         borderRadius: 10,
         textAlign: 'center',
         height: 20,
         width: 60,
-        marginRight: 10,
         borderColor: '#ECECEC',
-        borderWidth: 1
+        borderWidth: 1,
     },
     Store_Bar_A: {
         height: 80,
@@ -196,17 +196,17 @@ export default StyleSheet.create({
     Store_Bar_Text: {
         fontSize: 15,
     },
-    Store_Box:{
-        height:100,
+    Store_Box: {
+        height: 100,
         width,
-        flexDirection:'row',
+        flexDirection: 'row',
     },
-    Store_Image:{
-        height:50,
-        width:50,
-        borderRadius:30,
+    Store_Image: {
+        height: 50,
+        width: 50,
+        borderRadius: 30,
     },
-    
+
 
     ///--------------------------------------------------------------------------///
 
@@ -317,22 +317,24 @@ export default StyleSheet.create({
     ///--------------------------------------------------------------------------///
 
     Reviews: {
-        height: 50,
+        height: 100,
     },
-    Reviews_Box:{
-        paddingTop:10,
-        width,
+    Reviews_Box: {
+        paddingTop: 10,
         height: 200,
         borderColor: '#ECECEC',
-        borderWidth: 1,      
+        borderWidth: 1,
     },
     Reviews_Image: {
         height: 80,
-        width:80,
+        width: 80,
+        marginLeft: 10,
     },
-    Reviews_Image_Box:{
-        width,
-        height:100,   
+    Reviews_Image_Box: {
+        height: 100,
+        flexDirection: 'row',
+        marginTop: 10,
+
     },
 
     ///--------------------------------------------------------------------------///
@@ -352,9 +354,69 @@ export default StyleSheet.create({
 
     Same_Store: {
         width,
-        height: 150,
-        backgroundColor: 'green',
+        borderColor: '#ECECEC',
+        backgroundColor: '#FFFFFF',
+        borderWidth: 1,
+        borderRadius: 5,
         marginTop: 10,
+    },
+    Same_StoreTextBox: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    Same_StoreText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginLeft: 8,
+        marginTop: 6,
+    },
+    Same_StoreBox: {
+        width: 106,
+        borderColor: '#ECECEC',
+        borderWidth: 1,
+        marginTop: 10,
+        marginBottom: 8,
+        marginLeft: 10,
+    },
+    Same_StoreImage: {
+        width: 99,
+        height: 98,
+        resizeMode: 'contain',
+        // borderColor: '#ECECEC',
+        borderRadius: 5,
+    },
+    Same_StoreImageName: {
+        fontSize: 10,
+        marginTop: 6,
+        marginLeft: 6,
+    },
+    Same_StoreIconBoxI: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+    },
+    Same_StoreIcon: {
+        paddingTop: 4,
+        marginBottom: 4,
+        marginLeft: 6,
+    },
+    Same_StoreIconStar: {
+        paddingTop: 5,
+        marginBottom: 5,
+    },
+    Same_StoreIconBox: {
+        flexDirection: 'row',
+    },
+    Same_StoreIconBoxStar: {
+        flexDirection: 'row',
+        marginLeft: 6,
+    },
+    Same_StoreImagePrice: {
+        fontSize: 8,
+        marginTop: 6,
+        marginLeft: 6,
+        color: '#0A55A6',
     },
 
     ///--------------------------------------------------------------------------///
@@ -368,11 +430,112 @@ export default StyleSheet.create({
 
     ///--------------------------------------------------------------------------///
 
-    Might_like: {
+    PopularProduct: {
+        backgroundColor: '#FFFFFF',
+        // borderColor: '#ECECEC',
+        // borderWidth: 1,
+        marginTop: 8,
+        padding: 8,
+    },
+    PopularProductText: {
         width,
-        height: 600,
-        backgroundColor: 'orange',
-        marginTop: 10,
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginTop: 12,
+        marginLeft: 9,
+        // marginBottom:8,
+    },
+    PopularProductBoxProduct: {
+        width,
+        marginTop: 4,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+    },
+    PopularProductBox: {
+        width: width * 0.442,
+        height: height * 0.355,
+        borderColor: '#ECECEC',
+        borderWidth: 1,
+        margin: 8,
+
+    },
+    PopularProductImage: {
+        width: '100%',
+        height: '65%',
+        resizeMode: 'stretch',
+        padding: 4,
+    },
+    PopularProductImageName: {
+        fontSize: 12,
+        marginTop: 12,
+        marginLeft: 8,
+    },
+    PopularProductImagePrice: {
+        fontSize: 10,
+        marginTop: 12,
+        marginLeft: 8,
+        color: '#0A55A6',
+    },
+    PopularProductIconBox: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    PopularProductIcon: {
+        marginBottom: 5,
+        marginRight: 8,
+    },
+    PopularProductIconStar: {
+        paddingTop: 8,
+        marginBottom: 5,
+    },
+    PopularProductIconBoxI: {
+        flexDirection: 'row',
+    },
+    PopularProductIconBoxStar: {
+        flexDirection: 'row',
+        marginLeft: 8,
+    },
+
+    ///--------------------------------------------------------------------------///
+
+    Buy_bar: {
+        height: 60,
+        width,
+        flexDirection: 'row',
+        paddingTop: 10,
+        justifyContent: 'space-evenly',
+        borderColor: '#ECECEC',
+        borderWidth: 1,
+        // backgroundColor:'blue',
+    },
+    // Buy_bar_Iconchat: {
+    //     borderColor: '#ECECEC',
+    //     borderWidth: 1,
+    // },
+    // Buy_bar_Iconstore: {
+    //     borderColor: '#ECECEC',
+    //     borderWidth: 1,
+    // },
+    Buy_bar_Iconshop: {
+        width: 120,
+        height: 40,
+        flexDirection: 'row',
+        borderColor: '#ECECEC',
+        borderWidth: 1,
+        paddingTop: 10,
+        borderRadius: 4,
+    },
+    Buy_bar_IconBuy: {
+        backgroundColor:'#0A55A6',
+        width: 100,
+        height: 40,
+        paddingTop: 10,
+        borderRadius: 4,
+    },
+    Buy_bar_IconBuytext: {
+        textAlign: 'center',
+        color:'#FFF',
     },
 
     ///--------------------------------------------------------------------------///

@@ -11,8 +11,10 @@ import {
 // import SwiperFlatList from 'react-native-swiper-flatlist';
 import axios from 'axios';
 // import NumberFormat from 'react-number-format';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import Icons from 'react-native-vector-icons/FontAwesome';
 import IconsFeather from 'react-native-vector-icons/Feather';
+import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo'
 import styles from './StylesDetailScreen'
 import NumberFormat from 'react-number-format';
@@ -43,6 +45,7 @@ export default class DetailScreen extends Component {
           <Similar_Product />
           <Might_like />
         </ScrollView>
+        <Buy_bar />
       </SafeAreaView>
     );
   }
@@ -61,7 +64,7 @@ export class AppBar extends Component {
   render() {
     return (
       <View style={styles.Appbar}>
-        <TouchableOpacity style={{ opacity: 1 }} onPress={() => this.props.navigation.goBack()}>
+        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
           <View style={styles.Icon_Back}>
             <IconsFeather name="arrow-left-circle" size={30} />
           </View>
@@ -112,7 +115,7 @@ export class Detail_Image extends Component {
       //   // console.log(id_product);
       var dataMySQL = [ip + '/mysql/uploads', item.p_image].join('/');
       return (
-        <View style={styles.Detail_Image}>
+        <View style={styles.Detail_Image} key={indexs}>
           <View style={styles.Image_Box}>
             <Image
               source={{
@@ -161,7 +164,7 @@ export class Detail_Image extends Component {
       );
     })
     return (
-      <View>{ id_product }</View>
+      <View>{id_product}</View>
     )
   }
 }
@@ -220,12 +223,11 @@ export class Store extends Component {
                   กรุงเทพ
               </Text>
               </View>
+              <View style={styles.Store_Buttom_Box}>
+                <Text style={styles.Store_Text_Button}>ติดตาม</Text>
+              </View>
             </View>
 
-            <View style={styles.Store_Buttom_Box}>
-              <Text style={styles.Store_Text_Button}>ติดตาม</Text>
-              <Text style={styles.Store_Text_Button}>ดูร้านค้า</Text>
-            </View>
           </View>
           <View style={styles.Store_Bar_A}>
             <View style={styles.Store_Bar}>
@@ -258,8 +260,8 @@ export class Store extends Component {
         {id_store}
       </View>
     );
+  }
 }
-} 
 ///--------------------------------------------------------------------------///
 
 export class Conpon extends Component {
@@ -366,54 +368,60 @@ export class Score extends Component {
 ///--------------------------------------------------------------------------///
 
 export class Reviews extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
-      dataSourcereviews: [],
     };
-  }
-  getDatareviews() {
-    var url = ip + '/MySQL/DataService_Detall.php?type=view';
-    axios.get(url)
-      .then((getData) => {
-        //console.log(getData.data);
-        this.setState({
-          dataSourcereviews: getData.data,
-        })
-      })
-  }
-  componentDidMount() {
-    this.getDatareviews()
   }
 
   render() {
-    let dataPromotionPopular = this.state.dataSourcereviews.map((item, indexs) => {
-      var dataMySQL = [ip, '/MySQL/uploads', item.image].join('/');
-      // console.log(dataMySQL)
-      return <View style={styles.Reviews} key={indexs}>
-
-        <Image
-          source={{
-            uri: dataMySQL,
-          }}
-          style={styles.Reviews_Image}
-          resizeMethod='resize'
-        ></Image>
-      </View>
-    })
     return (
-      <View style={styles.Reviews_Box} >
-        <Text>ภาพจากผู้ซื้อ</Text>
-        <ScrollView >
-          <View style={styles.Reviews_Image_Box}>
-            {dataPromotionPopular}
-          </View>
-        </ScrollView>
 
+      <View style={styles.Reviews_Box}>
+        <Text> ภาพจากผู้ซื้อ</Text>
+        <View>
+          <ScrollView horizontal>
+            <View style={styles.Reviews_Image_Box}>
+              <Image
+                style={styles.Reviews_Image}
+                source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
+                resizeMethod='resize'
+              ></Image>
+              <Image
+                style={styles.Reviews_Image}
+                source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
+                resizeMethod='resize'
+              ></Image>
+              <Image
+                style={styles.Reviews_Image}
+                source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
+                resizeMethod='resize'
+              ></Image>
+              <Image
+                style={styles.Reviews_Image}
+                source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
+                resizeMethod='resize'
+              ></Image>
+              <Image
+                style={styles.Reviews_Image}
+                source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
+                resizeMethod='resize'
+              ></Image>
+              <Image
+                style={styles.Reviews_Image}
+                source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
+                resizeMethod='resize'
+              ></Image>
+            </View>
+          </ScrollView>
+        </View>
       </View>
+
     );
   }
 }
+
 
 ///--------------------------------------------------------------------------///
 
@@ -442,13 +450,75 @@ export class Same_Store extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      dataSale: [],
     };
   }
 
+  getSaleProduct() {
+    var url = ip + '/mysql/DataServiceMain.php?type=sale';
+    axios.get(url)
+      .then((getData) => {
+        // console.log(getData.data);
+        this.setState({
+          dataSale: getData.data,
+        })
+      })
+  }
+
+  componentDidMount() {
+    this.getSaleProduct();
+  }
+
   render() {
+    let dataSaleProduct = this.state.dataSale.map((item, indexs) => {
+      //   console.log('Sale' + [ indexs, item.image ].join(' ')),
+      var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+      return <View style={styles.Same_StoreBox} key={indexs}>
+        <Image
+          source={{
+            uri: dataMySQL,
+          }}
+          style={styles.Same_StoreImage}
+          resizeMethod='resize'
+        />
+        <Text style={styles.Same_StoreImageName}>{item.name}</Text>
+        <NumberFormat
+          value={item.full_price}
+          displayType={'text'}
+          thousandSeparator={true}
+          prefix={'฿'}
+          renderText={
+            value => <Text style={
+              styles.Same_StoreImagePrice
+            }>
+              {value}
+            </Text>}
+        />
+        <View style={styles.Same_StoreIconBox}>
+          <View style={styles.Same_StoreIconBoxStar}>
+            <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
+            <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
+            <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
+            <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
+            <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
+          </View>
+          <View style={styles.Same_StoreIconBoxI}>
+            <Icons style={styles.Same_StoreIcon} name='heart' size={10} />
+            <Icons style={styles.Same_StoreIcon} name='share' size={10} />
+          </View>
+        </View>
+      </View>;
+    })
     return (
       <View style={styles.Same_Store}>
-        <Text>สินค้าจากร้านเดียวกัน</Text>
+        <View style={styles.Same_StoreTextBox}>
+          <Text style={styles.Same_StoreText}>
+            สินค้าจากร้านเดียวกัน
+                </Text>
+        </View>
+        <ScrollView horizontal>
+          {dataSaleProduct}
+        </ScrollView>
       </View>
     );
   }
@@ -460,13 +530,75 @@ export class Similar_Product extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      dataSale: [],
     };
   }
 
+  getSaleProduct() {
+    var url = ip + '/mysql/DataServiceMain.php?type=sale';
+    axios.get(url)
+      .then((getData) => {
+        // console.log(getData.data);
+        this.setState({
+          dataSale: getData.data,
+        })
+      })
+  }
+
+  componentDidMount() {
+    this.getSaleProduct();
+  }
+
   render() {
+    let dataSaleProduct = this.state.dataSale.map((item, indexs) => {
+      //   console.log('Sale' + [ indexs, item.image ].join(' ')),
+      var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+      return <View style={styles.Same_StoreBox} key={indexs}>
+        <Image
+          source={{
+            uri: dataMySQL,
+          }}
+          style={styles.Same_StoreImage}
+          resizeMethod='resize'
+        />
+        <Text style={styles.Same_StoreImageName}>{item.name}</Text>
+        <NumberFormat
+          value={item.full_price}
+          displayType={'text'}
+          thousandSeparator={true}
+          prefix={'฿'}
+          renderText={
+            value => <Text style={
+              styles.Same_StoreImagePrice
+            }>
+              {value}
+            </Text>}
+        />
+        <View style={styles.Same_StoreIconBox}>
+          <View style={styles.Same_StoreIconBoxStar}>
+            <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
+            <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
+            <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
+            <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
+            <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
+          </View>
+          <View style={styles.Same_StoreIconBoxI}>
+            <Icons style={styles.Same_StoreIcon} name='heart' size={10} />
+            <Icons style={styles.Same_StoreIcon} name='share' size={10} />
+          </View>
+        </View>
+      </View>;
+    })
     return (
-      <View style={styles.Similar_Product}>
-        <Text>สินค้าที่คล้ายกัน</Text>
+      <View style={styles.Same_Store}>
+        <View style={styles.Same_StoreTextBox}>
+          <Text style={styles.Same_StoreText}>
+            สินค้าที่คล้ายกัน
+                </Text>
+        </View>
+        <ScrollView horizontal>
+          {dataSaleProduct}
+        </ScrollView>
       </View>
     );
   }
@@ -478,13 +610,112 @@ export class Might_like extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      dataSourcePopularProduct: [],
+    };
+  }
+
+  getDataPopularProduct() {
+    var url = ip + '/mysql/DataServiceStore.php?type=todayproduct';
+    axios.get(url)
+      .then((getData) => {
+        //   console.log(getData.data);
+        this.setState({
+          dataSourcePopularProduct: getData.data,
+        })
+      })
+  }
+
+  componentDidMount() {
+    this.getDataPopularProduct();
+  }
+
+  render() {
+    let dataToday = this.state.dataSourcePopularProduct.map((item, indexs) => {
+      // console.log( indexs + '. ' + item.image ),
+      var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+      return (
+        <View style={styles.PopularProductBox} key={indexs}>
+          <Image
+            source={{
+              uri: dataMySQL,
+            }}
+            style={styles.PopularProductImage}
+            resizeMethod='resize'
+          />
+          <Text style={styles.PopularProductImageName}>
+            {item.name}
+          </Text>
+          <NumberFormat
+            value={item.full_price}
+            displayType={'text'}
+            thousandSeparator={true}
+            prefix={'฿'}
+            renderText={
+              value => <Text style={
+                styles.PopularProductImagePrice
+              }>
+                {value}
+              </Text>
+            }
+          />
+          <View style={styles.PopularProductIconBox}>
+            <View style={styles.PopularProductIconBoxStar}>
+              <Icons style={styles.PopularProductIconStar} name='star' size={8} />
+              <Icons style={styles.PopularProductIconStar} name='star' size={8} />
+              <Icons style={styles.PopularProductIconStar} name='star' size={8} />
+              <Icons style={styles.PopularProductIconStar} name='star' size={8} />
+              <Icons style={styles.PopularProductIconStar} name='star' size={8} />
+            </View>
+            <View style={styles.PopularProductIconBoxI}>
+              <Icons style={styles.PopularProductIcon} name='heart' size={10} />
+              <Icons style={styles.PopularProductIcon} name='share' size={10} />
+            </View>
+          </View>
+        </View>
+      );
+    })
+    return (
+      <View style={styles.PopularProduct}>
+        <Text style={styles.PopularProductText}>
+          คุณอาจชอบสิ่งนี้
+            </Text>
+        <View style={styles.PopularProductBoxProduct}>
+          {dataToday}
+        </View>
+      </View>
+    )
+  }
+}
+
+///--------------------------------------------------------------------------///
+
+export class Buy_bar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
     };
   }
 
   render() {
     return (
-      <View style={styles.Might_like}>
-        <Text>คุณอาจชอบสิ่งนี้</Text>
+      <View style={styles.Buy_bar}>
+        <View >
+        <IconAntDesign name='message1' size={25}></IconAntDesign>
+        <Text>แชท</Text>
+        </View>
+        <Text style={{fontSize:30,}}>|</Text>
+        <View >
+        <Icon name='store' size={25}></Icon>
+        <Text style={{textAlign:'center',}} >ร้านค้า</Text>
+        </View>
+        
+        <View style={styles.Buy_bar_Iconshop}>
+        <IconAntDesign name='shoppingcart' size={25}></IconAntDesign>
+        <Text> เพิ่มลงรถเข็น</Text>
+        </View>
+        <View style={styles.Buy_bar_IconBuy}>
+        <Text style={styles.Buy_bar_IconBuytext}>ซื้อเลย</Text>
+        </View>
       </View>
     );
   }

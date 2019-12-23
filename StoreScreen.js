@@ -26,19 +26,48 @@ export const { width, height } = Dimensions.get('window');
 ///----------------------------------Appbar----------------------------------------///
 
 export default class StoreScreen extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataSourceStoreData: [],
+            activeSlide: 0,
+        };
+    }
+    getDataStoreData(id_item) {
+        var url = ip + '/mysql/DataServiceStore.php?type=storedata&id=' + id_item;
+        // console.log(url)
+        axios.get(url)
+            .then((getData) => {
+                // console.log(getData.data);
+                this.setState({
+                    dataSourceStoreData: getData.data,
+                })
+            })
+    }
+    componentDidMount() {
+        // console.log(this.props.navigation.getParam('id_item'))
+        var id_item = this.props.navigation.getParam('id_item')
+        this.getDataStoreData(id_item)
+    }
     render() {
+        var s_id_store = this.state.dataSourceStoreData.map((item) => { return (item.id_store) })
+        var s_name = this.state.dataSourceStoreData.map((item) => { return (item.name) })
+        var s_image = this.state.dataSourceStoreData.map((item) => { return (item.image) })
         return (
-            console.log(this.props.navigation.getParam('item')),
             <SafeAreaView style={styles.SafeAreaView}>
                 <AppBar navigation={this.props.navigation} />
                 <ScrollView>
-                    <StoreHead navigation={this.props.navigation} />
-                    <StoreHeadDetails navigation={this.props.navigation} />
+                    <StoreHead navigation={this.props.navigation} item={{ name: s_name, image: s_image }} />
+                     <StoreHeadDetails navigation={this.props.navigation} id_item={s_id_store}/>
                     <Menubar />
-                    <Banner navigation={this.props.navigation} />
-                    <TicketLine />
-                    <DealTop />
-                    <NewProduct />
+                    <ScrollView style={styles.SafeAreaViewSub}>
+                        <Banner navigation={this.props.navigation} item={{ name: s_name, image: s_image }}/>
+                        <TicketLine />
+                        <DealTop />
+                        <NewProduct />
+                        <BannerBar_ONE />
+                        <PopularProduct />
+                    </ScrollView> 
                 </ScrollView>
             </SafeAreaView>
         );
@@ -76,7 +105,8 @@ export class StoreHead extends Component {
     }
 
     render() {
-        item = this.props.navigation.getParam('item')
+        const { item } = this.props;
+        // console.log(item)
         var dataMySQL = [ip + '/mysql/uploads/slide/NewStore', item.image].join('/')
         // console.log(dataMySQL)
         return (
@@ -132,6 +162,24 @@ export class StoreHead extends Component {
 export class StoreHeadDetails extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            dataSourceStoreHeadDetails: [],
+        };
+    }
+    getDataStoreHeadDetails(s_id_store) {
+        var url = ip + '/mysql/DataServiceStore.php?type=storedatadetail&id=' + s_id_store;
+        // console.log(url)
+        axios.get(url)
+            .then((getData) => {
+                // console.log(getData.data);
+                this.setState({
+                    dataSourceStoreHeadDetails: getData.data,
+                })
+            })
+    }
+    componentDidMount() {
+        const { s_id_store } = this.props;
+        this.getDataStoreHeadDetails(s_id_store)
     }
     render() {
         return (
@@ -210,7 +258,18 @@ export class Menubar extends Component {
                     onPress={this.updateIndex}
                     selectedIndex={selectedIndex}
                     buttons={buttons}
-                    containerStyle={{ height: 33 }}
+                    containerStyle={{
+                        height: 33,
+                        marginLeft: 6,
+                        marginRight: 6,
+                        borderRadius: 4,
+                    }}
+                    selectedButtonStyle={{
+                        backgroundColor: '#0A55A6',
+                    }}
+                    selectedTextStyle={{
+                        color: '#FFFFFF',
+                    }}
                 />
             </View>
         )
@@ -225,7 +284,7 @@ export class Banner extends Component {
             activeSlide: 0,
         };
     }
-    getDataSlide(item) {
+    getDataSlide() {
         var url = ip + '/mysql/DataServiceStore.php?type=slide';
         axios.get(url)
             .then((getData) => {
@@ -236,7 +295,7 @@ export class Banner extends Component {
             })
     }
     componentDidMount() {
-        item = this.props.navigation.getParam('item')
+        const { item } = this.props;
         this.getDataSlide(item)
     }
 
@@ -288,7 +347,7 @@ export class Banner extends Component {
     }
 
     render() {
-        // console.log(width)
+        const { item } = this.props;
         return (
             <View>
                 <View style={styles.Banner}>
@@ -447,7 +506,7 @@ export class DealTop extends Component {
                 />
                 <Text style={styles.DealTopImageName}>{item.name}</Text>
                 <NumberFormat
-                    value={item.sale_price}
+                    value={item.full_price}
                     displayType={'text'}
                     thousandSeparator={true}
                     prefix={'฿'}
@@ -525,7 +584,7 @@ export class NewProduct extends Component {
                 />
                 <Text style={styles.NewProductImageName}>{item.name}</Text>
                 <NumberFormat
-                    value={item.sale_price}
+                    value={item.full_price}
                     displayType={'text'}
                     thousandSeparator={true}
                     prefix={'฿'}
@@ -563,5 +622,105 @@ export class NewProduct extends Component {
                 </ScrollView>
             </View>
         );
+    }
+}
+
+export class BannerBar_ONE extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
+    render() {
+        return (<View style={styles.Banner_Bar}>
+            <Image
+                style={styles.Banner_Bar_image}
+                source={{ uri: ip + '/MySQL/uploads/slide/Banner_type/shoes_BannerBar.jpg' }}
+                resizeMethod='resize'
+            ></Image>
+        </View>
+        );
+    }
+}
+
+export class PopularProduct extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataSourcePopularProduct: [],
+        };
+    }
+
+    getDataPopularProduct() {
+        var url = ip + '/mysql/DataServiceStore.php?type=todayproduct';
+        axios.get(url)
+            .then((getData) => {
+                //   console.log(getData.data);
+                this.setState({
+                    dataSourcePopularProduct: getData.data,
+                })
+            })
+    }
+
+    componentDidMount() {
+        this.getDataPopularProduct();
+    }
+
+    render() {
+        let dataToday = this.state.dataSourcePopularProduct.map((item, indexs) => {
+            // console.log( indexs + '. ' + item.image ),
+            var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+            return (
+                <View style={styles.PopularProductBox} key={indexs}>
+                    <Image
+                        source={{
+                            uri: dataMySQL,
+                        }}
+                        style={styles.PopularProductImage}
+                        resizeMethod='resize'
+                    />
+                    <Text style={styles.PopularProductImageName}>
+                        {item.name}
+                    </Text>
+                    <NumberFormat
+                        value={item.full_price}
+                        displayType={'text'}
+                        thousandSeparator={true}
+                        prefix={'฿'}
+                        renderText={
+                            value => <Text style={
+                                styles.PopularProductImagePrice
+                            }>
+                                {value}
+                            </Text>
+                        }
+                    />
+                    <View style={styles.PopularProductIconBox}>
+                        <View style={styles.PopularProductIconBoxStar}>
+                            <Icons style={styles.PopularProductIconStar} name='star' size={8} />
+                            <Icons style={styles.PopularProductIconStar} name='star' size={8} />
+                            <Icons style={styles.PopularProductIconStar} name='star' size={8} />
+                            <Icons style={styles.PopularProductIconStar} name='star' size={8} />
+                            <Icons style={styles.PopularProductIconStar} name='star' size={8} />
+                        </View>
+                        <View style={styles.PopularProductIconBoxI}>
+                            <Icons style={styles.PopularProductIcon} name='heart' size={10} />
+                            <Icons style={styles.PopularProductIcon} name='share' size={10} />
+                        </View>
+                    </View>
+                </View>
+            );
+        })
+        return (
+            <View style={styles.PopularProduct}>
+                <Text style={styles.PopularProductText}>
+                    สินค้าขายดี
+                </Text>
+                <View style={styles.PopularProductBoxProduct}>
+                    {dataToday}
+                </View>
+            </View>
+        )
     }
 }

@@ -115,7 +115,7 @@ export class Detail_Image extends Component {
             </View>
           </View>
           <NumberFormat
-            value={item.sale_price}
+            value={item.full_price}
             displayType={'text'}
             thousandSeparator={true}
             prefix={'฿'}

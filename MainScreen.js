@@ -579,7 +579,7 @@ export class FlashSale extends Component {
             //   console.log('Sale' + [ indexs, item.image ].join(' ')),
             var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
             return (
-                <TouchableOpacity key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen', { item: item })}>
+                <TouchableOpacity key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
                     <View style={styles.FlashSaleBox}>
                         <Image
                             source={{
@@ -590,7 +590,7 @@ export class FlashSale extends Component {
                         />
                         <Text style={styles.FlashSaleImageName}>{item.name}</Text>
                         <NumberFormat
-                            value={item.sale_price}
+                            value={item.full_price}
                             displayType={'text'}
                             thousandSeparator={true}
                             prefix={'฿'}
@@ -663,7 +663,7 @@ export class PromotionPopular extends Component {
             var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
             // console.log(dataMySQL)
             return (
-                <TouchableOpacity key={indexs} onPress={() => this.props.navigation.navigate('StoreScreen', { item: item })}>
+                // <TouchableOpacity key={indexs} onPress={() => this.props.navigation.navigate('StoreScreen', { item: item })}>
                     <View style={styles.Promotion_popular_Box} key={indexs}>
                         <View style={styles.Promotion_popular_BoxA}>
                             <Image
@@ -676,7 +676,7 @@ export class PromotionPopular extends Component {
                             <Text style={styles.Text_icon_Sale}>ร้าน AVIRA ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                         </View>
                     </View>
-                </TouchableOpacity>
+                // </TouchableOpacity>
             )
         })
         return (
@@ -796,7 +796,7 @@ export class Product_for_you extends Component {
                     />
                     <Text style={styles.ProductForYouImageName}>{item.name}</Text>
                     <NumberFormat
-                        value={item.sale_price}
+                        value={item.full_price}
                         displayType={'text'}
                         thousandSeparator={true}
                         prefix={'฿'}
@@ -881,7 +881,7 @@ export class SaleProduct extends Component {
                 />
                 <Text style={styles.SaleProductImageName}>{item.name}</Text>
                 <NumberFormat
-                    value={item.sale_price}
+                    value={item.full_price}
                     displayType={'text'}
                     thousandSeparator={true}
                     prefix={'฿'}
@@ -954,7 +954,7 @@ export class NewStore extends Component {
         let dataNewStore = this.state.dataStore.map((item, indexs) => {
             var dataMySQL = [ip + '/mysql/uploads/slide/NewStore', item.image].join('/');
             return (
-                <TouchableOpacity key={indexs} onPress={() => this.props.navigation.navigate('StoreScreen', { item: item })}>
+                <TouchableOpacity key={indexs} onPress={() => this.props.navigation.navigate('StoreScreen', { id_item: item.id_store })}>
                     <View style={styles.NewStoreBox}>
                         <Image
                             source={{
@@ -1025,7 +1025,7 @@ export class NewProduct extends Component {
                 />
                 <Text style={styles.NewProductImageName}>{item.name}</Text>
                 <NumberFormat
-                    value={item.sale_price}
+                    value={item.full_price}
                     displayType={'text'}
                     thousandSeparator={true}
                     prefix={'฿'}

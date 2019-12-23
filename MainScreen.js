@@ -541,7 +541,7 @@ export class FlashSale extends Component {
             //   console.log('Sale' + [ indexs, item.image ].join(' ')),
             var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
             return (
-                <TouchableOpacity key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen',{item: item})}>
+                <TouchableOpacity style={{opacity:1,}} key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen',{id_item:item.id_product})}>
                     <View style={styles.FlashSaleBox}>
                         <Image
                             source={{
@@ -552,7 +552,7 @@ export class FlashSale extends Component {
                         />
                         <Text style={styles.FlashSaleImageName}>{item.name}</Text>
                         <NumberFormat
-                            value={item.sale_price}
+                            value={item.full_price}
                             displayType={'text'}
                             thousandSeparator={true}
                             prefix={'฿'}
@@ -623,7 +623,7 @@ export class PromotionPopular extends Component {
     render() {
         let dataPromotionPopular = this.state.dataSourcebrand.map((item, indexs) => {
             //console.log('PromotionPopular' + [indexs, item.image].join(' ')),
-            var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
+            var dataMySQL = [ip, '/MySQL', item.image_path, item.image].join('/');
             return <View style={styles.Promotion_popular_Box} key={indexs}>
                 <View style={styles.Promotion_popular_BoxA}>
                     <Image
@@ -751,7 +751,7 @@ export class Product_for_you extends Component {
                 />
                 <Text style={styles.ProductForYouImageName}>{item.name}</Text>
                 <NumberFormat
-                    value={item.sale_price}
+                    value={item.full_price}
                     displayType={'text'}
                     thousandSeparator={true}
                     prefix={'฿'}
@@ -835,7 +835,7 @@ export class SaleProduct extends Component {
                 />
                 <Text style={styles.SaleProductImageName}>{item.name}</Text>
                 <NumberFormat
-                    value={item.sale_price}
+                    value={item.full_price}
                     displayType={'text'}
                     thousandSeparator={true}
                     prefix={'฿'}
@@ -972,14 +972,14 @@ export class NewProduct extends Component {
             return <View style={styles.NewProductBox} key={indexs}>
                 <Image
                     source={{
-                        uri: dataMySQL,
+                        // uri: dataMySQL,
                     }}
                     style={styles.NewProductImage}
                     resizeMethod='resize'
                 />
                 <Text style={styles.NewProductImageName}>{item.name}</Text>
                 <NumberFormat
-                    value={item.sale_price}
+                    value={item.full_price}
                     displayType={'text'}
                     thousandSeparator={true}
                     prefix={'฿'}

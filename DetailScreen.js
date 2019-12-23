@@ -258,8 +258,8 @@ export class Store extends Component {
         {id_store}
       </View>
     );
-  }
 }
+} 
 ///--------------------------------------------------------------------------///
 
 export class Conpon extends Component {

@@ -1,5 +1,4 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { Row } from 'reactstrap';
 
 export const { width, height } = Dimensions.get('window');
 
@@ -197,6 +196,17 @@ export default StyleSheet.create({
     Store_Bar_Text: {
         fontSize: 15,
     },
+    Store_Box:{
+        height:100,
+        width,
+        flexDirection:'row',
+    },
+    Store_Image:{
+        height:50,
+        width:50,
+        borderRadius:30,
+    },
+    
 
     ///--------------------------------------------------------------------------///
 

@@ -1,5 +1,4 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { Row } from 'reactstrap';
 
 export const { width, height } = Dimensions.get('window');
 

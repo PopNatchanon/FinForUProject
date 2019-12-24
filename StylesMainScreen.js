@@ -677,7 +677,7 @@ export default StyleSheet.create({
   CategoryProduct: {
     backgroundColor: '#FFFFFF',
     borderColor: '#ECECEC',
-    // borderWidth: 1,
+    borderWidth: 1,
     marginTop: 10,
   },
   CategoryProductText: {

@@ -37,15 +37,16 @@ export default class DetailScreen extends Component {
           <Store navigation={this.props.navigation} />
           <Conpon />
           <Selector />
+          <Detail_Catagory navigation={this.props.navigation} />
           <Detail />
           <Score />
           <Reviews />
           <BannerBar />
-          <Same_Store />
-          <Similar_Product />
-          <Might_like />
+          <Same_Store navigation={this.props.navigation} />
+          <Similar_Product navigation={this.props.navigation} />
+          <Might_like navigation={this.props.navigation} />
         </ScrollView>
-        <Buy_bar />
+        <Buy_bar navigation={this.props.navigation}/>
       </SafeAreaView>
     );
   }
@@ -78,8 +79,8 @@ export class AppBar extends Component {
           placeholder="ค้นหาสินค้า/ร้านค้า"
           onChangeText={(text) => this.state({ text })}
         ></TextInput>
-        <Icons RightItem name="search" size={20} style={styles.Icon_appbar} />
-        <Icons RightItem name="shopping-cart" size={20} style={styles.Icon_appbar} />
+        <IconAntDesign RightItem name="search1" size={25} style={styles.Icon_appbar} />
+        <IconAntDesign RightItem name="shoppingcart" size={25} style={styles.Icon_appbar} />
       </View>
     );
   }
@@ -309,6 +310,64 @@ export class Selector extends Component {
 
 ///--------------------------------------------------------------------------///
 
+export class Detail_Catagory extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dataid_store: [],
+    }
+
+  }
+
+  getid_store(id_item) {
+    var id_item = this.props.navigation.getParam('id_item')
+    // console.log( 'CategoryProductChild Process' )
+    var url = ip + '/mysql/DataService_Detall.php?type=store&id_product=' + id_item;
+    //  console.log(url);
+    axios.get(url)
+      .then((getData) => {
+        // console.log(getData.data);
+        this.setState({
+          dataid_store: getData.data,
+        })
+      })
+  }
+  componentDidMount() {
+    this.getid_store();
+  }
+
+  render() {
+    let id_store = this.state.dataid_store.map((item, indexs) => {
+      return (
+        <View style={styles.Detail_Catagory} key={indexs}>
+          <View style={styles.Detail_Catagory_TextTop}>
+            <Text> ข้อมูลจำเพาะ </Text>
+          </View>
+          <View style={styles.Detail_Catagory_TextBox}>
+            <View>
+              <Text> หมวดหมู่</Text>
+              <Text> ยี่ห้อ </Text>
+              <Text> จำนวนสินค้า </Text>
+              <Text> ส่งจาก </Text>
+            </View>
+            <View style={styles.Detail_Catagory_TextBoxA}>
+              <Text>{item.type}</Text>
+              <Text>Rayban</Text>
+              <Text>3041</Text>
+              <Text>เขตสัมพันธวงศ์, จังหวัดกรุงเทพมหานคร</Text>
+            </View>
+          </View>
+        </View>
+      );
+    })
+    return(
+      <View>{id_store}</View>
+    )
+  }
+}
+
+///--------------------------------------------------------------------------///
+
 export class Detail extends Component {
   constructor(props) {
     super(props);
@@ -349,7 +408,15 @@ export class Score extends Component {
   render() {
     return (
       <View style={styles.Score}>
-        <Text> คะแนนสินค้า</Text>
+        <View style={styles.Score_icon}>
+          <Text> คะแนนสินค้า</Text>
+          <View style={styles.Score_iconA} >
+            <Text style={styles.Score_icontext}>
+              ดูทั้งหมด
+        </Text>
+            <IconsFeather style={styles.Score_iconB} name='edit' size={20} color='#0A55A6' />
+          </View>
+        </View>
         <View style={styles.Price_Text_IconBox}>
           <View style={styles.Price_Text_IconBoxStar}>
             <Icons style={styles.Price_IconStar} name='star' size={20} color='#FFAC33' />
@@ -358,6 +425,7 @@ export class Score extends Component {
             <Icons style={styles.Price_IconStar} name='star' size={20} color='#FFAC33' />
             <Icons style={styles.Price_IconStar} name='star' size={20} color='#FFAC33' />
             <Text style={styles.Price_Text_RCM}>5/5</Text>
+            <Text style={styles.Price_Text_RCM}>( 10 รีวิว)</Text>
           </View>
         </View>
       </View>
@@ -415,6 +483,83 @@ export class Reviews extends Component {
               ></Image>
             </View>
           </ScrollView>
+          <View style={styles.Comment_R}>
+            <Image
+              style={styles.Comment_R_Image}
+              source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
+              resizeMethod='resize'
+            ></Image>
+            <View style={styles.Comment_R_Text}>
+              <Text>p********n</Text>
+              <View style={styles.Comment_R_Iconstar}>
+                <Icons name='star' size={15} color='#FFAC33' />
+                <Icons name='star' size={15} color='#FFAC33' />
+                <Icons name='star' size={15} color='#FFAC33' />
+                <Icons name='star' size={15} color='#FFAC33' />
+                <Icons name='star' size={15} color='#FFAC33' />
+              </View>
+              <Text>สั่งซื้อซ้ำเป็นรอบที่ 2 ติดใจโรงแรมสะอาดราคาไม่แพง โลเคชั่นดี</Text>
+              <Text style={styles.Comment_text_day}>16-11-2019 15:56 | กรอบแว่นขนาด 50 cm</Text>
+            </View>
+            <IconAntDesign style={styles.Comment_text_iconheart} name='hearto' size={20} />
+          </View>
+          <View style={styles.Comment_R}>
+            <Image
+              style={styles.Comment_R_Image}
+              source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
+              resizeMethod='resize'
+            ></Image>
+            <View style={styles.Comment_R_Text}>
+              <Text>p********n</Text>
+              <View style={styles.Comment_R_Iconstar}>
+                <Icons name='star' size={15} color='#FFAC33' />
+                <Icons name='star' size={15} color='#FFAC33' />
+                <Icons name='star' size={15} color='#FFAC33' />
+                <Icons name='star' size={15} color='#FFAC33' />
+                <Icons name='star' size={15} color='#FFAC33' />
+              </View>
+              <Text>สั่งซื้อซ้ำเป็นรอบที่ 2 ติดใจโรงแรมสะอาดราคาไม่แพง โลเคชั่นดี</Text>
+              <View style={styles.Comment_Image_A}>
+                <Image
+                  style={styles.Reviews_Image}
+                  source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
+                  resizeMethod='resize'
+                ></Image>
+                <Image
+                  style={styles.Reviews_Image}
+                  source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
+                  resizeMethod='resize'
+                ></Image>
+                <Image
+                  style={styles.Reviews_Image}
+                  source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
+                  resizeMethod='resize'
+                ></Image>
+              </View>
+              <Text style={styles.Comment_text_day}>16-11-2019 15:56 | กรอบแว่นขนาด 50 cm</Text>
+            </View>
+            <IconAntDesign style={styles.Comment_text_iconheart} name='hearto' size={20} />
+          </View>
+          <View style={styles.Comment_R}>
+            <Image
+              style={styles.Comment_R_Image}
+              source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
+              resizeMethod='resize'
+            ></Image>
+            <View style={styles.Comment_R_Text}>
+              <Text>p********n</Text>
+              <View style={styles.Comment_R_Iconstar}>
+                <Icons name='star' size={15} color='#FFAC33' />
+                <Icons name='star' size={15} color='#FFAC33' />
+                <Icons name='star' size={15} color='#FFAC33' />
+                <Icons name='star' size={15} color='#FFAC33' />
+                <Icons name='star' size={15} color='#FFAC33' />
+              </View>
+              <Text>สั่งซื้อซ้ำเป็นรอบที่ 2 ติดใจโรงแรมสะอาดราคาไม่แพง โลเคชั่นดี</Text>
+              <Text style={styles.Comment_text_day}>16-11-2019 15:56 | กรอบแว่นขนาด 50 cm</Text>
+            </View>
+            <IconAntDesign style={styles.Comment_text_iconheart} name='hearto' size={20} />
+          </View>
         </View>
       </View>
 
@@ -473,41 +618,45 @@ export class Same_Store extends Component {
     let dataSaleProduct = this.state.dataSale.map((item, indexs) => {
       //   console.log('Sale' + [ indexs, item.image ].join(' ')),
       var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
-      return <View style={styles.Same_StoreBox} key={indexs}>
-        <Image
-          source={{
-            uri: dataMySQL,
-          }}
-          style={styles.Same_StoreImage}
-          resizeMethod='resize'
-        />
-        <Text style={styles.Same_StoreImageName}>{item.name}</Text>
-        <NumberFormat
-          value={item.full_price}
-          displayType={'text'}
-          thousandSeparator={true}
-          prefix={'฿'}
-          renderText={
-            value => <Text style={
-              styles.Same_StoreImagePrice
-            }>
-              {value}
-            </Text>}
-        />
-        <View style={styles.Same_StoreIconBox}>
-          <View style={styles.Same_StoreIconBoxStar}>
-            <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
-            <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
-            <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
-            <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
-            <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
+      return (
+        <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}>
+          <View style={styles.Same_StoreBox} key={indexs}>
+            <Image
+              source={{
+                uri: dataMySQL,
+              }}
+              style={styles.Same_StoreImage}
+              resizeMethod='resize'
+            />
+            <Text style={styles.Same_StoreImageName}>{item.name}</Text>
+            <NumberFormat
+              value={item.full_price}
+              displayType={'text'}
+              thousandSeparator={true}
+              prefix={'฿'}
+              renderText={
+                value => <Text style={
+                  styles.Same_StoreImagePrice
+                }>
+                  {value}
+                </Text>}
+            />
+            <View style={styles.Same_StoreIconBox}>
+              <View style={styles.Same_StoreIconBoxStar}>
+                <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
+                <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
+                <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
+                <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
+                <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
+              </View>
+              <View style={styles.Same_StoreIconBoxI}>
+                <Icons style={styles.Same_StoreIcon} name='heart' size={10} />
+                <Icons style={styles.Same_StoreIcon} name='share' size={10} />
+              </View>
+            </View>
           </View>
-          <View style={styles.Same_StoreIconBoxI}>
-            <Icons style={styles.Same_StoreIcon} name='heart' size={10} />
-            <Icons style={styles.Same_StoreIcon} name='share' size={10} />
-          </View>
-        </View>
-      </View>;
+        </TouchableOpacity>
+      )
     })
     return (
       <View style={styles.Same_Store}>
@@ -553,41 +702,45 @@ export class Similar_Product extends Component {
     let dataSaleProduct = this.state.dataSale.map((item, indexs) => {
       //   console.log('Sale' + [ indexs, item.image ].join(' ')),
       var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
-      return <View style={styles.Same_StoreBox} key={indexs}>
-        <Image
-          source={{
-            uri: dataMySQL,
-          }}
-          style={styles.Same_StoreImage}
-          resizeMethod='resize'
-        />
-        <Text style={styles.Same_StoreImageName}>{item.name}</Text>
-        <NumberFormat
-          value={item.full_price}
-          displayType={'text'}
-          thousandSeparator={true}
-          prefix={'฿'}
-          renderText={
-            value => <Text style={
-              styles.Same_StoreImagePrice
-            }>
-              {value}
-            </Text>}
-        />
-        <View style={styles.Same_StoreIconBox}>
-          <View style={styles.Same_StoreIconBoxStar}>
-            <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
-            <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
-            <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
-            <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
-            <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
+      return (
+        <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}>
+          <View style={styles.Same_StoreBox} key={indexs}>
+            <Image
+              source={{
+                uri: dataMySQL,
+              }}
+              style={styles.Same_StoreImage}
+              resizeMethod='resize'
+            />
+            <Text style={styles.Same_StoreImageName}>{item.name}</Text>
+            <NumberFormat
+              value={item.full_price}
+              displayType={'text'}
+              thousandSeparator={true}
+              prefix={'฿'}
+              renderText={
+                value => <Text style={
+                  styles.Same_StoreImagePrice
+                }>
+                  {value}
+                </Text>}
+            />
+            <View style={styles.Same_StoreIconBox}>
+              <View style={styles.Same_StoreIconBoxStar}>
+                <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
+                <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
+                <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
+                <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
+                <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
+              </View>
+              <View style={styles.Same_StoreIconBoxI}>
+                <Icons style={styles.Same_StoreIcon} name='heart' size={10} />
+                <Icons style={styles.Same_StoreIcon} name='share' size={10} />
+              </View>
+            </View>
           </View>
-          <View style={styles.Same_StoreIconBoxI}>
-            <Icons style={styles.Same_StoreIcon} name='heart' size={10} />
-            <Icons style={styles.Same_StoreIcon} name='share' size={10} />
-          </View>
-        </View>
-      </View>;
+        </TouchableOpacity>
+      )
     })
     return (
       <View style={styles.Same_Store}>
@@ -634,44 +787,46 @@ export class Might_like extends Component {
       // console.log( indexs + '. ' + item.image ),
       var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
       return (
-        <View style={styles.PopularProductBox} key={indexs}>
-          <Image
-            source={{
-              uri: dataMySQL,
-            }}
-            style={styles.PopularProductImage}
-            resizeMethod='resize'
-          />
-          <Text style={styles.PopularProductImageName}>
-            {item.name}
-          </Text>
-          <NumberFormat
-            value={item.full_price}
-            displayType={'text'}
-            thousandSeparator={true}
-            prefix={'฿'}
-            renderText={
-              value => <Text style={
-                styles.PopularProductImagePrice
-              }>
-                {value}
-              </Text>
-            }
-          />
-          <View style={styles.PopularProductIconBox}>
-            <View style={styles.PopularProductIconBoxStar}>
-              <Icons style={styles.PopularProductIconStar} name='star' size={8} />
-              <Icons style={styles.PopularProductIconStar} name='star' size={8} />
-              <Icons style={styles.PopularProductIconStar} name='star' size={8} />
-              <Icons style={styles.PopularProductIconStar} name='star' size={8} />
-              <Icons style={styles.PopularProductIconStar} name='star' size={8} />
-            </View>
-            <View style={styles.PopularProductIconBoxI}>
-              <Icons style={styles.PopularProductIcon} name='heart' size={10} />
-              <Icons style={styles.PopularProductIcon} name='share' size={10} />
+        <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}>
+          <View style={styles.PopularProductBox} key={indexs}>
+            <Image
+              source={{
+                uri: dataMySQL,
+              }}
+              style={styles.PopularProductImage}
+              resizeMethod='resize'
+            />
+            <Text style={styles.PopularProductImageName}>
+              {item.name}
+            </Text>
+            <NumberFormat
+              value={item.full_price}
+              displayType={'text'}
+              thousandSeparator={true}
+              prefix={'฿'}
+              renderText={
+                value => <Text style={
+                  styles.PopularProductImagePrice
+                }>
+                  {value}
+                </Text>
+              }
+            />
+            <View style={styles.PopularProductIconBox}>
+              <View style={styles.PopularProductIconBoxStar}>
+                <Icons style={styles.PopularProductIconStar} name='star' size={8} />
+                <Icons style={styles.PopularProductIconStar} name='star' size={8} />
+                <Icons style={styles.PopularProductIconStar} name='star' size={8} />
+                <Icons style={styles.PopularProductIconStar} name='star' size={8} />
+                <Icons style={styles.PopularProductIconStar} name='star' size={8} />
+              </View>
+              <View style={styles.PopularProductIconBoxI}>
+                <Icons style={styles.PopularProductIcon} name='heart' size={10} />
+                <Icons style={styles.PopularProductIcon} name='share' size={10} />
+              </View>
             </View>
           </View>
-        </View>
+        </TouchableOpacity>
       );
     })
     return (
@@ -693,28 +848,45 @@ export class Buy_bar extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      dataid_product: [],
     };
   }
-
+  getid_product() {
+    var id_item = this.props.navigation.getParam('id_item')
+    var url = ip + '/mysql/DataService_Detall.php?type=store&id_product=' + id_item;
+    // console.log(url);
+    axios.get(url)
+      .then((getData) => {
+        // console.log(getData.data);
+        this.setState({
+          dataid_product: getData.data,
+        })
+      })
+  }
+  componentDidMount() {
+    this.getid_product();
+  }
   render() {
+    var s_id_store = this.state.dataid_product.map((item) => { return (item.s_id_store) })
     return (
       <View style={styles.Buy_bar}>
         <View >
-        <IconAntDesign name='message1' size={25}></IconAntDesign>
-        <Text>แชท</Text>
+          <IconAntDesign name='message1' size={25}></IconAntDesign>
+          <Text>แชท</Text>
         </View>
-        <Text style={{fontSize:30,}}>|</Text>
-        <View >
-        <Icon name='store' size={25}></Icon>
-        <Text style={{textAlign:'center',}} >ร้านค้า</Text>
-        </View>
-        
+        <Text style={{ fontSize: 30, }}>|</Text>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreScreen', { id_item: s_id_store })}>
+          <View >
+            <Icon name='store' size={25} style={{ marginLeft: 3, }}></Icon>
+            <Text style={{ textAlign: 'center', }}>ร้านค้า</Text>
+          </View></TouchableOpacity>
+
         <View style={styles.Buy_bar_Iconshop}>
-        <IconAntDesign name='shoppingcart' size={25}></IconAntDesign>
-        <Text> เพิ่มลงรถเข็น</Text>
+          <IconAntDesign name='shoppingcart' size={25}></IconAntDesign>
+          <Text> เพิ่มลงรถเข็น</Text>
         </View>
         <View style={styles.Buy_bar_IconBuy}>
-        <Text style={styles.Buy_bar_IconBuytext}>ซื้อเลย</Text>
+          <Text style={styles.Buy_bar_IconBuytext}>ซื้อเลย</Text>
         </View>
       </View>
     );

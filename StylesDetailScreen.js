@@ -149,6 +149,7 @@ export default StyleSheet.create({
     Store_Box2: {
         width,
         flexDirection: 'row',
+        marginLeft: 5,
     },
     Store_Image: {
         height: 50,
@@ -270,6 +271,29 @@ export default StyleSheet.create({
     },
 
     ///--------------------------------------------------------------------------///
+    Detail_Catagory:{
+        width,
+        borderColor: '#ECECEC',
+        borderWidth: 1,
+    },
+    Detail_Catagory_TextTop:{
+        paddingTop:10,
+        borderColor: '#ECECEC',
+        borderWidth: 1,
+        height: 30,
+    },
+    Detail_Catagory_TextBox:{
+        paddingTop:10,
+        paddingBottom:10,
+        flexDirection:'row',
+        width:300,
+        height: 'auto'
+    },
+    Detail_Catagory_TextBoxA:{
+        marginLeft:30,
+    },
+
+    ///--------------------------------------------------------------------------///
 
     Detail: {
         backgroundColor: '#FFFFFF',
@@ -313,6 +337,21 @@ export default StyleSheet.create({
         flexDirection: 'column',
         paddingTop: 10,
     },
+    Score_icon: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    Score_iconA: {
+        marginTop: 5,
+        flexDirection: 'row',
+    },
+    Score_iconB: {
+        marginLeft: 10,
+    },
+    Score_icontext: {
+        fontSize: 15,
+        color: '#0A55A6',
+    },
 
     ///--------------------------------------------------------------------------///
 
@@ -321,9 +360,10 @@ export default StyleSheet.create({
     },
     Reviews_Box: {
         paddingTop: 10,
-        height: 200,
+        height: 'auto',
         borderColor: '#ECECEC',
         borderWidth: 1,
+        paddingBottom:10,
     },
     Reviews_Image: {
         height: 80,
@@ -334,7 +374,43 @@ export default StyleSheet.create({
         height: 100,
         flexDirection: 'row',
         marginTop: 10,
-
+    },
+    ///--------------------------------------------------------------------------///
+    Comment_R: {
+        borderColor: '#ECECEC',
+        borderWidth: 1,
+        flexDirection: 'row',
+    },
+    Comment_R_Image: {
+        height: 50,
+        width: 50,
+        borderRadius: 30,
+        marginTop: 10,
+        marginLeft: 5,
+    },
+    Comment_R_Text: {
+        height:'auto',
+        width:250,
+        marginTop: 10,
+        marginLeft: 5,
+        flexDirection:'column',
+    },
+    Comment_R_Iconstar:{
+        marginTop: 5,
+        flexDirection: 'row',
+        marginLeft: 5,
+        marginBottom:10,
+    },
+    Comment_Image_A:{
+        flexDirection:'row', 
+        height:80,
+    },
+    Comment_text_day:{
+        fontSize:9,
+        color:'#0A55A6',
+    },
+    Comment_text_iconheart:{
+        marginTop:10,
     },
 
     ///--------------------------------------------------------------------------///
@@ -521,21 +597,24 @@ export default StyleSheet.create({
         width: 120,
         height: 40,
         flexDirection: 'row',
-        borderColor: '#ECECEC',
+        borderColor: '#C4C4C4',
+        backgroundColor: '#E9E9E9',
         borderWidth: 1,
         paddingTop: 10,
         borderRadius: 4,
     },
     Buy_bar_IconBuy: {
-        backgroundColor:'#0A55A6',
-        width: 100,
+        backgroundColor: '#0A55A6',
+        width: 110,
         height: 40,
         paddingTop: 10,
         borderRadius: 4,
+        borderColor: '#C4C4C4',
+        borderWidth: 1,
     },
     Buy_bar_IconBuytext: {
         textAlign: 'center',
-        color:'#FFF',
+        color: '#FFF',
     },
 
     ///--------------------------------------------------------------------------///

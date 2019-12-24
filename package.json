@@ -9,6 +9,9 @@
     "test": "jest",
     "lint": "eslint ."
   },
+  "rnpm": {
+    "assets": ["assets/fonts/SukhumvitSet"]
+   },
   "dependencies": {
     "axios": "^0.19.0",
     "react": "16.9.0",

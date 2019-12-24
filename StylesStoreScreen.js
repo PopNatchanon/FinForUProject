@@ -162,9 +162,6 @@ export default StyleSheet.create({
     resizeMode: 'stretch',
     marginBottom: 8,
   },
-  BannerTextHead: {
-    marginTop: 8,
-  },
   BannerTextTail: {
     backgroundColor: '#FFFFFF',
     borderColor: '#ECECEC',
@@ -339,6 +336,7 @@ export default StyleSheet.create({
   },
   NewProductImageName: {
     fontSize: 10,
+    fontFamily: 'SukhumvitSet-Medium',
     marginTop: 6,
     marginLeft: 6,
   },
@@ -370,7 +368,10 @@ export default StyleSheet.create({
     color: '#0A55A6',
   },
   ///----------------------------------------------------------------------------///
-
+  
+  Banner_Bar_Box: {
+    width,
+  },
   Banner_Bar: {
     backgroundColor: '#FFFFFF',
     borderColor: '#ECECEC',
@@ -409,8 +410,8 @@ export default StyleSheet.create({
     width: width * 0.442,
     height: height * 0.355,
     borderColor: '#ECECEC',
-    borderWidth:1,
-    margin:8,
+    borderWidth: 1,
+    margin: 8,
 
   },
   PopularProductImage: {
@@ -450,5 +451,153 @@ export default StyleSheet.create({
     flexDirection: 'row',
     marginLeft: 8,
   },
+  ///------------------------------------------------------------------///
+  SubMenu: {
+    width,
+    height: 50,
+    backgroundColor: '#FFFFFF',
+    borderColor: '#ECECEC',
+    borderWidth: 1,
+    marginTop: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  ///---------------------------------------------------------------------///
+  ShowProduct: {
+    backgroundColor: '#FFFFFF',
+    // borderColor: '#ECECEC',
+    // borderWidth: 1,
+    marginTop: 8,
+    padding: 8,
+  },
+  ShowProductText: {
+    width,
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 12,
+    marginLeft: 9,
+    // marginBottom:8,
+  },
+  ShowProductBoxProduct: {
+    width,
+    marginTop: 4,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  ShowProductBox: {
+    width: width * 0.442,
+    height: height * 0.355,
+    borderColor: '#ECECEC',
+    borderWidth: 1,
+    margin: 8,
+
+  },
+  ShowProductImage: {
+    width: '100%',
+    height: '65%',
+    resizeMode: 'stretch',
+    padding: 4,
+  },
+  ShowProductImageName: {
+    fontSize: 12,
+    marginTop: 12,
+    marginLeft: 8,
+  },
+  ShowProductImagePrice: {
+    fontSize: 10,
+    marginTop: 12,
+    marginLeft: 8,
+    color: '#0A55A6',
+  },
+  ShowProductIconBox: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  ShowProductIcon: {
+    marginBottom: 5,
+    marginRight: 8,
+  },
+  ShowProductIconStar: {
+    paddingTop: 8,
+    marginBottom: 5,
+  },
+  ShowProductIconBoxI: {
+    flexDirection: 'row',
+  },
+  ShowProductIconBoxStar: {
+    flexDirection: 'row',
+    marginLeft: 8,
+  },
+  ///------------------------------------------------------------------///
+  StoreFeed: {
+    backgroundColor: '#FFFFFF',
+    // borderColor: '#ECECEC',
+    // borderWidth: 1,
+    marginTop: 4,
+    padding: 8,
+  },
+  StoreFeedText: {
+    width,
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 12,
+    marginLeft: 9,
+    // marginBottom:8,
+  },
+  StoreFeedBoxProduct: {
+    width,
+    marginTop: 4,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  StoreFeedBox: {
+    width: width * 0.91,
+    // height: height * 0.5,
+    borderColor: '#ECECEC',
+    borderWidth: 1,
+    margin: 8,
+
+  },
+  StoreFeedImage: {
+    width: '100%',
+    height: height * 0.25,
+    resizeMode: 'contain',
+    padding: 4,
+  },
+  StoreFeedComBox: {
+    padding: 8,
+    flex: 1,
+    borderTopColor: '#ECECEC',
+    borderTopWidth: 1,
+  },
+  StoreFeedComBox2: {
+    padding: 8,
+    flex: 1,
+    borderTopColor: '#ECECEC',
+    borderTopWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  StoreFeedComBoxDetail: {
+    fontSize: 12, 
+    marginLeft: 8, 
+  },
+  StoreFeedComBoxTag: {
+    fontSize: 10, 
+    color: '#0A55A6', 
+    marginLeft: 8, 
+  },
+  StoreFeedComBoxText: { 
+    fontSize: 8, 
+    color: '#969BA0', 
+    marginLeft: 8, 
+  },
+  StoreFeedComBoxIcon: {
+    flexDirection: 'row',
+  },
+  StoreFeedComBoxIconText: {
+    marginLeft: 2,
+  }
   ///------------------------------------------------------------------///
 })

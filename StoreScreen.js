@@ -58,16 +58,8 @@ export default class StoreScreen extends Component {
                 <AppBar navigation={this.props.navigation} />
                 <ScrollView>
                     <StoreHead navigation={this.props.navigation} item={{ name: s_name, image: s_image }} />
-                     <StoreHeadDetails navigation={this.props.navigation} id_item={s_id_store}/>
-                    <Menubar />
-                    <ScrollView style={styles.SafeAreaViewSub}>
-                        <Banner navigation={this.props.navigation} item={{ name: s_name, image: s_image }}/>
-                        <TicketLine />
-                        <DealTop />
-                        <NewProduct />
-                        <BannerBar_ONE />
-                        <PopularProduct />
-                    </ScrollView> 
+                    <StoreHeadDetails navigation={this.props.navigation} id_item={s_id_store} />
+                    <Menubar navigation={this.props.navigation} s_name={s_name} s_image={s_image} />
                 </ScrollView>
             </SafeAreaView>
         );
@@ -113,9 +105,7 @@ export class StoreHead extends Component {
             <View style={styles.StoreHead}>
                 <View>
                     <ImageBackground
-                        source={{
-                            uri: ip + '/mysql/uploads/slide/2019-10-17_15-18-03_banner.png',
-                        }}
+                        source={require('./icon/bgprofile.jpg')}
                         style={styles.StoreHeadImage}
                         resizeMethod='resize'
                     />
@@ -245,32 +235,64 @@ export class Menubar extends Component {
         this.setState({ selectedIndex })
     }
 
+    ViewSide(selectedIndex) {
+        const { s_name, s_image } = this.props;
+        if (selectedIndex == 0) {
+            return (
+                <ScrollView style={styles.SafeAreaViewSub}>
+                    <Banner navigation={this.props.navigation} item={{ name: s_name, image: s_image }} />
+                    <TicketLine />
+                    <DealTop />
+                    <NewProduct />
+                    <BannerBar_ONE />
+                    <PopularProduct />
+                </ScrollView>
+            )
+        } else if (selectedIndex == 1) {
+            return (
+                <ScrollView style={styles.SafeAreaViewSub}>
+                    <Banner navigation={this.props.navigation} item={{ name: s_name, image: s_image }} />
+                    <SubMenu />
+                </ScrollView>
+            )
+        } else if (selectedIndex == 2) {
+            return (
+                <ScrollView style={styles.SafeAreaViewSub}>
+                    <Banner navigation={this.props.navigation} item={{ name: s_name, image: s_image }} />
+                    <StoreFeed />
+                </ScrollView>
+            )
+        }
+    }
+
     render() {
         const component1 = () => <Text>หน้าหลัก</Text>
         const component2 = () => <Text>สินค้าทั้งหมด</Text>
         const component3 = () => <Text>ฟีด</Text>
         const buttons = [{ element: component1 }, { element: component2 }, { element: component3 }]
         const { selectedIndex } = this.state
-
         return (
-            <View style={styles.Menubar}>
-                <ButtonGroup
-                    onPress={this.updateIndex}
-                    selectedIndex={selectedIndex}
-                    buttons={buttons}
-                    containerStyle={{
-                        height: 33,
-                        marginLeft: 6,
-                        marginRight: 6,
-                        borderRadius: 4,
-                    }}
-                    selectedButtonStyle={{
-                        backgroundColor: '#0A55A6',
-                    }}
-                    selectedTextStyle={{
-                        color: '#FFFFFF',
-                    }}
-                />
+            <View>
+                <View style={styles.Menubar}>
+                    <ButtonGroup
+                        onPress={this.updateIndex}
+                        selectedIndex={selectedIndex}
+                        buttons={buttons}
+                        containerStyle={{
+                            height: 33,
+                            marginLeft: 6,
+                            marginRight: 6,
+                            borderRadius: 4,
+                        }}
+                        selectedButtonStyle={{
+                            backgroundColor: '#0A55A6',
+                        }}
+                        selectedTextStyle={{
+                            color: '#FFFFFF',
+                        }}
+                    />
+                </View>
+                {this.ViewSide(selectedIndex)}
             </View>
         )
     }
@@ -319,7 +341,7 @@ export class Banner extends Component {
         const { dataSourceSlide, activeSlide } = this.state;
         // console.log(width)
         return (
-            <View style={{ marginTop: -60 }}>
+            <View style={{ marginTop: -60, marginBottom: -10 }}>
                 <Pagination
                     dotsLength={dataSourceSlide.length}
                     activeDotIndex={activeSlide}
@@ -338,6 +360,7 @@ export class Banner extends Component {
                         borderRadius: 5,
                         backgroundColor: 'rgba(255, 255, 255, 0.92)',
                     }}
+                    carouselRef={this.activeSlide}
                     tappableDots={!!this.activeSlide}
                     // inactiveDotOpacity={0.6}
                     inactiveDotScale={0.6}
@@ -353,6 +376,7 @@ export class Banner extends Component {
                 <View style={styles.Banner}>
                     <View>
                         <Carousel
+                            ref={c => this.activeSlide = c}
                             data={this.state.dataSourceSlide}
                             renderItem={this._renderItem}
                             sliderWidth={width * 0.9522}
@@ -367,7 +391,7 @@ export class Banner extends Component {
                         {this.pagination}
                     </View>
                     <View>
-                        <Text style={styles.BannerTextHead}>
+                        <Text>
                             สวัสดีค่า ยินดีต้อนรับค่ะร้านนี้รบกวนไม่ถามเล่นๆ นะคะ หากต่อราคารบกวนไม่ต่อเว่อๆนะคะ ถ้าลดได้ลดให้ค่า
                         </Text>
                     </View>
@@ -626,20 +650,98 @@ export class NewProduct extends Component {
 }
 
 export class BannerBar_ONE extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
+            dataSourceSlide: [],
+            activeSlide: 0,
         };
+    }
+    getDataSlide() {
+        var url = ip + '/mysql/DataServiceStore.php?type=slide';
+        axios.get(url)
+            .then((getData) => {
+                // console.log(getData.data);
+                this.setState({
+                    dataSourceSlide: getData.data,
+                })
+            })
+    }
+    componentDidMount() {
+        const { item } = this.props;
+        this.getDataSlide(item)
+    }
+
+    _renderItem = ({ item, indexs }) => {
+        var dataMySQL = [ip + '/mysql/uploads/slide/bannerstore', item.image].join('/')
+        return (
+            <View style={styles.Banner_Bar_Box} key={indexs}>
+                <ImageBackground
+                    source={{
+                        uri: dataMySQL,
+                    }}
+                    style={styles.Banner_Bar_image}
+                    resizeMethod='resize'
+                >
+                </ImageBackground>
+            </View>
+        );
+    }
+
+    get pagination() {
+        const { dataSourceSlide, activeSlide } = this.state;
+        // console.log(width)
+        return (
+            <View style={{ marginTop: -45, marginBottom: -10 }}>
+                <Pagination
+                    dotsLength={dataSourceSlide.length}
+                    activeDotIndex={activeSlide}
+                    // containerStyle={{ backgroundColor: 'rgba(120, 120, 120, 0.1)' }}
+                    dotStyle={{
+                        width: 10,
+                        height: 10,
+                        borderRadius: 30,
+                        backgroundColor: 'rgba(0, 0, 0, 0)',
+                        borderColor: 'rgba(255, 255, 255, 0.92)',
+                        borderWidth: 2,
+                    }}
+                    inactiveDotStyle={{
+                        width: 10,
+                        height: 4,
+                        borderRadius: 5,
+                        backgroundColor: 'rgba(255, 255, 255, 0.92)',
+                    }}
+                    carouselRef={this.activeSlide}
+                    tappableDots={!!this.activeSlide}
+                    // inactiveDotOpacity={0.6}
+                    inactiveDotScale={0.6}
+                />
+            </View>
+        );
     }
 
     render() {
-        return (<View style={styles.Banner_Bar}>
-            <Image
-                style={styles.Banner_Bar_image}
-                source={{ uri: ip + '/MySQL/uploads/slide/Banner_type/shoes_BannerBar.jpg' }}
-                resizeMethod='resize'
-            ></Image>
-        </View>
+        const { item } = this.props;
+        return (
+            <View>
+                <View style={styles.Banner_Bar}>
+                    <Carousel
+                        ref={c => this.activeSlide = c}
+                        data={this.state.dataSourceSlide}
+                        renderItem={this._renderItem}
+                        sliderWidth={width * 1}
+                        itemWidth={width * 1}
+                        sliderHeight={80}
+                        loop={true}
+                        autoplay={true}
+                        autoplayDelay={3000}
+                        autoplayInterval={3000}
+                        onSnapToItem={(index) => this.setState({ activeSlide: index })}
+                    />
+                </View>
+                {this.pagination}
+            </View>
         );
     }
 }
@@ -718,6 +820,252 @@ export class PopularProduct extends Component {
                     สินค้าขายดี
                 </Text>
                 <View style={styles.PopularProductBoxProduct}>
+                    {dataToday}
+                </View>
+            </View>
+        )
+    }
+}
+
+export class SubMenu extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedIndex: 0
+        }
+        this.updateIndex = this.updateIndex.bind(this)
+    }
+
+    updateIndex(selectedIndex) {
+        this.setState({ selectedIndex })
+    }
+
+    ViewSide(selectedIndex) {
+        const { s_name, s_image } = this.props;
+        if (selectedIndex == 0) {
+            return (
+                <View>
+                    <ShowProduct />
+                </View>
+            )
+        } else if (selectedIndex == 1) {
+            return (
+                <View></View>
+            )
+        } else if (selectedIndex == 2) {
+            return (
+                <View></View>
+            )
+        } else if (selectedIndex == 3) {
+            return (
+                <View></View>
+            )
+        }
+    }
+
+    render() {
+        const { selectedIndex } = this.state
+        return (
+            <View>
+                <View style={styles.SubMenu}>
+                    <View style={{ marginLeft: 'auto', marginRight: 'auto' }}>
+                        <Text style={{ fontSize: 16, marginTop: 14, color: '#0A55A6' }}>
+                            ยอดนิยม
+                        </Text>
+                    </View>
+                    <View>
+                        <Text style={{ fontSize: 22, marginTop: 12, }}>
+                            |
+                        </Text>
+                    </View>
+                    <View style={{ marginLeft: 'auto', marginRight: 'auto' }}>
+                        <Text style={{ fontSize: 16, marginTop: 14, }}>
+                            ล่าสุด
+                        </Text>
+                    </View>
+                    <View>
+                        <Text style={{ fontSize: 22, marginTop: 12, }}>
+                            |
+                        </Text>
+                    </View>
+                    <View style={{ marginLeft: 'auto', marginRight: 'auto' }}>
+                        <Text style={{ fontSize: 16, marginTop: 14, }}>
+                            สินค้าขายดี
+                        </Text>
+                    </View>
+                    <View>
+                        <Text style={{ fontSize: 22, marginTop: 12, }}>
+                            |
+                        </Text>
+                    </View>
+                    <View style={{ marginLeft: 'auto', marginRight: 'auto' }}>
+                        <Text style={{ fontSize: 16, marginTop: 14, }}>
+                            ราคา
+                        </Text>
+                    </View>
+                </View>
+                {this.ViewSide(selectedIndex)}
+            </View>
+        )
+    }
+}
+
+export class ShowProduct extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataSourceShowProduct: [],
+        };
+    }
+
+    getDataShowProduct() {
+        var url = ip + '/mysql/DataServiceStore.php?type=todayproduct';
+        axios.get(url)
+            .then((getData) => {
+                //   console.log(getData.data);
+                this.setState({
+                    dataSourceShowProduct: getData.data,
+                })
+            })
+    }
+
+    componentDidMount() {
+        this.getDataShowProduct();
+    }
+
+    render() {
+        let dataToday = this.state.dataSourceShowProduct.map((item, indexs) => {
+            // console.log( indexs + '. ' + item.image ),
+            var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+            return (
+                <View style={styles.ShowProductBox} key={indexs}>
+                    <Image
+                        source={{
+                            uri: dataMySQL,
+                        }}
+                        style={styles.ShowProductImage}
+                        resizeMethod='resize'
+                    />
+                    <Text style={styles.ShowProductImageName}>
+                        {item.name}
+                    </Text>
+                    <NumberFormat
+                        value={item.full_price}
+                        displayType={'text'}
+                        thousandSeparator={true}
+                        prefix={'฿'}
+                        renderText={
+                            value => <Text style={
+                                styles.ShowProductImagePrice
+                            }>
+                                {value}
+                            </Text>
+                        }
+                    />
+                    <View style={styles.ShowProductIconBox}>
+                        <View style={styles.ShowProductIconBoxStar}>
+                            <Icons style={styles.ShowProductIconStar} name='star' size={8} />
+                            <Icons style={styles.ShowProductIconStar} name='star' size={8} />
+                            <Icons style={styles.ShowProductIconStar} name='star' size={8} />
+                            <Icons style={styles.ShowProductIconStar} name='star' size={8} />
+                            <Icons style={styles.ShowProductIconStar} name='star' size={8} />
+                        </View>
+                        <View style={styles.ShowProductIconBoxI}>
+                            <Icons style={styles.ShowProductIcon} name='heart' size={10} />
+                            <Icons style={styles.ShowProductIcon} name='share' size={10} />
+                        </View>
+                    </View>
+                </View>
+            );
+        })
+        return (
+            <View style={styles.ShowProduct}>
+                <View style={styles.ShowProductBoxProduct}>
+                    {dataToday}
+                </View>
+            </View>
+        )
+    }
+}
+
+export class StoreFeed extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataSourceStoreFeed: [],
+        };
+    }
+
+    getDataStoreFeed() {
+        var url = ip + '/mysql/DataServiceStore.php?type=storefeed';
+        axios.get(url)
+            .then((getData) => {
+                //   console.log(getData.data);
+                this.setState({
+                    dataSourceStoreFeed: getData.data,
+                })
+            })
+    }
+
+    componentDidMount() {
+        this.getDataStoreFeed();
+    }
+
+    render() {
+        let dataToday = this.state.dataSourceStoreFeed.map((item, indexs) => {
+            // console.log( indexs + '. ' + item.image ),
+            var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+            return (
+                <View style={styles.StoreFeedBox} key={indexs}>
+                    <Image
+                        source={{
+                            uri: dataMySQL,
+                        }}
+                        style={styles.StoreFeedImage}
+                        resizeMethod='resize'
+                    />
+                    <View style={styles.StoreFeedComBox}>
+                        <Text style={styles.StoreFeedComBoxDetail}>
+                            {item.detail}
+                        </Text>
+                        <Text style={styles.StoreFeedComBoxTag}>
+                            ที่สุดสำหรับคุณ
+                        </Text>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={styles.StoreFeedComBoxText}>
+                                200 การเข้าชม
+                            </Text>
+                            <Text style={styles.StoreFeedComBoxText}>
+                                เมื่อ 3 วันที่ผ่านมา
+                            </Text>
+                        </View>
+                    </View>
+                    <View style={styles.StoreFeedComBox2}>
+                        <View style={styles.StoreFeedComBoxIcon}>
+                            <Icons name='heart' size={20} />
+                            <Text style={styles.StoreFeedComBoxIconText}>
+                                ถูกใจ
+                            </Text>
+                        </View>
+                        <View style={styles.StoreFeedComBoxIcon}>
+                            <Icons name='comment-dots' size={20} />
+                            <Text style={styles.StoreFeedComBoxIconText}>
+                                แสดงความคิดเห็น
+                            </Text>
+                        </View>
+                        <View style={styles.StoreFeedComBoxIcon}>
+                            <Icons name='share-square' size={20} />
+                            <Text style={styles.StoreFeedComBoxIconText}>
+                                แชร์
+                            </Text>
+                        </View>
+                    </View>
+                </View >
+            );
+        })
+        return (
+            <View style={styles.StoreFeed} >
+                <View style={styles.StoreFeedBoxProduct}>
                     {dataToday}
                 </View>
             </View>

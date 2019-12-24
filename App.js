@@ -4,6 +4,7 @@ import { createAppContainer } from 'react-navigation'
 import MainScreen from './MainScreen';
 import StoreScreen from './StoreScreen';
 import DetailScreen from './DetailScreen';
+import ProfileScreen from './ProfileScreen'
 
 const PathScreen = createStackNavigator({
   MainScreen: {
@@ -27,9 +28,16 @@ const PathScreen = createStackNavigator({
       header: null
     }),
   },
+  ProfileScreen:{
+    screen:ProfileScreen,
+    navigationOptions:()=>({
+      tabBarVisible: false,
+      header: null,
+    })
+  }
 },
   {
-    initialRouteName: 'MainScreen',
+    initialRouteName: 'ProfileScreen',
   });
 
 const AppNavigator = createAppContainer(PathScreen);

@@ -177,6 +177,7 @@ export class Slide extends Component {
                         borderRadius: 5,
                         backgroundColor: 'rgba(255, 255, 255, 0.92)',
                     }}
+                    carouselRef={this.activeSlide}
                     tappableDots={!!this.activeSlide}
                     // inactiveDotOpacity={0.6}
                     inactiveDotScale={0.6}
@@ -188,6 +189,7 @@ export class Slide extends Component {
         return (
             <View>
                 <Carousel
+                    ref={c => this.activeSlide = c}
                     data={this.state.dataSourceSlide}
                     renderItem={this._renderItem}
                     sliderWidth={width * 1}
@@ -979,7 +981,7 @@ export class NewStore extends Component {
         let dataNewStore = this.state.dataStore.map((item, indexs) => {
             var dataMySQL = [ip + '/mysql/uploads/slide/NewStore', item.image].join('/');
             return (
-                <TouchableOpacity key={indexs} onPress={() => this.props.navigation.navigate('StoreScreen', { id_item: item.id_store })}>
+                <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('StoreScreen', { id_item: item.id_store })}>
                     <View style={styles.NewStoreBox}>
                         <Image
                             source={{
@@ -1122,7 +1124,6 @@ export class CategoryProduct extends Component {
     componentDidMount() {
         this.getDataCategory();
     }
-    s
     render() {
         let dataCategory = this.state.dataSourceCategory.map((item, indexs) => {
             var dataMySQL = [ip + '/mysql/uploads/head_product/catagory_Ten_Baner', item.image_head].join('/');
@@ -1283,15 +1284,17 @@ export class CategoryProductSubStore extends Component {
             // console.log( 'CategoryProductNo. ' + indexs + ' ' + item.image ),
             var dataMySQL = [ip + '/MySQL/uploads/slide/Store_recommendFIN', item.image].join('/');
             return (
-                <View style={styles.CategoryProductStoreBox} key={indexs}>
-                    <Image
-                        source={{
-                            uri: dataMySQL,
-                        }}
-                        style={styles.CategoryProductStoreImage}
-                        resizeMethod='resize'
-                    />
-                </View>
+                <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('StoreScreen', { id_item: item.id_store })}>
+                    <View style={styles.CategoryProductStoreBox} key={indexs}>
+                        <Image
+                            source={{
+                                uri: dataMySQL,
+                            }}
+                            style={styles.CategoryProductStoreImage}
+                            resizeMethod='resize'
+                        />
+                    </View>
+                </TouchableOpacity>
             );
         })
         return (

@@ -66,9 +66,7 @@ export class AppBar extends Component {
     return (
       <View style={styles.Appbar}>
         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
-          <View style={styles.Icon_Back}>
-            <IconsFeather name="arrow-left-circle" size={30} />
-          </View>
+            <IconsFeather name="arrow-left" size={30} />
         </TouchableOpacity>
         {/* <Image
           style={styles.LOGO}
@@ -80,7 +78,10 @@ export class AppBar extends Component {
           onChangeText={(text) => this.state({ text })}
         ></TextInput>
         <IconAntDesign RightItem name="search1" size={25} style={styles.Icon_appbar} />
-        <IconAntDesign RightItem name="shoppingcart" size={25} style={styles.Icon_appbar} />
+
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('CartScreen')}>
+           <IconAntDesign RightItem name="shoppingcart" size={25} style={styles.Icon_appbar} />
+        </TouchableOpacity>
       </View>
     );
   }

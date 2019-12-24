@@ -4,7 +4,8 @@ import { createAppContainer } from 'react-navigation'
 import MainScreen from './MainScreen';
 import StoreScreen from './StoreScreen';
 import DetailScreen from './DetailScreen';
-import ProfileScreen from './ProfileScreen'
+import ProfileScreen from './ProfileScreen';
+import CartScreen from './CartScreen';
 
 const PathScreen = createStackNavigator({
   MainScreen: {
@@ -34,10 +35,17 @@ const PathScreen = createStackNavigator({
       tabBarVisible: false,
       header: null,
     })
-  }
+  },
+  CartScreen:{
+    screen:CartScreen,
+    navigationOptions:()=>({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
 },
   {
-    initialRouteName: 'ProfileScreen',
+    initialRouteName: 'MainScreen',
   });
 
 const AppNavigator = createAppContainer(PathScreen);

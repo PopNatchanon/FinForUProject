@@ -49,13 +49,6 @@ export default StyleSheet.create({
 
     ///--------------------------------------------------------------------------///
 
-    Icon_Back: {
-        borderRadius: 20,
-        width: 30,
-        marginTop: 5,
-        marginLeft: 5,
-        backgroundColor: '#ECECEC',
-    },
     Detail_Image: {
         marginTop: 5,
         backgroundColor: 'blue',
@@ -363,7 +356,6 @@ export default StyleSheet.create({
         height: 'auto',
         borderColor: '#ECECEC',
         borderWidth: 1,
-        paddingBottom:10,
     },
     Reviews_Image: {
         height: 80,

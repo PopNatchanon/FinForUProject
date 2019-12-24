@@ -76,13 +76,15 @@ export class AppBar extends Component {
                     placeholder="ค้นหาสินค้า/ร้านค้า"
                     onChangeText={(text) => this.state({ text })}></TextInput>
                 <IconAntDesign RightItem name="search1" size={25} style={{ marginTop: 5, }} />
-                {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreScreen')}> */}
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('CartScreen')}>
                 <IconAntDesign RightItem name="shoppingcart" size={25} style={{ marginTop: 5, }} />
-                {/* </TouchableOpacity> */}
+                </TouchableOpacity>
             </View>
         );
     }
 }
+
+///--------------------------------------------------------------------------///
 
 export class Toolbar extends Component {
     constructor(props) {

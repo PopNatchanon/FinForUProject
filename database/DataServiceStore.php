@@ -22,11 +22,11 @@ if($Stype=='slide'){
     // $Sid=$_GET['id'];
     $sql = "SELECT sl.image FROM slide AS sl limit 5";
 }else if($Stype=='sale') {
-    $sql = "SELECT id_store , name , image , full_price , sale_price , discount FROM product LIMIT 6";
+    $sql = "SELECT id_product , id_store , name , image , full_price , sale_price , discount FROM product LIMIT 6";
 }else if($Stype=='newproduct') {
-    $sql = "SELECT id_store , name , image , full_price , sale_price , discount  FROM product Order by date DESC  LIMIT 6";
+    $sql = "SELECT id_product , id_store , name , image , full_price , sale_price , discount  FROM product Order by date DESC  LIMIT 6";
 }else if( $Stype == 'todayproduct' ){
-    $sql = "SELECT id_store , name , image , full_price , sale_price , discount FROM product limit 20";
+    $sql = "SELECT id_store , id_product , id_store , name , image , full_price , sale_price , discount FROM product limit 20";
 }else if($Stype == 'storedata') {
     $Sid=$_GET['id'];
     $sql = "SELECT name , id_store , image FROM store WHERE id_store = '$Sid'";
@@ -37,8 +37,10 @@ if($Stype=='slide'){
             LEFT JOIN product as p 
             ON s.id_store=p.id_store 
             WHERE s.id_store = '$Sid'";
+}//storefeed
+else if( $Stype == 'storefeed' ){
+    $sql = "SELECT id_store , name , image , full_price , sale_price , discount , detail FROM product limit 20";
 }
-
 $result = $conn->query($sql);
  
 if ($result->num_rows >0) {

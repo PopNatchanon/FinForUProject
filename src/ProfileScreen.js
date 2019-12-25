@@ -33,7 +33,7 @@ export default class StoreScreen extends Component {
     render() {
         return (
             <SafeAreaView style={styles.SafeAreaView}>
-                <Headbar />
+                <Headbar navigation={this.props.navigation} />
                 <Menubar />
             </SafeAreaView>
         );
@@ -51,7 +51,8 @@ export class Headbar extends Component {
                     source={require('../icon/bgprofile.jpg')}
                     style={styles.HeadbarImage}
                     resizeMethod='resize'
-                >
+                />
+                <View style={styles.HeadbarA}>
                     <View style={styles.HeadbarBox1}>
                         <Image style={styles.HeadbarBoxImage} />
                     </View>
@@ -59,13 +60,22 @@ export class Headbar extends Component {
                         <Text style={styles.HeadbarText}>
                             เข้าสู่ระบบเพื่อการช๊อปที่ดียิ่งขึ้น
                         </Text>
-                        <View style={styles.HeadbarBox2}>
-                            <Text style={styles.HeadbarBox2Text}>
-                                เข้าสู่ระบบ/สมัครสมาชิก
-                            </Text>
-                        </View>
+                        <TouchableOpacity
+                            activeOpacity={1}
+                            onPress={
+                                () => this.props.navigation.navigate(
+                                    'LoginScreen'
+                                )
+                            }
+                        >
+                            <View style={styles.HeadbarBox2}>
+                                <Text style={styles.HeadbarBox2Text}>
+                                    เข้าสู่ระบบ/สมัครสมาชิก
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
                     </View>
-                </ImageBackground>
+                </View>
             </View>
         )
     }
@@ -78,7 +88,7 @@ export class Menubar extends Component {
     render() {
         return (
             <View>
-                <View style={{ marginTop: 140, padding: 4, flexDirection: 'row', borderBottomColor: '#EAEAEA', borderBottomWidth: 1, justifyContent: 'space-between' }}>
+                <View style={{ marginTop: '8%', padding: 4, flexDirection: 'row', borderBottomColor: '#EAEAEA', borderBottomWidth: 1, justifyContent: 'space-between' }}>
                     <View>
                         <Text style={{ fontSize: 16, fontWeight: 'bold', marginLeft: 8, marginBottom: 8, }}>
                             รายการสั่งซื้อของฉัน
@@ -145,7 +155,7 @@ export class MenubarSub extends Component {
                         </Text>
                     </View>
                 </View>
-                <View style={{ marginTop: 18, paddingBottom:8, flexDirection: 'row', justifyContent: 'space-around' }}>
+                <View style={{ marginTop: 18, paddingBottom: 8, flexDirection: 'row', justifyContent: 'space-around' }}>
                     <View style={{ flexDirection: 'row' }}>
                         <Image
                             source={require('../icon/repeat.png')}
@@ -173,15 +183,15 @@ export class MenubarSub extends Component {
 }
 
 export class ListMenu extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
     }
-    render(){
-        return(
+    render() {
+        return (
             <View>
                 <View>
                     <View>
-                        
+
                     </View>
                 </View>
             </View>

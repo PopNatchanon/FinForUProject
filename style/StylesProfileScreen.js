@@ -11,6 +11,8 @@ export default StyleSheet.create({
         height: 132,
         opacity: 0.9,
         flex: 1,
+    },
+    HeadbarA: {
         flexDirection: 'row',
     },
     HeadbarBox1: {

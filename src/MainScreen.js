@@ -13,8 +13,11 @@ import {
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
-import Icons from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icons from 'react-native-vector-icons/FontAwesome';
+import IconsFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
+import IconEntypo from 'react-native-vector-icons/Entypo'
 import styles from '../style/StylesMainScreen';
 import { ip } from '../IpConfig'
 export const { width, height } = Dimensions.get('window');
@@ -72,14 +75,16 @@ export class AppBar extends Component {
                 <TextInput style={styles.TextInput}
                     placeholder="ค้นหาสินค้า/ร้านค้า"
                     onChangeText={(text) => this.state({ text })}></TextInput>
-                <Icons RightItem name="search" size={20} style={{ marginTop: 5, }} />
-                {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreScreen')}> */}
-                <Icons RightItem name="shopping-cart" size={20} style={{ marginTop: 5, }} />
-                {/* </TouchableOpacity> */}
+                <IconAntDesign RightItem name="search1" size={25} style={{ marginTop: 5, }} />
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('CartScreen')}>
+                <IconAntDesign RightItem name="shoppingcart" size={25} style={{ marginTop: 5, }} />
+                </TouchableOpacity>
             </View>
         );
     }
 }
+
+///--------------------------------------------------------------------------///
 
 export class Toolbar extends Component {
     constructor(props) {
@@ -639,7 +644,7 @@ export class FlashSale extends Component {
                         />
                         <View style={styles.FlashSaleIconBox}>
                             <View style={styles.FlashSaleIconBoxStar}>
-                                <Icons style={styles.FlashSaleIconStar} name='star' size={8} color='yellow' />
+                                <Icons style={styles.FlashSaleIconStar} name='star' size={8} color='#FFAC33' />
                                 <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
                                 <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
                                 <Icons style={styles.FlashSaleIconStar} name='star' size={8} />

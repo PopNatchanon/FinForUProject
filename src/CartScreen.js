@@ -16,10 +16,10 @@ import Icons from 'react-native-vector-icons/FontAwesome';
 import IconsFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconFoundation from 'react-native-vector-icons/Foundation';
-import styles_A from './stylesCartScreen';
-import styles from './StylesDetailScreen';
+import styles_A from '../style/stylesCartScreen';
+import styles from '../style/StylesDetailScreen';
 import NumberFormat from 'react-number-format';
-import { ip } from './IpConfig';
+import { ip } from '../IpConfig';
 export const { width, height } = Dimensions.get('window');
 
 

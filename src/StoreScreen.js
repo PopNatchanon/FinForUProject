@@ -105,7 +105,7 @@ export class StoreHead extends Component {
             <View style={styles.StoreHead}>
                 <View>
                     <ImageBackground
-                        source={require('./icon/bgprofile.jpg')}
+                        source={require('../icon/bgprofile.jpg')}
                         style={styles.StoreHeadImage}
                         resizeMethod='resize'
                     />
@@ -420,7 +420,7 @@ export class TicketLine extends Component {
                 <ScrollView horizontal>
                     <View>
                         <ImageBackground
-                            source={require('./icon/BoxTicket.jpg')}
+                            source={require('../icon/BoxTicket.jpg')}
                             style={styles.TicketLineBox}
                         >
                             <View style={{ flexDirection: 'row' }}>
@@ -443,7 +443,7 @@ export class TicketLine extends Component {
                     </View>
                     <View style={{ marginLeft: 12 }}>
                         <ImageBackground
-                            source={require('./icon/BoxTicket.jpg')}
+                            source={require('../icon/BoxTicket.jpg')}
                             style={styles.TicketLineBox}
                         >
                             <View style={{ flexDirection: 'row' }}>
@@ -466,7 +466,7 @@ export class TicketLine extends Component {
                     </View>
                     <View style={{ marginLeft: 12 }}>
                         <ImageBackground
-                            source={require('./icon/BoxTicket.jpg')}
+                            source={require('../icon/BoxTicket.jpg')}
                             style={styles.TicketLineBox}
                         >
                             <View style={{ flexDirection: 'row' }}>

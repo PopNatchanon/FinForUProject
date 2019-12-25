@@ -33,7 +33,7 @@ export default class StoreScreen extends Component {
     render() {
         return (
             <SafeAreaView style={styles.SafeAreaView}>
-                <Headbar />
+                <Headbar navigation={this.props.navigation} />
                 <Menubar />
             </SafeAreaView>
         );
@@ -48,10 +48,11 @@ export class Headbar extends Component {
         return (
             <View>
                 <ImageBackground
-                    source={require('./icon/bgprofile.jpg')}
+                    source={require('../icon/bgprofile.jpg')}
                     style={styles.HeadbarImage}
                     resizeMethod='resize'
-                >
+                />
+                <View style={styles.HeadbarA}>
                     <View style={styles.HeadbarBox1}>
                         <Image style={styles.HeadbarBoxImage} />
                     </View>
@@ -59,15 +60,22 @@ export class Headbar extends Component {
                         <Text style={styles.HeadbarText}>
                             เข้าสู่ระบบเพื่อการช๊อปที่ดียิ่งขึ้น
                         </Text>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('LoginScreen')}>
+                        <TouchableOpacity
+                            activeOpacity={1}
+                            onPress={
+                                () => this.props.navigation.navigate(
+                                    'LoginScreen'
+                                )
+                            }
+                        >
                             <View style={styles.HeadbarBox2}>
                                 <Text style={styles.HeadbarBox2Text}>
                                     เข้าสู่ระบบ/สมัครสมาชิก
-                            </Text>
+                                </Text>
                             </View>
                         </TouchableOpacity>
                     </View>
-                </ImageBackground>
+                </View>
             </View>
         )
     }
@@ -80,7 +88,7 @@ export class Menubar extends Component {
     render() {
         return (
             <View>
-                <View style={{ marginTop: 140, padding: 4, flexDirection: 'row', borderBottomColor: '#EAEAEA', borderBottomWidth: 1, justifyContent: 'space-between' }}>
+                <View style={{ marginTop: '8%', padding: 4, flexDirection: 'row', borderBottomColor: '#EAEAEA', borderBottomWidth: 1, justifyContent: 'space-between' }}>
                     <View>
                         <Text style={{ fontSize: 16, fontWeight: 'bold', marginLeft: 8, marginBottom: 8, }}>
                             รายการสั่งซื้อของฉัน
@@ -108,7 +116,7 @@ export class MenubarSub extends Component {
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                     <View>
                         <Image
-                            source={require('./icon/two-money-cards.png')}
+                            source={require('../icon/two-money-cards.png')}
                             style={{ marginRight: 'auto', marginLeft: 'auto', width: 50, height: 50 }}
                             resizeMethod='resize'
                         />
@@ -118,7 +126,7 @@ export class MenubarSub extends Component {
                     </View>
                     <View>
                         <Image
-                            source={require('./icon/month-calendar.png')}
+                            source={require('../icon/month-calendar.png')}
                             style={{ marginRight: 'auto', marginLeft: 'auto', width: 50, height: 50 }}
                             resizeMethod='resize'
                         />
@@ -128,7 +136,7 @@ export class MenubarSub extends Component {
                     </View>
                     <View>
                         <Image
-                            source={require('./icon/truck-facing-right.png')}
+                            source={require('../icon/truck-facing-right.png')}
                             style={{ marginRight: 'auto', marginLeft: 'auto', width: 50, height: 50 }}
                             resizeMethod='resize'
                         />
@@ -138,7 +146,7 @@ export class MenubarSub extends Component {
                     </View>
                     <View>
                         <Image
-                            source={require('./icon/truck-facing-right.png')}
+                            source={require('../icon/truck-facing-right.png')}
                             style={{ marginRight: 'auto', marginLeft: 'auto', width: 50, height: 50 }}
                             resizeMethod='resize'
                         />
@@ -150,7 +158,7 @@ export class MenubarSub extends Component {
                 <View style={{ marginTop: 18, paddingBottom: 8, flexDirection: 'row', justifyContent: 'space-around' }}>
                     <View style={{ flexDirection: 'row' }}>
                         <Image
-                            source={require('./icon/repeat.png')}
+                            source={require('../icon/repeat.png')}
                             style={{ width: 28, height: 28 }}
                             resizeMethod='resize'
                         />
@@ -160,7 +168,7 @@ export class MenubarSub extends Component {
                     </View>
                     <View style={{ flexDirection: 'row' }}>
                         <Image
-                            source={require('./icon/box.png')}
+                            source={require('../icon/box.png')}
                             style={{ width: 28, height: 28 }}
                             resizeMethod='resize'
                         />

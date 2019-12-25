@@ -5,8 +5,8 @@ import MainScreen from './src/MainScreen';
 import StoreScreen from './src/StoreScreen';
 import DetailScreen from './src/DetailScreen';
 import ProfileScreen from './src/ProfileScreen';
-import CartScreen from './CartScreen';
-import LoginScreen from './LoginScreen';
+import CartScreen from './src/CartScreen';
+import LoginScreen from './src/LoginScreen';
 
 const PathScreen = createStackNavigator({
   MainScreen: {

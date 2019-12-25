@@ -6,6 +6,7 @@ import StoreScreen from './StoreScreen';
 import DetailScreen from './DetailScreen';
 import ProfileScreen from './ProfileScreen';
 import CartScreen from './CartScreen';
+import LoginScreen from './LoginScreen';
 
 const PathScreen = createStackNavigator({
   MainScreen: {
@@ -38,6 +39,13 @@ const PathScreen = createStackNavigator({
   },
   CartScreen:{
     screen:CartScreen,
+    navigationOptions:()=>({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
+  LoginScreen:{
+    screen:LoginScreen,
     navigationOptions:()=>({
       tabBarVisible: false,
       header: null,

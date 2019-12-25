@@ -59,11 +59,13 @@ export class Headbar extends Component {
                         <Text style={styles.HeadbarText}>
                             เข้าสู่ระบบเพื่อการช๊อปที่ดียิ่งขึ้น
                         </Text>
-                        <View style={styles.HeadbarBox2}>
-                            <Text style={styles.HeadbarBox2Text}>
-                                เข้าสู่ระบบ/สมัครสมาชิก
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('LoginScreen')}>
+                            <View style={styles.HeadbarBox2}>
+                                <Text style={styles.HeadbarBox2Text}>
+                                    เข้าสู่ระบบ/สมัครสมาชิก
                             </Text>
-                        </View>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                 </ImageBackground>
             </View>
@@ -145,7 +147,7 @@ export class MenubarSub extends Component {
                         </Text>
                     </View>
                 </View>
-                <View style={{ marginTop: 18, paddingBottom:8, flexDirection: 'row', justifyContent: 'space-around' }}>
+                <View style={{ marginTop: 18, paddingBottom: 8, flexDirection: 'row', justifyContent: 'space-around' }}>
                     <View style={{ flexDirection: 'row' }}>
                         <Image
                             source={require('./icon/repeat.png')}
@@ -173,15 +175,15 @@ export class MenubarSub extends Component {
 }
 
 export class ListMenu extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
     }
-    render(){
-        return(
+    render() {
+        return (
             <View>
                 <View>
                     <View>
-                        
+
                     </View>
                 </View>
             </View>

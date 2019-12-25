@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation'
-import MainScreen from './MainScreen';
-import StoreScreen from './StoreScreen';
-import DetailScreen from './DetailScreen';
-import ProfileScreen from './ProfileScreen';
+import MainScreen from './src/MainScreen';
+import StoreScreen from './src/StoreScreen';
+import DetailScreen from './src/DetailScreen';
+import ProfileScreen from './src/ProfileScreen';
 import CartScreen from './CartScreen';
 import LoginScreen from './LoginScreen';
 

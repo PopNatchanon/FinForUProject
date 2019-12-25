@@ -18,8 +18,8 @@ import Icons from 'react-native-vector-icons/FontAwesome';
 import IconsFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo'
-import styles from './StylesMainScreen';
-import { ip } from './IpConfig'
+import styles from '../style/StylesMainScreen';
+import { ip } from '../IpConfig'
 export const { width, height } = Dimensions.get('window');
 
 ///----------------------------------Appbar----------------------------------------///

@@ -15,8 +15,8 @@ import axios from 'axios';
 import NumberFormat from 'react-number-format';
 import Icons from 'react-native-vector-icons/FontAwesome5';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import styles from './StylesMainScreen';
-import { ip } from './IpConfig'
+import styles from '../style/StylesMainScreen';
+import { ip } from '../IpConfig'
 export const { width, height } = Dimensions.get('window');
 
 ///----------------------------------Appbar----------------------------------------///

@@ -20,8 +20,8 @@ import {
     ButtonGroup,
     Button,
 } from 'react-native-elements'
-import styles from './StylesProfileScreen'
-import { ip } from './IpConfig'
+import styles from '../style/StylesProfileScreen'
+import { ip } from '../IpConfig'
 export const { width, height } = Dimensions.get('window');
 
 ///----------------------------------Appbar----------------------------------------///

@@ -66,7 +66,7 @@ export class AppBar extends Component {
             <View style={styles.Appbar}>
                 <Image
                     style={styles.LOGO}
-                    source={require('./images/sj.png')}
+                    source={require('../images/sj.png')}
                     resizeMethod='resize'
                 ></Image>
                 <TextInput style={styles.TextInput}
@@ -425,7 +425,7 @@ export class Popular_product extends Component {
                         <View style={styles.Popular_Box_B}>
                             <View style={styles.Popular_Box_C}>
                                 <View style={styles.Popular_Box_D}>
-                                    <Image style={styles.Image_icon_top} source={require('./icon/top.png')}></Image>
+                                    <Image style={styles.Image_icon_top} source={require('../icon/top.png')}></Image>
                                     <Image
                                         style={styles.Popular_image_Box}
                                         source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
@@ -433,7 +433,7 @@ export class Popular_product extends Component {
                                     ></Image>
                                 </View>
                                 <View style={styles.Popular_Box_D}>
-                                    <Image style={styles.Image_icon_top} source={require('./icon/top.png')}></Image>
+                                    <Image style={styles.Image_icon_top} source={require('../icon/top.png')}></Image>
                                     <Image
                                         style={styles.Popular_image_Box}
                                         source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png' }}
@@ -446,7 +446,7 @@ export class Popular_product extends Component {
                         <View style={styles.Popular_Box_B}>
                             <View style={styles.Popular_Box_C}>
                                 <View style={styles.Popular_Box_D}>
-                                    <Image style={styles.Image_icon_top} source={require('./icon/top.png')}></Image>
+                                    <Image style={styles.Image_icon_top} source={require('../icon/top.png')}></Image>
                                     <Image
                                         style={styles.Popular_image_Box}
                                         source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
@@ -454,7 +454,7 @@ export class Popular_product extends Component {
                                     ></Image>
                                 </View>
                                 <View style={styles.Popular_Box_D}>
-                                    <Image style={styles.Image_icon_top} source={require('./icon/top.png')}></Image>
+                                    <Image style={styles.Image_icon_top} source={require('../icon/top.png')}></Image>
                                     <Image
                                         style={styles.Popular_image_Box}
                                         source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png' }}
@@ -467,7 +467,7 @@ export class Popular_product extends Component {
                         <View style={styles.Popular_Box_B}>
                             <View style={styles.Popular_Box_C}>
                                 <View style={styles.Popular_Box_D}>
-                                    <Image style={styles.Image_icon_top} source={require('./icon/top.png')}></Image>
+                                    <Image style={styles.Image_icon_top} source={require('../icon/top.png')}></Image>
                                     <Image
                                         style={styles.Popular_image_Box}
                                         source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
@@ -475,7 +475,7 @@ export class Popular_product extends Component {
                                     ></Image>
                                 </View>
                                 <View style={styles.Popular_Box_D}>
-                                    <Image style={styles.Image_icon_top} source={require('./icon/top.png')}></Image>
+                                    <Image style={styles.Image_icon_top} source={require('../icon/top.png')}></Image>
                                     <Image
                                         style={styles.Popular_image_Box}
                                         source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png' }}
@@ -488,7 +488,7 @@ export class Popular_product extends Component {
                         <View style={styles.Popular_Box_B}>
                             <View style={styles.Popular_Box_C}>
                                 <View style={styles.Popular_Box_D}>
-                                    <Image style={styles.Image_icon_top} source={require('./icon/top.png')}></Image>
+                                    <Image style={styles.Image_icon_top} source={require('../icon/top.png')}></Image>
                                     <Image
                                         style={styles.Popular_image_Box}
                                         source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
@@ -496,7 +496,7 @@ export class Popular_product extends Component {
                                     ></Image>
                                 </View>
                                 <View style={styles.Popular_Box_D}>
-                                    <Image style={styles.Image_icon_top} source={require('./icon/top.png')}></Image>
+                                    <Image style={styles.Image_icon_top} source={require('../icon/top.png')}></Image>
                                     <Image
                                         style={styles.Popular_image_Box}
                                         source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png' }}

@@ -48,7 +48,7 @@ export class Headbar extends Component {
         return (
             <View>
                 <ImageBackground
-                    source={require('./icon/bgprofile.jpg')}
+                    source={require('../icon/bgprofile.jpg')}
                     style={styles.HeadbarImage}
                     resizeMethod='resize'
                 >
@@ -106,7 +106,7 @@ export class MenubarSub extends Component {
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                     <View>
                         <Image
-                            source={require('./icon/two-money-cards.png')}
+                            source={require('../icon/two-money-cards.png')}
                             style={{ marginRight: 'auto', marginLeft: 'auto', width: 50, height: 50 }}
                             resizeMethod='resize'
                         />
@@ -116,7 +116,7 @@ export class MenubarSub extends Component {
                     </View>
                     <View>
                         <Image
-                            source={require('./icon/month-calendar.png')}
+                            source={require('../icon/month-calendar.png')}
                             style={{ marginRight: 'auto', marginLeft: 'auto', width: 50, height: 50 }}
                             resizeMethod='resize'
                         />
@@ -126,7 +126,7 @@ export class MenubarSub extends Component {
                     </View>
                     <View>
                         <Image
-                            source={require('./icon/truck-facing-right.png')}
+                            source={require('../icon/truck-facing-right.png')}
                             style={{ marginRight: 'auto', marginLeft: 'auto', width: 50, height: 50 }}
                             resizeMethod='resize'
                         />
@@ -136,7 +136,7 @@ export class MenubarSub extends Component {
                     </View>
                     <View>
                         <Image
-                            source={require('./icon/truck-facing-right.png')}
+                            source={require('../icon/rating.png')}
                             style={{ marginRight: 'auto', marginLeft: 'auto', width: 50, height: 50 }}
                             resizeMethod='resize'
                         />
@@ -148,7 +148,7 @@ export class MenubarSub extends Component {
                 <View style={{ marginTop: 18, paddingBottom:8, flexDirection: 'row', justifyContent: 'space-around' }}>
                     <View style={{ flexDirection: 'row' }}>
                         <Image
-                            source={require('./icon/repeat.png')}
+                            source={require('../icon/repeat.png')}
                             style={{ width: 28, height: 28 }}
                             resizeMethod='resize'
                         />
@@ -158,7 +158,7 @@ export class MenubarSub extends Component {
                     </View>
                     <View style={{ flexDirection: 'row' }}>
                         <Image
-                            source={require('./icon/box.png')}
+                            source={require('../icon/box.png')}
                             style={{ width: 28, height: 28 }}
                             resizeMethod='resize'
                         />

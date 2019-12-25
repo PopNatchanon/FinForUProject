@@ -71,7 +71,7 @@ export class AppBar extends Component {
         </TouchableOpacity>
         {/* <Image
           style={styles.LOGO}
-          source={require('./images/sj.png')}
+          source={require('../images/sj.png')}
           resizeMethod='resize'
         ></Image> */}
         <TextInput style={styles.TextInput}

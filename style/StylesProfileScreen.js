@@ -6,6 +6,7 @@ export default StyleSheet.create({
     SafeAreaView: {
         flex: 1,
     },
+    ///-------------------------------------------------------------------------------///
     HeadbarImage: {
         width,
         height: 132,
@@ -23,7 +24,7 @@ export default StyleSheet.create({
         width: 60,
         height: 60,
         borderRadius: 30,
-        marginTop: 8,
+        marginTop: 12,
         marginLeft: 'auto',
         marginRight: 'auto',
     },
@@ -52,6 +53,64 @@ export default StyleSheet.create({
         marginBottom: 'auto',
         marginTop: 'auto',
         marginLeft: 'auto',
-        marginRight: 'auto'
-    }
+        marginRight: 'auto',
+    },
+    ///-----------------------------------------------------------------------------///
+    Menubar: {
+        marginTop: '8%',
+        padding: 4,
+        flexDirection: 'row',
+        borderBottomColor: '#EAEAEA',
+        borderBottomWidth: 1,
+        justifyContent: 'space-between',
+    },
+    MenubarText1: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginLeft: 8,
+        marginBottom: 8,
+    },
+    MenubarText2: {
+        color: '#0A55A6',
+    },
+    ///---------------------------------------------------------------------------///
+    MenubarSub: {
+        borderBottomWidth: 1,
+        borderBottomColor: '#EAEAEA',
+        marginTop: 20,
+    },
+    MenubarSubLine1: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+    },
+    MenubarSubLine1Image: {
+        marginRight: 'auto',
+        marginLeft: 'auto',
+        width: 50,
+        height: 50,
+    },
+    MenubarSubLine1Name: {
+        marginRight: 'auto',
+        marginLeft: 'auto',
+        fontSize: 14,
+        marginTop: 8,
+    },
+    MenubarSubLine2: {
+        marginTop: 18,
+        paddingBottom: 8,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+    },
+    MenubarSubLine2Box: {
+        flexDirection: 'row',
+    },
+    MenubarSubLine2BoxImage: {
+        width: 28,
+        height: 28,
+    },
+    MenubarSubLine2BoxName: {
+        fontSize: 16,
+        marginLeft: 8,
+    },
+    ///--------------------------------------------------------------------///
 })

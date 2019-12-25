@@ -29,6 +29,7 @@ export default class DetailScreen extends Component {
   }
 
   render() {
+    //console.log('getid_product1: ' + this.props.navigation.getParam('id_item'))
     return (
       <SafeAreaView style={styles.SafeAreaView}>
         <AppBar navigation={this.props.navigation} />
@@ -70,7 +71,7 @@ export class AppBar extends Component {
         </TouchableOpacity>
         {/* <Image
           style={styles.LOGO}
-          source={require('./images/sj.png')}
+          source={require('../images/sj.png')}
           resizeMethod='resize'
         ></Image> */}
         <TextInput style={styles.TextInput}
@@ -98,6 +99,8 @@ export class Detail_Image extends Component {
   }
   getid_product() {
     var id_item = this.props.navigation.getParam('id_item')
+    // console.log('getid_product1: ' + this.props.navigation.getParam('id_item'))
+    // console.log('getid_product2: ' + id_item)
     var url = ip + '/mysql/DataService_Detall.php?type=store&id_product=' + id_item;
     // console.log(url);
     axios.get(url)
@@ -114,7 +117,7 @@ export class Detail_Image extends Component {
 
   render() {
     let id_product = this.state.dataid_product.map((item, indexs) => {
-      //   // console.log(id_product);
+      //console.log(item);
       var dataMySQL = [ip + '/mysql/uploads', item.p_image].join('/');
       return (
         <View style={styles.Detail_Image} key={indexs}>

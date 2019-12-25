@@ -1,4 +1,4 @@
-<?php
+<?php 
 include 'DBConfig.php';
  
 // Create connection
@@ -18,13 +18,13 @@ if($Stype=='slide'){
 }else if($Stype=='type'){
     $sql = "SELECT name ,  image_menu  FROM type ";
 }else if($Stype=='sale') {
-    $sql = "SELECT image , name , sale_price FROM product LIMIT 6";
+    $sql = "SELECT id_product , id_store , name , image , full_price , sale_price , discount FROM product LIMIT 6";
 }else if($Stype=='store') {
-    $sql = "SELECT image  , name FROM store  LIMIT 6";
+    $sql = "SELECT id_store , image , name FROM store  LIMIT 6";
 }else if($Stype=='product') {
-    $sql = "SELECT id_product , name , image , full_price , sale_price , discount  FROM product Order by date DESC  LIMIT 6";
+    $sql = "SELECT id_product , id_store , name , image , full_price , sale_price , discount  FROM product Order by date DESC  LIMIT 6";
 }else if( $Stype == 'todayproduct' ){
-    $sql = "SELECT id_product , name , image , full_price , sale_price , discount FROM product limit 20";
+    $sql = "SELECT id_product , id_store , name , image , full_price , sale_price , discount FROM product limit 20";
 }else if($Stype=='brand'){
     $sql = "SELECT image , image_path  FROM slide WHERE type_icon = 'promotions' AND status_active = '1'  limit 6 ";
 }else if($Stype=='foryou') {
@@ -33,7 +33,7 @@ if($Stype=='slide'){
     $sql = "SELECT name , image_head  FROM type ";
 }else if($Stype == 'categoryproduct' ) {
     $Sproduct = $_GET['product'];
-    $sql = "SELECT id_product , name , image , full_price , sale_price , discount , type FROM product WHERE type = '$Sproduct' limit 6";
+    $sql = "SELECT id_product , id_store , name , image , full_price , sale_price , discount , type FROM product WHERE type = '$Sproduct' limit 6";
 }else if($Stype=='Confidential_PRO'){
     $sql = "SELECT image , image_path  FROM slide WHERE type_icon = 'Confidential_PRO' AND status_active = '1'  limit 3 ";
 }

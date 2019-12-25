@@ -45,7 +45,7 @@ export default class StoreScreen extends Component {
             })
     }
     componentDidMount() {
-        console.log(this.props.navigation.getParam('id_item'))
+        // console.log(this.props.navigation.getParam('id_item'))
         var id_item = this.props.navigation.getParam('id_item')
         this.getDataStoreData(id_item)
     }

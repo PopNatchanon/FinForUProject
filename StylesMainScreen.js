@@ -182,12 +182,12 @@ export default StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginLeft: 10,
-    marginTop:5,
+    marginTop: 5,
   },
   PopularText_A: {
     backgroundColor: '#ECECEC',
     borderColor: '#ECECEC',
-    borderWidth:0.5,
+    borderWidth: 0.5,
     height: 20,
     width: 200,
   },
@@ -247,9 +247,9 @@ export default StyleSheet.create({
     borderTopRightRadius: 10,
   },
   Text_icon_Sale: {
-    fontSize:10,
-    backgroundColor:'#0A55A6',
-    color:'#FFFFFF',
+    fontSize: 10,
+    backgroundColor: '#0A55A6',
+    color: '#FFFFFF',
     height: 40,
     width: 180,
     borderBottomRightRadius: 10,
@@ -446,7 +446,7 @@ export default StyleSheet.create({
     marginRight: 8,
     marginTop: 10,
   },
-  NewStoreText_bar:{
+  NewStoreText_bar: {
     fontSize: 11,
   },
 
@@ -632,7 +632,7 @@ export default StyleSheet.create({
     width: width * 0.323,
     height: height * 0.3,
     borderColor: '#ECECEC',
-    borderWidth:0.5,
+    borderWidth: 0.5,
 
   },
   TodayProductImage: {
@@ -815,7 +815,7 @@ export default StyleSheet.create({
     borderTopRightRadius: 8,
   },
   PromotionCategoryProductImageIcon: {
-    fontSize:10,
+    fontSize: 10,
     color: 'white',
     backgroundColor: '#0A55A6',
     width: '100%',
@@ -860,22 +860,22 @@ export default StyleSheet.create({
     borderColor: '#ECECEC',
     borderWidth: 1,
     marginTop: 10,
-    height:150,
+    height: 150,
   },
   Confidential_A: {
     flexDirection: 'row',
     height: 130,
   },
   Confidential_Box: {
-    width:230,
+    width: 230,
     height: 150,
     marginTop: 10,
-    marginRight:10,
+    marginRight: 10,
   },
   Confidential_BoxA: {
     height: 150,
     width,
-      
+
   },
   Confidential_image: {
     height: 60,
@@ -921,10 +921,10 @@ export default StyleSheet.create({
 
   ///------------------------------------------------------------------///
 
-  Text_Bar_Image:{
-    height:15, 
-    width:120 , 
-    marginTop:10,
-    marginLeft:10,
+  Text_Bar_Image: {
+    height: 15,
+    width: 120,
+    marginTop: 10,
+    marginLeft: 10,
   },
 });

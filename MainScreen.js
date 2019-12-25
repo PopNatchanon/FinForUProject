@@ -49,7 +49,7 @@ export default class MainScreen extends Component {
                     <BannerBar_THREE />
                     <TodayProduct navigation={this.props.navigation} />
                 </ScrollView>
-                <Toolbar />
+                <Toolbar navigation={this.props.navigation} />
             </SafeAreaView>
         );
     }
@@ -93,26 +93,35 @@ export class Toolbar extends Component {
     render() {
         return (
             <View style={styles.Toolbar}>
-            <View >
-            <IconAntDesign  style={{marginLeft:5,}} name="home" size={25} />
-            <Text>Home</Text>
-            </View>
-            <View >
-            <IconAntDesign name="tagso" size={25} />
-            <Text> Feed</Text>
-            </View>
-            <View >
-            <IconAntDesign  name="notification" size={25} />
-            <Text>News</Text>
-            </View>
-            <View >
-            <IconAntDesign  name="bells" size={25} />
-            <Text>เตือน</Text>
-            </View>
-            <View>
-            <IconAntDesign name="user" size={25} />
-            <Text> ฉัน</Text>
-            </View> 
+                <View >
+                    <IconAntDesign style={{ marginLeft: 5, }} name="home" size={25} />
+                    <Text>Home</Text>
+                </View>
+                <View >
+                    <IconAntDesign name="tagso" size={25} />
+                    <Text> Feed</Text>
+                </View>
+                <View >
+                    <IconAntDesign name="notification" size={25} />
+                    <Text>News</Text>
+                </View>
+                <View >
+                    <IconAntDesign name="bells" size={25} />
+                    <Text>เตือน</Text>
+                </View>
+                <TouchableOpacity
+                    activeOpacity={1}
+                    onPress={
+                        () => this.props.navigation.navigate(
+                            'ProfileScreen'
+                        )
+                    }
+                >
+                    <View>
+                        <IconAntDesign name="user" size={25} />
+                        <Text> ฉัน</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -602,7 +611,16 @@ export class FlashSale extends Component {
             //   console.log('Sale' + [ indexs, item.image ].join(' ')),
             var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
             return (
-                <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
+                <TouchableOpacity
+                    activeOpacity={1}
+                    key={indexs}
+                    onPress={
+                        () => this.props.navigation.navigate(
+                            'DetailScreen', {
+                            id_item: item.id_product
+                        })
+                    }
+                >
                     <View style={styles.FlashSaleBox}>
                         <Image
                             source={{

@@ -35,15 +35,15 @@ export default class MainScreen extends Component {
                     <BannerBar_ONE />
                     <FlashSale navigation={this.props.navigation} />
                     <PromotionPopular navigation={this.props.navigation} />
-                    <SaleProduct />
+                    <SaleProduct navigation={this.props.navigation} />
                     <BannerBar_TWO />
                     <NewStore navigation={this.props.navigation} />
-                    <NewProduct />
+                    <NewProduct navigation={this.props.navigation} />
                     <Confidential_PRO />
-                    <Product_for_you />
+                    <Product_for_you navigation={this.props.navigation} />
                     <CategoryProduct navigation={this.props.navigation} />
                     <BannerBar_THREE />
-                    <TodayProduct />
+                    <TodayProduct navigation={this.props.navigation} />
                 </ScrollView>
                 <Toolbar />
             </SafeAreaView>
@@ -581,7 +581,7 @@ export class FlashSale extends Component {
             //   console.log('Sale' + [ indexs, item.image ].join(' ')),
             var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
             return (
-                <TouchableOpacity key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
+                <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
                     <View style={styles.FlashSaleBox}>
                         <Image
                             source={{
@@ -788,41 +788,43 @@ export class Product_for_you extends Component {
             //   console.log('Sale' + [ indexs, item.image ].join(' ')),
             var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
             return (
-                <View style={styles.ProductForYouBox} key={indexs}>
-                    <Image
-                        source={{
-                            uri: dataMySQL,
-                        }}
-                        style={styles.ProductForYouImage}
-                        resizeMethod='resize'
-                    />
-                    <Text style={styles.ProductForYouImageName}>{item.name}</Text>
-                    <NumberFormat
-                        value={item.full_price}
-                        displayType={'text'}
-                        thousandSeparator={true}
-                        prefix={'฿'}
-                        renderText={
-                            value => <Text style={
-                                styles.ProductForYouImagePrice
-                            }>
-                                {value}
-                            </Text>}
-                    />
-                    <View style={styles.ProductForYouIconBox}>
-                        <View style={styles.ProductForYouIconBoxStar}>
-                            <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
-                            <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
-                            <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
-                            <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
-                            <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
-                        </View>
-                        <View style={styles.ProductForYouIconBoxI}>
-                            <Icons style={styles.ProductForYouIcon} name='heart' size={10} />
-                            <Icons style={styles.ProductForYouIcon} name='share' size={10} />
+                <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
+                    <View style={styles.ProductForYouBox} key={indexs}>
+                        <Image
+                            source={{
+                                uri: dataMySQL,
+                            }}
+                            style={styles.ProductForYouImage}
+                            resizeMethod='resize'
+                        />
+                        <Text style={styles.ProductForYouImageName}>{item.name}</Text>
+                        <NumberFormat
+                            value={item.full_price}
+                            displayType={'text'}
+                            thousandSeparator={true}
+                            prefix={'฿'}
+                            renderText={
+                                value => <Text style={
+                                    styles.ProductForYouImagePrice
+                                }>
+                                    {value}
+                                </Text>}
+                        />
+                        <View style={styles.ProductForYouIconBox}>
+                            <View style={styles.ProductForYouIconBoxStar}>
+                                <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
+                                <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
+                                <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
+                                <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
+                                <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
+                            </View>
+                            <View style={styles.ProductForYouIconBoxI}>
+                                <Icons style={styles.ProductForYouIcon} name='heart' size={10} />
+                                <Icons style={styles.ProductForYouIcon} name='share' size={10} />
+                            </View>
                         </View>
                     </View>
-                </View>
+                </TouchableOpacity>
             )
         })
         return (
@@ -873,41 +875,45 @@ export class SaleProduct extends Component {
         let dataSaleProduct = this.state.dataSale.map((item, indexs) => {
             //   console.log('Sale' + [ indexs, item.image ].join(' ')),
             var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
-            return <View style={styles.SaleProductBox} key={indexs}>
-                <Image
-                    source={{
-                        uri: dataMySQL,
-                    }}
-                    style={styles.SaleProductImage}
-                    resizeMethod='resize'
-                />
-                <Text style={styles.SaleProductImageName}>{item.name}</Text>
-                <NumberFormat
-                    value={item.full_price}
-                    displayType={'text'}
-                    thousandSeparator={true}
-                    prefix={'฿'}
-                    renderText={
-                        value => <Text style={
-                            styles.SaleProductImagePrice
-                        }>
-                            {value}
-                        </Text>}
-                />
-                <View style={styles.SaleProductIconBox}>
-                    <View style={styles.SaleProductIconBoxStar}>
-                        <Icons style={styles.SaleProductIconStar} name='star' size={8} />
-                        <Icons style={styles.SaleProductIconStar} name='star' size={8} />
-                        <Icons style={styles.SaleProductIconStar} name='star' size={8} />
-                        <Icons style={styles.SaleProductIconStar} name='star' size={8} />
-                        <Icons style={styles.SaleProductIconStar} name='star' size={8} />
+            return (
+                <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
+                    <View style={styles.SaleProductBox} key={indexs}>
+                        <Image
+                            source={{
+                                uri: dataMySQL,
+                            }}
+                            style={styles.SaleProductImage}
+                            resizeMethod='resize'
+                        />
+                        <Text style={styles.SaleProductImageName}>{item.name}</Text>
+                        <NumberFormat
+                            value={item.full_price}
+                            displayType={'text'}
+                            thousandSeparator={true}
+                            prefix={'฿'}
+                            renderText={
+                                value => <Text style={
+                                    styles.SaleProductImagePrice
+                                }>
+                                    {value}
+                                </Text>}
+                        />
+                        <View style={styles.SaleProductIconBox}>
+                            <View style={styles.SaleProductIconBoxStar}>
+                                <Icons style={styles.SaleProductIconStar} name='star' size={8} />
+                                <Icons style={styles.SaleProductIconStar} name='star' size={8} />
+                                <Icons style={styles.SaleProductIconStar} name='star' size={8} />
+                                <Icons style={styles.SaleProductIconStar} name='star' size={8} />
+                                <Icons style={styles.SaleProductIconStar} name='star' size={8} />
+                            </View>
+                            <View style={styles.SaleProductIconBoxI}>
+                                <Icons style={styles.SaleProductIcon} name='heart' size={10} />
+                                <Icons style={styles.SaleProductIcon} name='share' size={10} />
+                            </View>
+                        </View>
                     </View>
-                    <View style={styles.SaleProductIconBoxI}>
-                        <Icons style={styles.SaleProductIcon} name='heart' size={10} />
-                        <Icons style={styles.SaleProductIcon} name='share' size={10} />
-                    </View>
-                </View>
-            </View>;
+                </TouchableOpacity>
+            )
         })
         return (
             <View style={styles.SaleProduct}>
@@ -1017,41 +1023,45 @@ export class NewProduct extends Component {
         let dataNewProduct = this.state.dataNewProduct.map((item, indexs) => {
             //   console.log('Sale' + [ indexs, item.image ].join(' ')),
             var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
-            return <View style={styles.NewProductBox} key={indexs}>
-                <Image
-                    source={{
-                        uri: dataMySQL,
-                    }}
-                    style={styles.NewProductImage}
-                    resizeMethod='resize'
-                />
-                <Text style={styles.NewProductImageName}>{item.name}</Text>
-                <NumberFormat
-                    value={item.full_price}
-                    displayType={'text'}
-                    thousandSeparator={true}
-                    prefix={'฿'}
-                    renderText={
-                        value => <Text style={
-                            styles.NewProductImagePrice
-                        }>
-                            {value}
-                        </Text>}
-                />
-                <View style={styles.NewProductIconBox}>
-                    <View style={styles.NewProductIconBoxStar}>
-                        <Icons style={styles.NewProductIconStar} name='star' size={8} />
-                        <Icons style={styles.NewProductIconStar} name='star' size={8} />
-                        <Icons style={styles.NewProductIconStar} name='star' size={8} />
-                        <Icons style={styles.NewProductIconStar} name='star' size={8} />
-                        <Icons style={styles.NewProductIconStar} name='star' size={8} />
+            return (
+                <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
+                    <View style={styles.NewProductBox} >
+                        <Image
+                            source={{
+                                uri: dataMySQL,
+                            }}
+                            style={styles.NewProductImage}
+                            resizeMethod='resize'
+                        />
+                        <Text style={styles.NewProductImageName}>{item.name}</Text>
+                        <NumberFormat
+                            value={item.full_price}
+                            displayType={'text'}
+                            thousandSeparator={true}
+                            prefix={'฿'}
+                            renderText={
+                                value => <Text style={
+                                    styles.NewProductImagePrice
+                                }>
+                                    {value}
+                                </Text>}
+                        />
+                        <View style={styles.NewProductIconBox}>
+                            <View style={styles.NewProductIconBoxStar}>
+                                <Icons style={styles.NewProductIconStar} name='star' size={8} />
+                                <Icons style={styles.NewProductIconStar} name='star' size={8} />
+                                <Icons style={styles.NewProductIconStar} name='star' size={8} />
+                                <Icons style={styles.NewProductIconStar} name='star' size={8} />
+                                <Icons style={styles.NewProductIconStar} name='star' size={8} />
+                            </View>
+                            <View style={styles.NewProductIconBoxI}>
+                                <Icons style={styles.NewProductIcon} name='heart' size={10} />
+                                <Icons style={styles.NewProductIcon} name='share' size={10} />
+                            </View>
+                        </View>
                     </View>
-                    <View style={styles.NewProductIconBoxI}>
-                        <Icons style={styles.NewProductIcon} name='heart' size={10} />
-                        <Icons style={styles.NewProductIcon} name='share' size={10} />
-                    </View>
-                </View>
-            </View>;
+                </TouchableOpacity>
+            )
         })
         return (
             <View style={styles.NewProduct}>
@@ -1116,7 +1126,7 @@ export class CategoryProduct extends Component {
                             style={styles.CategoryProductImageHead}
                             resizeMethod='resize'
                         />
-                        <CategoryProductSubProduct name={item.name} />
+                        <CategoryProductSubProduct navigation={this.props.navigation} name={item.name} />
                     </View>
                     <View>
                         <Image style={styles.Text_Bar_Image} source={{ uri: ip + '/MySQL/uploads/Text/storeFIN1.png' }}
@@ -1126,12 +1136,12 @@ export class CategoryProduct extends Component {
                     <View>
                         <Image style={styles.Text_Bar_Image} source={{ uri: ip + '/MySQL/uploads/Text/beand.png' }}
                             resizeMethod='resize'></Image>
-                        <CategoryProductSubBrand />
+                        <CategoryProductSubBrand navigation={this.props.navigation} />
                     </View>
                     <View>
                         <Image style={styles.Text_Bar_Image} source={{ uri: ip + '/MySQL/uploads/Text/propro.png' }}
                             resizeMethod='resize'></Image>
-                        <CategoryProductSubPromotion />
+                        <CategoryProductSubPromotion navigation={this.props.navigation} />
                     </View>
                 </View>
             );
@@ -1173,44 +1183,46 @@ export class CategoryProductSubProduct extends Component {
             // console.log( 'CategoryProductNo. ' + indexs + ' ' + item.image ),
             var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
             return (
-                <View style={styles.CategoryProductBox} key={indexs}>
-                    <Image
-                        source={{
-                            uri: dataMySQL,
-                        }}
-                        style={styles.CategoryProductImage}
-                        resizeMethod='resize'
-                    />
-                    <Text style={styles.CategoryProductImageName}>
-                        {item.name}
-                    </Text>
-                    <NumberFormat
-                        value={item.full_price}
-                        displayType={'text'}
-                        thousandSeparator={true}
-                        prefix={'฿'}
-                        renderText={
-                            value => <Text style={
-                                styles.CategoryProductImagePrice
-                            }>
-                                {value}
-                            </Text>
-                        }
-                    />
-                    <View style={styles.CategoryProductIconBox}>
-                        <View style={styles.CategoryProductIconBoxStar}>
-                            <Icons style={styles.CategoryProductIconStar} name='star' size={8} />
-                            <Icons style={styles.CategoryProductIconStar} name='star' size={8} />
-                            <Icons style={styles.CategoryProductIconStar} name='star' size={8} />
-                            <Icons style={styles.CategoryProductIconStar} name='star' size={8} />
-                            <Icons style={styles.CategoryProductIconStar} name='star' size={8} />
-                        </View>
-                        <View style={styles.CategoryProductIconBoxI}>
-                            <Icons style={styles.CategoryProductIcon} name='heart' size={10} />
-                            <Icons style={styles.CategoryProductIcon} name='share' size={10} />
+                <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
+                    <View style={styles.CategoryProductBox} key={indexs}>
+                        <Image
+                            source={{
+                                uri: dataMySQL,
+                            }}
+                            style={styles.CategoryProductImage}
+                            resizeMethod='resize'
+                        />
+                        <Text style={styles.CategoryProductImageName}>
+                            {item.name}
+                        </Text>
+                        <NumberFormat
+                            value={item.full_price}
+                            displayType={'text'}
+                            thousandSeparator={true}
+                            prefix={'฿'}
+                            renderText={
+                                value => <Text style={
+                                    styles.CategoryProductImagePrice
+                                }>
+                                    {value}
+                                </Text>
+                            }
+                        />
+                        <View style={styles.CategoryProductIconBox}>
+                            <View style={styles.CategoryProductIconBoxStar}>
+                                <Icons style={styles.CategoryProductIconStar} name='star' size={8} />
+                                <Icons style={styles.CategoryProductIconStar} name='star' size={8} />
+                                <Icons style={styles.CategoryProductIconStar} name='star' size={8} />
+                                <Icons style={styles.CategoryProductIconStar} name='star' size={8} />
+                                <Icons style={styles.CategoryProductIconStar} name='star' size={8} />
+                            </View>
+                            <View style={styles.CategoryProductIconBoxI}>
+                                <Icons style={styles.CategoryProductIcon} name='heart' size={10} />
+                                <Icons style={styles.CategoryProductIcon} name='share' size={10} />
+                            </View>
                         </View>
                     </View>
-                </View>
+                </TouchableOpacity>
             );
         })
         return (
@@ -1408,44 +1420,46 @@ export class TodayProduct extends Component {
             // console.log( indexs + '. ' + item.image ),
             var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
             return (
-                <View style={styles.TodayProductBox} key={indexs}>
-                    <Image
-                        source={{
-                            uri: dataMySQL,
-                        }}
-                        style={styles.TodayProductImage}
-                        resizeMethod='resize'
-                    />
-                    <Text style={styles.TodayProductImageName}>
-                        {item.name}
-                    </Text>
-                    <NumberFormat
-                        value={item.full_price}
-                        displayType={'text'}
-                        thousandSeparator={true}
-                        prefix={'฿'}
-                        renderText={
-                            value => <Text style={
-                                styles.TodayProductImagePrice
-                            }>
-                                {value}
-                            </Text>
-                        }
-                    />
-                    <View style={styles.TodayProductIconBox}>
-                        <View style={styles.TodayProductIconBoxStar}>
-                            <Icons style={styles.TodayProductIconStar} name='star' size={8} />
-                            <Icons style={styles.TodayProductIconStar} name='star' size={8} />
-                            <Icons style={styles.TodayProductIconStar} name='star' size={8} />
-                            <Icons style={styles.TodayProductIconStar} name='star' size={8} />
-                            <Icons style={styles.TodayProductIconStar} name='star' size={8} />
-                        </View>
-                        <View style={styles.TodayProductIconBoxI}>
-                            <Icons style={styles.TodayProductIcon} name='heart' size={10} />
-                            <Icons style={styles.TodayProductIcon} name='share' size={10} />
+                <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
+                    <View style={styles.TodayProductBox} key={indexs}>
+                        <Image
+                            source={{
+                                uri: dataMySQL,
+                            }}
+                            style={styles.TodayProductImage}
+                            resizeMethod='resize'
+                        />
+                        <Text style={styles.TodayProductImageName}>
+                            {item.name}
+                        </Text>
+                        <NumberFormat
+                            value={item.full_price}
+                            displayType={'text'}
+                            thousandSeparator={true}
+                            prefix={'฿'}
+                            renderText={
+                                value => <Text style={
+                                    styles.TodayProductImagePrice
+                                }>
+                                    {value}
+                                </Text>
+                            }
+                        />
+                        <View style={styles.TodayProductIconBox}>
+                            <View style={styles.TodayProductIconBoxStar}>
+                                <Icons style={styles.TodayProductIconStar} name='star' size={8} />
+                                <Icons style={styles.TodayProductIconStar} name='star' size={8} />
+                                <Icons style={styles.TodayProductIconStar} name='star' size={8} />
+                                <Icons style={styles.TodayProductIconStar} name='star' size={8} />
+                                <Icons style={styles.TodayProductIconStar} name='star' size={8} />
+                            </View>
+                            <View style={styles.TodayProductIconBoxI}>
+                                <Icons style={styles.TodayProductIcon} name='heart' size={10} />
+                                <Icons style={styles.TodayProductIcon} name='share' size={10} />
+                            </View>
                         </View>
                     </View>
-                </View>
+                </TouchableOpacity>
             );
         })
         return (

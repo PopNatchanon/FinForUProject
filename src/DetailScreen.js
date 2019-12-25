@@ -29,6 +29,7 @@ export default class DetailScreen extends Component {
   }
 
   render() {
+    //console.log('getid_product1: ' + this.props.navigation.getParam('id_item'))
     return (
       <SafeAreaView style={styles.SafeAreaView}>
         <AppBar navigation={this.props.navigation} />
@@ -46,7 +47,7 @@ export default class DetailScreen extends Component {
           <Similar_Product navigation={this.props.navigation} />
           <Might_like navigation={this.props.navigation} />
         </ScrollView>
-        <Buy_bar navigation={this.props.navigation}/>
+        <Buy_bar navigation={this.props.navigation} />
       </SafeAreaView>
     );
   }
@@ -66,7 +67,7 @@ export class AppBar extends Component {
     return (
       <View style={styles.Appbar}>
         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
-            <IconsFeather name="arrow-left" size={30} />
+          <IconsFeather name="arrow-left" size={30} />
         </TouchableOpacity>
         {/* <Image
           style={styles.LOGO}
@@ -80,7 +81,7 @@ export class AppBar extends Component {
         <IconAntDesign RightItem name="search1" size={25} style={styles.Icon_appbar} />
 
         <TouchableOpacity onPress={() => this.props.navigation.navigate('CartScreen')}>
-           <IconAntDesign RightItem name="shoppingcart" size={25} style={styles.Icon_appbar} />
+          <IconAntDesign RightItem name="shoppingcart" size={25} style={styles.Icon_appbar} />
         </TouchableOpacity>
       </View>
     );
@@ -98,6 +99,8 @@ export class Detail_Image extends Component {
   }
   getid_product() {
     var id_item = this.props.navigation.getParam('id_item')
+    // console.log('getid_product1: ' + this.props.navigation.getParam('id_item'))
+    // console.log('getid_product2: ' + id_item)
     var url = ip + '/mysql/DataService_Detall.php?type=store&id_product=' + id_item;
     // console.log(url);
     axios.get(url)
@@ -114,7 +117,7 @@ export class Detail_Image extends Component {
 
   render() {
     let id_product = this.state.dataid_product.map((item, indexs) => {
-      //   // console.log(id_product);
+      //console.log(item);
       var dataMySQL = [ip + '/mysql/uploads', item.p_image].join('/');
       return (
         <View style={styles.Detail_Image} key={indexs}>
@@ -361,7 +364,7 @@ export class Detail_Catagory extends Component {
         </View>
       );
     })
-    return(
+    return (
       <View>{id_store}</View>
     )
   }

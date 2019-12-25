@@ -77,7 +77,7 @@ export class AppBar extends Component {
                     onChangeText={(text) => this.state({ text })}></TextInput>
                 <IconAntDesign RightItem name="search1" size={25} style={{ marginTop: 5, }} />
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('CartScreen')}>
-                <IconAntDesign RightItem name="shoppingcart" size={25} style={{ marginTop: 5, }} />
+                    <IconAntDesign RightItem name="shoppingcart" size={25} style={{ marginTop: 5, }} />
                 </TouchableOpacity>
             </View>
         );
@@ -608,7 +608,8 @@ export class FlashSale extends Component {
 
     render() {
         let dataFlashSale = this.state.dataSale.map((item, indexs) => {
-            //   console.log('Sale' + [ indexs, item.image ].join(' ')),
+            // console.log('FlashSale')
+            // console.log(item)
             var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
             return (
                 <TouchableOpacity

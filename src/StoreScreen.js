@@ -242,10 +242,10 @@ export class Menubar extends Component {
                 <ScrollView style={styles.SafeAreaViewSub}>
                     <Banner navigation={this.props.navigation} item={{ name: s_name, image: s_image }} />
                     <TicketLine />
-                    <DealTop />
-                    <NewProduct />
+                    <DealTop navigation={this.props.navigation} />
+                    <NewProduct navigation={this.props.navigation} />
                     <BannerBar_ONE />
-                    <PopularProduct />
+                    <PopularProduct navigation={this.props.navigation} />
                 </ScrollView>
             )
         } else if (selectedIndex == 1) {
@@ -259,7 +259,7 @@ export class Menubar extends Component {
             return (
                 <ScrollView style={styles.SafeAreaViewSub}>
                     <Banner navigation={this.props.navigation} item={{ name: s_name, image: s_image }} />
-                    <StoreFeed />
+                    <StoreFeed navigation={this.props.navigation} />
                 </ScrollView>
             )
         }
@@ -521,7 +521,7 @@ export class DealTop extends Component {
             //   console.log('Sale' + [ indexs, item.image ].join(' ')),
             var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
             return (
-                <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigation('DetailScreen', { id_item: item.id_product })}>
+                <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}>
                     <View style={styles.DealTopBox} key={indexs}>
                         <Image
                             source={{
@@ -855,7 +855,7 @@ export class SubMenu extends Component {
         if (selectedIndex == 0) {
             return (
                 <View>
-                    <ShowProduct />
+                    <ShowProduct navigation={this.props.navigation} />
                 </View>
             )
         } else if (selectedIndex == 1) {

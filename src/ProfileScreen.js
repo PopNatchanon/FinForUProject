@@ -35,6 +35,7 @@ export default class StoreScreen extends Component {
             <SafeAreaView style={styles.SafeAreaView}>
                 <Headbar navigation={this.props.navigation} />
                 <Menubar />
+                {/* <ListMenu /> */}
             </SafeAreaView>
         );
     }
@@ -88,14 +89,14 @@ export class Menubar extends Component {
     render() {
         return (
             <View>
-                <View style={{ marginTop: '8%', padding: 4, flexDirection: 'row', borderBottomColor: '#EAEAEA', borderBottomWidth: 1, justifyContent: 'space-between' }}>
+                <View style={styles.Menubar}>
                     <View>
-                        <Text style={{ fontSize: 16, fontWeight: 'bold', marginLeft: 8, marginBottom: 8, }}>
+                        <Text style={styles.MenubarText1}>
                             รายการสั่งซื้อของฉัน
                     </Text>
                     </View>
                     <View>
-                        <Text style={{ color: '#0A55A6' }}>
+                        <Text style={styles.MenubarText2}>
                             รายการการสั่งซื้อทั้งหมด <IconsEntypo name='chevron-right' size={20} />
                         </Text>
                     </View>
@@ -112,67 +113,67 @@ export class MenubarSub extends Component {
     }
     render() {
         return (
-            <View style={{ borderBottomWidth: 1, borderBottomColor: '#EAEAEA', marginTop: 20, }}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+            <View style={styles.MenubarSub}>
+                <View style={styles.MenubarSubLine1}>
                     <View>
                         <Image
                             source={require('../icon/two-money-cards.png')}
-                            style={{ marginRight: 'auto', marginLeft: 'auto', width: 50, height: 50 }}
+                            style={styles.MenubarSubLine1Image}
                             resizeMethod='resize'
                         />
-                        <Text style={{ marginRight: 'auto', marginLeft: 'auto', fontSize: 14, marginTop: 8 }}>
+                        <Text style={styles.MenubarSubLine1Name}>
                             รอจ่ายเงิน
                         </Text>
                     </View>
                     <View>
                         <Image
                             source={require('../icon/month-calendar.png')}
-                            style={{ marginRight: 'auto', marginLeft: 'auto', width: 50, height: 50 }}
+                            style={styles.MenubarSubLine1Image}
                             resizeMethod='resize'
                         />
-                        <Text style={{ marginRight: 'auto', marginLeft: 'auto', fontSize: 14, marginTop: 8 }}>
+                        <Text style={styles.MenubarSubLine1Name}>
                             เตรียมจัดส่ง
                         </Text>
                     </View>
                     <View>
                         <Image
                             source={require('../icon/truck-facing-right.png')}
-                            style={{ marginRight: 'auto', marginLeft: 'auto', width: 50, height: 50 }}
+                            style={styles.MenubarSubLine1Image}
                             resizeMethod='resize'
                         />
-                        <Text style={{ marginRight: 'auto', marginLeft: 'auto', fontSize: 14, marginTop: 8 }}>
+                        <Text style={styles.MenubarSubLine1Name}>
                             ดำเนินการส่ง
                         </Text>
                     </View>
                     <View>
                         <Image
                             source={require('../icon/rating.png')}
-                            style={{ marginRight: 'auto', marginLeft: 'auto', width: 50, height: 50 }}
+                            style={styles.MenubarSubLine1Image}
                             resizeMethod='resize'
                         />
-                        <Text style={{ marginRight: 'auto', marginLeft: 'auto', fontSize: 14, marginTop: 8 }}>
+                        <Text style={styles.MenubarSubLine1Name}>
                             รีวิวสินค้า
                         </Text>
                     </View>
                 </View>
-                <View style={{ marginTop: 18, paddingBottom: 8, flexDirection: 'row', justifyContent: 'space-around' }}>
-                    <View style={{ flexDirection: 'row' }}>
+                <View style={styles.MenubarSubLine2}>
+                    <View style={styles.MenubarSubLine2Box}>
                         <Image
                             source={require('../icon/repeat.png')}
-                            style={{ width: 28, height: 28 }}
+                            style={styles.MenubarSubLine2BoxImage}
                             resizeMethod='resize'
                         />
-                        <Text style={{ fontSize: 16, marginLeft: 8 }}>
+                        <Text style={styles.MenubarSubLine2BoxText}>
                             คืนสินค้า/คืนเงิน
                         </Text>
                     </View>
-                    <View style={{ flexDirection: 'row' }}>
+                    <View style={styles.MenubarSubLine2Box}>
                         <Image
                             source={require('../icon/box.png')}
-                            style={{ width: 28, height: 28 }}
+                            style={styles.MenubarSubLine2BoxImage}
                             resizeMethod='resize'
                         />
-                        <Text style={{ fontSize: 16, marginLeft: 8 }}>
+                        <Text style={styles.MenubarSubLine2BoxText}>
                             ยกเลิกสินค้า
                         </Text>
                     </View>
@@ -186,13 +187,28 @@ export class ListMenu extends Component {
     constructor(props) {
         super(props);
     }
+    // getItem(icon, name) {
+    //     return (
+    //         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+    //             <View style={{ flexDirection: 'row' }}>
+    //                 <Image
+    //                     source={require('../icon/' + icon + '.png')}
+    //                     style={{ width: 48, height: 35, marginTop: 6, marginLeft: 40 }}
+    //                     resizeMethod='resize'
+    //                 />
+    //                 <Text style={{ marginTop: 15, marginLeft: 16, fontSize: 16 }}>
+    //                     {name}
+    //                 </Text>
+    //             </View>
+    //             <IconsEntypo name='chevron-right' style={{ marginTop: 6 }} size={35} />
+    //         </View>
+    //     )
+    // }
     render() {
         return (
             <View>
-                <View>
-                    <View>
-
-                    </View>
+                <View style={{ height: 50, width, borderColor: '#EAEAEA', borderWidth: 1, marginTop: 10 }}>
+                    {/* {this.getItem('chat_64px', 'แชท')} */}
                 </View>
             </View>
         )

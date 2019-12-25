@@ -24,37 +24,38 @@ const PathScreen = createStackNavigator({
     }),
   },
   DetailScreen: {
-    screen:DetailScreen,
+    screen: DetailScreen,
     navigationOptions: () => ({
       tabBarVisible: false,
       header: null
     }),
   },
-  ProfileScreen:{
-    screen:ProfileScreen,
-    navigationOptions:()=>({
+  ProfileScreen: {
+    screen: ProfileScreen,
+    navigationOptions: () => ({
       tabBarVisible: false,
       header: null,
     })
   },
-  CartScreen:{
-    screen:CartScreen,
-    navigationOptions:()=>({
+  CartScreen: {
+    screen: CartScreen,
+    navigationOptions: () => ({
       tabBarVisible: false,
       header: null,
     })
   },
-  LoginScreen:{
-    screen:LoginScreen,
-    navigationOptions:()=>({
+  LoginScreen: {
+    screen: LoginScreen,
+    navigationOptions: () => ({
       tabBarVisible: false,
       header: null,
     })
   },
 },
   {
-    initialRouteName: 'MainScreen',
-  });
+    initialRouteName: 'ProfileScreen',
+  }
+);
 
 const AppNavigator = createAppContainer(PathScreen);
 export default AppNavigator;

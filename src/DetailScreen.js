@@ -46,7 +46,7 @@ export default class DetailScreen extends Component {
           <Similar_Product navigation={this.props.navigation} />
           <Might_like navigation={this.props.navigation} />
         </ScrollView>
-        <Buy_bar navigation={this.props.navigation}/>
+        <Buy_bar navigation={this.props.navigation} />
       </SafeAreaView>
     );
   }
@@ -66,7 +66,7 @@ export class AppBar extends Component {
     return (
       <View style={styles.Appbar}>
         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
-            <IconsFeather name="arrow-left" size={30} />
+          <IconsFeather name="arrow-left" size={30} />
         </TouchableOpacity>
         {/* <Image
           style={styles.LOGO}
@@ -80,7 +80,7 @@ export class AppBar extends Component {
         <IconAntDesign RightItem name="search1" size={25} style={styles.Icon_appbar} />
 
         <TouchableOpacity onPress={() => this.props.navigation.navigate('CartScreen')}>
-           <IconAntDesign RightItem name="shoppingcart" size={25} style={styles.Icon_appbar} />
+          <IconAntDesign RightItem name="shoppingcart" size={25} style={styles.Icon_appbar} />
         </TouchableOpacity>
       </View>
     );
@@ -327,7 +327,7 @@ export class Detail_Catagory extends Component {
     //  console.log(url);
     axios.get(url)
       .then((getData) => {
-        // console.log(getData.data);
+        console.log(getData.data);
         this.setState({
           dataid_store: getData.data,
         })
@@ -361,7 +361,7 @@ export class Detail_Catagory extends Component {
         </View>
       );
     })
-    return(
+    return (
       <View>{id_store}</View>
     )
   }
@@ -769,10 +769,11 @@ export class Might_like extends Component {
   }
 
   getDataPopularProduct() {
+    // console.log( 'Might_like|getDataPopularProduct' )
     var url = ip + '/mysql/DataServiceStore.php?type=todayproduct';
     axios.get(url)
       .then((getData) => {
-        //   console.log(getData.data);
+          // console.log(getData.data);
         this.setState({
           dataSourcePopularProduct: getData.data,
         })
@@ -784,9 +785,10 @@ export class Might_like extends Component {
   }
 
   render() {
+    console.log( 'Might_like|render' )
     let dataToday = this.state.dataSourcePopularProduct.map((item, indexs) => {
-      // console.log( indexs + '. ' + item.image ),
       var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+      // console.log( dataMySQL )
       return (
         <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}>
           <View style={styles.PopularProductBox} key={indexs}>

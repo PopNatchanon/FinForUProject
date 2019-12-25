@@ -54,7 +54,8 @@ const PathScreen = createStackNavigator({
 },
   {
     initialRouteName: 'MainScreen',
-  });
+  }
+  );
 
 const AppNavigator = createAppContainer(PathScreen);
 export default AppNavigator;

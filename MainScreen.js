@@ -14,6 +14,7 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
 import Icons from 'react-native-vector-icons/FontAwesome5';
+import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import styles from './StylesMainScreen';
 import { ip } from './IpConfig'
 export const { width, height } = Dimensions.get('window');
@@ -45,7 +46,7 @@ export default class MainScreen extends Component {
                     <BannerBar_THREE />
                     <TodayProduct navigation={this.props.navigation} />
                 </ScrollView>
-                <Toolbar />
+                <Toolbar navigation={this.props.navigation} />
             </SafeAreaView>
         );
     }
@@ -87,11 +88,35 @@ export class Toolbar extends Component {
     render() {
         return (
             <View style={styles.Toolbar}>
-                <Icons name="home" size={25} />
-                <Icons name="tags" size={25} />
-                <Icons name="layer-group" size={25} />
-                <Icons name="bell" size={25} />
-                <Icons name="user-alt" size={25} />
+                <View >
+                    <IconAntDesign style={{ marginLeft: 5, }} name="home" size={25} />
+                    <Text>Home</Text>
+                </View>
+                <View >
+                    <IconAntDesign name="tagso" size={25} />
+                    <Text> Feed</Text>
+                </View>
+                <View >
+                    <IconAntDesign name="notification" size={25} />
+                    <Text>News</Text>
+                </View>
+                <View >
+                    <IconAntDesign name="bells" size={25} />
+                    <Text>เตือน</Text>
+                </View>
+                <TouchableOpacity
+                    activeOpacity={1}
+                    onPress={
+                        () => this.props.navigation.navigate(
+                            'ProfileScreen'
+                        )
+                    }
+                >
+                    <View>
+                        <IconAntDesign name="user" size={25} />
+                        <Text> ฉัน</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -581,7 +606,16 @@ export class FlashSale extends Component {
             //   console.log('Sale' + [ indexs, item.image ].join(' ')),
             var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
             return (
-                <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
+                <TouchableOpacity
+                    activeOpacity={1}
+                    key={indexs}
+                    onPress={
+                        () => this.props.navigation.navigate(
+                            'DetailScreen', {
+                            id_item: item.id_product
+                        })
+                    }
+                >
                     <View style={styles.FlashSaleBox}>
                         <Image
                             source={{

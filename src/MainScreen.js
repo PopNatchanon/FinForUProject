@@ -93,30 +93,34 @@ export class Toolbar extends Component {
     render() {
         return (
             <View style={styles.Toolbar}>
-                <View >
-                    <IconAntDesign style={{ marginLeft: 5, }} name="home" size={25} />
-                    <Text>Home</Text>
-                </View>
-                <View >
-                    <IconAntDesign name="tagso" size={25} />
-                    <Text> Feed</Text>
-                </View>
-                <View >
-                    <IconAntDesign name="notification" size={25} />
-                    <Text>News</Text>
-                </View>
-                <View >
-                    <IconAntDesign name="bells" size={25} />
-                    <Text>เตือน</Text>
-                </View>
-                <TouchableOpacity
-                    activeOpacity={1}
-                    onPress={
-                        () => this.props.navigation.navigate(
-                            'ProfileScreen'
-                        )
-                    }
-                >
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('MainScreen')} >
+                    <View >
+                        <IconAntDesign style={{ marginLeft: 5, }} name="home" size={25} />
+                        <Text>Home</Text>
+                    </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('FeedScreen')} >
+                    <View >
+                        <IconAntDesign name="tagso" size={25} />
+                        <Text> Feed</Text>
+                    </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('NewsScreen')} >
+                    <View >
+                        <IconAntDesign name="notification" size={25} />
+                        <Text>News</Text>
+                    </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('BellScreen')} >
+                    <View >
+                        <IconAntDesign name="bells" size={25} />
+                        <Text>เตือน</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('ProfileScreen')} >
                     <View>
                         <IconAntDesign name="user" size={25} />
                         <Text> ฉัน</Text>

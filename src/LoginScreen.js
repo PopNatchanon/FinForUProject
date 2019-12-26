@@ -106,14 +106,13 @@ export class Register extends Component {
       <View style={styles.Register_Box}>
         <View style={styles.Register_Box_A}>
           <View><Text style={styles.Register_Box_TextA}> สร้างบัญชี </Text></View>
-        <View>
-          <Text style={{textAlign:'center', margin:20,}}>เข้าสู่ระบบด้วยช่องทางอื่น</Text>
-        </View>
-        <View style={styles.Register_Box_Button}>
-          <Image style={styles.Register_Box_image} source={require('../icon/face_icon.png')}></Image>
-          <Image style={styles.Register_Box_image} source={require('../icon/googla_icon.png')}></Image>
-        </View>
-        
+          <View>
+            <Text style={{ textAlign: 'center', margin: 20,justifyContent:'center', }}>เข้าสู่ระบบด้วยช่องทางอื่น</Text>
+          </View>
+          <View style={styles.Register_Box_Button}>
+            <Image style={styles.Register_Box_image} source={require('../icon/face_icon.png')}></Image>
+            <Image style={styles.Register_Box_image} source={require('../icon/googla_icon.png')}></Image>
+          </View>
         </View>
       </View>
     );

@@ -71,8 +71,8 @@ export default StyleSheet.create({
     ///--------------------------------------------------------------------------///
 
     Register_Box: {
-        justifyContent: 'center',
-        alignItems: 'center',
+        // justifyContent: 'center',
+        // alignItems: 'center',
         marginTop: 10,
         width,
         height: 200,
@@ -89,7 +89,8 @@ export default StyleSheet.create({
     Register_Box_Button: {
         width,
         flexDirection: 'row',
-        marginLeft:30,
+        justifyContent:'center',
+        // backgroundColor:'#111111',
     },
     Register_Box_image: {
         marginLeft: 10,

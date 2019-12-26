@@ -101,7 +101,7 @@ export class Detail_Image extends Component {
     var id_item = this.props.navigation.getParam('id_item')
     // console.log('getid_product1: ' + this.props.navigation.getParam('id_item'))
     // console.log('getid_product2: ' + id_item)
-    var url = ip + '/mysql/DataService_Detall.php?type=store&id_product=' + id_item;
+    var url = ip + '/mysql/DataService_Detail.php?type=store&id_product=' + id_item;
     // console.log(url);
     axios.get(url)
       .then((getData) => {
@@ -188,7 +188,7 @@ export class Store extends Component {
   getid_store(id_item) {
     var id_item = this.props.navigation.getParam('id_item')
     // console.log( 'CategoryProductChild Process' )
-    var url = ip + '/mysql/DataService_Detall.php?type=store&id_product=' + id_item;
+    var url = ip + '/mysql/DataService_Detail.php?type=store&id_product=' + id_item;
     //  console.log(url);
     axios.get(url)
       .then((getData) => {
@@ -326,7 +326,7 @@ export class Detail_Catagory extends Component {
   getid_store(id_item) {
     var id_item = this.props.navigation.getParam('id_item')
     // console.log( 'CategoryProductChild Process' )
-    var url = ip + '/mysql/DataService_Detall.php?type=store&id_product=' + id_item;
+    var url = ip + '/mysql/DataService_Detail.php?type=store&id_product=' + id_item;
     //  console.log(url);
     axios.get(url)
       .then((getData) => {
@@ -859,7 +859,7 @@ export class Buy_bar extends Component {
   }
   getid_product() {
     var id_item = this.props.navigation.getParam('id_item')
-    var url = ip + '/mysql/DataService_Detall.php?type=store&id_product=' + id_item;
+    var url = ip + '/mysql/DataService_Detail.php?type=store&id_product=' + id_item;
     // console.log(url);
     axios.get(url)
       .then((getData) => {

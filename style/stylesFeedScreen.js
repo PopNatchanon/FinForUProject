@@ -6,6 +6,7 @@ export default StyleSheet.create({
     SafeAreaView: {
         flex: 1,
     },
+    
     Appbar: {
         backgroundColor: '#0A55A6',
         height: 50,

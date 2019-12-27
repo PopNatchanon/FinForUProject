@@ -9,7 +9,7 @@ import {
     TouchableOpacity,
     Dimensions,
 } from 'react-native';
-import { CheckBox } from 'react-native-elements'
+import { CheckBox } from 'react-native-elements';
 import axios from 'axios';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Icons from 'react-native-vector-icons/FontAwesome';
@@ -36,7 +36,7 @@ export default class CartScreen extends Component {
                 <AppBar navigation={this.props.navigation} />
                 <ScrollView>
                     <Product_Cart />
-                    <Product_Like />
+                    {/* <Product_Like /> */}
                     <Might_like />
                 </ScrollView>
                 <Buy_bar />
@@ -82,16 +82,16 @@ export class Product_Cart extends Component {
         return (
             <View style={styles_A.Product_Cart}>
                 <Text> สินค้าในรถเข็น </Text>
-                {/* <CheckBox
+                <CheckBox
                     title='Click Here'
                     checked={this.state.item1}
-  onPress={() => this.setState({checked: !this.state.item1})}
+                    onPress={() => this.setState({ item1: !this.state.item1 })}
                 />
                 <CheckBox
                     title='Click Here'
                     checked={this.state.item2}
-  onPress={() => this.setState({checked: !this.state.item2})}
-                /> */}
+                    onPress={() => this.setState({ item2: !this.state.item2 })}
+                />
             </View>
         );
     }

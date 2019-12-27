@@ -14,7 +14,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         paddingTop: 5,
-      },
+    },
     Logo_Box: {
         width,
         alignItems: 'center',
@@ -42,7 +42,6 @@ export default StyleSheet.create({
         backgroundColor: '#F3F3F3',
         borderRadius: 10,
         paddingTop: 20,
-        paddingLeft: 10,
         paddingRight: 10,
     },
     Login_Box_Text: {
@@ -63,9 +62,10 @@ export default StyleSheet.create({
         width: 300,
         justifyContent: 'center',
         alignItems: 'center',
+        // backgroundColor: 'black',
     },
     Login_Box_Text_B: {
-        marginTop: 10,
+        marginTop:10,
         width: 150,
         height: 50,
         backgroundColor: '#0A55A6',
@@ -80,26 +80,27 @@ export default StyleSheet.create({
     ///--------------------------------------------------------------------------///
 
     Register_Box: {
-        // justifyContent: 'center',
-        // alignItems: 'center',
-        marginTop: 10,
-        width,
-        height: 180,
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1,
+
     },
     Register_Box_A: {
-        height: 200,
+        height: 250,
         width: 300,
     },
+
     Register_Box_TextA: {
-        marginTop: 5,
         textAlign: 'right',
         color: '#0A55A6',
+
     },
     Register_Box_Button: {
-        width,
+        marginTop: 10,
+        width: 300,
         flexDirection: 'row',
-        justifyContent:'center',
-        // backgroundColor:'#111111',
+        justifyContent: 'center',
+
     },
     Register_Box_image: {
         marginLeft: 10,
@@ -109,5 +110,39 @@ export default StyleSheet.create({
         resizeMode: 'stretch',
     },
 
+    ///--------------------------------------------------------------------------///
 
+    Register_OTP_Box_A: {
+        height: 300,
+        width: 300,
+    },
+
+    ///--------------------------------------------------------------------------///
+    RegisterScreen_Text: {
+        fontSize: 11,
+        textAlign: 'center',
+        color: '#FF0000',
+    },
+    RegisterScreen_CheckBox: {
+        flexDirection: 'row',
+        width: 300,
+    },
+    RegisterScreen_Check_Box:{
+        width:230,
+        marginTop:5,
+    }, 
+    RegisterScreen_Check_Text: {
+        fontSize: 12,
+    },
+    RegisterScreen_Box_Login: {
+        height: 350,
+        width: 300,
+        backgroundColor: '#F3F3F3',
+        borderRadius: 10,
+        paddingTop: 20,
+        paddingRight: 10,
+    },
+   
+
+    ///--------------------------------------------------------------------------///
 })

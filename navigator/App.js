@@ -10,6 +10,8 @@ import LoginScreen from '../src/LoginScreen';
 import FeedScreen from '../src/FeedScreen';
 import NewsScreen from '../src/NewsScreen';
 import BellScreen from '../src/BellScreen';
+import Register_OTPScreen from '../src/Register_OTPScreen';
+import RegisterScreen from '../src/RegisterScreen';
 
 const PathScreen = createStackNavigator({
   MainScreen: {
@@ -75,9 +77,23 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
+  Register_OTPScreen: {
+    screen: Register_OTPScreen,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
+  RegisterScreen: {
+    screen: RegisterScreen,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
 },
   {
-    initialRouteName: 'ProfileScreen',
+    initialRouteName: 'MainScreen',
   }
   );
 

@@ -14,13 +14,15 @@ import { ButtonGroup } from 'react-native-elements';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
+import FastImage from 'react-native-fast-image';
+
 import Icons from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconsFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo'
 import styles from '../style/stylesFeedScreen';
-import { ip } from '../IpConfig'
+import { ip } from '../navigator/IpConfig'
 export const { width, height } = Dimensions.get('window');
 
 export default class NewsScreen extends Component {

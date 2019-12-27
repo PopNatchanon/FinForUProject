@@ -14,13 +14,15 @@ import { ButtonGroup } from 'react-native-elements';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
+import FastImage from 'react-native-fast-image';
+
 import Icons from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconsFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo'
 import styles from '../style/stylesFeedScreen';
-import { ip } from '../IpConfig'
+import { ip } from '../navigator/IpConfig'
 export const { width, height } = Dimensions.get('window');
 
 
@@ -224,12 +226,12 @@ export class Follow_up extends Component {
         <View key={indexs}>
           <View style={styles.StoreFeed_header}>
             <View style={{ flexDirection: 'row', }}>
-              <Image
+              <FastImage
                 style={styles.StoreFeed_Image}
                 source={{
                   uri: dataMySQL_s,
                 }}
-              ></Image>
+              />
               <Text style={styles.StoreFeed_Text_store}>
                 {item.s_name}
               </Text>
@@ -237,12 +239,12 @@ export class Follow_up extends Component {
             </View>
           </View>
           <View style={styles.StoreFeedBox}>
-            <Image
+            <FastImage
               source={{
                 uri: dataMySQL_p,
               }}
               style={styles.StoreFeedImage}
-              resizeMethod='resize'
+
             />
             <View style={styles.StoreFeedComBox}>
               <Text style={styles.StoreFeedComBoxDetail}>
@@ -336,31 +338,29 @@ export class Highlights extends Component {
         <View key={indexs}>
           <View style={styles.StoreFeed_header}>
             <View style={{ flexDirection: 'row', }}>
-              <Image
+              <FastImage
                 style={styles.StoreFeed_Image}
                 source={{
                   uri: dataMySQL_s,
                 }}
-              ></Image>
+              />
               <Text style={styles.StoreFeed_Text_store}>
                 {item.s_name}
               </Text>
             </View>
-            <View style={{flexDirection:'row'}}>
+            <View style={{ flexDirection: 'row' }}>
               <View style={styles.StoreFeed_Button_F}>
                 <Text style={styles.StoreFeed_Text_F}>ติดตาม</Text>
                 <IconEntypo name='dots-three-vertical' size={25} />
               </View>
             </View>
-            
           </View>
           <View style={styles.StoreFeedBox}>
-            <Image
+            <FastImage
               source={{
                 uri: dataMySQL_p,
               }}
               style={styles.StoreFeedImage}
-              resizeMethod='resize'
             />
             <View style={styles.StoreFeedComBox}>
               <Text style={styles.StoreFeedComBoxDetail}>
@@ -368,14 +368,14 @@ export class Highlights extends Component {
               </Text>
               <Text style={styles.StoreFeedComBoxTag}>
                 ที่สุดสำหรับคุณ
-                        </Text>
+              </Text>
               <View style={{ flexDirection: 'row' }}>
                 <Text style={styles.StoreFeedComBoxText}>
                   200 การเข้าชม
-                            </Text>
+                </Text>
                 <Text style={styles.StoreFeedComBoxText}>
                   เมื่อ 3 วันที่ผ่านมา
-                            </Text>
+                </Text>
               </View>
             </View>
             <View style={styles.StoreFeedComBox2}>
@@ -383,13 +383,13 @@ export class Highlights extends Component {
                 <Icons name='heart' size={20} />
                 <Text style={styles.StoreFeedComBoxIconText}>
                   ถูกใจ
-                            </Text>
+                </Text>
               </View>
               <View style={styles.StoreFeedComBoxIcon}>
                 <Icons name='comment-dots' size={20} />
                 <Text style={styles.StoreFeedComBoxIconText}>
                   แสดงความคิดเห็น
-                            </Text>
+                </Text>
               </View>
               <View style={styles.StoreFeedComBoxIcon}>
                 <Icons name='share-square' size={20} />

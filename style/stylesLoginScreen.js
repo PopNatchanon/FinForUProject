@@ -14,7 +14,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         paddingTop: 5,
-      },
+    },
     Logo_Box: {
         width,
         alignItems: 'center',
@@ -98,7 +98,7 @@ export default StyleSheet.create({
     Register_Box_Button: {
         width,
         flexDirection: 'row',
-        justifyContent:'center',
+        justifyContent: 'center',
         // backgroundColor:'#111111',
     },
     Register_Box_image: {

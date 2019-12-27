@@ -10,16 +10,17 @@ import {
 } from 'react-native';
 // import SwiperFlatList from 'react-native-swiper-flatlist';
 import axios from 'axios';
-// import NumberFormat from 'react-number-format';
+import NumberFormat from 'react-number-format';
+import FastImage from 'react-native-fast-image';
+
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Icons from 'react-native-vector-icons/FontAwesome';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo'
 import styles from '../style/StylesDetailScreen'
-import NumberFormat from 'react-number-format';
 
-import { ip } from '../IpConfig'
+import { ip } from '../navigator/IpConfig'
 
 export default class DetailScreen extends Component {
   constructor(props) {
@@ -72,7 +73,7 @@ export class AppBar extends Component {
         {/* <Image
           style={styles.LOGO}
           source={require('../images/sj.png')}
-          resizeMethod='resize'
+          
         ></Image> */}
         <TextInput style={styles.TextInput}
           placeholder="ค้นหาสินค้า/ร้านค้า"
@@ -128,12 +129,12 @@ export class Detail_Image extends Component {
       return (
         <View style={styles.Detail_Image} key={indexs}>
           <View style={styles.Image_Box}>
-            <Image
+            <FastImage
               source={{
                 uri: dataMySQL,
               }}
               style={styles.Image}
-              resizeMethod='resize'
+              
             />
           </View>
           <View style={styles.Price_Box}>
@@ -221,12 +222,12 @@ export class Store extends Component {
         <View style={styles.Store} key={indexs}>
           <View style={styles.Store_Box}>
             <View style={styles.Store_Box2}>
-              <Image
+              <FastImage
                 source={{
                   uri: dataMySQL,
                 }}
                 style={styles.Store_Image}
-                resizeMethod='resize'
+                
               />
               <View style={styles.Store_Text_Box}>
                 <Text>
@@ -473,44 +474,37 @@ export class Reviews extends Component {
         <View>
           <ScrollView horizontal>
             <View style={styles.Reviews_Image_Box}>
-              <Image
+              <FastImage
                 style={styles.Reviews_Image}
                 source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
-                resizeMethod='resize'
-              ></Image>
-              <Image
+              />
+              <FastImage
                 style={styles.Reviews_Image}
                 source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
-                resizeMethod='resize'
-              ></Image>
-              <Image
+                />
+              <FastImage
                 style={styles.Reviews_Image}
                 source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
-                resizeMethod='resize'
-              ></Image>
-              <Image
+                />
+              <FastImage
                 style={styles.Reviews_Image}
                 source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
-                resizeMethod='resize'
-              ></Image>
-              <Image
+                />
+              <FastImage
                 style={styles.Reviews_Image}
                 source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
-                resizeMethod='resize'
-              ></Image>
-              <Image
+                />
+              <FastImage
                 style={styles.Reviews_Image}
                 source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
-                resizeMethod='resize'
-              ></Image>
+                />
             </View>
           </ScrollView>
           <View style={styles.Comment_R}>
-            <Image
+            <FastImage
               style={styles.Comment_R_Image}
               source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
-              resizeMethod='resize'
-            ></Image>
+              />
             <View style={styles.Comment_R_Text}>
               <Text>p********n</Text>
               <View style={styles.Comment_R_Iconstar}>
@@ -526,11 +520,10 @@ export class Reviews extends Component {
             <IconAntDesign style={styles.Comment_text_iconheart} name='hearto' size={20} />
           </View>
           <View style={styles.Comment_R}>
-            <Image
+            <FastImage
               style={styles.Comment_R_Image}
               source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
-              resizeMethod='resize'
-            ></Image>
+              />
             <View style={styles.Comment_R_Text}>
               <Text>p********n</Text>
               <View style={styles.Comment_R_Iconstar}>
@@ -542,32 +535,28 @@ export class Reviews extends Component {
               </View>
               <Text>สั่งซื้อซ้ำเป็นรอบที่ 2 ติดใจโรงแรมสะอาดราคาไม่แพง โลเคชั่นดี</Text>
               <View style={styles.Comment_Image_A}>
-                <Image
+                <FastImage
                   style={styles.Reviews_Image}
                   source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
-                  resizeMethod='resize'
-                ></Image>
-                <Image
+                  />
+                <FastImage
                   style={styles.Reviews_Image}
                   source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
-                  resizeMethod='resize'
-                ></Image>
-                <Image
+                  />
+                <FastImage
                   style={styles.Reviews_Image}
                   source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
-                  resizeMethod='resize'
-                ></Image>
+                  />
               </View>
               <Text style={styles.Comment_text_day}>16-11-2019 15:56 | กรอบแว่นขนาด 50 cm</Text>
             </View>
             <IconAntDesign style={styles.Comment_text_iconheart} name='hearto' size={20} />
           </View>
           <View style={styles.Comment_R}>
-            <Image
+            <FastImage
               style={styles.Comment_R_Image}
               source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
-              resizeMethod='resize'
-            ></Image>
+              />
             <View style={styles.Comment_R_Text}>
               <Text>p********n</Text>
               <View style={styles.Comment_R_Iconstar}>
@@ -601,11 +590,10 @@ export class BannerBar extends Component {
 
   render() {
     return (<View style={styles.Banner_Bar}>
-      <Image
+      <FastImage
         style={styles.Banner_Bar_image}
         source={{ uri: ip + '/MySQL/uploads/slide/Banner_type/watch_BannerBar.jpg' }}
-        resizeMethod='resize'
-      ></Image>
+        />
     </View>
     );
   }
@@ -648,12 +636,11 @@ export class Same_Store extends Component {
       return (
         <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}>
           <View style={styles.Same_StoreBox} key={indexs}>
-            <Image
+            <FastImage
               source={{
                 uri: dataMySQL,
               }}
               style={styles.Same_StoreImage}
-              resizeMethod='resize'
             />
             <Text style={styles.Same_StoreImageName}>{item.name}</Text>
             <NumberFormat
@@ -737,12 +724,11 @@ export class Similar_Product extends Component {
       return (
         <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}>
           <View style={styles.Same_StoreBox} key={indexs}>
-            <Image
+            <FastImage
               source={{
                 uri: dataMySQL,
               }}
               style={styles.Same_StoreImage}
-              resizeMethod='resize'
             />
             <Text style={styles.Same_StoreImageName}>{item.name}</Text>
             <NumberFormat
@@ -827,12 +813,11 @@ export class Might_like extends Component {
       return (
         <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}>
           <View style={styles.PopularProductBox} key={indexs}>
-            <Image
+            <FastImage
               source={{
                 uri: dataMySQL,
               }}
               style={styles.PopularProductImage}
-              resizeMethod='resize'
             />
             <Text style={styles.PopularProductImageName}>
               {item.name}

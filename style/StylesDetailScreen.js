@@ -60,13 +60,13 @@ export default StyleSheet.create({
     },
     Image_Box: {
         width: 400,
-        height: 300,
+       height: 300,
         justifyContent: 'center',
         alignItems: 'center',
     },
     Image: {
         width: 300,
-        height: 300,
+       height: 300,
         resizeMode: 'stretch',
     },
 

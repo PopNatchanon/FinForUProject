@@ -20,15 +20,17 @@ if($Stype=='store'){
     left join store as s
     on p.id_store = s.id_store 
     where p.id_product = '$idproduct'";
-}else if($Stype=='view'){
-    $sql = "SELECT * FROM  reviews ";
+}else if($Stype=='Feed'){
+    $sql = "SELECT p.image as p_image ,p.name as p_name ,p.full_price,p.id_store as p_id_store ,p.id_product,p.detail, p.type ,s.name as s_name ,s.image as s_image ,s.id_store as s_id_store  
+    from product as p 
+    left join store as s
+    on p.id_store = s.id_store ";
 }
 // else if($Stype=='countstore'){
 //     $Sid=$_GET['id'];
 //     $sql = "SELECT Count(*) FROM product as p LEFT JOIN store as s ON p.id_store=s.id_store 
 //     WHERE p.id_store = '$Sid'";
 // }
-
 
 $result = $conn->query($sql);
  

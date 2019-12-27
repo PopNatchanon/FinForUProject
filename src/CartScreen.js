@@ -127,14 +127,19 @@ export class Might_like extends Component {
     }
 
     getDataPopularProduct() {
-        var url = ip + '/mysql/DataServiceStore.php?type=todayproduct';
-        axios.get(url)
-            .then((getData) => {
-                //   console.log(getData.data);
-                this.setState({
-                    dataSourcePopularProduct: getData.data,
-                })
+        var url = ip + '/mysql/DataServiceStore.php';
+        var dataBody = {
+            type: 'todayproduct'
+        }
+        axios.post(
+            url,
+            dataBody,
+        ).then((getData) => {
+            //   console.log(getData.data);
+            this.setState({
+                dataSourcePopularProduct: getData.data,
             })
+        })
     }
 
     componentDidMount() {

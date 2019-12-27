@@ -18,22 +18,36 @@ export default StyleSheet.create({
     ///-------------------------------------------------------------------------------///
     HeadbarImage: {
         width,
-        height: 132,
+        height: 150,
         opacity: 0.9,
     },
     HeadbarA: {
-        marginTop: -132,
+        marginTop: -150,
         flexDirection: 'row',
     },
     HeadbarBox1: {
-        width: '30%',
+        width,
+        flexDirection:'row',
+        justifyContent: 'space-between',
+    },
+    HeadbarBox1Sub: {
+        width:80,
+        backgroundColor: '#0A55A6',
+        marginTop: 8,
+        padding:8,
+        borderTopRightRadius: 8,
+        borderBottomRightRadius: 8,
+    },
+    HeadbarBox1SubText: {
+        color: '#ECECEC',
+        fontSize: 14,
     },
     HeadbarBoxImage: {
         backgroundColor: '#ECECEC',
-        width: 60,
-        height: 60,
-        borderRadius: 30,
-        marginTop: 18,
+        width: 80,
+        height: 80,
+        borderRadius: 40,
+        marginTop: 10,
         marginLeft: 'auto',
         marginRight: 'auto',
     },
@@ -66,7 +80,7 @@ export default StyleSheet.create({
     },
     ///-----------------------------------------------------------------------------///
     Menubar: {
-        marginTop: '8%',
+        marginTop: '4%',
         padding: 4,
         flexDirection: 'row',
         borderBottomColor: '#EAEAEA',

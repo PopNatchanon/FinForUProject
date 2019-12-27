@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation'
-import MainScreen from './src/MainScreen';
-import StoreScreen from './src/StoreScreen';
-import DetailScreen from './src/DetailScreen';
-import ProfileScreen from './src/ProfileScreen';
-import CartScreen from './src/CartScreen';
-import LoginScreen from './src/LoginScreen';
-import FeedScreen from './src/FeedScreen';
-import NewsScreen from './src/NewsScreen';
-import BellScreen from './src/BellScreen';
+import MainScreen from '../src/MainScreen';
+import StoreScreen from '../src/StoreScreen';
+import DetailScreen from '../src/DetailScreen';
+import ProfileScreen from '../src/ProfileScreen';
+import CartScreen from '../src/CartScreen';
+import LoginScreen from '../src/LoginScreen';
+import FeedScreen from '../src/FeedScreen';
+import NewsScreen from '../src/NewsScreen';
+import BellScreen from '../src/BellScreen';
 
 const PathScreen = createStackNavigator({
   MainScreen: {
@@ -77,7 +77,7 @@ const PathScreen = createStackNavigator({
   },
 },
   {
-    initialRouteName: 'MainScreen',
+    initialRouteName: 'ProfileScreen',
   }
   );
 

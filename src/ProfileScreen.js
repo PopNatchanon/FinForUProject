@@ -55,6 +55,30 @@ export class Headbar extends Component {
         super(props)
     }
     render() {
+        {/* <View style={styles.HeadbarA}>
+            <View style={styles.HeadbarBox1}>
+                <Image style={styles.HeadbarBoxImage} />
+            </View>
+            <View>
+                <Text style={styles.HeadbarText}>
+                    เข้าสู่ระบบเพื่อการช๊อปที่ดียิ่งขึ้น
+                </Text>
+                <TouchableOpacity
+                    activeOpacity={1}
+                    onPress={
+                        () => this.props.navigation.navigate(
+                            'LoginScreen'
+                        )
+                    }
+                >
+                    <View style={styles.HeadbarBox2}>
+                        <Text style={styles.HeadbarBox2Text}>
+                            เข้าสู่ระบบ/สมัครสมาชิก
+                        </Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
+        </View> */}
         return (
             <View>
                 <ImageBackground
@@ -62,52 +86,31 @@ export class Headbar extends Component {
                     style={styles.HeadbarImage}
                     resizeMethod='resize'
                 />
-                {/* <View style={styles.HeadbarA}>
-                    <View style={styles.HeadbarBox1}>
-                        <Image style={styles.HeadbarBoxImage} />
-                    </View>
-                    <View>
-                        <Text style={styles.HeadbarText}>
-                            เข้าสู่ระบบเพื่อการช๊อปที่ดียิ่งขึ้น
-                        </Text>
-                        <TouchableOpacity
-                            activeOpacity={1}
-                            onPress={
-                                () => this.props.navigation.navigate(
-                                    'LoginScreen'
-                                )
-                            }
-                        >
-                            <View style={styles.HeadbarBox2}>
-                                <Text style={styles.HeadbarBox2Text}>
-                                    เข้าสู่ระบบ/สมัครสมาชิก
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                </View> */}
                 <View style={styles.HeadbarA}>
                     <View style={styles.HeadbarBox1}>
-                        <Image style={styles.HeadbarBoxImage} />
-                    </View>
-                    <View>
-                        <Text style={styles.HeadbarText}>
-                            เข้าสู่ระบบเพื่อการช๊อปที่ดียิ่งขึ้น
-                        </Text>
-                        <TouchableOpacity
-                            activeOpacity={1}
-                            onPress={
-                                () => this.props.navigation.navigate(
-                                    'LoginScreen'
-                                )
-                            }
-                        >
-                            <View style={styles.HeadbarBox2}>
-                                <Text style={styles.HeadbarBox2Text}>
-                                    เข้าสู่ระบบ/สมัครสมาชิก
-                                </Text>
+                        <View>
+                            <View style={styles.HeadbarBox1Sub}>
+                                <Text style={styles.HeadbarBox1SubText}>
+                                    เริ่มค้าขาย
+                            </Text>
                             </View>
-                        </TouchableOpacity>
+                            <Image style={styles.HeadbarBoxImage} />
+                        </View>
+                        <View>
+                            <Text>
+                                ppooo
+                            </Text>
+                            <Text>
+                                Active อยู่
+                            </Text>
+                            <Text>
+                                ผู้ติดตาม 20.2 พัน | กำลังติดตาม 2
+                            </Text>
+                        </View>
+                        <View style={{ flexDirection: 'row' }}>
+                            <IconMaterialCommunityIcons RightItem name="settings-outline" size={25} />
+                            <IconFeather RightItem name="shopping-cart" size={25} />
+                        </View>
                     </View>
                 </View>
             </View>
@@ -123,32 +126,37 @@ export class Toolbar extends Component {
     render() {
         return (
             <View style={styles.Toolbar}>
-                <TouchableOpacity
-                    activeOpacity={1}
-                    onPress={
-                        () => this.props.navigation.popToTop()
-                    }
-                >
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('MainScreen')} >
                     <View >
                         <IconAntDesign style={{ marginLeft: 5, }} name="home" size={25} />
                         <Text>Home</Text>
                     </View>
                 </TouchableOpacity>
-                <View >
-                    <IconAntDesign name="tagso" size={25} />
-                    <Text> Feed</Text>
-                </View>
-                <View >
-                    <IconAntDesign name="notification" size={25} />
-                    <Text>News</Text>
-                </View>
-                <View >
-                    <IconAntDesign name="bells" size={25} />
-                    <Text>เตือน</Text>
-                </View>
+
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('FeedScreen')} >
+                    <View >
+                        <IconAntDesign name="tagso" size={25} />
+                        <Text>Feed</Text>
+                    </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('NewsScreen')} >
+                    <View >
+                        <IconAntDesign name="notification" size={25} />
+                        <Text>News</Text>
+                    </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('BellScreen')} >
+                    <View >
+                        <IconAntDesign name="bells" size={25} />
+                        <Text>เตือน</Text>
+                    </View>
+                </TouchableOpacity>
+
                 <View>
                     <IconAntDesign name="user" size={25} />
-                    <Text> ฉัน</Text>
+                    <Text>ฉัน</Text>
                 </View>
             </View>
         )

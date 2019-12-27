@@ -77,34 +77,34 @@ export class Toolbar extends Component {
   render() {
     return (
       <View style={styles.Toolbar}>
-        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('MainScreen')} >
+        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('MainScreen')} >
           <View >
             <IconAntDesign style={{ marginLeft: 5, }} name="home" size={25} />
             <Text>Home</Text>
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('FeedScreen')} >
+        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('FeedScreen')} >
           <View >
             <IconAntDesign name="tagso" size={25} />
             <Text> Feed</Text>
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('NewsScreen')} >
+        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('NewsScreen')} >
           <View >
             <IconAntDesign name="notification" size={25} />
             <Text>News</Text>
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('BellScreen')} >
+        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('BellScreen')} >
           <View >
             <IconAntDesign name="bells" size={25} />
             <Text>เตือน</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('ProfileScreen')} >
+        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('ProfileScreen')} >
           <View>
             <IconAntDesign name="user" size={25} />
             <Text> ฉัน</Text>
@@ -195,14 +195,19 @@ export class Follow_up extends Component {
   }
 
   getDataStoreFeed() {
-    var url = ip + '/mysql/DataService_Detail.php?type=Feed';
-    axios.get(url)
-      .then((getData) => {
-        //   console.log(getData.data);
-        this.setState({
-          dataSourceStoreFeed: getData.data,
-        })
+    var url = ip + '/mysql/DataService_Detail.php';
+    var dataBody = {
+      type: 'Feed',
+    }
+    axios.post(
+      url,
+      dataBody,
+    ).then((getData) => {
+      //   console.log(getData.data);
+      this.setState({
+        dataSourceStoreFeed: getData.data,
       })
+    })
   }
 
   componentDidMount() {
@@ -229,12 +234,12 @@ export class Follow_up extends Component {
                 {item.s_name}
               </Text>
             </View>
-            <View style={{flexDirection:'row'}}>
+            <View style={{ flexDirection: 'row' }}>
               <View style={styles.StoreFeed_Button_F}>
                 <Text style={styles.StoreFeed_Text_F}>ติดตาม</Text>
                 <IconEntypo name='dots-three-vertical' size={25} />
               </View>
-              
+
             </View>
           </View>
           <View style={styles.StoreFeedBox}>
@@ -307,8 +312,14 @@ export class Highlights extends Component {
   }
 
   getDataStoreFeed() {
-    var url = ip + '/mysql/DataService_Detail.php?type=Feed';
-    axios.get(url)
+    var url = ip + '/mysql/DataService_Detail.php';
+    var dataBody = {
+      type: 'Feed'
+    }
+    axios.post(
+      url,
+      dataBody,
+    )
       .then((getData) => {
         //   console.log(getData.data);
         this.setState({

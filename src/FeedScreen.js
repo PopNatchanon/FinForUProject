@@ -235,8 +235,8 @@ export class Follow_up extends Component {
               <Text style={styles.StoreFeed_Text_store}>
                 {item.s_name}
               </Text>
-              <IconEntypo name='dots-three-vertical' size={25} />
             </View>
+            <View style={{marginTop:10,}}><IconEntypo name='dots-three-vertical' size={25} /></View> 
           </View>
           <View style={styles.StoreFeedBox}>
             <FastImage
@@ -348,11 +348,11 @@ export class Highlights extends Component {
                 {item.s_name}
               </Text>
             </View>
-            <View style={{ flexDirection: 'row' }}>
+            <View style={styles.StoreFeed_Button_F_Box}>
               <View style={styles.StoreFeed_Button_F}>
                 <Text style={styles.StoreFeed_Text_F}>ติดตาม</Text>
-                <IconEntypo name='dots-three-vertical' size={25} />
               </View>
+              <IconEntypo name='dots-three-vertical' size={25} />
             </View>
           </View>
           <View style={styles.StoreFeedBox}>

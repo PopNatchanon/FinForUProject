@@ -31,7 +31,7 @@ export default class LoginScreen extends Component {
       <SafeAreaView style={styles.SafeAreaView}>
         <Logo />
         <Login navigation={this.props.navigation} />
-        <Register />
+        <Register navigation={this.props.navigation} />
         <Toolbar navigation={this.props.navigation} />
       </SafeAreaView>
     );
@@ -117,9 +117,11 @@ export class Register extends Component {
     return (
       <View style={styles.Register_Box}>
         <View style={styles.Register_Box_A}>
-          <View><Text style={styles.Register_Box_TextA}> สร้างบัญชี </Text></View>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Register_OTPScreen')}>
+            <View><Text style={styles.Register_Box_TextA}> สร้างบัญชี </Text></View>
+          </TouchableOpacity>
           <View>
-            <Text style={{ textAlign: 'center', margin: 20, justifyContent: 'center', }}>เข้าสู่ระบบด้วยช่องทางอื่น</Text>
+            <Text style={{ textAlign: 'center', margin: 10, }}>เข้าสู่ระบบด้วยช่องทางอื่น</Text>
           </View>
           <View style={styles.Register_Box_Button}>
             <FastImage

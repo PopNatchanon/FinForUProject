@@ -6,7 +6,7 @@ export default StyleSheet.create({
     SafeAreaView: {
         flex: 1,
     },
-    
+
     Appbar: {
         backgroundColor: '#0A55A6',
         height: 50,
@@ -63,7 +63,6 @@ export default StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         padding: 10,
-
     },
     StoreFeed_Image: {
         height: 50,
@@ -74,17 +73,22 @@ export default StyleSheet.create({
         textAlign: 'right',
         marginTop: 10,
         marginLeft: 10,
+
+    },
+    StoreFeed_Button_F_Box: {
+        marginTop: 10,
+        flexDirection:'row',
     },
     StoreFeed_Button_F: {
         backgroundColor: '#0A55A6',
         height: 30,
-        width: 80,
-        paddingTop:5,
-        borderRadius:5,
+        width: 90,
+        paddingTop: 5,
+        borderRadius: 5,
     },
-    StoreFeed_Text_F:{
-        textAlign:'center',
-        color:'#FFFF'
+    StoreFeed_Text_F: {
+        textAlign: 'center',
+        color: '#FFFF'
     },
     StoreFeed: {
         backgroundColor: '#FFFFFF',

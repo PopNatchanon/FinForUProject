@@ -13,7 +13,7 @@ import { CheckBox } from 'react-native-elements'
 import axios from 'axios';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Icons from 'react-native-vector-icons/FontAwesome';
-import IconsFeather from 'react-native-vector-icons/Feather';
+import IconFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconFoundation from 'react-native-vector-icons/Foundation';
 import styles_A from '../style/stylesCartScreen';
@@ -58,7 +58,7 @@ export class AppBar extends Component {
             <View style={styles_A.Appbar}>
                 <View style={styles_A.Icon_appbar_Text}>
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
-                        <IconsFeather style={styles_A.Icon_appbar} name="arrow-left" size={30} />
+                        <IconFeather style={styles_A.Icon_appbar} name="arrow-left" size={30} />
                     </TouchableOpacity>
                     <Text style={styles_A.Text_appbar}>รถเข็น</Text>
                 </View>

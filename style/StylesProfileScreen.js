@@ -3,6 +3,15 @@ import { StyleSheet, Dimensions } from 'react-native';
 export const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
+    Toolbar: {
+        backgroundColor: '#FFFFFF',
+        borderColor: '#ECECEC',
+        borderWidth: 1,
+        height: 50,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        paddingTop: 5,
+    },
     SafeAreaView: {
         flex: 1,
     },
@@ -11,9 +20,9 @@ export default StyleSheet.create({
         width,
         height: 132,
         opacity: 0.9,
-        flex: 1,
     },
     HeadbarA: {
+        marginTop: -132,
         flexDirection: 'row',
     },
     HeadbarBox1: {
@@ -24,7 +33,7 @@ export default StyleSheet.create({
         width: 60,
         height: 60,
         borderRadius: 30,
-        marginTop: 12,
+        marginTop: 18,
         marginLeft: 'auto',
         marginRight: 'auto',
     },
@@ -67,11 +76,13 @@ export default StyleSheet.create({
     MenubarText1: {
         fontSize: 16,
         fontWeight: 'bold',
+        marginTop: 4,
         marginLeft: 8,
-        marginBottom: 8,
+        marginBottom: 4,
     },
     MenubarText2: {
         color: '#0A55A6',
+        marginTop: 2,
     },
     ///---------------------------------------------------------------------------///
     MenubarSub: {
@@ -113,4 +124,46 @@ export default StyleSheet.create({
         marginLeft: 8,
     },
     ///--------------------------------------------------------------------///
+    ListMenu: {
+        width,
+        marginTop: 10,
+        borderColor: '#EAEAEA',
+        borderWidth: 0.5,
+    },
+    ListMenuList: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        borderColor: '#EAEAEA',
+        borderWidth: 0.5,
+    },
+    ListMenuListSub: {
+        flexDirection: 'row',
+    },
+    ListMenuListSubIcon: {
+        marginTop: 6,
+        marginLeft: 40,
+    },
+    ListMenuListSubName: {
+        marginTop: 15,
+        marginLeft: 16,
+        fontSize: 16,
+    },
+    ListMenuListIcon: {
+        marginTop: 6,
+        marginRight: 8,
+    },
+    ListbarBoxImage: {
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        marginTop: 18,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+    },
+    ListbarBoxText: {
+        marginTop: 8,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        fontSize: 14,
+    },
 })

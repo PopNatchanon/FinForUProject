@@ -15,7 +15,7 @@ import axios from 'axios';
 import NumberFormat from 'react-number-format';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Icons from 'react-native-vector-icons/FontAwesome';
-import IconsFeather from 'react-native-vector-icons/Feather';
+import IconFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo'
 import styles from '../style/StylesMainScreen';
@@ -138,14 +138,19 @@ export class Slide extends Component {
         };
     }
     getDataSlide() {
-        var url = ip + '/mysql/DataServiceMain.php?type=slide';
-        axios.get(url)
-            .then((getData) => {
-                // console.log(getData.data);
-                this.setState({
-                    dataSourceSlide: getData.data,
-                })
+        var url = ip + '/mysql/DataServiceMain.php';
+        var dataBody = {
+            type: 'slide'
+        };
+        axios.post(
+            url,
+            dataBody,
+        ).then((getData) => {
+            // console.log(getData.data);
+            this.setState({
+                dataSourceSlide: getData.data,
             })
+        })
     }
     componentDidMount() {
         this.getDataSlide()
@@ -228,13 +233,18 @@ export class Category extends Component {
         };
     }
     getDatatype() {
-        var url = ip + '/MySQL/DataServiceMain.php?type=type';
-        axios.get(url)
-            .then((getData) => {
-                this.setState({
-                    dataSourcetype: getData.data,
-                })
+        var url = ip + '/MySQL/DataServiceMain.php';
+        var dataBody = {
+            type: 'type'
+        };
+        axios.post(
+            url,
+            dataBody,
+        ).then((getData) => {
+            this.setState({
+                dataSourcetype: getData.data,
             })
+        })
     }
     componentDidMount() {
         this.getDatatype()
@@ -592,14 +602,19 @@ export class FlashSale extends Component {
     }
 
     getFlashSale() {
-        var url = ip + '/mysql/DataServiceMain.php?type=sale';
-        axios.get(url)
-            .then((getData) => {
-                // console.log(getData.data);
-                this.setState({
-                    dataSale: getData.data,
-                })
+        var url = ip + '/mysql/DataServiceMain.php';
+        var dataBody = {
+            type: 'sale'
+        };
+        axios.post(
+            url,
+            dataBody,
+        ).then((getData) => {
+            // console.log(getData.data);
+            this.setState({
+                dataSale: getData.data,
             })
+        })
     }
 
     componentDidMount() {
@@ -643,19 +658,6 @@ export class FlashSale extends Component {
                                     {value}
                                 </Text>}
                         />
-                        <View style={styles.FlashSaleIconBox}>
-                            <View style={styles.FlashSaleIconBoxStar}>
-                                <Icons style={styles.FlashSaleIconStar} name='star' size={8} color='#FFAC33' />
-                                <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
-                                <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
-                                <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
-                                <Icons style={styles.FlashSaleIconStar} name='star' size={8} />
-                            </View>
-                            <View style={styles.FlashSaleIconBoxI}>
-                                <Icons style={styles.FlashSaleIcon} name='heart' size={10} />
-                                <Icons style={styles.FlashSaleIcon} name='share' size={10} />
-                            </View>
-                        </View>
                     </View>
                 </TouchableOpacity>
             );
@@ -688,14 +690,19 @@ export class PromotionPopular extends Component {
         };
     }
     getDatabrand() {
-        var url = ip + '/MySQL/DataServiceMain.php?type=brand';
-        axios.get(url)
-            .then((getData) => {
-                //console.log(getData.data);
-                this.setState({
-                    dataSourcebrand: getData.data,
-                })
+        var url = ip + '/MySQL/DataServiceMain.php';
+        var dataBody = {
+            type: 'brand'
+        };
+        axios.post(
+            url,
+            dataBody,
+        ).then((getData) => {
+            //console.log(getData.data);
+            this.setState({
+                dataSourcebrand: getData.data,
             })
+        })
     }
     componentDidMount() {
         this.getDatabrand()
@@ -751,14 +758,19 @@ export class Confidential_PRO extends Component {
         };
     }
     getDatabrand() {
-        var url = ip + '/MySQL/DataServiceMain.php?type=Confidential_PRO';
-        axios.get(url)
-            .then((getData) => {
-                //console.log(getData.data);
-                this.setState({
-                    dataSourcebrand: getData.data,
-                })
+        var url = ip + '/MySQL/DataServiceMain.php';
+        var dataBody = {
+            type: 'Confidential_PRO'
+        };
+        axios.post(
+            url,
+            dataBody,
+        ).then((getData) => {
+            //console.log(getData.data);
+            this.setState({
+                dataSourcebrand: getData.data,
             })
+        })
     }
     componentDidMount() {
         this.getDatabrand()
@@ -811,14 +823,19 @@ export class Product_for_you extends Component {
         };
     }
     getSourceProductForYou() {
-        var url = ip + '/MySQL/DataServiceMain.php?type=foryou';
-        axios.get(url)
-            .then((getData) => {
-                //console.log(getData.data);
-                this.setState({
-                    dataSourceProductForYou: getData.data
-                })
+        var url = ip + '/MySQL/DataServiceMain.php';
+        var dataBody = {
+            type: 'foryou'
+        };
+        axios.post(
+            url,
+            dataBody,
+        ).then((getData) => {
+            //console.log(getData.data);
+            this.setState({
+                dataSourceProductForYou: getData.data
             })
+        })
     }
     componentDidMount() {
         this.getSourceProductForYou();
@@ -850,19 +867,6 @@ export class Product_for_you extends Component {
                                     {value}
                                 </Text>}
                         />
-                        <View style={styles.ProductForYouIconBox}>
-                            <View style={styles.ProductForYouIconBoxStar}>
-                                <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
-                                <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
-                                <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
-                                <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
-                                <Icons style={styles.ProductForYouIconStar} name='star' size={8} />
-                            </View>
-                            <View style={styles.ProductForYouIconBoxI}>
-                                <Icons style={styles.ProductForYouIcon} name='heart' size={10} />
-                                <Icons style={styles.ProductForYouIcon} name='share' size={10} />
-                            </View>
-                        </View>
                     </View>
                 </TouchableOpacity>
             )
@@ -897,14 +901,19 @@ export class SaleProduct extends Component {
     }
 
     getSaleProduct() {
-        var url = ip + '/mysql/DataServiceMain.php?type=sale';
-        axios.get(url)
-            .then((getData) => {
-                // console.log(getData.data);
-                this.setState({
-                    dataSale: getData.data,
-                })
+        var url = ip + '/mysql/DataServiceMain.php';
+        var dataBody = {
+            type: 'sale'
+        };
+        axios.post(
+            url,
+            dataBody,
+        ).then((getData) => {
+            // console.log(getData.data);
+            this.setState({
+                dataSale: getData.data,
             })
+        })
     }
 
     componentDidMount() {
@@ -938,19 +947,6 @@ export class SaleProduct extends Component {
                                     {value}
                                 </Text>}
                         />
-                        <View style={styles.SaleProductIconBox}>
-                            <View style={styles.SaleProductIconBoxStar}>
-                                <Icons style={styles.SaleProductIconStar} name='star' size={8} />
-                                <Icons style={styles.SaleProductIconStar} name='star' size={8} />
-                                <Icons style={styles.SaleProductIconStar} name='star' size={8} />
-                                <Icons style={styles.SaleProductIconStar} name='star' size={8} />
-                                <Icons style={styles.SaleProductIconStar} name='star' size={8} />
-                            </View>
-                            <View style={styles.SaleProductIconBoxI}>
-                                <Icons style={styles.SaleProductIcon} name='heart' size={10} />
-                                <Icons style={styles.SaleProductIcon} name='share' size={10} />
-                            </View>
-                        </View>
                     </View>
                 </TouchableOpacity>
             )
@@ -984,14 +980,19 @@ export class NewStore extends Component {
     }
 
     getNewstore() {
-        var url = ip + '/mysql/DataServiceMain.php?type=store';
-        axios.get(url)
-            .then((getData) => {
-                // console.log(getData.data);
-                this.setState({
-                    dataStore: getData.data,
-                })
+        var url = ip + '/mysql/DataServiceMain.php';
+        var dataBody = {
+            type: 'store'
+        };
+        axios.post(
+            url,
+            dataBody,
+        ).then((getData) => {
+            // console.log(getData.data);
+            this.setState({
+                dataStore: getData.data,
             })
+        })
     }
 
     componentDidMount() {
@@ -1045,14 +1046,19 @@ export class NewProduct extends Component {
     }
 
     getNewProduct() {
-        var url = ip + '/mysql/DataServiceMain.php?type=product';
-        axios.get(url)
-            .then((getData) => {
-                // console.log(getData.data);
-                this.setState({
-                    dataNewProduct: getData.data,
-                })
+        var url = ip + '/mysql/DataServiceMain.php';
+        var dataBody = {
+            type: 'product'
+        };
+        axios.post(
+            url,
+            dataBody,
+        ).then((getData) => {
+            // console.log(getData.data);
+            this.setState({
+                dataNewProduct: getData.data,
             })
+        })
     }
 
     componentDidMount() {
@@ -1086,19 +1092,6 @@ export class NewProduct extends Component {
                                     {value}
                                 </Text>}
                         />
-                        <View style={styles.NewProductIconBox}>
-                            <View style={styles.NewProductIconBoxStar}>
-                                <Icons style={styles.NewProductIconStar} name='star' size={8} />
-                                <Icons style={styles.NewProductIconStar} name='star' size={8} />
-                                <Icons style={styles.NewProductIconStar} name='star' size={8} />
-                                <Icons style={styles.NewProductIconStar} name='star' size={8} />
-                                <Icons style={styles.NewProductIconStar} name='star' size={8} />
-                            </View>
-                            <View style={styles.NewProductIconBoxI}>
-                                <Icons style={styles.NewProductIcon} name='heart' size={10} />
-                                <Icons style={styles.NewProductIcon} name='share' size={10} />
-                            </View>
-                        </View>
                     </View>
                 </TouchableOpacity>
             )
@@ -1132,14 +1125,19 @@ export class CategoryProduct extends Component {
     }
 
     getDataCategory() {
-        var url = ip + '/mysql/DataServiceMain.php?type=categorylist';
-        axios.get(url)
-            .then((getData) => {
-                //   console.log(getData.data);
-                this.setState({
-                    dataSourceCategory: getData.data,
-                })
+        var url = ip + '/mysql/DataServiceMain.php';
+        var dataBody = {
+            type: 'categorylist'
+        };
+        axios.post(
+            url,
+            dataBody,
+        ).then((getData) => {
+            //   console.log(getData.data);
+            this.setState({
+                dataSourceCategory: getData.data,
             })
+        })
     }
 
     componentDidMount() {
@@ -1204,14 +1202,20 @@ export class CategoryProductSubProduct extends Component {
 
     getCategoryProductSubProduct() {
         // console.log( 'CategoryProductChild Process' )
-        var url = ip + '/mysql/DataServiceMain.php?type=categoryproduct&product=' + this.props.name;
-        axios.get(url)
-            .then((getData) => {
-                //   console.log(getData.data);
-                this.setState({
-                    dataSourceCategoryProduct: getData.data,
-                })
+        var url = ip + '/mysql/DataServiceMain.php';
+        var dataBody = {
+            type: 'categoryproduct',
+            product: this.props.name
+        };
+        axios.post(
+            url,
+            dataBody,
+        ).then((getData) => {
+            //   console.log(getData.data);
+            this.setState({
+                dataSourceCategoryProduct: getData.data,
             })
+        })
     }
 
     componentDidMount() {
@@ -1248,19 +1252,6 @@ export class CategoryProductSubProduct extends Component {
                                 </Text>
                             }
                         />
-                        <View style={styles.CategoryProductIconBox}>
-                            <View style={styles.CategoryProductIconBoxStar}>
-                                <Icons style={styles.CategoryProductIconStar} name='star' size={8} />
-                                <Icons style={styles.CategoryProductIconStar} name='star' size={8} />
-                                <Icons style={styles.CategoryProductIconStar} name='star' size={8} />
-                                <Icons style={styles.CategoryProductIconStar} name='star' size={8} />
-                                <Icons style={styles.CategoryProductIconStar} name='star' size={8} />
-                            </View>
-                            <View style={styles.CategoryProductIconBoxI}>
-                                <Icons style={styles.CategoryProductIcon} name='heart' size={10} />
-                                <Icons style={styles.CategoryProductIcon} name='share' size={10} />
-                            </View>
-                        </View>
                     </View>
                 </TouchableOpacity>
             );
@@ -1286,14 +1277,19 @@ export class CategoryProductSubStore extends Component {
 
     getCategoryProductSubStore() {
         // console.log( 'CategoryProductChild Process' )
-        var url = ip + '/mysql/DataServiceMain.php?type=store';
-        axios.get(url)
-            .then((getData) => {
-                //   console.log(getData.data);
-                this.setState({
-                    dataSourceCategoryProduct: getData.data,
-                })
+        var url = ip + '/mysql/DataServiceMain.php';
+        var dataBody = {
+            type: 'store'
+        };
+        axios.post(
+            url,
+            dataBody,
+        ).then((getData) => {
+            //   console.log(getData.data);
+            this.setState({
+                dataSourceCategoryProduct: getData.data,
             })
+        })
     }
 
     componentDidMount() {
@@ -1339,14 +1335,19 @@ export class CategoryProductSubBrand extends Component {
 
     getCategoryProductSubBrand() {
         // console.log( 'CategoryProductChild Process' )
-        var url = ip + '/mysql/DataServiceMain.php?type=brand';
-        axios.get(url)
-            .then((getData) => {
-                //   console.log(getData.data);
-                this.setState({
-                    dataSourceCategoryProduct: getData.data,
-                })
+        var url = ip + '/mysql/DataServiceMain.php';
+        var dataBody = {
+            type: 'brand'
+        };
+        axios.post(
+            url,
+            dataBody,
+        ).then((getData) => {
+            //   console.log(getData.data);
+            this.setState({
+                dataSourceCategoryProduct: getData.data,
             })
+        })
     }
 
     componentDidMount() {
@@ -1390,14 +1391,19 @@ export class CategoryProductSubPromotion extends Component {
 
     getCategoryProductSubPromotion() {
         // console.log( 'CategoryProductChild Process' )
-        var url = ip + '/mysql/DataServiceMain.php?type=store';
-        axios.get(url)
-            .then((getData) => {
-                //   console.log(getData.data);
-                this.setState({
-                    dataSourceCategoryProduct: getData.data,
-                })
+        var url = ip + '/mysql/DataServiceMain.php';
+        var dataBody = {
+            type: 'store'
+        };
+        axios.post(
+            url,
+            dataBody,
+        ).then((getData) => {
+            //   console.log(getData.data);
+            this.setState({
+                dataSourceCategoryProduct: getData.data,
             })
+        })
     }
 
     componentDidMount() {
@@ -1441,14 +1447,19 @@ export class TodayProduct extends Component {
     }
 
     getDataTodayProduct() {
-        var url = ip + '/mysql/DataServiceMain.php?type=todayproduct';
-        axios.get(url)
-            .then((getData) => {
-                //   console.log(getData.data);
-                this.setState({
-                    dataSourceTodayProduct: getData.data,
-                })
+        var url = ip + '/mysql/DataServiceMain.php';
+        var dataBody = {
+            type: 'todayproduct'
+        };
+        axios.post(
+            url,
+            dataBody,
+        ).then((getData) => {
+            //   console.log(getData.data);
+            this.setState({
+                dataSourceTodayProduct: getData.data,
             })
+        })
     }
 
     componentDidMount() {

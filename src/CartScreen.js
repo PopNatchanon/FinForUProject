@@ -99,21 +99,21 @@ export class Product_Cart extends Component {
 
 ///--------------------------------------------------------------------------///
 
-export class Product_Like extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
+// export class Product_Like extends Component {
+//     constructor(props) {
+//         super(props);
+//         this.state = {
+//         };
+//     }
 
-    render() {
-        return (
-            <View>
-                <Text> รายการที่คุณชอบ </Text>
-            </View>
-        );
-    }
-}
+//     render() {
+//         return (
+//             <View>
+//                 <Text> รายการที่คุณชอบ </Text>
+//             </View>
+//         );
+//     }
+// }
 
 
 ///--------------------------------------------------------------------------///

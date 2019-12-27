@@ -7,6 +7,9 @@ import DetailScreen from './src/DetailScreen';
 import ProfileScreen from './src/ProfileScreen';
 import CartScreen from './src/CartScreen';
 import LoginScreen from './src/LoginScreen';
+import FeedScreen from './src/FeedScreen';
+import NewsScreen from './src/NewsScreen';
+import BellScreen from './src/BellScreen';
 
 const PathScreen = createStackNavigator({
   MainScreen: {
@@ -51,11 +54,32 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
+  FeedScreen: {
+    screen: FeedScreen,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
+  NewsScreen: {
+    screen: NewsScreen,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
+  BellScreen: {
+    screen: BellScreen,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
 },
   {
     initialRouteName: 'MainScreen',
   }
-);
+  );
 
 const AppNavigator = createAppContainer(PathScreen);
 export default AppNavigator;

@@ -820,9 +820,10 @@ export class Might_like extends Component {
   }
 
   render() {
+    console.log( 'Might_like|render' )
     let dataToday = this.state.dataSourcePopularProduct.map((item, indexs) => {
-      // console.log( indexs + '. ' + item.image ),
       var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+      // console.log( dataMySQL )
       return (
         <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}>
           <View style={styles.PopularProductBox} key={indexs}>

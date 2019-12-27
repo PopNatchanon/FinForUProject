@@ -6,6 +6,15 @@ export default StyleSheet.create({
     SafeAreaView: {
         flex: 1,
     },
+    Toolbar: {
+        backgroundColor: '#FFFFFF',
+        borderColor: '#ECECEC',
+        borderWidth: 1,
+        height: 50,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        paddingTop: 5,
+      },
     Logo_Box: {
         width,
         alignItems: 'center',
@@ -75,7 +84,7 @@ export default StyleSheet.create({
         // alignItems: 'center',
         marginTop: 10,
         width,
-        height: 200,
+        height: 180,
     },
     Register_Box_A: {
         height: 200,

@@ -233,13 +233,7 @@ export class Follow_up extends Component {
               <Text style={styles.StoreFeed_Text_store}>
                 {item.s_name}
               </Text>
-            </View>
-            <View style={{ flexDirection: 'row' }}>
-              <View style={styles.StoreFeed_Button_F}>
-                <Text style={styles.StoreFeed_Text_F}>ติดตาม</Text>
-                <IconEntypo name='dots-three-vertical' size={25} />
-              </View>
-
+              <IconEntypo name='dots-three-vertical' size={25} />
             </View>
           </View>
           <View style={styles.StoreFeedBox}>
@@ -343,7 +337,7 @@ export class Highlights extends Component {
           <View style={styles.StoreFeed_header}>
             <View style={{ flexDirection: 'row', }}>
               <Image
-                style={styles.StoreFeedImage}
+                style={styles.StoreFeed_Image}
                 source={{
                   uri: dataMySQL_s,
                 }}
@@ -352,7 +346,13 @@ export class Highlights extends Component {
                 {item.s_name}
               </Text>
             </View>
-            <IconEntypo name='dots-three-vertical' size={25} />
+            <View style={{flexDirection:'row'}}>
+              <View style={styles.StoreFeed_Button_F}>
+                <Text style={styles.StoreFeed_Text_F}>ติดตาม</Text>
+                <IconEntypo name='dots-three-vertical' size={25} />
+              </View>
+            </View>
+            
           </View>
           <View style={styles.StoreFeedBox}>
             <Image

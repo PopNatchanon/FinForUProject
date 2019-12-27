@@ -11,7 +11,10 @@ if ($conn->connect_error) {
 }
 
 
-$Stype=$_GET['type'];
+$obj = json_decode(file_get_contents("php://input"));
+// echo $obj;
+$Stype = $obj->type;
+
 
 // if($Stype=='slide'){
 //     $Sid=$_GET['id'];
@@ -28,10 +31,10 @@ if($Stype=='slide'){
 }else if( $Stype == 'todayproduct' ){
     $sql = "SELECT id_store , id_product , id_store , name , image , full_price , sale_price , discount FROM product limit 20";
 }else if($Stype == 'storedata') {
-    $Sid=$_GET['id'];
+    $Sid = $obj->id;
     $sql = "SELECT name , id_store , image FROM store WHERE id_store = '$Sid'";
 }else if($Stype == 'storedatadetail') {
-    $Sid=$_GET['id'];
+    $Sid = $obj->id;
     $sql = "SELECT count(p.id_product) as count_prduct
             FROM store as s 
             LEFT JOIN product as p 
@@ -56,7 +59,7 @@ if ($result->num_rows >0) {
  
 } else {
 
- echo "No Results Found.";
+ echo "{}";
 
 }
 

@@ -11,7 +11,9 @@ if ($conn->connect_error) {
 }
 
 
-$Stype=$_GET['type'];
+$obj = json_decode(file_get_contents("php://input"));
+
+$Stype = $obj->type;
 
 if($Stype=='slide'){
     $sql = "SELECT image , image_path FROM slide_copy limit 5";
@@ -32,7 +34,7 @@ if($Stype=='slide'){
 }else if( $Stype == 'categorylist' ) {
     $sql = "SELECT name , image_head  FROM type ";
 }else if($Stype == 'categoryproduct' ) {
-    $Sproduct = $_GET['product'];
+    $Sproduct = $obj->product;
     $sql = "SELECT id_product , id_store , name , image , full_price , sale_price , discount , type FROM product WHERE type = '$Sproduct' limit 6";
 }else if($Stype=='Confidential_PRO'){
     $sql = "SELECT image , image_path  FROM slide WHERE type_icon = 'Confidential_PRO' AND status_active = '1'  limit 3 ";

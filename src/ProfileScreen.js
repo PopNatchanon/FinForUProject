@@ -113,8 +113,8 @@ export class Headbar extends Component {
                                 </Text>
                             </View>
                         </View>
-                        <View style={{ flexDirection: 'row' ,padding:8}}>
-                            <IconMaterialCommunityIcons RightItem name="settings-outline" style={{marginRight:6}} size={25} color='#FFFFFF' />
+                        <View style={{ flexDirection: 'row', padding: 8 }}>
+                            <IconMaterialCommunityIcons RightItem name="settings-outline" style={{ marginRight: 6 }} size={25} color='#FFFFFF' />
                             <IconFeather RightItem name="shopping-cart" size={25} color='#FFFFFF' />
                         </View>
                     </View>
@@ -353,7 +353,7 @@ export class Listbar extends Component {
                         </Text>
                     </View>
                     <View style={{ flexDirection: 'column', width: 100, }}>
-                        <View style={{ width: 60, height: 60, marginTop: 18, backgroundColor: '#B6B6B4', borderRadius: 30, }}>
+                        <View style={{ width: 60, height: 60, marginTop: 18, marginLeft: 'auto', marginRight: 'auto', backgroundColor: '#B6B6B4', borderRadius: 30, }}>
                             <FastImage
                                 source={require('../icon/truck-facing-right.png')}
                                 style={{ height: 40, width: 40, marginLeft: 'auto', marginRight: 'auto', marginTop: 'auto', marginBottom: 'auto' }}

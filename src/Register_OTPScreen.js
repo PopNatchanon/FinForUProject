@@ -10,6 +10,8 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
+import FastImage from 'react-native-fast-image';
+
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import styles from '../style/stylesLoginScreen';
 
@@ -28,7 +30,7 @@ export default class Register_OTPScreen extends Component {
     return (
       <SafeAreaView style={styles.SafeAreaView}>
         <Logo />
-        <Login  navigation={this.props.navigation}/>
+        <Login navigation={this.props.navigation} />
         <Register navigation={this.props.navigation} />
       </SafeAreaView>
     );
@@ -48,11 +50,11 @@ export class Logo extends Component {
   render() {
     return (
       <View style={styles.Logo_Box}>
-        <Image
+        <FastImage
           style={styles.Logo}
           source={require('../images/sj.png')}
           resizeMethod='resize'
-        ></Image>
+        />
       </View>
     );
   }
@@ -117,8 +119,14 @@ export class Register extends Component {
             <Text style={{ textAlign: 'center', margin: 10, }}>เข้าสู่ระบบด้วยช่องทางอื่น</Text>
           </View>
           <View style={styles.Register_Box_Button}>
-            <Image style={styles.Register_Box_image} source={require('../icon/face_icon.png')}></Image>
-            <Image style={styles.Register_Box_image} source={require('../icon/googla_icon.png')}></Image>
+            <FastImage
+              style={styles.Register_Box_image}
+              source={require('../icon/face_icon.png')}
+            />
+            <FastImage
+              style={styles.Register_Box_image}
+              source={require('../icon/googla_icon.png')}
+            />
           </View>
         </View>
       </View>

@@ -173,7 +173,7 @@ export class Button_Bar extends Component {
             selectedButtonStyle={{
               backgroundColor: '#ffffff',
               borderTopColor: '#ffffff',
-              borderTopmWidth: 4
+              borderTopWidth: 4
             }}
             selectedTextStyle={{
               // color: '#FFFFFF',
@@ -236,7 +236,7 @@ export class Follow_up extends Component {
                 {item.s_name}
               </Text>
             </View>
-            <View style={{marginTop:10,}}><IconEntypo name='dots-three-vertical' size={25} /></View> 
+            <View style={{ marginTop: 10, }}><IconEntypo name='dots-three-vertical' size={25} /></View>
           </View>
           <View style={styles.StoreFeedBox}>
             <FastImage
@@ -244,7 +244,6 @@ export class Follow_up extends Component {
                 uri: dataMySQL_p,
               }}
               style={styles.StoreFeedImage}
-
             />
             <View style={styles.StoreFeedComBox}>
               <Text style={styles.StoreFeedComBoxDetail}>
@@ -354,6 +353,7 @@ export class Highlights extends Component {
               </View>
               <IconEntypo name='dots-three-vertical' size={25} />
             </View>
+
           </View>
           <View style={styles.StoreFeedBox}>
             <FastImage
@@ -368,14 +368,14 @@ export class Highlights extends Component {
               </Text>
               <Text style={styles.StoreFeedComBoxTag}>
                 ที่สุดสำหรับคุณ
-              </Text>
+                        </Text>
               <View style={{ flexDirection: 'row' }}>
                 <Text style={styles.StoreFeedComBoxText}>
                   200 การเข้าชม
-                </Text>
+                            </Text>
                 <Text style={styles.StoreFeedComBoxText}>
                   เมื่อ 3 วันที่ผ่านมา
-                </Text>
+                            </Text>
               </View>
             </View>
             <View style={styles.StoreFeedComBox2}>
@@ -383,13 +383,13 @@ export class Highlights extends Component {
                 <Icons name='heart' size={20} />
                 <Text style={styles.StoreFeedComBoxIconText}>
                   ถูกใจ
-                </Text>
+                            </Text>
               </View>
               <View style={styles.StoreFeedComBoxIcon}>
                 <Icons name='comment-dots' size={20} />
                 <Text style={styles.StoreFeedComBoxIconText}>
                   แสดงความคิดเห็น
-                </Text>
+                            </Text>
               </View>
               <View style={styles.StoreFeedComBoxIcon}>
                 <Icons name='share-square' size={20} />

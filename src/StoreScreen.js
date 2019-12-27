@@ -44,22 +44,22 @@ export default class StoreScreen extends Component {
             url,
             dataBody,
         ).then((getData) => {
-            console.log('getDataStoreData')
-            console.log(getData.data);
+            // console.log('getDataStoreData')
+            // console.log(getData.data);
             this.setState({
                 dataSourceStoreData: getData.data,
             })
         })
     }
     componentDidMount() {
-        console.log('getParam')
-        console.log(this.props.navigation.getParam('id_item'))
+        // console.log('getParam')
+        // console.log(this.props.navigation.getParam('id_item'))
         var id_item = this.props.navigation.getParam('id_item')
         this.getDataStoreData(id_item)
     }
     render() {
-        console.log('render')
-        console.log(this.state.dataSourceStoreData)
+        // console.log('render')
+        // console.log(this.state.dataSourceStoreData)
         var s_id_store = this.state.dataSourceStoreData.map((item) => { return (item.id_store) })
         var s_name = this.state.dataSourceStoreData.map((item) => { return (item.name) })
         var s_image = this.state.dataSourceStoreData.map((item) => { return (item.image) })

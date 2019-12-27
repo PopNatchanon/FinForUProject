@@ -927,4 +927,15 @@ export default StyleSheet.create({
     marginTop: 10,
     marginLeft: 10,
   },
+
+  ///------------------------------------------------------------------///
+ 
+  Second_product:{
+    height:'auto',
+    width,
+    borderColor: '#ECECEC',
+    borderWidth: 1,
+    marginTop:10,
+  },
+
 });

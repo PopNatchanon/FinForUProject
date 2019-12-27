@@ -74,7 +74,7 @@ export class Login extends Component {
       <View style={styles.Login_Box}>
         <View style={styles.Login_BoxA}>
           <Input
-            label='เบอร์มือถือ/อีเมล'
+            label='อีเมล'
             labelStyle={styles.Login_Box_Textlabel}
             inputStyle={styles.Login_Box_Text}
           />

@@ -79,7 +79,7 @@ export class Toolbar extends Component {
                         <Text>เตือน</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('ProfileScreen')} >
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('LoginScreen')} >
                     <View>
                         <IconAntDesign name="user" size={25} />
                         <Text> ฉัน</Text>

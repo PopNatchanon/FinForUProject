@@ -46,6 +46,7 @@ export default class MainScreen extends Component {
                     <Confidential_PRO />
                     <Product_for_you navigation={this.props.navigation} />
                     <CategoryProduct navigation={this.props.navigation} />
+                    <Second_product />
                     <BannerBar_THREE />
                     <TodayProduct navigation={this.props.navigation} />
                 </ScrollView>
@@ -802,7 +803,7 @@ export class Confidential_PRO extends Component {
             <View style={styles.Confidential}>
                 <View style={styles.Promotion_popularTextBox}>
                     <Text style={styles.ConfidentialText}>
-                        โปรลับ เฉพาะที่นี่ที่เดียว
+                        ดีลสุด Exclusive
                     </Text>
                     <Text style={styles.ConfidentialTextEnd}>
                         ดูทั้งหมด
@@ -879,7 +880,7 @@ export class Product_for_you extends Component {
             <View style={styles.ProductForYou}>
                 <View style={styles.ProductForYouTextBox}>
                     <Text style={styles.ProductForYouText}>
-                        คัดเฉพาะสำหรับคุณ
+                        FIN คัดมาเพื่อคุณ
                     </Text>
                     <Text style={styles.ProductForYouTextEnd}>
                         ดูทั้งหมด
@@ -959,7 +960,7 @@ export class SaleProduct extends Component {
             <View style={styles.SaleProduct}>
                 <View style={styles.SaleProductTextBox}>
                     <Text style={styles.SaleProductText}>
-                        สินค้าลดราคา
+                        ไฮไลท์ประจำสัปดาห์
                     </Text>
                     <Text style={styles.SaleProductTextEnd}>
                         ดูทั้งหมด
@@ -1439,6 +1440,100 @@ export class CategoryProductSubPromotion extends Component {
         );
     }
 }
+
+///-------------------------------------------------------------------------------///
+
+export class Second_product extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataSale: [],
+        };
+    }
+
+    getFlashSale() {
+        var url = ip + '/mysql/DataServiceMain.php';
+        var dataBody = {
+            type: 'sale'
+        };
+        axios.post(
+            url,
+            dataBody,
+        ).then((getData) => {
+            // console.log(getData.data);
+            this.setState({
+                dataSale: getData.data,
+            })
+        })
+    }
+
+    componentDidMount() {
+        this.getFlashSale();
+    }
+
+    render() {
+        let dataFlashSale = this.state.dataSale.map((item, indexs) => {
+            // console.log('FlashSale')
+            // console.log(item)
+            var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+            return (
+                <TouchableOpacity
+                    activeOpacity={1}
+                    key={indexs}
+                    onPress={
+                        () => this.props.navigation.navigate(
+                            'DetailScreen', {
+                            id_item: item.id_product
+                        })
+                    }
+                >
+                    <View style={styles.FlashSaleBox}>
+                        <Image
+                            source={{
+                                uri: dataMySQL,
+                            }}
+                            style={styles.FlashSaleImage}
+                            resizeMethod='resize'
+                        />
+                        <Text style={styles.FlashSaleImageName}>{item.name}</Text>
+                        <NumberFormat
+                            value={item.full_price}
+                            displayType={'text'}
+                            thousandSeparator={true}
+                            prefix={'฿'}
+                            renderText={
+                                value => <Text style={
+                                    styles.FlashSaleImagePrice
+                                }>
+                                    {value}
+                                </Text>}
+                        />
+                    </View>
+                </TouchableOpacity>
+            );
+        })
+        return (
+            <View style={styles.Second_product}>
+                <View style={styles.FlashSaleTextBox}>
+                    <Text style={styles.FlashSaleText}>
+                        สินค้ามือสอง
+                    </Text>
+                </View>
+                <View>
+                    <ImageBackground
+                        style={styles.CategoryProductImageHead}
+                        source={{ uri: ip + '/MySQL/uploads/slide/Banner_type/watch_BannerBar.jpg' }}
+                        resizeMethod='resize'
+                    ></ImageBackground>
+                </View>
+                <ScrollView horizontal>
+                    {dataFlashSale}
+                </ScrollView>
+            </View>
+        );
+    }
+}
+
 
 ///-------------------------------------------------------------------------------///
 

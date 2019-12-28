@@ -677,7 +677,8 @@ export default StyleSheet.create({
   CategoryProduct: {
     backgroundColor: '#FFFFFF',
     borderColor: '#ECECEC',
-    borderWidth: 1,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
     marginTop: 10,
   },
   CategoryProductText: {
@@ -697,11 +698,12 @@ export default StyleSheet.create({
     marginTop: 10,
   },
   CategoryProductImageHead: {
-    marginTop: 4,
+    marginTop: 5,
     width,
-    height: height * 0.19,
-    resizeMode: 'stretch',
-    marginBottom: -50,
+    height: 80,
+    // height: height * 0.19,
+    // resizeMode: 'stretch',
+    marginBottom: -30,
   },
   CategoryProductBox: {
     width: 113,
@@ -710,7 +712,7 @@ export default StyleSheet.create({
     borderWidth: 1,
     marginTop: 16,
     marginBottom: 6,
-    marginLeft: 5,
+    marginLeft: 10,
   },
   CategoryProductImage: {
     width: 100,
@@ -929,13 +931,88 @@ export default StyleSheet.create({
   },
 
   ///------------------------------------------------------------------///
- 
-  Second_product:{
-    height:'auto',
+
+  Second_product: {
+    height: 'auto',
     width,
     borderColor: '#ECECEC',
-    borderWidth: 1,
-    marginTop:10,
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
+    marginTop: 10,
+     
   },
-
+  Second_StoreFin: {
+    height: 350,
+    width,
+  },
+  Second_StoreFin_BoxHead: {
+    flexDirection: 'row',
+    width: 'auto',
+    height: 30,
+    justifyContent: 'space-between',
+  },
+  Second_StoreFin_textEnd: {
+    fontSize: 10,
+    color: '#0A55A6',
+    textAlign: 'right',
+    marginTop: 5,
+    marginRight: 10,
+  },
+  Second_StoreFin_Box: {
+    // backgroundColor: 'blue',
+    height: 250,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  Second_StoreFin_Image: {
+    height: 230,
+    width: 430,
+    // backgroundColor: 'pink',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  Second_StoreFin_ImageA: {
+    // backgroundColor: 'black',
+    height: 230,
+    width: 190,
+  },
+  Second_StoreFin_ImageB: {
+    justifyContent: 'space-between',
+    height: 230,
+    width: 220,
+  },
+  Second_StoreFin_ImageB_T: {
+    height: 110,
+    width: 220,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  Second_StoreFin_ImageB_TFastImage: {
+    height: 80,
+    width: 105,
+    borderTopRightRadius: 5,
+    borderTopLeftRadius: 5,
+  },
+  Second_StoreFin_ImageB_Ttext: {
+    textAlign: 'center',
+    height: 30,
+    width: 105,
+    backgroundColor: '#0A55A6',
+    color: '#ffff',
+    fontSize: 9,
+    borderBottomRightRadius: 5,
+    borderBottomLeftRadius: 5,
+  },
+  Second_StoreFin_Boxbeand_head: {
+    flexDirection: 'row',
+    width: 'auto',
+    height: 30,
+    justifyContent: 'space-between',
+  },
+  Second_StoreFin_Boxbeand: {
+    flexDirection: 'row',
+    // backgroundColor: '#95F29F',
+    width,
+    height: 60,
+  },
 });

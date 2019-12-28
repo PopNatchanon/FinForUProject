@@ -17,9 +17,10 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import Icons from 'react-native-vector-icons/FontAwesome';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import IconEntypo from 'react-native-vector-icons/Entypo'
+import IconEntypo from 'react-native-vector-icons/Entypo';
 import styles from '../style/StylesMainScreen';
-import { ip } from '../IpConfig'
+import { ip } from '../navigator/IpConfig';
+import FastImage from 'react-native-fast-image';
 export const { width, height } = Dimensions.get('window');
 
 ///----------------------------------Appbar----------------------------------------///
@@ -68,11 +69,11 @@ export class AppBar extends Component {
     render() {
         return (
             <View style={styles.Appbar}>
-                <Image
+                <FastImage
                     style={styles.LOGO}
                     source={require('../images/sj.png')}
-                    resizeMethod='resize'
-                ></Image>
+                    
+                />
                 <TextInput style={styles.TextInput}
                     placeholder="ค้นหาสินค้า/ร้านค้า"
                     onChangeText={(text) => this.state({ text })}></TextInput>
@@ -167,9 +168,10 @@ export class Slide extends Component {
                 <ImageBackground
                     source={{
                         uri: dataMySQL,
+
                     }}
                     style={styles.childSlide}
-                    resizeMethod='resize'
+                    
                 />
             </View>
         );
@@ -261,13 +263,14 @@ export class Category extends Component {
             {/* console.log(dataMySQL); */ }
             return <View style={styles.Category} key={indexs}>
                 <View style={styles.Category_box}>
-                    <Image
+                    <FastImage
                         source={{
                             uri: dataMySQL,
+
                         }}
                         style={styles.Category_image}
-                        resizeMethod='resize' >
-                    </Image>
+                        
+                    />
                 </View>
                 <Text style={styles.Text_Cate}>{item.name}</Text>
             </View>
@@ -299,29 +302,49 @@ export class Button_Bar extends Component {
             <View style={styles.Button_Bar} >
                 <ScrollView horizontal>
                     <View style={styles.Button_Bar_Box}>
-                        <Image style={styles.Button_Bar_icon}
-                            source={{ uri: ip + '/MySQL/uploads/icon_brand/DEW1.png' }}
-                            resizeMethod='resize'></Image>
+                        <FastImage style={styles.Button_Bar_icon}
+                            source={{
+                                uri: ip + '/MySQL/uploads/icon_brand/DEW1.png',
+
+                            }}
+                            
+                        />
                     </View>
                     <View style={styles.Button_Bar_Box}>
-                        <Image style={styles.Button_Bar_icon}
-                            source={{ uri: ip + '/MySQL/uploads/icon_brand/Fincoin2.png' }}
-                            resizeMethod='resize'></Image>
+                        <FastImage style={styles.Button_Bar_icon}
+                            source={{
+                                uri: ip + '/MySQL/uploads/icon_brand/Fincoin2.png',
+
+                            }}
+                            
+                        />
                     </View>
                     <View style={styles.Button_Bar_Box}>
-                        <Image style={styles.Button_Bar_icon}
-                            source={{ uri: ip + '/MySQL/uploads/icon_brand/Campaign3.png' }}
-                            resizeMethod='resize'></Image>
+                        <FastImage style={styles.Button_Bar_icon}
+                            source={{
+                                uri: ip + '/MySQL/uploads/icon_brand/Campaign3.png',
+
+                            }}
+                            
+                        />
                     </View>
                     <View style={styles.Button_Bar_Box}>
-                        <Image style={styles.Button_Bar_icon}
-                            source={{ uri: ip + '/MySQL/uploads/icon_brand/Coupon4.png' }}
-                            resizeMethod='resize'></Image>
+                        <FastImage style={styles.Button_Bar_icon}
+                            source={{
+                                uri: ip + '/MySQL/uploads/icon_brand/Coupon4.png',
+
+                            }}
+                            
+                        />
                     </View>
                     <View style={styles.Button_Bar_Box}>
-                        <Image style={styles.Button_Bar_icon}
-                            source={{ uri: ip + '/MySQL/uploads/icon_brand/Payment5.png' }}
-                            resizeMethod='resize'></Image>
+                        <FastImage style={styles.Button_Bar_icon}
+                            source={{
+                                uri: ip + '/MySQL/uploads/icon_brand/Payment5.png',
+
+                            }}
+                            
+                        />
                     </View>
                 </ScrollView>
             </View>
@@ -351,75 +374,105 @@ export class Brand_RCM extends Component {
                 <ScrollView horizontal>
                     <View style={styles.Brand_RCM_Box}>
                         <View>
-                            <Image
+                            <FastImage
                                 style={styles.Brand_image_RCM}
-                                source={{ uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png' }}
-                                resizeMethod='resize'
-                            ></Image>
+                                source={{
+                                    uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
+
+                                }}
+                                
+                            />
                         </View>
 
                         <View >
-                            <Image
+                            <FastImage
                                 style={styles.Brand_image_RCM}
-                                source={{ uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png' }}
-                                resizeMethod='resize'
-                            ></Image>
+                                source={{
+                                    uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
+
+                                }}
+                                
+                            />
                         </View>
                         <View >
-                            <Image
+                            <FastImage
                                 style={styles.Brand_image_RCM}
-                                source={{ uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png' }}
-                                resizeMethod='resize'
-                            ></Image>
+                                source={{
+                                    uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
+
+                                }}
+                                
+                            />
                         </View>
                         <View >
-                            <Image
+                            <FastImage
                                 style={styles.Brand_image_RCM}
-                                source={{ uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png' }}
-                                resizeMethod='resize'
-                            ></Image>
+                                source={{
+                                    uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
+
+                                }}
+                                
+                            />
                         </View>
                         <View >
-                            <Image
+                            <FastImage
                                 style={styles.Brand_image_RCM}
-                                source={{ uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png' }}
-                                resizeMethod='resize'
-                            ></Image>
+                                source={{
+                                    uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
+
+                                }}
+                                
+                            />
                         </View>
                         <View >
-                            <Image
+                            <FastImage
                                 style={styles.Brand_image_RCM}
-                                source={{ uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png' }}
-                                resizeMethod='resize'
-                            ></Image>
+                                source={{
+                                    uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
+
+                                }}
+                                
+                            />
                         </View>
                         <View >
-                            <Image
+                            <FastImage
                                 style={styles.Brand_image_RCM}
-                                source={{ uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png' }}
-                                resizeMethod='resize'
-                            ></Image>
+                                source={{
+                                    uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
+
+                                }}
+                                
+                            />
                         </View>
                         <View >
-                            <Image
+                            <FastImage
                                 style={styles.Brand_image_RCM}
-                                source={{ uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png' }}
-                                resizeMethod='resize'
-                            ></Image>
+                                source={{
+                                    uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
+
+                                }}
+                                
+                            />
                         </View>
                         <View >
-                            <Image
+                            <FastImage
                                 style={styles.Brand_image_RCM}
-                                source={{ uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png' }}
-                                resizeMethod='resize'
-                            ></Image>
+                                source={{
+                                    uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
+
+                                }}
+                                
+                            />
                         </View>
                         <View >
-                            <Image
+                            <FastImage
                                 style={styles.Brand_image_RCM}
-                                source={{ uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png' }}
-                                resizeMethod='resize'
-                            ></Image>
+                                source={{
+                                    uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
+
+                                }}
+                                
+                            />
                         </View>
                     </View>
                 </ScrollView>
@@ -445,20 +498,32 @@ export class Popular_product extends Component {
                         <View style={styles.Popular_Box_B}>
                             <View style={styles.Popular_Box_C}>
                                 <View style={styles.Popular_Box_D}>
-                                    <Image style={styles.Image_icon_top} source={require('../icon/top.png')}></Image>
-                                    <Image
+                                    <FastImage
+                                        style={styles.Image_icon_top}
+                                        source={require('../icon/top.png')}
+                                    />
+                                    <FastImage
                                         style={styles.Popular_image_Box}
-                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
-                                        resizeMethod='resize'
-                                    ></Image>
+                                        source={{
+                                            uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg',
+
+                                        }}
+                                        
+                                    />
                                 </View>
                                 <View style={styles.Popular_Box_D}>
-                                    <Image style={styles.Image_icon_top} source={require('../icon/top.png')}></Image>
-                                    <Image
+                                    <FastImage
+                                        style={styles.Image_icon_top}
+                                        source={require('../icon/top.png')}
+                                    />
+                                    <FastImage
                                         style={styles.Popular_image_Box}
-                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png' }}
-                                        resizeMethod='resize'
-                                    ></Image>
+                                        source={{
+                                            uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png',
+
+                                        }}
+                                        
+                                    />
                                 </View>
                             </View>
                             <View style={styles.PopularText_A} ><Text style={styles.Text_Popular}>สินค้าสุดฮิต</Text></View>
@@ -466,41 +531,32 @@ export class Popular_product extends Component {
                         <View style={styles.Popular_Box_B}>
                             <View style={styles.Popular_Box_C}>
                                 <View style={styles.Popular_Box_D}>
-                                    <Image style={styles.Image_icon_top} source={require('../icon/top.png')}></Image>
-                                    <Image
+                                    <FastImage
+                                        style={styles.Image_icon_top}
+                                        source={require('../icon/top.png')}
+                                    />
+                                    <FastImage
                                         style={styles.Popular_image_Box}
-                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
-                                        resizeMethod='resize'
-                                    ></Image>
+                                        source={{
+                                            uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg',
+
+                                        }}
+                                        
+                                    />
                                 </View>
                                 <View style={styles.Popular_Box_D}>
-                                    <Image style={styles.Image_icon_top} source={require('../icon/top.png')}></Image>
-                                    <Image
+                                    <FastImage
+                                        style={styles.Image_icon_top}
+                                        source={require('../icon/top.png')}
+                                    />
+                                    <FastImage
                                         style={styles.Popular_image_Box}
-                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png' }}
-                                        resizeMethod='resize'
-                                    ></Image>
-                                </View>
-                            </View>
-                            <View style={styles.PopularText_A} ><Text style={styles.Text_Popular}>สินค้าราคาโดน</Text></View>
-                        </View>
-                        <View style={styles.Popular_Box_B}>
-                            <View style={styles.Popular_Box_C}>
-                                <View style={styles.Popular_Box_D}>
-                                    <Image style={styles.Image_icon_top} source={require('../icon/top.png')}></Image>
-                                    <Image
-                                        style={styles.Popular_image_Box}
-                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
-                                        resizeMethod='resize'
-                                    ></Image>
-                                </View>
-                                <View style={styles.Popular_Box_D}>
-                                    <Image style={styles.Image_icon_top} source={require('../icon/top.png')}></Image>
-                                    <Image
-                                        style={styles.Popular_image_Box}
-                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png' }}
-                                        resizeMethod='resize'
-                                    ></Image>
+                                        source={{
+                                            uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png',
+
+                                        }}
+                                        
+                                    />
                                 </View>
                             </View>
                             <View style={styles.PopularText_A} ><Text style={styles.Text_Popular}>สินค้าราคาโดน</Text></View>
@@ -508,20 +564,65 @@ export class Popular_product extends Component {
                         <View style={styles.Popular_Box_B}>
                             <View style={styles.Popular_Box_C}>
                                 <View style={styles.Popular_Box_D}>
-                                    <Image style={styles.Image_icon_top} source={require('../icon/top.png')}></Image>
-                                    <Image
+                                    <FastImage
+                                        style={styles.Image_icon_top}
+                                        source={require('../icon/top.png')}
+                                    />
+                                    <FastImage
                                         style={styles.Popular_image_Box}
-                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg' }}
-                                        resizeMethod='resize'
-                                    ></Image>
+                                        source={{
+                                            uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg',
+
+                                        }}
+                                        
+                                    />
                                 </View>
                                 <View style={styles.Popular_Box_D}>
-                                    <Image style={styles.Image_icon_top} source={require('../icon/top.png')}></Image>
-                                    <Image
+                                    <FastImage
+                                        style={styles.Image_icon_top}
+                                        source={require('../icon/top.png')}
+                                    />
+                                    <FastImage
                                         style={styles.Popular_image_Box}
-                                        source={{ uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png' }}
-                                        resizeMethod='resize'
-                                    ></Image>
+                                        source={{
+                                            uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png',
+
+                                        }}
+                                        
+                                    />
+                                </View>
+                            </View>
+                            <View style={styles.PopularText_A} ><Text style={styles.Text_Popular}>สินค้าราคาโดน</Text></View>
+                        </View>
+                        <View style={styles.Popular_Box_B}>
+                            <View style={styles.Popular_Box_C}>
+                                <View style={styles.Popular_Box_D}>
+                                    <FastImage
+                                        style={styles.Image_icon_top}
+                                        source={require('../icon/top.png')}
+                                    />
+                                    <FastImage
+                                        style={styles.Popular_image_Box}
+                                        source={{
+                                            uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg',
+
+                                        }}
+                                        
+                                    />
+                                </View>
+                                <View style={styles.Popular_Box_D}>
+                                    <FastImage
+                                        style={styles.Image_icon_top}
+                                        source={require('../icon/top.png')}
+                                    />
+                                    <FastImage
+                                        style={styles.Popular_image_Box}
+                                        source={{
+                                            uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png',
+
+                                        }}
+                                        
+                                    />
                                 </View>
                             </View>
                             <View style={styles.PopularText_A} ><Text style={styles.Text_Popular}>สินค้าราคาโดน</Text></View>
@@ -544,11 +645,14 @@ export class BannerBar_ONE extends Component {
 
     render() {
         return (<View style={styles.Banner_Bar}>
-            <Image
+            <FastImage
                 style={styles.Banner_Bar_image}
-                source={{ uri: ip + '/MySQL/uploads/slide/Banner_type/shoes_BannerBar.jpg' }}
-                resizeMethod='resize'
-            ></Image>
+                source={{
+                    uri: ip + '/MySQL/uploads/slide/Banner_type/shoes_BannerBar.jpg',
+
+                }}
+                
+            />
         </View>
         );
     }
@@ -565,11 +669,14 @@ export class BannerBar_TWO extends Component {
 
     render() {
         return (<View style={styles.Banner_Bar}>
-            <Image
+            <FastImage
                 style={styles.Banner_Bar_image}
-                source={{ uri: ip + '/MySQL/uploads/slide/Banner_type/GlassesBannerBar.jpg' }}
-                resizeMethod='resize'
-            ></Image>
+                source={{
+                    uri: ip + '/MySQL/uploads/slide/Banner_type/GlassesBannerBar.jpg',
+
+                }}
+                
+            />
         </View>
         );
     }
@@ -586,11 +693,14 @@ export class BannerBar_THREE extends Component {
 
     render() {
         return (<View style={styles.Banner_Bar}>
-            <Image
+            <FastImage
                 style={styles.Banner_Bar_image}
-                source={{ uri: ip + '/MySQL/uploads/slide/banner_sale.jpg' }}
-                resizeMethod='resize'
-            ></Image>
+                source={{
+                    uri: ip + '/MySQL/uploads/slide/banner_sale.jpg',
+
+                }}
+                
+            />
         </View>
         );
     }
@@ -643,12 +753,13 @@ export class FlashSale extends Component {
                     }
                 >
                     <View style={styles.FlashSaleBox}>
-                        <Image
+                        <FastImage
                             source={{
                                 uri: dataMySQL,
+
                             }}
                             style={styles.FlashSaleImage}
-                            resizeMethod='resize'
+                            
                         />
                         <Text style={styles.FlashSaleImageName}>{item.name}</Text>
                         <NumberFormat
@@ -720,13 +831,13 @@ export class PromotionPopular extends Component {
                 // <TouchableOpacity key={indexs} onPress={() => this.props.navigation.navigate('StoreScreen', { item: item })}>
                 <View style={styles.Promotion_popular_Box} key={indexs}>
                     <View style={styles.Promotion_popular_BoxA}>
-                        <Image
+                        <FastImage
                             source={{
                                 uri: dataMySQL,
                             }}
                             style={styles.Promotion_popular_image}
-                            resizeMethod='resize'
-                        ></Image>
+                            
+                        />
                         <Text style={styles.Text_icon_Sale}>ร้าน AVIRA ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                     </View>
                 </View>
@@ -787,13 +898,13 @@ export class Confidential_PRO extends Component {
             return (
                 <View style={styles.Confidential_Box} key={indexs}>
                     <View style={styles.Promotion_popular_BoxA}>
-                        <Image
+                        <FastImage
                             source={{
                                 uri: dataMySQL,
                             }}
                             style={styles.Confidential_image}
-                            resizeMethod='resize'
-                        ></Image>
+                            
+                        />
                         <Text style={styles.Text_box_Confidential}>Gala Germs จัดโปรโมชั่นสำหรับผู้มียอดสั่งซื้อครบ 5,000 บาท </Text>
                     </View>
                 </View>
@@ -852,12 +963,12 @@ export class Product_for_you extends Component {
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
                     <View style={styles.ProductForYouBox} key={indexs}>
-                        <Image
+                        <FastImage
                             source={{
                                 uri: dataMySQL,
                             }}
                             style={styles.ProductForYouImage}
-                            resizeMethod='resize'
+                            
                         />
                         <Text style={styles.ProductForYouImageName}>{item.name}</Text>
                         <NumberFormat
@@ -932,12 +1043,12 @@ export class SaleProduct extends Component {
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
                     <View style={styles.SaleProductBox} key={indexs}>
-                        <Image
+                        <FastImage
                             source={{
                                 uri: dataMySQL,
                             }}
                             style={styles.SaleProductImage}
-                            resizeMethod='resize'
+                            
                         />
                         <Text style={styles.SaleProductImageName}>{item.name}</Text>
                         <NumberFormat
@@ -1010,12 +1121,12 @@ export class NewStore extends Component {
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('StoreScreen', { id_item: item.id_store })}>
                     <View style={styles.NewStoreBox}>
-                        <Image
+                        <FastImage
                             source={{
                                 uri: dataMySQL,
                             }}
                             style={styles.NewStoreImage}
-                            resizeMethod='resize'
+                            
                         />
                         <Text style={styles.NewStoreText_bar}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50% </Text>
                     </View>
@@ -1077,12 +1188,12 @@ export class NewProduct extends Component {
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
                     <View style={styles.NewProductBox} >
-                        <Image
+                        <FastImage
                             source={{
                                 uri: dataMySQL,
                             }}
                             style={styles.NewProductImage}
-                            resizeMethod='resize'
+                            
                         />
                         <Text style={styles.NewProductImageName}>{item.name}</Text>
                         <NumberFormat
@@ -1162,28 +1273,43 @@ export class CategoryProduct extends Component {
                                 ดูทั้งหมด
                             </Text>
                         </View>
-                        <Image
+                        <FastImage
                             source={{
                                 uri: dataMySQL,
                             }}
                             style={styles.CategoryProductImageHead}
-                            resizeMethod='resize'
+                            
                         />
                         <CategoryProductSubProduct navigation={this.props.navigation} name={item.name} />
                     </View>
                     <View>
-                        <Image style={styles.Text_Bar_Image} source={{ uri: ip + '/MySQL/uploads/Text/storeFIN1.png' }}
-                            resizeMethod='resize'></Image>
+                        <FastImage
+                            style={styles.Text_Bar_Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Text/storeFIN1.png',
+                            }}
+                            
+                        />
                         <CategoryProductSubStore navigation={this.props.navigation} />
                     </View>
                     <View>
-                        <Image style={styles.Text_Bar_Image} source={{ uri: ip + '/MySQL/uploads/Text/beand.png' }}
-                            resizeMethod='resize'></Image>
+                        <FastImage
+                            style={styles.Text_Bar_Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Text/beand.png',
+                            }}
+                            
+                        />
                         <CategoryProductSubBrand navigation={this.props.navigation} />
                     </View>
                     <View>
-                        <Image style={styles.Text_Bar_Image} source={{ uri: ip + '/MySQL/uploads/Text/propro.png' }}
-                            resizeMethod='resize'></Image>
+                        <FastImage
+                            style={styles.Text_Bar_Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Text/propro.png',
+                            }}
+                            
+                        />
                         <CategoryProductSubPromotion navigation={this.props.navigation} />
                     </View>
                 </View>
@@ -1234,12 +1360,12 @@ export class CategoryProductSubProduct extends Component {
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
                     <View style={styles.CategoryProductBox} key={indexs}>
-                        <Image
+                        <FastImage
                             source={{
                                 uri: dataMySQL,
                             }}
                             style={styles.CategoryProductImage}
-                            resizeMethod='resize'
+                            
                         />
                         <Text style={styles.CategoryProductImageName}>
                             {item.name}
@@ -1308,12 +1434,12 @@ export class CategoryProductSubStore extends Component {
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('StoreScreen', { id_item: item.id_store })}>
                     <View style={styles.CategoryProductStoreBox} key={indexs}>
-                        <Image
+                        <FastImage
                             source={{
                                 uri: dataMySQL,
                             }}
                             style={styles.CategoryProductStoreImage}
-                            resizeMethod='resize'
+                            
                         />
                     </View>
                 </TouchableOpacity>
@@ -1365,12 +1491,12 @@ export class CategoryProductSubBrand extends Component {
             var dataMySQL = [ip + '/mysql/uploads/publish/popular_promotions', item.image].join('/');
             return (
                 <View style={styles.CategoryProductSubBrandBox} key={indexs}>
-                    <Image
+                    <FastImage
                         source={{
                             uri: ip + '/mysql/uploads/slide/Icon_brand/brand24.png',
                         }}
                         style={styles.CategoryProductSubBrandImage}
-                        resizeMethod='resize'
+                        
                     />
                 </View>
             );
@@ -1421,13 +1547,13 @@ export class CategoryProductSubPromotion extends Component {
             var dataMySQL = [ip + '/MySQL/uploads/slide/Store_recommendFIN', item.image].join('/');
             return (
                 <View style={styles.PromotionCategoryProductStoreBox} key={indexs}>
-                    <Image
+                    <FastImage
                         source={{
                             uri: dataMySQL,
                         }}
                         style={styles.PromotionCategoryProductImage}
-                        resizeMethod='resize'
-                    ></Image>
+                        
+                    />
                     <Text style={styles.PromotionCategoryProductImageIcon}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
                 </View>
             );
@@ -1572,12 +1698,12 @@ export class TodayProduct extends Component {
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
                     <View style={styles.TodayProductBox} key={indexs}>
-                        <Image
+                        <FastImage
                             source={{
                                 uri: dataMySQL,
                             }}
                             style={styles.TodayProductImage}
-                            resizeMethod='resize'
+                            
                         />
                         <Text style={styles.TodayProductImageName}>
                             {item.name}

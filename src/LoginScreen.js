@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import {
-    View,
-    Image,
-    ImageBackground,
-    ScrollView,
-    Text,
-    TextInput,
-    SafeAreaView,
-    TouchableOpacity,
-    Dimensions,
+  View,
+  Image,
+  ImageBackground,
+  ScrollView,
+  Text,
+  TextInput,
+  SafeAreaView,
+  TouchableOpacity,
+  Dimensions,
 } from 'react-native';
+import FastImage from 'react-native-fast-image';
+
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import styles from '../style/stylesLoginScreen';
 
@@ -28,7 +30,7 @@ export default class LoginScreen extends Component {
     return (
       <SafeAreaView style={styles.SafeAreaView}>
         <Logo />
-        <Login />
+        <Login navigation={this.props.navigation} />
         <Register navigation={this.props.navigation} />
         <Toolbar navigation={this.props.navigation} />
       </SafeAreaView>
@@ -49,11 +51,10 @@ export class Logo extends Component {
   render() {
     return (
       <View style={styles.Logo_Box}>
-        <Image
+        <FastImage
           style={styles.Logo}
           source={require('../images/sj.png')}
-          resizeMethod='resize'
-        ></Image>
+        />
       </View>
     );
   }
@@ -83,10 +84,19 @@ export class Login extends Component {
             labelStyle={styles.Login_Box_Textlabel}
             rightIcon={{ type: 'feather', name: 'eye-off' }}
           />
-          <View><Text style={styles.Login_Box_Text_L}>ลืมรหัสผ่าน?</Text></View>
+          <View>
+            <Text style={styles.Login_Box_Text_L}>
+              ลืมรหัสผ่าน?
+              </Text>
+          </View>
           <View style={styles.Login_Box_Text_C}>
-            <View style={styles.Login_Box_Text_B}>
-              <Text style={styles.Login__Text}>เข้าสู่ระบบ</Text></View>
+            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('ProfileScreen')} >
+              <View style={styles.Login_Box_Text_B}>
+                <Text style={styles.Login__Text}>
+                  เข้าสู่ระบบ
+              </Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -107,15 +117,21 @@ export class Register extends Component {
     return (
       <View style={styles.Register_Box}>
         <View style={styles.Register_Box_A}>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('Register_OTPScreen')}>
-          <View><Text style={styles.Register_Box_TextA}> สร้างบัญชี </Text></View>
-</TouchableOpacity>
-          <View> 
-            <Text style={{textAlign:'center', margin:10,}}>เข้าสู่ระบบด้วยช่องทางอื่น</Text>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Register_OTPScreen')}>
+            <View><Text style={styles.Register_Box_TextA}> สร้างบัญชี </Text></View>
+          </TouchableOpacity>
+          <View>
+            <Text style={{ textAlign: 'center', margin: 10, }}>เข้าสู่ระบบด้วยช่องทางอื่น</Text>
           </View>
           <View style={styles.Register_Box_Button}>
-            <Image style={styles.Register_Box_image} source={require('../icon/face_icon.png')}></Image>
-            <Image style={styles.Register_Box_image} source={require('../icon/googla_icon.png')}></Image>
+            <FastImage
+              style={styles.Register_Box_image}
+              source={require('../icon/face_icon.png')}
+            />
+            <FastImage
+              style={styles.Register_Box_image}
+              source={require('../icon/googla_icon.png')}
+            />
           </View>
         </View>
       </View>
@@ -127,45 +143,45 @@ export class Register extends Component {
 
 export class Toolbar extends Component {
   constructor(props) {
-      super(props);
+    super(props);
   }
   render() {
-      return (
-          <View style={styles.Toolbar}>
-              <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('MainScreen')} >
-                  <View >
-                      <IconAntDesign style={{ marginLeft: 5, }} name="home" size={25} />
-                      <Text>Home</Text>
-                  </View>
-              </TouchableOpacity>
-
-              <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('FeedScreen')} >
-                  <View >
-                      <IconAntDesign name="tagso" size={25} />
-                      <Text> Feed</Text>
-                  </View>
-              </TouchableOpacity>
-
-              <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('NewsScreen')} >
-                  <View >
-                      <IconAntDesign name="notification" size={25} />
-                      <Text>News</Text>
-                  </View>
-              </TouchableOpacity>
-
-              <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('BellScreen')} >
-                  <View >
-                      <IconAntDesign name="bells" size={25} />
-                      <Text>เตือน</Text>
-                  </View>
-              </TouchableOpacity>
-              <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('LoginScreen')} >
-                  <View>
-                      <IconAntDesign name="user" size={25} />
-                      <Text> ฉัน</Text>
-                  </View>
-              </TouchableOpacity>
+    return (
+      <View style={styles.Toolbar}>
+        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('MainScreen')} >
+          <View >
+            <IconAntDesign style={{ marginLeft: 5, }} name="home" size={25} />
+            <Text>Home</Text>
           </View>
-      )
+        </TouchableOpacity>
+
+        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('FeedScreen')} >
+          <View >
+            <IconAntDesign name="tagso" size={25} />
+            <Text> Feed</Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('NewsScreen')} >
+          <View >
+            <IconAntDesign name="notification" size={25} />
+            <Text>News</Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('BellScreen')} >
+          <View >
+            <IconAntDesign name="bells" size={25} />
+            <Text>เตือน</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('LoginScreen')} >
+          <View>
+            <IconAntDesign name="user" size={25} />
+            <Text> ฉัน</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+    )
   }
 }

@@ -4,17 +4,17 @@ include 'DBConfig.php';
 // Create connection
 $conn = new mysqli($HostName, $HostUser, $HostPass, $DatabaseName);
 
-
 if ($conn->connect_error) {
  
  die("Connection failed: " . $conn->connect_error);
 }
 
+$obj = json_decode(file_get_contents("php://input"));
 
-$Stype=$_GET['type'];
+$Stype = $obj->type;
 
 if($Stype=='store'){
-    $idproduct=$_GET['id_product'];
+    $idproduct = $obj->id_product;
     $sql = "SELECT p.image as p_image ,p.name as p_name ,p.full_price,p.id_store as p_id_store ,p.id_product,p.detail, p.type ,s.name as s_name ,s.image as s_image ,s.id_store as s_id_store  
     from product as p 
     left join store as s

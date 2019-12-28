@@ -11,6 +11,9 @@ import {
 } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import axios from 'axios';
+import NumberFormat from 'react-number-format';
+import FastImage from 'react-native-fast-image';
+
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Icons from 'react-native-vector-icons/FontAwesome';
 import IconFeather from 'react-native-vector-icons/Feather';
@@ -18,8 +21,7 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconFoundation from 'react-native-vector-icons/Foundation';
 import styles_A from '../style/stylesCartScreen';
 import styles from '../style/StylesDetailScreen';
-import NumberFormat from 'react-number-format';
-import { ip } from '../IpConfig';
+import { ip } from '../navigator/IpConfig';
 export const { width, height } = Dimensions.get('window');
 
 
@@ -153,12 +155,12 @@ export class Might_like extends Component {
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}>
                     <View style={styles.PopularProductBox} key={indexs}>
-                        <Image
+                        <FastImage
                             source={{
                                 uri: dataMySQL,
                             }}
                             style={styles.PopularProductImage}
-                            resizeMethod='resize'
+                            
                         />
                         <Text style={styles.PopularProductImageName}>
                             {item.name}

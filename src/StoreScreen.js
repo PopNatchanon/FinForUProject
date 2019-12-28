@@ -20,7 +20,7 @@ import {
     Button,
 } from 'react-native-elements'
 import styles from '../style/StylesStoreScreen'
-import { ip } from '../IpConfig'
+import { ip } from '../navigator/IpConfig'
 export const { width, height } = Dimensions.get('window');
 
 ///----------------------------------Appbar----------------------------------------///
@@ -44,22 +44,22 @@ export default class StoreScreen extends Component {
             url,
             dataBody,
         ).then((getData) => {
-            console.log('getDataStoreData')
-            console.log(getData.data);
+            // console.log('getDataStoreData')
+            // console.log(getData.data);
             this.setState({
                 dataSourceStoreData: getData.data,
             })
         })
     }
     componentDidMount() {
-        console.log('getParam')
-        console.log(this.props.navigation.getParam('id_item'))
+        // console.log('getParam')
+        // console.log(this.props.navigation.getParam('id_item'))
         var id_item = this.props.navigation.getParam('id_item')
         this.getDataStoreData(id_item)
     }
     render() {
-        console.log('render')
-        console.log(this.state.dataSourceStoreData)
+        // console.log('render')
+        // console.log(this.state.dataSourceStoreData)
         var s_id_store = this.state.dataSourceStoreData.map((item) => { return (item.id_store) })
         var s_name = this.state.dataSourceStoreData.map((item) => { return (item.name) })
         var s_image = this.state.dataSourceStoreData.map((item) => { return (item.image) })
@@ -117,16 +117,16 @@ export class StoreHead extends Component {
                     <ImageBackground
                         source={require('../icon/bgprofile.jpg')}
                         style={styles.StoreHeadImage}
-                        resizeMethod='resize'
+                        
                     />
                     <View style={styles.StoreHeadBox}>
                         <View>
-                            <Image
+                            <FastImage
                                 source={{
                                     uri: dataMySQL,
                                 }}
                                 style={styles.StoreHeadFace}
-                                resizeMethod='resize'
+                                
                             />
                         </View>
                         <View>
@@ -351,7 +351,7 @@ export class Banner extends Component {
                         uri: dataMySQL,
                     }}
                     style={styles.BannerSlide}
-                    resizeMethod='resize'
+                    
                 >
                 </ImageBackground>
             </View>
@@ -549,12 +549,12 @@ export class DealTop extends Component {
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}>
                     <View style={styles.DealTopBox} key={indexs}>
-                        <Image
+                        <FastImage
                             source={{
                                 uri: dataMySQL,
                             }}
                             style={styles.DealTopImage}
-                            resizeMethod='resize'
+                            
                         />
                         <Text style={styles.DealTopImageName}>{item.name}</Text>
                         <NumberFormat
@@ -636,12 +636,12 @@ export class NewProduct extends Component {
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}>
                     <View style={styles.NewProductBox} key={indexs}>
-                        <Image
+                        <FastImage
                             source={{
                                 uri: dataMySQL,
                             }}
                             style={styles.NewProductImage}
-                            resizeMethod='resize'
+                            
                         />
                         <Text style={styles.NewProductImageName}>{item.name}</Text>
                         <NumberFormat
@@ -726,7 +726,7 @@ export class BannerBar_ONE extends Component {
                         uri: dataMySQL,
                     }}
                     style={styles.Banner_Bar_image}
-                    resizeMethod='resize'
+                    
                 >
                 </ImageBackground>
             </View>
@@ -825,12 +825,12 @@ export class PopularProduct extends Component {
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}>
                     <View style={styles.PopularProductBox} key={indexs}>
-                        <Image
+                        <FastImage
                             source={{
                                 uri: dataMySQL,
                             }}
                             style={styles.PopularProductImage}
-                            resizeMethod='resize'
+                            
                         />
                         <Text style={styles.PopularProductImageName}>
                             {item.name}
@@ -995,12 +995,12 @@ export class ShowProduct extends Component {
             var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
             return (
                 <View style={styles.ShowProductBox} key={indexs}>
-                    <Image
+                    <FastImage
                         source={{
                             uri: dataMySQL,
                         }}
                         style={styles.ShowProductImage}
-                        resizeMethod='resize'
+                        
                     />
                     <Text style={styles.ShowProductImageName}>
                         {item.name}
@@ -1078,12 +1078,12 @@ export class StoreFeed extends Component {
             var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
             return (
                 <View style={styles.StoreFeedBox} key={indexs}>
-                    <Image
+                    <FastImage
                         source={{
                             uri: dataMySQL,
                         }}
                         style={styles.StoreFeedImage}
-                        resizeMethod='resize'
+                        
                     />
                     <View style={styles.StoreFeedComBox}>
                         <Text style={styles.StoreFeedComBoxDetail}>

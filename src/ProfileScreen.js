@@ -13,18 +13,20 @@ import {
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
+import {
+    ButtonGroup,
+    Button,
+} from 'react-native-elements'
+import FastImage from 'react-native-fast-image';
+
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IconFontisto from 'react-native-vector-icons/Fontisto';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconEntypo from 'react-native-vector-icons/Entypo';
-import {
-    ButtonGroup,
-    Button,
-} from 'react-native-elements'
 import styles from '../style/StylesProfileScreen'
-import { ip } from '../IpConfig'
+import { ip } from '../navigator/IpConfig'
 export const { width, height } = Dimensions.get('window');
 
 ///----------------------------------Appbar----------------------------------------///
@@ -84,32 +86,36 @@ export class Headbar extends Component {
                 <ImageBackground
                     source={require('../icon/bgprofile.jpg')}
                     style={styles.HeadbarImage}
-                    resizeMethod='resize'
+
                 />
                 <View style={styles.HeadbarA}>
                     <View style={styles.HeadbarBox1}>
-                        <View>
-                            <View style={styles.HeadbarBox1Sub}>
-                                <Text style={styles.HeadbarBox1SubText}>
-                                    เริ่มค้าขาย
-                            </Text>
-                            </View>
-                            <Image style={styles.HeadbarBoxImage} />
-                        </View>
-                        <View>
-                            <Text>
-                                ppooo
-                            </Text>
-                            <Text>
-                                Active อยู่
-                            </Text>
-                            <Text>
-                                ผู้ติดตาม 20.2 พัน | กำลังติดตาม 2
-                            </Text>
-                        </View>
                         <View style={{ flexDirection: 'row' }}>
-                            <IconMaterialCommunityIcons RightItem name="settings-outline" size={25} />
-                            <IconFeather RightItem name="shopping-cart" size={25} />
+                            <View>
+                                <View style={styles.HeadbarBox1Sub}>
+                                    <Text style={styles.HeadbarBox1SubText}>
+                                        เริ่มค้าขาย
+                            </Text>
+                                </View>
+                                <FastImage
+                                    style={styles.HeadbarBoxImage}
+                                />
+                            </View>
+                            <View style={{ marginLeft: 15, marginTop: '20%' }}>
+                                <Text style={{ fontSize: 14, color: '#FFFFFF' }}>
+                                    ppooo
+                                </Text>
+                                <Text style={{ fontSize: 10, color: '#BEBDBD' }}>
+                                    Active อยู่
+                                </Text>
+                                <Text style={{ fontSize: 10, color: '#FFFFFF' }}>
+                                    ผู้ติดตาม 20.2 พัน | กำลังติดตาม 2
+                                </Text>
+                            </View>
+                        </View>
+                        <View style={{ flexDirection: 'row', padding: 8 }}>
+                            <IconMaterialCommunityIcons RightItem name="settings-outline" style={{ marginRight: 6 }} size={25} color='#FFFFFF' />
+                            <IconFeather RightItem name="shopping-cart" size={25} color='#FFFFFF' />
                         </View>
                     </View>
                 </View>
@@ -197,40 +203,40 @@ export class MenubarSub extends Component {
             <View style={styles.MenubarSub}>
                 <View style={styles.MenubarSubLine1}>
                     <View>
-                        <Image
+                        <FastImage
                             source={require('../icon/two-money-cards.png')}
                             style={styles.MenubarSubLine1Image}
-                            resizeMethod='resize'
+
                         />
                         <Text style={styles.MenubarSubLine1Name}>
                             รอจ่ายเงิน
                         </Text>
                     </View>
                     <View>
-                        <Image
+                        <FastImage
                             source={require('../icon/month-calendar.png')}
                             style={styles.MenubarSubLine1Image}
-                            resizeMethod='resize'
+
                         />
                         <Text style={styles.MenubarSubLine1Name}>
                             เตรียมจัดส่ง
                         </Text>
                     </View>
                     <View>
-                        <Image
+                        <FastImage
                             source={require('../icon/truck-facing-right.png')}
                             style={styles.MenubarSubLine1Image}
-                            resizeMethod='resize'
+
                         />
                         <Text style={styles.MenubarSubLine1Name}>
                             ดำเนินการส่ง
                         </Text>
                     </View>
                     <View>
-                        <Image
+                        <FastImage
                             source={require('../icon/rating.png')}
                             style={styles.MenubarSubLine1Image}
-                            resizeMethod='resize'
+
                         />
                         <Text style={styles.MenubarSubLine1Name}>
                             รีวิวสินค้า
@@ -239,20 +245,20 @@ export class MenubarSub extends Component {
                 </View>
                 <View style={styles.MenubarSubLine2}>
                     <View style={styles.MenubarSubLine2Box}>
-                        <Image
+                        <FastImage
                             source={require('../icon/repeat.png')}
                             style={styles.MenubarSubLine2BoxImage}
-                            resizeMethod='resize'
+
                         />
                         <Text style={styles.MenubarSubLine2BoxName}>
                             คืนสินค้า/คืนเงิน
                         </Text>
                     </View>
                     <View style={styles.MenubarSubLine2Box}>
-                        <Image
+                        <FastImage
                             source={require('../icon/box.png')}
                             style={styles.MenubarSubLine2BoxImage}
-                            resizeMethod='resize'
+
                         />
                         <Text style={styles.MenubarSubLine2BoxName}>
                             ยกเลิกสินค้า
@@ -338,7 +344,7 @@ export class Listbar extends Component {
             <View>
                 <View style={{ width, flexDirection: 'row', justifyContent: 'space-around', borderColor: '#EAEAEA', borderWidth: 1, marginTop: 10 }}>
                     <View style={{ flexDirection: 'column', width: 100, }}>
-                        <Image
+                        <FastImage
                             source={require('../icon/bitcoin2.png')}
                             style={styles.ListbarBoxImage}
                         />
@@ -347,8 +353,8 @@ export class Listbar extends Component {
                         </Text>
                     </View>
                     <View style={{ flexDirection: 'column', width: 100, }}>
-                        <View style={{ width: 60, height: 60, marginTop: 18, backgroundColor: '#B6B6B4', borderRadius: 30, }}>
-                            <Image
+                        <View style={{ width: 60, height: 60, marginTop: 18, marginLeft: 'auto', marginRight: 'auto', backgroundColor: '#B6B6B4', borderRadius: 30, }}>
+                            <FastImage
                                 source={require('../icon/truck-facing-right.png')}
                                 style={{ height: 40, width: 40, marginLeft: 'auto', marginRight: 'auto', marginTop: 'auto', marginBottom: 'auto' }}
                             />
@@ -358,7 +364,7 @@ export class Listbar extends Component {
                         </Text>
                     </View>
                     <View style={{ flexDirection: 'column', width: 100, }}>
-                        <Image
+                        <FastImage
                             source={require('../icon/bitcoin2.png')}
                             style={styles.ListbarBoxImage}
                         />
@@ -367,7 +373,7 @@ export class Listbar extends Component {
                         </Text>
                     </View>
                     <View style={{ flexDirection: 'column', width: 100, }}>
-                        <Image
+                        <FastImage
                             source={require('../icon/bitcoin2.png')}
                             style={styles.ListbarBoxImage}
                         />

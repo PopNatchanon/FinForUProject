@@ -100,7 +100,6 @@ export default StyleSheet.create({
         width: 300,
         flexDirection: 'row',
         justifyContent: 'center',
-
     },
     Register_Box_image: {
         marginLeft: 10,

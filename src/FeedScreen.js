@@ -171,7 +171,7 @@ export class Button_Bar extends Component {
             selectedButtonStyle={{
               backgroundColor: '#ffffff',
               borderTopColor: '#ffffff',
-              borderTopmWidth: 4
+              borderTopWidth: 4
             }}
             selectedTextStyle={{
               // color: '#FFFFFF',

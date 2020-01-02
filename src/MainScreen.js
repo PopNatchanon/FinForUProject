@@ -1296,16 +1296,6 @@ export class CategoryProduct extends Component {
                         <FastImage
                             style={styles.Text_Bar_Image}
                             source={{
-                                uri: ip + '/MySQL/uploads/Text/beand.png',
-                            }}
-
-                        />
-                        <CategoryProductSubBrand navigation={this.props.navigation} />
-                    </View>
-                    <View>
-                        <FastImage
-                            style={styles.Text_Bar_Image}
-                            source={{
                                 uri: ip + '/MySQL/uploads/Text/propro.png',
                             }}
 
@@ -1448,62 +1438,6 @@ export class CategoryProductSubStore extends Component {
         return (
             <ScrollView horizontal>
                 {dataCategoryProductSubStore}
-                <View style={styles.RightItem} />
-            </ScrollView>
-        );
-    }
-}
-
-///-------------------------------------------------------------------------------///
-
-export class CategoryProductSubBrand extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            dataSourceCategoryProduct: [],
-        }
-    }
-
-    getCategoryProductSubBrand() {
-        // console.log( 'CategoryProductChild Process' )
-        var url = ip + '/mysql/DataServiceMain.php';
-        var dataBody = {
-            type: 'brand'
-        };
-        axios.post(
-            url,
-            dataBody,
-        ).then((getData) => {
-            //   console.log(getData.data);
-            this.setState({
-                dataSourceCategoryProduct: getData.data,
-            })
-        })
-    }
-
-    componentDidMount() {
-        this.getCategoryProductSubBrand()
-    }
-
-    render() {
-        let dataCategoryProductSubBrand = this.state.dataSourceCategoryProduct.map((item, indexs) => {
-            // console.log(item)
-            var dataMySQL = [ip + '/mysql/uploads/publish/popular_promotions', item.image].join('/');
-            return (
-                <View style={styles.CategoryProductSubBrandBox} key={indexs}>
-                    <FastImage
-                        source={{
-                            uri: ip + '/mysql/uploads/slide/Icon_brand/brand24.png',
-                        }}
-                        style={styles.CategoryProductSubBrandImage}
-
-                    />
-                </View>
-            );
-        })
-        return (
-            <ScrollView horizontal>
-                {dataCategoryProductSubBrand}
                 <View style={styles.RightItem} />
             </ScrollView>
         );
@@ -1790,44 +1724,6 @@ export class Second_product extends Component {
                             </View>
                         </View>
                     </View>
-                    <View style={styles.Second_StoreFin_Boxbeand_head}>
-                        <FastImage
-                            style={styles.Text_Bar_Image}
-                            source={{ uri: ip + '/MySQL/uploads/Text/beand.png' }}
-                        />
-                        <View><Text style={styles.Second_StoreFin_textEnd}>ดูทั้งหมด</Text></View>
-                    </View>
-                    <View style={styles.Second_StoreFin_Boxbeand} >
-                        <ScrollView horizontal>
-                            <FastImage
-                                style={{ height: 20, width: 120, }}
-                                source={{ uri: ip + '/MySQL/uploads/icon_brand/brand24.png' }}
-                            />
-                            <FastImage
-                                style={{ height: 20, width: 120, }}
-                                source={{ uri: ip + '/MySQL/uploads/icon_brand/brand24.png' }}
-                            />
-                            <FastImage
-                                style={{ height: 20, width: 120, }}
-                                source={{ uri: ip + '/MySQL/uploads/icon_brand/brand24.png' }}
-                            />
-                            <FastImage
-                                style={{ height: 20, width: 120, }}
-                                source={{ uri: ip + '/MySQL/uploads/icon_brand/brand24.png' }}
-                            />
-                            <FastImage
-                                style={{ height: 20, width: 120, }}
-                                source={{ uri: ip + '/MySQL/uploads/icon_brand/brand24.png' }}
-                            />
-                            <FastImage
-                                style={{ height: 20, width: 120, }}
-                                source={{ uri: ip + '/MySQL/uploads/icon_brand/brand24.png' }}
-                            />
-                            
-                           
-
-                        </ScrollView>
-                    </View>
                 </View>
             </View >
         );
@@ -1895,7 +1791,7 @@ export class TodayProduct extends Component {
                                 </Text>
                             }
                         />
-                        <View style={styles.TodayProductIconBox}>
+                        {/* <View style={styles.TodayProductIconBox}>
                             <View style={styles.TodayProductIconBoxStar}>
                                 <Icons style={styles.TodayProductIconStar} name='star' size={8} />
                                 <Icons style={styles.TodayProductIconStar} name='star' size={8} />
@@ -1907,7 +1803,7 @@ export class TodayProduct extends Component {
                                 <Icons style={styles.TodayProductIcon} name='heart' size={10} />
                                 <Icons style={styles.TodayProductIcon} name='share' size={10} />
                             </View>
-                        </View>
+                        </View> */}
                     </View>
                 </TouchableOpacity>
             );

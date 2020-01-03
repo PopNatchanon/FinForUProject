@@ -12,9 +12,7 @@ import {
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
 import FastImage from 'react-native-fast-image';
-
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import Icons from 'react-native-vector-icons/FontAwesome';
+import Icons from 'react-native-vector-icons/FontAwesome5';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo'
@@ -30,7 +28,7 @@ export default class DetailScreen extends Component {
   }
 
   render() {
-    //console.log('getid_product1: ' + this.props.navigation.getParam('id_item'))
+    // console.log('getid_product1: ' + this.props.navigation.getParam('id_item'))
     return (
       <SafeAreaView style={styles.SafeAreaView}>
         <AppBar navigation={this.props.navigation} />
@@ -102,7 +100,7 @@ export class Detail_Image extends Component {
     var id_item = this.props.navigation.getParam('id_item')
     // console.log('getid_product1: ' + this.props.navigation.getParam('id_item'))
     // console.log('getid_product2: ' + id_item)
-    var url = ip + '/mysql/DataService_Detall.php';
+    var url = ip + '/mysql/DataService_Detail.php';
     // console.log(url);
     var dataBody = {
       type: 'store',
@@ -124,7 +122,7 @@ export class Detail_Image extends Component {
 
   render() {
     let id_product = this.state.dataid_product.map((item, indexs) => {
-      //console.log(item);
+      // console.log(item);
       var dataMySQL = [ip + '/mysql/uploads', item.p_image].join('/');
       return (
         <View style={styles.Detail_Image} key={indexs}>
@@ -145,7 +143,7 @@ export class Detail_Image extends Component {
               </Text>
               <View style={styles.Price_Icon_Box}>
                 <Icons style={styles.Price_Icon} name='heart' size={20} />
-                <Icons style={styles.Price_Icon} name='share-square-o' size={20} />
+                <IconEntypo style={styles.Price_Icon} name='share' size={20} />
               </View>
             </View>
             <NumberFormat
@@ -195,7 +193,7 @@ export class Store extends Component {
   getid_store(id_item) {
     var id_item = this.props.navigation.getParam('id_item')
     // console.log( 'CategoryProductChild Process' )
-    var url = ip + '/mysql/DataService_Detall.php';
+    var url = ip + '/mysql/DataService_Detail.php';
     //  console.log(url);
     var dataBody = {
       type: 'store',
@@ -339,7 +337,7 @@ export class Detail_Catagory extends Component {
   getid_store(id_item) {
     var id_item = this.props.navigation.getParam('id_item')
     // console.log( 'CategoryProductChild Process' )
-    var url = ip + '/mysql/DataService_Detall.php';
+    var url = ip + '/mysql/DataService_Detail.php';
     //  console.log(url);
     var dataBody = {
       type: 'store',
@@ -806,7 +804,7 @@ export class Might_like extends Component {
   }
 
   render() {
-    console.log( 'Might_like|render' )
+    // console.log( 'Might_like|render' )
     let dataToday = this.state.dataSourcePopularProduct.map((item, indexs) => {
       var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
       // console.log( dataMySQL )
@@ -876,7 +874,7 @@ export class Buy_bar extends Component {
   }
   getid_product() {
     var id_item = this.props.navigation.getParam('id_item')
-    var url = ip + '/mysql/DataService_Detall.php';
+    var url = ip + '/mysql/DataService_Detail.php';
     // console.log(url);
     var dataBody = {
       type: 'store',
@@ -906,7 +904,7 @@ export class Buy_bar extends Component {
         <Text style={{ fontSize: 30, }}>|</Text>
         <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreScreen', { id_item: s_id_store })}>
           <View >
-            <Icon name='store' size={25} style={{ marginLeft: 3, }}></Icon>
+            <Icons name='store' size={25} style={{ marginLeft: 3, }}></Icons>
             <Text style={{ textAlign: 'center', }}>ร้านค้า</Text>
           </View></TouchableOpacity>
 

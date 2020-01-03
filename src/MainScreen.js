@@ -34,7 +34,7 @@ export default class MainScreen extends Component {
                 <ScrollView>
                     <Slide />
                     <Category />
-                    <Button_Bar />
+                    {/* <Button_Bar />
                     <Brand_RCM />
                     <Popular_product />
                     <BannerBar_ONE />
@@ -46,7 +46,7 @@ export default class MainScreen extends Component {
                     <NewProduct navigation={this.props.navigation} />
                     <Confidential_PRO />
                     <Product_for_you navigation={this.props.navigation} />
-                    <CategoryProduct navigation={this.props.navigation} />
+                    <CategoryProduct navigation={this.props.navigation} /> */}
                     <Second_product />
                     <BannerBar_THREE />
                     <TodayProduct navigation={this.props.navigation} />
@@ -1555,14 +1555,30 @@ export class Second_product extends Component {
         var dataMySQL = [ip + '/mysql/uploads/slide/bannerstore', item.image].join('/')
         return (
             <View style={styles.BannerBox} key={indexs}>
-                <ImageBackground
+                <FastImage
                     source={{
                         uri: dataMySQL,
                     }}
-                    style={{ height: 230, width: 190, }}
+                    style={{ height: 200, width: 280, }}
 
                 >
-                </ImageBackground>
+                </FastImage>
+            </View>
+        );
+    }
+
+    _renderItem2 = ({ item, indexs }) => {
+        var dataMySQL = [ip + '/mysql/uploads/slide/bannerstore', item.image].join('/')
+        return (
+            <View style={styles.BannerBox} key={indexs}>
+                <FastImage
+                    source={{
+                        uri: dataMySQL,
+                    }}
+                    style={{ height: 100, width: 130, borderRadius: 5, }}
+
+                >
+                </FastImage>
             </View>
         );
     }
@@ -1571,7 +1587,7 @@ export class Second_product extends Component {
         const { dataSourceSlide, activeSlide } = this.state;
         // console.log(width)
         return (
-            <View style={{ marginTop: -60, marginBottom: -10 }}>
+            <View style={{ marginTop: -70, marginBottom: -10 }}>
                 <Pagination
                     dotsLength={dataSourceSlide.length}
                     activeDotIndex={activeSlide}
@@ -1672,9 +1688,9 @@ export class Second_product extends Component {
                                     ref={c => this.activeSlide = c}
                                     data={this.state.dataSourceSlide}
                                     renderItem={this._renderItem}
-                                    sliderWidth={190}
-                                    itemWidth={190}
-                                    sliderHeight={230}
+                                    sliderWidth={280}
+                                    itemWidth={280}
+                                    sliderHeight={200}
                                     loop={true}
                                     autoplay={true}
                                     autoplayDelay={3000}
@@ -1682,50 +1698,91 @@ export class Second_product extends Component {
                                     onSnapToItem={(index) => this.setState({ activeSlide: index })}
                                 />
                                 {this.pagination}
-
+                                <View style={{ backgroundColor: '#0A55A6', height: 40, width: 280, }}><Text style={{ color: '#FFFF' }}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text></View>
                             </View>
                             <View style={styles.Second_StoreFin_ImageB}>
                                 <View style={styles.Second_StoreFin_ImageB_T}>
-
                                     <View>
-                                        <FastImage
-                                            style={styles.Second_StoreFin_ImageB_TFastImage}
-                                            source={{ uri: ip + '/MySQL/uploads/slide/Store_recommendFIN/luxury_shop1.jpg' }}
+                                        <Carousel
+                                            ref={c => this.activeSlide2 = c}
+                                            data={this.state.dataSourceSlide}
+                                            renderItem={this._renderItem2}
+                                            sliderWidth={130}
+                                            itemWidth={130}
+                                            sliderHeight={100}
+                                            loop={true}
+                                            autoplay={true}
+                                            autoplayDelay={3000}
+                                            autoplayInterval={3000}
                                         />
-                                        <Text style={styles.Second_StoreFin_ImageB_Ttext}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
+                                        <View ><Text style={styles.Second_StoreFin_ImageB_Ttext}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text></View>
                                     </View>
-
-                                    <View>
-                                        <FastImage
-                                            style={styles.Second_StoreFin_ImageB_TFastImage}
-                                            source={{ uri: ip + '/MySQL/uploads/slide/Store_recommendFIN/luxury_shop2.jpg' }}
-                                        />
-                                        <Text style={styles.Second_StoreFin_ImageB_Ttext}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
-                                    </View>
-
                                 </View>
-
                                 <View style={styles.Second_StoreFin_ImageB_T}>
                                     <View>
-                                        <FastImage
-                                            style={styles.Second_StoreFin_ImageB_TFastImage}
-                                            source={{ uri: ip + '/MySQL/uploads/slide/Store_recommendFIN/luxury_shop1.jpg' }}
+                                        <Carousel
+                                            ref={c => this.activeSlide3 = c}
+                                            data={this.state.dataSourceSlide}
+                                            renderItem={this._renderItem2}
+                                            sliderWidth={130}
+                                            itemWidth={130}
+                                            sliderHeight={100}
+                                            loop={true}
+                                            autoplay={true}
+                                            autoplayDelay={3000}
+                                            autoplayInterval={3000}
                                         />
-                                        <Text style={styles.Second_StoreFin_ImageB_Ttext}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
-                                    </View>
-                                    <View>
-                                        <FastImage
-                                            style={styles.Second_StoreFin_ImageB_TFastImage}
-                                            source={{ uri: ip + '/MySQL/uploads/slide/Store_recommendFIN/luxury_shop2.jpg' }}
-                                        />
-                                        <Text style={styles.Second_StoreFin_ImageB_Ttext}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
+                                        <View ><Text style={styles.Second_StoreFin_ImageB_Ttext}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text></View>
                                     </View>
                                 </View>
                             </View>
                         </View>
                     </View>
                 </View>
-            </View >
+                <View style={styles.Second_Storefooter}>
+                    <ScrollView horizontal>
+                        <View style={{ flexDirection: 'row', }}>
+                            <View>
+                                <FastImage
+                                    style={styles.Second_Storefooter_image}
+                                    source={{ uri: ip + '/MySQL/uploads/slide/Store_recommendFIN/luxury_shop1.jpg' }}
+                                />
+                                <Text style={styles.Second_Storefooter_Text}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
+                            </View>
+                            <View>
+                                <FastImage
+                                    style={styles.Second_Storefooter_image}
+                                    source={{ uri: ip + '/MySQL/uploads/slide/Store_recommendFIN/luxury_shop1.jpg' }}
+                                />
+                                <Text style={styles.Second_Storefooter_Text}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
+                            </View>
+                            <View>
+                                <FastImage
+                                    style={styles.Second_Storefooter_image}
+                                    source={{ uri: ip + '/MySQL/uploads/slide/Store_recommendFIN/luxury_shop1.jpg' }}
+                                />
+                                <Text style={styles.Second_Storefooter_Text}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
+                            </View>
+                            <View>
+                                <FastImage
+                                    style={styles.Second_Storefooter_image}
+                                    source={{ uri: ip + '/MySQL/uploads/slide/Store_recommendFIN/luxury_shop1.jpg' }}
+                                />
+                                <Text style={styles.Second_Storefooter_Text}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
+                            </View>
+                            <View>
+                                <FastImage
+                                    style={styles.Second_Storefooter_image}
+                                    source={{ uri: ip + '/MySQL/uploads/slide/Store_recommendFIN/luxury_shop1.jpg' }}
+                                />
+                                <Text style={styles.Second_Storefooter_Text}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
+                            </View>
+                            
+                        </View>
+                    </ScrollView>
+                </View>
+            </View>
+
         );
     }
 }

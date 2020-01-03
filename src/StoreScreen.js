@@ -18,8 +18,9 @@ import IconFeather from 'react-native-vector-icons/Feather';
 import {
     ButtonGroup,
     Button,
-} from 'react-native-elements'
-import styles from '../style/StylesStoreScreen'
+} from 'react-native-elements';
+import styles from '../style/StylesStoreScreen';
+import FastImage from 'react-native-fast-image';
 import { ip } from '../navigator/IpConfig'
 export const { width, height } = Dimensions.get('window');
 

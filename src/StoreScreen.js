@@ -13,12 +13,14 @@ import {
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
-import Icons from 'react-native-vector-icons/FontAwesome5';
-import IconFeather from 'react-native-vector-icons/Feather';
 import {
     ButtonGroup,
     Button,
 } from 'react-native-elements'
+import FastImage from 'react-native-fast-image';
+
+import Icons from 'react-native-vector-icons/FontAwesome5';
+import IconFeather from 'react-native-vector-icons/Feather';
 import styles from '../style/StylesStoreScreen'
 import { ip } from '../navigator/IpConfig'
 export const { width, height } = Dimensions.get('window');
@@ -114,7 +116,7 @@ export class StoreHead extends Component {
         return (
             <View style={styles.StoreHead}>
                 <View>
-                    <ImageBackground
+                    <FastImage
                         source={require('../icon/bgprofile.jpg')}
                         style={styles.StoreHeadImage}
                         
@@ -304,7 +306,10 @@ export class Menubar extends Component {
                             backgroundColor: '#0A55A6',
                         }}
                         selectedTextStyle={{
-                            color: '#FFFFFF',
+                            color: 'white',
+                        }}
+                        textStyle={{
+                            color: '#111111',
                         }}
                     />
                 </View>
@@ -346,14 +351,13 @@ export class Banner extends Component {
         var dataMySQL = [ip + '/mysql/uploads/slide/bannerstore', item.image].join('/')
         return (
             <View style={styles.BannerBox} key={indexs}>
-                <ImageBackground
+                <FastImage
                     source={{
                         uri: dataMySQL,
                     }}
                     style={styles.BannerSlide}
                     
-                >
-                </ImageBackground>
+                />
             </View>
         );
     }
@@ -721,14 +725,12 @@ export class BannerBar_ONE extends Component {
         var dataMySQL = [ip + '/mysql/uploads/slide/bannerstore', item.image].join('/')
         return (
             <View style={styles.Banner_Bar_Box} key={indexs}>
-                <ImageBackground
+                <FastImage
                     source={{
                         uri: dataMySQL,
                     }}
                     style={styles.Banner_Bar_image}
-                    
-                >
-                </ImageBackground>
+                />
             </View>
         );
     }

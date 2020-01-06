@@ -46,11 +46,17 @@ export default StyleSheet.create({
     },
     Login_Box_Text: {
         marginTop: 10,
-        width: 100,
+        borderWidth: 0,
+        borderBottomWidth: 1,
+        paddingLeft: 'auto',
+        paddingRight: 'auto',
+        width: '100%',
         height: 40,
     },
     Login_Box_Textlabel: {
+        marginLeft: 4,
         fontSize: 15,
+        fontWeight: 'bold',
         marginTop: 10,
     },
     Login_Box_Text_L: {
@@ -60,12 +66,13 @@ export default StyleSheet.create({
     },
     Login_Box_Text_C: {
         width: 300,
+        marginBottom: 15,
         justifyContent: 'center',
         alignItems: 'center',
         // backgroundColor: 'black',
     },
     Login_Box_Text_B: {
-        marginTop:10,
+        marginTop: 10,
         width: 150,
         height: 50,
         backgroundColor: '#0A55A6',
@@ -125,23 +132,40 @@ export default StyleSheet.create({
     RegisterScreen_CheckBox: {
         flexDirection: 'row',
         width: 300,
+        marginTop: 8,
     },
-    RegisterScreen_Check_Box:{
-        width:230,
-        marginTop:5,
-    }, 
+    RegisterScreen_Check_Box: {
+        width: 230,
+        marginTop: 5,
+    },
     RegisterScreen_Check_Text: {
         fontSize: 12,
     },
     RegisterScreen_Box_Login: {
-        height: 350,
+        // height: 350,
         width: 300,
         backgroundColor: '#F3F3F3',
         borderRadius: 10,
         paddingTop: 20,
         paddingRight: 10,
     },
-   
+
 
     ///--------------------------------------------------------------------------///
+    Countdownstyle: {
+        marginTop: -40,
+        width: 70,
+        backgroundColor: '#0A55A6',
+        borderRadius: 10,
+        marginLeft: '75%',
+        marginBottom: 20,
+    },
+    CountdownstyleSubmit: {
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        margin: 2,
+        color: '#FFF',
+        fontWeight: 'bold',
+        fontSize: 16,
+    },
 })

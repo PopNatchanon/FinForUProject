@@ -806,7 +806,7 @@ export class Might_like extends Component {
   }
 
   render() {
-    console.log( 'Might_like|render' )
+    // console.log( 'Might_like|render' )
     let dataToday = this.state.dataSourcePopularProduct.map((item, indexs) => {
       var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
       // console.log( dataMySQL )

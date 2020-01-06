@@ -71,9 +71,12 @@ export class AppBar extends Component {
                 <FastImage
                     style={styles.LOGO}
                     source={require('../images/sj.png')}
-                    
+
                 />
-                <TextInput style={styles.TextInput}
+                <TextInput style={styles.TextInput, {
+                    fontFamily: 'SukhumvitSet',
+                    fontSize: 15,
+                }}
                     placeholder="ค้นหาสินค้า/ร้านค้า"
                     onChangeText={(text) => this.state({ text })}></TextInput>
                 <IconAntDesign RightItem name="search1" size={25} style={{ marginTop: 5, }} />
@@ -170,7 +173,7 @@ export class Slide extends Component {
 
                     }}
                     style={styles.childSlide}
-                    
+
                 />
             </View>
         );
@@ -268,7 +271,7 @@ export class Category extends Component {
 
                         }}
                         style={styles.Category_image}
-                        
+
                     />
                 </View>
                 <Text style={styles.Text_Cate}>{item.name}</Text>
@@ -306,7 +309,7 @@ export class Button_Bar extends Component {
                                 uri: ip + '/MySQL/uploads/icon_brand/DEW1.png',
 
                             }}
-                            
+
                         />
                     </View>
                     <View style={styles.Button_Bar_Box}>
@@ -315,7 +318,7 @@ export class Button_Bar extends Component {
                                 uri: ip + '/MySQL/uploads/icon_brand/Fincoin2.png',
 
                             }}
-                            
+
                         />
                     </View>
                     <View style={styles.Button_Bar_Box}>
@@ -324,7 +327,7 @@ export class Button_Bar extends Component {
                                 uri: ip + '/MySQL/uploads/icon_brand/Campaign3.png',
 
                             }}
-                            
+
                         />
                     </View>
                     <View style={styles.Button_Bar_Box}>
@@ -333,7 +336,7 @@ export class Button_Bar extends Component {
                                 uri: ip + '/MySQL/uploads/icon_brand/Coupon4.png',
 
                             }}
-                            
+
                         />
                     </View>
                     <View style={styles.Button_Bar_Box}>
@@ -342,7 +345,7 @@ export class Button_Bar extends Component {
                                 uri: ip + '/MySQL/uploads/icon_brand/Payment5.png',
 
                             }}
-                            
+
                         />
                     </View>
                 </ScrollView>
@@ -379,7 +382,7 @@ export class Brand_RCM extends Component {
                                     uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
 
                                 }}
-                                
+
                             />
                         </View>
 
@@ -390,7 +393,7 @@ export class Brand_RCM extends Component {
                                     uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
 
                                 }}
-                                
+
                             />
                         </View>
                         <View >
@@ -400,7 +403,7 @@ export class Brand_RCM extends Component {
                                     uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
 
                                 }}
-                                
+
                             />
                         </View>
                         <View >
@@ -410,7 +413,7 @@ export class Brand_RCM extends Component {
                                     uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
 
                                 }}
-                                
+
                             />
                         </View>
                         <View >
@@ -420,7 +423,7 @@ export class Brand_RCM extends Component {
                                     uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
 
                                 }}
-                                
+
                             />
                         </View>
                         <View >
@@ -430,7 +433,7 @@ export class Brand_RCM extends Component {
                                     uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
 
                                 }}
-                                
+
                             />
                         </View>
                         <View >
@@ -440,7 +443,7 @@ export class Brand_RCM extends Component {
                                     uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
 
                                 }}
-                                
+
                             />
                         </View>
                         <View >
@@ -450,7 +453,7 @@ export class Brand_RCM extends Component {
                                     uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
 
                                 }}
-                                
+
                             />
                         </View>
                         <View >
@@ -460,7 +463,7 @@ export class Brand_RCM extends Component {
                                     uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
 
                                 }}
-                                
+
                             />
                         </View>
                         <View >
@@ -470,7 +473,7 @@ export class Brand_RCM extends Component {
                                     uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
 
                                 }}
-                                
+
                             />
                         </View>
                     </View>
@@ -507,7 +510,7 @@ export class Popular_product extends Component {
                                             uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg',
 
                                         }}
-                                        
+
                                     />
                                 </View>
                                 <View style={styles.Popular_Box_D}>
@@ -521,7 +524,7 @@ export class Popular_product extends Component {
                                             uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png',
 
                                         }}
-                                        
+
                                     />
                                 </View>
                             </View>
@@ -540,7 +543,7 @@ export class Popular_product extends Component {
                                             uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg',
 
                                         }}
-                                        
+
                                     />
                                 </View>
                                 <View style={styles.Popular_Box_D}>
@@ -554,7 +557,7 @@ export class Popular_product extends Component {
                                             uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png',
 
                                         }}
-                                        
+
                                     />
                                 </View>
                             </View>
@@ -573,7 +576,7 @@ export class Popular_product extends Component {
                                             uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg',
 
                                         }}
-                                        
+
                                     />
                                 </View>
                                 <View style={styles.Popular_Box_D}>
@@ -587,7 +590,7 @@ export class Popular_product extends Component {
                                             uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png',
 
                                         }}
-                                        
+
                                     />
                                 </View>
                             </View>
@@ -606,7 +609,7 @@ export class Popular_product extends Component {
                                             uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg',
 
                                         }}
-                                        
+
                                     />
                                 </View>
                                 <View style={styles.Popular_Box_D}>
@@ -620,7 +623,7 @@ export class Popular_product extends Component {
                                             uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png',
 
                                         }}
-                                        
+
                                     />
                                 </View>
                             </View>
@@ -650,7 +653,7 @@ export class BannerBar_ONE extends Component {
                     uri: ip + '/MySQL/uploads/slide/Banner_type/shoes_BannerBar.jpg',
 
                 }}
-                
+
             />
         </View>
         );
@@ -674,7 +677,7 @@ export class BannerBar_TWO extends Component {
                     uri: ip + '/MySQL/uploads/slide/Banner_type/GlassesBannerBar.jpg',
 
                 }}
-                
+
             />
         </View>
         );
@@ -698,7 +701,7 @@ export class BannerBar_THREE extends Component {
                     uri: ip + '/MySQL/uploads/slide/banner_sale.jpg',
 
                 }}
-                
+
             />
         </View>
         );
@@ -758,7 +761,7 @@ export class FlashSale extends Component {
 
                             }}
                             style={styles.FlashSaleImage}
-                            
+
                         />
                         <Text style={styles.FlashSaleImageName}>{item.name}</Text>
                         <NumberFormat
@@ -835,7 +838,7 @@ export class PromotionPopular extends Component {
                                 uri: dataMySQL,
                             }}
                             style={styles.Promotion_popular_image}
-                            
+
                         />
                         <Text style={styles.Text_icon_Sale}>ร้าน AVIRA ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                     </View>
@@ -902,7 +905,7 @@ export class Confidential_PRO extends Component {
                                 uri: dataMySQL,
                             }}
                             style={styles.Confidential_image}
-                            
+
                         />
                         <Text style={styles.Text_box_Confidential}>Gala Germs จัดโปรโมชั่นสำหรับผู้มียอดสั่งซื้อครบ 5,000 บาท </Text>
                     </View>
@@ -967,7 +970,7 @@ export class Product_for_you extends Component {
                                 uri: dataMySQL,
                             }}
                             style={styles.ProductForYouImage}
-                            
+
                         />
                         <Text style={styles.ProductForYouImageName}>{item.name}</Text>
                         <NumberFormat
@@ -1047,7 +1050,7 @@ export class SaleProduct extends Component {
                                 uri: dataMySQL,
                             }}
                             style={styles.SaleProductImage}
-                            
+
                         />
                         <Text style={styles.SaleProductImageName}>{item.name}</Text>
                         <NumberFormat
@@ -1125,7 +1128,7 @@ export class NewStore extends Component {
                                 uri: dataMySQL,
                             }}
                             style={styles.NewStoreImage}
-                            
+
                         />
                         <Text style={styles.NewStoreText_bar}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50% </Text>
                     </View>
@@ -1192,7 +1195,7 @@ export class NewProduct extends Component {
                                 uri: dataMySQL,
                             }}
                             style={styles.NewProductImage}
-                            
+
                         />
                         <Text style={styles.NewProductImageName}>{item.name}</Text>
                         <NumberFormat
@@ -1277,7 +1280,7 @@ export class CategoryProduct extends Component {
                                 uri: dataMySQL,
                             }}
                             style={styles.CategoryProductImageHead}
-                            
+
                         />
                         <CategoryProductSubProduct navigation={this.props.navigation} name={item.name} />
                     </View>
@@ -1287,7 +1290,7 @@ export class CategoryProduct extends Component {
                             source={{
                                 uri: ip + '/MySQL/uploads/Text/storeFIN1.png',
                             }}
-                            
+
                         />
                         <CategoryProductSubStore navigation={this.props.navigation} />
                     </View>
@@ -1297,7 +1300,7 @@ export class CategoryProduct extends Component {
                             source={{
                                 uri: ip + '/MySQL/uploads/Text/beand.png',
                             }}
-                            
+
                         />
                         <CategoryProductSubBrand navigation={this.props.navigation} />
                     </View>
@@ -1307,7 +1310,7 @@ export class CategoryProduct extends Component {
                             source={{
                                 uri: ip + '/MySQL/uploads/Text/propro.png',
                             }}
-                            
+
                         />
                         <CategoryProductSubPromotion navigation={this.props.navigation} />
                     </View>
@@ -1364,7 +1367,7 @@ export class CategoryProductSubProduct extends Component {
                                 uri: dataMySQL,
                             }}
                             style={styles.CategoryProductImage}
-                            
+
                         />
                         <Text style={styles.CategoryProductImageName}>
                             {item.name}
@@ -1438,7 +1441,7 @@ export class CategoryProductSubStore extends Component {
                                 uri: dataMySQL,
                             }}
                             style={styles.CategoryProductStoreImage}
-                            
+
                         />
                     </View>
                 </TouchableOpacity>
@@ -1495,7 +1498,7 @@ export class CategoryProductSubBrand extends Component {
                             uri: ip + '/mysql/uploads/slide/Icon_brand/brand24.png',
                         }}
                         style={styles.CategoryProductSubBrandImage}
-                        
+
                     />
                 </View>
             );
@@ -1551,7 +1554,7 @@ export class CategoryProductSubPromotion extends Component {
                             uri: dataMySQL,
                         }}
                         style={styles.PromotionCategoryProductImage}
-                        
+
                     />
                     <Text style={styles.PromotionCategoryProductImageIcon}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
                 </View>
@@ -1608,7 +1611,7 @@ export class TodayProduct extends Component {
                                 uri: dataMySQL,
                             }}
                             style={styles.TodayProductImage}
-                            
+
                         />
                         <Text style={styles.TodayProductImageName}>
                             {item.name}
@@ -1626,19 +1629,6 @@ export class TodayProduct extends Component {
                                 </Text>
                             }
                         />
-                        <View style={styles.TodayProductIconBox}>
-                            <View style={styles.TodayProductIconBoxStar}>
-                                <Icons style={styles.TodayProductIconStar} name='star' size={8} />
-                                <Icons style={styles.TodayProductIconStar} name='star' size={8} />
-                                <Icons style={styles.TodayProductIconStar} name='star' size={8} />
-                                <Icons style={styles.TodayProductIconStar} name='star' size={8} />
-                                <Icons style={styles.TodayProductIconStar} name='star' size={8} />
-                            </View>
-                            <View style={styles.TodayProductIconBoxI}>
-                                <Icons style={styles.TodayProductIcon} name='heart' size={10} />
-                                <Icons style={styles.TodayProductIcon} name='share' size={10} />
-                            </View>
-                        </View>
                     </View>
                 </TouchableOpacity>
             );

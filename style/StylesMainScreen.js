@@ -26,7 +26,7 @@ export default StyleSheet.create({
   TextInput: {
     width: 230,
     height: 40,
-    fontSize: 15,
+    // fontSize: 15,
     textAlign: 'center',
   },
   Appbar: {

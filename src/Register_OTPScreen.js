@@ -10,13 +10,20 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
+import axios from 'axios';
 import FastImage from 'react-native-fast-image';
+import DropdownAlert from 'react-native-dropdownalert';
+import { Form, TextValidator } from 'react-native-validator-form';
 
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import styles from '../style/stylesLoginScreen';
+import { ip } from '../navigator/IpConfig';
 
 import {
   Input,
+  FormLabel,
+  FormInput,
+  FormValidationMessage
 } from 'react-native-elements';
 
 export default class Register_OTPScreen extends Component {
@@ -29,7 +36,6 @@ export default class Register_OTPScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.SafeAreaView}>
-        <Logo />
         <Login navigation={this.props.navigation} />
         <Register navigation={this.props.navigation} />
       </SafeAreaView>
@@ -67,29 +73,134 @@ export class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: {},
     };
+    this.EmailInput = this.EmailInput.bind(this);
+    this.PassInput = this.PassInput.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.getData = this.getData.bind(this);
+  }
+
+  getData() {
+    const { user } = this.state;
+    // console.log('Database Process')
+    // console.log(email)
+    var url = ip + '/mysql/DataServiceLogRegOtp.php';
+    var dataBody = {
+      type: 'email',
+      email: user.email
+    };
+    axios.post(
+      url,
+      dataBody,
+    ).then((getData) => {
+      // console.log('Database Compelete')
+      // console.log(getData.data);
+      var item = getData.data;
+      var c_email = item.map((item) => { return (item.c_email) });
+      // console.log('Map Compelete')
+      // console.log(c_email);
+      if (c_email == 1) {
+        alert('อีเมลนี้ถูกใช้แล้วค่ะ');
+      } else {
+        this.props.navigation.navigate('RegisterScreen', { email: user.email });
+      }
+    })
+  }
+
+  handleSubmit() {
+    this.refs.form.submit();
+  }
+
+  EmailInput(event) {
+    // console.log(event)
+    const { user } = this.state;
+    user.email = event;
+    this.setState({ user });
+  }
+
+  PassInput(event) {
+    const { user } = this.state;
+    user.pass = event;
+    this.setState({ user });
   }
 
   render() {
+    const { user } = this.state;
     return (
-      <View style={styles.Login_Box}>
-        <View style={styles.Login_BoxA}>
-          <Input
-            label='เบอร์มือถือ/อีเมล'
-            labelStyle={styles.Login_Box_Textlabel}
-            inputStyle={styles.Login_Box_Text}
-          />
-          <Input
-            label='รหัส OTP ผ่านอีเมล'
-            labelStyle={styles.Login_Box_Textlabel}
-            rightIcon={{ type: 'MaterialCommunityIcons', name: 'timer-10' }}
-          />
-          <View style={styles.Login_Box_Text_C}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('RegisterScreen')}>
-              <View style={styles.Login_Box_Text_B}>
-                <Text style={styles.Login__Text}>ถัดไป</Text>
+      <View>
+        <DropdownAlert ref={ref => this.dropDownAlertRef = ref} warnImageSrc='null' />
+        <Logo />
+        <View style={styles.Login_Box}>
+          <View style={styles.Login_BoxA}>
+            <Form
+              ref="form"
+              onSubmit={this.getData}
+            >
+              <Text style={styles.Login_Box_Textlabel}>
+                อีเมล
+              </Text>
+              <TextValidator
+                name="email"
+                label="text"
+                validators={['required', 'isEmail']}
+                errorMessages={['กรุณากรอกอีเมล', 'กรุณากรอกอีเมลให้ถูกต้อง']}
+                type="text"
+                keyboardType="email-address"
+                value={user.email}
+                onChangeText={this.EmailInput}
+                errorStyle={{
+                  container: {
+                    bottom: -12,
+                    left: 4,
+                    position: 'absolute'
+                  },
+                  text: {
+                    color: 'red'
+                  },
+                  underlineValidColor: 'gray',
+                  underlineInvalidColor: 'red'
+                }}
+              />
+              <Text style={styles.Login_Box_Textlabel}>
+                รหัสยืนยันผ่านอีเมล
+              </Text>
+              <TextValidator
+                name="pass"
+                label="text"
+                type="text"
+                value={user.pass}
+                maxLength={6}
+                onChangeText={this.PassInput}
+                errorStyle={{
+                  container: {
+                    bottom: -12,
+                    left: 4,
+                    position: 'absolute'
+                  },
+                  text: {
+                    color: 'red'
+                  },
+                  underlineValidColor: 'gray',
+                  underlineInvalidColor: 'red'
+                }}
+              />
+              <View style={styles.Countdownstyle}>
+                <Text style={styles.CountdownstyleSubmit}
+                >
+                  ส่ง
+                </Text>
               </View>
-            </TouchableOpacity>
+              <View style={styles.Login_Box_Text_C}>
+                <View style={styles.Login_Box_Text_C}>
+                  <TouchableOpacity onPress={this.handleSubmit}>
+                    <View style={styles.Login_Box_Text_B}>
+                      <Text style={styles.Login__Text}>ถัดไป</Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Form>
           </View>
         </View>
       </View>

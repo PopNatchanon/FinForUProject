@@ -34,7 +34,7 @@ export default class MainScreen extends Component {
                 <ScrollView>
                     <Slide />
                     <Category />
-                    {/* <Button_Bar />
+                    <Button_Bar />
                     <Brand_RCM />
                     <Popular_product />
                     <BannerBar_ONE />
@@ -46,7 +46,7 @@ export default class MainScreen extends Component {
                     <NewProduct navigation={this.props.navigation} />
                     <Confidential_PRO />
                     <Product_for_you navigation={this.props.navigation} />
-                    <CategoryProduct navigation={this.props.navigation} /> */}
+                    <CategoryProduct navigation={this.props.navigation} />
                     <Second_product />
                     <BannerBar_THREE />
                     <TodayProduct navigation={this.props.navigation} />
@@ -1712,7 +1712,7 @@ export class Second_product extends Component {
                                             sliderHeight={100}
                                             loop={true}
                                             autoplay={true}
-                                            autoplayDelay={3000}
+                                            autoplayDelay={2000}
                                             autoplayInterval={3000}
                                         />
                                         <View ><Text style={styles.Second_StoreFin_ImageB_Ttext}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text></View>
@@ -1729,7 +1729,7 @@ export class Second_product extends Component {
                                             sliderHeight={100}
                                             loop={true}
                                             autoplay={true}
-                                            autoplayDelay={3000}
+                                            autoplayDelay={2000}
                                             autoplayInterval={3000}
                                         />
                                         <View ><Text style={styles.Second_StoreFin_ImageB_Ttext}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text></View>

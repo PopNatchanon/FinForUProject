@@ -1016,7 +1016,7 @@ export default StyleSheet.create({
   },
   Second_Storefooter_image:{
     height: 40, 
-    width: 180,
+    width: 160,
     marginLeft: 10,
     borderTopRightRadius:5,
     borderTopLeftRadius: 5,
@@ -1025,7 +1025,7 @@ export default StyleSheet.create({
     color:'#FFF',
     fontSize:10,
     height: 30, 
-    width: 180, 
+    width: 160, 
     marginLeft: 10, 
     backgroundColor:'#0A55A6',
     borderBottomRightRadius: 5,

@@ -117,12 +117,14 @@ export default StyleSheet.create({
         borderColor: '#ECECEC',
         borderWidth: 1,
         // margin: 8,
+        
     },
     StoreFeedImage: {
-        width: '100%',
-        height: height * 0.25,
+        width: 200,
+        height: 200,
         resizeMode: 'contain',
         padding: 4,
+        marginLeft:91,
     },
     StoreFeedComBox: {
         padding: 8,

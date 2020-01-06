@@ -21,7 +21,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import IconsFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo'
-import styles from '../style/styleBellScreen';
+import styles from '../style/stylesBellScreen';
 import { ip } from '../navigator/IpConfig'
 export const { width, height } = Dimensions.get('window');
 

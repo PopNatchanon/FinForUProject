@@ -26,7 +26,7 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import styles from '../style/StylesProfileScreen'
-import { ip } from '../navigator/IpConfig'
+import { ip } from '../navigator/IpConfig';
 export const { width, height } = Dimensions.get('window');
 
 ///----------------------------------Appbar----------------------------------------///
@@ -43,7 +43,7 @@ export default class StoreScreen extends Component {
                         <Headbar navigation={this.props.navigation} />
                         <Menubar />
                         <Listbar />
-                        <ListMenu />
+                        <ListMenu navigation={this.props.navigation} />
                     </View>
                 </ScrollView>
                 <Toolbar navigation={this.props.navigation} />
@@ -281,11 +281,14 @@ export class ListMenu extends Component {
                     <View style={styles.ListMenuList}>
                         <View style={styles.ListMenuListSub}>
                             <IconMaterialIcons RightItem name="access-time" color='#D0B216' size={35} style={styles.ListMenuListSubIcon} />
+
                             <Text style={styles.ListMenuListSubName}>
                                 ดูล่าสุด
                             </Text>
                         </View>
-                        <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('LatestScreen')} >
+                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.ListMenuList}>
                         <View style={styles.ListMenuListSub}>
@@ -294,7 +297,8 @@ export class ListMenu extends Component {
                                 แชท
                             </Text>
                         </View>
-                        <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('ChatScreen')} >
+                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} /></TouchableOpacity>
                     </View>
                     <View style={styles.ListMenuList}>
                         <View style={styles.ListMenuListSub}>
@@ -303,7 +307,9 @@ export class ListMenu extends Component {
                                 สิ่งที่สนใจ
                             </Text>
                         </View>
-                        <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('InterestedScreen')} >
+                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.ListMenuList}>
                         <View style={styles.ListMenuListSub}>
@@ -312,7 +318,9 @@ export class ListMenu extends Component {
                                 ร้านค้าที่ติดตาม
                             </Text>
                         </View>
-                        <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Follow_storeScreen')} >
+                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.ListMenuList}>
                         <View style={styles.ListMenuListSub}>
@@ -321,7 +329,9 @@ export class ListMenu extends Component {
                                 รีวิวของฉัน
                             </Text>
                         </View>
-                        <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Review_meScreen')} >
+                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.ListMenuList}>
                         <View style={styles.ListMenuListSub}>
@@ -330,7 +340,9 @@ export class ListMenu extends Component {
                                 ช่วยเหลือ
                             </Text>
                         </View>
-                        <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Help_meScreen')} >
+                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>

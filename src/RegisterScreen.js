@@ -206,15 +206,6 @@ export class Login extends Component {
               }}
             />
             {/* <Text style={styles.RegisterScreen_Text}>*กรอกตัวอย่างน้อย 6 ตัว ประกอบไปด้วยตัวเลขและตัวอักษร</Text> */}
-            <Picker
-              selectedValue={this.state.language}
-              style={{ height: 50, width: 100 }}
-              onValueChange={(itemValue, itemIndex) =>
-                this.setState({ language: itemValue })
-              }>
-              <Picker.Item label="Java" value="java" />
-              <Picker.Item label="JavaScript" value="js" />
-            </Picker>
 
             <View style={styles.RegisterScreen_CheckBox}>
               <CheckBox

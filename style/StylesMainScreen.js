@@ -677,7 +677,8 @@ export default StyleSheet.create({
   CategoryProduct: {
     backgroundColor: '#FFFFFF',
     borderColor: '#ECECEC',
-    borderWidth: 1,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
     marginTop: 10,
   },
   CategoryProductText: {
@@ -697,11 +698,12 @@ export default StyleSheet.create({
     marginTop: 10,
   },
   CategoryProductImageHead: {
-    marginTop: 4,
+    marginTop: 5,
     width,
-    height: height * 0.19,
-    resizeMode: 'stretch',
-    marginBottom: -50,
+    height: 80,
+    // height: height * 0.19,
+    // resizeMode: 'stretch',
+    marginBottom: -30,
   },
   CategoryProductBox: {
     width: 113,
@@ -710,7 +712,7 @@ export default StyleSheet.create({
     borderWidth: 1,
     marginTop: 16,
     marginBottom: 6,
-    marginLeft: 5,
+    marginLeft: 10,
   },
   CategoryProductImage: {
     width: 100,
@@ -927,4 +929,107 @@ export default StyleSheet.create({
     marginTop: 10,
     marginLeft: 10,
   },
+
+  ///------------------------------------------------------------------///
+
+  Second_product: {
+    height: 'auto',
+    width,
+    borderColor: '#ECECEC',
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
+    marginTop: 10,
+  },
+  Second_StoreFin: {
+    height: 280,
+    width,
+  },
+  Second_StoreFin_BoxHead: {
+    flexDirection: 'row',
+    width: 'auto',
+    height: 30,
+    justifyContent: 'space-between',
+  },
+  Second_StoreFin_textEnd: {
+    fontSize: 10,
+    color: '#0A55A6',
+    textAlign: 'right',
+    marginTop: 5,
+    marginRight: 10,
+  },
+  Second_StoreFin_Box: {
+    // backgroundColor: 'blue',
+    height: 'auto',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  Second_StoreFin_Image: {
+    height: 230,
+    width: 430,
+    marginTop: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  Second_StoreFin_ImageA: {
+    height: 230,
+    width: 280,
+  },
+  Second_StoreFin_ImageB: {
+    height: 210,
+    justifyContent: 'space-between',
+  },
+  Second_StoreFin_ImageB_T: {
+    height: 90,
+    width: 130,
+  },
+  Second_StoreFin_ImageB_TFastImage: {
+    height: 70,
+    width: 130,
+    borderTopRightRadius: 5,
+    borderTopLeftRadius: 5,
+  },
+  Second_StoreFin_ImageB_Ttext: {
+    textAlign: 'center',
+    height: 20,
+    width: 130,
+    backgroundColor: '#0A55A6',
+    color: '#ffff',
+    fontSize: 8,
+    borderBottomRightRadius: 5,
+    borderBottomLeftRadius: 5,
+  },
+  Second_StoreFin_Boxbeand_head: {
+    flexDirection: 'row',
+    width: 'auto',
+    height: 30,
+    justifyContent: 'space-between',
+  },
+  Second_StoreFin_Boxbeand: {
+    flexDirection: 'row',
+    // backgroundColor: '#95F29F',
+    width,
+    height: 60,
+  },
+  Second_Storefooter:{
+    height: 100, 
+    width,
+  },
+  Second_Storefooter_image:{
+    height: 40, 
+    width: 160,
+    marginLeft: 10,
+    borderTopRightRadius:5,
+    borderTopLeftRadius: 5,
+  },
+  Second_Storefooter_Text:{
+    color:'#FFF',
+    fontSize:10,
+    height: 30, 
+    width: 160, 
+    marginLeft: 10, 
+    backgroundColor:'#0A55A6',
+    borderBottomRightRadius: 5,
+    borderBottomLeftRadius: 5,
+  },
+
 });

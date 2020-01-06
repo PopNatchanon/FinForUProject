@@ -356,12 +356,17 @@ export class Highlights extends Component {
 
           </View>
           <View style={styles.StoreFeedBox}>
+
             <FastImage
-              source={{
-                uri: dataMySQL_p,
-              }}
-              style={styles.StoreFeedImage}
-            />
+                source={{
+                  uri: dataMySQL_p,
+                }}
+                style={styles.StoreFeedImage}
+              />
+              
+              
+           
+
             <View style={styles.StoreFeedComBox}>
               <Text style={styles.StoreFeedComBoxDetail}>
                 {item.detail}

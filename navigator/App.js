@@ -12,6 +12,13 @@ import NewsScreen from '../src/NewsScreen';
 import BellScreen from '../src/BellScreen';
 import Register_OTPScreen from '../src/Register_OTPScreen';
 import RegisterScreen from '../src/RegisterScreen';
+import LatestScreen from '../src/src_profile/LatestScreen';
+import ChatScreen from '../src/src_profile/ChatScreen';
+import InterestedScreen from '../src/src_profile/InterestedScreen';
+import Follow_storeScreen from '../src/src_profile/Follow_storeScreen';
+import Review_meScreen from '../src/src_profile/Review_meScreen';
+import Help_meScreen from '../src/src_profile/Help_meScreen';
+ 
 
 const PathScreen = createStackNavigator({
   MainScreen: {
@@ -86,6 +93,48 @@ const PathScreen = createStackNavigator({
   },
   RegisterScreen: {
     screen: RegisterScreen,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
+  LatestScreen: {
+    screen: LatestScreen,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
+  ChatScreen: {
+    screen: ChatScreen,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
+  InterestedScreen: {
+    screen: InterestedScreen,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
+  Follow_storeScreen: {
+    screen: Follow_storeScreen,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
+  Review_meScreen: {
+    screen: Review_meScreen,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
+  Help_meScreen: {
+    screen: Help_meScreen,
     navigationOptions: () => ({
       tabBarVisible: false,
       header: null,

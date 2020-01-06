@@ -170,7 +170,7 @@ export default StyleSheet.create({
         borderRadius: 10,
         textAlign: 'center',
         height: 20,
-        width: 60,
+        width: 80,
         borderColor: '#ECECEC',
         borderWidth: 1,
     },

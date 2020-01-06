@@ -47,6 +47,7 @@ export default class MainScreen extends Component {
                     <Confidential_PRO />
                     <Product_for_you navigation={this.props.navigation} />
                     <CategoryProduct navigation={this.props.navigation} />
+                    <Second_product />
                     <BannerBar_THREE />
                     <TodayProduct navigation={this.props.navigation} />
                 </ScrollView>
@@ -916,7 +917,7 @@ export class Confidential_PRO extends Component {
             <View style={styles.Confidential}>
                 <View style={styles.Promotion_popularTextBox}>
                     <Text style={styles.ConfidentialText}>
-                        โปรลับ เฉพาะที่นี่ที่เดียว
+                        ดีลสุด Exclusive
                     </Text>
                     <Text style={styles.ConfidentialTextEnd}>
                         ดูทั้งหมด
@@ -993,7 +994,7 @@ export class Product_for_you extends Component {
             <View style={styles.ProductForYou}>
                 <View style={styles.ProductForYouTextBox}>
                     <Text style={styles.ProductForYouText}>
-                        คัดเฉพาะสำหรับคุณ
+                        FIN คัดมาเพื่อคุณ
                     </Text>
                     <Text style={styles.ProductForYouTextEnd}>
                         ดูทั้งหมด
@@ -1073,7 +1074,7 @@ export class SaleProduct extends Component {
             <View style={styles.SaleProduct}>
                 <View style={styles.SaleProductTextBox}>
                     <Text style={styles.SaleProductText}>
-                        สินค้าลดราคา
+                        ไฮไลท์ประจำสัปดาห์
                     </Text>
                     <Text style={styles.SaleProductTextEnd}>
                         ดูทั้งหมด
@@ -1298,16 +1299,6 @@ export class CategoryProduct extends Component {
                         <FastImage
                             style={styles.Text_Bar_Image}
                             source={{
-                                uri: ip + '/MySQL/uploads/Text/beand.png',
-                            }}
-
-                        />
-                        <CategoryProductSubBrand navigation={this.props.navigation} />
-                    </View>
-                    <View>
-                        <FastImage
-                            style={styles.Text_Bar_Image}
-                            source={{
                                 uri: ip + '/MySQL/uploads/Text/propro.png',
                             }}
 
@@ -1458,62 +1449,6 @@ export class CategoryProductSubStore extends Component {
 
 ///-------------------------------------------------------------------------------///
 
-export class CategoryProductSubBrand extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            dataSourceCategoryProduct: [],
-        }
-    }
-
-    getCategoryProductSubBrand() {
-        // console.log( 'CategoryProductChild Process' )
-        var url = ip + '/mysql/DataServiceMain.php';
-        var dataBody = {
-            type: 'brand'
-        };
-        axios.post(
-            url,
-            dataBody,
-        ).then((getData) => {
-            //   console.log(getData.data);
-            this.setState({
-                dataSourceCategoryProduct: getData.data,
-            })
-        })
-    }
-
-    componentDidMount() {
-        this.getCategoryProductSubBrand()
-    }
-
-    render() {
-        let dataCategoryProductSubBrand = this.state.dataSourceCategoryProduct.map((item, indexs) => {
-            // console.log(item)
-            var dataMySQL = [ip + '/mysql/uploads/publish/popular_promotions', item.image].join('/');
-            return (
-                <View style={styles.CategoryProductSubBrandBox} key={indexs}>
-                    <FastImage
-                        source={{
-                            uri: ip + '/mysql/uploads/slide/Icon_brand/brand24.png',
-                        }}
-                        style={styles.CategoryProductSubBrandImage}
-
-                    />
-                </View>
-            );
-        })
-        return (
-            <ScrollView horizontal>
-                {dataCategoryProductSubBrand}
-                <View style={styles.RightItem} />
-            </ScrollView>
-        );
-    }
-}
-
-///-------------------------------------------------------------------------------///
-
 export class CategoryProductSubPromotion extends Component {
     constructor(props) {
         super(props);
@@ -1568,6 +1503,293 @@ export class CategoryProductSubPromotion extends Component {
         );
     }
 }
+
+///-------------------------------------------------------------------------------///
+
+export class Second_product extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataSale: [],
+            dataSourceSlide: [],
+            activeSlide: 0,
+        };
+    }
+
+    getFlashSale() {
+        var url = ip + '/mysql/DataServiceMain.php';
+        var dataBody = {
+            type: 'sale'
+        };
+        axios.post(
+            url,
+            dataBody,
+        ).then((getData) => {
+            // console.log(getData.data);
+            this.setState({
+                dataSale: getData.data,
+            })
+        })
+    }
+
+    componentDidMount() {
+        this.getFlashSale();
+        const { item } = this.props;
+        this.getDataSlide(item)
+    }
+
+    getDataSlide() {
+        var url = ip + '/mysql/DataServiceStore.php';
+        var dataBody = {
+            type: 'slide'
+        };
+        axios.post(
+            url,
+            dataBody,
+        ).then((getData) => {
+            // console.log(getData.data);
+            this.setState({
+                dataSourceSlide: getData.data,
+            })
+        })
+    }
+
+    _renderItem = ({ item, indexs }) => {
+        var dataMySQL = [ip + '/mysql/uploads/slide/bannerstore', item.image].join('/')
+        return (
+            <View style={styles.BannerBox} key={indexs}>
+                <FastImage
+                    source={{
+                        uri: dataMySQL,
+                    }}
+                    style={{ height: 200, width: 280, }}
+
+                >
+                </FastImage>
+            </View>
+        );
+    }
+
+    _renderItem2 = ({ item, indexs }) => {
+        var dataMySQL = [ip + '/mysql/uploads/slide/bannerstore', item.image].join('/')
+        return (
+            <View style={styles.BannerBox} key={indexs}>
+                <FastImage
+                    source={{
+                        uri: dataMySQL,
+                    }}
+                    style={{ height: 100, width: 130, borderRadius: 5, }}
+
+                >
+                </FastImage>
+            </View>
+        );
+    }
+
+    get pagination() {
+        const { dataSourceSlide, activeSlide } = this.state;
+        // console.log(width)
+        return (
+            <View style={{ marginTop: -70, marginBottom: -10 }}>
+                <Pagination
+                    dotsLength={dataSourceSlide.length}
+                    activeDotIndex={activeSlide}
+                    containerStyle={{ backgroundColor: 'rgba(120, 120, 120, 0.1)' }}
+                    dotStyle={{
+                        width: 15,
+                        height: 15,
+                        borderRadius: 30,
+                        backgroundColor: 'rgba(0, 0, 0, 0)',
+                        borderColor: 'rgba(255, 255, 255, 0.92)',
+                        borderWidth: 2,
+                    }}
+                    inactiveDotStyle={{
+                        width: 15,
+                        height: 5,
+                        borderRadius: 5,
+                        backgroundColor: 'rgba(255, 255, 255, 0.92)',
+                    }}
+                    carouselRef={this.activeSlide}
+                    tappableDots={!!this.activeSlide}
+                    // inactiveDotOpacity={0.6}
+                    inactiveDotScale={0.6}
+                />
+            </View>
+        );
+    }
+
+    render() {
+        let dataFlashSale = this.state.dataSale.map((item, indexs) => {
+            // console.log('FlashSale')
+            // console.log(item)
+            var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+            return (
+                <TouchableOpacity
+                    activeOpacity={1}
+                    key={indexs}
+                    onPress={
+                        () => this.props.navigation.navigate(
+                            'DetailScreen', {
+                            id_item: item.id_product
+                        })
+                    }
+                >
+                    <View style={styles.CategoryProductBox}>
+                        <FastImage
+                            source={{
+                                uri: dataMySQL,
+                            }}
+                            style={styles.CategoryProductImage}
+                            resizeMethod='resize'
+                        />
+                        <Text style={styles.CategoryProductImageName}>{item.name}</Text>
+                        <NumberFormat
+                            value={item.full_price}
+                            displayType={'text'}
+                            thousandSeparator={true}
+                            prefix={'฿'}
+                            renderText={
+                                value => <Text style={
+                                    styles.CategoryProductImagePrice
+                                }>
+                                    {value}
+                                </Text>}
+                        />
+                    </View>
+                </TouchableOpacity>
+            );
+        })
+        return (
+            <View style={styles.Second_product}>
+                <View style={styles.FlashSaleTextBox}>
+                    <Text style={styles.FlashSaleText}>
+                        สินค้ามือสอง
+                    </Text>
+                </View>
+                <View>
+                    <ImageBackground
+                        style={styles.CategoryProductImageHead}
+                        source={{ uri: ip + '/MySQL/uploads/slide/Banner_type/watch_BannerBar.jpg' }}
+                        resizeMethod='resize'
+                    ></ImageBackground>
+                </View>
+                <ScrollView horizontal>
+                    {dataFlashSale}
+                </ScrollView>
+                <View style={styles.Second_StoreFin}>
+                    <View style={styles.Second_StoreFin_BoxHead}>
+                        <FastImage
+                            style={styles.Text_Bar_Image}
+                            source={{ uri: ip + '/MySQL/uploads/Text/storeFIN1.png' }}
+                        />
+                        <View><Text style={styles.Second_StoreFin_textEnd}>ดูทั้งหมด</Text></View>
+                    </View>
+                    <View style={styles.Second_StoreFin_Box}>
+                        <View style={styles.Second_StoreFin_Image}>
+                            <View style={styles.Second_StoreFin_ImageA}>
+                                <Carousel
+                                    ref={c => this.activeSlide = c}
+                                    data={this.state.dataSourceSlide}
+                                    renderItem={this._renderItem}
+                                    sliderWidth={280}
+                                    itemWidth={280}
+                                    sliderHeight={200}
+                                    loop={true}
+                                    autoplay={true}
+                                    autoplayDelay={3000}
+                                    autoplayInterval={3000}
+                                    onSnapToItem={(index) => this.setState({ activeSlide: index })}
+                                />
+                                {this.pagination}
+                                <View style={{ backgroundColor: '#0A55A6', height: 40, width: 280, }}><Text style={{ color: '#FFFF' }}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text></View>
+                            </View>
+                            <View style={styles.Second_StoreFin_ImageB}>
+                                <View style={styles.Second_StoreFin_ImageB_T}>
+                                    <View>
+                                        <Carousel
+                                            ref={c => this.activeSlide2 = c}
+                                            data={this.state.dataSourceSlide}
+                                            renderItem={this._renderItem2}
+                                            sliderWidth={130}
+                                            itemWidth={130}
+                                            sliderHeight={100}
+                                            loop={true}
+                                            autoplay={true}
+                                            autoplayDelay={2000}
+                                            autoplayInterval={3000}
+                                        />
+                                        <View ><Text style={styles.Second_StoreFin_ImageB_Ttext}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text></View>
+                                    </View>
+                                </View>
+                                <View style={styles.Second_StoreFin_ImageB_T}>
+                                    <View>
+                                        <Carousel
+                                            ref={c => this.activeSlide3 = c}
+                                            data={this.state.dataSourceSlide}
+                                            renderItem={this._renderItem2}
+                                            sliderWidth={130}
+                                            itemWidth={130}
+                                            sliderHeight={100}
+                                            loop={true}
+                                            autoplay={true}
+                                            autoplayDelay={2000}
+                                            autoplayInterval={3000}
+                                        />
+                                        <View ><Text style={styles.Second_StoreFin_ImageB_Ttext}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text></View>
+                                    </View>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+                <View style={styles.Second_Storefooter}>
+                    <ScrollView horizontal>
+                        <View style={{ flexDirection: 'row', }}>
+                            <View>
+                                <FastImage
+                                    style={styles.Second_Storefooter_image}
+                                    source={{ uri: ip + '/MySQL/uploads/slide/Store_recommendFIN/luxury_shop1.jpg' }}
+                                />
+                                <Text style={styles.Second_Storefooter_Text}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
+                            </View>
+                            <View>
+                                <FastImage
+                                    style={styles.Second_Storefooter_image}
+                                    source={{ uri: ip + '/MySQL/uploads/slide/Store_recommendFIN/luxury_shop1.jpg' }}
+                                />
+                                <Text style={styles.Second_Storefooter_Text}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
+                            </View>
+                            <View>
+                                <FastImage
+                                    style={styles.Second_Storefooter_image}
+                                    source={{ uri: ip + '/MySQL/uploads/slide/Store_recommendFIN/luxury_shop1.jpg' }}
+                                />
+                                <Text style={styles.Second_Storefooter_Text}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
+                            </View>
+                            <View>
+                                <FastImage
+                                    style={styles.Second_Storefooter_image}
+                                    source={{ uri: ip + '/MySQL/uploads/slide/Store_recommendFIN/luxury_shop1.jpg' }}
+                                />
+                                <Text style={styles.Second_Storefooter_Text}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
+                            </View>
+                            <View>
+                                <FastImage
+                                    style={styles.Second_Storefooter_image}
+                                    source={{ uri: ip + '/MySQL/uploads/slide/Store_recommendFIN/luxury_shop1.jpg' }}
+                                />
+                                <Text style={styles.Second_Storefooter_Text}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
+                            </View>
+                            
+                        </View>
+                    </ScrollView>
+                </View>
+            </View>
+
+        );
+    }
+}
+
 
 ///-------------------------------------------------------------------------------///
 
@@ -1629,6 +1851,19 @@ export class TodayProduct extends Component {
                                 </Text>
                             }
                         />
+                        {/* <View style={styles.TodayProductIconBox}>
+                            <View style={styles.TodayProductIconBoxStar}>
+                                <Icons style={styles.TodayProductIconStar} name='star' size={8} />
+                                <Icons style={styles.TodayProductIconStar} name='star' size={8} />
+                                <Icons style={styles.TodayProductIconStar} name='star' size={8} />
+                                <Icons style={styles.TodayProductIconStar} name='star' size={8} />
+                                <Icons style={styles.TodayProductIconStar} name='star' size={8} />
+                            </View>
+                            <View style={styles.TodayProductIconBoxI}>
+                                <Icons style={styles.TodayProductIcon} name='heart' size={10} />
+                                <Icons style={styles.TodayProductIcon} name='share' size={10} />
+                            </View>
+                        </View> */}
                     </View>
                 </TouchableOpacity>
             );

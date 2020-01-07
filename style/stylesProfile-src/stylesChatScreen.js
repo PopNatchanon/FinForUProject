@@ -5,6 +5,7 @@ export const { width, height } = Dimensions.get('window');
 export default StyleSheet.create({
 
     Appbar: {
+        backgroundColor:'#FFFFFF',
         height: 50,
         flexDirection: 'row',
         width,
@@ -12,6 +13,7 @@ export default StyleSheet.create({
         borderWidth: 1,
     },
     Chat_Box: {
+        backgroundColor:'#FFFFFF',
         height: 'auto',
         width: '100%',
         padding: 10,
@@ -19,7 +21,7 @@ export default StyleSheet.create({
         justifyContent:'space-between',
         borderColor: '#ECECEC',
         borderWidth: 1,
-        marginTop: 10,
+        marginTop: 5,
     },
     Chat_Box_image: {
         height: 70,

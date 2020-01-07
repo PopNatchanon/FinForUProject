@@ -24,6 +24,7 @@ export default StyleSheet.create({
     resizeMode: 'stretch',
   },
   TextInput: {
+    backgroundColor:'#FFFF',
     width: 230,
     height: 40,
     // fontSize: 15,

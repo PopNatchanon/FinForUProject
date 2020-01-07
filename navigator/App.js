@@ -142,7 +142,7 @@ const PathScreen = createStackNavigator({
   },
 },
   {
-    initialRouteName: 'MainScreen',
+    initialRouteName: 'ProfileScreen',
   }
   );
 

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
   View,
-  Image,
   ImageBackground,
   ScrollView,
   Text,
@@ -51,11 +50,11 @@ export class Logo extends Component {
   render() {
     return (
       <View style={styles.Logo_Box}>
-        <Image
-          style={styles.Logo}
+        <FastImage
+           style={styles.Logo}
           source={require('../images/sj.png')}
           resizeMethod='resize'
-        ></Image>
+        />
       </View>
     );
   }

@@ -30,7 +30,7 @@ export default class ChatScreen extends Component {
 
   render() {
     return (
-      <SafeAreaView style={{ flex: 1, }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor:'#E9E9E9',}}>
         <Appbar navigation={this.props.navigation} />
         <ScrollView>
           <Chat_Box />

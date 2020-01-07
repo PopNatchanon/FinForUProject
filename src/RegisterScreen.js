@@ -14,6 +14,8 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import styles from '../style/stylesLoginScreen';
 import { Form, TextValidator } from 'react-native-validator-form';
 import { CheckBox } from 'react-native-elements';
+import RadioGroup from 'react-native-radio-button-group';
+import DatePicker from 'react-native-datepicker'
 
 import {
   Input,
@@ -77,6 +79,10 @@ export class Login extends Component {
   }
 
   componentDidMount() {
+    const { user } = this.state;
+    const { email } = this.props;
+    user.email = email;
+    this.setState({ user });
     // custom rule will have name 'isPasswordMatch'
     Form.addValidationRule('isPasswordMatch', (value) => {
       // console.log('isPasswordMatch')
@@ -120,6 +126,12 @@ export class Login extends Component {
     this.setState({ user });
   }
 
+  // getInitialState() {
+  //   return {
+  //     selectedOption: null,
+  //   }
+  // }
+
   render() {
     const { user } = this.state;
     return (
@@ -159,8 +171,8 @@ export class Login extends Component {
             <TextValidator
               name="pass"
               label="text"
-              validators={['required', 'isString']}
-              errorMessages={['กรุณากรอกรหัสผ่าน', 'กรุณากรอกรหัสผ่านให้ถูกต้อง']}
+              validators={['required', 'isString', 'minStringLength:6']}
+              errorMessages={['กรุณากรอกรหัสผ่าน', 'กรุณากรอกรหัสผ่านให้ถูกต้อง', 'กรุณากรอกรหัสผ่านอย่างน้อย 6 ตัว']}
               type="text"
               secureTextEntry
               value={user.pass}
@@ -205,6 +217,49 @@ export class Login extends Component {
               }}
             />
             {/* <Text style={styles.RegisterScreen_Text}>*กรอกตัวอย่างน้อย 6 ตัว ประกอบไปด้วยตัวเลขและตัวอักษร</Text> */}
+            <View style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: 14 }}>
+              <DatePicker
+                style={{ width: 200 }}
+                date={this.state.date}
+                mode="date"
+                placeholder="วัน/เดือน/ปีเกิด"
+                format="DD/MM/YYYY"
+                maxDate={new Date()}
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                  dateIcon: {
+                    position: 'absolute',
+                    left: 0,
+                    top: 4,
+                    marginLeft: 0
+                  },
+                  dateInput: {
+                    marginLeft: 36
+                  }
+                  // ... You can check the source to find the other keys.
+                }}
+                onDateChange={(date) => { this.setState({ date: date }) }}
+              />
+            </View>
+
+            <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 14 }}>
+              <Text>
+                เพศ
+              </Text>
+              <View>
+                <RadioGroup
+                  horizontal
+                  options={[
+                    { id: 0, label: 'ชาย' },
+                    { id: 1, label: 'หญิง' },
+                  ]
+                  }
+                  activeButtonId={0}
+                  circleStyle={{ width: 18, height: 18, fillColor: 'black' }}
+                />
+              </View>
+            </View>
 
             <View style={styles.RegisterScreen_CheckBox}>
               <CheckBox

@@ -81,7 +81,7 @@ export class Login extends Component {
     const { user } = this.state;
     console.log('Database Process')
     console.log(user)
-    console.log(user.email)
+    // console.log(user.email)
     fetch('http://192.168.0.160/finforu/auth/mobile_login', {
       method: 'POST',
       headers: {
@@ -94,7 +94,8 @@ export class Login extends Component {
     })
       .then((response) => response.text())
       .then((responseJson) => {
-        console.log(responseJson);
+        console.log(responseJson)
+        // this.props.navigation.navigate('ProfileScreen', { email: user.email });
       })
       .catch((error) => {
         console.error(error);

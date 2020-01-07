@@ -143,7 +143,7 @@ export class Login extends Component {
               <TextValidator
                 name="email"
                 label="text"
-                validators={['required', 'isEmail']}
+                validators={['required', 'matchRegexp:^[a-zA-Z]+([\.-]?[a-zA-Z0-9]+[\_]?)+([\.-]?[a-zA-Z0-9]+[\_]?)@[a-zA-Z0-9]+(\.[a-zA-Z0-9]{2,3})+$']}
                 errorMessages={['กรุณากรอกอีเมล', 'กรุณากรอกอีเมลให้ถูกต้อง']}
                 type="text"
                 keyboardType="email-address"

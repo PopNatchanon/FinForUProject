@@ -168,4 +168,9 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 16,
     },
+    eyestyle: {
+        marginTop: -40,
+        // backgroundColor: '#0A55A6',
+        marginLeft: '90%',
+    },
 })

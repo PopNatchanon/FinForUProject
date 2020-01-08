@@ -219,7 +219,7 @@ export class Follow_up extends Component {
     let dataToday = this.state.dataSourceStoreFeed.map((item, indexs) => {
       // console.log( indexs + '. ' + item.image ),
       var dataMySQL_s = [ip + '/mysql/uploads/slide/NewStore', item.s_image].join('/');
-      var dataMySQL_p = [ip + '/mysql/uploads', item.p_image].join('/');
+      var dataMySQL_p = [ip + '/mysql', item.image_path, item.p_image].join('/');
       // console.log(dataMySQL_s)
       return (
         <View key={indexs}>

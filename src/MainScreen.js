@@ -742,7 +742,7 @@ export class FlashSale extends Component {
         let dataFlashSale = this.state.dataSale.map((item, indexs) => {
             // console.log('FlashSale')
             // console.log(item)
-            var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+            var dataMySQL = [ip + '/mysql',item.image_path, item.image].join('/');
             return (
                 <TouchableOpacity
                     activeOpacity={1}
@@ -827,7 +827,7 @@ export class PromotionPopular extends Component {
     }
     render() {
         let dataPromotionPopular = this.state.dataSourcebrand.map((item, indexs) => {
-            var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
+            var dataMySQL = [ip, 'mysql', item.image_path , item.image].join('/');
             // console.log(dataMySQL)
             return (
                 // <TouchableOpacity key={indexs} onPress={() => this.props.navigation.navigate('StoreScreen', { item: item })}>
@@ -850,7 +850,7 @@ export class PromotionPopular extends Component {
             <View style={styles.Promotion_popular}>
                 <View style={styles.Promotion_popularTextBox}>
                     <Text style={styles.Promotion_popularText}>
-                        โปรโมชั่นร้านค้ายอดนิยม
+                        โปรโมชันร้านค้ายอดนิยม
                     </Text>
                     <Text style={styles.Promotion_popularTextEnd}>
                         ดูทั้งหมด
@@ -961,7 +961,7 @@ export class Product_for_you extends Component {
     render() {
         let dataProductForYou = this.state.dataSourceProductForYou.map((item, indexs) => {
             //   console.log('Sale' + [ indexs, item.image ].join(' ')),
-            var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+            var dataMySQL = [ip + '/mysql', item.image_path ,item.image].join('/');
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
                     <View style={styles.ProductForYouBox} key={indexs}>
@@ -1041,7 +1041,7 @@ export class SaleProduct extends Component {
     render() {
         let dataSaleProduct = this.state.dataSale.map((item, indexs) => {
             //   console.log('Sale' + [ indexs, item.image ].join(' ')),
-            var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+            var dataMySQL = [ip + '/mysql' ,item.image_path, item.image].join('/');
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
                     <View style={styles.SaleProductBox} key={indexs}>
@@ -1139,7 +1139,7 @@ export class NewStore extends Component {
             <View style={styles.NewStore}>
                 <View style={styles.NewStoreTextBox}>
                     <Text style={styles.NewStoreText}>
-                        ร้านค้ามาใหม่
+                        โปรเด็ดร้านค้ามาใหม่
                     </Text>
                     <Text style={styles.NewStoreTextEnd}>
                         ดูทั้งหมด
@@ -1186,7 +1186,7 @@ export class NewProduct extends Component {
     render() {
         let dataNewProduct = this.state.dataNewProduct.map((item, indexs) => {
             //   console.log('Sale' + [ indexs, item.image ].join(' ')),
-            var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+            var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
                     <View style={styles.NewProductBox} >
@@ -1348,7 +1348,7 @@ export class CategoryProductSubProduct extends Component {
     render() {
         let dataCategoryProductSubProduct = this.state.dataSourceCategoryProduct.map((item, indexs) => {
             // console.log( 'CategoryProductNo. ' + indexs + ' ' + item.image ),
-            var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+            var dataMySQL = [ip + '/mysql',item.image_path, item.image].join('/');
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
                     <View style={styles.CategoryProductBox} key={indexs}>
@@ -1823,7 +1823,7 @@ export class TodayProduct extends Component {
     render() {
         let dataToday = this.state.dataSourceTodayProduct.map((item, indexs) => {
             // console.log( indexs + '. ' + item.image ),
-            var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+            var dataMySQL = [ip + '/mysql',item.image_path, item.image].join('/');
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
                     <View style={styles.TodayProductBox} key={indexs}>

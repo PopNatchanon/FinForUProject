@@ -3,6 +3,16 @@ import { StyleSheet, Dimensions } from 'react-native';
 export const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
+
+    Appbar: {
+        backgroundColor:'#FFFFFF',
+        height: 50,
+        flexDirection: 'row',
+        width:'100%',
+        borderColor: '#ECECEC',
+        borderWidth: 1,
+        justifyContent:'space-between',
+    },
     Toolbar: {
         backgroundColor: '#FFFFFF',
         borderColor: '#ECECEC',
@@ -95,7 +105,7 @@ export default StyleSheet.create({
         marginBottom: 4,
     },
     MenubarText2: {
-        color: '#0A55A6',
+        color: '#BABABA',
         marginTop: 2,
     },
     ///---------------------------------------------------------------------------///
@@ -180,4 +190,6 @@ export default StyleSheet.create({
         marginRight: 'auto',
         fontSize: 14,
     },
+
+
 })

@@ -91,11 +91,13 @@ export class Headbar extends Component {
                     <View style={styles.HeadbarBox1}>
                         <View style={{ flexDirection: 'row' }}>
                             <View>
-                                <View style={styles.HeadbarBox1Sub}>
-                                    <Text style={styles.HeadbarBox1SubText}>
-                                        เริ่มค้าขาย
-                            </Text>
-                                </View>
+                                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMeScreen')} >
+                                    <View style={styles.HeadbarBox1Sub}>
+                                        <Text style={styles.HeadbarBox1SubText}>
+                                            เริ่มค้าขาย
+                                    </Text>
+                                    </View>
+                                </TouchableOpacity>
                                 <FastImage
                                     style={styles.HeadbarBoxImage}
                                 />

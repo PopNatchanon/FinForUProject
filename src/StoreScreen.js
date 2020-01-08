@@ -115,7 +115,7 @@ export class StoreHead extends Component {
         return (
             <View style={styles.StoreHead}>
                 <View>
-                    <FastImage
+                    <ImageBackground
                         source={require('../icon/bgprofile.jpg')}
                         style={styles.StoreHeadImage}
                         
@@ -548,7 +548,7 @@ export class DealTop extends Component {
     render() {
         let dataDealTop = this.state.dataSale.map((item, indexs) => {
             //   console.log('Sale' + [ indexs, item.image ].join(' ')),
-            var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+            var dataMySQL = [ip + '/mysql',item.image_path, item.image].join('/');
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}>
                     <View style={styles.DealTopBox} key={indexs}>
@@ -635,7 +635,7 @@ export class NewProduct extends Component {
     render() {
         let dataNewProduct = this.state.dataSale.map((item, indexs) => {
             //   console.log('Sale' + [ indexs, item.image ].join(' ')),
-            var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+            var dataMySQL = [ip + '/mysql',item.image_path, item.image].join('/');
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}>
                     <View style={styles.NewProductBox} key={indexs}>
@@ -822,7 +822,7 @@ export class PopularProduct extends Component {
     render() {
         let dataToday = this.state.dataSourcePopularProduct.map((item, indexs) => {
             // console.log( indexs + '. ' + item.image ),
-            var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+            var dataMySQL = [ip + '/mysql',item.image_path, item.image].join('/');
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}>
                     <View style={styles.PopularProductBox} key={indexs}>

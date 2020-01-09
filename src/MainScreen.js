@@ -22,10 +22,21 @@ import styles from '../style/StylesMainScreen';
 import { ip } from '../navigator/IpConfig';
 import FastImage from 'react-native-fast-image';
 export const { width, height } = Dimensions.get('window');
+import AsyncStorage from '@react-native-community/async-storage';
+import { Toolbar } from './tools/Tools'
 
 ///----------------------------------Appbar----------------------------------------///
 
 export default class MainScreen extends Component {
+    getDataasync = async () => {
+        const currentUser = await AsyncStorage.getItem('@MyKey')
+
+        // console.log('profile:')
+        // console.log(currentUser)
+    }
+    componentDidMount() {
+        this.getDataasync()
+    }
     render() {
         return (
             //console.log(this.props.navigation.navigate),
@@ -75,11 +86,12 @@ export class AppBar extends Component {
 
                 />
                 <TextInput style={styles.TextInput, {
-                    fontFamily: 'SukhumvitSet',
+                    // fontFamily: 'SukhumvitSet',
                     fontSize: 15,
                 }}
                     placeholder="ค้นหาสินค้า/ร้านค้า"
-                    onChangeText={(text) => this.state({ text })}></TextInput>
+                    value={this.state.text}
+                    onChangeText={(text) => this.setState({ text })} />
                 <IconAntDesign RightItem name="search1" size={25} style={{ marginTop: 5, }} />
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('CartScreen')}>
                     <IconAntDesign RightItem name="shoppingcart" size={25} style={{ marginTop: 5, }} />
@@ -89,52 +101,6 @@ export class AppBar extends Component {
     }
 }
 
-///--------------------------------------------------------------------------///
-
-export class Toolbar extends Component {
-    constructor(props) {
-        super(props);
-    }
-    render() {
-        return (
-            <View style={styles.Toolbar}>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('MainScreen')} >
-                    <View >
-                        <IconAntDesign style={{ marginLeft: 5, }} name="home" size={25} />
-                        <Text>Home</Text>
-                    </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('FeedScreen')} >
-                    <View >
-                        <IconAntDesign name="tagso" size={25} />
-                        <Text> Feed</Text>
-                    </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('NewsScreen')} >
-                    <View >
-                        <IconAntDesign name="notification" size={25} />
-                        <Text>News</Text>
-                    </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('BellScreen')} >
-                    <View >
-                        <IconAntDesign name="bells" size={25} />
-                        <Text>เตือน</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('LoginScreen')} >
-                    <View>
-                        <IconAntDesign name="user" size={25} />
-                        <Text> ฉัน</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-        )
-    }
-}
 
 ///----------------------------------slide----------------------------------------///
 
@@ -1780,7 +1746,7 @@ export class Second_product extends Component {
                                 />
                                 <Text style={styles.Second_Storefooter_Text}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
                             </View>
-                            
+
                         </View>
                     </ScrollView>
                 </View>

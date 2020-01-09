@@ -24,6 +24,7 @@ import IconEntypo from 'react-native-vector-icons/Entypo'
 import styles from '../style/stylesFeedScreen';
 import { ip } from '../navigator/IpConfig'
 export const { width, height } = Dimensions.get('window');
+import { Toolbar } from './tools/Tools'
 
 
 export default class FeedScreen extends Component {
@@ -69,54 +70,6 @@ export class AppBar extends Component {
     );
   }
 }
-
-///-------------------------------------------------------------------------///
-
-export class Toolbar extends Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return (
-      <View style={styles.Toolbar}>
-        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('MainScreen')} >
-          <View >
-            <IconAntDesign style={{ marginLeft: 5, }} name="home" size={25} />
-            <Text>Home</Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('FeedScreen')} >
-          <View >
-            <IconAntDesign name="tagso" size={25} />
-            <Text> Feed</Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('NewsScreen')} >
-          <View >
-            <IconAntDesign name="notification" size={25} />
-            <Text>News</Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('BellScreen')} >
-          <View >
-            <IconAntDesign name="bells" size={25} />
-            <Text>เตือน</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('LoginScreen')} >
-          <View>
-            <IconAntDesign name="user" size={25} />
-            <Text> ฉัน</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-    )
-  }
-}
-
 
 ///-------------------------------------------------------------------------///
 

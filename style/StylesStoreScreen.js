@@ -368,7 +368,7 @@ export default StyleSheet.create({
     color: '#0A55A6',
   },
   ///----------------------------------------------------------------------------///
-  
+
   Banner_Bar_Box: {
     width,
   },
@@ -580,18 +580,18 @@ export default StyleSheet.create({
     justifyContent: 'space-around',
   },
   StoreFeedComBoxDetail: {
-    fontSize: 12, 
-    marginLeft: 8, 
+    fontSize: 12,
+    marginLeft: 8,
   },
   StoreFeedComBoxTag: {
-    fontSize: 10, 
-    color: '#0A55A6', 
-    marginLeft: 8, 
+    fontSize: 10,
+    color: '#0A55A6',
+    marginLeft: 8,
   },
-  StoreFeedComBoxText: { 
-    fontSize: 8, 
-    color: '#969BA0', 
-    marginLeft: 8, 
+  StoreFeedComBoxText: {
+    fontSize: 8,
+    color: '#969BA0',
+    marginLeft: 8,
   },
   StoreFeedComBoxIcon: {
     flexDirection: 'row',

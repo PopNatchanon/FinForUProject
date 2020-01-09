@@ -17,7 +17,7 @@ import { Form, TextValidator } from 'react-native-validator-form';
 
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import styles from '../style/stylesLoginScreen';
-import { ip } from '../navigator/IpConfig';
+import { ip,finip } from '../navigator/IpConfig';
 
 import {
   Input,
@@ -121,7 +121,7 @@ export class Login extends Component {
 
   PassInput(event) {
     const { user } = this.state;
-    user.pass = event;
+    user.password = event;
     this.setState({ user });
   }
 
@@ -169,7 +169,7 @@ export class Login extends Component {
                 name="pass"
                 label="text"
                 type="text"
-                value={user.pass}
+                value={user.password}
                 maxLength={6}
                 onChangeText={this.PassInput}
                 errorStyle={{

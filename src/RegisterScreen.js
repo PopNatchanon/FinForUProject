@@ -15,8 +15,9 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import styles from '../style/stylesLoginScreen';
 import { Form, TextValidator } from 'react-native-validator-form';
 import { CheckBox } from 'react-native-elements';
-import RadioGroup from 'react-native-radio-button-group';
-import DatePicker from 'react-native-datepicker'
+import RadioButtonRN from 'radio-buttons-react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { ip, finip } from '../navigator/IpConfig';
 
 import {
   Input,
@@ -32,9 +33,11 @@ export default class Register_OTPScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.SafeAreaView}>
-        <Logo />
-        <Login navigation={this.props.navigation} />
-        <Register />
+        <ScrollView>
+          <Logo />
+          <Login navigation={this.props.navigation} />
+          <Register />
+        </ScrollView>
       </SafeAreaView>
     );
   }
@@ -71,6 +74,9 @@ export class Login extends Component {
     super(props);
     this.state = {
       user: {},
+      date: new Date(),
+      mode: 'date',
+      show: false,
     };
     this.UnameInput = this.UnameInput.bind(this);
     this.PassInput = this.PassInput.bind(this);
@@ -81,14 +87,15 @@ export class Login extends Component {
 
   componentDidMount() {
     const { user } = this.state;
-    const { email } = this.props;
+    var email = this.props.navigation.getParam('email')
+    // console.log(email)
     user.email = email;
     this.setState({ user });
     // custom rule will have name 'isPasswordMatch'
     Form.addValidationRule('isPasswordMatch', (value) => {
       // console.log('isPasswordMatch')
       // console.log(value)
-      if (value !== this.state.user.pass) {
+      if (value !== user.password) {
         return false;
       }
       return true;
@@ -100,9 +107,42 @@ export class Login extends Component {
   }
 
   getData() {
-    const { user } = this.state;
+    const { user, date, gender } = this.state;
     // console.log('Database Process')
+    // console.log("this.state")
+    // console.log(this.state)
+    user.date = new Date(date).getDate();
+    user.month = new Date(date).getMonth() + 1;
+    user.year = new Date(date).getFullYear();
+    user.gender = gender;
+    // console.log([date2, month2, year2].join('/'))
+    this.setState({ user });
+    console.log("user")
     console.log(user)
+    fetch(finip + '/auth/register_customer', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log(responseJson.result)
+        if (responseJson.result == 'Complete') {
+          this.props.navigation.popToTop();
+        } else if (responseJson.result == 'This email has already been used') {
+          alert('This email has already been used')
+          this.props.navigation.goBack();
+        } else {
+
+        }
+        // this.props.navigation.replace('ProfileScreen', { email: user.email });
+      })
+      .catch((error) => {
+        console.error(error);
+      })
   }
 
   handleSubmit() {
@@ -117,24 +157,52 @@ export class Login extends Component {
 
   PassInput(event) {
     const { user } = this.state;
-    user.pass = event;
+    user.password = event;
     this.setState({ user });
   }
 
   RepeatPassInput(event) {
     const { user } = this.state;
-    user.repeatpass = event;
+    user.repassword = event;
     this.setState({ user });
   }
 
-  // getInitialState() {
-  //   return {
-  //     selectedOption: null,
-  //   }
-  // }
+  setDate = (event, date) => {
+    date = date || this.state.date;
+
+    this.setState({
+      show: Platform.OS === 'ios' ? true : false,
+      date,
+    });
+  }
+
+  show = mode => {
+    this.setState({
+      show: true,
+      mode,
+    });
+  }
+
+  datepicker = () => {
+    this.show('date');
+  }
 
   render() {
-    const { user } = this.state;
+    const { user, show, date, mode, gender } = this.state;
+    var day = new Date(date).getDate()
+    var month = new Date(date).getMonth() + 1;
+    var year = new Date(date).getFullYear();
+    const data = [
+      {
+        label: 'ชาย',
+        value: 'male',
+      },
+      {
+        label: 'หญิง',
+        value: 'female',
+
+      }
+    ];
     return (
       <View style={styles.Login_Box}>
         <View style={styles.RegisterScreen_Box_Login}>
@@ -170,13 +238,13 @@ export class Login extends Component {
               รหัสผ่าน
             </Text>
             <TextValidator
-              name="pass"
+              name="password"
               label="text"
               validators={['required', 'isString', 'minStringLength:6']}
               errorMessages={['กรุณากรอกรหัสผ่าน', 'กรุณากรอกรหัสผ่านให้ถูกต้อง', 'กรุณากรอกรหัสผ่านอย่างน้อย 6 ตัว']}
               type="text"
               secureTextEntry
-              value={user.pass}
+              value={user.password}
               onChangeText={this.PassInput}
               errorStyle={{
                 container: {
@@ -196,13 +264,13 @@ export class Login extends Component {
               ยืนยันรหัสผ่าน
             </Text>
             <TextValidator
-              name="repeatpass"
+              name="repassword"
               label="text"
               validators={['isPasswordMatch', 'required',]}
               errorMessages={['รหัสผ่านไม่ตรงกัน', 'กรุณายืนยันรหัสผ่าน',]}
               type="text"
               secureTextEntry
-              value={user.repeatpass}
+              value={user.repassword}
               onChangeText={this.RepeatPassInput}
               errorStyle={{
                 container: {
@@ -219,45 +287,44 @@ export class Login extends Component {
             />
             {/* <Text style={styles.RegisterScreen_Text}>*กรอกตัวอย่างน้อย 6 ตัว ประกอบไปด้วยตัวเลขและตัวอักษร</Text> */}
             <View style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: 14 }}>
-              <DatePicker
-                style={{ width: 200 }}
-                date={this.state.date}
-                mode="date"
-                placeholder="วัน/เดือน/ปีเกิด"
-                format="DD/MM/YYYY"
-                maxDate={new Date()}
-                confirmBtnText="Confirm"
-                cancelBtnText="Cancel"
-                customStyles={{
-                  dateIcon: {
-                    position: 'absolute',
-                    left: 0,
-                    top: 4,
-                    marginLeft: 0
-                  },
-                  dateInput: {
-                    marginLeft: 36
-                  }
-                  // ... You can check the source to find the other keys.
-                }}
-                onDateChange={(date) => { this.setState({ date: date }) }}
-              />
+              <TouchableOpacity onPress={this.datepicker}>
+                <View style={{ flexDirection: 'row' }}>
+                  <Text>{day}/</Text>
+                  <Text>{month}/</Text>
+                  <Text>{year}</Text>
+                </View>
+              </TouchableOpacity>
+              {show && <DateTimePicker
+                value={date}
+                mode={mode}
+                // format="DD-MM-YYYY"
+                display="spinner"
+                maximumDate={new Date()}
+                onChange={this.setDate} />
+              }
             </View>
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 14 }}>
               <Text>
                 เพศ
               </Text>
-              <View>
-                <RadioGroup
-                  horizontal
-                  options={[
-                    { id: 0, label: 'ชาย' },
-                    { id: 1, label: 'หญิง' },
-                  ]
-                  }
-                  activeButtonId={0}
-                  circleStyle={{ width: 18, height: 18, fillColor: 'black' }}
+              <View style={{ marginTop: -10, }}>
+                <RadioButtonRN
+                  data={data}
+                  initial={1}
+                  style={{
+                    flexDirection: 'row',
+                  }}
+                  box={false}
+                  boxStyle={{
+                    width: 70
+                  }}
+                  textStyle={{
+                    marginLeft: 12,
+                  }}
+                  activeColor='#111'
+                  circleSize={15}
+                  selectedBtn={(e) => this.setState({ gender: e.value })}
                 />
               </View>
             </View>
@@ -280,7 +347,7 @@ export class Login extends Component {
             </View>
           </Form>
         </View>
-      </View>
+      </View >
     );
   }
 }

@@ -703,7 +703,7 @@ export default StyleSheet.create({
     height: 80,
     // height: height * 0.19,
     // resizeMode: 'stretch',
-    marginBottom: -30,
+    // marginBottom: -30,
   },
   CategoryProductBox: {
     width: 113,
@@ -757,8 +757,8 @@ export default StyleSheet.create({
     height: 58,
     borderRadius: 8,
     marginTop: 8,
-    marginRight: 'auto',
     marginLeft: 'auto',
+    marginRight: 'auto',
     marginBottom: 8,
   },
   linearGradienttSub: {
@@ -1010,24 +1010,24 @@ export default StyleSheet.create({
     width,
     height: 60,
   },
-  Second_Storefooter:{
-    height: 100, 
+  Second_Storefooter: {
+    height: 100,
     width,
   },
-  Second_Storefooter_image:{
-    height: 40, 
+  Second_Storefooter_image: {
+    height: 40,
     width: 160,
     marginLeft: 10,
-    borderTopRightRadius:5,
+    borderTopRightRadius: 5,
     borderTopLeftRadius: 5,
   },
-  Second_Storefooter_Text:{
-    color:'#FFF',
-    fontSize:10,
-    height: 30, 
-    width: 160, 
-    marginLeft: 10, 
-    backgroundColor:'#0A55A6',
+  Second_Storefooter_Text: {
+    color: '#FFF',
+    fontSize: 10,
+    height: 30,
+    width: 160,
+    marginLeft: 10,
+    backgroundColor: '#0A55A6',
     borderBottomRightRadius: 5,
     borderBottomLeftRadius: 5,
   },

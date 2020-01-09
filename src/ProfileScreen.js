@@ -18,6 +18,7 @@ import {
     Button,
 } from 'react-native-elements'
 import FastImage from 'react-native-fast-image';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -28,19 +29,34 @@ import IconEntypo from 'react-native-vector-icons/Entypo';
 import styles from '../style/StylesProfileScreen'
 import { ip } from '../navigator/IpConfig';
 export const { width, height } = Dimensions.get('window');
+import { Toolbar } from './tools/Tools'
 
 ///----------------------------------Appbar----------------------------------------///
 
 export default class StoreScreen extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            currentUser: {},
+        }
+    }
+    getDataasync = async () => {
+        const currentUser = await AsyncStorage.getItem('@MyKey')
+        this.setState({ currentUser: JSON.parse(currentUser) })
+        // console.log(currentUser)
+        // console.log('profile:' + currentUser)
+    }
+    componentDidMount() {
+        this.getDataasync()
     }
     render() {
+        const { currentUser } = this.state;
+        console.log(currentUser)
         return (
             <SafeAreaView style={styles.SafeAreaView}>
                 <ScrollView>
                     <View>
-                        <Headbar navigation={this.props.navigation} />
+                        <Headbar navigation={this.props.navigation} currentUser={currentUser} />
                         <Menubar />
                         <Listbar />
                         <ListMenu navigation={this.props.navigation} />
@@ -81,6 +97,8 @@ export class Headbar extends Component {
                 </TouchableOpacity>
             </View>
         </View> */}
+        // console.log(this.props)
+        const { currentUser } = this.props;
         return (
             <View>
                 <ImageBackground
@@ -103,7 +121,7 @@ export class Headbar extends Component {
                             </View>
                             <View style={{ marginLeft: 15, marginTop: '20%' }}>
                                 <Text style={{ fontSize: 14, color: '#FFFFFF' }}>
-                                    ppooo
+                                    {currentUser.name}
                                 </Text>
                                 <Text style={{ fontSize: 10, color: '#BEBDBD' }}>
                                     Active อยู่
@@ -124,50 +142,6 @@ export class Headbar extends Component {
     }
 }
 
-
-export class Toolbar extends Component {
-    constructor(props) {
-        super(props);
-    }
-    render() {
-        return (
-            <View style={styles.Toolbar}>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('MainScreen')} >
-                    <View >
-                        <IconAntDesign style={{ marginLeft: 5, }} name="home" size={25} />
-                        <Text>Home</Text>
-                    </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('FeedScreen')} >
-                    <View >
-                        <IconAntDesign name="tagso" size={25} />
-                        <Text>Feed</Text>
-                    </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('NewsScreen')} >
-                    <View >
-                        <IconAntDesign name="notification" size={25} />
-                        <Text>News</Text>
-                    </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('BellScreen')} >
-                    <View >
-                        <IconAntDesign name="bells" size={25} />
-                        <Text>เตือน</Text>
-                    </View>
-                </TouchableOpacity>
-
-                <View>
-                    <IconAntDesign name="user" size={25} />
-                    <Text>ฉัน</Text>
-                </View>
-            </View>
-        )
-    }
-}
 
 export class Menubar extends Component {
     constructor(props) {
@@ -365,10 +339,10 @@ export class Listbar extends Component {
                         </Text>
                     </View>
                     <View style={{ flexDirection: 'column', width: 100, }}>
-                        <View style={{ width: 60, height: 60, marginTop: 18, marginLeft: 'auto', marginRight: 'auto', backgroundColor: '#B6B6B4', borderRadius: 30, }}>
+                        <View style={{ width: 60, height: 60, marginTop: 18, alignItems: 'center', backgroundColor: '#B6B6B4', borderRadius: 30, }}>
                             <FastImage
                                 source={require('../icon/truck-facing-right.png')}
-                                style={{ height: 40, width: 40, marginLeft: 'auto', marginRight: 'auto', marginTop: 'auto', marginBottom: 'auto' }}
+                                style={{ height: 40, width: 40, alignItems: 'center', marginTop: 'auto', marginBottom: 'auto' }}
                             />
                         </View>
                         <Text style={styles.ListbarBoxText}>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  Image,
   View,
   ScrollView,
   Text,
@@ -12,7 +11,7 @@ import {
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
 import FastImage from 'react-native-fast-image';
-import Icons from 'react-native-vector-icons/FontAwesome';
+import Icons from 'react-native-vector-icons/FontAwesome5';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo'
@@ -37,7 +36,7 @@ export default class DetailScreen extends Component {
           <Store navigation={this.props.navigation} />
           <Conpon />
           <Selector />
-          <Detail_Catagory navigation={this.props.navigation} />
+          <Detail_Category navigation={this.props.navigation} />
           <Detail />
           <Score />
           <Reviews />
@@ -123,7 +122,7 @@ export class Detail_Image extends Component {
   render() {
     let id_product = this.state.dataid_product.map((item, indexs) => {
       // console.log(item);
-      var dataMySQL = [ip + '/mysql/uploads', item.p_image].join('/');
+      var dataMySQL = [ip + '/mysql',item.image_path, item.p_image].join('/');
       return (
         <View style={styles.Detail_Image} key={indexs}>
           <View style={styles.Image_Box}>
@@ -325,7 +324,7 @@ export class Selector extends Component {
 
 ///--------------------------------------------------------------------------///
 
-export class Detail_Catagory extends Component {
+export class Detail_Category extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -630,7 +629,7 @@ export class Same_Store extends Component {
   render() {
     let dataSaleProduct = this.state.dataSale.map((item, indexs) => {
       //   console.log('Sale' + [ indexs, item.image ].join(' ')),
-      var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+      var dataMySQL = [ip + '/mysql',item.image_path, item.image].join('/');
       return (
         <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}>
           <View style={styles.Same_StoreBox} key={indexs}>
@@ -718,7 +717,7 @@ export class Similar_Product extends Component {
   render() {
     let dataSaleProduct = this.state.dataSale.map((item, indexs) => {
       //   console.log('Sale' + [ indexs, item.image ].join(' ')),
-      var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+      var dataMySQL = [ip + '/mysql',item.image_path,item.image].join('/');
       return (
         <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}>
           <View style={styles.Same_StoreBox} key={indexs}>
@@ -806,7 +805,7 @@ export class Might_like extends Component {
   render() {
     // console.log( 'Might_like|render' )
     let dataToday = this.state.dataSourcePopularProduct.map((item, indexs) => {
-      var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+      var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
       // console.log( dataMySQL )
       return (
         <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}>

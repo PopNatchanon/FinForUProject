@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
   View,
-  Image,
   ImageBackground,
   ScrollView,
   Text,
@@ -13,7 +12,7 @@ import {
 import FastImage from 'react-native-fast-image';
 import { Form, TextValidator } from 'react-native-validator-form';
 import AsyncStorage from '@react-native-community/async-storage';
-import { ip,finip } from '../navigator/IpConfig';
+import { ip, finip } from '../navigator/IpConfig';
 
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
@@ -102,9 +101,9 @@ export class Login extends Component {
 
   getData = async () => {
     const { user } = this.state;
-    console.log('Database Process')
-    console.log(user)
-    console.log(user.email)
+    // console.log('Database Process')
+    // console.log(user)
+    // console.log(user.email)
     fetch(finip + '/auth/login_customer', {
       method: 'POST',
       headers: {
@@ -129,9 +128,9 @@ export class Login extends Component {
           userser.address = item.address
         })
         // user.name = responseJson.map((item) => { return (item.name) })
-        console.log('userser')
+        // console.log('userser')
         this.clearAll()
-        console.log(userser)
+        // console.log(userser)
         this.storeData(userser)
         // user = JSON.stringify(responseJson)
         // console.log(user)

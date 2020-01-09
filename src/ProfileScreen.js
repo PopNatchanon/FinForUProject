@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-    Image,
     ImageBackground,
     View,
     ScrollView,
@@ -110,11 +109,13 @@ export class Headbar extends Component {
                     <View style={styles.HeadbarBox1}>
                         <View style={{ flexDirection: 'row' }}>
                             <View>
-                                <View style={styles.HeadbarBox1Sub}>
-                                    <Text style={styles.HeadbarBox1SubText}>
-                                        เริ่มค้าขาย
-                            </Text>
-                                </View>
+                                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMeScreen')} >
+                                    <View style={styles.HeadbarBox1Sub}>
+                                        <Text style={styles.HeadbarBox1SubText}>
+                                            เริ่มค้าขาย
+                                    </Text>
+                                    </View>
+                                </TouchableOpacity>
                                 <FastImage
                                     style={styles.HeadbarBoxImage}
                                 />
@@ -252,72 +253,78 @@ export class ListMenu extends Component {
         return (
             <View>
                 <View style={styles.ListMenu}>
-                    <View style={styles.ListMenuList}>
-                        <View style={styles.ListMenuListSub}>
-                            <IconMaterialIcons RightItem name="access-time" color='#D0B216' size={35} style={styles.ListMenuListSubIcon} />
 
-                            <Text style={styles.ListMenuListSubName}>
-                                ดูล่าสุด
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('LatestScreen')} >
+                        <View style={styles.ListMenuList}>
+                            <View style={styles.ListMenuListSub}>
+                                <IconMaterialIcons RightItem name="access-time" color='#D0B216' size={35} style={styles.ListMenuListSubIcon} />
+
+                                <Text style={styles.ListMenuListSubName}>
+                                    ดูล่าสุด
                             </Text>
-                        </View>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('LatestScreen')} >
+                            </View>
                             <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.ListMenuList}>
-                        <View style={styles.ListMenuListSub}>
-                            <IconAntDesign RightItem name="wechat" size={35} color='#0A55A6' style={styles.ListMenuListSubIcon} />
-                            <Text style={styles.ListMenuListSubName}>
-                                แชท
-                            </Text>
                         </View>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('ChatScreen')} >
-                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} /></TouchableOpacity>
-                    </View>
-                    <View style={styles.ListMenuList}>
-                        <View style={styles.ListMenuListSub}>
-                            <IconAntDesign RightItem name="heart" size={35} color='#D74024' style={styles.ListMenuListSubIcon} />
-                            <Text style={styles.ListMenuListSubName}>
-                                สิ่งที่สนใจ
+                    </TouchableOpacity>
+
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('ChatScreen')} >
+                        <View style={styles.ListMenuList}>
+                            <View style={styles.ListMenuListSub}>
+                                <IconAntDesign RightItem name="wechat" size={35} color='#0A55A6' style={styles.ListMenuListSubIcon} />
+                                <Text style={styles.ListMenuListSubName}>
+                                    แชท
                             </Text>
-                        </View>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('InterestedScreen')} >
+                            </View>
                             <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.ListMenuList}>
-                        <View style={styles.ListMenuListSub}>
-                            <IconFontisto RightItem name="shopping-store" size={30} color='#0A55A6' style={styles.ListMenuListSubIcon} />
-                            <Text style={styles.ListMenuListSubName}>
-                                ร้านค้าที่ติดตาม
-                            </Text>
                         </View>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Follow_storeScreen')} >
-                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.ListMenuList}>
-                        <View style={styles.ListMenuListSub}>
-                            <IconMaterialCommunityIcons RightItem name="star-box" size={35} color='#EAD295' style={styles.ListMenuListSubIcon} />
-                            <Text style={styles.ListMenuListSubName}>
-                                รีวิวของฉัน
+                    </TouchableOpacity>
+
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('InterestedScreen')} >
+                        <View style={styles.ListMenuList}>
+                            <View style={styles.ListMenuListSub}>
+                                <IconAntDesign RightItem name="heart" size={35} color='#D74024' style={styles.ListMenuListSubIcon} />
+                                <Text style={styles.ListMenuListSubName}>
+                                    สิ่งที่สนใจ
                             </Text>
-                        </View>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Review_meScreen')} >
+                            </View>
                             <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.ListMenuList}>
-                        <View style={styles.ListMenuListSub}>
-                            <IconFeather RightItem name="help-circle" size={35} color='#00A3FF' style={styles.ListMenuListSubIcon} />
-                            <Text style={styles.ListMenuListSubName}>
-                                ช่วยเหลือ
+                        </View>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Follow_storeScreen')} >
+                        <View style={styles.ListMenuList}>
+                            <View style={styles.ListMenuListSub}>
+                                <IconFontisto RightItem name="shopping-store" size={30} color='#0A55A6' style={styles.ListMenuListSubIcon} />
+                                <Text style={styles.ListMenuListSubName}>
+                                    ร้านค้าที่ติดตาม
                             </Text>
-                        </View>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Help_meScreen')} >
+                            </View>
                             <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
-                        </TouchableOpacity>
-                    </View>
+                        </View>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Review_meScreen')} >
+                        <View style={styles.ListMenuList}>
+                            <View style={styles.ListMenuListSub}>
+                                <IconMaterialCommunityIcons RightItem name="star-box" size={35} color='#EAD295' style={styles.ListMenuListSubIcon} />
+                                <Text style={styles.ListMenuListSubName}>
+                                    รีวิวของฉัน
+                            </Text>
+                            </View>
+                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Help_meScreen')} >
+                        <View style={styles.ListMenuList}>
+                            <View style={styles.ListMenuListSub}>
+                                <IconFeather RightItem name="help-circle" size={35} color='#00A3FF' style={styles.ListMenuListSubIcon} />
+                                <Text style={styles.ListMenuListSubName}>
+                                    ช่วยเหลือ
+                            </Text>
+                            </View>
+                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
+                        </View>
+                    </TouchableOpacity>
                 </View>
             </View>
         )

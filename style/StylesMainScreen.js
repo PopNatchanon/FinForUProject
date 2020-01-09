@@ -27,7 +27,6 @@ export default StyleSheet.create({
     backgroundColor:'#FFFF',
     width: 230,
     height: 40,
-    // fontSize: 15,
     textAlign: 'center',
   },
   Appbar: {

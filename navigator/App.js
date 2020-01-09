@@ -20,6 +20,7 @@ import Review_meScreen from '../src/src_profile/Review_meScreen';
 import Help_meScreen from '../src/src_profile/Help_meScreen';
 import StoreMeScreen from '../src/src_storeMe/StoreMeScreen';
 import Customer_account from '../src/src-Cart/Customer_account';
+import StoreMe_Up_Product from '../src/src_storeMe/StoreMe_Up_Product';
  
 
 const PathScreen = createStackNavigator({
@@ -156,9 +157,18 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
+  StoreMe_Up_Product: {
+    screen: StoreMe_Up_Product,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
+
 },
   {
-    initialRouteName: 'Customer_account',
+    initialRouteName: 'ProfileScreen',
+    // initialRouteName: 'StoreMe_Up_Product',
   }
   );
 

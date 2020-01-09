@@ -83,7 +83,8 @@ export class Help_me extends Component {
                 fontSize: 15,
               }}
                 placeholder="กรุณากรอกสิ่งที่ให้เราช่วยเหลือ"
-                onChangeText={(text) => this.state({ text })}></TextInput>
+                value={this.state.text}
+                onChangeText={(text) => this.setState({ text })}></TextInput>
               <IconAntDesign RightItem name="search1" size={25} style={{ marginLeft: 15, }} /></View>
 
           </View>

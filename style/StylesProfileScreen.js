@@ -58,7 +58,7 @@ export default StyleSheet.create({
         height: 80,
         borderRadius: 40,
         marginTop: 10,
-        marginLeft: 'auto',
+        marginLeft: 10,
         marginRight: 'auto',
     },
     HeadbarText: {

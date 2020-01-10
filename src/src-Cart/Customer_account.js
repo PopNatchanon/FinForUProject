@@ -24,7 +24,7 @@ export default class Customer_account extends Component {
     render() {
         return (
             <SafeAreaView style={{ backgroundColor: '#E9E9E9', flex: 1, }}>
-                <Appbar />
+                <Appbar navigation={this.props.navigation} />
                 <Account />
                 <Account_main />
                 <Button_Bar />
@@ -47,12 +47,12 @@ export class Appbar extends Component {
             <View style={styles.Appbar}>
                 <IconAntDesign name='mail' size={30} />
                 <Text style={{ marginLeft: 10, fontSize: 15, }}>ที่อยู่ใหม่</Text>
-                
-                <View>
-                    <IconAntDesign RightItem name='closecircleo' size={25} color='#0A55A6' style={{marginLeft:160, marginRight:10, }}/>
-                </View>
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
+                    <IconAntDesign RightItem name='closecircleo' size={25} color='#0A55A6' style={{ marginLeft: 160, marginRight: 10, }} />
+                </TouchableOpacity>
+
             </View>
-            
+
         );
     }
 }

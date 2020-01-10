@@ -145,19 +145,19 @@ export class Topic extends Component {
           </View>
           <View style={styles.Topic_Box}>
             <IconAntDesign RightItem name="retweet" size={30} style={styles.Topic_Box_icon} />
-            <Text>บัญชีของฉัน</Text>
+            <Text>การคืนสินค้า</Text>
           </View>
           <View style={styles.Topic_Box}>
-            <IconAntDesign RightItem name="creditcard" size={30} style={styles.Topic_Box_icon} />
-            <Text>บัญชีของฉัน</Text>
+            <IconEntypo RightItem name="credit-card" size={30} style={styles.Topic_Box_icon} />
+            <Text>การชำระเงิน</Text>
           </View>
           <View style={styles.Topic_Box}>
             <IconAntDesign RightItem name="shoppingcart" size={30} style={styles.Topic_Box_icon} />
-            <Text>บัญชีของฉัน</Text>
+            <Text>การสั่งซื้อ</Text>
           </View>
           <View style={styles.Topic_Box}>
             <IconAntDesign RightItem name="ellipsis1" size={30} style={styles.Topic_Box_icon} />
-            <Text>บัญชีของฉัน</Text>
+            <Text>หัวข้ออื่นๆ</Text>
           </View>
         </View>
 

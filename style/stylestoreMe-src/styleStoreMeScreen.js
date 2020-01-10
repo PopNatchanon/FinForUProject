@@ -24,23 +24,40 @@ export default StyleSheet.create({
         backgroundColor: '#FFFF',
     },
     StoreMe_Up_ImageA: {
-        marginLeft:10,
+        marginLeft: 10,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
     },
-    StoreMe_Up_Image_Box: { 
-        justifyContent:'center',
-        alignItems:'center',
-        marginLeft:10,
+    StoreMe_Up_Image_Box: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 10,
         width: 130,
         height: 130,
         borderColor: '#0A55A6',
         borderWidth: 1,
-        
+
     },
-    TextInput: {
-        height: 'auto',
-        textAlign: 'center',
+    StoreMe_Up_ProductDetail: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        height: 60,
+        width: '100%',
+        backgroundColor: '#FFF',
+        marginTop: 5,
+        padding: 10,
     },
+    StoreMe_Up_ProductDetail_Text: {
+        fontSize: 15,
+        margin: 10,
+    },
+    StoreMe_Up_ProductDetail_TextMax: {
+        fontSize: 12,
+        marginLeft: 10,
+        color: '#0A55A6',
+        marginTop: 5,
+        marginBottom: 5,
+    },
+
 })

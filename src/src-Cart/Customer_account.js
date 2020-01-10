@@ -12,20 +12,32 @@ import {
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import styles from '../../style/styleCart-src/styleCustomer_account';
 import { CheckBox } from 'react-native-elements';
+import AsyncStorage from '@react-native-community/async-storage';
+import { finip, ip } from '../../navigator/IpConfig';
 
 
 export default class Customer_account extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            currentUser: {},
         };
     }
+    getDataasync = async () => {
+        const currentUser = await AsyncStorage.getItem('@MyKey')
+        this.setState({ currentUser: JSON.parse(currentUser) })
 
+        // console.log('tool:')
+        // console.log(this.state.currentUser)
+    }
+    componentDidMount() {
+        this.getDataasync()
+    }
     render() {
         return (
             <SafeAreaView style={{ backgroundColor: '#E9E9E9', flex: 1, }}>
-                <Appbar navigation={this.props.navigation} />
-                <Account />
+                <Appbar />
+                <Account currentUser={this.state.currentUser} />
                 <Account_main />
                 <Button_Bar />
             </SafeAreaView>
@@ -47,10 +59,10 @@ export class Appbar extends Component {
             <View style={styles.Appbar}>
                 <IconAntDesign name='mail' size={30} />
                 <Text style={{ marginLeft: 10, fontSize: 15, }}>ที่อยู่ใหม่</Text>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
-                    <IconAntDesign RightItem name='closecircleo' size={25} color='#0A55A6' style={{ marginLeft: 160, marginRight: 10, }} />
-                </TouchableOpacity>
 
+                <View>
+                    <IconAntDesign RightItem name='closecircleo' size={25} color='#0A55A6' style={{ marginLeft: 160, marginRight: 10, }} />
+                </View>
             </View>
 
         );
@@ -64,11 +76,140 @@ export class Account extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
+            DataProvinces: [],
+            DataAmphoes: [],
+            DataTumbols: [],
         };
     }
 
+    getDataProvince() {
+        fetch(finip + '/profile/province_mobile', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                // console.log("DataProvince")
+                // console.log(responseJson)
+                this.setState({
+                    DataProvinces: responseJson,
+                })
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+    }
+    getDataAmphoe(itemValue) {
+        if (itemValue != null) {
+            this.setState({ province: itemValue });
+            this.setState({ DataTumbols: [] })
+            this.setState({ tumbol: null });
+            this.setState({ amphoe: null })
+            this.setState({ zipcode: null });
+            const { currentUser } = this.props
+            var dataBody = {
+                id_customer: currentUser,
+                value_province: itemValue,
+            };
+            fetch(finip + '/profile/ajax_amphur', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dataBody),
+            })
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    // console.log(responseJson)
+                    this.setState({
+                        DataAmphoes: responseJson,
+                    })
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
+        } else {
+            this.getDataTumbol(null);
+        }
+    }
+    getDataTumbol(itemValue) {
+        if (itemValue != null) {
+            this.setState({ amphoe: itemValue })
+            this.setState({ zipcode: itemValue.zipcode });
+            const { currentUser } = this.props
+            var dataBody = {
+                id_customer: currentUser,
+                value_amphur: itemValue.amphoe,
+            };
+            fetch(finip + '/profile/ajax_tumbol', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dataBody),
+            })
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    // console.log(responseJson)
+                    this.setState({
+                        DataTumbols: responseJson,
+                    })
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
+        } else {
+            this.setState({ DataTumbols: [] })
+            this.setState({ tumbol: null });
+            this.setState({ amphoe: null })
+            this.setState({ zipcode: null });
+        }
+    }
+
+    componentDidMount() {
+        this.getDataProvince()
+    }
+
+    DataProvince() {
+        return (
+            this.state.DataProvinces.map((item) => {
+                return (
+                    <Picker.Item label={item.province} value={item.province} key={item.province} />
+                )
+            })
+        )
+    }
+    DataAmphoe() {
+        return (
+            this.state.DataAmphoes.map((item) => {
+                return (
+                    <Picker.Item label={item.amphoe} value={item} key={item.amphoe} />
+                )
+            })
+        )
+    }
+    DataTumbol() {
+        return (
+            this.state.DataTumbols.map((item) => {
+                return (
+                    <Picker.Item label={item.district} value={item.district} key={item.district} />
+                )
+            })
+        )
+    }
+
     render() {
+        // console.log('///--------------------------------------------------------------///')
+        // console.log(this.state)
+        // console.log('///--------------------------------------------------------------///')
+        let provinces = this.DataProvince()
+        let amphoes = this.DataAmphoe()
+        let tombols = this.DataTumbol()
         return (
             <View>
                 <View style={styles.Account_Box}>
@@ -90,43 +231,47 @@ export class Account extends Component {
                 <View style={styles.Account_Box}>
                     <Text style={styles.Text}>จังหวัด</Text>
                     <Picker
-                        selectedValue={this.state.language}
+                        selectedValue={this.state.province}
                         style={{ height: 50, width: 130 }}
-                        onValueChange={(itemValue, itemIndex) =>
-                            this.setState({ language: itemValue })
-                        }>
-                        <Picker.Item label="จังหวัด" value="จังหวัด" />
+                        onValueChange={(itemValue, itemIndex) => {
+                            this.getDataAmphoe(itemValue);
+                        }}>
+                        <Picker.Item label="จังหวัด" />
+                        {provinces}
                     </Picker>
                 </View>
                 <View style={styles.Account_Box}>
                     <Text style={styles.Text}>เขต/อำเภอ</Text>
                     <Picker
-                        selectedValue={this.state.language}
+                        selectedValue={this.state.amphoe}
                         style={{ height: 50, width: 130 }}
-                        onValueChange={(itemValue, itemIndex) =>
-                            this.setState({ language: itemValue })
-                        }>
-                        <Picker.Item label="เขต/อำเภอ" value="เขต/อำเภอ" />
+                        onValueChange={(itemValue, itemIndex) => {
+                            this.getDataTumbol(itemValue);
+                        }}>
+                        <Picker.Item label="เขต/อำเภอ" />
+                        {amphoes}
                     </Picker>
                 </View>
                 <View style={styles.Account_Box}>
                     <Text style={styles.Text}>แขวง/ตำบล</Text>
                     <Picker
-                        selectedValue={this.state.language}
+                        selectedValue={this.state.tumbol}
                         style={{ height: 50, width: 130 }}
                         onValueChange={(itemValue, itemIndex) =>
-                            this.setState({ language: itemValue })
+                            this.setState({ tumbol: itemValue })
                         }>
-                        <Picker.Item label="แขวง/ตำบล" value="แขวง/ตำบล" />
+                        <Picker.Item label="แขวง/ตำบล" />
+                        {tombols}
                     </Picker>
                 </View>
                 <View style={styles.Account_Box}>
                     <Text style={styles.Text}>รหัสไปรษณีย์</Text>
-                    <TextInput style={styles.TextInput, {
-                    }}
-                        placeholder="โปรดระบุ"
-                        value={this.state.code}
-                        onChangeText={(code) => this.setState({ code })}></TextInput>
+                    <TextInput
+                        style={styles.TextInput}
+                        editable={false}
+                        placeholder="รหัสไปรษณีย์"
+                        value={this.state.zipcode}
+                    />
                 </View>
                 <View style={styles.Account_Box_Text}>
                     <Text style={styles.Text}>รายละเอียดที่อยู่</Text>

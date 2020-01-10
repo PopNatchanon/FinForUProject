@@ -12,7 +12,7 @@ export default StyleSheet.create({
     borderWidth: 1,
     height: 50,
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    // justifyContent: 'space-around',
     paddingTop: 5,
   },
   SafeAreaView: {
@@ -72,6 +72,8 @@ export default StyleSheet.create({
     width: 100,
     height: 80,
     marginTop: 10,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   category_A: {
     flexDirection: 'column',
@@ -89,7 +91,6 @@ export default StyleSheet.create({
     borderRadius: 8,
     height: 60,
     width: 60,
-    marginLeft: 15,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -629,16 +630,16 @@ export default StyleSheet.create({
     flexWrap: 'wrap',
   },
   TodayProductBox: {
-    width: width * 0.323,
-    height: height * 0.3,
+    width: width * (1/3.07),
+    height: height * (1/4),
     borderColor: '#ECECEC',
     borderWidth: 0.5,
 
   },
   TodayProductImage: {
     width: '100%',
-    height: '60%',
-    resizeMode: 'stretch',
+    height: '70%',
+    resizeMode: 'cover',
     padding: 4,
   },
   TodayProductImageName: {
@@ -703,7 +704,7 @@ export default StyleSheet.create({
     height: 80,
     // height: height * 0.19,
     // resizeMode: 'stretch',
-    marginBottom: -30,
+    // marginBottom: -30,
   },
   CategoryProductBox: {
     width: 113,
@@ -757,8 +758,8 @@ export default StyleSheet.create({
     height: 58,
     borderRadius: 8,
     marginTop: 8,
-    marginRight: 'auto',
     marginLeft: 'auto',
+    marginRight: 'auto',
     marginBottom: 8,
   },
   linearGradienttSub: {
@@ -1010,26 +1011,25 @@ export default StyleSheet.create({
     width,
     height: 60,
   },
-  Second_Storefooter:{
-    height: 100, 
+  Second_Storefooter: {
+    height: 100,
     width,
   },
-  Second_Storefooter_image:{
-    height: 40, 
+  Second_Storefooter_image: {
+    height: 40,
     width: 160,
     marginLeft: 10,
-    borderTopRightRadius:5,
+    borderTopRightRadius: 5,
     borderTopLeftRadius: 5,
   },
-  Second_Storefooter_Text:{
-    color:'#FFF',
-    fontSize:10,
-    height: 30, 
-    width: 160, 
-    marginLeft: 10, 
-    backgroundColor:'#0A55A6',
+  Second_Storefooter_Text: {
+    color: '#FFF',
+    fontSize: 10,
+    height: 30,
+    width: 160,
+    marginLeft: 10,
+    backgroundColor: '#0A55A6',
     borderBottomRightRadius: 5,
     borderBottomLeftRadius: 5,
   },
-
 });

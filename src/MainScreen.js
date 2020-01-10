@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import {
     View,
     ImageBackground,
@@ -18,13 +18,24 @@ import IconFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import styles from '../style/StylesMainScreen';
-import { ip } from '../navigator/IpConfig';
+import { finip, ip } from '../navigator/IpConfig';
 import FastImage from 'react-native-fast-image';
 export const { width, height } = Dimensions.get('window');
+import AsyncStorage from '@react-native-community/async-storage';
+import { Toolbar } from './tools/Tools'
 
 ///----------------------------------Appbar----------------------------------------///
 
 export default class MainScreen extends Component {
+    getDataasync = async () => {
+        const currentUser = await AsyncStorage.getItem('@MyKey')
+
+        // console.log('profile:')
+        // console.log(currentUser)
+    }
+    componentDidMount() {
+        this.getDataasync()
+    }
     render() {
         return (
             //console.log(this.props.navigation.navigate),
@@ -73,14 +84,14 @@ export class AppBar extends Component {
                     source={require('../images/sj.png')}
 
                 />
-                <View style={{height:40,width:230,}}>
+                <View style={{ height: 40, width: 230, }}>
                     <TextInput style={styles.TextInput, {
                         fontFamily: 'SukhumvitSet',
                         fontSize: 15,
                     }}
                         placeholder="ค้นหาสินค้า/ร้านค้า"
                         value={this.state.text}
-                        maxLength={30}s
+                        maxLength={30} s
                         onChangeText={(text) => this.setState({ text })}>
 
                     </TextInput>
@@ -95,52 +106,6 @@ export class AppBar extends Component {
     }
 }
 
-///--------------------------------------------------------------------------///
-
-export class Toolbar extends Component {
-    constructor(props) {
-        super(props);
-    }
-    render() {
-        return (
-            <View style={styles.Toolbar}>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('MainScreen')} >
-                    <View >
-                        <IconAntDesign style={{ marginLeft: 5, }} name="home" size={25} />
-                        <Text>Home</Text>
-                    </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('FeedScreen')} >
-                    <View >
-                        <IconAntDesign name="tagso" size={25} />
-                        <Text> Feed</Text>
-                    </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('NewsScreen')} >
-                    <View >
-                        <IconAntDesign name="notification" size={25} />
-                        <Text>News</Text>
-                    </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('BellScreen')} >
-                    <View >
-                        <IconAntDesign name="bells" size={25} />
-                        <Text>เตือน</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('LoginScreen')} >
-                    <View>
-                        <IconAntDesign name="user" size={25} />
-                        <Text> ฉัน</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-        )
-    }
-}
 
 ///----------------------------------slide----------------------------------------///
 
@@ -152,29 +117,38 @@ export class Slide extends Component {
             activeSlide: 0,
         };
     }
+
     getDataSlide() {
-        var url = ip + '/mysql/DataServiceMain.php';
         var dataBody = {
-            type: 'slide'
+            slide: 'banner'
         };
-        axios.post(
-            url,
-            dataBody,
-        ).then((getData) => {
-            // console.log(getData.data);
-            this.setState({
-                dataSourceSlide: getData.data,
-            })
+        fetch(finip + '/home/home_mobile', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(dataBody),
         })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                // console.log("responseJson")
+                this.setState({
+                    dataSourceSlide: responseJson,
+                })
+            })
+            .catch((error) => {
+                console.error(error);
+            })
     }
     componentDidMount() {
         this.getDataSlide()
     }
     _renderItem = ({ item, indexs }) => {
-        var dataMySQL = [ip + '/mysql/uploads/slide/slide', item.image].join('/');
+        var dataMySQL = [finip, item.image_path, item.image].join('/');
         return (
             <View style={styles.child} key={indexs}>
-                <ImageBackground
+                <FastImage
                     source={{
                         uri: dataMySQL,
 
@@ -270,21 +244,20 @@ export class Category extends Component {
             {/* console.log('Slide'+[indexs, item.image].join(' ')), */ }
             var dataMySQL = [ip + '/mysql/uploads/head_product/menu', item.image_menu].join('/');
             {/* console.log(dataMySQL); */ }
-            return <View style={styles.Category} key={indexs}>
-                <View style={styles.Category_box}>
-                    <FastImage
-                        source={{
-                            uri: dataMySQL,
+            return (
+                <View style={styles.Category} key={indexs}>
+                    <View style={styles.Category_box}>
+                        <FastImage
+                            source={{
+                                uri: dataMySQL,
 
-                        }}
-                        style={styles.Category_image}
-
-                    />
+                            }}
+                            style={styles.Category_image}
+                        />
+                    </View>
+                    <Text style={styles.Text_Cate}>{item.name}</Text>
                 </View>
-                <Text style={styles.Text_Cate}>{item.name}</Text>
-            </View>
-
-
+            )
         })
         return (
             <View style={styles.Box_Cata}>

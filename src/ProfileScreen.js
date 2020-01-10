@@ -17,6 +17,7 @@ import {
     Button,
 } from 'react-native-elements'
 import FastImage from 'react-native-fast-image';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -27,22 +28,36 @@ import IconEntypo from 'react-native-vector-icons/Entypo';
 import styles from '../style/StylesProfileScreen'
 import { ip } from '../navigator/IpConfig';
 export const { width, height } = Dimensions.get('window');
+import { Toolbar } from './tools/Tools'
 
 ///----------------------------------Appbar----------------------------------------///
 
 export default class StoreScreen extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            currentUser: {},
+        }
+    }
+    getDataasync = async () => {
+        const currentUser = await AsyncStorage.getItem('@MyKey')
+        this.setState({ currentUser: JSON.parse(currentUser) })
+        // console.log(currentUser)
+        // console.log('profile:' + currentUser)
+    }
+    componentDidMount() {
+        this.getDataasync()
     }
     render() {
+        const { currentUser } = this.state;
+        // console.log(currentUser)
         return (
             <SafeAreaView style={styles.SafeAreaView}>
                 <ScrollView>
                     <View>
-                        <Headbar navigation={this.props.navigation} />
+                        <Headbar navigation={this.props.navigation} currentUser={currentUser} />
                         <Menubar />
-                        <Listbar />
-                        <ListMenu navigation={this.props.navigation} />
+                        <Listbar navigation={this.props.navigation} />
                     </View>
                 </ScrollView>
                 <Toolbar navigation={this.props.navigation} />
@@ -80,6 +95,8 @@ export class Headbar extends Component {
                 </TouchableOpacity>
             </View>
         </View> */}
+        // console.log(this.props)
+        const { currentUser } = this.props;
         return (
             <View>
                 <ImageBackground
@@ -102,9 +119,9 @@ export class Headbar extends Component {
                                     style={styles.HeadbarBoxImage}
                                 />
                             </View>
-                            <View style={{ marginLeft: 15, marginTop: '20%' }}>
+                            <View style={{ marginLeft: 15, marginTop: '25%' }}>
                                 <Text style={{ fontSize: 14, color: '#FFFFFF' }}>
-                                    ppooo
+                                    {currentUser.name}
                                 </Text>
                                 <Text style={{ fontSize: 10, color: '#BEBDBD' }}>
                                     Active อยู่
@@ -125,50 +142,6 @@ export class Headbar extends Component {
     }
 }
 
-
-export class Toolbar extends Component {
-    constructor(props) {
-        super(props);
-    }
-    render() {
-        return (
-            <View style={styles.Toolbar}>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('MainScreen')} >
-                    <View >
-                        <IconAntDesign style={{ marginLeft: 5, }} name="home" size={25} />
-                        <Text>Home</Text>
-                    </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('FeedScreen')} >
-                    <View >
-                        <IconAntDesign name="tagso" size={25} />
-                        <Text>Feed</Text>
-                    </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('NewsScreen')} >
-                    <View >
-                        <IconAntDesign name="notification" size={25} />
-                        <Text>News</Text>
-                    </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('BellScreen')} >
-                    <View >
-                        <IconAntDesign name="bells" size={25} />
-                        <Text>เตือน</Text>
-                    </View>
-                </TouchableOpacity>
-
-                <View>
-                    <IconAntDesign name="user" size={25} />
-                    <Text>ฉัน</Text>
-                </View>
-            </View>
-        )
-    }
-}
 
 export class Menubar extends Component {
     constructor(props) {
@@ -203,7 +176,7 @@ export class MenubarSub extends Component {
         return (
             <View style={styles.MenubarSub}>
                 <View style={styles.MenubarSubLine1}>
-                    <View>
+                    <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
                         <FastImage
                             source={require('../icon/two-money-cards.png')}
                             style={styles.MenubarSubLine1Image}
@@ -213,7 +186,7 @@ export class MenubarSub extends Component {
                             รอจ่ายเงิน
                         </Text>
                     </View>
-                    <View>
+                    <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
                         <FastImage
                             source={require('../icon/month-calendar.png')}
                             style={styles.MenubarSubLine1Image}
@@ -223,7 +196,7 @@ export class MenubarSub extends Component {
                             เตรียมจัดส่ง
                         </Text>
                     </View>
-                    <View>
+                    <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
                         <FastImage
                             source={require('../icon/truck-facing-right.png')}
                             style={styles.MenubarSubLine1Image}
@@ -233,7 +206,7 @@ export class MenubarSub extends Component {
                             ดำเนินการส่ง
                         </Text>
                     </View>
-                    <View>
+                    <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
                         <FastImage
                             source={require('../icon/rating.png')}
                             style={styles.MenubarSubLine1Image}
@@ -268,6 +241,85 @@ export class MenubarSub extends Component {
                 </View>
             </View>
         )
+    }
+}
+
+export class Listbar extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            pathlist: 2,
+        }
+    }
+    PathList() {
+        switch (this.state.pathlist) {
+            case 0:
+                return (
+                    <ListMenu navigation={this.props.navigation} />
+                )
+            case 2:
+                return (
+                    <ViewCode navigation={this.props.navigation} />
+                )
+        }
+    }
+    render() {
+        // console.log(this.state.pathlist)
+        return (
+            <View>
+                <View style={{ width, flexDirection: 'row', borderColor: '#EAEAEA', borderWidth: 1, marginTop: 10 }}>
+                    <View style={{ width: width * (1 / 4), flexDirection: 'column', alignItems: 'center', }}>
+                        <TouchableOpacity activeOpacity={0.9} onPress={() => { this.setState({ pathlist: 0 }) }}>
+                            <View style={{ flexDirection: 'column', alignItems: 'center', }}>
+                                <FastImage
+                                    source={require('../icon/bitcoin2.png')}
+                                    style={styles.ListbarBoxImage}
+                                />
+                                <Text style={styles.ListbarBoxText}>
+                                    หน้าหลัก
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{ flexDirection: 'column', width: width * (1 / 4), alignItems: 'center' }}>
+                        <View style={{ width: 60, height: 60, marginTop: 18, alignItems: 'center', backgroundColor: '#B6B6B4', borderRadius: 30, }}>
+                            <FastImage
+                                source={require('../icon/truck-facing-right.png')}
+                                style={{ height: 40, width: 40, marginTop: 'auto', marginBottom: 'auto' }}
+                            />
+                        </View>
+                        <Text style={styles.ListbarBoxText}>
+                            โปรโมชัน
+                        </Text>
+                    </View>
+                    <View style={{ width: width * (1 / 4), flexDirection: 'column', alignItems: 'center', }}>
+                        <TouchableOpacity activeOpacity={0.9} onPress={() => { this.setState({ pathlist: 2 }) }}>
+                            <View style={{ flexDirection: 'column', alignItems: 'center', }}>
+                                <FastImage
+                                    source={require('../icon/bitcoin2.png')}
+                                    style={styles.ListbarBoxImage}
+                                />
+                                <Text style={styles.ListbarBoxText}>
+                                    โค้ดส่วนลด
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{ flexDirection: 'column', width: width * (1 / 4), alignItems: 'center' }}>
+                        <FastImage
+                            source={require('../icon/bitcoin2.png')}
+                            style={styles.ListbarBoxImage}
+                        />
+                        <Text style={styles.ListbarBoxText}>
+                            Fin coin ของฉัน
+                        </Text>
+                    </View>
+                </View>
+                <View>
+                    {this.PathList()}
+                </View>
+            </View >
+        );
     }
 }
 
@@ -357,51 +409,136 @@ export class ListMenu extends Component {
     }
 }
 
-export class Listbar extends Component {
+export class ViewCode extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            pathlist: 0,
+        }
+    }
+    PathList() {
+        switch (this.state.pathlist) {
+            case 0:
+                return (
+                    <MyCode />
+                )
+        }
+    }
     render() {
         return (
             <View>
-                <View style={{ width, flexDirection: 'row', justifyContent: 'space-around', borderColor: '#EAEAEA', borderWidth: 1, marginTop: 10 }}>
-                    <View style={{ flexDirection: 'column', width: 100, }}>
-                        <FastImage
-                            source={require('../icon/bitcoin2.png')}
-                            style={styles.ListbarBoxImage}
-                        />
-                        <Text style={styles.ListbarBoxText}>
-                            หน้าหลัก
-                        </Text>
-                    </View>
-                    <View style={{ flexDirection: 'column', width: 100, }}>
-                        <View style={{ width: 60, height: 60, marginTop: 18, marginLeft: 'auto', marginRight: 'auto', backgroundColor: '#B6B6B4', borderRadius: 30, }}>
-                            <FastImage
-                                source={require('../icon/truck-facing-right.png')}
-                                style={{ height: 40, width: 40, marginLeft: 'auto', marginRight: 'auto', marginTop: 'auto', marginBottom: 'auto' }}
-                            />
+                <View style={{ marginTop: 10, borderWidth: 1, borderColor: '#ECECEC', padding: 10, }}>
+                    <Text style={{ fontSize: 14 }}>
+                        โ่ค้ดส่วนลดของฉัน
+                    </Text>
+                </View>
+                <View style={{ marginTop: 10, borderWidth: 1, borderColor: '#ECECEC', flexDirection: 'row', width, paddingTop: 10, }}>
+                    <TouchableOpacity onPress={() => { this.setState({ pathlist: 0 }) }}>
+                        {
+                            this.state.pathlist == 0 ?
+                                <View style={{ width: width * (1 / 3), alignContent: 'center', alignItems: 'center', borderBottomColor: '#0A55A6', borderBottomWidth: 4 }}>
+                                    <Text style={{ fontSize: 14 }}>
+                                        โค้ดที่ใช้ได้
+                                    </Text>
+                                </View>
+                                :
+                                <View style={{ width: width * (1 / 3), alignContent: 'center', alignItems: 'center' }}>
+                                    <Text style={{ fontSize: 14 }}>
+                                        โค้ดที่ใช้ได้
+                                    </Text>
+                                </View>
+                        }
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => { this.setState({ pathlist: 1 }) }}>
+                        {
+                            this.state.pathlist == 1 ?
+                                <View style={{ width: width * (1 / 3), alignContent: 'center', alignItems: 'center', borderBottomColor: '#0A55A6', borderBottomWidth: 4 }}>
+                                    <Text style={{ fontSize: 14 }}>
+                                        โค้ดที่ใช้ไปแล้ว
+                                    </Text>
+                                </View>
+                                :
+                                <View style={{ width: width * (1 / 3), alignContent: 'center', alignItems: 'center' }}>
+                                    <Text style={{ fontSize: 14 }}>
+                                        โค้ดที่ใช้ไปแล้ว
+                                    </Text>
+                                </View>
+                        }
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => { this.setState({ pathlist: 2 }) }}>
+                        {
+                            this.state.pathlist == 2 ?
+                                <View style={{ width: width * (1 / 3), alignContent: 'center', alignItems: 'center', borderBottomColor: '#0A55A6', borderBottomWidth: 4 }}>
+                                    <Text style={{ fontSize: 14 }}>
+                                        โ่ค้ดที่หมดอายุ
+                                    </Text>
+                                </View>
+                                :
+                                <View style={{ width: width * (1 / 3), alignContent: 'center', alignItems: 'center' }}>
+                                    <Text style={{ fontSize: 14 }}>
+                                        โ่ค้ดที่หมดอายุ
+                                    </Text>
+                                </View>
+                        }
+                    </TouchableOpacity>
+                </View>
+                <View>
+                    {this.PathList()}
+                </View>
+            </View>
+        )
+    }
+}
+export class MyCode extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            text: '',
+        }
+    }
+    render() {
+        return (
+            <View>
+                <View style={{ width, borderWidth: 1, borderColor: '#ECECEC', marginTop: 10, padding: 10, }}>
+                    <View style={{ flexDirection: 'row' }}>
+                        <View style={{ width: width * 0.7, alignItems: 'center', alignContent: 'center' }}>
+                            <TextInput
+                                placeholder="ใส่โค้ดส่วนลด"
+                                value={this.state.text}
+                                maxLength={9}
+                                width={width * 0.7}
+                                placeholderTextColor={'white'}
+                                style={{ color: 'white', backgroundColor: '#D7D7D7', borderRadius: 6, padding: 4, }}
+                                onChangeText={(text) => this.setState({ text })}
+                            ></TextInput>
                         </View>
-                        <Text style={styles.ListbarBoxText}>
-                            ส่งฟรี
+                        <View>
+                            <View style={{ backgroundColor: '#6791BE', borderRadius: 6, padding: 8, marginLeft: 6 }}>
+                                <Text style={{ color: '#FFF' }}>
+                                    เก็บโค้ดส่วนลด
+                                </Text>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+                <View style={{ alignContent: 'center', alignItems: 'center' }}>
+                    <View style={{ width: width * 0.98, borderBottomWidth: 0.5, borderWidth: 1, borderColor: '#ECECEC', marginTop: 10 }}>
+                        <Text style={{ paddingLeft: 20, padding: 2, }}>
+                            FIN Mission
                         </Text>
                     </View>
-                    <View style={{ flexDirection: 'column', width: 100, }}>
-                        <FastImage
-                            source={require('../icon/bitcoin2.png')}
-                            style={styles.ListbarBoxImage}
-                        />
-                        <Text style={styles.ListbarBoxText}>
-                            คูปองสะสม
-                        </Text>
-                    </View>
-                    <View style={{ flexDirection: 'column', width: 100, }}>
-                        <FastImage
-                            source={require('../icon/bitcoin2.png')}
-                            style={styles.ListbarBoxImage}
-                        />
-                        <Text style={styles.ListbarBoxText}>
-                            Fin coin ของฉัน
-                        </Text>
+                    <View style={{ borderBottomWidth: 0.5, borderColor: '#ECECEC', }}>
+                        <View style={{ width: width * 0.98, borderBottomWidth: 0.5, borderWidth: 1, borderColor: '#ECECEC', padding: 10, flexDirection: 'row' }}>
+                            <FastImage
+                                style={{ backgroundColor: '#ECECEC', width: 60, height: 60, borderRadius: 40, }}
+                            />
+                            <View style={{ marginLeft: 16 }}>
+                                <Text style={{}}>ติดตาม ร้าน Ppooo</Text>
+                            </View>
+                        </View>
                     </View>
                 </View>
             </View>
-        );
+        )
     }
 }

@@ -64,6 +64,9 @@ export default class StoreScreen extends Component {
         var s_id_store = this.state.dataSourceStoreData.map((item) => { return (item.id_store) })
         var s_name = this.state.dataSourceStoreData.map((item) => { return (item.name) })
         var s_image = this.state.dataSourceStoreData.map((item) => { return (item.image) })
+        // console.log(s_id_store)
+        // console.log(s_name)
+        // console.log(s_image)
         return (
             <SafeAreaView style={styles.SafeAreaView}>
                 <AppBar navigation={this.props.navigation} />
@@ -118,7 +121,7 @@ export class StoreHead extends Component {
                     <ImageBackground
                         source={require('../icon/bgprofile.jpg')}
                         style={styles.StoreHeadImage}
-                        
+
                     />
                     <View style={styles.StoreHeadBox}>
                         <View>
@@ -127,7 +130,7 @@ export class StoreHead extends Component {
                                     uri: dataMySQL,
                                 }}
                                 style={styles.StoreHeadFace}
-                                
+
                             />
                         </View>
                         <View>
@@ -355,7 +358,7 @@ export class Banner extends Component {
                         uri: dataMySQL,
                     }}
                     style={styles.BannerSlide}
-                    
+
                 />
             </View>
         );
@@ -557,7 +560,7 @@ export class DealTop extends Component {
                                 uri: dataMySQL,
                             }}
                             style={styles.DealTopImage}
-                            
+
                         />
                         <Text style={styles.DealTopImageName}>{item.name}</Text>
                         <NumberFormat
@@ -644,7 +647,7 @@ export class NewProduct extends Component {
                                 uri: dataMySQL,
                             }}
                             style={styles.NewProductImage}
-                            
+
                         />
                         <Text style={styles.NewProductImageName}>{item.name}</Text>
                         <NumberFormat
@@ -831,7 +834,7 @@ export class PopularProduct extends Component {
                                 uri: dataMySQL,
                             }}
                             style={styles.PopularProductImage}
-                            
+
                         />
                         <Text style={styles.PopularProductImageName}>
                             {item.name}
@@ -1001,7 +1004,7 @@ export class ShowProduct extends Component {
                             uri: dataMySQL,
                         }}
                         style={styles.ShowProductImage}
-                        
+
                     />
                     <Text style={styles.ShowProductImageName}>
                         {item.name}
@@ -1084,7 +1087,7 @@ export class StoreFeed extends Component {
                             uri: dataMySQL,
                         }}
                         style={styles.StoreFeedImage}
-                        
+
                     />
                     <View style={styles.StoreFeedComBox}>
                         <Text style={styles.StoreFeedComBoxDetail}>

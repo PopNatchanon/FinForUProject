@@ -7,14 +7,17 @@ import {
   TextInput,
   SafeAreaView,
   TouchableOpacity,
-  Dimensions,
+  Alert,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Form, TextValidator } from 'react-native-validator-form';
+import AsyncStorage from '@react-native-community/async-storage';
+import { ip, finip } from '../navigator/IpConfig';
 
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import styles from '../style/stylesLoginScreen';
+import { Toolbar } from './tools/Tools'
 
 import {
   Input,
@@ -30,9 +33,11 @@ export default class LoginScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.SafeAreaView}>
-        <Logo />
-        <Login navigation={this.props.navigation} />
-        <Register navigation={this.props.navigation} />
+        <ScrollView>
+          <Logo />
+          <Login navigation={this.props.navigation} />
+          <Register navigation={this.props.navigation} />
+        </ScrollView>
         <Toolbar navigation={this.props.navigation} />
       </SafeAreaView>
     );
@@ -76,29 +81,70 @@ export class Login extends Component {
     this.getData = this.getData.bind(this);
   }
 
+  storeData = async (item) => {
+    try {
+      await AsyncStorage.setItem('@MyKey', JSON.stringify(item))
+    } catch (e) {
+      // saving error
+    }
+  }
+
+  clearAll = async () => {
+    try {
+      await AsyncStorage.clear()
+    } catch (e) {
+      // clear error
+    }
+
+    // console.log('Done.')
+  }
+
   getData = async () => {
     const { user } = this.state;
-    console.log('Database Process')
-    console.log(user)
+    // console.log('Database Process')
+    // console.log(user)
     // console.log(user.email)
-    fetch('http://192.168.0.160/finforu/auth/mobile_login', {
+    fetch(finip + '/auth/login_customer', {
       method: 'POST',
       headers: {
+        'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        email: user.email,
-        pass: user.pass,
-      }),
+      body: JSON.stringify(user),
     })
-      .then((response) => response.text())
+      .then((response) => response.json())
       .then((responseJson) => {
-        console.log(responseJson)
-        // this.props.navigation.navigate('ProfileScreen', { email: user.email });
+        // console.log("responseJson")
+        // console.log(responseJson)
+        var userser = {};
+        responseJson.map((item) => {
+          userser.id_customer = item.id_customer
+          userser.name = item.name
+          userser.email = item.email
+          userser.telphone = item.telphone
+          userser.image = item.image
+          userser.image_path = item.image_path
+          userser.gender = item.gender
+          userser.address = item.address
+        })
+        // user.name = responseJson.map((item) => { return (item.name) })
+        // console.log('userser')
+        this.clearAll()
+        // console.log(userser)
+        this.storeData(userser)
+        // user = JSON.stringify(responseJson)
+        // console.log(user)
+        if (userser.address != null) {
+          this.props.navigation.replace('MainScreen');
+        }else{
+          this.props.navigation.replace('MainScreen');
+          this.props.navigation.navigate('Customer_account');
+        }
       })
       .catch((error) => {
         console.error(error);
       })
+    // this.props.navigation.replace('ProfileScreen');
   }
 
 
@@ -115,7 +161,7 @@ export class Login extends Component {
 
   PassInput(event) {
     const { user } = this.state;
-    user.pass = event;
+    user.password = event;
     this.setState({ user });
   }
   render() {
@@ -159,7 +205,7 @@ export class Login extends Component {
               name="pass"
               label="text"
               type="text"
-              value={user.pass}
+              value={user.password}
               // maxLength={6}
               secureTextEntry
               onChangeText={this.PassInput}
@@ -236,48 +282,3 @@ export class Register extends Component {
 }
 
 ///--------------------------------------------------------------------------///
-
-export class Toolbar extends Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return (
-      <View style={styles.Toolbar}>
-        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('MainScreen')} >
-          <View >
-            <IconAntDesign style={{ marginLeft: 5, }} name="home" size={25} />
-            <Text>Home</Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('FeedScreen')} >
-          <View >
-            <IconAntDesign name="tagso" size={25} />
-            <Text> Feed</Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('NewsScreen')} >
-          <View >
-            <IconAntDesign name="notification" size={25} />
-            <Text>News</Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('BellScreen')} >
-          <View >
-            <IconAntDesign name="bells" size={25} />
-            <Text>เตือน</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('LoginScreen')} >
-          <View>
-            <IconAntDesign name="user" size={25} />
-            <Text> ฉัน</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-    )
-  }
-}

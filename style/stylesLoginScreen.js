@@ -89,12 +89,13 @@ export default StyleSheet.create({
     Register_Box: {
         justifyContent: 'center',
         alignItems: 'center',
-        flex: 1,
+        // flex: 1,
 
     },
     Register_Box_A: {
-        height: 250,
+        // height: 250,
         width: 300,
+        // backgroundColor:'black',
     },
 
     Register_Box_TextA: {
@@ -161,7 +162,7 @@ export default StyleSheet.create({
         marginBottom: 20,
     },
     CountdownstyleSubmit: {
-        marginLeft: 'auto',
+        marginLeft: 'auto', 
         marginRight: 'auto',
         margin: 2,
         color: '#FFF',

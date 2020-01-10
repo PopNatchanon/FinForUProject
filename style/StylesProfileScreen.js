@@ -5,13 +5,13 @@ export const { width, height } = Dimensions.get('window');
 export default StyleSheet.create({
 
     Appbar: {
-        backgroundColor:'#FFFFFF',
+        backgroundColor: '#FFFFFF',
         height: 50,
         flexDirection: 'row',
-        width:'100%',
+        width: '100%',
         borderColor: '#ECECEC',
         borderWidth: 1,
-        justifyContent:'space-between',
+        justifyContent: 'space-between',
     },
     Toolbar: {
         backgroundColor: '#FFFFFF',
@@ -58,8 +58,7 @@ export default StyleSheet.create({
         height: 80,
         borderRadius: 40,
         marginTop: 10,
-        marginLeft: 'auto',
-        marginRight: 'auto',
+        marginLeft: 30,
     },
     HeadbarText: {
         color: '#FFFFFF',
@@ -116,17 +115,12 @@ export default StyleSheet.create({
     },
     MenubarSubLine1: {
         flexDirection: 'row',
-        justifyContent: 'space-around',
     },
     MenubarSubLine1Image: {
-        marginLeft: 'auto',
-        marginRight: 'auto',
         width: 50,
         height: 50,
     },
     MenubarSubLine1Name: {
-        marginLeft: 'auto',
-        marginRight: 'auto',
         fontSize: 14,
         marginTop: 8,
     },
@@ -134,10 +128,13 @@ export default StyleSheet.create({
         marginTop: 18,
         paddingBottom: 8,
         flexDirection: 'row',
-        justifyContent: 'space-around',
     },
     MenubarSubLine2Box: {
+        width: width * (1 / 2),
         flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        // backgroundColor:'green'
     },
     MenubarSubLine2BoxImage: {
         width: 28,
@@ -181,13 +178,9 @@ export default StyleSheet.create({
         height: 60,
         borderRadius: 30,
         marginTop: 18,
-        marginLeft: 'auto',
-        marginRight: 'auto',
     },
     ListbarBoxText: {
         marginTop: 8,
-        marginLeft: 'auto',
-        marginRight: 'auto',
         fontSize: 14,
     },
 

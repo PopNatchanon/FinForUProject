@@ -30,47 +30,57 @@ export class Toolbar extends Component {
     }
     render() {
         const { currentUser } = this.state;
-        // console.log(currentUser.name);
+        var u_name = null;
+        if (currentUser != null) {
+            u_name = currentUser.name;
+        }
+        // console.log(u_name);
         return (
             <View style={styles.Toolbar}>
                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('MainScreen')} >
-                    <View style={{ alignItems: 'center' }}>
+                    <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign style={{ marginLeft: 5, }} name="home" size={25} />
-                        <Text>Home</Text>
+                        <Text style={{ fontSize: 13 }}>Home</Text>
                     </View>
                 </TouchableOpacity>
 
                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('FeedScreen')} >
-                    <View style={{ alignItems: 'center' }}>
+                    <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="tagso" size={25} />
-                        <Text> Feed</Text>
+                        <Text style={{ fontSize: 13 }}> Feed</Text>
                     </View>
                 </TouchableOpacity>
 
                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('NewsScreen')} >
-                    <View style={{ alignItems: 'center' }}>
+                    <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="notification" size={25} />
-                        <Text>News</Text>
+                        <Text style={{ fontSize: 13 }}>News</Text>
                     </View>
                 </TouchableOpacity>
 
                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('BellScreen')} >
-                    <View style={{ alignItems: 'center' }}>
+                    <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="bells" size={25} />
-                        <Text>เตือน</Text>
+                        <Text style={{ fontSize: 13 }}>เตือน</Text>
                     </View>
                 </TouchableOpacity>
-                {currentUser == null ?
+                {u_name == null ?
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('LoginScreen')} >
-                        <View style={{ alignItems: 'center' }}>
+                        <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                             <IconAntDesign name="user" size={25} />
-                            <Text>ฉัน</Text>
+                            <Text style={{ fontSize: 13 }}>ฉัน</Text>
                         </View>
                     </TouchableOpacity> :
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('ProfileScreen')} >
-                        <View style={{ alignItems: 'center' }}>
+                        <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                             <IconAntDesign name="user" size={25} />
-                            <Text>บัญชีของ{currentUser.name}</Text>
+                            <Text style={{ fontSize: 13 }}>
+                                {
+                                    u_name.length > 6 ?
+                                        'บัญชีของ' + u_name.substring(0, 3) + '...' :
+                                        'บัญชีของ' + u_name
+                                }
+                            </Text>
                         </View>
                     </TouchableOpacity>
                 }

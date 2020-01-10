@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import {
     View,
     ImageBackground,
@@ -18,7 +18,7 @@ import IconFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import styles from '../style/StylesMainScreen';
-import { ip } from '../navigator/IpConfig';
+import { finip, ip } from '../navigator/IpConfig';
 import FastImage from 'react-native-fast-image';
 export const { width, height } = Dimensions.get('window');
 import AsyncStorage from '@react-native-community/async-storage';
@@ -117,29 +117,38 @@ export class Slide extends Component {
             activeSlide: 0,
         };
     }
+
     getDataSlide() {
-        var url = ip + '/mysql/DataServiceMain.php';
         var dataBody = {
-            type: 'slide'
+            slide: 'banner'
         };
-        axios.post(
-            url,
-            dataBody,
-        ).then((getData) => {
-            // console.log(getData.data);
-            this.setState({
-                dataSourceSlide: getData.data,
-            })
+        fetch(finip + '/home/home_mobile', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(dataBody),
         })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                // console.log("responseJson")
+                this.setState({
+                    dataSourceSlide: responseJson,
+                })
+            })
+            .catch((error) => {
+                console.error(error);
+            })
     }
     componentDidMount() {
         this.getDataSlide()
     }
     _renderItem = ({ item, indexs }) => {
-        var dataMySQL = [ip + '/mysql/uploads/slide/slide', item.image].join('/');
+        var dataMySQL = [finip, item.image_path, item.image].join('/');
         return (
             <View style={styles.child} key={indexs}>
-                <ImageBackground
+                <FastImage
                     source={{
                         uri: dataMySQL,
 
@@ -235,21 +244,20 @@ export class Category extends Component {
             {/* console.log('Slide'+[indexs, item.image].join(' ')), */ }
             var dataMySQL = [ip + '/mysql/uploads/head_product/menu', item.image_menu].join('/');
             {/* console.log(dataMySQL); */ }
-            return <View style={styles.Category} key={indexs}>
-                <View style={styles.Category_box}>
-                    <FastImage
-                        source={{
-                            uri: dataMySQL,
+            return (
+                <View style={styles.Category} key={indexs}>
+                    <View style={styles.Category_box}>
+                        <FastImage
+                            source={{
+                                uri: dataMySQL,
 
-                        }}
-                        style={styles.Category_image}
-
-                    />
+                            }}
+                            style={styles.Category_image}
+                        />
+                    </View>
+                    <Text style={styles.Text_Cate}>{item.name}</Text>
                 </View>
-                <Text style={styles.Text_Cate}>{item.name}</Text>
-            </View>
-
-
+            )
         })
         return (
             <View style={styles.Box_Cata}>

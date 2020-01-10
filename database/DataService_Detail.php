@@ -16,14 +16,14 @@ $Stype = $obj->type;
 switch ($Stype) {
     case 'store':
         $idproduct = $obj->id_product;
-        $sql = "SELECT p.image as p_image ,p.name as p_name ,p.full_price,p.id_store as p_id_store ,p.id_product,p.detail, p.type ,s.name as s_name ,s.image as s_image ,s.id_store as s_id_store  
+        $sql = "SELECT p.image as p_image ,p.name as p_name ,p.full_price,p.id_store as p_id_store ,p.id_product,p.detail,p.image_path, p.type ,s.name as s_name ,s.image as s_image ,s.id_store as s_id_store  
         from product as p 
         left join store as s
         on p.id_store = s.id_store 
         where p.id_product = '$idproduct'";
         break;
     case 'Feed':
-        $sql = "SELECT p.image as p_image ,p.name as p_name ,p.full_price,p.id_store as p_id_store ,p.id_product,p.detail, p.type ,s.name as s_name ,s.image as s_image ,s.id_store as s_id_store  
+        $sql = "SELECT p.image as p_image ,p.name as p_name ,p.full_price,p.id_store as p_id_store ,p.id_product,p.detail, p.type, p.image_path, s.name as s_name ,s.image as s_image ,s.id_store as s_id_store  
         from product as p 
         left join store as s
         on p.id_store = s.id_store ";

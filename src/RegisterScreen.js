@@ -116,8 +116,8 @@ export class Login extends Component {
     user.gender = gender;
     // console.log([date2, month2, year2].join('/'))
     this.setState({ user });
-    console.log("user")
-    console.log(user)
+    // console.log("user")
+    // console.log(user)
     fetch(finip + '/auth/register_customer', {
       method: 'POST',
       headers: {
@@ -128,7 +128,7 @@ export class Login extends Component {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log(responseJson.result)
+        // console.log(responseJson.result)
         if (responseJson.result == 'Complete') {
           this.props.navigation.popToTop();
         } else if (responseJson.result == 'This email has already been used') {

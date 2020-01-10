@@ -114,8 +114,8 @@ export class Login extends Component {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log("responseJson")
-        console.log(responseJson)
+        // console.log("responseJson")
+        // console.log(responseJson)
         var userser = {};
         responseJson.map((item) => {
           userser.id_customer = item.id_customer
@@ -134,7 +134,12 @@ export class Login extends Component {
         this.storeData(userser)
         // user = JSON.stringify(responseJson)
         // console.log(user)
-        this.props.navigation.replace('MainScreen');
+        if (userser.address != null) {
+          this.props.navigation.replace('MainScreen');
+        }else{
+          this.props.navigation.replace('MainScreen');
+          this.props.navigation.navigate('Customer_account');
+        }
       })
       .catch((error) => {
         console.error(error);

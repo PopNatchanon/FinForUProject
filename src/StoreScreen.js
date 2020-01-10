@@ -64,9 +64,9 @@ export default class StoreScreen extends Component {
         var s_id_store = this.state.dataSourceStoreData.map((item) => { return (item.id_store) })
         var s_name = this.state.dataSourceStoreData.map((item) => { return (item.name) })
         var s_image = this.state.dataSourceStoreData.map((item) => { return (item.image) })
-        console.log(s_id_store)
-        console.log(s_name)
-        console.log(s_image)
+        // console.log(s_id_store)
+        // console.log(s_name)
+        // console.log(s_image)
         return (
             <SafeAreaView style={styles.SafeAreaView}>
                 <AppBar navigation={this.props.navigation} />
@@ -112,7 +112,7 @@ export class StoreHead extends Component {
 
     render() {
         const { item } = this.props;
-        console.log(item)
+        // console.log(item)
         var dataMySQL = [ip + '/mysql/uploads/slide/NewStore', item.image].join('/')
         // console.log(dataMySQL)
         return (

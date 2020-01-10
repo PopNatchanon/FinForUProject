@@ -23,29 +23,29 @@ switch ($Stype) {
         $sql = "SELECT name ,  image_menu  FROM type ";
         break;
     case 'sale':
-        $sql = "SELECT id_product , id_store , name , image , full_price , sale_price , discount FROM product LIMIT 6";
+        $sql = "SELECT id_product , id_store , name , image , image_path, full_price , sale_price , discount FROM product LIMIT 6";
         break;
     case 'store':
         $sql = "SELECT id_store , image , name FROM store  LIMIT 6";
         break;
     case 'product':
-        $sql = "SELECT id_product , id_store , name , image , full_price , sale_price , discount  FROM product Order by date DESC  LIMIT 6";
+        $sql = "SELECT id_product , id_store , name , image ,image_path, full_price , sale_price , discount  FROM product Order by date DESC  LIMIT 6";
         break;
     case 'todayproduct':
-        $sql = "SELECT id_product , id_store , name , image , full_price , sale_price , discount FROM product limit 20";
+        $sql = "SELECT id_product , id_store , name , image ,image_path, full_price , sale_price , discount FROM product limit 20";
         break;
     case 'brand':
         $sql = "SELECT image , image_path  FROM slide WHERE type_icon = 'promotions' AND status_active = '1'  limit 6 ";
         break;
     case 'foryou':
-        $sql = "SELECT image ,name ,sale_price, image_path FROM product limit 10 ";
+        $sql = "SELECT image ,name ,full_price, image_path FROM product limit 10 ";
         break;
     case 'categorylist':
         $sql = "SELECT name , image_head  FROM type ";
         break;
     case 'categoryproduct':
         $Sproduct = $obj->product;
-        $sql = "SELECT id_product , id_store , name , image , full_price , sale_price , discount , type FROM product WHERE type = '$Sproduct' limit 6";
+        $sql = "SELECT id_product , id_store , name , image ,image_path, full_price , sale_price , discount , type FROM product WHERE type = '$Sproduct' limit 6";
         break;
     case 'Confidential_PRO':
         $sql = "SELECT image , image_path  FROM slide WHERE type_icon = 'Confidential_PRO' AND status_active = '1'  limit 3 ";

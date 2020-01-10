@@ -23,13 +23,13 @@ switch ($Stype) {
         //     ON st.id_store = st.id_store WHERE st.id_store = '$Sid' limit 5";
         break;
     case 'sale':
-        $sql = "SELECT id_product , id_store , name , image , full_price , sale_price , discount FROM product LIMIT 6";
+        $sql = "SELECT id_product , id_store , name , image , image_path, full_price , sale_price , discount FROM product LIMIT 6";
         break;
     case 'newproduct':
-        $sql = "SELECT id_product , id_store , name , image , full_price , sale_price , discount  FROM product Order by date DESC  LIMIT 6";
+        $sql = "SELECT id_product , id_store , name , image , image_path, full_price , sale_price , discount  FROM product Order by date DESC  LIMIT 6";
         break;
     case 'todayproduct':
-        $sql = "SELECT id_store , id_product , id_store , name , image , full_price , sale_price , discount FROM product limit 20";
+        $sql = "SELECT id_store , id_product , id_store , name , image , image_path,  full_price , sale_price , discount FROM product limit 20";
         break;
     case 'storedata':
         $Sid = $obj->id;

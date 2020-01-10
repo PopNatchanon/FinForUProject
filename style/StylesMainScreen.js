@@ -12,7 +12,7 @@ export default StyleSheet.create({
     borderWidth: 1,
     height: 50,
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    // justifyContent: 'space-around',
     paddingTop: 5,
   },
   SafeAreaView: {
@@ -72,6 +72,8 @@ export default StyleSheet.create({
     width: 100,
     height: 80,
     marginTop: 10,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   category_A: {
     flexDirection: 'column',
@@ -89,7 +91,6 @@ export default StyleSheet.create({
     borderRadius: 8,
     height: 60,
     width: 60,
-    marginLeft: 15,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -629,16 +630,16 @@ export default StyleSheet.create({
     flexWrap: 'wrap',
   },
   TodayProductBox: {
-    width: width * 0.323,
-    height: height * 0.3,
+    width: width * (1/3.07),
+    height: height * (1/4),
     borderColor: '#ECECEC',
     borderWidth: 0.5,
 
   },
   TodayProductImage: {
     width: '100%',
-    height: '60%',
-    resizeMode: 'stretch',
+    height: '70%',
+    resizeMode: 'cover',
     padding: 4,
   },
   TodayProductImageName: {
@@ -1031,5 +1032,4 @@ export default StyleSheet.create({
     borderBottomRightRadius: 5,
     borderBottomLeftRadius: 5,
   },
-
 });

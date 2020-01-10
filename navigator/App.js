@@ -168,7 +168,7 @@ const PathScreen = createStackNavigator({
 },
   {
     initialRouteName: 'ProfileScreen',
-    // initialRouteName: 'StoreMe_Up_Product',
+    // initialRouteName: 'Customer_account',
   }
   );
 

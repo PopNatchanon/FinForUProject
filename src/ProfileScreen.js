@@ -28,7 +28,7 @@ import IconEntypo from 'react-native-vector-icons/Entypo';
 import styles from '../style/StylesProfileScreen'
 import { ip } from '../navigator/IpConfig';
 export const { width, height } = Dimensions.get('window');
-import { Toolbar } from './tools/Tools'
+import { Toolbar, TabBar } from './tools/Tools'
 
 ///----------------------------------Appbar----------------------------------------///
 
@@ -248,7 +248,7 @@ export class Listbar extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            pathlist: 2,
+            pathlist: 3,
         }
     }
     PathList() {
@@ -261,6 +261,10 @@ export class Listbar extends Component {
                 return (
                     <ViewCode navigation={this.props.navigation} />
                 )
+            case 3:
+                return (
+                    <CoinCollect navigation={this.props.navigation} />
+                )
         }
     }
     render() {
@@ -271,10 +275,9 @@ export class Listbar extends Component {
                     <View style={{ width: width * (1 / 4), flexDirection: 'column', alignItems: 'center', }}>
                         <TouchableOpacity activeOpacity={0.9} onPress={() => { this.setState({ pathlist: 0 }) }}>
                             <View style={{ flexDirection: 'column', alignItems: 'center', }}>
-                                <FastImage
-                                    source={require('../icon/bitcoin2.png')}
-                                    style={styles.ListbarBoxImage}
-                                />
+                                <View style={{ width: 60, height: 60, marginTop: 18, alignItems: 'center', backgroundColor: '#0A55A6', borderRadius: 30, }}>
+                                    <IconAntDesign name='home' size={40} style={{ marginTop: 'auto', marginBottom: 'auto' }} />
+                                </View>
                                 <Text style={styles.ListbarBoxText}>
                                     หน้าหลัก
                                 </Text>
@@ -306,13 +309,17 @@ export class Listbar extends Component {
                         </TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: 'column', width: width * (1 / 4), alignItems: 'center' }}>
-                        <FastImage
-                            source={require('../icon/bitcoin2.png')}
-                            style={styles.ListbarBoxImage}
-                        />
-                        <Text style={styles.ListbarBoxText}>
-                            Fin coin ของฉัน
-                        </Text>
+                        <TouchableOpacity activeOpacity={0.9} onPress={() => { this.setState({ pathlist: 3 }) }}>
+                            <View style={{ flexDirection: 'column', alignItems: 'center', }}>
+                                <FastImage
+                                    source={require('../icon/bitcoin2.png')}
+                                    style={styles.ListbarBoxImage}
+                                />
+                                <Text style={styles.ListbarBoxText}>
+                                    Fin coin ของฉัน
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
                 <View>
@@ -413,8 +420,9 @@ export class ViewCode extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            pathlist: 0,
+            pathlist: 0
         }
+        this.getData = this.getData.bind(this);
     }
     PathList() {
         switch (this.state.pathlist) {
@@ -424,7 +432,20 @@ export class ViewCode extends Component {
                 )
         }
     }
+    getData(val) {
+        // console.log(val);
+        this.setState({
+            pathlist: val
+        });
+    }
     render() {
+        const item = [{
+            name: 'โค้ดที่ใช้ได้'
+        }, {
+            name: 'โค้ดที่ใช้ไปแล้ว'
+        }, {
+            name: 'โ่ค้ดที่หมดอายุ'
+        }]
         return (
             <View>
                 <View style={{ marginTop: 10, borderWidth: 1, borderColor: '#ECECEC', padding: 10, }}>
@@ -432,55 +453,13 @@ export class ViewCode extends Component {
                         โ่ค้ดส่วนลดของฉัน
                     </Text>
                 </View>
-                <View style={{ marginTop: 10, borderWidth: 1, borderColor: '#ECECEC', flexDirection: 'row', width, paddingTop: 10, }}>
-                    <TouchableOpacity onPress={() => { this.setState({ pathlist: 0 }) }}>
-                        {
-                            this.state.pathlist == 0 ?
-                                <View style={{ width: width * (1 / 3), alignContent: 'center', alignItems: 'center', borderBottomColor: '#0A55A6', borderBottomWidth: 4 }}>
-                                    <Text style={{ fontSize: 14 }}>
-                                        โค้ดที่ใช้ได้
-                                    </Text>
-                                </View>
-                                :
-                                <View style={{ width: width * (1 / 3), alignContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ fontSize: 14 }}>
-                                        โค้ดที่ใช้ได้
-                                    </Text>
-                                </View>
-                        }
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => { this.setState({ pathlist: 1 }) }}>
-                        {
-                            this.state.pathlist == 1 ?
-                                <View style={{ width: width * (1 / 3), alignContent: 'center', alignItems: 'center', borderBottomColor: '#0A55A6', borderBottomWidth: 4 }}>
-                                    <Text style={{ fontSize: 14 }}>
-                                        โค้ดที่ใช้ไปแล้ว
-                                    </Text>
-                                </View>
-                                :
-                                <View style={{ width: width * (1 / 3), alignContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ fontSize: 14 }}>
-                                        โค้ดที่ใช้ไปแล้ว
-                                    </Text>
-                                </View>
-                        }
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => { this.setState({ pathlist: 2 }) }}>
-                        {
-                            this.state.pathlist == 2 ?
-                                <View style={{ width: width * (1 / 3), alignContent: 'center', alignItems: 'center', borderBottomColor: '#0A55A6', borderBottomWidth: 4 }}>
-                                    <Text style={{ fontSize: 14 }}>
-                                        โ่ค้ดที่หมดอายุ
-                                    </Text>
-                                </View>
-                                :
-                                <View style={{ width: width * (1 / 3), alignContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ fontSize: 14 }}>
-                                        โ่ค้ดที่หมดอายุ
-                                    </Text>
-                                </View>
-                        }
-                    </TouchableOpacity>
+                <View style={{ marginTop: 10, }}>
+                    <TabBar
+                        sendData={this.getData}
+                        item={item}
+                    // activeColor='red'
+                    // type='box'
+                    />
                 </View>
                 <View>
                     {this.PathList()}
@@ -533,8 +512,148 @@ export class MyCode extends Component {
                                 style={{ backgroundColor: '#ECECEC', width: 60, height: 60, borderRadius: 40, }}
                             />
                             <View style={{ marginLeft: 16 }}>
-                                <Text style={{}}>ติดตาม ร้าน Ppooo</Text>
+                                <Text style={{ marginTop: 5 }}>ติดตาม ร้าน Ppooo</Text>
+                                <View style={{ marginTop: 6, padding: 4, backgroundColor: '#0A55A6', alignContent: 'center', alignItems: 'center' }}>
+                                    <Text style={{ color: 'white', }}>โค้ดส่วนลด 80%</Text>
+                                </View>
                             </View>
+                            <View style={{ borderWidth: 1, borderRadius: 20, paddingTop: 4, padding: 15, height: 30, marginLeft: '36%', }}>
+                                <Text>ติดตาม</Text>
+                            </View>
+                        </View>
+                        <View style={{ width: width * 0.98, borderBottomWidth: 0.5, borderWidth: 1, borderColor: '#ECECEC', padding: 10, flexDirection: 'row' }}>
+                            <FastImage
+                                style={{ backgroundColor: '#ECECEC', width: 60, height: 60, borderRadius: 40, }}
+                            />
+                            <View style={{ marginLeft: 16 }}>
+                                <Text style={{ marginTop: 5 }}>ติดตาม ร้าน Ppooo</Text>
+                                <View style={{ marginTop: 6, padding: 4, backgroundColor: '#0A55A6', alignContent: 'center', alignItems: 'center' }}>
+                                    <Text style={{ color: 'white', }}>โค้ดส่วนลด 80%</Text>
+                                </View>
+                            </View>
+                            <View style={{ borderWidth: 1, borderRadius: 20, paddingTop: 4, padding: 15, height: 30, marginLeft: '36%', }}>
+                                <Text>ติดตาม</Text>
+                            </View>
+                        </View>
+                        <View style={{ width: width * 0.98, borderBottomWidth: 0.5, borderWidth: 1, borderColor: '#ECECEC', padding: 10, flexDirection: 'row' }}>
+                            <FastImage
+                                style={{ backgroundColor: '#ECECEC', width: 60, height: 60, borderRadius: 40, }}
+                            />
+                            <View style={{ marginLeft: 16 }}>
+                                <Text style={{ marginTop: 5 }}>ติดตาม ร้าน Ppooo</Text>
+                                <View style={{ marginTop: 6, padding: 4, backgroundColor: '#0A55A6', alignContent: 'center', alignItems: 'center' }}>
+                                    <Text style={{ color: 'white', }}>โค้ดส่วนลด 80%</Text>
+                                </View>
+                            </View>
+                            <View style={{ borderWidth: 1, borderRadius: 20, paddingTop: 4, padding: 15, height: 30, marginLeft: '36%', }}>
+                                <Text>ติดตาม</Text>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={{ marginTop: 4 }}>
+                        <View style={{ width: width * 0.98, borderWidth: 1, borderColor: '#6791BE', borderRadius: 4, padding: 4, alignContent: 'center', alignItems: 'center' }}>
+                            <Text style={{ color: '#6791BE' }}>ดูภารกิจทั้งหมด</Text>
+                        </View>
+
+                    </View>
+                </View>
+            </View >
+        )
+    }
+}
+export class CoinCollect extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            pathlist: 0
+        }
+        this.getData = this.getData.bind(this);
+    }
+    PathList() {
+        switch (this.state.pathlist) {
+            case 0:
+                return (
+                    <CoinPageBody />
+                )
+        }
+    }
+    getData(val) {
+        // console.log(val);
+        this.setState({
+            pathlist: val
+        });
+    }
+    render() {
+        const item = [{
+            name: 'คูปองทั้งหมด'
+        }, {
+            name: 'ท่องเที่ยว'
+        }, {
+            name: 'ส่วนลด'
+        }, {
+            name: 'อื่นๆ'
+        }]
+        return (
+            <View>
+                <View style={{ marginTop: 10, backgroundColor: '#11B7DC', height: 110, width }}>
+                    <View style={{ width, marginTop: 'auto', marginBottom: 'auto', flexDirection: 'row', alignItems: 'center', alignContent: 'center', justifyContent: 'center' }}>
+                        <FastImage
+                            source={require('../icon/bitcoin2.png')}
+                            style={{
+
+                                width: 60,
+                                height: 60,
+                                borderRadius: 30,
+                            }}
+                        />
+                        <View style={{ marginLeft: 40, borderRadius: 40, borderWidth: 1, borderColor: '#0A55A6', width: 160, height: 60, backgroundColor: 'white' }}>
+                            <Text style={{ marginTop: 10, marginLeft: 20, fontSize: 10 }}>
+                                FIN COIN
+                            </Text>
+                            <View style={{ alignItems: 'center', alignContent: 'center' }}>
+                                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
+                                    1000
+                                </Text>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+                <View style={{ marginTop: 10 }}>
+                    <TabBar
+                        sendData={this.getData}
+                        item={item}
+                        widthBox={98}
+                        type='box'
+                    />
+                </View>
+                <View>
+                    {this.PathList()}
+                </View>
+            </View>
+        )
+    }
+}
+
+export class CoinPageBody extends Component {
+    render() {
+        return (
+            <View style={{ alignItems: 'center' }}>
+                <View style={{ marginTop: 10, width: width * 0.96, height: 200, borderWidth: 1, borderColor: '#EAEAEA' }}>
+                    <View style={{ width: '100%', height: 140 }}>
+                        <FastImage
+                            source={{
+                                uri: ip + '/MySQL/uploads/slide/Banner_type/shoes_BannerBar.jpg',
+
+                            }}
+                            style={{ width: '100%', height: '100%' }}
+                        />
+                    </View>
+                    <View style={{ flexDirection: 'row' }}>
+                        <View style={{ padding: 4, width: width * 0.89 }}>
+                            <Text>ส่วนลด 10% สำหรับร้าน เพชร ส่วนลด 10% สำหรับร้าน เพชร ส่วนลด 10% สำหรับร้าน เพชร</Text>
+                        </View>
+                        <View style={{ backgroundColor: '#0A55A6' }}>
+                            <Text>แลก 10 coin</Text>
                         </View>
                     </View>
                 </View>

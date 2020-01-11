@@ -192,6 +192,7 @@ export class Slide extends Component {
         );
     }
     render() {
+        // console.log(this.activeSlide)
         return (
             <View>
                 <Carousel

@@ -22,6 +22,7 @@ import Icons from 'react-native-vector-icons/FontAwesome5';
 import IconFeather from 'react-native-vector-icons/Feather';
 import styles from '../style/StylesStoreScreen'
 import { ip } from '../navigator/IpConfig'
+import { TabBar } from './tools/Tools'
 export const { width, height } = Dimensions.get('window');
 
 ///----------------------------------Appbar----------------------------------------///
@@ -248,11 +249,14 @@ export class Menubar extends Component {
         this.state = {
             selectedIndex: 0
         }
-        this.updateIndex = this.updateIndex.bind(this)
+        this.getData = this.getData.bind(this);
     }
 
-    updateIndex(selectedIndex) {
-        this.setState({ selectedIndex })
+    getData(val) {
+        // console.log(val);
+        this.setState({
+            selectedIndex: val
+        });
     }
 
     ViewSide(selectedIndex) {
@@ -286,33 +290,23 @@ export class Menubar extends Component {
     }
 
     render() {
-        const component1 = () => <Text>หน้าหลัก</Text>
-        const component2 = () => <Text>สินค้าทั้งหมด</Text>
-        const component3 = () => <Text>ฟีด</Text>
-        const buttons = [{ element: component1 }, { element: component2 }, { element: component3 }]
         const { selectedIndex } = this.state
+        const item = [{
+            name: 'โค้ดที่ใช้ได้'
+        }, {
+            name: 'โค้ดที่ใช้ไปแล้ว'
+        }, {
+            name: 'โ่ค้ดที่หมดอายุ'
+        }]
         return (
             <View>
                 <View style={styles.Menubar}>
-                    <ButtonGroup
-                        onPress={this.updateIndex}
-                        selectedIndex={selectedIndex}
-                        buttons={buttons}
-                        containerStyle={{
-                            height: 33,
-                            marginLeft: 6,
-                            marginRight: 6,
-                            borderRadius: 4,
-                        }}
-                        selectedButtonStyle={{
-                            backgroundColor: '#0A55A6',
-                        }}
-                        selectedTextStyle={{
-                            color: 'white',
-                        }}
-                        textStyle={{
-                            color: '#111111',
-                        }}
+                    <TabBar
+                        sendData={this.getData}
+                        item={item}
+                        // activeColor='red'
+                        radiusBox={4}
+                        type='box'
                     />
                 </View>
                 {this.ViewSide(selectedIndex)}
@@ -551,7 +545,7 @@ export class DealTop extends Component {
     render() {
         let dataDealTop = this.state.dataSale.map((item, indexs) => {
             //   console.log('Sale' + [ indexs, item.image ].join(' ')),
-            var dataMySQL = [ip + '/mysql',item.image_path, item.image].join('/');
+            var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}>
                     <View style={styles.DealTopBox} key={indexs}>
@@ -638,7 +632,7 @@ export class NewProduct extends Component {
     render() {
         let dataNewProduct = this.state.dataSale.map((item, indexs) => {
             //   console.log('Sale' + [ indexs, item.image ].join(' ')),
-            var dataMySQL = [ip + '/mysql',item.image_path, item.image].join('/');
+            var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}>
                     <View style={styles.NewProductBox} key={indexs}>
@@ -825,7 +819,7 @@ export class PopularProduct extends Component {
     render() {
         let dataToday = this.state.dataSourcePopularProduct.map((item, indexs) => {
             // console.log( indexs + '. ' + item.image ),
-            var dataMySQL = [ip + '/mysql',item.image_path, item.image].join('/');
+            var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}>
                     <View style={styles.PopularProductBox} key={indexs}>

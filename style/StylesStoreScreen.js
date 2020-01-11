@@ -137,10 +137,12 @@ export default StyleSheet.create({
   ///-------------------------------------------------------///
   Menubar: {
     width,
+    padding:4,
     backgroundColor: '#FFFFFF',
     borderColor: '#ECECEC',
     borderWidth: 1,
     marginTop: 10,
+    flexDirection:'row'
   },
   ///---------------------------------------------------///
 
@@ -407,8 +409,8 @@ export default StyleSheet.create({
     flexWrap: 'wrap',
   },
   PopularProductBox: {
-    width: width * 0.442,
-    height: height * 0.355,
+    width: width * (1 / 2.25),
+    height: height * (1/3),
     borderColor: '#ECECEC',
     borderWidth: 1,
     margin: 8,
@@ -416,8 +418,8 @@ export default StyleSheet.create({
   },
   PopularProductImage: {
     width: '100%',
-    height: '65%',
-    resizeMode: 'stretch',
+    height: '70%',
+    resizeMode: 'cover',
     padding: 4,
   },
   PopularProductImageName: {

@@ -228,28 +228,28 @@ export class Option_payment extends Component {
                                 <IconEntypo name='credit-card' size={20} />
                                 <Text style={styles.Payment_Text}>บัตรเครดิต / เดบิต </Text>
                             </View>
-                            <IconEntypo name='chevron-right' size={20} />
+                            <IconEntypo name='chevron-down' size={20} />
                         </View>
                         <View style={styles.Payment_Box}>
                             <View style={styles.Payment_Box_Text}>
                                 <IconFontAwesome5 name='mobile-alt' size={20} />
                                 <Text style={styles.Payment_Text}>   IBanking / Mobile Banking </Text>
                             </View>
-                            <IconEntypo name='chevron-right' size={20} />
+                            <IconEntypo name='chevron-down' size={20} />
                         </View>
                         <View style={styles.Payment_Box}>
                             <View style={styles.Payment_Box_Text}>
                                 <IconFontAwesome5 name='cc-mastercard' size={20} />
                                 <Text style={styles.Payment_Text}>ผ่อนชำระผ่านบัตรเครดิต </Text>
                             </View>
-                            <IconEntypo name='chevron-right' size={20} />
+                            <IconEntypo name='chevron-down' size={20} />
                         </View>
                         <View style={styles.Payment_Box}>
                             <View style={styles.Payment_Box_Text}>
                                 <IconAntDesign name='user' size={20} />
                                 <Text style={styles.Payment_Text}>ติดต่อชำระโดยตรงผ่าน FIN </Text>
                             </View>
-                            <IconEntypo name='chevron-right' size={20} />
+                            <IconEntypo name='chevron-down' size={20} />
                         </View>
                     </View>
                 </BottomSheet>

@@ -17,6 +17,7 @@ import { CheckBox } from 'react-native-elements';
 import RadioButtonRN from 'radio-buttons-react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { ip, finip } from '../navigator/IpConfig';
+import FastImage from 'react-native-fast-image';
 
 import {
   Input,

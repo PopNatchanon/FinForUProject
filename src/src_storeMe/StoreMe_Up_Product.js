@@ -89,10 +89,13 @@ export class StoreMe_Up_Image extends Component {
                 }}
               />
             </View>
-            <View style={styles.StoreMe_Up_Image_Box}>
-              <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
-              <Text style={{ color: '#0A55A6', fontSize: 12, }}>+เพิ่มรูปภาพ/วีดีโอ</Text>
-            </View>
+            <TouchableOpacity>
+              <View style={styles.StoreMe_Up_Image_Box}>
+                <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
+                <Text style={{ color: '#0A55A6', fontSize: 12, }}>+เพิ่มรูปภาพ/วีดีโอ</Text>
+              </View>
+            </TouchableOpacity>
+
           </View>
         </ScrollView>
         <Text style={{ marginLeft: 10, color: '#A3A3A3', fontSize: 12, }}> *สูงสุดรวม 6 รูป</Text>
@@ -114,6 +117,48 @@ export class StoreMe_Up_ProductDetail extends Component {
   render() {
     return (
       <View>
+
+        {/* หมวดหมู่สินค้า */}
+        <BottomSheet
+          ref={ref => {
+            this.CatagorySheet = ref;
+          }}
+          height={500}
+          duration={250}
+          customStyles={{
+            container: {
+              padding: 10,
+            }
+          }}
+        >
+          <View style={{ flex: 1, }}>
+            <Text style={{ fontSize: 20, }}>กรุณาเลือกหมวดหมู่สินค้า</Text>
+            <View style={styles.CatagorySheet}>
+              <View style={styles.CatagorySheet_Box}>
+                <FastImage style={{ height: 50, width: 50, }}
+                  source={{
+                    uri: ip + '/MySQL/uploads/head_product/menu/diamond.png',
+                  }}
+                />
+              </View>
+            </View>
+          </View>
+          <View style={styles.BottomSheet_Botton}>
+            <TouchableOpacity>
+              <View style={styles.BottomSheet_Botton_cancel}>
+                <Text>ยกเลิก</Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity>
+              <View style={styles.BottomSheet_Botton_OK}>
+                <Text style={{ color: '#FFF' }}>ตกลง</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </BottomSheet>
+
+        {/* ราคาสินค้า */}
         <BottomSheet
           ref={ref => {
             this.PriceSheet = ref;
@@ -122,14 +167,14 @@ export class StoreMe_Up_ProductDetail extends Component {
           duration={250}
           customStyles={{
             container: {
-              paddingTop:20,
-              alignItems: "center"
+              paddingTop: 20,
+              alignItems: "center",
             }
           }}
         >
-          <View>
+          <View style={styles.BottomSheet}>
             <Text style={{ fontSize: 20, }}>กรุณากรอกราคาสินค้า</Text>
-            <View style={{height:50, width:300, alignItems:'flex-end',borderColor:'#EAEAEA',borderWidth:1,marginTop:10,}}>
+            <View style={styles.BottomSheet_Box}>
               <TextInput
                 fontSize={20}
                 placeholder="0.00"
@@ -139,8 +184,176 @@ export class StoreMe_Up_ProductDetail extends Component {
                 value={this.state.price}
                 onChangeText={(price) => this.setState({ price })}></TextInput>
             </View>
+            <View style={styles.BottomSheet_Botton}>
+
+              <TouchableOpacity>
+                <View style={styles.BottomSheet_Botton_cancel}>
+                  <Text>ยกเลิก</Text>
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity>
+                <View style={styles.BottomSheet_Botton_OK}>
+                  <Text style={{ color: '#FFF' }}>ตกลง</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
         </BottomSheet>
+
+        {/* จำนวนที่มีสินค้าอยู่ในคลัง */}
+        <BottomSheet
+          ref={ref => {
+            this.TotalrSheet = ref;
+          }}
+          height={200}
+          duration={250}
+          customStyles={{
+            container: {
+              paddingTop: 20,
+              alignItems: "center",
+            }
+          }}
+        >
+          <Text style={{ fontSize: 20, }}>กรุณาเพิ่มจำนวนสินค้า</Text>
+          <View style={styles.BottomSheet_BoxTotal}>
+            <TouchableOpacity>
+              <View style={styles.TotalrSheet_botton}>
+                <IconAntDesign name='minus' size={25} />
+              </View>
+            </TouchableOpacity>
+            <TextInput
+              fontSize={20}
+              placeholder="1"
+              multiline
+              editable
+              maxLength={10}
+              value={this.state.Total}
+              onChangeText={(Total) => this.setState({ Total })}></TextInput>
+            <TouchableOpacity>
+              <View style={styles.TotalrSheet_botton}>
+                <IconAntDesign name='plus' size={25} />
+              </View>
+            </TouchableOpacity>
+
+          </View>
+          <View style={styles.BottomSheet_Botton}>
+
+            <TouchableOpacity>
+              <View style={styles.BottomSheet_Botton_cancel}>
+                <Text>ยกเลิก</Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity>
+              <View style={styles.BottomSheet_Botton_OK}>
+                <Text style={{ color: '#FFF' }}>ตกลง</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </BottomSheet>
+
+        {/* ตัวเลือกสินค้า */}
+        <BottomSheet
+          ref={ref => {
+            this.SelectSheet = ref;
+          }}
+          height={350}
+          duration={250}
+          customStyles={{
+            container: {
+              paddingTop: 20,
+              alignItems: "center",
+            }
+          }}
+        >
+          <View style={styles.SelectSheet}>
+            <View style={styles.SelectSheet_Box}>
+              <Text style={{ fontSize: 18, }}>สี</Text>
+              <Text style={{ fontSize: 18, color: '#0A55A6' }}>แก้ไข</Text>
+            </View>
+            <View style={{ flexDirection: 'row', }}>
+              <View style={styles.SelectSheet_TextInput}>
+                <TextInput
+                  fontSize={15}
+                  placeholder="สี"
+                  maxLength={10}
+                  value={this.state.Select}
+                  onChangeText={(Select) => this.setState({ Select })}></TextInput>
+              </View>
+              <View style={styles.SelectSheet_TextInput}>
+                <Text style={{ fontSize: 18, }}>+เพิ่ม</Text>
+              </View>
+            </View>
+            <View style={styles.SelectSheet_Box}>
+              <Text style={{ fontSize: 18, }}>ขนาด</Text>
+              <Text style={{ fontSize: 18, color: '#0A55A6' }}>แก้ไข</Text>
+            </View>
+            <View style={{ flexDirection: 'row', }}>
+              <View style={styles.SelectSheet_TextInput}>
+                <TextInput
+                  fontSize={15}
+                  placeholder="ขนาด"
+                  maxLength={10}
+                  value={this.state.Select}
+                  onChangeText={(Select) => this.setState({ Select })}></TextInput>
+              </View>
+              <View style={styles.SelectSheet_TextInput}>
+                <Text style={{ fontSize: 18, }}>+เพิ่ม</Text>
+              </View>
+            </View>
+          </View>
+          <View style={styles.BottomSheet_Botton}>
+            <TouchableOpacity>
+              <View style={styles.BottomSheet_Botton_cancel}>
+                <Text>ยกเลิก</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <View style={styles.BottomSheet_Botton_OK}>
+                <Text style={{ color: '#FFF' }}>ตกลง</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </BottomSheet>
+
+        {/* ขนาดพัสดุ */}
+        <BottomSheet
+          ref={ref => {
+            this.SizeSheet = ref;
+          }}
+          height={200}
+          duration={250}
+          customStyles={{
+            container: {
+              paddingTop: 20,
+              alignItems: "center",
+            }
+          }}
+        >
+          <View style={styles.SelectSheet}>
+            <Text style={{ fontSize: 20, }}>ขนาดพัสดุ</Text>
+            <View style={styles.SizeSheet_Box}>
+              <TouchableOpacity><View style={styles.SizeSheet_Boxsize}><Text>เล็ก</Text></View></TouchableOpacity>
+              <TouchableOpacity><View style={styles.SizeSheet_Boxsize}><Text>กลาง</Text></View></TouchableOpacity>
+              <TouchableOpacity><View style={styles.SizeSheet_Boxsize}><Text>ใหญ่</Text></View></TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.BottomSheet_Botton}>
+            <TouchableOpacity>
+              <View style={styles.BottomSheet_Botton_cancel}>
+                <Text>ยกเลิก</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <View style={styles.BottomSheet_Botton_OK}>
+                <Text style={{ color: '#FFF' }}>ตกลง</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </BottomSheet>
+
+
         <View style={styles.StoreMe_Up_ProductDetail}>
           <TextInput
             placeholder="ชื่อสินค้า"
@@ -164,7 +377,10 @@ export class StoreMe_Up_ProductDetail extends Component {
         <Text style={styles.StoreMe_Up_ProductDetail_TextMax}>100/5000 ตัวอักษร</Text>
         <View style={styles.StoreMe_Up_ProductDetail}>
           <Text style={styles.StoreMe_Up_ProductDetail_Text}>หมวดสินค้า</Text>
-          <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+          <TouchableOpacity onPress={() => {
+            this.CatagorySheet.open();
+          }}>
+            <IconEntypo name='chevron-right' size={35} color='#0A55A6' /></TouchableOpacity>
         </View>
         <View style={styles.StoreMe_Up_ProductDetail}>
           <Text style={styles.StoreMe_Up_ProductDetail_Text}>ราคา</Text>
@@ -172,39 +388,40 @@ export class StoreMe_Up_ProductDetail extends Component {
             this.PriceSheet.open();
           }}>
             <IconEntypo name='chevron-right' size={35} color='#0A55A6' /></TouchableOpacity>
-
         </View>
         <View style={styles.StoreMe_Up_ProductDetail}>
           <Text style={styles.StoreMe_Up_ProductDetail_Text}>คลัง</Text>
-          <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+          <TouchableOpacity onPress={() => {
+            this.TotalrSheet.open();
+          }}>
+            <IconEntypo name='chevron-right' size={35} color='#0A55A6' /></TouchableOpacity>
         </View>
         <View style={styles.StoreMe_Up_ProductDetail}>
           <Text style={styles.StoreMe_Up_ProductDetail_Text}>ตัวเลือกสินค้า</Text>
-          <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+          <TouchableOpacity onPress={() => {
+            this.SelectSheet.open();
+          }}>
+            <IconEntypo name='chevron-right' size={35} color='#0A55A6' /></TouchableOpacity>
+        </View>
+        <View style={styles.Text_ling_Box}>
+          <Text style={{ marginLeft: 10, color: '#A3A3A3', fontSize: 12, }}> ฉันจะเพิ่มตัวเลือกสินค้าได้อย่างไร</Text>
+          <TouchableOpacity>
+            <Text style={styles.Text_ling}>ไปยังศูนย์เรียนรู้ผู้ขาย</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.StoreMe_Up_ProductDetail}>
-          <Text style={styles.StoreMe_Up_ProductDetail_Text}>ขายส่ง</Text>
+          <View style={{ flexDirection: 'row', }}>
+            <Text style={styles.StoreMe_Up_ProductDetail_Text}>น้ำหนัก</Text>
+            <Text style={{ marginTop: 10, fontSize: 15, color: '#A3A3A3', }}>(ไม่จำเป็นต้องระบุ)</Text>
+          </View>
           <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
         </View>
         <View style={styles.StoreMe_Up_ProductDetail}>
           <Text style={styles.StoreMe_Up_ProductDetail_Text}>ขนาดพัสดุ</Text>
-          <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
-        </View>
-        <View style={styles.StoreMe_Up_ProductDetail}>
-          <Text style={styles.StoreMe_Up_ProductDetail_Text}>ค่าจัดส่ง</Text>
-          <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
-        </View>
-        <View style={styles.StoreMe_Up_ProductDetail}>
-          <Text style={styles.StoreMe_Up_ProductDetail_Text}>เตรียมสินค้านานกว่าปกติ</Text>
-          <CheckBox
-            size={30}
-            containerStyle={{ marginTop: -5 }}
-            checkedIcon='toggle-on'
-            checkedColor='#95F29F'
-            uncheckedIcon='toggle-off'
-            checked={this.state.item1}
-            onPress={() => this.setState({ item1: !this.state.item1 })}
-          />
+          <TouchableOpacity onPress={() => {
+            this.SizeSheet.open();
+          }}>
+            <IconEntypo name='chevron-right' size={35} color='#0A55A6' /></TouchableOpacity>
         </View>
         <View style={styles.StoreMe_Up_ProductDetail}>
           <Text style={styles.StoreMe_Up_ProductDetail_Text}>เผยแพร่สินค้า</Text>

@@ -133,7 +133,7 @@ export class MenubarSub extends Component {
         return (
             <View style={styles.MenubarSub}>
                 <View style={styles.MenubarSubLine1}>
-                    <View>
+                    <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
                         <FastImage
                             source={require('../../icon/truck-facing-right.png')}
                             style={styles.MenubarSubLine1Image}
@@ -143,7 +143,7 @@ export class MenubarSub extends Component {
                         ที่ต้องจัดส่ง
                         </Text>
                     </View>
-                    <View>
+                    <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
                         <FastImage
                             source={require('../../icon/box.png')}
                             style={styles.MenubarSubLine1Image}
@@ -153,7 +153,7 @@ export class MenubarSub extends Component {
                         ยกเลิก
                         </Text>
                     </View>
-                    <View>
+                    <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
                         <FastImage
                             source={require('../../icon/repeat.png')}
                             style={styles.MenubarSubLine1Image}
@@ -163,7 +163,7 @@ export class MenubarSub extends Component {
                         คืนสินค้า/คืนเงิน
                         </Text>
                     </View>
-                    <View>
+                    <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
                         <IconFeather name='more-horizontal' size={50} />
                         <Text style={styles.MenubarSubLine1Name}>
                         เพิ่มเติม
@@ -184,7 +184,7 @@ export class ListMenu extends Component {
             <View>
                 <View style={styles.ListMenu}>
 
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('LatestScreen')} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Up_Product')} >
                         <View style={styles.ListMenuList}>
                             <View style={styles.ListMenuListSub}>
                             <IconAntDesign RightItem name="plussquareo" size={35} color='#0A55A6' style={styles.ListMenuListSubIcon} />

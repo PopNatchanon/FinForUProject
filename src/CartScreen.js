@@ -12,9 +12,7 @@ import { CheckBox } from 'react-native-elements';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
 import FastImage from 'react-native-fast-image';
-
-import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Icons from 'react-native-vector-icons/FontAwesome';
+import Icons from 'react-native-vector-icons/FontAwesome5';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconFoundation from 'react-native-vector-icons/Foundation';
@@ -40,7 +38,7 @@ export default class CartScreen extends Component {
                     {/* <Product_Like /> */}
                     <Might_like />
                 </ScrollView>
-                <Buy_bar />
+                <Buy_bar navigation={this.props.navigation} />
             </SafeAreaView>
         );
     }
@@ -83,16 +81,7 @@ export class Product_Cart extends Component {
         return (
             <View style={styles_A.Product_Cart}>
                 <Text> สินค้าในรถเข็น </Text>
-                <CheckBox
-                    title='Click Here'
-                    checked={this.state.item1}
-                    onPress={() => this.setState({ item1: !this.state.item1 })}
-                />
-                <CheckBox
-                    title='Click Here'
-                    checked={this.state.item2}
-                    onPress={() => this.setState({ item2: !this.state.item2 })}
-                />
+
             </View>
         );
     }
@@ -159,7 +148,7 @@ export class Might_like extends Component {
                                 uri: dataMySQL,
                             }}
                             style={styles.PopularProductImage}
-                            
+
                         />
                         <Text style={styles.PopularProductImageName}>
                             {item.name}
@@ -237,7 +226,9 @@ export class Buy_bar extends Component {
                         <Text> ฿10,000</Text>
                     </View>
                     <View style={styles_A.BOX_Buy}>
-                        <Text style={styles_A.BOX_Buy_Text}>ชำระเงิน</Text>
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Customer_Order')} >
+                            <Text style={styles_A.BOX_Buy_Text}>ชำระเงิน</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>

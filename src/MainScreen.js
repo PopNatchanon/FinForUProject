@@ -284,15 +284,17 @@ export class Button_Bar extends Component {
         return (
             <View style={styles.Button_Bar} >
                 <ScrollView horizontal>
-                    <View style={styles.Button_Bar_Box}>
-                        <FastImage style={styles.Button_Bar_icon}
-                            source={{
-                                uri: ip + '/MySQL/uploads/icon_brand/DEW1.png',
+                    <TouchableOpacity>
+                        <View style={styles.Button_Bar_Box}>
+                            <FastImage style={styles.Button_Bar_icon}
+                                source={{
+                                    uri: ip + '/MySQL/uploads/icon_brand/DEW1.png',
 
-                            }}
+                                }}
 
-                        />
-                    </View>
+                            />
+                        </View></TouchableOpacity>
+
                     <View style={styles.Button_Bar_Box}>
                         <FastImage style={styles.Button_Bar_icon}
                             source={{

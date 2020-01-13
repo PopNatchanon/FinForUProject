@@ -14,7 +14,8 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import styles from '../../style/styleCart-src/styleCustomer_Order';
 import FastImage from 'react-native-fast-image';
 import IconEntypo from 'react-native-vector-icons/Entypo';
-import IconEvilIcons from 'react-native-vector-icons/EvilIcons'
+import IconEvilIcons from 'react-native-vector-icons/EvilIcons';
+import { CheckBox } from 'react-native-elements';
 import { ip } from '../../navigator/IpConfig';
 import BottomSheet from "react-native-raw-bottom-sheet";
 
@@ -36,7 +37,7 @@ export default class Customer_Order extends Component {
                 <ScrollView>
                     <Account />
                     <Order />
-                    <Option_payment />
+                    <Option_payment navigation={this.props.navigation} />
                 </ScrollView>
                 <Bar_payment />
             </SafeAreaView>
@@ -202,9 +203,23 @@ export class Option_payment extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            pathlist: 1,
         };
     }
+    PathList() {
+        switch (this.state.pathlist) {
+            case 0:
+                return (
+                    <Option_payment navigation={this.props.navigation} />
+                )
+            case 1:
+                return (
+                    <Payment_credit navigation={this.props.navigation} />
+                )
 
+
+        }
+    }
     render() {
         return (
             <View>
@@ -221,15 +236,31 @@ export class Option_payment extends Component {
                         }
                     }}
                 >
-                    <View style={{ alignItems: 'center', }}>
+                    <View style={{ alignItems: 'center', height: 'auto', }}>
                         <Text style={{ fontSize: 18, marginBottom: 10, }}>เลือกวิธีการชำระเงิน</Text>
                         <View style={styles.Payment_Box}>
                             <View style={styles.Payment_Box_Text}>
                                 <IconEntypo name='credit-card' size={20} />
                                 <Text style={styles.Payment_Text}>บัตรเครดิต / เดบิต </Text>
                             </View>
-                            <IconEntypo name='chevron-down' size={20} />
+                            {/* <CheckBox
+                                size={20}
+                                containerStyle={{ marginTop: -5 }}
+                                checkedIcon='chevron-up'
+                                uncheckedIcon='chevron-down'
+                                checked={this.state.item1}
+                                onPress={() => this.setState({ item1: !this.state.item1 })}
+                            /> */}
+                            <TouchableOpacity activeOpacity={0.9} onPress={() => { this.setState({ pathlist: 1 }) }} >
+                                <IconEntypo name='chevron-down' size={20} />
+                            </TouchableOpacity>
                         </View>
+                        {/* <View style={styles.Payment_Box}>
+                            <View style={styles.Payment_Box_Text}>
+                                <IconAntDesign name='plussquareo' size={15} />
+                                <Text style={styles.Payment_Text}>เพิ่มบัตรเครดิต </Text>
+                            </View>
+                        </View> */}
                         <View style={styles.Payment_Box}>
                             <View style={styles.Payment_Box_Text}>
                                 <IconFontAwesome5 name='mobile-alt' size={20} />
@@ -288,6 +319,28 @@ export class Option_payment extends Component {
         );
     }
 }
+///--------------------------------------------------------------------------///
+
+export class Payment_credit extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
+    render() {
+        return (
+            <View style={styles.Payment_Box}>
+                <View style={styles.Payment_Box_Text}>
+                    <IconAntDesign name='plussquareo' size={15} />
+                    <Text style={styles.Payment_Text}>เพิ่มบัตรเครดิต </Text>
+                </View>
+            </View>
+        );
+    }
+}
+
+
 
 ///--------------------------------------------------------------------------///
 

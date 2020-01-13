@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Button,
+  Picker,
 } from 'react-native';
 import axios from 'axios';
 import FastImage from 'react-native-fast-image';
@@ -22,6 +23,7 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import { CheckBox } from 'react-native-elements';
 import { ip } from '../../navigator/IpConfig';
 import BottomSheet from "react-native-raw-bottom-sheet";
+
 
 
 export default class StoreMe_Up_Product extends Component {
@@ -111,10 +113,47 @@ export class StoreMe_Up_ProductDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      dataSourcetype: [],
     };
+  }
+  getDatatype() {
+    var url = ip + '/MySQL/DataServiceMain.php';
+    var dataBody = {
+      type: 'type'
+    };
+    axios.post(
+      url,
+      dataBody,
+    ).then((getData) => {
+      this.setState({
+        dataSourcetype: getData.data,
+      })
+    })
+  }
+  componentDidMount() {
+    this.getDatatype()
   }
 
   render() {
+    let dataCategory = this.state.dataSourcetype.map((item, indexs) => {
+      var dataMySQL = [ip + '/mysql/uploads/head_product/menu', item.image_menu].join('/');
+      return (
+        <View key={indexs}>
+          <View style={styles.Category}>
+            <View style={styles.CatagorySheet_Box}>
+              <FastImage
+                source={{
+                  uri: dataMySQL,
+
+                }}
+                style={styles.Category_image}
+              />
+            </View>
+            <Text style={{ fontSize: 12, textAlign: 'center', }}>{item.name}</Text>
+          </View>
+        </View>
+      )
+    })
     return (
       <View>
 
@@ -133,29 +172,43 @@ export class StoreMe_Up_ProductDetail extends Component {
         >
           <View style={{ flex: 1, }}>
             <Text style={{ fontSize: 20, }}>กรุณาเลือกหมวดหมู่สินค้า</Text>
-            <View style={styles.CatagorySheet}>
-              <View style={styles.CatagorySheet_Box}>
-                <FastImage style={{ height: 50, width: 50, }}
-                  source={{
-                    uri: ip + '/MySQL/uploads/head_product/menu/diamond.png',
-                  }}
-                />
+            <ScrollView>
+              <View style={styles.CatagorySheet}>
+                {dataCategory}
               </View>
+              <Text style={{ fontSize: 15, }}>ประเภท</Text>
+              <View style={styles.cate_BoxA}>
+                <View style={styles.cate_Box}></View>
+                <View style={styles.cate_Box}></View>
+              </View>
+              <Text style={{ fontSize: 15, }}>ชนิด</Text>
+              <View style={{ height: 'auto', width: '100%', flexDirection: 'row', flexWrap: 'wrap', }}>
+                <View style={styles.cate_Box}></View>
+                <View style={styles.cate_Box}></View>
+                <View style={styles.cate_Box}></View>
+                <View style={styles.cate_Box}></View>
+                <View style={styles.cate_Box}></View>
+                <View style={styles.cate_Box}></View>
+              </View>
+            </ScrollView>
+          </View>
+
+          <View style={{justifyContent:'center', alignItems:'center',}}>
+            <View style={styles.BottomSheet_Botton}>
+              <TouchableOpacity>
+                <View style={styles.BottomSheet_Botton_cancel}>
+                  <Text>ยกเลิก</Text>
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity>
+                <View style={styles.BottomSheet_Botton_OK}>
+                  <Text style={{ color: '#FFF' }}>ตกลง</Text>
+                </View>
+              </TouchableOpacity>
             </View>
           </View>
-          <View style={styles.BottomSheet_Botton}>
-            <TouchableOpacity>
-              <View style={styles.BottomSheet_Botton_cancel}>
-                <Text>ยกเลิก</Text>
-              </View>
-            </TouchableOpacity>
 
-            <TouchableOpacity>
-              <View style={styles.BottomSheet_Botton_OK}>
-                <Text style={{ color: '#FFF' }}>ตกลง</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
         </BottomSheet>
 
         {/* ราคาสินค้า */}
@@ -317,6 +370,58 @@ export class StoreMe_Up_ProductDetail extends Component {
           </View>
         </BottomSheet>
 
+        {/* น้ำหนัก */}
+        <BottomSheet
+          ref={ref => {
+            this.WeightSheet = ref;
+          }}
+          height={200}
+          duration={250}
+          customStyles={{
+            container: {
+              paddingTop: 20,
+              alignItems: "center",
+            }
+          }}
+        >
+          <View style={styles.SelectSheet}>
+            <Text style={{ fontSize: 20, }}>กรุณาระบุน้ำหนัก</Text>
+            <View style={styles.WeightSheet_Box}>
+              <View style={styles.SelectSheet_TextInput}>
+                <TextInput
+                  fontSize={15}
+                  placeholder="น้ำหนัก"
+                  maxLength={10}
+                  value={this.state.Weight}
+                  onChangeText={(Weight) => this.setState({ Weight })}></TextInput>
+              </View>
+              <View style={styles.SelectSheet_TextInput}>
+                <Picker
+                  selectedValue={this.state.language}
+                  style={{ height: 50, width: 100 }}
+                  onValueChange={(itemValue, itemIndex) =>
+                    this.setState({ language: itemValue })
+                  }>
+                  <Picker.Item label="กิโลกรัม" value="java" />
+                  <Picker.Item label="กรัม" value="js" />
+                </Picker>
+              </View>
+            </View>
+          </View>
+          <View style={styles.BottomSheet_Botton}>
+            <TouchableOpacity>
+              <View style={styles.BottomSheet_Botton_cancel}>
+                <Text>ยกเลิก</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <View style={styles.BottomSheet_Botton_OK}>
+                <Text style={{ color: '#FFF' }}>ตกลง</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </BottomSheet>
+
         {/* ขนาดพัสดุ */}
         <BottomSheet
           ref={ref => {
@@ -414,7 +519,10 @@ export class StoreMe_Up_ProductDetail extends Component {
             <Text style={styles.StoreMe_Up_ProductDetail_Text}>น้ำหนัก</Text>
             <Text style={{ marginTop: 10, fontSize: 15, color: '#A3A3A3', }}>(ไม่จำเป็นต้องระบุ)</Text>
           </View>
-          <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+          <TouchableOpacity onPress={() => {
+            this.WeightSheet.open();
+          }}>
+            <IconEntypo name='chevron-right' size={35} color='#0A55A6' /></TouchableOpacity>
         </View>
         <View style={styles.StoreMe_Up_ProductDetail}>
           <Text style={styles.StoreMe_Up_ProductDetail_Text}>ขนาดพัสดุ</Text>

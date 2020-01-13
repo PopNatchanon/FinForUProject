@@ -226,7 +226,7 @@ export class Listbar extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            pathlist: 3,
+            pathlist: 0,
         }
     }
     PathList() {

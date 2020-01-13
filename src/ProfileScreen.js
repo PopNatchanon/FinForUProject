@@ -26,7 +26,7 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import styles from '../style/StylesProfileScreen'
-import { ip } from '../navigator/IpConfig';
+import { finip, ip } from '../navigator/IpConfig';
 export const { width, height } = Dimensions.get('window');
 import { Toolbar, TabBar } from './tools/Tools'
 
@@ -71,32 +71,9 @@ export class Headbar extends Component {
         super(props)
     }
     render() {
-        {/* <View style={styles.HeadbarA}>
-            <View style={styles.HeadbarBox1}>
-                <Image style={styles.HeadbarBoxImage} />
-            </View>
-            <View>
-                <Text style={styles.HeadbarText}>
-                    เข้าสู่ระบบเพื่อการช๊อปที่ดียิ่งขึ้น
-                </Text>
-                <TouchableOpacity
-                    activeOpacity={1}
-                    onPress={
-                        () => this.props.navigation.navigate(
-                            'LoginScreen'
-                        )
-                    }
-                >
-                    <View style={styles.HeadbarBox2}>
-                        <Text style={styles.HeadbarBox2Text}>
-                            เข้าสู่ระบบ/สมัครสมาชิก
-                        </Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-        </View> */}
-        // console.log(this.props)
         const { currentUser } = this.props;
+        console.log(currentUser)
+        const uri = [finip, currentUser.image_path, currentUser.image].join('/')
         return (
             <View>
                 <ImageBackground
@@ -116,6 +93,7 @@ export class Headbar extends Component {
                                     </View>
                                 </TouchableOpacity>
                                 <FastImage
+                                    source={{ uri: uri }}
                                     style={styles.HeadbarBoxImage}
                                 />
                             </View>
@@ -276,7 +254,7 @@ export class Listbar extends Component {
                         <TouchableOpacity activeOpacity={0.9} onPress={() => { this.setState({ pathlist: 0 }) }}>
                             <View style={{ flexDirection: 'column', alignItems: 'center', }}>
                                 <View style={{ width: 60, height: 60, marginTop: 18, alignItems: 'center', backgroundColor: '#0A55A6', borderRadius: 30, }}>
-                                    <IconAntDesign name='home' size={40} style={{ marginTop: 'auto', marginBottom: 'auto' }} />
+                                    <IconAntDesign name='home' size={40} style={{ marginTop: 'auto', marginBottom: 'auto', color: '#fff' }} />
                                 </View>
                                 <Text style={styles.ListbarBoxText}>
                                     หน้าหลัก
@@ -286,10 +264,7 @@ export class Listbar extends Component {
                     </View>
                     <View style={{ flexDirection: 'column', width: width * (1 / 4), alignItems: 'center' }}>
                         <View style={{ width: 60, height: 60, marginTop: 18, alignItems: 'center', backgroundColor: '#B6B6B4', borderRadius: 30, }}>
-                            <FastImage
-                                source={require('../icon/truck-facing-right.png')}
-                                style={{ height: 40, width: 40, marginTop: 'auto', marginBottom: 'auto' }}
-                            />
+                            <IconFeather name='home' size={40} style={{ marginTop: 'auto', marginBottom: 'auto', color: '#fff' }} />
                         </View>
                         <Text style={styles.ListbarBoxText}>
                             โปรโมชัน
@@ -573,7 +548,27 @@ export class CoinCollect extends Component {
         switch (this.state.pathlist) {
             case 0:
                 return (
-                    <CoinPageBody />
+                    <View>
+                        <CoinPageBody />
+                    </View>
+                )
+            case 1:
+                return (
+                    <View>
+                        <CoinPageBody />
+                    </View>
+                )
+            case 2:
+                return (
+                    <View>
+                        <CoinPageBody />
+                    </View>
+                )
+            case 3:
+                return (
+                    <View>
+                        <CoinPageBody />
+                    </View>
                 )
         }
     }
@@ -593,6 +588,7 @@ export class CoinCollect extends Component {
         }, {
             name: 'อื่นๆ'
         }]
+        const coin = 1000;
         return (
             <View>
                 <View style={{ marginTop: 10, backgroundColor: '#11B7DC', height: 110, width }}>
@@ -612,7 +608,18 @@ export class CoinCollect extends Component {
                             </Text>
                             <View style={{ alignItems: 'center', alignContent: 'center' }}>
                                 <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
-                                    1000
+                                    <NumberFormat
+                                        value={coin}
+                                        displayType={'text'}
+                                        thousandSeparator={true}
+                                        renderText={
+                                            value => <Text style={
+                                                styles.PopularProductImagePrice
+                                            }>
+                                                {value}
+                                            </Text>
+                                        }
+                                    />
                                 </Text>
                             </View>
                         </View>
@@ -648,12 +655,12 @@ export class CoinPageBody extends Component {
                             style={{ width: '100%', height: '100%' }}
                         />
                     </View>
-                    <View style={{ flexDirection: 'row' }}>
-                        <View style={{ padding: 4, width: width * 0.89 }}>
-                            <Text>ส่วนลด 10% สำหรับร้าน เพชร ส่วนลด 10% สำหรับร้าน เพชร ส่วนลด 10% สำหรับร้าน เพชร</Text>
+                    <View style={{ flexDirection: 'row', width }}>
+                        <View style={{ padding: 4, width: width * 0.65 }}>
+                            <Text>ส่วนลด 10% สำหรับร้าน เพชร </Text>
                         </View>
-                        <View style={{ backgroundColor: '#0A55A6' }}>
-                            <Text>แลก 10 coin</Text>
+                        <View style={{ backgroundColor: '#0A55A6', width: 120, alignItems: 'center', marginTop: 4, borderRadius: 4 }}>
+                            <Text style={{ marginBottom: 'auto', marginTop: 'auto', color: '#fff' }}>แลก 10 coin</Text>
                         </View>
                     </View>
                 </View>

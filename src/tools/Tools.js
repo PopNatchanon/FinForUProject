@@ -96,7 +96,9 @@ export class TabBar extends Component {
             pathlist: 0,
         }
     }
-    /*<TabBar
+    /*
+    // v0.5.13012020
+    // <TabBar
     // /////ส่งออกมาจากTabBarและส่งค่าที่คลิกไปยังฟังก์ชันgetData
     // sendData={this.getData}
     // /////|Arrey| ส่งค่าArreyที่ต้องการสร้างTabเข้าในฟังก์ชัน
@@ -125,111 +127,131 @@ export class TabBar extends Component {
     // inactiveFontColor='#fff'   
     // /////|none|box| กำหนดรูปแบบของbox
     // type='box'
+    // /////|color| กำหนดสีพื้นหลังสำหรับไม่มีbox
+    // spaceColor='#fff'
+    // /////|color| กำหนดสีตัวอักษรทั้งหมด
+    // fontColor='#fff'
     />*/
     tab() {
-        const { item, activeColor, activeWidth, type, radiusBox, activeFontColor, inactiveFontColor, inactiveColor, inactiveBoxColor, boxSpace, direction, alignBox, widthBox } = this.props;
+        const {
+            item, activeColor, activeWidth, type, radiusBox, activeFontColor, inactiveFontColor, inactiveColor, inactiveBoxColor,
+            boxSpace, direction, alignBox, widthBox, spaceColor, fontColor
+        } = this.props;
         // console.log(this.props.radiusBox)
         const countItem = item.length;
         return item.map((item, index) => {
             // console.log(item.name, index, num)
             return (
-                <TouchableOpacity onPress={() => { this.setState({ pathlist: index }), this.props.sendData(index); }} key={index}>
-                    {
-                        this.state.pathlist == index ?
-                            <View style={{
-                                width: type == 'box' ?
-                                    boxSpace == 'nospace' ?
+                <View key={index}>
+                    <TouchableOpacity activeOpacity={
+                        type == 'box' ?
+                            0.2 :
+                            1
+                    } onPress={() => { this.setState({ pathlist: index }), this.props.sendData(index); }}>
+                        {
+                            this.state.pathlist == index ?
+                                <View style={{
+                                    width:
+                                        type == 'box' ?
+                                            boxSpace == 'nospace' ?
+                                                null :
+                                                width * (1 / countItem) :
+                                            boxSpace == 'nospace' ?
+                                                widthBox ? widthBox : width * (1 / countItem) :
+                                                width * (1 / countItem),
+                                    borderLeftWidth: type == 'tag' ? index == 0 ? null : 0.5 : null,
+                                    borderRightWidth: type == 'tag' ? index == countItem ? null : 0.5 : null,
+                                    alignContent: 'center',
+                                    alignItems: 'center',
+                                    borderBottomColor: type == 'box' ?
                                         null :
-                                        width * (1 / countItem) :
-                                    width * (1 / countItem),
-                                alignContent: 'center',
-                                alignItems: 'center',
-                                borderBottomWidth: type == 'box' ?
-                                    null :
-                                    activeWidth ? activeWidth : 4,
-                                borderBottomColor: type == 'box' ?
-                                    null :
-                                    activeColor ? activeColor : '#0A55A6',
-                            }}>
-                                <View style={
-                                    type == 'box' ?
-                                        {
-                                            width:
-                                                widthBox >= 0 ?
-                                                    widthBox <= 100 ?
-                                                        width * (1 / (countItem * (1 + ((100 - widthBox) / 100)))) :
-                                                        width * (1 / (countItem * 1.2)) :
-                                                    width * (1 / (countItem * 1.2)),
-                                            padding: 6,
-                                            borderLeftWidth: boxSpace == 'nospace' ? 0.5 : null,
-                                            borderRightWidth: boxSpace == 'nospace' ? 0.5 : null,
-                                            borderWidth: 1,
-                                            borderColor: activeColor ? activeColor : '#0A55A6',
-                                            backgroundColor: activeColor ? activeColor : '#0A55A6',
-                                            // marginBottom: 8,
-                                            alignContent: 'center',
-                                            alignItems: 'center',
-                                            borderRadius: radiusBox ? radiusBox : 0,
-                                        } :
-                                        null
-                                }>
-                                    <Text style={{
-                                        fontSize: 14,
-                                        color: type == 'box' ?
-                                            activeFontColor ? activeFontColor : 'white'
-                                            :
-                                            activeFontColor ? activeFontColor : 'black'
-                                    }}>
-                                        {item.name}
-                                    </Text>
+                                        activeColor ? activeColor : '#0A55A6',
+                                    borderBottomWidth: type == 'tag' ? null : type == 'box' ? null : 4
+                                }}>
+                                    <View style={
+                                        type == 'box' ?
+                                            {
+                                                width:
+                                                    widthBox >= 0 ?
+                                                        widthBox <= 100 ?
+                                                            width * (1 / (countItem * (1 + ((100 - widthBox) / 100)))) :
+                                                            width * (1 / (countItem * 1.2)) :
+                                                        width * (1 / (countItem * 1.2)),
+                                                padding: 6,
+                                                borderLeftWidth: boxSpace == 'nospace' ? 0.5 : null,
+                                                borderRightWidth: boxSpace == 'nospace' ? 0.5 : null,
+                                                borderWidth: 1,
+                                                borderColor: activeColor ? activeColor : '#0A55A6',
+                                                backgroundColor: activeColor ? activeColor : '#0A55A6',
+                                                alignContent: 'center',
+                                                alignItems: 'center',
+                                                borderRadius: radiusBox ? radiusBox : 0,
+                                            } :
+                                            null
+                                    }>
+                                        <Text style={{
+                                            fontSize: 14,
+                                            color: type == 'box' ?
+                                                activeFontColor ? activeFontColor : fontColor ? fontColor : 'white' :
+                                                activeFontColor ? activeFontColor : fontColor ? fontColor : 'black'
+                                        }}>
+                                            {item.name}
+                                        </Text>
+                                    </View>
+                                </View> :
+                                <View style={{
+                                    width:
+                                        type == 'box' ?
+                                            boxSpace == 'nospace' ?
+                                                null :
+                                                width * (1 / countItem) :
+                                            boxSpace == 'nospace' ?
+                                                widthBox ? widthBox : width * (1 / countItem) :
+                                                width * (1 / countItem),
+                                    borderLeftWidth: type == 'tag' ? index == 0 ? null : 0.5 : null,
+                                    borderRightWidth: type == 'tag' ? index == countItem ? null : 0.5 : null,
+                                    alignContent: 'center', alignItems: 'center'
+                                }}>
+                                    <View style={
+                                        type == 'box' ?
+                                            {
+                                                width:
+                                                    widthBox >= 0 ?
+                                                        widthBox <= 100 ?
+                                                            width * (1 / (countItem * (1 + ((100 - widthBox) / 100)))) :
+                                                            width * (1 / (countItem * 1.2)) :
+                                                        width * (1 / (countItem * 1.2)),
+                                                padding: 6,
+                                                borderLeftWidth: boxSpace == 'nospace' ? 0.5 : null,
+                                                borderRightWidth: boxSpace == 'nospace' ? 0.5 : null,
+                                                borderWidth: 1,
+                                                backgroundColor: inactiveBoxColor ? inactiveBoxColor : null,
+                                                borderColor: inactiveColor ? inactiveColor : 'black',
+                                                alignContent: 'center',
+                                                alignItems: 'center',
+                                                borderRadius: radiusBox ? radiusBox : 0,
+                                            } :
+                                            null
+                                    }>
+                                        <Text style={{
+                                            fontSize: 14,
+                                            color: inactiveFontColor ? inactiveFontColor : fontColor ? fontColor : 'black'
+                                        }}>
+                                            {item.name}
+                                        </Text>
+                                    </View>
                                 </View>
-                            </View>
-                            :
-                            <View style={{
-                                width: type == 'box' ?
-                                    boxSpace == 'nospace' ?
-                                        null :
-                                        width * (1 / countItem) :
-                                    width * (1 / countItem),
-                                alignContent: 'center', alignItems: 'center'
-                            }}>
-                                <View style={
-                                    type == 'box' ?
-                                        {
-                                            width:
-                                                widthBox >= 0 ?
-                                                    widthBox <= 100 ?
-                                                        width * (1 / (countItem * (1 + ((100 - widthBox) / 100)))) :
-                                                        width * (1 / (countItem * 1.2)) :
-                                                    width * (1 / (countItem * 1.2)),
-                                            padding: 6,
-                                            borderLeftWidth: boxSpace == 'nospace' ? 0.5 : null,
-                                            borderRightWidth: boxSpace == 'nospace' ? 0.5 : null,
-                                            borderWidth: 1,
-                                            backgroundColor: inactiveBoxColor ? inactiveBoxColor : null,
-                                            borderColor: inactiveColor ? inactiveColor : 'black',
-                                            // marginBottom: 8,
-                                            alignContent: 'center',
-                                            alignItems: 'center',
-                                            borderRadius: radiusBox ? radiusBox : 0,
-                                        } :
-                                        null
-                                }>
-                                    <Text style={{
-                                        fontSize: 14,
-                                        color: inactiveFontColor ? inactiveFontColor : 'black'
-                                    }}>
-                                        {item.name}
-                                    </Text>
-                                </View>
-                            </View>
-                    }
-                </TouchableOpacity >
+                        }
+                    </TouchableOpacity >
+                </View >
             )
         })
     }
     render() {
-        const { item, fontStyles, activeColor, activeWidth, type, radiusBox, activeFontColor, inactiveColor, boxSpace, direction, alignBox } = this.props;
+        const {
+            item, activeColor, activeWidth, type, radiusBox, activeFontColor, inactiveFontColor, inactiveColor, inactiveBoxColor,
+            boxSpace, direction, alignBox, widthBox, spaceColor, fontColor
+        } = this.props;
         return (
             <View style={
                 type == 'box' ?
@@ -246,8 +268,9 @@ export class TabBar extends Component {
                     } :
                     {
                         paddingTop: 10,
-                        borderWidth: 1,
-                        borderColor: '#ECECEC',
+                        borderWidth: type == 'tag' ? null : boxSpace == 'nospace' ? null : 1,
+                        backgroundColor: spaceColor ? spaceColor : null,
+                        borderColor: type == 'tag' ? null : spaceColor ? spaceColor : '#ECECEC',
                         flexDirection: direction == 'column' ? 'column' : 'row',
                         width,
                     }

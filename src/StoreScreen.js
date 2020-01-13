@@ -292,11 +292,11 @@ export class Menubar extends Component {
     render() {
         const { selectedIndex } = this.state
         const item = [{
-            name: 'โค้ดที่ใช้ได้'
+            name: 'หน้าหลัก'
         }, {
-            name: 'โค้ดที่ใช้ไปแล้ว'
+            name: 'สินค้าทั้งหมด'
         }, {
-            name: 'โ่ค้ดที่หมดอายุ'
+            name: 'ฟีด'
         }]
         return (
             <View>
@@ -899,59 +899,47 @@ export class SubMenu extends Component {
             )
         } else if (selectedIndex == 1) {
             return (
-                <View></View>
+                <View>
+                    <ShowProduct navigation={this.props.navigation} />
+                </View>
             )
         } else if (selectedIndex == 2) {
             return (
-                <View></View>
+                <View>
+                    <ShowProduct navigation={this.props.navigation} />
+                </View>
             )
         } else if (selectedIndex == 3) {
             return (
-                <View></View>
+                <View>
+                    <ShowProduct navigation={this.props.navigation} />
+                </View>
             )
         }
     }
 
     render() {
+        const item = [{
+            name: 'ยอดนิยม'
+        }, {
+            name: 'ล่าสุด'
+        }, {
+            name: 'สินค้าขายดี'
+        }, {
+            name: 'ราคา'
+        }]
         const { selectedIndex } = this.state
         return (
             <View>
                 <View style={styles.SubMenu}>
-                    <View style={{ marginLeft: 'auto', marginRight: 'auto' }}>
-                        <Text style={{ fontSize: 16, marginTop: 14, color: '#0A55A6' }}>
-                            ยอดนิยม
-                        </Text>
-                    </View>
-                    <View>
-                        <Text style={{ fontSize: 22, marginTop: 12, }}>
-                            |
-                        </Text>
-                    </View>
-                    <View style={{ marginLeft: 'auto', marginRight: 'auto' }}>
-                        <Text style={{ fontSize: 16, marginTop: 14, }}>
-                            ล่าสุด
-                        </Text>
-                    </View>
-                    <View>
-                        <Text style={{ fontSize: 22, marginTop: 12, }}>
-                            |
-                        </Text>
-                    </View>
-                    <View style={{ marginLeft: 'auto', marginRight: 'auto' }}>
-                        <Text style={{ fontSize: 16, marginTop: 14, }}>
-                            สินค้าขายดี
-                        </Text>
-                    </View>
-                    <View>
-                        <Text style={{ fontSize: 22, marginTop: 12, }}>
-                            |
-                        </Text>
-                    </View>
-                    <View style={{ marginLeft: 'auto', marginRight: 'auto' }}>
-                        <Text style={{ fontSize: 16, marginTop: 14, }}>
-                            ราคา
-                        </Text>
-                    </View>
+                    <TabBar
+                        sendData={this.updateIndex}
+                        item={item}
+                        // widthBox={98}
+                        activeColor={'#fff'}
+                        activeFontColor={'#0A55A6'}
+                        type='tag'
+                    />
                 </View>
                 {this.ViewSide(selectedIndex)}
             </View>

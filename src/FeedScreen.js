@@ -23,7 +23,7 @@ import IconEntypo from 'react-native-vector-icons/Entypo'
 import styles from '../style/stylesFeedScreen';
 import { ip } from '../navigator/IpConfig'
 export const { width, height } = Dimensions.get('window');
-import { Toolbar } from './tools/Tools'
+import { Toolbar, TabBar } from './tools/Tools'
 
 
 export default class FeedScreen extends Component {
@@ -78,11 +78,7 @@ export class Button_Bar extends Component {
     this.state = {
       selectedIndex: 0
     }
-    this.updateIndex = this.updateIndex.bind(this)
-  }
-
-  updateIndex(selectedIndex) {
-    this.setState({ selectedIndex })
+    this.getData = this.getData.bind(this)
   }
   ViewSide(selectedIndex) {
     // const { s_name, s_image } = this.props;
@@ -93,7 +89,6 @@ export class Button_Bar extends Component {
             <Follow_up />
           </SafeAreaView>
         );
-        break;
       case 1:
         return (
           <SafeAreaView>
@@ -103,35 +98,32 @@ export class Button_Bar extends Component {
       default:
     }
   }
-
+  getData(val) {
+    // console.log(val);
+    this.setState({
+      selectedIndex: val
+    });
+  }
   render() {
-    const component1 = () => <Text>กำลังติดตาม</Text>
-    const component2 = () => <Text>ไฮไลต์</Text>
-    const buttons = [{ element: component1 }, { element: component2 }]
+    const item = [{
+      name: 'กำลังติดตาม'
+    }, {
+      name: 'ไฮไลต์'
+    }]
     const { selectedIndex } = this.state
     return (
       <View>
-        <View style={styles.Button_Bar}>
-          <ButtonGroup
-            onPress={this.updateIndex}
-            selectedIndex={selectedIndex}
-            buttons={buttons}
-            containerStyle={{
-              height: 33,
-              width: 200,
-              borderWidth: 0,
-              backgroundColor: '#0A55A6'
-            }}
-            selectedButtonStyle={{
-              backgroundColor: '#ffffff',
-              borderTopColor: '#ffffff',
-              borderTopWidth: 4
-            }}
-            selectedTextStyle={{
-              // color: '#FFFFFF',
-            }}
-          />
-        </View>
+        {/* <View style={styles.Button_Bar}> */}
+        <TabBar
+          sendData={this.getData}
+          item={item}
+          boxSpace='nospace'
+          widthBox={100}
+          spaceColor='#0A55A6'
+          activeColor='#fff'
+          fontColor='#fff'
+        />
+        {/* </View> */}
         {this.ViewSide(selectedIndex)}
       </View>
     );
@@ -310,14 +302,14 @@ export class Highlights extends Component {
           <View style={styles.StoreFeedBox}>
 
             <FastImage
-                source={{
-                  uri: dataMySQL_p,
-                }}
-                style={styles.StoreFeedImage}
-              />
-              
-              
-           
+              source={{
+                uri: dataMySQL_p,
+              }}
+              style={styles.StoreFeedImage}
+            />
+
+
+
 
             <View style={styles.StoreFeedComBox}>
               <Text style={styles.StoreFeedComBoxDetail}>

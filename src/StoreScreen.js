@@ -73,14 +73,11 @@ export default class StoreScreen extends Component {
         return (
             <SafeAreaView>
                 <AppBar leftBar='backarrow' rightBar='storebar' navigation={this.props.navigation} />
-                <ScrollView nestedScrollEnabled = {true}>
-                    <ScrollView nestedScrollEnabled = {true}>
-                        <StoreHead navigation={this.props.navigation} item={{ name: s_name, image: s_image }} />
-                        <StoreHeadDetails navigation={this.props.navigation} id_item={s_id_store} />
-                    </ScrollView>
+                <ScrollView>
+                    <StoreHead navigation={this.props.navigation} item={{ name: s_name, image: s_image }} />
+                    <StoreHeadDetails navigation={this.props.navigation} id_item={s_id_store} />
                     <Menubar navigation={this.props.navigation} s_name={s_name} s_image={s_image} />
                 </ScrollView>
-                <View></View>
             </SafeAreaView>
         );
     }
@@ -279,7 +276,7 @@ export class Menubar extends Component {
             name: 'ฟีด'
         }]
         return (
-            <SafeAreaView>
+            <View style={styles.SafeAreaView}>
                 <View style={styles.Menubar}>
                     <TabBar
                         sendData={this.getData}
@@ -289,10 +286,12 @@ export class Menubar extends Component {
                         type='box'
                     />
                 </View>
-                <ScrollView>
-                    {this.ViewSide(selectedIndex)}
-                </ScrollView>
-            </SafeAreaView>
+                <View style={{ height: '80%' }}>
+                    <ScrollView>
+                        {this.ViewSide(selectedIndex)}
+                    </ScrollView>
+                </View>
+            </View>
         )
     }
 }

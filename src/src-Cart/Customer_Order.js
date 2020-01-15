@@ -240,7 +240,7 @@ export class Option_payment extends Component {
                     }}>
                         <View style={[styles.Payment_Box_Text, { width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1, }]}>
                             <IconAntDesign name='plussquareo' size={15} />
-                            <Text style={styles.Payment_Text}>เพิ่มบัตรเครดิต </Text>
+                            <Text style={styles.Payment_Text}>เพิ่มบัตรเครดิต</Text>
                         </View>
                         <View style={[styles.Payment_Box_Text, { width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1, marginTop: 10 }]}>
                             <IconAntDesign name='plussquareo' size={15} />

@@ -45,7 +45,7 @@ export default class MainScreen extends Component {
                 <ScrollView>
                     <Slide />
                     <Category />
-                    <Button_Bar />
+                    <Button_Bar navigation={this.props.navigation} />
                     <Brand_RCM />
                     <Popular_product />
                     <BannerBar_ONE />
@@ -300,7 +300,6 @@ export class Category extends Component {
                         <FastImage
                             source={{
                                 uri: dataMySQL,
-
                             }}
                             style={styles.Category_image}
                         />
@@ -333,7 +332,7 @@ export class Button_Bar extends Component {
         return (
             <View style={styles.Button_Bar} >
                 <ScrollView horizontal>
-                    <TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('DealScreen')}>
                         <View style={styles.Button_Bar_Box}>
                             <FastImage style={styles.Button_Bar_icon}
                                 source={{
@@ -342,44 +341,54 @@ export class Button_Bar extends Component {
                                 }}
 
                             />
-                        </View></TouchableOpacity>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('CoinScreen')} >
+                        <View style={styles.Button_Bar_Box}>
+                            <FastImage style={styles.Button_Bar_icon}
+                                source={{
+                                    uri: ip + '/MySQL/uploads/icon_brand/Fincoin2.png',
 
-                    <View style={styles.Button_Bar_Box}>
-                        <FastImage style={styles.Button_Bar_icon}
-                            source={{
-                                uri: ip + '/MySQL/uploads/icon_brand/Fincoin2.png',
+                                }}
 
-                            }}
+                            />
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('CampaignScreen')}>
+                        <View style={styles.Button_Bar_Box}>
+                            <FastImage style={styles.Button_Bar_icon}
+                                source={{
+                                    uri: ip + '/MySQL/uploads/icon_brand/Campaign3.png',
 
-                        />
-                    </View>
-                    <View style={styles.Button_Bar_Box}>
-                        <FastImage style={styles.Button_Bar_icon}
-                            source={{
-                                uri: ip + '/MySQL/uploads/icon_brand/Campaign3.png',
+                                }}
 
-                            }}
+                            />
+                        </View>
+                    </TouchableOpacity>
 
-                        />
-                    </View>
-                    <View style={styles.Button_Bar_Box}>
-                        <FastImage style={styles.Button_Bar_icon}
-                            source={{
-                                uri: ip + '/MySQL/uploads/icon_brand/Coupon4.png',
+                    <TouchableOpacity>
+                        <View style={styles.Button_Bar_Box}>
+                            <FastImage style={styles.Button_Bar_icon}
+                                source={{
+                                    uri: ip + '/MySQL/uploads/icon_brand/Fin_Fin3.png',
 
-                            }}
+                                }}
 
-                        />
-                    </View>
-                    <View style={styles.Button_Bar_Box}>
-                        <FastImage style={styles.Button_Bar_icon}
-                            source={{
-                                uri: ip + '/MySQL/uploads/icon_brand/Payment5.png',
+                            />
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <View style={styles.Button_Bar_Box}>
+                            <FastImage style={styles.Button_Bar_icon}
+                                source={{
+                                    uri: ip + '/MySQL/uploads/icon_brand/Payment5.png',
 
-                            }}
+                                }}
 
-                        />
-                    </View>
+                            />
+                        </View>
+                    </TouchableOpacity>
+
                 </ScrollView>
             </View>
         );
@@ -639,9 +648,7 @@ export class Popular_product extends Component {
                                         style={styles.Popular_image_Box}
                                         source={{
                                             uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg',
-
                                         }}
-
                                     />
                                 </View>
                                 <View style={styles.Popular_Box_D}>
@@ -653,9 +660,7 @@ export class Popular_product extends Component {
                                         style={styles.Popular_image_Box}
                                         source={{
                                             uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png',
-
                                         }}
-
                                     />
                                 </View>
                             </View>
@@ -1864,6 +1869,7 @@ export class TodayProduct extends Component {
     }
 
     render() {
+        const { noTitle } = this.props
         let dataToday = this.state.dataSourceTodayProduct.map((item, indexs) => {
             // console.log( indexs + '. ' + item.image ),
             var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
@@ -1912,9 +1918,13 @@ export class TodayProduct extends Component {
         })
         return (
             <View style={styles.TodayProduct}>
-                <Text style={styles.TodayProductText}>
-                    สินค้าคัดสรรเพื่อคุณ
-                </Text>
+                {
+                    noTitle ?
+                        null :
+                        <Text style={styles.TodayProductText}>
+                            สินค้าคัดสรรเพื่อคุณ
+                        </Text>
+                }
                 <View style={styles.TodayProductBoxProduct}>
                     {dataToday}
                 </View>

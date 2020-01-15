@@ -920,7 +920,7 @@ export default StyleSheet.create({
   Button_Bar_icon: {
     borderRadius: 4,
     height: '100%',
-    width: 100,
+    width: 130,
     resizeMode: 'stretch',
   },
 

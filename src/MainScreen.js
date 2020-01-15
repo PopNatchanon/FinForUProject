@@ -8,6 +8,7 @@ import {
     SafeAreaView,
     TouchableOpacity,
     Dimensions,
+    Image
 } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import axios from 'axios';
@@ -57,7 +58,7 @@ export default class MainScreen extends Component {
                     <Confidential_PRO />
                     <Product_for_you navigation={this.props.navigation} />
                     <CategoryProduct navigation={this.props.navigation} />
-                    <Second_product />
+                    <Second_product navigation={this.props.navigation} />
                     <BannerBar_THREE />
                     <TodayProduct navigation={this.props.navigation} />
                 </ScrollView>
@@ -77,30 +78,72 @@ export class AppBar extends Component {
     }
 
     render() {
+        const { leftBar, rightBar } = this.props
         return (
             <View style={styles.Appbar}>
-                <FastImage
-                    style={styles.LOGO}
-                    source={require('../images/sj.png')}
+                {
+                    leftBar == 'backarrow' ?
+                        <View>
+                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
+                                <IconFeather name="arrow-left" size={30} />
+                            </TouchableOpacity>
+                        </View> :
+                        null
+                }
+                <View style={{
+                    width:
+                        rightBar == 'storebar' ?
+                            width * (1 - (0.9 * (0.1 * 3))) :
+                            width * (1 - (1 * (0.1 * 2))),
+                    marginLeft: 6, flexDirection: 'row', borderWidth: 1, borderColor: '#E5E5E5', backgroundColor: '#fff'
+                }}>
+                    <FastImage
+                        style={styles.LOGO}
+                        source={require('../images/sj.png')}
+                    />
+                    <View style={{
+                        height: 40,
+                        width:
+                            rightBar == 'storebar' ?
+                                width * (0.83 - (0.9 * (0.1 * 3))) :
+                                width * (0.83 - (1 * (0.1 * 2))),
+                        marginBottom: 'auto', marginTop: 'auto',
+                    }}>
+                        <TextInput style={styles.TextInput, {
+                            fontFamily: 'SukhumvitSet',
+                            fontSize: 15,
+                        }}
+                            placeholder="ค้นหาสินค้า/ร้านค้า"
+                            value={this.state.text}
+                            maxLength={30}
+                            onChangeText={(text) => this.setState({ text })}>
 
-                />
-                <View style={{ height: 40, width: 230, }}>
-                    <TextInput style={styles.TextInput, {
-                        fontFamily: 'SukhumvitSet',
-                        fontSize: 15,
-                    }}
-                        placeholder="ค้นหาสินค้า/ร้านค้า"
-                        value={this.state.text}
-                        maxLength={30} s
-                        onChangeText={(text) => this.setState({ text })}>
-
-                    </TextInput>
+                        </TextInput>
+                    </View>
+                    <IconAntDesign RightItem name="search1" size={20} style={{ marginBottom: 'auto', marginTop: 'auto' }} />
                 </View>
-
-                <IconAntDesign RightItem name="search1" size={25} style={{ marginTop: 5, }} />
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('CartScreen')}>
-                    <IconAntDesign RightItem name="shoppingcart" size={25} style={{ marginTop: 5, }} />
-                </TouchableOpacity>
+                {
+                    rightBar == 'storebar' ?
+                        <View style={{ paddingRight: 4, flexDirection: 'row' }}>
+                            <TouchableOpacity style={{ width: width * 0.09, alignContent: 'center', alignItems: 'center' }} onPress={null/*() => this.props.navigation.navigate('CartScreen')*/}>
+                                <IconFeather RightItem name="filter" size={25} style={{ marginTop: 5, }} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={{ width: width * 0.09, alignContent: 'center', alignItems: 'center' }} onPress={null/*() => this.props.navigation.navigate('CartScreen')*/}>
+                                <Icon RightItem name="ellipsis-h" size={25} style={{ marginTop: 5, }} />
+                            </TouchableOpacity>
+                        </View> :
+                        <View style={{ paddingRight: 4, flexDirection: 'row' }}>
+                            {leftBar == 'backarrow' ?
+                                null :
+                                <TouchableOpacity style={{ width: width * 0.09, alignContent: 'center', alignItems: 'center' }} onPress={null/*() => this.props.navigation.navigate('CartScreen')*/}>
+                                    <IconAntDesign RightItem name="message1" size={25} style={{ marginTop: 5, }} />
+                                </TouchableOpacity>
+                            }
+                            <TouchableOpacity style={{ width: width * 0.09, alignContent: 'center', alignItems: 'center' }} onPress={() => this.props.navigation.navigate('CartScreen')}>
+                                <IconAntDesign RightItem name="shoppingcart" size={25} style={{ marginTop: 5, }} />
+                            </TouchableOpacity>
+                        </View>
+                }
             </View>
         );
     }
@@ -118,7 +161,7 @@ export class Slide extends Component {
         };
     }
 
-    getDataSlide() {
+    getDataSlide = async () => {
         var dataBody = {
             slide: 'banner'
         };
@@ -223,19 +266,25 @@ export class Category extends Component {
             dataSourcetype: [],
         };
     }
-    getDatatype() {
-        var url = ip + '/MySQL/DataServiceMain.php';
-        var dataBody = {
-            type: 'type'
-        };
-        axios.post(
-            url,
-            dataBody,
-        ).then((getData) => {
-            this.setState({
-                dataSourcetype: getData.data,
-            })
+    getDatatype = async () => {
+        fetch([finip, 'home/category_mobile'].join('/'), {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
         })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                // console.log("responseJson")
+                // console.log(responseJson)
+                this.setState({
+                    dataSourcetype: responseJson,
+                })
+            })
+            .catch((error) => {
+                console.error(error);
+            })
     }
     componentDidMount() {
         this.getDatatype()
@@ -243,7 +292,7 @@ export class Category extends Component {
     render() {
         let dataCategory = this.state.dataSourcetype.map((item, indexs) => {
             {/* console.log('Slide'+[indexs, item.image].join(' ')), */ }
-            var dataMySQL = [ip + '/mysql/uploads/head_product/menu', item.image_menu].join('/');
+            var dataMySQL = [finip, item.image_path, 'menu', item.image_head].join('/');
             {/* console.log(dataMySQL); */ }
             return (
                 <View style={styles.Category} key={indexs}>
@@ -1225,20 +1274,25 @@ export class CategoryProduct extends Component {
         }
     }
 
-    getDataCategory() {
-        var url = ip + '/mysql/DataServiceMain.php';
-        var dataBody = {
-            type: 'categorylist'
-        };
-        axios.post(
-            url,
-            dataBody,
-        ).then((getData) => {
-            //   console.log(getData.data);
-            this.setState({
-                dataSourceCategory: getData.data,
-            })
+    getDataCategory = async () => {
+        fetch([finip, 'home/category_mobile'].join('/'), {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
         })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                // console.log("responseJson")
+                // console.log(responseJson)
+                this.setState({
+                    dataSourceCategory: responseJson,
+                })
+            })
+            .catch((error) => {
+                console.error(error);
+            })
     }
 
     componentDidMount() {
@@ -1246,7 +1300,8 @@ export class CategoryProduct extends Component {
     }
     render() {
         let dataCategory = this.state.dataSourceCategory.map((item, indexs) => {
-            var dataMySQL = [ip + '/mysql/uploads/head_product/catagory_Ten_Baner', item.image_head].join('/');
+            var dataMySQL = [finip, item.mobile_head].join('/');
+            // console.log(dataMySQL)
             return (
                 <View style={styles.CategoryProduct} key={indexs}>
                     <View>
@@ -1263,9 +1318,8 @@ export class CategoryProduct extends Component {
                                 uri: dataMySQL,
                             }}
                             style={styles.CategoryProductImageHead}
-
                         />
-                        <CategoryProductSubProduct navigation={this.props.navigation} name={item.name} />
+                        <CategoryProductSubProduct navigation={this.props.navigation} id_type={item.id_type} />
                     </View>
                     <View>
                         <FastImage
@@ -1273,7 +1327,6 @@ export class CategoryProduct extends Component {
                             source={{
                                 uri: ip + '/MySQL/uploads/Text/storeFIN1.png',
                             }}
-
                         />
                         <CategoryProductSubStore navigation={this.props.navigation} />
                     </View>
@@ -1283,7 +1336,6 @@ export class CategoryProduct extends Component {
                             source={{
                                 uri: ip + '/MySQL/uploads/Text/propro.png',
                             }}
-
                         />
                         <CategoryProductSubPromotion navigation={this.props.navigation} />
                     </View>
@@ -1306,22 +1358,29 @@ export class CategoryProductSubProduct extends Component {
         }
     }
 
-    getCategoryProductSubProduct() {
-        // console.log( 'CategoryProductChild Process' )
-        var url = ip + '/mysql/DataServiceMain.php';
+    getCategoryProductSubProduct = async () => {
         var dataBody = {
-            type: 'categoryproduct',
-            product: this.props.name
+            id_type: this.props.id_type
         };
-        axios.post(
-            url,
-            dataBody,
-        ).then((getData) => {
-            //   console.log(getData.data);
-            this.setState({
-                dataSourceCategoryProduct: getData.data,
-            })
+        fetch([finip, 'home/product_mobile'].join('/'), {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(dataBody),
         })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                // console.log("responseJson")
+                // console.log(responseJson)
+                this.setState({
+                    dataSourceCategoryProduct: responseJson,
+                })
+            })
+            .catch((error) => {
+                console.error(error);
+            })
     }
 
     componentDidMount() {
@@ -1331,10 +1390,11 @@ export class CategoryProductSubProduct extends Component {
     render() {
         let dataCategoryProductSubProduct = this.state.dataSourceCategoryProduct.map((item, indexs) => {
             // console.log( 'CategoryProductNo. ' + indexs + ' ' + item.image ),
-            var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
+            var dataMySQL = [finip, item.image_path, item.image].join('/');
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
                     <View style={styles.CategoryProductBox} key={indexs}>
+                        {/* {console.log(dataMySQL)} */}
                         <FastImage
                             source={{
                                 uri: dataMySQL,
@@ -1548,6 +1608,7 @@ export class Second_product extends Component {
 
                 >
                 </FastImage>
+                <View style={{ backgroundColor: '#0A55A6', height: 40, width: 280, }}><Text style={{ color: '#FFFF' }}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text></View>
             </View>
         );
     }
@@ -1560,10 +1621,11 @@ export class Second_product extends Component {
                     source={{
                         uri: dataMySQL,
                     }}
-                    style={{ height: 100, width: 130, borderRadius: 5, }}
+                    style={{ height: 90, width: 130, borderTopLeftRadius: 5, borderTopRightRadius: 5, }}
 
                 >
                 </FastImage>
+                <View style={{ backgroundColor: '#0A55A6', height: 30, width: 130, }}><Text style={styles.Second_StoreFin_ImageB_Ttext}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text></View>
             </View>
         );
     }
@@ -1572,7 +1634,7 @@ export class Second_product extends Component {
         const { dataSourceSlide, activeSlide } = this.state;
         // console.log(width)
         return (
-            <View style={{ marginTop: -70, marginBottom: -10 }}>
+            <View style={{ marginTop: -90, marginBottom: 10 }}>
                 <Pagination
                     dotsLength={dataSourceSlide.length}
                     activeDotIndex={activeSlide}
@@ -1602,9 +1664,10 @@ export class Second_product extends Component {
 
     render() {
         let dataFlashSale = this.state.dataSale.map((item, indexs) => {
-            // console.log('FlashSale')
-            // console.log(item)
-            var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+            // console.log('Sale')
+            console.log(item)
+            var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
+            // console.log(dataMySQL)
             return (
                 <TouchableOpacity
                     activeOpacity={1}
@@ -1675,7 +1738,7 @@ export class Second_product extends Component {
                                     renderItem={this._renderItem}
                                     sliderWidth={280}
                                     itemWidth={280}
-                                    sliderHeight={200}
+                                    sliderHeight={240}
                                     loop={true}
                                     autoplay={true}
                                     autoplayDelay={3000}
@@ -1683,7 +1746,6 @@ export class Second_product extends Component {
                                     onSnapToItem={(index) => this.setState({ activeSlide: index })}
                                 />
                                 {this.pagination}
-                                <View style={{ backgroundColor: '#0A55A6', height: 40, width: 280, }}><Text style={{ color: '#FFFF' }}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text></View>
                             </View>
                             <View style={styles.Second_StoreFin_ImageB}>
                                 <View style={styles.Second_StoreFin_ImageB_T}>
@@ -1694,13 +1756,12 @@ export class Second_product extends Component {
                                             renderItem={this._renderItem2}
                                             sliderWidth={130}
                                             itemWidth={130}
-                                            sliderHeight={100}
+                                            sliderHeight={130}
                                             loop={true}
                                             autoplay={true}
                                             autoplayDelay={2000}
                                             autoplayInterval={3000}
                                         />
-                                        <View ><Text style={styles.Second_StoreFin_ImageB_Ttext}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text></View>
                                     </View>
                                 </View>
                                 <View style={styles.Second_StoreFin_ImageB_T}>
@@ -1711,13 +1772,12 @@ export class Second_product extends Component {
                                             renderItem={this._renderItem2}
                                             sliderWidth={130}
                                             itemWidth={130}
-                                            sliderHeight={100}
+                                            sliderHeight={130}
                                             loop={true}
                                             autoplay={true}
                                             autoplayDelay={2000}
                                             autoplayInterval={3000}
                                         />
-                                        <View ><Text style={styles.Second_StoreFin_ImageB_Ttext}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text></View>
                                     </View>
                                 </View>
                             </View>

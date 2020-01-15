@@ -72,7 +72,7 @@ export class Headbar extends Component {
     }
     render() {
         const { currentUser } = this.props;
-        console.log(currentUser)
+        // console.log(currentUser)
         const uri = [finip, currentUser.image_path, currentUser.image].join('/')
         return (
             <View>

@@ -19,26 +19,28 @@ export default StyleSheet.create({
     flex: 1,
   },
   LOGO: {
-    height: 40,
-    width: 80,
+    marginBottom: 'auto',
+    marginTop: 'auto',
+    height: 30,
+    width: 45,
     resizeMode: 'stretch',
   },
   TextInput: {
-    backgroundColor:'#FFFF',
+    backgroundColor: '#FFFF',
     width: 230,
     height: 40,
     textAlign: 'center',
   },
   Appbar: {
-    backgroundColor: '#FFFFFF',
+    // backgroundColor: '#FFFFFF',
     borderColor: '#ECECEC',
     borderWidth: 1,
     height: 50,
-    width,
+    // width,
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingTop: 5,
-    paddingBottom: 5,
+    // justifyContent: 'space-around',
+    paddingTop: 6,
+    paddingBottom: 6,
   },
   Text_All: {
     fontWeight: 'bold',
@@ -630,8 +632,8 @@ export default StyleSheet.create({
     flexWrap: 'wrap',
   },
   TodayProductBox: {
-    width: width * (1/3.07),
-    height: height * (1/4),
+    width: width * (1 / 3.07),
+    height: height * (1 / 4),
     borderColor: '#ECECEC',
     borderWidth: 0.5,
 
@@ -980,8 +982,9 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
   },
   Second_StoreFin_ImageB_T: {
-    height: 90,
+    height: 115,
     width: 130,
+    marginBottom: 6
   },
   Second_StoreFin_ImageB_TFastImage: {
     height: 70,
@@ -990,14 +993,9 @@ export default StyleSheet.create({
     borderTopLeftRadius: 5,
   },
   Second_StoreFin_ImageB_Ttext: {
-    textAlign: 'center',
-    height: 20,
-    width: 130,
-    backgroundColor: '#0A55A6',
+    // textAlign: 'center',
     color: '#ffff',
     fontSize: 8,
-    borderBottomRightRadius: 5,
-    borderBottomLeftRadius: 5,
   },
   Second_StoreFin_Boxbeand_head: {
     flexDirection: 'row',

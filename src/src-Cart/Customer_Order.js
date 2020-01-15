@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import {
     View,
     ScrollView,
-    Text,
-    TextInput,
+    // Text,
+    // Container,
     SafeAreaView,
     TouchableOpacity,
     Dimensions,
-    Picker,
 } from 'react-native';
+import { Container, Header, Content, Form, Item, Input, Label, Button, Text } from 'native-base';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import styles from '../../style/styleCart-src/styleCustomer_Order';
@@ -18,7 +18,8 @@ import IconEvilIcons from 'react-native-vector-icons/EvilIcons';
 import { CheckBox } from 'react-native-elements';
 import { ip } from '../../navigator/IpConfig';
 import BottomSheet from "react-native-raw-bottom-sheet";
-
+import Omise from 'omise-react-native';
+Omise.config('pkey_test_5ijzoe4rsrhe1rjowmq', '2015-11-17');
 
 export const { width, height } = Dimensions.get('window');
 
@@ -35,6 +36,7 @@ export default class Customer_Order extends Component {
                 {/* <Appbar_New_account navigation={this.props.navigation} /> */}
                 <Appbar_Order navigation={this.props.navigation} />
                 <ScrollView>
+                    {/* <OmiseAPI /> */}
                     <Account />
                     <Order />
                     <Option_payment navigation={this.props.navigation} />
@@ -203,21 +205,83 @@ export class Option_payment extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            pathlist: 1,
+            path1: 0,
         };
     }
-    PathList() {
-        switch (this.state.pathlist) {
+    Path1() {
+        switch (this.state.path1) {
             case 0:
                 return (
-                    <Option_payment navigation={this.props.navigation} />
+                    null
                 )
             case 1:
                 return (
-                    <Payment_credit navigation={this.props.navigation} />
+                    <View style={{
+                        width,
+                        borderColor: '#EAEAEA',
+                        borderWidth: 1,
+                        paddingLeft: 50,
+                        paddingTop: 10,
+                    }}>
+                        <View style={[styles.Payment_Box_Text, { width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1, }]}>
+                            <IconAntDesign name='plussquareo' size={15} />
+                            <Text style={styles.Payment_Text}>เพิ่มบัตรเครดิต </Text>
+                        </View>
+                    </View>
                 )
-
-
+            case 2:
+                return (
+                    <View style={{
+                        width,
+                        borderColor: '#EAEAEA',
+                        borderWidth: 1,
+                        paddingLeft: 50,
+                        paddingTop: 10,
+                    }}>
+                        <View style={[styles.Payment_Box_Text, { width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1, }]}>
+                            <IconAntDesign name='plussquareo' size={15} />
+                            <Text style={styles.Payment_Text}>เพิ่มบัตรเครดิต </Text>
+                        </View>
+                        <View style={[styles.Payment_Box_Text, { width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1, marginTop: 10 }]}>
+                            <IconAntDesign name='plussquareo' size={15} />
+                            <Text style={styles.Payment_Text}>เพิ่มบัตรเครดิต </Text>
+                        </View>
+                        <View style={[styles.Payment_Box_Text, { width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1, marginTop: 10 }]}>
+                            <IconAntDesign name='plussquareo' size={15} />
+                            <Text style={styles.Payment_Text}>เพิ่มบัตรเครดิต </Text>
+                        </View>
+                    </View>
+                )
+            case 3:
+                return (
+                    <View style={{
+                        width,
+                        borderColor: '#EAEAEA',
+                        borderWidth: 1,
+                        paddingLeft: 50,
+                        paddingTop: 10,
+                    }}>
+                        <View style={[styles.Payment_Box_Text, { width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1, }]}>
+                            <IconAntDesign name='plussquareo' size={15} />
+                            <Text style={styles.Payment_Text}>เพิ่มบัตรเครดิต </Text>
+                        </View>
+                    </View>
+                )
+            case 4:
+                return (
+                    <View style={{
+                        width,
+                        borderColor: '#EAEAEA',
+                        borderWidth: 1,
+                        paddingLeft: 50,
+                        paddingTop: 10,
+                    }}>
+                        <View style={[styles.Payment_Box_Text, { width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1, }]}>
+                            <IconAntDesign name='plussquareo' size={15} />
+                            <Text style={styles.Payment_Text}>เพิ่มบัตรเครดิต </Text>
+                        </View>
+                    </View>
+                )
         }
     }
     render() {
@@ -243,45 +307,73 @@ export class Option_payment extends Component {
                                 <IconEntypo name='credit-card' size={20} />
                                 <Text style={styles.Payment_Text}>บัตรเครดิต / เดบิต </Text>
                             </View>
-                            {/* <CheckBox
-                                size={20}
-                                containerStyle={{ marginTop: -5 }}
-                                checkedIcon='chevron-up'
-                                uncheckedIcon='chevron-down'
-                                checked={this.state.item1}
-                                onPress={() => this.setState({ item1: !this.state.item1 })}
-                            /> */}
-                            <TouchableOpacity activeOpacity={0.9} onPress={() => { this.setState({ pathlist: 1 }) }} >
-                                <IconEntypo name='chevron-down' size={20} />
+                            <TouchableOpacity activeOpacity={0.9} onPress={() => {
+                                this.state.path1 != 1 ?
+                                    this.setState({ path1: 1 }) :
+                                    this.setState({ path1: 0 })
+                            }} >
+                                <IconEntypo name={this.state.path1 == 1 ? 'chevron-up' : 'chevron-down'} size={20} />
                             </TouchableOpacity>
                         </View>
-                        {/* <View style={styles.Payment_Box}>
-                            <View style={styles.Payment_Box_Text}>
-                                <IconAntDesign name='plussquareo' size={15} />
-                                <Text style={styles.Payment_Text}>เพิ่มบัตรเครดิต </Text>
-                            </View>
-                        </View> */}
+                        {
+                            this.state.path1 == 1 ?
+                                this.Path1() :
+                                null
+                        }
                         <View style={styles.Payment_Box}>
                             <View style={styles.Payment_Box_Text}>
                                 <IconFontAwesome5 name='mobile-alt' size={20} />
                                 <Text style={styles.Payment_Text}>   IBanking / Mobile Banking </Text>
                             </View>
-                            <IconEntypo name='chevron-down' size={20} />
+                            <TouchableOpacity activeOpacity={0.9} onPress={() => {
+                                this.state.path1 != 2 ?
+                                    this.setState({ path1: 2 }) :
+                                    this.setState({ path1: 0 })
+                            }} >
+                                <IconEntypo name={this.state.path1 == 2 ? 'chevron-up' : 'chevron-down'} size={20} />
+                            </TouchableOpacity>
                         </View>
+                        {
+                            this.state.path1 == 2 ?
+                                this.Path1() :
+                                null
+                        }
                         <View style={styles.Payment_Box}>
                             <View style={styles.Payment_Box_Text}>
                                 <IconFontAwesome5 name='cc-mastercard' size={20} />
                                 <Text style={styles.Payment_Text}>ผ่อนชำระผ่านบัตรเครดิต </Text>
                             </View>
-                            <IconEntypo name='chevron-down' size={20} />
+                            <TouchableOpacity activeOpacity={0.9} onPress={() => {
+                                this.state.path1 != 3 ?
+                                    this.setState({ path1: 3 }) :
+                                    this.setState({ path1: 0 })
+                            }} >
+                                <IconEntypo name={this.state.path1 == 3 ? 'chevron-up' : 'chevron-down'} size={20} />
+                            </TouchableOpacity>
                         </View>
+                        {
+                            this.state.path1 == 3 ?
+                                this.Path1() :
+                                null
+                        }
                         <View style={styles.Payment_Box}>
                             <View style={styles.Payment_Box_Text}>
                                 <IconAntDesign name='user' size={20} />
                                 <Text style={styles.Payment_Text}>ติดต่อชำระโดยตรงผ่าน FIN </Text>
                             </View>
-                            <IconEntypo name='chevron-down' size={20} />
+                            <TouchableOpacity activeOpacity={0.9} onPress={() => {
+                                this.state.path1 != 4 ?
+                                    this.setState({ path1: 4 }) :
+                                    this.setState({ path1: 0 })
+                            }} >
+                                <IconEntypo name={this.state.path1 == 4 ? 'chevron-up' : 'chevron-down'} size={20} />
+                            </TouchableOpacity>
                         </View>
+                        {
+                            this.state.path1 == 4 ?
+                                this.Path1() :
+                                null
+                        }
                     </View>
                 </BottomSheet>
                 <View style={styles.Option_payment}>
@@ -365,6 +457,53 @@ export class Bar_payment extends Component {
                 </TouchableOpacity>
 
             </View>
+        );
+    }
+}
+
+export class OmiseAPI extends Component {
+    state = {
+        number: "",
+        name: "",
+        expiration_month: "",
+        expiration_year: "",
+        security_code: ""
+    };
+    async _createToken() {
+        const data = await Omise.createToken({
+            'card': {
+                'name': 'JOHN DOE',
+                'city': 'Bangkok',
+                'postal_code': 10320,
+                'number': '4242424242424242',
+                'expiration_month': 10,
+                'expiration_year': 2026,
+                'security_code': 123,
+            }
+        });
+        // console.log("data", data);
+    }
+    render() {
+        const {
+            number,
+            name,
+            expiration_month,
+            expiration_year,
+            security_code
+        } = this.state;
+
+        return (
+            <Container>
+                <Header />
+                <Content>
+                    <Form>
+                        <Button full onPress={this._createToken.bind(this)}>
+                            <Text>Create a token</Text>
+                        </Button>
+                    </Form>
+
+                </Content>
+            </Container>
         );
     }
 }

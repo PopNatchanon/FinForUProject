@@ -18,6 +18,7 @@ import IconEntypo from 'react-native-vector-icons/Entypo'
 import styles from '../style/StylesDetailScreen'
 
 import { ip } from '../navigator/IpConfig'
+import { AppBar } from './MainScreen';
 
 export default class DetailScreen extends Component {
   constructor(props) {
@@ -30,7 +31,7 @@ export default class DetailScreen extends Component {
     // console.log('getid_product1: ' + this.props.navigation.getParam('id_item'))
     return (
       <SafeAreaView style={styles.SafeAreaView}>
-        <AppBar navigation={this.props.navigation} />
+        <AppBar leftBar='backarrow' navigation={this.props.navigation} />
         <ScrollView>
           <Detail_Image navigation={this.props.navigation} />
           <Store navigation={this.props.navigation} />
@@ -47,41 +48,6 @@ export default class DetailScreen extends Component {
         </ScrollView>
         <Buy_bar navigation={this.props.navigation} />
       </SafeAreaView>
-    );
-  }
-}
-
-///--------------------------------------------------------------------------///
-
-export class AppBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      text: '',
-    };
-  }
-
-  render() {
-    return (
-      <View style={styles.Appbar}>
-        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
-          <IconFeather name="arrow-left" size={30} />
-        </TouchableOpacity>
-        {/* <Image
-          style={styles.LOGO}
-          source={require('../images/sj.png')}
-          
-        ></Image> */}
-        <TextInput style={styles.TextInput}
-          placeholder="ค้นหาสินค้า/ร้านค้า"
-          onChangeText={(text) => this.state({ text })}
-        ></TextInput>
-        <IconAntDesign RightItem name="search1" size={25} style={styles.Icon_appbar} />
-
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('CartScreen')}>
-          <IconAntDesign RightItem name="shoppingcart" size={25} style={styles.Icon_appbar} />
-        </TouchableOpacity>
-      </View>
     );
   }
 }
@@ -122,7 +88,7 @@ export class Detail_Image extends Component {
   render() {
     let id_product = this.state.dataid_product.map((item, indexs) => {
       // console.log(item);
-      var dataMySQL = [ip + '/mysql',item.image_path, item.p_image].join('/');
+      var dataMySQL = [ip + '/mysql', item.image_path, item.p_image].join('/');
       return (
         <View style={styles.Detail_Image} key={indexs}>
           <View style={styles.Image_Box}>
@@ -131,7 +97,7 @@ export class Detail_Image extends Component {
                 uri: dataMySQL,
               }}
               style={styles.Image}
-              
+
             />
           </View>
           <View style={styles.Price_Box}>
@@ -224,7 +190,7 @@ export class Store extends Component {
                   uri: dataMySQL,
                 }}
                 style={styles.Store_Image}
-                
+
               />
               <View style={styles.Store_Text_Box}>
                 <Text>
@@ -478,30 +444,30 @@ export class Reviews extends Component {
               <FastImage
                 style={styles.Reviews_Image}
                 source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
-                />
+              />
               <FastImage
                 style={styles.Reviews_Image}
                 source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
-                />
+              />
               <FastImage
                 style={styles.Reviews_Image}
                 source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
-                />
+              />
               <FastImage
                 style={styles.Reviews_Image}
                 source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
-                />
+              />
               <FastImage
                 style={styles.Reviews_Image}
                 source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
-                />
+              />
             </View>
           </ScrollView>
           <View style={styles.Comment_R}>
             <FastImage
               style={styles.Comment_R_Image}
               source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
-              />
+            />
             <View style={styles.Comment_R_Text}>
               <Text>p********n</Text>
               <View style={styles.Comment_R_Iconstar}>
@@ -520,7 +486,7 @@ export class Reviews extends Component {
             <FastImage
               style={styles.Comment_R_Image}
               source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
-              />
+            />
             <View style={styles.Comment_R_Text}>
               <Text>p********n</Text>
               <View style={styles.Comment_R_Iconstar}>
@@ -535,15 +501,15 @@ export class Reviews extends Component {
                 <FastImage
                   style={styles.Reviews_Image}
                   source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
-                  />
+                />
                 <FastImage
                   style={styles.Reviews_Image}
                   source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
-                  />
+                />
                 <FastImage
                   style={styles.Reviews_Image}
                   source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
-                  />
+                />
               </View>
               <Text style={styles.Comment_text_day}>16-11-2019 15:56 | กรอบแว่นขนาด 50 cm</Text>
             </View>
@@ -553,7 +519,7 @@ export class Reviews extends Component {
             <FastImage
               style={styles.Comment_R_Image}
               source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
-              />
+            />
             <View style={styles.Comment_R_Text}>
               <Text>p********n</Text>
               <View style={styles.Comment_R_Iconstar}>
@@ -590,7 +556,7 @@ export class BannerBar extends Component {
       <FastImage
         style={styles.Banner_Bar_image}
         source={{ uri: ip + '/MySQL/uploads/slide/Banner_type/watch_BannerBar.jpg' }}
-        />
+      />
     </View>
     );
   }
@@ -629,7 +595,7 @@ export class Same_Store extends Component {
   render() {
     let dataSaleProduct = this.state.dataSale.map((item, indexs) => {
       //   console.log('Sale' + [ indexs, item.image ].join(' ')),
-      var dataMySQL = [ip + '/mysql',item.image_path, item.image].join('/');
+      var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
       return (
         <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}>
           <View style={styles.Same_StoreBox} key={indexs}>
@@ -717,7 +683,7 @@ export class Similar_Product extends Component {
   render() {
     let dataSaleProduct = this.state.dataSale.map((item, indexs) => {
       //   console.log('Sale' + [ indexs, item.image ].join(' ')),
-      var dataMySQL = [ip + '/mysql',item.image_path,item.image].join('/');
+      var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
       return (
         <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}>
           <View style={styles.Same_StoreBox} key={indexs}>
@@ -894,6 +860,7 @@ export class Buy_bar extends Component {
   }
   render() {
     var s_id_store = this.state.dataid_product.map((item) => { return (item.s_id_store) })
+    // console.log(s_id_store)
     return (
       <View style={styles.Buy_bar}>
         <View >

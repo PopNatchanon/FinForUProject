@@ -19,6 +19,7 @@ import IconFoundation from 'react-native-vector-icons/Foundation';
 import styles_A from '../style/stylesCartScreen';
 import styles from '../style/StylesDetailScreen';
 import { ip } from '../navigator/IpConfig';
+import { PopularProduct } from './StoreScreen'
 export const { width, height } = Dimensions.get('window');
 
 
@@ -36,7 +37,7 @@ export default class CartScreen extends Component {
                 <ScrollView>
                     <Product_Cart />
                     {/* <Product_Like /> */}
-                    <Might_like />
+                    <PopularProduct navigation={this.props.navigation} headText={'คุณอาจชอบสิ่งนี้'} />
                 </ScrollView>
                 <Buy_bar navigation={this.props.navigation} />
             </SafeAreaView>

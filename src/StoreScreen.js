@@ -23,6 +23,7 @@ import IconFeather from 'react-native-vector-icons/Feather';
 import styles from '../style/StylesStoreScreen'
 import { ip } from '../navigator/IpConfig'
 import { TabBar } from './tools/Tools'
+import { AppBar } from './MainScreen';
 export const { width, height } = Dimensions.get('window');
 
 ///----------------------------------Appbar----------------------------------------///
@@ -42,6 +43,7 @@ export default class StoreScreen extends Component {
             type: 'storedata',
             id: id_item
         };
+        // console.log(dataBody)
         axios.post(
             url,
             dataBody,
@@ -56,8 +58,8 @@ export default class StoreScreen extends Component {
     componentDidMount() {
         // console.log('getParam')
         // console.log(this.props.navigation.getParam('id_item'))
-        var id_item = this.props.navigation.getParam('id_item')
-        this.getDataStoreData(id_item)
+        const id_item = this.props.navigation.getParam('id_item')
+        this.getDataStoreData(id_item.toString())
     }
     render() {
         // console.log('render')
@@ -69,39 +71,17 @@ export default class StoreScreen extends Component {
         // console.log(s_name)
         // console.log(s_image)
         return (
-            <SafeAreaView style={styles.SafeAreaView}>
-                <AppBar navigation={this.props.navigation} />
-                <ScrollView>
-                    <StoreHead navigation={this.props.navigation} item={{ name: s_name, image: s_image }} />
-                    <StoreHeadDetails navigation={this.props.navigation} id_item={s_id_store} />
+            <SafeAreaView>
+                <AppBar leftBar='backarrow' rightBar='storebar' navigation={this.props.navigation} />
+                <ScrollView nestedScrollEnabled = {true}>
+                    <ScrollView nestedScrollEnabled = {true}>
+                        <StoreHead navigation={this.props.navigation} item={{ name: s_name, image: s_image }} />
+                        <StoreHeadDetails navigation={this.props.navigation} id_item={s_id_store} />
+                    </ScrollView>
                     <Menubar navigation={this.props.navigation} s_name={s_name} s_image={s_image} />
                 </ScrollView>
+                <View></View>
             </SafeAreaView>
-        );
-    }
-}
-
-export class AppBar extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            text: '',
-        };
-    }
-
-    render() {
-        return (
-            <View style={styles.Appbar}>
-                <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-                    <Icons RightItem name="arrow-left" size={20} style={{ marginTop: 5, }} />
-                </TouchableOpacity>
-                <TextInput style={styles.TextInput}
-                    placeholder="ค้นหาสินค้า/ร้านค้า"
-                    onChangeText={(text) => this.state({ text })}
-                ></TextInput>
-                <IconFeather RightItem name="filter" size={20} style={{ marginTop: 5, }} />
-                <Icons RightItem name="ellipsis-h" size={20} style={{ marginTop: 5, }} />
-            </View>
         );
     }
 }
@@ -263,28 +243,28 @@ export class Menubar extends Component {
         const { s_name, s_image } = this.props;
         if (selectedIndex == 0) {
             return (
-                <ScrollView style={styles.SafeAreaViewSub}>
+                <View>
                     <Banner navigation={this.props.navigation} item={{ name: s_name, image: s_image }} />
                     <TicketLine />
                     <DealTop navigation={this.props.navigation} />
                     <NewProduct navigation={this.props.navigation} />
                     <BannerBar_ONE />
                     <PopularProduct navigation={this.props.navigation} />
-                </ScrollView>
+                </View>
             )
         } else if (selectedIndex == 1) {
             return (
-                <ScrollView style={styles.SafeAreaViewSub}>
+                <View>
                     <Banner navigation={this.props.navigation} item={{ name: s_name, image: s_image }} />
                     <SubMenu />
-                </ScrollView>
+                </View>
             )
         } else if (selectedIndex == 2) {
             return (
-                <ScrollView style={styles.SafeAreaViewSub}>
+                <View>
                     <Banner navigation={this.props.navigation} item={{ name: s_name, image: s_image }} />
                     <StoreFeed navigation={this.props.navigation} />
-                </ScrollView>
+                </View>
             )
         }
     }
@@ -299,7 +279,7 @@ export class Menubar extends Component {
             name: 'ฟีด'
         }]
         return (
-            <View>
+            <SafeAreaView>
                 <View style={styles.Menubar}>
                     <TabBar
                         sendData={this.getData}
@@ -309,8 +289,10 @@ export class Menubar extends Component {
                         type='box'
                     />
                 </View>
-                {this.ViewSide(selectedIndex)}
-            </View>
+                <ScrollView>
+                    {this.ViewSide(selectedIndex)}
+                </ScrollView>
+            </SafeAreaView>
         )
     }
 }
@@ -817,6 +799,7 @@ export class PopularProduct extends Component {
     }
 
     render() {
+        const { headText } = this.props;
         let dataToday = this.state.dataSourcePopularProduct.map((item, indexs) => {
             // console.log( indexs + '. ' + item.image ),
             var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
@@ -866,7 +849,7 @@ export class PopularProduct extends Component {
         return (
             <View style={styles.PopularProduct}>
                 <Text style={styles.PopularProductText}>
-                    สินค้าขายดี
+                    {headText ? headText : 'สินค้าขายดี'}
                 </Text>
                 <View style={styles.PopularProductBoxProduct}>
                     {dataToday}

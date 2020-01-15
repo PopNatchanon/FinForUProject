@@ -628,6 +628,9 @@ export class CoinCollect extends Component {
                 <View style={{ marginTop: 10 }}>
                     <TabBar
                         sendData={this.getData}
+                        inactiveBoxColor={'#fff'}
+                        inactiveColor={'#0A55A6'}
+                        inactiveFontColor={'#0A55A6'}
                         item={item}
                         widthBox={98}
                         type='box'
@@ -645,7 +648,7 @@ export class CoinPageBody extends Component {
     render() {
         return (
             <View style={{ alignItems: 'center' }}>
-                <View style={{ marginTop: 10, width: width * 0.96, height: 200, borderWidth: 1, borderColor: '#EAEAEA' }}>
+                <View style={{ marginTop: 10, width: width * 0.96, height: 200, borderWidth: 1, borderColor: '#EAEAEA',backgroundColor:'white' }}>
                     <View style={{ width: '100%', height: 140 }}>
                         <FastImage
                             source={{
@@ -655,7 +658,7 @@ export class CoinPageBody extends Component {
                             style={{ width: '100%', height: '100%' }}
                         />
                     </View>
-                    <View style={{ flexDirection: 'row', width }}>
+                    <View style={{ flexDirection: 'row', backgroundColor:'white' }}>
                         <View style={{ padding: 4, width: width * 0.65 }}>
                             <Text>ส่วนลด 10% สำหรับร้าน เพชร </Text>
                         </View>

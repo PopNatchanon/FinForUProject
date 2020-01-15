@@ -203,23 +203,23 @@ export class Option_payment extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            pathlist: 1,
+            // pathlist: 1,
         };
     }
-    PathList() {
-        switch (this.state.pathlist) {
-            case 0:
-                return (
-                    <Option_payment navigation={this.props.navigation} />
-                )
-            case 1:
-                return (
-                    <Payment_credit navigation={this.props.navigation} />
-                )
+    // PathList() {
+    //     switch (this.state.pathlist) {
+    //         case 0:
+    //             return (
+    //                 <Option_payment navigation={this.props.navigation} />
+    //             )
+    //         case 1:
+    //             return (
+    //                 <Payment_credit navigation={this.props.navigation} />
+    //             )
 
 
-        }
-    }
+    //     }
+    // }
     render() {
         return (
             <View>

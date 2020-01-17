@@ -135,7 +135,7 @@ export class TabBar extends Component {
     tab() {
         const {
             item, activeColor, activeWidth, type, radiusBox, activeFontColor, inactiveFontColor, inactiveColor, inactiveBoxColor,
-            boxSpace, direction, alignBox, widthBox, spaceColor, fontColor
+            boxSpace, direction, alignBox, widthBox, spaceColor, fontColor, nolimit
         } = this.props;
         // console.log(this.props.radiusBox)
         const countItem = item.length;

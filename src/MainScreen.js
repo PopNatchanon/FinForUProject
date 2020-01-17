@@ -45,7 +45,7 @@ export default class MainScreen extends Component {
                     <Slide />
                     <Category />
                     <Button_Bar navigation={this.props.navigation} />
-                    <Brand_RCM />
+                    <Brand_RCM navigation={this.props.navigation}/>
                     <Popular_product />
                     <BannerBar_ONE />
                     <FlashSale navigation={this.props.navigation} />
@@ -367,16 +367,19 @@ export class Brand_RCM extends Component {
                 </View>
                 <ScrollView horizontal>
                     <View style={styles.Brand_RCM_Box}>
-                        <View>
-                            <FastImage
-                                style={styles.Brand_image_RCM}
-                                source={{
-                                    uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Brand_RCM_Screen')}>
+                            <View>
+                                <FastImage
+                                    style={styles.Brand_image_RCM}
+                                    source={{
+                                        uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
 
-                                }}
+                                    }}
 
-                            />
-                        </View>
+                                />
+                            </View>
+                        </TouchableOpacity>
+
 
                         <View >
                             <FastImage
@@ -737,9 +740,10 @@ export class FlashSale extends Component {
                     key={indexs}
                     onPress={
                         () => this.props.navigation.navigate(
-                            'DetailScreen', {
+                            'FlashSaleScreen', {
                             id_item: item.id_product
-                        })
+                        }
+                        )
                     }
                 >
                     <View style={styles.FlashSaleBox}>
@@ -774,9 +778,11 @@ export class FlashSale extends Component {
                     <Text style={styles.FlashSaleText}>
                         FLASH SALE
                     </Text>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('FlashSaleScreen')}>
                     <Text style={styles.FlashSaleTextEnd}>
                         ดูทั้งหมด
                     </Text>
+                   </TouchableOpacity>
                 </View>
                 <ScrollView horizontal>
                     {dataFlashSale}

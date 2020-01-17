@@ -28,6 +28,8 @@ import CampaignScreen from '../src/src_Promotion/CampaignScreen';
 import WorthFinScreen from '../src/src_Promotion/WorthFinScreen';
 import Installment_payScreen from '../src/src_Promotion/Installment_payScreen';
 import Detail_Campaign from '../src/src_Promotion/Detail_Campaign';
+import Brand_RCM_Screen from '../src/Brand_RCM_Screen';
+import FlashSaleScreen from '../src/FlashSaleScreen';
  
 
 const PathScreen = createStackNavigator({
@@ -220,11 +222,25 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
-
+  Brand_RCM_Screen: {
+    screen: Brand_RCM_Screen,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
+  FlashSaleScreen: {
+    screen: FlashSaleScreen,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
+  
 },
   {
-    initialRouteName: 'MainScreen',
-    // initialRouteName: 'Detail_Campaign',
+    // initialRouteName: 'MainScreen',
+    initialRouteName: 'FlashSaleScreen',
   }
   );
 

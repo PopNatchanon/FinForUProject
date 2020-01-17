@@ -59,7 +59,7 @@ export class Head_Image extends Component {
   render() {
     return (
       <View>
-        <View style={{ height: 200, width: '100%', backgroundColor: 'red', padding: 10, }}>
+        <View style={{ height: 200, width: '100%', }}>
           <FastImage style={{ height: '100%', width: '100%', }}
             source={{
               uri: ip + '/MySQL/uploads/slide/lazada-ผ่อน-0-10-เดือน.jpg',

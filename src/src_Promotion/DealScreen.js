@@ -165,9 +165,6 @@ export class Slide extends Component {
     // console.log(this.activeSlide)
     return (
       <View>
-        <View style={styles.Box_Text_Head}>
-          <Text>โปรโมชั่น</Text>
-        </View>
         <Carousel
           ref={c => this.activeSlide = c}
           data={this.state.dataSourceSlide}

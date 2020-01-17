@@ -42,13 +42,6 @@ export default StyleSheet.create({
     slide: {
         height: 150,
     },
-    Box_Text_Head: {
-        backgroundColor: '#C4C4C4',
-        width: 200,
-        height: 30,
-        marginTop: 5,
-        padding: 5,
-    },
     Button_Bar: {
         paddingTop: 10,
         paddingBottom: 10,
@@ -379,5 +372,123 @@ export default StyleSheet.create({
     },
     Head_Image_Text: {
         fontSize: 12,
+    },
+
+    ///--------------------------------Brand_RCM_Screen-----------------------------------------///
+
+    Brand_RCM_Store: {
+        height: 'auto',
+        width: '100%',
+        backgroundColor: '#FFFFFF',
+        marginTop: 10,
+    },
+    Brand_ImageBackground: {
+        height: 150,
+        width: '100%',
+        marginBottom: -130
+    },
+    Brand_RCM_StoreBoxPro: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingLeft: 20,
+        paddingRight: 20,
+    },
+    Brand_RCM_Pro: {
+        height: 80,
+        width: 80,
+        backgroundColor: '#FFFFFF',
+        borderRadius: 40,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    Brand_RCM_Proimage: {
+        height: 60,
+        width: 60,
+    },
+    Brand_RCM_ProButton: {
+        height: 30,
+        width: 100,
+        backgroundColor: '#FFFFFF',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 8,
+        marginTop: 20,
+    },
+    Brand_RCM_Product: {
+        height: 170,
+        width: '100%',
+        marginTop: 20,
+        justifyContent: 'space-around',
+        flexDirection: 'row',
+        marginBottom: 10,
+    },
+    Brand_RCM_Product_Box: {
+        width: '29%',
+        backgroundColor: '#FFFFFF',
+        borderColor: '#ECECEC',
+        borderWidth: 1,
+        height: '100%',
+        alignItems: 'center',
+        paddingTop: 5,
+    },
+    Brand_RCM_Product_Image: {
+        height: 110,
+        width: 110,
+        backgroundColor: '#C4C4C4',
+    },
+    Brand_RCM_Product_Text: {
+        fontSize: 11,
+    },
+
+    ///--------------------------------FlashSaleScreen-----------------------------------------///
+
+    Time_FlashSale: {
+        height: 40,
+        width: '100%',
+        padding: 5,
+        backgroundColor: '#FFFFFF',
+        flexDirection: 'row',
+    },
+    Time_FlashSale_Text: {
+        color: '#0A55A6',
+        fontSize: 20,
+    },
+    Time_FlashSale_TimeBox: {
+        height: 30,
+        width: 30,
+        backgroundColor: '#222222',
+        justifyContent: 'center',
+        marginLeft: 10,
+        borderRadius: 5,
+    },
+    Time_FlashSale_TimeText: {
+        color: '#FFFFFF',
+        textAlign: 'center',
+    },
+    Time_FlashSale_Tag: {
+        height: 50,
+        width: '100%',
+        padding: 5,
+        backgroundColor: '#FFFFFF',
+        flexDirection: 'row',
+        marginTop: 10,
+    },
+    Time_FlashSale_TagCate: {
+        height: 50,
+        width: '100%',
+        padding: 5,
+        backgroundColor: '#FFFFFF',
+        marginTop: 10,
+        paddingTop: 10,
+    },
+    Time_FlashSale_TagBox: {
+        height: 30,
+        width: 100,
+        borderColor: '#0A55A6',
+        borderWidth: 1,
+        borderRadius: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 })

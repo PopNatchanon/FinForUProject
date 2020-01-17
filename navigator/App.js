@@ -25,6 +25,9 @@ import StoreMe_Up_Product from '../src/src_storeMe/StoreMe_Up_Product';
 import DealScreen from '../src/src_Promotion/DealScreen';
 import CoinScreen from '../src/src_Promotion/CoinScreen';
 import CampaignScreen from '../src/src_Promotion/CampaignScreen';
+import WorthFinScreen from '../src/src_Promotion/WorthFinScreen';
+import Installment_payScreen from '../src/src_Promotion/Installment_payScreen';
+import Detail_Campaign from '../src/src_Promotion/Detail_Campaign';
  
 
 const PathScreen = createStackNavigator({
@@ -196,11 +199,32 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
+  WorthFinScreen: {
+    screen: WorthFinScreen,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
+  Installment_payScreen: {
+    screen: Installment_payScreen,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
+  Detail_Campaign: {
+    screen: Detail_Campaign,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
 
 },
   {
     initialRouteName: 'MainScreen',
-    // initialRouteName: 'DealScreen',
+    // initialRouteName: 'Detail_Campaign',
   }
   );
 

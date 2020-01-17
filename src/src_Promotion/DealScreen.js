@@ -42,7 +42,7 @@ export default class DealScreen extends Component {
           <ProDed_New_Store />
           <Shop_Deal_ForU />
         </ScrollView>
-        <Button_Bar />
+        <Button_Bar navigation={this.props.navigation} />
       </SafeAreaView>
     );
   }
@@ -199,47 +199,57 @@ export class Button_Bar extends Component {
   render() {
     return (
       <View style={styles.Button_Bar}>
-        <View style={styles.Button_Bar_Box}>
-          <FastImage style={styles.Button_Bar_BoxICON}
-            source={{
-              uri: ip + '/MySQL/uploads/icon_brand/b01.png',
-            }}
-          />
+        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('DealScreen')}>
+          <View style={styles.Button_Bar_Box}>
+            <FastImage style={styles.Button_Bar_BoxICON}
+              source={{
+                uri: ip + '/MySQL/uploads/icon_brand/b01.png',
+              }}
+            />
 
-          <Text style={styles.Button_Bar_BoxText}>ดีลสุดพิเศษ</Text>
-        </View>
-        <View style={styles.Button_Bar_Box}>
-          <FastImage style={styles.Button_Bar_BoxICON}
-            source={{
-              uri: ip + '/MySQL/uploads/icon_brand/b02.png',
-            }}
-          />
-          <Text style={styles.Button_Bar_BoxText}>FinCoin</Text>
-        </View>
-        <View style={styles.Button_Bar_Box}>
-          <FastImage style={styles.Button_Bar_BoxICON}
-            source={{
-              uri: ip + '/MySQL/uploads/icon_brand/b03.png',
-            }}
-          />
-          <Text style={styles.Button_Bar_BoxText}>แคมเปญ</Text>
-        </View>
-        <View style={styles.Button_Bar_Box}>
-          <FastImage style={styles.Button_Bar_BoxICON}
-            source={{
-              uri: ip + '/MySQL/uploads/icon_brand/b04.png',
-            }}
-          />
-          <Text style={styles.Button_Bar_BoxText}>สุดคุ้มสุดฟิน</Text>
-        </View>
-        <View style={styles.Button_Bar_Box}>
-          <FastImage style={styles.Button_Bar_BoxICON}
-            source={{
-              uri: ip + '/MySQL/uploads/icon_brand/b05.png',
-            }}
-          />
-          <Text style={styles.Button_Bar_BoxText}>ผ่อนชำระ 0%</Text>
-        </View>
+            <Text style={styles.Button_Bar_BoxText}>ดีลสุดพิเศษ</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('CoinScreen')}>
+          <View style={styles.Button_Bar_Box}>
+            <FastImage style={styles.Button_Bar_BoxICON}
+              source={{
+                uri: ip + '/MySQL/uploads/icon_brand/b02.png',
+              }}
+            />
+            <Text style={styles.Button_Bar_BoxText}>FinCoin</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('CampaignScreen')}>
+          <View style={styles.Button_Bar_Box}>
+            <FastImage style={styles.Button_Bar_BoxICON}
+              source={{
+                uri: ip + '/MySQL/uploads/icon_brand/b03.png',
+              }}
+            />
+            <Text style={styles.Button_Bar_BoxText}>แคมเปญ</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('WorthFinScreen')}>
+          <View style={styles.Button_Bar_Box}>
+            <FastImage style={styles.Button_Bar_BoxICON}
+              source={{
+                uri: ip + '/MySQL/uploads/icon_brand/b04.png',
+              }}
+            />
+            <Text style={styles.Button_Bar_BoxText}>สุดคุ้มสุดฟิน</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('Installment_payScreen')}>
+          <View style={styles.Button_Bar_Box}>
+            <FastImage style={styles.Button_Bar_BoxICON}
+              source={{
+                uri: ip + '/MySQL/uploads/icon_brand/b05.png',
+              }}
+            />
+            <Text style={styles.Button_Bar_BoxText}>ผ่อนชำระ 0%</Text>
+          </View>
+        </TouchableOpacity>
       </View>
 
     );
@@ -796,70 +806,70 @@ export class ProDed_New_Store extends Component {
         <View style={styles.ProDed_New_Store}>
           <View style={styles.ProDed_New_Store_Box}>
             <View style={styles.ProDed_New_Store_Boximage}>
-            <FastImage style={{height:60,width:60,}}
-                  source={{
-                    uri: ip + '/MySQL/uploads/icon_brand/brand1.png',
-                  }}
-                />
-                <View style={styles.ProDed_New_Store_Button}></View>
+              <FastImage style={{ height: 60, width: 60, }}
+                source={{
+                  uri: ip + '/MySQL/uploads/icon_brand/brand1.png',
+                }}
+              />
+              <View style={styles.ProDed_New_Store_Button}></View>
             </View>
             <View style={styles.ProDed_New_Store_Boximage}>
-            <FastImage style={{height:60,width:60,}}
-                  source={{
-                    uri: ip + '/MySQL/uploads/icon_brand/brand2.png',
-                  }}
-                />
-                <View style={styles.ProDed_New_Store_Button}></View>
+              <FastImage style={{ height: 60, width: 60, }}
+                source={{
+                  uri: ip + '/MySQL/uploads/icon_brand/brand2.png',
+                }}
+              />
+              <View style={styles.ProDed_New_Store_Button}></View>
             </View>
             <View style={styles.ProDed_New_Store_Boximage}>
-            <FastImage style={{height:60,width:60,}}
-                  source={{
-                    uri: ip + '/MySQL/uploads/icon_brand/brand3.png',
-                  }}
-                />
-                <View style={styles.ProDed_New_Store_Button}></View>
+              <FastImage style={{ height: 60, width: 60, }}
+                source={{
+                  uri: ip + '/MySQL/uploads/icon_brand/brand3.png',
+                }}
+              />
+              <View style={styles.ProDed_New_Store_Button}></View>
             </View>
             <View style={styles.ProDed_New_Store_Boximage}>
-            <FastImage style={{height:60,width:60,}}
-                  source={{
-                    uri: ip + '/MySQL/uploads/icon_brand/brand4.png',
-                  }}
-                />
-                <View style={styles.ProDed_New_Store_Button}></View>
+              <FastImage style={{ height: 60, width: 60, }}
+                source={{
+                  uri: ip + '/MySQL/uploads/icon_brand/brand4.png',
+                }}
+              />
+              <View style={styles.ProDed_New_Store_Button}></View>
             </View>
           </View>
           <View style={styles.ProDed_New_Store_Box}>
             <View style={styles.ProDed_New_Store_Boximage}>
-            <FastImage style={{height:60,width:60,}}
-                  source={{
-                    uri: ip + '/MySQL/uploads/icon_brand/brand3.png',
-                  }}
-                />
-                <View style={styles.ProDed_New_Store_Button}></View>
+              <FastImage style={{ height: 60, width: 60, }}
+                source={{
+                  uri: ip + '/MySQL/uploads/icon_brand/brand3.png',
+                }}
+              />
+              <View style={styles.ProDed_New_Store_Button}></View>
             </View>
             <View style={styles.ProDed_New_Store_Boximage}>
-            <FastImage style={{height:60,width:60,}}
-                  source={{
-                    uri: ip + '/MySQL/uploads/icon_brand/brand9.png',
-                  }}
-                />
-                <View style={styles.ProDed_New_Store_Button}></View>
+              <FastImage style={{ height: 60, width: 60, }}
+                source={{
+                  uri: ip + '/MySQL/uploads/icon_brand/brand9.png',
+                }}
+              />
+              <View style={styles.ProDed_New_Store_Button}></View>
             </View>
             <View style={styles.ProDed_New_Store_Boximage}>
-            <FastImage style={{height:60,width:60,}}
-                  source={{
-                    uri: ip + '/MySQL/uploads/icon_brand/brand25.png',
-                  }}
-                />
-                <View style={styles.ProDed_New_Store_Button}></View>
+              <FastImage style={{ height: 60, width: 60, }}
+                source={{
+                  uri: ip + '/MySQL/uploads/icon_brand/brand25.png',
+                }}
+              />
+              <View style={styles.ProDed_New_Store_Button}></View>
             </View>
             <View style={styles.ProDed_New_Store_Boximage}>
-            <FastImage style={{height:60,width:60,}}
-                  source={{
-                    uri: ip + '/MySQL/uploads/icon_brand/brand5.png',
-                  }}
-                />
-                <View style={styles.ProDed_New_Store_Button}></View>
+              <FastImage style={{ height: 60, width: 60, }}
+                source={{
+                  uri: ip + '/MySQL/uploads/icon_brand/brand5.png',
+                }}
+              />
+              <View style={styles.ProDed_New_Store_Button}></View>
             </View>
           </View>
         </View>

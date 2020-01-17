@@ -14,7 +14,7 @@ import FastImage from 'react-native-fast-image';
 import Icons from 'react-native-vector-icons/FontAwesome5';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import IconEntypo from 'react-native-vector-icons/Entypo'
+import IconEntypo from 'react-native-vector-icons/Entypo';
 import styles from '../style/StylesDetailScreen'
 
 import { ip } from '../navigator/IpConfig'
@@ -473,34 +473,34 @@ export class Reviews extends Component {
             <View style={styles.Reviews_Image_Box}>
               <FastImage
                 style={styles.Reviews_Image}
-                source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
+                source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
               />
               <FastImage
                 style={styles.Reviews_Image}
-                source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
+                source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
                 />
               <FastImage
                 style={styles.Reviews_Image}
-                source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
+                source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
                 />
               <FastImage
                 style={styles.Reviews_Image}
-                source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
+                source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
                 />
               <FastImage
                 style={styles.Reviews_Image}
-                source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
+                source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
                 />
               <FastImage
                 style={styles.Reviews_Image}
-                source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
+                source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
                 />
             </View>
           </ScrollView>
           <View style={styles.Comment_R}>
             <FastImage
               style={styles.Comment_R_Image}
-              source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
+              source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
               />
             <View style={styles.Comment_R_Text}>
               <Text>p********n</Text>
@@ -519,7 +519,7 @@ export class Reviews extends Component {
           <View style={styles.Comment_R}>
             <FastImage
               style={styles.Comment_R_Image}
-              source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
+              source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
               />
             <View style={styles.Comment_R_Text}>
               <Text>p********n</Text>
@@ -534,15 +534,15 @@ export class Reviews extends Component {
               <View style={styles.Comment_Image_A}>
                 <FastImage
                   style={styles.Reviews_Image}
-                  source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
+                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
                   />
                 <FastImage
                   style={styles.Reviews_Image}
-                  source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
+                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
                   />
                 <FastImage
                   style={styles.Reviews_Image}
-                  source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
+                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
                   />
               </View>
               <Text style={styles.Comment_text_day}>16-11-2019 15:56 | กรอบแว่นขนาด 50 cm</Text>
@@ -552,7 +552,7 @@ export class Reviews extends Component {
           <View style={styles.Comment_R}>
             <FastImage
               style={styles.Comment_R_Image}
-              source={{ uri: ip + '/MySQL/uploads/2019-06-09-1560016588.jpg' }}
+              source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
               />
             <View style={styles.Comment_R_Text}>
               <Text>p********n</Text>

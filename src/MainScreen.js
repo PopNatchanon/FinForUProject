@@ -317,7 +317,7 @@ export class Button_Bar extends Component {
                         </View>
                     </TouchableOpacity>
 
-                    <TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('WorthFinScreen')}>
                         <View style={styles.Button_Bar_Box}>
                             <FastImage style={styles.Button_Bar_icon}
                                 source={{
@@ -328,7 +328,7 @@ export class Button_Bar extends Component {
                             />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Installment_payScreen')}>
                         <View style={styles.Button_Bar_Box}>
                             <FastImage style={styles.Button_Bar_icon}
                                 source={{

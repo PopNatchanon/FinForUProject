@@ -87,9 +87,9 @@ export default StyleSheet.create({
         fontSize: 16,
         marginTop: 3,
     },
-    Text_Totel:{
-        margin: 10, 
-        color:'#FFFFFF',
+    Text_Totel: {
+        margin: 10,
+        color: '#FFFFFF',
     },
     BoxText_T: {
         width: 150,
@@ -219,13 +219,14 @@ export default StyleSheet.create({
     Deal_Exclusive_Box: {
         backgroundColor: '#FFFFFF',
         borderColor: '#C4C4C4',
+        borderWidth: 1,
         height: 160,
         width: 130,
         justifyContent: 'center',
         alignItems: 'center',
-        borderWidth: 1,
+
     },
-    Deal_Exclusive_BoxImageIcon:{
+    Deal_Exclusive_BoxImageIcon: {
         height: 160,
         width: 130,
         justifyContent: 'center',
@@ -296,21 +297,87 @@ export default StyleSheet.create({
         padding: 10,
     },
     ProDed_New_Store_Boximage: {
-        backgroundColor:'#FFFFFF',
-        borderRadius:5,
+        backgroundColor: '#FFFFFF',
+        borderRadius: 5,
         height: 100,
         width: '20%',
         marginRight: 10,
-        alignItems:'center',
-        paddingTop:10,
+        alignItems: 'center',
+        paddingTop: 10,
     },
-    ProDed_New_Store_Button:{
-        backgroundColor:'#C4C4C4',
-        height:20,
-        width:60,
-        marginTop:5, 
-        borderRadius:8,
+    ProDed_New_Store_Button: {
+        backgroundColor: '#C4C4C4',
+        height: 20,
+        width: 60,
+        marginTop: 5,
+        borderRadius: 8,
     },
 
+    ///--------------------------------WorthFinScreen-----------------------------------------///
 
+    Fin_sale_Box: {
+        width: '100%',
+        height: 'auto',
+        backgroundColor: '#ffff',
+        marginTop: 10,
+    },
+    Fin_sale_BoxHead: {
+        height: 12,
+        width: '100%',
+        alignItems: 'flex-end',
+        marginTop: -10,
+        paddingRight: 10,
+    },
+    Fin_sale_BoxTextEnd: {
+        fontSize: 12,
+        color: '#0A55A6',
+    },
+    Fin_sale_BoxProduct: {
+        flexDirection: 'row',
+        marginBottom: 10,
+    },
+    Store_Sale: {
+        height: 230,
+        width: '100%',
+        marginTop: 10,
+        alignItems: 'center',
+        marginBottom: 10,
+    },
+    Store_Sale_Image: {
+        width: '100%',
+        height: '100%',
+    },
+    Store_Sale_Box: {
+        height: '100%',
+        width: '95%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    Store_Sale_BoxA: {
+        width: '62%',
+        justifyContent: 'space-between',
+    },
+    Store_Sale_BoxA_Carousel: {
+        backgroundColor: 'black',
+        height: '60%',
+    },
+    Store_Sale_BoxA_Boximage: {
+        height: '38%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    Store_Sale_BoxA_image: {
+        width: '49%',
+        height: '100%'
+    },
+    Store_Sale_BoxB_Boximage: {
+        width: '37%',
+        justifyContent: 'space-between',
+    },
+    Store_Sale_BoxB_image: {
+        height: '49%'
+    },
+    Head_Image_Text: {
+        fontSize: 12,
+    },
 })

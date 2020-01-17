@@ -136,7 +136,7 @@ export class Login extends Component {
         // console.log(user)
         if (userser.address != null) {
           this.props.navigation.replace('MainScreen');
-        }else{
+        } else {
           this.props.navigation.replace('MainScreen');
           this.props.navigation.navigate('Customer_account');
         }
@@ -165,7 +165,7 @@ export class Login extends Component {
     this.setState({ user });
   }
   render() {
-    const { user } = this.state;
+    const { user, eye } = this.state;
     return (
       <View style={styles.Login_Box}>
         <View style={styles.Login_BoxA}>
@@ -207,7 +207,7 @@ export class Login extends Component {
               type="text"
               value={user.password}
               // maxLength={6}
-              secureTextEntry
+              secureTextEntry={eye == false ? false : true}
               onChangeText={this.PassInput}
               errorStyle={{
                 container: {
@@ -222,11 +222,13 @@ export class Login extends Component {
                 underlineInvalidColor: 'red'
               }}
             />
-            <View style={styles.eyestyle}>
-              <IconFeather RightItem name="eye-off" size={20} style={{ marginTop: 5, }} />
-            </View>
-            <View>
-              <Text style={styles.Login_Box_Text_L}>
+            <TouchableOpacity style={styles.eyestyle} onPress={() => { eye == false ? this.setState({ eye: true }) : this.setState({ eye: false }) }}>
+              <View >
+                <IconFeather RightItem name={eye == false ? "eye" : "eye-off"} size={20} style={{ marginTop: 5 }} />
+              </View>
+            </TouchableOpacity>
+            <View style={{ marginTop: 4 }}>
+              <Text style={[styles.Login_Box_Text_L]}>
                 ลืมรหัสผ่าน?
               </Text>
             </View>

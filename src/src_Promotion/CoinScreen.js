@@ -41,7 +41,7 @@ export default class CoinScreen extends Component {
           <View style={styles.Box_Text_Head}><Text> FIN จัดหนักรับ COIN เพิ่ม </Text></View>
           <TodayProduct noTitle/>
         </ScrollView>
-        <Button_Bar/>
+        <Button_Bar navigation={this.props.navigation} />
       </SafeAreaView>
     );
   }

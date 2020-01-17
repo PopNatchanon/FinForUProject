@@ -26,7 +26,7 @@ export default StyleSheet.create({
     resizeMode: 'stretch',
   },
   TextInput: {
-    backgroundColor: '#FFFF',
+    // backgroundColor: '#FFFF',
     width: 230,
     height: 40,
     textAlign: 'center',
@@ -73,14 +73,16 @@ export default StyleSheet.create({
   Category: {
     width: 100,
     height: 80,
-    marginTop: 10,
     justifyContent: 'center',
     alignItems: 'center'
   },
   category_A: {
     flexDirection: 'column',
     flexWrap: 'wrap',
-    height: 200,
+    height: 210 ,
+    paddingBottom:10,
+    paddingTop:10,
+    justifyContent: 'space-between'
   },
   Category_image: {
     height: 40,
@@ -129,12 +131,13 @@ export default StyleSheet.create({
   },
   Brand_RCMText: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: 'SukhumvitSet-Bold',
     marginLeft: 8,
     marginTop: 6,
   },
   Brand_RCMTextEnd: {
-    fontSize: 10,
+    fontSize: 11,
+    fontFamily: 'SukhumvitSet-Text',
     color: '#0A55A6',
     marginRight: 8,
     marginTop: 10,
@@ -937,6 +940,7 @@ export default StyleSheet.create({
 
   Second_product: {
     height: 'auto',
+    backgroundColor:'#fff',
     width,
     borderColor: '#ECECEC',
     borderBottomWidth: 1,

@@ -62,7 +62,7 @@ export class AppBar extends Component {
     return (
       <View style={styles.Appbar}>
         <View style={styles.Icon_appbar_Text}>
-          <Text style={styles.Text_appbar}>ฟีต</Text>
+          <Text style={[styles.Text_appbar, { fontFamily: 'SukhumvitSet-Text', }]}>ฟีต</Text>
         </View>
         <Icons RightItem name="store" size={25} style={styles.Icon_appbar} />
       </View>
@@ -176,7 +176,7 @@ export class Follow_up extends Component {
                   uri: dataMySQL_s,
                 }}
               />
-              <Text style={styles.StoreFeed_Text_store}>
+              <Text style={[styles.StoreFeed_Text_store, { fontFamily: 'SukhumvitSet-Text', }]}>
                 {item.s_name}
               </Text>
             </View>
@@ -193,36 +193,36 @@ export class Follow_up extends Component {
               <Text style={styles.StoreFeedComBoxDetail}>
                 {item.detail}
               </Text>
-              <Text style={styles.StoreFeedComBoxTag}>
+              <Text style={[styles.StoreFeedComBoxTag, { fontFamily: 'SukhumvitSet-Text', }]}>
                 ที่สุดสำหรับคุณ
-                        </Text>
+              </Text>
               <View style={{ flexDirection: 'row' }}>
-                <Text style={styles.StoreFeedComBoxText}>
+                <Text style={[styles.StoreFeedComBoxText, { fontFamily: 'SukhumvitSet-Text', }]}>
                   200 การเข้าชม
-                            </Text>
-                <Text style={styles.StoreFeedComBoxText}>
+                </Text>
+                <Text style={[styles.StoreFeedComBoxText, { fontFamily: 'SukhumvitSet-Text', }]}>
                   เมื่อ 3 วันที่ผ่านมา
-                            </Text>
+                </Text>
               </View>
             </View>
             <View style={styles.StoreFeedComBox2}>
               <View style={styles.StoreFeedComBoxIcon}>
                 <Icons name='heart' size={20} />
-                <Text style={styles.StoreFeedComBoxIconText}>
+                <Text style={[styles.StoreFeedComBoxIconText, { fontFamily: 'SukhumvitSet-Text', }]}>
                   ถูกใจ
-                            </Text>
+                </Text>
               </View>
               <View style={styles.StoreFeedComBoxIcon}>
                 <Icons name='comment-dots' size={20} />
-                <Text style={styles.StoreFeedComBoxIconText}>
+                <Text style={[styles.StoreFeedComBoxIconText, { fontFamily: 'SukhumvitSet-Text', }]}>
                   แสดงความคิดเห็น
-                            </Text>
+                </Text>
               </View>
               <View style={styles.StoreFeedComBoxIcon}>
                 <Icons name='share-square' size={20} />
-                <Text style={styles.StoreFeedComBoxIconText}>
+                <Text style={[styles.StoreFeedComBoxIconText, { fontFamily: 'SukhumvitSet-Text', }]}>
                   แชร์
-                            </Text>
+                </Text>
               </View>
             </View>
           </View>
@@ -287,13 +287,13 @@ export class Highlights extends Component {
                   uri: dataMySQL_s,
                 }}
               />
-              <Text style={styles.StoreFeed_Text_store}>
+              <Text style={[styles.StoreFeed_Text_store, { fontFamily: 'SukhumvitSet-Text', }]}>
                 {item.s_name}
               </Text>
             </View>
             <View style={styles.StoreFeed_Button_F_Box}>
               <View style={styles.StoreFeed_Button_F}>
-                <Text style={styles.StoreFeed_Text_F}>ติดตาม</Text>
+                <Text style={[styles.StoreFeed_Text_F, { fontFamily: 'SukhumvitSet-Text', }]}>ติดตาม</Text>
               </View>
               <IconEntypo name='dots-three-vertical' size={25} />
             </View>
@@ -315,36 +315,36 @@ export class Highlights extends Component {
               <Text style={styles.StoreFeedComBoxDetail}>
                 {item.detail}
               </Text>
-              <Text style={styles.StoreFeedComBoxTag}>
+              <Text style={[styles.StoreFeedComBoxTag, { fontFamily: 'SukhumvitSet-Text', }]}>
                 ที่สุดสำหรับคุณ
-                        </Text>
+              </Text>
               <View style={{ flexDirection: 'row' }}>
-                <Text style={styles.StoreFeedComBoxText}>
+                <Text style={[styles.StoreFeedComBoxText, { fontFamily: 'SukhumvitSet-Text', }]}>
                   200 การเข้าชม
-                            </Text>
-                <Text style={styles.StoreFeedComBoxText}>
+                </Text>
+                <Text style={[styles.StoreFeedComBoxText, { fontFamily: 'SukhumvitSet-Text', }]}>
                   เมื่อ 3 วันที่ผ่านมา
-                            </Text>
+                </Text>
               </View>
             </View>
             <View style={styles.StoreFeedComBox2}>
               <View style={styles.StoreFeedComBoxIcon}>
                 <Icons name='heart' size={20} />
-                <Text style={styles.StoreFeedComBoxIconText}>
+                <Text style={[styles.StoreFeedComBoxIconText, { fontFamily: 'SukhumvitSet-Text', }]}>
                   ถูกใจ
-                            </Text>
+                </Text>
               </View>
               <View style={styles.StoreFeedComBoxIcon}>
                 <Icons name='comment-dots' size={20} />
-                <Text style={styles.StoreFeedComBoxIconText}>
+                <Text style={[styles.StoreFeedComBoxIconText, { fontFamily: 'SukhumvitSet-Text', }]}>
                   แสดงความคิดเห็น
-                            </Text>
+                </Text>
               </View>
               <View style={styles.StoreFeedComBoxIcon}>
                 <Icons name='share-square' size={20} />
-                <Text style={styles.StoreFeedComBoxIconText}>
+                <Text style={[styles.StoreFeedComBoxIconText, { fontFamily: 'SukhumvitSet-Text', }]}>
                   แชร์
-             </Text>
+              </Text>
               </View>
             </View>
           </View>

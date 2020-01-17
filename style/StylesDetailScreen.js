@@ -60,14 +60,14 @@ export default StyleSheet.create({
     },
     Image_Box: {
         width: 400,
-       height: 300,
+        height: 300,
         justifyContent: 'center',
         alignItems: 'center',
     },
     Image: {
-        width: 300,
-       height: 300,
-        resizeMode: 'stretch',
+        width: 250,
+        height: 250,
+        resizeMode: 'cover',
     },
 
     ///--------------------------------------------------------------------------///
@@ -264,26 +264,26 @@ export default StyleSheet.create({
     },
 
     ///--------------------------------------------------------------------------///
-    Detail_Catagory:{
+    Detail_Catagory: {
         width,
         borderColor: '#ECECEC',
         borderWidth: 1,
     },
-    Detail_Catagory_TextTop:{
-        paddingTop:10,
+    Detail_Catagory_TextTop: {
+        paddingTop: 10,
         borderColor: '#ECECEC',
         borderWidth: 1,
         height: 30,
     },
-    Detail_Catagory_TextBox:{
-        paddingTop:10,
-        paddingBottom:10,
-        flexDirection:'row',
-        width:300,
+    Detail_Catagory_TextBox: {
+        paddingTop: 10,
+        paddingBottom: 10,
+        flexDirection: 'row',
+        width: 300,
         height: 'auto'
     },
-    Detail_Catagory_TextBoxA:{
-        marginLeft:30,
+    Detail_Catagory_TextBoxA: {
+        marginLeft: 30,
     },
 
     ///--------------------------------------------------------------------------///
@@ -305,7 +305,7 @@ export default StyleSheet.create({
     },
     Detail_Text: {
         height: 80,
-        marginLeft: 5,
+        padding: 6,
     },
     Detail_Box: {
         height: 25,
@@ -381,28 +381,28 @@ export default StyleSheet.create({
         marginLeft: 5,
     },
     Comment_R_Text: {
-        height:'auto',
-        width:250,
+        height: 'auto',
+        width: 250,
         marginTop: 10,
         marginLeft: 5,
-        flexDirection:'column',
+        flexDirection: 'column',
     },
-    Comment_R_Iconstar:{
+    Comment_R_Iconstar: {
         marginTop: 5,
         flexDirection: 'row',
         marginLeft: 5,
-        marginBottom:10,
+        marginBottom: 10,
     },
-    Comment_Image_A:{
-        flexDirection:'row', 
-        height:80,
+    Comment_Image_A: {
+        flexDirection: 'row',
+        height: 80,
     },
-    Comment_text_day:{
-        fontSize:9,
-        color:'#0A55A6',
+    Comment_text_day: {
+        fontSize: 9,
+        color: '#0A55A6',
     },
-    Comment_text_iconheart:{
-        marginTop:10,
+    Comment_text_iconheart: {
+        marginTop: 10,
     },
 
     ///--------------------------------------------------------------------------///
@@ -435,7 +435,7 @@ export default StyleSheet.create({
     },
     Same_StoreText: {
         fontSize: 16,
-        fontWeight: 'bold',
+        // fontWeight: 'bold',
         marginLeft: 8,
         marginTop: 6,
     },
@@ -508,7 +508,7 @@ export default StyleSheet.create({
     PopularProductText: {
         width,
         fontSize: 16,
-        fontWeight: 'bold',
+        // fontWeight: 'bold',
         marginTop: 12,
         marginLeft: 9,
         // marginBottom:8,
@@ -521,7 +521,6 @@ export default StyleSheet.create({
     },
     PopularProductBox: {
         width: width * 0.442,
-        height: height * 0.355,
         borderColor: '#ECECEC',
         borderWidth: 1,
         margin: 8,
@@ -529,7 +528,7 @@ export default StyleSheet.create({
     },
     PopularProductImage: {
         width: '100%',
-        height: '65%',
+        height: height * 0.3,
         resizeMode: 'stretch',
         padding: 4,
     },

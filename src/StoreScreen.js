@@ -8,6 +8,7 @@ import {
     SafeAreaView,
     TouchableOpacity,
     Dimensions,
+    PixelRatio
 } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import axios from 'axios';
@@ -21,6 +22,7 @@ import FastImage from 'react-native-fast-image';
 import Icons from 'react-native-vector-icons/FontAwesome5';
 import IconFeather from 'react-native-vector-icons/Feather';
 import styles from '../style/StylesStoreScreen'
+import stylesMain from '../style/StylesMainScreen'
 import { ip } from '../navigator/IpConfig'
 import { TabBar } from './tools/Tools'
 import { AppBar } from './MainScreen';
@@ -58,6 +60,7 @@ export default class StoreScreen extends Component {
     componentDidMount() {
         // console.log('getParam')
         // console.log(this.props.navigation.getParam('id_item'))
+        // console.log(PixelRatio.get())
         const id_item = this.props.navigation.getParam('id_item')
         this.getDataStoreData(id_item.toString())
     }
@@ -102,34 +105,36 @@ export class StoreHead extends Component {
 
                     />
                     <View style={styles.StoreHeadBox}>
-                        <View>
-                            <FastImage
-                                source={{
-                                    uri: dataMySQL,
-                                }}
-                                style={styles.StoreHeadFace}
+                        <View style={{ flexDirection: 'row' }}>
+                            <View>
+                                <FastImage
+                                    source={{
+                                        uri: dataMySQL,
+                                    }}
+                                    style={styles.StoreHeadFace}
 
-                            />
+                                />
+                            </View>
+                            <View>
+                                <Text style={[styles.StoreHeadText, styles.SukhumvitSetText]}>
+                                    {item.name}
+                                </Text>
+                                <Text style={[styles.StoreHeadTextOther, styles.SukhumvitSetText]}>
+                                    Active เมื่อ 1 ชั่วโมงที่ผ่านมา
+                                </Text>
+                                <Text style={[styles.StoreHeadTextOther2, styles.SukhumvitSetText]}>
+                                    ผู้ติดตาม 20.2 พัน | กำลังติดตาม 2
+                                </Text>
+                            </View>
                         </View>
-                        <View>
-                            <Text style={styles.StoreHeadText}>
-                                {item.name}
-                            </Text>
-                            <Text style={styles.StoreHeadTextOther}>
-                                Active เมื่อ 1 ชั่วโมงที่ผ่านมา
-                            </Text>
-                            <Text style={styles.StoreHeadTextOther2}>
-                                ผู้ติดตาม 20.2 พัน | กำลังติดตาม 2
-                            </Text>
-                        </View>
-                        <View style={{ marginTop: 64, }}>
+                        <View style={{ marginTop: 64, marginRight: '2%' }}>
                             <View style={styles.StoreHeadButtom}>
-                                <Text style={styles.StoreHeadButtomText}>
+                                <Text style={[styles.StoreHeadButtomText, styles.SukhumvitSetText]}>
                                     ติดตาม
                                 </Text>
                             </View>
                             <View style={styles.StoreHeadButtom}>
-                                <Text style={styles.StoreHeadButtomText}>
+                                <Text style={[styles.StoreHeadButtomText, styles.SukhumvitSetText]}>
                                     แชท
                                 </Text>
                             </View>
@@ -173,44 +178,44 @@ export class StoreHeadDetails extends Component {
         return (
             <View style={styles.StoreHeadDetails}>
                 <View>
-                    <Text style={styles.StoreHeadDetailsText1}>
+                    <Text style={[styles.StoreHeadDetailsText1, styles.SukhumvitSetText]}>
                         คะแนนร้านค้า :
                     </Text>
-                    <Text style={styles.StoreHeadDetailsText1}>
+                    <Text style={[styles.StoreHeadDetailsText1, styles.SukhumvitSetText]}>
                         รายการสินค้า :
                     </Text>
-                    <Text style={styles.StoreHeadDetailsText1}>
+                    <Text style={[styles.StoreHeadDetailsText1, styles.SukhumvitSetText]}>
                         ระยะเวลาในการจัดเตรียมพัสดุ :
                     </Text>
-                    <Text style={styles.StoreHeadDetailsText1}>
+                    <Text style={[styles.StoreHeadDetailsText1, styles.SukhumvitSetText]}>
                         ประสิทธิภาพการแชท :
                     </Text>
                 </View>
                 <View>
                     <View style={{ flexDirection: 'row', }}>
-                        <Text style={styles.StoreHeadDetailsText2_1}>
+                        <Text style={[styles.StoreHeadDetailsText2_1, styles.SukhumvitSetText]}>
                             4.8 จาก 5
                         </Text>
-                        <Text style={styles.StoreHeadDetailsText2_3}>
+                        <Text style={[styles.StoreHeadDetailsText2_3, styles.SukhumvitSetText]}>
                             (46.9 พันคะแนน)
                         </Text>
                     </View>
-                    <Text style={styles.StoreHeadDetailsText2_2}>
+                    <Text style={[styles.StoreHeadDetailsText2_2, styles.SukhumvitSetText]}>
                         150
                     </Text>
                     <View style={{ flexDirection: 'row', }}>
-                        <Text style={styles.StoreHeadDetailsText2_2}>
+                        <Text style={[styles.StoreHeadDetailsText2_2, styles.SukhumvitSetText]}>
                             เร็ว
                         </Text>
-                        <Text style={styles.StoreHeadDetailsText2_3}>
+                        <Text style={[styles.StoreHeadDetailsText2_3, styles.SukhumvitSetText]}>
                             ( 1-2 วัน )
                         </Text>
                     </View>
                     <View style={{ flexDirection: 'row', }}>
-                        <Text style={styles.StoreHeadDetailsText2_2}>
+                        <Text style={[styles.StoreHeadDetailsText2_2, styles.SukhumvitSetText]}>
                             80 %
                         </Text>
-                        <Text style={styles.StoreHeadDetailsText2_3}>
+                        <Text style={[styles.StoreHeadDetailsText2_3, styles.SukhumvitSetText]}>
                             ( ภายในไม่กี่ชั่วโมง)
                         </Text>
                     </View>
@@ -240,28 +245,28 @@ export class Menubar extends Component {
         const { s_name, s_image } = this.props;
         if (selectedIndex == 0) {
             return (
-                <View>
+                <SafeAreaView>
                     <Banner navigation={this.props.navigation} item={{ name: s_name, image: s_image }} />
                     <TicketLine />
                     <DealTop navigation={this.props.navigation} />
                     <NewProduct navigation={this.props.navigation} />
                     <BannerBar_ONE />
                     <PopularProduct navigation={this.props.navigation} />
-                </View>
+                </SafeAreaView>
             )
         } else if (selectedIndex == 1) {
             return (
-                <View>
+                <SafeAreaView>
                     <Banner navigation={this.props.navigation} item={{ name: s_name, image: s_image }} />
                     <SubMenu />
-                </View>
+                </SafeAreaView>
             )
         } else if (selectedIndex == 2) {
             return (
-                <View>
+                <SafeAreaView>
                     <Banner navigation={this.props.navigation} item={{ name: s_name, image: s_image }} />
                     <StoreFeed navigation={this.props.navigation} />
-                </View>
+                </SafeAreaView>
             )
         }
     }
@@ -286,11 +291,9 @@ export class Menubar extends Component {
                         type='box'
                     />
                 </View>
-                <View style={{ height: '80%' }}>
-                    <ScrollView>
-                        {this.ViewSide(selectedIndex)}
-                    </ScrollView>
-                </View>
+                <ScrollView>
+                    {this.ViewSide(selectedIndex)}
+                </ScrollView>
             </View>
         )
     }
@@ -393,13 +396,13 @@ export class Banner extends Component {
                         {this.pagination}
                     </View>
                     <View>
-                        <Text>
+                        <Text style={styles.SukhumvitSetText}>
                             สวัสดีค่า ยินดีต้อนรับค่ะร้านนี้รบกวนไม่ถามเล่นๆ นะคะ หากต่อราคารบกวนไม่ต่อเว่อๆนะคะ ถ้าลดได้ลดให้ค่า
                         </Text>
                     </View>
                 </View>
                 <View style={styles.BannerTextTail}>
-                    <Text style={styles.BannerText}>
+                    <Text style={[styles.BannerText, styles.SukhumvitSetText]}>
                         https://finforyou.com/{item.name}
                     </Text>
                 </View>
@@ -427,15 +430,15 @@ export class TicketLine extends Component {
                         >
                             <View style={{ flexDirection: 'row' }}>
                                 <View>
-                                    <Text style={styles.TicketLineText}>
+                                    <Text style={[styles.TicketLineText, styles.SukhumvitSetText]}>
                                         ฿100.00
                                     </Text>
-                                    <Text style={styles.TicketLineText2}>
+                                    <Text style={[styles.TicketLineText2, styles.SukhumvitSetText]}>
                                         ซื้อขั้นต่ำครบ ฿10,000.00
                                     </Text>
                                 </View>
                                 <View style={styles.TicketLineButtom}>
-                                    <Text style={styles.TicketLineButtomText}>
+                                    <Text style={[styles.TicketLineButtomText, styles.SukhumvitSetText]}>
                                         เก็บ
                                     </Text>
                                 </View>
@@ -450,15 +453,15 @@ export class TicketLine extends Component {
                         >
                             <View style={{ flexDirection: 'row' }}>
                                 <View>
-                                    <Text style={styles.TicketLineText}>
+                                    <Text style={[styles.TicketLineText, styles.SukhumvitSetText]}>
                                         ฿100.00
                                     </Text>
-                                    <Text style={styles.TicketLineText2}>
+                                    <Text style={[styles.TicketLineText2, styles.SukhumvitSetText]}>
                                         ซื้อขั้นต่ำครบ ฿10,000.00
                                     </Text>
                                 </View>
                                 <View style={styles.TicketLineButtom}>
-                                    <Text style={styles.TicketLineButtomText}>
+                                    <Text style={[styles.TicketLineButtomText, styles.SukhumvitSetText]}>
                                         เก็บ
                                     </Text>
                                 </View>
@@ -473,15 +476,15 @@ export class TicketLine extends Component {
                         >
                             <View style={{ flexDirection: 'row' }}>
                                 <View>
-                                    <Text style={styles.TicketLineText}>
+                                    <Text style={[styles.TicketLineText, styles.SukhumvitSetText]}>
                                         ฿100.00
                                     </Text>
-                                    <Text style={styles.TicketLineText2}>
+                                    <Text style={[styles.TicketLineText2, styles.SukhumvitSetText]}>
                                         ซื้อขั้นต่ำครบ ฿10,000.00
                                     </Text>
                                 </View>
                                 <View style={styles.TicketLineButtom}>
-                                    <Text style={styles.TicketLineButtomText}>
+                                    <Text style={[styles.TicketLineButtomText, styles.SukhumvitSetText]}>
                                         เก็บ
                                     </Text>
                                 </View>
@@ -537,16 +540,14 @@ export class DealTop extends Component {
                             style={styles.DealTopImage}
 
                         />
-                        <Text style={styles.DealTopImageName}>{item.name}</Text>
+                        <Text style={[styles.DealTopImageName, styles.SukhumvitSetText]}>{item.name}</Text>
                         <NumberFormat
                             value={item.full_price}
                             displayType={'text'}
                             thousandSeparator={true}
                             prefix={'฿'}
                             renderText={
-                                value => <Text style={
-                                    styles.DealTopImagePrice
-                                }>
+                                value => <Text style={[styles.DealTopImagePrice, styles.SukhumvitSetText]}>
                                     {value}
                                 </Text>}
                         />
@@ -570,7 +571,7 @@ export class DealTop extends Component {
         return (
             <View style={styles.DealTop}>
                 <View style={styles.DealTopTextBox}>
-                    <Text style={styles.DealTopText}>
+                    <Text style={stylesMain.Brand_RCMText}>
                         ดีลเด็ด
                     </Text>
                 </View>
@@ -624,16 +625,14 @@ export class NewProduct extends Component {
                             style={styles.NewProductImage}
 
                         />
-                        <Text style={styles.NewProductImageName}>{item.name}</Text>
+                        <Text style={[styles.NewProductImageName, styles.SukhumvitSetText]}>{item.name}</Text>
                         <NumberFormat
                             value={item.full_price}
                             displayType={'text'}
                             thousandSeparator={true}
                             prefix={'฿'}
                             renderText={
-                                value => <Text style={
-                                    styles.NewProductImagePrice
-                                }>
+                                value => <Text style={[styles.NewProductImagePrice, styles.SukhumvitSetText]}>
                                     {value}
                                 </Text>}
                         />
@@ -657,7 +656,7 @@ export class NewProduct extends Component {
         return (
             <View style={styles.NewProduct}>
                 <View style={styles.NewProductTextBox}>
-                    <Text style={styles.NewProductText}>
+                    <Text style={stylesMain.Brand_RCMText}>
                         สินค้ามาใหม่
                     </Text>
                 </View>
@@ -802,6 +801,7 @@ export class PopularProduct extends Component {
         let dataToday = this.state.dataSourcePopularProduct.map((item, indexs) => {
             // console.log( indexs + '. ' + item.image ),
             var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
+            // console.log( dataMySQL)
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}>
                     <View style={styles.PopularProductBox} key={indexs}>
@@ -812,7 +812,7 @@ export class PopularProduct extends Component {
                             style={styles.PopularProductImage}
 
                         />
-                        <Text style={styles.PopularProductImageName}>
+                        <Text style={[styles.PopularProductImageName, styles.SukhumvitSetText]}>
                             {item.name}
                         </Text>
                         <NumberFormat
@@ -821,9 +821,7 @@ export class PopularProduct extends Component {
                             thousandSeparator={true}
                             prefix={'฿'}
                             renderText={
-                                value => <Text style={
-                                    styles.PopularProductImagePrice
-                                }>
+                                value => <Text style={[styles.PopularProductImagePrice, styles.SukhumvitSetText]}>
                                     {value}
                                 </Text>
                             }
@@ -847,7 +845,7 @@ export class PopularProduct extends Component {
         })
         return (
             <View style={styles.PopularProduct}>
-                <Text style={styles.PopularProductText}>
+                <Text style={stylesMain.Brand_RCMText}>
                     {headText ? headText : 'สินค้าขายดี'}
                 </Text>
                 <View style={styles.PopularProductBoxProduct}>
@@ -960,7 +958,7 @@ export class ShowProduct extends Component {
     render() {
         let dataToday = this.state.dataSourceShowProduct.map((item, indexs) => {
             // console.log( indexs + '. ' + item.image ),
-            var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+            var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
             return (
                 <View style={styles.ShowProductBox} key={indexs}>
                     <FastImage
@@ -970,7 +968,7 @@ export class ShowProduct extends Component {
                         style={styles.ShowProductImage}
 
                     />
-                    <Text style={styles.ShowProductImageName}>
+                    <Text style={[styles.ShowProductImageName,styles.SukhumvitSetText]}>
                         {item.name}
                     </Text>
                     <NumberFormat
@@ -979,9 +977,7 @@ export class ShowProduct extends Component {
                         thousandSeparator={true}
                         prefix={'฿'}
                         renderText={
-                            value => <Text style={
-                                styles.ShowProductImagePrice
-                            }>
+                            value => <Text style={[styles.ShowProductImagePrice,styles.SukhumvitSetText]}>
                                 {value}
                             </Text>
                         }
@@ -1043,7 +1039,7 @@ export class StoreFeed extends Component {
     render() {
         let dataToday = this.state.dataSourceStoreFeed.map((item, indexs) => {
             // console.log( indexs + '. ' + item.image ),
-            var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
+            var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
             return (
                 <View style={styles.StoreFeedBox} key={indexs}>
                     <FastImage
@@ -1054,17 +1050,17 @@ export class StoreFeed extends Component {
 
                     />
                     <View style={styles.StoreFeedComBox}>
-                        <Text style={styles.StoreFeedComBoxDetail}>
+                        <Text style={[styles.StoreFeedComBoxDetail,styles.SukhumvitSetText]}>
                             {item.detail}
                         </Text>
-                        <Text style={styles.StoreFeedComBoxTag}>
+                        <Text style={[styles.StoreFeedComBoxTag,styles.SukhumvitSetText]}>
                             ที่สุดสำหรับคุณ
                         </Text>
                         <View style={{ flexDirection: 'row' }}>
-                            <Text style={styles.StoreFeedComBoxText}>
+                            <Text style={[styles.StoreFeedComBoxText,styles.SukhumvitSetText]}>
                                 200 การเข้าชม
                             </Text>
-                            <Text style={styles.StoreFeedComBoxText}>
+                            <Text style={[styles.StoreFeedComBoxText,styles.SukhumvitSetText]}>
                                 เมื่อ 3 วันที่ผ่านมา
                             </Text>
                         </View>
@@ -1072,19 +1068,19 @@ export class StoreFeed extends Component {
                     <View style={styles.StoreFeedComBox2}>
                         <View style={styles.StoreFeedComBoxIcon}>
                             <Icons name='heart' size={20} />
-                            <Text style={styles.StoreFeedComBoxIconText}>
+                            <Text style={[styles.StoreFeedComBoxIconText,styles.SukhumvitSetText]}>
                                 ถูกใจ
                             </Text>
                         </View>
                         <View style={styles.StoreFeedComBoxIcon}>
                             <Icons name='comment-dots' size={20} />
-                            <Text style={styles.StoreFeedComBoxIconText}>
+                            <Text style={[styles.StoreFeedComBoxIconText,styles.SukhumvitSetText]}>
                                 แสดงความคิดเห็น
                             </Text>
                         </View>
                         <View style={styles.StoreFeedComBoxIcon}>
                             <Icons name='share-square' size={20} />
-                            <Text style={styles.StoreFeedComBoxIconText}>
+                            <Text style={[styles.StoreFeedComBoxIconText,styles.SukhumvitSetText]}>
                                 แชร์
                             </Text>
                         </View>

@@ -162,7 +162,7 @@ export default StyleSheet.create({
         marginBottom: 20,
     },
     CountdownstyleSubmit: {
-        marginLeft: 'auto', 
+        marginLeft: 'auto',
         marginRight: 'auto',
         margin: 2,
         color: '#FFF',
@@ -170,8 +170,10 @@ export default StyleSheet.create({
         fontSize: 16,
     },
     eyestyle: {
-        marginTop: -40,
-        // backgroundColor: '#0A55A6',
-        marginLeft: '90%',
+        marginTop: -48,
+        backgroundColor: '#F3F3F3',
+        paddingBottom: 2,
+        padding: 10,
+        marginLeft: '86%',
     },
 })

@@ -1,8 +1,15 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, PixelRatio } from 'react-native';
 
 export const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
+
+  SukhumvitSetText: {
+    fontFamily: 'SukhumvitSet-Text',
+  },
+  SukhumvitSetBold: {
+    fontFamily: 'SukhumvitSet-Bold',
+  },
 
   ///------------------------------------------------------------------------------------------///
 
@@ -61,6 +68,7 @@ export default StyleSheet.create({
   },
   StoreHeadBox: {
     flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   StoreHeadFace: {
     width: 60,
@@ -137,12 +145,12 @@ export default StyleSheet.create({
   ///-------------------------------------------------------///
   Menubar: {
     width,
-    padding:4,
+    padding: 4,
     backgroundColor: '#FFFFFF',
     borderColor: '#ECECEC',
     borderWidth: 1,
     marginTop: 10,
-    flexDirection:'row'
+    flexDirection: 'row'
   },
   ///---------------------------------------------------///
 
@@ -338,7 +346,7 @@ export default StyleSheet.create({
   },
   NewProductImageName: {
     fontSize: 10,
-    fontFamily: 'SukhumvitSet-Medium',
+    fontFamily: 'SukhumvitSet-Text',
     marginTop: 6,
     marginLeft: 6,
   },
@@ -410,7 +418,7 @@ export default StyleSheet.create({
   },
   PopularProductBox: {
     width: width * (1 / 2.25),
-    height: height * (1/3),
+    height: height * (1 / 3.3),
     borderColor: '#ECECEC',
     borderWidth: 1,
     margin: 8,
@@ -424,17 +432,17 @@ export default StyleSheet.create({
   },
   PopularProductImageName: {
     fontSize: 12,
-    marginTop: 12,
+    marginTop: '1%',
     marginLeft: 8,
   },
   PopularProductImagePrice: {
     fontSize: 10,
-    marginTop: 12,
+    marginTop: '1%',
     marginLeft: 8,
     color: '#0A55A6',
   },
   PopularProductIconBox: {
-    flex: 1,
+    marginTop: '1%',
     flexDirection: 'row',
     justifyContent: 'space-between',
   },

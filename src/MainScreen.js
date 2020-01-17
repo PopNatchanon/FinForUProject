@@ -8,7 +8,8 @@ import {
     SafeAreaView,
     TouchableOpacity,
     Dimensions,
-    Image
+    Image,
+    PixelRatio
 } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import axios from 'axios';
@@ -36,11 +37,16 @@ export default class MainScreen extends Component {
     }
     componentDidMount() {
         this.getDataasync()
+        // console.log(PixelRatio.get())
+        // console.log('height')
+        // console.log(height)
+        // console.log('width')
+        // console.log(width)
     }
     render() {
         return (
             //console.log(this.props.navigation.navigate),
-            <SafeAreaView style={styles.SafeAreaView}>
+            <SafeAreaView style={[styles.SafeAreaView, { backgroundColor: '#E9E9E9', }]}>
                 <AppBar navigation={this.props.navigation} />
                 <ScrollView>
                     <Slide />
@@ -80,7 +86,7 @@ export class AppBar extends Component {
     render() {
         const { leftBar, rightBar } = this.props
         return (
-            <View style={styles.Appbar}>
+            <View style={[styles.Appbar, { backgroundColor: '#fff' }]}>
                 {
                     leftBar == 'backarrow' ?
                         <View>
@@ -91,10 +97,6 @@ export class AppBar extends Component {
                         null
                 }
                 <View style={{
-                    width:
-                        rightBar == 'storebar' ?
-                            width * (1 - (0.9 * (0.1 * 3))) :
-                            width * (1 - (1 * (0.1 * 2))),
                     marginLeft: 6, flexDirection: 'row', borderWidth: 1, borderColor: '#E5E5E5', backgroundColor: '#fff'
                 }}>
                     <FastImage
@@ -105,14 +107,19 @@ export class AppBar extends Component {
                         height: 40,
                         width:
                             rightBar == 'storebar' ?
-                                width * (0.83 - (0.9 * (0.1 * 3))) :
-                                width * (0.83 - (1 * (0.1 * 2))),
-                        marginBottom: 'auto', marginTop: 'auto',
+                                leftBar == 'backarrow' ?
+                                    width * (0.83 - (1.1 * (0.1 * 3))) :
+                                    width * (0.83 - (1.2 * (0.1 * 2))) :
+                                width * (0.83 - (1.2 * (0.1 * 2))),
+                        marginBottom: 'auto',
+                        marginTop: 'auto',
+                        alignContent: 'center',
+                        alignItems: 'center'
                     }}>
-                        <TextInput style={styles.TextInput, {
-                            fontFamily: 'SukhumvitSet',
+                        <TextInput style={[styles.TextInput, {
+                            fontFamily: 'SukhumvitSet-Text',
                             fontSize: 15,
-                        }}
+                        }]}
                             placeholder="ค้นหาสินค้า/ร้านค้า"
                             value={this.state.text}
                             maxLength={30}
@@ -120,26 +127,26 @@ export class AppBar extends Component {
 
                         </TextInput>
                     </View>
-                    <IconAntDesign RightItem name="search1" size={20} style={{ marginBottom: 'auto', marginTop: 'auto' }} />
+                    <IconAntDesign RightItem name="search1" size={20} style={{ marginBottom: 'auto', marginTop: 'auto', marginRight: 4 }} />
                 </View>
                 {
                     rightBar == 'storebar' ?
-                        <View style={{ paddingRight: 4, flexDirection: 'row' }}>
-                            <TouchableOpacity style={{ width: width * 0.09, alignContent: 'center', alignItems: 'center' }} onPress={null/*() => this.props.navigation.navigate('CartScreen')*/}>
+                        <View style={{ paddingRight: 4, flexDirection: 'row', alignContent: 'center', alignItems: 'center' }}>
+                            <TouchableOpacity style={{ width: width * 0.1, alignContent: 'center', alignItems: 'center' }} onPress={null/*() => this.props.navigation.navigate('CartScreen')*/}>
                                 <IconFeather RightItem name="filter" size={25} style={{ marginTop: 5, }} />
                             </TouchableOpacity>
-                            <TouchableOpacity style={{ width: width * 0.09, alignContent: 'center', alignItems: 'center' }} onPress={null/*() => this.props.navigation.navigate('CartScreen')*/}>
+                            <TouchableOpacity style={{ width: width * 0.1, alignContent: 'center', alignItems: 'center' }} onPress={null/*() => this.props.navigation.navigate('CartScreen')*/}>
                                 <Icon RightItem name="ellipsis-h" size={25} style={{ marginTop: 5, }} />
                             </TouchableOpacity>
                         </View> :
                         <View style={{ paddingRight: 4, flexDirection: 'row' }}>
                             {leftBar == 'backarrow' ?
                                 null :
-                                <TouchableOpacity style={{ width: width * 0.09, alignContent: 'center', alignItems: 'center' }} onPress={null/*() => this.props.navigation.navigate('CartScreen')*/}>
+                                <TouchableOpacity style={{ width: width * 0.1, alignContent: 'center', alignItems: 'center' }} onPress={null/*() => this.props.navigation.navigate('CartScreen')*/}>
                                     <IconAntDesign RightItem name="message1" size={25} style={{ marginTop: 5, }} />
                                 </TouchableOpacity>
                             }
-                            <TouchableOpacity style={{ width: width * 0.09, alignContent: 'center', alignItems: 'center' }} onPress={() => this.props.navigation.navigate('CartScreen')}>
+                            <TouchableOpacity style={{ width: width * 0.1, alignContent: 'center', alignItems: 'center' }} onPress={() => this.props.navigation.navigate('CartScreen')}>
                                 <IconAntDesign RightItem name="shoppingcart" size={25} style={{ marginTop: 5, }} />
                             </TouchableOpacity>
                         </View>
@@ -295,7 +302,7 @@ export class Category extends Component {
             var dataMySQL = [finip, item.image_path, 'menu', item.image_head].join('/');
             {/* console.log(dataMySQL); */ }
             return (
-                <View style={styles.Category} key={indexs}>
+                <View style={item.name.length > 15 ? [styles.Category, { marginTop: 10 }] : styles.Category} key={indexs}>
                     <View style={styles.Category_box}>
                         <FastImage
                             source={{
@@ -304,7 +311,7 @@ export class Category extends Component {
                             style={styles.Category_image}
                         />
                     </View>
-                    <Text style={styles.Text_Cate}>{item.name}</Text>
+                    <Text style={[{ fontFamily: 'SukhumvitSet-Bold', textAlign: 'center' }]}>{item.name}</Text>
                 </View>
             )
         })
@@ -330,7 +337,7 @@ export class Button_Bar extends Component {
     }
     render() {
         return (
-            <View style={styles.Button_Bar} >
+            <View style={[styles.Button_Bar, { marginTop: 10 }]} >
                 <ScrollView horizontal>
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('DealScreen')}>
                         <View style={styles.Button_Bar_Box}>
@@ -407,7 +414,7 @@ export class Brand_RCM extends Component {
         return (
             <View style={styles.Brand_RCM}>
                 <View style={styles.Brand_RCMTextBox}>
-                    <Text style={styles.Brand_RCMText}>
+                    <Text style={[styles.Brand_RCMText]}>
                         แบรนด์แนะนำ
                     </Text>
                     <Text style={styles.Brand_RCMTextEnd}>
@@ -531,8 +538,8 @@ export class Popular_product extends Component {
     render() {
         return (
             <View style={styles.Popular}>
-                <View style={styles.PopularTextBox}>
-                    <Text style={styles.PopularText}>
+                <View style={styles.Brand_RCMTextBox}>
+                    <Text style={styles.Brand_RCMText}>
                         สินค้ายอดนิยม
                     </Text>
                 </View>
@@ -569,7 +576,7 @@ export class Popular_product extends Component {
                                     />
                                 </View>
                             </View>
-                            <View style={styles.PopularText_A} ><Text style={styles.Text_Popular}>สินค้าสุดฮิต</Text></View>
+                            <View style={styles.PopularText_A} ><Text style={{ fontFamily: 'SukhumvitSet-Bold', marginLeft: 8 }}>สินค้าสุดฮิต</Text></View>
                         </View>
                         <View style={styles.Popular_Box_B}>
                             <View style={styles.Popular_Box_C}>
@@ -602,7 +609,7 @@ export class Popular_product extends Component {
                                     />
                                 </View>
                             </View>
-                            <View style={styles.PopularText_A} ><Text style={styles.Text_Popular}>สินค้าราคาโดน</Text></View>
+                            <View style={styles.PopularText_A} ><Text style={{ fontFamily: 'SukhumvitSet-Bold', marginLeft: 8 }}>สินค้าราคาโดน</Text></View>
                         </View>
                         <View style={styles.Popular_Box_B}>
                             <View style={styles.Popular_Box_C}>
@@ -635,7 +642,7 @@ export class Popular_product extends Component {
                                     />
                                 </View>
                             </View>
-                            <View style={styles.PopularText_A} ><Text style={styles.Text_Popular}>สินค้าราคาโดน</Text></View>
+                            <View style={styles.PopularText_A} ><Text style={{ fontFamily: 'SukhumvitSet-Bold', marginLeft: 8 }}>สินค้าราคาโดน</Text></View>
                         </View>
                         <View style={styles.Popular_Box_B}>
                             <View style={styles.Popular_Box_C}>
@@ -664,7 +671,7 @@ export class Popular_product extends Component {
                                     />
                                 </View>
                             </View>
-                            <View style={styles.PopularText_A} ><Text style={styles.Text_Popular}>สินค้าราคาโดน</Text></View>
+                            <View style={styles.PopularText_A} ><Text style={{ fontFamily: 'SukhumvitSet-Bold', marginLeft: 8 }}>สินค้าราคาโดน</Text></View>
                         </View>
                     </ScrollView>
                 </View>
@@ -800,16 +807,14 @@ export class FlashSale extends Component {
                             style={styles.FlashSaleImage}
 
                         />
-                        <Text style={styles.FlashSaleImageName}>{item.name}</Text>
+                        <Text style={[styles.FlashSaleImageName, { fontFamily: 'SukhumvitSet-Text', }]}>{item.name}</Text>
                         <NumberFormat
                             value={item.full_price}
                             displayType={'text'}
                             thousandSeparator={true}
                             prefix={'฿'}
                             renderText={
-                                value => <Text style={
-                                    styles.FlashSaleImagePrice
-                                }>
+                                value => <Text style={[styles.FlashSaleImagePrice, { fontFamily: 'SukhumvitSet-Text', }]}>
                                     {value}
                                 </Text>}
                         />
@@ -819,11 +824,11 @@ export class FlashSale extends Component {
         })
         return (
             <View style={styles.FlashSale}>
-                <View style={styles.FlashSaleTextBox}>
-                    <Text style={styles.FlashSaleText}>
+                <View style={styles.Brand_RCMTextBox}>
+                    <Text style={styles.Brand_RCMText}>
                         FLASH SALE
                     </Text>
-                    <Text style={styles.FlashSaleTextEnd}>
+                    <Text style={styles.Brand_RCMTextEnd}>
                         ดูทั้งหมด
                     </Text>
                 </View>
@@ -877,7 +882,7 @@ export class PromotionPopular extends Component {
                             style={styles.Promotion_popular_image}
 
                         />
-                        <Text style={styles.Text_icon_Sale}>ร้าน AVIRA ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
+                        <Text style={[styles.Text_icon_Sale, { fontFamily: 'SukhumvitSet-Text', }]}>ร้าน AVIRA ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                     </View>
                 </View>
                 // </TouchableOpacity>
@@ -885,11 +890,11 @@ export class PromotionPopular extends Component {
         })
         return (
             <View style={styles.Promotion_popular}>
-                <View style={styles.Promotion_popularTextBox}>
-                    <Text style={styles.Promotion_popularText}>
+                <View style={styles.Brand_RCMTextBox}>
+                    <Text style={styles.Brand_RCMText}>
                         โปรโมชันร้านค้ายอดนิยม
                     </Text>
-                    <Text style={styles.Promotion_popularTextEnd}>
+                    <Text style={styles.Brand_RCMTextEnd}>
                         ดูทั้งหมด
                     </Text>
                 </View>
@@ -944,18 +949,18 @@ export class Confidential_PRO extends Component {
                             style={styles.Confidential_image}
 
                         />
-                        <Text style={styles.Text_box_Confidential}>Gala Germs จัดโปรโมชั่นสำหรับผู้มียอดสั่งซื้อครบ 5,000 บาท </Text>
+                        <Text style={[styles.Text_box_Confidential, { fontFamily: 'SukhumvitSet-Text', }]}>Gala Germs จัดโปรโมชั่นสำหรับผู้มียอดสั่งซื้อครบ 5,000 บาท </Text>
                     </View>
                 </View>
             )
         })
         return (
-            <View style={styles.Confidential}>
-                <View style={styles.Promotion_popularTextBox}>
-                    <Text style={styles.ConfidentialText}>
+            <View style={[styles.Confidential]}>
+                <View style={styles.Brand_RCMTextBox}>
+                    <Text style={styles.Brand_RCMText}>
                         ดีลสุด Exclusive
                     </Text>
-                    <Text style={styles.ConfidentialTextEnd}>
+                    <Text style={styles.Brand_RCMTextEnd}>
                         ดูทั้งหมด
                     </Text>
                 </View>
@@ -1009,16 +1014,14 @@ export class Product_for_you extends Component {
                             style={styles.ProductForYouImage}
 
                         />
-                        <Text style={styles.ProductForYouImageName}>{item.name}</Text>
+                        <Text style={[styles.ProductForYouImageName, { fontFamily: 'SukhumvitSet-Text', }]}>{item.name}</Text>
                         <NumberFormat
                             value={item.full_price}
                             displayType={'text'}
                             thousandSeparator={true}
                             prefix={'฿'}
                             renderText={
-                                value => <Text style={
-                                    styles.ProductForYouImagePrice
-                                }>
+                                value => <Text style={[styles.ProductForYouImagePrice, { fontFamily: 'SukhumvitSet-Text', }]}>
                                     {value}
                                 </Text>}
                         />
@@ -1028,11 +1031,11 @@ export class Product_for_you extends Component {
         })
         return (
             <View style={styles.ProductForYou}>
-                <View style={styles.ProductForYouTextBox}>
-                    <Text style={styles.ProductForYouText}>
+                <View style={styles.Brand_RCMTextBox}>
+                    <Text style={styles.Brand_RCMText}>
                         FIN คัดมาเพื่อคุณ
                     </Text>
-                    <Text style={styles.ProductForYouTextEnd}>
+                    <Text style={styles.Brand_RCMTextEnd}>
                         ดูทั้งหมด
                     </Text>
                 </View>
@@ -1089,16 +1092,14 @@ export class SaleProduct extends Component {
                             style={styles.SaleProductImage}
 
                         />
-                        <Text style={styles.SaleProductImageName}>{item.name}</Text>
+                        <Text style={[styles.SaleProductImageName, { fontFamily: 'SukhumvitSet-Text', }]}>{item.name}</Text>
                         <NumberFormat
                             value={item.full_price}
                             displayType={'text'}
                             thousandSeparator={true}
                             prefix={'฿'}
                             renderText={
-                                value => <Text style={
-                                    styles.SaleProductImagePrice
-                                }>
+                                value => <Text style={[styles.SaleProductImagePrice, { fontFamily: 'SukhumvitSet-Text', }]}>
                                     {value}
                                 </Text>}
                         />
@@ -1108,11 +1109,11 @@ export class SaleProduct extends Component {
         })
         return (
             <View style={styles.SaleProduct}>
-                <View style={styles.SaleProductTextBox}>
-                    <Text style={styles.SaleProductText}>
+                <View style={styles.Brand_RCMTextBox}>
+                    <Text style={styles.Brand_RCMText}>
                         ไฮไลท์ประจำสัปดาห์
                     </Text>
-                    <Text style={styles.SaleProductTextEnd}>
+                    <Text style={styles.Brand_RCMTextEnd}>
                         ดูทั้งหมด
                     </Text>
                 </View>
@@ -1167,18 +1168,18 @@ export class NewStore extends Component {
                             style={styles.NewStoreImage}
 
                         />
-                        <Text style={styles.NewStoreText_bar}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50% </Text>
+                        <Text style={[styles.NewStoreText_bar, { fontFamily: 'SukhumvitSet-Text', }]}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50% </Text>
                     </View>
                 </TouchableOpacity>
             )
         })
         return (
             <View style={styles.NewStore}>
-                <View style={styles.NewStoreTextBox}>
-                    <Text style={styles.NewStoreText}>
+                <View style={styles.Brand_RCMTextBox}>
+                    <Text style={styles.Brand_RCMText}>
                         โปรเด็ดร้านค้ามาใหม่
                     </Text>
-                    <Text style={styles.NewStoreTextEnd}>
+                    <Text style={styles.Brand_RCMTextEnd}>
                         ดูทั้งหมด
                     </Text>
                 </View>
@@ -1234,16 +1235,14 @@ export class NewProduct extends Component {
                             style={styles.NewProductImage}
 
                         />
-                        <Text style={styles.NewProductImageName}>{item.name}</Text>
+                        <Text style={[styles.NewProductImageName, { fontFamily: 'SukhumvitSet-Text', }]}>{item.name}</Text>
                         <NumberFormat
                             value={item.full_price}
                             displayType={'text'}
                             thousandSeparator={true}
                             prefix={'฿'}
                             renderText={
-                                value => <Text style={
-                                    styles.NewProductImagePrice
-                                }>
+                                value => <Text style={[styles.NewProductImagePrice, { fontFamily: 'SukhumvitSet-Text', }]}>
                                     {value}
                                 </Text>}
                         />
@@ -1253,11 +1252,11 @@ export class NewProduct extends Component {
         })
         return (
             <View style={styles.NewProduct}>
-                <View style={styles.NewProductTextBox}>
-                    <Text style={styles.NewProductText}>
+                <View style={styles.Brand_RCMTextBox}>
+                    <Text style={styles.Brand_RCMText}>
                         สินค้ามาใหม่
                     </Text>
-                    <Text style={styles.NewProductTextEnd}>
+                    <Text style={styles.Brand_RCMTextEnd}>
                         ดูทั้งหมด
                     </Text>
                 </View>
@@ -1311,10 +1310,10 @@ export class CategoryProduct extends Component {
                 <View style={styles.CategoryProduct} key={indexs}>
                     <View>
                         <View style={styles.CategoryProductTextBox}>
-                            <Text style={styles.CategoryProductText}>
+                            <Text style={styles.Brand_RCMText}>
                                 {item.name}
                             </Text>
-                            <Text style={styles.CategoryProductTextEnd}>
+                            <Text style={styles.Brand_RCMTextEnd}>
                                 ดูทั้งหมด
                             </Text>
                         </View>
@@ -1407,7 +1406,7 @@ export class CategoryProductSubProduct extends Component {
                             style={styles.CategoryProductImage}
 
                         />
-                        <Text style={styles.CategoryProductImageName}>
+                        <Text style={[styles.CategoryProductImageName, { fontFamily: 'SukhumvitSet-Text', }]}>
                             {item.name}
                         </Text>
                         <NumberFormat
@@ -1416,9 +1415,7 @@ export class CategoryProductSubProduct extends Component {
                             thousandSeparator={true}
                             prefix={'฿'}
                             renderText={
-                                value => <Text style={
-                                    styles.CategoryProductImagePrice
-                                }>
+                                value => <Text style={[styles.CategoryProductImagePrice, { fontFamily: 'SukhumvitSet-Text', }]}>
                                     {value}
                                 </Text>
                             }
@@ -1538,7 +1535,7 @@ export class CategoryProductSubPromotion extends Component {
                         style={styles.PromotionCategoryProductImage}
 
                     />
-                    <Text style={styles.PromotionCategoryProductImageIcon}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
+                    <Text style={[styles.PromotionCategoryProductImageIcon, { fontFamily: 'SukhumvitSet-Text', }]}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
                 </View>
             );
         })
@@ -1613,7 +1610,7 @@ export class Second_product extends Component {
 
                 >
                 </FastImage>
-                <View style={{ backgroundColor: '#0A55A6', height: 40, width: 280, }}><Text style={{ color: '#FFFF' }}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text></View>
+                <View style={{ backgroundColor: '#0A55A6', height: 40, width: 280, }}><Text style={{ color: '#FFFF', fontFamily: 'SukhumvitSet-Text', }}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text></View>
             </View>
         );
     }
@@ -1630,7 +1627,7 @@ export class Second_product extends Component {
 
                 >
                 </FastImage>
-                <View style={{ backgroundColor: '#0A55A6', height: 30, width: 130, }}><Text style={styles.Second_StoreFin_ImageB_Ttext}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text></View>
+                <View style={{ backgroundColor: '#0A55A6', height: 30, width: 130, }}><Text style={[styles.Second_StoreFin_ImageB_Ttext, { fontFamily: 'SukhumvitSet-Text', }]}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text></View>
             </View>
         );
     }
@@ -1670,7 +1667,7 @@ export class Second_product extends Component {
     render() {
         let dataFlashSale = this.state.dataSale.map((item, indexs) => {
             // console.log('Sale')
-            console.log(item)
+            // console.log(item)
             var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
             // console.log(dataMySQL)
             return (
@@ -1699,9 +1696,7 @@ export class Second_product extends Component {
                             thousandSeparator={true}
                             prefix={'฿'}
                             renderText={
-                                value => <Text style={
-                                    styles.CategoryProductImagePrice
-                                }>
+                                value => <Text style={[styles.CategoryProductImagePrice, { fontFamily: 'SukhumvitSet-Text', }]}>
                                     {value}
                                 </Text>}
                         />
@@ -1712,7 +1707,7 @@ export class Second_product extends Component {
         return (
             <View style={styles.Second_product}>
                 <View style={styles.FlashSaleTextBox}>
-                    <Text style={styles.FlashSaleText}>
+                    <Text style={styles.Brand_RCMText}>
                         สินค้ามือสอง
                     </Text>
                 </View>
@@ -1732,7 +1727,7 @@ export class Second_product extends Component {
                             style={styles.Text_Bar_Image}
                             source={{ uri: ip + '/MySQL/uploads/Text/storeFIN1.png' }}
                         />
-                        <View><Text style={styles.Second_StoreFin_textEnd}>ดูทั้งหมด</Text></View>
+                        <View><Text style={[styles.Second_StoreFin_textEnd, { fontFamily: 'SukhumvitSet-Text', }]}>ดูทั้งหมด</Text></View>
                     </View>
                     <View style={styles.Second_StoreFin_Box}>
                         <View style={styles.Second_StoreFin_Image}>
@@ -1797,35 +1792,35 @@ export class Second_product extends Component {
                                     style={styles.Second_Storefooter_image}
                                     source={{ uri: ip + '/MySQL/uploads/slide/Store_recommendFIN/luxury_shop1.jpg' }}
                                 />
-                                <Text style={styles.Second_Storefooter_Text}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
+                                <Text style={[styles.Second_Storefooter_Text, { fontFamily: 'SukhumvitSet-Text', }]}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
                             </View>
                             <View>
                                 <FastImage
                                     style={styles.Second_Storefooter_image}
                                     source={{ uri: ip + '/MySQL/uploads/slide/Store_recommendFIN/luxury_shop1.jpg' }}
                                 />
-                                <Text style={styles.Second_Storefooter_Text}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
+                                <Text style={[styles.Second_Storefooter_Text, { fontFamily: 'SukhumvitSet-Text', }]}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
                             </View>
                             <View>
                                 <FastImage
                                     style={styles.Second_Storefooter_image}
                                     source={{ uri: ip + '/MySQL/uploads/slide/Store_recommendFIN/luxury_shop1.jpg' }}
                                 />
-                                <Text style={styles.Second_Storefooter_Text}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
+                                <Text style={[styles.Second_Storefooter_Text, { fontFamily: 'SukhumvitSet-Text', }]}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
                             </View>
                             <View>
                                 <FastImage
                                     style={styles.Second_Storefooter_image}
                                     source={{ uri: ip + '/MySQL/uploads/slide/Store_recommendFIN/luxury_shop1.jpg' }}
                                 />
-                                <Text style={styles.Second_Storefooter_Text}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
+                                <Text style={[styles.Second_Storefooter_Text, { fontFamily: 'SukhumvitSet-Text', }]}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
                             </View>
                             <View>
                                 <FastImage
                                     style={styles.Second_Storefooter_image}
                                     source={{ uri: ip + '/MySQL/uploads/slide/Store_recommendFIN/luxury_shop1.jpg' }}
                                 />
-                                <Text style={styles.Second_Storefooter_Text}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
+                                <Text style={[styles.Second_Storefooter_Text, { fontFamily: 'SukhumvitSet-Text', }]}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
                             </View>
 
                         </View>
@@ -1883,7 +1878,7 @@ export class TodayProduct extends Component {
                             style={styles.TodayProductImage}
 
                         />
-                        <Text style={styles.TodayProductImageName}>
+                        <Text style={[styles.TodayProductImageName, { fontFamily: 'SukhumvitSet-Text', }]}>
                             {item.name}
                         </Text>
                         <NumberFormat
@@ -1892,9 +1887,7 @@ export class TodayProduct extends Component {
                             thousandSeparator={true}
                             prefix={'฿'}
                             renderText={
-                                value => <Text style={
-                                    styles.TodayProductImagePrice
-                                }>
+                                value => <Text style={[styles.TodayProductImagePrice, { fontFamily: 'SukhumvitSet-Text', }]}>
                                     {value}
                                 </Text>
                             }
@@ -1921,7 +1914,7 @@ export class TodayProduct extends Component {
                 {
                     noTitle ?
                         null :
-                        <Text style={styles.TodayProductText}>
+                        <Text style={styles.Brand_RCMText}>
                             สินค้าคัดสรรเพื่อคุณ
                         </Text>
                 }

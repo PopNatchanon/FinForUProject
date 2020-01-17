@@ -25,7 +25,7 @@ import StoreMe_Up_Product from '../src/src_storeMe/StoreMe_Up_Product';
 import DealScreen from '../src/src_Promotion/DealScreen';
 import CoinScreen from '../src/src_Promotion/CoinScreen';
 import CampaignScreen from '../src/src_Promotion/CampaignScreen';
- 
+
 
 const PathScreen = createStackNavigator({
   MainScreen: {
@@ -200,9 +200,10 @@ const PathScreen = createStackNavigator({
 },
   {
     initialRouteName: 'MainScreen',
+    // initialRouteName: 'DetailScreen',
     // initialRouteName: 'DealScreen',
   }
-  );
+);
 
 const AppNavigator = createAppContainer(PathScreen);
 export default AppNavigator;

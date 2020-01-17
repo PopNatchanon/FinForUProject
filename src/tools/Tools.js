@@ -40,41 +40,41 @@ export class Toolbar extends Component {
                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('MainScreen')} >
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign style={{ marginLeft: 5, }} name="home" size={25} />
-                        <Text style={{ fontSize: 13 }}>Home</Text>
+                        <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>Home</Text>
                     </View>
                 </TouchableOpacity>
 
                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('FeedScreen')} >
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="tagso" size={25} />
-                        <Text style={{ fontSize: 13 }}> Feed</Text>
+                        <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}> Feed</Text>
                     </View>
                 </TouchableOpacity>
 
                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('NewsScreen')} >
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="notification" size={25} />
-                        <Text style={{ fontSize: 13 }}>News</Text>
+                        <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>News</Text>
                     </View>
                 </TouchableOpacity>
 
                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('BellScreen')} >
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="bells" size={25} />
-                        <Text style={{ fontSize: 13 }}>เตือน</Text>
+                        <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>เตือน</Text>
                     </View>
                 </TouchableOpacity>
                 {u_name == null ?
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('LoginScreen')} >
                         <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                             <IconAntDesign name="user" size={25} />
-                            <Text style={{ fontSize: 13 }}>ฉัน</Text>
+                            <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>ฉัน</Text>
                         </View>
                     </TouchableOpacity> :
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('ProfileScreen')} >
                         <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                             <IconAntDesign name="user" size={25} />
-                            <Text style={{ fontSize: 13 }}>
+                            <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>
                                 {
                                     u_name.length > 6 ?
                                         'บัญชีของ' + u_name.substring(0, 3) + '...' :
@@ -191,6 +191,7 @@ export class TabBar extends Component {
                                     }>
                                         <Text style={{
                                             fontSize: 14,
+                                            fontFamily: 'SukhumvitSet-Text',
                                             color: type == 'box' ?
                                                 activeFontColor ? activeFontColor : fontColor ? fontColor : 'white' :
                                                 activeFontColor ? activeFontColor : fontColor ? fontColor : 'black'
@@ -235,6 +236,7 @@ export class TabBar extends Component {
                                     }>
                                         <Text style={{
                                             fontSize: 14,
+                                            fontFamily: 'SukhumvitSet-Text',
                                             color: inactiveFontColor ? inactiveFontColor : fontColor ? fontColor : 'black'
                                         }}>
                                             {item.name}

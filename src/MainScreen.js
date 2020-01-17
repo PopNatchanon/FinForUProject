@@ -52,7 +52,7 @@ export default class MainScreen extends Component {
                     <Slide />
                     <Category />
                     <Button_Bar navigation={this.props.navigation} />
-                    <Brand_RCM />
+                    <Brand_RCM navigation={this.props.navigation}/>
                     <Popular_product />
                     <BannerBar_ONE />
                     <FlashSale navigation={this.props.navigation} />
@@ -373,7 +373,7 @@ export class Button_Bar extends Component {
                         </View>
                     </TouchableOpacity>
 
-                    <TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('WorthFinScreen')}>
                         <View style={styles.Button_Bar_Box}>
                             <FastImage style={styles.Button_Bar_icon}
                                 source={{
@@ -384,7 +384,7 @@ export class Button_Bar extends Component {
                             />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Installment_payScreen')}>
                         <View style={styles.Button_Bar_Box}>
                             <FastImage style={styles.Button_Bar_icon}
                                 source={{
@@ -423,16 +423,19 @@ export class Brand_RCM extends Component {
                 </View>
                 <ScrollView horizontal>
                     <View style={styles.Brand_RCM_Box}>
-                        <View>
-                            <FastImage
-                                style={styles.Brand_image_RCM}
-                                source={{
-                                    uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Brand_RCM_Screen')}>
+                            <View>
+                                <FastImage
+                                    style={styles.Brand_image_RCM}
+                                    source={{
+                                        uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
 
-                                }}
+                                    }}
 
-                            />
-                        </View>
+                                />
+                            </View>
+                        </TouchableOpacity>
+
 
                         <View >
                             <FastImage
@@ -793,9 +796,10 @@ export class FlashSale extends Component {
                     key={indexs}
                     onPress={
                         () => this.props.navigation.navigate(
-                            'DetailScreen', {
+                            'FlashSaleScreen', {
                             id_item: item.id_product
-                        })
+                        }
+                        )
                     }
                 >
                     <View style={styles.FlashSaleBox}>
@@ -828,9 +832,11 @@ export class FlashSale extends Component {
                     <Text style={styles.Brand_RCMText}>
                         FLASH SALE
                     </Text>
-                    <Text style={styles.Brand_RCMTextEnd}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('FlashSaleScreen')}>
+                    <Text style={styles.FlashSaleTextEnd}>
                         ดูทั้งหมด
                     </Text>
+                   </TouchableOpacity>
                 </View>
                 <ScrollView horizontal>
                     {dataFlashSale}

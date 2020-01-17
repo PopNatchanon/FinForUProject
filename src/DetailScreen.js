@@ -15,7 +15,7 @@ import FastImage from 'react-native-fast-image';
 import Icons from 'react-native-vector-icons/FontAwesome5';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import IconEntypo from 'react-native-vector-icons/Entypo'
+import IconEntypo from 'react-native-vector-icons/Entypo';
 import styles from '../style/StylesDetailScreen'
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 export const { width, height } = Dimensions.get('window');

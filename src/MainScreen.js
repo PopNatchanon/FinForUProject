@@ -112,7 +112,9 @@ export class AppBar extends Component {
                                 leftBar == 'backarrow' ?
                                     width - 190 :
                                     width - 160 :
-                                width - 160,
+                                rightBar == 'chat' ?
+                                    width - 190 :
+                                    width - 160,
                         marginBottom: 'auto',
                         marginTop: 'auto',
                         alignContent: 'center',

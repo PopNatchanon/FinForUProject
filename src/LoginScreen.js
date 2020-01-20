@@ -17,6 +17,7 @@ import { ip, finip } from '../navigator/IpConfig';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import styles from '../style/stylesLoginScreen';
+import RNRestart from 'react-native-restart';
 import { Toolbar } from './tools/Tools'
 
 import {
@@ -140,6 +141,7 @@ export class Login extends Component {
           this.props.navigation.replace('MainScreen');
           this.props.navigation.navigate('Customer_account');
         }
+        // RNRestart.Restart();
       })
       .catch((error) => {
         console.error(error);

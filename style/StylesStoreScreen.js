@@ -413,12 +413,12 @@ export default StyleSheet.create({
   PopularProductBoxProduct: {
     width,
     marginTop: 4,
+    marginBottom: 40,
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
   PopularProductBox: {
     width: width * (1 / 2.25),
-    height: height * (1 / 3.3),
     borderColor: '#ECECEC',
     borderWidth: 1,
     margin: 8,
@@ -426,7 +426,7 @@ export default StyleSheet.create({
   },
   PopularProductImage: {
     width: '100%',
-    height: '70%',
+    height: height * 0.3,
     resizeMode: 'cover',
     padding: 4,
   },
@@ -496,7 +496,6 @@ export default StyleSheet.create({
   },
   ShowProductBox: {
     width: width * 0.442,
-    height: height * 0.355,
     borderColor: '#ECECEC',
     borderWidth: 1,
     margin: 8,
@@ -504,7 +503,7 @@ export default StyleSheet.create({
   },
   ShowProductImage: {
     width: '100%',
-    height: '65%',
+    height: height * 0.25,
     resizeMode: 'stretch',
     padding: 4,
   },
@@ -570,9 +569,9 @@ export default StyleSheet.create({
 
   },
   StoreFeedImage: {
-    width: '100%',
-    height: height * 0.25,
-    resizeMode: 'contain',
+    width: 200,
+    height: 200,
+    resizeMode: 'center',
     padding: 4,
   },
   StoreFeedComBox: {

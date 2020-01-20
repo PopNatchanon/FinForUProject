@@ -52,17 +52,17 @@ export default StyleSheet.create({
         backgroundColor: '#FFF'
     },
     Topic_Box: {
-        marginTop:10,
+        marginTop: 10,
         height: 50,
         width: 430,
-        borderColor:'#E9E9E9',
-        borderWidth:1,
+        borderColor: '#E9E9E9',
+        borderWidth: 1,
         padding: 10,
         flexDirection: 'row',
     },
-    Topic_Box_icon:{
-        color:'#0A55A6',
-        marginLeft: 10, 
+    Topic_Box_icon: {
+        color: '#0A55A6',
+        marginLeft: 10,
         marginRight: 10,
     },
 

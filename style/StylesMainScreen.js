@@ -79,9 +79,9 @@ export default StyleSheet.create({
   category_A: {
     flexDirection: 'column',
     flexWrap: 'wrap',
-    height: 210 ,
-    paddingBottom:10,
-    paddingTop:10,
+    height: 210,
+    paddingBottom: 10,
+    paddingTop: 10,
     justifyContent: 'space-between'
   },
   Category_image: {
@@ -636,14 +636,13 @@ export default StyleSheet.create({
   },
   TodayProductBox: {
     width: width * (1 / 3.07),
-    height: height * (1 / 4),
     borderColor: '#ECECEC',
     borderWidth: 0.5,
 
   },
   TodayProductImage: {
     width: '100%',
-    height: '70%',
+    height: height * (1 / 4.5),
     resizeMode: 'cover',
     padding: 4,
   },
@@ -940,7 +939,7 @@ export default StyleSheet.create({
 
   Second_product: {
     height: 'auto',
-    backgroundColor:'#fff',
+    backgroundColor: '#fff',
     width,
     borderColor: '#ECECEC',
     borderBottomWidth: 1,

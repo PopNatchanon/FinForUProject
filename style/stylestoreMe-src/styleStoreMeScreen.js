@@ -196,7 +196,7 @@ export default StyleSheet.create({
         borderWidth: 1,
         borderRadius: 8,
         marginLeft: 15,
-        marginTop:10,
+        marginTop: 10,
     },
     cate_BoxA: {
         height: 70,

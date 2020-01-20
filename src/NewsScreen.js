@@ -30,15 +30,23 @@ export default class NewsScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            selectedIndex: 0
         };
+        this.getData = this.getData.bind(this)
+    }
+    getData(val) {
+        // console.log(val);
+        this.setState({
+            selectedIndex: val
+        });
     }
 
     render() {
         return (
             <SafeAreaView style={styles.SafeAreaView}>
-                <AppBar />
+                <AppBar sendText={this.getData} />
                 <ScrollView>
-                    <Button_Bar />
+                    <Button_Bar selectedIndex={this.state.selectedIndex} />
                     {/* <Follow_up />
           <Highlights/> */}
                 </ScrollView>
@@ -55,18 +63,44 @@ export class AppBar extends Component {
         super(props);
         this.state = {
             text: '',
-        };
+            selectedIndex: 0
+        }
+        this.getData = this.getData.bind(this)
     }
-
+    getData(val) {
+        // console.log(val);
+        this.setState({
+            selectedIndex: val
+        });
+        this.props.sendText(val);
+    }
     render() {
+        const item = [{
+            name: 'NEWS'
+        }, {
+            name: 'BLOG'
+        }];
         return (
-            <View style={styles.Appbar}>
-                <View style={styles.Icon_appbar_Text}>
-                    <Text style={styles.Text_appbar}>NEWS</Text>
+            <View>
+                <View style={styles.Appbar}>
+                    <View style={styles.Icon_appbar_Text}>
+                        <Text style={[styles.Text_appbar, { fontFamily: 'SukhumvitSet-Bold' }]}>{this.state.selectedIndex == 0 ? 'NEWS' : 'BLOG'}</Text>
+                    </View>
                 </View>
-                <Icons RightItem name="store" size={25} style={styles.Icon_appbar} />
+                <View>
+                    {/* <View style={styles.Button_Bar}> */}
+                    <TabBar
+                        sendData={this.getData}
+                        item={item}
+                        noSpace
+                        widthBox={100}
+                        spaceColor='#0A55A6'
+                        activeColor='#fff'
+                        fontColor='#fff'
+                    />
+                </View>
             </View>
-        );
+        )
     }
 }
 
@@ -78,7 +112,6 @@ export class Button_Bar extends Component {
         this.state = {
             selectedIndex: 0
         }
-        this.getData = this.getData.bind(this)
     }
     ViewSide(selectedIndex) {
         // const { s_name, s_image } = this.props;
@@ -89,41 +122,20 @@ export class Button_Bar extends Component {
                         <News />
                     </SafeAreaView>
                 );
-                break;
             case 1:
                 return (
-                    <SafeAreaView style={styles.SafeAreaView_A}>
+                    < SafeAreaView style={styles.SafeAreaView_A} >
                         <Blog />
-                    </SafeAreaView>
+                    </SafeAreaView >
                 );
             default:
         }
     }
-    getData(val) {
-        // console.log(val);
-        this.setState({
-            selectedIndex: val
-        });
-    }
     render() {
-        const item = [{
-            name: 'กำลังติดตาม'
-        }, {
-            name: 'ไฮไลต์'
-        }]
-        const { selectedIndex } = this.state
+        const { selectedIndex } = this.props
         return (
             <View>
                 {/* <View style={styles.Button_Bar}> */}
-                    <TabBar
-                        sendData={this.getData}
-                        item={item}
-                        boxSpace='nospace'
-                        widthBox={100}
-                        spaceColor='#0A55A6'
-                        activeColor='#fff'
-                        fontColor='#fff'
-                    />
                 {/* </View> */}
                 {this.ViewSide(selectedIndex)}
             </View>
@@ -148,7 +160,7 @@ export class News extends Component {
                         style={styles.header_image}
                         source={{ uri: ip + '/MySQL/uploads/page_News/page_J_News.jpg' }}
                     />
-                    <Text>หลายคนคงจะเคยอยากรู้ วิธีดูเพชรแท้ ว่าจริงๆแล้วเพชรแท้ดูยังไง?</Text>
+                    <Text style={{ fontFamily: 'SukhumvitSet-Text' }}>หลายคนคงจะเคยอยากรู้ วิธีดูเพชรแท้ ว่าจริงๆแล้วเพชรแท้ดูยังไง?</Text>
                     <View style={styles.header_icon_Box}>
                         <IconEntypo style={styles.header_icon} name='eye' size={25} />
                         <IconEntypo style={styles.header_icon} name='share' size={25} />
@@ -215,8 +227,8 @@ export class Blog extends Component {
                         style={styles.header_image}
                         source={{ uri: ip + '/MySQL/uploads/page_News/page_J_News.jpg' }}
                     />
-                    <Text>หลายคนคงจะเคยอยากรู้ วิธีดูเพชรแท้ ว่าจริงๆแล้วเพชรแท้ดูยังไง?</Text>
-                    <View style={styles.header_icon_Box}>
+                    <Text style={{fontFamily: 'SukhumvitSet-Text'}}>หลายคนคงจะเคยอยากรู้ วิธีดูเพชรแท้ ว่าจริงๆแล้วเพชรแท้ดูยังไง?</Text>
+                    <View style={styles.header_icon_Box}> 
                         <IconEntypo style={styles.header_icon} name='eye' size={25} />
                         <IconEntypo style={styles.header_icon} name='share' size={25} />
                     </View>
@@ -254,10 +266,9 @@ export class Blog extends Component {
                             style={styles.body_image}
                             source={{ uri: ip + '/MySQL/uploads/page_News/วิธีดูเข็มและรองเท้แตะกุชชี่ของแท้-660x330.jpg' }}>
                         </FastImage>
-                        <Text style={styles.body_Text}>วันนี้เราจะมาสอนวิธีการแยกเข็มขัดกุชชี่และรองเท้าแตะกุชชี่</Text>
+                        <Text style={[styles.body_Text]}>วันนี้เราจะมาสอนวิธีการแยกเข็มขัดกุชชี่และรองเท้าแตะกุชชี่</Text>
                     </View>
                 </View>
-
             </View>
 
         );

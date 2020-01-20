@@ -84,7 +84,7 @@ export class Toolbar extends Component {
                         </View>
                     </TouchableOpacity>
                 }
-            </View >
+            </View>
         )
     }
 }
@@ -112,7 +112,7 @@ export class TabBar extends Component {
     // /////|number| กำหนดความหนาของเส้นขอบ
     // activeWidth={4}          
     // /////|space|nospace| กำหนดรูปแบบระยะของแต่ละbox
-    // boxSpace='nospace'   
+    // noSpace='true'false|   
     // /////|0-100| กำหนดระยะห่างของแต่ละbox มีค่า 0-100
     // widthBox={98}
     // /////|row|column|  กำหนดแนวของbox
@@ -135,7 +135,7 @@ export class TabBar extends Component {
     tab() {
         const {
             item, activeColor, activeWidth, type, radiusBox, activeFontColor, inactiveFontColor, inactiveColor, inactiveBoxColor,
-            boxSpace, direction, alignBox, widthBox, spaceColor, fontColor, nolimit
+            noSpace, direction, alignBox, widthBox, spaceColor, fontColor, noLimit
         } = this.props;
         // console.log(this.props.radiusBox)
         const countItem = item.length;
@@ -153,11 +153,15 @@ export class TabBar extends Component {
                                 <View style={{
                                     width:
                                         type == 'box' ?
-                                            boxSpace == 'nospace' ?
+                                            noSpace ?
                                                 null :
-                                                width * (1 / countItem) :
-                                            boxSpace == 'nospace' ?
-                                                widthBox ? widthBox : width * (1 / countItem) :
+                                                noLimit ?
+                                                    width * (1 / 4) :
+                                                    width * (1 / countItem) :
+                                            noSpace ?
+                                                widthBox ?
+                                                    widthBox :
+                                                    width * (1 / countItem) :
                                                 width * (1 / countItem),
                                     borderLeftWidth: type == 'tag' ? index == 0 ? null : 0.5 : null,
                                     borderRightWidth: type == 'tag' ? index == countItem ? null : 0.5 : null,
@@ -172,14 +176,16 @@ export class TabBar extends Component {
                                         type == 'box' ?
                                             {
                                                 width:
-                                                    widthBox >= 0 ?
-                                                        widthBox <= 100 ?
-                                                            width * (1 / (countItem * (1 + ((100 - widthBox) / 100)))) :
-                                                            width * (1 / (countItem * 1.2)) :
-                                                        width * (1 / (countItem * 1.2)),
+                                                    noLimit ?
+                                                        width * (1 / 4.2) :
+                                                        widthBox >= 0 ?
+                                                            widthBox <= 100 ?
+                                                                width * (1 / (countItem * (1 + ((100 - widthBox) / 100)))) :
+                                                                width * (1 / (countItem * 1.2)) :
+                                                            width * (1 / (countItem * 1.2)),
                                                 padding: 6,
-                                                borderLeftWidth: boxSpace == 'nospace' ? 0.5 : null,
-                                                borderRightWidth: boxSpace == 'nospace' ? 0.5 : null,
+                                                borderLeftWidth: noSpace ? 0.5 : null,
+                                                borderRightWidth: noSpace ? 0.5 : null,
                                                 borderWidth: 1,
                                                 borderColor: activeColor ? activeColor : '#0A55A6',
                                                 backgroundColor: activeColor ? activeColor : '#0A55A6',
@@ -203,10 +209,11 @@ export class TabBar extends Component {
                                 <View style={{
                                     width:
                                         type == 'box' ?
-                                            boxSpace == 'nospace' ?
+                                            noSpace ?
                                                 null :
-                                                width * (1 / countItem) :
-                                            boxSpace == 'nospace' ?
+                                                noLimit ?
+                                                    width * (1 / 4) : width * (1 / countItem) :
+                                            noSpace ?
                                                 widthBox ? widthBox : width * (1 / countItem) :
                                                 width * (1 / countItem),
                                     borderLeftWidth: type == 'tag' ? index == 0 ? null : 0.5 : null,
@@ -217,14 +224,16 @@ export class TabBar extends Component {
                                         type == 'box' ?
                                             {
                                                 width:
-                                                    widthBox >= 0 ?
-                                                        widthBox <= 100 ?
-                                                            width * (1 / (countItem * (1 + ((100 - widthBox) / 100)))) :
-                                                            width * (1 / (countItem * 1.2)) :
-                                                        width * (1 / (countItem * 1.2)),
+                                                    noLimit ?
+                                                        width * (1 / 4.2) :
+                                                        widthBox >= 0 ?
+                                                            widthBox <= 100 ?
+                                                                width * (1 / (countItem * (1 + ((100 - widthBox) / 100)))) :
+                                                                width * (1 / (countItem * 1.2)) :
+                                                            width * (1 / (countItem * 1.2)),
                                                 padding: 6,
-                                                borderLeftWidth: boxSpace == 'nospace' ? 0.5 : null,
-                                                borderRightWidth: boxSpace == 'nospace' ? 0.5 : null,
+                                                borderLeftWidth: noSpace ? 0.5 : null,
+                                                borderRightWidth: noSpace ? 0.5 : null,
                                                 borderWidth: 1,
                                                 backgroundColor: inactiveBoxColor ? inactiveBoxColor : null,
                                                 borderColor: inactiveColor ? inactiveColor : 'black',
@@ -244,22 +253,22 @@ export class TabBar extends Component {
                                     </View>
                                 </View>
                         }
-                    </TouchableOpacity >
-                </View >
+                    </TouchableOpacity>
+                </View>
             )
         })
     }
     render() {
         const {
             item, activeColor, activeWidth, type, radiusBox, activeFontColor, inactiveFontColor, inactiveColor, inactiveBoxColor,
-            boxSpace, direction, alignBox, widthBox, spaceColor, fontColor
+            noSpace, direction, alignBox, widthBox, spaceColor, fontColor
         } = this.props;
         return (
             <View style={
                 type == 'box' ?
                     {
-                        borderLeftWidth: boxSpace == 'nospace' ? 0.5 : null,
-                        borderRightWidth: boxSpace == 'nospace' ? 0.5 : null,
+                        borderLeftWidth: noSpace ? 0.5 : null,
+                        borderRightWidth: noSpace ? 0.5 : null,
                         flexDirection: direction == 'column' ? 'column' : 'row',
                         justifyContent:
                             alignBox == 'center' ?
@@ -270,7 +279,7 @@ export class TabBar extends Component {
                     } :
                     {
                         paddingTop: 10,
-                        borderWidth: type == 'tag' ? null : boxSpace == 'nospace' ? null : 1,
+                        borderWidth: type == 'tag' ? null : noSpace ? null : 1,
                         backgroundColor: spaceColor ? spaceColor : null,
                         borderColor: type == 'tag' ? null : spaceColor ? spaceColor : '#ECECEC',
                         flexDirection: direction == 'column' ? 'column' : 'row',
@@ -278,7 +287,7 @@ export class TabBar extends Component {
                     }
             }>
                 {this.tab()}
-            </View >
+            </View>
         )
     }
 }

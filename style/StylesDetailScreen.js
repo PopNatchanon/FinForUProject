@@ -59,8 +59,8 @@ export default StyleSheet.create({
         borderWidth: 1,
     },
     Image_Box: {
-        width: 400,
-        height: 300,
+        width: '100%',
+        height: 260,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -162,7 +162,7 @@ export default StyleSheet.create({
     Store_Buttom_Box: {
         height: 20,
         width: 60,
-        marginLeft: 30,
+        marginLeft: width - 340,
         marginTop: 10,
 
     },

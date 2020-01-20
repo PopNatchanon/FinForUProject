@@ -145,6 +145,7 @@ export class Detail_Image extends Component {
           dataMySQL = this.imageGallery(item.image_path, item.image_gallery) :
           dataMySQL = this.props.dataid_product;
       }
+      // console.log(width)
       return (
         <View style={styles.Detail_Image} key={indexs}>
           <Carousel
@@ -158,7 +159,7 @@ export class Detail_Image extends Component {
             onSnapToItem={(index) => this.setState({ activeSlide: index })}
           />
           <View style={{ flex: 1, }}>
-            <View style={{ width: 50, height: 20, borderColor: '#ECECEC', borderRadius: 20, backgroundColor: '#fff', borderWidth: 1, marginTop: -30, marginBottom: 30, marginLeft: '86%', alignContent: 'center', alignItems: 'center' }}>
+            <View style={{ width: 50, height: 20, borderColor: '#ECECEC', borderRadius: 20, backgroundColor: '#fff', borderWidth: 1, marginTop: -30, marginBottom: 30, marginLeft: width - 60, alignContent: 'center', alignItems: 'center' }}>
               <Text style={{ fontFamily: 'SukhumvitSet-Text', }}>{activeSlide + 1}/{this.state.imageLength}</Text>
             </View>
           </View>
@@ -864,7 +865,7 @@ export class Might_like extends Component {
               </View>
             </View>
           </View>
-        </TouchableOpacity >
+        </TouchableOpacity>
       );
     })
     return (

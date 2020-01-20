@@ -71,6 +71,14 @@ export class Time_FlashSale extends Component {
             name: '21:00'
         }, {
             name: '00:00'
+        }, {
+            name: '00:00'
+        }, {
+            name: '00:00'
+        }, {
+            name: '00:00'
+        }, {
+            name: '00:00'
         },]
         return (
             <View>
@@ -98,7 +106,7 @@ export class Time_FlashSale extends Component {
                         <TabBar
                             sendData={this.updateIndex}
                             item={item2}
-                            nolimit
+                            noLimit
                             type='box'
                         />
                     </ScrollView>

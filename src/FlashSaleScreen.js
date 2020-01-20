@@ -35,6 +35,13 @@ export default class FlashSaleScreen extends Component {
                 <AppBar navigation={this.props.navigation} />
                 <Slide />
                 <Time_FlashSale />
+                <ScrollView>
+                    <FlashSale_Product />
+                    <FlashSale_Product />
+                    <FlashSale_Product />
+                    <FlashSale_Product />
+                    <FlashSale_Product />
+                </ScrollView>
             </SafeAreaView>
         );
     }
@@ -68,18 +75,22 @@ export class Time_FlashSale extends Component {
         }, {
             name: 'อัญมณีและ..'
         }, {
-            name: '21:00'
+            name: 'ทอง'
         }, {
-            name: '00:00'
+            name: 'เครื่องเงิน'
         }, {
-            name: '00:00'
+            name: 'พระและ..'
         }, {
-            name: '00:00'
+            name: 'นาฬิกา'
         }, {
-            name: '00:00'
+            name: 'กระเป๋า'
         }, {
-            name: '00:00'
-        },]
+            name: 'บ้านและสวน'
+        }, {
+            name: 'รองเท้า'
+        }, {
+            name: 'สุขภาพและ..'
+        }]
         return (
             <View>
                 <View style={styles.Time_FlashSale}>
@@ -104,17 +115,58 @@ export class Time_FlashSale extends Component {
                 <View style={styles.Time_FlashSale_TagCate}>
                     <ScrollView horizontal>
                         <TabBar
+                            inactiveColor='#0A55A6'
                             sendData={this.updateIndex}
                             item={item2}
+                            radiusBox={4}
                             noLimit
                             type='box'
                         />
                     </ScrollView>
-
-
                 </View>
             </View>
 
         );
     }
 }
+
+///-------------------------------------------------------------------------------///
+
+export class FlashSale_Product extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
+    render() {
+        return (
+            <View style={{ flex: 1, backgroundColor: '#FFFFFF', marginTop: 5, }}>
+                <View style={{ height: 130, width: '100%', borderColor: '#ECECEC', borderWidth: 1, padding: 10, flexDirection: 'row', }}>
+                    <View style={{ flexDirection: 'row', }}>
+                        <View style={{ height: 110, width: 110,borderColor: '#ECECEC', borderWidth: 1,justifyContent:'center',alignItems:'center', }}>
+                            <FastImage 
+                            style={{height:90, width:90,}}
+                                source={{
+                                uri: ip + '/MySQL/uploads/products/2019-10-10-1570690991.png'}}
+                            />
+                        </View>
+                        <View style={{ width: 310, justifyContent: 'space-between', }}>
+                            <Text style={{ margin: 20, }}>ห้องพัก Deluxe Pool Villa</Text>
+                            <View style={{ alignItems: 'flex-end', }}>
+                                <TouchableOpacity>
+                                    <View style={{ height: 40, width: 40, backgroundColor: '#0A55A6', borderRadius: 5, justifyContent: 'center', alignItems: 'center', }}>
+                                        <IconAntDesign RightItem name="shoppingcart" size={30} color='#FFFFFF' />
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+
+                    </View>
+
+                </View>
+            </View>
+        );
+    }
+}
+

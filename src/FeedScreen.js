@@ -14,7 +14,7 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
 import FastImage from 'react-native-fast-image';
-
+import IconFontisto from 'react-native-vector-icons/Fontisto';
 import Icons from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconsFeather from 'react-native-vector-icons/Feather';
@@ -112,7 +112,7 @@ export class Button_Bar extends Component {
     switch (selectedIndex) {
       case 0:
         return (
-          <SafeAreaView>
+          <SafeAreaView >
             <Follow_up />
           </SafeAreaView>
         );

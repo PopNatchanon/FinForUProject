@@ -48,7 +48,7 @@ export default class NewsScreen extends Component {
                 <ScrollView>
                     <Button_Bar selectedIndex={this.state.selectedIndex} />
                     {/* <Follow_up />
-          <Highlights/> */}
+                    <Highlights /> */}
                 </ScrollView>
                 <Toolbar navigation={this.props.navigation} />
             </SafeAreaView>

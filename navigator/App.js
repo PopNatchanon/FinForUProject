@@ -31,7 +31,9 @@ import Detail_Campaign from '../src/src_Promotion/Detail_Campaign';
 import Brand_RCM_Screen from '../src/Brand_RCM_Screen';
 import FlashSaleScreen from '../src/FlashSaleScreen';
 import SettingScreen from '../src/src_profile/SettingScreen'
-
+import HighlightScreen from '../src/HighlightScreen';
+import Popular_productScreen from '../src/Popular_productScreen';
+import Recommend_Store from '../src/Recommend_Store';
 
 const PathScreen = createStackNavigator({
   MainScreen: {
@@ -244,13 +246,35 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
+  HighlightScreen: {
+    screen: HighlightScreen,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
+  Popular_productScreen: {
+    screen: Popular_productScreen,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
+  Recommend_Store: {
+    screen: Recommend_Store,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
+
 },
   {
     initialRouteName: 'MainScreen',
     // initialRouteName: 'DetailScreen',
     // initialRouteName: 'DealScreen',
-    // initialRouteName: 'SettingScreen',
-    // initialRouteName: 'FlashSaleScreen',
+    // initialRouteName: 'MainScreen',
+    // initialRouteName: 'Recommend_Store',
   }
 );
 

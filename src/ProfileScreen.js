@@ -237,6 +237,10 @@ export class Listbar extends Component {
                 return (
                     <ListMenu navigation={this.props.navigation} />
                 )
+                case 1:
+                    return (
+                     this.props.navigation.navigate('DealScreen')
+                    )
             case 2:
                 return (
                     <ViewCode navigation={this.props.navigation} />
@@ -264,6 +268,7 @@ export class Listbar extends Component {
                             </View>
                         </TouchableOpacity>
                     </View>
+                    <TouchableOpacity activeOpacity={0.9} onPress={() => { this.setState({ pathlist: 1 }) }}>
                     <View style={{ flexDirection: 'column', width: width * (1 / 4), alignItems: 'center' }}>
                         <View style={{ width: 60, height: 60, marginTop: 18, alignItems: 'center', backgroundColor: '#B6B6B4', borderRadius: 30, }}>
                             <IconFeather name='home' size={40} style={{ marginTop: 'auto', marginBottom: 'auto', color: '#fff' }} />
@@ -272,6 +277,7 @@ export class Listbar extends Component {
                             โปรโมชัน
                         </Text>
                     </View>
+                    </TouchableOpacity>
                     <View style={{ width: width * (1 / 4), flexDirection: 'column', alignItems: 'center', }}>
                         <TouchableOpacity activeOpacity={0.9} onPress={() => { this.setState({ pathlist: 2 }) }}>
                             <View style={{ flexDirection: 'column', alignItems: 'center', }}>

@@ -16,6 +16,7 @@ import Icons from 'react-native-vector-icons/FontAwesome5';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
+import IconFontisto from 'react-native-vector-icons/Fontisto';
 import styles from '../style/StylesDetailScreen'
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 export const { width, height } = Dimensions.get('window');
@@ -865,7 +866,7 @@ export class Might_like extends Component {
               </View>
             </View>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity >
       );
     })
     return (
@@ -923,7 +924,7 @@ export class Buy_bar extends Component {
         <Text style={{ fontSize: 30, fontFamily: 'SukhumvitSet-Text', }}>|</Text>
         <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreScreen', { id_item: s_id_store })}>
           <View >
-            <Icons name='store' size={25} style={{ marginLeft: 3, }}></Icons>
+            <IconFontisto name='shopping-store' size={25} style={{ marginLeft: 3, }} />
             <Text style={{ textAlign: 'center', fontFamily: 'SukhumvitSet-Text', }}>ร้านค้า</Text>
           </View></TouchableOpacity>
 

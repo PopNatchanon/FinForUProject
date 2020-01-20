@@ -347,7 +347,7 @@ export class Button_Bar extends Component {
                         <View style={styles.Button_Bar_Box}>
                             <FastImage style={styles.Button_Bar_icon}
                                 source={{
-                                    uri: ip + '/MySQL/uploads/icon_brand/DEW1.png',
+                                    uri: ip + '/MySQL/uploads/icon_brand/unicorn-face.jpg',
 
                                 }}
 

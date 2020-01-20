@@ -926,7 +926,7 @@ export default StyleSheet.create({
 
   },
   Button_Bar_Box: {
-    height: 50,
+    height: 'auto',
     paddingTop: 10,
     paddingBottom: 10,
     flexDirection: 'row',
@@ -934,8 +934,8 @@ export default StyleSheet.create({
   },
   Button_Bar_icon: {
     borderRadius: 4,
-    height: '100%',
-    width: 130,
+    height: 60,
+    width: 60,
     resizeMode: 'stretch',
   },
 

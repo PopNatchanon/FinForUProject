@@ -472,23 +472,15 @@ export default StyleSheet.create({
         padding: 5,
         backgroundColor: '#FFFFFF',
         flexDirection: 'row',
-        marginTop: 10,
+        marginTop: 5,
     },
     Time_FlashSale_TagCate: {
         height: 50,
         width: '100%',
         padding: 5,
         backgroundColor: '#FFFFFF',
-        marginTop: 10,
+        marginTop: 5,
         paddingTop: 10,
     },
-    Time_FlashSale_TagBox: {
-        height: 30,
-        width: 100,
-        borderColor: '#0A55A6',
-        borderWidth: 1,
-        borderRadius: 5,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
+    
 })

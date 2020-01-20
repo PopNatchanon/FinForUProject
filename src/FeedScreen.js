@@ -14,7 +14,7 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
 import FastImage from 'react-native-fast-image';
-
+import IconFontisto from 'react-native-vector-icons/Fontisto';
 import Icons from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconsFeather from 'react-native-vector-icons/Feather';
@@ -36,8 +36,8 @@ export default class FeedScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.SafeAreaView}>
-        <AppBar />
-        <ScrollView>
+        <AppBar navigation={this.props.navigation} />
+        <ScrollView style={{ alignContent: 'center', }}>
           <Button_Bar />
           {/* <Follow_up />
           <Highlights/> */}
@@ -64,7 +64,9 @@ export class AppBar extends Component {
         <View style={styles.Icon_appbar_Text}>
           <Text style={[styles.Text_appbar, { fontFamily: 'SukhumvitSet-Text', }]}>ฟีต</Text>
         </View>
-        <Icons RightItem name="store" size={25} style={styles.Icon_appbar} />
+        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Follow_storeScreen')}>
+          <IconFontisto name='shopping-store' size={20} style={styles.Icon_appbar} />
+        </TouchableOpacity>
       </View>
     );
   }
@@ -85,7 +87,7 @@ export class Button_Bar extends Component {
     switch (selectedIndex) {
       case 0:
         return (
-          <SafeAreaView>
+          <SafeAreaView >
             <Follow_up />
           </SafeAreaView>
         );

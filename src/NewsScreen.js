@@ -40,7 +40,7 @@ export default class NewsScreen extends Component {
                 <ScrollView>
                     <Button_Bar />
                     {/* <Follow_up />
-          <Highlights/> */}
+                    <Highlights /> */}
                 </ScrollView>
                 <Toolbar navigation={this.props.navigation} />
             </SafeAreaView>
@@ -115,15 +115,15 @@ export class Button_Bar extends Component {
         return (
             <View>
                 {/* <View style={styles.Button_Bar}> */}
-                    <TabBar
-                        sendData={this.getData}
-                        item={item}
-                        boxSpace='nospace'
-                        widthBox={100}
-                        spaceColor='#0A55A6'
-                        activeColor='#fff'
-                        fontColor='#fff'
-                    />
+                <TabBar
+                    sendData={this.getData}
+                    item={item}
+                    boxSpace='nospace'
+                    widthBox={100}
+                    spaceColor='#0A55A6'
+                    activeColor='#fff'
+                    fontColor='#fff'
+                />
                 {/* </View> */}
                 {this.ViewSide(selectedIndex)}
             </View>

@@ -79,9 +79,9 @@ export default StyleSheet.create({
   category_A: {
     flexDirection: 'column',
     flexWrap: 'wrap',
-    height: 210 ,
-    paddingBottom:10,
-    paddingTop:10,
+    height: 210,
+    paddingBottom: 10,
+    paddingTop: 10,
     justifyContent: 'space-between'
   },
   Category_image: {
@@ -134,6 +134,18 @@ export default StyleSheet.create({
     fontFamily: 'SukhumvitSet-Bold',
     marginLeft: 8,
     marginTop: 6,
+  },
+  Time_FlashSale_TimeBox: {
+    height: 30,
+    width: 30,
+    backgroundColor: '#222222',
+    justifyContent: 'center',
+    marginLeft: 10,
+    borderRadius: 5,
+  },
+  Time_FlashSale_TimeText: {
+    color: '#FFFFFF',
+    textAlign: 'center',
   },
   Brand_RCMTextEnd: {
     fontSize: 11,
@@ -235,31 +247,31 @@ export default StyleSheet.create({
   },
   Promotion_popular_A: {
     flexDirection: 'row',
-    height: 150,
+    height: 120,
   },
   Promotion_popular_Box: {
-    height: 150,
+    height: 120,
     marginTop: 5,
   },
   Promotion_popular_BoxA: {
-    height: 150,
+    height: 120,
     width: 180,
     marginLeft: 10,
   },
   Promotion_popular_image: {
-    height: 80,
+    height: 100,
     width: 180,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-  },
+    opacity:0.9,
+    borderRadius:5,
+    },
   Text_icon_Sale: {
-    fontSize: 10,
-    backgroundColor: '#0A55A6',
+    textAlign:'center',
+    marginTop:-70,
+    fontSize: 18,
     color: '#FFFFFF',
-    height: 40,
+    height: 60,
     width: 180,
-    borderBottomRightRadius: 10,
-    borderBottomLeftRadius: 10,
+    
   },
 
   ///--------------------------------------------------------------------------------///
@@ -940,7 +952,7 @@ export default StyleSheet.create({
 
   Second_product: {
     height: 'auto',
-    backgroundColor:'#fff',
+    backgroundColor: '#fff',
     width,
     borderColor: '#ECECEC',
     borderBottomWidth: 1,

@@ -39,7 +39,7 @@ export default StyleSheet.create({
         borderRadius: 5,
     },
     Might_like_Store: {
-        marginTop:10,
+        marginTop: 10,
         height: 'auto',
         width: '100%',
         backgroundColor: '#FFFF'
@@ -67,7 +67,7 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    Might_like_Store_BoxImage:{
+    Might_like_Store_BoxImage: {
         height: 100,
         width: 90,
     },

@@ -84,7 +84,7 @@ export class Toolbar extends Component {
                         </View>
                     </TouchableOpacity>
                 }
-            </View >
+            </View>
         )
     }
 }
@@ -162,7 +162,6 @@ export class TabBar extends Component {
                                                 widthBox ?
                                                     widthBox :
                                                     width * (1 / countItem) :
-
                                                 noLimit ?
                                                     width * (1 / 4.2) :
                                                     width * (1 / countItem),
@@ -258,8 +257,8 @@ export class TabBar extends Component {
                                     </View>
                                 </View>
                         }
-                    </TouchableOpacity >
-                </View >
+                    </TouchableOpacity>
+                </View>
             )
         })
     }
@@ -292,7 +291,7 @@ export class TabBar extends Component {
                     }
             }>
                 {this.tab()}
-            </View >
+            </View>
         )
     }
 }

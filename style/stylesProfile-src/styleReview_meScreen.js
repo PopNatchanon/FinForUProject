@@ -11,7 +11,7 @@ export default StyleSheet.create({
         backgroundColor: '#FFF',
     },
     Review_me: {
-        marginBottom:5,
+        marginBottom: 5,
         marginTop: 5,
         width: '100%',
         height: 'auto',
@@ -39,13 +39,13 @@ export default StyleSheet.create({
         paddingTop: 20,
         padding: 10,
     },
-    Review_me_Box_imageA:{
-        flexDirection: 'row', 
+    Review_me_Box_imageA: {
+        flexDirection: 'row',
         justifyContent: 'space-between',
     },
-    Review_me_image:{
+    Review_me_image: {
         height: 60,
-         width: 60,
+        width: 60,
     },
 
 })

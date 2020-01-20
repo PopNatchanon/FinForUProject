@@ -54,8 +54,8 @@ export default StyleSheet.create({
         alignItems: 'center',
         marginTop: 100,
     },
-    Button_Bar_Text:{
-        color:'#FFF', 
-        fontSize:15,
+    Button_Bar_Text: {
+        color: '#FFF',
+        fontSize: 15,
     },
 })

@@ -18,6 +18,7 @@ import RadioButtonRN from 'radio-buttons-react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { ip, finip } from '../navigator/IpConfig';
 import FastImage from 'react-native-fast-image';
+import RNRestart from 'react-native-restart';
 
 import {
   Input,
@@ -57,7 +58,7 @@ export class Logo extends Component {
     return (
       <View style={styles.Logo_Box}>
         <FastImage
-           style={styles.Logo}
+          style={styles.Logo}
           source={require('../images/sj.png')}
           resizeMethod='resize'
         />
@@ -102,6 +103,23 @@ export class Login extends Component {
     });
   }
 
+  storeData = async (item) => {
+    try {
+      await AsyncStorage.setItem('@MyKey', JSON.stringify(item))
+    } catch (e) {
+      // saving error
+    }
+  }
+
+  clearAll = async () => {
+    try {
+      await AsyncStorage.clear()
+    } catch (e) {
+      // clear error
+    }
+
+    // console.log('Done.')
+  }
   componentWillUnmount() {
     Form.removeValidationRule('isPasswordMatch');
   }
@@ -131,7 +149,51 @@ export class Login extends Component {
       .then((responseJson) => {
         // console.log(responseJson.result)
         if (responseJson.result == 'Complete') {
-          this.props.navigation.popToTop();
+
+          fetch(finip + '/auth/login_customer', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email: user.email, password: user.password }),
+          })
+            .then((response) => response.json())
+            .then((responseJson) => {
+              // console.log("responseJson")
+              // console.log(responseJson)
+              var userser = {};
+              responseJson.map((item) => {
+                userser.id_customer = item.id_customer
+                userser.name = item.name
+                userser.email = item.email
+                userser.telphone = item.telphone
+                userser.image = item.image
+                userser.image_path = item.image_path
+                userser.gender = item.gender
+                userser.address = item.address
+              })
+              // user.name = responseJson.map((item) => { return (item.name) })
+              // console.log('userser')
+              this.clearAll()
+              // console.log(userser)
+              this.storeData(userser)
+              // user = JSON.stringify(responseJson)
+              // console.log(user)
+              if (userser.address != null) {
+                this.props.navigation.goBack();
+                this.props.navigation.replace('MainScreen');
+              } else {
+                this.props.navigation.goBack();
+                this.props.navigation.replace('MainScreen');
+              }
+              // RNRestart.Restart();
+            })
+            .catch((error) => {
+              console.error(error);
+            })
+          // this.props.navigation.replace('ProfileScreen');
+
         } else if (responseJson.result == 'This email has already been used') {
           alert('This email has already been used')
           this.props.navigation.goBack();
@@ -347,7 +409,7 @@ export class Login extends Component {
             </View>
           </Form>
         </View>
-      </View >
+      </View>
     );
   }
 }

@@ -8,6 +8,7 @@ import {
     SafeAreaView,
     TouchableOpacity,
     Dimensions,
+    Image,
     PixelRatio
 } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
@@ -91,8 +92,8 @@ export class AppBar extends Component {
                 {
                     leftBar == 'backarrow' ?
                         <View>
-                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
-                                <IconFeather name="arrow-left" size={30} />
+                            <TouchableOpacity style={{ width: 30, alignContent: 'center', alignItems: 'center' }} activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
+                                <IconFeather name="arrow-left" size={30} style={{ marginTop: 5, }} />
                             </TouchableOpacity>
                         </View> :
                         null
@@ -109,9 +110,11 @@ export class AppBar extends Component {
                         width:
                             rightBar == 'storebar' ?
                                 leftBar == 'backarrow' ?
-                                    width * (0.83 - (1.1 * (0.1 * 3))) :
-                                    width * (0.83 - (1.2 * (0.1 * 2))) :
-                                width * (0.83 - (1.2 * (0.1 * 2))),
+                                    width - 190 :
+                                    width - 160 :
+                                rightBar == 'chat' ?
+                                    width - 190 :
+                                    width - 160,
                         marginBottom: 'auto',
                         marginTop: 'auto',
                         alignContent: 'center',
@@ -132,25 +135,26 @@ export class AppBar extends Component {
                 </View>
                 {
                     rightBar == 'storebar' ?
-                        <View style={{ paddingRight: 4, flexDirection: 'row', alignContent: 'center', alignItems: 'center' }}>
-                            <TouchableOpacity style={{ width: width * 0.1, alignContent: 'center', alignItems: 'center' }} onPress={null/*() => this.props.navigation.navigate('CartScreen')*/}>
+                        <View style={{ flexDirection: 'row', alignContent: 'center', alignItems: 'center' }}>
+                            <TouchableOpacity style={{ width: 40, alignContent: 'center', alignItems: 'center' }} onPress={null/*() => this.props.navigation.navigate('CartScreen')*/}>
                                 <IconFeather RightItem name="filter" size={25} style={{ marginTop: 5, }} />
                             </TouchableOpacity>
-                            <TouchableOpacity style={{ width: width * 0.1, alignContent: 'center', alignItems: 'center' }} onPress={null/*() => this.props.navigation.navigate('CartScreen')*/}>
+                            <TouchableOpacity style={{ width: 40, alignContent: 'center', alignItems: 'center' }} onPress={null/*() => this.props.navigation.navigate('CartScreen')*/}>
                                 <Icon RightItem name="ellipsis-h" size={25} style={{ marginTop: 5, }} />
                             </TouchableOpacity>
                         </View> :
-                        <View style={{ paddingRight: 4, flexDirection: 'row' }}>
+                        <View style={{ flexDirection: 'row' }}>
                             {leftBar == 'backarrow' ?
-                                rightBar == 'chat' ? <TouchableOpacity style={{ width: width * 0.1, alignContent: 'center', alignItems: 'center' }} onPress={null/*() => this.props.navigation.navigate('CartScreen')*/}>
-                                    <IconAntDesign RightItem name="message1" size={25} style={{ marginTop: 5, }} />
-                                </TouchableOpacity> :
+                                rightBar == 'chat' ?
+                                    <TouchableOpacity style={{ width: 40, alignContent: 'center', alignItems: 'center' }} onPress={null/*() => this.props.navigation.navigate('CartScreen')*/}>
+                                        <IconAntDesign RightItem name="message1" size={25} style={{ marginTop: 5, }} />
+                                    </TouchableOpacity> :
                                     null :
-                                < TouchableOpacity style={{ width: width * 0.1, alignContent: 'center', alignItems: 'center' }} onPress={null/*() => this.props.navigation.navigate('CartScreen')*/}>
+                                <TouchableOpacity style={{ width: 40, alignContent: 'center', alignItems: 'center' }} onPress={null/*() => this.props.navigation.navigate('CartScreen')*/}>
                                     <IconAntDesign RightItem name="message1" size={25} style={{ marginTop: 5, }} />
                                 </TouchableOpacity>
                             }
-                            <TouchableOpacity style={{ width: width * 0.1, alignContent: 'center', alignItems: 'center' }} onPress={() => this.props.navigation.navigate('CartScreen')}>
+                            <TouchableOpacity style={{ width: leftBar == 'backarrow' ? rightBar == 'chat' ? 40 : 50 : 40, alignContent: 'center', alignItems: 'center' }} onPress={() => this.props.navigation.navigate('CartScreen')}>
                                 <IconAntDesign RightItem name="shoppingcart" size={25} style={{ marginTop: 5, }} />
                             </TouchableOpacity>
                         </View>

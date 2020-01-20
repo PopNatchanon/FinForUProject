@@ -58,6 +58,7 @@ export default StyleSheet.create({
         width: width * 0.91,
         borderColor: '#ECECEC',
         borderBottomWidth: 0,
+        marginTop: 10,
         borderWidth: 1,
         height: 70,
         flexDirection: 'row',
@@ -77,7 +78,7 @@ export default StyleSheet.create({
     },
     StoreFeed_Button_F_Box: {
         marginTop: 10,
-        flexDirection:'row',
+        flexDirection: 'row',
     },
     StoreFeed_Button_F: {
         backgroundColor: '#0A55A6',
@@ -117,14 +118,13 @@ export default StyleSheet.create({
         borderColor: '#ECECEC',
         borderWidth: 1,
         // margin: 8,
-        
+
     },
     StoreFeedImage: {
         width: 200,
         height: 200,
         resizeMode: 'contain',
         padding: 4,
-        marginLeft:91,
     },
     StoreFeedComBox: {
         padding: 8,

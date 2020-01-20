@@ -67,13 +67,13 @@ export default StyleSheet.create({
     },
     header_image: {
         height: 300,
-        width: 400,
+        width: width - 50,
     },
     header_icon_Box: {
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        width: 380,
-        marginTop:5,
+        width: width - 20,
+        marginTop: 5,
     },
     header_icon: {
         marginLeft: 5,
@@ -81,15 +81,15 @@ export default StyleSheet.create({
     header_Box: {
         justifyContent: 'flex-start',
         alignItems: 'center',
-        paddingTop: 10,
-        height: 370,
-        width: 430,
+        padding: 10,
+        // height: 370,
+        width: width - 20,
         backgroundColor: '#ffff',
     },
     body_Box: {
         padding: 10,
         height: 120,
-        width: 430,
+        width: width - 20,
         backgroundColor: '#FFF',
         marginTop: 10,
     },
@@ -99,10 +99,11 @@ export default StyleSheet.create({
     },
     body_image: {
         height: 100,
-        width: 200,
+        width: width - 250,
     },
     body_Text: {
         width: 200,
         marginLeft: 10,
+        fontFamily: 'SukhumvitSet-Text'
     },
 })

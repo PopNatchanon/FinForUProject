@@ -94,16 +94,16 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
     },
     Payment_Box: {
-        flexDirection:'row',
-        justifyContent:'space-between',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         width,
         height: 50,
         borderColor: '#EAEAEA',
         borderWidth: 1,
         padding: 10,
     },
-    Payment_Box_Text:{
-       flexDirection:'row',
+    Payment_Box_Text: {
+        flexDirection: 'row',
     },
     Payment_Text: {
         marginLeft: 15,

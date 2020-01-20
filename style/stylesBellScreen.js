@@ -99,6 +99,7 @@ export default StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        alignContent: 'center'
     },
     Pro_for_UText: {
         fontSize: 16,
@@ -108,10 +109,11 @@ export default StyleSheet.create({
     },
     Pro_for_UBox: {
         flexDirection: 'row',
+        paddingRight: 40,
         padding: 10,
         marginTop: 10,
         height: 'auto',
-        width: 440,
+        width: width - 20,
         backgroundColor: '#FFFF',
     },
     Pro_for_UImage: {
@@ -121,7 +123,7 @@ export default StyleSheet.create({
 
     ///-------------------------------------------------------------------------///
 
-    Update_buyText:{
+    Update_buyText: {
         fontSize: 16,
         fontWeight: 'bold',
         marginLeft: 8,

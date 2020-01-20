@@ -30,15 +30,23 @@ export default class FeedScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      selectedIndex: 0
     };
+    this.getData = this.getData.bind(this)
+  }
+  getData(val) {
+    // console.log(val);
+    this.setState({
+      selectedIndex: val
+    });
   }
 
   render() {
     return (
       <SafeAreaView style={styles.SafeAreaView}>
-        <AppBar navigation={this.props.navigation} />
-        <ScrollView style={{ alignContent: 'center', }}>
-          <Button_Bar />
+        <AppBar sendText={this.getData} />
+        <ScrollView>
+          <Button_Bar selectedIndex={this.state.selectedIndex} />
           {/* <Follow_up />
           <Highlights/> */}
         </ScrollView>
@@ -55,18 +63,39 @@ export class AppBar extends Component {
     super(props);
     this.state = {
       text: '',
-    };
+    }
+    this.getData = this.getData.bind(this)
   }
-
+  getData(val) {
+    // console.log(val);
+    this.props.sendText(val);
+  }
   render() {
+    const item = [{
+      name: 'กำลังติดตาม'
+    }, {
+      name: 'ไฮไลต์'
+    }]
     return (
-      <View style={styles.Appbar}>
-        <View style={styles.Icon_appbar_Text}>
-          <Text style={[styles.Text_appbar, { fontFamily: 'SukhumvitSet-Text', }]}>ฟีต</Text>
+      <View>
+        <View style={styles.Appbar}>
+          <View style={styles.Icon_appbar_Text}>
+            <Text style={[styles.Text_appbar, { fontFamily: 'SukhumvitSet-Text', }]}>ฟีต</Text>
+          </View>
+          <Icons RightItem name="store" size={25} style={styles.Icon_appbar} />
         </View>
-        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Follow_storeScreen')}>
-          <IconFontisto name='shopping-store' size={20} style={styles.Icon_appbar} />
-        </TouchableOpacity>
+        <View>
+          {/* <View style={styles.Button_Bar}> */}
+          <TabBar
+            sendData={this.getData}
+            item={item}
+            noSpace
+            widthBox={100}
+            spaceColor='#0A55A6'
+            activeColor='#fff'
+            fontColor='#fff'
+          />
+        </View>
       </View>
     );
   }
@@ -77,10 +106,6 @@ export class AppBar extends Component {
 export class Button_Bar extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      selectedIndex: 0
-    }
-    this.getData = this.getData.bind(this)
   }
   ViewSide(selectedIndex) {
     // const { s_name, s_image } = this.props;
@@ -100,32 +125,10 @@ export class Button_Bar extends Component {
       default:
     }
   }
-  getData(val) {
-    // console.log(val);
-    this.setState({
-      selectedIndex: val
-    });
-  }
   render() {
-    const item = [{
-      name: 'กำลังติดตาม'
-    }, {
-      name: 'ไฮไลต์'
-    }]
-    const { selectedIndex } = this.state
+    const { selectedIndex } = this.props
     return (
       <View>
-        {/* <View style={styles.Button_Bar}> */}
-        <TabBar
-          sendData={this.getData}
-          item={item}
-          boxSpace='nospace'
-          widthBox={100}
-          spaceColor='#0A55A6'
-          activeColor='#fff'
-          fontColor='#fff'
-        />
-        {/* </View> */}
         {this.ViewSide(selectedIndex)}
       </View>
     );
@@ -185,12 +188,14 @@ export class Follow_up extends Component {
             <View style={{ marginTop: 10, }}><IconEntypo name='dots-three-vertical' size={25} /></View>
           </View>
           <View style={styles.StoreFeedBox}>
-            <FastImage
-              source={{
-                uri: dataMySQL_p,
-              }}
-              style={styles.StoreFeedImage}
-            />
+            <View style={{ width: '100%', alignContent: 'center', alignItems: 'center' }}>
+              <FastImage
+                source={{
+                  uri: dataMySQL_p,
+                }}
+                style={styles.StoreFeedImage}
+              />
+            </View>
             <View style={styles.StoreFeedComBox}>
               <Text style={styles.StoreFeedComBoxDetail}>
                 {item.detail}
@@ -277,7 +282,7 @@ export class Highlights extends Component {
     let dataToday = this.state.dataSourceStoreFeed.map((item, indexs) => {
       // console.log( indexs + '. ' + item.image ),
       var dataMySQL_s = [ip + '/mysql/uploads/slide/NewStore', item.s_image].join('/');
-      var dataMySQL_p = [ip + '/mysql/uploads', item.p_image].join('/');
+      var dataMySQL_p = [ip + '/mysql/uploads/products', item.p_image].join('/');
       // console.log(dataMySQL_s)
       return (
         <View key={indexs}>
@@ -302,17 +307,14 @@ export class Highlights extends Component {
 
           </View>
           <View style={styles.StoreFeedBox}>
-
-            <FastImage
-              source={{
-                uri: dataMySQL_p,
-              }}
-              style={styles.StoreFeedImage}
-            />
-
-
-
-
+            <View style={{ width: '100%', alignContent: 'center', alignItems: 'center' }}>
+              <FastImage
+                source={{
+                  uri: dataMySQL_p,
+                }}
+                style={styles.StoreFeedImage}
+              />
+            </View>
             <View style={styles.StoreFeedComBox}>
               <Text style={styles.StoreFeedComBoxDetail}>
                 {item.detail}

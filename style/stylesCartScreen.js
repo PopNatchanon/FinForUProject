@@ -88,7 +88,7 @@ export default StyleSheet.create({
         borderWidth: 1,
         flexDirection: 'row',
         justifyContent: 'space-around',
-        paddingTop:10,
+        paddingTop: 10,
     },
     Bar_Buy_select: {
         height: 40,
@@ -99,7 +99,7 @@ export default StyleSheet.create({
         borderWidth: 1,
         width: 15,
         height: 15,
-        marginTop:5,
+        marginTop: 5,
 
     },
     Bar_Buy_price: {

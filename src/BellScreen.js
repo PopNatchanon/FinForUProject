@@ -153,7 +153,7 @@ export class Pro_for_U extends Component {
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
                             }}
                         />
-                        <Text style={{ marginLeft: 10, }}>ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
+                        <Text style={{ marginLeft: 10 }}>ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                     </View>
                     <View style={styles.Pro_for_UBox}>
                         <FastImage
@@ -218,7 +218,7 @@ export class Update_buy extends Component {
                             uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
                         }}
                     />
-                    <Text style={{ marginLeft: 10, width:200,}}>กรุณาชำระเงิน ........ บาท สำหรับคำสั่งซื้อ ภายในวันที่ 19-12-2019 </Text>
+                    <Text style={{ marginLeft: 10, width: 200, }}>กรุณาชำระเงิน ........ บาท สำหรับคำสั่งซื้อ ภายในวันที่ 19-12-2019 </Text>
                 </View>
                 <View style={styles.Pro_for_UBox}>
                     <FastImage
@@ -236,7 +236,7 @@ export class Update_buy extends Component {
                             uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
                         }}
                     />
-                    <Text style={{ marginLeft: 10, width:200,}}>กรุณาชำระเงิน ........ บาท สำหรับคำสั่งซื้อ ภายในวันที่ 19-12-2019 </Text>
+                    <Text style={{ marginLeft: 10, width: 200, }}>กรุณาชำระเงิน ........ บาท สำหรับคำสั่งซื้อ ภายในวันที่ 19-12-2019 </Text>
                 </View>
             </View>
         );

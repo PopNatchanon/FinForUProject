@@ -648,14 +648,13 @@ export default StyleSheet.create({
   },
   TodayProductBox: {
     width: width * (1 / 3.07),
-    height: height * (1 / 4),
     borderColor: '#ECECEC',
     borderWidth: 0.5,
 
   },
   TodayProductImage: {
     width: '100%',
-    height: '70%',
+    height: height * (1 / 4.5),
     resizeMode: 'cover',
     padding: 4,
   },

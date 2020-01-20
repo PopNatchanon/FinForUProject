@@ -968,7 +968,7 @@ export class ShowProduct extends Component {
                         style={styles.ShowProductImage}
 
                     />
-                    <Text style={[styles.ShowProductImageName,styles.SukhumvitSetText]}>
+                    <Text style={[styles.ShowProductImageName, styles.SukhumvitSetText]}>
                         {item.name}
                     </Text>
                     <NumberFormat
@@ -977,7 +977,7 @@ export class ShowProduct extends Component {
                         thousandSeparator={true}
                         prefix={'฿'}
                         renderText={
-                            value => <Text style={[styles.ShowProductImagePrice,styles.SukhumvitSetText]}>
+                            value => <Text style={[styles.ShowProductImagePrice, styles.SukhumvitSetText]}>
                                 {value}
                             </Text>
                         }
@@ -1000,7 +1000,7 @@ export class ShowProduct extends Component {
         })
         return (
             <View style={styles.ShowProduct}>
-                <View style={styles.ShowProductBoxProduct}>
+                <View style={styles.PopularProductBoxProduct}>
                     {dataToday}
                 </View>
             </View>
@@ -1042,25 +1042,27 @@ export class StoreFeed extends Component {
             var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
             return (
                 <View style={styles.StoreFeedBox} key={indexs}>
-                    <FastImage
-                        source={{
-                            uri: dataMySQL,
-                        }}
-                        style={styles.StoreFeedImage}
+                    <View style={{ width: '100%', alignContent: 'center', alignItems: 'center' }}>
+                        <FastImage
+                            source={{
+                                uri: dataMySQL,
+                            }}
+                            style={styles.StoreFeedImage}
 
-                    />
+                        />
+                    </View>
                     <View style={styles.StoreFeedComBox}>
-                        <Text style={[styles.StoreFeedComBoxDetail,styles.SukhumvitSetText]}>
+                        <Text style={[styles.StoreFeedComBoxDetail, styles.SukhumvitSetText]}>
                             {item.detail}
                         </Text>
-                        <Text style={[styles.StoreFeedComBoxTag,styles.SukhumvitSetText]}>
+                        <Text style={[styles.StoreFeedComBoxTag, styles.SukhumvitSetText]}>
                             ที่สุดสำหรับคุณ
                         </Text>
                         <View style={{ flexDirection: 'row' }}>
-                            <Text style={[styles.StoreFeedComBoxText,styles.SukhumvitSetText]}>
+                            <Text style={[styles.StoreFeedComBoxText, styles.SukhumvitSetText]}>
                                 200 การเข้าชม
                             </Text>
-                            <Text style={[styles.StoreFeedComBoxText,styles.SukhumvitSetText]}>
+                            <Text style={[styles.StoreFeedComBoxText, styles.SukhumvitSetText]}>
                                 เมื่อ 3 วันที่ผ่านมา
                             </Text>
                         </View>
@@ -1068,29 +1070,29 @@ export class StoreFeed extends Component {
                     <View style={styles.StoreFeedComBox2}>
                         <View style={styles.StoreFeedComBoxIcon}>
                             <Icons name='heart' size={20} />
-                            <Text style={[styles.StoreFeedComBoxIconText,styles.SukhumvitSetText]}>
+                            <Text style={[styles.StoreFeedComBoxIconText, styles.SukhumvitSetText]}>
                                 ถูกใจ
                             </Text>
                         </View>
                         <View style={styles.StoreFeedComBoxIcon}>
                             <Icons name='comment-dots' size={20} />
-                            <Text style={[styles.StoreFeedComBoxIconText,styles.SukhumvitSetText]}>
+                            <Text style={[styles.StoreFeedComBoxIconText, styles.SukhumvitSetText]}>
                                 แสดงความคิดเห็น
                             </Text>
                         </View>
                         <View style={styles.StoreFeedComBoxIcon}>
                             <Icons name='share-square' size={20} />
-                            <Text style={[styles.StoreFeedComBoxIconText,styles.SukhumvitSetText]}>
+                            <Text style={[styles.StoreFeedComBoxIconText, styles.SukhumvitSetText]}>
                                 แชร์
                             </Text>
                         </View>
                     </View>
-                </View >
+                </View>
             );
         })
         return (
             <View style={styles.StoreFeed} >
-                <View style={styles.StoreFeedBoxProduct}>
+                <View style={styles.PopularProductBoxProduct}>
                     {dataToday}
                 </View>
             </View>

@@ -151,6 +151,9 @@ export default StyleSheet.create({
         borderColor: '#EAEAEA',
         borderWidth: 0.5,
     },
+    bgBoxWhite: {
+        backgroundColor:'#fff'
+    },
     ListMenuList: {
         flexDirection: 'row',
         justifyContent: 'space-between',

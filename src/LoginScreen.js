@@ -139,7 +139,7 @@ export class Login extends Component {
           this.props.navigation.replace('MainScreen');
         } else {
           this.props.navigation.replace('MainScreen');
-          this.props.navigation.navigate('Customer_account');
+          // this.props.navigation.navigate('Customer_account');
         }
         // RNRestart.Restart();
       })
@@ -187,14 +187,17 @@ export class Login extends Component {
               keyboardType="email-address"
               value={user.email}
               onChangeText={this.EmailInput}
+              style={{ fontFamily: 'SukhumvitSet-Text', }}
               errorStyle={{
                 container: {
                   bottom: -12,
                   left: 4,
                   position: 'absolute'
                 },
+
                 text: {
-                  color: 'red'
+                  color: 'red',
+                  fontFamily: 'SukhumvitSet-Text',
                 },
                 underlineValidColor: 'gray',
                 underlineInvalidColor: 'red'
@@ -211,6 +214,7 @@ export class Login extends Component {
               // maxLength={6}
               secureTextEntry={eye == false ? false : true}
               onChangeText={this.PassInput}
+              style={{ fontFamily: 'SukhumvitSet-Text', }}
               errorStyle={{
                 container: {
                   bottom: -12,
@@ -230,7 +234,7 @@ export class Login extends Component {
               </View>
             </TouchableOpacity>
             <View style={{ marginTop: 4 }}>
-              <Text style={[styles.Login_Box_Text_L]}>
+              <Text style={[styles.Login_Box_Text_L, { fontFamily: 'SukhumvitSet-Text', }]}>
                 ลืมรหัสผ่าน?
               </Text>
             </View>
@@ -238,7 +242,7 @@ export class Login extends Component {
               <View style={styles.Login_Box_Text_C}>
                 <TouchableOpacity onPress={this.handleSubmit}>
                   <View style={styles.Login_Box_Text_B}>
-                    <Text style={styles.Login__Text}>เข้าสู่ระบบ</Text>
+                    <Text style={[styles.Login__Text, { fontFamily: 'SukhumvitSet-Text', }]}>เข้าสู่ระบบ</Text>
                   </View>
                 </TouchableOpacity>
               </View>
@@ -263,11 +267,11 @@ export class Register extends Component {
     return (
       <View style={styles.Register_Box}>
         <View style={styles.Register_Box_A}>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Register_OTPScreen')}>
-            <View><Text style={styles.Register_Box_TextA}> สร้างบัญชี </Text></View>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('RegisterScreen')}>
+            <View><Text style={[styles.Register_Box_TextA, { fontFamily: 'SukhumvitSet-Text', }]}> สร้างบัญชี </Text></View>
           </TouchableOpacity>
           <View>
-            <Text style={{ textAlign: 'center', margin: 10, }}>เข้าสู่ระบบด้วยช่องทางอื่น</Text>
+            <Text style={{ textAlign: 'center', margin: 10, fontFamily: 'SukhumvitSet-Text', }}>เข้าสู่ระบบด้วยช่องทางอื่น</Text>
           </View>
           <View style={styles.Register_Box_Button}>
             <FastImage

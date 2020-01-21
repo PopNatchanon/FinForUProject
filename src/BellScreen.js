@@ -61,7 +61,7 @@ export class AppBar extends Component {
         return (
             <View style={styles.Appbar}>
                 <View style={styles.Icon_appbar_Text}>
-                    <Text style={styles.Text_appbar}>การแจ้งเตือน</Text>
+                    <Text style={[styles.Text_appbar, { fontFamily: 'SukhumvitSet-Bold' }]}>การแจ้งเตือน</Text>
                 </View>
             </View>
         );
@@ -112,7 +112,7 @@ export class Popular_store extends Component {
                             style={styles.Popular_StoreImage}
 
                         />
-                        <Text style={styles.Popular_StoreText_bar}>ร้าน AVIRA ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!! </Text>
+                        <Text style={[styles.Popular_StoreText_bar, { fontFamily: 'SukhumvitSet-Text' }]}>ร้าน AVIRA ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!! </Text>
                     </View>
                 </TouchableOpacity>
             )
@@ -120,7 +120,7 @@ export class Popular_store extends Component {
         return (
             <View style={styles.Popular_Store}>
                 <View style={styles.Popular_StoreTextBox}>
-                    <Text style={styles.Popular_StoreText}>
+                    <Text style={[styles.Popular_StoreText, { fontFamily: 'SukhumvitSet-Bold' }]}>
                         ร้านเด็ด
                     </Text>
                 </View>
@@ -144,7 +144,7 @@ export class Pro_for_U extends Component {
     render() {
         return (
             <View>
-                <Text style={styles.Pro_for_UText}>โปรเด็ดที่คัดมาเพื่อคุณ</Text>
+                <Text style={[styles.Pro_for_UText, { fontFamily: 'SukhumvitSet-Bold' }]}>โปรเด็ดที่คัดมาเพื่อคุณ</Text>
                 <View style={styles.Pro_for_U}>
                     <View style={styles.Pro_for_UBox}>
                         <FastImage
@@ -153,7 +153,7 @@ export class Pro_for_U extends Component {
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
                             }}
                         />
-                        <Text style={{ marginLeft: 10 }}>ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
+                        <Text style={{ marginLeft: 10, width: width - 160, fontFamily: 'SukhumvitSet-Text' }}>ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                     </View>
                     <View style={styles.Pro_for_UBox}>
                         <FastImage
@@ -162,7 +162,7 @@ export class Pro_for_U extends Component {
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop2.jpg',
                             }}
                         />
-                        <Text style={{ marginLeft: 10, }}>ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
+                        <Text style={{ marginLeft: 10, width: width - 160, fontFamily: 'SukhumvitSet-Text' }}>ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                     </View>
                     <View style={styles.Pro_for_UBox}>
                         <FastImage
@@ -171,7 +171,7 @@ export class Pro_for_U extends Component {
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop3.jpg',
                             }}
                         />
-                        <Text style={{ marginLeft: 10, }}>ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
+                        <Text style={{ marginLeft: 10, width: width - 160, fontFamily: 'SukhumvitSet-Text' }}>ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                     </View>
                     <View style={styles.Pro_for_UBox}>
                         <FastImage
@@ -180,7 +180,7 @@ export class Pro_for_U extends Component {
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop4.jpg',
                             }}
                         />
-                        <Text style={{ marginLeft: 10, }}>ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
+                        <Text style={{ marginLeft: 10, width: width - 160, fontFamily: 'SukhumvitSet-Text' }}>ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                     </View>
                 </View>
             </View>
@@ -201,42 +201,44 @@ export class Update_buy extends Component {
     render() {
         return (
             <View>
-                <Text style={styles.Update_buyText}> อัพเดทคำสั่งซื้อ </Text>
-                <View style={styles.Pro_for_UBox}>
-                    <FastImage
-                        style={styles.Pro_for_UImage}
-                        source={{
-                            uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
-                        }}
-                    />
-                    <Text style={{ marginLeft: 10, }}>คุณให้คะแนนเรทติ้งการสั่งซื้อแล้วรึยัง</Text>
-                </View>
-                <View style={styles.Pro_for_UBox}>
-                    <FastImage
-                        style={styles.Pro_for_UImage}
-                        source={{
-                            uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
-                        }}
-                    />
-                    <Text style={{ marginLeft: 10, width: 200, }}>กรุณาชำระเงิน ........ บาท สำหรับคำสั่งซื้อ ภายในวันที่ 19-12-2019 </Text>
-                </View>
-                <View style={styles.Pro_for_UBox}>
-                    <FastImage
-                        style={styles.Pro_for_UImage}
-                        source={{
-                            uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
-                        }}
-                    />
-                    <Text style={{ marginLeft: 10, }}>คุณให้คะแนนเรทติ้งการสั่งซื้อแล้วรึยัง??</Text>
-                </View>
-                <View style={styles.Pro_for_UBox}>
-                    <FastImage
-                        style={styles.Pro_for_UImage}
-                        source={{
-                            uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
-                        }}
-                    />
-                    <Text style={{ marginLeft: 10, width: 200, }}>กรุณาชำระเงิน ........ บาท สำหรับคำสั่งซื้อ ภายในวันที่ 19-12-2019 </Text>
+                <Text style={[styles.Update_buyText, { fontFamily: 'SukhumvitSet-Bold' }]}> อัพเดทคำสั่งซื้อ </Text>
+                <View style={styles.Pro_for_U}>
+                    <View style={styles.Pro_for_UBox}>
+                        <FastImage
+                            style={styles.Pro_for_UImage}
+                            source={{
+                                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
+                            }}
+                        />
+                        <Text style={{ marginLeft: 10, width: width - 160, fontFamily: 'SukhumvitSet-Text' }}>คุณให้คะแนนเรทติ้งการสั่งซื้อแล้วรึยัง</Text>
+                    </View>
+                    <View style={styles.Pro_for_UBox}>
+                        <FastImage
+                            style={styles.Pro_for_UImage}
+                            source={{
+                                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
+                            }}
+                        />
+                        <Text style={{ marginLeft: 10, width: width - 160, fontFamily: 'SukhumvitSet-Text' }}>กรุณาชำระเงิน ........ บาท สำหรับคำสั่งซื้อ ภายในวันที่ 19-12-2019 </Text>
+                    </View>
+                    <View style={styles.Pro_for_UBox}>
+                        <FastImage
+                            style={styles.Pro_for_UImage}
+                            source={{
+                                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
+                            }}
+                        />
+                        <Text style={{ marginLeft: 10, width: width - 160, fontFamily: 'SukhumvitSet-Text' }}>คุณให้คะแนนเรทติ้งการสั่งซื้อแล้วรึยัง??</Text>
+                    </View>
+                    <View style={styles.Pro_for_UBox}>
+                        <FastImage
+                            style={styles.Pro_for_UImage}
+                            source={{
+                                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
+                            }}
+                        />
+                        <Text style={{ marginLeft: 10, width: width - 160, fontFamily: 'SukhumvitSet-Text' }}>กรุณาชำระเงิน ........ บาท สำหรับคำสั่งซื้อ ภายในวันที่ 19-12-2019 </Text>
+                    </View>
                 </View>
             </View>
         );

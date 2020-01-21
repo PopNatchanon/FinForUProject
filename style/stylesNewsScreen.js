@@ -99,10 +99,10 @@ export default StyleSheet.create({
     },
     body_image: {
         height: 100,
-        width: width - 250,
+        width: width - 200,
     },
     body_Text: {
-        width: 200,
+        width: width - 210,
         marginLeft: 10,
         fontFamily: 'SukhumvitSet-Text'
     },

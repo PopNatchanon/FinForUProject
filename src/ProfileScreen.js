@@ -18,7 +18,7 @@ import {
 } from 'react-native-elements'
 import FastImage from 'react-native-fast-image';
 import AsyncStorage from '@react-native-community/async-storage';
-
+import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IconFontisto from 'react-native-vector-icons/Fontisto';
@@ -87,7 +87,7 @@ export class Headbar extends Component {
                             <View>
                                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMeScreen')} >
                                     <View style={styles.HeadbarBox1Sub}>
-                                        <Text style={styles.HeadbarBox1SubText}>
+                                        <Text style={[styles.HeadbarBox1SubText, { fontFamily: 'SukhumvitSet-Text' }]}>
                                             เริ่มค้าขาย
                                     </Text>
                                     </View>
@@ -98,19 +98,19 @@ export class Headbar extends Component {
                                 />
                             </View>
                             <View style={{ marginLeft: 15, marginTop: '25%' }}>
-                                <Text style={{ fontSize: 14, color: '#FFFFFF' }}>
+                                <Text style={{ fontSize: 14, color: '#FFFFFF', fontFamily: 'SukhumvitSet-Text' }}>
                                     {currentUser.name}
                                 </Text>
-                                <Text style={{ fontSize: 10, color: '#BEBDBD' }}>
+                                <Text style={{ fontSize: 10, color: '#BEBDBD', fontFamily: 'SukhumvitSet-Text' }}>
                                     Active อยู่
                                 </Text>
-                                <Text style={{ fontSize: 10, color: '#FFFFFF' }}>
+                                <Text style={{ fontSize: 10, color: '#FFFFFF', fontFamily: 'SukhumvitSet-Text' }}>
                                     ผู้ติดตาม 20.2 พัน | กำลังติดตาม 2
                                 </Text>
                             </View>
                         </View>
                         <View style={{ flexDirection: 'row', padding: 8 }}>
-                            <TouchableOpacity onPress={()=>this.props.navigation.navigate('SettingScreen')}>
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('SettingScreen')}>
                                 <IconMaterialCommunityIcons RightItem name="settings-outline" style={{ marginRight: 6 }} size={25} color='#FFFFFF' />
                             </TouchableOpacity>
                             <IconFeather RightItem name="shopping-cart" size={25} color='#FFFFFF' />
@@ -255,7 +255,7 @@ export class Listbar extends Component {
                     <View style={{ width: width * (1 / 4), flexDirection: 'column', alignItems: 'center', }}>
                         <TouchableOpacity activeOpacity={0.9} onPress={() => { this.setState({ pathlist: 0 }) }}>
                             <View style={{ flexDirection: 'column', alignItems: 'center', }}>
-                                <View style={{ width: 60, height: 60, marginTop: 18, alignItems: 'center', backgroundColor: '#0A55A6', borderRadius: 30, }}>
+                                <View style={{ width: 60, height: 60, marginTop: 18, alignItems: 'center', backgroundColor: '#0A81A6', borderRadius: 30, }}>
                                     <IconAntDesign name='home' size={40} style={{ marginTop: 'auto', marginBottom: 'auto', color: '#fff' }} />
                                 </View>
                                 <Text style={styles.ListbarBoxText}>
@@ -265,28 +265,25 @@ export class Listbar extends Component {
                         </TouchableOpacity>
                     </View>
                     <TouchableOpacity activeOpacity={0.9} onPress={() => { this.props.navigation.navigate('DealScreen') }}>
-                    <View style={{ flexDirection: 'column', width: width * (1 / 4), alignItems: 'center' }}>
-                        <View style={{ width: 60, height: 60, marginTop: 18, alignItems: 'center', backgroundColor: '#B6B6B4', borderRadius: 30, }}>
-                            <IconFeather name='home' size={40} style={{ marginTop: 'auto', marginBottom: 'auto', color: '#fff' }} />
-                        </View>
-                        <Text style={styles.ListbarBoxText}>
-                            โปรโมชัน
-                        </Text>
-                    </View>
-                    </TouchableOpacity>
-                    <View style={{ width: width * (1 / 4), flexDirection: 'column', alignItems: 'center', }}>
-                        <TouchableOpacity activeOpacity={0.9} onPress={() => { this.setState({ pathlist: 2 }) }}>
-                            <View style={{ flexDirection: 'column', alignItems: 'center', }}>
-                                <FastImage
-                                    source={require('../icon/bitcoin2.png')}
-                                    style={styles.ListbarBoxImage}
-                                />
-                                <Text style={styles.ListbarBoxText}>
-                                    โค้ดส่วนลด
-                                </Text>
+                        <View style={{ flexDirection: 'column', width: width * (1 / 4), alignItems: 'center' }}>
+                            <View style={{ width: 60, height: 60, marginTop: 18, alignItems: 'center', backgroundColor: '#128BCE', borderRadius: 30, }}>
+                                <IconMaterialCommunityIcons name='octagram-outline' size={40} style={{ marginTop: 'auto', marginBottom: 'auto', color: '#fff' }} />
                             </View>
-                        </TouchableOpacity>
-                    </View>
+                            <Text style={styles.ListbarBoxText}>
+                                โปรโมชัน
+                        </Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={0.9} onPress={() => { this.setState({ pathlist: 2 }) }}>
+                        <View style={{ flexDirection: 'column', width: width * (1 / 4), alignItems: 'center' }}>
+                            <View style={{ width: 60, height: 60, marginTop: 18, alignItems: 'center', backgroundColor: '#1A3263', borderRadius: 30, }}>
+                                <IconMaterialCommunityIcons name='ticket' size={40} style={{ marginTop: 'auto', marginBottom: 'auto', color: '#fff' }} />
+                            </View>
+                            <Text style={styles.ListbarBoxText}>
+                                โค้ดส่วนลด
+                        </Text>
+                        </View>
+                    </TouchableOpacity>
                     <View style={{ flexDirection: 'column', width: width * (1 / 4), alignItems: 'center' }}>
                         <TouchableOpacity activeOpacity={0.9} onPress={() => { this.setState({ pathlist: 3 }) }}>
                             <View style={{ flexDirection: 'column', alignItems: 'center', }}>
@@ -428,7 +425,7 @@ export class ViewCode extends Component {
         return (
             <View>
                 <View style={{ marginTop: 10, borderWidth: 1, borderColor: '#ECECEC', padding: 10, }}>
-                    <Text style={{ fontSize: 14 }}>
+                    <Text style={{ fontSize: 14, fontFamily: 'SukhumvitSet-Bold' }}>
                         โ่ค้ดส่วนลดของฉัน
                     </Text>
                 </View>
@@ -466,13 +463,13 @@ export class MyCode extends Component {
                                 maxLength={9}
                                 width={width * 0.7}
                                 placeholderTextColor={'white'}
-                                style={{ color: 'white', backgroundColor: '#D7D7D7', borderRadius: 6, padding: 4, }}
+                                style={{ color: 'white', backgroundColor: '#D7D7D7', fontFamily: 'SukhumvitSet-Text', borderRadius: 6, padding: 4, }}
                                 onChangeText={(text) => this.setState({ text })}
                             ></TextInput>
                         </View>
                         <View>
                             <View style={{ backgroundColor: '#6791BE', borderRadius: 6, padding: 8, marginLeft: 6 }}>
-                                <Text style={{ color: '#FFF' }}>
+                                <Text style={{ color: '#FFF', fontFamily: 'SukhumvitSet-Text' }}>
                                     เก็บโค้ดส่วนลด
                                 </Text>
                             </View>
@@ -481,7 +478,7 @@ export class MyCode extends Component {
                 </View>
                 <View style={{ alignContent: 'center', alignItems: 'center' }}>
                     <View style={{ width: width * 0.98, borderBottomWidth: 0.5, borderWidth: 1, borderColor: '#ECECEC', marginTop: 10 }}>
-                        <Text style={{ paddingLeft: 20, padding: 2, }}>
+                        <Text style={{ paddingLeft: 20, padding: 2, fontFamily: 'SukhumvitSet-Bold' }}>
                             FIN Mission
                         </Text>
                     </View>
@@ -491,13 +488,13 @@ export class MyCode extends Component {
                                 style={{ backgroundColor: '#ECECEC', width: 60, height: 60, borderRadius: 40, }}
                             />
                             <View style={{ marginLeft: 16 }}>
-                                <Text style={{ marginTop: 5 }}>ติดตาม ร้าน Ppooo</Text>
+                                <Text style={{ marginTop: 5, fontFamily: 'SukhumvitSet-Text' }}>ติดตาม ร้าน Ppooo</Text>
                                 <View style={{ marginTop: 6, padding: 4, backgroundColor: '#0A55A6', alignContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ color: 'white', }}>โค้ดส่วนลด 80%</Text>
+                                    <Text style={{ color: 'white', fontFamily: 'SukhumvitSet-Text' }}>โค้ดส่วนลด 80%</Text>
                                 </View>
                             </View>
                             <View style={{ borderWidth: 1, borderRadius: 20, paddingTop: 4, padding: 15, height: 30, marginLeft: '36%', }}>
-                                <Text>ติดตาม</Text>
+                                <Text style={{ fontFamily: 'SukhumvitSet-Text' }}>ติดตาม</Text>
                             </View>
                         </View>
                         <View style={{ width: width * 0.98, borderBottomWidth: 0.5, borderWidth: 1, borderColor: '#ECECEC', padding: 10, flexDirection: 'row' }}>
@@ -505,13 +502,13 @@ export class MyCode extends Component {
                                 style={{ backgroundColor: '#ECECEC', width: 60, height: 60, borderRadius: 40, }}
                             />
                             <View style={{ marginLeft: 16 }}>
-                                <Text style={{ marginTop: 5 }}>ติดตาม ร้าน Ppooo</Text>
+                                <Text style={{ marginTop: 5, fontFamily: 'SukhumvitSet-Text' }}>ติดตาม ร้าน Ppooo</Text>
                                 <View style={{ marginTop: 6, padding: 4, backgroundColor: '#0A55A6', alignContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ color: 'white', }}>โค้ดส่วนลด 80%</Text>
+                                    <Text style={{ color: 'white', fontFamily: 'SukhumvitSet-Text' }}>โค้ดส่วนลด 80%</Text>
                                 </View>
                             </View>
                             <View style={{ borderWidth: 1, borderRadius: 20, paddingTop: 4, padding: 15, height: 30, marginLeft: '36%', }}>
-                                <Text>ติดตาม</Text>
+                                <Text style={{ fontFamily: 'SukhumvitSet-Text' }}>ติดตาม</Text>
                             </View>
                         </View>
                         <View style={{ width: width * 0.98, borderBottomWidth: 0.5, borderWidth: 1, borderColor: '#ECECEC', padding: 10, flexDirection: 'row' }}>
@@ -519,19 +516,19 @@ export class MyCode extends Component {
                                 style={{ backgroundColor: '#ECECEC', width: 60, height: 60, borderRadius: 40, }}
                             />
                             <View style={{ marginLeft: 16 }}>
-                                <Text style={{ marginTop: 5 }}>ติดตาม ร้าน Ppooo</Text>
+                                <Text style={{ marginTop: 5, fontFamily: 'SukhumvitSet-Text' }}>ติดตาม ร้าน Ppooo</Text>
                                 <View style={{ marginTop: 6, padding: 4, backgroundColor: '#0A55A6', alignContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ color: 'white', }}>โค้ดส่วนลด 80%</Text>
+                                    <Text style={{ color: 'white', fontFamily: 'SukhumvitSet-Text' }}>โค้ดส่วนลด 80%</Text>
                                 </View>
                             </View>
                             <View style={{ borderWidth: 1, borderRadius: 20, paddingTop: 4, padding: 15, height: 30, marginLeft: '36%', }}>
-                                <Text>ติดตาม</Text>
+                                <Text style={{ fontFamily: 'SukhumvitSet-Text' }}>ติดตาม</Text>
                             </View>
                         </View>
                     </View>
                     <View style={{ marginTop: 4 }}>
                         <View style={{ width: width * 0.98, borderWidth: 1, borderColor: '#6791BE', borderRadius: 4, padding: 4, alignContent: 'center', alignItems: 'center' }}>
-                            <Text style={{ color: '#6791BE' }}>ดูภารกิจทั้งหมด</Text>
+                            <Text style={{ color: '#6791BE', fontFamily: 'SukhumvitSet-Text' }}>ดูภารกิจทั้งหมด</Text>
                         </View>
 
                     </View>
@@ -607,7 +604,7 @@ export class CoinCollect extends Component {
                             }}
                         />
                         <View style={{ marginLeft: 40, borderRadius: 40, borderWidth: 1, borderColor: '#0A55A6', width: 160, height: 60, backgroundColor: 'white' }}>
-                            <Text style={{ marginTop: 10, marginLeft: 20, fontSize: 10 }}>
+                            <Text style={{ marginTop: 10, marginLeft: 20, fontSize: 10, fontFamily: 'SukhumvitSet-Text' }}>
                                 FIN COIN
                             </Text>
                             <View style={{ alignItems: 'center', alignContent: 'center' }}>
@@ -617,9 +614,7 @@ export class CoinCollect extends Component {
                                         displayType={'text'}
                                         thousandSeparator={true}
                                         renderText={
-                                            value => <Text style={
-                                                styles.PopularProductImagePrice
-                                            }>
+                                            value => <Text style={[styles.PopularProductImagePrice, { fontFamily: 'SukhumvitSet-Text' }]}>
                                                 {value}
                                             </Text>
                                         }
@@ -664,10 +659,10 @@ export class CoinPageBody extends Component {
                     </View>
                     <View style={{ flexDirection: 'row', backgroundColor: 'white' }}>
                         <View style={{ padding: 4, width: width * 0.65 }}>
-                            <Text>ส่วนลด 10% สำหรับร้าน เพชร </Text>
+                            <Text style={{ fontFamily: 'SukhumvitSet-Text' }}>ส่วนลด 10% สำหรับร้าน เพชร </Text>
                         </View>
                         <View style={{ backgroundColor: '#0A55A6', width: 120, alignItems: 'center', marginTop: 4, borderRadius: 4 }}>
-                            <Text style={{ marginBottom: 'auto', marginTop: 'auto', color: '#fff' }}>แลก 10 coin</Text>
+                            <Text style={{ marginBottom: 'auto', marginTop: 'auto', color: '#fff', fontFamily: 'SukhumvitSet-Text' }}>แลก 10 coin</Text>
                         </View>
                     </View>
                 </View>

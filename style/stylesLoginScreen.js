@@ -56,7 +56,7 @@ export default StyleSheet.create({
     Login_Box_Textlabel: {
         marginLeft: 4,
         fontSize: 15,
-        fontWeight: 'bold',
+        fontFamily: 'SukhumvitSet-Bold',
         marginTop: 10,
     },
     Login_Box_Text_L: {
@@ -166,7 +166,7 @@ export default StyleSheet.create({
         marginRight: 'auto',
         margin: 2,
         color: '#FFF',
-        fontWeight: 'bold',
+        fontFamily: 'SukhumvitSet-Bold',
         fontSize: 16,
     },
     eyestyle: {

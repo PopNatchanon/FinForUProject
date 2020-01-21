@@ -86,7 +86,7 @@ export default StyleSheet.create({
     },
     Popular_StoreText: {
         fontSize: 16,
-        fontWeight: 'bold',
+        // fontWeight: 'bold',
         marginLeft: 8,
         marginTop: 6,
     },
@@ -103,7 +103,7 @@ export default StyleSheet.create({
     },
     Pro_for_UText: {
         fontSize: 16,
-        fontWeight: 'bold',
+        // fontWeight: 'bold',
         marginLeft: 8,
         marginTop: 6,
     },
@@ -125,7 +125,7 @@ export default StyleSheet.create({
 
     Update_buyText: {
         fontSize: 16,
-        fontWeight: 'bold',
+        // fontWeight: 'bold',
         marginLeft: 8,
         marginTop: 6,
     },

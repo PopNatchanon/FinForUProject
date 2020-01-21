@@ -79,7 +79,10 @@ export class Login extends Component {
       mode: 'date',
       show: false,
     };
+    this.EmailInput = this.EmailInput.bind(this);
+    this.PassMailInput = this.PassMailInput.bind(this);
     this.UnameInput = this.UnameInput.bind(this);
+    this.UfamilyInput = this.UfamilyInput.bind(this);
     this.PassInput = this.PassInput.bind(this);
     this.RepeatPassInput = this.RepeatPassInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -88,11 +91,6 @@ export class Login extends Component {
 
   componentDidMount() {
     const { user } = this.state;
-    var email = this.props.navigation.getParam('email')
-    // console.log(email)
-    user.email = email;
-    this.setState({ user });
-    // custom rule will have name 'isPasswordMatch'
     Form.addValidationRule('isPasswordMatch', (value) => {
       // console.log('isPasswordMatch')
       // console.log(value)
@@ -194,11 +192,9 @@ export class Login extends Component {
             })
           // this.props.navigation.replace('ProfileScreen');
 
-        } else if (responseJson.result == 'This email has already been used') {
-          alert('This email has already been used')
-          this.props.navigation.goBack();
         } else {
-
+          alert(responseJson.result)
+          // this.props.navigation.goBack();
         }
         // this.props.navigation.replace('ProfileScreen', { email: user.email });
       })
@@ -211,9 +207,26 @@ export class Login extends Component {
     this.refs.form.submit();
   }
 
+  EmailInput(event) {
+    // console.log(event)
+    const { user } = this.state;
+    user.email = event;
+    this.setState({ user });
+  }
+
+  PassMailInput(event) {
+    const { user } = this.state;
+    user.passmail = event;
+    this.setState({ user });
+  }
   UnameInput(event) {
     const { user } = this.state;
     user.name = event;
+    this.setState({ user });
+  }
+  UfamilyInput(event) {
+    const { user } = this.state;
+    user.family = event;
     this.setState({ user });
   }
 
@@ -271,9 +284,64 @@ export class Login extends Component {
           <Form
             ref="form"
             onSubmit={this.getData}
-          >
+          ><Text style={styles.Login_Box_Textlabel}>
+              อีเมล
+        </Text>
+            <TextValidator
+              name="email"
+              label="text"
+              validators={['required', 'matchRegexp:^[a-zA-Z]+([\.-]?[a-zA-Z0-9]+[\_]?)+([\.-]?[a-zA-Z0-9]+[\_]?)@[a-zA-Z0-9]+(\.[a-zA-Z0-9]{2,3})+$']}
+              errorMessages={['กรุณากรอกอีเมล', 'กรุณากรอกอีเมลให้ถูกต้อง']}
+              type="text"
+              keyboardType="email-address"
+              value={user.email}
+              onChangeText={this.EmailInput}
+              style={{ fontFamily: 'SukhumvitSet-Text', }}
+              errorStyle={{
+                container: {
+                  bottom: -12,
+                  left: 4,
+                  position: 'absolute'
+                },
+                text: {
+                  color: 'red'
+                },
+                underlineValidColor: 'gray',
+                underlineInvalidColor: 'red'
+              }}
+            />
             <Text style={styles.Login_Box_Textlabel}>
-              ชื่อเต็ม
+              รหัสยืนยันผ่านอีเมล
+        </Text>
+            <TextValidator
+              name="pass"
+              label="text"
+              type="text"
+              value={user.passmail}
+              maxLength={6}
+              onChangeText={this.PassMailInput}
+              style={{ fontFamily: 'SukhumvitSet-Text', }}
+              errorStyle={{
+                container: {
+                  bottom: -12,
+                  left: 4,
+                  position: 'absolute'
+                },
+                text: {
+                  color: 'red'
+                },
+                underlineValidColor: 'gray',
+                underlineInvalidColor: 'red'
+              }}
+            />
+            <View style={styles.Countdownstyle}>
+              <Text style={styles.CountdownstyleSubmit}
+              >
+                ส่ง
+          </Text>
+            </View>
+            <Text style={styles.Login_Box_Textlabel}>
+              ชื่อ
             </Text>
             <TextValidator
               name="name"
@@ -283,6 +351,32 @@ export class Login extends Component {
               type="text"
               value={user.name}
               onChangeText={this.UnameInput}
+              style={{ fontFamily: 'SukhumvitSet-Text', }}
+              errorStyle={{
+                container: {
+                  bottom: -12,
+                  left: 4,
+                  position: 'absolute'
+                },
+                text: {
+                  color: 'red'
+                },
+                underlineValidColor: 'gray',
+                underlineInvalidColor: 'red'
+              }}
+            />
+            <Text style={styles.Login_Box_Textlabel}>
+              นามสกุล
+            </Text>
+            <TextValidator
+              name="name"
+              label="text"
+              validators={['required', 'isString']}
+              errorMessages={['กรุณากรอกชื่อ', 'กรุณากรอกชื่อให้ถูกต้อง']}
+              type="text"
+              value={user.family}
+              onChangeText={this.UfamilyInput}
+              style={{ fontFamily: 'SukhumvitSet-Text', }}
               errorStyle={{
                 container: {
                   bottom: -12,
@@ -308,6 +402,7 @@ export class Login extends Component {
               secureTextEntry
               value={user.password}
               onChangeText={this.PassInput}
+              style={{ fontFamily: 'SukhumvitSet-Text', }}
               errorStyle={{
                 container: {
                   bottom: -12,
@@ -334,6 +429,7 @@ export class Login extends Component {
               secureTextEntry
               value={user.repassword}
               onChangeText={this.RepeatPassInput}
+              style={{ fontFamily: 'SukhumvitSet-Text', }}
               errorStyle={{
                 container: {
                   bottom: -12,
@@ -351,14 +447,15 @@ export class Login extends Component {
             <View style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: 14 }}>
               <TouchableOpacity onPress={this.datepicker}>
                 <View style={{ flexDirection: 'row' }}>
-                  <Text>{day}/</Text>
-                  <Text>{month}/</Text>
-                  <Text>{year}</Text>
+                  <Text style={{ fontFamily: 'SukhumvitSet-Text', }}>{day}/</Text>
+                  <Text style={{ fontFamily: 'SukhumvitSet-Text', }}>{month}/</Text>
+                  <Text style={{ fontFamily: 'SukhumvitSet-Text', }}>{year}</Text>
                 </View>
               </TouchableOpacity>
               {show && <DateTimePicker
                 value={date}
                 mode={mode}
+                style={{ fontFamily: 'SukhumvitSet-Text', }}
                 // format="DD-MM-YYYY"
                 display="spinner"
                 maximumDate={new Date()}
@@ -367,7 +464,7 @@ export class Login extends Component {
             </View>
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 14 }}>
-              <Text>
+              <Text style={{ fontFamily: 'SukhumvitSet-Text', }}>
                 เพศ
               </Text>
               <View style={{ marginTop: -10, }}>
@@ -379,7 +476,7 @@ export class Login extends Component {
                   }}
                   box={false}
                   boxStyle={{
-                    width: 70
+                    width: 70,
                   }}
                   textStyle={{
                     marginLeft: 12,
@@ -396,13 +493,13 @@ export class Login extends Component {
                 checked={this.state.item1}
                 onPress={() => this.setState({ item1: !this.state.item1 })}
               />
-              <View style={styles.RegisterScreen_Check_Box}><Text style={styles.RegisterScreen_Check_Text}>ฉันยอมรับเงื่อนไขของ FIN ข้อตกลงการใช้งาน และยินยอมดำเนินการกับข้อมูลส่วนตัวตามที่ระบุใน นโยบายส่วนตัว</Text></View>
+              <View style={styles.RegisterScreen_Check_Box}><Text style={[styles.RegisterScreen_Check_Text, { fontFamily: 'SukhumvitSet-Text' }]}>ฉันยอมรับเงื่อนไขของ FIN ข้อตกลงการใช้งาน และยินยอมดำเนินการกับข้อมูลส่วนตัวตามที่ระบุใน นโยบายส่วนตัว</Text></View>
             </View>
             <View style={styles.Login_Box_Text_C}>
               <View style={styles.Login_Box_Text_C}>
                 <TouchableOpacity onPress={this.handleSubmit}>
                   <View style={styles.Login_Box_Text_B}>
-                    <Text style={styles.Login__Text}>สมัครสมาชิก</Text>
+                    <Text style={[styles.Login__Text, { fontFamily: 'SukhumvitSet-Text' }]}>สมัครสมาชิก</Text>
                   </View>
                 </TouchableOpacity>
               </View>
@@ -428,7 +525,7 @@ export class Register extends Component {
       <View style={{ justifyContent: 'center', alignItems: 'center', }}>
         <View style={{ flexDirection: 'row', marginTop: 10, }}>
           <View style={{ height: 50, width: 250, marginTop: 20, marginLeft: 20, }}>
-            <Text>ฉันต้องการรับข้อเสนอและโปรโมชันสุดพิเศษจาก FIN</Text>
+            <Text style={{ fontFamily: 'SukhumvitSet-Text' }}>ฉันต้องการรับข้อเสนอและโปรโมชันสุดพิเศษจาก FIN</Text>
           </View>
           <CheckBox
             size={30}

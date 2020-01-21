@@ -98,12 +98,13 @@ export default StyleSheet.create({
     },
     MenubarText1: {
         fontSize: 16,
-        fontWeight: 'bold',
+        fontFamily: 'SukhumvitSet-Bold',
         marginTop: 4,
         marginLeft: 8,
         marginBottom: 4,
     },
     MenubarText2: {
+        fontFamily: 'SukhumvitSet-Text',
         color: '#BABABA',
         marginTop: 2,
     },
@@ -123,6 +124,7 @@ export default StyleSheet.create({
     MenubarSubLine1Name: {
         fontSize: 14,
         marginTop: 8,
+        fontFamily: 'SukhumvitSet-Text',
     },
     MenubarSubLine2: {
         marginTop: 18,
@@ -143,6 +145,7 @@ export default StyleSheet.create({
     MenubarSubLine2BoxName: {
         fontSize: 16,
         marginLeft: 8,
+        fontFamily: 'SukhumvitSet-Text',
     },
     ///--------------------------------------------------------------------///
     ListMenu: {
@@ -152,7 +155,7 @@ export default StyleSheet.create({
         borderWidth: 0.5,
     },
     bgBoxWhite: {
-        backgroundColor:'#fff'
+        backgroundColor: '#fff'
     },
     ListMenuList: {
         flexDirection: 'row',
@@ -171,6 +174,7 @@ export default StyleSheet.create({
         marginTop: 15,
         marginLeft: 16,
         fontSize: 16,
+        fontFamily: 'SukhumvitSet-Text',
     },
     ListMenuListIcon: {
         marginTop: 6,
@@ -185,6 +189,7 @@ export default StyleSheet.create({
     ListbarBoxText: {
         marginTop: 8,
         fontSize: 14,
+        fontFamily: 'SukhumvitSet-Text',
     },
 
 

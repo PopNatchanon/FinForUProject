@@ -20,6 +20,7 @@ import IconFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import styles from '../style/StylesMainScreen';
+import stylesFont from '../style/stylesFont'
 import { finip, ip } from '../navigator/IpConfig';
 import FastImage from 'react-native-fast-image';
 export const { width, height } = Dimensions.get('window');
@@ -120,10 +121,7 @@ export class AppBar extends Component {
                         alignContent: 'center',
                         alignItems: 'center'
                     }}>
-                        <TextInput style={[styles.TextInput, {
-                            fontFamily: 'SukhumvitSet-Text',
-                            fontSize: 15,
-                        }]}
+                        <TextInput style={[styles.TextInput, stylesFont.FontFamilyText, stylesFont.FontSize2, stylesFont.FontCenter]}
                             placeholder="ค้นหาสินค้า/ร้านค้า"
                             value={this.state.text}
                             maxLength={30}
@@ -310,7 +308,7 @@ export class Category extends Component {
             var dataMySQL = [finip, item.image_path, 'menu', item.image_head].join('/');
             {/* console.log(dataMySQL); */ }
             return (
-                <View style={item.name.length > 15 ? [styles.Category, { marginTop: 10 }] : styles.Category} key={indexs}>
+                <View style={styles.Category} key={indexs}>
                     <View style={styles.Category_box}>
                         <FastImage
                             source={{
@@ -319,7 +317,7 @@ export class Category extends Component {
                             style={styles.Category_image}
                         />
                     </View>
-                    <Text style={[{ fontFamily: 'SukhumvitSet-Bold', textAlign: 'center' }]}>{item.name}</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, stylesFont.FontCenter]}>{item.name}</Text>
                 </View>
             )
         })
@@ -346,60 +344,60 @@ export class Button_Bar extends Component {
     render() {
         return (
             <View style={styles.Button_Bar} >
-                {/* <ScrollView horizontal> */}
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('DealScreen')}>
-                    <View style={styles.Button_Bar_Box}>
-                        <FastImage style={styles.Button_Bar_icon}
-                            source={{
-                                uri: ip + '/MySQL/uploads/icon_brand/unicorn-face.jpg',
-                            }}
-                        />
-                    </View>
-                    <Text style={{ textAlign: 'center', fontSize: 12, fontFamily: 'SukhumvitSet-Text', }}>ดีลสุดพิเศษ</Text>
-                </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('CoinScreen')} >
-                    <View style={styles.Button_Bar_Box}>
-                        <FastImage style={styles.Button_Bar_icon}
-                            source={{
-                                uri: ip + '/MySQL/uploads/icon_brand/unicorn-face.jpg',
-                            }}
-                        />
-                        <Text style={{ textAlign: 'center', fontSize: 12, fontFamily: 'SukhumvitSet-Text', }}>FinCoin</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('CampaignScreen')}>
-                    <View style={styles.Button_Bar_Box}>
-                        <FastImage style={styles.Button_Bar_icon}
-                            source={{
-                                uri: ip + '/MySQL/uploads/icon_brand/unicorn-face.jpg',
-                            }}
-                        />
-                        <Text style={{ textAlign: 'center', fontSize: 12, fontFamily: 'SukhumvitSet-Text', }}>แคมเปญ</Text>
-                    </View>
-                </TouchableOpacity>
+                <ScrollView horizontal>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('DealScreen')}>
+                        <View style={styles.Button_Bar_Box}>
+                            <FastImage style={styles.Button_Bar_icon}
+                                source={{
+                                    uri: ip + '/MySQL/uploads/icon_brand/unicorn-face.jpg',
+                                }}
+                            />
+                        </View>
+                        <Text style={[stylesFont.FontCenter, stylesFont.FontFamilyText, stylesFont.FontSize3]}>ดีลสุดพิเศษ</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('CoinScreen')} >
+                        <View style={styles.Button_Bar_Box}>
+                            <FastImage style={styles.Button_Bar_icon}
+                                source={{
+                                    uri: ip + '/MySQL/uploads/icon_brand/unicorn-face.jpg',
+                                }}
+                            />
+                            <Text style={[stylesFont.FontCenter, stylesFont.FontFamilyText, stylesFont.FontSize3]}>FinCoin</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('CampaignScreen')}>
+                        <View style={styles.Button_Bar_Box}>
+                            <FastImage style={styles.Button_Bar_icon}
+                                source={{
+                                    uri: ip + '/MySQL/uploads/icon_brand/unicorn-face.jpg',
+                                }}
+                            />
+                            <Text style={[stylesFont.FontCenter, stylesFont.FontFamilyText, stylesFont.FontSize3]}>แคมเปญ</Text>
+                        </View>
+                    </TouchableOpacity>
 
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('WorthFinScreen')}>
-                    <View style={styles.Button_Bar_Box}>
-                        <FastImage style={styles.Button_Bar_icon}
-                            source={{
-                                uri: ip + '/MySQL/uploads/icon_brand/unicorn-face.jpg',
-                            }}
-                        />
-                        <Text style={{ textAlign: 'center', fontSize: 12, fontFamily: 'SukhumvitSet-Text', }}>สุดคุ้มสุดฟิน</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Installment_payScreen')}>
-                    <View style={styles.Button_Bar_Box}>
-                        <FastImage style={styles.Button_Bar_icon}
-                            source={{
-                                uri: ip + '/MySQL/uploads/icon_brand/unicorn-face.jpg',
-                            }}
-                        />
-                    </View>
-                    <Text style={{ textAlign: 'center', fontSize: 12, fontFamily: 'SukhumvitSet-Text', }}>ผ่อนชำระ 0%</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('WorthFinScreen')}>
+                        <View style={styles.Button_Bar_Box}>
+                            <FastImage style={styles.Button_Bar_icon}
+                                source={{
+                                    uri: ip + '/MySQL/uploads/icon_brand/unicorn-face.jpg',
+                                }}
+                            />
+                            <Text style={[stylesFont.FontCenter, stylesFont.FontFamilyText, stylesFont.FontSize3]}>สุดคุ้มสุดฟิน</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Installment_payScreen')}>
+                        <View style={styles.Button_Bar_Box}>
+                            <FastImage style={styles.Button_Bar_icon}
+                                source={{
+                                    uri: ip + '/MySQL/uploads/icon_brand/unicorn-face.jpg',
+                                }}
+                            />
+                        </View>
+                        <Text style={[stylesFont.FontCenter, stylesFont.FontFamilyText, stylesFont.FontSize3]}>ผ่อนชำระ 0%</Text>
+                    </TouchableOpacity>
 
-                {/* </ScrollView> */}
+                </ScrollView>
             </View>
         );
     }
@@ -417,7 +415,7 @@ export class Brand_RCM extends Component {
         return (
             <View style={styles.Brand_RCM}>
                 <View style={styles.Brand_RCMTextBox}>
-                    <Text style={[styles.Brand_RCMText]}>
+                    <Text style={[styles.Brand_RCMText, stylesFont.FontSize1, stylesFont.FontFamilyBold]}>
                         แบรนด์แนะนำ
                     </Text>
                     <Text style={styles.Brand_RCMTextEnd}>
@@ -544,15 +542,15 @@ export class Popular_product extends Component {
     render() {
         return (
             <View style={{ width: '100%', flexDirection: 'row', }}>
-                <View style={{ height: 180, width: '45%', backgroundColor: '#FFFFFF',marginTop:10,}}>
+                <View style={{ height: 180, width: '45%', backgroundColor: '#FFFFFF', marginTop: 10, }}>
                     <View style={styles.Brand_RCMTextBox}>
                         <Text style={styles.Brand_RCMText}>
                             ร้านที่ใช่อยากให้ช้อป
                        </Text>
                     </View>
-                    <View style={{ height: '75%', width: '90%', marginLeft:10, }}>
+                    <View style={{ height: '75%', width: '90%', marginLeft: 10, }}>
                         <FastImage
-                            style={{height:'100%', width:'100%'}}
+                            style={{ height: '100%', width: '100%' }}
                             source={{
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop2.jpg',
                             }}
@@ -848,7 +846,7 @@ export class FlashSale extends Component {
             <View style={styles.FlashSale}>
                 <View style={styles.Brand_RCMTextBox}>
                     <View style={{ flexDirection: 'row', marginTop: 5, }}>
-                        <Text style={styles.Brand_RCMText}>
+                        <Text style={[styles.Brand_RCMText, stylesFont.FontFamilyBold, stylesFont.FontSizeTitle]}>
                             FLASH SALE
                         </Text>
                         <View style={styles.Time_FlashSale_TimeBox}><Text style={styles.Time_FlashSale_TimeText}>01</Text></View>
@@ -901,8 +899,8 @@ export class PromotionPopular extends Component {
             var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
             // console.log(dataMySQL)
             return (
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Recommend_Store')}>
-                    <View style={styles.Promotion_popular_Box} key={indexs}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Recommend_Store')} key={indexs}>
+                    <View style={styles.Promotion_popular_Box}>
                         <View style={styles.Promotion_popular_BoxA}>
                             <FastImage
                                 source={{

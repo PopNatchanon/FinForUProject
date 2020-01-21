@@ -130,8 +130,6 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
   },
   Brand_RCMText: {
-    fontSize: 16,
-    fontFamily: 'SukhumvitSet-Bold',
     marginLeft: 8,
     marginTop: 6,
   },

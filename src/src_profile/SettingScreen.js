@@ -61,7 +61,7 @@ export class Headbar extends Component {
                         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
                             <IconEntypo name='chevron-left' size={35} />
                         </TouchableOpacity>
-                        <Text style={{ marginTop: 5, }}>ตั้งค่าบัญชี</Text>
+                        <Text style={{ marginTop: 5, fontSize: 16, fontFamily: 'SukhumvitSet-Bold' }}>ตั้งค่าบัญชี</Text>
                     </View>
                     <View style={{ flexDirection: 'row', padding: 5, }}>
                         <IconMaterialCommunityIcons style={{ marginRight: 10, }} name="settings-outline" size={25} />

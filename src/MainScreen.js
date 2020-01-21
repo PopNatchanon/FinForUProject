@@ -20,6 +20,7 @@ import IconFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import styles from '../style/StylesMainScreen';
+import stylesFont from '../style/stylesFont'
 import { finip, ip } from '../navigator/IpConfig';
 import FastImage from 'react-native-fast-image';
 export const { width, height } = Dimensions.get('window');
@@ -120,10 +121,7 @@ export class AppBar extends Component {
                         alignContent: 'center',
                         alignItems: 'center'
                     }}>
-                        <TextInput style={[styles.TextInput, {
-                            fontFamily: 'SukhumvitSet-Text',
-                            fontSize: 15,
-                        }]}
+                        <TextInput style={[styles.TextInput, stylesFont.FontFamilyText, stylesFont.FontSizeNormal]}
                             placeholder="ค้นหาสินค้า/ร้านค้า"
                             value={this.state.text}
                             maxLength={30}
@@ -422,7 +420,7 @@ export class Brand_RCM extends Component {
         return (
             <View style={styles.Brand_RCM}>
                 <View style={styles.Brand_RCMTextBox}>
-                    <Text style={[styles.Brand_RCMText]}>
+                    <Text style={[styles.Brand_RCMText, stylesFont.FontSizeTitle, stylesFont.FontFamilyBold]}>
                         แบรนด์แนะนำ
                     </Text>
                     <Text style={styles.Brand_RCMTextEnd}>
@@ -836,7 +834,7 @@ export class FlashSale extends Component {
             <View style={styles.FlashSale}>
                 <View style={styles.Brand_RCMTextBox}>
                     <View style={{ flexDirection: 'row', marginTop: 5, }}>
-                        <Text style={styles.Brand_RCMText}>
+                        <Text style={[styles.Brand_RCMText, stylesFont.FontFamilyBold, stylesFont.FontSizeTitle]}>
                             FLASH SALE
                         </Text>
                         <View style={styles.Time_FlashSale_TimeBox}><Text style={styles.Time_FlashSale_TimeText}>01</Text></View>
@@ -889,8 +887,8 @@ export class PromotionPopular extends Component {
             var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
             // console.log(dataMySQL)
             return (
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Recommend_Store')}>
-                    <View style={styles.Promotion_popular_Box} key={indexs}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Recommend_Store')} key={indexs}>
+                    <View style={styles.Promotion_popular_Box}>
                         <View style={styles.Promotion_popular_BoxA}>
                             <FastImage
                                 source={{

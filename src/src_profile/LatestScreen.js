@@ -16,7 +16,7 @@ import NumberFormat from 'react-number-format';
 import Icons from 'react-native-vector-icons/FontAwesome5';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import styles from '../../style/stylesProfile-src/stylesLatestScreen';
-import {ip} from '../../navigator/IpConfig';
+import { ip } from '../../navigator/IpConfig';
 
 export const { width, height } = Dimensions.get('window');
 
@@ -29,7 +29,7 @@ export default class LatestScreen extends Component {
 
   render() {
     return (
-      <SafeAreaView style={{flex:1,}}>
+      <SafeAreaView style={{ flex: 1, }}>
         <Appbar navigation={this.props.navigation} />
         <ScrollView>
           <Product_Box />
@@ -54,7 +54,7 @@ export class Appbar extends Component {
         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
           <IconEntypo name='chevron-left' size={35} />
         </TouchableOpacity>
-        <Text style={{ marginTop: 5, }}>ดูล่าสุด</Text>
+        <Text style={{ marginTop: 5, fontFamily: 'SukhumvitSet-Bold' }}>ดูล่าสุด</Text>
       </View>
     );
   }
@@ -106,7 +106,7 @@ export class Product_Box extends Component {
               }}
               style={styles.PopularProductImage}
             />
-            <Text style={styles.PopularProductImageName}>
+            <Text style={[styles.PopularProductImageName, { fontFamily: 'SukhumvitSet-Text' }]}>
               {item.name}
             </Text>
             <NumberFormat
@@ -115,9 +115,7 @@ export class Product_Box extends Component {
               thousandSeparator={true}
               prefix={'฿'}
               renderText={
-                value => <Text style={
-                  styles.PopularProductImagePrice
-                }>
+                value => <Text style={[styles.PopularProductImagePrice, { fontFamily: 'SukhumvitSet-Text' }]}>
                   {value}
                 </Text>
               }

@@ -2,6 +2,9 @@ import { StyleSheet, } from 'react-native';
 
 
 export default StyleSheet.create({
+    FontCenter: {
+        textAlign: 'center',
+    },
     FontFamilyText: {
         fontFamily: 'SukhumvitSet-Text',
     },

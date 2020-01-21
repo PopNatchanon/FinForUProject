@@ -29,7 +29,6 @@ export default StyleSheet.create({
     // backgroundColor: '#FFFF',
     width: 230,
     height: 40,
-    textAlign: 'center',
   },
   Appbar: {
     // backgroundColor: '#FFFFFF',
@@ -161,7 +160,7 @@ export default StyleSheet.create({
     borderWidth: 1,
     marginTop: 10,
     height: 180,
-    marginLeft:10,
+    marginLeft: 10,
   },
   Popular_Box_A: {
     height: 150,
@@ -914,7 +913,7 @@ export default StyleSheet.create({
 
   },
   Button_Bar_Box: {
-    width: width*(1/5),
+    width: width * 1 / 4.1,
     alignItems: 'center',
     alignContent: 'center',
     height: 60,
@@ -939,7 +938,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 10,
-    marginTop:10,
+    marginTop: 10,
   },
   Text_Bar: {
     color: '#FFFFFF',

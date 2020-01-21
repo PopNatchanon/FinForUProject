@@ -163,6 +163,7 @@ export default StyleSheet.create({
     borderWidth: 1,
     marginTop: 10,
     height: 180,
+    marginLeft:10,
   },
   Popular_Box_A: {
     height: 150,
@@ -261,17 +262,17 @@ export default StyleSheet.create({
   Promotion_popular_image: {
     height: 100,
     width: 180,
-    opacity:0.9,
-    borderRadius:5,
-    },
+    opacity: 0.9,
+    borderRadius: 5,
+  },
   Text_icon_Sale: {
-    textAlign:'center',
-    marginTop:-70,
+    textAlign: 'center',
+    marginTop: -70,
     fontSize: 18,
     color: '#FFFFFF',
     height: 60,
     width: 180,
-    
+
   },
 
   ///--------------------------------------------------------------------------------///
@@ -830,17 +831,6 @@ export default StyleSheet.create({
   PromotionCategoryProductImage: {
     width: '100%',
     height: '70%',
-    borderTopLeftRadius: 8,
-    borderTopRightRadius: 8,
-  },
-  PromotionCategoryProductImageIcon: {
-    fontSize: 10,
-    color: 'white',
-    backgroundColor: '#0A55A6',
-    width: '100%',
-    height: '30%',
-    borderBottomRightRadius: 8,
-    borderBottomLeftRadius: 8,
   },
 
   ///------------------------------------------------------------------///
@@ -915,36 +905,48 @@ export default StyleSheet.create({
   ///------------------------------------------------------------------///
 
   Button_Bar: {
+    height: 'auto',
+    width,
     backgroundColor: '#FFFFFF',
     borderColor: '#ECECEC',
     borderWidth: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    paddingTop: 5,
-    paddingBottom: 5,
+    marginTop: 10,
 
   },
   Button_Bar_Box: {
-    height: 'auto',
-    paddingTop: 10,
-    paddingBottom: 10,
-    flexDirection: 'row',
-    marginLeft: 10,
+    width: width*(1/5),
+    alignItems: 'center',
+    alignContent: 'center',
+    height: 60,
+    paddingVertical: 10,
+    paddingHorizontal: 14
   },
   Button_Bar_icon: {
-    borderRadius: 4,
-    height: 60,
-    width: 60,
+    height: 50,
+    width: 50,
+    borderRadius: 50,
+    borderColor: '#0A55A6',
+    borderWidth: 2,
     resizeMode: 'stretch',
   },
 
   ///------------------------------------------------------------------///
 
   Text_Bar_Image: {
-    height: 15,
-    width: 120,
-    marginTop: 10,
+    backgroundColor: '#0A55A6',
+    height: 30,
+    width: 130,
+    justifyContent: 'center',
+    alignItems: 'center',
     marginLeft: 10,
+    marginTop:10,
+  },
+  Text_Bar: {
+    color: '#FFFFFF',
+    fontSize: 14,
+    fontFamily: 'SukhumvitSet-Text',
   },
 
   ///------------------------------------------------------------------///

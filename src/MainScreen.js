@@ -55,14 +55,14 @@ export default class MainScreen extends Component {
                     <FlashSale navigation={this.props.navigation} />
                     <Brand_RCM navigation={this.props.navigation} />
                     <BannerBar_ONE />
-                    <Highlight navigation={this.props.navigation} />
-                    <BannerBar_TWO />
-                    <Popular_product navigation={this.props.navigation} />
-                    <PromotionPopular navigation={this.props.navigation} />
-                    <BannerBar_TWO />
-                    <NewProduct navigation={this.props.navigation} />
+                    <Exclusive navigation={this.props.navigation} />
                     <NewStore navigation={this.props.navigation} />
-                    <Confidential_PRO />
+                    <BannerBar_TWO />
+                    <Highlight navigation={this.props.navigation} />
+                    <PromotionPopular navigation={this.props.navigation} />
+                    <Popular_product navigation={this.props.navigation} />
+                    <BannerBar_TWO />
+                    {/* <Confidential_PRO /> */}
                     <Product_for_you navigation={this.props.navigation} />
                     <BannerBar_TWO />
                     <CategoryProduct navigation={this.props.navigation} />
@@ -345,66 +345,61 @@ export class Button_Bar extends Component {
     }
     render() {
         return (
-            <View style={[styles.Button_Bar, { marginTop: 10 }]} >
-                <ScrollView horizontal>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('DealScreen')}>
-                        <View style={styles.Button_Bar_Box}>
-                            <FastImage style={styles.Button_Bar_icon}
-                                source={{
-                                    uri: ip + '/MySQL/uploads/icon_brand/unicorn-face.jpg',
+            <View style={styles.Button_Bar} >
+                {/* <ScrollView horizontal> */}
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('DealScreen')}>
+                    <View style={styles.Button_Bar_Box}>
+                        <FastImage style={styles.Button_Bar_icon}
+                            source={{
+                                uri: ip + '/MySQL/uploads/icon_brand/unicorn-face.jpg',
+                            }}
+                        />
+                    </View>
+                    <Text style={{ textAlign: 'center', fontSize: 12, fontFamily: 'SukhumvitSet-Text', }}>ดีลสุดพิเศษ</Text>
+                </TouchableOpacity>
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('CoinScreen')} >
+                    <View style={styles.Button_Bar_Box}>
+                        <FastImage style={styles.Button_Bar_icon}
+                            source={{
+                                uri: ip + '/MySQL/uploads/icon_brand/unicorn-face.jpg',
+                            }}
+                        />
+                        <Text style={{ textAlign: 'center', fontSize: 12, fontFamily: 'SukhumvitSet-Text', }}>FinCoin</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('CampaignScreen')}>
+                    <View style={styles.Button_Bar_Box}>
+                        <FastImage style={styles.Button_Bar_icon}
+                            source={{
+                                uri: ip + '/MySQL/uploads/icon_brand/unicorn-face.jpg',
+                            }}
+                        />
+                        <Text style={{ textAlign: 'center', fontSize: 12, fontFamily: 'SukhumvitSet-Text', }}>แคมเปญ</Text>
+                    </View>
+                </TouchableOpacity>
 
-                                }}
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('WorthFinScreen')}>
+                    <View style={styles.Button_Bar_Box}>
+                        <FastImage style={styles.Button_Bar_icon}
+                            source={{
+                                uri: ip + '/MySQL/uploads/icon_brand/unicorn-face.jpg',
+                            }}
+                        />
+                        <Text style={{ textAlign: 'center', fontSize: 12, fontFamily: 'SukhumvitSet-Text', }}>สุดคุ้มสุดฟิน</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Installment_payScreen')}>
+                    <View style={styles.Button_Bar_Box}>
+                        <FastImage style={styles.Button_Bar_icon}
+                            source={{
+                                uri: ip + '/MySQL/uploads/icon_brand/unicorn-face.jpg',
+                            }}
+                        />
+                    </View>
+                    <Text style={{ textAlign: 'center', fontSize: 12, fontFamily: 'SukhumvitSet-Text', }}>ผ่อนชำระ 0%</Text>
+                </TouchableOpacity>
 
-                            />
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('CoinScreen')} >
-                        <View style={styles.Button_Bar_Box}>
-                            <FastImage style={styles.Button_Bar_icon}
-                                source={{
-                                    uri: ip + '/MySQL/uploads/icon_brand/Fincoin2.png',
-
-                                }}
-
-                            />
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('CampaignScreen')}>
-                        <View style={styles.Button_Bar_Box}>
-                            <FastImage style={styles.Button_Bar_icon}
-                                source={{
-                                    uri: ip + '/MySQL/uploads/icon_brand/Campaign3.png',
-
-                                }}
-
-                            />
-                        </View>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('WorthFinScreen')}>
-                        <View style={styles.Button_Bar_Box}>
-                            <FastImage style={styles.Button_Bar_icon}
-                                source={{
-                                    uri: ip + '/MySQL/uploads/icon_brand/Fin_Fin3.png',
-
-                                }}
-
-                            />
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Installment_payScreen')}>
-                        <View style={styles.Button_Bar_Box}>
-                            <FastImage style={styles.Button_Bar_icon}
-                                source={{
-                                    uri: ip + '/MySQL/uploads/icon_brand/Payment5.png',
-
-                                }}
-
-                            />
-                        </View>
-                    </TouchableOpacity>
-
-                </ScrollView>
+                {/* </ScrollView> */}
             </View>
         );
     }
@@ -548,16 +543,128 @@ export class Popular_product extends Component {
 
     render() {
         return (
-            <View style={styles.Popular}>
-                <View style={styles.Brand_RCMTextBox}>
-                    <Text style={styles.Brand_RCMText}>
-                        สินค้ายอดนิยม
-                    </Text>
+            <View style={{ width: '100%', flexDirection: 'row', }}>
+                <View style={{ height: 180, width: '45%', backgroundColor: '#FFFFFF',marginTop:10,}}>
+                    <View style={styles.Brand_RCMTextBox}>
+                        <Text style={styles.Brand_RCMText}>
+                            ร้านที่ใช่อยากให้ช้อป
+                       </Text>
+                    </View>
+                    <View style={{ height: '75%', width: '90%', marginLeft:10, }}>
+                        <FastImage
+                            style={{height:'100%', width:'100%'}}
+                            source={{
+                                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop2.jpg',
+                            }}
+                        />
+                    </View>
                 </View>
-                <View style={styles.Popular_Box_A}>
-                    <ScrollView horizontal>
-                        <View style={styles.Popular_Box_B}>
-                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Popular_productScreen')}>
+                <View style={styles.Popular}>
+                    <View style={styles.Brand_RCMTextBox}>
+                        <Text style={styles.Brand_RCMText}>
+                            สินค้ายอดนิยม
+                    </Text>
+                    </View>
+                    <View style={styles.Popular_Box_A}>
+                        <ScrollView horizontal>
+                            <View style={styles.Popular_Box_B}>
+                                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Popular_productScreen')}>
+                                    <View style={styles.Popular_Box_C}>
+                                        <View style={styles.Popular_Box_D}>
+                                            <FastImage
+                                                style={styles.Image_icon_top}
+                                                source={require('../icon/top.png')}
+                                            />
+                                            <FastImage
+                                                style={styles.Popular_image_Box}
+                                                source={{
+                                                    uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg',
+                                                }}
+                                            />
+                                        </View>
+                                        <View style={styles.Popular_Box_D}>
+                                            <FastImage
+                                                style={styles.Image_icon_top}
+                                                source={require('../icon/top.png')}
+                                            />
+                                            <FastImage
+                                                style={styles.Popular_image_Box}
+                                                source={{
+                                                    uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png',
+                                                }}
+                                            />
+                                        </View>
+                                    </View>
+                                    <View style={styles.PopularText_A} ><Text style={{ fontFamily: 'SukhumvitSet-Bold', marginLeft: 8 }}>สินค้าสุดฮิต</Text></View>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={styles.Popular_Box_B}>
+                                <View style={styles.Popular_Box_C}>
+                                    <View style={styles.Popular_Box_D}>
+                                        <FastImage
+                                            style={styles.Image_icon_top}
+                                            source={require('../icon/top.png')}
+                                        />
+                                        <FastImage
+                                            style={styles.Popular_image_Box}
+                                            source={{
+                                                uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg',
+
+                                            }}
+
+                                        />
+                                    </View>
+                                    <View style={styles.Popular_Box_D}>
+                                        <FastImage
+                                            style={styles.Image_icon_top}
+                                            source={require('../icon/top.png')}
+                                        />
+                                        <FastImage
+                                            style={styles.Popular_image_Box}
+                                            source={{
+                                                uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png',
+
+                                            }}
+
+                                        />
+                                    </View>
+                                </View>
+                                <View style={styles.PopularText_A} ><Text style={{ fontFamily: 'SukhumvitSet-Bold', marginLeft: 8 }}>สินค้าราคาโดน</Text></View>
+                            </View>
+                            <View style={styles.Popular_Box_B}>
+                                <View style={styles.Popular_Box_C}>
+                                    <View style={styles.Popular_Box_D}>
+                                        <FastImage
+                                            style={styles.Image_icon_top}
+                                            source={require('../icon/top.png')}
+                                        />
+                                        <FastImage
+                                            style={styles.Popular_image_Box}
+                                            source={{
+                                                uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg',
+
+                                            }}
+
+                                        />
+                                    </View>
+                                    <View style={styles.Popular_Box_D}>
+                                        <FastImage
+                                            style={styles.Image_icon_top}
+                                            source={require('../icon/top.png')}
+                                        />
+                                        <FastImage
+                                            style={styles.Popular_image_Box}
+                                            source={{
+                                                uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png',
+
+                                            }}
+
+                                        />
+                                    </View>
+                                </View>
+                                <View style={styles.PopularText_A} ><Text style={{ fontFamily: 'SukhumvitSet-Bold', marginLeft: 8 }}>สินค้าราคาโดน</Text></View>
+                            </View>
+                            <View style={styles.Popular_Box_B}>
                                 <View style={styles.Popular_Box_C}>
                                     <View style={styles.Popular_Box_D}>
                                         <FastImage
@@ -584,105 +691,10 @@ export class Popular_product extends Component {
                                         />
                                     </View>
                                 </View>
-                                <View style={styles.PopularText_A} ><Text style={{ fontFamily: 'SukhumvitSet-Bold', marginLeft: 8 }}>สินค้าสุดฮิต</Text></View>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.Popular_Box_B}>
-                            <View style={styles.Popular_Box_C}>
-                                <View style={styles.Popular_Box_D}>
-                                    <FastImage
-                                        style={styles.Image_icon_top}
-                                        source={require('../icon/top.png')}
-                                    />
-                                    <FastImage
-                                        style={styles.Popular_image_Box}
-                                        source={{
-                                            uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg',
-
-                                        }}
-
-                                    />
-                                </View>
-                                <View style={styles.Popular_Box_D}>
-                                    <FastImage
-                                        style={styles.Image_icon_top}
-                                        source={require('../icon/top.png')}
-                                    />
-                                    <FastImage
-                                        style={styles.Popular_image_Box}
-                                        source={{
-                                            uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png',
-
-                                        }}
-
-                                    />
-                                </View>
+                                <View style={styles.PopularText_A} ><Text style={{ fontFamily: 'SukhumvitSet-Bold', marginLeft: 8 }}>สินค้าราคาโดน</Text></View>
                             </View>
-                            <View style={styles.PopularText_A} ><Text style={{ fontFamily: 'SukhumvitSet-Bold', marginLeft: 8 }}>สินค้าราคาโดน</Text></View>
-                        </View>
-                        <View style={styles.Popular_Box_B}>
-                            <View style={styles.Popular_Box_C}>
-                                <View style={styles.Popular_Box_D}>
-                                    <FastImage
-                                        style={styles.Image_icon_top}
-                                        source={require('../icon/top.png')}
-                                    />
-                                    <FastImage
-                                        style={styles.Popular_image_Box}
-                                        source={{
-                                            uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg',
-
-                                        }}
-
-                                    />
-                                </View>
-                                <View style={styles.Popular_Box_D}>
-                                    <FastImage
-                                        style={styles.Image_icon_top}
-                                        source={require('../icon/top.png')}
-                                    />
-                                    <FastImage
-                                        style={styles.Popular_image_Box}
-                                        source={{
-                                            uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png',
-
-                                        }}
-
-                                    />
-                                </View>
-                            </View>
-                            <View style={styles.PopularText_A} ><Text style={{ fontFamily: 'SukhumvitSet-Bold', marginLeft: 8 }}>สินค้าราคาโดน</Text></View>
-                        </View>
-                        <View style={styles.Popular_Box_B}>
-                            <View style={styles.Popular_Box_C}>
-                                <View style={styles.Popular_Box_D}>
-                                    <FastImage
-                                        style={styles.Image_icon_top}
-                                        source={require('../icon/top.png')}
-                                    />
-                                    <FastImage
-                                        style={styles.Popular_image_Box}
-                                        source={{
-                                            uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg',
-                                        }}
-                                    />
-                                </View>
-                                <View style={styles.Popular_Box_D}>
-                                    <FastImage
-                                        style={styles.Image_icon_top}
-                                        source={require('../icon/top.png')}
-                                    />
-                                    <FastImage
-                                        style={styles.Popular_image_Box}
-                                        source={{
-                                            uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png',
-                                        }}
-                                    />
-                                </View>
-                            </View>
-                            <View style={styles.PopularText_A} ><Text style={{ fontFamily: 'SukhumvitSet-Bold', marginLeft: 8 }}>สินค้าราคาโดน</Text></View>
-                        </View>
-                    </ScrollView>
+                        </ScrollView>
+                    </View>
                 </View>
             </View>
         )
@@ -1213,7 +1225,7 @@ export class NewStore extends Component {
 
 ///-------------------------------------------------------------------------------///
 
-export class NewProduct extends Component {
+export class Exclusive extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -1346,21 +1358,15 @@ export class CategoryProduct extends Component {
                         <CategoryProductSubProduct navigation={this.props.navigation} id_type={item.id_type} />
                     </View>
                     <View>
-                        <FastImage
-                            style={styles.Text_Bar_Image}
-                            source={{
-                                uri: ip + '/MySQL/uploads/Text/storeFIN1.png',
-                            }}
-                        />
+                        <View style={styles.Text_Bar_Image}>
+                            <Text style={styles.Text_Bar}>ร้านฮิต ติดเทรนด์</Text>
+                        </View>
                         <CategoryProductSubStore navigation={this.props.navigation} />
                     </View>
                     <View>
-                        <FastImage
-                            style={styles.Text_Bar_Image}
-                            source={{
-                                uri: ip + '/MySQL/uploads/Text/propro.png',
-                            }}
-                        />
+                        <View style={styles.Text_Bar_Image}>
+                            <Text style={styles.Text_Bar}>FIN แนะนำร้าน </Text>
+                        </View>
                         <CategoryProductSubPromotion navigation={this.props.navigation} />
                     </View>
                 </View>
@@ -1555,7 +1561,6 @@ export class CategoryProductSubPromotion extends Component {
                         style={styles.PromotionCategoryProductImage}
 
                     />
-                    <Text style={[styles.PromotionCategoryProductImageIcon, { fontFamily: 'SukhumvitSet-Text', }]}>โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50%</Text>
                 </View>
             );
         })

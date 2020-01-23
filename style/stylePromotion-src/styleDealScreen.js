@@ -374,9 +374,9 @@ export default StyleSheet.create({
         fontSize: 12,
     },
 
-    ///--------------------------------Brand_RCM_Screen-----------------------------------------///
+    ///--------------------------------FrameBackground_Screen-----------------------------------------///
 
-    Brand_RCM_Store: {
+    FrameBackground_Store: {
         height: 'auto',
         width: '100%',
         backgroundColor: '#FFFFFF',
@@ -387,14 +387,14 @@ export default StyleSheet.create({
         width: '100%',
         marginBottom: -130
     },
-    Brand_RCM_StoreBoxPro: {
+    FrameBackground_StoreBoxPro: {
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingLeft: 20,
         paddingRight: 20,
     },
-    Brand_RCM_Pro: {
+    FrameBackground_Pro: {
         height: 80,
         width: 80,
         backgroundColor: '#FFFFFF',
@@ -402,11 +402,11 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    Brand_RCM_Proimage: {
+    FrameBackground_Proimage: {
         height: 60,
         width: 60,
     },
-    Brand_RCM_ProButton: {
+    FrameBackground_ProButton: {
         height: 30,
         width: 100,
         backgroundColor: '#FFFFFF',
@@ -415,7 +415,7 @@ export default StyleSheet.create({
         borderRadius: 8,
         marginTop: 20,
     },
-    Brand_RCM_Product: {
+    FrameBackground_Product: {
         height: 170,
         width: '100%',
         marginTop: 20,
@@ -423,7 +423,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
         marginBottom: 10,
     },
-    Brand_RCM_Product_Box: {
+    FrameBackground_Product_Box: {
         width: '29%',
         backgroundColor: '#FFFFFF',
         borderColor: '#ECECEC',
@@ -432,12 +432,12 @@ export default StyleSheet.create({
         alignItems: 'center',
         paddingTop: 5,
     },
-    Brand_RCM_Product_Image: {
+    FrameBackground_Product_Image: {
         height: 110,
         width: 110,
         backgroundColor: '#C4C4C4',
     },
-    Brand_RCM_Product_Text: {
+    FrameBackground_Product_Text: {
         fontSize: 11,
     },
 

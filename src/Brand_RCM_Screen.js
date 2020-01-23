@@ -20,7 +20,7 @@ import FastImage from 'react-native-fast-image';
 import { AppBar } from './src_Promotion/DealScreen';
 export const { width, height } = Dimensions.get('window');
 
-export default class Brand_RCM_Screen extends Component {
+export default class FrameBackground_Screen extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -32,10 +32,10 @@ export default class Brand_RCM_Screen extends Component {
             <SafeAreaView style={styles.SafeAreaView}>
                 <AppBar navigation={this.props.navigation} Title='แบรนด์แนะนำ' />
                 <ScrollView>
-                    <Brand_RCM_Store />
-                    <Brand_RCM_Store />
-                    <Brand_RCM_Store />
-                    <Brand_RCM_Store />
+                    <FrameBackground_Store />
+                    <FrameBackground_Store />
+                    <FrameBackground_Store />
+                    <FrameBackground_Store />
                 </ScrollView>
             </SafeAreaView>
         );
@@ -44,7 +44,7 @@ export default class Brand_RCM_Screen extends Component {
 
 ///--------------------------------------------------------------------------///
 
-export class Brand_RCM_Store extends Component {
+export class FrameBackground_Store extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -53,45 +53,43 @@ export class Brand_RCM_Store extends Component {
 
     render() {
         return (
-            <View style={styles.Brand_RCM_Store}>
+            <View style={styles.FrameBackground_Store}>
                 <ImageBackground
                     source={require('../icon/bgprofile.jpg')}
                     style={styles.Brand_ImageBackground}
                 />
-                <View style={styles.Brand_RCM_StoreBoxPro}>
-                    <View style={styles.Brand_RCM_Pro}>
-                        <FastImage style={styles.Brand_RCM_Proimage}
+                <View style={styles.FrameBackground_StoreBoxPro}>
+                    <View style={styles.FrameBackground_Pro}>
+                        <FastImage style={styles.FrameBackground_Proimage}
                             source={{
                                 uri: ip + '/MySQL/uploads/icon_brand/Lacoste.png',
                             }}
                         />
                     </View>
-                    <TouchableOpacity>
-                        <View style={styles.Brand_RCM_ProButton}>
-                            <Text>เข้าดูร้าน</Text>
-                        </View>
-                    </TouchableOpacity>
+                    <View style={styles.FrameBackground_ProButton}>
+                        <Text>เข้าดูร้าน</Text>
+                    </View>
                 </View>
-                <View style={styles.Brand_RCM_Product}>
-                    <View style={styles.Brand_RCM_Product_Box}>
-                        <View style={styles.Brand_RCM_Product_Image}></View>
+                <View style={styles.FrameBackground_Product}>
+                    <View style={styles.FrameBackground_Product_Box}>
+                        <View style={styles.FrameBackground_Product_Image}></View>
                         <View>
-                            <Text style={styles.Brand_RCM_Product_Text}>ห้องพัก Deluxe Pool Villa</Text>
-                            <Text style={[styles.Brand_RCM_Product_Text, { color: '#0A55A6', }]}>฿10,000</Text>
+                            <Text style={styles.FrameBackground_Product_Text}>ห้องพัก Deluxe Pool Villa</Text>
+                            <Text style={[styles.FrameBackground_Product_Text, { color: '#0A55A6', }]}>฿10,000</Text>
                         </View>
                     </View>
-                    <View style={styles.Brand_RCM_Product_Box}>
-                        <View style={styles.Brand_RCM_Product_Image}></View>
+                    <View style={styles.FrameBackground_Product_Box}>
+                        <View style={styles.FrameBackground_Product_Image}></View>
                         <View>
-                            <Text style={styles.Brand_RCM_Product_Text}>ห้องพัก Deluxe Pool Villa</Text>
-                            <Text style={[styles.Brand_RCM_Product_Text, { color: '#0A55A6', }]}>฿10,000</Text>
+                            <Text style={styles.FrameBackground_Product_Text}>ห้องพัก Deluxe Pool Villa</Text>
+                            <Text style={[styles.FrameBackground_Product_Text, { color: '#0A55A6', }]}>฿10,000</Text>
                         </View>
                     </View>
-                    <View style={styles.Brand_RCM_Product_Box}>
-                        <View style={styles.Brand_RCM_Product_Image}></View>
+                    <View style={styles.FrameBackground_Product_Box}>
+                        <View style={styles.FrameBackground_Product_Image}></View>
                         <View>
-                            <Text style={styles.Brand_RCM_Product_Text}>ห้องพัก Deluxe Pool Villa</Text>
-                            <Text style={[styles.Brand_RCM_Product_Text, { color: '#0A55A6', }]}>฿10,000</Text>
+                            <Text style={styles.FrameBackground_Product_Text}>ห้องพัก Deluxe Pool Villa</Text>
+                            <Text style={[styles.FrameBackground_Product_Text, { color: '#0A55A6', }]}>฿10,000</Text>
                         </View>
                     </View>
                 </View>

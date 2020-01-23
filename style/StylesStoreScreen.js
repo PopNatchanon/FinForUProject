@@ -4,13 +4,6 @@ export const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
 
-  SukhumvitSetText: {
-    fontFamily: 'SukhumvitSet-Text',
-  },
-  SukhumvitSetBold: {
-    fontFamily: 'SukhumvitSet-Bold',
-  },
-
   ///------------------------------------------------------------------------------------------///
 
   Toolbar: {
@@ -74,13 +67,13 @@ export default StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 30,
-    marginTop: 60,
+    marginTop: 40,
     marginLeft: 19,
   },
   StoreHeadText: {
     fontSize: 14,
     color: '#FFFFFF',
-    marginTop: 70,
+    marginTop: 48,
     marginLeft: 23,
   },
   StoreHeadTextOther: {

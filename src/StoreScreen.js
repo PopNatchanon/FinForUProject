@@ -22,6 +22,7 @@ import Icons from 'react-native-vector-icons/FontAwesome5';
 import IconFeather from 'react-native-vector-icons/Feather';
 import styles from '../style/StylesStoreScreen'
 import stylesMain from '../style/StylesMainScreen'
+import stylesFont from '../style/stylesFont'
 import { ip } from '../navigator/IpConfig'
 import { TabBar } from './tools/Tools'
 import { AppBar } from './MainScreen';
@@ -73,7 +74,7 @@ export default class StoreScreen extends Component {
         // console.log(s_name)
         // console.log(s_image)
         return (
-            <SafeAreaView>
+            <SafeAreaView style={{ backgroundColor: '#E9E9E9', }}>
                 <AppBar leftBar='backarrow' rightBar='storebar' navigation={this.props.navigation} />
                 <ScrollView>
                     <StoreHead navigation={this.props.navigation} item={{ name: s_name, image: s_image }} />
@@ -126,7 +127,7 @@ export class StoreHead extends Component {
                                 </Text>
                             </View>
                         </View>
-                        <View style={{ marginTop: 64, marginRight: '2%' }}>
+                        <View style={{ marginTop: 48, marginRight: '2%' }}>
                             <View style={styles.StoreHeadButtom}>
                                 <Text style={[styles.StoreHeadButtomText, styles.SukhumvitSetText]}>
                                     ติดตาม
@@ -570,7 +571,7 @@ export class DealTop extends Component {
         return (
             <View style={styles.DealTop}>
                 <View style={styles.DealTopTextBox}>
-                    <Text style={stylesMain.Brand_RCMText}>
+                    <Text style={stylesMain.FrameBackgroundText}>
                         ดีลเด็ด
                     </Text>
                 </View>
@@ -655,7 +656,7 @@ export class NewProduct extends Component {
         return (
             <View style={styles.NewProduct}>
                 <View style={styles.NewProductTextBox}>
-                    <Text style={stylesMain.Brand_RCMText}>
+                    <Text style={stylesMain.FrameBackgroundText}>
                         สินค้ามาใหม่
                     </Text>
                 </View>
@@ -844,7 +845,7 @@ export class PopularProduct extends Component {
         })
         return (
             <View style={styles.PopularProduct}>
-                <Text style={stylesMain.Brand_RCMText}>
+                <Text style={stylesMain.FrameBackgroundText}>
                     {headText ? headText : 'สินค้าขายดี'}
                 </Text>
                 <View style={styles.PopularProductBoxProduct}>

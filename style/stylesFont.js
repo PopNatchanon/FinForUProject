@@ -2,6 +2,7 @@ import { StyleSheet, } from 'react-native';
 
 
 export default StyleSheet.create({
+    ///----------------------------------------------Handset----------------------------------------------///
     FontCenter: {
         textAlign: 'center',
     },
@@ -18,9 +19,12 @@ export default StyleSheet.create({
         fontSize: 16,
     },
     FontSize3: {
-        fontSize: 12,
+        fontSize: 14,
     },
     FontSize4: {
+        fontSize: 12,
+    },
+    FontSize5: {
         fontSize: 10,
     },
 })

@@ -4,56 +4,26 @@ export const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
 
-    Toolbar: {
-        backgroundColor: '#FFFFFF',
-        borderColor: '#ECECEC',
-        borderWidth: 1,
-        height: 50,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        paddingTop: 5,
-    },
-    SafeAreaView: {
-        flex: 1,
-    },
-    LOGO: {
-        height: 40,
-        width: 80,
-        resizeMode: 'stretch',
-    },
-    TextInput: {
-        width: 230,
-        height: 40,
-        fontSize: 15,
-        textAlign: 'center',
-    },
-    Appbar: {
-        backgroundColor: '#FFFFFF',
-        borderColor: '#ECECEC',
-        borderWidth: 1,
-        height: 50,
-        width,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        paddingTop: 5,
-        paddingBottom: 5,
-    },
     Icon_appbar: {
         marginTop: 5,
     },
 
-    Text_All: {
-        fontWeight: 'bold',
-        fontSize: 16,
+    ///--------------------------------Detail_Image------------------------------------------///
+
+    ImageSlide: {
+        width: 50,
+        height: 20,
+        borderColor: '#ECECEC',
+        borderRadius: 20,
+        backgroundColor: '#fff',
+        borderWidth: 1,
+        marginTop: -30,
+        marginBottom: 30,
+        marginLeft: width - 60
     },
-
-    ///--------------------------------------------------------------------------///
-
     Detail_Image: {
         marginTop: 5,
-        backgroundColor: 'blue',
         width,
-        height: 400,
         backgroundColor: '#FFFFFF',
         borderColor: '#ECECEC',
         borderWidth: 1,
@@ -72,14 +42,17 @@ export default StyleSheet.create({
 
     ///--------------------------------------------------------------------------///
 
+    BottomTitle: {
+        borderBottomWidth: 1,
+        borderBottomColor: '#ECECEC',
+        paddingBottom: 6,
+    },
     Price_Box: {
         borderColor: '#ECECEC',
         borderWidth: 1,
         width,
-        height: 150,
     },
     Price_Text_Name: {
-        fontSize: 18,
         margin: 5,
     },
     Price_Icon: {
@@ -95,7 +68,6 @@ export default StyleSheet.create({
     },
     Price_Text_Int: {
         marginTop: 5,
-        fontSize: 16,
         color: '#0A55A6',
         marginLeft: 5,
     },
@@ -119,8 +91,7 @@ export default StyleSheet.create({
     },
     Price_Text_RCM: {
         paddingTop: 5,
-        fontSize: 16,
-        marginLeft: 15,
+        marginLeft: 12,
         color: '#0A55A6',
     },
     ///--------------------------------------------------------------------------///
@@ -134,28 +105,20 @@ export default StyleSheet.create({
         marginTop: 10,
         paddingTop: 10,
     },
-    Store_Box: {
-        height: 90,
+    Store_Box1: {
         width,
         flexDirection: 'row',
+        marginTop: 8,
     },
     Store_Box2: {
         width,
         flexDirection: 'row',
         marginLeft: 5,
     },
-    Store_Image: {
-        height: 50,
-        width: 50,
-        borderRadius: 30,
-        marginLeft: 10,
-    },
     Store_Text_Box: {
         marginLeft: 10,
-
     },
     Store_Text: {
-        fontSize: 12,
         width: 180,
         marginTop: 5,
     },
@@ -175,7 +138,7 @@ export default StyleSheet.create({
         borderWidth: 1,
     },
     Store_Bar_A: {
-        height: 80,
+        marginTop: 8,
         flexDirection: 'column',
     },
     Store_Bar: {
@@ -184,11 +147,7 @@ export default StyleSheet.create({
     },
     Store_Bar_int: {
         textAlign: 'center',
-        fontSize: 20,
         color: '#0A55A6',
-    },
-    Store_Bar_Text: {
-        fontSize: 15,
     },
     Store_Box: {
         height: 100,
@@ -209,22 +168,16 @@ export default StyleSheet.create({
         borderColor: '#ECECEC',
         borderWidth: 1,
         width,
-        height: 50,
         marginTop: 10,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        paddingTop: 10,
+        paddingVertical: 8,
     },
     Coupon_Text: {
-        fontSize: 15,
         marginLeft: 15,
     },
     Coupon_Box: {
-        height: 90,
         width,
         flexDirection: 'row',
-        justifyContent: 'flex-end',
-        alignItems: 'flex-start',
+        justifyContent: 'space-between'
     },
     Coupon_Box_Pon: {
         borderColor: '#0A55A6',
@@ -239,7 +192,6 @@ export default StyleSheet.create({
         marginRight: 15,
     },
     Coupon_Box_Pon_Text: {
-        fontSize: 15,
         textAlign: 'center',
     },
 
@@ -273,17 +225,14 @@ export default StyleSheet.create({
         paddingTop: 10,
         borderColor: '#ECECEC',
         borderWidth: 1,
-        height: 30,
     },
     Detail_Catagory_TextBox: {
         paddingTop: 10,
         paddingBottom: 10,
-        flexDirection: 'row',
-        width: 300,
-        height: 'auto'
+        width
     },
     Detail_Catagory_TextBoxA: {
-        marginLeft: 30,
+        flexDirection: 'row',
     },
 
     ///--------------------------------------------------------------------------///
@@ -300,21 +249,18 @@ export default StyleSheet.create({
     },
     Detail_Text_Box: {
         height: 120,
-        borderColor: '#ECECEC',
-        borderWidth: 1,
     },
     Detail_Text: {
         height: 80,
         padding: 6,
     },
     Detail_Box: {
-        height: 25,
+        borderTopColor: '#ECECEC',
+        borderTopWidth: 1,
+        height: 20,
         flexDirection: 'row',
-        alignContent: 'center',
-        justifyContent: 'center',
     },
     Detail_Text_A: {
-        fontSize: 15,
         color: '#0A55A6',
     },
 

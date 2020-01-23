@@ -24,6 +24,7 @@
     "radio-buttons-react-native": "^1.0.3",
     "react": "16.9.0",
     "react-native": "0.61.5",
+    "react-native-device-info": "^5.4.1",
     "react-native-dropdownalert": "^4.2.1",
     "react-native-elements": "^1.2.7",
     "react-native-fast-image": "^7.0.2",

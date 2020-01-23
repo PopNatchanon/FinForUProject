@@ -4,7 +4,215 @@ export const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
 
-  ///------------------------------------------------------------------------------------------///
+  ///***------------------------------------------------------------------------------------------------------***///
+
+  BoxProduct1Box: {
+    width: 106,
+    borderColor: '#ECECEC',
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    marginTop: 10,
+    marginBottom: 8,
+    marginLeft: 10,
+  },
+  BoxProduct1Image: {
+    width: 99,
+    height: 98,
+    resizeMode: 'contain',
+    borderRadius: 5,
+  },
+  BoxProduct1ImageName: {
+    marginTop: 6,
+    marginLeft: 6,
+  },
+  BoxProduct1IconBox: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  BoxProduct1Icon: {
+    paddingTop: 4,
+    marginBottom: 4,
+    marginRight: 6,
+  },
+  BoxProduct1IconStar: {
+    paddingTop: 5,
+    marginBottom: 5,
+  },
+  BoxProduct1IconBoxI: {
+    flexDirection: 'row',
+  },
+  BoxProduct1IconBoxStar: {
+    flexDirection: 'row',
+    marginLeft: 6,
+  },
+  BoxProduct1ImagePrice: {
+    marginTop: 6,
+    marginLeft: 6,
+    color: '#0A55A6',
+  },
+
+  ///------------///
+
+  BoxProduct2: {
+    backgroundColor: '#FFFFFF',
+    borderColor: '#ECECEC',
+    borderWidth: 1,
+    marginTop: 8,
+    paddingBottom: 8,
+    paddingLeft: 4,
+    paddingRight: 4,
+  },
+  BoxProduct2Text: {
+    width,
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 16,
+    marginLeft: 9,
+  },
+  BoxProduct2BoxProduct: {
+    width,
+    marginTop: 4,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  BoxProduct2Box: {
+    width: width * (1 / 3.07),
+    borderColor: '#ECECEC',
+    borderWidth: 0.5,
+
+  },
+  BoxProduct2Image: {
+    width: '100%',
+    height: height * (1 / 4.5),
+    resizeMode: 'cover',
+    padding: 4,
+  },
+  BoxProduct2ImageName: {
+    fontSize: 12,
+    marginTop: 12,
+    marginLeft: 8,
+  },
+  BoxProduct2ImagePrice: {
+    fontSize: 10,
+    marginTop: 12,
+    marginLeft: 8,
+    color: '#0A55A6',
+  },
+  BoxProduct2IconBox: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  BoxProduct2Icon: {
+    marginBottom: 5,
+    marginRight: 8,
+  },
+  BoxProduct2IconStar: {
+    paddingTop: 8,
+    marginBottom: 5,
+  },
+  BoxProduct2IconBoxI: {
+    flexDirection: 'row',
+  },
+  BoxProduct2IconBoxStar: {
+    flexDirection: 'row',
+    marginLeft: 8,
+  },
+
+  ///------------///
+
+  BoxStoreBox: {
+    width: (width * 1 / 2) - 9,
+    height: 100,
+    borderColor: '#ECECEC',
+    borderWidth: 1,
+    marginTop: 10,
+    marginBottom: 8,
+    marginLeft: 5,
+  },
+  BoxStoreImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'stretch',
+    borderColor: '#ECECEC',
+  },
+  BoxStore2Box: {
+    width: 160,
+    height: 60,
+    borderColor: '#ECECEC',
+    marginTop: 10,
+    marginBottom: 8,
+    marginLeft: 10,
+  },
+  BoxStore2Image: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'stretch',
+    borderColor: '#ECECEC',
+    borderRadius: 8,
+  },
+
+  ///------------///
+
+  FrameBackground: {
+    width,
+    borderColor: '#ECECEC',
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    marginTop: 10,
+  },
+  FrameBackgroundTextBox: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  FrameBackgroundTextStart: {
+    marginLeft: 8,
+    marginTop: 6,
+  },
+  FrameBackgroundTextEnd: {
+    color: '#0A55A6',
+    marginRight: 8,
+    marginTop: 10,
+  },
+
+  Time_FlashSale_TimeBox: {
+    height: 30,
+    width: 30,
+    backgroundColor: '#222222',
+    justifyContent: 'center',
+    marginLeft: 10,
+    borderRadius: 5,
+  },
+  Time_FlashSale_TimeText: {
+    color: '#FFFFFF',
+    textAlign: 'center',
+  },
+
+  ///------------///
+
+  FlexRow: {
+    flexDirection: 'row'
+  },
+  BackgroundAreaView: {
+    backgroundColor: '#E9E9E9'
+  },
+  ItemCenter: {
+    alignContent: 'center',
+    alignItems: 'center',
+  },
+  ItemCenterVertical: {
+    marginTop: 'auto',
+    marginBottom: 'auto',
+  },
+  BottomSpace: {
+    paddingBottom: 8,
+  },
+  MarginBottomTitle: {
+    marginBottom: 6,
+  },
+
+  ///***------------------------------------------------------------------------------------------------------***///
 
   Toolbar: {
     backgroundColor: '#FFFFFF',
@@ -12,38 +220,33 @@ export default StyleSheet.create({
     borderWidth: 1,
     height: 50,
     flexDirection: 'row',
-    // justifyContent: 'space-around',
     paddingTop: 5,
   },
   SafeAreaView: {
     flex: 1,
   },
   LOGO: {
-    marginBottom: 'auto',
-    marginTop: 'auto',
     height: 30,
-    width: 45,
+    width: 50,
     resizeMode: 'stretch',
   },
   TextInput: {
-    // backgroundColor: '#FFFF',
     width: 230,
     height: 40,
   },
   Appbar: {
-    // backgroundColor: '#FFFFFF',
     borderColor: '#ECECEC',
     borderWidth: 1,
     height: 50,
-    // width,
-    flexDirection: 'row',
-    // justifyContent: 'space-around',
     paddingTop: 6,
     paddingBottom: 6,
   },
-  Text_All: {
-    fontWeight: 'bold',
-    fontSize: 16,
+  AppbarBody: {
+    marginLeft: 6,
+    paddingLeft: 6,
+    borderWidth: 1,
+    borderColor: '#E5E5E5',
+    backgroundColor: '#fff',
   },
 
   ///------------------------------------------------------------------------------------------///
@@ -57,18 +260,9 @@ export default StyleSheet.create({
     width,
     height: 150,
   },
-  slide: {
-    height: 150,
-  },
 
   ///------------------------------------------------------------------------------------------///
 
-  Box_Cata: {
-    backgroundColor: '#FFFFFF',
-    borderColor: '#ECECEC',
-    borderWidth: 1,
-    marginTop: 10,
-  },
   Category: {
     width: 100,
     height: 80,
@@ -97,21 +291,13 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  Text_Cate: {
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
 
   ///------------------------------------------------------------------------------------------///
 
-  Brand_RCM: {
-    backgroundColor: '#FFFFFF',
-    borderColor: '#ECECEC',
-    borderWidth: 1,
-    marginTop: 10,
-    height: 160,
+  FrameBackground_Height: {
+    height: 160
   },
-  Brand_RCM_Box: {
+  FrameBackground_Box: {
     flexDirection: 'column',
     flexWrap: 'wrap',
   },
@@ -124,48 +310,17 @@ export default StyleSheet.create({
     marginTop: 5,
     marginBottom: 5,
   },
-  Brand_RCMTextBox: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  Brand_RCMText: {
-    marginLeft: 8,
-    marginTop: 6,
-  },
-  Time_FlashSale_TimeBox: {
-    height: 30,
-    width: 30,
-    backgroundColor: '#222222',
-    justifyContent: 'center',
-    marginLeft: 10,
-    borderRadius: 5,
-  },
-  Time_FlashSale_TimeText: {
-    color: '#FFFFFF',
-    textAlign: 'center',
-  },
-  Brand_RCMTextEnd: {
-    fontSize: 11,
-    fontFamily: 'SukhumvitSet-Text',
-    color: '#0A55A6',
-    marginRight: 8,
-    marginTop: 10,
+  ImageMargin: {
+    marginBottom: -20
   },
 
   ///------------------------------------------------------------------------------------------///
 
-  Popular: {
-    backgroundColor: '#FFFFFF',
-    borderColor: '#ECECEC',
-    borderWidth: 1,
-    marginTop: 10,
-    height: 180,
-    marginLeft: 10,
-  },
   Popular_Box_A: {
     height: 150,
     width,
     flexDirection: 'row',
+    marginTop: 6,
   },
   Popular_Box_B: {
     height: 140,
@@ -189,17 +344,6 @@ export default StyleSheet.create({
     width: 80,
     marginLeft: 10,
   },
-  PopularTextBox: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  PopularText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginLeft: 10,
-    marginTop: 5,
-  },
   PopularText_A: {
     backgroundColor: '#ECECEC',
     borderColor: '#ECECEC',
@@ -207,584 +351,31 @@ export default StyleSheet.create({
     height: 20,
     width: 200,
   },
-  PopularTextEnd: {
-    fontSize: 10,
-    color: '#0A55A6',
-    marginRight: 8,
-    marginTop: 5,
-  },
   Image_icon_top: {
     height: 25,
     width: 20,
     resizeMode: 'stretch',
   },
 
-  ///------------------------------------------------------------------------------------------///
-
-  Promotion_popularTextBox: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  Promotion_popularText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginLeft: 8,
-    marginTop: 6,
-  },
-  Promotion_popularTextEnd: {
-    fontSize: 10,
-    color: '#0A55A6',
-    marginRight: 8,
-    marginTop: 10,
-  },
-  Promotion_popular: {
-    backgroundColor: '#FFFFFF',
-    borderColor: '#ECECEC',
-    borderWidth: 1,
-    marginTop: 10,
-  },
-  Promotion_popular_A: {
-    flexDirection: 'row',
-    height: 120,
-  },
-  Promotion_popular_Box: {
-    height: 120,
-    marginTop: 5,
-  },
-  Promotion_popular_BoxA: {
-    height: 120,
-    width: 180,
-    marginLeft: 10,
-  },
-  Promotion_popular_image: {
-    height: 100,
-    width: 180,
-    opacity: 0.9,
-    borderRadius: 5,
-  },
-  Text_icon_Sale: {
-    textAlign: 'center',
-    marginTop: -70,
-    fontSize: 18,
-    color: '#FFFFFF',
-    height: 60,
-    width: 180,
-
-  },
-
   ///--------------------------------------------------------------------------------///
 
-  FlashSale: {
-    width,
-    borderColor: '#ECECEC',
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1,
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  FlashSaleTextBox: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  FlashSaleText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginLeft: 10,
-    marginTop: 6,
-  },
-  FlashSaleTextEnd: {
-    fontSize: 10,
-    color: '#0A55A6',
-    marginRight: 8,
-    marginTop: 10,
-  },
-  FlashSaleBox: {
-    width: 106,
-    borderColor: '#ECECEC',
-    borderWidth: 1,
-    marginTop: 10,
-    marginBottom: 8,
-    marginLeft: 10,
-  },
-  FlashSaleImage: {
-    width: 99,
-    height: 98,
-    resizeMode: 'contain',
-    // borderColor: '#ECECEC',
-    borderRadius: 5,
-  },
-  FlashSaleImageName: {
-    fontSize: 10,
-    marginTop: 6,
-    marginLeft: 6,
-  },
-  FlashSaleIconBox: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  FlashSaleIcon: {
-    paddingTop: 4,
-    marginBottom: 4,
-    marginRight: 6,
-  },
-  FlashSaleIconStar: {
-    paddingTop: 5,
-    marginBottom: 5,
-  },
-  FlashSaleIconBoxI: {
-    flexDirection: 'row',
-  },
-  FlashSaleIconBoxStar: {
-    flexDirection: 'row',
-    marginLeft: 6,
-  },
-  FlashSaleImagePrice: {
-    fontSize: 8,
-    marginTop: 6,
-    marginLeft: 6,
-    color: '#0A55A6',
-  },
-
-  ///--------------------------------------------------------------------------------///
-
-  SaleProduct: {
-    width,
-    borderColor: '#ECECEC',
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1,
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  SaleProductTextBox: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  SaleProductText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginLeft: 8,
-    marginTop: 6,
-  },
-  SaleProductTextEnd: {
-    fontSize: 10,
-    color: '#0A55A6',
-    marginRight: 8,
-    marginTop: 10,
-  },
-  SaleProductBox: {
-    width: 106,
-    borderColor: '#ECECEC',
-    borderWidth: 1,
-    marginTop: 10,
-    marginBottom: 8,
-    marginLeft: 10,
-  },
-  SaleProductImage: {
-    width: 99,
-    height: 98,
-    resizeMode: 'contain',
-    // borderColor: '#ECECEC',
-    borderRadius: 5,
-  },
-  SaleProductImageName: {
-    fontSize: 10,
-    marginTop: 6,
-    marginLeft: 6,
-  },
-  SaleProductIconBox: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  SaleProductIcon: {
-    paddingTop: 4,
-    marginBottom: 4,
-    marginRight: 6,
-  },
-  SaleProductIconStar: {
-    paddingTop: 5,
-    marginBottom: 5,
-  },
-  SaleProductIconBoxI: {
-    flexDirection: 'row',
-  },
-  SaleProductIconBoxStar: {
-    flexDirection: 'row',
-    marginLeft: 6,
-  },
-  SaleProductImagePrice: {
-    fontSize: 8,
-    marginTop: 6,
-    marginLeft: 6,
-    color: '#0A55A6',
-  },
-
-  ///--------------------------------------------------------------------------------///
-
-  NewStore: {
-    width,
-    borderColor: '#ECECEC',
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1,
-    marginTop: 10,
-  },
-  NewStoreBox: {
-    width: 193,
-    height: 129,
-    borderColor: '#ECECEC',
-    borderWidth: 1,
-    marginTop: 10,
-    marginBottom: 8,
-    marginLeft: 10,
-  },
-  NewStoreImage: {
-    width: '100%',
-    height: 100,
-    resizeMode: 'stretch',
-    borderColor: '#ECECEC',
-  },
-  NewStoreTextBox: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  NewStoreText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginLeft: 8,
-    marginTop: 6,
-  },
-  NewStoreTextEnd: {
-    fontSize: 10,
-    color: '#0A55A6',
-    marginRight: 8,
-    marginTop: 10,
-  },
-  NewStoreText_bar: {
-    fontSize: 11,
-  },
-
-  ///--------------------------------------------------------------------------------///
-
-  NewProduct: {
-    width,
-    borderColor: '#ECECEC',
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1,
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  NewProductTextBox: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  NewProductText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginLeft: 8,
-    marginTop: 6,
-  },
-  NewProductTextEnd: {
-    fontSize: 10,
-    color: '#0A55A6',
-    marginRight: 8,
-    marginTop: 10,
-  },
-  NewProductBox: {
-    width: 106,
-    borderColor: '#ECECEC',
-    borderWidth: 1,
-    marginTop: 10,
-    marginBottom: 8,
-    marginLeft: 10,
-  },
-  NewProductImage: {
-    width: 99,
-    height: 98,
-    resizeMode: 'contain',
-    // borderColor: '#ECECEC',
-    borderRadius: 5,
-  },
-  NewProductImageName: {
-    fontSize: 10,
-    marginTop: 6,
-    marginLeft: 6,
-  },
-  NewProductIconBox: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  NewProductIcon: {
-    paddingTop: 4,
-    marginBottom: 4,
-    marginRight: 6,
-  },
-  NewProductIconStar: {
-    paddingTop: 5,
-    marginBottom: 5,
-  },
-  NewProductIconBoxI: {
-    flexDirection: 'row',
-  },
-  NewProductIconBoxStar: {
-    flexDirection: 'row',
-    marginLeft: 6,
-  },
-  NewProductImagePrice: {
-    fontSize: 8,
-    marginTop: 6,
-    marginLeft: 6,
-    color: '#0A55A6',
-  },
-
-  ///--------------------------------------------------------------------------------///
-
-  ProductForYou: {
-    width,
-    height: 370,
-    borderColor: '#ECECEC',
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1,
-    borderRadius: 5,
-    marginTop: 10,
-  },
   ProductForYouFlexBox: {
-    flex: 1,
     flexDirection: 'column',
     flexWrap: 'wrap',
   },
-  ProductForYouTextBox: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  ProductForYouText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginLeft: 8,
-    marginTop: 6,
-  },
-  ProductForYouTextEnd: {
-    fontSize: 10,
-    color: '#0A55A6',
-    marginRight: 8,
-    marginTop: 10,
-  },
-  ProductForYouBox: {
-    width: 106,
-    borderColor: '#ECECEC',
-    borderWidth: 1,
-    marginTop: 8,
-    marginBottom: 4,
-    marginLeft: 10,
-  },
-  ProductForYouImage: {
-    width: 99,
-    height: 98,
-    resizeMode: 'contain',
-    // borderColor: '#ECECEC',
-    borderRadius: 5,
-  },
-  ProductForYouImageName: {
-    fontSize: 10,
-    marginTop: 6,
-    marginLeft: 6,
-  },
-  ProductForYouIconBox: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  ProductForYouIcon: {
-    paddingTop: 4,
-    marginBottom: 4,
-    marginRight: 6,
-  },
-  ProductForYouIconStar: {
-    paddingTop: 5,
-    marginBottom: 5,
-  },
-  ProductForYouIconBoxI: {
-    flexDirection: 'row',
-  },
-  ProductForYouIconBoxStar: {
-    flexDirection: 'row',
-    marginLeft: 6,
-  },
-  ProductForYouImagePrice: {
-    fontSize: 8,
-    marginTop: 6,
-    marginLeft: 6,
-    color: '#0A55A6',
-  },
 
-  ///----------------------------------------///
-
-  TodayProduct: {
-    backgroundColor: '#FFFFFF',
-    borderColor: '#ECECEC',
-    borderWidth: 1,
-    marginTop: 8,
-    paddingBottom: 8,
-    paddingLeft: 4,
-    paddingRight: 4,
-  },
-  TodayProductText: {
-    width,
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginTop: 16,
-    marginLeft: 9,
-  },
-  TodayProductBoxProduct: {
-    width,
-    marginTop: 4,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  TodayProductBox: {
-    width: width * (1 / 3.07),
-    borderColor: '#ECECEC',
-    borderWidth: 0.5,
-
-  },
-  TodayProductImage: {
-    width: '100%',
-    height: height * (1 / 4.5),
-    resizeMode: 'cover',
-    padding: 4,
-  },
-  TodayProductImageName: {
-    fontSize: 12,
-    marginTop: 12,
-    marginLeft: 8,
-  },
-  TodayProductImagePrice: {
-    fontSize: 10,
-    marginTop: 12,
-    marginLeft: 8,
-    color: '#0A55A6',
-  },
-  TodayProductIconBox: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  TodayProductIcon: {
-    marginBottom: 5,
-    marginRight: 8,
-  },
-  TodayProductIconStar: {
-    paddingTop: 8,
-    marginBottom: 5,
-  },
-  TodayProductIconBoxI: {
-    flexDirection: 'row',
-  },
-  TodayProductIconBoxStar: {
-    flexDirection: 'row',
-    marginLeft: 8,
-  },
   ///------------------------------------------------------------------///
 
-  CategoryProduct: {
-    backgroundColor: '#FFFFFF',
-    borderColor: '#ECECEC',
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    marginTop: 10,
-  },
-  CategoryProductText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginLeft: 8,
-    marginTop: 6,
-  },
-  CategoryProductTextBox: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  CategoryProductTextEnd: {
-    fontSize: 10,
-    color: '#0A55A6',
-    marginRight: 8,
-    marginTop: 10,
-  },
   CategoryProductImageHead: {
     marginTop: 5,
     width,
     height: 80,
-    // height: height * 0.19,
-    // resizeMode: 'stretch',
-    // marginBottom: -30,
-  },
-  CategoryProductBox: {
-    width: 113,
-    borderColor: '#ECECEC',
-    backgroundColor: 'white',
-    borderWidth: 1,
-    marginTop: 16,
-    marginBottom: 6,
-    marginLeft: 10,
   },
   CategoryProductImage: {
     width: 100,
     height: 115,
     backgroundColor: 'white',
     margin: 5,
-  },
-  CategoryProductImageName: {
-    fontSize: 10,
-    marginTop: 6,
-    marginLeft: 6,
-  },
-  CategoryProductImagePrice: {
-    fontSize: 8,
-    marginTop: 6,
-    marginLeft: 6,
-    color: '#0A55A6',
-  },
-  CategoryProductIconBox: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  CategoryProductIcon: {
-    paddingTop: 4,
-    marginBottom: 4,
-    marginRight: 6,
-  },
-  CategoryProductIconStar: {
-    paddingTop: 5,
-    marginBottom: 5,
-  },
-  CategoryProductIconBoxI: {
-    flexDirection: 'row',
-  },
-  CategoryProductIconBoxStar: {
-    flexDirection: 'row',
-    marginLeft: 6,
-  },
-  BrannerCategoryImage: {
-    width: width - 40,
-    height: 58,
-    borderRadius: 8,
-    marginTop: 8,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginBottom: 8,
-  },
-  linearGradienttSub: {
-    width: '35%',
-  },
-  linearGradienttSubText: {
-    fontSize: 12,
-    marginLeft: 6,
-    marginBottom: 2,
-    marginTop: 2,
-    color: 'white',
   },
   CategoryProductStoreBox: {
     width: 160,
@@ -801,34 +392,6 @@ export default StyleSheet.create({
     borderColor: '#ECECEC',
     borderRadius: 8,
   },
-  CategoryProductSubBrandBox: {
-    width: 80,
-    height: 30,
-    borderColor: '#ECECEC',
-    borderWidth: 1,
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: 10,
-  },
-  CategoryProductSubBrandImage: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'stretch',
-    borderColor: '#ECECEC',
-    borderRadius: 8,
-  },
-  PromotionCategoryProductStoreBox: {
-    width: 165,
-    height: 110,
-    borderColor: '#ECECEC',
-    marginTop: 10,
-    marginBottom: 8,
-    marginLeft: 10,
-  },
-  PromotionCategoryProductImage: {
-    width: '100%',
-    height: '70%',
-  },
 
   ///------------------------------------------------------------------///
 
@@ -842,76 +405,20 @@ export default StyleSheet.create({
     height: 70,
     resizeMode: 'stretch',
   },
+  Product_for_you: {
+    height: 320,
+    marginTop: 10,
+  },
 
   ///------------------------------------------------------------------///
 
-  ConfidentialTextBox: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  ConfidentialText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginLeft: 8,
-    marginTop: 6,
-  },
-  ConfidentialTextEnd: {
-    fontSize: 10,
-    color: '#0A55A6',
-    marginRight: 8,
-    marginTop: 10,
-  },
-  Confidential: {
-    backgroundColor: '#FFFFFF',
-    borderColor: '#ECECEC',
-    borderWidth: 1,
-    marginTop: 10,
-    height: 150,
-  },
   Confidential_A: {
     flexDirection: 'row',
     height: 130,
   },
-  Confidential_Box: {
-    width: 230,
-    height: 150,
-    marginTop: 10,
-    marginRight: 10,
-  },
-  Confidential_BoxA: {
-    height: 150,
-    width,
-
-  },
-  Confidential_image: {
-    height: 60,
-    width: 230,
-    borderTopLeftRadius: 8,
-    borderTopRightRadius: 8,
-  },
-  Text_box_Confidential: {
-    width: 230,
-    height: 30,
-    fontSize: 10,
-    color: 'white',
-    backgroundColor: '#0A55A6',
-    borderBottomRightRadius: 8,
-    borderBottomLeftRadius: 8,
-  },
 
   ///------------------------------------------------------------------///
 
-  Button_Bar: {
-    height: 'auto',
-    width,
-    backgroundColor: '#FFFFFF',
-    borderColor: '#ECECEC',
-    borderWidth: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: 10,
-
-  },
   Button_Bar_Box: {
     width: width * 1 / 4.1,
     alignItems: 'center',
@@ -933,30 +440,18 @@ export default StyleSheet.create({
 
   Text_Bar_Image: {
     backgroundColor: '#0A55A6',
-    height: 30,
+    height: 22,
     width: 130,
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: 10,
     marginTop: 10,
   },
   Text_Bar: {
     color: '#FFFFFF',
-    fontSize: 14,
-    fontFamily: 'SukhumvitSet-Text',
   },
 
   ///------------------------------------------------------------------///
 
-  Second_product: {
-    height: 'auto',
-    backgroundColor: '#fff',
-    width,
-    borderColor: '#ECECEC',
-    borderBottomWidth: 1,
-    borderTopWidth: 1,
-    marginTop: 10,
-  },
   Second_StoreFin: {
     height: 280,
     width,
@@ -967,61 +462,29 @@ export default StyleSheet.create({
     height: 30,
     justifyContent: 'space-between',
   },
-  Second_StoreFin_textEnd: {
-    fontSize: 10,
-    color: '#0A55A6',
-    textAlign: 'right',
-    marginTop: 5,
-    marginRight: 10,
-  },
-  Second_StoreFin_Box: {
-    // backgroundColor: 'blue',
-    height: 'auto',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   Second_StoreFin_Image: {
     height: 230,
-    width: 430,
-    marginTop: 10,
+    width: width,
+    marginLeft: 6,
     flexDirection: 'row',
-    justifyContent: 'space-between',
   },
   Second_StoreFin_ImageA: {
     height: 230,
-    width: 280,
+    width: width * 0.64,
+    marginTop: 6,
+    marginRight: 6,
   },
   Second_StoreFin_ImageB: {
-    height: 210,
-    justifyContent: 'space-between',
+    height: 190,
+    marginTop: 6,
   },
   Second_StoreFin_ImageB_T: {
-    height: 115,
-    width: 130,
-    marginBottom: 6
-  },
-  Second_StoreFin_ImageB_TFastImage: {
-    height: 70,
-    width: 130,
-    borderTopRightRadius: 5,
-    borderTopLeftRadius: 5,
+    height: 108,
+    width: width * 0.32,
+    marginBottom: 3
   },
   Second_StoreFin_ImageB_Ttext: {
-    // textAlign: 'center',
     color: '#ffff',
-    fontSize: 8,
-  },
-  Second_StoreFin_Boxbeand_head: {
-    flexDirection: 'row',
-    width: 'auto',
-    height: 30,
-    justifyContent: 'space-between',
-  },
-  Second_StoreFin_Boxbeand: {
-    flexDirection: 'row',
-    // backgroundColor: '#95F29F',
-    width,
-    height: 60,
   },
   Second_Storefooter: {
     height: 100,

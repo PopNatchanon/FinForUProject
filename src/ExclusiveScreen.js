@@ -20,9 +20,10 @@ import FastImage from 'react-native-fast-image';
 import { AppBar, Slide } from './src_Promotion/DealScreen';
 import { TabBar } from './tools/Tools';
 import { FlashSale_Product } from './FlashSaleScreen';
+import { TodayProduct } from './MainScreen';
 export const { width, height } = Dimensions.get('window');
 
-export default class HighlightScreen extends Component {
+export default class ExclusiveScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,24 +32,19 @@ export default class HighlightScreen extends Component {
 
   render() {
     return (
-      <SafeAreaView style={styles.SafeAreaView}>
-        <AppBar navigation={this.props.navigation} Title='ไฮไลท์ประจำสัปดาห์'/>
+      <SafeAreaView style={styles.SafeAreaView} >
+        <AppBar navigation={this.props.navigation} Title='สินค้าสุด Exclusive' />
         <Slide />
         <Button_Bar />
         <ScrollView>
-          <FlashSale_Product/>
-          <FlashSale_Product/>
-          <FlashSale_Product/>
-          <FlashSale_Product/>
-          <FlashSale_Product/>
-          <FlashSale_Product/>
+          <TodayProduct noTitle navigation={this.props.navigation}/>
         </ScrollView>
       </SafeAreaView>
     );
   }
 }
 
-///-------------------------------------------------------------------------///
+///-------------------------------------------------------------------------------///
 
 export class Button_Bar extends Component {
   constructor(props) {
@@ -64,40 +60,39 @@ export class Button_Bar extends Component {
 
   render() {
     const item = [{
-      name: 'ทั้งหมด'
+      name: 'ยอดนิยม'
     }, {
-      name: 'อัญมณีและ..'
+      name: 'สินค้าขายดี'
     }, {
-      name: 'ทอง'
+      name: 'ล่าสุด'
     }, {
-      name: 'เครื่องเงิน'
-    }, {
-      name: 'พระและ..'
-    }, {
-      name: 'นาฬิกา'
-    }, {
-      name: 'กระเป๋า'
-    }, {
-      name: 'บ้านและสวน'
-    }, {
-      name: 'รองเท้า'
-    }, {
-      name: 'สุขภาพและ..'
+      name: 'ราคา'
     }]
     return (
-      <View style={{ width: '100%', height: 40, backgroundColor:'#FFFFFF',}}>
-        <ScrollView horizontal>
+      <View style={{ width: '100%', height: 40, backgroundColor: '#FFFFFF', flexDirection: 'row', justifyContent:'space-between',}}>
+      <View style={{justifyContent:'center',}}>
+        <Text style={{fontSize:14,borderRightColor:'black', borderRightWidth:1,marginHorizontal:8,}}>เรียงตาม  </Text>
+      </View>
+      <View>
           <TabBar
             sendData={this.updateIndex}
             item={item}
-            noLimit
+            limitBox={325}
             // widthBox={98}
             activeColor={'#fff'}
             activeFontColor={'#0A55A6'}
             type='tag'
           />
-        </ScrollView>
+      </View>
+        <TouchableOpacity>
+          <View style={{ height: 40, width: 50, justifyContent: 'center', alignItems: 'center', }}>
+            <IconFeather RightItem name="filter" size={20} color='#0A55A6' />
+            <Text style={{ fontSize: 12, }}>ตัวกรอง</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   }
 }
+
+///-------------------------------------------------------------------------------///

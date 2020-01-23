@@ -23,7 +23,7 @@ export default StyleSheet.create({
     Icon_appbar: {
         color: '#FFFF',
         marginTop: 10,
-        margin: 10,
+        marginRight:10,
     },
     Text_appbar: {
         color: '#FFFF',

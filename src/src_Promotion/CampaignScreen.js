@@ -32,7 +32,7 @@ export default class CampaignScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.SafeAreaView}>
-        <AppBar navigation={this.props.navigation} />
+        <AppBar navigation={this.props.navigation} Title='แคมเปญ'/>
         <ScrollView>
           <Slide />
           <Campaign_tag navigation={this.props.navigation}/>

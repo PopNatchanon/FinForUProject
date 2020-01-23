@@ -59,13 +59,14 @@ export class AppBar extends Component {
   }
 
   render() {
+    const { Title } = this.props
     return (
       <View style={styles.Appbar}>
         <View style={styles.Icon_appbar_Text}>
           <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
             <IconFeather style={styles.Icon_appbar} name="arrow-left" size={30} />
           </TouchableOpacity>
-          <Text style={styles.Text_appbar}>โปรโมชั่น</Text>
+          <Text style={styles.Text_appbar}>{Title ? Title : 'โปรโมชั่น'}</Text>
         </View>
         <View style={{ flexDirection: 'row', marginTop: 5, margin: 10, }}>
           <IconAntDesign RightItem name="search1" size={25} style={styles.Icon_appbar} />
@@ -134,7 +135,7 @@ export class Slide extends Component {
     const { dataSourceSlide, activeSlide } = this.state;
     // console.log(width)
     return (
-      <View style={{ marginTop: -60, height: 70 }}>
+      <View style={{ marginTop: -60, height: 70 ,marginBottom:-15,}}>
         <Pagination
           dotsLength={dataSourceSlide.length}
           activeDotIndex={activeSlide}

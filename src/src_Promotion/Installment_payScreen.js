@@ -34,7 +34,7 @@ export default class Installment_payScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.SafeAreaView}>
-        <AppBar navigation={this.props.navigation} />
+        <AppBar navigation={this.props.navigation}  Title='ผ่อน 0 % สูงสุด 10 เดือน'/>
         <ScrollView>
           <Slide />
           <Head_Image />

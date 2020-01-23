@@ -18,7 +18,6 @@ import {
     Button,
 } from 'react-native-elements'
 import FastImage from 'react-native-fast-image';
-
 import Icons from 'react-native-vector-icons/FontAwesome5';
 import IconFeather from 'react-native-vector-icons/Feather';
 import styles from '../style/StylesStoreScreen'

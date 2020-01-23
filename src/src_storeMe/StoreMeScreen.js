@@ -56,15 +56,17 @@ export class Headbar extends Component {
         return (
             <View>
                 <View style={styles.Appbar} >
-                    <View style={{flexDirection:'row',}}>
+                    <View style={{ flexDirection: 'row', }}>
                         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
                             <IconEntypo name='chevron-left' size={35} />
                         </TouchableOpacity>
                         <Text style={{ marginTop: 5, }}>ร้านค้าของฉัน</Text>
                     </View>
-                    <View style={{flexDirection:'row', padding:5,}}>
-                        <IconMaterialCommunityIcons style={{ marginRight:10, }}name="settings-outline"  size={25} />
-                        <IconAntDesign name='message1' size={25}/>
+                    <View style={{ flexDirection: 'row', padding: 5, }}>
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Setting')}>
+                            <IconMaterialCommunityIcons style={{ marginRight: 10, }} name="settings-outline" size={25} />
+                        </TouchableOpacity>
+                        <IconAntDesign name='message1' size={25} />
                     </View>
                 </View>
                 <ImageBackground
@@ -107,15 +109,15 @@ export class Menubar extends Component {
     render() {
         return (
             <View>
-                <View style={{height:40, width:'100%',marginTop:60,flexDirection:'row', justifyContent:'space-between', borderColor:'#E9E9E9',borderWidth:1,}}>
+                <View style={{ height: 40, width: '100%', marginTop: 60, flexDirection: 'row', justifyContent: 'space-between', borderColor: '#E9E9E9', borderWidth: 1, }}>
                     <View>
                         <Text style={styles.MenubarText1}>
-                          การขายของฉัน
+                            การขายของฉัน
                     </Text>
                     </View>
                     <View>
                         <Text style={styles.MenubarText2}>
-                        ดูประวัติการขาย <IconEntypo name='chevron-right' size={20} color='#0A55A6'/>
+                            ดูประวัติการขาย <IconEntypo name='chevron-right' size={20} color='#0A55A6' />
                         </Text>
                     </View>
                 </View>
@@ -140,7 +142,7 @@ export class MenubarSub extends Component {
 
                         />
                         <Text style={styles.MenubarSubLine1Name}>
-                        ที่ต้องจัดส่ง
+                            ที่ต้องจัดส่ง
                         </Text>
                     </View>
                     <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
@@ -150,7 +152,7 @@ export class MenubarSub extends Component {
 
                         />
                         <Text style={styles.MenubarSubLine1Name}>
-                        ยกเลิก
+                            ยกเลิก
                         </Text>
                     </View>
                     <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
@@ -160,13 +162,13 @@ export class MenubarSub extends Component {
 
                         />
                         <Text style={styles.MenubarSubLine1Name}>
-                        คืนสินค้า/คืนเงิน
+                            คืนสินค้า/คืนเงิน
                         </Text>
                     </View>
                     <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
                         <IconFeather name='more-horizontal' size={50} />
                         <Text style={styles.MenubarSubLine1Name}>
-                        เพิ่มเติม
+                            เพิ่มเติม
                         </Text>
                     </View>
                 </View>
@@ -187,22 +189,22 @@ export class ListMenu extends Component {
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Up_Product')} >
                         <View style={styles.ListMenuList}>
                             <View style={styles.ListMenuListSub}>
-                            <IconAntDesign RightItem name="plussquareo" size={35} color='#0A55A6' style={styles.ListMenuListSubIcon} />
+                                <IconAntDesign RightItem name="plussquareo" size={35} color='#0A55A6' style={styles.ListMenuListSubIcon} />
 
                                 <Text style={styles.ListMenuListSubName}>
-                                 เพิ่มสินค้า
+                                    เพิ่มสินค้า
                             </Text>
                             </View>
                             <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
                         </View>
                     </TouchableOpacity>
 
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('ChatScreen')} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Order')} >
                         <View style={styles.ListMenuList}>
                             <View style={styles.ListMenuListSub}>
-                            <IconMaterialIcons RightItem name="access-time" color='#D0B216' size={35} style={styles.ListMenuListSubIcon} />
+                                <IconMaterialIcons RightItem name="access-time" color='#D0B216' size={35} style={styles.ListMenuListSubIcon} />
                                 <Text style={styles.ListMenuListSubName}>
-                                ออเดอร์ล่าสุด
+                                    ออเดอร์ล่าสุด
                             </Text>
                             </View>
                             <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
@@ -212,9 +214,9 @@ export class ListMenu extends Component {
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('InterestedScreen')} >
                         <View style={styles.ListMenuList}>
                             <View style={styles.ListMenuListSub}>
-                            <IconMaterialCommunityIcons name="car-estate"  size={35} color='#B6B6B4' style={styles.ListMenuListSubIcon}/>
+                                <IconMaterialCommunityIcons name="car-estate" size={35} color='#B6B6B4' style={styles.ListMenuListSubIcon} />
                                 <Text style={styles.ListMenuListSubName}>
-                                การจัดส่งของฉัน 
+                                    การจัดส่งของฉัน
                             </Text>
                             </View>
                             <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
@@ -226,7 +228,7 @@ export class ListMenu extends Component {
                             <View style={styles.ListMenuListSub}>
                                 <IconAntDesign RightItem name="linechart" size={30} color='#0A55A6' style={styles.ListMenuListSubIcon} />
                                 <Text style={styles.ListMenuListSubName}>
-                                สถิติร้านค้าของฉัน
+                                    สถิติร้านค้าของฉัน
                             </Text>
                             </View>
                             <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
@@ -238,7 +240,7 @@ export class ListMenu extends Component {
                             <View style={styles.ListMenuListSub}>
                                 <IconMaterialCommunityIcons RightItem name="star" size={35} color='#EAD295' style={styles.ListMenuListSubIcon} />
                                 <Text style={styles.ListMenuListSubName}>
-                                คะแนนของฉัน
+                                    คะแนนของฉัน
                             </Text>
                             </View>
                             <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
@@ -249,7 +251,7 @@ export class ListMenu extends Component {
                             <View style={styles.ListMenuListSub}>
                                 <IconEntypo RightItem name="megaphone" size={35} color='#EB6417' style={styles.ListMenuListSubIcon} />
                                 <Text style={styles.ListMenuListSubName}>
-                                โปรโมทสินค้า ADS
+                                    โปรโมทสินค้า ADS
                             </Text>
                             </View>
                             <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
@@ -260,7 +262,7 @@ export class ListMenu extends Component {
                             <View style={styles.ListMenuListSub}>
                                 <IconFeather RightItem name="help-circle" size={35} color='#00A3FF' style={styles.ListMenuListSubIcon} />
                                 <Text style={styles.ListMenuListSubName}>
-                                ช่วยเหลือ
+                                    ช่วยเหลือ
                             </Text>
                             </View>
                             <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
@@ -271,7 +273,7 @@ export class ListMenu extends Component {
                             <View style={styles.ListMenuListSub}>
                                 <IconsFontAwesome5 RightItem name="store-alt" size={30} color='#06BBBB' style={styles.ListMenuListSubIcon} />
                                 <Text style={styles.ListMenuListSubName}>
-                                ร้านค้าของฉัน
+                                    ร้านค้าของฉัน
                             </Text>
                             </View>
                             <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />

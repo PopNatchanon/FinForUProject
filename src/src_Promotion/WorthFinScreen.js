@@ -32,7 +32,7 @@ export default class WorthFinScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.SafeAreaView}>
-        <AppBar navigation={this.props.navigation} />
+        <AppBar navigation={this.props.navigation} Title='สุดคุ้มสุดฟิน' />
         <ScrollView>
           <Slide />
           <Fin_sale />

@@ -33,7 +33,7 @@ export default class Popular_productScreen extends Component {
     render() {
         return (
             <SafeAreaView style={styles.SafeAreaView}>
-                <AppBar navigation={this.props.navigation} />
+                <AppBar navigation={this.props.navigation} Title='สินค้ายอดนิยม' />
                 <Slide />
                 <Button_Bar />
                 <ScrollView>

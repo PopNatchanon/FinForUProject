@@ -51,7 +51,7 @@ export default class MainScreen extends Component {
                 <AppBar navigation={this.props.navigation} />
                 <ScrollView>
                     <Slide />
-                    <Category />
+                    <Category navigation={this.props.navigation} />
                     <Button_Bar navigation={this.props.navigation} />
                     <FlashSale navigation={this.props.navigation} />
                     <Brand_RCM navigation={this.props.navigation} />
@@ -126,7 +126,6 @@ export class AppBar extends Component {
                             value={this.state.text}
                             maxLength={30}
                             onChangeText={(text) => this.setState({ text })}>
-
                         </TextInput>
                     </View>
                     <IconAntDesign RightItem name="search1" size={20} style={{ marginBottom: 'auto', marginTop: 'auto', marginRight: 4 }} />
@@ -220,7 +219,7 @@ export class Slide extends Component {
         const { dataSourceSlide, activeSlide } = this.state;
         // console.log(width)
         return (
-            <View style={{ marginTop: -60 }}>
+            <View style={{ marginTop: -60, marginBottom: -15 }}>
                 <Pagination
                     dotsLength={dataSourceSlide.length}
                     activeDotIndex={activeSlide}
@@ -324,9 +323,11 @@ export class Category extends Component {
         return (
             <View style={styles.Box_Cata}>
                 <ScrollView horizontal >
-                    <View style={styles.category_A}>
-                        {dataCategory}
-                    </View>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('CategoryScreen')}>
+                        <View style={styles.category_A}>
+                            {dataCategory}
+                        </View>
+                    </TouchableOpacity>
                 </ScrollView>
             </View>
         );
@@ -418,9 +419,11 @@ export class Brand_RCM extends Component {
                     <Text style={[styles.Brand_RCMText, stylesFont.FontSize1, stylesFont.FontFamilyBold]}>
                         แบรนด์แนะนำ
                     </Text>
-                    <Text style={styles.Brand_RCMTextEnd}>
-                        ดูทั้งหมด
-                    </Text>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Brand_RCM_Screen')}>
+                        <Text style={styles.Brand_RCMTextEnd}>
+                            ดูทั้งหมด
+                        </Text>
+                    </TouchableOpacity>
                 </View>
                 <ScrollView horizontal>
                     <View style={styles.Brand_RCM_Box}>
@@ -437,37 +440,42 @@ export class Brand_RCM extends Component {
                             </View>
                         </TouchableOpacity>
 
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Brand_RCM_Screen')}>
+                            <View >
+                                <FastImage
+                                    style={styles.Brand_image_RCM}
+                                    source={{
+                                        uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
 
-                        <View >
-                            <FastImage
-                                style={styles.Brand_image_RCM}
-                                source={{
-                                    uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
+                                    }}
 
-                                }}
+                                />
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Brand_RCM_Screen')}>
+                            <View >
+                                <FastImage
+                                    style={styles.Brand_image_RCM}
+                                    source={{
+                                        uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
 
-                            />
-                        </View>
-                        <View >
-                            <FastImage
-                                style={styles.Brand_image_RCM}
-                                source={{
-                                    uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
+                                    }}
 
-                                }}
+                                />
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Brand_RCM_Screen')}>
+                            <View >
+                                <FastImage
+                                    style={styles.Brand_image_RCM}
+                                    source={{
+                                        uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
 
-                            />
-                        </View>
-                        <View >
-                            <FastImage
-                                style={styles.Brand_image_RCM}
-                                source={{
-                                    uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
+                                    }}
 
-                                }}
-
-                            />
-                        </View>
+                                />
+                            </View>
+                        </TouchableOpacity>
                         <View >
                             <FastImage
                                 style={styles.Brand_image_RCM}
@@ -1033,7 +1041,7 @@ export class Product_for_you extends Component {
             //   console.log('Sale' + [ indexs, item.image ].join(' ')),
             var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
             return (
-                <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
+                <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('Product_for_youScreen', { id_item: item.id_product })}>
                     <View style={styles.ProductForYouBox} key={indexs}>
                         <FastImage
                             source={{
@@ -1256,7 +1264,7 @@ export class Exclusive extends Component {
             //   console.log('Sale' + [ indexs, item.image ].join(' ')),
             var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
             return (
-                <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
+                <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('ExclusiveScreen', { id_item: item.id_product })}>
                     <View style={styles.NewProductBox} >
                         <FastImage
                             source={{

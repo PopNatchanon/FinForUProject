@@ -30,7 +30,7 @@ export default class Brand_RCM_Screen extends Component {
     render() {
         return (
             <SafeAreaView style={styles.SafeAreaView}>
-                <AppBar navigation={this.props.navigation} />
+                <AppBar navigation={this.props.navigation} Title='แบรนด์แนะนำ' />
                 <ScrollView>
                     <Brand_RCM_Store />
                     <Brand_RCM_Store />
@@ -66,9 +66,11 @@ export class Brand_RCM_Store extends Component {
                             }}
                         />
                     </View>
-                    <View style={styles.Brand_RCM_ProButton}>
-                        <Text>เข้าดูร้าน</Text>
-                    </View>
+                    <TouchableOpacity>
+                        <View style={styles.Brand_RCM_ProButton}>
+                            <Text>เข้าดูร้าน</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.Brand_RCM_Product}>
                     <View style={styles.Brand_RCM_Product_Box}>

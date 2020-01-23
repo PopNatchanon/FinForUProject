@@ -3,7 +3,10 @@ import { StyleSheet, Dimensions } from 'react-native';
 export const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
-
+    SafeAreaView:{
+        flex: 1, 
+        backgroundColor: '#E9E9E9',
+    },
     Appbar: {
         padding: 10,
         justifyContent: 'space-between',

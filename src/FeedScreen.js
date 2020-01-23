@@ -82,7 +82,9 @@ export class AppBar extends Component {
           <View style={styles.Icon_appbar_Text}>
             <Text style={[styles.Text_appbar, { fontFamily: 'SukhumvitSet-Text', }]}>ฟีต</Text>
           </View>
-          <Icons RightItem name="store" size={25} style={styles.Icon_appbar} />
+          <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Follow_storeScreen')}>
+          <Icons RightItem name="store" size={20} style={styles.Icon_appbar} />
+          </TouchableOpacity>
         </View>
         <View>
           {/* <View style={styles.Button_Bar}> */}

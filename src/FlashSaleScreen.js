@@ -32,7 +32,7 @@ export default class FlashSaleScreen extends Component {
     render() {
         return (
             <SafeAreaView style={styles.SafeAreaView}>
-                <AppBar navigation={this.props.navigation} />
+                <AppBar navigation={this.props.navigation} Title='FlashSale'/>
                 <Slide />
                 <Time_FlashSale />
                 <ScrollView>

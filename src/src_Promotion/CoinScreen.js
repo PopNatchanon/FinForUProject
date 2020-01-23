@@ -33,7 +33,7 @@ export default class CoinScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.SafeAreaView}>
-        <AppBar navigation={this.props.navigation} />
+        <AppBar navigation={this.props.navigation} Title='FIN COINS' />
         <ScrollView>
           <Slide />
           <View style={styles.Box_Text_Head}><Text>FIN COIN </Text></View>

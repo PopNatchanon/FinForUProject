@@ -14,7 +14,6 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
 import FastImage from 'react-native-fast-image';
-
 import Icons from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconsFeather from 'react-native-vector-icons/Feather';
@@ -190,7 +189,7 @@ export class News extends Component {
                             style={styles.body_image}
                             source={{ uri: ip + '/MySQL/uploads/page_News/Supreme.jpg' }}>
                         </FastImage>
-                        <Text style={styles.body_Text}>ถ้าพูดถึงแบรนด์ที่มาแรงและหลายคนก็ยังคงชื่อชอบอยู่ในช่วง 2 – 3 ปีที่ผ่านมานี้ ก็ต้องแบรนด์ ‘Supreme’ นี่แหละค่ะ</Text>
+                        <Text style={styles.body_Text}>ถ้าพูดถึงแบรนด์ที่มาแรงและหลายคนก็ยังคงชื่อชอบอยู่ในช่วง 2 – 3 ปีที่ผ่านมานี้ก็ต้องแบรนด์ ‘Supreme’ นี่แหละค่ะ</Text>
                     </View>
                 </View>
                 <View style={styles.body_Box}>

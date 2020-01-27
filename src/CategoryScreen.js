@@ -11,13 +11,13 @@ import {
 } from 'react-native';
 import { AppBar, Slide, BannerBar_TWO, TodayProduct, } from './MainScreen';
 import { finip, ip } from '../navigator/IpConfig';
-// import styles from '../style/stylePromotion-src/styleDealScreen';
-import styles from '../style/StylesMainScreen';
+import stylesMain from '../style/StylesMainScreen';
+import styleTopic from '../style/styleTopic';
 import FastImage from 'react-native-fast-image';
-import Icons from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
 import { Button_Bar } from './ExclusiveScreen';
+import stylesFont from '../style/stylesFont';
 
 export default class CategoryScreen extends Component {
     constructor(props) {
@@ -28,7 +28,7 @@ export default class CategoryScreen extends Component {
 
     render() {
         return (
-            <SafeAreaView style={[styles.SafeAreaView, { backgroundColor: '#E9E9E9' }]}>
+            <SafeAreaView style={[stylesMain.SafeAreaView, { backgroundColor: '#E9E9E9' }]}>
                 <AppBar leftBar='backarrow' navigation={this.props.navigation} />
                 <ScrollView>
                     <Slide />
@@ -75,21 +75,21 @@ export class Recommend_Store extends Component {
         let dataPromotionPopular = this.state.dataSourcebrand.map((item, indexs) => {
             var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
             return (
-                <View key={indexs} >
+                <View style={styleTopic.Recommend_Store_Boximage} key={indexs} >
                     <FastImage
                         source={{
                             uri: dataMySQL,
                         }}
-                        style={{ height: 100, width: 180, marginLeft: 10, marginVertical: 10, }}
+                        style={styleTopic.Image}
                     />
                 </View>
             )
         })
         return (
-            <View style={{ width: '100%', height: 'auto', backgroundColor: '#FFFFFF', marginTop: 10, }}>
-                <Text style={styles.Brand_RCMText}>ร้านค้าที่แนะนำ</Text>
+            <View style={stylesMain.FrameBackground}>
+                <Text style={[stylesMain.FrameBackgroundTextStart,stylesFont.FontFamilyBold,stylesFont.FontSize1]}>ร้านค้าที่แนะนำ</Text>
                 <ScrollView horizontal>
-                        <View style={{ flexDirection: 'row', }}>
+                        <View style={stylesMain.FlexRow}>
                             {dataPromotionPopular}
                         </View>
                 </ScrollView>
@@ -134,22 +134,22 @@ export class Product_Brand extends Component {
             var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
-                    <View style={styles.NewProductBox} >
+                    <View style={stylesMain.BoxProduct1Box} >
                         <FastImage
                             source={{
                                 uri: dataMySQL,
                             }}
-                            style={styles.NewProductImage}
+                            style={stylesMain.BoxProduct1Image}
 
                         />
-                        <Text style={[styles.NewProductImageName, { fontFamily: 'SukhumvitSet-Text', }]}>{item.name}</Text>
+                        <Text style={[stylesMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize4]}>{item.name}</Text>
                         <NumberFormat
                             value={item.full_price}
                             displayType={'text'}
                             thousandSeparator={true}
                             prefix={'฿'}
                             renderText={
-                                value => <Text style={[styles.NewProductImagePrice, { fontFamily: 'SukhumvitSet-Text', }]}>
+                                value => <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
                                     {value}
                                 </Text>}
                         />
@@ -158,9 +158,9 @@ export class Product_Brand extends Component {
             )
         })
         return (
-            <View style={styles.NewProduct}>
-                <View style={styles.Brand_RCMTextBox}>
-                    <Text style={styles.Brand_RCMText}>
+            <View style={stylesMain.FrameBackground}>
+                <View style={stylesMain.FrameBackgroundTextBox}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart,stylesFont.FontFamilyBold,stylesFont.FontSize1]}>
                         สินค้าแบรนด์ดัง
                     </Text>
                 </View>

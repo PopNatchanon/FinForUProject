@@ -11,7 +11,9 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
-import styles from '../style/stylePromotion-src/styleDealScreen';
+import stylesTopic from '../style/styleTopic';
+import stylesMain from '../style/StylesMainScreen';
+import stylesFont from '../style/stylesFont';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
@@ -31,8 +33,8 @@ export default class FlashSaleScreen extends Component {
 
     render() {
         return (
-            <SafeAreaView style={styles.SafeAreaView}>
-                <AppBar navigation={this.props.navigation} Title='FlashSale'/>
+            <SafeAreaView style={stylesMain.SafeAreaView}>
+                <AppBar navigation={this.props.navigation} Title='FLASH SALE'/>
                 <Slide />
                 <Time_FlashSale />
                 <ScrollView>
@@ -93,15 +95,15 @@ export class Time_FlashSale extends Component {
         }]
         return (
             <View>
-                <View style={styles.Time_FlashSale}>
-                    <Text style={styles.Time_FlashSale_Text}>FlashSale</Text>
+                <View style={[stylesMain.FrameBackground,{flexDirection:'row'}]}>
+                    <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize1]}>FLASH SALE</Text>
                     <IconMaterialIcons name='access-time' size={25} style={{ marginLeft: 10, }} />
-                    <Text style={{ fontSize: 15, margin: 5, }}>จบใน</Text>
-                    <View style={styles.Time_FlashSale_TimeBox}><Text style={styles.Time_FlashSale_TimeText}>01</Text></View>
-                    <View style={styles.Time_FlashSale_TimeBox}><Text style={styles.Time_FlashSale_TimeText}>45</Text></View>
-                    <View style={styles.Time_FlashSale_TimeBox}><Text style={styles.Time_FlashSale_TimeText}>40</Text></View>
+                    <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize2,{margin:3}]}>จบใน</Text>
+                    <View style={stylesMain.Time_FlashSale_TimeBox}><Text style={stylesMain.Time_FlashSale_TimeText}>01</Text></View>
+                    <View style={stylesMain.Time_FlashSale_TimeBox}><Text style={stylesMain.Time_FlashSale_TimeText}>45</Text></View>
+                    <View style={stylesMain.Time_FlashSale_TimeBox}><Text style={stylesMain.Time_FlashSale_TimeText}>40</Text></View>
                 </View>
-                <View style={styles.Time_FlashSale_Tag}>
+                <View style={stylesTopic.FlashSale_Tag}>
                     <TabBar
                         sendData={this.updateIndex}
                         item={item}
@@ -112,7 +114,7 @@ export class Time_FlashSale extends Component {
                     />
                 </View>
 
-                <View style={styles.Time_FlashSale_TagCate}>
+                <View style={stylesTopic.FlashSale_Tag}>
                     <ScrollView horizontal>
                         <TabBar
                             inactiveColor='#0A55A6'
@@ -141,25 +143,25 @@ export class FlashSale_Product extends Component {
 
     render() {
         return (
-            <View style={{ flex: 1, backgroundColor: '#FFFFFF', marginTop: 5, }}>
-                <View style={{ height: 130, width: '100%', borderColor: '#ECECEC', borderWidth: 1, padding: 10, flexDirection: 'row', }}>
-                    <View style={{ flexDirection: 'row', }}>
-                        <View style={{ height: 110, width: 110,borderColor: '#ECECEC', borderWidth: 1,justifyContent:'center',alignItems:'center', }}>
+            <View style={stylesTopic.FlashSale_Product}>
+                <View style={stylesTopic.FlashSale_ProductBox}>
+                    <View style={stylesMain.FlexRow}>
+                        <View style={stylesTopic.FlashSale_ProductBox_Image}>
                             <FastImage 
-                            style={{height:90, width:90,}}
+                            style={stylesTopic.Image}
                                 source={{
                                 uri: ip + '/MySQL/uploads/products/2019-10-10-1570690991.png'}}
                             />
                         </View>
-                        <View style={{ width: 310, justifyContent: 'space-between', }}>
-                            <Text style={{ margin: 20, }}>ห้องพัก Deluxe Pool Villa</Text>
-                            <View style={{ alignItems: 'flex-end', }}>
+                        <View style={{ width: '65%' }}>
+                            <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize3,{margin:10}]}>ห้องพัก Deluxe Pool Villa</Text>
+                        </View>
+                         <View style={{ justifyContent:'flex-end'}}>
                                 <TouchableOpacity>
-                                    <View style={{ height: 40, width: 40, backgroundColor: '#0A55A6', borderRadius: 5, justifyContent: 'center', alignItems: 'center', }}>
+                                    <View style={stylesTopic.FlashSale_ProductBox_Icon}>
                                         <IconAntDesign RightItem name="shoppingcart" size={30} color='#FFFFFF' />
                                     </View>
                                 </TouchableOpacity>
-                            </View>
                         </View>
 
                     </View>

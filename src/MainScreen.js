@@ -8,18 +8,13 @@ import {
     SafeAreaView,
     TouchableOpacity,
     Dimensions,
-    Image,
-    PixelRatio
 } from 'react-native';
-import { H1 } from 'native-base'
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import Icons from 'react-native-vector-icons/FontAwesome';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import IconEntypo from 'react-native-vector-icons/Entypo';
 import styles from '../style/StylesMainScreen';
 import stylesFont from '../style/stylesFont'
 import { finip, ip } from '../navigator/IpConfig';
@@ -55,7 +50,7 @@ export default class MainScreen extends Component {
                     <Category navigation={this.props.navigation} />
                     <Button_Bar navigation={this.props.navigation} />
                     <FlashSale navigation={this.props.navigation} />
-                    <Brand_RCM navigation={this.props.navigation} />
+                    <Recommend_Brand navigation={this.props.navigation} />
                     <BannerBar_ONE />
                     <Exclusive navigation={this.props.navigation} />
                     <NewStore navigation={this.props.navigation} />
@@ -163,7 +158,7 @@ export class AppBar extends Component {
                             </TouchableOpacity>
                         </View>
                 }
-            </View >
+            </View>
         );
     }
 }
@@ -383,7 +378,7 @@ export class Button_Bar extends Component {
                         </View>
                     </TouchableOpacity>
 
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('WorthFinScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('The_BestFinScreen')}>
                         <View style={styles.Button_Bar_Box}>
                             <FastImage style={styles.Button_Bar_icon}
                                 source={{
@@ -413,7 +408,7 @@ export class Button_Bar extends Component {
 
 ///----------------------------------Brand_RCM----------------------------------------///
 
-export class Brand_RCM extends Component {
+export class Recommend_Brand extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -430,7 +425,7 @@ export class Brand_RCM extends Component {
                 </View>
                 <ScrollView horizontal>
                     <View style={styles.FrameBackground_Box}>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('FrameBackground_Screen')}>
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Recommend_Brand')}>
                             <View>
                                 <FastImage
                                     style={styles.Brand_image_RCM}
@@ -441,7 +436,7 @@ export class Brand_RCM extends Component {
                             </View>
                         </TouchableOpacity>
 
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Brand_RCM_Screen')}>
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Recommend_Brand')}>
                             <View >
                                 <FastImage
                                     style={styles.Brand_image_RCM}
@@ -453,7 +448,7 @@ export class Brand_RCM extends Component {
                                 />
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Brand_RCM_Screen')}>
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Recommend_Brand')}>
                             <View >
                                 <FastImage
                                     style={styles.Brand_image_RCM}
@@ -465,7 +460,7 @@ export class Brand_RCM extends Component {
                                 />
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Brand_RCM_Screen')}>
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Recommend_Brand')}>
                             <View >
                                 <FastImage
                                     style={styles.Brand_image_RCM}
@@ -1044,7 +1039,7 @@ export class Product_for_you extends Component {
             var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs}
-                    onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
+                    onPress={() => this.props.navigation.navigate('Product_for_youScreen', { id_item: item.id_product })}>
                     <View style={[styles.BoxProduct1Box, { marginTop: 4 }]} key={indexs}>
                         <FastImage
                             source={{
@@ -1247,7 +1242,7 @@ export class Exclusive extends Component {
             var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs}
-                    onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
+                    onPress={() => this.props.navigation.navigate('ExclusiveScreen', { id_item: item.id_product })}>
                     <View style={styles.BoxProduct1Box} >
                         <FastImage
                             source={{

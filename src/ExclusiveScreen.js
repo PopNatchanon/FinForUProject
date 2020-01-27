@@ -11,7 +11,9 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
-import styles from '../style/stylePromotion-src/styleDealScreen';
+import stylesTopic from '../style/styleTopic';
+import stylesMain from '../style/StylesMainScreen';
+import stylesFont from '../style/stylesFont';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
@@ -32,7 +34,7 @@ export default class ExclusiveScreen extends Component {
 
   render() {
     return (
-      <SafeAreaView style={styles.SafeAreaView} >
+      <SafeAreaView style={stylesMain.SafeAreaView} >
         <AppBar navigation={this.props.navigation} Title='สินค้าสุด Exclusive' />
         <Slide />
         <Button_Bar />
@@ -69,9 +71,9 @@ export class Button_Bar extends Component {
       name: 'ราคา'
     }]
     return (
-      <View style={{ width: '100%', height: 40, backgroundColor: '#FFFFFF', flexDirection: 'row', justifyContent:'space-between',}}>
-      <View style={{justifyContent:'center',}}>
-        <Text style={{fontSize:14,borderRightColor:'black', borderRightWidth:1,marginHorizontal:8,}}>เรียงตาม  </Text>
+      <View style={stylesTopic.Button_Bar}>
+      <View style={stylesTopic.Button_Bar_BoxText}>
+        <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize3]}>เรียงตาม  </Text>
       </View>
       <View>
           <TabBar
@@ -85,9 +87,9 @@ export class Button_Bar extends Component {
           />
       </View>
         <TouchableOpacity>
-          <View style={{ height: 40, width: 50, justifyContent: 'center', alignItems: 'center', }}>
+          <View style={stylesTopic.Button_Bar_Icon}>
             <IconFeather RightItem name="filter" size={20} color='#0A55A6' />
-            <Text style={{ fontSize: 12, }}>ตัวกรอง</Text>
+            <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize4]}>ตัวกรอง</Text>
           </View>
         </TouchableOpacity>
       </View>

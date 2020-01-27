@@ -224,6 +224,7 @@ export default StyleSheet.create({
   },
   SafeAreaView: {
     flex: 1,
+    backgroundColor: '#E9E9E9',
   },
   LOGO: {
     height: 30,

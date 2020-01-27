@@ -20,7 +20,6 @@ import FastImage from 'react-native-fast-image';
 import IconsFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import IconFontisto from 'react-native-vector-icons/Fontisto';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconEntypo from 'react-native-vector-icons/Entypo';

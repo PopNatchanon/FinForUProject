@@ -4,31 +4,15 @@ export const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
 
-    SafeAreaView: {
-        flex: 1,
-        backgroundColor: '#E9E9E9',
-    },
-    Appbar: {
-        backgroundColor: '#0A55A6',
-        height: 50,
-        width: '100%',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingTop: 5,
-        paddingBottom: 5,
-    },
-    Icon_appbar_Text: {
-        flexDirection: 'row',
+    ///--------------------------------------DealScreen---------------------------------------///
 
-    },
     Icon_appbar: {
         color: '#FFFF',
         marginLeft: 10,
     },
     Text_appbar: {
         color: '#FFFF',
-        marginTop: 6,
-        fontSize: 15,
+        marginTop: 5,
     },
     child: {
         marginTop: 10,
@@ -41,6 +25,11 @@ export default StyleSheet.create({
     },
     slide: {
         height: 150,
+    },
+    Box_Icon: {
+        flexDirection: 'row',
+        marginTop: 5,
+        margin: 10,
     },
     Button_Bar: {
         paddingTop: 10,
@@ -64,36 +53,27 @@ export default StyleSheet.create({
     Button_Bar_BoxText: {
         marginTop: 5,
         textAlign: 'center',
-        fontSize: 12,
     },
     BoxText_Row: {
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
-    Deal_Box: {
-        width: '100%',
-        height: 'auto',
-        marginTop: 10,
-    },
     Text_Head: {
         color: '#FFFFFF',
-        fontSize: 16,
         marginTop: 3,
     },
-    Text_Totel: {
+    Text_EndB: {
+        margin: 10,
+        color: '#111111',
+    },
+    Text_EndW: {
         margin: 10,
         color: '#FFFFFF',
     },
     BoxText_T: {
-        width: 150,
+        width: 180,
         height: 30,
         marginTop: 10,
-    },
-    Deal_Calendar: {
-        marginTop: 10,
-        width: '100%',
-        height: 200,
-        backgroundColor: '#B5F5D1',
     },
     Deal_Calendar_Box: {
         width: '100%',
@@ -124,84 +104,6 @@ export default StyleSheet.create({
         width: 200,
         borderRadius: 5,
     },
-
-    ///--------------------------------------------------------------------------------///
-
-    FlashSale: {
-        width,
-        borderColor: '#ECECEC',
-        backgroundColor: '#FFFFFF',
-        borderWidth: 1,
-        borderRadius: 5,
-        marginTop: 10,
-    },
-    FlashSaleTextBox: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    FlashSaleText: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        marginLeft: 10,
-        marginTop: 6,
-    },
-    FlashSaleTextEnd: {
-        fontSize: 10,
-        color: '#0A55A6',
-        marginRight: 8,
-        marginTop: 10,
-    },
-    FlashSaleBox: {
-        width: 106,
-        backgroundColor: '#FFFFFF',
-        borderColor: '#ECECEC',
-        borderWidth: 1,
-        marginTop: 10,
-        marginBottom: 8,
-        marginLeft: 10,
-    },
-    FlashSaleImage: {
-        width: 99,
-        height: 98,
-        resizeMode: 'contain',
-        // borderColor: '#ECECEC',
-        borderRadius: 5,
-    },
-    FlashSaleImageName: {
-        fontSize: 10,
-        marginTop: 6,
-        marginLeft: 6,
-    },
-    FlashSaleIconBox: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    FlashSaleIcon: {
-        paddingTop: 4,
-        marginBottom: 4,
-        marginRight: 6,
-    },
-    FlashSaleIconStar: {
-        paddingTop: 5,
-        marginBottom: 5,
-    },
-    FlashSaleIconBoxI: {
-        flexDirection: 'row',
-    },
-    FlashSaleIconBoxStar: {
-        flexDirection: 'row',
-        marginLeft: 6,
-    },
-    FlashSaleImagePrice: {
-        fontSize: 8,
-        marginTop: 6,
-        marginLeft: 6,
-        color: '#0A55A6',
-    },
-
-    ///--------------------------------------------------------------------------------///
     Deal_Exclusive: {
         height: 'auto',
         width: '100%',
@@ -217,17 +119,12 @@ export default StyleSheet.create({
         width: 130,
         justifyContent: 'center',
         alignItems: 'center',
-
     },
     Deal_Exclusive_BoxImageIcon: {
         height: 160,
         width: 130,
         justifyContent: 'center',
         alignItems: 'center',
-    },
-    Deal_Exclusive_Text: {
-        color: '#FFFFFF',
-        fontSize: 15,
     },
     Deal_Exclusive_Image: {
         height: 120,
@@ -239,13 +136,11 @@ export default StyleSheet.create({
         backgroundColor: '#FFFFFF',
     },
     Second_Store: {
-        height: 300,
         width: '100%',
         alignItems: 'center',
     },
     Second_Store_SlideA: {
         height: 160,
-        width: '90%',
         marginTop: 10,
     },
     Second_Store_SlideB: {
@@ -305,25 +200,84 @@ export default StyleSheet.create({
         marginTop: 5,
         borderRadius: 8,
     },
-
-    ///--------------------------------WorthFinScreen-----------------------------------------///
-
-    Fin_sale_Box: {
-        width: '100%',
+    Deal_For_you:{
         height: 'auto',
-        backgroundColor: '#ffff',
-        marginTop: 10,
+        width: '100%',
+        justifyContent: 'space-around',
+        padding: 10,
+        flexDirection: 'row',
+        flexWrap:'wrap',
     },
+    Deal_For_youBox:{
+        backgroundColor: '#FFFFFF',
+        borderColor: '#C4C4C4',
+        borderWidth: 1,
+        width: 130,
+    },
+
+    ///--------------------------------CampaignScreen-----------------------------------------///
+
+    CampaignBody: {
+        marginTop: 10,
+        width: width * 0.96,
+        height: 200,
+        borderWidth: 1,
+        borderColor: '#EAEAEA',
+        backgroundColor: 'white'
+    },
+    CampaignBody_BoxImage: {
+        width: '100%',
+        height: 140
+    },
+    CampaignBody_Image: {
+        width: '100%',
+        height: '100%'
+    },
+    CampaignBody_Box: {
+        flexDirection: 'row',
+        backgroundColor: 'white'
+    },
+    CampaignBody_BoxText: {
+        padding: 4,
+        width: 200,
+    },
+    CampaignBody_Icon_Button: {
+        flexDirection: 'row',
+        padding: 5,
+        justifyContent: 'space-between',
+        marginLeft: 50,
+    },
+    CampaignBody_Icon: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: '#0A55A6',
+        borderWidth: 1,
+        height: 30,
+        width: 30,
+        marginTop: 3,
+    },
+    CampaignBody_Button: {
+        backgroundColor: '#0A55A6',
+        width: 120,
+        alignItems: 'center',
+        borderRadius: 4,
+        marginLeft: 10,
+        height: 35,
+    },
+    CampaignBody_ButtonText: {
+        justifyContent: 'center',
+        color: '#FFFFFF',
+        margin: 5,
+    },
+
+    ///--------------------------------The_BestFinScreen-----------------------------------------///
+
     Fin_sale_BoxHead: {
         height: 12,
         width: '100%',
         alignItems: 'flex-end',
         marginTop: -10,
         paddingRight: 10,
-    },
-    Fin_sale_BoxTextEnd: {
-        fontSize: 12,
-        color: '#0A55A6',
     },
     Fin_sale_BoxProduct: {
         flexDirection: 'row',
@@ -351,7 +305,6 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
     },
     Store_Sale_BoxA_Carousel: {
-        backgroundColor: 'black',
         height: '60%',
     },
     Store_Sale_BoxA_Boximage: {
@@ -370,117 +323,89 @@ export default StyleSheet.create({
     Store_Sale_BoxB_image: {
         height: '49%'
     },
-    Head_Image_Text: {
-        fontSize: 12,
+
+    ///--------------------------------Installment_payScreen-----------------------------------------///
+
+    Head_BoxImage: {
+        width: '100%',
+        marginTop: 10,
+    },
+    Head_Image: {
+        width: '100%',
+        height:'100%',
+    },
+    Head_BoxText: {
+        width: '100%',
+        backgroundColor: '#FFFFFF',
+        padding: 10,
     },
 
-    ///--------------------------------FrameBackground_Screen-----------------------------------------///
+    ///--------------------------------Detail_Campaign-----------------------------------------///
 
-    FrameBackground_Store: {
-        height: 'auto',
+    Head_BoxImage: {
+        width: '100%',
+        height: 250,
+        marginTop: 5,
+    },
+    Cate_Campaign: {
+        height: 100,
+        width: width * (1 / 4),
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    Cate_CampaignBoxImage: {
+        borderColor: '#EAEAEA',
+        borderWidth: 1,
+        height: 60,
+        width: 60,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 8,
+    },
+    Cate_CampaignImage: {
+        height: 50,
+        width: 50,
+    },
+    Cate_CampaignBox: {
         width: '100%',
         backgroundColor: '#FFFFFF',
         marginTop: 10,
     },
-    Brand_ImageBackground: {
-        height: 150,
-        width: '100%',
-        marginBottom: -130
-    },
-    FrameBackground_StoreBoxPro: {
-        width: '100%',
+    Cate_CampaignBoxA: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingLeft: 20,
-        paddingRight: 20,
+        flexWrap: 'wrap',
     },
-    FrameBackground_Pro: {
+    Code_New_year: {
+        backgroundColor: '#FFFFFF',
+        marginTop: 20,
+    },
+    New_year_New: {
+        backgroundColor: '#FFFFFF',
+        marginTop: 20,
+        height: 450,
+    },
+    New_year_NewBoxText_Head: {
+        backgroundColor: '#000000',
         height: 80,
-        width: 80,
-        backgroundColor: '#FFFFFF',
-        borderRadius: 40,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    FrameBackground_Proimage: {
-        height: 60,
-        width: 60,
-    },
-    FrameBackground_ProButton: {
-        height: 30,
-        width: 100,
-        backgroundColor: '#FFFFFF',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 8,
-        marginTop: 20,
-    },
-    FrameBackground_Product: {
-        height: 170,
         width: '100%',
-        marginTop: 20,
-        justifyContent: 'space-around',
-        flexDirection: 'row',
-        marginBottom: 10,
+        marginTop: 10,
+        padding: 10,
     },
-    FrameBackground_Product_Box: {
-        width: '29%',
-        backgroundColor: '#FFFFFF',
+    New_year_NewProduct: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        flexWrap:'wrap',
+        marginTop:-20,
+       
+    },
+    New_year_NewProduct_Box: {
+        marginTop:10,
+        width:130,
         borderColor: '#ECECEC',
         borderWidth: 1,
-        height: '100%',
-        alignItems: 'center',
-        paddingTop: 5,
-    },
-    FrameBackground_Product_Image: {
-        height: 110,
-        width: 110,
-        backgroundColor: '#C4C4C4',
-    },
-    FrameBackground_Product_Text: {
-        fontSize: 11,
+        backgroundColor: '#FFFF'
     },
 
-    ///--------------------------------FlashSaleScreen-----------------------------------------///
 
-    Time_FlashSale: {
-        height: 40,
-        width: '100%',
-        padding: 5,
-        backgroundColor: '#FFFFFF',
-        flexDirection: 'row',
-    },
-    Time_FlashSale_Text: {
-        color: '#0A55A6',
-        fontSize: 20,
-    },
-    Time_FlashSale_TimeBox: {
-        height: 30,
-        width: 30,
-        backgroundColor: '#222222',
-        justifyContent: 'center',
-        marginLeft: 10,
-        borderRadius: 5,
-    },
-    Time_FlashSale_TimeText: {
-        color: '#FFFFFF',
-        textAlign: 'center',
-    },
-    Time_FlashSale_Tag: {
-        height: 50,
-        width: '100%',
-        padding: 5,
-        backgroundColor: '#FFFFFF',
-        flexDirection: 'row',
-        marginTop: 5,
-    },
-    Time_FlashSale_TagCate: {
-        height: 50,
-        width: '100%',
-        padding: 5,
-        backgroundColor: '#FFFFFF',
-        marginTop: 5,
-        paddingTop: 10,
-    },
-    
 })

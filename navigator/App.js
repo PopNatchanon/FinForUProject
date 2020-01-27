@@ -12,15 +12,14 @@ import NewsScreen from '../src/NewsScreen';
 import BellScreen from '../src/BellScreen';
 import Register_OTPScreen from '../src/Register_OTPScreen';
 import RegisterScreen from '../src/RegisterScreen';
-import Brand_RCM_Screen from '../src/Brand_RCM_Screen';
-import FlashSaleScreen from '../src/FlashSaleScreen';
+import Recommend_Brand from '../src/Recommend_Brand';
+import FlashSaleScreen from '../src/FlashSaleScreen'; 
 import HighlightScreen from '../src/HighlightScreen';
 import Recommend_Store from '../src/Recommend_Store';
 import ExclusiveScreen from '../src/ExclusiveScreen';
 import Product_for_youScreen from '../src/Product_for_youScreen';
 import Popular_productScreen from '../src/Popular_productScreen';
-import CategoryScreen from '../src/CategoryScreen';
-
+import CategoryScreen from '../src/CategoryScreen';    
 // src_profile
 
 import LatestScreen from '../src/src_profile/LatestScreen';
@@ -48,7 +47,7 @@ import Customer_Order from '../src/src-Cart/Customer_Order';
 import DealScreen from '../src/src_Promotion/DealScreen';
 import CoinScreen from '../src/src_Promotion/CoinScreen';
 import CampaignScreen from '../src/src_Promotion/CampaignScreen';
-import WorthFinScreen from '../src/src_Promotion/WorthFinScreen';
+import The_BestFinScreen from '../src/src_Promotion/The_BestFinScreen';
 import Installment_payScreen from '../src/src_Promotion/Installment_payScreen';
 import Detail_Campaign from '../src/src_Promotion/Detail_Campaign';
 
@@ -131,8 +130,8 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
-  Brand_RCM_Screen: {
-    screen: Brand_RCM_Screen,
+  Recommend_Brand: {
+    screen: Recommend_Brand,
     navigationOptions: () => ({
       tabBarVisible: false,
       header: null,
@@ -317,8 +316,8 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
-  WorthFinScreen: {
-    screen: WorthFinScreen,
+  The_BestFinScreen: {
+    screen: The_BestFinScreen,
     navigationOptions: () => ({
       tabBarVisible: false,
       header: null,
@@ -340,10 +339,10 @@ const PathScreen = createStackNavigator({
   },
 },
   {
-    // initialRouteName: 'MainScreen',
-    initialRouteName: 'StoreMe_Order',
+    initialRouteName: 'MainScreen',
+    // initialRouteName: 'Detail_Campaign',
     // initialRouteName: 'DealScreen',
-    // initialRouteName: 'MainScreen',
+    // initialRouteName: 'The_BestFinScreen',
     // initialRouteName: 'Recommend_Store',
   }
 );

@@ -11,7 +11,9 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
-import styles from '../style/stylePromotion-src/styleDealScreen';
+import stylesTopic from '../style/styleTopic';
+import stylesMain from '../style/StylesMainScreen';
+import stylesFont from '../style/stylesFont';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
@@ -32,7 +34,7 @@ export default class Popular_productScreen extends Component {
 
     render() {
         return (
-            <SafeAreaView style={styles.SafeAreaView}>
+            <SafeAreaView style={stylesMain.SafeAreaView}>
                 <AppBar navigation={this.props.navigation} Title='สินค้ายอดนิยม' />
                 <Slide />
                 <Button_Bar />
@@ -69,7 +71,7 @@ export class Button_Bar extends Component {
             name: 'สินค้าสุดคูล'
         }]
         return (
-            <View style={{ height: 40, width: '100%', backgroundColor: '#FFFFFF', }}>
+            <View style={stylesTopic.FlashSale_Tag}>
                 <TabBar
                     sendData={this.updateIndex}
                     item={item}

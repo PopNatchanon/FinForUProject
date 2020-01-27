@@ -13,6 +13,8 @@ import axios from 'axios';
 import NumberFormat from 'react-number-format';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import styles from '../../style/stylePromotion-src/styleDealScreen';
+import stylemain from '../../style/StylesMainScreen';
+import stylesFont from '../../style/stylesFont';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
@@ -31,10 +33,13 @@ export default class CampaignScreen extends Component {
 
   render() {
     return (
-      <SafeAreaView style={styles.SafeAreaView}>
+      <SafeAreaView style={stylemain.SafeAreaView}>
         <AppBar navigation={this.props.navigation} Title='แคมเปญ'/>
         <ScrollView>
           <Slide />
+          <Campaign_tag navigation={this.props.navigation}/>
+          <Campaign_tag navigation={this.props.navigation}/>
+          <Campaign_tag navigation={this.props.navigation}/>
           <Campaign_tag navigation={this.props.navigation}/>
         </ScrollView>
         <Button_Bar navigation={this.props.navigation} />
@@ -57,25 +62,25 @@ export class Campaign_tag extends Component {
       case 0:
         return (
           <View>
-            <CoinPageBody navigation={this.props.navigation}/>
+            <CampaignBody navigation={this.props.navigation}/>
           </View>
         )
       case 1:
         return (
           <View>
-            <CoinPageBody />
+            <CampaignBody />
           </View>
         )
       case 2:
         return (
           <View>
-            <CoinPageBody />
+            <CampaignBody />
           </View>
         )
       case 3:
         return (
           <View>
-            <CoinPageBody />
+            <CampaignBody />
           </View>
         )
     }
@@ -118,35 +123,34 @@ export class Campaign_tag extends Component {
   }
 }
 
-export class CoinPageBody extends Component {
+export class CampaignBody extends Component {
   render() {
     return (
       <View style={{ alignItems: 'center' }}>
-        <View style={{ marginTop: 10, width: width * 0.96, height: 200, borderWidth: 1, borderColor: '#EAEAEA', backgroundColor: 'white' }}>
-          <View style={{ width: '100%', height: 140 }}>
+        <View style={styles.CampaignBody}>
+          <View style={styles.CampaignBody_BoxImage}>
             <FastImage
               source={{
                 uri: ip + '/MySQL/uploads/slide/Banner_type/shoes_BannerBar.jpg',
 
               }}
-              style={{ width: '100%', height: '100%' }}
+              style={styles.CampaignBody_Image}
             />
           </View>
-          <View style={{ flexDirection: 'row', backgroundColor: 'white' }}>
-            <View style={{ padding: 4, width: 200, }}>
-              <Text>ส่วนลด 10% สำหรับร้าน เพชร </Text>
-              <Text>วันหมดอายุ 03-02-2020</Text>
+          <View style={styles.CampaignBody_Box}>
+            <View style={styles.CampaignBody_BoxText}>
+              <Text style={stylesFont.FontFamilyBold}>ส่วนลด 10% สำหรับร้าน เพชร </Text>
+              <Text style={stylesFont.FontFamilyText}>วันหมดอายุ 03-02-2020</Text>
             </View>
-            <View style={{ flexDirection: 'row', padding: 5, justifyContent: 'space-between', marginLeft: 50, }}>
-              <View style={{ justifyContent: 'center', alignItems: 'center', borderColor: '#0A55A6', borderWidth: 1, height: 35, width: 30, }}>
+            <View style={styles.CampaignBody_Icon_Button}>
+              <View style={styles.CampaignBody_Icon}>
                 <IconEntypo name='share' size={20} color='#0A55A6' />
               </View>
               <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Detail_Campaign')}>
-                <View style={{ backgroundColor: '#0A55A6', width: 120, alignItems: 'center', borderRadius: 4, marginLeft: 10, height:35,}}>
-                  <Text style={{ marginBottom: 'auto', marginTop: 'auto', color: '#fff' }}>รายละเอียด</Text>
+                <View style={styles.CampaignBody_Button}>
+                  <Text style={[stylesFont.FontFamilyBold,styles.CampaignBody_ButtonText]}>รายละเอียด</Text>
                 </View>
               </TouchableOpacity>
-
             </View>
           </View>
         </View>

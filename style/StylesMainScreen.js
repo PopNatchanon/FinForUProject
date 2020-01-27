@@ -1,11 +1,15 @@
 import { StyleSheet, Dimensions } from 'react-native';
-
 export const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
-
   ///***------------------------------------------------------------------------------------------------------***///
-
+  BoxProductWarp: {
+    width,
+    marginTop: 4,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  ///------------///
   BoxProduct1Box: {
     width: 106,
     borderColor: '#ECECEC',
@@ -39,9 +43,6 @@ export default StyleSheet.create({
     paddingTop: 5,
     marginBottom: 5,
   },
-  BoxProduct1IconBoxI: {
-    flexDirection: 'row',
-  },
   BoxProduct1IconBoxStar: {
     flexDirection: 'row',
     marginLeft: 6,
@@ -51,9 +52,7 @@ export default StyleSheet.create({
     marginLeft: 6,
     color: '#0A55A6',
   },
-
   ///------------///
-
   BoxProduct2: {
     backgroundColor: '#FFFFFF',
     borderColor: '#ECECEC',
@@ -63,13 +62,6 @@ export default StyleSheet.create({
     paddingLeft: 4,
     paddingRight: 4,
   },
-  BoxProduct2Text: {
-    width,
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginTop: 16,
-    marginLeft: 9,
-  },
   BoxProduct2BoxProduct: {
     width,
     marginTop: 4,
@@ -77,14 +69,14 @@ export default StyleSheet.create({
     flexWrap: 'wrap',
   },
   BoxProduct2Box: {
-    width: width * (1 / 3.07),
+    width: width * (1 / 3.08),
+    backgroundColor: '#FFFFFF',
     borderColor: '#ECECEC',
     borderWidth: 0.5,
-
   },
   BoxProduct2Image: {
     width: '100%',
-    height: height * (1 / 4.5),
+    height: height * (1 / 4.9),
     resizeMode: 'cover',
     padding: 4,
   },
@@ -119,10 +111,102 @@ export default StyleSheet.create({
     flexDirection: 'row',
     marginLeft: 8,
   },
-
   ///------------///
-
-  BoxStoreBox: {
+  BoxProduct3Box: {
+    width: width * (1 / 2.2),
+    backgroundColor: '#FFFFFF',
+    borderColor: '#ECECEC',
+    borderWidth: 1,
+    margin: 8,
+  },
+  BoxProduct3Image: {
+    width: '100%',
+    height: height * 0.25,
+    resizeMode: 'stretch',
+    padding: 4,
+  },
+  ///------------///
+  BoxProduct4Box: {
+    width: '100%',
+    backgroundColor: '#FFFFFF',
+    borderColor: '#ECECEC',
+    borderWidth: 1,
+    marginBottom: 10,
+  },
+  BoxProduct4Image: {
+    width: 200,
+    height: 200,
+    resizeMode: 'center',
+    padding: 4,
+  },
+  BoxProduct4ComBox: {
+    padding: 8,
+    flex: 1,
+    borderTopColor: '#ECECEC',
+    borderTopWidth: 1,
+  },
+  BoxProduct4ComBox2: {
+    padding: 8,
+    flex: 1,
+    borderTopColor: '#ECECEC',
+    borderTopWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  BoxProduct4ComBoxDetail: {
+    fontSize: 12,
+    marginLeft: 8,
+  },
+  BoxProduct4ComBoxTag: {
+    color: '#0A55A6',
+    marginLeft: 8,
+  },
+  BoxProduct4ComBoxText: {
+    color: '#969BA0',
+    marginLeft: 8,
+  },
+  BoxProduct4ComBoxIcon: {
+    flexDirection: 'row',
+  },
+  BoxProduct4ComBoxIconText: {
+    marginLeft: 2,
+  },
+  ///------------///
+  BoxProduct4PlusHeader: {
+    width: '100%',
+    borderColor: '#ECECEC',
+    borderWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 10,
+  },
+  BoxProduct4PlusImage: {
+    height: 50,
+    width: 50,
+    borderRadius: 30,
+  },
+  BoxProduct4PlusImageText: {
+    textAlign: 'right',
+    marginTop: 10,
+    marginLeft: 10,
+  },
+  BoxProduct4PlusButtonBox: {
+    marginTop: 10,
+    flexDirection: 'row',
+  },
+  BoxProduct4PlusButtonFollow: {
+    backgroundColor: '#0A55A6',
+    height: 30,
+    width: 90,
+    paddingTop: 5,
+    borderRadius: 5,
+  },
+  BoxProduct4PlusButtonFollowText: {
+    textAlign: 'center',
+    color: '#FFFF'
+  },
+  ///------------///
+  BoxStore1Box: {
     width: (width * 1 / 2) - 9,
     height: 100,
     borderColor: '#ECECEC',
@@ -131,12 +215,13 @@ export default StyleSheet.create({
     marginBottom: 8,
     marginLeft: 5,
   },
-  BoxStoreImage: {
+  BoxStore1Image: {
     width: '100%',
     height: '100%',
     resizeMode: 'stretch',
     borderColor: '#ECECEC',
   },
+  ///------------///
   BoxStore2Box: {
     width: 160,
     height: 60,
@@ -152,9 +237,46 @@ export default StyleSheet.create({
     borderColor: '#ECECEC',
     borderRadius: 8,
   },
-
   ///------------///
-
+  BoxStore3Box: {
+    width: 150,
+    padding: 5,
+    borderRadius: 8,
+    backgroundColor: '#FFFFFF',
+    borderColor: '#ECECEC',
+    borderWidth: 1,
+    marginTop: 10,
+    marginBottom: 8,
+    marginLeft: 10,
+  },
+  BoxStore3Image: {
+    width: '100%',
+    height: 150,
+    resizeMode: 'stretch',
+    borderColor: '#ECECEC',
+  },
+  BoxStore3Text: {
+    marginTop: 4
+  },
+  ///------------///
+  BoxStore4Box: {
+    flexDirection: 'row',
+    paddingRight: 40,
+    padding: 10,
+    marginTop: 10,
+    height: 'auto',
+    width: width - 20,
+    backgroundColor: '#FFFF',
+  },
+  BoxStore4Image: {
+    height: 80,
+    width: 100,
+  },
+  BoxStore4Text: {
+    marginLeft: 10,
+    width: width - 160,
+  },
+  ///------------///
   FrameBackground: {
     width,
     borderColor: '#ECECEC',
@@ -175,7 +297,6 @@ export default StyleSheet.create({
     marginRight: 8,
     marginTop: 10,
   },
-
   Time_FlashSale_TimeBox: {
     height: 30,
     width: 30,
@@ -188,9 +309,7 @@ export default StyleSheet.create({
     color: '#FFFFFF',
     textAlign: 'center',
   },
-
   ///------------///
-
   FlexRow: {
     flexDirection: 'row'
   },
@@ -200,6 +319,7 @@ export default StyleSheet.create({
   ItemCenter: {
     alignContent: 'center',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   ItemCenterVertical: {
     marginTop: 'auto',
@@ -211,9 +331,7 @@ export default StyleSheet.create({
   MarginBottomTitle: {
     marginBottom: 6,
   },
-
   ///***------------------------------------------------------------------------------------------------------***///
-
   Toolbar: {
     backgroundColor: '#FFFFFF',
     borderColor: '#ECECEC',
@@ -248,9 +366,7 @@ export default StyleSheet.create({
     borderColor: '#E5E5E5',
     backgroundColor: '#fff',
   },
-
   ///------------------------------------------------------------------------------------------///
-
   child: {
     marginTop: 10,
     height: 150,
@@ -260,9 +376,7 @@ export default StyleSheet.create({
     width,
     height: 150,
   },
-
   ///------------------------------------------------------------------------------------------///
-
   Category: {
     width: 100,
     height: 80,
@@ -291,9 +405,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-
   ///------------------------------------------------------------------------------------------///
-
   FrameBackground_Height: {
     height: 160
   },
@@ -313,9 +425,7 @@ export default StyleSheet.create({
   ImageMargin: {
     marginBottom: -20
   },
-
   ///------------------------------------------------------------------------------------------///
-
   Popular_Box_A: {
     height: 150,
     width,
@@ -356,16 +466,12 @@ export default StyleSheet.create({
     width: 20,
     resizeMode: 'stretch',
   },
-
   ///--------------------------------------------------------------------------------///
-
   ProductForYouFlexBox: {
     flexDirection: 'column',
     flexWrap: 'wrap',
   },
-
   ///------------------------------------------------------------------///
-
   CategoryProductImageHead: {
     marginTop: 5,
     width,
@@ -392,9 +498,7 @@ export default StyleSheet.create({
     borderColor: '#ECECEC',
     borderRadius: 8,
   },
-
   ///------------------------------------------------------------------///
-
   Banner_Bar: {
     backgroundColor: '#FFFFFF',
     borderColor: '#ECECEC',
@@ -409,16 +513,12 @@ export default StyleSheet.create({
     height: 320,
     marginTop: 10,
   },
-
   ///------------------------------------------------------------------///
-
   Confidential_A: {
     flexDirection: 'row',
     height: 130,
   },
-
   ///------------------------------------------------------------------///
-
   Button_Bar_Box: {
     width: width * 1 / 4.1,
     alignItems: 'center',
@@ -435,9 +535,7 @@ export default StyleSheet.create({
     borderWidth: 2,
     resizeMode: 'stretch',
   },
-
   ///------------------------------------------------------------------///
-
   Text_Bar_Image: {
     backgroundColor: '#0A55A6',
     height: 22,
@@ -449,9 +547,7 @@ export default StyleSheet.create({
   Text_Bar: {
     color: '#FFFFFF',
   },
-
   ///------------------------------------------------------------------///
-
   Second_StoreFin: {
     height: 280,
     width,

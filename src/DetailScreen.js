@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Dimensions,
+  Animated,
 } from 'react-native';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
@@ -17,7 +18,7 @@ import IconFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFontisto from 'react-native-vector-icons/Fontisto';
-import styles from '../style/StylesDetailScreen'
+import stylesDetail from '../style/StylesDetailScreen'
 import stylesMain from '../style/StylesMainScreen'
 import stylesFont from '../style/stylesFont'
 import Carousel, { Pagination } from 'react-native-snap-carousel';
@@ -75,7 +76,6 @@ export default class DetailScreen extends Component {
           <Selector />
           <Detail_Category dataid_product={this.state.dataid_product} />
           <Detail dataid_product={this.state.dataid_product} />
-          <Score />
           <Reviews />
           <BannerBar />
           <Same_Store navigation={this.props.navigation} dataid_product={this.state.dataid_product} />
@@ -125,12 +125,12 @@ export class Detail_Image extends Component {
     // console.log(item)
     var dataMySQL = [finip, item.image_path, item.image].join('/');
     return (
-      <View style={styles.Image_Box} key={indexs}>
+      <View style={stylesDetail.Image_Box} key={indexs}>
         <FastImage
           source={{
             uri: dataMySQL,
           }}
-          style={styles.Image}
+          style={stylesDetail.Image}
         />
       </View>
     );
@@ -146,7 +146,7 @@ export class Detail_Image extends Component {
       }
       // console.log(width)
       return (
-        <View style={styles.Detail_Image} key={indexs}>
+        <View style={stylesDetail.Detail_Image} key={indexs}>
           <Carousel
             ref={c => this.activeSlide = c}
             data={dataMySQL}
@@ -158,18 +158,18 @@ export class Detail_Image extends Component {
             onSnapToItem={(index) => this.setState({ activeSlide: index })}
           />
           <View style={{ flex: 1, }}>
-            <View style={[stylesMain.ItemCenter, styles.ImageSlide]}>
+            <View style={[stylesMain.ItemCenter, stylesDetail.ImageSlide]}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize2]}>
                 {activeSlide + 1}/{this.state.imageLength}</Text>
             </View>
           </View>
-          <View style={styles.Price_Box}>
-            <View style={styles.Price_Text_Name_Box}>
-              <Text style={[styles.Price_Text_Name, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+          <View style={stylesDetail.Price_Box}>
+            <View style={stylesDetail.Price_Text_Name_Box}>
+              <Text style={[stylesDetail.Price_Text_Name, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
                 {item.name}</Text>
-              <View style={styles.Price_Icon_Box}>
-                <Icons style={styles.Price_Icon} name='heart' size={20} />
-                <IconEntypo style={styles.Price_Icon} name='share' size={20} />
+              <View style={stylesDetail.Price_Icon_Box}>
+                <Icons style={stylesDetail.Price_Icon} name='heart' size={20} />
+                <IconEntypo style={stylesDetail.Price_Icon} name='share' size={20} />
               </View>
             </View>
             <NumberFormat
@@ -179,20 +179,20 @@ export class Detail_Image extends Component {
               prefix={'฿'}
               renderText={
                 value =>
-                  <Text style={[styles.Price_Text_Int, stylesFont.FontFamilyText, stylesFont.FontSize2]}>
+                  <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyText, stylesFont.FontSize2]}>
                     {value}</Text>}
             />
-            <View style={[styles.Price_Text_IconBox, stylesMain.BottomSpace]}>
-              <View style={styles.Price_Text_IconBoxStar}>
-                <IconFontAwesome style={styles.Price_IconStar} name='star' size={20} color='#FFAC33' />
-                <IconFontAwesome style={styles.Price_IconStar} name='star' size={20} color='#FFAC33' />
-                <IconFontAwesome style={styles.Price_IconStar} name='star' size={20} color='#FFAC33' />
-                <IconFontAwesome style={styles.Price_IconStar} name='star' size={20} color='#FFAC33' />
-                <IconFontAwesome style={styles.Price_IconStar} name='star' size={20} color='#FFAC33' />
-                <Text style={[styles.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize2, { color: '#111' }]}>
+            <View style={[stylesDetail.Price_Text_IconBox, stylesMain.BottomSpace]}>
+              <View style={stylesDetail.Price_Text_IconBoxStar}>
+                <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
+                <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
+                <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
+                <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
+                <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
+                <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize2, { color: '#111' }]}>
                   5</Text>
-                <Text style={styles.Price_Text_Icon}>|</Text>
-                <Text style={[styles.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize2]}>
+                <Text style={stylesDetail.Price_Text_Icon}>|</Text>
+                <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize2]}>
                   สินค้าแนะนำ</Text>
               </View>
             </View>
@@ -216,51 +216,56 @@ export class Store extends Component {
   }
   render() {
     let id_store = this.props.dataid_product.map((item, indexs) => {
+      // console.log(item)
       var dataMySQL = [finip, item.store_path, item.store_img].join('/');
       // console.log(dataMySQL)
       return (
         <View style={[stylesMain.FrameBackground, stylesMain.BottomSpace]} key={indexs}>
-          <View style={styles.Store_Box1}>
-            <View style={styles.Store_Box2}>
-              <FastImage
-                source={{
-                  uri: dataMySQL,
-                }}
-                style={[styles.Store_Image, { marginLeft: 10, }]}
-              />
-              <View style={styles.Store_Text_Box}>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
-                  {item.store_name}</Text>
-                <Text style={[styles.Store_Text, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+          <View style={stylesDetail.Store_Box1}>
+            <View style={stylesDetail.Store_Box2}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreScreen', { id_item: item.id_store })}>
+                <FastImage
+                  source={{
+                    uri: dataMySQL,
+                  }}
+                  style={[stylesDetail.Store_Image, { marginLeft: 10, }]}
+                />
+              </TouchableOpacity>
+              <View style={stylesDetail.Store_Text_Box}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreScreen', { id_item: item.id_store })}>
+                  <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
+                    {item.store_name}</Text>
+                </TouchableOpacity>
+                <Text style={[stylesDetail.Store_Text, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                   Active เมื่อ 1 ชั่วโมงที่ผ่านมา</Text>
-                <Text style={[styles.Store_Text, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                <Text style={[stylesDetail.Store_Text, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
                   <IconEntypo name='location-pin' size={15} />
                   {item.store_address}</Text>
               </View>
-              <View style={styles.Store_Buttom_Box}>
-                <Text style={[styles.Store_Text_Button, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+              <View style={stylesDetail.Store_Buttom_Box}>
+                <Text style={[stylesDetail.Store_Text_Button, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
                   ติดตาม</Text>
               </View>
             </View>
           </View>
-          <View style={styles.Store_Bar_A}>
-            <View style={styles.Store_Bar}>
+          <View style={stylesDetail.Store_Bar_A}>
+            <View style={stylesDetail.Store_Bar}>
               <View>
-                <Text style={[styles.Store_Bar_int, stylesFont.FontFamilyText, stylesFont.FontSize1]}>
+                <Text style={[stylesDetail.Store_Bar_int, stylesFont.FontFamilyText, stylesFont.FontSize1]}>
                   100</Text>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>
                   รายการสินค้า</Text>
               </View>
               <Text style={{ fontSize: 25, }}>|</Text>
               <View>
-                <Text style={[styles.Store_Bar_int, stylesFont.FontFamilyText, stylesFont.FontSize1]}>
+                <Text style={[stylesDetail.Store_Bar_int, stylesFont.FontFamilyText, stylesFont.FontSize1]}>
                   90%</Text>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>
                   จัดส่งตรงเวลา</Text>
               </View>
               <Text style={{ fontSize: 25, }}>|</Text>
               <View>
-                <Text style={[styles.Store_Bar_int, stylesFont.FontFamilyText, stylesFont.FontSize1]}>
+                <Text style={[stylesDetail.Store_Bar_int, stylesFont.FontFamilyText, stylesFont.FontSize1]}>
                   90%</Text>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>
                   อัตตราการตอบกลับแชท</Text>
@@ -287,20 +292,20 @@ export class Conpon extends Component {
   }
   render() {
     return (
-      <View style={styles.Coupon}>
-        <View style={[styles.Coupon_Box, stylesMain.ItemCenterVertical]}>
-          <Text style={[styles.Coupon_Text, stylesFont.FontSize2, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical]}>
+      <View style={stylesDetail.Coupon}>
+        <View style={[stylesDetail.Coupon_Box, stylesMain.ItemCenterVertical]}>
+          <Text style={[stylesDetail.Coupon_Text, stylesFont.FontSize2, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical]}>
             คูปอง </Text>
           <View style={{ flexDirection: 'row' }}>
-            <View style={styles.Coupon_Box_Pon}>
-              <Text style={[styles.Coupon_Box_Pon_Text, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+            <View style={stylesDetail.Coupon_Box_Pon}>
+              <Text style={[stylesDetail.Coupon_Box_Pon_Text, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
                 ลด ฿100.00</Text>
             </View>
-            <View style={styles.Coupon_Box_Pon}>
-              <Text style={[styles.Coupon_Box_Pon_Text, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+            <View style={stylesDetail.Coupon_Box_Pon}>
+              <Text style={[stylesDetail.Coupon_Box_Pon_Text, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
                 ลด ฿300.00</Text>
             </View>
-            <IconEntypo style={styles.Coupon_Icon} name='chevron-right' size={30} />
+            <IconEntypo style={stylesDetail.Coupon_Icon} name='chevron-right' size={30} />
           </View>
         </View>
       </View>
@@ -318,14 +323,14 @@ export class Selector extends Component {
   }
   render() {
     return (
-      <View style={styles.Coupon}>
-        <View style={[styles.Coupon_Box, stylesMain.ItemCenterVertical]}>
-          <Text style={[styles.Coupon_Text, stylesFont.FontSize2, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical]}>
+      <View style={stylesDetail.Coupon}>
+        <View style={[stylesDetail.Coupon_Box, stylesMain.ItemCenterVertical]}>
+          <Text style={[stylesDetail.Coupon_Text, stylesFont.FontSize2, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical]}>
             ตัวเลือก </Text>
           <View style={{ flexDirection: 'row' }}>
-            <Text style={[styles.Coupon_Text, stylesFont.FontSize3, stylesFont.FontFamilyText, stylesMain.ItemCenterVertical]}>
+            <Text style={[stylesDetail.Coupon_Text, stylesFont.FontSize3, stylesFont.FontFamilyText, stylesMain.ItemCenterVertical]}>
               ตัวอย่างเช่น สี ขนาด</Text>
-            <IconEntypo style={styles.Coupon_Icon} name='chevron-right' size={30} />
+            <IconEntypo style={stylesDetail.Coupon_Icon} name='chevron-right' size={30} />
           </View>
         </View>
       </View>
@@ -345,7 +350,7 @@ export class Detail_Category extends Component {
     let id_store = this.props.dataid_product.map((item, indexs) => {
       return (
         <View style={[stylesMain.FrameBackground]} key={indexs}>
-          <View style={[stylesMain.FrameBackgroundTextBox, styles.BottomTitle, stylesMain.MarginBottomTitle]}>
+          <View style={[stylesMain.FrameBackgroundTextBox, stylesDetail.BottomTitle, stylesMain.MarginBottomTitle]}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
               ข้อมูลจำเพาะ</Text>
           </View>
@@ -396,28 +401,51 @@ export class Detail extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeText: false,
     };
   }
-
   render() {
     let id_store = this.props.dataid_product.map((item, indexs) => {
+      const count = {} = item.detail.split('\n')
+      // console.log(item.detail.length)
+      // console.log(item.detail)
+      // console.log(count.length)
+      // console.log(count)
       return (
         <View style={stylesMain.FrameBackground} key={indexs}>
-          <View style={[stylesMain.FrameBackgroundTextBox, styles.BottomTitle, stylesMain.MarginBottomTitle]}>
+          <View style={[stylesMain.FrameBackgroundTextBox, stylesDetail.BottomTitle, stylesMain.MarginBottomTitle]}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
               รายละเอียดสินค้า</Text>
           </View>
-          <View style={styles.Detail_Text_Box}>
-            <Text style={[styles.Detail_Text, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
-              {item.detail}</Text>
-            {/* {console.log(item.detail.length)} */}
-            <TouchableOpacity>
-              <View style={[styles.Detail_Box, stylesMain.ItemCenter]}>
-                <Text style={[styles.Detail_Text_A, stylesMain.ItemCenterVertical, { fontFamily: 'SukhumvitSet-Text', }]}>
-                  ดูเพิ่มเติม</Text>
-                <IconEntypo name='chevron-down' size={25} color='#0A55A6' />
-              </View>
-            </TouchableOpacity>
+          <View style={stylesDetail.Detail_Text_Box}>
+            <Animated.Text style={[stylesDetail.Detail_Text, stylesFont.FontFamilyText, stylesFont.FontSize3, {
+              height:
+                item.detail.length > 300 || count.length > 4 ?
+                  this.state.activeText == true ?
+                    null :
+                    100 :
+                  null,
+            }]}>
+              {item.detail}</Animated.Text>
+            {
+              item.detail.length > 300 || count.length > 4 ?
+                <TouchableOpacity onPress={() => {
+                  this.state.activeText == true ?
+                    this.setState({ activeText: false }) :
+                    this.setState({ activeText: true })
+                }}>
+                  <View style={[stylesDetail.Detail_Box, stylesMain.ItemCenter]}>
+                    <Text style={[stylesDetail.Detail_Text_A, stylesMain.ItemCenterVertical, { fontFamily: 'SukhumvitSet-Text', }]}>
+                      {
+                        this.state.activeText == true ?
+                          'ย่อ' :
+                          'ดูเพิ่มเติม'
+                      }</Text>
+                    <IconEntypo name={this.state.activeText == true ? 'chevron-up' : 'chevron-down'} size={25} color='#0A55A6' />
+                  </View>
+                </TouchableOpacity> :
+                null
+            }
           </View>
         </View>
       );
@@ -427,47 +455,10 @@ export class Detail extends Component {
     )
   }
 }
-///--------------------------------------------------------------------------///
-
-export class Score extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-
-  render() {
-    return (
-      <View style={styles.Score}>
-        <View style={styles.Score_icon}>
-          <Text style={{ fontFamily: 'SukhumvitSet-Text', }}> คะแนนสินค้า</Text>
-          <View style={styles.Score_iconA} >
-            <Text style={[styles.Score_icontext, { fontFamily: 'SukhumvitSet-Text', }]}>
-              ดูทั้งหมด
-            </Text>
-            <IconFeather style={styles.Score_iconB} name='edit' size={20} color='#0A55A6' />
-          </View>
-        </View>
-        <View style={styles.Price_Text_IconBox}>
-          <View style={styles.Price_Text_IconBoxStar}>
-            <Icons style={styles.Price_IconStar} name='star' size={20} color='#FFAC33' />
-            <Icons style={styles.Price_IconStar} name='star' size={20} color='#FFAC33' />
-            <Icons style={styles.Price_IconStar} name='star' size={20} color='#FFAC33' />
-            <Icons style={styles.Price_IconStar} name='star' size={20} color='#FFAC33' />
-            <Icons style={styles.Price_IconStar} name='star' size={20} color='#FFAC33' />
-            <Text style={[styles.Price_Text_RCM, { fontFamily: 'SukhumvitSet-Text', }]}>5/5</Text>
-            <Text style={[styles.Price_Text_RCM, { fontFamily: 'SukhumvitSet-Text', }]}>( 10 รีวิว)</Text>
-          </View>
-        </View>
-      </View>
-    );
-  }
-}
 
 ///--------------------------------------------------------------------------///
 
 export class Reviews extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -476,112 +467,144 @@ export class Reviews extends Component {
 
   render() {
     return (
-
-      <View style={styles.Reviews_Box}>
-        <Text style={{ fontFamily: 'SukhumvitSet-Text', }}> ภาพจากผู้ซื้อ</Text>
-        <View>
-          <ScrollView horizontal>
-            <View style={styles.Reviews_Image_Box}>
-              <FastImage
-                style={styles.Reviews_Image}
-                source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
-              />
-              <FastImage
-                style={styles.Reviews_Image}
-                source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
-              />
-              <FastImage
-                style={styles.Reviews_Image}
-                source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
-              />
-              <FastImage
-                style={styles.Reviews_Image}
-                source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
-              />
-              <FastImage
-                style={styles.Reviews_Image}
-                source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
-              />
-              <FastImage
-                style={styles.Reviews_Image}
-                source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
-              />
-            </View>
-          </ScrollView>
-          <View style={styles.Comment_R}>
-            <FastImage
-              style={styles.Comment_R_Image}
-              source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
-            />
-            <View style={styles.Comment_R_Text}>
-              <Text style={{ fontFamily: 'SukhumvitSet-Text', }}>p********n</Text>
-              <View style={styles.Comment_R_Iconstar}>
-                <Icons name='star' size={15} color='#FFAC33' />
-                <Icons name='star' size={15} color='#FFAC33' />
-                <Icons name='star' size={15} color='#FFAC33' />
-                <Icons name='star' size={15} color='#FFAC33' />
-                <Icons name='star' size={15} color='#FFAC33' />
-              </View>
-              <Text style={{ fontFamily: 'SukhumvitSet-Text', }}>สั่งซื้อซ้ำเป็นรอบที่ 2 ติดใจโรงแรมสะอาดราคาไม่แพง โลเคชั่นดี</Text>
-              <Text style={[styles.Comment_text_day, { fontFamily: 'SukhumvitSet-Text', }]}>16-11-2019 15:56 | กรอบแว่นขนาด 50 cm</Text>
-            </View>
-            <IconAntDesign style={styles.Comment_text_iconheart} name='hearto' size={20} />
+      <View style={stylesMain.FrameBackground}>
+        <View style={stylesMain.FrameBackgroundTextBox}>
+          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize2]}>
+            คะแนนสินค้า</Text>
+          <View style={stylesMain.FlexRow} >
+            <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize3, { marginRight: 0 }]}>
+              ดูทั้งหมด</Text>
+            <IconFeather style={stylesDetail.Score_iconB} name='edit' size={20} color='#0A55A6' />
           </View>
-          <View style={styles.Comment_R}>
-            <FastImage
-              style={styles.Comment_R_Image}
-              source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
-            />
-            <View style={styles.Comment_R_Text}>
-              <Text style={{ fontFamily: 'SukhumvitSet-Text', }}>p********n</Text>
-              <View style={styles.Comment_R_Iconstar}>
-                <Icons name='star' size={15} color='#FFAC33' />
-                <Icons name='star' size={15} color='#FFAC33' />
-                <Icons name='star' size={15} color='#FFAC33' />
-                <Icons name='star' size={15} color='#FFAC33' />
-                <Icons name='star' size={15} color='#FFAC33' />
-              </View>
-              <Text style={{ fontFamily: 'SukhumvitSet-Text', }}>สั่งซื้อซ้ำเป็นรอบที่ 2 ติดใจโรงแรมสะอาดราคาไม่แพง โลเคชั่นดี</Text>
-              <View style={styles.Comment_Image_A}>
-                <FastImage
-                  style={styles.Reviews_Image}
-                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
-                />
-                <FastImage
-                  style={styles.Reviews_Image}
-                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
-                />
-                <FastImage
-                  style={styles.Reviews_Image}
-                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
-                />
-              </View>
-              <Text style={[styles.Comment_text_day, { fontFamily: 'SukhumvitSet-Text', }]}>16-11-2019 15:56 | กรอบแว่นขนาด 50 cm</Text>
-            </View>
-            <IconAntDesign style={styles.Comment_text_iconheart} name='hearto' size={20} />
+        </View>
+        <View style={stylesDetail.Price_Text_IconBox}>
+          <View style={stylesDetail.Price_Text_IconBoxStar}>
+            <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
+            <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
+            <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
+            <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
+            <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
+            <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize2]}>
+              5/5</Text>
+            <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize2]}>
+              ( 10 รีวิว)</Text>
           </View>
-          <View style={styles.Comment_R}>
-            <FastImage
-              style={styles.Comment_R_Image}
-              source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
-            />
-            <View style={styles.Comment_R_Text}>
-              <Text style={{ fontFamily: 'SukhumvitSet-Text', }}>p********n</Text>
-              <View style={styles.Comment_R_Iconstar}>
-                <Icons name='star' size={15} color='#FFAC33' />
-                <Icons name='star' size={15} color='#FFAC33' />
-                <Icons name='star' size={15} color='#FFAC33' />
-                <Icons name='star' size={15} color='#FFAC33' />
-                <Icons name='star' size={15} color='#FFAC33' />
+        </View>
+        <View style={stylesDetail.Reviews_Box}>
+          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize2]}>
+            ภาพจากผู้ซื้อ</Text>
+          <View>
+            <ScrollView horizontal>
+              <View style={stylesDetail.Reviews_Image_Box}>
+                <FastImage
+                  style={stylesDetail.Reviews_Image}
+                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
+                />
+                <FastImage
+                  style={stylesDetail.Reviews_Image}
+                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
+                />
+                <FastImage
+                  style={stylesDetail.Reviews_Image}
+                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
+                />
+                <FastImage
+                  style={stylesDetail.Reviews_Image}
+                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
+                />
+                <FastImage
+                  style={stylesDetail.Reviews_Image}
+                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
+                />
+                <FastImage
+                  style={stylesDetail.Reviews_Image}
+                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
+                />
               </View>
-              <Text style={{ fontFamily: 'SukhumvitSet-Text', }}>สั่งซื้อซ้ำเป็นรอบที่ 2 ติดใจโรงแรมสะอาดราคาไม่แพง โลเคชั่นดี</Text>
-              <Text style={[styles.Comment_text_day, { fontFamily: 'SukhumvitSet-Text', }]}>16-11-2019 15:56 | กรอบแว่นขนาด 50 cm</Text>
+            </ScrollView>
+            <View style={stylesDetail.Comment_R}>
+              <FastImage
+                style={stylesDetail.Comment_R_Image}
+                source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
+              />
+              <View style={stylesDetail.Comment_R_Text}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize2]}>
+                  p********n</Text>
+                <View style={stylesDetail.Comment_R_Iconstar}>
+                  <IconFontAwesome name='star' size={15} color='#FFAC33' />
+                  <IconFontAwesome name='star' size={15} color='#FFAC33' />
+                  <IconFontAwesome name='star' size={15} color='#FFAC33' />
+                  <IconFontAwesome name='star' size={15} color='#FFAC33' />
+                  <IconFontAwesome name='star' size={15} color='#E9E9E9' />
+                </View>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, stylesMain.BottomSpace]}>
+                  สั่งซื้อซ้ำเป็นรอบที่ 2 ติดใจโรงแรมสะอาดราคาไม่แพง โลเคชั่นดี</Text>
+                <Text style={[stylesDetail.Comment_text_day, stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.BottomSpace]}>
+                  16-11-2019 15:56 | กรอบแว่นขนาด 50 cm</Text>
+              </View>
+              <IconAntDesign style={stylesDetail.Comment_text_iconheart} name='hearto' size={20} />
             </View>
-            <IconAntDesign style={styles.Comment_text_iconheart} name='hearto' size={20} />
+            <View style={stylesDetail.Comment_R}>
+              <FastImage
+                style={stylesDetail.Comment_R_Image}
+                source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
+              />
+              <View style={stylesDetail.Comment_R_Text}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize2]}>
+                  p********n</Text>
+                <View style={stylesDetail.Comment_R_Iconstar}>
+                  <IconFontAwesome name='star' size={15} color='#FFAC33' />
+                  <IconFontAwesome name='star' size={15} color='#FFAC33' />
+                  <IconFontAwesome name='star' size={15} color='#FFAC33' />
+                  <IconFontAwesome name='star' size={15} color='#FFAC33' />
+                  <IconFontAwesome name='star' size={15} color='#E9E9E9' />
+                </View>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                  สั่งซื้อซ้ำเป็นรอบที่ 2 ติดใจโรงแรมสะอาดราคาไม่แพง โลเคชั่นดี</Text>
+                <View style={[stylesDetail.Comment_Image_A, stylesMain.BottomSpace]}>
+                  <FastImage
+                    style={stylesDetail.Reviews_Image}
+                    source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
+                  />
+                  <FastImage
+                    style={stylesDetail.Reviews_Image}
+                    source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
+                  />
+                  <FastImage
+                    style={stylesDetail.Reviews_Image}
+                    source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
+                  />
+                </View>
+                <Text style={[stylesDetail.Comment_text_day, stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.BottomSpace]}>
+                  16-11-2019 15:56 | กรอบแว่นขนาด 50 cm</Text>
+              </View>
+              <IconAntDesign style={stylesDetail.Comment_text_iconheart} name='hearto' size={20} />
+            </View>
+            <View style={stylesDetail.Comment_R}>
+              <FastImage
+                style={stylesDetail.Comment_R_Image}
+                source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
+              />
+              <View style={stylesDetail.Comment_R_Text}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize2]}>
+                  p********n</Text>
+                <View style={stylesDetail.Comment_R_Iconstar}>
+                  <IconFontAwesome name='star' size={15} color='#FFAC33' />
+                  <IconFontAwesome name='star' size={15} color='#FFAC33' />
+                  <IconFontAwesome name='star' size={15} color='#FFAC33' />
+                  <IconFontAwesome name='star' size={15} color='#E9E9E9' />
+                  <IconFontAwesome name='star' size={15} color='#E9E9E9' />
+                </View>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, stylesMain.BottomSpace]}>
+                  สั่งซื้อซ้ำเป็นรอบที่ 2 ติดใจโรงแรมสะอาดราคาไม่แพง โลเคชั่นดี</Text>
+                <Text style={[stylesDetail.Comment_text_day, stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.BottomSpace]}>
+                  16-11-2019 15:56 | กรอบแว่นขนาด 50 cm</Text>
+              </View>
+              <IconAntDesign style={stylesDetail.Comment_text_iconheart} name='hearto' size={20} />
+            </View>
           </View>
         </View>
       </View>
-
     );
   }
 }
@@ -595,11 +618,10 @@ export class BannerBar extends Component {
     this.state = {
     };
   }
-
   render() {
-    return (<View style={styles.Banner_Bar}>
+    return (<View style={stylesDetail.Banner_Bar}>
       <FastImage
-        style={styles.Banner_Bar_image}
+        style={stylesDetail.Banner_Bar_image}
         source={{ uri: ip + '/MySQL/uploads/slide/Banner_type/watch_BannerBar.jpg' }}
       />
     </View>
@@ -654,48 +676,36 @@ export class Same_Store extends Component {
     let dataSaleProduct = this.state.dataSale.map((item, indexs) => {
       var dataMySQL = [finip, item.image_path, item.image].join('/');
       return (
-        <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}>
-          <View style={styles.Same_StoreBox} key={indexs}>
+        <TouchableOpacity activeOpacity={1} key={indexs}
+          onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}
+        >
+          <View style={stylesMain.BoxProduct1Box} key={indexs}>
             <FastImage
               source={{
                 uri: dataMySQL,
               }}
-              style={styles.Same_StoreImage}
+              style={stylesMain.BoxProduct1Image}
             />
-            <Text style={[styles.Same_StoreImageName, { fontFamily: 'SukhumvitSet-Text', }]}>{item.name}</Text>
+            <Text style={[stylesMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+              {item.name}</Text>
             <NumberFormat
               value={item.full_price}
               displayType={'text'}
               thousandSeparator={true}
               prefix={'฿'}
-              renderText={
-                value => <Text style={[styles.Same_StoreImagePrice, { fontFamily: 'SukhumvitSet-Text', }]}>
-                  {value}
-                </Text>}
+              renderText={value =>
+                <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                  {value}</Text>}
             />
-            <View style={styles.Same_StoreIconBox}>
-              <View style={styles.Same_StoreIconBoxStar}>
-                <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
-                <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
-                <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
-                <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
-                <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
-              </View>
-              <View style={styles.Same_StoreIconBoxI}>
-                <Icons style={styles.Same_StoreIcon} name='heart' size={10} />
-                <Icons style={styles.Same_StoreIcon} name='share' size={10} />
-              </View>
-            </View>
           </View>
         </TouchableOpacity>
       )
     })
     return (
-      <View style={styles.Same_Store}>
-        <View style={styles.Same_StoreTextBox}>
-          <Text style={[styles.Same_StoreText, { fontFamily: 'SukhumvitSet-Bold', }]}>
-            สินค้าจากร้านเดียวกัน
-          </Text>
+      <View style={stylesMain.FrameBackground}>
+        <View style={stylesMain.FrameBackgroundTextBox}>
+          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+            สินค้าจากร้านเดียวกัน</Text>
         </View>
         <ScrollView horizontal>
           {dataSaleProduct}
@@ -747,56 +757,41 @@ export class Similar_Product extends Component {
   componentDidUpdate() {
     this.state.countA == 0 ? this.getid_product() : null;
   }
-
   render() {
     let dataSaleProduct = this.state.dataSale.map((item, indexs) => {
       //   console.log('Sale' + [ indexs, item.image ].join(' ')),
       var dataMySQL = [finip, item.image_path, item.image].join('/');
       return (
-        <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}>
-          <View style={styles.Same_StoreBox} key={indexs}>
+        <TouchableOpacity activeOpacity={1} key={indexs}
+          onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}
+        >
+          <View style={stylesMain.BoxProduct1Box} key={indexs}>
             <FastImage
               source={{
                 uri: dataMySQL,
               }}
-              style={styles.Same_StoreImage}
+              style={stylesMain.BoxProduct1Image}
             />
-            <Text style={[styles.Same_StoreImageName, { fontFamily: 'SukhumvitSet-Text', }]}>{item.name}</Text>
+            <Text style={[stylesMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+              {item.name}</Text>
             <NumberFormat
               value={item.full_price}
               displayType={'text'}
               thousandSeparator={true}
               prefix={'฿'}
-              renderText={
-                value => <Text style={
-                  styles.Same_StoreImagePrice
-                }>
-                  {value}
-                </Text>}
+              renderText={value =>
+                <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                  {value}</Text>}
             />
-            <View style={styles.Same_StoreIconBox}>
-              <View style={styles.Same_StoreIconBoxStar}>
-                <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
-                <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
-                <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
-                <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
-                <Icons style={styles.Same_StoreIconStar} name='star' size={8} />
-              </View>
-              <View style={styles.Same_StoreIconBoxI}>
-                <Icons style={styles.Same_StoreIcon} name='heart' size={10} />
-                <Icons style={styles.Same_StoreIcon} name='share' size={10} />
-              </View>
-            </View>
           </View>
         </TouchableOpacity>
       )
     })
     return (
-      <View style={styles.Same_Store}>
-        <View style={styles.Same_StoreTextBox}>
-          <Text style={[styles.Same_StoreText, { fontFamily: 'SukhumvitSet-Text', }]}>
-            สินค้าที่คล้ายกัน
-          </Text>
+      <View style={stylesMain.FrameBackground}>
+        <View style={stylesMain.FrameBackgroundTextBox}>
+          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+            สินค้าที่คล้ายกัน</Text>
         </View>
         <ScrollView horizontal>
           {dataSaleProduct}
@@ -806,7 +801,7 @@ export class Similar_Product extends Component {
   }
 }
 
-///--------------------------------------------------------------------------///
+///--------------------------------------------------------------------------///s
 
 export class Might_like extends Component {
   constructor(props) {
@@ -848,58 +843,43 @@ export class Might_like extends Component {
   componentDidUpdate() {
     this.state.countA == 0 ? this.getid_product() : null;
   }
-
   render() {
     // console.log( 'Might_like|render' )
     let dataToday = this.state.dataSourcePopularProduct.map((item, indexs) => {
       var dataMySQL = [finip, item.image_path, item.image].join('/');
       // console.log( dataMySQL )
       return (
-        <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}>
-          <View style={styles.PopularProductBox} key={indexs}>
+        <TouchableOpacity activeOpacity={1} key={indexs}
+          onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}
+        >
+          <View style={stylesMain.BoxProduct3Box} key={indexs}>
             <FastImage
               source={{
                 uri: dataMySQL,
               }}
-              style={styles.PopularProductImage}
+              style={stylesMain.BoxProduct3Image}
             />
-            <Text style={[styles.PopularProductImageName, { fontFamily: 'SukhumvitSet-Text' },]}>
-              {item.name}
-            </Text>
+            <Text style={[stylesMain.BoxProduct2ImageName, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+              {item.name}</Text>
             <NumberFormat
               value={item.full_price}
               displayType={'text'}
               thousandSeparator={true}
               prefix={'฿'}
-              renderText={
-                value => <Text style={[styles.PopularProductImagePrice, { fontFamily: 'SukhumvitSet-Text', }]}>
-                  {value}
-                </Text>
+              renderText={value =>
+                <Text style={[stylesMain.BoxProduct2ImagePrice, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                  {value}</Text>
               }
             />
-            <View style={styles.PopularProductIconBox}>
-              <View style={styles.PopularProductIconBoxStar}>
-                <Icons style={styles.PopularProductIconStar} name='star' size={8} />
-                <Icons style={styles.PopularProductIconStar} name='star' size={8} />
-                <Icons style={styles.PopularProductIconStar} name='star' size={8} />
-                <Icons style={styles.PopularProductIconStar} name='star' size={8} />
-                <Icons style={styles.PopularProductIconStar} name='star' size={8} />
-              </View>
-              <View style={styles.PopularProductIconBoxI}>
-                <Icons style={styles.PopularProductIcon} name='heart' size={10} />
-                <Icons style={styles.PopularProductIcon} name='share' size={10} />
-              </View>
-            </View>
           </View>
         </TouchableOpacity >
       );
     })
     return (
-      <View style={styles.PopularProduct} >
-        <Text style={[styles.PopularProductText, { fontFamily: 'SukhumvitSet-Bold', }]}>
-          คุณอาจชอบสิ่งนี้
-        </Text>
-        <View style={styles.PopularProductBoxProduct}>
+      <View style={stylesMain.FrameBackground}>
+        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+          คุณอาจชอบสิ่งนี้</Text>
+        <View style={stylesDetail.PopularProductBoxProduct}>
           {dataToday}
         </View>
       </View>
@@ -941,24 +921,28 @@ export class Buy_bar extends Component {
     var s_id_store = this.state.dataid_product.map((item) => { return (item.s_id_store) })
     // console.log(s_id_store)
     return (
-      <View style={styles.Buy_bar}>
-        <View >
-          <IconAntDesign name='message1' size={25}></IconAntDesign>
-          <Text style={{ fontFamily: 'SukhumvitSet-Text', }}>แชท</Text>
+      <View style={stylesDetail.Buy_bar}>
+        <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
+          <IconAntDesign name='message1' size={22} style={[stylesMain.ItemCenterVertical]} />
+          <Text style={[stylesFont.FontSize4, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesMain.ItemCenterVertical]}>
+            แชท</Text>
         </View>
-        <Text style={{ fontSize: 30, fontFamily: 'SukhumvitSet-Text', }}>|</Text>
+        <Text style={{ fontSize: 30 }}>|</Text>
         <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreScreen', { id_item: s_id_store })}>
-          <View >
-            <IconFontisto name='shopping-store' size={25} style={{ marginLeft: 3, }} />
-            <Text style={{ textAlign: 'center', fontFamily: 'SukhumvitSet-Text', }}>ร้านค้า</Text>
-          </View></TouchableOpacity>
-
-        <View style={styles.Buy_bar_Iconshop}>
-          <IconAntDesign name='shoppingcart' size={25}></IconAntDesign>
-          <Text style={{ fontFamily: 'SukhumvitSet-Text', }}> เพิ่มลงรถเข็น</Text>
+          <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
+            <IconFontisto name='shopping-store' size={22} style={stylesMain.ItemCenterVertical} />
+            <Text style={[stylesFont.FontSize4, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesMain.ItemCenterVertical]}>
+              ร้านค้า</Text>
+          </View>
+        </TouchableOpacity>
+        <View style={[stylesDetail.Buy_bar_Iconshop, stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
+          <IconAntDesign name='shoppingcart' size={25} />
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontCenter]}>
+            เพิ่มลงรถเข็น</Text>
         </View>
-        <View style={styles.Buy_bar_IconBuy}>
-          <Text style={[styles.Buy_bar_IconBuytext, { fontFamily: 'SukhumvitSet-Text', }]}>ซื้อเลย</Text>
+        <View style={[stylesDetail.Buy_bar_IconBuy, stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
+          <Text style={[stylesDetail.Buy_bar_IconBuytext, stylesFont.FontFamilyText, stylesFont.FontCenter]}>
+            ซื้อเลย</Text>
         </View>
       </View>
     );

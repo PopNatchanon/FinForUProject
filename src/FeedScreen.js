@@ -20,11 +20,12 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import IconsFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo'
-import styles from '../style/stylesFeedScreen';
+import stylesStore from '../style/StylesStoreScreen';
+import stylesMain from '../style/StylesMainScreen'
+import stylesFont from '../style/stylesFont'
 import { ip } from '../navigator/IpConfig'
 export const { width, height } = Dimensions.get('window');
 import { Toolbar, TabBar } from './tools/Tools'
-
 
 export default class FeedScreen extends Component {
   constructor(props) {
@@ -40,13 +41,12 @@ export default class FeedScreen extends Component {
       selectedIndex: val
     });
   }
-
   render() {
     return (
-      <SafeAreaView style={styles.SafeAreaView}>
+      <SafeAreaView style={[stylesMain.SafeAreaView, stylesMain.BackgroundAreaView]}>
         <AppBar sendText={this.getData} />
         <ScrollView>
-          <Button_Bar selectedIndex={this.state.selectedIndex} />
+          <Button_Bar selectedIndex={this.state.selectedIndex} navigation={this.props.navigation} />
           {/* <Follow_up />
           <Highlights/> */}
         </ScrollView>
@@ -78,14 +78,15 @@ export class AppBar extends Component {
     }]
     return (
       <View>
-        <View style={styles.Appbar}>
-          <View style={styles.Icon_appbar_Text}>
-            <Text style={[styles.Text_appbar, { fontFamily: 'SukhumvitSet-Text', }]}>ฟีต</Text>
+        <View style={stylesStore.AppbarMenu}>
+          <View style={stylesMain.FlexRow}>
+            <Text style={[stylesStore.Text_appbar, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+              ฟีต</Text>
           </View>
-          <Icons RightItem name="store" size={25} style={styles.Icon_appbar} />
+          <Icons RightItem name="store" size={20} style={stylesStore.Icon_appbar} />
         </View>
         <View>
-          {/* <View style={styles.Button_Bar}> */}
+          {/* <View style={stylesStore.Button_Bar}> */}
           <TabBar
             sendData={this.getData}
             item={item}
@@ -112,14 +113,14 @@ export class Button_Bar extends Component {
     switch (selectedIndex) {
       case 0:
         return (
-          <SafeAreaView >
-            <Follow_up />
+          <SafeAreaView>
+            <Highlights Follow navigation={this.props.navigation} />
           </SafeAreaView>
         );
       case 1:
         return (
           <SafeAreaView>
-            <Highlights />
+            <Highlights navigation={this.props.navigation} />
           </SafeAreaView>
         );
       default:
@@ -137,118 +138,6 @@ export class Button_Bar extends Component {
 
 ///-------------------------------------------------------------------------///
 
-export class Follow_up extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      dataSourceStoreFeed: [],
-    };
-  }
-
-  getDataStoreFeed() {
-    var url = ip + '/mysql/DataService_Detail.php';
-    var dataBody = {
-      type: 'Feed',
-    }
-    axios.post(
-      url,
-      dataBody,
-    ).then((getData) => {
-      //   console.log(getData.data);
-      this.setState({
-        dataSourceStoreFeed: getData.data,
-      })
-    })
-  }
-
-  componentDidMount() {
-    this.getDataStoreFeed();
-  }
-
-  render() {
-    let dataToday = this.state.dataSourceStoreFeed.map((item, indexs) => {
-      // console.log( indexs + '. ' + item.image ),
-      var dataMySQL_s = [ip + '/mysql/uploads/slide/NewStore', item.s_image].join('/');
-      var dataMySQL_p = [ip + '/mysql', item.image_path, item.p_image].join('/');
-      // console.log(dataMySQL_s)
-      return (
-        <View key={indexs}>
-          <View style={styles.StoreFeed_header}>
-            <View style={{ flexDirection: 'row', }}>
-              <FastImage
-                style={styles.StoreFeed_Image}
-                source={{
-                  uri: dataMySQL_s,
-                }}
-              />
-              <Text style={[styles.StoreFeed_Text_store, { fontFamily: 'SukhumvitSet-Text', }]}>
-                {item.s_name}
-              </Text>
-            </View>
-            <View style={{ marginTop: 10, }}><IconEntypo name='dots-three-vertical' size={25} /></View>
-          </View>
-          <View style={styles.StoreFeedBox}>
-            <View style={{ width: '100%', alignContent: 'center', alignItems: 'center' }}>
-              <FastImage
-                source={{
-                  uri: dataMySQL_p,
-                }}
-                style={styles.StoreFeedImage}
-              />
-            </View>
-            <View style={styles.StoreFeedComBox}>
-              <Text style={styles.StoreFeedComBoxDetail}>
-                {item.detail}
-              </Text>
-              <Text style={[styles.StoreFeedComBoxTag, { fontFamily: 'SukhumvitSet-Text', }]}>
-                ที่สุดสำหรับคุณ
-              </Text>
-              <View style={{ flexDirection: 'row' }}>
-                <Text style={[styles.StoreFeedComBoxText, { fontFamily: 'SukhumvitSet-Text', }]}>
-                  200 การเข้าชม
-                </Text>
-                <Text style={[styles.StoreFeedComBoxText, { fontFamily: 'SukhumvitSet-Text', }]}>
-                  เมื่อ 3 วันที่ผ่านมา
-                </Text>
-              </View>
-            </View>
-            <View style={styles.StoreFeedComBox2}>
-              <View style={styles.StoreFeedComBoxIcon}>
-                <Icons name='heart' size={20} />
-                <Text style={[styles.StoreFeedComBoxIconText, { fontFamily: 'SukhumvitSet-Text', }]}>
-                  ถูกใจ
-                </Text>
-              </View>
-              <View style={styles.StoreFeedComBoxIcon}>
-                <Icons name='comment-dots' size={20} />
-                <Text style={[styles.StoreFeedComBoxIconText, { fontFamily: 'SukhumvitSet-Text', }]}>
-                  แสดงความคิดเห็น
-                </Text>
-              </View>
-              <View style={styles.StoreFeedComBoxIcon}>
-                <Icons name='share-square' size={20} />
-                <Text style={[styles.StoreFeedComBoxIconText, { fontFamily: 'SukhumvitSet-Text', }]}>
-                  แชร์
-                </Text>
-              </View>
-            </View>
-          </View>
-        </View>
-
-      );
-    })
-    return (
-      <View style={styles.StoreFeed} >
-        <View style={styles.StoreFeedBoxProduct}>
-          {dataToday}
-        </View>
-      </View>
-    )
-  }
-}
-
-///-------------------------------------------------------------------------///
-
 export class Highlights extends Component {
   constructor(props) {
     super(props);
@@ -256,8 +145,8 @@ export class Highlights extends Component {
       dataSourceStoreFeed: [],
     };
   }
-
   getDataStoreFeed() {
+    const { Follow } = this.props
     var url = ip + '/mysql/DataService_Detail.php';
     var dataBody = {
       type: 'Feed'
@@ -273,92 +162,89 @@ export class Highlights extends Component {
         })
       })
   }
-
   componentDidMount() {
     this.getDataStoreFeed();
   }
-
   render() {
+    const { Follow, navigation } = this.props
     let dataToday = this.state.dataSourceStoreFeed.map((item, indexs) => {
-      // console.log( indexs + '. ' + item.image ),
+      // console.log(item);
       var dataMySQL_s = [ip + '/mysql/uploads/slide/NewStore', item.s_image].join('/');
       var dataMySQL_p = [ip + '/mysql/uploads/products', item.p_image].join('/');
       // console.log(dataMySQL_s)
       return (
-        <View key={indexs}>
-          <View style={styles.StoreFeed_header}>
-            <View style={{ flexDirection: 'row', }}>
-              <FastImage
-                style={styles.StoreFeed_Image}
-                source={{
-                  uri: dataMySQL_s,
-                }}
-              />
-              <Text style={[styles.StoreFeed_Text_store, { fontFamily: 'SukhumvitSet-Text', }]}>
-                {item.s_name}
-              </Text>
-            </View>
-            <View style={styles.StoreFeed_Button_F_Box}>
-              <View style={styles.StoreFeed_Button_F}>
-                <Text style={[styles.StoreFeed_Text_F, { fontFamily: 'SukhumvitSet-Text', }]}>ติดตาม</Text>
+        <View style={[stylesMain.BoxProduct4Box]} key={indexs}>
+          <View style={stylesMain.BoxProduct4PlusHeader}>
+            <TouchableOpacity onPress={() => { navigation.navigate('StoreScreen', { id_item: item.p_id_store }) }}>
+              <View style={stylesMain.FlexRow}>
+                <FastImage
+                  style={stylesMain.BoxProduct4PlusImage}
+                  source={{
+                    uri: dataMySQL_s,
+                  }}
+                />
+                <Text style={[stylesMain.BoxProduct4PlusImageText, stylesFont.FontFamilyBold, stylesFont.FontSize2]}>
+                  {item.s_name}</Text>
               </View>
+            </TouchableOpacity>
+            <View style={stylesMain.BoxProduct4PlusButtonBox}>
+              {Follow ?
+                null :
+                <View style={stylesMain.BoxProduct4PlusButtonFollow}>
+                  <Text style={[stylesMain.BoxProduct4PlusButtonFollowText, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                    ติดตาม</Text>
+                </View>
+              }
               <IconEntypo name='dots-three-vertical' size={25} />
             </View>
-
           </View>
-          <View style={styles.StoreFeedBox}>
-            <View style={{ width: '100%', alignContent: 'center', alignItems: 'center' }}>
-              <FastImage
-                source={{
-                  uri: dataMySQL_p,
-                }}
-                style={styles.StoreFeedImage}
-              />
-            </View>
-            <View style={styles.StoreFeedComBox}>
-              <Text style={styles.StoreFeedComBoxDetail}>
-                {item.detail}
-              </Text>
-              <Text style={[styles.StoreFeedComBoxTag, { fontFamily: 'SukhumvitSet-Text', }]}>
-                ที่สุดสำหรับคุณ
-              </Text>
-              <View style={{ flexDirection: 'row' }}>
-                <Text style={[styles.StoreFeedComBoxText, { fontFamily: 'SukhumvitSet-Text', }]}>
-                  200 การเข้าชม
-                </Text>
-                <Text style={[styles.StoreFeedComBoxText, { fontFamily: 'SukhumvitSet-Text', }]}>
-                  เมื่อ 3 วันที่ผ่านมา
-                </Text>
+          <View>
+            <TouchableOpacity onPress={() => { navigation.navigate('DetailScreen', { id_item: item.id_product }) }}>
+              <View style={[stylesMain.ItemCenter, { width: '100%' }]}>
+                <FastImage
+                  source={{
+                    uri: dataMySQL_p,
+                  }}
+                  style={stylesMain.BoxProduct4Image}
+                />
+              </View>
+            </TouchableOpacity>
+            <View style={stylesMain.BoxProduct4ComBox}>
+              <Text style={[stylesMain.BoxProduct4ComBoxDetail, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                {item.detail}</Text>
+              <Text style={[stylesMain.BoxProduct4ComBoxTag, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                ที่สุดสำหรับคุณ</Text>
+              <View style={stylesMain.FlexRow}>
+                <Text style={[stylesMain.BoxProduct4ComBoxText, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                  200 การเข้าชม</Text>
+                <Text style={[stylesMain.BoxProduct4ComBoxText, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                  เมื่อ 3 วันที่ผ่านมา</Text>
               </View>
             </View>
-            <View style={styles.StoreFeedComBox2}>
-              <View style={styles.StoreFeedComBoxIcon}>
+            <View style={stylesMain.BoxProduct4ComBox2}>
+              <View style={stylesMain.BoxProduct4ComBoxIcon}>
                 <Icons name='heart' size={20} />
-                <Text style={[styles.StoreFeedComBoxIconText, { fontFamily: 'SukhumvitSet-Text', }]}>
-                  ถูกใจ
-                </Text>
+                <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                  ถูกใจ</Text>
               </View>
-              <View style={styles.StoreFeedComBoxIcon}>
+              <View style={stylesMain.BoxProduct4ComBoxIcon}>
                 <Icons name='comment-dots' size={20} />
-                <Text style={[styles.StoreFeedComBoxIconText, { fontFamily: 'SukhumvitSet-Text', }]}>
-                  แสดงความคิดเห็น
-                </Text>
+                <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                  แสดงความคิดเห็น</Text>
               </View>
-              <View style={styles.StoreFeedComBoxIcon}>
+              <View style={stylesMain.BoxProduct4ComBoxIcon}>
                 <Icons name='share-square' size={20} />
-                <Text style={[styles.StoreFeedComBoxIconText, { fontFamily: 'SukhumvitSet-Text', }]}>
-                  แชร์
-              </Text>
+                <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                  แชร์</Text>
               </View>
             </View>
           </View>
         </View>
-
       );
     })
     return (
-      <View style={styles.StoreFeed} >
-        <View style={styles.StoreFeedBoxProduct}>
+      <View style={stylesMain.FrameBackground, stylesMain.BackgroundAreaView} >
+        <View style={stylesStore.StoreFeedBoxProduct}>
           {dataToday}
         </View>
       </View>

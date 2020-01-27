@@ -25,12 +25,13 @@ import IconFontisto from 'react-native-vector-icons/Fontisto';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconEntypo from 'react-native-vector-icons/Entypo';
-import styles from '../style/StylesProfileScreen'
+import stylesProfile from '../style/StylesProfileScreen'
+import stylesMain from '../style/StylesMainScreen'
+import stylesFont from '../style/stylesFont'
+import stylesStore from '../style/StylesStoreScreen'
 import { finip, ip } from '../navigator/IpConfig';
 export const { width, height } = Dimensions.get('window');
 import { Toolbar, TabBar } from './tools/Tools'
-
-///----------------------------------Appbar----------------------------------------///
 
 export default class StoreScreen extends Component {
     constructor(props) {
@@ -42,8 +43,6 @@ export default class StoreScreen extends Component {
     getDataasync = async () => {
         const currentUser = await AsyncStorage.getItem('@MyKey')
         this.setState({ currentUser: JSON.parse(currentUser) })
-        // console.log(currentUser)
-        // console.log('profile:' + currentUser)
     }
     componentDidMount() {
         this.getDataasync()
@@ -52,7 +51,7 @@ export default class StoreScreen extends Component {
         const { currentUser } = this.state;
         // console.log(currentUser)
         return (
-            <SafeAreaView style={styles.SafeAreaView}>
+            <SafeAreaView style={stylesProfile.SafeAreaView}>
                 <ScrollView>
                     <View>
                         <Headbar navigation={this.props.navigation} currentUser={currentUser} />
@@ -71,42 +70,42 @@ export class Headbar extends Component {
         super(props)
     }
     render() {
-        const { currentUser } = this.props;
+        const { currentUser, statusOnline } = this.props
         // console.log(currentUser)
         const uri = [finip, currentUser.image_path, currentUser.image].join('/')
         return (
             <View>
-                <ImageBackground
-                    source={require('../icon/bgprofile.jpg')}
-                    style={styles.HeadbarImage}
-
-                />
-                <View style={styles.HeadbarA}>
-                    <View style={styles.HeadbarBox1}>
-                        <View style={{ flexDirection: 'row' }}>
+                <View style={{ backgroundColor: '#4a4a4a', }}>
+                    <ImageBackground
+                        source={require('../icon/bgprofile.jpg')}
+                        style={stylesProfile.HeadbarImage}
+                    />
+                </View>
+                <View style={stylesProfile.HeadbarA}>
+                    <View style={stylesProfile.HeadbarBox1}>
+                        <View style={stylesMain.FlexRow}>
                             <View>
                                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMeScreen')} >
-                                    <View style={styles.HeadbarBox1Sub}>
-                                        <Text style={[styles.HeadbarBox1SubText, { fontFamily: 'SukhumvitSet-Text' }]}>
-                                            เริ่มค้าขาย
-                                    </Text>
+                                    <View style={stylesProfile.HeadbarBox1Sub}>
+                                        <Text style={[stylesProfile.HeadbarBox1SubText, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                                            เริ่มค้าขาย</Text>
                                     </View>
                                 </TouchableOpacity>
                                 <FastImage
                                     source={{ uri: uri }}
-                                    style={styles.HeadbarBoxImage}
+                                    style={stylesProfile.HeadbarBoxImage}
                                 />
                             </View>
-                            <View style={{ marginLeft: 15, marginTop: '25%' }}>
-                                <Text style={{ fontSize: 14, color: '#FFFFFF', fontFamily: 'SukhumvitSet-Text' }}>
-                                    {currentUser.name}
-                                </Text>
-                                <Text style={{ fontSize: 10, color: '#BEBDBD', fontFamily: 'SukhumvitSet-Text' }}>
-                                    Active อยู่
-                                </Text>
-                                <Text style={{ fontSize: 10, color: '#FFFFFF', fontFamily: 'SukhumvitSet-Text' }}>
-                                    ผู้ติดตาม 20.2 พัน | กำลังติดตาม 2
-                                </Text>
+                            <View style={{ marginLeft: 15, marginTop: '21%' }}>
+                                <Text style={[stylesFont.FontSize3, stylesFont.FontFamilyText, { color: '#FFFFFF' }]}>
+                                    {currentUser.name}</Text>
+                                <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyText, {
+                                    color: statusOnline ? '#BEBDBD' : '#43e855',
+                                }]}>
+                                    <View style={{ height: 8, width: 8, borderRadius: 4, backgroundColor: '#43e855' }}>
+                                    </View> Active อยู่</Text>
+                                <Text style={[stylesFont.FontSize4, stylesFont.FontFamilyText, { color: '#FFFFFF' }]}>
+                                    ผู้ติดตาม 20.2 พัน | กำลังติดตาม 2</Text>
                             </View>
                         </View>
                         <View style={{ flexDirection: 'row', padding: 8 }}>
@@ -122,7 +121,6 @@ export class Headbar extends Component {
     }
 }
 
-
 export class Menubar extends Component {
     constructor(props) {
         super(props)
@@ -130,14 +128,17 @@ export class Menubar extends Component {
     render() {
         return (
             <View>
-                <View style={styles.Menubar}>
+                <View style={stylesProfile.Menubar}>
                     <View>
-                        <Text style={styles.MenubarText1}>
-                            รายการสั่งซื้อของฉัน
-                    </Text>
+                        <Text style={[
+                            stylesProfile.MenubarText1, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize2
+                        ]}>
+                            รายการสั่งซื้อของฉัน</Text>
                     </View>
                     <View>
-                        <Text style={styles.MenubarText2}>
+                        <Text style={[
+                            stylesProfile.MenubarText2, stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize3
+                        ]}>
                             รายการการสั่งซื้อทั้งหมด <IconEntypo name='chevron-right' size={20} />
                         </Text>
                     </View>
@@ -154,67 +155,67 @@ export class MenubarSub extends Component {
     }
     render() {
         return (
-            <View style={styles.MenubarSub}>
-                <View style={styles.MenubarSubLine1}>
+            <View style={stylesProfile.MenubarSub}>
+                <View style={stylesProfile.MenubarSubLine1}>
                     <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
                         <FastImage
                             source={require('../icon/two-money-cards.png')}
-                            style={styles.MenubarSubLine1Image}
+                            style={stylesProfile.MenubarSubLine1Image}
 
                         />
-                        <Text style={styles.MenubarSubLine1Name}>
+                        <Text style={stylesProfile.MenubarSubLine1Name}>
                             รอจ่ายเงิน
                         </Text>
                     </View>
                     <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
                         <FastImage
                             source={require('../icon/month-calendar.png')}
-                            style={styles.MenubarSubLine1Image}
+                            style={stylesProfile.MenubarSubLine1Image}
 
                         />
-                        <Text style={styles.MenubarSubLine1Name}>
+                        <Text style={stylesProfile.MenubarSubLine1Name}>
                             เตรียมจัดส่ง
                         </Text>
                     </View>
                     <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
                         <FastImage
                             source={require('../icon/truck-facing-right.png')}
-                            style={styles.MenubarSubLine1Image}
+                            style={stylesProfile.MenubarSubLine1Image}
 
                         />
-                        <Text style={styles.MenubarSubLine1Name}>
+                        <Text style={stylesProfile.MenubarSubLine1Name}>
                             ดำเนินการส่ง
                         </Text>
                     </View>
                     <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
                         <FastImage
                             source={require('../icon/rating.png')}
-                            style={styles.MenubarSubLine1Image}
+                            style={stylesProfile.MenubarSubLine1Image}
 
                         />
-                        <Text style={styles.MenubarSubLine1Name}>
+                        <Text style={stylesProfile.MenubarSubLine1Name}>
                             รีวิวสินค้า
                         </Text>
                     </View>
                 </View>
-                <View style={styles.MenubarSubLine2}>
-                    <View style={styles.MenubarSubLine2Box}>
+                <View style={stylesProfile.MenubarSubLine2}>
+                    <View style={stylesProfile.MenubarSubLine2Box}>
                         <FastImage
                             source={require('../icon/repeat.png')}
-                            style={styles.MenubarSubLine2BoxImage}
+                            style={stylesProfile.MenubarSubLine2BoxImage}
 
                         />
-                        <Text style={styles.MenubarSubLine2BoxName}>
+                        <Text style={stylesProfile.MenubarSubLine2BoxName}>
                             คืนสินค้า/คืนเงิน
                         </Text>
                     </View>
-                    <View style={styles.MenubarSubLine2Box}>
+                    <View style={stylesProfile.MenubarSubLine2Box}>
                         <FastImage
                             source={require('../icon/box.png')}
-                            style={styles.MenubarSubLine2BoxImage}
+                            style={stylesProfile.MenubarSubLine2BoxImage}
 
                         />
-                        <Text style={styles.MenubarSubLine2BoxName}>
+                        <Text style={stylesProfile.MenubarSubLine2BoxName}>
                             ยกเลิกสินค้า
                         </Text>
                     </View>
@@ -258,7 +259,7 @@ export class Listbar extends Component {
                                 <View style={{ width: 60, height: 60, marginTop: 18, alignItems: 'center', backgroundColor: '#0A81A6', borderRadius: 30, }}>
                                     <IconAntDesign name='home' size={40} style={{ marginTop: 'auto', marginBottom: 'auto', color: '#fff' }} />
                                 </View>
-                                <Text style={styles.ListbarBoxText}>
+                                <Text style={stylesProfile.ListbarBoxText}>
                                     หน้าหลัก
                                 </Text>
                             </View>
@@ -269,7 +270,7 @@ export class Listbar extends Component {
                             <View style={{ width: 60, height: 60, marginTop: 18, alignItems: 'center', backgroundColor: '#128BCE', borderRadius: 30, }}>
                                 <IconMaterialCommunityIcons name='octagram-outline' size={40} style={{ marginTop: 'auto', marginBottom: 'auto', color: '#fff' }} />
                             </View>
-                            <Text style={styles.ListbarBoxText}>
+                            <Text style={stylesProfile.ListbarBoxText}>
                                 โปรโมชัน
                         </Text>
                         </View>
@@ -279,7 +280,7 @@ export class Listbar extends Component {
                             <View style={{ width: 60, height: 60, marginTop: 18, alignItems: 'center', backgroundColor: '#1A3263', borderRadius: 30, }}>
                                 <IconMaterialCommunityIcons name='ticket' size={40} style={{ marginTop: 'auto', marginBottom: 'auto', color: '#fff' }} />
                             </View>
-                            <Text style={styles.ListbarBoxText}>
+                            <Text style={stylesProfile.ListbarBoxText}>
                                 โค้ดส่วนลด
                         </Text>
                         </View>
@@ -289,9 +290,9 @@ export class Listbar extends Component {
                             <View style={{ flexDirection: 'column', alignItems: 'center', }}>
                                 <FastImage
                                     source={require('../icon/bitcoin2.png')}
-                                    style={styles.ListbarBoxImage}
+                                    style={stylesProfile.ListbarBoxImage}
                                 />
-                                <Text style={styles.ListbarBoxText}>
+                                <Text style={stylesProfile.ListbarBoxText}>
                                     Fin coin ของฉัน
                                 </Text>
                             </View>
@@ -313,77 +314,77 @@ export class ListMenu extends Component {
     render() {
         return (
             <View>
-                <View style={styles.ListMenu}>
+                <View style={stylesProfile.ListMenu}>
 
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('LatestScreen')} >
-                        <View style={styles.ListMenuList}>
-                            <View style={styles.ListMenuListSub}>
-                                <IconMaterialIcons RightItem name="access-time" color='#D0B216' size={35} style={styles.ListMenuListSubIcon} />
+                        <View style={stylesProfile.ListMenuList}>
+                            <View style={stylesProfile.ListMenuListSub}>
+                                <IconMaterialIcons RightItem name="access-time" color='#D0B216' size={35} style={stylesProfile.ListMenuListSubIcon} />
 
-                                <Text style={styles.ListMenuListSubName}>
+                                <Text style={stylesProfile.ListMenuListSubName}>
                                     ดูล่าสุด
                             </Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} />
                         </View>
                     </TouchableOpacity>
 
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('ChatScreen')} >
-                        <View style={styles.ListMenuList}>
-                            <View style={styles.ListMenuListSub}>
-                                <IconAntDesign RightItem name="wechat" size={35} color='#0A55A6' style={styles.ListMenuListSubIcon} />
-                                <Text style={styles.ListMenuListSubName}>
+                        <View style={stylesProfile.ListMenuList}>
+                            <View style={stylesProfile.ListMenuListSub}>
+                                <IconAntDesign RightItem name="wechat" size={35} color='#0A55A6' style={stylesProfile.ListMenuListSubIcon} />
+                                <Text style={stylesProfile.ListMenuListSubName}>
                                     แชท
                             </Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} />
                         </View>
                     </TouchableOpacity>
 
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('InterestedScreen')} >
-                        <View style={styles.ListMenuList}>
-                            <View style={styles.ListMenuListSub}>
-                                <IconAntDesign RightItem name="heart" size={35} color='#D74024' style={styles.ListMenuListSubIcon} />
-                                <Text style={styles.ListMenuListSubName}>
+                        <View style={stylesProfile.ListMenuList}>
+                            <View style={stylesProfile.ListMenuListSub}>
+                                <IconAntDesign RightItem name="heart" size={35} color='#D74024' style={stylesProfile.ListMenuListSubIcon} />
+                                <Text style={stylesProfile.ListMenuListSubName}>
                                     สิ่งที่สนใจ
                             </Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} />
                         </View>
                     </TouchableOpacity>
 
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Follow_storeScreen')} >
-                        <View style={styles.ListMenuList}>
-                            <View style={styles.ListMenuListSub}>
-                                <IconFontisto RightItem name="shopping-store" size={30} color='#0A55A6' style={styles.ListMenuListSubIcon} />
-                                <Text style={styles.ListMenuListSubName}>
+                        <View style={stylesProfile.ListMenuList}>
+                            <View style={stylesProfile.ListMenuListSub}>
+                                <IconFontisto RightItem name="shopping-store" size={30} color='#0A55A6' style={stylesProfile.ListMenuListSubIcon} />
+                                <Text style={stylesProfile.ListMenuListSubName}>
                                     ร้านค้าที่ติดตาม
                             </Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} />
                         </View>
                     </TouchableOpacity>
 
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Review_meScreen')} >
-                        <View style={styles.ListMenuList}>
-                            <View style={styles.ListMenuListSub}>
-                                <IconMaterialCommunityIcons RightItem name="star-box" size={35} color='#EAD295' style={styles.ListMenuListSubIcon} />
-                                <Text style={styles.ListMenuListSubName}>
+                        <View style={stylesProfile.ListMenuList}>
+                            <View style={stylesProfile.ListMenuListSub}>
+                                <IconMaterialCommunityIcons RightItem name="star-box" size={35} color='#EAD295' style={stylesProfile.ListMenuListSubIcon} />
+                                <Text style={stylesProfile.ListMenuListSubName}>
                                     รีวิวของฉัน
                             </Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Help_meScreen')} >
-                        <View style={styles.ListMenuList}>
-                            <View style={styles.ListMenuListSub}>
-                                <IconFeather RightItem name="help-circle" size={35} color='#00A3FF' style={styles.ListMenuListSubIcon} />
-                                <Text style={styles.ListMenuListSubName}>
+                        <View style={stylesProfile.ListMenuList}>
+                            <View style={stylesProfile.ListMenuListSub}>
+                                <IconFeather RightItem name="help-circle" size={35} color='#00A3FF' style={stylesProfile.ListMenuListSubIcon} />
+                                <Text style={stylesProfile.ListMenuListSubName}>
                                     ช่วยเหลือ
                             </Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} />
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -614,7 +615,7 @@ export class CoinCollect extends Component {
                                         displayType={'text'}
                                         thousandSeparator={true}
                                         renderText={
-                                            value => <Text style={[styles.PopularProductImagePrice, { fontFamily: 'SukhumvitSet-Text' }]}>
+                                            value => <Text style={[stylesProfile.PopularProductImagePrice, { fontFamily: 'SukhumvitSet-Text' }]}>
                                                 {value}
                                             </Text>
                                         }

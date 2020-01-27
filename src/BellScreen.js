@@ -14,13 +14,14 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
 import FastImage from 'react-native-fast-image';
-
 import Icons from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconsFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo'
-import styles from '../style/stylesBellScreen';
+import stylesStore from '../style/StylesStoreScreen'
+import stylesMain from '../style/StylesMainScreen'
+import stylesFont from '../style/stylesFont'
 import { ip } from '../navigator/IpConfig'
 export const { width, height } = Dimensions.get('window');
 import { Toolbar } from './tools/Tools'
@@ -31,10 +32,9 @@ export default class BellScreen extends Component {
         this.state = {
         };
     }
-
     render() {
         return (
-            <SafeAreaView style={styles.SafeAreaView}>
+            <SafeAreaView style={[stylesMain.SafeAreaView, stylesMain.BackgroundAreaView]}>
                 <AppBar />
                 <ScrollView>
                     <Popular_store />
@@ -56,12 +56,12 @@ export class AppBar extends Component {
             text: '',
         };
     }
-
     render() {
         return (
-            <View style={styles.Appbar}>
-                <View style={styles.Icon_appbar_Text}>
-                    <Text style={[styles.Text_appbar, { fontFamily: 'SukhumvitSet-Bold' }]}>การแจ้งเตือน</Text>
+            <View style={stylesStore.Appbar}>
+                <View style={stylesMain.FlexRow}>
+                    <Text style={[stylesStore.Text_appbar, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+                        การแจ้งเตือน</Text>
                 </View>
             </View>
         );
@@ -78,7 +78,6 @@ export class Popular_store extends Component {
             dataStore: [],
         };
     }
-
     getNewstore() {
         var url = ip + '/mysql/DataServiceMain.php';
         var dataBody = {
@@ -94,35 +93,44 @@ export class Popular_store extends Component {
             })
         })
     }
-
     componentDidMount() {
         this.getNewstore();
     }
-
     render() {
+        const text = 'ร้าน AVIRA ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!';
+        console.log(text.length)
+        const textnote = {} = text.split('\n')
+        var countnote = 0
+        textnote.map((item, index) => { if (index < 5) { return (countnote = countnote + item.length) } })
+        console.log(countnote)
         let dataNewStore = this.state.dataStore.map((item, indexs) => {
             var dataMySQL = [ip + '/mysql/uploads/slide/NewStore', item.image].join('/');
             return (
-                <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('StoreScreen', { id_item: item.id_store })}>
-                    <View style={styles.Popular_StoreBox}>
+                <TouchableOpacity activeOpacity={1} key={indexs}
+                    onPress={() => this.props.navigation.navigate('StoreScreen', { id_item: item.id_store })}>
+                    <View style={stylesMain.BoxStore3Box}>
                         <FastImage
                             source={{
                                 uri: dataMySQL,
                             }}
-                            style={styles.Popular_StoreImage}
-
+                            style={stylesMain.BoxStore3Image}
                         />
-                        <Text style={[styles.Popular_StoreText_bar, { fontFamily: 'SukhumvitSet-Text' }]}>ร้าน AVIRA ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!! </Text>
+                        <Text style={[stylesMain.BoxStore3Text, stylesFont.FontFamilyText, stylesFont.FontSize3, { height: height * 0.15 }]}>
+                            {
+                                text
+                            }
+                        </Text>
                     </View>
                 </TouchableOpacity>
             )
         })
         return (
-            <View style={styles.Popular_Store}>
-                <View style={styles.Popular_StoreTextBox}>
-                    <Text style={[styles.Popular_StoreText, { fontFamily: 'SukhumvitSet-Bold' }]}>
-                        ร้านเด็ด
-                    </Text>
+            <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView]}>
+                <View style={stylesMain.FrameBackgroundTextBox}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+                        ร้านเด็ด</Text>
+                    <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                        ดูทั้งหมด</Text>
                 </View>
                 <ScrollView horizontal>
                     {dataNewStore}
@@ -140,51 +148,54 @@ export class Pro_for_U extends Component {
         this.state = {
         };
     }
-
     render() {
         return (
             <View>
-                <Text style={[styles.Pro_for_UText, { fontFamily: 'SukhumvitSet-Bold' }]}>โปรเด็ดที่คัดมาเพื่อคุณ</Text>
-                <View style={styles.Pro_for_U}>
-                    <View style={styles.Pro_for_UBox}>
+                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+                    โปรเด็ดที่คัดมาเพื่อคุณ</Text>
+                <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView]}>
+                    <View style={stylesMain.BoxStore4Box}>
                         <FastImage
-                            style={styles.Pro_for_UImage}
+                            style={stylesMain.BoxStore4Image}
                             source={{
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
                             }}
                         />
-                        <Text style={{ marginLeft: 10, width: width - 160, fontFamily: 'SukhumvitSet-Text' }}>ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
+                        <Text style={[stylesMain.BoxStore4Text,stylesFont.FontFamilyText,stylesFont.FontSize3]}>
+                            ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                     </View>
-                    <View style={styles.Pro_for_UBox}>
+                    <View style={stylesMain.BoxStore4Box}>
                         <FastImage
-                            style={styles.Pro_for_UImage}
+                            style={stylesMain.BoxStore4Image}
                             source={{
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop2.jpg',
                             }}
                         />
-                        <Text style={{ marginLeft: 10, width: width - 160, fontFamily: 'SukhumvitSet-Text' }}>ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
+                        <Text style={[stylesMain.BoxStore4Text,stylesFont.FontFamilyText,stylesFont.FontSize3]}>
+                            ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                     </View>
-                    <View style={styles.Pro_for_UBox}>
+                    <View style={stylesMain.BoxStore4Box}>
                         <FastImage
-                            style={styles.Pro_for_UImage}
+                            style={stylesMain.BoxStore4Image}
                             source={{
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop3.jpg',
                             }}
                         />
-                        <Text style={{ marginLeft: 10, width: width - 160, fontFamily: 'SukhumvitSet-Text' }}>ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
+                        <Text style={[stylesMain.BoxStore4Text,stylesFont.FontFamilyText,stylesFont.FontSize3]}>
+                            ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                     </View>
-                    <View style={styles.Pro_for_UBox}>
+                    <View style={stylesMain.BoxStore4Box}>
                         <FastImage
-                            style={styles.Pro_for_UImage}
+                            style={stylesMain.BoxStore4Image}
                             source={{
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop4.jpg',
                             }}
                         />
-                        <Text style={{ marginLeft: 10, width: width - 160, fontFamily: 'SukhumvitSet-Text' }}>ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
+                        <Text style={[stylesMain.BoxStore4Text,stylesFont.FontFamilyText,stylesFont.FontSize3]}>
+                            ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                     </View>
                 </View>
             </View>
-
         );
     }
 }
@@ -197,47 +208,51 @@ export class Update_buy extends Component {
         this.state = {
         };
     }
-
     render() {
         return (
             <View>
-                <Text style={[styles.Update_buyText, { fontFamily: 'SukhumvitSet-Bold' }]}> อัพเดทคำสั่งซื้อ </Text>
-                <View style={styles.Pro_for_U}>
-                    <View style={styles.Pro_for_UBox}>
+                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+                    อัพเดทคำสั่งซื้อ</Text>
+                <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView]}>
+                    <View style={stylesMain.BoxStore4Box}>
                         <FastImage
-                            style={styles.Pro_for_UImage}
+                            style={stylesMain.BoxStore4Image}
                             source={{
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
                             }}
                         />
-                        <Text style={{ marginLeft: 10, width: width - 160, fontFamily: 'SukhumvitSet-Text' }}>คุณให้คะแนนเรทติ้งการสั่งซื้อแล้วรึยัง</Text>
+                        <Text style={[stylesMain.BoxStore4Text,stylesFont.FontFamilyText,stylesFont.FontSize3]}>
+                            คุณให้คะแนนเรทติ้งการสั่งซื้อแล้วรึยัง</Text>
                     </View>
-                    <View style={styles.Pro_for_UBox}>
+                    <View style={stylesMain.BoxStore4Box}>
                         <FastImage
-                            style={styles.Pro_for_UImage}
+                            style={stylesMain.BoxStore4Image}
                             source={{
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
                             }}
                         />
-                        <Text style={{ marginLeft: 10, width: width - 160, fontFamily: 'SukhumvitSet-Text' }}>กรุณาชำระเงิน ........ บาท สำหรับคำสั่งซื้อ ภายในวันที่ 19-12-2019 </Text>
+                        <Text style={[stylesMain.BoxStore4Text,stylesFont.FontFamilyText,stylesFont.FontSize3]}>
+                            กรุณาชำระเงิน ........ บาท สำหรับคำสั่งซื้อ ภายในวันที่ 19-12-2019 </Text>
                     </View>
-                    <View style={styles.Pro_for_UBox}>
+                    <View style={stylesMain.BoxStore4Box}>
                         <FastImage
-                            style={styles.Pro_for_UImage}
+                            style={stylesMain.BoxStore4Image}
                             source={{
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
                             }}
                         />
-                        <Text style={{ marginLeft: 10, width: width - 160, fontFamily: 'SukhumvitSet-Text' }}>คุณให้คะแนนเรทติ้งการสั่งซื้อแล้วรึยัง??</Text>
+                        <Text style={[stylesMain.BoxStore4Text,stylesFont.FontFamilyText,stylesFont.FontSize3]}>
+                            คุณให้คะแนนเรทติ้งการสั่งซื้อแล้วรึยัง??</Text>
                     </View>
-                    <View style={styles.Pro_for_UBox}>
+                    <View style={stylesMain.BoxStore4Box}>
                         <FastImage
-                            style={styles.Pro_for_UImage}
+                            style={stylesMain.BoxStore4Image}
                             source={{
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
                             }}
                         />
-                        <Text style={{ marginLeft: 10, width: width - 160, fontFamily: 'SukhumvitSet-Text' }}>กรุณาชำระเงิน ........ บาท สำหรับคำสั่งซื้อ ภายในวันที่ 19-12-2019 </Text>
+                        <Text style={[stylesMain.BoxStore4Text,stylesFont.FontFamilyText,stylesFont.FontSize3]}>
+                            กรุณาชำระเงิน ........ บาท สำหรับคำสั่งซื้อ ภายในวันที่ 19-12-2019 </Text>
                     </View>
                 </View>
             </View>

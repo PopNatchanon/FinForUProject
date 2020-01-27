@@ -3,13 +3,10 @@ import { StyleSheet, Dimensions } from 'react-native';
 export const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
-
     Icon_appbar: {
         marginTop: 5,
     },
-
     ///--------------------------------Detail_Image------------------------------------------///
-
     ImageSlide: {
         width: 50,
         height: 20,
@@ -39,9 +36,7 @@ export default StyleSheet.create({
         height: 250,
         resizeMode: 'cover',
     },
-
     ///--------------------------------------------------------------------------///
-
     BottomTitle: {
         borderBottomWidth: 1,
         borderBottomColor: '#ECECEC',
@@ -95,16 +90,6 @@ export default StyleSheet.create({
         color: '#0A55A6',
     },
     ///--------------------------------------------------------------------------///
-
-    Store: {
-        backgroundColor: '#FFFFFF',
-        borderColor: '#ECECEC',
-        borderWidth: 1,
-        width,
-        height: 160,
-        marginTop: 10,
-        paddingTop: 10,
-    },
     Store_Box1: {
         width,
         flexDirection: 'row',
@@ -127,7 +112,6 @@ export default StyleSheet.create({
         width: 60,
         marginLeft: width - 340,
         marginTop: 10,
-
     },
     Store_Text_Button: {
         borderRadius: 10,
@@ -149,20 +133,12 @@ export default StyleSheet.create({
         textAlign: 'center',
         color: '#0A55A6',
     },
-    Store_Box: {
-        height: 100,
-        width,
-        flexDirection: 'row',
-    },
     Store_Image: {
         height: 50,
         width: 50,
         borderRadius: 30,
     },
-
-
     ///--------------------------------------------------------------------------///
-
     Coupon: {
         backgroundColor: '#FFFFFF',
         borderColor: '#ECECEC',
@@ -179,130 +155,32 @@ export default StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between'
     },
-    Coupon_Box_Pon: {
-        borderColor: '#0A55A6',
-        borderWidth: 1,
-        marginLeft: 10,
-        height: 30,
-        width: 90,
-        marginRight: 10,
-        paddingTop: 5,
-    },
     Coupon_Icon: {
         marginRight: 15,
     },
     Coupon_Box_Pon_Text: {
         textAlign: 'center',
     },
-
     ///--------------------------------------------------------------------------///
-
-    Selector: {
-        backgroundColor: '#FFFFFF',
-        borderColor: '#ECECEC',
-        borderWidth: 1,
-        width,
-        height: 50,
-        marginTop: 10,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingTop: 10,
-    },
-    Selector_Box: {
-        flexDirection: 'row',
-    },
-    Selector_Icon: {
-        marginLeft: 10,
-    },
-
-    ///--------------------------------------------------------------------------///
-    Detail_Catagory: {
-        width,
-        borderColor: '#ECECEC',
-        borderWidth: 1,
-    },
-    Detail_Catagory_TextTop: {
-        paddingTop: 10,
-        borderColor: '#ECECEC',
-        borderWidth: 1,
-    },
-    Detail_Catagory_TextBox: {
-        paddingTop: 10,
-        paddingBottom: 10,
-        width
-    },
-    Detail_Catagory_TextBoxA: {
-        flexDirection: 'row',
-    },
-
-    ///--------------------------------------------------------------------------///
-
-    Detail: {
-        backgroundColor: '#FFFFFF',
-        borderColor: '#ECECEC',
-        borderWidth: 1,
-        width,
-        height: 150,
-        marginTop: 10,
-        flexDirection: 'column',
-        paddingTop: 10,
-    },
-    Detail_Text_Box: {
-        height: 120,
-    },
     Detail_Text: {
-        height: 80,
         padding: 6,
     },
     Detail_Box: {
         borderTopColor: '#ECECEC',
         borderTopWidth: 1,
-        height: 20,
+        height: 40,
         flexDirection: 'row',
     },
     Detail_Text_A: {
         color: '#0A55A6',
     },
-
-    ///--------------------------------------------------------------------------///
-
-    Score: {
-        backgroundColor: '#FFFFFF',
-        borderColor: '#ECECEC',
-        borderWidth: 1,
-        width,
-        height: 80,
-        marginTop: 10,
-        flexDirection: 'column',
-        paddingTop: 10,
-    },
-    Score_icon: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    Score_iconA: {
-        marginTop: 5,
-        flexDirection: 'row',
-    },
+    ///-------------------------------------------------------------------------///
     Score_iconB: {
-        marginLeft: 10,
+        marginLeft: 4,
+        marginRight: 8,
+        marginTop: 10,
     },
-    Score_icontext: {
-        fontSize: 15,
-        color: '#0A55A6',
-    },
-
     ///--------------------------------------------------------------------------///
-
-    Reviews: {
-        height: 100,
-    },
-    Reviews_Box: {
-        paddingTop: 10,
-        height: 'auto',
-        borderColor: '#ECECEC',
-        borderWidth: 1,
-    },
     Reviews_Image: {
         height: 80,
         width: 80,
@@ -344,15 +222,12 @@ export default StyleSheet.create({
         height: 80,
     },
     Comment_text_day: {
-        fontSize: 9,
         color: '#0A55A6',
     },
     Comment_text_iconheart: {
         marginTop: 10,
     },
-
     ///--------------------------------------------------------------------------///
-
     Banner_Bar: {
         backgroundColor: '#FFFFFF',
         borderColor: '#ECECEC',
@@ -363,120 +238,23 @@ export default StyleSheet.create({
         height: 70,
         resizeMode: 'stretch',
     },
-
     ///--------------------------------------------------------------------------///
-
-    Same_Store: {
-        width,
-        borderColor: '#ECECEC',
-        backgroundColor: '#FFFFFF',
-        borderWidth: 1,
-        borderRadius: 5,
-        marginTop: 10,
-    },
-    Same_StoreTextBox: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    Same_StoreText: {
-        fontSize: 16,
-        // fontWeight: 'bold',
-        marginLeft: 8,
-        marginTop: 6,
-    },
-    Same_StoreBox: {
-        width: 106,
-        borderColor: '#ECECEC',
-        borderWidth: 1,
-        marginTop: 10,
-        marginBottom: 8,
-        marginLeft: 10,
-    },
-    Same_StoreImage: {
-        width: 99,
-        height: 98,
-        resizeMode: 'contain',
-        // borderColor: '#ECECEC',
-        borderRadius: 5,
-    },
-    Same_StoreImageName: {
-        fontSize: 10,
-        marginTop: 6,
-        marginLeft: 6,
-    },
-    Same_StoreIconBoxI: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-    },
-    Same_StoreIcon: {
-        paddingTop: 4,
-        marginBottom: 4,
-        marginLeft: 6,
-    },
-    Same_StoreIconStar: {
-        paddingTop: 5,
-        marginBottom: 5,
-    },
-    Same_StoreIconBox: {
-        flexDirection: 'row',
-    },
-    Same_StoreIconBoxStar: {
-        flexDirection: 'row',
-        marginLeft: 6,
-    },
-    Same_StoreImagePrice: {
-        fontSize: 8,
-        marginTop: 6,
-        marginLeft: 6,
-        color: '#0A55A6',
-    },
-
-    ///--------------------------------------------------------------------------///
-
-    Similar_Product: {
-        width,
-        height: 150,
-        backgroundColor: 'yellow',
-        marginTop: 10,
-    },
-
-    ///--------------------------------------------------------------------------///
-
     PopularProduct: {
         backgroundColor: '#FFFFFF',
-        // borderColor: '#ECECEC',
-        // borderWidth: 1,
         marginTop: 8,
         padding: 8,
     },
     PopularProductText: {
         width,
         fontSize: 16,
-        // fontWeight: 'bold',
         marginTop: 12,
         marginLeft: 9,
-        // marginBottom:8,
     },
     PopularProductBoxProduct: {
         width,
         marginTop: 4,
         flexDirection: 'row',
         flexWrap: 'wrap',
-    },
-    PopularProductBox: {
-        width: width * 0.442,
-        borderColor: '#ECECEC',
-        borderWidth: 1,
-        margin: 8,
-
-    },
-    PopularProductImage: {
-        width: '100%',
-        height: height * 0.3,
-        resizeMode: 'stretch',
-        padding: 4,
     },
     PopularProductImageName: {
         fontSize: 12,
@@ -509,27 +287,16 @@ export default StyleSheet.create({
         flexDirection: 'row',
         marginLeft: 8,
     },
-
     ///--------------------------------------------------------------------------///
-
     Buy_bar: {
-        height: 60,
+        height: 50,
+        backgroundColor: '#fff',
         width,
         flexDirection: 'row',
-        paddingTop: 10,
         justifyContent: 'space-evenly',
         borderColor: '#ECECEC',
         borderWidth: 1,
-        // backgroundColor:'blue',
     },
-    // Buy_bar_Iconchat: {
-    //     borderColor: '#ECECEC',
-    //     borderWidth: 1,
-    // },
-    // Buy_bar_Iconstore: {
-    //     borderColor: '#ECECEC',
-    //     borderWidth: 1,
-    // },
     Buy_bar_Iconshop: {
         width: 120,
         height: 40,
@@ -537,22 +304,18 @@ export default StyleSheet.create({
         borderColor: '#C4C4C4',
         backgroundColor: '#E9E9E9',
         borderWidth: 1,
-        paddingTop: 10,
         borderRadius: 4,
     },
     Buy_bar_IconBuy: {
         backgroundColor: '#0A55A6',
         width: 110,
         height: 40,
-        paddingTop: 10,
         borderRadius: 4,
         borderColor: '#C4C4C4',
         borderWidth: 1,
     },
     Buy_bar_IconBuytext: {
-        textAlign: 'center',
         color: '#FFF',
     },
-
     ///--------------------------------------------------------------------------///
 })

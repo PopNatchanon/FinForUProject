@@ -55,8 +55,6 @@ export default StyleSheet.create({
     },
     Login_Box_Textlabel: {
         marginLeft: 4,
-        fontSize: 15,
-        fontFamily: 'SukhumvitSet-Bold',
         marginTop: 10,
     },
     Login_Box_Text_L: {
@@ -67,22 +65,20 @@ export default StyleSheet.create({
     Login_Box_Text_C: {
         width: 300,
         marginBottom: 15,
+        marginTop: 15,
         justifyContent: 'center',
         alignItems: 'center',
         // backgroundColor: 'black',
     },
     Login_Box_Text_B: {
-        marginTop: 10,
-        width: 150,
-        height: 50,
+        width: 120,
+        height: 40,
         backgroundColor: '#0A55A6',
         borderRadius: 10,
     },
     Login__Text: {
         color: '#FFF',
-        fontSize: 18,
         textAlign: 'center',
-        marginTop: 10,
     },
     ///--------------------------------------------------------------------------///
 
@@ -139,9 +135,6 @@ export default StyleSheet.create({
         width: 230,
         marginTop: 5,
     },
-    RegisterScreen_Check_Text: {
-        fontSize: 12,
-    },
     RegisterScreen_Box_Login: {
         // height: 350,
         width: 300,
@@ -150,7 +143,24 @@ export default StyleSheet.create({
         paddingTop: 20,
         paddingRight: 10,
     },
+    DateBox: {
+        marginTop: 14,
+        marginLeft: 10,
+        padding: 2
+    },
+    DateBoxBody: {
+        height: 30,
+        width: 80,
+        borderWidth: 1,
+        marginHorizontal: 2,
+        backgroundColor: '#fff'
+    },
 
+    DataGenderBox: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        marginTop: 14
+    },
 
     ///--------------------------------------------------------------------------///
     Countdownstyle: {
@@ -166,8 +176,6 @@ export default StyleSheet.create({
         marginRight: 'auto',
         margin: 2,
         color: '#FFF',
-        fontFamily: 'SukhumvitSet-Bold',
-        fontSize: 16,
     },
     eyestyle: {
         marginTop: -48,

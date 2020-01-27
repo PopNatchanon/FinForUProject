@@ -3,50 +3,6 @@ import { StyleSheet, Dimensions, PixelRatio } from 'react-native';
 export const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
-
-  ///------------------------------------------------------------------------------------------///
-
-  Toolbar: {
-    backgroundColor: '#FFFFFF',
-    borderColor: '#ECECEC',
-    borderWidth: 1,
-    height: 50,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingTop: 5,
-  },
-  SafeAreaView: {
-    flex: 1,
-  },
-  // SafeAreaViewSub: {
-  //   flex: 1,
-  //   height:height*(1-0.82),
-  // },
-  LOGO: {
-    height: 40,
-    width: 80,
-    resizeMode: 'stretch',
-  },
-  TextInput: {
-    width: 230,
-    height: 40,
-    fontSize: 15,
-    textAlign: 'center',
-  },
-  Appbar: {
-    height: 50,
-    width,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingTop: 5,
-    paddingBottom: 5,
-    backgroundColor: 'transparent',
-  },
-  Text_All: {
-    fontWeight: 'bold',
-    fontSize: 16,
-
-  },
   ///--------------------------------------------------------------------///
   StoreHead: {
     width,
@@ -57,7 +13,6 @@ export default StyleSheet.create({
     height: 132,
     opacity: 0.9,
     flex: 1,
-    // justifyContent: 'space-around',
   },
   StoreHeadBox: {
     flexDirection: 'row',
@@ -71,20 +26,22 @@ export default StyleSheet.create({
     marginLeft: 19,
   },
   StoreHeadText: {
-    fontSize: 14,
     color: '#FFFFFF',
     marginTop: 48,
-    marginLeft: 23,
+    marginLeft: 20,
   },
   StoreHeadTextOther: {
-    fontSize: 10,
-    marginLeft: 23,
+    marginLeft: 20,
     color: '#BEBDBD',
   },
   StoreHeadTextOther2: {
-    fontSize: 10,
-    marginLeft: 23,
+    marginLeft: 20,
     color: '#FFFFFF',
+  },
+  HeadButtom: {
+    marginTop: 48,
+    justifyContent: 'flex-end',
+    marginRight: 8
   },
   StoreHeadButtom: {
     borderColor: '#FFFFFF',
@@ -92,12 +49,11 @@ export default StyleSheet.create({
     borderRadius: 30,
     width: 70,
     height: 20,
-    marginLeft: 30,
+    // marginLeft: 30,
     marginTop: 6,
   },
   StoreHeadButtomText: {
     color: '#FFFFFF',
-    fontSize: 14,
     marginLeft: 'auto',
     marginRight: 'auto',
     marginTop: 'auto',
@@ -114,23 +70,19 @@ export default StyleSheet.create({
     paddingBottom: 14,
   },
   StoreHeadDetailsText1: {
-    fontSize: 11,
     marginLeft: 20,
     marginTop: 8,
   },
   StoreHeadDetailsText2_1: {
-    fontSize: 11,
     marginLeft: 30,
     marginTop: 8,
   },
   StoreHeadDetailsText2_2: {
-    fontSize: 11,
     color: '#0A55A6',
     marginLeft: 30,
     marginTop: 8,
   },
   StoreHeadDetailsText2_3: {
-    fontSize: 9,
     color: '#A5A5A5',
     marginLeft: 6,
     marginTop: 8,
@@ -146,7 +98,6 @@ export default StyleSheet.create({
     flexDirection: 'row'
   },
   ///---------------------------------------------------///
-
   Banner: {
     marginTop: 10,
     backgroundColor: '#FFFFFF',
@@ -172,15 +123,11 @@ export default StyleSheet.create({
     borderWidth: 1,
     padding: 8,
   },
-  ///-------------------------------------------------------------///
-  TicketLine: {
-    width,
-    backgroundColor: '#FFFFFF',
-    // borderColor: '#ECECEC',
-    // borderWidth: 1,
-    // marginTop: 10,
-    padding: 8,
+  SlideBox: {
+    marginTop: -60,
+    marginBottom: -10
   },
+  ///-------------------------------------------------------------///
   TicketLineBox: {
     flex: 1,
     width: 155,
@@ -188,13 +135,11 @@ export default StyleSheet.create({
     padding: 8,
   },
   TicketLineText: {
-    fontSize: 12,
     marginTop: 10,
     color: '#FFFFFF',
   },
 
   TicketLineText2: {
-    fontSize: 8,
     marginTop: 6,
     marginBottom: 5,
     color: '#FFFFFF',
@@ -212,166 +157,15 @@ export default StyleSheet.create({
     borderRadius: 30,
     width: 40,
     height: 20,
-    marginLeft: 15,
     marginTop: 7,
   },
   TicketLineButtomText: {
-    fontSize: 10,
-    fontWeight: 'bold',
     marginLeft: 'auto',
     marginRight: 'auto',
     marginTop: 'auto',
     marginBottom: 'auto',
   },
   ///----------------------------------------------------------------------------///
-  DealTop: {
-    width,
-    // borderColor: '#ECECEC',
-    // backgroundColor: '#FFFFFF',
-    // borderWidth: 1,
-    borderRadius: 5,
-    marginTop: 6,
-  },
-  DealTopTextBox: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  DealTopText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginLeft: 8,
-    marginTop: 6,
-  },
-  DealTopTextEnd: {
-    fontSize: 10,
-    color: '#0A55A6',
-    marginRight: 8,
-    marginTop: 10,
-  },
-  DealTopBox: {
-    width: 106,
-    borderColor: '#ECECEC',
-    borderWidth: 1,
-    marginTop: 10,
-    marginBottom: 8,
-    marginLeft: 10,
-  },
-  DealTopImage: {
-    width: 99,
-    height: 98,
-    resizeMode: 'contain',
-    // borderColor: '#ECECEC',
-    borderRadius: 5,
-  },
-  DealTopImageName: {
-    fontSize: 10,
-    marginTop: 6,
-    marginLeft: 6,
-  },
-  DealTopIconBox: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  DealTopIcon: {
-    paddingTop: 4,
-    marginBottom: 4,
-    marginRight: 6,
-  },
-  DealTopIconStar: {
-    paddingTop: 5,
-    marginBottom: 5,
-  },
-  DealTopIconBoxI: {
-    flexDirection: 'row',
-  },
-  DealTopIconBoxStar: {
-    flexDirection: 'row',
-    marginLeft: 6,
-  },
-  DealTopImagePrice: {
-    fontSize: 8,
-    marginTop: 6,
-    marginLeft: 6,
-    color: '#0A55A6',
-  },
-  ///----------------------------------------------------------------------------///
-  NewProduct: {
-    width,
-    // borderColor: '#ECECEC',
-    // backgroundColor: '#FFFFFF',
-    // borderWidth: 1,
-    borderRadius: 5,
-    marginTop: 6,
-  },
-  NewProductTextBox: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  NewProductText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginLeft: 8,
-    marginTop: 6,
-  },
-  NewProductTextEnd: {
-    fontSize: 10,
-    color: '#0A55A6',
-    marginRight: 8,
-    marginTop: 10,
-  },
-  NewProductBox: {
-    width: 106,
-    borderColor: '#ECECEC',
-    borderWidth: 1,
-    marginTop: 10,
-    marginBottom: 8,
-    marginLeft: 10,
-  },
-  NewProductImage: {
-    width: 99,
-    height: 98,
-    resizeMode: 'contain',
-    // borderColor: '#ECECEC',
-    borderRadius: 5,
-  },
-  NewProductImageName: {
-    fontSize: 10,
-    fontFamily: 'SukhumvitSet-Text',
-    marginTop: 6,
-    marginLeft: 6,
-  },
-  NewProductIconBox: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  NewProductIcon: {
-    paddingTop: 4,
-    marginBottom: 4,
-    marginRight: 6,
-  },
-  NewProductIconStar: {
-    paddingTop: 5,
-    marginBottom: 5,
-  },
-  NewProductIconBoxI: {
-    flexDirection: 'row',
-  },
-  NewProductIconBoxStar: {
-    flexDirection: 'row',
-    marginLeft: 6,
-  },
-  NewProductImagePrice: {
-    fontSize: 8,
-    marginTop: 6,
-    marginLeft: 6,
-    color: '#0A55A6',
-  },
-  ///----------------------------------------------------------------------------///
-
   Banner_Bar_Box: {
     width,
   },
@@ -385,75 +179,6 @@ export default StyleSheet.create({
     height: 70,
     resizeMode: 'stretch',
   },
-
-  ///------------------------------------------------------------------///
-
-  PopularProduct: {
-    backgroundColor: '#FFFFFF',
-    // borderColor: '#ECECEC',
-    // borderWidth: 1,
-    marginTop: 8,
-    padding: 8,
-  },
-  PopularProductText: {
-    width,
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginTop: 12,
-    marginLeft: 9,
-    // marginBottom:8,
-  },
-  PopularProductBoxProduct: {
-    width,
-    marginTop: 4,
-    marginBottom: 40,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  PopularProductBox: {
-    width: width * (1 / 2.25),
-    borderColor: '#ECECEC',
-    borderWidth: 1,
-    margin: 8,
-
-  },
-  PopularProductImage: {
-    width: '100%',
-    height: height * 0.3,
-    resizeMode: 'cover',
-    padding: 4,
-  },
-  PopularProductImageName: {
-    fontSize: 12,
-    marginTop: '1%',
-    marginLeft: 8,
-  },
-  PopularProductImagePrice: {
-    fontSize: 10,
-    marginTop: '1%',
-    marginLeft: 8,
-    color: '#0A55A6',
-  },
-  PopularProductIconBox: {
-    marginTop: '1%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  PopularProductIcon: {
-    marginBottom: 5,
-    marginRight: 8,
-  },
-  PopularProductIconStar: {
-    paddingTop: 8,
-    marginBottom: 5,
-  },
-  PopularProductIconBoxI: {
-    flexDirection: 'row',
-  },
-  PopularProductIconBoxStar: {
-    flexDirection: 'row',
-    marginLeft: 8,
-  },
   ///------------------------------------------------------------------///
   SubMenu: {
     width,
@@ -465,141 +190,112 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
-  ///---------------------------------------------------------------------///
-  ShowProduct: {
-    backgroundColor: '#FFFFFF',
-    // borderColor: '#ECECEC',
-    // borderWidth: 1,
-    marginTop: 8,
-    padding: 8,
-  },
-  ShowProductText: {
+  ///------------------------------FeedScreen------------------------------------///
+  AppbarMenu: {
+    backgroundColor: '#0A55A6',
     width,
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginTop: 12,
-    marginLeft: 9,
-    // marginBottom:8,
-  },
-  ShowProductBoxProduct: {
-    width,
-    marginTop: 4,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  ShowProductBox: {
-    width: width * 0.442,
-    borderColor: '#ECECEC',
-    borderWidth: 1,
-    margin: 8,
-
-  },
-  ShowProductImage: {
-    width: '100%',
-    height: height * 0.25,
-    resizeMode: 'stretch',
-    padding: 4,
-  },
-  ShowProductImageName: {
-    fontSize: 12,
-    marginTop: 12,
-    marginLeft: 8,
-  },
-  ShowProductImagePrice: {
-    fontSize: 10,
-    marginTop: 12,
-    marginLeft: 8,
-    color: '#0A55A6',
-  },
-  ShowProductIconBox: {
-    flex: 1,
+    height: 50,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingTop: 5,
+    paddingBottom: 5,
   },
-  ShowProductIcon: {
-    marginBottom: 5,
-    marginRight: 8,
-  },
-  ShowProductIconStar: {
-    paddingTop: 8,
-    marginBottom: 5,
-  },
-  ShowProductIconBoxI: {
-    flexDirection: 'row',
-  },
-  ShowProductIconBoxStar: {
-    flexDirection: 'row',
-    marginLeft: 8,
-  },
-  ///------------------------------------------------------------------///
-  StoreFeed: {
-    backgroundColor: '#FFFFFF',
-    // borderColor: '#ECECEC',
-    // borderWidth: 1,
-    marginTop: 4,
-    padding: 8,
-  },
-  StoreFeedText: {
+  Appbar: {
+    backgroundColor: '#0A55A6',
     width,
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginTop: 12,
-    marginLeft: 9,
-    // marginBottom:8,
+    // height: 84.5,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingTop: 5,
+    paddingBottom: 5,
   },
+  Icon_appbar_Text: {
+    flexDirection: 'row',
+  },
+  Icon_appbar: {
+    color: '#FFFF',
+    marginTop: 10,
+    margin: 10,
+  },
+  Text_appbar: {
+    color: '#FFFF',
+    marginTop: 6,
+    marginLeft: 20,
+  },
+  ///-------------------------------------------------------------------------///
+  Button_Bar: {
+    backgroundColor: '#0A55A6',
+    height: 50,
+    width,
+    flexDirection: 'row',
+  },
+  ///-------------------------------------------------------------------------///
+  Toolbar: {
+    backgroundColor: '#FFFFFF',
+    borderColor: '#ECECEC',
+    borderWidth: 1,
+    height: 50,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingTop: 5,
+  },
+  ///-------------------------------------------------------------------------///
   StoreFeedBoxProduct: {
     width,
     marginTop: 4,
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
-  StoreFeedBox: {
-    width: width * 0.91,
-    // height: height * 0.5,
-    borderColor: '#ECECEC',
-    borderWidth: 1,
-    margin: 8,
-
-  },
-  StoreFeedImage: {
-    width: 200,
-    height: 200,
-    resizeMode: 'center',
-    padding: 4,
-  },
-  StoreFeedComBox: {
-    padding: 8,
-    flex: 1,
-    borderTopColor: '#ECECEC',
-    borderTopWidth: 1,
-  },
-  StoreFeedComBox2: {
-    padding: 8,
-    flex: 1,
-    borderTopColor: '#ECECEC',
-    borderTopWidth: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  StoreFeedComBoxDetail: {
-    fontSize: 12,
-    marginLeft: 8,
-  },
-  StoreFeedComBoxTag: {
-    fontSize: 10,
-    color: '#0A55A6',
-    marginLeft: 8,
-  },
-  StoreFeedComBoxText: {
-    fontSize: 8,
-    color: '#969BA0',
-    marginLeft: 8,
-  },
-  StoreFeedComBoxIcon: {
+  ///----------------------------NewsScreen-----------------------------------///
+  Button_Bar: {
+    backgroundColor: '#0A55A6',
+    height: 50,
+    width,
     flexDirection: 'row',
   },
-  StoreFeedComBoxIconText: {
-    marginLeft: 2,
-  }
-  ///------------------------------------------------------------------///
+  ///-------------------------------------------------------------------------///
+  header_News: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  header_image: {
+    height: 300,
+    width: width - 50,
+  },
+  header_icon_Box: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    width: width - 20,
+    marginTop: 5,
+  },
+  header_icon: {
+    marginLeft: 5,
+  },
+  header_Box: {
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    padding: 10,
+    width: width - 20,
+    backgroundColor: '#ffff',
+  },
+  body_Box: {
+    padding: 10,
+    height: 120,
+    width: width - 20,
+    backgroundColor: '#FFF',
+    marginTop: 10,
+  },
+  body_Box_A: {
+    flexDirection: 'row',
+    width,
+  },
+  body_image: {
+    height: 100,
+    width: width * 0.35,
+  },
+  body_Text: {
+    width: (width - 20) * 0.57,
+    marginLeft: 10,
+  },
 })

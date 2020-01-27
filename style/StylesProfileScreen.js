@@ -29,7 +29,7 @@ export default StyleSheet.create({
     HeadbarImage: {
         width,
         height: 150,
-        opacity: 0.9,
+        opacity: 0.5,
     },
     HeadbarA: {
         marginTop: -150,
@@ -50,7 +50,6 @@ export default StyleSheet.create({
     },
     HeadbarBox1SubText: {
         color: '#ECECEC',
-        fontSize: 14,
     },
     HeadbarBoxImage: {
         backgroundColor: '#ECECEC',
@@ -91,22 +90,14 @@ export default StyleSheet.create({
     Menubar: {
         marginTop: '4%',
         padding: 4,
+        height: 45,
         flexDirection: 'row',
         borderBottomColor: '#EAEAEA',
         borderBottomWidth: 1,
         justifyContent: 'space-between',
     },
-    MenubarText1: {
-        fontSize: 16,
-        fontFamily: 'SukhumvitSet-Bold',
-        marginTop: 4,
-        marginLeft: 8,
-        marginBottom: 4,
-    },
     MenubarText2: {
-        fontFamily: 'SukhumvitSet-Text',
         color: '#BABABA',
-        marginTop: 2,
     },
     ///---------------------------------------------------------------------------///
     MenubarSub: {

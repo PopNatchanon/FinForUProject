@@ -85,7 +85,7 @@ export class ListMenu extends Component {
             // clear error
         }
 
-        console.log('Done.')
+        // console.log('Done.')
     }
     render() {
         return (

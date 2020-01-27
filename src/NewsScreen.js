@@ -19,7 +19,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import IconsFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo'
-import styles from '../style/stylesNewsScreen';
+import stylesStore from '../style/StylesStoreScreen';
+import stylesMain from '../style/StylesMainScreen';
+import stylesFont from '../style/stylesFont';
 import { ip } from '../navigator/IpConfig'
 export const { width, height } = Dimensions.get('window');
 import { Toolbar, TabBar } from './tools/Tools'
@@ -39,15 +41,12 @@ export default class NewsScreen extends Component {
             selectedIndex: val
         });
     }
-
     render() {
         return (
-            <SafeAreaView style={styles.SafeAreaView}>
+            <SafeAreaView style={[stylesMain.SafeAreaView, stylesMain.BackgroundAreaView]}>
                 <AppBar sendText={this.getData} />
                 <ScrollView>
                     <Button_Bar selectedIndex={this.state.selectedIndex} />
-                    {/* <Follow_up />
-                    <Highlights /> */}
                 </ScrollView>
                 <Toolbar navigation={this.props.navigation} />
             </SafeAreaView>
@@ -81,13 +80,13 @@ export class AppBar extends Component {
         }];
         return (
             <View>
-                <View style={styles.Appbar}>
-                    <View style={styles.Icon_appbar_Text}>
-                        <Text style={[styles.Text_appbar, { fontFamily: 'SukhumvitSet-Bold' }]}>{this.state.selectedIndex == 0 ? 'NEWS' : 'BLOG'}</Text>
+                <View style={stylesStore.AppbarMenu}>
+                    <View style={stylesMain.FlexRow}>
+                        <Text style={[stylesStore.Text_appbar, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+                            {this.state.selectedIndex == 0 ? 'NEWS' : 'BLOG'}</Text>
                     </View>
                 </View>
                 <View>
-                    {/* <View style={styles.Button_Bar}> */}
                     <TabBar
                         sendData={this.getData}
                         item={item}
@@ -117,14 +116,14 @@ export class Button_Bar extends Component {
         switch (selectedIndex) {
             case 0:
                 return (
-                    <SafeAreaView style={styles.SafeAreaView_A}>
-                        <News />
+                    <SafeAreaView>
+                        <Blog Body='News' />
                     </SafeAreaView>
                 );
             case 1:
                 return (
-                    < SafeAreaView style={styles.SafeAreaView_A} >
-                        <Blog />
+                    < SafeAreaView>
+                        <Blog Body='Blog' />
                     </SafeAreaView >
                 );
             default:
@@ -134,82 +133,11 @@ export class Button_Bar extends Component {
         const { selectedIndex } = this.props
         return (
             <View>
-                {/* <View style={styles.Button_Bar}> */}
-                {/* </View> */}
                 {this.ViewSide(selectedIndex)}
             </View>
         );
     }
 }
-
-///-------------------------------------------------------------------------///
-
-export class News extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-
-    render() {
-        return (
-            <View style={styles.header_News}>
-                <View style={styles.header_Box}>
-                    <FastImage
-                        style={styles.header_image}
-                        source={{ uri: ip + '/MySQL/uploads/page_News/page_J_News.jpg' }}
-                    />
-                    <Text style={{ fontFamily: 'SukhumvitSet-Text' }}>หลายคนคงจะเคยอยากรู้ วิธีดูเพชรแท้ ว่าจริงๆแล้วเพชรแท้ดูยังไง?</Text>
-                    <View style={styles.header_icon_Box}>
-                        <IconEntypo style={styles.header_icon} name='eye' size={25} />
-                        <IconEntypo style={styles.header_icon} name='share' size={25} />
-                    </View>
-                </View>
-                <View style={styles.body_Box}>
-                    <View style={styles.body_Box_A}>
-                        <FastImage
-                            style={styles.body_image}
-                            source={{ uri: ip + '/MySQL/uploads/page_News/วิธีดูเข็มและรองเท้แตะกุชชี่ของแท้-660x330.jpg' }}>
-                        </FastImage>
-                        <Text style={styles.body_Text}>วันนี้เราจะมาสอนวิธีการแยกเข็มขัดกุชชี่และรองเท้าแตะกุชชี่</Text>
-                    </View>
-                </View>
-                <View style={styles.body_Box}>
-                    <View style={styles.body_Box_A}>
-                        <FastImage
-                            style={styles.body_image}
-                            source={{ uri: ip + '/MySQL/uploads/page_News/page_J_News.jpg' }}>
-                        </FastImage>
-                        <Text style={styles.body_Text}>หลายคนคงจะเคยอยากรู้วิธีดูเพชรแท้ว่าจริงๆแล้วเพชรแท้ดูยังไง?</Text>
-                    </View>
-                </View>
-                <View style={styles.body_Box}>
-                    <View style={styles.body_Box_A}>
-                        <FastImage
-                            style={styles.body_image}
-                            source={{ uri: ip + '/MySQL/uploads/page_News/Supreme.jpg' }}>
-                        </FastImage>
-                        <Text style={styles.body_Text}>ถ้าพูดถึงแบรนด์ที่มาแรงและหลายคนก็ยังคงชื่อชอบอยู่ในช่วง 2 – 3 ปีที่ผ่านมานี้ก็ต้องแบรนด์ ‘Supreme’ นี่แหละค่ะ</Text>
-                    </View>
-                </View>
-                <View style={styles.body_Box}>
-                    <View style={styles.body_Box_A}>
-                        <FastImage
-                            style={styles.body_image}
-                            source={{ uri: ip + '/MySQL/uploads/page_News/วิธีดูเข็มและรองเท้แตะกุชชี่ของแท้-660x330.jpg' }}>
-                        </FastImage>
-                        <Text style={styles.body_Text}>วันนี้เราจะมาสอนวิธีการแยกเข็มขัดกุชชี่และรองเท้าแตะกุชชี่</Text>
-                    </View>
-                </View>
-
-            </View>
-
-        );
-    }
-
-}
-
-///-------------------------------------------------------------------------///
 
 export class Blog extends Component {
     constructor(props) {
@@ -217,60 +145,62 @@ export class Blog extends Component {
         this.state = {
         };
     }
-
     render() {
         return (
-            <View style={styles.header_News}>
-                <View style={styles.header_Box}>
+            <View style={stylesStore.header_News}>
+                <View style={stylesStore.header_Box}>
                     <FastImage
-                        style={styles.header_image}
+                        style={stylesStore.header_image}
                         source={{ uri: ip + '/MySQL/uploads/page_News/page_J_News.jpg' }}
                     />
-                    <Text style={{fontFamily: 'SukhumvitSet-Text'}}>หลายคนคงจะเคยอยากรู้ วิธีดูเพชรแท้ ว่าจริงๆแล้วเพชรแท้ดูยังไง?</Text>
-                    <View style={styles.header_icon_Box}> 
-                        <IconEntypo style={styles.header_icon} name='eye' size={25} />
-                        <IconEntypo style={styles.header_icon} name='share' size={25} />
+                    <Text style={[stylesFont.FontSize3, stylesFont.FontFamilyText]}>
+                        หลายคนคงจะเคยอยากรู้ วิธีดูเพชรแท้ ว่าจริงๆแล้วเพชรแท้ดูยังไง?</Text>
+                    <View style={stylesStore.header_icon_Box}>
+                        <IconEntypo style={stylesStore.header_icon} name='eye' size={25} />
+                        <IconEntypo style={stylesStore.header_icon} name='share' size={25} />
                     </View>
                 </View>
-                <View style={styles.body_Box}>
-                    <View style={styles.body_Box_A}>
+                <View style={stylesStore.body_Box}>
+                    <View style={stylesStore.body_Box_A}>
                         <FastImage
-                            style={styles.body_image}
+                            style={stylesStore.body_image}
                             source={{ uri: ip + '/MySQL/uploads/page_News/วิธีดูเข็มและรองเท้แตะกุชชี่ของแท้-660x330.jpg' }}>
                         </FastImage>
-                        <Text style={styles.body_Text}>วันนี้เราจะมาสอนวิธีการแยกเข็มขัดกุชชี่และรองเท้าแตะกุชชี่</Text>
+                        <Text style={[stylesStore.body_Text, stylesFont.FontSize3, stylesFont.FontFamilyText]}>
+                            วันนี้เราจะมาสอนวิธีการแยกเข็มขัดกุชชี่และรองเท้าแตะกุชชี่</Text>
                     </View>
                 </View>
-                <View style={styles.body_Box}>
-                    <View style={styles.body_Box_A}>
+                <View style={stylesStore.body_Box}>
+                    <View style={stylesStore.body_Box_A}>
                         <FastImage
-                            style={styles.body_image}
+                            style={stylesStore.body_image}
                             source={{ uri: ip + '/MySQL/uploads/page_News/page_J_News.jpg' }}>
                         </FastImage>
-                        <Text style={styles.body_Text}>หลายคนคงจะเคยอยากรู้วิธีดูเพชรแท้ว่าจริงๆแล้วเพชรแท้ดูยังไง?</Text>
+                        <Text style={[stylesStore.body_Text, stylesFont.FontSize3, stylesFont.FontFamilyText]}>
+                            หลายคนคงจะเคยอยากรู้วิธีดูเพชรแท้ว่าจริงๆแล้วเพชรแท้ดูยังไง?</Text>
                     </View>
                 </View>
-                <View style={styles.body_Box}>
-                    <View style={styles.body_Box_A}>
+                <View style={stylesStore.body_Box}>
+                    <View style={stylesStore.body_Box_A}>
                         <FastImage
-                            style={styles.body_image}
+                            style={stylesStore.body_image}
                             source={{ uri: ip + '/MySQL/uploads/page_News/Supreme.jpg' }}>
                         </FastImage>
-                        <Text style={styles.body_Text}>ถ้าพูดถึงแบรนด์ที่มาแรงและหลายคนก็ยังคงชื่อชอบอยู่ในช่วง 2 – 3 ปีที่ผ่านมานี้ ก็ต้องแบรนด์ ‘Supreme’ นี่แหละค่ะ</Text>
+                        <Text style={[stylesStore.body_Text, stylesFont.FontSize3, stylesFont.FontFamilyText]}>
+                            ถ้าพูดถึงแบรนด์ที่มาแรงและหลายคนก็ยังคงชื่อชอบอยู่ในช่วง 2 – 3 ปีที่ผ่านมานี้ก็ต้องแบรนด์ ‘Supreme’ นี่แหละค่ะ</Text>
                     </View>
                 </View>
-                <View style={styles.body_Box}>
-                    <View style={styles.body_Box_A}>
+                <View style={stylesStore.body_Box}>
+                    <View style={stylesStore.body_Box_A}>
                         <FastImage
-                            style={styles.body_image}
+                            style={stylesStore.body_image}
                             source={{ uri: ip + '/MySQL/uploads/page_News/วิธีดูเข็มและรองเท้แตะกุชชี่ของแท้-660x330.jpg' }}>
                         </FastImage>
-                        <Text style={[styles.body_Text]}>วันนี้เราจะมาสอนวิธีการแยกเข็มขัดกุชชี่และรองเท้าแตะกุชชี่</Text>
+                        <Text style={[stylesStore.body_Text, stylesFont.FontSize3, stylesFont.FontFamilyText]}>
+                            วันนี้เราจะมาสอนวิธีการแยกเข็มขัดกุชชี่และรองเท้าแตะกุชชี่</Text>
                     </View>
                 </View>
             </View>
-
-        );
+        )
     }
-
 }

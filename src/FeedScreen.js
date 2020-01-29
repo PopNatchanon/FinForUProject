@@ -84,7 +84,7 @@ export class AppBar extends Component {
               ฟีต</Text>
           </View>
           <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Follow_storeScreen')}>
-          <Icons RightItem name="store" size={20} style={styles.Icon_appbar} />
+          <Icons RightItem name="store" size={20} style={stylesStore.Icon_appbar} />
           </TouchableOpacity>
         </View>
         <View>

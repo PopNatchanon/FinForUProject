@@ -55,7 +55,7 @@ export default class StoreScreen extends Component {
                 <ScrollView>
                     <View>
                         <Headbar navigation={this.props.navigation} currentUser={currentUser} />
-                        <Menubar />
+                        <Menubar navigation={this.props.navigation} />
                         <Listbar navigation={this.props.navigation} />
                     </View>
                 </ScrollView>
@@ -143,7 +143,7 @@ export class Menubar extends Component {
                         </Text>
                     </View>
                 </View>
-                <MenubarSub />
+                <MenubarSub navigation={this.props.navigation}/>
             </View>
         )
     }
@@ -198,7 +198,9 @@ export class MenubarSub extends Component {
                         </Text>
                     </View>
                 </View>
+                
                 <View style={stylesProfile.MenubarSubLine2}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Return_products')}>
                     <View style={stylesProfile.MenubarSubLine2Box}>
                         <FastImage
                             source={require('../icon/repeat.png')}
@@ -209,16 +211,18 @@ export class MenubarSub extends Component {
                             คืนสินค้า/คืนเงิน
                         </Text>
                     </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('CancelScreen')}>
                     <View style={stylesProfile.MenubarSubLine2Box}>
                         <FastImage
                             source={require('../icon/box.png')}
                             style={stylesProfile.MenubarSubLine2BoxImage}
-
-                        />
-                        <Text style={stylesProfile.MenubarSubLine2BoxName}>
-                            ยกเลิกสินค้า
-                        </Text>
+                        />  
+                            <Text style={stylesProfile.MenubarSubLine2BoxName}>
+                                ยกเลิกสินค้า
+                        </Text>     
                     </View>
+                    </TouchableOpacity>
                 </View>
             </View>
         )

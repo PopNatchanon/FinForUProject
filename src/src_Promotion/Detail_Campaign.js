@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
-import stylemain from '../../style/StylesMainScreen';
+import styleMain from '../../style/StylesMainScreen';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import styles from '../../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../../style/stylesFont';
@@ -33,7 +33,7 @@ export default class Detail_Campaign extends Component {
 
     render() {
         return (
-            <SafeAreaView style={stylemain.SafeAreaView}>
+            <SafeAreaView style={styleMain.SafeAreaView}>
                 <AppBar navigation={this.props.navigation} />
                 <ScrollView>
                     <Head_Image />
@@ -60,7 +60,7 @@ export class Head_Image extends Component {
     render() {
         return (
             <View>
-                <View style={styles.Head_BoxImage}>
+                <View style={styles.Head_BoxImageDetail}>
                     <FastImage style={styles.Head_Image}
                         source={{
                             uri: ip + '/MySQL/uploads/slide/messageImage_1579158520755.jpg',
@@ -232,17 +232,17 @@ export class New_year_New extends Component {
                         uri: dataMySQL,
         
                       }}
-                      style={[stylemain.BoxProduct1Image,{marginLeft:10,}]}
+                      style={[styleMain.BoxProduct1Image,{marginLeft:10,}]}
         
                     />
-                    <Text style={[stylemain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize4]}>{item.name}</Text>
+                    <Text style={[styleMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize4]}>{item.name}</Text>
                     <NumberFormat
                       value={item.full_price}
                       displayType={'text'}
                       thousandSeparator={true}
                       prefix={'฿'}
                       renderText={
-                        value => <Text style={[stylemain.BoxProduct1ImagePrice, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+                        value => <Text style={[styleMain.BoxProduct1ImagePrice, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
                           {value}
                         </Text>}
                     />
@@ -262,10 +262,8 @@ export class New_year_New extends Component {
                             <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize4,{ textAlign: 'right', color: '#FFFFFF'}]}>ดูทั้งหมด</Text>
                         </View>
                         <View>
-                            <View style={[styles.New_year_NewProduct]}>
-                            
-                            {dataFlashSale}
-                                             
+                            <View style={[styles.New_year_NewProduct]}>    
+                            {dataFlashSale}                                            
                             </View>    
                         </View>
                     </View>

@@ -1,4 +1,3 @@
-// หน้าสิ่งที่สนใจ
 import React, { Component } from 'react';
 import {
   Image,
@@ -19,13 +18,11 @@ import IconEntypo from 'react-native-vector-icons/Entypo';
 import stylesPro from '../../style/stylesProfile-src/stylesProfile_Topic';
 import styleMain from '../../style/StylesMainScreen';
 import stylesFont from '../../style/stylesFont';
-import {ip} from '../../navigator/IpConfig';
+import { ip } from '../../navigator/IpConfig';
 import { Appbar } from './LatestScreen';
-import { PopularProduct } from '../StoreScreen';
 
-export const { width, height } = Dimensions.get('window');
 
-export default class InterestedScreen extends Component {
+export default class Return_products extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,16 +31,9 @@ export default class InterestedScreen extends Component {
 
   render() {
     return (
-      <SafeAreaView style={styleMain.SafeAreaView}>
-      <Appbar  navigation={this.props.navigation} Title='สิ่งที่สนใจ'/>
-        <ScrollView>
-        <PopularProduct navigation={this.props.navigation} noHeadText/>
-        </ScrollView>
+      <SafeAreaView>
+          <Appbar navigation={this.props.navigation} Title='คืนสินค้า/คืนเงิน'/>
       </SafeAreaView>
     );
   }
 }
-
-
-
-///-----------------------------------------------------------------------------///

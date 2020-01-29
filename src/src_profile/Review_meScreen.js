@@ -16,8 +16,12 @@ import NumberFormat from 'react-number-format';
 import Icons from 'react-native-vector-icons/FontAwesome5';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconEntypo from 'react-native-vector-icons/Entypo';
-import styles from '../../style/stylesProfile-src/styleReview_meScreen';
+// import stylesPro from '../../style/stylesProfile-src/styleReview_meScreen';
+import stylesPro from '../../style/stylesProfile-src/stylesProfile_Topic';
+import styleMain from '../../style/StylesMainScreen';
+import stylesFont from '../../style/stylesFont';
 import { ip } from '../../navigator/IpConfig';
+import { Appbar } from './LatestScreen';
 
 export default class Review_meScreen extends Component {
   constructor(props) {
@@ -28,33 +32,17 @@ export default class Review_meScreen extends Component {
 
   render() {
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: '#E9E9E9', }}>
-        <Appbar navigation={this.props.navigation} />
+      <SafeAreaView style={styleMain.SafeAreaView}>
+        <Appbar navigation={this.props.navigation} Title='รีวิวของฉัน' />
         <ScrollView>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { marginLeft: 10, }]}>ล่าสุด</Text>
+          <Review_me />
+          <Review_me />
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { marginLeft: 10, }]}>เก่ากว่า</Text>
+          <Review_me />
           <Review_me />
         </ScrollView>
       </SafeAreaView>
-    );
-  }
-}
-
-///------------------------------------------------------------------------------///
-
-export class Appbar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-
-  render() {
-    return (
-      <View style={styles.Appbar} >
-        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
-          <IconEntypo name='chevron-left' size={35} />
-        </TouchableOpacity>
-        <Text style={{ marginTop: 5, }}>รีวิวของฉัน</Text>
-      </View>
     );
   }
 }
@@ -71,113 +59,30 @@ export class Review_me extends Component {
   render() {
     return (
       <View>
-        <Text style={{ marginLeft: 10, fontSize: 15, }}>ล่าสุด</Text>
-        <View style={styles.Review_me}>
-          <View style={styles.Review_me_Box}>
+        <View style={stylesPro.Review_me}>
+          <View style={stylesPro.Review_me_Box}>
             <View>
-              <Text>Mlife</Text>
-              <Text>สั่งซื้อวันที่ 12 ธ.ค.2019 </Text>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}>Mlife</Text>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { color: '#8F8F8F' }]}>สั่งซื้อวันที่ 12 ธ.ค.2019 </Text>
             </View>
-            <View style={styles.Review_me_Box_head}>
-              <Text style={{ color: '#FFFF' }}>รีวิว</Text>
+            <View style={stylesPro.Review_me_Box_head}>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>รีวิว</Text>
             </View>
           </View>
-          <View style={styles.Review_me_Box_image}>
-            <View style={styles.Review_me_Box_imageA}>
+          <View style={stylesPro.Review_me_Box_image}>
+            <View style={stylesPro.Review_me_Box_imageA}>
               <View style={{ flexDirection: 'row', }}>
-                <FastImage style={styles.Review_me_image}
+                <FastImage style={stylesPro.Review_me_image}
                   source={{
                     uri: ip + '/MySQL/uploads/products/2019-10-29-1572319733.jpg',
                   }}
                 />
                 <View style={{ marginLeft: 10, }}>
-                  <Text>กระเป๋าxxxxxxxx</Text>
-                  <Text>สี : น้ำตาล</Text>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>กระเป๋าxxxxxxxx</Text>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>สี : น้ำตาล</Text>
                 </View>
               </View>
-              <Text>จัดส่งสินค้าแล้ว</Text>
-            </View>
-          </View>
-        </View>
-        <View style={styles.Review_me}>
-          <View style={styles.Review_me_Box}>
-            <View>
-              <Text>Mlife</Text>
-              <Text>สั่งซื้อวันที่ 12 ธ.ค.2019 </Text>
-            </View>
-            <View style={styles.Review_me_Box_head}>
-              <Text style={{ color: '#FFFF' }}>รีวิว</Text>
-            </View>
-          </View>
-          <View style={styles.Review_me_Box_image}>
-            <View style={styles.Review_me_Box_imageA}>
-              <View style={{ flexDirection: 'row', }}>
-                <FastImage style={styles.Review_me_image}
-                  source={{
-                    uri: ip + '/MySQL/uploads/products/2019-10-29-1572319733.jpg',
-                  }}
-                />
-                <View style={{ marginLeft: 10, }}>
-                  <Text>กระเป๋าxxxxxxxx</Text>
-                  <Text>สี : น้ำตาล</Text>
-                </View>
-              </View>
-              <Text>จัดส่งสินค้าแล้ว</Text>
-            </View>
-          </View>
-        </View>
-        <Text style={{ marginLeft: 10, fontSize: 15, }}>เก่ากว่า</Text>
-        <View style={styles.Review_me}>
-          <View style={styles.Review_me_Box}>
-            <View>
-              <Text>Mlife</Text>
-              <Text>สั่งซื้อวันที่ 12 ธ.ค.2019 </Text>
-            </View>
-            <View style={styles.Review_me_Box_head}>
-              <Text style={{ color: '#FFFF' }}>รีวิว</Text>
-            </View>
-          </View>
-          <View style={styles.Review_me_Box_image}>
-            <View style={styles.Review_me_Box_imageA}>
-              <View style={{ flexDirection: 'row', }}>
-                <FastImage style={styles.Review_me_image}
-                  source={{
-                    uri: ip + '/MySQL/uploads/products/2019-10-29-1572319733.jpg',
-                  }}
-                />
-                <View style={{ marginLeft: 10, }}>
-                  <Text>กระเป๋าxxxxxxxx</Text>
-                  <Text>สี : น้ำตาล</Text>
-                </View>
-              </View>
-              <Text>จัดส่งสินค้าแล้ว</Text>
-            </View>
-          </View>
-        </View>
-        <View style={styles.Review_me}>
-          <View style={styles.Review_me_Box}>
-            <View>
-              <Text>Mlife</Text>
-              <Text>สั่งซื้อวันที่ 12 ธ.ค.2019 </Text>
-            </View>
-            <View style={styles.Review_me_Box_head}>
-              <Text style={{ color: '#FFFF' }}>รีวิว</Text>
-            </View>
-          </View>
-          <View style={styles.Review_me_Box_image}>
-            <View style={styles.Review_me_Box_imageA}>
-              <View style={{ flexDirection: 'row', }}>
-                <FastImage style={styles.Review_me_image}
-                  source={{
-                    uri: ip + '/MySQL/uploads/products/2019-10-29-1572319733.jpg',
-                  }}
-                />
-                <View style={{ marginLeft: 10, }}>
-                  <Text>กระเป๋าxxxxxxxx</Text>
-                  <Text>สี : น้ำตาล</Text>
-                </View>
-              </View>
-              <Text>จัดส่งสินค้าแล้ว</Text>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>จัดส่งสินค้าแล้ว</Text>
             </View>
           </View>
         </View>

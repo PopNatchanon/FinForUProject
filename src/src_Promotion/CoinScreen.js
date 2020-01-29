@@ -12,7 +12,7 @@ import {
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
 import styles from '../../style/stylePromotion-src/styleDealScreen';
-import stylemain from '../../style/StylesMainScreen';
+import styleMain from '../../style/StylesMainScreen';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
@@ -34,7 +34,7 @@ export default class CoinScreen extends Component {
 
   render() {
     return (
-      <SafeAreaView style={stylemain.SafeAreaView}>
+      <SafeAreaView style={styleMain.SafeAreaView}>
         <AppBar navigation={this.props.navigation} Title='FIN COINS' />
         <ScrollView>
           <Slide />

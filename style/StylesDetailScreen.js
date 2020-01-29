@@ -224,9 +224,7 @@ export default StyleSheet.create({
     Comment_text_day: {
         color: '#0A55A6',
     },
-    Comment_text_iconheart: {
-        marginTop: 10,
-    },
+   
     ///--------------------------------------------------------------------------///
     Banner_Bar: {
         backgroundColor: '#FFFFFF',

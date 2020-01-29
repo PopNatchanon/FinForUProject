@@ -13,7 +13,7 @@ import axios from 'axios';
 import NumberFormat from 'react-number-format';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import styles from '../../style/stylePromotion-src/styleDealScreen';
-import stylemain from '../../style/StylesMainScreen';
+import styleMain from '../../style/StylesMainScreen';
 import stylesFont from '../../style/stylesFont';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
@@ -33,13 +33,10 @@ export default class CampaignScreen extends Component {
 
   render() {
     return (
-      <SafeAreaView style={stylemain.SafeAreaView}>
+      <SafeAreaView style={styleMain.SafeAreaView}>
         <AppBar navigation={this.props.navigation} Title='แคมเปญ'/>
         <ScrollView>
           <Slide />
-          <Campaign_tag navigation={this.props.navigation}/>
-          <Campaign_tag navigation={this.props.navigation}/>
-          <Campaign_tag navigation={this.props.navigation}/>
           <Campaign_tag navigation={this.props.navigation}/>
         </ScrollView>
         <Button_Bar navigation={this.props.navigation} />

@@ -130,11 +130,6 @@ export default StyleSheet.create({
         height: 120,
         width: 120,
     },
-    Coupon_Store_Box: {
-        height: 90,
-        width: '100%',
-        backgroundColor: '#FFFFFF',
-    },
     Second_Store: {
         width: '100%',
         alignItems: 'center',
@@ -213,6 +208,7 @@ export default StyleSheet.create({
         borderColor: '#C4C4C4',
         borderWidth: 1,
         width: 130,
+        marginTop:10,
     },
 
     ///--------------------------------CampaignScreen-----------------------------------------///
@@ -327,11 +323,12 @@ export default StyleSheet.create({
     ///--------------------------------Installment_payScreen-----------------------------------------///
 
     Head_BoxImage: {
+        height:150,
         width: '100%',
         marginTop: 10,
     },
     Head_Image: {
-        width: '100%',
+        width:'100%',
         height:'100%',
     },
     Head_BoxText: {
@@ -342,7 +339,7 @@ export default StyleSheet.create({
 
     ///--------------------------------Detail_Campaign-----------------------------------------///
 
-    Head_BoxImage: {
+    Head_BoxImageDetail: {
         width: '100%',
         height: 250,
         marginTop: 5,

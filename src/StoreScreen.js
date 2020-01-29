@@ -61,7 +61,7 @@ export default class StoreScreen extends Component {
         var s_name = this.state.dataSourceStoreData.map((item) => { return (item.name) })
         var s_image = this.state.dataSourceStoreData.map((item) => { return (item.image) })
         return (
-            <SafeAreaView style={[stylesMain.BackgroundAreaView, { height:'100%' }]}>
+            <SafeAreaView style={[stylesMain.BackgroundAreaView, { height: '100%' }]}>
                 <AppBar leftBar='backarrow' rightBar='storebar' navigation={this.props.navigation} />
                 <ScrollView >
                     <StoreHead navigation={this.props.navigation} item={{ name: s_name, image: s_image }} />
@@ -724,7 +724,7 @@ export class PopularProduct extends Component {
         this.getDataPopularProduct();
     }
     render() {
-        const { headText } = this.props;
+        const { headText, noHeadText } = this.props;
         let dataToday = this.state.dataSourcePopularProduct.map((item, indexs) => {
             // console.log( indexs + '. ' + item.image ),
             var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
@@ -758,8 +758,12 @@ export class PopularProduct extends Component {
         })
         return (
             <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, { borderColor: '#E9E9E9' }]}>
-                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
-                    {headText ? headText : 'สินค้าขายดี'}</Text>
+                {
+                    noHeadText ?
+                        null :
+                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+                            {headText ? headText : 'สินค้าขายดี'}</Text>
+                }
                 <View style={stylesMain.BoxProductWarp}>
                     {dataToday}</View>
             </View>

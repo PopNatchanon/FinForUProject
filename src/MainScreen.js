@@ -1702,6 +1702,10 @@ export class Second_product extends Component {
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize1, stylesFont.FontFamilyBold]}>
                         สินค้ามือสอง</Text>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Second_productScreen')}>
+                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                            ดูทั้งหมด</Text>
+                    </TouchableOpacity>
                 </View>
                 <View>
                     <ImageBackground
@@ -1720,8 +1724,10 @@ export class Second_product extends Component {
                             source={{ uri: ip + '/MySQL/uploads/Text/storeFIN1.png' }}
                         />
                         <View>
-                            <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
-                                ดูทั้งหมด</Text>
+                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Second_productScreen')}>
+                                <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                                    ดูทั้งหมด</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
                     <View>

@@ -12,7 +12,7 @@ import {
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
 import IconEntypo from 'react-native-vector-icons/Entypo';
-import stylemain from '../../style/StylesMainScreen';
+import styleMain from '../../style/StylesMainScreen';
 import styles from '../../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../../style/stylesFont';
 import IconFeather from 'react-native-vector-icons/Feather';
@@ -35,7 +35,7 @@ export default class Installment_payScreen extends Component {
 
   render() {
     return (
-      <SafeAreaView style={stylemain.SafeAreaView}>
+      <SafeAreaView style={styleMain.SafeAreaView}>
         <AppBar navigation={this.props.navigation}  Title='ผ่อน 0 % สูงสุด 10 เดือน'/>
         <ScrollView>
           <Slide />
@@ -60,7 +60,7 @@ export class Head_Image extends Component {
 
   render() {
     return (
-      <View style={{width:'100%'}}>
+      <View>
         <View style={styles.Head_BoxImage}>
           <FastImage style={styles.Head_Image}
             source={{

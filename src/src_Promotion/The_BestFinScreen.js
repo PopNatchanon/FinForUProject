@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
-import stylemain from '../../style/StylesMainScreen';
+import styleMain from '../../style/StylesMainScreen';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import styles from '../../style/stylePromotion-src/styleDealScreen';
 import IconFeather from 'react-native-vector-icons/Feather';
@@ -33,7 +33,7 @@ export default class The_BestFinScreen extends Component {
 
   render() {
     return (
-      <SafeAreaView style={stylemain.SafeAreaView}>
+      <SafeAreaView style={styleMain.SafeAreaView}>
         <AppBar navigation={this.props.navigation} Title='สุดคุ้มสุดฟิน' />
         <ScrollView>
           <Slide />
@@ -93,23 +93,23 @@ export class Fin_sale extends Component {
             })
           }
         >
-          <View style={stylemain.BoxProduct1Box}>
+          <View style={styleMain.BoxProduct1Box}>
             <FastImage
               source={{
                 uri: dataMySQL,
 
               }}
-              style={stylemain.BoxProduct1Image}
+              style={styleMain.BoxProduct1Image}
 
             />
-            <Text style={[stylemain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize4]}>{item.name}</Text>
+            <Text style={[styleMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize4]}>{item.name}</Text>
             <NumberFormat
               value={item.full_price}
               displayType={'text'}
               thousandSeparator={true}
               prefix={'฿'}
               renderText={
-                value => <Text style={[stylemain.BoxProduct1ImagePrice, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+                value => <Text style={[styleMain.BoxProduct1ImagePrice, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
                   {value}
                 </Text>}
             />
@@ -119,7 +119,7 @@ export class Fin_sale extends Component {
     })
     return (
       <View >
-        <View style={[stylemain.FrameBackground, { marginTop: 20, }]}>
+        <View style={[styleMain.FrameBackground, { marginTop: 20, }]}>
           <View style={[styles.BoxText_T, { backgroundColor: '#C4C4C4', marginTop: -10, }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}> Fin จัดหนักลดสูงสุด 80 %  </Text>
           </View>
@@ -223,7 +223,7 @@ export class Store_Sale extends Component {
   render() {
     return (
       <View >
-        <View style={[stylemain.FrameBackground, { marginTop: 20, }]}>
+        <View style={[styleMain.FrameBackground, { marginTop: 20, }]}>
           <View style={[styles.BoxText_T, { backgroundColor: '#C4C4C4', marginTop: -10, }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}> ร้านนี้มีของลด </Text>
           </View>
@@ -343,17 +343,17 @@ export class Product_Cool extends Component {
                 uri: dataMySQL,
 
               }}
-              style={[stylemain.BoxProduct1Image, { marginLeft: 15, }]}
+              style={[styleMain.BoxProduct1Image, { marginLeft: 15, }]}
 
             />
-            <Text style={[stylemain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize4]}>{item.name}</Text>
+            <Text style={[styleMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize4]}>{item.name}</Text>
             <NumberFormat
               value={item.full_price}
               displayType={'text'}
               thousandSeparator={true}
               prefix={'฿'}
               renderText={
-                value => <Text style={[stylemain.BoxProduct1ImagePrice, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+                value => <Text style={[styleMain.BoxProduct1ImagePrice, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
                   {value}
                 </Text>}
             />
@@ -363,7 +363,7 @@ export class Product_Cool extends Component {
     })
     return (
       <View>
-        <View style={[stylemain.FrameBackground, { marginTop: 20, }]}>
+        <View style={[styleMain.FrameBackground, { marginTop: 20, }]}>
           <View style={[styles.BoxText_T, { backgroundColor: '#C4C4C4', marginTop: -10, }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}> สินค้าราคาโคตรคูล </Text>
           </View>
@@ -508,7 +508,7 @@ export class Second_Store extends Component {
                 uri: dataMySQL,
 
               }}
-              style={[stylemain.BoxProduct1Image, { marginLeft: 15 }]}
+              style={[styleMain.BoxProduct1Image, { marginLeft: 15 }]}
 
             />
             <Text style={[styles.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize4]}>{item.name}</Text>
@@ -518,7 +518,7 @@ export class Second_Store extends Component {
               thousandSeparator={true}
               prefix={'฿'}
               renderText={
-                value => <Text style={[stylemain.BoxProduct1ImagePrice, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+                value => <Text style={[styleMain.BoxProduct1ImagePrice, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
                   {value}
                 </Text>}
             />
@@ -527,7 +527,7 @@ export class Second_Store extends Component {
       );
     })
     return (
-      <View style={stylemain.FrameBackground}>
+      <View style={styleMain.FrameBackground}>
         <View style={styles.BoxText_Row}>
           <View style={[styles.BoxText_T, { backgroundColor: '#95D370', }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, styles.Text_Head]}>ร้านมือสองลดราคา</Text>

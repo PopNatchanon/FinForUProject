@@ -20,6 +20,8 @@ import ExclusiveScreen from '../src/ExclusiveScreen';
 import Product_for_youScreen from '../src/Product_for_youScreen';
 import Popular_productScreen from '../src/Popular_productScreen';
 import CategoryScreen from '../src/CategoryScreen';    
+import Same_StoreScreen from '../src/Same_StoreScreen';
+import Second_productScreen from '../src/Second_productScreen';
 // src_profile
 
 import LatestScreen from '../src/src_profile/LatestScreen';
@@ -29,6 +31,8 @@ import Follow_storeScreen from '../src/src_profile/Follow_storeScreen';
 import Review_meScreen from '../src/src_profile/Review_meScreen';
 import Help_meScreen from '../src/src_profile/Help_meScreen';
 import SettingScreen from '../src/src_profile/SettingScreen';
+import CancelScreen from '../src/src_profile/CancelScreen';
+import Return_products from '../src/src_profile/Return_products';
 
 // src_storeMe
 
@@ -244,6 +248,20 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
+  CancelScreen: {
+    screen: CancelScreen,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
+  Return_products: {
+    screen: Return_products,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
 
   // src_storeMe
 
@@ -337,10 +355,24 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
+  Same_StoreScreen: {
+    screen: Same_StoreScreen,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
+  Second_productScreen: {
+    screen: Second_productScreen,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
 },
   {
     initialRouteName: 'MainScreen',
-    // initialRouteName: 'Detail_Campaign',
+    // initialRouteName: 'ProfileScreen',
     // initialRouteName: 'DealScreen',
     // initialRouteName: 'The_BestFinScreen',
     // initialRouteName: 'Recommend_Store',

@@ -542,7 +542,6 @@ export class Reviews extends Component {
                 <Text style={[stylesDetail.Comment_text_day, stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.BottomSpace]}>
                   16-11-2019 15:56 | กรอบแว่นขนาด 50 cm</Text>
               </View>
-              <IconAntDesign style={stylesDetail.Comment_text_iconheart} name='hearto' size={20} />
             </View>
             <View style={stylesDetail.Comment_R}>
               <FastImage
@@ -578,7 +577,6 @@ export class Reviews extends Component {
                 <Text style={[stylesDetail.Comment_text_day, stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.BottomSpace]}>
                   16-11-2019 15:56 | กรอบแว่นขนาด 50 cm</Text>
               </View>
-              <IconAntDesign style={stylesDetail.Comment_text_iconheart} name='hearto' size={20} />
             </View>
             <View style={stylesDetail.Comment_R}>
               <FastImage
@@ -600,7 +598,6 @@ export class Reviews extends Component {
                 <Text style={[stylesDetail.Comment_text_day, stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.BottomSpace]}>
                   16-11-2019 15:56 | กรอบแว่นขนาด 50 cm</Text>
               </View>
-              <IconAntDesign style={stylesDetail.Comment_text_iconheart} name='hearto' size={20} />
             </View>
           </View>
         </View>
@@ -706,6 +703,10 @@ export class Same_Store extends Component {
         <View style={stylesMain.FrameBackgroundTextBox}>
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
             สินค้าจากร้านเดียวกัน</Text>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Same_StoreScreen', { type_product: 'this_store' })}>
+            <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize4, stylesFont.FontFamilyText]}>
+              ดูทั้งหมด</Text>
+          </TouchableOpacity>
         </View>
         <ScrollView horizontal>
           {dataSaleProduct}
@@ -792,6 +793,10 @@ export class Similar_Product extends Component {
         <View style={stylesMain.FrameBackgroundTextBox}>
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
             สินค้าที่คล้ายกัน</Text>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Same_StoreScreen', { type_product: 'same_product' })}>
+            <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize4, stylesFont.FontFamilyText]}>
+              ดูทั้งหมด</Text>
+          </TouchableOpacity>
         </View>
         <ScrollView horizontal>
           {dataSaleProduct}
@@ -877,8 +882,14 @@ export class Might_like extends Component {
     })
     return (
       <View style={stylesMain.FrameBackground}>
-        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
-          คุณอาจชอบสิ่งนี้</Text>
+        <View style={stylesMain.FrameBackgroundTextBox}>
+          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+            คุณอาจชอบสิ่งนี้</Text>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Same_StoreScreen', { type_product: 'youlike' })}>
+            <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize4, stylesFont.FontFamilyText]}>
+              ดูทั้งหมด</Text>
+          </TouchableOpacity>
+        </View>
         <View style={stylesDetail.PopularProductBoxProduct}>
           {dataToday}
         </View>

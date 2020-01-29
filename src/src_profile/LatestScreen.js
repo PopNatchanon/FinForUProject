@@ -1,3 +1,4 @@
+// หน้าดูล่าสุด
 import React, { Component } from 'react';
 import {
   Image,
@@ -15,7 +16,10 @@ import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
 import Icons from 'react-native-vector-icons/FontAwesome5';
 import IconEntypo from 'react-native-vector-icons/Entypo';
-import styles from '../../style/stylesProfile-src/stylesLatestScreen';
+import stylesPro from '../../style/stylesProfile-src/stylesProfile_Topic';
+import styleMain from '../../style/StylesMainScreen';
+import stylesFont from '../../style/stylesFont';
+import { PopularProduct } from '../StoreScreen';
 import { ip } from '../../navigator/IpConfig';
 
 export const { width, height } = Dimensions.get('window');
@@ -29,10 +33,10 @@ export default class LatestScreen extends Component {
 
   render() {
     return (
-      <SafeAreaView style={{ flex: 1, }}>
+      <SafeAreaView style={styleMain.SafeAreaView}>
         <Appbar navigation={this.props.navigation} />
         <ScrollView>
-          <Product_Box />
+          <PopularProduct navigation={this.props.navigation} noHeadText />
         </ScrollView>
       </SafeAreaView>
     );
@@ -49,12 +53,13 @@ export class Appbar extends Component {
   }
 
   render() {
+    const { Title } = this.props
     return (
-      <View style={styles.Appbar} >
+      <View style={stylesPro.Appbar} >
         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
-          <IconEntypo name='chevron-left' size={35} />
+          <IconEntypo name='chevron-left' size={35} color='#0A55A6' />
         </TouchableOpacity>
-        <Text style={{ marginTop: 5, fontFamily: 'SukhumvitSet-Bold' }}>ดูล่าสุด</Text>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { marginTop: 5 }]}>{Title ? Title : 'ดูล่าสุด'}</Text>
       </View>
     );
   }
@@ -64,85 +69,3 @@ export class Appbar extends Component {
 
 
 
-export class Product_Box extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      dataSourcePopularProduct: [],
-    };
-  }
-
-  getDataPopularProduct() {
-    var url = ip + '/mysql/DataServiceStore.php';
-    var dataBody = {
-      type: 'todayproduct'
-    };
-    axios.post(
-      url,
-      dataBody,
-    ).then((getData) => {
-      //   console.log(getData.data);
-      this.setState({
-        dataSourcePopularProduct: getData.data,
-      })
-    })
-  }
-
-  componentDidMount() {
-    this.getDataPopularProduct();
-  }
-
-  render() {
-    // console.log( 'Might_like|render' )
-    let dataToday = this.state.dataSourcePopularProduct.map((item, indexs) => {
-      var dataMySQL = [ip + '/mysql/uploads', item.image].join('/');
-      // console.log( dataMySQL )
-      return (
-        <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}>
-          <View style={styles.PopularProductBox} key={indexs}>
-            <FastImage
-              source={{
-                uri: dataMySQL,
-              }}
-              style={styles.PopularProductImage}
-            />
-            <Text style={[styles.PopularProductImageName, { fontFamily: 'SukhumvitSet-Text' }]}>
-              {item.name}
-            </Text>
-            <NumberFormat
-              value={item.full_price}
-              displayType={'text'}
-              thousandSeparator={true}
-              prefix={'฿'}
-              renderText={
-                value => <Text style={[styles.PopularProductImagePrice, { fontFamily: 'SukhumvitSet-Text' }]}>
-                  {value}
-                </Text>
-              }
-            />
-            <View style={styles.PopularProductIconBox}>
-              <View style={styles.PopularProductIconBoxStar}>
-                <Icons style={styles.PopularProductIconStar} name='star' size={8} />
-                <Icons style={styles.PopularProductIconStar} name='star' size={8} />
-                <Icons style={styles.PopularProductIconStar} name='star' size={8} />
-                <Icons style={styles.PopularProductIconStar} name='star' size={8} />
-                <Icons style={styles.PopularProductIconStar} name='star' size={8} />
-              </View>
-              <View style={styles.PopularProductIconBoxI}>
-                <Icons style={styles.PopularProductIcon} name='heart' size={10} />
-                <Icons style={styles.PopularProductIcon} name='share' size={10} />
-              </View>
-            </View>
-          </View>
-        </TouchableOpacity>
-      );
-    })
-    return (
-      <View style={styles.PopularProduct}>
-        <View style={styles.PopularProductBoxProduct}>
-          {dataToday}
-        </View>
-      </View>
-    )
-  }
-}

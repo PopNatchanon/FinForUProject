@@ -26,6 +26,7 @@ import stylesFont from '../style/stylesFont'
 import { ip } from '../navigator/IpConfig'
 export const { width, height } = Dimensions.get('window');
 import { Toolbar, TabBar } from './tools/Tools'
+import { AppBar1 } from './MainScreen';
 
 export default class FeedScreen extends Component {
   constructor(props) {
@@ -44,7 +45,8 @@ export default class FeedScreen extends Component {
   render() {
     return (
       <SafeAreaView style={[stylesMain.SafeAreaView, stylesMain.BackgroundAreaView]}>
-        <AppBar sendText={this.getData} />
+        <AppBar1 titleHead='ฟีด' storeBar menuBar />
+        <MenuBar sendText={this.getData} />
         <ScrollView>
           <Button_Bar selectedIndex={this.state.selectedIndex} navigation={this.props.navigation} />
           {/* <Follow_up />
@@ -58,7 +60,7 @@ export default class FeedScreen extends Component {
 
 ///-------------------------------------------------------------------------///
 
-export class AppBar extends Component {
+export class MenuBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -78,13 +80,6 @@ export class AppBar extends Component {
     }]
     return (
       <View>
-        <View style={stylesStore.AppbarMenu}>
-          <View style={stylesMain.FlexRow}>
-            <Text style={[stylesStore.Text_appbar, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
-              ฟีต</Text>
-          </View>
-          <Icons RightItem name="store" size={20} style={stylesStore.Icon_appbar} />
-        </View>
         <View>
           {/* <View style={stylesStore.Button_Bar}> */}
           <TabBar

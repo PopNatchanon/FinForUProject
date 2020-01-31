@@ -25,6 +25,7 @@ import stylesFont from '../style/stylesFont';
 import { ip } from '../navigator/IpConfig'
 export const { width, height } = Dimensions.get('window');
 import { Toolbar, TabBar } from './tools/Tools'
+import { AppBar1 } from './MainScreen';
 
 
 export default class NewsScreen extends Component {
@@ -42,9 +43,12 @@ export default class NewsScreen extends Component {
         });
     }
     render() {
+        var titleValue
+        this.state.selectedIndex == 0 ? titleValue = 'NEWS' : titleValue = 'BLOG'
         return (
             <SafeAreaView style={[stylesMain.SafeAreaView, stylesMain.BackgroundAreaView]}>
-                <AppBar sendText={this.getData} />
+                <AppBar1 titleHead={titleValue} menuBar />
+                <MenuBar sendText={this.getData} />
                 <ScrollView>
                     <Button_Bar selectedIndex={this.state.selectedIndex} />
                 </ScrollView>
@@ -56,7 +60,7 @@ export default class NewsScreen extends Component {
 
 ///-------------------------------------------------------------------------///
 
-export class AppBar extends Component {
+export class MenuBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -80,12 +84,6 @@ export class AppBar extends Component {
         }];
         return (
             <View>
-                <View style={stylesStore.AppbarMenu}>
-                    <View style={stylesMain.FlexRow}>
-                        <Text style={[stylesStore.Text_appbar, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
-                            {this.state.selectedIndex == 0 ? 'NEWS' : 'BLOG'}</Text>
-                    </View>
-                </View>
                 <View>
                     <TabBar
                         sendData={this.getData}

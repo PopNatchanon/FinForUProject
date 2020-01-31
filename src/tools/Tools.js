@@ -9,6 +9,8 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import styles from '../../style/StylesMainScreen';
 export const { width, height } = Dimensions.get('window');
 import AsyncStorage from '@react-native-community/async-storage';
+import DeviceInfo from 'react-native-device-info';
+
 ///--------------------------------------------------------------------------///
 
 export class Toolbar extends Component {
@@ -21,12 +23,17 @@ export class Toolbar extends Component {
     getDataasync = async () => {
         const currentUser = await AsyncStorage.getItem('@MyKey')
         this.setState({ currentUser: JSON.parse(currentUser) })
-
         // console.log('tool:')
         // console.log(this.state.currentUser)
     }
     componentDidMount() {
-        this.getDataasync()
+        this.getDataasync()//
+        // console.log('Brand')
+        // console.log(DeviceInfo.getBrand())
+        // console.log('Device')
+        // console.log(DeviceInfo.getDeviceId())
+        // console.log('DeviceType')
+        // console.log(DeviceInfo.getDeviceType())
     }
     render() {
         const { currentUser } = this.state;
@@ -43,21 +50,18 @@ export class Toolbar extends Component {
                         <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>Home</Text>
                     </View>
                 </TouchableOpacity>
-
                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('FeedScreen')} >
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="tagso" size={25} />
                         <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}> Feed</Text>
                     </View>
                 </TouchableOpacity>
-
                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('NewsScreen')} >
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="notification" size={25} />
                         <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>News</Text>
                     </View>
                 </TouchableOpacity>
-
                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('BellScreen')} >
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="bells" size={25} />
@@ -97,7 +101,7 @@ export class TabBar extends Component {
         }
     }
     /*
-    // v0.5.13012020
+    // v0.6.28012020
     // <TabBar
     // /////ส่งออกมาจากTabBarและส่งค่าที่คลิกไปยังฟังก์ชันgetData
     // sendData={this.getData}
@@ -135,7 +139,7 @@ export class TabBar extends Component {
     tab() {
         const {
             item, activeColor, activeWidth, type, radiusBox, activeFontColor, inactiveFontColor, inactiveColor, inactiveBoxColor,
-            noSpace, direction, alignBox, widthBox, spaceColor, fontColor, noLimit
+            noSpace, direction, alignBox, widthBox, spaceColor, fontColor, noLimit, fontSizeStyle
         } = this.props;
         // console.log(this.props.radiusBox)
         const countItem = item.length;
@@ -197,13 +201,13 @@ export class TabBar extends Component {
                                             } :
                                             null
                                     }>
-                                        <Text style={{
-                                            fontSize: 14,
+                                        <Text style={[{
+                                            fontSize: fontSizeStyle ? fontSizeStyle : 14,
                                             fontFamily: 'SukhumvitSet-Text',
                                             color: type == 'box' ?
                                                 activeFontColor ? activeFontColor : fontColor ? fontColor : 'white' :
                                                 activeFontColor ? activeFontColor : fontColor ? fontColor : 'black'
-                                        }}>
+                                        }]}>
                                             {item.name}
                                         </Text>
                                     </View>
@@ -247,11 +251,11 @@ export class TabBar extends Component {
                                             } :
                                             null
                                     }>
-                                        <Text style={{
-                                            fontSize: 14,
+                                        <Text style={[{
+                                            fontSize: fontSizeStyle ? fontSizeStyle : 14,
                                             fontFamily: 'SukhumvitSet-Text',
                                             color: inactiveFontColor ? inactiveFontColor : fontColor ? fontColor : 'black'
-                                        }}>
+                                        }]}>
                                             {item.name}
                                         </Text>
                                     </View>

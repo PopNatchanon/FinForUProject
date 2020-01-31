@@ -51,7 +51,7 @@ export default class StoreScreen extends Component {
         const { currentUser } = this.state;
         // console.log(currentUser)
         return (
-            <SafeAreaView style={stylesProfile.SafeAreaView}>
+            <SafeAreaView style={[stylesMain.SafeAreaView, stylesMain.BackgroundAreaView]}>
                 <ScrollView>
                     <View>
                         <Headbar navigation={this.props.navigation} currentUser={currentUser} />
@@ -110,7 +110,9 @@ export class Headbar extends Component {
                         </View>
                         <View style={{ flexDirection: 'row', padding: 8 }}>
                             <TouchableOpacity onPress={() => this.props.navigation.navigate('SettingScreen')}>
-                                <IconMaterialCommunityIcons RightItem name="settings-outline" style={{ marginRight: 6 }} size={25} color='#FFFFFF' />
+                                <IconMaterialCommunityIcons RightItem name="settings-outline" style={{ marginRight: 6 }}
+                                    size={25} color='#FFFFFF'
+                                />
                             </TouchableOpacity>
                             <IconFeather RightItem name="shopping-cart" size={25} color='#FFFFFF' />
                         </View>
@@ -127,11 +129,11 @@ export class Menubar extends Component {
     }
     render() {
         return (
-            <View>
+            <View style={stylesProfile.Menu}>
                 <View style={stylesProfile.Menubar}>
                     <View>
                         <Text style={[
-                            stylesProfile.MenubarText1, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize2
+                            stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize2
                         ]}>
                             รายการสั่งซื้อของฉัน</Text>
                     </View>
@@ -156,68 +158,56 @@ export class MenubarSub extends Component {
     render() {
         return (
             <View style={stylesProfile.MenubarSub}>
-                <View style={stylesProfile.MenubarSubLine1}>
-                    <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
+                <View style={stylesMain.FlexRow}>
+                    <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                         <FastImage
                             source={require('../icon/two-money-cards.png')}
                             style={stylesProfile.MenubarSubLine1Image}
-
                         />
-                        <Text style={stylesProfile.MenubarSubLine1Name}>
-                            รอจ่ายเงิน
-                        </Text>
+                        <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                            รอจ่ายเงิน</Text>
                     </View>
-                    <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
+                    <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                         <FastImage
                             source={require('../icon/month-calendar.png')}
                             style={stylesProfile.MenubarSubLine1Image}
-
                         />
-                        <Text style={stylesProfile.MenubarSubLine1Name}>
-                            เตรียมจัดส่ง
-                        </Text>
+                        <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                            เตรียมจัดส่ง</Text>
                     </View>
-                    <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
+                    <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                         <FastImage
                             source={require('../icon/truck-facing-right.png')}
                             style={stylesProfile.MenubarSubLine1Image}
-
                         />
-                        <Text style={stylesProfile.MenubarSubLine1Name}>
-                            ดำเนินการส่ง
-                        </Text>
+                        <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                            ดำเนินการส่ง</Text>
                     </View>
-                    <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
+                    <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                         <FastImage
                             source={require('../icon/rating.png')}
                             style={stylesProfile.MenubarSubLine1Image}
-
                         />
-                        <Text style={stylesProfile.MenubarSubLine1Name}>
-                            รีวิวสินค้า
-                        </Text>
+                        <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                            รีวิวสินค้า</Text>
                     </View>
                 </View>
-                <View style={stylesProfile.MenubarSubLine2}>
-                    <View style={stylesProfile.MenubarSubLine2Box}>
+                <View style={[stylesProfile.MenubarSubLine2, stylesMain.FlexRow]}>
+                    <View style={[stylesProfile.MenubarSubLine2Box, stylesMain.ItemCenter, stylesMain.FlexRow]}>
                         <FastImage
                             source={require('../icon/repeat.png')}
                             style={stylesProfile.MenubarSubLine2BoxImage}
-
                         />
-                        <Text style={stylesProfile.MenubarSubLine2BoxName}>
-                            คืนสินค้า/คืนเงิน
-                        </Text>
+                        <Text style={[stylesProfile.MenubarSubLine2BoxName, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                            คืนสินค้า/คืนเงิน</Text>
                     </View>
-                    <View style={stylesProfile.MenubarSubLine2Box}>
+                    <View style={[stylesProfile.MenubarSubLine2Box, stylesMain.ItemCenter, stylesMain.FlexRow]}>
                         <FastImage
                             source={require('../icon/box.png')}
                             style={stylesProfile.MenubarSubLine2BoxImage}
-
                         />
-                        <Text style={stylesProfile.MenubarSubLine2BoxName}>
-                            ยกเลิกสินค้า
-                        </Text>
+                        <Text style={[stylesProfile.MenubarSubLine2BoxName, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                            ยกเลิกสินค้า</Text>
                     </View>
                 </View>
             </View>
@@ -249,55 +239,57 @@ export class Listbar extends Component {
         }
     }
     render() {
-        // console.log(this.state.pathlist)
         return (
             <View>
-                <View style={{ width, flexDirection: 'row', borderColor: '#EAEAEA', borderWidth: 1, marginTop: 10 }}>
-                    <View style={{ width: width * (1 / 4), flexDirection: 'column', alignItems: 'center', }}>
-                        <TouchableOpacity activeOpacity={0.9} onPress={() => { this.setState({ pathlist: 0 }) }}>
-                            <View style={{ flexDirection: 'column', alignItems: 'center', }}>
-                                <View style={{ width: 60, height: 60, marginTop: 18, alignItems: 'center', backgroundColor: '#0A81A6', borderRadius: 30, }}>
-                                    <IconAntDesign name='home' size={40} style={{ marginTop: 'auto', marginBottom: 'auto', color: '#fff' }} />
-                                </View>
-                                <Text style={stylesProfile.ListbarBoxText}>
-                                    หน้าหลัก
-                                </Text>
+                <View style={[stylesProfile.ListbarMain, stylesMain.FlexRow]}>
+                    <TouchableOpacity activeOpacity={0.9} onPress={() => { this.setState({ pathlist: 0 }) }}>
+                        <View style={[stylesMain.FlexColumn, stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
+                            <View style={[stylesMain.ItemCenter, stylesProfile.ListbarMainRadius, { backgroundColor: '#0A81A6' }]}>
+                                <IconAntDesign name='home' size={40} style={[stylesMain.ItemCenterVertical, { color: '#fff' }]} />
                             </View>
-                        </TouchableOpacity>
-                    </View>
+                            <Text style={[
+                                stylesProfile.ListbarBoxText, stylesFont.FontFamilyText, stylesFont.FontSize3, stylesFont.FontCenter
+                            ]}>
+                                หน้าหลัก</Text>
+                        </View>
+                    </TouchableOpacity>
                     <TouchableOpacity activeOpacity={0.9} onPress={() => { this.props.navigation.navigate('DealScreen') }}>
-                        <View style={{ flexDirection: 'column', width: width * (1 / 4), alignItems: 'center' }}>
-                            <View style={{ width: 60, height: 60, marginTop: 18, alignItems: 'center', backgroundColor: '#128BCE', borderRadius: 30, }}>
-                                <IconMaterialCommunityIcons name='octagram-outline' size={40} style={{ marginTop: 'auto', marginBottom: 'auto', color: '#fff' }} />
+                        <View style={[stylesMain.FlexColumn, stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
+                            <View style={[stylesMain.ItemCenter, stylesProfile.ListbarMainRadius, { backgroundColor: '#128BCE' }]}>
+                                <IconMaterialCommunityIcons name='octagram-outline' size={40}
+                                    style={stylesProfile.ListbarMainRadiusIcon} />
                             </View>
-                            <Text style={stylesProfile.ListbarBoxText}>
-                                โปรโมชัน
-                        </Text>
+                            <Text style={[
+                                stylesProfile.ListbarBoxText, stylesFont.FontFamilyText, stylesFont.FontSize3, stylesFont.FontCenter
+                            ]}>
+                                โปรโมชัน</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={0.9} onPress={() => { this.setState({ pathlist: 2 }) }}>
-                        <View style={{ flexDirection: 'column', width: width * (1 / 4), alignItems: 'center' }}>
-                            <View style={{ width: 60, height: 60, marginTop: 18, alignItems: 'center', backgroundColor: '#1A3263', borderRadius: 30, }}>
-                                <IconMaterialCommunityIcons name='ticket' size={40} style={{ marginTop: 'auto', marginBottom: 'auto', color: '#fff' }} />
+                        <View style={[stylesMain.FlexColumn, stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
+                            <View style={[stylesMain.ItemCenter, stylesProfile.ListbarMainRadius, { backgroundColor: '#1A3263' }]}>
+                                <IconMaterialCommunityIcons name='ticket' size={40} style={stylesProfile.ListbarMainRadiusIcon} />
                             </View>
-                            <Text style={stylesProfile.ListbarBoxText}>
-                                โค้ดส่วนลด
-                        </Text>
+                            <Text style={[
+                                stylesProfile.ListbarBoxText, stylesFont.FontFamilyText, stylesFont.FontSize3, stylesFont.FontCenter
+                            ]}>
+                                โค้ดส่วนลด</Text>
                         </View>
                     </TouchableOpacity>
-                    <View style={{ flexDirection: 'column', width: width * (1 / 4), alignItems: 'center' }}>
-                        <TouchableOpacity activeOpacity={0.9} onPress={() => { this.setState({ pathlist: 3 }) }}>
-                            <View style={{ flexDirection: 'column', alignItems: 'center', }}>
+                    <TouchableOpacity activeOpacity={0.9} onPress={() => { this.setState({ pathlist: 3 }) }}>
+                        <View style={[stylesMain.FlexColumn, stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
+                            <View style={[stylesMain.ItemCenter, stylesProfile.ListbarMainRadius, { backgroundColor: '#fadf2d' }]}>
                                 <FastImage
                                     source={require('../icon/bitcoin2.png')}
                                     style={stylesProfile.ListbarBoxImage}
                                 />
-                                <Text style={stylesProfile.ListbarBoxText}>
-                                    Fin coin ของฉัน
-                                </Text>
                             </View>
-                        </TouchableOpacity>
-                    </View>
+                            <Text style={[
+                                stylesProfile.ListbarBoxText, stylesFont.FontFamilyText, stylesFont.FontSize3, stylesFont.FontCenter
+                            ]}>
+                                Fin coin ของฉัน</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
                 <View>
                     {this.PathList()}
@@ -315,63 +307,73 @@ export class ListMenu extends Component {
         return (
             <View>
                 <View style={stylesProfile.ListMenu}>
-
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('LatestScreen')} >
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
-                                <IconMaterialIcons RightItem name="access-time" color='#D0B216' size={35} style={stylesProfile.ListMenuListSubIcon} />
-
-                                <Text style={stylesProfile.ListMenuListSubName}>
-                                    ดูล่าสุด
-                            </Text>
+                                <IconMaterialIcons RightItem name="access-time" color='#D0B216' size={35}
+                                    style={stylesProfile.ListMenuListSubIcon} />
+                                <Text style={[
+                                    stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize3,
+                                    stylesFont.FontCenter
+                                ]}>
+                                    ดูล่าสุด</Text>
                             </View>
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} />
                         </View>
                     </TouchableOpacity>
-
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('ChatScreen')} >
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
-                                <IconAntDesign RightItem name="wechat" size={35} color='#0A55A6' style={stylesProfile.ListMenuListSubIcon} />
-                                <Text style={stylesProfile.ListMenuListSubName}>
-                                    แชท
-                            </Text>
+                                <IconAntDesign RightItem name="wechat" size={35} color='#0A55A6'
+                                    style={stylesProfile.ListMenuListSubIcon} />
+                                <Text style={[
+                                    stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize3,
+                                    stylesFont.FontCenter
+                                ]}>
+                                    แชท</Text>
                             </View>
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} />
                         </View>
                     </TouchableOpacity>
-
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('InterestedScreen')} >
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
-                                <IconAntDesign RightItem name="heart" size={35} color='#D74024' style={stylesProfile.ListMenuListSubIcon} />
-                                <Text style={stylesProfile.ListMenuListSubName}>
-                                    สิ่งที่สนใจ
-                            </Text>
+                                <IconAntDesign RightItem name="heart" size={35} color='#D74024' style={
+                                    stylesProfile.ListMenuListSubIcon}
+                                />
+                                <Text style={[
+                                    stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize3,
+                                    stylesFont.FontCenter
+                                ]}>
+                                    สิ่งที่สนใจ</Text>
                             </View>
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} />
                         </View>
                     </TouchableOpacity>
-
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Follow_storeScreen')} >
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
-                                <IconFontisto RightItem name="shopping-store" size={30} color='#0A55A6' style={stylesProfile.ListMenuListSubIcon} />
-                                <Text style={stylesProfile.ListMenuListSubName}>
-                                    ร้านค้าที่ติดตาม
-                            </Text>
+                                <IconFontisto RightItem name="shopping-store" size={30} color='#0A55A6' style={
+                                    stylesProfile.ListMenuListSubIcon} />
+                                <Text style={[
+                                    stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize3,
+                                    stylesFont.FontCenter
+                                ]}>
+                                    ร้านค้าที่ติดตาม</Text>
                             </View>
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} />
                         </View>
                     </TouchableOpacity>
-
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Review_meScreen')} >
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
-                                <IconMaterialCommunityIcons RightItem name="star-box" size={35} color='#EAD295' style={stylesProfile.ListMenuListSubIcon} />
-                                <Text style={stylesProfile.ListMenuListSubName}>
-                                    รีวิวของฉัน
-                            </Text>
+                                <IconMaterialCommunityIcons RightItem name="star-box" size={35} color='#EAD295' style={
+                                    stylesProfile.ListMenuListSubIcon} />
+                                <Text style={[
+                                    stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize3,
+                                    stylesFont.FontCenter
+                                ]}>
+                                    รีวิวของฉัน</Text>
                             </View>
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} />
                         </View>
@@ -379,10 +381,13 @@ export class ListMenu extends Component {
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Help_meScreen')} >
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
-                                <IconFeather RightItem name="help-circle" size={35} color='#00A3FF' style={stylesProfile.ListMenuListSubIcon} />
-                                <Text style={stylesProfile.ListMenuListSubName}>
-                                    ช่วยเหลือ
-                            </Text>
+                                <IconFeather RightItem name="help-circle" size={35} color='#00A3FF' style={
+                                    stylesProfile.ListMenuListSubIcon} />
+                                <Text style={[
+                                    stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize3,
+                                    stylesFont.FontCenter
+                                ]}>
+                                    ช่วยเหลือ</Text>
                             </View>
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} />
                         </View>
@@ -425,17 +430,14 @@ export class ViewCode extends Component {
         }]
         return (
             <View>
-                <View style={{ marginTop: 10, borderWidth: 1, borderColor: '#ECECEC', padding: 10, }}>
-                    <Text style={{ fontSize: 14, fontFamily: 'SukhumvitSet-Bold' }}>
-                        โ่ค้ดส่วนลดของฉัน
-                    </Text>
+                <View style={stylesProfile.ViewCode}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}>
+                        โ่ค้ดส่วนลดของฉัน</Text>
                 </View>
-                <View style={{ marginTop: 10, }}>
+                <View style={{ marginTop: 10, backgroundColor: '#fff' }}>
                     <TabBar
                         sendData={this.getData}
                         item={item}
-                    // activeColor='red'
-                    // type='box'
                     />
                 </View>
                 <View>
@@ -445,6 +447,7 @@ export class ViewCode extends Component {
         )
     }
 }
+
 export class MyCode extends Component {
     constructor(props) {
         super(props)
@@ -455,89 +458,103 @@ export class MyCode extends Component {
     render() {
         return (
             <View>
-                <View style={{ width, borderWidth: 1, borderColor: '#ECECEC', marginTop: 10, padding: 10, }}>
-                    <View style={{ flexDirection: 'row' }}>
-                        <View style={{ width: width * 0.7, alignItems: 'center', alignContent: 'center' }}>
+                <View style={stylesProfile.ViewCode}>
+                    <View style={stylesMain.FlexRow}>
+                        <View style={[stylesMain.ItemCenter, { width: '70%', }]}>
                             <TextInput
                                 placeholder="ใส่โค้ดส่วนลด"
                                 value={this.state.text}
                                 maxLength={9}
-                                width={width * 0.7}
+                                width={'90%'}
                                 placeholderTextColor={'white'}
-                                style={{ color: 'white', backgroundColor: '#D7D7D7', fontFamily: 'SukhumvitSet-Text', borderRadius: 6, padding: 4, }}
+                                style={[stylesProfile.ViewCodeInputCode, stylesFont.FontSize3]}
                                 onChangeText={(text) => this.setState({ text })}
                             ></TextInput>
                         </View>
-                        <View>
-                            <View style={{ backgroundColor: '#6791BE', borderRadius: 6, padding: 8, marginLeft: 6 }}>
-                                <Text style={{ color: '#FFF', fontFamily: 'SukhumvitSet-Text' }}>
-                                    เก็บโค้ดส่วนลด
-                                </Text>
+                        <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                            <View style={[stylesProfile.ViewCodeTextCode]}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { color: '#FFF' }]}>
+                                    เก็บโค้ดส่วนลด</Text>
                             </View>
                         </View>
                     </View>
                 </View>
-                <View style={{ alignContent: 'center', alignItems: 'center' }}>
-                    <View style={{ width: width * 0.98, borderBottomWidth: 0.5, borderWidth: 1, borderColor: '#ECECEC', marginTop: 10 }}>
-                        <Text style={{ paddingLeft: 20, padding: 2, fontFamily: 'SukhumvitSet-Bold' }}>
-                            FIN Mission
-                        </Text>
+                <View style={stylesMain.ItemCenter}>
+                    <View style={stylesProfile.FinMinssion}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { paddingLeft: 20, padding: 2 }]}>
+                            FIN Mission</Text>
                     </View>
-                    <View style={{ borderBottomWidth: 0.5, borderColor: '#ECECEC', }}>
-                        <View style={{ width: width * 0.98, borderBottomWidth: 0.5, borderWidth: 1, borderColor: '#ECECEC', padding: 10, flexDirection: 'row' }}>
+                    <View style={stylesProfile.FinMinssionBox}>
+                        <View style={[stylesMain.FlexRow, stylesProfile.FinMinssionBoxPlan1]}>
                             <FastImage
-                                style={{ backgroundColor: '#ECECEC', width: 60, height: 60, borderRadius: 40, }}
+                                style={stylesProfile.FinMinssionBoxPlan1Image}
                             />
                             <View style={{ marginLeft: 16 }}>
-                                <Text style={{ marginTop: 5, fontFamily: 'SukhumvitSet-Text' }}>ติดตาม ร้าน Ppooo</Text>
-                                <View style={{ marginTop: 6, padding: 4, backgroundColor: '#0A55A6', alignContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ color: 'white', fontFamily: 'SukhumvitSet-Text' }}>โค้ดส่วนลด 80%</Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { marginTop: 5 }]}>
+                                    ติดตาม ร้าน Ppooo</Text>
+                                <View style={[stylesProfile.FinMinssionBoxPlan1Code, stylesMain.ItemCenter]}>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: 'white' }]}>
+                                        โค้ดส่วนลด 80%</Text>
                                 </View>
                             </View>
-                            <View style={{ borderWidth: 1, borderRadius: 20, paddingTop: 4, padding: 15, height: 30, marginLeft: '36%', }}>
-                                <Text style={{ fontFamily: 'SukhumvitSet-Text' }}>ติดตาม</Text>
+                            <View style={stylesProfile.FinMinssionBoxPlan1Follow}>
+                                <View style={[stylesProfile.FinMinssionBoxPlan1FollowBox, stylesMain.ItemCenter,]}>
+                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                                        ติดตาม</Text>
+                                </View>
                             </View>
                         </View>
-                        <View style={{ width: width * 0.98, borderBottomWidth: 0.5, borderWidth: 1, borderColor: '#ECECEC', padding: 10, flexDirection: 'row' }}>
+                        <View style={[stylesMain.FlexRow, stylesProfile.FinMinssionBoxPlan1]}>
                             <FastImage
-                                style={{ backgroundColor: '#ECECEC', width: 60, height: 60, borderRadius: 40, }}
+                                style={stylesProfile.FinMinssionBoxPlan1Image}
                             />
                             <View style={{ marginLeft: 16 }}>
-                                <Text style={{ marginTop: 5, fontFamily: 'SukhumvitSet-Text' }}>ติดตาม ร้าน Ppooo</Text>
-                                <View style={{ marginTop: 6, padding: 4, backgroundColor: '#0A55A6', alignContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ color: 'white', fontFamily: 'SukhumvitSet-Text' }}>โค้ดส่วนลด 80%</Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { marginTop: 5 }]}>
+                                    ติดตาม ร้าน Ppooo</Text>
+                                <View style={[stylesProfile.FinMinssionBoxPlan1Code, stylesMain.ItemCenter]}>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: 'white' }]}>
+                                        โค้ดส่วนลด 80%</Text>
                                 </View>
                             </View>
-                            <View style={{ borderWidth: 1, borderRadius: 20, paddingTop: 4, padding: 15, height: 30, marginLeft: '36%', }}>
-                                <Text style={{ fontFamily: 'SukhumvitSet-Text' }}>ติดตาม</Text>
+                            <View style={stylesProfile.FinMinssionBoxPlan1Follow}>
+                                <View style={[stylesProfile.FinMinssionBoxPlan1FollowBox, stylesMain.ItemCenter,]}>
+                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                                        ติดตาม</Text>
+                                </View>
                             </View>
                         </View>
-                        <View style={{ width: width * 0.98, borderBottomWidth: 0.5, borderWidth: 1, borderColor: '#ECECEC', padding: 10, flexDirection: 'row' }}>
+                        <View style={[stylesMain.FlexRow, stylesProfile.FinMinssionBoxPlan1]}>
                             <FastImage
-                                style={{ backgroundColor: '#ECECEC', width: 60, height: 60, borderRadius: 40, }}
+                                style={stylesProfile.FinMinssionBoxPlan1Image}
                             />
                             <View style={{ marginLeft: 16 }}>
-                                <Text style={{ marginTop: 5, fontFamily: 'SukhumvitSet-Text' }}>ติดตาม ร้าน Ppooo</Text>
-                                <View style={{ marginTop: 6, padding: 4, backgroundColor: '#0A55A6', alignContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ color: 'white', fontFamily: 'SukhumvitSet-Text' }}>โค้ดส่วนลด 80%</Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { marginTop: 5 }]}>
+                                    ติดตาม ร้าน Ppooo</Text>
+                                <View style={[stylesProfile.FinMinssionBoxPlan1Code, stylesMain.ItemCenter]}>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: 'white' }]}>
+                                        โค้ดส่วนลด 80%</Text>
                                 </View>
                             </View>
-                            <View style={{ borderWidth: 1, borderRadius: 20, paddingTop: 4, padding: 15, height: 30, marginLeft: '36%', }}>
-                                <Text style={{ fontFamily: 'SukhumvitSet-Text' }}>ติดตาม</Text>
+                            <View style={stylesProfile.FinMinssionBoxPlan1Follow}>
+                                <View style={[stylesProfile.FinMinssionBoxPlan1FollowBox, stylesMain.ItemCenter,]}>
+                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                                        ติดตาม</Text>
+                                </View>
                             </View>
                         </View>
                     </View>
-                    <View style={{ marginTop: 4 }}>
-                        <View style={{ width: width * 0.98, borderWidth: 1, borderColor: '#6791BE', borderRadius: 4, padding: 4, alignContent: 'center', alignItems: 'center' }}>
-                            <Text style={{ color: '#6791BE', fontFamily: 'SukhumvitSet-Text' }}>ดูภารกิจทั้งหมด</Text>
+                    <View style={{ marginVertical: 4, backgroundColor: '#fff', }}>
+                        <View style={[stylesProfile.AllFinMinssion, stylesMain.ItemCenter]}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { color: '#6791BE' }]}>
+                                ดูภารกิจทั้งหมด</Text>
                         </View>
-
                     </View>
                 </View>
-            </View>
+            </View >
         )
     }
 }
+
 export class CoinCollect extends Component {
     constructor(props) {
         super(props)
@@ -593,34 +610,25 @@ export class CoinCollect extends Component {
         const coin = 1000;
         return (
             <View>
-                <View style={{ marginTop: 10, backgroundColor: '#11B7DC', height: 110, width }}>
-                    <View style={{ width, marginTop: 'auto', marginBottom: 'auto', flexDirection: 'row', alignItems: 'center', alignContent: 'center', justifyContent: 'center' }}>
+                <View style={stylesProfile.CoinCollect}>
+                    <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, stylesMain.FlexRow, { width }]}>
                         <FastImage
                             source={require('../icon/bitcoin2.png')}
-                            style={{
-
-                                width: 60,
-                                height: 60,
-                                borderRadius: 30,
-                            }}
+                            style={stylesProfile.CoinCollectImage}
                         />
-                        <View style={{ marginLeft: 40, borderRadius: 40, borderWidth: 1, borderColor: '#0A55A6', width: 160, height: 60, backgroundColor: 'white' }}>
-                            <Text style={{ marginTop: 10, marginLeft: 20, fontSize: 10, fontFamily: 'SukhumvitSet-Text' }}>
-                                FIN COIN
-                            </Text>
-                            <View style={{ alignItems: 'center', alignContent: 'center' }}>
-                                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
-                                    <NumberFormat
-                                        value={coin}
-                                        displayType={'text'}
-                                        thousandSeparator={true}
-                                        renderText={
-                                            value => <Text style={[stylesProfile.PopularProductImagePrice, { fontFamily: 'SukhumvitSet-Text' }]}>
-                                                {value}
-                                            </Text>
-                                        }
-                                    />
-                                </Text>
+                        <View style={stylesProfile.CoinCollectBox}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginTop: 10, marginLeft: 20, }]}>
+                                FIN COIN</Text>
+                            <View style={stylesMain.ItemCenter}>
+                                <NumberFormat
+                                    value={coin}
+                                    displayType={'text'}
+                                    thousandSeparator={true}
+                                    renderText={
+                                        value => <Text style={[stylesFont.FontSize1, stylesFont.FontFamilyBold]}>
+                                            {value}</Text>
+                                    }
+                                />
                             </View>
                         </View>
                     </View>
@@ -633,6 +641,7 @@ export class CoinCollect extends Component {
                         inactiveFontColor={'#0A55A6'}
                         item={item}
                         widthBox={98}
+                        fontSizeStyle={12}
                         type='box'
                     />
                 </View>
@@ -647,23 +656,26 @@ export class CoinCollect extends Component {
 export class CoinPageBody extends Component {
     render() {
         return (
-            <View style={{ alignItems: 'center' }}>
-                <View style={{ marginTop: 10, width: width * 0.96, height: 200, borderWidth: 1, borderColor: '#EAEAEA', backgroundColor: 'white' }}>
+            <View style={stylesMain.ItemCenter}>
+                <View style={stylesProfile.CoinPageBody}>
                     <View style={{ width: '100%', height: 140 }}>
                         <FastImage
                             source={{
                                 uri: ip + '/MySQL/uploads/slide/Banner_type/shoes_BannerBar.jpg',
-
                             }}
                             style={{ width: '100%', height: '100%' }}
                         />
                     </View>
-                    <View style={{ flexDirection: 'row', backgroundColor: 'white' }}>
-                        <View style={{ padding: 4, width: width * 0.65 }}>
-                            <Text style={{ fontFamily: 'SukhumvitSet-Text' }}>ส่วนลด 10% สำหรับร้าน เพชร </Text>
+                    <View style={[stylesMain.FlexRow, stylesProfile.CoinPageBodyBox]}>
+                        <View style={stylesProfile.CoinPageBodyBoxBody1}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                                ส่วนลด 10% สำหรับร้าน เพชร</Text>
                         </View>
-                        <View style={{ backgroundColor: '#0A55A6', width: 120, alignItems: 'center', marginTop: 4, borderRadius: 4 }}>
-                            <Text style={{ marginBottom: 'auto', marginTop: 'auto', color: '#fff', fontFamily: 'SukhumvitSet-Text' }}>แลก 10 coin</Text>
+                        <View style={[stylesProfile.CoinPageBodyBoxBody2, { flexDirection: 'row', justifyContent: 'flex-end' }]}>
+                            <View style={[stylesProfile.CoinPageBodyBoxBody2Box, stylesMain.ItemCenter]}>
+                                <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#fff' }]}>
+                                    แลก 10 coin</Text>
+                            </View>
                         </View>
                     </View>
                 </View>

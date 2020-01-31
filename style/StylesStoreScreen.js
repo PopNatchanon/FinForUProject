@@ -203,7 +203,7 @@ export default StyleSheet.create({
   Appbar: {
     backgroundColor: '#0A55A6',
     width,
-    // height: 84.5,
+    height: 54,
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingTop: 5,
@@ -214,8 +214,6 @@ export default StyleSheet.create({
   },
   Icon_appbar: {
     color: '#FFFF',
-    marginTop: 10,
-    margin: 10,
   },
   Text_appbar: {
     color: '#FFFF',

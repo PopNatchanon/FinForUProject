@@ -64,8 +64,8 @@ export class Headbar extends Component {
                         <Text style={{ marginTop: 5, fontSize: 16, fontFamily: 'SukhumvitSet-Bold' }}>ตั้งค่าบัญชี</Text>
                     </View>
                     <View style={{ flexDirection: 'row', padding: 5, }}>
-                        <IconMaterialCommunityIcons style={{ marginRight: 10, }} name="settings-outline" size={25} />
-                        <IconAntDesign name='message1' size={25} />
+                        {/* <IconMaterialCommunityIcons style={{ marginRight: 10, }} name="settings-outline" size={25} />
+                        <IconAntDesign name='message1' size={25} /> */}
                     </View>
                 </View>
             </View>

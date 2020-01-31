@@ -145,7 +145,7 @@ export default StyleSheet.create({
         width: 60,
     },
 
-        ///-----------------------------------Help_me-----------------------------------///
+    ///-----------------------------------Help_me-----------------------------------///
 
     Help_me_ImageBackground: {
         height: 180,
@@ -198,4 +198,71 @@ export default StyleSheet.create({
         marginLeft: 10,
         marginRight: 10,
     },
+
+    ///-----------------------------------Total_Order-----------------------------------///
+    Button_bar: {
+        height: 40,
+        marginTop: 5,
+        backgroundColor:'#FFFFFF',
+    },
+    Order_BoxStore: {
+        paddingHorizontal: 10,
+        borderColor: '#EAEAEA',
+        borderBottomWidth: 1,
+        flexDirection: 'row',
+        paddingVertical: 5,
+    },
+    Order_StorePro: {
+        height: 40,
+        width: 40,
+        backgroundColor: '#A2A2A2',
+        borderRadius: 20,
+    },
+    Order_Box_Button: {
+        marginTop: 5,
+        flexDirection: 'row',
+    },
+    Order_Button: {
+        padding:10,
+        height: 30,
+        borderRadius: 5,
+        marginLeft: 10,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    Order_Product: {
+        height: 120,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 10,
+    },
+    Order_Product_Pro: {
+        height: 80,
+        width: 80,
+        backgroundColor: '#C4C4C4',
+        margin: 10,
+    },
+    Order_Box_price: {
+        borderColor: '#EAEAEA',
+        borderTopWidth: 1,
+        padding: 10,
+    },
+    Order_Box_priceText: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+    },
+    ///-----------------------------------Return_products-----------------------------------///
+
+    Up_Image_Box: {
+        backgroundColor: '#FFFFFF',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 10,
+        width: 100,
+        height: 80,
+        borderColor: '#0A55A6',
+        borderWidth: 1,
+    },
+
 })

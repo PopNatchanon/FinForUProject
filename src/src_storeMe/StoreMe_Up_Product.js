@@ -97,7 +97,6 @@ export class StoreMe_Up_Image extends Component {
                 <Text style={{ color: '#0A55A6', fontSize: 12, }}>+เพิ่มรูปภาพ/วีดีโอ</Text>
               </View>
             </TouchableOpacity>
-
           </View>
         </ScrollView>
         <Text style={{ marginLeft: 10, color: '#A3A3A3', fontSize: 12, }}> *สูงสุดรวม 6 รูป</Text>

@@ -33,6 +33,8 @@ import Help_meScreen from '../src/src_profile/Help_meScreen';
 import SettingScreen from '../src/src_profile/SettingScreen';
 import CancelScreen from '../src/src_profile/CancelScreen';
 import Return_products from '../src/src_profile/Return_products';
+import Total_Order from '../src/src_profile/Total_Order';
+import Order_Detail from '../src/src_profile/Order_Detail';
 
 // src_storeMe
 
@@ -40,6 +42,7 @@ import StoreMeScreen from '../src/src_storeMe/StoreMeScreen';
 import StoreMe_Setting from '../src/src_storeMe/StoreMe_Setting';
 import StoreMe_Up_Product from '../src/src_storeMe/StoreMe_Up_Product';
 import StoreMe_Order from '../src/src_storeMe/StoreMe_Order';
+import StoreMe_Cancel from '../src/src_storeMe/StoreMe_Cancel';
 
 // src-Cart
 
@@ -262,6 +265,20 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
+  Total_Order: {
+    screen: Total_Order,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
+  Order_Detail: {
+    screen: Order_Detail,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
 
   // src_storeMe
 
@@ -288,6 +305,13 @@ const PathScreen = createStackNavigator({
   },
   StoreMe_Order: {
     screen: StoreMe_Order,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
+  StoreMe_Cancel: {
+    screen: StoreMe_Cancel,
     navigationOptions: () => ({
       tabBarVisible: false,
       header: null,
@@ -371,8 +395,8 @@ const PathScreen = createStackNavigator({
   },
 },
   {
-    initialRouteName: 'MainScreen',
-    // initialRouteName: 'ProfileScreen',
+    // initialRouteName: 'MainScreen',
+    initialRouteName: 'ProfileScreen',
     // initialRouteName: 'DealScreen',
     // initialRouteName: 'The_BestFinScreen',
     // initialRouteName: 'Recommend_Store',

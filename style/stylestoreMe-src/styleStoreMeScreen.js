@@ -40,7 +40,6 @@ export default StyleSheet.create({
         height: 130,
         borderColor: '#0A55A6',
         borderWidth: 1,
-
     },
     StoreMe_Up_ProductDetail: {
         flexDirection: 'row',

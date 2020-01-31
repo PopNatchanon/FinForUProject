@@ -135,15 +135,18 @@ export class Menubar extends Component {
                         ]}>
                             รายการสั่งซื้อของฉัน</Text>
                     </View>
-                    <View>
-                        <Text style={[
-                            stylesProfile.MenubarText2, stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize3
-                        ]}>
-                            รายการการสั่งซื้อทั้งหมด <IconEntypo name='chevron-right' size={20} />
-                        </Text>
+                    <View style={{ marginTop: 10, }}>
+                        <TouchableOpacity activeOpacity={0.9} onPress={() => { this.props.navigation.navigate('Total_Order', { selectedIndex: 0 }) }}>
+                            <Text style={[
+                                stylesProfile.MenubarText2, stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize3
+                            ]}>
+                                รายการการสั่งซื้อทั้งหมด <IconEntypo name='chevron-right' size={20} />
+                            </Text>
+                        </TouchableOpacity>
                     </View>
+
                 </View>
-                <MenubarSub navigation={this.props.navigation}/>
+                <MenubarSub navigation={this.props.navigation} />
             </View>
         )
     }
@@ -157,71 +160,78 @@ export class MenubarSub extends Component {
         return (
             <View style={stylesProfile.MenubarSub}>
                 <View style={stylesProfile.MenubarSubLine1}>
-                    <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
-                        <FastImage
-                            source={require('../icon/two-money-cards.png')}
-                            style={stylesProfile.MenubarSubLine1Image}
+                    <TouchableOpacity activeOpacity={0.9} onPress={() => { this.props.navigation.navigate('Total_Order', { selectedIndex: 1 }) }}>
+                        <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
+                            <FastImage
+                                source={require('../icon/two-money-cards.png')}
+                                style={stylesProfile.MenubarSubLine1Image}
 
-                        />
-                        <Text style={stylesProfile.MenubarSubLine1Name}>
-                            รอจ่ายเงิน
+                            />
+                            <Text style={stylesProfile.MenubarSubLine1Name}>
+                                ที่ต้องชำระ
                         </Text>
-                    </View>
-                    <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
-                        <FastImage
-                            source={require('../icon/month-calendar.png')}
-                            style={stylesProfile.MenubarSubLine1Image}
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={0.9} onPress={() => { this.props.navigation.navigate('Total_Order', { selectedIndex: 2 }) }}>
+                        <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
+                            <FastImage
+                                source={require('../icon/month-calendar.png')}
+                                style={stylesProfile.MenubarSubLine1Image}
 
-                        />
-                        <Text style={stylesProfile.MenubarSubLine1Name}>
-                            เตรียมจัดส่ง
+                            />
+                            <Text style={stylesProfile.MenubarSubLine1Name}>
+                                เตรียมจัดส่ง
                         </Text>
-                    </View>
-                    <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
-                        <FastImage
-                            source={require('../icon/truck-facing-right.png')}
-                            style={stylesProfile.MenubarSubLine1Image}
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={0.9} onPress={() => { this.props.navigation.navigate('Total_Order', { selectedIndex: 3 }) }}>
+                        <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
+                            <FastImage
+                                source={require('../icon/truck-facing-right.png')}
+                                style={stylesProfile.MenubarSubLine1Image}
 
-                        />
-                        <Text style={stylesProfile.MenubarSubLine1Name}>
-                            ดำเนินการส่ง
+                            />
+                            <Text style={stylesProfile.MenubarSubLine1Name}>
+                                ที่ต้องได้รับ
                         </Text>
-                    </View>
-                    <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
-                        <FastImage
-                            source={require('../icon/rating.png')}
-                            style={stylesProfile.MenubarSubLine1Image}
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={0.9} onPress={() => { this.props.navigation.navigate('Total_Order', { selectedIndex: 4 }) }}>
+                        <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
+                            <FastImage
+                                source={require('../icon/rating.png')}
+                                style={stylesProfile.MenubarSubLine1Image}
 
-                        />
-                        <Text style={stylesProfile.MenubarSubLine1Name}>
-                            รีวิวสินค้า
+                            />
+                            <Text style={stylesProfile.MenubarSubLine1Name}>
+                                รีวิวสินค้า
                         </Text>
-                    </View>
+                        </View>
+                    </TouchableOpacity>
                 </View>
-                
                 <View style={stylesProfile.MenubarSubLine2}>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Return_products')}>
-                    <View style={stylesProfile.MenubarSubLine2Box}>
-                        <FastImage
-                            source={require('../icon/repeat.png')}
-                            style={stylesProfile.MenubarSubLine2BoxImage}
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Return_products')}>
+                        <View style={stylesProfile.MenubarSubLine2Box}>
+                            <FastImage
+                                source={require('../icon/repeat.png')}
+                                style={stylesProfile.MenubarSubLine2BoxImage}
 
-                        />
-                        <Text style={stylesProfile.MenubarSubLine2BoxName}>
-                            คืนสินค้า/คืนเงิน
+                            />
+                            <Text style={stylesProfile.MenubarSubLine2BoxName}>
+                                คืนสินค้า/คืนเงิน
                         </Text>
-                    </View>
+                        </View>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('CancelScreen')}>
-                    <View style={stylesProfile.MenubarSubLine2Box}>
-                        <FastImage
-                            source={require('../icon/box.png')}
-                            style={stylesProfile.MenubarSubLine2BoxImage}
-                        />  
+                        <View style={stylesProfile.MenubarSubLine2Box}>
+                            <FastImage
+                                source={require('../icon/box.png')}
+                                style={stylesProfile.MenubarSubLine2BoxImage}
+                            />
                             <Text style={stylesProfile.MenubarSubLine2BoxName}>
                                 ยกเลิกสินค้า
-                        </Text>     
-                    </View>
+                        </Text>
+                        </View>
                     </TouchableOpacity>
                 </View>
             </View>

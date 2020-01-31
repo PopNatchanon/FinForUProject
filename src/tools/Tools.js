@@ -94,6 +94,7 @@ export class TabBar extends Component {
         super(props);
         this.state = {
             pathlist: 0,
+            PassSetValue: 0,
         }
     }
     /*
@@ -135,10 +136,17 @@ export class TabBar extends Component {
     tab() {
         const {
             item, activeColor, activeWidth, type, radiusBox, activeFontColor, inactiveFontColor, inactiveColor, inactiveBoxColor,
-            noSpace, direction, alignBox, widthBox, spaceColor, fontColor, noLimit, limitBox
+            noSpace, direction, alignBox, widthBox, spaceColor, fontColor, noLimit, limitBox, SetValue
         } = this.props;
+        const { PassSetValue } = this.state
         // console.log(this.props.radiusBox)
         const countItem = item.length;
+        PassSetValue < 1 ?
+            SetValue ?
+                (this.setState({ pathlist: SetValue, PassSetValue: PassSetValue + 1 }),
+                    this.props.sendData(SetValue)) :
+                null :
+            null
         return item.map((item, index) => {
             // console.log(item.name, index, num)
             return (

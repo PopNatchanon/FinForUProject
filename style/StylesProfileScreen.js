@@ -97,7 +97,7 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
     },
     MenubarText2: {
-        color: '#BABABA',
+        color: '#0A55A6',
     },
     ///---------------------------------------------------------------------------///
     MenubarSub: {

@@ -25,6 +25,7 @@ import stylesFont from '../style/stylesFont'
 import { ip } from '../navigator/IpConfig'
 export const { width, height } = Dimensions.get('window');
 import { Toolbar } from './tools/Tools'
+import { AppBar1 } from './MainScreen';
 
 export default class BellScreen extends Component {
     constructor(props) {
@@ -35,7 +36,7 @@ export default class BellScreen extends Component {
     render() {
         return (
             <SafeAreaView style={[stylesMain.SafeAreaView, stylesMain.BackgroundAreaView]}>
-                <AppBar />
+                <AppBar1 titleHead='การแจ้งเตือน' />
                 <ScrollView>
                     <Popular_store />
                     <Pro_for_U />
@@ -48,28 +49,6 @@ export default class BellScreen extends Component {
 }
 
 ///--------------------------------------------------------------------------///
-
-export class AppBar extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            text: '',
-        };
-    }
-    render() {
-        return (
-            <View style={stylesStore.Appbar}>
-                <View style={stylesMain.FlexRow}>
-                    <Text style={[stylesStore.Text_appbar, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
-                        การแจ้งเตือน</Text>
-                </View>
-            </View>
-        );
-    }
-}
-
-///--------------------------------------------------------------------------///
-
 
 export class Popular_store extends Component {
     constructor(props) {
@@ -161,7 +140,7 @@ export class Pro_for_U extends Component {
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
                             }}
                         />
-                        <Text style={[stylesMain.BoxStore4Text,stylesFont.FontFamilyText,stylesFont.FontSize3]}>
+                        <Text style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
                             ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                     </View>
                     <View style={stylesMain.BoxStore4Box}>
@@ -171,7 +150,7 @@ export class Pro_for_U extends Component {
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop2.jpg',
                             }}
                         />
-                        <Text style={[stylesMain.BoxStore4Text,stylesFont.FontFamilyText,stylesFont.FontSize3]}>
+                        <Text style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
                             ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                     </View>
                     <View style={stylesMain.BoxStore4Box}>
@@ -181,7 +160,7 @@ export class Pro_for_U extends Component {
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop3.jpg',
                             }}
                         />
-                        <Text style={[stylesMain.BoxStore4Text,stylesFont.FontFamilyText,stylesFont.FontSize3]}>
+                        <Text style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
                             ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                     </View>
                     <View style={stylesMain.BoxStore4Box}>
@@ -191,7 +170,7 @@ export class Pro_for_U extends Component {
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop4.jpg',
                             }}
                         />
-                        <Text style={[stylesMain.BoxStore4Text,stylesFont.FontFamilyText,stylesFont.FontSize3]}>
+                        <Text style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
                             ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                     </View>
                 </View>
@@ -221,7 +200,7 @@ export class Update_buy extends Component {
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
                             }}
                         />
-                        <Text style={[stylesMain.BoxStore4Text,stylesFont.FontFamilyText,stylesFont.FontSize3]}>
+                        <Text style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
                             คุณให้คะแนนเรทติ้งการสั่งซื้อแล้วรึยัง</Text>
                     </View>
                     <View style={stylesMain.BoxStore4Box}>
@@ -231,7 +210,7 @@ export class Update_buy extends Component {
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
                             }}
                         />
-                        <Text style={[stylesMain.BoxStore4Text,stylesFont.FontFamilyText,stylesFont.FontSize3]}>
+                        <Text style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
                             กรุณาชำระเงิน ........ บาท สำหรับคำสั่งซื้อ ภายในวันที่ 19-12-2019 </Text>
                     </View>
                     <View style={stylesMain.BoxStore4Box}>
@@ -241,7 +220,7 @@ export class Update_buy extends Component {
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
                             }}
                         />
-                        <Text style={[stylesMain.BoxStore4Text,stylesFont.FontFamilyText,stylesFont.FontSize3]}>
+                        <Text style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
                             คุณให้คะแนนเรทติ้งการสั่งซื้อแล้วรึยัง??</Text>
                     </View>
                     <View style={stylesMain.BoxStore4Box}>
@@ -251,7 +230,7 @@ export class Update_buy extends Component {
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
                             }}
                         />
-                        <Text style={[stylesMain.BoxStore4Text,stylesFont.FontFamilyText,stylesFont.FontSize3]}>
+                        <Text style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
                             กรุณาชำระเงิน ........ บาท สำหรับคำสั่งซื้อ ภายในวันที่ 19-12-2019 </Text>
                     </View>
                 </View>

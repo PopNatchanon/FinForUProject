@@ -36,7 +36,7 @@ export default StyleSheet.create({
         backgroundColor: '#FFFFFF',
         borderColor: '#ECECEC',
         borderWidth: 1,
-        height: 200,
+        // height: 200,
         width,
 
     },
@@ -47,18 +47,16 @@ export default StyleSheet.create({
         backgroundColor: '#FFFFFF',
         borderColor: '#ECECEC',
         borderWidth: 1,
-        height: 110,
         width,
 
     },
     Bar_Code: {
-        height: 50,
+        height: 40,
         backgroundColor: '#FFFFFF',
         borderColor: '#ECECEC',
         borderWidth: 1,
         flexDirection: 'row',
         justifyContent: 'space-around',
-        paddingTop: 5,
 
     },
     Bar_Code_Box: {
@@ -74,7 +72,6 @@ export default StyleSheet.create({
         borderColor: '#ECECEC',
         borderWidth: 1,
         borderRadius: 8,
-        paddingTop: 5,
         backgroundColor: '#0A55A6',
     },
     Bar_Code_Text: {
@@ -82,16 +79,15 @@ export default StyleSheet.create({
         color: '#FFFF',
     },
     Bar_Buy: {
-        height: 60,
+        height: 40,
         backgroundColor: '#FFFFFF',
         borderColor: '#ECECEC',
         borderWidth: 1,
         flexDirection: 'row',
         justifyContent: 'space-around',
-        paddingTop: 10,
     },
     Bar_Buy_select: {
-        height: 40,
+        // height: 40,
         flexDirection: 'row',
     },
     Boxselect: {
@@ -99,12 +95,11 @@ export default StyleSheet.create({
         borderWidth: 1,
         width: 15,
         height: 15,
-        marginTop: 5,
-
     },
     Bar_Buy_price: {
-        height: 40,
+        // height: 60,
         flexDirection: 'row',
+        // backgroundColor:'#785213'
     },
     BOX_Buy: {
         width: 80,
@@ -112,7 +107,6 @@ export default StyleSheet.create({
         borderColor: '#ECECEC',
         borderWidth: 1,
         borderRadius: 8,
-        paddingTop: 5,
         backgroundColor: '#0A55A6',
     },
     BOX_Buy_Text: {

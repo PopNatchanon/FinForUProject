@@ -17,12 +17,13 @@ import IconFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import stylesMain from '../style/StylesMainScreen';
-import stylesFont from '../style/stylesFont'
+import stylesStore from '../style/StylesStoreScreen';
+import stylesFont from '../style/stylesFont';
 import { finip, ip } from '../navigator/IpConfig';
 import FastImage from 'react-native-fast-image';
 export const { width, height } = Dimensions.get('window');
 import AsyncStorage from '@react-native-community/async-storage';
-import { Toolbar } from './tools/Tools'
+import { Toolbar } from './tools/Tools';
 import DeviceInfo from 'react-native-device-info';
 
 ///----------------------------------Appbar----------------------------------------///
@@ -85,7 +86,6 @@ export class AppBar extends Component {
         };
         // console.log(this.props.navigation.navigate)
     }
-
     render() {
         const { leftBar, rightBar } = this.props
         return (
@@ -158,6 +158,50 @@ export class AppBar extends Component {
                                 <IconAntDesign RightItem name="shoppingcart" size={25} />
                             </TouchableOpacity>
                         </View>
+                }
+            </View>
+        );
+    }
+}
+
+export class AppBar1 extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+    render() {
+        const { titleHead, backArrow, chatBar, menuBar, storeBar } = this.props;
+        return (
+            <View style={menuBar ? stylesStore.AppbarMenu : stylesStore.Appbar}>
+                <View style={stylesMain.FlexRow}>
+                    {
+                        backArrow ?
+                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
+                                <IconFeather style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
+                                    marginLeft: 8
+                                }]} name="arrow-left" size={30} />
+                            </TouchableOpacity> :
+                            null
+                    }
+                    <Text style={[
+                        stylesStore.Text_appbar, stylesFont.FontSize1, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical
+                    ]}>
+                        {titleHead ? titleHead : null}</Text>
+                </View>
+                {
+                    chatBar ?
+                        <IconAntDesign RightItem name="message1" size={25} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
+                            marginRight: 8
+                        }]} /> :
+                        null
+                }
+                {
+                    storeBar ?
+                        <Icon RightItem name="store" size={20} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
+                            marginRight: 8
+                        }]} /> :
+                        null
                 }
             </View>
         );
@@ -820,22 +864,14 @@ export class FlashSale extends Component {
                 <TouchableOpacity
                     activeOpacity={1}
                     key={indexs}
-                    onPress={
-                        () => this.props.navigation.navigate(
-                            'FlashSaleScreen', {
-                            id_item: item.id_product
-                        }
-                        )
-                    }
+                    onPress={() => this.props.navigation.navigate('FlashSaleScreen', { id_item: item.id_product })}
                 >
                     <View style={stylesMain.BoxProduct1Box}>
                         <FastImage
                             source={{
                                 uri: dataMySQL,
-
                             }}
                             style={stylesMain.BoxProduct1Image}
-
                         />
                         <Text style={[stylesMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
                             {item.name}</Text>

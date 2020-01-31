@@ -78,7 +78,7 @@ export default StyleSheet.create({
     width: '100%',
     height: height * (1 / 4.9),
     resizeMode: 'cover',
-    padding: 4,
+    // padding: 4,
   },
   BoxProduct2ImageName: {
     fontSize: 12,
@@ -312,6 +312,9 @@ export default StyleSheet.create({
   ///------------///
   FlexRow: {
     flexDirection: 'row'
+  },
+  FlexColumn: {
+    flexDirection: 'column'
   },
   BackgroundAreaView: {
     backgroundColor: '#E9E9E9'

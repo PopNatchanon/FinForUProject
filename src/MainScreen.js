@@ -100,13 +100,12 @@ export class AppBar extends Component {
                         </View> :
                         null
                 }
-                <View style={[stylesMain.FlexRow, stylesMain.AppbarBody]}>
+                <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical]}>
                     <FastImage
                         style={[stylesMain.LOGO, stylesMain.ItemCenterVertical]}
                         source={require('../images/sj.png')}
                     />
                     <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
-                        height: 40,
                         width:
                             rightBar == 'storebar' ?
                                 leftBar == 'backarrow' ?
@@ -116,12 +115,9 @@ export class AppBar extends Component {
                                     width - 200 :
                                     width - 170,
                     }]}>
-                        <TextInput style={[stylesMain.TextInput, stylesFont.FontFamilyText, stylesFont.FontSize2, stylesFont.FontCenter]}
-                            placeholder="ค้นหาสินค้า/ร้านค้า"
-                            value={this.state.text}
-                            maxLength={30}
-                            onChangeText={(text) => this.setState({ text })}>
-                        </TextInput>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize2,
+                        stylesFont.FontCenter, stylesMain.ItemCenterVertical]}>
+                            ค้นหาสินค้า/ร้านค้า</Text>
                     </View>
                     <IconAntDesign RightItem name="search1" size={20} style={[stylesMain.ItemCenterVertical, { marginRight: 4 }]} />
                 </View>
@@ -194,9 +190,7 @@ export class AppBar1 extends Component {
                         <IconAntDesign RightItem name="message1" size={25} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
                             marginRight: 8
                         }]} /> :
-                        null
-                }
-                {
+                        null,
                     storeBar ?
                         <Icon RightItem name="store" size={20} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
                             marginRight: 8

@@ -123,10 +123,10 @@ export default StyleSheet.create({
         height: 40,
         backgroundColor: '#FFFFFF',
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        // justifyContent: 'space-between',
     },
     Button_Bar_BoxText: {
-        marginHorizontal: 10,
+        paddingHorizontal: 10,
         borderRightColor: 'black',
         borderRightWidth: 1,
         height: 20,
@@ -259,6 +259,6 @@ export default StyleSheet.create({
         borderWidth: 1,
     },
 
-     ///----------------------------------------------------------------------------///
+    ///----------------------------------------------------------------------------///
 
 })

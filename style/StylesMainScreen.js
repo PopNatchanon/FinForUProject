@@ -365,7 +365,6 @@ export default StyleSheet.create({
   },
   AppbarBody: {
     marginLeft: 6,
-    paddingLeft: 6,
     borderWidth: 1,
     borderColor: '#E5E5E5',
     backgroundColor: '#fff',
@@ -524,7 +523,7 @@ export default StyleSheet.create({
   },
   ///------------------------------------------------------------------///
   Button_Bar_Box: {
-    width: width * 1 / 4.1,
+    width: 94,
     alignItems: 'center',
     alignContent: 'center',
     height: 60,

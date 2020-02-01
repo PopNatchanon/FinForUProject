@@ -13,13 +13,13 @@ import BellScreen from '../src/BellScreen';
 import Register_OTPScreen from '../src/Register_OTPScreen';
 import RegisterScreen from '../src/RegisterScreen';
 import Recommend_Brand from '../src/Recommend_Brand';
-import FlashSaleScreen from '../src/FlashSaleScreen'; 
+import FlashSaleScreen from '../src/FlashSaleScreen';
 import HighlightScreen from '../src/HighlightScreen';
 import Recommend_Store from '../src/Recommend_Store';
 import ExclusiveScreen from '../src/ExclusiveScreen';
 import Product_for_youScreen from '../src/Product_for_youScreen';
 import Popular_productScreen from '../src/Popular_productScreen';
-import CategoryScreen from '../src/CategoryScreen';    
+import CategoryScreen from '../src/CategoryScreen';
 import Same_StoreScreen from '../src/Same_StoreScreen';
 import Second_productScreen from '../src/Second_productScreen';
 // src_profile
@@ -396,9 +396,9 @@ const PathScreen = createStackNavigator({
 },
   {
     // initialRouteName: 'MainScreen',
-    initialRouteName: 'ProfileScreen',
+    // initialRouteName: 'ProfileScreen',
     // initialRouteName: 'DealScreen',
-    // initialRouteName: 'The_BestFinScreen',
+    initialRouteName: 'Customer_account',
     // initialRouteName: 'Recommend_Store',
   }
 );

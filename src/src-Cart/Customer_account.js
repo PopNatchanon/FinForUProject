@@ -15,7 +15,6 @@ import { CheckBox } from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 import { finip, ip } from '../../navigator/IpConfig';
 
-
 export default class Customer_account extends Component {
     constructor(props) {
         super(props);
@@ -26,9 +25,6 @@ export default class Customer_account extends Component {
     getDataasync = async () => {
         const currentUser = await AsyncStorage.getItem('@MyKey')
         this.setState({ currentUser: JSON.parse(currentUser) })
-
-        // console.log('tool:')
-        // console.log(this.state.currentUser)
     }
     componentDidMount() {
         this.getDataasync()
@@ -53,7 +49,6 @@ export class Appbar extends Component {
         this.state = {
         };
     }
-
     render() {
         return (
             <View style={styles.Appbar}>
@@ -81,7 +76,6 @@ export class Account extends Component {
             DataTumbols: [],
         };
     }
-
     getDataProvince() {
         fetch(finip + '/profile/province_mobile', {
             method: 'POST',
@@ -236,7 +230,7 @@ export class Account extends Component {
                         onValueChange={(itemValue, itemIndex) => {
                             this.getDataAmphoe(itemValue);
                         }}>
-                        <Picker.Item label="จังหวัด" />
+                        <Picker.Item ><Text>จังหวัด</Text></Picker.Item>
                         {provinces}
                     </Picker>
                 </View>
@@ -285,7 +279,7 @@ export class Account extends Component {
                         value={this.state.text}
                         onChangeText={(text) => this.setState({ text })}></TextInput>
                 </View>
-            </View>
+            </View >
         );
     }
 }

@@ -11,10 +11,12 @@ import {
 } from 'react-native';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import styles from '../../style/styleCart-src/styleCustomer_account';
+import stylesMain from '../../style/StylesMainScreen';
+import stylesFont from '../../style/stylesFont';
 import { CheckBox } from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 import { finip, ip } from '../../navigator/IpConfig';
-
+import ModalDropdown from 'react-native-modal-dropdown';
 
 export default class Customer_account extends Component {
     constructor(props) {
@@ -26,9 +28,6 @@ export default class Customer_account extends Component {
     getDataasync = async () => {
         const currentUser = await AsyncStorage.getItem('@MyKey')
         this.setState({ currentUser: JSON.parse(currentUser) })
-
-        // console.log('tool:')
-        // console.log(this.state.currentUser)
     }
     componentDidMount() {
         this.getDataasync()
@@ -53,7 +52,6 @@ export class Appbar extends Component {
         this.state = {
         };
     }
-
     render() {
         return (
             <View style={styles.Appbar}>
@@ -79,9 +77,11 @@ export class Account extends Component {
             DataProvinces: [],
             DataAmphoes: [],
             DataTumbols: [],
+            province: 'จังหวัด',
+            amphoe: 'เขต/อำเภอ',
+            tumbol: 'แขวง/ตำบล',
         };
     }
-
     getDataProvince() {
         fetch(finip + '/profile/province_mobile', {
             method: 'POST',
@@ -103,17 +103,17 @@ export class Account extends Component {
             })
     }
     getDataAmphoe(itemValue) {
+        console.log(itemValue)
         if (itemValue != null) {
-            this.setState({ province: itemValue });
-            this.setState({ DataTumbols: [] })
-            this.setState({ tumbol: null });
-            this.setState({ amphoe: null })
-            this.setState({ zipcode: null });
+            console.log('province: ' + itemValue + ' get amphoe')
+            console.log('processing...')
+            this.setState({ province: itemValue, DataTumbols: [], tumbol: 'แขวง/ตำบล', amphoe: 'เขต/อำเภอ', zipcode: null });
             const { currentUser } = this.props
             var dataBody = {
                 id_customer: currentUser,
                 value_province: itemValue,
             };
+            // console.log(dataBody)
             fetch(finip + '/profile/ajax_amphur', {
                 method: 'POST',
                 headers: {
@@ -124,7 +124,8 @@ export class Account extends Component {
             })
                 .then((response) => response.json())
                 .then((responseJson) => {
-                    // console.log(responseJson)
+                    console.log('responseJson')
+                    console.log(responseJson)
                     this.setState({
                         DataAmphoes: responseJson,
                     })
@@ -136,15 +137,27 @@ export class Account extends Component {
             this.getDataTumbol(null);
         }
     }
+    myFunction(value) {
+        return value != null;
+    }
     getDataTumbol(itemValue) {
+        const { DataAmphoes } = this.state
+        console.log(itemValue)
         if (itemValue != null) {
-            this.setState({ amphoe: itemValue })
-            this.setState({ zipcode: itemValue.zipcode });
+            // console.log('amphoe: ' + itemValue + ' get tumbol')
+            // console.log('processing...')
+            var zipcode = DataAmphoes.map((item) => {
+                if (item.amphoe == itemValue) {
+                    return (item.zipcode)
+                }
+            }).filter(this.myFunction)
+            this.setState({ amphoe: itemValue, zipcode: zipcode[0] })
             const { currentUser } = this.props
             var dataBody = {
                 id_customer: currentUser,
-                value_amphur: itemValue.amphoe,
+                value_amphur: itemValue,
             };
+            // console.log(dataBody)
             fetch(finip + '/profile/ajax_tumbol', {
                 method: 'POST',
                 headers: {
@@ -164,22 +177,17 @@ export class Account extends Component {
                     console.error(error);
                 })
         } else {
-            this.setState({ DataTumbols: [] })
-            this.setState({ tumbol: null });
-            this.setState({ amphoe: null })
-            this.setState({ zipcode: null });
+            this.setState({ DataTumbols: [], tumbol: 'แขวง/ตำบล', amphoe: 'เขต/อำเภอ', zipcode: null })
         }
     }
-
     componentDidMount() {
         this.getDataProvince()
     }
-
     DataProvince() {
         return (
             this.state.DataProvinces.map((item) => {
                 return (
-                    <Picker.Item label={item.province} value={item.province} key={item.province} />
+                    item.province
                 )
             })
         )
@@ -188,7 +196,7 @@ export class Account extends Component {
         return (
             this.state.DataAmphoes.map((item) => {
                 return (
-                    <Picker.Item label={item.amphoe} value={item} key={item.amphoe} />
+                    item.amphoe
                 )
             })
         )
@@ -197,19 +205,19 @@ export class Account extends Component {
         return (
             this.state.DataTumbols.map((item) => {
                 return (
-                    <Picker.Item label={item.district} value={item.district} key={item.district} />
+                    item.district
                 )
             })
         )
     }
 
     render() {
-        // console.log('///--------------------------------------------------------------///')
-        // console.log(this.state)
-        // console.log('///--------------------------------------------------------------///')
+        const { province, amphoe, tumbol } = this.state
         let provinces = this.DataProvince()
         let amphoes = this.DataAmphoe()
-        let tombols = this.DataTumbol()
+        let tumbols = this.DataTumbol()
+        // console.log('this.state')
+        // console.log(this.state)
         return (
             <View>
                 <View style={styles.Account_Box}>
@@ -230,39 +238,42 @@ export class Account extends Component {
                 </View>
                 <View style={styles.Account_Box}>
                     <Text style={styles.Text}>จังหวัด</Text>
-                    <Picker
-                        selectedValue={this.state.province}
-                        style={{ height: 50, width: 130 }}
-                        onValueChange={(itemValue, itemIndex) => {
-                            this.getDataAmphoe(itemValue);
-                        }}>
-                        <Picker.Item label="จังหวัด" />
-                        {provinces}
-                    </Picker>
+                    <ModalDropdown
+                        options={provinces}
+                        style={stylesMain.ItemCenterVertical}
+                        textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize3]}
+                        dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize3, {}]}
+                        renderButtonText={(index) => { this.setState({ province: index }), this.getDataAmphoe(index) }}
+                    >
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                            {province}</Text>
+                    </ModalDropdown>
                 </View>
                 <View style={styles.Account_Box}>
                     <Text style={styles.Text}>เขต/อำเภอ</Text>
-                    <Picker
-                        selectedValue={this.state.amphoe}
-                        style={{ height: 50, width: 130 }}
-                        onValueChange={(itemValue, itemIndex) => {
-                            this.getDataTumbol(itemValue);
-                        }}>
-                        <Picker.Item label="เขต/อำเภอ" />
-                        {amphoes}
-                    </Picker>
+                    <ModalDropdown
+                        options={amphoes}
+                        style={stylesMain.ItemCenterVertical}
+                        textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize3]}
+                        dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize3, {}]}
+                        renderButtonText={(index) => this.getDataTumbol(index)}
+                    >
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                            {amphoe}</Text>
+                    </ModalDropdown>
                 </View>
                 <View style={styles.Account_Box}>
                     <Text style={styles.Text}>แขวง/ตำบล</Text>
-                    <Picker
-                        selectedValue={this.state.tumbol}
-                        style={{ height: 50, width: 130 }}
-                        onValueChange={(itemValue, itemIndex) =>
-                            this.setState({ tumbol: itemValue })
-                        }>
-                        <Picker.Item label="แขวง/ตำบล" />
-                        {tombols}
-                    </Picker>
+                    <ModalDropdown
+                        options={tumbols}
+                        style={stylesMain.ItemCenterVertical}
+                        textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize3]}
+                        dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize3, {}]}
+                        renderButtonText={(index) => this.setState({ tumbol: index })}
+                    >
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                            {tumbol}</Text>
+                    </ModalDropdown>
                 </View>
                 <View style={styles.Account_Box}>
                     <Text style={styles.Text}>รหัสไปรษณีย์</Text>
@@ -285,7 +296,7 @@ export class Account extends Component {
                         value={this.state.text}
                         onChangeText={(text) => this.setState({ text })}></TextInput>
                 </View>
-            </View>
+            </View >
         );
     }
 }

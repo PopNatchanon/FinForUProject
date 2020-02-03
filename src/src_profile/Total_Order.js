@@ -62,7 +62,7 @@ export class Button_bar extends Component {
                 return (
                     <View>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize2, { marginLeft: 10, marginTop: 10, }]}>รายการคำสั่งซื้อ</Text>
-                        <Order_Payment />
+                        <Order_Payment navigation={this.props.navigation} />
                         <Order />
                         <Order_Get navigation={this.props.navigation} />
                     </View>
@@ -71,8 +71,8 @@ export class Button_bar extends Component {
                 return (
                     <View>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize2, { marginLeft: 10, marginTop: 10, }]}>ที่ต้องชำระ</Text>
-                        <Order_Payment />
-                        <Order_Payment />
+                        <Order_Payment navigation={this.props.navigation} />
+                        <Order_Payment navigation={this.props.navigation}/>
                     </View>
                 )
             case 2:
@@ -248,7 +248,7 @@ export class Order_Payment extends Component {
                                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize2, { color: '#FFFFFF' }]}>ดำเนินการชำระเงิน</Text>
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={()=> this.props.navigation.navigate('CancelScreen',{selectedIndex:1})}>
                                 <View style={[stylesPro.Order_Button, { borderWidth: 1, }]}>
                                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize2]}>ยกเลิกสินค้า</Text>
                                 </View>
@@ -439,7 +439,7 @@ export class Order_Already extends Component {
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize2, { marginLeft: 10, color: '#0A55A6' }]}>฿ 10,000.00</Text>
                     </View>
                     <View style={[stylesPro.Order_Box_priceText, { marginTop: 5, }]}>
-                        <TouchableOpacity  onPress={() => this.props.navigation.navigate('Return_products')}>
+                        <TouchableOpacity  onPress={() => this.props.navigation.navigate('Return_products',{selectedIndex:1})}>
                             <View style={{ borderBottomColor: '#0A55A6', borderBottomWidth: 1, height: 20, }}>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { color: '#0A55A6' }]}>ส่งคำร้องคืนสินค้า</Text>
                             </View>

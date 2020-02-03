@@ -204,7 +204,7 @@ export class MenubarSub extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={[stylesProfile.MenubarSubLine2, stylesMain.FlexRow]}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Return_products')}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Return_products',{selectedIndex:0})}>
                     <View style={[stylesProfile.MenubarSubLine2Box, stylesMain.ItemCenter, stylesMain.FlexRow]}>
                         <FastImage
                             source={require('../icon/repeat.png')}
@@ -214,7 +214,7 @@ export class MenubarSub extends Component {
                             คืนสินค้า/คืนเงิน</Text>
                     </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('CancelScreen')}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('CancelScreen',{selectedIndex:0})}>
                     <View style={[stylesProfile.MenubarSubLine2Box, stylesMain.ItemCenter, stylesMain.FlexRow]}>
                         <FastImage
                             source={require('../icon/box.png')}
@@ -333,7 +333,7 @@ export class ListMenu extends Component {
                                 ]}>
                                     ดูล่าสุด</Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('ChatScreen')} >
@@ -347,7 +347,7 @@ export class ListMenu extends Component {
                                 ]}>
                                     แชท</Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('InterestedScreen')} >
@@ -362,7 +362,7 @@ export class ListMenu extends Component {
                                 ]}>
                                     สิ่งที่สนใจ</Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6'/>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Follow_storeScreen')} >
@@ -376,7 +376,7 @@ export class ListMenu extends Component {
                                 ]}>
                                     ร้านค้าที่ติดตาม</Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6'/>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Review_meScreen')} >
@@ -390,7 +390,7 @@ export class ListMenu extends Component {
                                 ]}>
                                     รีวิวของฉัน</Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6'/>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Help_meScreen')} >
@@ -404,7 +404,7 @@ export class ListMenu extends Component {
                                 ]}>
                                     ช่วยเหลือ</Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6'/>
                         </View>
                     </TouchableOpacity>
                 </View>

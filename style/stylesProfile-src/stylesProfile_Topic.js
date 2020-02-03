@@ -203,7 +203,7 @@ export default StyleSheet.create({
     Button_bar: {
         height: 40,
         marginTop: 5,
-        backgroundColor:'#FFFFFF',
+        backgroundColor: '#FFFFFF',
     },
     Order_BoxStore: {
         paddingHorizontal: 10,
@@ -223,7 +223,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
     },
     Order_Button: {
-        padding:10,
+        padding: 10,
         height: 30,
         borderRadius: 5,
         marginLeft: 10,
@@ -254,6 +254,45 @@ export default StyleSheet.create({
     },
     ///-----------------------------------Return_products-----------------------------------///
 
+    // Return_products_pro Class
+    products_pro: {
+        backgroundColor: '#FFFFFF',
+        marginTop: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 700,
+    },
+    // Return_products_From Class
+    Return: {
+        height: 130,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 10,
+    },
+    Return_Pro: {
+        height: 80,
+        width: 80,
+        backgroundColor: '#C4C4C4',
+        margin: 10,
+    },
+    Return_Detail_Box: {
+        height: 40,
+        width: '100%',
+        backgroundColor: '#FFFFFF',
+        borderColor: '#D5D5D5',
+        borderWidth: 1,
+    },
+    Return_Detail_TextInput: {
+        width: '100%',
+        backgroundColor: '#FFFFFF',
+        height: 150,
+        borderColor: '#D5D5D5',
+        borderWidth: 1,
+    },
+    Return_ImageBox: {
+        margin: 10,
+        alignItems: 'flex-end'
+    },
     Up_Image_Box: {
         backgroundColor: '#FFFFFF',
         justifyContent: 'center',
@@ -264,5 +303,72 @@ export default StyleSheet.create({
         borderColor: '#0A55A6',
         borderWidth: 1,
     },
+    Return_ButtonBox: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 10,
+    },
+    Return_Button: {
+        height: 40,
+        width: 120,
+        backgroundColor: '#FFFFFF',
+        borderColor: '#0A55A6',
+        borderWidth: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 
+    ///-----------------------------------CancelScreen-----------------------------------///
+
+    Cancel_Detail: {
+        alignItems: 'center',
+        marginTop: 10,
+    },
+    Cancel_Detail_Box: {
+        borderColor: 'black',
+        borderWidth: 1,
+        width: '60%',
+        height: 35,
+        alignItems: 'flex-end',
+        borderRadius: 5,
+    },
+    Cancel_Detail_ButtonBox: {
+        flexDirection: 'row',
+        marginVertical: 10,
+    },
+    Cancel_Detail_Button: {
+        height: 30,
+        width: 100,
+        borderColor: '#0A55A6',
+        borderWidth: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    ///-----------------------------------Setting_Topic-----------------------------------///
+
+    BoxTopic: {
+        backgroundColor: '#fff',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        borderColor: '#EAEAEA',
+        borderWidth: 0.5,
+    },
+    SettingIcon: {
+        marginTop: 6,
+        marginRight: 8,
+    },
+    Button_Logout: {
+        width: '100%',
+        height: 60,
+        alignContent: 'center',
+        alignItems: 'center'
+    },
+    Button_LogoutBox: {
+        width: width - 30,
+        height: 40,
+        backgroundColor: '#0A55A6',
+        alignItems:'center',
+        justifyContent:'center',
+    },
 })

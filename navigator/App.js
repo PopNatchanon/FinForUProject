@@ -35,6 +35,7 @@ import CancelScreen from '../src/src_profile/CancelScreen';
 import Return_products from '../src/src_profile/Return_products';
 import Total_Order from '../src/src_profile/Total_Order';
 import Order_Detail from '../src/src_profile/Order_Detail';
+import Setting_Topic from '../src/src_profile/src_Setting/Setting_Topic';
 
 // src_storeMe
 
@@ -279,6 +280,13 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
+  Setting_Topic: {
+    screen: Setting_Topic,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
 
   // src_storeMe
 
@@ -396,8 +404,8 @@ const PathScreen = createStackNavigator({
 },
   {
     // initialRouteName: 'MainScreen',
-    initialRouteName: 'ProfileScreen',
-    // initialRouteName: 'DealScreen',
+    // initialRouteName: 'ProfileScreen',
+    initialRouteName: 'SettingScreen',
     // initialRouteName: 'The_BestFinScreen',
     // initialRouteName: 'Recommend_Store',
   }

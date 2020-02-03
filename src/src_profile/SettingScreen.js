@@ -9,25 +9,15 @@ import {
     TouchableOpacity,
     Dimensions,
 } from 'react-native';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
-import axios from 'axios';
-import NumberFormat from 'react-number-format';
-import {
-    ButtonGroup,
-    Button,
-} from 'react-native-elements'
-import FastImage from 'react-native-fast-image';
-import IconsFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import IconFontisto from 'react-native-vector-icons/Fontisto';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import IconFeather from 'react-native-vector-icons/Feather';
+import stylesPro from '../../style/stylesProfile-src/stylesProfile_Topic';
+import styleMain from '../../style/StylesMainScreen';
+import stylesFont from '../../style/stylesFont';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import styles from '../../style/StylesProfileScreen'
 import AsyncStorage from '@react-native-community/async-storage';
 import RNRestart from 'react-native-restart';
 import { ip } from '../../navigator/IpConfig';
+import { Appbar } from './LatestScreen';
 export const { width, height } = Dimensions.get('window');
 
 export default class StoreMeScreen extends Component {
@@ -36,8 +26,8 @@ export default class StoreMeScreen extends Component {
     }
     render() {
         return (
-            <SafeAreaView style={[styles.SafeAreaView, { backgroundColor: '#E9E9E9' }]}>
-                <Headbar navigation={this.props.navigation} />
+            <SafeAreaView style={styleMain.SafeAreaView}>
+                <Appbar navigation={this.props.navigation} Title='ตั้งค่าบัญชี' />
                 <ScrollView>
                     <View>
                         <ListMenu navigation={this.props.navigation} />
@@ -48,30 +38,6 @@ export default class StoreMeScreen extends Component {
     }
 }
 
-export class Headbar extends Component {
-    constructor(props) {
-        super(props)
-    }
-    render() {
-
-        return (
-            <View>
-                <View style={styles.Appbar} >
-                    <View style={{ flexDirection: 'row', }}>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
-                            <IconEntypo name='chevron-left' size={35} />
-                        </TouchableOpacity>
-                        <Text style={{ marginTop: 5, fontSize: 16, fontFamily: 'SukhumvitSet-Bold' }}>ตั้งค่าบัญชี</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', padding: 5, }}>
-                        {/* <IconMaterialCommunityIcons style={{ marginRight: 10, }} name="settings-outline" size={25} />
-                        <IconAntDesign name='message1' size={25} /> */}
-                    </View>
-                </View>
-            </View>
-        )
-    }
-}
 
 export class ListMenu extends Component {
     constructor(props) {
@@ -90,117 +56,115 @@ export class ListMenu extends Component {
     render() {
         return (
             <View>
-                <View style={[styles.ListMenu, { marginTop: 0 }]}>
-                    <View style={styles.ListMenuList}>
-                        <View style={styles.ListMenuListSub}>
-                            <Text style={styles.ListMenuListSubName}>
-                                บัญชีของฉัน
+                <View style={styles.ListMenuList}>
+                    <View style={styleMain.FlexRow}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { margin: 10, }]}>
+                            บัญชีของฉัน
                             </Text>
-                        </View>
                     </View>
-                    <TouchableOpacity activeOpacity={1} onPress={null/*() => this.props.navigation.navigate()*/} >
-                        <View style={[styles.ListMenuList, styles.bgBoxWhite]}>
-                            <View style={styles.ListMenuListSub}>
-                                <Text style={styles.ListMenuListSubName}>
-                                    หน้าของฉัน
-                            </Text>
-                            </View>
-                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={null/*() => this.props.navigation.navigate()*/} >
-                        <View style={[styles.ListMenuList, styles.bgBoxWhite]}>
-                            <View style={styles.ListMenuListSub}>
-                                <Text style={styles.ListMenuListSubName}>
-                                    ที่อยู่ของฉัน
-                            </Text>
-                            </View>
-                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
-                        </View>
-                    </TouchableOpacity>
-                    <View style={styles.ListMenuList}>
-                        <View style={styles.ListMenuListSub}>
-                            <Text style={styles.ListMenuListSubName}>
-                                การตั้งค่า
-                            </Text>
-                        </View>
-                    </View>
-                    <TouchableOpacity activeOpacity={1} onPress={null/*() => this.props.navigation.navigate()*/} >
-                        <View style={[styles.ListMenuList, styles.bgBoxWhite]}>
-                            <View style={styles.ListMenuListSub}>
-                                <Text style={styles.ListMenuListSubName}>
-                                    ตั้งค่าการแชท
-                            </Text>
-                            </View>
-                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={null/*() => this.props.navigation.navigate()*/} >
-                        <View style={[styles.ListMenuList, styles.bgBoxWhite]}>
-                            <View style={styles.ListMenuListSub}>
-                                <Text style={styles.ListMenuListSubName}>
-                                    ตั้งค่าการแจ้งเตือน
-                            </Text>
-                            </View>
-                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={null/*() => this.props.navigation.navigate()*/} >
-                        <View style={[styles.ListMenuList, styles.bgBoxWhite]}>
-                            <View style={styles.ListMenuListSub}>
-                                <Text style={styles.ListMenuListSubName}>
-                                    ภาษา
-                            </Text>
-                            </View>
-                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
-                        </View>
-                    </TouchableOpacity>
-                    <View style={styles.ListMenuList}>
-                        <View style={styles.ListMenuListSub}>
-                            <Text style={styles.ListMenuListSubName}>
-                                ช่วยเหลือ
-                            </Text>
-                        </View>
-                    </View>
-                    <TouchableOpacity activeOpacity={1} onPress={null/*() => this.props.navigation.navigate()*/} >
-                        <View style={[styles.ListMenuList, styles.bgBoxWhite]}>
-                            <View style={styles.ListMenuListSub}>
-                                <Text style={styles.ListMenuListSubName}>
-                                    ศูนย์ช่วยเหลือ
-                            </Text>
-                            </View>
-                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={null/*() => this.props.navigation.navigate()*/} >
-                        <View style={[styles.ListMenuList, styles.bgBoxWhite]}>
-                            <View style={styles.ListMenuListSub}>
-                                <Text style={styles.ListMenuListSubName}>
-                                    กฎและข้อบังคับ
-                            </Text>
-                            </View>
-                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={null/*() => this.props.navigation.navigate()*/} >
-                        <View style={[styles.ListMenuList, styles.bgBoxWhite]}>
-                            <View style={styles.ListMenuListSub}>
-                                <Text style={styles.ListMenuListSubName}>
-                                    ให้คะแนนเราสิ
-                            </Text>
-                            </View>
-                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{ marginTop: 10 }} onPress={() => this.logoutPress()}>
-                        <View style={{ width, height: 60, alignContent: 'center', alignItems: 'center' }} >
-                            <View style={{ width: width - 30, height: 40, backgroundColor: '#0A55A6', alignContent: 'center', alignItems: 'center' }}>
-                                <Text style={{ marginTop: 'auto', marginBottom: 'auto', fontSize: 16, color: '#fff', fontFamily: 'SukhumvitSet-Text' }} >ออกจากระบบ</Text>
-                            </View>
-                        </View>
-                    </TouchableOpacity>
                 </View>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 0 })} >
+                    <View style={stylesPro.BoxTopic}>
+                        <View style={styles.ListMenuListSub}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { margin: 10, }]}>
+                                หน้าของฉัน
+                            </Text>
+                        </View>
+                        <IconEntypo name='chevron-right' style={stylesPro.SettingIcon} size={35} color='#0A55A6'/>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 1 })} >
+                    <View style={stylesPro.BoxTopic}>
+                        <View style={styles.ListMenuListSub}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { margin: 10, }]}>
+                                ที่อยู่ของฉัน
+                            </Text>
+                        </View>
+                        <IconEntypo name='chevron-right' style={stylesPro.SettingIcon} size={35} color='#0A55A6'/>
+                    </View>
+                </TouchableOpacity>
+                <View style={styles.ListMenuList}>
+                    <View style={styles.ListMenuListSub}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { margin: 10, }]}>
+                            การตั้งค่า
+                            </Text>
+                    </View>
+                </View>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 2 })} >
+                    <View style={stylesPro.BoxTopic}>
+                        <View style={styles.ListMenuListSub}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { margin: 10, }]}>
+                                ตั้งค่าการแชท
+                            </Text>
+                        </View>
+                        <IconEntypo name='chevron-right' style={stylesPro.SettingIcon} size={35} color='#0A55A6'/>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 3 })} >
+                    <View style={stylesPro.BoxTopic}>
+                        <View style={styles.ListMenuListSub}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { margin: 10, }]}>
+                                ตั้งค่าการแจ้งเตือน
+                            </Text>
+                        </View>
+                        <IconEntypo name='chevron-right' style={stylesPro.SettingIcon} size={35} color='#0A55A6'/>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 4 })} >
+                    <View style={stylesPro.BoxTopic}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { margin: 10, }]}>
+                            ภาษา
+                            </Text>
+
+                        <IconEntypo name='chevron-right' style={stylesPro.SettingIcon} size={35} color='#0A55A6'/>
+                    </View>
+                </TouchableOpacity>
+                <View style={styles.ListMenuList}>
+                    <View style={styles.ListMenuListSub}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { margin: 10, }]}>
+                            ช่วยเหลือ
+                            </Text>
+                    </View>
+                </View>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Help_meScreen')} >
+                    <View style={stylesPro.BoxTopic}>
+                        <View style={styles.ListMenuListSub}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { margin: 10, }]}>
+                                ศูนย์ช่วยเหลือ
+                            </Text>
+                        </View>
+                        <IconEntypo name='chevron-right' style={stylesPro.SettingIcon} size={35} color='#0A55A6'/>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity activeOpacity={1} onPress={null/*() => this.props.navigation.navigate()*/} >
+                    <View style={stylesPro.BoxTopic}>
+                        <View style={styles.ListMenuListSub}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { margin: 10, }]}>
+                                กฎและข้อบังคับ
+                            </Text>
+                        </View>
+                        <IconEntypo name='chevron-right' style={stylesPro.SettingIcon} size={35} color='#0A55A6' />
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity activeOpacity={1} onPress={null/*() => this.props.navigation.navigate()*/} >
+                    <View style={stylesPro.BoxTopic}>
+                        <View style={styles.ListMenuListSub}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { margin: 10, }]}>
+                                ให้คะแนนเราสิ
+                            </Text>
+                        </View>
+                        <IconEntypo name='chevron-right' style={stylesPro.SettingIcon} size={35} color='#0A55A6' />
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity style={{ marginTop: 10 }} onPress={() => this.logoutPress()}>
+                    <View style={stylesPro.Button_Logout} >
+                        <View style={stylesPro.Button_LogoutBox}>
+                            <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize2,{color:'#FFFFFF'}]} >ออกจากระบบ</Text>
+                        </View>
+                    </View>
+                </TouchableOpacity>
             </View>
+
         )
     }
 }

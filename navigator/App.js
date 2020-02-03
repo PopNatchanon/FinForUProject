@@ -395,10 +395,10 @@ const PathScreen = createStackNavigator({
   },
 },
   {
-    // initialRouteName: 'MainScreen',
+    initialRouteName: 'MainScreen',
     // initialRouteName: 'ProfileScreen',
     // initialRouteName: 'DealScreen',
-    initialRouteName: 'Customer_account',
+    // initialRouteName: 'Customer_account',
     // initialRouteName: 'Recommend_Store',
   }
 );

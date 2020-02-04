@@ -205,7 +205,7 @@ export class MenubarSub extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={[stylesProfile.MenubarSubLine2, stylesMain.FlexRow]}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Return_products')}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Return_products', { selectedIndex: 0 })}>
                         <View style={[stylesProfile.MenubarSubLine2Box, stylesMain.ItemCenter, stylesMain.FlexRow]}>
                             <FastImage
                                 source={require('../icon/repeat.png')}
@@ -215,7 +215,7 @@ export class MenubarSub extends Component {
                                 คืนสินค้า/คืนเงิน</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('CancelScreen')}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('CancelScreen', { selectedIndex: 0 })}>
                         <View style={[stylesProfile.MenubarSubLine2Box, stylesMain.ItemCenter, stylesMain.FlexRow]}>
                             <FastImage
                                 source={require('../icon/box.png')}
@@ -323,7 +323,7 @@ export class ListMenu extends Component {
         return (
             <View>
                 <View style={stylesProfile.ListMenu}>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('LatestScreen')} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 0 })} >
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconMaterialIcons RightItem name="access-time" color='#D0B216' size={35}
@@ -334,10 +334,10 @@ export class ListMenu extends Component {
                                 ]}>
                                     ดูล่าสุด</Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('ChatScreen')} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 1 })} >
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconAntDesign RightItem name="wechat" size={35} color='#0A55A6'
@@ -348,10 +348,10 @@ export class ListMenu extends Component {
                                 ]}>
                                     แชท</Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('InterestedScreen')} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 2 })} >
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconAntDesign RightItem name="heart" size={35} color='#D74024' style={
@@ -363,10 +363,10 @@ export class ListMenu extends Component {
                                 ]}>
                                     สิ่งที่สนใจ</Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Follow_storeScreen')} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 3 })} >
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconFontisto RightItem name="shopping-store" size={30} color='#0A55A6' style={
@@ -377,10 +377,10 @@ export class ListMenu extends Component {
                                 ]}>
                                     ร้านค้าที่ติดตาม</Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Review_meScreen')} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 4 })} >
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconMaterialCommunityIcons RightItem name="star-box" size={35} color='#EAD295' style={
@@ -391,10 +391,10 @@ export class ListMenu extends Component {
                                 ]}>
                                     รีวิวของฉัน</Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Help_meScreen')} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 5 })} >
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconFeather RightItem name="help-circle" size={35} color='#00A3FF' style={
@@ -405,7 +405,7 @@ export class ListMenu extends Component {
                                 ]}>
                                     ช่วยเหลือ</Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
                 </View>

@@ -39,8 +39,8 @@ export default class BellScreen extends Component {
                 <AppBar1 titleHead='การแจ้งเตือน' />
                 <ScrollView>
                     <Popular_store />
-                    <Pro_for_U />
-                    <Update_buy />
+                    <Pro_for_U navigation={this.props.navigation} />
+                    <Update_buy navigation={this.props.navigation} />
                 </ScrollView>
                 <Toolbar navigation={this.props.navigation} />
             </SafeAreaView>
@@ -133,16 +133,18 @@ export class Pro_for_U extends Component {
                 <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
                     โปรเด็ดที่คัดมาเพื่อคุณ</Text>
                 <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, stylesMain.ItemCenter]}>
-                    <View style={stylesMain.BoxStore4Box}>
-                        <FastImage
-                            style={stylesMain.BoxStore4Image}
-                            source={{
-                                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
-                            }}
-                        />
-                        <Text style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
-                            ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
-                    </View>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Detail_Pro', { selectedIndex: 0 })}>
+                        <View style={stylesMain.BoxStore4Box}>
+                            <FastImage
+                                style={stylesMain.BoxStore4Image}
+                                source={{
+                                    uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
+                                }}
+                            />
+                            <Text style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                                ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
+                        </View>
+                    </TouchableOpacity>
                     <View style={stylesMain.BoxStore4Box}>
                         <FastImage
                             style={stylesMain.BoxStore4Image}
@@ -193,16 +195,18 @@ export class Update_buy extends Component {
                 <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
                     อัพเดทคำสั่งซื้อ</Text>
                 <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, stylesMain.ItemCenter]}>
-                    <View style={stylesMain.BoxStore4Box}>
-                        <FastImage
-                            style={stylesMain.BoxStore4Image}
-                            source={{
-                                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
-                            }}
-                        />
-                        <Text style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
-                            คุณให้คะแนนเรทติ้งการสั่งซื้อแล้วรึยัง</Text>
-                    </View>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Detail_Pro', { selectedIndex: 1 })}>
+                        <View style={stylesMain.BoxStore4Box}>
+                            <FastImage
+                                style={stylesMain.BoxStore4Image}
+                                source={{
+                                    uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
+                                }}
+                            />
+                            <Text style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                                คุณให้คะแนนเรทติ้งการสั่งซื้อแล้วรึยัง</Text>
+                        </View>
+                    </TouchableOpacity>
                     <View style={stylesMain.BoxStore4Box}>
                         <FastImage
                             style={stylesMain.BoxStore4Image}

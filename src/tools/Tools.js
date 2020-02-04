@@ -9,10 +9,7 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import styles from '../../style/StylesMainScreen';
 export const { width, height } = Dimensions.get('window');
 import AsyncStorage from '@react-native-community/async-storage';
-import DeviceInfo from 'react-native-device-info';
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>>
 export class Toolbar extends Component {
     constructor(props) {
         super(props);
@@ -23,17 +20,9 @@ export class Toolbar extends Component {
     getDataasync = async () => {
         const currentUser = await AsyncStorage.getItem('@MyKey')
         this.setState({ currentUser: JSON.parse(currentUser) })
-        // console.log('tool:')
-        // console.log(this.state.currentUser)
     }
     componentDidMount() {
-        this.getDataasync()//
-        // console.log('Brand')
-        // console.log(DeviceInfo.getBrand())
-        // console.log('Device')
-        // console.log(DeviceInfo.getDeviceId())
-        // console.log('DeviceType')
-        // console.log(DeviceInfo.getDeviceType())
+        this.getDataasync()
     }
     render() {
         const { currentUser } = this.state;
@@ -41,7 +30,6 @@ export class Toolbar extends Component {
         if (currentUser != null) {
             u_name = currentUser.name;
         }
-        // console.log(u_name);
         return (
             <View style={styles.Toolbar}>
                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('MainScreen')} >
@@ -92,13 +80,28 @@ export class Toolbar extends Component {
         )
     }
 }
-
+///----------------------------------------------------------------------------------------------->>>>
 export class TabBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
             pathlist: 0,
             PassSetValue: 0,
+        }
+    }
+    setDataItem() {
+        const { setData } = this.props
+        console.log('setDataItem')
+        console.log(setData)
+        if (setData.activeSetData < 1) {
+            setData.activeSetData = setData.activeSetData + 1
+            console.log('activeSetData')
+            console.log(setData.activeSetData)
+            console.log('index')
+            console.log(setData.index)
+            console.log('pathlist')
+            console.log(this.state.pathlist)
+            this.setState({ setData, pathlist: setData.index })
         }
     }
     /*
@@ -140,10 +143,10 @@ export class TabBar extends Component {
     tab() {
         const {
             item, activeColor, activeWidth, type, radiusBox, activeFontColor, inactiveFontColor, inactiveColor, inactiveBoxColor,
-            noSpace, direction, alignBox, widthBox, spaceColor, fontColor, noLimit, limitBox, SetValue, fontSizeStyle
+            noSpace, direction, alignBox, widthBox, spaceColor, fontColor, noLimit, limitBox, SetValue, fontSizeStyle, numberBox,
+            NoSelectTab
         } = this.props;
         const { PassSetValue } = this.state
-        // console.log(this.props.radiusBox)
         const countItem = item.length;
         PassSetValue < 1 ?
             SetValue ?
@@ -152,162 +155,194 @@ export class TabBar extends Component {
                 null :
             null
         return item.map((item, index) => {
-            // console.log(item.name, index, num)
             return (
-                <View key={index}>
-                    <TouchableOpacity activeOpacity={
-                        type == 'box' ?
-                            0.2 :
-                            1
-                    } onPress={() => { this.setState({ pathlist: index }), this.props.sendData(index); }}>
-                        {
+                <TouchableOpacity key={index} activeOpacity={
+                    type == 'box' ?
+                        0.2 :
+                        1
+                } onPress={() => {
+                    NoSelectTab ?
+                        (
                             this.state.pathlist == index ?
-                                <View style={{
-                                    width:
-                                        type == 'box' ?
-                                            noSpace ?
-                                                null :
-                                                noLimit ?
+                                (
+                                    this.setState({ pathlist: -1 }),
+                                    this.props.sendData(-1)
+                                ) :
+                                (
+                                    this.setState({ pathlist: index }),
+                                    this.props.sendData(index)
+                                )
+                        ) :
+                        (
+                            this.setState({ pathlist: index }),
+                            this.props.sendData(index)
+                        );
+                }}>
+                    {
+                        this.state.pathlist == index ?
+                            <View style={{
+                                width:
+                                    type == 'box' ?
+                                        noSpace ?
+                                            null :
+                                            noLimit ?
+                                                numberBox ?
+                                                    '100%' :
                                                     width * (1 / 4) :
-                                                    width * (1 / countItem) :
-                                            noSpace ?
-                                                widthBox ?
-                                                    widthBox :
-                                                    width * (1 / countItem) :
+                                                width * (1 / countItem) :
+                                        noSpace ?
+                                            widthBox ?
+                                                widthBox :
+                                                width * (1 / countItem) :
+                                            noLimit ?
+                                                width * (1 / 4.2) :
+                                                limitBox ?
+                                                    limitBox * (1 / countItem) :
+                                                    width * (1 / countItem),
+                                borderLeftWidth: type == 'tag' ? index == 0 ? null : 0.5 : null,
+                                borderRightWidth: type == 'tag' ? index == countItem ? null : 0.5 : null,
+                                alignContent: 'center',
+                                alignItems: 'center',
+                                borderBottomColor: type == 'box' ?
+                                    null :
+                                    activeColor ? activeColor : '#0A55A6',
+                                borderBottomWidth: type == 'tag' ? null : type == 'box' ? null : 4,
+                                paddingLeft: numberBox ? width * (1 / 60) : null,
+                                paddingTop: numberBox ? 10 : null,
+                            }}>
+                                <View style={
+                                    type == 'box' ?
+                                        {
+                                            width:
                                                 noLimit ?
-                                                    width * (1 / 4.2) :
-                                                    limitBox ?
-                                                        limitBox * (1 / countItem) :
-                                                        width * (1 / countItem),
-                                    borderLeftWidth: type == 'tag' ? index == 0 ? null : 0.5 : null,
-                                    borderRightWidth: type == 'tag' ? index == countItem ? null : 0.5 : null,
-                                    alignContent: 'center',
-                                    alignItems: 'center',
-                                    borderBottomColor: type == 'box' ?
-                                        null :
-                                        activeColor ? activeColor : '#0A55A6',
-                                    borderBottomWidth: type == 'tag' ? null : type == 'box' ? null : 4
-                                }}>
-                                    <View style={
-                                        type == 'box' ?
-                                            {
-                                                width:
-                                                    noLimit ?
+                                                    numberBox ?
+                                                        width * (1 / 3) :
                                                         width * (1 / 4.2) :
-                                                        widthBox >= 0 ?
-                                                            widthBox <= 100 ?
-                                                                width * (1 / (countItem * (1 + ((100 - widthBox) / 100)))) :
-                                                                width * (1 / (countItem * 1.2)) :
-                                                            width * (1 / (countItem * 1.2)),
-                                                padding: 6,
-                                                borderLeftWidth: noSpace ? 0.5 : null,
-                                                borderRightWidth: noSpace ? 0.5 : null,
-                                                borderWidth: 1,
-                                                borderColor: activeColor ? activeColor : '#0A55A6',
-                                                backgroundColor: activeColor ? activeColor : '#0A55A6',
-                                                alignContent: 'center',
-                                                alignItems: 'center',
-                                                borderRadius: radiusBox ? radiusBox : 0,
-                                            } :
-                                            null
-                                    }>
-                                        <Text style={[{
-                                            fontSize: fontSizeStyle ? fontSizeStyle : 14,
-                                            fontFamily: 'SukhumvitSet-Text',
-                                            color: type == 'box' ?
-                                                activeFontColor ? activeFontColor : fontColor ? fontColor : 'white' :
-                                                activeFontColor ? activeFontColor : fontColor ? fontColor : 'black'
-                                        }]}>
-                                            {item.name}
-                                        </Text>
-                                    </View>
-                                </View> :
-                                <View style={{
-                                    width:
-                                        type == 'box' ?
-                                            noSpace ?
-                                                null :
-                                                noLimit ?
-                                                    width * (1 / 4) : width * (1 / countItem) :
-                                            noSpace ?
-                                                widthBox ? widthBox : width * (1 / countItem) :
-                                                noLimit ?
-                                                    width * (1 / 4.2) :
-                                                    limitBox ?
-                                                        limitBox * (1 / countItem) :
-                                                        width * (1 / countItem),
-                                    borderLeftWidth: type == 'tag' ? index == 0 ? null : 0.5 : null,
-                                    borderRightWidth: type == 'tag' ? index == countItem ? null : 0.5 : null,
-                                    alignContent: 'center', alignItems: 'center'
-                                }}>
-                                    <View style={
-                                        type == 'box' ?
-                                            {
-                                                width:
-                                                    noLimit ?
-                                                        width * (1 / 4.2) :
-                                                        widthBox >= 0 ?
-                                                            widthBox <= 100 ?
-                                                                width * (1 / (countItem * (1 + ((100 - widthBox) / 100)))) :
-                                                                width * (1 / (countItem * 1.2)) :
-                                                            width * (1 / (countItem * 1.2)),
-                                                padding: 6,
-                                                borderLeftWidth: noSpace ? 0.5 : null,
-                                                borderRightWidth: noSpace ? 0.5 : null,
-                                                borderWidth: 1,
-                                                backgroundColor: inactiveBoxColor ? inactiveBoxColor : null,
-                                                borderColor: inactiveColor ? inactiveColor : 'black',
-                                                alignContent: 'center',
-                                                alignItems: 'center',
-                                                borderRadius: radiusBox ? radiusBox : 0,
-                                            } :
-                                            null
-                                    }>
-                                        <Text style={[{
-                                            fontSize: fontSizeStyle ? fontSizeStyle : 14,
-                                            fontFamily: 'SukhumvitSet-Text',
-                                            color: inactiveFontColor ? inactiveFontColor : fontColor ? fontColor : 'black'
-                                        }]}>
-                                            {item.name}
-                                        </Text>
-                                    </View>
+                                                    widthBox >= 0 ?
+                                                        widthBox <= 100 ?
+                                                            width * (1 / (countItem * (1 + ((100 - widthBox) / 100)))) :
+                                                            width * (1 / (countItem * 1.2)) :
+                                                        width * (1 / (countItem * 1.2)),
+                                            padding: 6,
+                                            borderLeftWidth: noSpace ? 0.5 : null,
+                                            borderRightWidth: noSpace ? 0.5 : null,
+                                            borderWidth: 1,
+                                            borderColor: activeColor ? activeColor : '#0A55A6',
+                                            backgroundColor: activeColor ? activeColor : '#0A55A6',
+                                            alignContent: 'center',
+                                            alignItems: 'center',
+                                            borderRadius: radiusBox ? radiusBox : 0,
+                                        } :
+                                        null
+                                }>
+                                    <Text style={[{
+                                        fontSize: fontSizeStyle ? fontSizeStyle : 14,
+                                        fontFamily: 'SukhumvitSet-Text',
+                                        color: type == 'box' ?
+                                            activeFontColor ? activeFontColor : fontColor ? fontColor : 'white' :
+                                            activeFontColor ? activeFontColor : fontColor ? fontColor : 'black'
+                                    }]}>
+                                        {item.name}
+                                    </Text>
                                 </View>
-                        }
-                    </TouchableOpacity>
-                </View>
+                            </View> :
+                            <View style={{
+                                width:
+                                    type == 'box' ?
+                                        noSpace ?
+                                            null :
+                                            noLimit ?
+                                                numberBox ?
+                                                    '100%' :
+                                                    width * (1 / 4) : width * (1 / countItem) :
+                                        noSpace ?
+                                            widthBox ? widthBox : width * (1 / countItem) :
+                                            noLimit ?
+                                                width * (1 / 4.2) :
+                                                limitBox ?
+                                                    limitBox * (1 / countItem) :
+                                                    width * (1 / countItem),
+                                borderLeftWidth: type == 'tag' ? index == 0 ? null : 0.5 : null,
+                                borderRightWidth: type == 'tag' ? index == countItem ? null : 0.5 : null,
+                                alignContent: 'center', alignItems: 'center',
+                                paddingLeft: numberBox ? width * (1 / 60) : null,
+                                paddingTop: numberBox ? 10 : null,
+                            }}>
+                                <View style={
+                                    type == 'box' ?
+                                        {
+                                            width:
+                                                noLimit ?
+                                                    numberBox ?
+                                                        width * (1 / 3) :
+                                                        width * (1 / 4.2) :
+                                                    widthBox >= 0 ?
+                                                        widthBox <= 100 ?
+                                                            width * (1 / (countItem * (1 + ((100 - widthBox) / 100)))) :
+                                                            width * (1 / (countItem * 1.2)) :
+                                                        width * (1 / (countItem * 1.2)),
+                                            padding: 6,
+                                            borderLeftWidth: noSpace ? 0.5 : null,
+                                            borderRightWidth: noSpace ? 0.5 : null,
+                                            borderWidth: 1,
+                                            backgroundColor: inactiveBoxColor ? inactiveBoxColor : null,
+                                            borderColor: inactiveColor ? inactiveColor : 'black',
+                                            alignContent: 'center',
+                                            alignItems: 'center',
+                                            borderRadius: radiusBox ? radiusBox : 0,
+                                        } :
+                                        null
+                                }>
+                                    <Text style={[{
+                                        fontSize: fontSizeStyle ? fontSizeStyle : 14,
+                                        fontFamily: 'SukhumvitSet-Text',
+                                        color: inactiveFontColor ? inactiveFontColor : fontColor ? fontColor : 'black'
+                                    }]}>
+                                        {item.name}
+                                    </Text>
+                                </View>
+                            </View>
+                    }
+                </TouchableOpacity>
             )
         })
     }
     render() {
         const {
             item, activeColor, activeWidth, type, radiusBox, activeFontColor, inactiveFontColor, inactiveColor, inactiveBoxColor,
-            noSpace, direction, alignBox, widthBox, spaceColor, fontColor, noLimit
+            noSpace, direction, alignBox, widthBox, spaceColor, fontColor, noLimit, numberBox,
         } = this.props;
         return (
-            <View style={
-                type == 'box' ?
-                    {
-                        borderLeftWidth: noSpace ? 0.5 : null,
-                        borderRightWidth: noSpace ? 0.5 : null,
-                        flexDirection: direction == 'column' ? 'column' : 'row',
-                        justifyContent:
-                            alignBox == 'center' ?
-                                'center' :
-                                alignBox == 'right' ?
-                                    'flex-end' :
-                                    'flex-start'
-                    } :
-                    {
-                        paddingTop: 10,
-                        borderWidth: type == 'tag' ? null : noSpace ? null : 1,
-                        backgroundColor: spaceColor ? spaceColor : null,
-                        borderColor: type == 'tag' ? null : spaceColor ? spaceColor : '#ECECEC',
-                        flexDirection: direction == 'column' ? 'column' : 'row',
-                        width: noLimit ? null : '100%',
-                    }
-            }>
-                {this.tab()}
-            </View>
+            numberBox ?
+                (
+                    this.tab()
+                ) :
+                (
+                    <View style={
+                        type == 'box' ?
+                            {
+                                borderLeftWidth: noSpace ? 0.5 : null,
+                                borderRightWidth: noSpace ? 0.5 : null,
+                                flexDirection: direction == 'column' ? 'column' : 'row',
+                                justifyContent:
+                                    alignBox == 'center' ?
+                                        'center' :
+                                        alignBox == 'right' ?
+                                            'flex-end' :
+                                            'flex-start'
+                            } :
+                            {
+                                paddingTop: 10,
+                                borderWidth: type == 'tag' ? null : noSpace ? null : 1,
+                                backgroundColor: spaceColor ? spaceColor : null,
+                                borderColor: type == 'tag' ? null : spaceColor ? spaceColor : '#ECECEC',
+                                flexDirection: direction == 'column' ? 'column' : 'row',
+                                width: noLimit ? null : '100%',
+                            }
+                    }>
+                        {this.tab()}
+                    </View>
+                )
         )
     }
 }

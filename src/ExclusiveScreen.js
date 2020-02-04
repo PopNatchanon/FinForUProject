@@ -1,27 +1,21 @@
-import React, { Component, PureComponent } from 'react';
+import React, { Component } from 'react';
 import {
   View,
-  ImageBackground,
   ScrollView,
   Text,
-  StyleSheet,
   SafeAreaView,
   TouchableOpacity,
   Dimensions,
+  TextInput,
 } from 'react-native';
-import axios from 'axios';
-import NumberFormat from 'react-number-format';
 import stylesTopic from '../style/styleTopic';
 import stylesMain from '../style/StylesMainScreen';
 import stylesFont from '../style/stylesFont';
+import stylesDetail from "../style/StylesDetailScreen";
 import IconFeather from 'react-native-vector-icons/Feather';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
-import { finip, ip } from '../navigator/IpConfig';
-import FastImage from 'react-native-fast-image';
+import IconEntypo from 'react-native-vector-icons/Entypo';
 import { AppBar, Slide } from './src_Promotion/DealScreen';
 import { TabBar } from './tools/Tools';
-import { FlashSale_Product } from './FlashSaleScreen';
 import { TodayProduct } from './MainScreen';
 import SlidingView from 'rn-sliding-view';
 export const { width, height } = Dimensions.get('window');
@@ -35,17 +29,10 @@ export default class ExclusiveScreen extends Component {
     this.setSlider = this.setSlider.bind(this)
   }
   setSlider(value) {
-    const { sliderVisible } = this.state
     this.setState({ sliderVisible: value })
-    console.log('run')
-    console.log('sliderVisible')
-    console.log(sliderVisible)
   }
   render() {
     const { sliderVisible } = this.state
-    console.log('Main')
-    console.log('sliderVisible')
-    console.log(sliderVisible)
     return (
       <SafeAreaView style={stylesMain.SafeAreaView} >
         <AppBar navigation={this.props.navigation} Title='สินค้าสุด Exclusive' />
@@ -66,38 +53,188 @@ export default class ExclusiveScreen extends Component {
           position="right"
           changeVisibilityCallback={() => this.setState({ sliderVisible: !sliderVisible })}
         >
-          <View style={{ flexDirection: 'row' }}>
+          <View style={stylesMain.FlexRow}>
             <TouchableOpacity
               activeOpacity={1}
               onPress={() => this.setState({ sliderVisible: !sliderVisible })}
             >
-              <View style={{ width: width * 0.25, height: '100%' }}></View>
+              <View style={stylesTopic.BackgroundLeft}></View>
             </TouchableOpacity>
-            <View style={{ width: width * 0.75, height: '100%', backgroundColor: '#fff' }}><SlideTab /></View>
+            <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNoBackground]}>
+              <View style={{ height: '90%' }}>
+                <ScrollView>
+                  <SlideTabGet />
+                </ScrollView>
+              </View>
+              <View style={[stylesMain.FlexRow, stylesMain.SafeAreaViewNoBackground, { marginTop: 8 }]}>
+                <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
+                  <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize3, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
+                    รีเซ็ต</Text>
+                </View>
+                <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset, { backgroundColor: '#0A55A6' }]}>
+                  <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize3, stylesFont.FontFamilyText, { color: '#fff' }]}>
+                    เสร็จสิ้น</Text>
+                </View>
+              </View>
+            </View>
           </View>
         </SlidingView>
       </SafeAreaView>
     );
   }
 }
-
-///-------------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>>
 export class SlideTab extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeText: false,
+      selectedIndex: null,
+    }
+    this.updateIndex = this.updateIndex.bind(this)
+  }
+  updateIndex(selectedIndex) {
+    this.setState({ selectedIndex })
+  }
+  dataItem(item) {
+    const { selectedIndex } = this.state
+    return (
+      <View style={[stylesMain.FlexRow, { width: '100%', flexWrap: 'wrap' }]}>
+        <TabBar
+          sendData={this.updateIndex}
+          SetValue={selectedIndex != null ? selectedIndex : -1}
+          item={item}
+          type='box'
+          noLimit
+          numberBox
+          NoSelectTab
+          radiusBox={4}
+        />
+      </View>
+    )
+  }
+  dataContainer(Title, item) {
+    return (
+      <View>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, stylesMain.ItemCenterVertical, { marginLeft: 8, marginTop: 8, }]}>
+          {Title}</Text>
+        <View style={stylesMain.SafeAreaViewNoBackground}>
+          <View style={{ width: '100%' }}>
+            <View style={{ width: '100%', height: 140 }}>
+              {
+                this.state.activeText == true ?
+                  this.dataItem(item) :
+                  <ScrollView scrollEnabled={false}>
+                    {this.dataItem(item)}
+                  </ScrollView>
+              }
+              {item.length > 4 ?
+                <TouchableOpacity onPress={() => {
+                  this.state.activeText == true ?
+                    this.setState({ activeText: false }) :
+                    this.setState({ activeText: true })
+                }}>
+                  <View style={[stylesDetail.Detail_Box, stylesMain.ItemCenter, {
+                    borderTopWidth: null,
+                  }]}>
+                    <Text style={[stylesDetail.Detail_Text_A, stylesMain.ItemCenterVertical, { fontFamily: 'SukhumvitSet-Text', }]}>
+                      {
+                        this.state.activeText == true ?
+                          'ย่อ' :
+                          'ดูเพิ่มเติม'
+                      }</Text>
+                    <IconEntypo name={this.state.activeText == true ? 'chevron-up' : 'chevron-down'} size={25} color='#0A55A6' />
+                  </View>
+                </TouchableOpacity> :
+                null
+              }
+              <View style={[stylesMain.ItemCenter, { width: '100%' }]}>
+                <View style={{
+                  width: '80%', backgroundColor: '#fff', marginTop: 8, borderBottomColor: '#DCDCDC', borderBottomWidth: 3,
+                }}></View>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    )
+  }
+  render() {
+    const { Title, item } = this.props
+    return (
+      <View style={{
+        height: this.state.activeText == true ? 320 : 180
+      }}>
+        {this.dataContainer(Title, item)}
+      </View>
+    )
+  }
+}
+///----------------------------------------------------------------------------------------------->>>>
+export class SlideTabGet extends Component {
+  render() {
+    const item = [{
+      name: 'กระเป๋าสะพายข้าง'
+    }, {
+      name: 'กระเป๋าสะพายหลัง'
+    }, {
+      name: 'กระเป๋าสตางค์'
+    }, {
+      name: 'กระเป๋าใส่นามบัตร'
+    }, {
+      name: 'กระเป๋าใส่เหรียญ'
+    }, {
+      name: 'กระเป๋าถือ'
+    }, {
+      name: 'อื่นๆ'
+    }]
+    const item2 = [{
+      name: 'BP world'
+    }, {
+      name: 'Tokyo boy'
+    }, {
+      name: 'JJ'
+    }, {
+      name: 'ETONWEAG'
+    }]
+    return (
+      <View>
+        <View style={{ width: '100%' }}>
+          <SlideTab Title='หมวดหมู่' item={item} />
+          <SlideTab Title='แบรนด์' item={item2} />
+          <PricesSlide />
+        </View>
+      </View >
+    )
+  }
+}
+///----------------------------------------------------------------------------------------------->>>>
+export class PricesSlide extends Component {
   render() {
     return (
       <View>
-        <View style={{ width: '100%', backgroundColor: '#D5D5D5', height: 30 }}>
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, stylesMain.ItemCenterVertical, { marginLeft: 8 }]}>
-            ค้นหาแบบละเอียด</Text>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, stylesMain.ItemCenterVertical, { marginLeft: 8, marginTop: 8, }]}>
+          ราคา</Text>
+        <View style={stylesMain.SafeAreaViewNoBackground}>
+          <View style={{ width: '100%' }}>
+            <View style={[stylesMain.ItemCenter, stylesMain.FlexRow, { width: '100%', height: 80 }]}>
+              <TextInput placeholder='ต่ำสุด' style={[
+                stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesFont.FontSize3,
+                stylesTopic.maxMinValue]}
+              />
+              <Text style={[stylesMain.ItemCenterVertical, { fontSize: 28, marginHorizontal: 8 }]}>-</Text>
+              <TextInput placeholder='สูงสุด' style={[
+                stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesFont.FontSize3,
+                stylesTopic.maxMinValue]}
+              />
+            </View>
+          </View>
         </View>
       </View>
     )
   }
 }
-
-///-------------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>>
 export class Button_Bar extends Component {
   constructor(props) {
     super(props);
@@ -142,7 +279,6 @@ export class Button_Bar extends Component {
               sendData={this.updateIndex}
               item={item}
               limitBox={350}
-              // widthBox={98}
               activeColor={'#fff'}
               activeFontColor={'#0A55A6'}
               type='tag'
@@ -162,14 +298,3 @@ export class Button_Bar extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  slidingText: {
-    textAlign: 'center',
-    marginTop: 20,
-    width: '100%',
-    paddingBottom: 5,
-    borderBottomWidth: 1,
-  },
-});
-///-------------------------------------------------------------------------------///

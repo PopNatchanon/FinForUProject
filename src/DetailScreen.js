@@ -67,7 +67,7 @@ export default class DetailScreen extends Component {
   }
   render() {
     return (
-      <SafeAreaView style={[stylesMain.SafeAreaView, stylesMain.BackgroundAreaView]}>
+      <SafeAreaView style={[stylesMain.SafeAreaViewNoBackground, stylesMain.BackgroundAreaView]}>
         <AppBar leftBar='backarrow' navigation={this.props.navigation} />
         <ScrollView>
           <Detail_Image navigation={this.props.navigation} dataid_product={this.state.dataid_product} />

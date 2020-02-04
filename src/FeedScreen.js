@@ -44,7 +44,7 @@ export default class FeedScreen extends Component {
   }
   render() {
     return (
-      <SafeAreaView style={[stylesMain.SafeAreaView, stylesMain.BackgroundAreaView]}>
+      <SafeAreaView style={[stylesMain.SafeAreaViewNoBackground, stylesMain.BackgroundAreaView]}>
         <AppBar1 titleHead='ฟีด' storeBar menuBar />
         <MenuBar sendText={this.getData} />
         <ScrollView>

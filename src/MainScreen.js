@@ -45,7 +45,7 @@ export default class MainScreen extends Component {
     render() {
         return (
             //console.log(this.props.navigation.navigate),
-            <SafeAreaView style={[stylesMain.SafeAreaView, stylesMain.BackgroundAreaView]}>
+            <SafeAreaView style={[stylesMain.SafeAreaViewNoBackground, stylesMain.BackgroundAreaView]}>
                 <AppBar navigation={this.props.navigation} />
                 <ScrollView>
                     <Slide />

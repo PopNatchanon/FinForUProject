@@ -7,22 +7,18 @@ export default StyleSheet.create({
     ///---------------------------------CategoryScreen----------------------------------------///
 
     Image: {
-        height: '100%',
-        width: '100%'
+        height: '100%', width: '100%'
     },
     Recommend_Store_Boximage: {
-        height: 100,
-        width: 180,
+        height: 100, width: 180,
         marginLeft: 10,
         marginVertical: 10,
     },
 
     ///--------------------------------FlashSaleScreen-----------------------------------------///
 
-
     FlashSale_Tag: {
-        height: 50,
-        width: '100%',
+        height: 50, width: '100%',
         padding: 5,
         backgroundColor: '#FFFFFF',
         flexDirection: 'row',
@@ -115,9 +111,7 @@ export default StyleSheet.create({
         width: 110,
         backgroundColor: '#C4C4C4',
     },
-
-    ///--------------------------------ExclusiveScreen-----------------------------------------///
-
+    ///----------------------------------------------------------------------------------------------->>>> ExclusiveScreen
     Button_Bar: {
         width: '100%',
         height: 40,
@@ -139,7 +133,23 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-
+    BackgroundLeft: {
+        width: width * 0.25, height: '100%'
+    },
+    BackgroundRight: {
+        width: width * 0.75,
+        height: '100%',
+        backgroundColor: '#fff'
+    },
+    BoxReset: {
+        width: width * 1 / 2.8, height: 40,
+        borderWidth: 1, borderColor: '#0A55A6',
+        marginHorizontal: 4
+    },
+    maxMinValue: {
+        width: 140, height: 40,
+        borderWidth: 1, borderRadius: 4
+    },
     ///--------------------------------Recommend_Store-----------------------------------------///
 
     Header: {

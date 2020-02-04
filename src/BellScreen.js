@@ -35,7 +35,7 @@ export default class BellScreen extends Component {
     }
     render() {
         return (
-            <SafeAreaView style={[stylesMain.SafeAreaView, stylesMain.BackgroundAreaView]}>
+            <SafeAreaView style={[stylesMain.SafeAreaViewNoBackground, stylesMain.BackgroundAreaView]}>
                 <AppBar1 titleHead='การแจ้งเตือน' />
                 <ScrollView>
                     <Popular_store />
@@ -132,7 +132,7 @@ export class Pro_for_U extends Component {
             <View>
                 <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
                     โปรเด็ดที่คัดมาเพื่อคุณ</Text>
-                <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView]}>
+                <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, stylesMain.ItemCenter]}>
                     <View style={stylesMain.BoxStore4Box}>
                         <FastImage
                             style={stylesMain.BoxStore4Image}
@@ -192,7 +192,7 @@ export class Update_buy extends Component {
             <View>
                 <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
                     อัพเดทคำสั่งซื้อ</Text>
-                <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView]}>
+                <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, stylesMain.ItemCenter]}>
                     <View style={stylesMain.BoxStore4Box}>
                         <FastImage
                             style={stylesMain.BoxStore4Image}

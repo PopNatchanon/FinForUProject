@@ -45,7 +45,7 @@ export default class CartScreen extends Component {
     render() {
         const { itemCount, itemData } = this.state
         return (
-            <SafeAreaView style={[stylesMain.SafeAreaView, stylesMain.BackgroundAreaView]}>
+            <SafeAreaView style={[stylesMain.SafeAreaViewNoBackground, stylesMain.BackgroundAreaView]}>
                 <AppBar1 navigation={this.props.navigation} titleHead='รถเข็น' chatBar backArrow />
                 <ScrollView>
                     <Product_Cart itemData={itemData} sendText={this.getText} />

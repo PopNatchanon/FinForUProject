@@ -16,8 +16,6 @@ import stylesFont from '../style/stylesFont';
 import { Form, TextValidator } from 'react-native-validator-form';
 import { CheckBox } from 'react-native-elements';
 import RadioButtonRN from 'radio-buttons-react-native';
-import { compareAsc, format } from 'date-fns'
-import { th } from 'date-fns/locale'
 import { ip, finip } from '../navigator/IpConfig';
 import FastImage from 'react-native-fast-image';
 import { Picker } from "native-base";

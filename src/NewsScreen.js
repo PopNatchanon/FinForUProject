@@ -46,7 +46,7 @@ export default class NewsScreen extends Component {
         var titleValue
         this.state.selectedIndex == 0 ? titleValue = 'NEWS' : titleValue = 'BLOG'
         return (
-            <SafeAreaView style={[stylesMain.SafeAreaView, stylesMain.BackgroundAreaView]}>
+            <SafeAreaView style={[stylesMain.SafeAreaViewNoBackground, stylesMain.BackgroundAreaView]}>
                 <AppBar1 titleHead={titleValue} menuBar />
                 <MenuBar sendText={this.getData} />
                 <ScrollView>

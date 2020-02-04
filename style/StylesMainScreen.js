@@ -347,6 +347,9 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: '#E9E9E9',
   },
+  SafeAreaViewNoBackground: {
+    flex: 1,
+  },
   LOGO: {
     height: 30,
     width: 50,

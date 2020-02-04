@@ -13,8 +13,7 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
 import {
-    ButtonGroup,
-    Button,
+    Badge,
 } from 'react-native-elements'
 import FastImage from 'react-native-fast-image';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -51,7 +50,7 @@ export default class StoreScreen extends Component {
         const { currentUser } = this.state;
         // console.log(currentUser)
         return (
-            <SafeAreaView style={[stylesMain.SafeAreaView, stylesMain.BackgroundAreaView]}>
+            <SafeAreaView style={[stylesMain.SafeAreaViewNoBackground, stylesMain.BackgroundAreaView]}>
                 <ScrollView>
                     <View>
                         <Headbar navigation={this.props.navigation} currentUser={currentUser} />
@@ -99,11 +98,13 @@ export class Headbar extends Component {
                             <View style={{ marginLeft: 15, marginTop: '21%' }}>
                                 <Text style={[stylesFont.FontSize3, stylesFont.FontFamilyText, { color: '#FFFFFF' }]}>
                                     {currentUser.name}</Text>
-                                <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyText, {
-                                    color: statusOnline ? '#BEBDBD' : '#43e855',
-                                }]}>
-                                    <View style={{ height: 8, width: 8, borderRadius: 4, backgroundColor: '#43e855' }}>
-                                    </View> Active อยู่</Text>
+                                <View style={{ flexDirection: 'row' }}>
+                                    <Badge status="success" style={{ borderWidth: null, }} />
+                                    <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyText, {
+                                        color: statusOnline ? '#BEBDBD' : '#43e855',
+                                    }]}>
+                                        Active อยู่</Text>
+                                </View>
                                 <Text style={[stylesFont.FontSize4, stylesFont.FontFamilyText, { color: '#FFFFFF' }]}>
                                     ผู้ติดตาม 20.2 พัน | กำลังติดตาม 2</Text>
                             </View>
@@ -118,7 +119,7 @@ export class Headbar extends Component {
                         </View>
                     </View>
                 </View>
-            </View>
+            </View >
         )
     }
 }
@@ -162,67 +163,67 @@ export class MenubarSub extends Component {
         return (
             <View style={stylesProfile.MenubarSub}>
                 <View style={stylesMain.FlexRow}>
-                <TouchableOpacity activeOpacity={0.9} onPress={() => { this.props.navigation.navigate('Total_Order', { selectedIndex: 1 }) }}>
-                    <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
-                        <FastImage
-                            source={require('../icon/two-money-cards.png')}
-                            style={stylesProfile.MenubarSubLine1Image}
-                        />
-                        <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
-                            รอจ่ายเงิน</Text>
-                    </View>
+                    <TouchableOpacity activeOpacity={0.9} onPress={() => { this.props.navigation.navigate('Total_Order', { selectedIndex: 1 }) }}>
+                        <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
+                            <FastImage
+                                source={require('../icon/two-money-cards.png')}
+                                style={stylesProfile.MenubarSubLine1Image}
+                            />
+                            <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                                รอจ่ายเงิน</Text>
+                        </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={0.9} onPress={() => { this.props.navigation.navigate('Total_Order', { selectedIndex: 2 }) }}>
-                    <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
-                        <FastImage
-                            source={require('../icon/month-calendar.png')}
-                            style={stylesProfile.MenubarSubLine1Image}
-                        />
-                        <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
-                            เตรียมจัดส่ง</Text>
-                    </View>
+                        <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
+                            <FastImage
+                                source={require('../icon/month-calendar.png')}
+                                style={stylesProfile.MenubarSubLine1Image}
+                            />
+                            <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                                เตรียมจัดส่ง</Text>
+                        </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={0.9} onPress={() => { this.props.navigation.navigate('Total_Order', { selectedIndex: 3 }) }}>
-                    <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
-                        <FastImage
-                            source={require('../icon/truck-facing-right.png')}
-                            style={stylesProfile.MenubarSubLine1Image}
-                        />
-                        <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
-                            ดำเนินการส่ง</Text>
-                    </View>
+                        <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
+                            <FastImage
+                                source={require('../icon/truck-facing-right.png')}
+                                style={stylesProfile.MenubarSubLine1Image}
+                            />
+                            <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                                ดำเนินการส่ง</Text>
+                        </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={0.9} onPress={() => { this.props.navigation.navigate('Total_Order', { selectedIndex: 4 }) }}>
-                    <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
-                        <FastImage
-                            source={require('../icon/rating.png')}
-                            style={stylesProfile.MenubarSubLine1Image}
-                        />
-                        <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
-                            รีวิวสินค้า</Text>
-                    </View>
+                        <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
+                            <FastImage
+                                source={require('../icon/rating.png')}
+                                style={stylesProfile.MenubarSubLine1Image}
+                            />
+                            <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                                รีวิวสินค้า</Text>
+                        </View>
                     </TouchableOpacity>
                 </View>
                 <View style={[stylesProfile.MenubarSubLine2, stylesMain.FlexRow]}>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Return_products')}>
-                    <View style={[stylesProfile.MenubarSubLine2Box, stylesMain.ItemCenter, stylesMain.FlexRow]}>
-                        <FastImage
-                            source={require('../icon/repeat.png')}
-                            style={stylesProfile.MenubarSubLine2BoxImage}
-                        />
-                        <Text style={[stylesProfile.MenubarSubLine2BoxName, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
-                            คืนสินค้า/คืนเงิน</Text>
-                    </View>
+                        <View style={[stylesProfile.MenubarSubLine2Box, stylesMain.ItemCenter, stylesMain.FlexRow]}>
+                            <FastImage
+                                source={require('../icon/repeat.png')}
+                                style={stylesProfile.MenubarSubLine2BoxImage}
+                            />
+                            <Text style={[stylesProfile.MenubarSubLine2BoxName, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                                คืนสินค้า/คืนเงิน</Text>
+                        </View>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('CancelScreen')}>
-                    <View style={[stylesProfile.MenubarSubLine2Box, stylesMain.ItemCenter, stylesMain.FlexRow]}>
-                        <FastImage
-                            source={require('../icon/box.png')}
-                            style={stylesProfile.MenubarSubLine2BoxImage}
-                        />
-                        <Text style={[stylesProfile.MenubarSubLine2BoxName, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
-                            ยกเลิกสินค้า</Text>
-                    </View>
+                        <View style={[stylesProfile.MenubarSubLine2Box, stylesMain.ItemCenter, stylesMain.FlexRow]}>
+                            <FastImage
+                                source={require('../icon/box.png')}
+                                style={stylesProfile.MenubarSubLine2BoxImage}
+                            />
+                            <Text style={[stylesProfile.MenubarSubLine2BoxName, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                                ยกเลิกสินค้า</Text>
+                        </View>
                     </TouchableOpacity>
                 </View>
             </View>

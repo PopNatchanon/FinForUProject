@@ -1,48 +1,126 @@
 import React, { Component } from 'react';
 import {
     View,
-    ImageBackground,
     ScrollView,
     Text,
-    TextInput,
     SafeAreaView,
     TouchableOpacity,
-    Dimensions,
 } from 'react-native';
 import { AppBar, Slide, BannerBar_TWO, TodayProduct, } from './MainScreen';
 import { finip, ip } from '../navigator/IpConfig';
 import stylesMain from '../style/StylesMainScreen';
-import styleTopic from '../style/styleTopic';
+import stylesFont from '../style/stylesFont';
+import stylesTopic from '../style/styleTopic';
 import FastImage from 'react-native-fast-image';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
-import { Button_Bar } from './ExclusiveScreen';
-import stylesFont from '../style/stylesFont';
+import SlidingView from 'rn-sliding-view';
+import { Button_Bar, SlideTab, PricesSlide } from './ExclusiveScreen';
 
 export default class CategoryScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            sliderVisible: false,
         };
+        this.setSlider = this.setSlider.bind(this)
     }
-
+    setSlider(value) {
+        this.setState({ sliderVisible: value })
+    }
     render() {
+        const { sliderVisible } = this.state
         return (
-            <SafeAreaView style={[stylesMain.SafeAreaView, { backgroundColor: '#E9E9E9' }]}>
+            <SafeAreaView style={[stylesMain.SafeAreaView]}>
                 <AppBar leftBar='backarrow' navigation={this.props.navigation} />
                 <ScrollView>
                     <Slide />
-                    <Recommend_Store  navigation={this.props.navigation} />
+                    <Recommend_Store navigation={this.props.navigation} />
                     <Product_Brand navigation={this.props.navigation} />
                     <BannerBar_TWO />
-                    <Button_Bar />
+                    <Button_Bar setSliderVisible={this.setSlider} getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
                     <TodayProduct noTitle navigation={this.props.navigation} />
                 </ScrollView>
+                <SlidingView
+                    disableDrag
+                    componentVisible={sliderVisible}
+                    containerStyle={{
+                        backgroundColor: null,
+                        justifyContent: 'center',
+                        alignContent: 'stretch',
+                        width: '100%'
+                    }}
+                    position="right"
+                    changeVisibilityCallback={() => this.setState({ sliderVisible: !sliderVisible })}
+                >
+                    <View style={stylesMain.FlexRow}>
+                        <TouchableOpacity
+                            activeOpacity={1}
+                            onPress={() => this.setState({ sliderVisible: !sliderVisible })}
+                        >
+                            <View style={stylesTopic.BackgroundLeft}></View>
+                        </TouchableOpacity>
+                        <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNoBackground]}>
+                            <View style={{ height: '90%' }}>
+                                <ScrollView>
+                                    <SlideTabGet />
+                                </ScrollView>
+                            </View>
+                            <View style={[stylesMain.FlexRow, stylesMain.SafeAreaViewNoBackground, { marginTop: 8 }]}>
+                                <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
+                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize3, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
+                                        รีเซ็ต</Text>
+                                </View>
+                                <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset, { backgroundColor: '#0A55A6' }]}>
+                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize3, stylesFont.FontFamilyText, { color: '#fff' }]}>
+                                        เสร็จสิ้น</Text>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+                </SlidingView>
             </SafeAreaView>
         );
     }
 }
-
+///----------------------------------------------------------------------------------------------->>>>
+export class SlideTabGet extends Component {
+    render() {
+        const item = [{
+            name: 'กระเป๋าสะพายข้าง'
+        }, {
+            name: 'กระเป๋าสะพายหลัง'
+        }, {
+            name: 'กระเป๋าสตางค์'
+        }, {
+            name: 'กระเป๋าใส่นามบัตร'
+        }, {
+            name: 'กระเป๋าใส่เหรียญ'
+        }, {
+            name: 'กระเป๋าถือ'
+        }, {
+            name: 'อื่นๆ'
+        }]
+        const item2 = [{
+            name: 'BP world'
+        }, {
+            name: 'Tokyo boy'
+        }, {
+            name: 'JJ'
+        }, {
+            name: 'ETONWEAG'
+        }]
+        return (
+            <View>
+                <View style={{ width: '100%' }}>
+                    <SlideTab Title='หมวดหมู่' item={item} />
+                    <SlideTab Title='แบรนด์' item={item2} />
+                    <PricesSlide />
+                </View>
+            </View >
+        )
+    }
+}
 ///--------------------------------------------------------------------------///
 
 export class Recommend_Store extends Component {
@@ -75,23 +153,23 @@ export class Recommend_Store extends Component {
         let dataPromotionPopular = this.state.dataSourcebrand.map((item, indexs) => {
             var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
             return (
-                <View style={styleTopic.Recommend_Store_Boximage} key={indexs} >
+                <View style={stylesTopic.Recommend_Store_Boximage} key={indexs} >
                     <FastImage
                         source={{
                             uri: dataMySQL,
                         }}
-                        style={styleTopic.Image}
+                        style={stylesTopic.Image}
                     />
                 </View>
             )
         })
         return (
             <View style={stylesMain.FrameBackground}>
-                <Text style={[stylesMain.FrameBackgroundTextStart,stylesFont.FontFamilyBold,stylesFont.FontSize1]}>ร้านค้าที่แนะนำ</Text>
+                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>ร้านค้าที่แนะนำ</Text>
                 <ScrollView horizontal>
-                        <View style={stylesMain.FlexRow}>
-                            {dataPromotionPopular}
-                        </View>
+                    <View style={stylesMain.FlexRow}>
+                        {dataPromotionPopular}
+                    </View>
                 </ScrollView>
             </View>
         );
@@ -160,7 +238,7 @@ export class Product_Brand extends Component {
         return (
             <View style={stylesMain.FrameBackground}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart,stylesFont.FontFamilyBold,stylesFont.FontSize1]}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
                         สินค้าแบรนด์ดัง
                     </Text>
                 </View>

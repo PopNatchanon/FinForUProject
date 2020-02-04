@@ -1,64 +1,33 @@
-import React, { Component } from 'react';
-import { createStackNavigator } from 'react-navigation-stack';
-import { createAppContainer } from 'react-navigation'
-import MainScreen from '../src/MainScreen';
-import StoreScreen from '../src/StoreScreen';
-import DetailScreen from '../src/DetailScreen';
-import ProfileScreen from '../src/ProfileScreen';
-import CartScreen from '../src/CartScreen';
-import LoginScreen from '../src/LoginScreen';
-import FeedScreen from '../src/FeedScreen';
-import NewsScreen from '../src/NewsScreen';
-import BellScreen from '../src/BellScreen';
-import Register_OTPScreen from '../src/Register_OTPScreen';
-import RegisterScreen from '../src/RegisterScreen';
-import Recommend_Brand from '../src/Recommend_Brand';
-import FlashSaleScreen from '../src/FlashSaleScreen';
-import HighlightScreen from '../src/HighlightScreen';
-import Recommend_Store from '../src/Recommend_Store';
-import ExclusiveScreen from '../src/ExclusiveScreen';
-import Product_for_youScreen from '../src/Product_for_youScreen';
-import Popular_productScreen from '../src/Popular_productScreen';
-import CategoryScreen from '../src/CategoryScreen';
-import Same_StoreScreen from '../src/Same_StoreScreen';
-import Second_productScreen from '../src/Second_productScreen';
-// src_profile
-
-import LatestScreen from '../src/src_profile/LatestScreen';
-import ChatScreen from '../src/src_profile/ChatScreen';
-import InterestedScreen from '../src/src_profile/InterestedScreen';
-import Follow_storeScreen from '../src/src_profile/Follow_storeScreen';
-import Review_meScreen from '../src/src_profile/Review_meScreen';
-import Help_meScreen from '../src/src_profile/Help_meScreen';
-import SettingScreen from '../src/src_profile/SettingScreen';
-import CancelScreen from '../src/src_profile/CancelScreen';
-import Return_products from '../src/src_profile/Return_products';
-import Total_Order from '../src/src_profile/Total_Order';
+import { createStackNavigator } from 'react-navigation-stack'; import { createAppContainer } from 'react-navigation'
+import MainScreen from '../src/MainScreen'; import StoreScreen from '../src/StoreScreen'; import DetailScreen from '../src/DetailScreen';
+import ProfileScreen from '../src/ProfileScreen'; import CartScreen from '../src/CartScreen'; import LoginScreen from '../src/LoginScreen';
+import FeedScreen from '../src/FeedScreen'; import NewsScreen from '../src/NewsScreen'; import BellScreen from '../src/BellScreen';
+import Register_OTPScreen from '../src/Register_OTPScreen'; import RegisterScreen from '../src/RegisterScreen';
+import Recommend_Brand from '../src/Recommend_Brand'; import FlashSaleScreen from '../src/FlashSaleScreen';
+import HighlightScreen from '../src/HighlightScreen'; import Recommend_Store from '../src/Recommend_Store';
+import ExclusiveScreen from '../src/ExclusiveScreen'; import Product_for_youScreen from '../src/Product_for_youScreen';
+import Popular_productScreen from '../src/Popular_productScreen'; import CategoryScreen from '../src/CategoryScreen';
+import Same_StoreScreen from '../src/Same_StoreScreen'; import Second_productScreen from '../src/Second_productScreen';
+import SearchScreen from '../src/SearchScreen'
+///----------------------------------------------------------------------------------------------->>>> src_profile
+import LatestScreen from '../src/src_profile/LatestScreen'; import ChatScreen from '../src/src_profile/ChatScreen';
+import InterestedScreen from '../src/src_profile/InterestedScreen'; import Follow_storeScreen from '../src/src_profile/Follow_storeScreen';
+import Review_meScreen from '../src/src_profile/Review_meScreen'; import Help_meScreen from '../src/src_profile/Help_meScreen';
+import SettingScreen from '../src/src_profile/SettingScreen'; import CancelScreen from '../src/src_profile/CancelScreen';
+import Return_products from '../src/src_profile/Return_products'; import Total_Order from '../src/src_profile/Total_Order';
 import Order_Detail from '../src/src_profile/Order_Detail';
-
-// src_storeMe
-
-import StoreMeScreen from '../src/src_storeMe/StoreMeScreen';
-import StoreMe_Setting from '../src/src_storeMe/StoreMe_Setting';
-import StoreMe_Up_Product from '../src/src_storeMe/StoreMe_Up_Product';
-import StoreMe_Order from '../src/src_storeMe/StoreMe_Order';
+///----------------------------------------------------------------------------------------------->>>> src_storeMe
+import StoreMeScreen from '../src/src_storeMe/StoreMeScreen'; import StoreMe_Setting from '../src/src_storeMe/StoreMe_Setting';
+import StoreMe_Up_Product from '../src/src_storeMe/StoreMe_Up_Product'; import StoreMe_Order from '../src/src_storeMe/StoreMe_Order';
 import StoreMe_Cancel from '../src/src_storeMe/StoreMe_Cancel';
-
-// src-Cart
-
-import Customer_account from '../src/src-Cart/Customer_account';
-import Customer_Order from '../src/src-Cart/Customer_Order';
-
-// src_Promotion
-
-import DealScreen from '../src/src_Promotion/DealScreen';
-import CoinScreen from '../src/src_Promotion/CoinScreen';
-import CampaignScreen from '../src/src_Promotion/CampaignScreen';
-import The_BestFinScreen from '../src/src_Promotion/The_BestFinScreen';
+///----------------------------------------------------------------------------------------------->>>> src-Cart
+import Customer_account from '../src/src-Cart/Customer_account'; import Customer_Order from '../src/src-Cart/Customer_Order';
+///----------------------------------------------------------------------------------------------->>>> src_Promotion
+import DealScreen from '../src/src_Promotion/DealScreen'; import CoinScreen from '../src/src_Promotion/CoinScreen';
+import CampaignScreen from '../src/src_Promotion/CampaignScreen'; import The_BestFinScreen from '../src/src_Promotion/The_BestFinScreen';
 import Installment_payScreen from '../src/src_Promotion/Installment_payScreen';
 import Detail_Campaign from '../src/src_Promotion/Detail_Campaign';
-
-
+///----------------------------------------------------------------------------------------------->>>>
 const PathScreen = createStackNavigator({
   MainScreen: {
     screen: MainScreen,
@@ -393,13 +362,20 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
+  SearchScreen: {
+    screen: SearchScreen,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
 },
   {
     initialRouteName: 'MainScreen',
     // initialRouteName: 'ProfileScreen',
     // initialRouteName: 'DealScreen',
     // initialRouteName: 'Customer_account',
-    // initialRouteName: 'Recommend_Store',
+    // initialRouteName: 'ExclusiveScreen',
   }
 );
 

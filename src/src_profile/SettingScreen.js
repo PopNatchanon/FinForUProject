@@ -17,7 +17,7 @@ import styles from '../../style/StylesProfileScreen'
 import AsyncStorage from '@react-native-community/async-storage';
 import RNRestart from 'react-native-restart';
 import { ip } from '../../navigator/IpConfig';
-import { Appbar } from './LatestScreen';
+import { Appbar } from './Profile_Topic';
 export const { width, height } = Dimensions.get('window');
 
 export default class StoreMeScreen extends Component {
@@ -126,7 +126,7 @@ export class ListMenu extends Component {
                             </Text>
                     </View>
                 </View>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Help_meScreen')} >
+                {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('Help_meScreen')} > */}
                     <View style={stylesPro.BoxTopic}>
                         <View style={styles.ListMenuListSub}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { margin: 10, }]}>
@@ -135,7 +135,7 @@ export class ListMenu extends Component {
                         </View>
                         <IconEntypo name='chevron-right' style={stylesPro.SettingIcon} size={35} color='#0A55A6'/>
                     </View>
-                </TouchableOpacity>
+                {/* </TouchableOpacity> */}
                 <TouchableOpacity activeOpacity={1} onPress={null/*() => this.props.navigation.navigate()*/} >
                     <View style={stylesPro.BoxTopic}>
                         <View style={styles.ListMenuListSub}>

@@ -19,7 +19,7 @@ import stylesPro from '../../style/stylesProfile-src/stylesProfile_Topic';
 import styleMain from '../../style/StylesMainScreen';
 import stylesFont from '../../style/stylesFont';
 import { ip } from '../../navigator/IpConfig';
-import { Appbar } from '../../src/src_profile/LatestScreen';
+import { Appbar } from '../../src/src_profile/Profile_Topic';
 
 export default class StoreMe_Cancel extends Component {
   constructor(props) {

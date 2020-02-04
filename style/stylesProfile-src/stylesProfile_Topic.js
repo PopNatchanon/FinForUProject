@@ -108,8 +108,7 @@ export default StyleSheet.create({
     ///-----------------------------------Review_me-----------------------------------///
 
     Review_me: {
-        marginBottom: 5,
-        marginTop: 5,
+        marginVertical: 10,
         width: '100%',
         height: 'auto',
         backgroundColor: '#FFF',
@@ -368,7 +367,7 @@ export default StyleSheet.create({
         width: width - 30,
         height: 40,
         backgroundColor: '#0A55A6',
-        alignItems:'center',
-        justifyContent:'center',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 })

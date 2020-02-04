@@ -41,7 +41,7 @@ export default class Customer_Order extends Component {
                     <Order />
                     <Option_payment navigation={this.props.navigation} />
                 </ScrollView>
-                <Bar_payment />
+                <Bar_payment navigation={this.props.navigation}/>
             </SafeAreaView>
         );
     }
@@ -450,7 +450,7 @@ export class Bar_payment extends Component {
                     <Text>รวมการสั่งซื้อ</Text>
                     <Text style={{ fontSize: 18, color: '#0A55A6' }}>฿90,000</Text>
                 </View>
-                <TouchableOpacity>
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Customer_Complete_Order')}>
                     <View style={{ width: 300, height: 50, backgroundColor: '#0A55A6', justifyContent: 'center', alignItems: 'center', }}>
                         <Text style={{ color: '#FFF', fontSize: 15, }}>สั่งซื้อสินค้า</Text>
                     </View>

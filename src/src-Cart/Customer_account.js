@@ -35,7 +35,7 @@ export default class Customer_account extends Component {
     render() {
         return (
             <SafeAreaView style={{ backgroundColor: '#E9E9E9', flex: 1, }}>
-                <Appbar />
+                <Appbar navigation={this.props.navigation} />
                 <Account currentUser={this.state.currentUser} />
                 <Account_main />
                 <Button_Bar />
@@ -56,11 +56,12 @@ export class Appbar extends Component {
         return (
             <View style={styles.Appbar}>
                 <IconAntDesign name='mail' size={30} />
-                <Text style={{ marginLeft: 10, fontSize: 15, }}>ที่อยู่ใหม่</Text>
-
-                <View>
-                    <IconAntDesign RightItem name='closecircleo' size={25} color='#0A55A6' style={{ marginLeft: 160, marginRight: 10, }} />
-                </View>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { marginLeft: 10, }]}>ที่อยู่ใหม่</Text>
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
+                    <View>
+                        <IconAntDesign RightItem name='closecircleo' size={25} color='#0A55A6' style={{ marginLeft: 160, marginRight: 10, }} />
+                    </View>
+                </TouchableOpacity>
             </View>
 
         );
@@ -221,23 +222,25 @@ export class Account extends Component {
         return (
             <View>
                 <View style={styles.Account_Box}>
-                    <Text style={styles.Text}>ชื่อ-นามสกุล</Text>
-                    <TextInput style={styles.TextInput, {
-                    }}
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { marginTop: 5 }]}>ชื่อ-นามสกุล</Text>
+                    <TextInput
+                        style={[stylesFont.FontSize3, stylesFont.FontFamilyText, { height: 40 }]}
                         placeholder="โปรดระบุ"
+                        maxLength={30}
                         value={this.state.name}
                         onChangeText={(name) => this.setState({ name })}></TextInput>
                 </View>
                 <View style={styles.Account_Box}>
-                    <Text style={styles.Text}>หมายเลขโทรศัพท์</Text>
-                    <TextInput style={styles.TextInput, {
-                    }}
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { marginTop: 5 }]}>หมายเลขโทรศัพท์</Text>
+                    <TextInput
+                        style={[stylesFont.FontSize3, stylesFont.FontFamilyText, { height: 40 }]}
                         placeholder="โปรดระบุ"
+                        maxLength={10}
                         value={this.state.phone}
                         onChangeText={(phone) => this.setState({ phone })}></TextInput>
                 </View>
                 <View style={styles.Account_Box}>
-                    <Text style={styles.Text}>จังหวัด</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, {marginTop:5}]}>จังหวัด</Text>
                     <ModalDropdown
                         options={provinces}
                         style={stylesMain.ItemCenterVertical}
@@ -250,7 +253,7 @@ export class Account extends Component {
                     </ModalDropdown>
                 </View>
                 <View style={styles.Account_Box}>
-                    <Text style={styles.Text}>เขต/อำเภอ</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, {marginTop:5}]}>เขต/อำเภอ</Text>
                     <ModalDropdown
                         options={amphoes}
                         style={stylesMain.ItemCenterVertical}
@@ -263,7 +266,7 @@ export class Account extends Component {
                     </ModalDropdown>
                 </View>
                 <View style={styles.Account_Box}>
-                    <Text style={styles.Text}>แขวง/ตำบล</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, {marginTop:5}]}>แขวง/ตำบล</Text>
                     <ModalDropdown
                         options={tumbols}
                         style={stylesMain.ItemCenterVertical}
@@ -276,22 +279,19 @@ export class Account extends Component {
                     </ModalDropdown>
                 </View>
                 <View style={styles.Account_Box}>
-                    <Text style={styles.Text}>รหัสไปรษณีย์</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, {marginTop:5}]}>รหัสไปรษณีย์</Text>
                     <TextInput
-                        style={styles.TextInput}
+                        style={[stylesFont.FontSize3, stylesFont.FontFamilyText, { height: 40 }]}
                         editable={false}
                         placeholder="รหัสไปรษณีย์"
                         value={this.state.zipcode}
                     />
                 </View>
-                <View style={styles.Account_Box_Text}>
-                    <Text style={styles.Text}>รายละเอียดที่อยู่</Text>
-                    <TextInput style={styles.TextInput, {
-                        width: '50%'
-                    }}
+                <View style={[styles.Account_Box,{height:100}]}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { marginTop: 5 }]}>รายละเอียดที่อยู่</Text>
+                    <TextInput style={[stylesFont.FontSize3, stylesFont.FontFamilyText, { height: 40 ,width:'60%', height:60,}]}
                         multiline
                         editable
-                        // numberOfLines={4}
                         placeholder="โปรดระบุรายละเอียดบ้านเลขที่, ตึก, ชื่อถนน และ อื่นๆที่จำเป็น"
                         value={this.state.text}
                         onChangeText={(text) => this.setState({ text })}></TextInput>
@@ -313,11 +313,11 @@ export class Account_main extends Component {
 
     render() {
         return (
-            <View style={{ marginTop: 5, }}>
-                <View style={styles.Account_main_Box}>
-                    <Text style={styles.Text}>ตั้งเป็นที่อยู่ตั้งต้น</Text>
+            <View>
+                <View style={[styles.Account_Box]}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, {marginTop:5}]}>ตั้งเป็นที่อยู่ตั้งต้น</Text>
                     <CheckBox
-                        size={30}
+                        size={25}
                         checkedIcon='toggle-on'
                         checkedColor='#95F29F'
                         uncheckedIcon='toggle-off'
@@ -325,10 +325,10 @@ export class Account_main extends Component {
                         onPress={() => this.setState({ item1: !this.state.item1 })}
                     />
                 </View>
-                <View style={styles.Account_main_Box}>
-                    <Text style={styles.Text}>ตั้งเป็นที่อยู่ในการรับสินค้า</Text>
+                <View style={styles.Account_Box}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, {marginTop:5}]}>ตั้งเป็นที่อยู่ในการรับสินค้า</Text>
                     <CheckBox
-                        size={30}
+                        size={25}
                         checkedIcon='toggle-on'
                         checkedColor='#95F29F'
                         uncheckedIcon='toggle-off'
@@ -353,9 +353,13 @@ export class Button_Bar extends Component {
 
     render() {
         return (
-            <View style={styles.Button_Bar}>
-                <Text style={styles.Button_Bar_Text}>เพิ่มที่อยู่</Text>
-            </View>
+            <View style={{ alignItems: 'center', justifyContent: 'flex-end', height: 210, }}>
+            <TouchableOpacity>
+              <View style={{ height: 40, backgroundColor: '#0A55A6', width: 350, borderRadius: 5, alignItems: 'center', justifyContent: 'center', marginBottom: 10, }}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize1, { color: '#FFFFFF' }]}>เพิ่มที่อยู่</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         );
     }
 }

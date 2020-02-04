@@ -20,7 +20,7 @@ import stylesMain from '../../../style/StylesMainScreen';
 import stylesFont from '../../../style/stylesFont';
 import stylesLogin from '../../../style/stylesLoginScreen';
 import IconEntypo from 'react-native-vector-icons/Entypo';
-import { Appbar } from '../LatestScreen';
+import { Appbar } from '../Profile_Topic';
 import { StoreMe_SettingImage } from '../../src_storeMe/StoreMe_Setting';
 
 export const { width, height } = Dimensions.get('window');

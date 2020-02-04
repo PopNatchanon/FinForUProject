@@ -22,14 +22,12 @@ import Popular_productScreen from '../src/Popular_productScreen';
 import CategoryScreen from '../src/CategoryScreen';
 import Same_StoreScreen from '../src/Same_StoreScreen';
 import Second_productScreen from '../src/Second_productScreen';
-// src_profile
 
-import LatestScreen from '../src/src_profile/LatestScreen';
-import ChatScreen from '../src/src_profile/ChatScreen';
-import InterestedScreen from '../src/src_profile/InterestedScreen';
-import Follow_storeScreen from '../src/src_profile/Follow_storeScreen';
-import Review_meScreen from '../src/src_profile/Review_meScreen';
-import Help_meScreen from '../src/src_profile/Help_meScreen';
+// src_Bell
+import Detail_Pro from '../src/src_Bell/Detail_Pro';
+
+// src_profile
+import Profile_Topic from '../src/src_profile/Profile_Topic';
 import SettingScreen from '../src/src_profile/SettingScreen';
 import CancelScreen from '../src/src_profile/CancelScreen';
 import Return_products from '../src/src_profile/Return_products';
@@ -49,6 +47,7 @@ import StoreMe_Cancel from '../src/src_storeMe/StoreMe_Cancel';
 
 import Customer_account from '../src/src-Cart/Customer_account';
 import Customer_Order from '../src/src-Cart/Customer_Order';
+import Customer_Complete_Order from '../src/src-Cart/Customer_Complete_Order';
 
 // src_Promotion
 
@@ -210,43 +209,8 @@ const PathScreen = createStackNavigator({
   },
   // src_profile
 
-  LatestScreen: {
-    screen: LatestScreen,
-    navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
-    })
-  },
-  ChatScreen: {
-    screen: ChatScreen,
-    navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
-    })
-  },
-  InterestedScreen: {
-    screen: InterestedScreen,
-    navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
-    })
-  },
-  Follow_storeScreen: {
-    screen: Follow_storeScreen,
-    navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
-    })
-  },
-  Review_meScreen: {
-    screen: Review_meScreen,
-    navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
-    })
-  },
-  Help_meScreen: {
-    screen: Help_meScreen,
+  Profile_Topic: {
+    screen: Profile_Topic,
     navigationOptions: () => ({
       tabBarVisible: false,
       header: null,
@@ -342,6 +306,13 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
+  Customer_Complete_Order: {
+    screen: Customer_Complete_Order,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
 
   // src_Promotion
 
@@ -401,11 +372,18 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
+  Detail_Pro: {
+    screen: Detail_Pro,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
 },
   {
-    initialRouteName: 'MainScreen',
+    // initialRouteName: 'MainScreen',
     // initialRouteName: 'ProfileScreen',
-    // initialRouteName: 'DealScreen',
+    initialRouteName: 'Customer_Complete_Order',
     // initialRouteName: 'Customer_account',
     // initialRouteName: 'Recommend_Store',
   }

@@ -22,6 +22,7 @@ import Popular_productScreen from '../src/Popular_productScreen';
 import CategoryScreen from '../src/CategoryScreen';
 import Same_StoreScreen from '../src/Same_StoreScreen';
 import Second_productScreen from '../src/Second_productScreen';
+import SearchScreen from '../src/SearchScreen'
 
 // src_Bell
 import Detail_Pro from '../src/src_Bell/Detail_Pro';
@@ -387,9 +388,9 @@ const PathScreen = createStackNavigator({
   },
 },
   {
-    // initialRouteName: 'MainScreen',
+    initialRouteName: 'MainScreen',
     // initialRouteName: 'ProfileScreen',
-    initialRouteName: 'Customer_Complete_Order',
+    // initialRouteName: 'Customer_Complete_Order',
     // initialRouteName: 'Customer_account',
     // initialRouteName: 'ExclusiveScreen',
   }

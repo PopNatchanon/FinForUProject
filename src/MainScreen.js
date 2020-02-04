@@ -1,13 +1,6 @@
-import React, { Component, PureComponent } from 'react';
+import React, { Component } from 'react';
 import {
-    View,
-    ImageBackground,
-    ScrollView,
-    Text,
-    TextInput,
-    SafeAreaView,
-    TouchableOpacity,
-    Dimensions,
+    View, ImageBackground, ScrollView, Text, SafeAreaView, TouchableOpacity, Dimensions, TextInput,
 } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import axios from 'axios';
@@ -15,7 +8,6 @@ import NumberFormat from 'react-number-format';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import IconEntypo from 'react-native-vector-icons/Entypo';
 import stylesMain from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 import stylesFont from '../style/stylesFont';
@@ -24,27 +16,16 @@ import FastImage from 'react-native-fast-image';
 export const { width, height } = Dimensions.get('window');
 import AsyncStorage from '@react-native-community/async-storage';
 import { Toolbar } from './tools/Tools';
-import DeviceInfo from 'react-native-device-info';
-
-///----------------------------------Appbar----------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Appbar
 export default class MainScreen extends Component {
     getDataasync = async () => {
         const currentUser = await AsyncStorage.getItem('@MyKey')
-        // console.log('profile:')
-        // console.log(currentUser)
     }
     componentDidMount() {
         this.getDataasync()
-        // console.log(DeviceInfo.getDeviceType())
-        // console.log('height')
-        // console.log(height)
-        // console.log('width')
-        // console.log(width)
     }
     render() {
         return (
-            //console.log(this.props.navigation.navigate),
             <SafeAreaView style={[stylesMain.SafeAreaViewNoBackground, stylesMain.BackgroundAreaView]}>
                 <AppBar navigation={this.props.navigation} />
                 <ScrollView>
@@ -62,9 +43,6 @@ export default class MainScreen extends Component {
                     <Popular_store navigation={this.props.navigation} />
                     <Popular_product navigation={this.props.navigation} />
                     <BannerBar_TWO />
-                    {// 
-                        //   <Confidential_PRO /> 
-                    }
                     <Product_for_you navigation={this.props.navigation} />
                     <BannerBar_TWO />
                     <CategoryProduct navigation={this.props.navigation} />
@@ -77,50 +55,82 @@ export default class MainScreen extends Component {
         );
     }
 }
-
+///----------------------------------------------------------------------------------------------->>>>
 export class AppBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
             text: '',
         };
-        // console.log(this.props.navigation.navigate)
     }
     render() {
-        const { leftBar, rightBar } = this.props
+        const { leftBar, rightBar, searchBar, navigation } = this.props
         return (
             <View style={[stylesMain.Appbar, stylesMain.FlexRow, { backgroundColor: '#fff' }]}>
                 {
                     leftBar == 'backarrow' ?
                         <View>
-                            <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30 }]} activeOpacity={1}
-                                onPress={() => this.props.navigation.goBack()}>
+                            <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30 }]}
+                                activeOpacity={1}
+                                onPress={() => navigation.goBack()}>
                                 <IconFeather name="arrow-left" size={30} />
                             </TouchableOpacity>
                         </View> :
                         null
                 }
-                <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical]}>
-                    <FastImage
-                        style={[stylesMain.LOGO, stylesMain.ItemCenterVertical]}
-                        source={require('../images/sj.png')}
-                    />
-                    <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
-                        width:
-                            rightBar == 'storebar' ?
-                                leftBar == 'backarrow' ?
-                                    width - 200 :
-                                    width - 170 :
-                                rightBar == 'chat' ?
-                                    width - 200 :
-                                    width - 170,
-                    }]}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize2,
-                        stylesFont.FontCenter, stylesMain.ItemCenterVertical]}>
-                            ค้นหาสินค้า/ร้านค้า</Text>
-                    </View>
-                    <IconAntDesign RightItem name="search1" size={20} style={[stylesMain.ItemCenterVertical, { marginRight: 4 }]} />
-                </View>
+                {
+                    searchBar ?
+                        <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical]}>
+                            <FastImage
+                                style={[stylesMain.LOGO, stylesMain.ItemCenterVertical]}
+                                source={require('../images/sj.png')}
+                            />
+                            <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
+                                width:
+                                    rightBar == 'storebar' ?
+                                        leftBar == 'backarrow' ?
+                                            width - 200 :
+                                            width - 170 :
+                                        rightBar == 'chat' ?
+                                            width - 200 :
+                                            width - 170,
+                            }]}>
+                                <TextInput
+                                    style={[stylesMain.TextInput, stylesFont.FontFamilyText, stylesFont.FontSize2, stylesFont.FontCenter]}
+                                    placeholder="ค้นหาสินค้า/ร้านค้า"
+                                    value={this.state.text}
+                                    maxLength={30}
+                                    onChangeText={(text) => this.setState({ text })}
+                                />
+                            </View>
+                            <IconAntDesign RightItem name="search1" size={20}
+                                style={[stylesMain.ItemCenterVertical, { marginRight: 4 }]}
+                            />
+                        </View> :
+                        <TouchableOpacity activeOpacity={1} onPress={() => { navigation.navigate('SearchScreen') }}>
+                            <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical]}>
+                                <FastImage
+                                    style={[stylesMain.LOGO, stylesMain.ItemCenterVertical]}
+                                    source={require('../images/sj.png')}
+                                />
+                                <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
+                                    width:
+                                        rightBar == 'storebar' ?
+                                            leftBar == 'backarrow' ?
+                                                width - 200 :
+                                                width - 170 :
+                                            rightBar == 'chat' ?
+                                                width - 200 :
+                                                width - 170,
+                                }]}>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize2,
+                                    stylesFont.FontCenter, stylesMain.ItemCenterVertical]}>
+                                        ค้นหาสินค้า/ร้านค้า</Text>
+                                </View>
+                                <IconAntDesign RightItem name="search1" size={20} style={[stylesMain.ItemCenterVertical, { marginRight: 4 }]} />
+                            </View>
+                        </TouchableOpacity>
+                }
                 {
                     rightBar == 'storebar' ?
                         <View style={[stylesMain.ItemCenter, stylesMain.FlexRow]}>
@@ -150,7 +160,7 @@ export class AppBar extends Component {
                                 width:
                                     leftBar == 'backarrow' ?
                                         rightBar == 'chat' ? 40 : 50 : 40
-                            }]} onPress={() => this.props.navigation.navigate('CartScreen')}>
+                            }]} onPress={() => navigation.navigate('CartScreen')}>
                                 <IconAntDesign RightItem name="shoppingcart" size={25} />
                             </TouchableOpacity>
                         </View>
@@ -159,7 +169,7 @@ export class AppBar extends Component {
         );
     }
 }
-
+///----------------------------------------------------------------------------------------------->>>>
 export class AppBar1 extends Component {
     constructor(props) {
         super(props);

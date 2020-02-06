@@ -11,23 +11,23 @@ export default StyleSheet.create({
   },
   ///------------///
   BoxProduct1Box: {
-    width: 106,
-    borderColor: '#ECECEC',
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1,
-    marginTop: 10,
-    marginBottom: 8,
+    backgroundColor: '#FFFFFF', width: 106,
+    borderColor: '#ECECEC', borderWidth: 1,
+    marginTop: 10, marginBottom: 8,
     marginLeft: 10,
   },
-  BoxProduct1Image: {
-    width: 99,
-    height: 98,
-    resizeMode: 'contain',
-    borderRadius: 5,
+  BoxProduct1ImageofLines: {
+    width: 104,
+    height: 104,
   },
-  BoxProduct1ImageName: {
-    marginTop: 6,
-    marginLeft: 6,
+  BoxProduct1Image: {
+    width: '100%',
+    height: '100%',
+  },
+  BoxProduct1NameofLines: {
+    width: '100%',
+    padding: 6,
+    height: 40
   },
   BoxProduct1IconBox: {
     flex: 1,
@@ -47,10 +47,19 @@ export default StyleSheet.create({
     flexDirection: 'row',
     marginLeft: 6,
   },
+  BoxProduct1PriceofLines: {
+    width: '100%',
+    padding: 6,
+    marginTop: 2,
+    height: 35,
+    flexDirection: 'row'
+  },
   BoxProduct1ImagePrice: {
-    marginTop: 6,
-    marginLeft: 6,
     color: '#0A55A6',
+  },
+  BoxProduct1ImagePriceThrough: {
+    color: '#C4C4C4',
+    textDecorationLine: 'line-through',
   },
   ///------------///
   BoxProduct2: {
@@ -74,16 +83,15 @@ export default StyleSheet.create({
     borderColor: '#ECECEC',
     borderWidth: 0.5,
   },
+  BoxProduct2ImageofLines: {
+    flex: 1,
+    width: '100%',
+    height: height * (1 / 5.5),
+  },
   BoxProduct2Image: {
     width: '100%',
-    height: height * (1 / 4.9),
+    height: '100%',
     resizeMode: 'cover',
-    // padding: 4,
-  },
-  BoxProduct2ImageName: {
-    fontSize: 12,
-    marginTop: 12,
-    marginLeft: 8,
   },
   BoxProduct2ImagePrice: {
     fontSize: 10,
@@ -218,7 +226,6 @@ export default StyleSheet.create({
   BoxStore1Image: {
     width: '100%',
     height: '100%',
-    resizeMode: 'stretch',
     borderColor: '#ECECEC',
   },
   ///------------///
@@ -233,7 +240,6 @@ export default StyleSheet.create({
   BoxStore2Image: {
     width: '100%',
     height: '100%',
-    resizeMode: 'stretch',
     borderColor: '#ECECEC',
     borderRadius: 8,
   },
@@ -277,11 +283,35 @@ export default StyleSheet.create({
     width: width - 160,
   },
   ///------------///
+  BoxStore5Box: {
+    flexDirection: 'row',
+    paddingRight: 40,
+    padding: 10,
+    marginTop: 10,
+    height: 'auto',
+    width: width,
+    backgroundColor: '#FFFF',
+  },
+  BoxStore5Image: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+    borderRadius: 30
+  },
+  ///------------///
   FrameBackground: {
     width,
     borderColor: '#ECECEC',
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
+    marginTop: 10,
+  },
+  FrameBackground2: {
+    width,
+    borderColor: '#ECECEC',
+    backgroundColor: '#FFFFFF',
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
     marginTop: 10,
   },
   FrameBackgroundTextBox: {
@@ -513,10 +543,9 @@ export default StyleSheet.create({
   Banner_Bar_image: {
     width,
     height: 70,
-    resizeMode: 'stretch',
   },
   Product_for_you: {
-    height: 320,
+    height: 410,
     marginTop: 10,
   },
   ///------------------------------------------------------------------///
@@ -581,7 +610,7 @@ export default StyleSheet.create({
     marginTop: 6,
   },
   Second_StoreFin_ImageB_T: {
-    height: 108,
+    height: 112,
     width: width * 0.32,
     marginBottom: 3
   },
@@ -589,24 +618,37 @@ export default StyleSheet.create({
     color: '#ffff',
   },
   Second_Storefooter: {
-    height: 100,
     width,
+    paddingBottom: 8,
   },
   Second_Storefooter_image: {
-    height: 40,
-    width: 160,
+    height: 75,
+    width: 155,
     marginLeft: 10,
-    borderTopRightRadius: 5,
-    borderTopLeftRadius: 5,
   },
   Second_Storefooter_Text: {
     color: '#FFF',
-    fontSize: 10,
     height: 30,
     width: 160,
     marginLeft: 10,
     backgroundColor: '#0A55A6',
     borderBottomRightRadius: 5,
     borderBottomLeftRadius: 5,
+  },
+  bigSlideImage: {
+    height: '75%', width: '100%',
+  },
+  bigSlideText: {
+    backgroundColor: '#0A55A6', height: '25%', width: '100%',
+    padding: 2
+  },
+  litleSlideImage: {
+    height: 70, width: '100%',
+    borderTopLeftRadius: 5, borderTopRightRadius: 5,
+  },
+  litleSlideText: {
+    backgroundColor: '#0A55A6', height: 40, width: '100%',
+    borderBottomLeftRadius: 5, borderBottomRightRadius: 5,
+    padding: 2,
   },
 });

@@ -73,7 +73,7 @@ export  class Return_products_pro extends Component {
     return (
         <View style={stylesPro.products_pro}>
         <IconFeather name='edit' size={50} color='#A2A2A2'/>
-          <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize1,{color:'#A2A2A2'}]}>ยังไม่มีคำสั่งซื้อ</Text>
+          <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize2,{color:'#A2A2A2'}]}>ยังไม่มีคำสั่งซื้อ</Text>
         </View>
      
     );
@@ -92,7 +92,7 @@ export  class Return_products_From extends Component {
     return (
       <SafeAreaView style={styleMain.SafeAreaView}>
         <ScrollView>
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize2, { marginLeft: 10, marginTop: 10, }]}>สินค้าที่ต้องการคืน </Text>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { marginLeft: 10, marginTop: 10, }]}>สินค้าที่ต้องการคืน </Text>
           <Return />
           <Return_Detail />
         </ScrollView>
@@ -117,12 +117,12 @@ export class Return extends Component {
           <View style={styleMain.FlexRow}>
             <View style={stylesPro.Return_Pro}></View>
             <View style={{ marginTop: 10 }}>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize2]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#A2A2A2' }]}>ตัวเลือกสินค้า:สีแดง</Text>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#A2A2A2' }]}>ตัวเลือกสินค้า:สีแดง</Text>
               <Text>x 1</Text>
             </View>
           </View>
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize2, { color: '#0A55A6', marginTop: 10, }]}>฿10,000.00</Text>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { color: '#0A55A6', marginTop: 10, }]}>฿10,000.00</Text>
         </View>
       </View>
 
@@ -143,11 +143,11 @@ export class Return_Detail extends Component {
   render() {
     return (
       <View style={{ padding: 10, }}>
-        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize2, { margin: 5 }]}>ยอดเงินคืน</Text>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { margin: 5 }]}>ยอดเงินคืน</Text>
         <View style={stylesPro.Return_Detail_Box}>
         </View>
 
-        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize2, { margin: 5 }]}>เหตุผลการคืนสินค้า</Text>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { margin: 5 }]}>เหตุผลการคืนสินค้า</Text>
         <View style={stylesPro.Return_Detail_Box}>
           <Picker
             selectedValue={this.state.language}
@@ -159,7 +159,7 @@ export class Return_Detail extends Component {
             <Picker.Item label="อื่นๆ" value="js" />
           </Picker>
         </View>
-        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize2, { margin: 5 }]}>ความคิดเห็นเพิ่มเติม</Text>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { margin: 5 }]}>ความคิดเห็นเพิ่มเติม</Text>
         <View style={stylesPro.Return_Detail_TextInput}>
           <TextInput
             fontSize={15}
@@ -174,7 +174,7 @@ export class Return_Detail extends Component {
           <TouchableOpacity>
             <View style={stylesPro.Up_Image_Box}>
               <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
-              <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize4,{ color: '#0A55A6'}]}>+เพิ่มรูปภาพ(0/6)</Text>
+              <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize5,{ color: '#0A55A6'}]}>+เพิ่มรูปภาพ(0/6)</Text>
             </View>
           </TouchableOpacity>
         </View>

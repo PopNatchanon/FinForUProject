@@ -100,21 +100,21 @@ export class StoreHead extends Component {
                                 />
                             </View>
                             <View>
-                                <Text style={[stylesStore.StoreHeadText, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
+                                <Text style={[stylesStore.StoreHeadText, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
                                     {item.name}</Text>
-                                <Text style={[stylesStore.StoreHeadTextOther, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                                <Text style={[stylesStore.StoreHeadTextOther, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     Active เมื่อ 1 ชั่วโมงที่ผ่านมา</Text>
-                                <Text style={[stylesStore.StoreHeadTextOther2, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                                <Text style={[stylesStore.StoreHeadTextOther2, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                                     ผู้ติดตาม 20.2 พัน | กำลังติดตาม 2</Text>
                             </View>
                         </View>
                         <View style={stylesStore.HeadButtom}>
                             <View style={stylesStore.StoreHeadButtom}>
-                                <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                                <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                                     ติดตาม</Text>
                             </View>
                             <View style={stylesStore.StoreHeadButtom}>
-                                <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                                <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                                     แชท</Text>
                             </View>
                         </View>
@@ -157,34 +157,34 @@ export class StoreHeadDetails extends Component {
         return (
             <View style={stylesStore.StoreHeadDetails}>
                 <View>
-                    <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                    <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                         คะแนนร้านค้า :</Text>
-                    <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                    <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                         รายการสินค้า :</Text>
-                    <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                    <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                         ระยะเวลาในการจัดเตรียมพัสดุ :</Text>
-                    <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                    <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                         ประสิทธิภาพการแชท :</Text>
                 </View>
                 <View>
                     <View style={stylesMain.FlexRow}>
-                        <Text style={[stylesStore.StoreHeadDetailsText2_1, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                        <Text style={[stylesStore.StoreHeadDetailsText2_1, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                             4.8 จาก 5</Text>
-                        <Text style={[stylesStore.StoreHeadDetailsText2_3, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                        <Text style={[stylesStore.StoreHeadDetailsText2_3, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                             (46.9 พันคะแนน)</Text>
                     </View>
-                    <Text style={[stylesStore.StoreHeadDetailsText2_2, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                    <Text style={[stylesStore.StoreHeadDetailsText2_2, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                         150</Text>
                     <View style={stylesMain.FlexRow}>
-                        <Text style={[stylesStore.StoreHeadDetailsText2_2, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                        <Text style={[stylesStore.StoreHeadDetailsText2_2, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                             เร็ว</Text>
-                        <Text style={[stylesStore.StoreHeadDetailsText2_3, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                        <Text style={[stylesStore.StoreHeadDetailsText2_3, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                             ( 1-2 วัน )</Text>
                     </View>
                     <View style={stylesMain.FlexRow}>
-                        <Text style={[stylesStore.StoreHeadDetailsText2_2, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                        <Text style={[stylesStore.StoreHeadDetailsText2_2, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                             80 %</Text>
-                        <Text style={[stylesStore.StoreHeadDetailsText2_3, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                        <Text style={[stylesStore.StoreHeadDetailsText2_3, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                             ( ภายในไม่กี่ชั่วโมง)</Text>
                     </View>
                 </View>
@@ -370,12 +370,12 @@ export class Banner extends Component {
                         {this.pagination}
                     </View>
                     <View>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>
                             สวัสดีค่า ยินดีต้อนรับค่ะร้านนี้รบกวนไม่ถามเล่นๆ นะคะ หากต่อราคารบกวนไม่ต่อเว่อๆนะคะ ถ้าลดได้ลดให้ค่า</Text>
                     </View>
                 </View>
                 <View style={stylesStore.BannerTextTail}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>
                         https://finforyou.com/{item.name}</Text>
                 </View>
             </View>
@@ -401,13 +401,13 @@ export class TicketLine extends Component {
                         >
                             <View style={{ flexDirection: 'row' }}>
                                 <View>
-                                    <Text style={[stylesStore.TicketLineText, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                                    <Text style={[stylesStore.TicketLineText, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                                         ฿100.00</Text>
-                                    <Text style={[stylesStore.TicketLineText2, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                                    <Text style={[stylesStore.TicketLineText2, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                         ซื้อขั้นต่ำครบ ฿10,000.00</Text>
                                 </View>
                                 <View style={stylesStore.TicketLineButtom}>
-                                    <Text style={[stylesStore.TicketLineButtomText, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                                    <Text style={[stylesStore.TicketLineButtomText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                         เก็บ</Text>
                                 </View>
                             </View>
@@ -421,13 +421,13 @@ export class TicketLine extends Component {
                         >
                             <View style={{ flexDirection: 'row' }}>
                                 <View>
-                                    <Text style={[stylesStore.TicketLineText, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                                    <Text style={[stylesStore.TicketLineText, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                                         ฿200.00</Text>
-                                    <Text style={[stylesStore.TicketLineText2, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                                    <Text style={[stylesStore.TicketLineText2, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                         ซื้อขั้นต่ำครบ ฿20,000.00</Text>
                                 </View>
                                 <View style={stylesStore.TicketLineButtom}>
-                                    <Text style={[stylesStore.TicketLineButtomText, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                                    <Text style={[stylesStore.TicketLineButtomText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                         เก็บ</Text>
                                 </View>
                             </View>
@@ -441,13 +441,13 @@ export class TicketLine extends Component {
                         >
                             <View style={{ flexDirection: 'row' }}>
                                 <View>
-                                    <Text style={[stylesStore.TicketLineText, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                                    <Text style={[stylesStore.TicketLineText, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                                         ฿300.00</Text>
-                                    <Text style={[stylesStore.TicketLineText2, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                                    <Text style={[stylesStore.TicketLineText2, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                         ซื้อขั้นต่ำครบ ฿30,000.00</Text>
                                 </View>
                                 <View style={stylesStore.TicketLineButtom}>
-                                    <Text style={[stylesStore.TicketLineButtomText, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                                    <Text style={[stylesStore.TicketLineButtomText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                         เก็บ</Text>
                                 </View>
                             </View>
@@ -500,7 +500,7 @@ export class DealTop extends Component {
                             }}
                             style={stylesMain.BoxProduct1Image}
                         />
-                        <Text style={[stylesMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                        <Text style={[stylesMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                             {item.name}</Text>
                         <NumberFormat
                             value={item.full_price}
@@ -508,7 +508,7 @@ export class DealTop extends Component {
                             thousandSeparator={true}
                             prefix={'฿'}
                             renderText={value =>
-                                <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+                                <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
                                     {value}</Text>}
                         />
                     </View>
@@ -518,7 +518,7 @@ export class DealTop extends Component {
         return (
             <View style={stylesMain.FrameBackground}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize2]}>
                         ดีลเด็ด</Text>
                 </View>
                 <ScrollView horizontal>
@@ -569,7 +569,7 @@ export class NewProduct extends Component {
                             }}
                             style={stylesMain.BoxProduct1Image}
                         />
-                        <Text style={[stylesMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                        <Text style={[stylesMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                             {item.name}</Text>
                         <NumberFormat
                             value={item.full_price}
@@ -577,7 +577,7 @@ export class NewProduct extends Component {
                             thousandSeparator={true}
                             prefix={'฿'}
                             renderText={value =>
-                                <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+                                <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
                                     {value}</Text>
                             }
                         />
@@ -588,7 +588,7 @@ export class NewProduct extends Component {
         return (
             <View style={stylesMain.FrameBackground}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize2]}>
                         สินค้ามาใหม่</Text>
                 </View>
                 <ScrollView horizontal>
@@ -740,7 +740,7 @@ export class PopularProduct extends Component {
                             }}
                             style={stylesMain.BoxProduct3Image}
                         />
-                        <Text style={[stylesMain.BoxProduct2ImageName, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                        <Text style={[stylesMain.BoxProduct2ImageName, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                             {item.name}</Text>
                         <NumberFormat
                             value={item.full_price}
@@ -748,7 +748,7 @@ export class PopularProduct extends Component {
                             thousandSeparator={true}
                             prefix={'฿'}
                             renderText={value =>
-                                <Text style={[stylesMain.BoxProduct2ImagePrice, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+                                <Text style={[stylesMain.BoxProduct2ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
                                     {value}</Text>
                             }
                         />
@@ -761,7 +761,7 @@ export class PopularProduct extends Component {
                 {
                     noHeadText ?
                         null :
-                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize2]}>
                             {headText ? headText : 'สินค้าขายดี'}</Text>
                 }
                 <View style={stylesMain.BoxProductWarp}>
@@ -879,7 +879,7 @@ export class ShowProduct extends Component {
                             }}
                             style={stylesMain.BoxProduct1Image}
                         />
-                        <Text style={[stylesMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                        <Text style={[stylesMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                             {item.name}</Text>
                         <NumberFormat
                             value={item.full_price}
@@ -887,7 +887,7 @@ export class ShowProduct extends Component {
                             thousandSeparator={true}
                             prefix={'฿'}
                             renderText={value =>
-                                <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+                                <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
                                     {value}</Text>
                             }
                         />

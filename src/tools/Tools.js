@@ -91,16 +91,16 @@ export class TabBar extends Component {
     }
     setDataItem() {
         const { setData } = this.props
-        console.log('setDataItem')
-        console.log(setData)
+        // console.log('setDataItem')
+        // console.log(setData)
         if (setData.activeSetData < 1) {
             setData.activeSetData = setData.activeSetData + 1
-            console.log('activeSetData')
-            console.log(setData.activeSetData)
-            console.log('index')
-            console.log(setData.index)
-            console.log('pathlist')
-            console.log(this.state.pathlist)
+            // console.log('activeSetData')
+            // console.log(setData.activeSetData)
+            // console.log('index')
+            // console.log(setData.index)
+            // console.log('pathlist')
+            // console.log(this.state.pathlist)
             this.setState({ setData, pathlist: setData.index })
         }
     }

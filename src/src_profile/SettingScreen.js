@@ -58,7 +58,7 @@ export class ListMenu extends Component {
             <View>
                 <View style={styles.ListMenuList}>
                     <View style={styleMain.FlexRow}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { margin: 10, }]}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { margin: 10, }]}>
                             บัญชีของฉัน
                             </Text>
                     </View>
@@ -66,7 +66,7 @@ export class ListMenu extends Component {
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 0 })} >
                     <View style={stylesPro.BoxTopic}>
                         <View style={styles.ListMenuListSub}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { margin: 10, }]}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { margin: 10, }]}>
                                 หน้าของฉัน
                             </Text>
                         </View>
@@ -76,7 +76,7 @@ export class ListMenu extends Component {
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 1 })} >
                     <View style={stylesPro.BoxTopic}>
                         <View style={styles.ListMenuListSub}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { margin: 10, }]}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { margin: 10, }]}>
                                 ที่อยู่ของฉัน
                             </Text>
                         </View>
@@ -85,7 +85,7 @@ export class ListMenu extends Component {
                 </TouchableOpacity>
                 <View style={styles.ListMenuList}>
                     <View style={styles.ListMenuListSub}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { margin: 10, }]}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { margin: 10, }]}>
                             การตั้งค่า
                             </Text>
                     </View>
@@ -93,7 +93,7 @@ export class ListMenu extends Component {
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 2 })} >
                     <View style={stylesPro.BoxTopic}>
                         <View style={styles.ListMenuListSub}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { margin: 10, }]}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { margin: 10, }]}>
                                 ตั้งค่าการแชท
                             </Text>
                         </View>
@@ -103,7 +103,7 @@ export class ListMenu extends Component {
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 3 })} >
                     <View style={stylesPro.BoxTopic}>
                         <View style={styles.ListMenuListSub}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { margin: 10, }]}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { margin: 10, }]}>
                                 ตั้งค่าการแจ้งเตือน
                             </Text>
                         </View>
@@ -112,7 +112,7 @@ export class ListMenu extends Component {
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 4 })} >
                     <View style={stylesPro.BoxTopic}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { margin: 10, }]}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { margin: 10, }]}>
                             ภาษา
                             </Text>
 
@@ -121,7 +121,7 @@ export class ListMenu extends Component {
                 </TouchableOpacity>
                 <View style={styles.ListMenuList}>
                     <View style={styles.ListMenuListSub}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { margin: 10, }]}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { margin: 10, }]}>
                             ช่วยเหลือ
                             </Text>
                     </View>
@@ -129,7 +129,7 @@ export class ListMenu extends Component {
                 {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('Help_meScreen')} > */}
                     <View style={stylesPro.BoxTopic}>
                         <View style={styles.ListMenuListSub}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { margin: 10, }]}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { margin: 10, }]}>
                                 ศูนย์ช่วยเหลือ
                             </Text>
                         </View>
@@ -139,7 +139,7 @@ export class ListMenu extends Component {
                 <TouchableOpacity activeOpacity={1} onPress={null/*() => this.props.navigation.navigate()*/} >
                     <View style={stylesPro.BoxTopic}>
                         <View style={styles.ListMenuListSub}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { margin: 10, }]}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { margin: 10, }]}>
                                 กฎและข้อบังคับ
                             </Text>
                         </View>
@@ -149,7 +149,7 @@ export class ListMenu extends Component {
                 <TouchableOpacity activeOpacity={1} onPress={null/*() => this.props.navigation.navigate()*/} >
                     <View style={stylesPro.BoxTopic}>
                         <View style={styles.ListMenuListSub}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { margin: 10, }]}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { margin: 10, }]}>
                                 ให้คะแนนเราสิ
                             </Text>
                         </View>
@@ -159,7 +159,7 @@ export class ListMenu extends Component {
                 <TouchableOpacity style={{ marginTop: 10 }} onPress={() => this.logoutPress()}>
                     <View style={stylesPro.Button_Logout} >
                         <View style={stylesPro.Button_LogoutBox}>
-                            <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize2,{color:'#FFFFFF'}]} >ออกจากระบบ</Text>
+                            <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize3,{color:'#FFFFFF'}]} >ออกจากระบบ</Text>
                         </View>
                     </View>
                 </TouchableOpacity>

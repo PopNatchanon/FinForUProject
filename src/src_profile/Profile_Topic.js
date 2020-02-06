@@ -115,7 +115,7 @@ export class Appbar extends Component {
                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
                     <IconEntypo name='chevron-left' size={35} color='#0A55A6' />
                 </TouchableOpacity>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { marginTop: 5 }]}>{Title ? Title : 'ดูล่าสุด'}</Text>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { marginTop: 5 }]}>{Title ? Title : 'ดูล่าสุด'}</Text>
             </View>
         );
     }
@@ -175,8 +175,8 @@ export class Chat_Box extends Component {
                             </View>
                         </View>
                         <View style={stylesPro.Chat_Box_text}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}>ppooooo</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>สินค้าได้ถูกขายแล้วค่ะ</Text>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ppooooo</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>สินค้าได้ถูกขายแล้วค่ะ</Text>
                         </View>
                     </View>
 
@@ -249,12 +249,12 @@ export class Follow_store_Box extends Component {
                             }}
                         />
                         <View style={stylesPro.Follow_store_Box_text}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}>Asus_Thailand</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>@asusthailand</Text>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}>Asus_Thailand</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>@asusthailand</Text>
                         </View>
                     </View>
                     <View style={stylesPro.Follow_store_Button}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>กำลังติดตาม</Text>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>กำลังติดตาม</Text>
                     </View>
                 </View>
                 <View style={stylesPro.Follow_store_Box}>
@@ -265,12 +265,12 @@ export class Follow_store_Box extends Component {
                             }}
                         />
                         <View style={stylesPro.Follow_store_Box_text}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}>Mlife</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>@mlife</Text>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}>Mlife</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>@mlife</Text>
                         </View>
                     </View>
                     <View style={stylesPro.Follow_store_Button}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>กำลังติดตาม</Text>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>กำลังติดตาม</Text>
                     </View>
                 </View>
                 <View style={stylesPro.Follow_store_Box}>
@@ -281,12 +281,12 @@ export class Follow_store_Box extends Component {
                             }}
                         />
                         <View style={stylesPro.Follow_store_Box_text}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}>Digilife</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>@digilife_thai</Text>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}>Digilife</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>@digilife_thai</Text>
                         </View>
                     </View>
                     <View style={stylesPro.Follow_store_Button}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>กำลังติดตาม</Text>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>กำลังติดตาม</Text>
                     </View>
                 </View>
             </View>
@@ -306,7 +306,7 @@ export class Might_like_Store extends Component {
     render() {
         return (
             <View>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { marginTop: 10, marginLeft: 10, }]}>ร้านค้าที่คุณอาจชอบ</Text>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { marginTop: 10, marginLeft: 10, }]}>ร้านค้าที่คุณอาจชอบ</Text>
                 <View style={stylesPro.Might_like_Store}>
                     <View style={stylesPro.Follow_store_Box}>
                         <View style={{ flexDirection: 'row', }}>
@@ -316,12 +316,12 @@ export class Might_like_Store extends Component {
                                 }}
                             />
                             <View style={stylesPro.Follow_store_Box_text}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}>ppooo</Text>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>81% คะแนนร้านค้า</Text>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ppooo</Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>81% คะแนนร้านค้า</Text>
                             </View>
                         </View>
                         <View style={stylesPro.Follow_store_Button}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>ติดตาม</Text>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>ติดตาม</Text>
                         </View>
                     </View>
 
@@ -374,12 +374,12 @@ export class Might_like_Store extends Component {
                                 }}
                             />
                             <View style={stylesPro.Follow_store_Box_text}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}>ppooo</Text>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>81% คะแนนร้านค้า</Text>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ppooo</Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>81% คะแนนร้านค้า</Text>
                             </View>
                         </View>
                         <View style={stylesPro.Follow_store_Button}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>ติดตาม</Text>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>ติดตาม</Text>
                         </View>
                     </View>
 
@@ -391,8 +391,8 @@ export class Might_like_Store extends Component {
                                         uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
                                     }}
                                 />
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ห้องพัก Deluxe Pool Villa</Text>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#0A55A6' }]}>฿3,xxx</Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>ห้องพัก Deluxe Pool Villa</Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>฿3,xxx</Text>
                             </View>
 
                             <View style={stylesPro.Might_like_Store_BoxPro}>
@@ -401,8 +401,8 @@ export class Might_like_Store extends Component {
                                         uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
                                     }}
                                 />
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ห้องพัก Deluxe Pool Villa</Text>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#0A55A6' }]}>฿3,xxx</Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>ห้องพัก Deluxe Pool Villa</Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>฿3,xxx</Text>
                             </View>
                             <View style={stylesPro.Might_like_Store_BoxPro}>
                                 <FastImage style={stylesPro.Might_like_Store_BoxImage}
@@ -410,8 +410,8 @@ export class Might_like_Store extends Component {
                                         uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
                                     }}
                                 />
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ห้องพัก Deluxe Pool Villa</Text>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#0A55A6' }]}>฿3,xxx</Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>ห้องพัก Deluxe Pool Villa</Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>฿3,xxx</Text>
                             </View>
 
                             <View style={stylesPro.Might_like_Store_BoxPro}>
@@ -441,10 +441,10 @@ export class Review_meScreen extends Component {
     render() {
         return (
             <ScrollView>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { marginLeft: 10, }]}>ล่าสุด</Text>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { marginLeft: 10, }]}>ล่าสุด</Text>
                 <Review_me />
                 <Review_me />
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { marginLeft: 10, }]}>เก่ากว่า</Text>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { marginLeft: 10, }]}>เก่ากว่า</Text>
                 <Review_me />
                 <Review_me />
             </ScrollView>
@@ -467,11 +467,11 @@ export class Review_me extends Component {
                 <View style={stylesPro.Review_me}>
                     <View style={stylesPro.Review_me_Box}>
                         <View>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}>Mlife</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { color: '#8F8F8F' }]}>สั่งซื้อวันที่ 12 ธ.ค.2019 </Text>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}>Mlife</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#8F8F8F' }]}>สั่งซื้อวันที่ 12 ธ.ค.2019 </Text>
                         </View>
                         <View style={stylesPro.Review_me_Box_head}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>รีวิว</Text>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>รีวิว</Text>
                         </View>
                     </View>
                     <View style={stylesPro.Review_me_Box_image}>
@@ -483,11 +483,11 @@ export class Review_me extends Component {
                                     }}
                                 />
                                 <View style={{ marginLeft: 10, }}>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>กระเป๋าxxxxxxxx</Text>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>สี : น้ำตาล</Text>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>กระเป๋าxxxxxxxx</Text>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>สี : น้ำตาล</Text>
                                 </View>
                             </View>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>จัดส่งสินค้าแล้ว</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>จัดส่งสินค้าแล้ว</Text>
                         </View>
                     </View>
                 </View>
@@ -534,8 +534,8 @@ export class Help_me extends Component {
                     source={require('../../icon/bgprofile.jpg')}
                     style={stylesPro.Help_me_ImageBackground}>
                     <View style={stylesPro.Help_me_Box_text}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: '#FFFFFF' }]}>สวัสดีค่ะ คุณ xxxxxxxxx </Text>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: '#FFFFFF' }]}>คุณต้องการความช่วยเหลือด้านใดคะ?</Text>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { color: '#FFFFFF' }]}>สวัสดีค่ะ คุณ xxxxxxxxx </Text>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { color: '#FFFFFF' }]}>คุณต้องการความช่วยเหลือด้านใดคะ?</Text>
                         <View style={stylesPro.Help_me_Textinput}>
                             <TextInput style={stylesPro.TextInput, stylesFont.FontFamilyText, {
                                 fontSize: 15,
@@ -567,15 +567,15 @@ export class Question extends Component {
     render() {
         return (
             <View>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1]}> คำถามยอดฮิต </Text>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}> คำถามยอดฮิต </Text>
                 <View style={stylesPro.Question_Box}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}> ฉันจะเริ่มซื้อของใน FinShoppingMallต้องทำอย่างไร</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}> ฉันจะเริ่มซื้อของใน FinShoppingMallต้องทำอย่างไร</Text>
                 </View>
                 <View style={stylesPro.Question_Box}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}> ช่องทางการเงินมีกี่ประเภท</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}> ช่องทางการเงินมีกี่ประเภท</Text>
                 </View>
                 <View style={stylesPro.Question_Box}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}> ฉันตรวจสอบสินค้าได้อย่างไร</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}> ฉันตรวจสอบสินค้าได้อย่างไร</Text>
                 </View>
             </View>
         );
@@ -595,27 +595,27 @@ export class Topic extends Component {
     render() {
         return (
             <View style={stylesPro.Topic}>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1]}> หัวข้อ </Text>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}> หัวข้อ </Text>
                 <View style={{ justifyContent: 'center', alignItems: 'center', }}>
                     <View style={stylesPro.Topic_Box}>
                         <IconAntDesign RightItem name="user" size={30} style={stylesPro.Topic_Box_icon} />
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>บัญชีของฉัน</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>บัญชีของฉัน</Text>
                     </View>
                     <View style={stylesPro.Topic_Box}>
                         <IconAntDesign RightItem name="retweet" size={30} style={stylesPro.Topic_Box_icon} />
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>การคืนสินค้า</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>การคืนสินค้า</Text>
                     </View>
                     <View style={stylesPro.Topic_Box}>
                         <IconEntypo RightItem name="credit-card" size={30} style={stylesPro.Topic_Box_icon} />
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>การชำระเงิน</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>การชำระเงิน</Text>
                     </View>
                     <View style={stylesPro.Topic_Box}>
                         <IconAntDesign RightItem name="shoppingcart" size={30} style={stylesPro.Topic_Box_icon} />
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>การสั่งซื้อ</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>การสั่งซื้อ</Text>
                     </View>
                     <View style={stylesPro.Topic_Box}>
                         <IconAntDesign RightItem name="ellipsis1" size={30} style={stylesPro.Topic_Box_icon} />
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>หัวข้ออื่นๆ</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>หัวข้ออื่นๆ</Text>
                     </View>
                 </View>
 

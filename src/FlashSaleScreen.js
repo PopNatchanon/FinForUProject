@@ -96,9 +96,9 @@ export class Time_FlashSale extends Component {
         return (
             <View>
                 <View style={[stylesMain.FrameBackground,{flexDirection:'row'}]}>
-                    <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize1]}>FLASH SALE</Text>
+                    <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize2]}>FLASH SALE</Text>
                     <IconMaterialIcons name='access-time' size={25} style={{ marginLeft: 10, }} />
-                    <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize2,{margin:3}]}>จบใน</Text>
+                    <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize3,{margin:3}]}>จบใน</Text>
                     <View style={stylesMain.Time_FlashSale_TimeBox}><Text style={stylesMain.Time_FlashSale_TimeText}>01</Text></View>
                     <View style={stylesMain.Time_FlashSale_TimeBox}><Text style={stylesMain.Time_FlashSale_TimeText}>45</Text></View>
                     <View style={stylesMain.Time_FlashSale_TimeBox}><Text style={stylesMain.Time_FlashSale_TimeText}>40</Text></View>
@@ -154,7 +154,7 @@ export class FlashSale_Product extends Component {
                             />
                         </View>
                         <View style={{ width: '65%' }}>
-                            <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize3,{margin:10}]}>ห้องพัก Deluxe Pool Villa</Text>
+                            <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize4,{margin:10}]}>ห้องพัก Deluxe Pool Villa</Text>
                         </View>
                          <View style={{ justifyContent:'flex-end'}}>
                                 <TouchableOpacity>

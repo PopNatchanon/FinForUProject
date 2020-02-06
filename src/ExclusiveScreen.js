@@ -68,11 +68,11 @@ export default class ExclusiveScreen extends Component {
               </View>
               <View style={[stylesMain.FlexRow, stylesMain.SafeAreaViewNoBackground, { marginTop: 8 }]}>
                 <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
-                  <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize3, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
+                  <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
                     รีเซ็ต</Text>
                 </View>
                 <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset, { backgroundColor: '#0A55A6' }]}>
-                  <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize3, stylesFont.FontFamilyText, { color: '#fff' }]}>
+                  <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, stylesFont.FontFamilyText, { color: '#fff' }]}>
                     เสร็จสิ้น</Text>
                 </View>
               </View>
@@ -116,7 +116,7 @@ export class SlideTab extends Component {
   dataContainer(Title, item) {
     return (
       <View>
-        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, stylesMain.ItemCenterVertical, { marginLeft: 8, marginTop: 8, }]}>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, stylesMain.ItemCenterVertical, { marginLeft: 8, marginTop: 8, }]}>
           {Title}</Text>
         <View style={stylesMain.SafeAreaViewNoBackground}>
           <View style={{ width: '100%' }}>
@@ -213,18 +213,18 @@ export class PricesSlide extends Component {
   render() {
     return (
       <View>
-        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, stylesMain.ItemCenterVertical, { marginLeft: 8, marginTop: 8, }]}>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, stylesMain.ItemCenterVertical, { marginLeft: 8, marginTop: 8, }]}>
           ราคา</Text>
         <View style={stylesMain.SafeAreaViewNoBackground}>
           <View style={{ width: '100%' }}>
             <View style={[stylesMain.ItemCenter, stylesMain.FlexRow, { width: '100%', height: 80 }]}>
               <TextInput placeholder='ต่ำสุด' style={[
-                stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesFont.FontSize3,
+                stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesFont.FontSize4,
                 stylesTopic.maxMinValue]}
               />
               <Text style={[stylesMain.ItemCenterVertical, { fontSize: 28, marginHorizontal: 8 }]}>-</Text>
               <TextInput placeholder='สูงสุด' style={[
-                stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesFont.FontSize3,
+                stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesFont.FontSize4,
                 stylesTopic.maxMinValue]}
               />
             </View>
@@ -252,13 +252,13 @@ export class Button_Bar extends Component {
     while (getSliderVisible.count < 1) {
       getSliderVisible.count = getSliderVisible.count + 1
       var Slider = getSliderVisible.getSlider
-      console.log(getSliderVisible)
+      // console.log(getSliderVisible)
       this.setState({ sliderVisible: Slider, getSliderVisible })
     }
     const { sliderVisible } = this.state;
-    console.log('Sub')
-    console.log('sliderVisible')
-    console.log(sliderVisible)
+    // console.log('Sub')
+    // console.log('sliderVisible')
+    // console.log(sliderVisible)
     const item = [{
       name: 'ยอดนิยม'
     }, {
@@ -272,7 +272,7 @@ export class Button_Bar extends Component {
       <View>
         <View style={stylesTopic.Button_Bar}>
           <View style={stylesTopic.Button_Bar_BoxText}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>เรียงตาม</Text>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>เรียงตาม</Text>
           </View>
           <View>
             <TabBar
@@ -290,7 +290,7 @@ export class Button_Bar extends Component {
           }}>
             <View style={stylesTopic.Button_Bar_Icon}>
               <IconFeather RightItem name="filter" size={20} color='#0A55A6' />
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>ตัวกรอง</Text>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ตัวกรอง</Text>
             </View>
           </TouchableOpacity>
         </View>

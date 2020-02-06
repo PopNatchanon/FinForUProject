@@ -43,6 +43,7 @@ import StoreMe_Setting from '../src/src_storeMe/StoreMe_Setting';
 import StoreMe_Up_Product from '../src/src_storeMe/StoreMe_Up_Product';
 import StoreMe_Order from '../src/src_storeMe/StoreMe_Order';
 import StoreMe_Cancel from '../src/src_storeMe/StoreMe_Cancel';
+import Setting_TopicStore from '../src/src_storeMe/src_SettingStore/Setting_TopicStore';
 
 // src-Cart
 
@@ -289,6 +290,13 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
+  Setting_TopicStore: {
+    screen: Setting_TopicStore,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
 
   // src-Cart
 
@@ -388,9 +396,9 @@ const PathScreen = createStackNavigator({
   },
 },
   {
-    initialRouteName: 'MainScreen',
-    // initialRouteName: 'ProfileScreen',
-    // initialRouteName: 'Customer_Complete_Order',
+    // initialRouteName: 'MainScreen',
+    initialRouteName: 'ProfileScreen',
+    // initialRouteName: 'Customer_Order',
     // initialRouteName: 'Customer_account',
     // initialRouteName: 'ExclusiveScreen',
   }

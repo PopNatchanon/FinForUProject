@@ -29,7 +29,7 @@ export default StyleSheet.create({
     HeadbarImage: {
         width,
         height: 150,
-        opacity: 0.5,
+        // opacity: 0.5,
     },
     HeadbarA: {
         marginTop: -150,

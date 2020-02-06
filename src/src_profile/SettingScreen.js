@@ -39,6 +39,7 @@ export default class StoreMeScreen extends Component {
 }
 
 
+
 export class ListMenu extends Component {
     constructor(props) {
         super(props);
@@ -163,6 +164,7 @@ export class ListMenu extends Component {
                         </View>
                     </View>
                 </TouchableOpacity>
+                <Text>FIN Shopping V 1.0.01</Text>
             </View>
 
         )

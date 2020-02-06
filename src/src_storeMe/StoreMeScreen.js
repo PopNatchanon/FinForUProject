@@ -9,13 +9,8 @@ import {
     TouchableOpacity,
     Dimensions,
 } from 'react-native';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
-import axios from 'axios';
-import NumberFormat from 'react-number-format';
-import {
-    ButtonGroup,
-    Button,
-} from 'react-native-elements'
+import stylesMain from '../../style/StylesMainScreen';
+import stylesFont from '../../style/stylesFont';
 import FastImage from 'react-native-fast-image';
 import IconsFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -59,7 +54,7 @@ export class Headbar extends Component {
                         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
                             <IconEntypo name='chevron-left' size={35} />
                         </TouchableOpacity>
-                        <Text style={{ marginTop: 5, }}>ร้านค้าของฉัน</Text>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { marginTop: 5, }]}>ร้านค้าของฉัน</Text>
                     </View>
                     <View style={{ flexDirection: 'row', padding: 5, }}>
                         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Setting')}>
@@ -68,11 +63,11 @@ export class Headbar extends Component {
                         <IconAntDesign name='message1' size={25} />
                     </View>
                 </View>
-                <ImageBackground
-                    source={require('../../icon/bgprofile.jpg')}
-                    style={styles.HeadbarImage}
+                    <ImageBackground
+                        source={require('../../icon/bgprofile.jpg')}
+                        style={styles.HeadbarImage}
 
-                />
+                    />
                 <View style={styles.HeadbarA}>
                     <View style={styles.HeadbarBox1}>
                         <View style={{ flexDirection: 'row' }}>
@@ -82,10 +77,10 @@ export class Headbar extends Component {
                                 />
                             </View>
                             <View style={{ marginLeft: 15, marginTop: '20%' }}>
-                                <Text style={{ fontSize: 14, color: '#FFFFFF' }}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>
                                     ppooo
                                 </Text>
-                                <Text style={{ fontSize: 10, color: '#FFFFFF' }}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>
                                     ผู้ติดตาม 20.2 พัน | กำลังติดตาม 2
                                 </Text>
                             </View>
@@ -110,12 +105,12 @@ export class Menubar extends Component {
             <View>
                 <View style={{ height: 40, width: '100%', marginTop: 60, flexDirection: 'row', justifyContent: 'space-between', borderColor: '#E9E9E9', borderWidth: 1, }}>
                     <View>
-                        <Text style={styles.MenubarText1}>
+                        <Text style={[styles.MenubarText1,stylesFont.FontFamilyText]}>
                             การขายของฉัน
                     </Text>
                     </View>
                     <View>
-                        <Text style={styles.MenubarText2}>
+                        <Text style={[styles.MenubarText2,stylesFont.FontFamilyText]}>
                             ดูประวัติการขาย <IconEntypo name='chevron-right' size={20} color='#0A55A6' />
                         </Text>
                     </View>
@@ -140,7 +135,7 @@ export class MenubarSub extends Component {
                             style={styles.MenubarSubLine1Image}
 
                         />
-                        <Text style={styles.MenubarSubLine1Name}>
+                        <Text style={[styles.MenubarSubLine1Name,stylesFont.FontFamilyText]}>
                             ที่ต้องจัดส่ง
                         </Text>
                     </View>
@@ -150,7 +145,7 @@ export class MenubarSub extends Component {
                             style={styles.MenubarSubLine1Image}
 
                         />
-                        <Text style={styles.MenubarSubLine1Name}>
+                        <Text style={[styles.MenubarSubLine1Name,stylesFont.FontFamilyText]}>
                             ยกเลิก
                         </Text>
                     </View>
@@ -160,13 +155,13 @@ export class MenubarSub extends Component {
                             style={styles.MenubarSubLine1Image}
 
                         />
-                        <Text style={styles.MenubarSubLine1Name}>
+                        <Text style={[styles.MenubarSubLine1Name,stylesFont.FontFamilyText]}>
                             คืนสินค้า/คืนเงิน
                         </Text>
                     </View>
                     <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
                         <IconFeather name='more-horizontal' size={50} />
-                        <Text style={styles.MenubarSubLine1Name}>
+                        <Text style={[styles.MenubarSubLine1Name,stylesFont.FontFamilyText]}>
                             เพิ่มเติม
                         </Text>
                     </View>
@@ -190,7 +185,7 @@ export class ListMenu extends Component {
                             <View style={styles.ListMenuListSub}>
                                 <IconAntDesign RightItem name="plussquareo" size={35} color='#0A55A6' style={styles.ListMenuListSubIcon} />
 
-                                <Text style={styles.ListMenuListSubName}>
+                                <Text style={[styles.ListMenuListSubName,stylesFont.FontFamilyText]}>
                                     เพิ่มสินค้า
                             </Text>
                             </View>
@@ -202,7 +197,7 @@ export class ListMenu extends Component {
                         <View style={styles.ListMenuList}>
                             <View style={styles.ListMenuListSub}>
                                 <IconMaterialIcons RightItem name="access-time" color='#D0B216' size={35} style={styles.ListMenuListSubIcon} />
-                                <Text style={styles.ListMenuListSubName}>
+                                <Text style={[styles.ListMenuListSubName,stylesFont.FontFamilyText]}>
                                     ออเดอร์ล่าสุด
                             </Text>
                             </View>
@@ -214,7 +209,7 @@ export class ListMenu extends Component {
                         <View style={styles.ListMenuList}>
                             <View style={styles.ListMenuListSub}>
                                 <IconMaterialCommunityIcons name="car-estate" size={35} color='#B6B6B4' style={styles.ListMenuListSubIcon} />
-                                <Text style={styles.ListMenuListSubName}>
+                                <Text style={[styles.ListMenuListSubName,stylesFont.FontFamilyText]}>
                                     การจัดส่งของฉัน
                             </Text>
                             </View>
@@ -226,7 +221,7 @@ export class ListMenu extends Component {
                         <View style={styles.ListMenuList}>
                             <View style={styles.ListMenuListSub}>
                                 <IconAntDesign RightItem name="linechart" size={30} color='#0A55A6' style={styles.ListMenuListSubIcon} />
-                                <Text style={styles.ListMenuListSubName}>
+                                <Text style={[styles.ListMenuListSubName,stylesFont.FontFamilyText]}>
                                     สถิติร้านค้าของฉัน
                             </Text>
                             </View>
@@ -238,7 +233,7 @@ export class ListMenu extends Component {
                         <View style={styles.ListMenuList}>
                             <View style={styles.ListMenuListSub}>
                                 <IconMaterialCommunityIcons RightItem name="star" size={35} color='#EAD295' style={styles.ListMenuListSubIcon} />
-                                <Text style={styles.ListMenuListSubName}>
+                                <Text style={[styles.ListMenuListSubName,stylesFont.FontFamilyText]}>
                                     คะแนนของฉัน
                             </Text>
                             </View>
@@ -249,7 +244,7 @@ export class ListMenu extends Component {
                         <View style={styles.ListMenuList}>
                             <View style={styles.ListMenuListSub}>
                                 <IconEntypo RightItem name="megaphone" size={35} color='#EB6417' style={styles.ListMenuListSubIcon} />
-                                <Text style={styles.ListMenuListSubName}>
+                                <Text style={[styles.ListMenuListSubName,stylesFont.FontFamilyText]}>
                                     โปรโมทสินค้า ADS
                             </Text>
                             </View>
@@ -260,7 +255,7 @@ export class ListMenu extends Component {
                         <View style={styles.ListMenuList}>
                             <View style={styles.ListMenuListSub}>
                                 <IconFeather RightItem name="help-circle" size={35} color='#00A3FF' style={styles.ListMenuListSubIcon} />
-                                <Text style={styles.ListMenuListSubName}>
+                                <Text style={[styles.ListMenuListSubName,stylesFont.FontFamilyText]}>
                                     ช่วยเหลือ
                             </Text>
                             </View>
@@ -271,7 +266,7 @@ export class ListMenu extends Component {
                         <View style={styles.ListMenuList}>
                             <View style={styles.ListMenuListSub}>
                                 <IconsFontAwesome5 RightItem name="store-alt" size={30} color='#06BBBB' style={styles.ListMenuListSubIcon} />
-                                <Text style={styles.ListMenuListSubName}>
+                                <Text style={[styles.ListMenuListSubName,stylesFont.FontFamilyText]}>
                                     ร้านค้าของฉัน
                             </Text>
                             </View>

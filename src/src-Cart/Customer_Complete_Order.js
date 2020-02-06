@@ -28,7 +28,7 @@ export default class Customer_Complete_Order extends Component {
   render() {
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
-        <AppBar1 />
+        <AppBar1 backArrow navigation={this.props.navigation} />
         <ScrollView>
           <Customer_Product />
           <TodayProduct noTitle navigation={this.props.navigation} />

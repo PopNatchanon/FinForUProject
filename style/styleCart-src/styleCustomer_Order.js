@@ -60,7 +60,9 @@ export default StyleSheet.create({
         marginRight: 10,
         height: 100,
         width: 100,
-        backgroundColor: '#C4C4C4',
+        borderColor:'#ECECEC',
+        borderWidth:1,
+        padding:10
     },
     Order_product_Boxprice: {
         height: 100,
@@ -77,7 +79,6 @@ export default StyleSheet.create({
     },
     Option_payment: {
         width: '100%',
-        height: 50,
         backgroundColor: '#FFF',
         marginTop: 10,
         padding: 15,
@@ -86,7 +87,6 @@ export default StyleSheet.create({
     },
     Option_payment_Boxprice: {
         width: '100%',
-        height: 100,
         backgroundColor: '#FFFF',
         marginTop: 10,
         padding: 15,
@@ -105,7 +105,5 @@ export default StyleSheet.create({
     Payment_Box_Text: {
         flexDirection: 'row',
     },
-    Payment_Text: {
-        marginLeft: 15,
-    },
+   
 })

@@ -11,6 +11,7 @@ import {
     Dimensions,
 } from 'react-native';
 import axios from 'axios';
+import IconsFeather from 'react-native-vector-icons/Feather';
 import FastImage from 'react-native-fast-image';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
@@ -26,6 +27,12 @@ import { ip } from '../../navigator/IpConfig';
 export const { width, height } = Dimensions.get('window');
 
 export default class Profile_Topic extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            text: ''
+        };
+    }
     PathList() {
         const selectedIndex = this.props.navigation.getParam('selectedIndex')
         switch (selectedIndex) {
@@ -68,6 +75,42 @@ export default class Profile_Topic extends Component {
                     <SafeAreaView style={stylesMain.SafeAreaView}>
                         <Appbar navigation={this.props.navigation} Title='Fin Helpcenter' />
                         <Help_meScreen navigation={this.props.navigation} />
+                    </SafeAreaView>
+                )
+            case 6:
+                return (
+                    <SafeAreaView style={stylesMain.SafeAreaView}>
+                        <AppbarChat navigation={this.props.navigation} Title='Supreme Store' />
+                        <Chat_Detail navigation={this.props.navigation} />
+                        <View style={{ width: '100%', maxHeight: 150, backgroundColor: '#FFFFFF', borderColor: '#ECECEC', borderWidth: 1, flexDirection: 'row', justifyContent: 'center', paddingVertical: 5, }}>
+                            <View style={{ width: 350, borderColor: '#ECECEC', borderWidth: 1, borderRadius: 20, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', }} >
+                                <TextInput
+                                    style={{ width: '85%', padding: 10 }}
+                                    fontSize={15}
+                                    placeholder="่ส่งข้อความ"
+                                    multiline
+                                    editable
+                                    maxLength={2000}
+                                    value={this.state.Detail}
+                                    onChangeText={(Detail) => this.setState({ Detail })}
+
+                                />
+                                <IconAntDesign RightItem name='smileo' size={25} color='#0A55A6' style={{ margin: 10, }} />
+                            </View>
+
+                            <View style={{ justifyContent: 'flex-end', marginLeft: 10, }}>
+                                <TouchableOpacity>
+                                    <IconsFeather name='send' size={30} color='#0A55A6' style={{ margin: 10, }} />
+                                </TouchableOpacity>
+                            </View>
+
+                        </View>
+                    </SafeAreaView>
+                )
+            case 7:
+                return (
+                    <SafeAreaView style={stylesMain.SafeAreaView}>
+                        <Appbar navigation={this.props.navigation} Title='รีวิวของฉัน' />
                     </SafeAreaView>
                 )
         }
@@ -120,6 +163,31 @@ export class Appbar extends Component {
         );
     }
 }
+///----------------------------------Appbar----------------------------------------///
+
+export class AppbarChat extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
+    render() {
+        const { Title } = this.props
+        return (
+            <View style={stylesPro.Appbar} >
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
+                    <IconEntypo name='chevron-left' size={35} color='#0A55A6' />
+                </TouchableOpacity>
+                <View>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { marginTop: 5 }]}>{Title ? Title : 'ดูล่าสุด'}</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#ADADAD' }]}>ใช้งานล่าสุดเมือ 5นาที ที่แล้ว</Text>
+                </View>
+
+            </View>
+        );
+    }
+}
 
 ///--------------------------------------ChatScreen---------------------------------------///
 
@@ -133,21 +201,80 @@ export class ChatScreen extends Component {
     render() {
         return (
             <ScrollView>
-                <Chat_Box />
-                <Chat_Box />
-                <Chat_Box />
-                <Chat_Box />
-                <Chat_Box />
-                <Chat_Box />
-                <Chat_Box />
-                <Chat_Box />
-                <Chat_Box />
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 6 })} >
+                    <Chat_Box />
+                </TouchableOpacity>
                 <Chat_Box />
             </ScrollView>
 
         );
     }
 }
+
+///------------------------------------------------------------------------------///
+
+export class Chat_Detail extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
+    render() {
+        return (
+            <View style={{ flex: 1, backgroundColor: '#FFFFFF', marginTop: 5, padding: 10 }}>
+                <Message_recipient />
+                <Message_sender />
+            </View>
+
+        );
+    }
+}
+///--------------------------------------Message recipient----------------------------------------///
+
+export class Message_recipient extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
+    render() {
+        return (
+            <View style={{ flexDirection: 'row', marginTop: 10 }}>
+                <View style={{ width: 50, height: 50, borderRadius: 25, borderColor: '#111111', borderWidth: 1, }}></View>
+                <View style={{ borderColor: '#0A55A6', borderWidth: 1, maxWidth: '70%', marginLeft: 10, borderRadius: 5, padding: 10 }}>
+                    <Text style={stylesFont.FontFamilyText}>สวัสดีครับ
+                    55555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555</Text></View>
+            </View>
+        );
+    }
+}
+
+
+///--------------------------------------Message sender----------------------------------------///
+
+export class Message_sender extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
+    render() {
+        return (
+            <View style={{ flexDirection: 'row-reverse', marginTop: 10 }}>
+                <View style={{ borderColor: '#111111', borderWidth: 1, width: 50, height: 50, borderRadius: 25, }}></View>
+                <View style={{ borderColor: '#0A55A6', borderWidth: 1, maxWidth: '60%', margin: 10, borderRadius: 5, padding: 10 }}>
+                    <Text style={stylesFont.FontFamilyText}>สวัสดีค่ะ</Text></View>
+            </View>
+        );
+    }
+}
+
+
+
+
 
 ///------------------------------------------------------------------------------///
 
@@ -544,11 +671,8 @@ export class Help_me extends Component {
                                 value={this.state.text}
                                 onChangeText={(text) => this.setState({ text })}></TextInput>
                             <IconAntDesign RightItem name="search1" size={25} style={{ marginLeft: 15, }} /></View>
-
                     </View>
                 </ImageBackground>
-
-
             </View>
         );
     }
@@ -626,3 +750,18 @@ export class Topic extends Component {
 
 ///-----------------------------------------------------------------------------///
 
+export class Review_A extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
+    render() {
+        return (
+            <View>
+                <Text> Profile_Topic </Text>
+            </View>
+        );
+    }
+}

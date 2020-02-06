@@ -147,7 +147,7 @@ export class Login extends Component {
             ref="form"
             onSubmit={this.getData}
           >
-            <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize2, stylesFont.FontFamilyBold]}>
+            <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
               อีเมล</Text>
             <TextValidator
               name="email"
@@ -158,7 +158,7 @@ export class Login extends Component {
               keyboardType="email-address"
               value={user.email}
               onChangeText={this.EmailInput}
-              style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}
+              style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}
               errorStyle={{
                 container: {
                   bottom: -12,
@@ -173,7 +173,7 @@ export class Login extends Component {
                 underlineInvalidColor: 'red'
               }}
             />
-            <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize2, stylesFont.FontFamilyBold]}>
+            <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
               รหัสผ่าน</Text>
             <TextValidator
               name="pass"
@@ -183,7 +183,7 @@ export class Login extends Component {
               // maxLength={6}
               secureTextEntry={eye == false ? false : true}
               onChangeText={this.PassInput}
-              style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}
+              style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}
               errorStyle={{
                 container: {
                   bottom: -12,
@@ -204,13 +204,13 @@ export class Login extends Component {
               </View>
             </TouchableOpacity>
             <View style={{ marginTop: 4 }}>
-              <Text style={[stylesLogin.Login_Box_Text_L, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+              <Text style={[stylesLogin.Login_Box_Text_L, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                 ลืมรหัสผ่าน?</Text>
             </View>
             <View style={[stylesMain.ItemCenter]}>
               <TouchableOpacity onPress={this.handleSubmit}>
                 <View style={[stylesLogin.Login_Box_Text_B, stylesMain.ItemCenter]}>
-                  <Text style={[stylesLogin.Login__Text, stylesFont.FontFamilyText, stylesFont.FontSize3, stylesMain.ItemCenterVertical]}
+                  <Text style={[stylesLogin.Login__Text, stylesFont.FontFamilyText, stylesFont.FontSize4, stylesMain.ItemCenterVertical]}
                   >เข้าสู่ระบบ</Text>
                 </View>
               </TouchableOpacity>
@@ -235,12 +235,12 @@ export class Register extends Component {
       <View style={stylesLogin.Register_Box}>
         <View style={stylesLogin.Register_Box_A}>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('RegisterScreen')}>
-            <View><Text style={[stylesLogin.Register_Box_TextA, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+            <View><Text style={[stylesLogin.Register_Box_TextA, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
               สร้างบัญชี</Text>
             </View>
           </TouchableOpacity>
           <View>
-            <Text style={[stylesFont.FontCenter, stylesFont.FontSize2, stylesFont.FontFamilyText, { margin: 10 }]}>
+            <Text style={[stylesFont.FontCenter, stylesFont.FontSize3, stylesFont.FontFamilyText, { margin: 10 }]}>
               เข้าสู่ระบบด้วยช่องทางอื่น</Text>
           </View>
           <View style={stylesLogin.Register_Box_Button}>

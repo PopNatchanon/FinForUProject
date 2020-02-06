@@ -111,7 +111,7 @@ export class Cate_Campaign extends Component {
                             style={styles.Cate_CampaignImage}
                         />
                     </View>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>{item.name}</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>{item.name}</Text>
                 </View>
             )
         })
@@ -142,7 +142,7 @@ export class Code_New_year extends Component {
         return (
             <View style={styles.Code_New_year}>
                 <View style={[styles.BoxText_T, { backgroundColor: '#C4C4C4', marginTop:10,}]}>
-                    <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize2]}> แจกใหญ่ ปีใหม่</Text>
+                    <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize3]}> แจกใหญ่ ปีใหม่</Text>
                 </View>
                 <View style={styles.Coupon_Store_Box}>
                     <ScrollView horizontal>
@@ -171,7 +171,7 @@ export class Code_New_year extends Component {
                     </ScrollView>
                 </View>
                 <View style={{ alignItems: 'center', padding: 10, }}>
-                    <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize5]}>
+                    <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize6]}>
                         โค้ดส่วนลดใช้ได้กับสินค้าในคอลเลคชั่นที่กำหนดเท่านั้น ยกเว้นหมวดหมู่ตั๋วและบัตรกำนัล นมผงสำหรับเด็ก 1 และ 2 ปีใหม่
                         โทรศัพท์มือถือและทองคำ จำกัดการใช้โค้ด 1 คน/ครั้ง/เครื่อง/ และใช้ผ่านแอป, โค้ดส่วนลดมีจำนวนจำกัด หมดเขต 3 ก.พ. 63 เงื่อนไขเป็นไปตามมี่บริษัทฯ กำหนด
                    </Text>
@@ -235,14 +235,14 @@ export class New_year_New extends Component {
                       style={[styleMain.BoxProduct1Image,{marginLeft:10,}]}
         
                     />
-                    <Text style={[styleMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize4]}>{item.name}</Text>
+                    <Text style={[styleMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize5]}>{item.name}</Text>
                     <NumberFormat
                       value={item.full_price}
                       displayType={'text'}
                       thousandSeparator={true}
                       prefix={'฿'}
                       renderText={
-                        value => <Text style={[styleMain.BoxProduct1ImagePrice, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+                        value => <Text style={[styleMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
                           {value}
                         </Text>}
                     />
@@ -253,13 +253,13 @@ export class New_year_New extends Component {
         return (
             <View style={styles.New_year_New}>
                 <View style={[styles.BoxText_T, { backgroundColor: '#C4C4C4', marginTop:10,}]}>
-                    <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize2]}>  ปีใหม่ ช๊อปของใหม่</Text>
+                    <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize3]}>  ปีใหม่ ช๊อปของใหม่</Text>
                 </View>
                 <View>
                     <View >
                         <View style={styles.New_year_NewBoxText_Head}>
-                            <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize1,{color: '#FFFFFF' }]}>2020 New Collection ราคา 2,020.-</Text>
-                            <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize4,{ textAlign: 'right', color: '#FFFFFF'}]}>ดูทั้งหมด</Text>
+                            <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize2,{color: '#FFFFFF' }]}>2020 New Collection ราคา 2,020.-</Text>
+                            <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize5,{ textAlign: 'right', color: '#FFFFFF'}]}>ดูทั้งหมด</Text>
                         </View>
                         <View>
                             <View style={[styles.New_year_NewProduct]}>    

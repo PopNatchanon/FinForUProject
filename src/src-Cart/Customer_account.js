@@ -56,7 +56,7 @@ export class Appbar extends Component {
         return (
             <View style={styles.Appbar}>
                 <IconAntDesign name='mail' size={30} />
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { marginLeft: 10, }]}>ที่อยู่ใหม่</Text>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { marginLeft: 10, }]}>ที่อยู่ใหม่</Text>
                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
                     <View>
                         <IconAntDesign RightItem name='closecircleo' size={25} color='#0A55A6' style={{ marginLeft: 160, marginRight: 10, }} />
@@ -104,10 +104,10 @@ export class Account extends Component {
             })
     }
     getDataAmphoe(itemValue) {
-        console.log(itemValue)
+        // console.log(itemValue)
         if (itemValue != null) {
-            console.log('province: ' + itemValue + ' get amphoe')
-            console.log('processing...')
+            // console.log('province: ' + itemValue + ' get amphoe')
+            // console.log('processing...')
             this.setState({ province: itemValue, DataTumbols: [], tumbol: 'แขวง/ตำบล', amphoe: 'เขต/อำเภอ', zipcode: null });
             const { currentUser } = this.props
             var dataBody = {
@@ -125,8 +125,8 @@ export class Account extends Component {
             })
                 .then((response) => response.json())
                 .then((responseJson) => {
-                    console.log('responseJson')
-                    console.log(responseJson)
+                    // console.log('responseJson')
+                    // console.log(responseJson)
                     this.setState({
                         DataAmphoes: responseJson,
                     })
@@ -143,7 +143,7 @@ export class Account extends Component {
     }
     getDataTumbol(itemValue) {
         const { DataAmphoes } = this.state
-        console.log(itemValue)
+        // console.log(itemValue)
         if (itemValue != null) {
             // console.log('amphoe: ' + itemValue + ' get tumbol')
             // console.log('processing...')
@@ -222,74 +222,74 @@ export class Account extends Component {
         return (
             <View>
                 <View style={styles.Account_Box}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { marginTop: 5 }]}>ชื่อ-นามสกุล</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { marginTop: 5 }]}>ชื่อ-นามสกุล</Text>
                     <TextInput
-                        style={[stylesFont.FontSize3, stylesFont.FontFamilyText, { height: 40 }]}
+                        style={[stylesFont.FontSize4, stylesFont.FontFamilyText, { height: 40 }]}
                         placeholder="โปรดระบุ"
                         maxLength={30}
                         value={this.state.name}
                         onChangeText={(name) => this.setState({ name })}></TextInput>
                 </View>
                 <View style={styles.Account_Box}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { marginTop: 5 }]}>หมายเลขโทรศัพท์</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { marginTop: 5 }]}>หมายเลขโทรศัพท์</Text>
                     <TextInput
-                        style={[stylesFont.FontSize3, stylesFont.FontFamilyText, { height: 40 }]}
+                        style={[stylesFont.FontSize4, stylesFont.FontFamilyText, { height: 40 }]}
                         placeholder="โปรดระบุ"
                         maxLength={10}
                         value={this.state.phone}
                         onChangeText={(phone) => this.setState({ phone })}></TextInput>
                 </View>
                 <View style={styles.Account_Box}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, {marginTop:5}]}>จังหวัด</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, {marginTop:5}]}>จังหวัด</Text>
                     <ModalDropdown
                         options={provinces}
                         style={stylesMain.ItemCenterVertical}
-                        textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize3]}
-                        dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize3, {}]}
+                        textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize4]}
+                        dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize4, {}]}
                         renderButtonText={(index) => { this.setState({ province: index }), this.getDataAmphoe(index) }}
                     >
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>
                             {province}</Text>
                     </ModalDropdown>
                 </View>
                 <View style={styles.Account_Box}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, {marginTop:5}]}>เขต/อำเภอ</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, {marginTop:5}]}>เขต/อำเภอ</Text>
                     <ModalDropdown
                         options={amphoes}
                         style={stylesMain.ItemCenterVertical}
-                        textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize3]}
-                        dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize3, {}]}
+                        textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize4]}
+                        dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize4, {}]}
                         renderButtonText={(index) => this.getDataTumbol(index)}
                     >
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>
                             {amphoe}</Text>
                     </ModalDropdown>
                 </View>
                 <View style={styles.Account_Box}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, {marginTop:5}]}>แขวง/ตำบล</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, {marginTop:5}]}>แขวง/ตำบล</Text>
                     <ModalDropdown
                         options={tumbols}
                         style={stylesMain.ItemCenterVertical}
-                        textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize3]}
-                        dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize3, {}]}
+                        textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize4]}
+                        dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize4, {}]}
                         renderButtonText={(index) => this.setState({ tumbol: index })}
                     >
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>
                             {tumbol}</Text>
                     </ModalDropdown>
                 </View>
                 <View style={styles.Account_Box}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, {marginTop:5}]}>รหัสไปรษณีย์</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, {marginTop:5}]}>รหัสไปรษณีย์</Text>
                     <TextInput
-                        style={[stylesFont.FontSize3, stylesFont.FontFamilyText, { height: 40 }]}
+                        style={[stylesFont.FontSize4, stylesFont.FontFamilyText, { height: 40 }]}
                         editable={false}
                         placeholder="รหัสไปรษณีย์"
                         value={this.state.zipcode}
                     />
                 </View>
                 <View style={[styles.Account_Box,{height:100}]}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { marginTop: 5 }]}>รายละเอียดที่อยู่</Text>
-                    <TextInput style={[stylesFont.FontSize3, stylesFont.FontFamilyText, { height: 40 ,width:'60%', height:60,}]}
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { marginTop: 5 }]}>รายละเอียดที่อยู่</Text>
+                    <TextInput style={[stylesFont.FontSize4, stylesFont.FontFamilyText, { height: 40 ,width:'60%', height:60,}]}
                         multiline
                         editable
                         placeholder="โปรดระบุรายละเอียดบ้านเลขที่, ตึก, ชื่อถนน และ อื่นๆที่จำเป็น"
@@ -315,7 +315,7 @@ export class Account_main extends Component {
         return (
             <View>
                 <View style={[styles.Account_Box]}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, {marginTop:5}]}>ตั้งเป็นที่อยู่ตั้งต้น</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, {marginTop:5}]}>ตั้งเป็นที่อยู่ตั้งต้น</Text>
                     <CheckBox
                         size={25}
                         checkedIcon='toggle-on'
@@ -326,7 +326,7 @@ export class Account_main extends Component {
                     />
                 </View>
                 <View style={styles.Account_Box}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, {marginTop:5}]}>ตั้งเป็นที่อยู่ในการรับสินค้า</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, {marginTop:5}]}>ตั้งเป็นที่อยู่ในการรับสินค้า</Text>
                     <CheckBox
                         size={25}
                         checkedIcon='toggle-on'
@@ -356,7 +356,7 @@ export class Button_Bar extends Component {
             <View style={{ alignItems: 'center', justifyContent: 'flex-end', height: 210, }}>
             <TouchableOpacity>
               <View style={{ height: 40, backgroundColor: '#0A55A6', width: 350, borderRadius: 5, alignItems: 'center', justifyContent: 'center', marginBottom: 10, }}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize1, { color: '#FFFFFF' }]}>เพิ่มที่อยู่</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize2, { color: '#FFFFFF' }]}>เพิ่มที่อยู่</Text>
               </View>
             </TouchableOpacity>
           </View>

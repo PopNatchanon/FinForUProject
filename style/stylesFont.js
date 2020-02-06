@@ -7,24 +7,30 @@ export default StyleSheet.create({
         textAlign: 'center',
     },
     FontFamilyText: {
-        fontFamily: 'SukhumvitSet-Text',
+        fontFamily: 'ThaiSansNeue-SemiBold',
     },
     FontFamilyBold: {
-        fontFamily: 'SukhumvitSet-Bold',
+        fontFamily: 'ThaiSansNeue-ExtraBold',
     },
     FontSize1: {
-        fontSize: 18,
+        fontSize: 22,
     },
     FontSize2: {
-        fontSize: 16,
+        fontSize: 20,
     },
     FontSize3: {
-        fontSize: 14,
+        fontSize: 18,
     },
     FontSize4: {
-        fontSize: 12,
+        fontSize: 16,
     },
     FontSize5: {
+        fontSize: 14,
+    },
+    FontSize6: {
+        fontSize: 12,
+    },
+    FontSize7: {
         fontSize: 10,
     },
 })

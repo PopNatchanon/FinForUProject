@@ -117,7 +117,10 @@ export default StyleSheet.create({
         height: 40,
         backgroundColor: '#FFFFFF',
         flexDirection: 'row',
-        // justifyContent: 'space-between',
+        borderTopColor: '#ECECEC',
+        borderBottomColor: '#ECECEC',
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
     },
     Button_Bar_BoxText: {
         paddingHorizontal: 10,
@@ -139,7 +142,9 @@ export default StyleSheet.create({
     BackgroundRight: {
         width: width * 0.75,
         height: '100%',
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        borderLeftColor: '#ECECEC',
+        borderLeftWidth: 1,
     },
     BoxReset: {
         width: width * 1 / 2.8, height: 40,

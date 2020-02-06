@@ -68,11 +68,11 @@ export default class CategoryScreen extends Component {
                             </View>
                             <View style={[stylesMain.FlexRow, stylesMain.SafeAreaViewNoBackground, { marginTop: 8 }]}>
                                 <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
-                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize3, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
+                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
                                         รีเซ็ต</Text>
                                 </View>
                                 <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset, { backgroundColor: '#0A55A6' }]}>
-                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize3, stylesFont.FontFamilyText, { color: '#fff' }]}>
+                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, stylesFont.FontFamilyText, { color: '#fff' }]}>
                                         เสร็จสิ้น</Text>
                                 </View>
                             </View>
@@ -165,7 +165,7 @@ export class Recommend_Store extends Component {
         })
         return (
             <View style={stylesMain.FrameBackground}>
-                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>ร้านค้าที่แนะนำ</Text>
+                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize2]}>ร้านค้าที่แนะนำ</Text>
                 <ScrollView horizontal>
                     <View style={stylesMain.FlexRow}>
                         {dataPromotionPopular}
@@ -220,14 +220,14 @@ export class Product_Brand extends Component {
                             style={stylesMain.BoxProduct1Image}
 
                         />
-                        <Text style={[stylesMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize4]}>{item.name}</Text>
+                        <Text style={[stylesMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize5]}>{item.name}</Text>
                         <NumberFormat
                             value={item.full_price}
                             displayType={'text'}
                             thousandSeparator={true}
                             prefix={'฿'}
                             renderText={
-                                value => <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                                value => <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                                     {value}
                                 </Text>}
                         />
@@ -238,7 +238,7 @@ export class Product_Brand extends Component {
         return (
             <View style={stylesMain.FrameBackground}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize2]}>
                         สินค้าแบรนด์ดัง
                     </Text>
                 </View>

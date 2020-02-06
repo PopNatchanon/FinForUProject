@@ -166,7 +166,7 @@ export class CartProduct extends Component {
                                 />
                             </View>
                             <View style={[stylesMain.ItemCenterVertical, { marginLeft: 25 }]}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize2]}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>
                                     {item.name}</Text>
                                 <NumberFormat
                                     value={item.full_price}
@@ -174,7 +174,7 @@ export class CartProduct extends Component {
                                     thousandSeparator={true}
                                     prefix={'฿'}
                                     renderText={value =>
-                                        <Text style={[stylesFont.FontSize3, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
+                                        <Text style={[stylesFont.FontSize4, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
                                             {value}</Text>
                                     }
                                 />
@@ -254,7 +254,7 @@ export class CartProduct extends Component {
                                     />
                                     <View style={[stylesMain.ItemCenterVertical, { width: 30, height: 30, borderRadius: 20, backgroundColor: '#cecece' }]}>
                                     </View>
-                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize2, { marginLeft: 16, }]}>
+                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize3, { marginLeft: 16, }]}>
                                         PPpp</Text>
                                 </View>
                                 <View>
@@ -281,8 +281,8 @@ export class CartProduct extends Component {
     }
     ChangeCheck() {
         const { ItemHead, ItemArray, itemData } = this.state
-        console.log('itemData')
-        console.log(this.state)
+        // console.log('itemData')
+        // console.log(this.state)
         var count = 0
         var countMain = 0
         ItemHead.map((item, index) => {
@@ -369,8 +369,8 @@ export class Buy_bar extends Component {
     StateBox() {
         var { checked } = this.state
         checked = !checked
-        console.log('checked')
-        console.log(checked)
+        // console.log('checked')
+        // console.log(checked)
         this.props.sendData({ checked: checked, num: 0 });
         this.setState({ checked })
     }
@@ -389,11 +389,11 @@ export class Buy_bar extends Component {
             <View style={stylesCart.Bar}>
                 <View style={stylesCart.Bar_Code} >
                     <IconFoundation name='burst' size={30} style={stylesMain.ItemCenterVertical} />
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, stylesMain.ItemCenterVertical]}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, stylesMain.ItemCenterVertical]}>
                         โค้ดส่วนลด</Text>
                     <View style={[stylesCart.Bar_Code_Box, stylesMain.ItemCenterVertical]}></View>
                     <View style={[stylesCart.Bar_Code_Box_Text, stylesMain.ItemCenterVertical]}>
-                        <Text style={[stylesCart.Bar_Code_Text, stylesFont.FontSize3, stylesFont.FontFamilyText, stylesMain.ItemCenterVertical]}>
+                        <Text style={[stylesCart.Bar_Code_Text, stylesFont.FontSize4, stylesFont.FontFamilyText, stylesMain.ItemCenterVertical]}>
                             ใช้โค้ด</Text>
                     </View>
                 </View>
@@ -409,7 +409,7 @@ export class Buy_bar extends Component {
                         />
                     </View>
                     <View style={[stylesCart.Bar_Buy_price, { marginLeft: -20 }]}>
-                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
                             รวมทั้งหมด</Text>
                         {data/* <Text> ฿10,000</Text> */}
                         <NumberFormat
@@ -418,14 +418,14 @@ export class Buy_bar extends Component {
                             thousandSeparator={true}
                             prefix={'฿'}
                             renderText={value =>
-                                <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize3, stylesFont.FontFamilyText, { marginLeft: 4, color: '#0A55A6' }]}>
+                                <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, stylesFont.FontFamilyText, { marginLeft: 4, color: '#0A55A6' }]}>
                                     {value}</Text>
                             }
                         />
                     </View>
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Customer_Order')}>
                         <View style={stylesCart.BOX_Buy}>
-                            <Text style={[stylesCart.BOX_Buy_Text, stylesFont.FontFamilyText, stylesFont.FontSize3, stylesMain.ItemCenterVertical]}>
+                            <Text style={[stylesCart.BOX_Buy_Text, stylesFont.FontFamilyText, stylesFont.FontSize4, stylesMain.ItemCenterVertical]}>
                                 ชำระเงิน</Text>
                         </View>
                     </TouchableOpacity>

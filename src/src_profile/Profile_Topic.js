@@ -111,6 +111,7 @@ export default class Profile_Topic extends Component {
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
                         <Appbar navigation={this.props.navigation} Title='รีวิวของฉัน' />
+                        <Review_From/>
                     </SafeAreaView>
                 )
         }
@@ -569,11 +570,11 @@ export class Review_meScreen extends Component {
         return (
             <ScrollView>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { marginLeft: 10, }]}>ล่าสุด</Text>
-                <Review_me />
-                <Review_me />
+                <Review_me navigation={this.props.navigation}/>
+                <Review_me navigation={this.props.navigation}/>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { marginLeft: 10, }]}>เก่ากว่า</Text>
-                <Review_me />
-                <Review_me />
+                <Review_me navigation={this.props.navigation}/>
+                <Review_me navigation={this.props.navigation}/>
             </ScrollView>
         );
     }
@@ -597,7 +598,7 @@ export class Review_me extends Component {
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}>Mlife</Text>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { color: '#8F8F8F' }]}>สั่งซื้อวันที่ 12 ธ.ค.2019 </Text>
                         </View>
-                        <TouchableOpacity>
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 7 })} >
                             <View style={stylesPro.Review_me_Box_head}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>รีวิว</Text>
                             </View>
@@ -752,7 +753,7 @@ export class Topic extends Component {
 
 ///-----------------------------------------------------------------------------///
 
-export class Review_A extends Component {
+export class Review_From extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -762,7 +763,7 @@ export class Review_A extends Component {
     render() {
         return (
             <View>
-                <Text> Profile_Topic </Text>
+                <Text> คุณภาพสินค้า </Text>
             </View>
         );
     }

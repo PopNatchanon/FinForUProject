@@ -11,14 +11,14 @@ export default StyleSheet.create({
   },
   ///------------///
   BoxProduct1Box: {
-    backgroundColor: '#FFFFFF', width: 106,
+    backgroundColor: '#FFFFFF', width: 110,
     borderColor: '#ECECEC', borderWidth: 1,
     marginTop: 10, marginBottom: 8,
     marginLeft: 10,
   },
   BoxProduct1ImageofLines: {
-    width: 104,
-    height: 104,
+    width: 108,
+    height: 108,
   },
   BoxProduct1Image: {
     width: '100%',
@@ -26,8 +26,6 @@ export default StyleSheet.create({
   },
   BoxProduct1NameofLines: {
     width: '100%',
-    padding: 6,
-    height: 40
   },
   BoxProduct1IconBox: {
     flex: 1,
@@ -49,10 +47,7 @@ export default StyleSheet.create({
   },
   BoxProduct1PriceofLines: {
     width: '100%',
-    padding: 6,
-    marginTop: 2,
-    height: 35,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   BoxProduct1ImagePrice: {
     color: '#0A55A6',
@@ -414,18 +409,17 @@ export default StyleSheet.create({
   },
   ///------------------------------------------------------------------------------------------///
   Category: {
-    width: 100,
-    height: 80,
+    width: 72,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    padding: 5,
   },
   category_A: {
     flexDirection: 'column',
     flexWrap: 'wrap',
-    height: 210,
-    paddingBottom: 10,
-    paddingTop: 10,
-    justifyContent: 'space-between'
+    height: 202,
+    paddingBottom: 8,
+    paddingTop: 8,
   },
   Category_image: {
     height: 40,
@@ -443,7 +437,7 @@ export default StyleSheet.create({
   },
   ///------------------------------------------------------------------------------------------///
   FrameBackground_Height: {
-    height: 160
+    height: 150
   },
   FrameBackground_Box: {
     flexDirection: 'column',
@@ -453,10 +447,10 @@ export default StyleSheet.create({
     borderColor: '#ECECEC',
     borderWidth: 1,
     height: 50,
-    width: 150,
-    marginLeft: 10,
-    marginTop: 5,
-    marginBottom: 5,
+    width: 117,
+    marginLeft: 2,
+    marginTop: 2,
+    marginBottom: 2,
   },
   ImageMargin: {
     marginBottom: -20
@@ -555,12 +549,12 @@ export default StyleSheet.create({
   },
   ///------------------------------------------------------------------///
   Button_Bar_Box: {
-    width: 94,
+    width: 70,
     alignItems: 'center',
     alignContent: 'center',
     height: 60,
     paddingVertical: 10,
-    paddingHorizontal: 14
+    paddingHorizontal: 4
   },
   Button_Bar_icon: {
     height: 50,

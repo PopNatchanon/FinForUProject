@@ -31,13 +31,13 @@ export default class Popular_productScreen extends Component {
         this.state = {
         };
     }
-
     render() {
+        var id_item = this.props.navigation.getParam('id_item')
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
                 <AppBar navigation={this.props.navigation} Title='สินค้ายอดนิยม' />
                 <Slide />
-                <Button_Bar />
+                <Button_Bar id_item={id_item} />
                 <ScrollView>
                     <TodayProduct noTitle />
                 </ScrollView>
@@ -61,6 +61,7 @@ export class Button_Bar extends Component {
     }
 
     render() {
+        const { id_item } = this.props
         const item = [{
             name: 'สินค้าสุดฮิต'
         }, {
@@ -75,10 +76,10 @@ export class Button_Bar extends Component {
                 <TabBar
                     sendData={this.updateIndex}
                     item={item}
-                    // widthBox={98}
+                    SetValue={id_item ? id_item : null}
                     activeColor={'#0A55A6'}
                     activeFontColor={'#0A55A6'}
-                    type='none'
+                    type='tag'
                 />
             </View>
         );

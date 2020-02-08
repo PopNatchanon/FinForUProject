@@ -83,7 +83,7 @@ export default class Profile_Topic extends Component {
                         <AppbarChat navigation={this.props.navigation} Title='Supreme Store' />
                         <Chat_Detail navigation={this.props.navigation} />
                         <View style={{ width: '100%', maxHeight: 150, backgroundColor: '#FFFFFF', borderColor: '#ECECEC', borderWidth: 1, flexDirection: 'row', justifyContent: 'center', paddingVertical: 5, }}>
-                            <View style={{ width: 350, borderColor: '#ECECEC', borderWidth: 1, borderRadius: 20, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', }} >
+                            <View style={{ width: '80%', borderColor: '#ECECEC', borderWidth: 1, borderRadius: 20, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', }} >
                                 <TextInput
                                     style={{ width: '85%', padding: 10 }}
                                     fontSize={15}

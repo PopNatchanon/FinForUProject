@@ -111,7 +111,7 @@ export class AppBar extends Component {
                                 />
                             </View>
                         </TouchableOpacity> :
-                        <TouchableOpacity activeOpacity={1} onPress={() => { navigation.navigate('SearchScreen'), { modeStore: false } }}>
+                        <TouchableOpacity activeOpacity={1} onPress={() => { navigation.navigate('SearchScreen', { modeStore: false }) }}>
                             <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical]}>
                                 <FastImage
                                     style={[stylesMain.LOGO, stylesMain.ItemCenterVertical]}
@@ -154,12 +154,12 @@ export class AppBar extends Component {
                             {leftBar == 'backarrow' ?
                                 rightBar == 'chat' ?
                                     <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
-                                        onPress={() => this.props.navigation.navigate('CartScreen')}>
+                                        onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 1 })}>
                                         <IconAntDesign RightItem name="message1" size={25} />
                                     </TouchableOpacity> :
                                     null :
                                 <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
-                                    onPress={null/*() => this.props.navigation.navigate('CartScreen')*/}>
+                                    onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 1 })}>
                                     <IconAntDesign RightItem name="message1" size={25} />
                                 </TouchableOpacity>
                             }
@@ -184,15 +184,17 @@ export class AppBar1 extends Component {
         };
     }
     render() {
-        const { titleHead, backArrow, chatBar, menuBar, storeBar } = this.props;
+        const { titleHead, backArrow, chatBar, menuBar, storeBar, searchBar, navigation } = this.props;
         return (
             <View style={menuBar ? stylesStore.AppbarMenu : stylesStore.Appbar}>
                 <View style={stylesMain.FlexRow}>
                     {
                         backArrow ?
-                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
-                                <IconEntypo style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
-                                    marginLeft: 8
+                            <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30 }]}
+                                activeOpacity={1}
+                                onPress={() => navigation.goBack()}
+                            >
+                                <IconEntypo style={[stylesStore.Icon_appbar, {
                                 }]} name="chevron-left" size={30} />
                             </TouchableOpacity> :
                             null
@@ -202,18 +204,39 @@ export class AppBar1 extends Component {
                     ]}>
                         {titleHead ? titleHead : null}</Text>
                 </View>
-                {
-                    chatBar ?
-                        <IconAntDesign RightItem name="message1" size={25} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
-                            marginRight: 8
-                        }]} /> :
-                        null,
-                    storeBar ?
-                        <Icon RightItem name="store" size={20} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
-                            marginRight: 8
-                        }]} /> :
-                        null
-                }
+                <View style={stylesMain.FlexRow}>
+                    {
+                        searchBar ?
+                            <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
+                                onPress={() => navigation.navigate('SearchScreen', { modeStore: false })}
+                            >
+                                <IconAntDesign RightItem name="search1" size={25} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
+                                    marginRight: 8
+                                }]} />
+                            </TouchableOpacity> :
+                            null
+                    }{
+                        chatBar ?
+                            <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
+                                onPress={() => navigation.navigate('Profile_Topic', { selectedIndex: 1 })}
+                            >
+                                <IconAntDesign RightItem name="message1" size={25} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
+                                    marginRight: 8
+                                }]} />
+                            </TouchableOpacity> :
+                            null
+                    }{
+                        storeBar ?
+                            <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
+                                onPress={() => navigation.navigate('Profile_Topic', { selectedIndex: 3 })}
+                            >
+                                <Icon RightItem name="store" size={20} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
+                                    marginRight: 8
+                                }]} />
+                            </TouchableOpacity> :
+                            null
+                    }
+                </View>
             </View>
         );
     }
@@ -350,22 +373,22 @@ export class Category extends Component {
             var dataMySQL = [finip, item.image_path, 'menu', item.image_head].join('/');
             return (
                 <View style={stylesMain.Category} key={indexs}>
-                    <View style={stylesMain.Category_box}>
-                        <FastImage
-                            source={{
-                                uri: dataMySQL,
-                            }}
-                            style={stylesMain.Category_image}
-                            resizeMode={FastImage.resizeMode.cover}
-                        />
+                    <FastImage
+                        source={{
+                            uri: dataMySQL,
+                        }}
+                        style={stylesMain.Category_box}
+                        resizeMode={FastImage.resizeMode.cover}
+                    />
+                    <View style={{ height: 20 }}>
+                        <Text numberOfLines={2} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesFont.FontCenter]}>
+                            {item.name}</Text>
                     </View>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesFont.FontCenter]}>
-                        {item.name}</Text>
-                </View>
+                </View >
             )
         })
         return (
-            <View style={stylesMain.FrameBackground2}>
+            <View style={stylesMain.FrameBackground2} >
                 <ScrollView horizontal >
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('CategoryScreen')}>
                         <View style={stylesMain.category_A}>
@@ -466,8 +489,10 @@ export class Recommend_Brand extends Component {
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize1, stylesFont.FontFamilyBold]}>
                         แบรนด์แนะนำ</Text>
-                    <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
-                        ดูทั้งหมด</Text>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Recommend_Brand')}>
+                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+                            ดูทั้งหมด</Text>
+                    </TouchableOpacity>
                 </View>
                 <ScrollView horizontal>
                     <View style={stylesMain.FrameBackground_Box}>
@@ -499,7 +524,6 @@ export class Recommend_Brand extends Component {
                                     style={stylesMain.Brand_image_RCM}
                                     source={{
                                         uri: ip + '/MySQL/uploads/recommend/2019-10-18_15-29-20_icon.png',
-
                                     }}
                                     resizeMode={FastImage.resizeMode.contain}
                                 />
@@ -586,24 +610,28 @@ export class Popular_store extends Component {
                         ร้านที่ใช่อยากให้ช้อป</Text>
                 </View>
                 <View style={stylesMain.FlexRow}>
-                    <View style={stylesMain.BoxStore1Box}>
-                        <FastImage
-                            style={stylesMain.BoxStore1Image}
-                            source={{
-                                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop2.jpg',
-                            }}
-                            resizeMode={FastImage.resizeMode.stretch}
-                        />
-                    </View>
-                    <View style={stylesMain.BoxStore1Box}>
-                        <FastImage
-                            style={stylesMain.BoxStore1Image}
-                            source={{
-                                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop3.jpg',
-                            }}
-                            resizeMode={FastImage.resizeMode.stretch}
-                        />
-                    </View>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Recommend_Store')}>
+                        <View style={stylesMain.BoxStore1Box}>
+                            <FastImage
+                                style={stylesMain.BoxStore1Image}
+                                source={{
+                                    uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop2.jpg',
+                                }}
+                                resizeMode={FastImage.resizeMode.stretch}
+                            />
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Recommend_Store')}>
+                        <View style={stylesMain.BoxStore1Box}>
+                            <FastImage
+                                style={stylesMain.BoxStore1Image}
+                                source={{
+                                    uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop3.jpg',
+                                }}
+                                resizeMode={FastImage.resizeMode.stretch}
+                            />
+                        </View>
+                    </TouchableOpacity>
                 </View>
             </View>
         )
@@ -624,7 +652,7 @@ export class Popular_product extends Component {
                         <ScrollView horizontal>
                             <View style={stylesMain.Popular_Box_B}>
                                 <TouchableOpacity activeOpacity={1}
-                                    onPress={() => this.props.navigation.navigate('Popular_productScreen')}>
+                                    onPress={() => this.props.navigation.navigate('Popular_productScreen', { id_item: 0 })}>
                                     <View style={stylesMain.Popular_Box_C}>
                                         <View style={stylesMain.Popular_Box_D}>
                                             <FastImage
@@ -662,112 +690,121 @@ export class Popular_product extends Component {
                                 </TouchableOpacity>
                             </View>
                             <View style={stylesMain.Popular_Box_B}>
-                                <View style={stylesMain.Popular_Box_C}>
-                                    <View style={stylesMain.Popular_Box_D}>
-                                        <FastImage
-                                            style={stylesMain.Image_icon_top}
-                                            source={require('../icon/top.png')}
-                                            resizeMode={FastImage.resizeMode.contain}
-                                        />
-                                        <FastImage
-                                            style={stylesMain.Popular_image_Box}
-                                            source={{
-                                                uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg',
-                                            }}
-                                            resizeMode={FastImage.resizeMode.contain}
-                                        />
+                                <TouchableOpacity activeOpacity={1}
+                                    onPress={() => this.props.navigation.navigate('Popular_productScreen', { id_item: 1 })}>
+                                    <View style={stylesMain.Popular_Box_C}>
+                                        <View style={stylesMain.Popular_Box_D}>
+                                            <FastImage
+                                                style={stylesMain.Image_icon_top}
+                                                source={require('../icon/top.png')}
+                                                resizeMode={FastImage.resizeMode.contain}
+                                            />
+                                            <FastImage
+                                                style={stylesMain.Popular_image_Box}
+                                                source={{
+                                                    uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg',
+                                                }}
+                                                resizeMode={FastImage.resizeMode.contain}
+                                            />
+                                        </View>
+                                        <View style={stylesMain.Popular_Box_D}>
+                                            <FastImage
+                                                style={stylesMain.Image_icon_top}
+                                                source={require('../icon/top.png')}
+                                                resizeMode={FastImage.resizeMode.contain}
+                                            />
+                                            <FastImage
+                                                style={stylesMain.Popular_image_Box}
+                                                source={{
+                                                    uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png',
+                                                }}
+                                                resizeMode={FastImage.resizeMode.contain}
+                                            />
+                                        </View>
                                     </View>
-                                    <View style={stylesMain.Popular_Box_D}>
-                                        <FastImage
-                                            style={stylesMain.Image_icon_top}
-                                            source={require('../icon/top.png')}
-                                            resizeMode={FastImage.resizeMode.contain}
-                                        />
-                                        <FastImage
-                                            style={stylesMain.Popular_image_Box}
-                                            source={{
-                                                uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png',
-                                            }}
-                                            resizeMode={FastImage.resizeMode.contain}
-                                        />
+                                    <View style={stylesMain.PopularText_A} >
+                                        <Text style={[{ marginLeft: 8 }, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+                                            สินค้าราคาโดน</Text>
                                     </View>
-                                </View>
-                                <View style={stylesMain.PopularText_A} >
-                                    <Text style={[{ marginLeft: 8 }, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
-                                        สินค้าราคาโดน</Text>
-                                </View>
+                                </TouchableOpacity>
                             </View>
                             <View style={stylesMain.Popular_Box_B}>
-                                <View style={stylesMain.Popular_Box_C}>
-                                    <View style={stylesMain.Popular_Box_D}>
-                                        <FastImage
-                                            style={stylesMain.Image_icon_top}
-                                            source={require('../icon/top.png')}
-                                            resizeMode={FastImage.resizeMode.contain}
-                                        />
-                                        <FastImage
-                                            style={stylesMain.Popular_image_Box}
-                                            source={{
-                                                uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg',
-                                            }}
-                                            resizeMode={FastImage.resizeMode.contain}
-                                        />
+                                <TouchableOpacity activeOpacity={1}
+                                    onPress={() => this.props.navigation.navigate('Popular_productScreen', { id_item: 2 })}>
+                                    <View style={stylesMain.Popular_Box_C}>
+                                        <View style={stylesMain.Popular_Box_D}>
+                                            <FastImage
+                                                style={stylesMain.Image_icon_top}
+                                                source={require('../icon/top.png')}
+                                                resizeMode={FastImage.resizeMode.contain}
+                                            />
+                                            <FastImage
+                                                style={stylesMain.Popular_image_Box}
+                                                source={{
+                                                    uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg',
+                                                }}
+                                                resizeMode={FastImage.resizeMode.contain}
+                                            />
+                                        </View>
+                                        <View style={stylesMain.Popular_Box_D}>
+                                            <FastImage
+                                                style={stylesMain.Image_icon_top}
+                                                source={require('../icon/top.png')}
+                                                resizeMode={FastImage.resizeMode.contain}
+                                            />
+                                            <FastImage
+                                                style={stylesMain.Popular_image_Box}
+                                                source={{
+                                                    uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png',
+                                                }}
+                                                resizeMode={FastImage.resizeMode.contain}
+                                            />
+                                        </View>
                                     </View>
-                                    <View style={stylesMain.Popular_Box_D}>
-                                        <FastImage
-                                            style={stylesMain.Image_icon_top}
-                                            source={require('../icon/top.png')}
-                                            resizeMode={FastImage.resizeMode.contain}
-                                        />
-                                        <FastImage
-                                            style={stylesMain.Popular_image_Box}
-                                            source={{
-                                                uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png',
-                                            }}
-                                            resizeMode={FastImage.resizeMode.contain}
-                                        />
+                                    <View style={stylesMain.PopularText_A} >
+                                        <Text style={[{ marginLeft: 8 }, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+                                            สินค้าขายดี</Text>
                                     </View>
-                                </View>
-                                <View style={stylesMain.PopularText_A} >
-                                    <Text style={[{ marginLeft: 8 }, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
-                                        สินค้าราคาโดน</Text>
-                                </View>
+                                </TouchableOpacity>
                             </View>
                             <View style={stylesMain.Popular_Box_B}>
-                                <View style={stylesMain.Popular_Box_C}>
-                                    <View style={stylesMain.Popular_Box_D}>
-                                        <FastImage
-                                            style={stylesMain.Image_icon_top}
-                                            source={require('../icon/top.png')}
-                                            resizeMode={FastImage.resizeMode.contain}
-                                        />
-                                        <FastImage
-                                            style={stylesMain.Popular_image_Box}
-                                            source={{
-                                                uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg',
-                                            }}
-                                            resizeMode={FastImage.resizeMode.contain}
-                                        />
+                                <TouchableOpacity activeOpacity={1}
+                                    onPress={() => this.props.navigation.navigate('Popular_productScreen', { id_item: 3 })}>
+                                    <View style={stylesMain.Popular_Box_C}>
+                                        <View style={stylesMain.Popular_Box_D}>
+                                            <FastImage
+                                                style={stylesMain.Image_icon_top}
+                                                source={require('../icon/top.png')}
+                                                resizeMode={FastImage.resizeMode.contain}
+                                            />
+                                            <FastImage
+                                                style={stylesMain.Popular_image_Box}
+                                                source={{
+                                                    uri: ip + '/MySQL/uploads/Popular_product/2019-10-29-1572320317.jpg',
+                                                }}
+                                                resizeMode={FastImage.resizeMode.contain}
+                                            />
+                                        </View>
+                                        <View style={stylesMain.Popular_Box_D}>
+                                            <FastImage
+                                                style={stylesMain.Image_icon_top}
+                                                source={require('../icon/top.png')}
+                                                resizeMode={FastImage.resizeMode.contain}
+                                            />
+                                            <FastImage
+                                                style={stylesMain.Popular_image_Box}
+                                                source={{
+                                                    uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png',
+                                                }}
+                                                resizeMode={FastImage.resizeMode.contain}
+                                            />
+                                        </View>
                                     </View>
-                                    <View style={stylesMain.Popular_Box_D}>
-                                        <FastImage
-                                            style={stylesMain.Image_icon_top}
-                                            source={require('../icon/top.png')}
-                                            resizeMode={FastImage.resizeMode.contain}
-                                        />
-                                        <FastImage
-                                            style={stylesMain.Popular_image_Box}
-                                            source={{
-                                                uri: ip + '/MySQL/uploads/Popular_product/2019-10-10-1570678476.png',
-                                            }}
-                                            resizeMode={FastImage.resizeMode.contain}
-                                        />
+                                    <View style={stylesMain.PopularText_A} >
+                                        <Text style={[{ marginLeft: 8 }, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+                                            สินค้าสุดคูล</Text>
                                     </View>
-                                </View>
-                                <View style={stylesMain.PopularText_A} >
-                                    <Text style={[{ marginLeft: 8 }, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
-                                        สินค้าราคาโดน</Text>
-                                </View>
+                                </TouchableOpacity>
                             </View>
                         </ScrollView>
                     </View>
@@ -865,8 +902,10 @@ export class FlashSale extends Component {
         this.getFlashSale();
     }
     render() {
+        const { linelength } = this.state;
         let dataFlashSale = this.state.dataSale.map((item, indexs) => {
             var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
+            console.log(linelength)
             return (
                 <TouchableOpacity
                     activeOpacity={1}
@@ -883,11 +922,13 @@ export class FlashSale extends Component {
                                 resizeMode={FastImage.resizeMode.stretch}
                             />
                         </View>
-                        <View style={stylesMain.BoxProduct1NameofLines}>
-                            <Text numberOfLines={2} style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                        <View style={[stylesMain.BoxProduct1NameofLines, linelength < 2 ? { height: 25 } : null]}>
+                            <Text numberOfLines={2} onTextLayout={({ nativeEvent: { lines } }) =>
+                                this.setState({ linelength: lines.length })
+                            } style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                                 {item.name}</Text>
                         </View>
-                        <View style={stylesMain.BoxProduct1PriceofLines}>
+                        <View style={[stylesMain.BoxProduct1PriceofLines, linelength < 2 ? { height: 45 } : null]}>
                             <NumberFormat
                                 value={item.full_price}
                                 displayType={'text'}
@@ -985,7 +1026,7 @@ export class PromotionPopular extends Component {
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
                         ลายแทงร้านค้าแนะนำ</Text>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('FlashSaleScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Recommend_Store')}>
                         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
@@ -1084,7 +1125,7 @@ export class Product_for_you extends Component {
             var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs}
-                    onPress={() => this.props.navigation.navigate('Product_for_youScreen', { id_item: item.id_product })}>
+                    onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
                     <View style={[stylesMain.BoxProduct1Box]}>
                         <View style={stylesMain.BoxProduct1ImageofLines}>
                             <FastImage
@@ -1120,8 +1161,10 @@ export class Product_for_you extends Component {
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize1, stylesFont.FontFamilyBold]}>
                         FIN คัดมาเพื่อคุณ</Text>
-                    <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
-                        ดูทั้งหมด</Text>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Product_for_youScreen')}>
+                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+                            ดูทั้งหมด</Text>
+                    </TouchableOpacity>
                 </View>
                 <ScrollView horizontal>
                     <View style={[stylesMain.ProductForYouFlexBox, stylesMain.Product_for_you]}>
@@ -1162,7 +1205,7 @@ export class Highlight extends Component {
             var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs}
-                    onPress={() => this.props.navigation.navigate('HighlightScreen', { id_item: item.id_product })}>
+                    onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
                     <View style={stylesMain.BoxProduct1Box} >
                         <View style={stylesMain.BoxProduct1ImageofLines}>
                             <FastImage
@@ -1242,7 +1285,7 @@ export class NewStore extends Component {
             var dataMySQL = [ip + '/mysql/uploads/slide/NewStore', item.image].join('/');
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs}
-                    onPress={() => this.props.navigation.navigate('StoreScreen', { id_item: item.id_store })}>
+                    onPress={() => this.props.navigation.navigate('Recommend_Store', { id_item: item.id_store })}>
                     <View style={stylesMain.BoxStore1Box}>
                         <FastImage
                             source={{
@@ -1298,7 +1341,7 @@ export class Exclusive extends Component {
             var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs}
-                    onPress={() => this.props.navigation.navigate('ExclusiveScreen', { id_item: item.id_product })}>
+                    onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
                     <View style={stylesMain.BoxProduct1Box} >
                         <View style={stylesMain.BoxProduct1ImageofLines}>
                             <FastImage
@@ -1336,8 +1379,11 @@ export class Exclusive extends Component {
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize1, stylesFont.FontFamilyBold]}>
                         สินค้าสุด Exclusive</Text>
-                    <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
-                        ดูทั้งหมด</Text>
+                    <TouchableOpacity
+                        onPress={() => this.props.navigation.navigate('ExclusiveScreen')}>
+                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+                            ดูทั้งหมด</Text>
+                    </TouchableOpacity>
                 </View>
                 <ScrollView horizontal>
                     {dataNewProduct}
@@ -1424,6 +1470,7 @@ export class CategoryProductSubProduct extends Component {
         super(props);
         this.state = {
             dataSourceCategoryProduct: [],
+            linelength: [],
         }
     }
     getCategoryProductSubProduct = async () => {
@@ -1453,6 +1500,7 @@ export class CategoryProductSubProduct extends Component {
     }
     render() {
         let dataCategoryProductSubProduct = this.state.dataSourceCategoryProduct.map((item, indexs) => {
+            const { linelength } = this.state
             var throughsale = Number(item.full_price) + (Number(item.full_price) * 0.25);
             var dataMySQL = [finip, item.image_path, item.image].join('/');
             return (
@@ -1463,52 +1511,52 @@ export class CategoryProductSubProduct extends Component {
                             <FastImage
                                 source={{
                                     uri: dataMySQL,
-                                    scale: 1,
                                 }}
                                 style={stylesMain.BoxProduct1Image}
                                 resizeMode={FastImage.resizeMode.contain}
                             />
                         </View>
-                        <View style={stylesMain.BoxProduct1NameofLines}>
-                            <Text numberOfLines={2} style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-                                {item.name}</Text>
-                        </View>
-                        <View style={stylesMain.BoxProduct1PriceofLines}>
-                            <NumberFormat
-                                value={item.full_price}
-                                displayType={'text'}
-                                thousandSeparator={true}
-                                prefix={'฿'}
-                                renderText={value =>
-                                    <Text style={[
-                                        stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize4, stylesFont.FontFamilyText,
-                                        stylesMain.ItemCenterVertical
-                                    ]}>
-                                        {value + ' '}</Text>
-                                }
-                            />
-                            <NumberFormat
-                                value={throughsale}
-                                displayType={'text'}
-                                thousandSeparator={true}
-                                prefix={'฿'}
-                                renderText={value =>
-                                    <Text style={[
-                                        stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize6, stylesFont.FontFamilyText,
-                                        stylesMain.ItemCenterVertical
-                                    ]}>
-                                        {value}</Text>
-                                }
-                            />
+                        <View style={{ height: 70,paddingHorizontal:2 }}>
+                            <View style={[stylesMain.BoxProduct1NameofLines]}>
+                                <Text numberOfLines={2} style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                                    {item.name}</Text>
+                            </View>
+                            <View style={[stylesMain.BoxProduct1PriceofLines]}>
+                                <NumberFormat
+                                    value={item.full_price}
+                                    displayType={'text'}
+                                    thousandSeparator={true}
+                                    prefix={'฿'}
+                                    renderText={value =>
+                                        <Text style={[
+                                            stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize4, stylesFont.FontFamilyBold,
+                                        ]}>
+                                            {value + ' '}</Text>
+                                    }
+                                />
+                                <NumberFormat
+                                    value={throughsale}
+                                    displayType={'text'}
+                                    thousandSeparator={true}
+                                    prefix={'฿'}
+                                    renderText={value =>
+                                        <Text style={[
+                                            stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize6, stylesFont.FontFamilyText,
+                                            { marginTop: 3 }
+                                        ]}>
+                                            {value}</Text>
+                                    }
+                                />
+                            </View>
                         </View>
                     </View>
-                </TouchableOpacity>
+                </TouchableOpacity >
             );
         })
         return (
             <ScrollView horizontal>
                 {dataCategoryProductSubProduct}
-            </ScrollView>
+            </ScrollView >
         )
     }
 }

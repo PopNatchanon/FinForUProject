@@ -43,16 +43,17 @@ export default class FeedScreen extends Component {
     });
   }
   render() {
+    const { navigation } = this.props
     return (
       <SafeAreaView style={[stylesMain.SafeAreaViewNoBackground, stylesMain.BackgroundAreaView]}>
-        <AppBar1 titleHead='ฟีด' storeBar menuBar />
+        <AppBar1 titleHead='ฟีด' storeBar menuBar navigation={navigation} />
         <MenuBar sendText={this.getData} />
         <ScrollView>
-          <Button_Bar selectedIndex={this.state.selectedIndex} navigation={this.props.navigation} />
+          <Button_Bar selectedIndex={this.state.selectedIndex} navigation={navigation} />
           {/* <Follow_up />
           <Highlights/> */}
         </ScrollView>
-        <Toolbar navigation={this.props.navigation} />
+        <Toolbar navigation={navigation} />
       </SafeAreaView>
     );
   }

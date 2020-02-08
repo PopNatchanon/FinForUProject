@@ -396,8 +396,8 @@ const PathScreen = createStackNavigator({
   },
 },
   {
-    // initialRouteName: 'MainScreen',
-    initialRouteName: 'ProfileScreen',
+    initialRouteName: 'MainScreen',
+    // initialRouteName: 'ProfileScreen',
     // initialRouteName: 'Customer_Order',
     // initialRouteName: 'Customer_account',
     // initialRouteName: 'ExclusiveScreen',

@@ -6,7 +6,8 @@ import {
     Dimensions,
 } from 'react-native';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import styles from '../../style/StylesMainScreen';
+import stylesMain from '../../style/StylesMainScreen';
+import stylesFont from '../../style/stylesFont'
 export const { width, height } = Dimensions.get('window');
 import AsyncStorage from '@react-native-community/async-storage';
 ///----------------------------------------------------------------------------------------------->>>>
@@ -31,7 +32,7 @@ export class Toolbar extends Component {
             u_name = currentUser.name;
         }
         return (
-            <View style={styles.Toolbar}>
+            <View style={stylesMain.Toolbar}>
                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('MainScreen')} >
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign style={{ marginLeft: 5, }} name="home" size={25} />
@@ -89,21 +90,21 @@ export class TabBar extends Component {
             PassSetValue: 0,
         }
     }
-    setDataItem() {
-        const { setData } = this.props
-        // console.log('setDataItem')
-        // console.log(setData)
-        if (setData.activeSetData < 1) {
-            setData.activeSetData = setData.activeSetData + 1
-            // console.log('activeSetData')
-            // console.log(setData.activeSetData)
-            // console.log('index')
-            // console.log(setData.index)
-            // console.log('pathlist')
-            // console.log(this.state.pathlist)
-            this.setState({ setData, pathlist: setData.index })
-        }
-    }
+    // setDataItem() {
+    //     const { setData } = this.props
+    //     // console.log('setDataItem')
+    //     // console.log(setData)
+    //     if (setData.activeSetData < 1) {
+    //         setData.activeSetData = setData.activeSetData + 1
+    //         // console.log('activeSetData')
+    //         // console.log(setData.activeSetData)
+    //         // console.log('index')
+    //         // console.log(setData.index)
+    //         // console.log('pathlist')
+    //         // console.log(this.state.pathlist)
+    //         this.setState({ setData, pathlist: setData.index })
+    //     }
+    // }
     /*
     // v0.6.28012020
     // <TabBar
@@ -235,9 +236,8 @@ export class TabBar extends Component {
                                         } :
                                         null
                                 }>
-                                    <Text style={[{
-                                        fontSize: fontSizeStyle ? fontSizeStyle : 14,
-                                        fontFamily: 'SukhumvitSet-Text',
+                                    <Text style={[stylesFont.FontFamilyText, {
+                                        fontSize: fontSizeStyle ? fontSizeStyle : 16,
                                         color: type == 'box' ?
                                             activeFontColor ? activeFontColor : fontColor ? fontColor : 'white' :
                                             activeFontColor ? activeFontColor : fontColor ? fontColor : 'black'
@@ -293,9 +293,8 @@ export class TabBar extends Component {
                                         } :
                                         null
                                 }>
-                                    <Text style={[{
-                                        fontSize: fontSizeStyle ? fontSizeStyle : 14,
-                                        fontFamily: 'SukhumvitSet-Text',
+                                    <Text style={[stylesFont.FontFamilyText, {
+                                        fontSize: fontSizeStyle ? fontSizeStyle : 16,
                                         color: inactiveFontColor ? inactiveFontColor : fontColor ? fontColor : 'black'
                                     }]}>
                                         {item.name}

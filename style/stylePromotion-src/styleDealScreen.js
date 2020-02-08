@@ -61,6 +61,7 @@ export default StyleSheet.create({
     Text_Head: {
         color: '#FFFFFF',
         marginTop: 3,
+        marginLeft: 8,
     },
     Text_EndB: {
         margin: 10,
@@ -71,20 +72,19 @@ export default StyleSheet.create({
         color: '#FFFFFF',
     },
     BoxText_T: {
-        width: 180,
+        width: 120,
         height: 30,
         marginTop: 10,
     },
     Deal_Calendar_Box: {
         width: '100%',
-        height: 150,
         padding: 10,
         justifyContent: 'space-around',
         flexDirection: 'row',
     },
     Deal_Calendar_BoxN: {
-        width: 100,
-        height: 130,
+        width: 80,
+        height: 110,
         backgroundColor: '#FFFFFF',
         borderRadius: 5,
     },
@@ -153,6 +153,7 @@ export default StyleSheet.create({
         height: '20%',
         width: '100%',
         backgroundColor: '#C4C4C4',
+        padding: 6,
     },
     Second_Store_Slide_image: {
         width: '100%',
@@ -195,20 +196,20 @@ export default StyleSheet.create({
         marginTop: 5,
         borderRadius: 8,
     },
-    Deal_For_you:{
+    Deal_For_you: {
         height: 'auto',
         width: '100%',
         justifyContent: 'space-around',
         padding: 10,
         flexDirection: 'row',
-        flexWrap:'wrap',
+        flexWrap: 'wrap',
     },
-    Deal_For_youBox:{
+    Deal_For_youBox: {
         backgroundColor: '#FFFFFF',
         borderColor: '#C4C4C4',
         borderWidth: 1,
         width: 130,
-        marginTop:10,
+        marginTop: 10,
     },
 
     ///--------------------------------CampaignScreen-----------------------------------------///
@@ -323,13 +324,13 @@ export default StyleSheet.create({
     ///--------------------------------Installment_payScreen-----------------------------------------///
 
     Head_BoxImage: {
-        height:150,
+        height: 150,
         width: '100%',
         marginTop: 10,
     },
     Head_Image: {
-        width:'100%',
-        height:'100%',
+        width: '100%',
+        height: '100%',
     },
     Head_BoxText: {
         width: '100%',
@@ -392,13 +393,13 @@ export default StyleSheet.create({
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-around',
-        flexWrap:'wrap',
-        marginTop:-20,
-       
+        flexWrap: 'wrap',
+        marginTop: -20,
+
     },
     New_year_NewProduct_Box: {
-        marginTop:10,
-        width:130,
+        marginTop: 10,
+        width: 130,
         borderColor: '#ECECEC',
         borderWidth: 1,
         backgroundColor: '#FFFF'

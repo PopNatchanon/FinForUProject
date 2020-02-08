@@ -11,10 +11,12 @@ import {
     Dimensions,
 } from 'react-native';
 import axios from 'axios';
+import { CheckBox } from 'react-native-elements';
 import IconsFeather from 'react-native-vector-icons/Feather';
 import FastImage from 'react-native-fast-image';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
+import IconIonicons from 'react-native-vector-icons/Ionicons';
 import NumberFormat from 'react-number-format';
 import Icons from 'react-native-vector-icons/FontAwesome5';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -83,7 +85,7 @@ export default class Profile_Topic extends Component {
                         <AppbarChat navigation={this.props.navigation} Title='Supreme Store' />
                         <Chat_Detail navigation={this.props.navigation} />
                         <View style={{ width: '100%', maxHeight: 150, backgroundColor: '#FFFFFF', borderColor: '#ECECEC', borderWidth: 1, flexDirection: 'row', justifyContent: 'center', paddingVertical: 5, }}>
-                            <View style={{ width: 350, borderColor: '#ECECEC', borderWidth: 1, borderRadius: 20, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', }} >
+                            <View style={{ width: '80%', borderColor: '#ECECEC', borderWidth: 1, borderRadius: 20, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', }} >
                                 <TextInput
                                     style={{ width: '85%', padding: 10 }}
                                     fontSize={15}
@@ -93,7 +95,6 @@ export default class Profile_Topic extends Component {
                                     maxLength={2000}
                                     value={this.state.Detail}
                                     onChangeText={(Detail) => this.setState({ Detail })}
-
                                 />
                                 <IconAntDesign RightItem name='smileo' size={25} color='#0A55A6' style={{ margin: 10, }} />
                             </View>
@@ -103,7 +104,6 @@ export default class Profile_Topic extends Component {
                                     <IconsFeather name='send' size={30} color='#0A55A6' style={{ margin: 10, }} />
                                 </TouchableOpacity>
                             </View>
-
                         </View>
                     </SafeAreaView>
                 )
@@ -111,7 +111,7 @@ export default class Profile_Topic extends Component {
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
                         <Appbar navigation={this.props.navigation} Title='รีวิวของฉัน' />
-                        <Review_From/>
+                        <Review_From />
                     </SafeAreaView>
                 )
         }
@@ -570,11 +570,11 @@ export class Review_meScreen extends Component {
         return (
             <ScrollView>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { marginLeft: 10, }]}>ล่าสุด</Text>
-                <Review_me navigation={this.props.navigation}/>
-                <Review_me navigation={this.props.navigation}/>
+                <Review_me navigation={this.props.navigation} />
+                <Review_me navigation={this.props.navigation} />
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { marginLeft: 10, }]}>เก่ากว่า</Text>
-                <Review_me navigation={this.props.navigation}/>
-                <Review_me navigation={this.props.navigation}/>
+                <Review_me navigation={this.props.navigation} />
+                <Review_me navigation={this.props.navigation} />
             </ScrollView>
         );
     }
@@ -597,9 +597,6 @@ export class Review_me extends Component {
                         <View>
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}>Mlife</Text>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#8F8F8F' }]}>สั่งซื้อวันที่ 12 ธ.ค.2019 </Text>
-                        </View>
-                        <View style={stylesPro.Review_me_Box_head}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>รีวิว</Text>
                         </View>
                         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 7 })} >
                             <View style={stylesPro.Review_me_Box_head}>
@@ -760,14 +757,86 @@ export class Review_From extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            checked2: true,
         };
     }
 
     render() {
         return (
-            <View>
-                <Text> คุณภาพสินค้า </Text>
+            <View style={{ flex: 1 }}>
+                <View style={{ flexDirection: 'row', padding: 10, backgroundColor: '#FFFFFF', marginTop: 10 }}>
+                    <IconIonicons name='md-key' size={30} />
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}> คุณภาพสินค้า </Text>
+                </View>
+                <View style={{ backgroundColor: '#FFFFFF', padding: 10, alignItems: 'center', }}>
+                    <View style={{ backgroundColor: '#F4F4F4', padding: 10, flexDirection: 'row', width: '100%' }}>
+                        <FastImage style={stylesPro.Review_me_image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/products/2019-10-29-1572319733.jpg',
+                            }}
+                        />
+                        <View style={{ marginLeft: 10, }}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>กระเป๋าxxxxxxxx</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>สี : น้ำตาล</Text>
+                        </View>
+                    </View>
+                    <View style={{ flexDirection: 'row', width: '70%', justifyContent: 'space-around', marginVertical: 10, }}>
+                        <IconFontAwesome name='star' size={35} color='#FFAC33' />
+                        <IconFontAwesome name='star' size={35} color='#FFAC33' />
+                        <IconFontAwesome name='star' size={35} color='#FFAC33' />
+                        <IconFontAwesome name='star' size={35} color='#FFAC33' />
+                        <IconFontAwesome name='star' size={35} color='#FFAC33' />
+                    </View>
+
+                    <View style={{ backgroundColor: '#F4F4F4', marginTop: 10, height: 150, width: '100%' }}>
+                        <TextInput
+                            style={[stylesFont.FontFamilyText, { margin: 10, }]}
+                            fontSize={18}
+                            placeholder="ไม่ต้องอาย โปรดมาช่วยรีวิวเรา"
+                            multiline
+                            editable
+                            // maxLength={5000}
+                            value={this.state.Review}
+                            onChangeText={(Review) => this.setState({ Review })}></TextInput>
+                    </View>
+                    <View style={{ width: '100%', }}>
+                        <View style={{ flexDirection: 'row', }}>
+                            <CheckBox
+                                checked={this.state.checked}
+                                onPress={() => this.setState({ checked: !this.state.checked, checked2: !this.state.checked2 })}
+                            />
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize2, { color: '#EAEAEA', marginTop: 15, marginLeft: -10 }]}>ไม่ระบุตัวตน</Text>
+                        </View>
+                        <View style={{ marginTop: 10, alignItems: 'flex-end' }}>
+                            <TouchableOpacity>
+                                <View style={{ height: 50, width: 150, borderColor: '#CACACA', borderWidth: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderRadius: 5, }}>
+                                    <IconAntDesign RightItem name='camerao' size={35} color='#CACACA' />
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#CACACA' }]}>อัพโหลดรูปภาพ(0/3)</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+                <View style={{ flex: 1, justifyContent: 'flex-end', }}>
+                    <View style={stylesMain.FlexRow}>
+                        <CheckBox
+                            checked={this.state.checked1}
+                            onPress={() => this.setState({ checked1: !this.state.checked, checked2: !this.state.checked2 })}
+                        />
+                        <View style={[stylesMain.FlexRow,{marginTop:15,}]}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>ข้าพเจ้ายอมรับและทราบข้อตกลงตาม </Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#36B680' }]}>นโยบายความเป็นส่วนตัวของ FIN</Text>
+                        </View>
+                    </View>
+                    <TouchableOpacity>
+                        <View style={{ backgroundColor: '#0A55A6', width: '100%', height: 50, justifyContent: 'center', alignItems: 'center', }}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize2, { color: '#FFFFFF' }]}>แชร์รีวิว</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
             </View>
+
+
         );
     }
 }

@@ -52,7 +52,7 @@ import Customer_Order from '../src/src-Cart/Customer_Order';
 import Customer_Complete_Order from '../src/src-Cart/Customer_Complete_Order';
 
 // src_Promotion
-
+import Deal_Topic from '../src/src_Promotion/src_DealTopic/Deal_Topic';
 import DealScreen from '../src/src_Promotion/DealScreen';
 import CoinScreen from '../src/src_Promotion/CoinScreen';
 import CampaignScreen from '../src/src_Promotion/CampaignScreen';
@@ -323,6 +323,14 @@ const PathScreen = createStackNavigator({
   },
 
   // src_Promotion
+  
+  Deal_Topic: {
+    screen: Deal_Topic,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
 
   DealScreen: {
     screen: DealScreen,
@@ -397,7 +405,7 @@ const PathScreen = createStackNavigator({
 },
   {
     // initialRouteName: 'MainScreen',
-    initialRouteName: 'ProfileScreen',
+    initialRouteName: 'DealScreen',
     // initialRouteName: 'Customer_Order',
     // initialRouteName: 'Customer_account',
     // initialRouteName: 'ExclusiveScreen',

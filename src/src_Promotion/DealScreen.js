@@ -33,13 +33,13 @@ export default class DealScreen extends Component {
     return (
       <SafeAreaView style={styleMain.SafeAreaView}>
         <AppBar navigation={this.props.navigation} />
-        <ScrollView style={{paddingHorizontal:3,}}>
-          <Slide/>
+        <ScrollView style={{ paddingHorizontal: 3, }}>
+          <Slide />
           <Deal_Calendar />
-          <Deal_Today />
-          <Deal_Exclusive />
+          <Deal_Today navigation={this.props.navigation} />
+          <Deal_Exclusive navigation={this.props.navigation} />
           <Coupon_Store />
-          <Second_Store />
+          <Second_Store navigation={this.props.navigation} />
           <ProDed_Store />
           <ProDed_New_Store />
           <Shop_Deal_ForU navigation={this.props.navigation} />
@@ -61,21 +61,21 @@ export class AppBar extends Component {
   }
 
   render() {
-    const { Title,noIcon } = this.props
+    const { Title, noIcon } = this.props
     return (
       <View style={stylesStore.Appbar}>
         <View style={styleMain.FlexRow}>
           <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
             <IconFeather style={styles.Icon_appbar} name="arrow-left" size={30} />
           </TouchableOpacity>
-          <Text style={[styles.Text_appbar,stylesFont.FontFamilyBold,stylesFont.FontSize3]}>{Title ? Title : 'ดีลสุดคุ้ม'}</Text>
+          <Text style={[styles.Text_appbar, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>{Title ? Title : 'ดีลสุดคุ้ม'}</Text>
         </View>
-        {noIcon?
-        null:
-        <View style={{ flexDirection: 'row', marginTop: 5, margin: 10, }}>
-          <IconAntDesign RightItem name="search1" size={25} style={styles.Icon_appbar} />
-          <IconAntDesign RightItem name="message1" size={25} style={styles.Icon_appbar} />
-        </View>
+        {noIcon ?
+          null :
+          <View style={{ flexDirection: 'row', marginTop: 5, margin: 10, }}>
+            <IconAntDesign RightItem name="search1" size={25} style={styles.Icon_appbar} />
+            <IconAntDesign RightItem name="message1" size={25} style={styles.Icon_appbar} />
+          </View>
         }
       </View>
     );
@@ -140,7 +140,7 @@ export class Slide extends Component {
     const { dataSourceSlide, activeSlide } = this.state;
     // console.log(width)
     return (
-      <View style={{ marginTop: -60, height: 70 ,marginBottom:-10,}}>
+      <View style={{ marginTop: -60, height: 70, marginBottom: -10, }}>
         <Pagination
           dotsLength={dataSourceSlide.length}
           activeDotIndex={activeSlide}
@@ -210,7 +210,7 @@ export class Button_Bar extends Component {
               }}
             />
 
-            <Text style={[styles.Button_Bar_BoxText,stylesFont.FontFamilyText]}>ดีลสุดพิเศษ</Text>
+            <Text style={[styles.Button_Bar_BoxText, stylesFont.FontFamilyText]}>ดีลสุดพิเศษ</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('CoinScreen')}>
@@ -220,7 +220,7 @@ export class Button_Bar extends Component {
                 uri: ip + '/MySQL/uploads/icon_brand/b02.png',
               }}
             />
-            <Text style={[styles.Button_Bar_BoxText,stylesFont.FontFamilyText]}>FinCoin</Text>
+            <Text style={[styles.Button_Bar_BoxText, stylesFont.FontFamilyText]}>FinCoin</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('CampaignScreen')}>
@@ -230,7 +230,7 @@ export class Button_Bar extends Component {
                 uri: ip + '/MySQL/uploads/icon_brand/b03.png',
               }}
             />
-            <Text style={[styles.Button_Bar_BoxText,stylesFont.FontFamilyText]}>แคมเปญ</Text>
+            <Text style={[styles.Button_Bar_BoxText, stylesFont.FontFamilyText]}>แคมเปญ</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('The_BestFinScreen')}>
@@ -240,7 +240,7 @@ export class Button_Bar extends Component {
                 uri: ip + '/MySQL/uploads/icon_brand/b04.png',
               }}
             />
-            <Text style={[styles.Button_Bar_BoxText,stylesFont.FontFamilyText]}>สุดคุ้มสุดฟิน</Text>
+            <Text style={[styles.Button_Bar_BoxText, stylesFont.FontFamilyText]}>สุดคุ้มสุดฟิน</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('Installment_payScreen')}>
@@ -250,7 +250,7 @@ export class Button_Bar extends Component {
                 uri: ip + '/MySQL/uploads/icon_brand/b05.png',
               }}
             />
-            <Text style={[styles.Button_Bar_BoxText,stylesFont.FontFamilyText]}>ผ่อนชำระ 0%</Text>
+            <Text style={[styles.Button_Bar_BoxText, stylesFont.FontFamilyText]}>ผ่อนชำระ 0%</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -270,9 +270,9 @@ export class Deal_Calendar extends Component {
 
   render() {
     return (
-      <View style={[styleMain.FrameBackground,{backgroundColor:'#B5F5D1',}]}>
+      <View style={[styleMain.FrameBackground, { backgroundColor: '#B5F5D1', }]}>
         <View style={[styles.BoxText_T, { backgroundColor: '#5094EE', }]}>
-          <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize3,styles.Text_Head]}>ดีลเด็ดตามปฏิทิน</Text>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, styles.Text_Head]}>ดีลเด็ดตามปฏิทิน</Text>
         </View>
         <View style={styles.Deal_Calendar_Box}>
           <View style={styles.Deal_Calendar_BoxN}></View>
@@ -292,18 +292,20 @@ export class Deal_Today extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      
+
     };
   }
 
   render() {
     return (
-      <View style={[styleMain.FrameBackground,{backgroundColor:'#AF5F92'}]}>
+      <View style={[styleMain.FrameBackground, { backgroundColor: '#AF5F92' }]}>
         <View style={styles.BoxText_Row}>
           <View style={[styles.BoxText_T, { backgroundColor: '#D5CD5B', }]}>
-            <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize3,styles.Text_Head]}>ดีลเด็ดประจำวัน</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, styles.Text_Head]}>ดีลเด็ดประจำวัน</Text>
           </View>
-          <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize5,styles.Text_EndW]}>ดูทั้งหมด</Text>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Deal_Topic', { selectedIndex: 0 })} >
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, styles.Text_EndW]}>ดูทั้งหมด</Text>
+          </TouchableOpacity>
         </View>
         <View style={{ padding: 10, }}>
           <View style={styles.Deal_Today_Box}>
@@ -335,35 +337,35 @@ export class Deal_Today extends Component {
           </View>
         </View>
         <View>
-        <View style={{ padding: 10, }}>
-          <View style={styles.Deal_Today_Box}>
-          <Text style={stylesFont.FontFamilyText}> คูปองส่วนลดจากร้าน</Text>
-            <ScrollView horizontal>
-              <View style={styles.Deal_Today_BoxImage}>
-                <FastImage style={styles.Deal_Today_Coinimage}
-                  source={{
-                    uri: ip + '/MySQL/uploads/icon_brand/Coins_50.png',
-                  }}
-                />
-                <FastImage style={[styles.Deal_Today_Coinimage, { marginLeft: 5, }]}
-                  source={{
-                    uri: ip + '/MySQL/uploads/icon_brand/Coins_50.png',
-                  }}
-                />
-                <FastImage style={[styles.Deal_Today_Coinimage, { marginLeft: 5, }]}
-                  source={{
-                    uri: ip + '/MySQL/uploads/icon_brand/Coins_50.png',
-                  }}
-                />
-                <FastImage style={[styles.Deal_Today_Coinimage, { marginLeft: 5, }]}
-                  source={{
-                    uri: ip + '/MySQL/uploads/icon_brand/Coins_50.png',
-                  }}
-                />
-              </View>
-            </ScrollView>
+          <View style={{ padding: 10, }}>
+            <View style={styles.Deal_Today_Box}>
+              <Text style={stylesFont.FontFamilyText}> คูปองส่วนลดจากร้าน</Text>
+              <ScrollView horizontal>
+                <View style={styles.Deal_Today_BoxImage}>
+                  <FastImage style={styles.Deal_Today_Coinimage}
+                    source={{
+                      uri: ip + '/MySQL/uploads/icon_brand/Coins_50.png',
+                    }}
+                  />
+                  <FastImage style={[styles.Deal_Today_Coinimage, { marginLeft: 5, }]}
+                    source={{
+                      uri: ip + '/MySQL/uploads/icon_brand/Coins_50.png',
+                    }}
+                  />
+                  <FastImage style={[styles.Deal_Today_Coinimage, { marginLeft: 5, }]}
+                    source={{
+                      uri: ip + '/MySQL/uploads/icon_brand/Coins_50.png',
+                    }}
+                  />
+                  <FastImage style={[styles.Deal_Today_Coinimage, { marginLeft: 5, }]}
+                    source={{
+                      uri: ip + '/MySQL/uploads/icon_brand/Coins_50.png',
+                    }}
+                  />
+                </View>
+              </ScrollView>
+            </View>
           </View>
-        </View>
         </View>
       </View>
     );
@@ -382,16 +384,18 @@ export class Deal_Exclusive extends Component {
 
   render() {
     return (
-      <View style={[styleMain.FrameBackground,{backgroundColor:'#CABA5A'}]}>
+      <View style={[styleMain.FrameBackground, { backgroundColor: '#CABA5A' }]}>
         <View style={styles.BoxText_Row}>
           <View style={[styles.BoxText_T, { backgroundColor: '#6170F8', }]}>
-            <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize3,styles.Text_Head]}>ดีลสุด Exclusive</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, styles.Text_Head]}>ดีลสุด Exclusive</Text>
           </View>
-          <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize5,styles.Text_EndW]}>ดูทั้งหมด</Text>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Deal_Topic', { selectedIndex: 1 })} >
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, styles.Text_EndW]}>ดูทั้งหมด</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.Deal_Exclusive}>
           <View style={styles.Deal_Exclusive_BoxImageIcon}>
-            <Text style={[stylesFont.FontFamilyText,{color:'#FFFFFF'}]}>สินค้าลด 60% </Text>
+            <Text style={[stylesFont.FontFamilyText, { color: '#FFFFFF' }]}>สินค้าลด 60% </Text>
             <FastImage style={styles.Deal_Exclusive_Image}
               source={{
                 uri: ip + '/MySQL/uploads/icon_brand/ht.png',
@@ -428,7 +432,7 @@ export class Coupon_Store extends Component {
   render() {
     return (
       <View style={styleMain.FrameBackground}>
-       
+
       </View>
     );
   }
@@ -480,7 +484,7 @@ export class Second_Store extends Component {
           style={styles.Second_Store_Slide_image}
         />
         <View style={styles.Second_Store_Slide_BoxText}>
-          <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize5]}>ร้าน K.O.D สินค้ามือสอง ลดสูงสุด 50 %</Text>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ร้าน K.O.D สินค้ามือสอง ลดสูงสุด 50 %</Text>
         </View>
 
       </View>
@@ -506,7 +510,7 @@ export class Second_Store extends Component {
           }}
           inactiveDotStyle={{
             width: 15,
-            height: 5,              
+            height: 5,
             borderRadius: 5,
             backgroundColor: 'rgba(255, 255, 255, 0.92)',
           }}
@@ -556,14 +560,16 @@ export class Second_Store extends Component {
           }
         >
           <View style={styleMain.BoxProduct1Box}>
-            <FastImage
-              source={{
-                uri: dataMySQL,
+            <View style={styleMain.BoxProduct1ImageofLines}>
+              <FastImage
+                source={{
+                  uri: dataMySQL,
 
-              }}
-              style={styleMain.BoxProduct1Image}
+                }}
+                style={styleMain.BoxProduct1Image}
 
-            />
+              />
+            </View>
             <Text style={[styles.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize5]}>{item.name}</Text>
             <NumberFormat
               value={item.full_price}
@@ -583,9 +589,11 @@ export class Second_Store extends Component {
       <View style={styleMain.FrameBackground}>
         <View style={styles.BoxText_Row}>
           <View style={[styles.BoxText_T, { backgroundColor: '#95D370', }]}>
-            <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize3,styles.Text_Head]}>ร้านมือสองลดราคา</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, styles.Text_Head]}>ร้านมือสองลดราคา</Text>
           </View>
-          <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize5,styles.Text_EndB]}>ดูทั้งหมด</Text>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Deal_Topic', { selectedIndex: 2 })} >
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, styles.Text_EndB]}>ดูทั้งหมด</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.Second_Store}>
           <View style={styles.Second_Store_SlideA}>
@@ -638,9 +646,11 @@ export class Second_Store extends Component {
         </View>
         <View style={styles.BoxText_Row}>
           <View style={[styles.BoxText_T, { backgroundColor: '#E43333', }]}>
-            <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize3,styles.Text_Head]}>มือสองลดราคา</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, styles.Text_Head]}>มือสองลดราคา</Text>
           </View>
-          <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize5,styles.Text_EndB]}>ดูทั้งหมด</Text>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Deal_Topic', { selectedIndex: 3 })} >
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, styles.Text_EndB]}>ดูทั้งหมด</Text>
+          </TouchableOpacity>
         </View>
         <ScrollView horizontal>
           <View style={{ flexDirection: 'row', }}>{dataFlashSale}</View>
@@ -691,17 +701,17 @@ export class ProDed_Store extends Component {
             }}
             style={{ height: 100, width: 100, }}
           />
-          <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize6]}> ร้าน AVIRA ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่! </Text>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}> ร้าน AVIRA ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่! </Text>
         </View>
       )
     })
     return (
-      <View style={[styleMain.FrameBackground,{backgroundColor:'#9887E0'}]}>
+      <View style={[styleMain.FrameBackground, { backgroundColor: '#9887E0' }]}>
         <View style={styles.BoxText_Row}>
           <View style={[styles.BoxText_T, { backgroundColor: '#F1F193', }]}>
-            <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize3,{marginTop:3}]}>ร้านนี้มีโปรเด็ด</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { marginTop: 3 }]}>ร้านนี้มีโปรเด็ด</Text>
           </View>
-          <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize5,styles.Text_EndW]}>ดูทั้งหมด</Text>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, styles.Text_EndW]}>ดูทั้งหมด</Text>
         </View>
         <ScrollView horizontal>
           {dataNewStore}
@@ -723,12 +733,12 @@ export class ProDed_New_Store extends Component {
 
   render() {
     return (
-      <View style={[styleMain.FrameBackground,{backgroundColor:'#F9AFF5'}]}>
+      <View style={[styleMain.FrameBackground, { backgroundColor: '#F9AFF5' }]}>
         <View style={styles.BoxText_Row}>
           <View style={[styles.BoxText_T, { backgroundColor: '#F1F193', }]}>
-            <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize3,{marginTop:3}]}>โปรเด็ดร้านใหม่</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { marginTop: 3 }]}>โปรเด็ดร้านใหม่</Text>
           </View>
-          <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize5,styles.Text_EndW]}>ดูทั้งหมด</Text>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, styles.Text_EndW]}>ดูทั้งหมด</Text>
         </View>
         <View style={styles.ProDed_New_Store}>
           <View style={styles.ProDed_New_Store_Box}>
@@ -835,51 +845,53 @@ export class Shop_Deal_ForU extends Component {
     this.getFlashSale();
   }
 
-render() {
+  render() {
     let dataFlashSale = this.state.dataSale.map((item, indexs) => {
-        var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
-        return (
-            <TouchableOpacity
-              activeOpacity={1}
-              key={indexs}
-              onPress={
-                () => this.props.navigation.navigate(
-                  'DetailScreen', {
-                  id_item: item.id_product
-                })
-              }
-            >
-              <View style={styles.Deal_For_youBox}>
-                <FastImage
-                  source={{
-                    uri: dataMySQL,
-    
-                  }}
-                  style={[styleMain.BoxProduct1Image,{marginLeft:15,}]}
-    
-                />
-                <Text style={[styleMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize5]}>{item.name}</Text>
-                <NumberFormat
-                  value={item.full_price}
-                  displayType={'text'}
-                  thousandSeparator={true}
-                  prefix={'฿'}
-                  renderText={
-                    value => <Text style={[styleMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
-                      {value}
-                    </Text>}
-                />
-              </View>
-            </TouchableOpacity>
-          );
-        })
+      var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
+      return (
+        <TouchableOpacity
+          activeOpacity={1}
+          key={indexs}
+          onPress={
+            () => this.props.navigation.navigate(
+              'DetailScreen', {
+              id_item: item.id_product
+            })
+          }
+        >
+          <View style={styles.Deal_For_youBox}>
+            <View style={styleMain.BoxProduct1ImageofLines}>
+              <FastImage
+                source={{
+                  uri: dataMySQL,
+
+                }}
+                style={[styleMain.BoxProduct1Image, { marginLeft: 15, }]}
+
+              />
+            </View>
+            <Text style={[styleMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize5]}>{item.name}</Text>
+            <NumberFormat
+              value={item.full_price}
+              displayType={'text'}
+              thousandSeparator={true}
+              prefix={'฿'}
+              renderText={
+                value => <Text style={[styleMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
+                  {value}
+                </Text>}
+            />
+          </View>
+        </TouchableOpacity>
+      );
+    })
     return (
-      <View style={[styleMain.FrameBackground,{backgroundColor:'#5ACAC8'}]}>
+      <View style={[styleMain.FrameBackground, { backgroundColor: '#5ACAC8' }]}>
         <View style={styles.BoxText_Row}>
           <View style={[styles.BoxText_T, { backgroundColor: '#CB2342', }]}>
-            <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize3,styles.Text_Head]}>ช้อปทุกดีลเฉพาะคุณ</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, styles.Text_Head]}>ช้อปทุกดีลเฉพาะคุณ</Text>
           </View>
-          <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize5,styles.Text_EndW]}>ดูทั้งหมด</Text>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, styles.Text_EndW]}>ดูทั้งหมด</Text>
         </View>
         <View style={styles.Deal_For_you}>
           {dataFlashSale}

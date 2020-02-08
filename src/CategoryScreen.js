@@ -61,19 +61,19 @@ export default class CategoryScreen extends Component {
                             <View style={stylesTopic.BackgroundLeft}></View>
                         </TouchableOpacity>
                         <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNoBackground]}>
-                            <View style={{ height: '90%' }}>
+                            <View>
                                 <ScrollView>
                                     <SlideTabGet />
                                 </ScrollView>
-                            </View>
-                            <View style={[stylesMain.FlexRow, stylesMain.SafeAreaViewNoBackground, { marginTop: 8 }]}>
-                                <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
-                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
-                                        รีเซ็ต</Text>
-                                </View>
-                                <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset, { backgroundColor: '#0A55A6' }]}>
-                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, stylesFont.FontFamilyText, { color: '#fff' }]}>
-                                        เสร็จสิ้น</Text>
+                                <View style={[stylesMain.FlexRow, { height: 70 }]}>
+                                    <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
+                                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
+                                            รีเซ็ต</Text>
+                                    </View>
+                                    <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset, { backgroundColor: '#0A55A6' }]}>
+                                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, stylesFont.FontFamilyText, { color: '#fff' }]}>
+                                            เสร็จสิ้น</Text>
+                                    </View>
                                 </View>
                             </View>
                         </View>
@@ -159,13 +159,15 @@ export class Recommend_Store extends Component {
                             uri: dataMySQL,
                         }}
                         style={stylesTopic.Image}
+                        resizeMode={FastImage.resizeMode.stretch}
                     />
                 </View>
             )
         })
         return (
             <View style={stylesMain.FrameBackground}>
-                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize2]}>ร้านค้าที่แนะนำ</Text>
+                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+                    ร้านค้าที่แนะนำ</Text>
                 <ScrollView horizontal>
                     <View style={stylesMain.FlexRow}>
                         {dataPromotionPopular}
@@ -211,34 +213,45 @@ export class Product_Brand extends Component {
             //   console.log('Sale' + [ indexs, item.image ].join(' ')),
             var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
             return (
-                <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
-                    <View style={stylesMain.BoxProduct1Box} >
-                        <FastImage
-                            source={{
-                                uri: dataMySQL,
-                            }}
-                            style={stylesMain.BoxProduct1Image}
-
-                        />
-                        <Text style={[stylesMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize5]}>{item.name}</Text>
-                        <NumberFormat
-                            value={item.full_price}
-                            displayType={'text'}
-                            thousandSeparator={true}
-                            prefix={'฿'}
-                            renderText={
-                                value => <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-                                    {value}
-                                </Text>}
-                        />
+                <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen', {
+                    id_item: item.id_product
+                })}>
+                    <View style={stylesMain.BoxProduct1Box}>
+                        <View style={stylesMain.BoxProduct1ImageofLines}>
+                            <FastImage
+                                source={{
+                                    uri: dataMySQL,
+                                }}
+                                style={stylesMain.BoxProduct1Image}
+                                resizeMode={FastImage.resizeMode.contain}
+                            />
+                        </View>
+                        <View style={stylesMain.BoxProduct1NameofLines}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                                {item.name}</Text>
+                        </View>
+                        <View style={stylesMain.BoxProduct1PriceofLines}>
+                            <NumberFormat
+                                value={item.full_price}
+                                displayType={'text'}
+                                thousandSeparator={true}
+                                prefix={'฿'}
+                                renderText={value =>
+                                    <Text style={[
+                                        stylesMain.BoxProduct1ImagePrice, stylesFont.FontFamilyText, stylesFont.FontSize4
+                                    ]}>
+                                        {value}</Text>
+                                }
+                            />
+                        </View>
                     </View>
                 </TouchableOpacity>
             )
         })
         return (
-            <View style={stylesMain.FrameBackground}>
+            <View style={stylesMain.FrameBackground} >
                 <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize2]}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
                         สินค้าแบรนด์ดัง
                     </Text>
                 </View>

@@ -18,9 +18,12 @@ export default StyleSheet.create({
     ///--------------------------------FlashSaleScreen-----------------------------------------///
 
     FlashSale_Tag: {
-        height: 50, width: '100%',
-        padding: 5,
+        width: '100%',
+        paddingBottom: 12,
+        padding: 4,
         backgroundColor: '#FFFFFF',
+        borderColor: '#ECECEC',
+        borderWidth: 1,
         flexDirection: 'row',
         marginTop: 5,
     },
@@ -152,7 +155,7 @@ export default StyleSheet.create({
         marginHorizontal: 4
     },
     maxMinValue: {
-        width: 140, height: 40,
+        width: width * 0.3, height: 40,
         borderWidth: 1, borderRadius: 4
     },
     ///--------------------------------Recommend_Store-----------------------------------------///

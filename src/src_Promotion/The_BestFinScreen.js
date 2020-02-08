@@ -97,7 +97,6 @@ export class Fin_sale extends Component {
             <FastImage
               source={{
                 uri: dataMySQL,
-
               }}
               style={styleMain.BoxProduct1Image}
 

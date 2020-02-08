@@ -61,19 +61,19 @@ export default class ExclusiveScreen extends Component {
               <View style={stylesTopic.BackgroundLeft}></View>
             </TouchableOpacity>
             <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNoBackground]}>
-              <View style={{ height: '90%' }}>
+              <View>
                 <ScrollView>
                   <SlideTabGet />
                 </ScrollView>
-              </View>
-              <View style={[stylesMain.FlexRow, stylesMain.SafeAreaViewNoBackground, { marginTop: 8 }]}>
-                <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
-                  <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
-                    รีเซ็ต</Text>
-                </View>
-                <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset, { backgroundColor: '#0A55A6' }]}>
-                  <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, stylesFont.FontFamilyText, { color: '#fff' }]}>
-                    เสร็จสิ้น</Text>
+                <View style={[stylesMain.FlexRow, { height: 70 }]}>
+                  <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
+                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
+                      รีเซ็ต</Text>
+                  </View>
+                  <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset, { backgroundColor: '#0A55A6' }]}>
+                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, stylesFont.FontFamilyText, { color: '#fff' }]}>
+                      เสร็จสิ้น</Text>
+                  </View>
                 </View>
               </View>
             </View>
@@ -272,13 +272,14 @@ export class Button_Bar extends Component {
       <View>
         <View style={stylesTopic.Button_Bar}>
           <View style={stylesTopic.Button_Bar_BoxText}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>เรียงตาม</Text>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+              เรียงตาม</Text>
           </View>
           <View>
             <TabBar
               sendData={this.updateIndex}
               item={item}
-              limitBox={350}
+              limitBox={width * 0.7}
               activeColor={'#fff'}
               activeFontColor={'#0A55A6'}
               type='tag'

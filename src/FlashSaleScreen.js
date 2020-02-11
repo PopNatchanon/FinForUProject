@@ -20,8 +20,9 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { finip, ip } from '../navigator/IpConfig';
 import FastImage from 'react-native-fast-image';
-import { AppBar, Slide } from './src_Promotion/DealScreen';
+import { Slide } from './src_Promotion/DealScreen';
 import { TabBar } from './tools/Tools';
+import { AppBar1 } from './MainScreen';
 export const { width, height } = Dimensions.get('window');
 
 export default class FlashSaleScreen extends Component {
@@ -34,7 +35,7 @@ export default class FlashSaleScreen extends Component {
     render() {
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                <AppBar navigation={this.props.navigation} Title='FLASH SALE'/>
+                <AppBar1 backArrow navigation={this.props.navigation} titleHead='FLASH SALE'/>
                 <Slide />
                 <Time_FlashSale />
                 <ScrollView>

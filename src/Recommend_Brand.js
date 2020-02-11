@@ -19,7 +19,7 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { finip, ip } from '../navigator/IpConfig';
 import FastImage from 'react-native-fast-image';
-import { AppBar } from './src_Promotion/DealScreen';
+import { AppBar1 } from './MainScreen';
 export const { width, height } = Dimensions.get('window');
 
 export default class Recommend_Brand extends Component {
@@ -32,7 +32,7 @@ export default class Recommend_Brand extends Component {
     render() {
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                <AppBar navigation={this.props.navigation} Title='แบรนด์แนะนำ' />
+                <AppBar1  backArrow navigation={this.props.navigation} titleHead='แบรนด์แนะนำ' />
                 <ScrollView>
                     <Recommend_Brand_Store navigation={this.props.navigation}/>
                     <Recommend_Brand_Store navigation={this.props.navigation}/>

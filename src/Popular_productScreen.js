@@ -22,7 +22,7 @@ import { finip, ip } from '../navigator/IpConfig';
 import FastImage from 'react-native-fast-image';
 import { AppBar, Slide } from './src_Promotion/DealScreen';
 import { TabBar } from './tools/Tools';
-import { TodayProduct } from './MainScreen';
+import { TodayProduct, AppBar1 } from './MainScreen';
 export const { width, height } = Dimensions.get('window');
 
 export default class Popular_productScreen extends Component {
@@ -35,7 +35,7 @@ export default class Popular_productScreen extends Component {
         var id_item = this.props.navigation.getParam('id_item')
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                <AppBar navigation={this.props.navigation} Title='สินค้ายอดนิยม' />
+                <AppBar1 backArrow navigation={this.props.navigation} titleHead='สินค้ายอดนิยม' />
                 <Slide />
                 <Button_Bar id_item={id_item} />
                 <ScrollView>

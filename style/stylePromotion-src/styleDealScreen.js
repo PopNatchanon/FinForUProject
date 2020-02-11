@@ -25,7 +25,7 @@ export default StyleSheet.create({
     },
     slide: {
         height: 150,
-    },
+    }, 
     Box_Icon: {
         flexDirection: 'row',
         marginTop: 5,
@@ -72,7 +72,7 @@ export default StyleSheet.create({
         color: '#FFFFFF',
     },
     BoxText_T: {
-        width: 120,
+        width: 140,
         height: 30,
         marginTop: 10,
     },
@@ -94,10 +94,10 @@ export default StyleSheet.create({
         backgroundColor: '#FFFFFF',
     },
     Deal_Today_BoxImage: {
-        justifyContent: 'center',
-        height: 90,
-        flexDirection: 'row',
         padding: 10,
+        height: 80,
+        width: '100%',
+        flexDirection: 'row',
     },
     Deal_Today_Coinimage: {
         height: 70,
@@ -190,11 +190,12 @@ export default StyleSheet.create({
         paddingTop: 10,
     },
     ProDed_New_Store_Button: {
-        backgroundColor: '#C4C4C4',
+        backgroundColor: '#0A55A6',
         height: 20,
         width: 60,
         marginTop: 5,
-        borderRadius: 8,
+        borderRadius: 10,
+        alignItems: 'center',
     },
     Deal_For_you: {
         height: 'auto',
@@ -405,5 +406,38 @@ export default StyleSheet.create({
         backgroundColor: '#FFFF'
     },
 
+    ///--------------------------------รูปแบบคูปอง-----------------------------------------///
+
+    Coupon_BOX: {
+        marginLeft:10,
+        height: 70,
+        width: 180,
+        borderColor: '#111111',
+        borderWidth: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        borderRadius: 5
+    },
+    Coupon_BOX_A: {
+        height: '100%',
+        width: '40%',
+        alignItems: 'center',
+        paddingTop: 5
+        
+    },
+    Coupon_BOX_B: {
+        height: 30,
+        width: 50,
+        backgroundColor: '#597B91',
+        alignItems: 'center',
+        borderRadius: 5
+    },
+    Coupon_BOX_Text: {
+        backgroundColor: '#FFFFFF',
+        width: 50,
+        borderRadius: 50,
+        alignItems: 'center',
+        marginTop: 5
+    }
 
 })

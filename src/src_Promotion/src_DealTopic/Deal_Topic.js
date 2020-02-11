@@ -24,7 +24,7 @@ import stylesFont from '../../../style/stylesFont';
 export const { width, height } = Dimensions.get('window');
 import { AppBar } from '../DealScreen';
 import { Button_Bar } from '../../HighlightScreen';
-import { TodayProduct, Slide } from '../../MainScreen';
+import { TodayProduct, Slide, AppBar1 } from '../../MainScreen';
 import { Store_Detail } from '../../Recommend_Store';
 
 export default class Deal_Topic extends Component {
@@ -39,7 +39,7 @@ export default class Deal_Topic extends Component {
             case 0:
                 return (
                     <View>
-                        <AppBar navigation={this.props.navigation} />
+                        <AppBar1 backArrow navigation={this.props.navigation} />
                         <Deal_CuponToday navigation={this.props.navigation} />
                         <Button_Bar navigation={this.props.navigation} />
                     </View>
@@ -47,7 +47,7 @@ export default class Deal_Topic extends Component {
             case 1:
                 return (
                     <View>
-                        <AppBar navigation={this.props.navigation} Title='ดีลสุด Exclusive' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ดีลสุด Exclusive'  />
                         <Slide />
                         <Button_Bar navigation={this.props.navigation} />
                         <ScrollView>
@@ -58,7 +58,7 @@ export default class Deal_Topic extends Component {
             case 2:
                 return (
                     <View>
-                        <AppBar navigation={this.props.navigation} Title='ร้านค้ามือสองลดราคา' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ร้านค้ามือสองลดราคา' />
                         <Slide />
                         <Button_Bar />
                         <ScrollView>
@@ -72,7 +72,7 @@ export default class Deal_Topic extends Component {
             case 3:
                 return (
                     <View>
-                        <AppBar navigation={this.props.navigation} Title='สินค้ามือสองลดราคา' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='สินค้ามือสองลดราคา' />
                         <Slide />
                         <Button_Bar navigation={this.props.navigation} />
                         <ScrollView>
@@ -143,18 +143,4 @@ export class Deal_CuponToday extends Component {
 
 ///------------------------------------------------------------------------------------///
 
-export class Second_Store extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
 
-    render() {
-        return (
-            <View>
-                <Text>ร้านมือสอง</Text>
-            </View>
-        );
-    }
-}

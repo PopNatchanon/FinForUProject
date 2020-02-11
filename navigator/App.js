@@ -37,7 +37,6 @@ import Order_Detail from '../src/src_profile/Order_Detail';
 import Setting_Topic from '../src/src_profile/src_Setting/Setting_Topic';
 
 // src_storeMe
-
 import StoreMeScreen from '../src/src_storeMe/StoreMeScreen';
 import StoreMe_Setting from '../src/src_storeMe/StoreMe_Setting';
 import StoreMe_Up_Product from '../src/src_storeMe/StoreMe_Up_Product';
@@ -46,7 +45,6 @@ import StoreMe_Cancel from '../src/src_storeMe/StoreMe_Cancel';
 import Setting_TopicStore from '../src/src_storeMe/src_SettingStore/Setting_TopicStore';
 
 // src-Cart
-
 import Customer_account from '../src/src-Cart/Customer_account';
 import Customer_Order from '../src/src-Cart/Customer_Order';
 import Customer_Complete_Order from '../src/src-Cart/Customer_Complete_Order';
@@ -59,7 +57,9 @@ import CampaignScreen from '../src/src_Promotion/CampaignScreen';
 import The_BestFinScreen from '../src/src_Promotion/The_BestFinScreen';
 import Installment_payScreen from '../src/src_Promotion/Installment_payScreen';
 import Detail_Campaign from '../src/src_Promotion/Detail_Campaign';
+
 ///----------------------------------------------------------------------------------------------->>>>
+
 const PathScreen = createStackNavigator({
   MainScreen: {
     screen: MainScreen,
@@ -404,8 +404,8 @@ const PathScreen = createStackNavigator({
   },
 },
   {
-    // initialRouteName: 'MainScreen',
-    initialRouteName: 'DealScreen',
+    initialRouteName: 'MainScreen',
+    // initialRouteName: 'Second_productScreen',
     // initialRouteName: 'Customer_Order',
     // initialRouteName: 'Customer_account',
     // initialRouteName: 'ExclusiveScreen',

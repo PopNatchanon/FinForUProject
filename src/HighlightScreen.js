@@ -20,6 +20,7 @@ import FastImage from 'react-native-fast-image';
 import { AppBar, Slide } from './src_Promotion/DealScreen';
 import { TabBar } from './tools/Tools';
 import { FlashSale_Product } from './FlashSaleScreen';
+import { AppBar1 } from './MainScreen';
 export const { width, height } = Dimensions.get('window');
 
 export default class HighlightScreen extends Component {
@@ -32,7 +33,7 @@ export default class HighlightScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.SafeAreaView}>
-        <AppBar navigation={this.props.navigation} Title='ไฮไลท์ประจำสัปดาห์'/>
+        <AppBar1  backArrow navigation={this.props.navigation} titleHead='ไฮไลท์ประจำสัปดาห์'/>
         <Slide />
         <Button_Bar />
         <ScrollView>

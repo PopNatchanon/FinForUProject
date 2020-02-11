@@ -20,7 +20,8 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { finip, ip } from '../../navigator/IpConfig';
 import FastImage from 'react-native-fast-image';
-import { AppBar, Slide, Button_Bar } from './DealScreen';
+import { AppBar1 } from '../MainScreen';
+import { Slide, Button_Bar } from './DealScreen';
 import { TabBar } from '../tools/Tools';
 export const { width, height } = Dimensions.get('window');
 
@@ -34,10 +35,10 @@ export default class CampaignScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styleMain.SafeAreaView}>
-        <AppBar navigation={this.props.navigation} Title='แคมเปญ'/>
+        <AppBar1 titleHead={'แคมเปญ'} backArrow searchBar chatBar navigation={this.props.navigation} />
         <ScrollView>
           <Slide />
-          <Campaign_tag navigation={this.props.navigation}/>
+          <Campaign_tag navigation={this.props.navigation} />
         </ScrollView>
         <Button_Bar navigation={this.props.navigation} />
       </SafeAreaView>
@@ -59,7 +60,7 @@ export class Campaign_tag extends Component {
       case 0:
         return (
           <View>
-            <CampaignBody navigation={this.props.navigation}/>
+            <CampaignBody navigation={this.props.navigation} />
           </View>
         )
       case 1:
@@ -145,7 +146,7 @@ export class CampaignBody extends Component {
               </View>
               <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Detail_Campaign')}>
                 <View style={styles.CampaignBody_Button}>
-                  <Text style={[stylesFont.FontFamilyBold,styles.CampaignBody_ButtonText]}>รายละเอียด</Text>
+                  <Text style={[stylesFont.FontFamilyBold, styles.CampaignBody_ButtonText]}>รายละเอียด</Text>
                 </View>
               </TouchableOpacity>
             </View>

@@ -1430,8 +1430,10 @@ export class CategoryProduct extends Component {
                         <View style={stylesMain.FrameBackgroundTextBox}>
                             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
                                 {item.name}</Text>
+                                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('CategoryScreen')}>
                             <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                                 ดูทั้งหมด</Text>
+                                </TouchableOpacity>
                         </View>
                         <FastImage
                             source={{
@@ -1550,13 +1552,13 @@ export class CategoryProductSubProduct extends Component {
                             </View>
                         </View>
                     </View>
-                </TouchableOpacity >
+                </TouchableOpacity>
             );
         })
         return (
             <ScrollView horizontal>
                 {dataCategoryProductSubProduct}
-            </ScrollView >
+            </ScrollView>
         )
     }
 }

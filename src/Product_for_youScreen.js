@@ -8,7 +8,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { AppBar, Slide } from './src_Promotion/DealScreen';
-import { TodayProduct } from './MainScreen';
+import { TodayProduct, AppBar1 } from './MainScreen';
 import { Button_Bar, SlideTab, PricesSlide } from './ExclusiveScreen';
 import stylesTopic from '../style/styleTopic';
 import stylesMain from '../style/StylesMainScreen';
@@ -31,7 +31,7 @@ export default class Product_for_youScreen extends Component {
     const { sliderVisible } = this.state
     return (
       <SafeAreaView>
-        <AppBar navigation={this.props.navigation} Title='FIN คัดมาเพื่อคุณ' />
+        <AppBar1 backArrow navigation={this.props.navigation} titleHead='FIN คัดมาเพื่อคุณ' />
         <Slide />
         <Button_Bar setSliderVisible={this.setSlider} getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
         <ScrollView>

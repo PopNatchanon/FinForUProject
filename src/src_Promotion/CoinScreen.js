@@ -18,9 +18,9 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { finip, ip } from '../../navigator/IpConfig';
 import FastImage from 'react-native-fast-image';
-import { AppBar, Slide, Button_Bar } from './DealScreen';
+import { Slide, Button_Bar } from './DealScreen';
 import { CoinCollect } from '../ProfileScreen';
-import { TodayProduct } from '../MainScreen';
+import { TodayProduct, AppBar1 } from '../MainScreen';
 import stylesFont from '../../style/stylesFont';
 export const { width, height } = Dimensions.get('window');
 
@@ -35,13 +35,13 @@ export default class CoinScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styleMain.SafeAreaView}>
-        <AppBar navigation={this.props.navigation} Title='FIN COINS' />
+        <AppBar1 titleHead={'FIN COINS'} backArrow searchBar chatBar navigation={this.props.navigation} />
         <ScrollView>
           <Slide />
-          <View style={[styles.BoxText_T, { backgroundColor: '#C4C4C4', }]}><Text style={[stylesFont.FontFamilyBold ,stylesFont.FontSize3]}>FIN COIN </Text></View>
+          <View style={[styles.BoxText_T, { backgroundColor: '#C4C4C4', }]}><Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>FIN COIN </Text></View>
           <CoinCollect />
-          <View style={[styles.BoxText_T, { backgroundColor: '#C4C4C4', }]}><Text style={stylesFont.FontFamilyBold ,stylesFont.FontSize3}> FIN จัดหนักรับ COIN เพิ่ม </Text></View>
-          <TodayProduct noTitle/>
+          <View style={[styles.BoxText_T, { backgroundColor: '#C4C4C4', }]}><Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}> FIN จัดหนักรับ COIN เพิ่ม </Text></View>
+          <TodayProduct noTitle />
         </ScrollView>
         <Button_Bar navigation={this.props.navigation} />
       </SafeAreaView>

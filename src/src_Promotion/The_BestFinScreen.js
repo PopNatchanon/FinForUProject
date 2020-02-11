@@ -19,8 +19,8 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { finip, ip } from '../../navigator/IpConfig';
 import FastImage from 'react-native-fast-image';
-import { AppBar, Slide, Button_Bar, } from './DealScreen';
-import { TabBar } from '../tools/Tools';
+import { Slide, Button_Bar, } from './DealScreen';
+import { AppBar1 } from '../MainScreen';
 import stylesFont from '../../style/stylesFont';
 export const { width, height } = Dimensions.get('window');
 
@@ -34,7 +34,7 @@ export default class The_BestFinScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styleMain.SafeAreaView}>
-        <AppBar navigation={this.props.navigation} Title='สุดคุ้มสุดฟิน' />
+        <AppBar1 titleHead={'สุดคุ้มสุดฟิน'} backArrow searchBar chatBar navigation={this.props.navigation} />
         <ScrollView>
           <Slide />
           <Fin_sale navigation={this.props.navigation} />
@@ -94,13 +94,15 @@ export class Fin_sale extends Component {
           }
         >
           <View style={styleMain.BoxProduct1Box}>
-            <FastImage
-              source={{
-                uri: dataMySQL,
-              }}
-              style={styleMain.BoxProduct1Image}
+            <View style={styleMain.BoxProduct1ImageofLines}>
+              <FastImage
+                source={{
+                  uri: dataMySQL,
+                }}
+                style={styleMain.BoxProduct1Image}
 
-            />
+              />
+            </View>
             <Text style={[styleMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize5]}>{item.name}</Text>
             <NumberFormat
               value={item.full_price}
@@ -119,7 +121,7 @@ export class Fin_sale extends Component {
     return (
       <View >
         <View style={[styleMain.FrameBackground, { marginTop: 20, }]}>
-          <View style={[styles.BoxText_T, { backgroundColor: '#C4C4C4', marginTop: -10, }]}>
+          <View style={[styles.BoxText_T, { backgroundColor: '#C4C4C4', marginTop: -10, width: 160 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}> Fin จัดหนักลดสูงสุด 80 %  </Text>
           </View>
           <View style={styles.Fin_sale_BoxHead}>
@@ -178,14 +180,14 @@ export class Store_Sale extends Component {
           source={{
             uri: dataMySQL,
           }}
-          style={{height:'100%', width:'100%'}}
+          style={{ height: '100%', width: '100%' }}
         />
       </View>
     );
   }
 
   componentDidMount() {
-        this.getDataSlide()
+    this.getDataSlide()
   }
   get pagination() {
     const { dataSourceSlide, activeSlide } = this.state;
@@ -337,14 +339,16 @@ export class Product_Cool extends Component {
           }
         >
           <View style={[styles.Deal_For_youBox, { marginTop: 10 }]}>
-            <FastImage
-              source={{
-                uri: dataMySQL,
+            <View style={styleMain.BoxProduct1ImageofLines}>
+              <FastImage
+                source={{
+                  uri: dataMySQL,
 
-              }}
-              style={[styleMain.BoxProduct1Image, { marginLeft: 15, }]}
+                }}
+                style={[styleMain.BoxProduct1Image, { marginLeft: 15, }]}
 
-            />
+              />
+            </View>
             <Text style={[styleMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize5]}>{item.name}</Text>
             <NumberFormat
               value={item.full_price}
@@ -502,14 +506,14 @@ export class Second_Store extends Component {
           }
         >
           <View style={[styles.Deal_For_youBox, { marginTop: 10 }]}>
-            <FastImage
-              source={{
-                uri: dataMySQL,
-
-              }}
-              style={[styleMain.BoxProduct1Image, { marginLeft: 15 }]}
-
-            />
+            <View style={styleMain.BoxProduct1ImageofLines}>
+              <FastImage
+                source={{
+                  uri: dataMySQL,
+                }}
+                style={[styleMain.BoxProduct1Image, { marginLeft: 15 }]}
+              />
+            </View>
             <Text style={[styles.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize5]}>{item.name}</Text>
             <NumberFormat
               value={item.full_price}

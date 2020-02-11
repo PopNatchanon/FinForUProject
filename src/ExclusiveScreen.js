@@ -14,9 +14,9 @@ import stylesFont from '../style/stylesFont';
 import stylesDetail from "../style/StylesDetailScreen";
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconEntypo from 'react-native-vector-icons/Entypo';
-import { AppBar, Slide } from './src_Promotion/DealScreen';
+import { Slide } from './src_Promotion/DealScreen';
 import { TabBar } from './tools/Tools';
-import { TodayProduct } from './MainScreen';
+import { TodayProduct, AppBar1 } from './MainScreen';
 import SlidingView from 'rn-sliding-view';
 export const { width, height } = Dimensions.get('window');
 
@@ -35,7 +35,7 @@ export default class ExclusiveScreen extends Component {
     const { sliderVisible } = this.state
     return (
       <SafeAreaView style={stylesMain.SafeAreaView} >
-        <AppBar navigation={this.props.navigation} Title='สินค้าสุด Exclusive' />
+        <AppBar1  backArrow navigation={this.props.navigation} titleHead='สินค้าสุด Exclusive' />
         <Slide />
         <Button_Bar setSliderVisible={this.setSlider} getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
         <ScrollView>

@@ -51,39 +51,6 @@ export default class DealScreen extends Component {
   }
 }
 
-///-------------------------------------------------------------------------///
-
-export class AppBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      text: '',
-    };
-  }
-
-  render() {
-    const { Title, noIcon } = this.props
-    return (
-      <View style={stylesStore.Appbar}>
-        <View style={styleMain.FlexRow}>
-          <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
-            <IconFeather style={stylesDeal.Icon_appbar} name="arrow-left" size={30} />
-          </TouchableOpacity>
-          <Text style={[stylesDeal.Text_appbar, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>{Title ? Title : 'ดีลสุดคุ้ม'}</Text>
-        </View>
-        {noIcon ?
-          null :
-          <View style={{ flexDirection: 'row', marginTop: 5, margin: 10, }}>
-            <IconAntDesign RightItem name="search1" size={25} style={stylesDeal.Icon_appbar} />
-            <IconAntDesign RightItem name="message1" size={25} style={stylesDeal.Icon_appbar} />
-          </View>
-        }
-      </View>
-    );
-  }
-}
-
-
 ///----------------------------------slide----------------------------------------///
 
 export class Slide extends Component {
@@ -276,10 +243,34 @@ export class Deal_Calendar extends Component {
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, stylesDeal.Text_Head]}>ดีลเด็ดตามปฏิทิน</Text>
           </View>
           <View style={stylesDeal.Deal_Calendar_Box}>
-            <View style={stylesDeal.Deal_Calendar_BoxN}></View>
-            <View style={stylesDeal.Deal_Calendar_BoxN}></View>
-            <View style={stylesDeal.Deal_Calendar_BoxN}></View>
-            <View style={stylesDeal.Deal_Calendar_BoxN}></View>
+            <View style={stylesDeal.Deal_Calendar_BoxN}>
+              <FastImage style={{ height: '100%', width: '100%' }}
+                source={{
+                  uri: ip + '/MySQL/uploads/Deal_Today/ded1.jpg',
+                }}
+              />
+            </View>
+            <View style={stylesDeal.Deal_Calendar_BoxN}>
+              <FastImage style={{ height: '100%', width: '100%' }}
+                source={{
+                  uri: ip + '/MySQL/uploads/Deal_Today/ded2.jpg',
+                }}
+              />
+            </View>
+            <View style={stylesDeal.Deal_Calendar_BoxN}>
+              <FastImage style={{ height: '100%', width: '100%' }}
+                source={{
+                  uri: ip + '/MySQL/uploads/Deal_Today/ded6.jpg',
+                }}
+              />
+            </View>
+            <View style={stylesDeal.Deal_Calendar_BoxN}>
+              <FastImage style={{ height: '100%', width: '100%' }}
+                source={{
+                  uri: ip + '/MySQL/uploads/Deal_Today/ded5.jpg',
+                }}
+              />
+            </View>
           </View>
         </View>
       </View>
@@ -313,26 +304,70 @@ export class Deal_Today extends Component {
             <Text style={stylesFont.FontFamilyText}> คูปองส่วนลดจาก FIN</Text>
             <ScrollView horizontal>
               <View style={stylesDeal.Deal_Today_BoxImage}>
-                <FastImage style={stylesDeal.Deal_Today_Coinimage}
-                  source={{
-                    uri: ip + '/MySQL/uploads/icon_brand/Coins_50.png',
-                  }}
-                />
-                <FastImage style={[stylesDeal.Deal_Today_Coinimage, { marginLeft: 5, }]}
-                  source={{
-                    uri: ip + '/MySQL/uploads/icon_brand/Coins_50.png',
-                  }}
-                />
-                <FastImage style={[stylesDeal.Deal_Today_Coinimage, { marginLeft: 5, }]}
-                  source={{
-                    uri: ip + '/MySQL/uploads/icon_brand/Coins_50.png',
-                  }}
-                />
-                <FastImage style={[stylesDeal.Deal_Today_Coinimage, { marginLeft: 5, }]}
-                  source={{
-                    uri: ip + '/MySQL/uploads/icon_brand/Coins_50.png',
-                  }}
-                />
+                <View style={stylesDeal.Coupon_BOX}>
+                  <View style={{ margin: 10 }}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>รับเงินคืน 50% Coins</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>ใช้ได้ก่อน 31-01-2020</Text>
+                  </View>
+                  <View style={[stylesDeal.Coupon_BOX_A,{ backgroundColor: '#86CFFF',}]}>
+                    <View style={stylesDeal.Coupon_BOX_B}>
+                      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: '#FFFFFF' }]}>50%</Text>
+                    </View>
+                    <TouchableOpacity>
+                      <View style={stylesDeal.Coupon_BOX_Text}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>เก็บ</Text>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                <View style={stylesDeal.Coupon_BOX}>
+                  <View style={{ margin: 10 }}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>รับเงินคืน 50% Coins</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>ใช้ได้ก่อน 31-01-2020</Text>
+                  </View>
+                  <View style={[stylesDeal.Coupon_BOX_A,{ backgroundColor: '#86CFFF',}]}>
+                    <View style={stylesDeal.Coupon_BOX_B}>
+                      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: '#FFFFFF' }]}>50%</Text>
+                    </View>
+                    <TouchableOpacity>
+                      <View style={stylesDeal.Coupon_BOX_Text}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>เก็บ</Text>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                <View style={stylesDeal.Coupon_BOX}>
+                  <View style={{ margin: 10 }}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>รับเงินคืน 50% Coins</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>ใช้ได้ก่อน 31-01-2020</Text>
+                  </View>
+                  <View style={[stylesDeal.Coupon_BOX_A,{ backgroundColor: '#86CFFF',}]}>
+                    <View style={stylesDeal.Coupon_BOX_B}>
+                      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: '#FFFFFF' }]}>50%</Text>
+                    </View>
+                    <TouchableOpacity>
+                      <View style={stylesDeal.Coupon_BOX_Text}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>เก็บ</Text>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                <View style={stylesDeal.Coupon_BOX}>
+                  <View style={{ margin: 10 }}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>รับเงินคืน 50% Coins</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>ใช้ได้ก่อน 31-01-2020</Text>
+                  </View>
+                  <View style={[stylesDeal.Coupon_BOX_A,{ backgroundColor: '#86CFFF',}]}>
+                    <View style={stylesDeal.Coupon_BOX_B}>
+                      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: '#FFFFFF' }]}>50%</Text>
+                    </View>
+                    <TouchableOpacity>
+                      <View style={stylesDeal.Coupon_BOX_Text}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>เก็บ</Text>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                </View>
               </View>
             </ScrollView>
           </View>
@@ -343,26 +378,70 @@ export class Deal_Today extends Component {
               <Text style={stylesFont.FontFamilyText}> คูปองส่วนลดจากร้าน</Text>
               <ScrollView horizontal>
                 <View style={stylesDeal.Deal_Today_BoxImage}>
-                  <FastImage style={stylesDeal.Deal_Today_Coinimage}
-                    source={{
-                      uri: ip + '/MySQL/uploads/icon_brand/Coins_50.png',
-                    }}
-                  />
-                  <FastImage style={[stylesDeal.Deal_Today_Coinimage, { marginLeft: 5, }]}
-                    source={{
-                      uri: ip + '/MySQL/uploads/icon_brand/Coins_50.png',
-                    }}
-                  />
-                  <FastImage style={[stylesDeal.Deal_Today_Coinimage, { marginLeft: 5, }]}
-                    source={{
-                      uri: ip + '/MySQL/uploads/icon_brand/Coins_50.png',
-                    }}
-                  />
-                  <FastImage style={[stylesDeal.Deal_Today_Coinimage, { marginLeft: 5, }]}
-                    source={{
-                      uri: ip + '/MySQL/uploads/icon_brand/Coins_50.png',
-                    }}
-                  />
+                <View style={stylesDeal.Coupon_BOX}>
+                  <View style={{ margin: 10 }}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>รับเงินคืน 50% Coins</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>ใช้ได้ก่อน 31-01-2020</Text>
+                  </View>
+                  <View style={[stylesDeal.Coupon_BOX_A,{ backgroundColor: '#E43333',}]}>
+                    <View style={stylesDeal.Coupon_BOX_B}>
+                      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: '#FFFFFF' }]}>50%</Text>
+                    </View>
+                    <TouchableOpacity>
+                      <View style={stylesDeal.Coupon_BOX_Text}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>เก็บ</Text>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                <View style={stylesDeal.Coupon_BOX}>
+                  <View style={{ margin: 10 }}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>รับเงินคืน 50% Coins</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>ใช้ได้ก่อน 31-01-2020</Text>
+                  </View>
+                  <View style={[stylesDeal.Coupon_BOX_A,{ backgroundColor: '#E43333',}]}>
+                    <View style={stylesDeal.Coupon_BOX_B}>
+                      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: '#FFFFFF' }]}>50%</Text>
+                    </View>
+                    <TouchableOpacity>
+                      <View style={stylesDeal.Coupon_BOX_Text}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>เก็บ</Text>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                <View style={stylesDeal.Coupon_BOX}>
+                  <View style={{ margin: 10 }}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>รับเงินคืน 50% Coins</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>ใช้ได้ก่อน 31-01-2020</Text>
+                  </View>
+                  <View style={[stylesDeal.Coupon_BOX_A,{ backgroundColor: '#E43333',}]}>
+                    <View style={stylesDeal.Coupon_BOX_B}>
+                      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: '#FFFFFF' }]}>50%</Text>
+                    </View>
+                    <TouchableOpacity>
+                      <View style={stylesDeal.Coupon_BOX_Text}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>เก็บ</Text>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                <View style={stylesDeal.Coupon_BOX}>
+                  <View style={{ margin: 10 }}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>รับเงินคืน 50% Coins</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>ใช้ได้ก่อน 31-01-2020</Text>
+                  </View>
+                  <View style={[stylesDeal.Coupon_BOX_A,{ backgroundColor: '#E43333',}]}>
+                    <View style={stylesDeal.Coupon_BOX_B}>
+                      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: '#FFFFFF' }]}>50%</Text>
+                    </View>
+                    <TouchableOpacity>
+                      <View style={stylesDeal.Coupon_BOX_Text}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>เก็บ</Text>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                </View>
                 </View>
               </ScrollView>
             </View>
@@ -714,7 +793,7 @@ export class ProDed_Store extends Component {
       <View style={[styleMain.FrameBackground, { backgroundColor: '#9887E0', width: '100%' }]}>
         <View style={stylesDeal.BoxText_Row}>
           <View style={[stylesDeal.BoxText_T, { backgroundColor: '#F1F193', marginLeft: -3 }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { marginTop: 3 }]}>ร้านนี้มีโปรเด็ด</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { marginTop: 3 ,marginLeft:8}]}>ร้านนี้มีโปรเด็ด</Text>
           </View>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_EndW]}>ดูทั้งหมด</Text>
         </View>
@@ -741,9 +820,8 @@ export class ProDed_New_Store extends Component {
       <View style={[styleMain.FrameBackground, { backgroundColor: '#F9AFF5', width: '100%' }]}>
         <View style={stylesDeal.BoxText_Row}>
           <View style={[stylesDeal.BoxText_T, { backgroundColor: '#F1F193', marginLeft: -3 }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { marginTop: 3 }]}>โปรเด็ดร้านใหม่</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { marginTop: 3, marginLeft:8 }]}>โปรเด็ดร้านใหม่</Text>
           </View>
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_EndW]}>ดูทั้งหมด</Text>
         </View>
         <View style={stylesDeal.ProDed_New_Store}>
           <View style={stylesDeal.ProDed_New_Store_Box}>
@@ -753,7 +831,11 @@ export class ProDed_New_Store extends Component {
                   uri: ip + '/MySQL/uploads/icon_brand/brand1.png',
                 }}
               />
-              <View style={stylesDeal.ProDed_New_Store_Button}></View>
+              <TouchableOpacity>
+                <View style={stylesDeal.ProDed_New_Store_Button}>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
+                </View>
+              </TouchableOpacity>
             </View>
             <View style={stylesDeal.ProDed_New_Store_Boximage}>
               <FastImage style={{ height: 60, width: 60, }}
@@ -761,7 +843,11 @@ export class ProDed_New_Store extends Component {
                   uri: ip + '/MySQL/uploads/icon_brand/brand2.png',
                 }}
               />
-              <View style={stylesDeal.ProDed_New_Store_Button}></View>
+              <TouchableOpacity>
+                <View style={stylesDeal.ProDed_New_Store_Button}>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
+                </View>
+              </TouchableOpacity>
             </View>
             <View style={stylesDeal.ProDed_New_Store_Boximage}>
               <FastImage style={{ height: 60, width: 60, }}
@@ -769,7 +855,11 @@ export class ProDed_New_Store extends Component {
                   uri: ip + '/MySQL/uploads/icon_brand/brand3.png',
                 }}
               />
-              <View style={stylesDeal.ProDed_New_Store_Button}></View>
+              <TouchableOpacity>
+                <View style={stylesDeal.ProDed_New_Store_Button}>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
+                </View>
+              </TouchableOpacity>
             </View>
             <View style={stylesDeal.ProDed_New_Store_Boximage}>
               <FastImage style={{ height: 60, width: 60, }}
@@ -777,7 +867,11 @@ export class ProDed_New_Store extends Component {
                   uri: ip + '/MySQL/uploads/icon_brand/brand4.png',
                 }}
               />
-              <View style={stylesDeal.ProDed_New_Store_Button}></View>
+              <TouchableOpacity>
+                <View style={stylesDeal.ProDed_New_Store_Button}>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
+                </View>
+              </TouchableOpacity>
             </View>
           </View>
           <View style={stylesDeal.ProDed_New_Store_Box}>
@@ -787,7 +881,11 @@ export class ProDed_New_Store extends Component {
                   uri: ip + '/MySQL/uploads/icon_brand/brand3.png',
                 }}
               />
-              <View style={stylesDeal.ProDed_New_Store_Button}></View>
+              <TouchableOpacity>
+                <View style={stylesDeal.ProDed_New_Store_Button}>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
+                </View>
+              </TouchableOpacity>
             </View>
             <View style={stylesDeal.ProDed_New_Store_Boximage}>
               <FastImage style={{ height: 60, width: 60, }}
@@ -795,7 +893,11 @@ export class ProDed_New_Store extends Component {
                   uri: ip + '/MySQL/uploads/icon_brand/brand9.png',
                 }}
               />
-              <View style={stylesDeal.ProDed_New_Store_Button}></View>
+              <TouchableOpacity>
+                <View style={stylesDeal.ProDed_New_Store_Button}>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
+                </View>
+              </TouchableOpacity>
             </View>
             <View style={stylesDeal.ProDed_New_Store_Boximage}>
               <FastImage style={{ height: 60, width: 60, }}
@@ -803,7 +905,11 @@ export class ProDed_New_Store extends Component {
                   uri: ip + '/MySQL/uploads/icon_brand/brand25.png',
                 }}
               />
-              <View style={stylesDeal.ProDed_New_Store_Button}></View>
+              <TouchableOpacity>
+                <View style={stylesDeal.ProDed_New_Store_Button}>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
+                </View>
+              </TouchableOpacity>
             </View>
             <View style={stylesDeal.ProDed_New_Store_Boximage}>
               <FastImage style={{ height: 60, width: 60, }}
@@ -811,7 +917,11 @@ export class ProDed_New_Store extends Component {
                   uri: ip + '/MySQL/uploads/icon_brand/brand5.png',
                 }}
               />
-              <View style={stylesDeal.ProDed_New_Store_Button}></View>
+              <TouchableOpacity>
+                <View style={stylesDeal.ProDed_New_Store_Button}>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
+                </View>
+              </TouchableOpacity>
             </View>
           </View>
         </View>

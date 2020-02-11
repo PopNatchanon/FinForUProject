@@ -67,7 +67,6 @@ export class Fin_sale extends Component {
       url,
       dataBody,
     ).then((getData) => {
-      // console.log(getData.data);
       this.setState({
         dataSale: getData.data,
       })
@@ -163,7 +162,6 @@ export class Store_Sale extends Component {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        // console.log("responseJson")
         this.setState({
           dataSourceSlide: responseJson,
         })
@@ -191,7 +189,6 @@ export class Store_Sale extends Component {
   }
   get pagination() {
     const { dataSourceSlide, activeSlide } = this.state;
-    // console.log(width)
     return (
       <View style={{ marginTop: -60 }}>
         <Pagination
@@ -313,7 +310,6 @@ export class Product_Cool extends Component {
       url,
       dataBody,
     ).then((getData) => {
-      // console.log(getData.data);
       this.setState({
         dataSale: getData.data,
       })
@@ -410,7 +406,6 @@ export class Second_Store extends Component {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        // console.log("responseJson")
         this.setState({
           dataSourceSlide: responseJson,
         })
@@ -439,7 +434,6 @@ export class Second_Store extends Component {
 
   get pagination() {
     const { dataSourceSlide, activeSlide } = this.state;
-    // console.log(width)
     return (
       <View style={{ marginTop: -60 }}>
         <Pagination
@@ -478,7 +472,6 @@ export class Second_Store extends Component {
       url,
       dataBody,
     ).then((getData) => {
-      // console.log(getData.data);
       this.setState({
         dataSale: getData.data,
       })

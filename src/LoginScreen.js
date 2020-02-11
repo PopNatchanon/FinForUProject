@@ -88,7 +88,6 @@ export class Login extends Component {
     } catch (e) {
       // clear error
     }
-    // console.log('Done.')
   }
   getData = async () => {
     const { user } = this.state;

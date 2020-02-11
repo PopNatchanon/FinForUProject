@@ -19,8 +19,7 @@ export default StyleSheet.create({
 
     FlashSale_Tag: {
         width: '100%',
-        paddingBottom: 12,
-        padding: 4,
+        paddingVertical: 4,
         backgroundColor: '#FFFFFF',
         borderColor: '#ECECEC',
         borderWidth: 1,
@@ -28,7 +27,6 @@ export default StyleSheet.create({
         marginTop: 5,
     },
     FlashSale_Product: {
-        flex: 1,
         backgroundColor: '#FFFFFF',
         marginTop: 5,
     },

@@ -11,14 +11,20 @@ export default StyleSheet.create({
   },
   ///------------///
   BoxProduct1Box: {
-    backgroundColor: '#FFFFFF', width: 110,
+    backgroundColor: '#FFFFFF', width: 115,
     borderColor: '#ECECEC', borderWidth: 1,
-    marginTop: 10, marginBottom: 8,
-    marginLeft: 10,
+    marginTop: 6, marginBottom: 4,
+    marginLeft: 4,
+  },
+  BoxProduct1Box2: {
+    backgroundColor: '#FFFFFF', width: 115,
+    borderColor: '#ECECEC', borderWidth: 1,
+    marginTop: 4,
+    marginLeft: 4,
   },
   BoxProduct1ImageofLines: {
-    width: 108,
-    height: 108,
+    width: 113,
+    height: 113,
   },
   BoxProduct1Image: {
     width: '100%',
@@ -47,7 +53,6 @@ export default StyleSheet.create({
   },
   BoxProduct1PriceofLines: {
     width: '100%',
-    flexDirection: 'row',
   },
   BoxProduct1ImagePrice: {
     color: '#0A55A6',
@@ -207,6 +212,35 @@ export default StyleSheet.create({
   BoxProduct4PlusButtonFollowText: {
     textAlign: 'center',
     color: '#FFFF'
+  },
+
+  ///------------///
+  BoxProduct5Box: {
+    backgroundColor: '#FFFFFF', width: 85,
+    borderColor: '#ECECEC', borderWidth: 1,
+    marginTop: 6, marginBottom: 4,
+    marginLeft: 4,
+  },
+  BoxProduct5ImageofLines: {
+    width: 83,
+    height: 83,
+  },
+  BoxProduct5Image: {
+    width: '100%',
+    height: '100%',
+  },
+  BoxProduct5NameofLines: {
+    width: '100%',
+  },
+  BoxProduct5PriceofLines: {
+    width: '100%',
+  },
+  BoxProduct5ImagePrice: {
+    color: '#0A55A6',
+  },
+  BoxProduct5ImagePriceThrough: {
+    color: '#C4C4C4',
+    textDecorationLine: 'line-through',
   },
   ///------------///
   BoxStore1Box: {
@@ -450,7 +484,6 @@ export default StyleSheet.create({
     width: 117,
     marginLeft: 2,
     marginTop: 2,
-    marginBottom: 2,
   },
   ImageMargin: {
     marginBottom: -20
@@ -539,7 +572,7 @@ export default StyleSheet.create({
     height: 70,
   },
   Product_for_you: {
-    height: 410,
+    height: 370,
     marginTop: 10,
   },
   ///------------------------------------------------------------------///

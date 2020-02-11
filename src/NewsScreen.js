@@ -37,7 +37,6 @@ export default class NewsScreen extends Component {
         this.getData = this.getData.bind(this)
     }
     getData(val) {
-        // console.log(val);
         this.setState({
             selectedIndex: val
         });
@@ -70,7 +69,6 @@ export class MenuBar extends Component {
         this.getData = this.getData.bind(this)
     }
     getData(val) {
-        // console.log(val);
         this.setState({
             selectedIndex: val
         });

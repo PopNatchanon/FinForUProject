@@ -66,7 +66,6 @@ export class Popular_store extends Component {
             url,
             dataBody,
         ).then((getData) => {
-            // console.log(getData.data);
             this.setState({
                 dataStore: getData.data,
             })
@@ -77,11 +76,9 @@ export class Popular_store extends Component {
     }
     render() {
         const text = 'ร้าน AVIRA ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!';
-        // console.log(text.length)
         const textnote = {} = text.split('\n')
         var countnote = 0
         textnote.map((item, index) => { if (index < 5) { return (countnote = countnote + item.length) } })
-        // console.log(countnote)
         let dataNewStore = this.state.dataStore.map((item, indexs) => {
             var dataMySQL = [ip + '/mysql/uploads/slide/NewStore', item.image].join('/');
             return (

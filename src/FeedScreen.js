@@ -37,7 +37,6 @@ export default class FeedScreen extends Component {
     this.getData = this.getData.bind(this)
   }
   getData(val) {
-    // console.log(val);
     this.setState({
       selectedIndex: val
     });
@@ -70,7 +69,6 @@ export class MenuBar extends Component {
     this.getData = this.getData.bind(this)
   }
   getData(val) {
-    // console.log(val);
     this.props.sendText(val);
   }
   render() {
@@ -152,7 +150,6 @@ export class Highlights extends Component {
       dataBody,
     )
       .then((getData) => {
-        //   console.log(getData.data);
         this.setState({
           dataSourceStoreFeed: getData.data,
         })
@@ -164,10 +161,8 @@ export class Highlights extends Component {
   render() {
     const { Follow, navigation } = this.props
     let dataToday = this.state.dataSourceStoreFeed.map((item, indexs) => {
-      // console.log(item);
       var dataMySQL_s = [ip + '/mysql/uploads/slide/NewStore', item.s_image].join('/');
       var dataMySQL_p = [ip + '/mysql/uploads/products', item.p_image].join('/');
-      // console.log(dataMySQL_s)
       return (
         <View style={[stylesMain.BoxProduct4Box]} key={indexs}>
           <View style={stylesMain.BoxProduct4PlusHeader}>

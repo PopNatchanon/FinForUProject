@@ -277,7 +277,6 @@ export class Notification_From extends Component {
     getDataMo(itemValue) {
         const { date } = this.state
         if (itemValue != null) {
-            // console.log(itemValue)
             const item = String(itemValue)
             this.setState({ date: new Date(date).setFullYear(item) })
             var box = [];
@@ -290,7 +289,6 @@ export class Notification_From extends Component {
     getDataDay(itemValue) {
         const { date } = this.state
         if (itemValue != null) {
-            // console.log(itemValue)
             const item = String(itemValue)
             this.setState({ date: new Date(date).setMonth(item) })
             var box = [];

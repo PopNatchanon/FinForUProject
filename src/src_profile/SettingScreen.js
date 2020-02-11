@@ -51,8 +51,6 @@ export class ListMenu extends Component {
         } catch (e) {
             // clear error
         }
-
-        // console.log('Done.')
     }
     render() {
         return (

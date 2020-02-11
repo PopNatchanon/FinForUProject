@@ -79,9 +79,7 @@ export class StoreHead extends Component {
     }
     render() {
         const { item } = this.props;
-        // console.log(item)
         var dataMySQL = [ip + '/mysql/uploads/slide/NewStore', item.image].join('/')
-        // console.log(dataMySQL)
         return (
             <View style={stylesStore.StoreHead}>
                 <View>
@@ -134,7 +132,6 @@ export class StoreHeadDetails extends Component {
     }
     getDataStoreHeadDetails(s_id_store) {
         var url = ip + '/mysql/DataServiceStore.php';
-        // console.log(url)
         var dataBody = {
             type: 'storedatadetail',
             id: s_id_store
@@ -143,7 +140,6 @@ export class StoreHeadDetails extends Component {
             url,
             dataBody,
         ).then((getData) => {
-            // console.log(getData.data);
             this.setState({
                 dataSourceStoreHeadDetails: getData.data,
             })
@@ -210,7 +206,6 @@ export class Menubar extends Component {
         ).start(); // Don't forget start!
     }
     getData(val) {
-        // console.log(val);
         this.setState({
             selectedIndex: val
         });
@@ -290,7 +285,6 @@ export class Banner extends Component {
             url,
             dataBody,
         ).then((getData) => {
-            // console.log(getData.data);
             this.setState({
                 dataSourceSlide: getData.data,
             })
@@ -316,7 +310,6 @@ export class Banner extends Component {
     }
     get pagination() {
         const { dataSourceSlide, activeSlide } = this.state;
-        // console.log(width)
         return (
             <View style={stylesStore.SlideBox}>
                 <Pagination
@@ -476,7 +469,6 @@ export class DealTop extends Component {
             url,
             dataBody,
         ).then((getData) => {
-            // console.log(getData.data);
             this.setState({
                 dataSale: getData.data,
             })
@@ -487,7 +479,6 @@ export class DealTop extends Component {
     }
     render() {
         let dataDealTop = this.state.dataSale.map((item, indexs) => {
-            //   console.log('Sale' + [ indexs, item.image ].join(' ')),
             var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs}
@@ -545,7 +536,6 @@ export class NewProduct extends Component {
             url,
             dataBody,
         ).then((getData) => {
-            // console.log(getData.data);
             this.setState({
                 dataSale: getData.data,
             })
@@ -556,7 +546,6 @@ export class NewProduct extends Component {
     }
     render() {
         let dataNewProduct = this.state.dataSale.map((item, indexs) => {
-            //   console.log('Sale' + [ indexs, item.image ].join(' ')),
             var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs}
@@ -616,7 +605,6 @@ export class BannerBar_ONE extends Component {
             url,
             dataBody,
         ).then((getData) => {
-            // console.log(getData.data);
             this.setState({
                 dataSourceSlide: getData.data,
             })
@@ -641,7 +629,6 @@ export class BannerBar_ONE extends Component {
     }
     get pagination() {
         const { dataSourceSlide, activeSlide } = this.state;
-        // console.log(width)
         return (
             <View style={{ marginTop: -45, marginBottom: -10 }}>
                 <Pagination
@@ -714,7 +701,6 @@ export class PopularProduct extends Component {
             url,
             dataBody,
         ).then((getData) => {
-            //   console.log(getData.data);
             this.setState({
                 dataSourcePopularProduct: getData.data,
             })
@@ -726,9 +712,7 @@ export class PopularProduct extends Component {
     render() {
         const { headText, noHeadText } = this.props;
         let dataToday = this.state.dataSourcePopularProduct.map((item, indexs) => {
-            // console.log( indexs + '. ' + item.image ),
             var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
-            // console.log( dataMySQL)
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs}
                     onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}
@@ -855,7 +839,6 @@ export class ShowProduct extends Component {
             url,
             dataBody,
         ).then((getData) => {
-            //   console.log(getData.data);
             this.setState({
                 dataSourceShowProduct: getData.data,
             })
@@ -866,7 +849,6 @@ export class ShowProduct extends Component {
     }
     render() {
         let dataToday = this.state.dataSourceShowProduct.map((item, indexs) => {
-            // console.log( indexs + '. ' + item.image ),
             var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs}
@@ -920,7 +902,6 @@ export class BoxProduct4 extends Component {
             url,
             dataBody,
         ).then((getData) => {
-            //   console.log(getData.data);
             this.setState({
                 dataSourceBoxProduct4: getData.data,
             })
@@ -931,7 +912,6 @@ export class BoxProduct4 extends Component {
     }
     render() {
         let dataToday = this.state.dataSourceBoxProduct4.map((item, indexs) => {
-            // console.log( indexs + '. ' + item.image ),
             var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
             return (
                 <View style={stylesMain.BoxProduct4Box} key={indexs}>

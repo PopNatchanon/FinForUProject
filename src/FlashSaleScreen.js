@@ -1,30 +1,19 @@
-import React, { Component, PureComponent } from 'react';
+import React, { Component } from 'react';
 import {
-    View,
-    ImageBackground,
-    ScrollView,
-    Text,
-    TextInput,
-    SafeAreaView,
-    TouchableOpacity,
-    Dimensions,
+    View, ScrollView, SafeAreaView, TouchableOpacity, Text, Dimensions,
 } from 'react-native';
-import axios from 'axios';
-import NumberFormat from 'react-number-format';
 import stylesTopic from '../style/styleTopic';
 import stylesMain from '../style/StylesMainScreen';
 import stylesFont from '../style/stylesFont';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import IconFeather from 'react-native-vector-icons/Feather';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
-import { finip, ip } from '../navigator/IpConfig';
 import FastImage from 'react-native-fast-image';
 import { Slide } from './src_Promotion/DealScreen';
-import { TabBar } from './tools/Tools';
+import { TabBar, GetServices } from './tools/Tools';
 import { AppBar1 } from './MainScreen';
+import { finip, ip } from '../navigator/IpConfig';
 export const { width, height } = Dimensions.get('window');
-
+///----------------------------------------------------------------------------------------------->>>> Main
 export default class FlashSaleScreen extends Component {
     constructor(props) {
         super(props);
@@ -35,15 +24,15 @@ export default class FlashSaleScreen extends Component {
     render() {
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                <AppBar1 backArrow navigation={this.props.navigation} titleHead='FLASH SALE'/>
-                <Slide />
-                <Time_FlashSale />
+                <AppBar1 titleHead={'FLASH SALE'} backArrow searchBar chatBar navigation={this.props.navigation} />
                 <ScrollView>
-                    <FlashSale_Product />
-                    <FlashSale_Product />
-                    <FlashSale_Product />
-                    <FlashSale_Product />
-                    <FlashSale_Product />
+                    <Slide />
+                    <Time_FlashSale />
+                    <FlashSale_Product navigation={this.props.navigation} />
+                    <FlashSale_Product navigation={this.props.navigation} />
+                    <FlashSale_Product navigation={this.props.navigation} />
+                    <FlashSale_Product navigation={this.props.navigation} />
+                    <FlashSale_Product navigation={this.props.navigation} />
                 </ScrollView>
             </SafeAreaView>
         );
@@ -56,71 +45,67 @@ export class Time_FlashSale extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            dataService: [],
             selectedIndex: 0,
         }
         this.updateIndex = this.updateIndex.bind(this)
+        this.getData = this.getData.bind(this)
+    }
+    getData(dataService) {
+        this.setState({ dataService })
+        console.log(dataService)
     }
     updateIndex(selectedIndex) {
         this.setState({ selectedIndex })
     }
     render() {
+        var uri = finip + '/home/category_mobile';
         const item = [{
-            name: '12:00'
+            name: '12:00',
+            subname: 'กำลังดำเนินการอยู่'
         }, {
-            name: '18:00'
+            name: '18:00',
+            subname: 'เร็วๆนี้'
         }, {
-            name: '21:00'
+            name: '21:00',
+            subname: 'เร็วๆนี้'
         }, {
-            name: '00:00'
+            name: '00:00',
+            subname: 'พรุ่งนี้'
         }]
-        const item2 = [{
+        var item2 = [{
             name: 'ทั้งหมด'
-        }, {
-            name: 'อัญมณีและ..'
-        }, {
-            name: 'ทอง'
-        }, {
-            name: 'เครื่องเงิน'
-        }, {
-            name: 'พระและ..'
-        }, {
-            name: 'นาฬิกา'
-        }, {
-            name: 'กระเป๋า'
-        }, {
-            name: 'บ้านและสวน'
-        }, {
-            name: 'รองเท้า'
-        }, {
-            name: 'สุขภาพและ..'
         }]
+        this.state.dataService.map((item) => { return item2.push({ name: item.name }) })
         return (
             <View>
-                <View style={[stylesMain.FrameBackground,{flexDirection:'row'}]}>
-                    <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize2]}>FLASH SALE</Text>
+                <View style={[stylesMain.FrameBackground, stylesMain.FlexRow]}>
+                    <GetServices uriPointer={uri} getDataSource={this.getData} />
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}>FLASH SALE</Text>
                     <IconMaterialIcons name='access-time' size={25} style={{ marginLeft: 10, }} />
-                    <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize3,{margin:3}]}>จบใน</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { margin: 3 }]}>จบใน</Text>
                     <View style={stylesMain.Time_FlashSale_TimeBox}><Text style={stylesMain.Time_FlashSale_TimeText}>01</Text></View>
                     <View style={stylesMain.Time_FlashSale_TimeBox}><Text style={stylesMain.Time_FlashSale_TimeText}>45</Text></View>
                     <View style={stylesMain.Time_FlashSale_TimeBox}><Text style={stylesMain.Time_FlashSale_TimeText}>40</Text></View>
                 </View>
-                <View style={stylesTopic.FlashSale_Tag}>
+                <View style={[stylesTopic.FlashSale_Tag, { paddingBottom: 0 }]}>
                     <TabBar
                         sendData={this.updateIndex}
                         item={item}
                         // widthBox={98}
                         activeColor={'#fff'}
-                        activeFontColor={'#0A55A6'}
                         type='tag'
+                        tagBottom={'#0A55A6'}
+                        noMarginIop
                     />
                 </View>
-
                 <View style={stylesTopic.FlashSale_Tag}>
                     <ScrollView horizontal>
                         <TabBar
                             inactiveColor='#0A55A6'
                             sendData={this.updateIndex}
                             item={item2}
+                            numberOfLines={1}
                             radiusBox={4}
                             noLimit
                             type='box'
@@ -145,28 +130,32 @@ export class FlashSale_Product extends Component {
     render() {
         return (
             <View style={stylesTopic.FlashSale_Product}>
-                <View style={stylesTopic.FlashSale_ProductBox}>
-                    <View style={stylesMain.FlexRow}>
+                <View style={[stylesTopic.FlashSale_ProductBox, { flex: 1 }]}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: 123 })}>
                         <View style={stylesTopic.FlashSale_ProductBox_Image}>
-                            <FastImage 
-                            style={stylesTopic.Image}
+                            <FastImage
+                                style={stylesTopic.Image}
                                 source={{
-                                uri: ip + '/MySQL/uploads/products/2019-10-10-1570690991.png'}}
+                                    uri: ip + '/MySQL/uploads/products/2019-10-10-1570690991.png'
+                                }}
                             />
                         </View>
-                        <View style={{ width: '65%' }}>
-                            <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize4,{margin:10}]}>ห้องพัก Deluxe Pool Villa</Text>
+                    </TouchableOpacity>
+                    <View style={{ flexDirection: 'row', flex: 1 }}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: 123 })}>
+                            <View style={{ width: '85%' }}>
+                                <Text numberOfLines={4} style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { margin: 10 }]}>
+                                    ห้องพัก Deluxe Pool Villa ห้องพัก Deluxe Pool Villa ห้องพัก Deluxe Pool Villa ห้องพัก Deluxe Pool Villa ห้องพัก Deluxe Pool Villa ห้องพัก Deluxe Pool Villa ห้องพัก Deluxe Pool Villa ห้องพัก Deluxe Pool Villa ห้องพัก Deluxe Pool Villa </Text>
+                            </View>
+                        </TouchableOpacity>
+                        <View style={{ justifyContent: 'flex-end', width: 40 }}>
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('CartScreen')}>
+                                <View style={[stylesTopic.FlashSale_ProductBox_Icon]}>
+                                    <IconAntDesign RightItem name="shoppingcart" size={30} color='#FFFFFF' />
+                                </View>
+                            </TouchableOpacity>
                         </View>
-                         <View style={{ justifyContent:'flex-end'}}>
-                                <TouchableOpacity>
-                                    <View style={stylesTopic.FlashSale_ProductBox_Icon}>
-                                        <IconAntDesign RightItem name="shoppingcart" size={30} color='#FFFFFF' />
-                                    </View>
-                                </TouchableOpacity>
-                        </View>
-
                     </View>
-
                 </View>
             </View>
         );

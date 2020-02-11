@@ -9,6 +9,9 @@ export default StyleSheet.create({
     FontFamilyText: {
         fontFamily: 'ThaiSansNeue-SemiBold',
     },
+    FontFamilySemiBold: {
+        fontFamily: 'ThaiSansNeue-Bold',
+    },
     FontFamilyBold: {
         fontFamily: 'ThaiSansNeue-ExtraBold',
     },

@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import {
-    View,
-    Text,
-    TouchableOpacity,
-    Dimensions,
+    Dimensions, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import stylesMain from '../../style/StylesMainScreen';
 import stylesFont from '../../style/stylesFont'
+import stylesTopic from '../../style/styleTopic';
 export const { width, height } = Dimensions.get('window');
 import AsyncStorage from '@react-native-community/async-storage';
 ///----------------------------------------------------------------------------------------------->>>>
@@ -92,17 +90,8 @@ export class TabBar extends Component {
     }
     // setDataItem() {
     //     const { setData } = this.props
-    //     // console.log('setDataItem')
-    //     // console.log(setData)
     //     if (setData.activeSetData < 1) {
     //         setData.activeSetData = setData.activeSetData + 1
-    //         // console.log('activeSetData')
-    //         // console.log(setData.activeSetData)
-    //         // console.log('index')
-    //         // console.log(setData.index)
-    //         // console.log('pathlist')
-    //         // console.log(this.state.pathlist)
-    //         this.setState({ setData, pathlist: setData.index })
     //     }
     // }
     /*
@@ -145,7 +134,7 @@ export class TabBar extends Component {
         const {
             item, activeColor, activeWidth, type, radiusBox, activeFontColor, inactiveFontColor, inactiveColor, inactiveBoxColor,
             noSpace, direction, alignBox, widthBox, spaceColor, fontColor, noLimit, limitBox, SetValue, fontSizeStyle, numberBox,
-            NoSelectTab
+            NoSelectTab, tagBottom, numberOfLines
         } = this.props;
         const { PassSetValue } = this.state
         const countItem = item.length;
@@ -236,7 +225,7 @@ export class TabBar extends Component {
                                         } :
                                         null
                                 }>
-                                    <Text style={[stylesFont.FontFamilyText, {
+                                    <Text numberOfLines={numberOfLines} style={[stylesFont.FontFamilySemiBold, {
                                         fontSize: fontSizeStyle ? fontSizeStyle : 16,
                                         color: type == 'box' ?
                                             activeFontColor ? activeFontColor : fontColor ? fontColor : 'white' :
@@ -293,7 +282,7 @@ export class TabBar extends Component {
                                         } :
                                         null
                                 }>
-                                    <Text style={[stylesFont.FontFamilyText, {
+                                    <Text numberOfLines={numberOfLines} style={[stylesFont.FontFamilySemiBold, {
                                         fontSize: fontSizeStyle ? fontSizeStyle : 16,
                                         color: inactiveFontColor ? inactiveFontColor : fontColor ? fontColor : 'black'
                                     }]}>
@@ -302,6 +291,19 @@ export class TabBar extends Component {
                                 </View>
                             </View>
                     }
+                    {
+                        item.subname ?
+                            <View style={[stylesMain.ItemCenter, { width: '100%' }]}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, {
+                                    borderBottomColor: tagBottom ? this.state.pathlist == index ? tagBottom : '#fff' : null,
+                                    borderBottomWidth: tagBottom ? 4 : null,
+                                    width: '90%', textAlign: 'center'
+                                }]}>
+                                    {item.subname}
+                                </Text>
+                            </View> :
+                            null
+                    }
                 </TouchableOpacity>
             )
         })
@@ -309,7 +311,7 @@ export class TabBar extends Component {
     render() {
         const {
             item, activeColor, activeWidth, type, radiusBox, activeFontColor, inactiveFontColor, inactiveColor, inactiveBoxColor,
-            noSpace, direction, alignBox, widthBox, spaceColor, fontColor, noLimit, numberBox,
+            noSpace, direction, alignBox, widthBox, spaceColor, fontColor, noLimit, numberBox, noMarginIop
         } = this.props;
         return (
             numberBox ?
@@ -331,7 +333,7 @@ export class TabBar extends Component {
                                             'flex-start'
                             } :
                             {
-                                paddingTop: 10,
+                                paddingTop: noMarginIop ? null : 10,
                                 borderWidth: type == 'tag' ? null : noSpace ? null : 1,
                                 backgroundColor: spaceColor ? spaceColor : null,
                                 borderColor: type == 'tag' ? null : spaceColor ? spaceColor : '#ECECEC',
@@ -346,3 +348,35 @@ export class TabBar extends Component {
     }
 }
 
+export class GetServices extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataSource: [],
+        };
+    }
+    getDataSource = async () => {
+        const { dataBody, uriPointer } = this.props
+        fetch(uriPointer, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(dataBody),
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.props.getDataSource(responseJson);
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+    }
+    componentDidMount() {
+        this.getDataSource()
+    }
+    render() {
+        return (<View></View>)
+    }
+}

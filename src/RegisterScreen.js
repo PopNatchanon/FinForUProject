@@ -89,8 +89,6 @@ export class Login extends Component {
     this.getDataMo(new Date())
     this.getDataDay(new Date())
     Form.addValidationRule('isPasswordMatch', (value) => {
-      // console.log('isPasswordMatch')
-      // console.log(value)
       if (value !== user.password) {
         return false;
       }
@@ -110,7 +108,6 @@ export class Login extends Component {
     } catch (e) {
       // clear error
     }
-    // console.log('Done.')
   }
   componentWillUnmount() {
     Form.removeValidationRule('isPasswordMatch');
@@ -126,7 +123,6 @@ export class Login extends Component {
   getDataMo(itemValue) {
     const { date } = this.state
     if (itemValue != null) {
-      // console.log(itemValue)
       const item = String(itemValue)
       this.setState({ date: new Date(date).setFullYear(item) })
       var box = [];
@@ -139,7 +135,6 @@ export class Login extends Component {
   getDataDay(itemValue) {
     const { date } = this.state
     if (itemValue != null) {
-      // console.log(itemValue)
       const item = String(itemValue)
       this.setState({ date: new Date(date).setMonth(item) })
       var box = [];
@@ -249,7 +244,6 @@ export class Login extends Component {
     this.refs.form.submit();
   }
   EmailInput(event) {
-    // console.log(event)
     const { user } = this.state;
     user.email = event;
     this.setState({ user });

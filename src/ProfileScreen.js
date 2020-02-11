@@ -48,7 +48,6 @@ export default class StoreScreen extends Component {
     }
     render() {
         const { currentUser } = this.state;
-        // console.log(currentUser)
         return (
             <SafeAreaView style={[stylesMain.SafeAreaViewNoBackground, stylesMain.BackgroundAreaView]}>
                 <ScrollView>
@@ -70,7 +69,6 @@ export class Headbar extends Component {
     }
     render() {
         const { currentUser, statusOnline } = this.props
-        // console.log(currentUser)
         const uri = [finip, currentUser.image_path, currentUser.image].join('/')
         return (
             <View>
@@ -431,7 +429,6 @@ export class ViewCode extends Component {
         }
     }
     getData(val) {
-        // console.log(val);
         this.setState({
             pathlist: val
         });
@@ -608,7 +605,6 @@ export class CoinCollect extends Component {
         }
     }
     getData(val) {
-        // console.log(val);
         this.setState({
             pathlist: val
         });

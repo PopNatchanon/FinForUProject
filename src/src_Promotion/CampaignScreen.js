@@ -83,7 +83,6 @@ export class Campaign_tag extends Component {
     }
   }
   getData(val) {
-    // console.log(val);
     this.setState({
       pathlist: val
     });

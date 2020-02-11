@@ -48,9 +48,6 @@ export default class DetailScreen extends Component {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log("TestResponseJson")
-        console.log("responseJson")
-        console.log(responseJson)
         this.setState({
           dataid_product: responseJson,
         })
@@ -108,18 +105,15 @@ export class Detail_Image extends Component {
     var myJSON = new Array()
     var item
     while (length > count) {
-      // console.log(image[count])
       item = { "image_path": image_path, "image": image[count] };
       myJSON.push(item)
       count++
     }
-    // console.log(myJSON)
     return (
       myJSON
     )
   }
   _renderItem = ({ item, indexs }) => {
-    // console.log(item)
     var dataMySQL = [finip, item.image_path, item.image].join('/');
     return (
       <View style={stylesDetail.Image_Box} key={indexs}>
@@ -137,8 +131,6 @@ export class Detail_Image extends Component {
     let id_product = this.props.dataid_product.map((item, indexs) => {
       let dataMySQL
       {
-        // console.log('gallery_image')
-        // console.log(item.gallery_image)
         item.gallery_image ?
           dataMySQL = this.imageGallery(item.image_path, item.gallery_image) :
           dataMySQL = this.props.dataid_product;
@@ -215,9 +207,7 @@ export class Store extends Component {
   }
   render() {
     let id_store = this.props.dataid_product.map((item, indexs) => {
-      // console.log(item)
       var dataMySQL = [finip, item.store_path, item.store_img].join('/');
-      // console.log(dataMySQL)
       return (
         <View style={[stylesMain.FrameBackground, stylesMain.BottomSpace]} key={indexs}>
           <View style={stylesDetail.Store_Box1}>
@@ -631,7 +621,6 @@ export class Same_Store extends Component {
   }
   getid_product() {
     this.props.dataid_product.map((item) => {
-      // console.log(item)
       var dataBody = {
         id_type: item.id_type,
         id_store: item.id_store,
@@ -647,8 +636,6 @@ export class Same_Store extends Component {
       })
         .then((response) => response.json())
         .then((responseJson) => {
-          // console.log("responseJson")
-          // console.log(responseJson)
           this.setState({
             dataSale: responseJson, countA: 1
           })
@@ -662,7 +649,6 @@ export class Same_Store extends Component {
     this.state.countA == 0 ? this.getid_product() : null;
   }
   render() {
-    // console.log(this.state.dataSale)
     let dataSaleProduct = this.state.dataSale.map((item, indexs) => {
       var dataMySQL = [finip, item.image_path, item.image].join('/');
       return (
@@ -721,7 +707,6 @@ export class Similar_Product extends Component {
   }
   getid_product() {
     this.props.dataid_product.map((item) => {
-      // console.log(item)
       var dataBody = {
         id_type: item.id_type,
         id_store: item.id_store,
@@ -737,8 +722,6 @@ export class Similar_Product extends Component {
       })
         .then((response) => response.json())
         .then((responseJson) => {
-          // console.log("responseJson")
-          // console.log(responseJson)
           this.setState({
             dataSale: responseJson, countA: 1
           })
@@ -753,7 +736,6 @@ export class Similar_Product extends Component {
   }
   render() {
     let dataSaleProduct = this.state.dataSale.map((item, indexs) => {
-      //   console.log('Sale' + [ indexs, item.image ].join(' ')),
       var dataMySQL = [finip, item.image_path, item.image].join('/');
       return (
         <TouchableOpacity activeOpacity={1} key={indexs}
@@ -811,7 +793,6 @@ export class Might_like extends Component {
   }
   getid_product() {
     this.props.dataid_product.map((item) => {
-      // console.log(item)
       var dataBody = {
         id_type: item.id_type,
         id_store: item.id_store,
@@ -827,8 +808,6 @@ export class Might_like extends Component {
       })
         .then((response) => response.json())
         .then((responseJson) => {
-          // console.log("responseJson")
-          // console.log(responseJson)
           this.setState({
             dataSourcePopularProduct: responseJson, countA: 1
           })
@@ -842,10 +821,8 @@ export class Might_like extends Component {
     this.state.countA == 0 ? this.getid_product() : null;
   }
   render() {
-    // console.log( 'Might_like|render' )
     let dataToday = this.state.dataSourcePopularProduct.map((item, indexs) => {
       var dataMySQL = [finip, item.image_path, item.image].join('/');
-      // console.log( dataMySQL )
       return (
         <TouchableOpacity activeOpacity={1} key={indexs}
           onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}

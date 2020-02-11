@@ -82,8 +82,6 @@ export class Login extends Component {
 
   getData() {
     const { user } = this.state;
-    // console.log('Database Process')
-    // console.log(email)
     var url = ip + '/mysql/DataServiceLogRegOtp.php';
     var dataBody = {
       type: 'email',
@@ -93,12 +91,8 @@ export class Login extends Component {
       url,
       dataBody,
     ).then((getData) => {
-      // console.log('Database Compelete')
-      // console.log(getData.data);
       var item = getData.data;
       var c_email = item.map((item) => { return (item.c_email) });
-      // console.log('Map Compelete')
-      // console.log(c_email);
       if (c_email == 1) {
         alert('อีเมลนี้ถูกใช้แล้วค่ะ');
       } else {
@@ -112,7 +106,6 @@ export class Login extends Component {
   }
 
   EmailInput(event) {
-    // console.log(event)
     const { user } = this.state;
     user.email = event;
     this.setState({ user });

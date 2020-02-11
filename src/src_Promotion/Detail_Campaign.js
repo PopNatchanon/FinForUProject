@@ -201,7 +201,6 @@ export class New_year_New extends Component {
           url,
           dataBody,
         ).then((getData) => {
-          // console.log(getData.data);
           this.setState({
             dataSale: getData.data,
           })

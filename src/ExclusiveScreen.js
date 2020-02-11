@@ -252,13 +252,9 @@ export class Button_Bar extends Component {
     while (getSliderVisible.count < 1) {
       getSliderVisible.count = getSliderVisible.count + 1
       var Slider = getSliderVisible.getSlider
-      // console.log(getSliderVisible)
       this.setState({ sliderVisible: Slider, getSliderVisible })
     }
     const { sliderVisible } = this.state;
-    // console.log('Sub')
-    // console.log('sliderVisible')
-    // console.log(sliderVisible)
     const item = [{
       name: 'ยอดนิยม'
     }, {

@@ -93,8 +93,6 @@ export class Account extends Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                // console.log("DataProvince")
-                // console.log(responseJson)
                 this.setState({
                     DataProvinces: responseJson,
                 })
@@ -104,17 +102,13 @@ export class Account extends Component {
             })
     }
     getDataAmphoe(itemValue) {
-        // console.log(itemValue)
         if (itemValue != null) {
-            // console.log('province: ' + itemValue + ' get amphoe')
-            // console.log('processing...')
             this.setState({ province: itemValue, DataTumbols: [], tumbol: 'แขวง/ตำบล', amphoe: 'เขต/อำเภอ', zipcode: null });
             const { currentUser } = this.props
             var dataBody = {
                 id_customer: currentUser,
                 value_province: itemValue,
             };
-            // console.log(dataBody)
             fetch(finip + '/profile/ajax_amphur', {
                 method: 'POST',
                 headers: {
@@ -125,8 +119,6 @@ export class Account extends Component {
             })
                 .then((response) => response.json())
                 .then((responseJson) => {
-                    // console.log('responseJson')
-                    // console.log(responseJson)
                     this.setState({
                         DataAmphoes: responseJson,
                     })
@@ -143,10 +135,7 @@ export class Account extends Component {
     }
     getDataTumbol(itemValue) {
         const { DataAmphoes } = this.state
-        // console.log(itemValue)
         if (itemValue != null) {
-            // console.log('amphoe: ' + itemValue + ' get tumbol')
-            // console.log('processing...')
             var zipcode = DataAmphoes.map((item) => {
                 if (item.amphoe == itemValue) {
                     return (item.zipcode)
@@ -158,7 +147,6 @@ export class Account extends Component {
                 id_customer: currentUser,
                 value_amphur: itemValue,
             };
-            // console.log(dataBody)
             fetch(finip + '/profile/ajax_tumbol', {
                 method: 'POST',
                 headers: {
@@ -169,7 +157,6 @@ export class Account extends Component {
             })
                 .then((response) => response.json())
                 .then((responseJson) => {
-                    // console.log(responseJson)
                     this.setState({
                         DataTumbols: responseJson,
                     })
@@ -217,8 +204,6 @@ export class Account extends Component {
         let provinces = this.DataProvince()
         let amphoes = this.DataAmphoe()
         let tumbols = this.DataTumbol()
-        // console.log('this.state')
-        // console.log(this.state)
         return (
             <View>
                 <View style={styles.Account_Box}>

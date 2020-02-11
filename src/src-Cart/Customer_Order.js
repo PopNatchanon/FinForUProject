@@ -418,7 +418,6 @@ export class OmiseAPI extends Component {
                 'security_code': 123,
             }
         });
-        // console.log("data", data);
     }
     render() {
         const {

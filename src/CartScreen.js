@@ -137,7 +137,6 @@ export class CartProduct extends Component {
                         this.setState({ ItemArray })
                         this.props.sendData(ItemArray);
                     }
-                    // console.log(ItemArray)
                     var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
                     return (
                         <View style={{ flex: 1, flexDirection: 'row' }} key={index}>
@@ -281,8 +280,6 @@ export class CartProduct extends Component {
     }
     ChangeCheck() {
         const { ItemHead, ItemArray, itemData } = this.state
-        // console.log('itemData')
-        // console.log(this.state)
         var count = 0
         var countMain = 0
         ItemHead.map((item, index) => {
@@ -369,8 +366,6 @@ export class Buy_bar extends Component {
     StateBox() {
         var { checked } = this.state
         checked = !checked
-        // console.log('checked')
-        // console.log(checked)
         this.props.sendData({ checked: checked, num: 0 });
         this.setState({ checked })
     }
@@ -378,13 +373,10 @@ export class Buy_bar extends Component {
         const { itemCount } = this.props;
         var values = 0;
         let data = itemCount.map((item, index) => {
-            // console.log('itemmap')
-            // console.log(item)
             if (item.checked == true) {
                 values = values + (item.price * item.itemCount)
             }
         })
-        // console.log(valuesProduct)
         return (
             <View style={stylesCart.Bar}>
                 <View style={stylesCart.Bar_Code} >

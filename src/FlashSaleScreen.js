@@ -81,9 +81,9 @@ export class Time_FlashSale extends Component {
             <View>
                 <View style={[stylesMain.FrameBackground, stylesMain.FlexRow]}>
                     <GetServices uriPointer={uri} getDataSource={this.getData} />
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}>FLASH SALE</Text>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>FLASH SALE</Text>
                     <IconMaterialIcons name='access-time' size={25} style={{ marginLeft: 10, }} />
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { margin: 3 }]}>จบใน</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 3 }]}>จบใน</Text>
                     <View style={stylesMain.Time_FlashSale_TimeBox}><Text style={stylesMain.Time_FlashSale_TimeText}>01</Text></View>
                     <View style={stylesMain.Time_FlashSale_TimeBox}><Text style={stylesMain.Time_FlashSale_TimeText}>45</Text></View>
                     <View style={stylesMain.Time_FlashSale_TimeBox}><Text style={stylesMain.Time_FlashSale_TimeText}>40</Text></View>
@@ -144,7 +144,7 @@ export class FlashSale_Product extends Component {
                     <View style={{ flexDirection: 'row', flex: 1 }}>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: 123 })}>
                             <View style={{ width: '85%' }}>
-                                <Text numberOfLines={4} style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { margin: 10 }]}>
+                                <Text numberOfLines={4} style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10 }]}>
                                     ห้องพัก Deluxe Pool Villa ห้องพัก Deluxe Pool Villa ห้องพัก Deluxe Pool Villa ห้องพัก Deluxe Pool Villa ห้องพัก Deluxe Pool Villa ห้องพัก Deluxe Pool Villa ห้องพัก Deluxe Pool Villa ห้องพัก Deluxe Pool Villa ห้องพัก Deluxe Pool Villa </Text>
                             </View>
                         </TouchableOpacity>

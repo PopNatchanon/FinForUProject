@@ -356,6 +356,11 @@ export default StyleSheet.create({
     marginRight: 8,
     marginTop: 10,
   },
+  FrameBackgroundTextEnd2: {
+    color: '#fff',
+    marginRight: 8,
+    marginTop: 4,
+  },
   Time_FlashSale_TimeBox: {
     height: 30,
     width: 30,
@@ -538,7 +543,7 @@ export default StyleSheet.create({
   CategoryProductImageHead: {
     marginTop: 5,
     width,
-    height: 80,
+    height: 60,
   },
   CategoryProductImage: {
     width: 100,
@@ -601,12 +606,11 @@ export default StyleSheet.create({
   Text_Bar_Image: {
     backgroundColor: '#0A55A6',
     height: 22,
-    width: 130,
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: 170,
     marginTop: 10,
   },
   Text_Bar: {
+    marginLeft:5,
     color: '#FFFFFF',
   },
   ///------------------------------------------------------------------///
@@ -666,7 +670,7 @@ export default StyleSheet.create({
     height: '75%', width: '100%',
   },
   bigSlideText: {
-    backgroundColor: '#0A55A6', height: '25%', width: '100%',
+    backgroundColor: '#0A55A6', height: '23%', width: '100%',
     padding: 2
   },
   litleSlideImage: {
@@ -674,7 +678,7 @@ export default StyleSheet.create({
     borderTopLeftRadius: 5, borderTopRightRadius: 5,
   },
   litleSlideText: {
-    backgroundColor: '#0A55A6', height: 40, width: '100%',
+    backgroundColor: '#0A55A6', height: '30%', width: '100%',
     borderBottomLeftRadius: 5, borderBottomRightRadius: 5,
     padding: 2,
   },

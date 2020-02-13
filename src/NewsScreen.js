@@ -149,7 +149,7 @@ export class Blog extends Component {
                         style={stylesStore.header_image}
                         source={{ uri: ip + '/MySQL/uploads/page_News/page_J_News.jpg' }}
                     />
-                    <Text style={[stylesFont.FontSize4, stylesFont.FontFamilyText]}>
+                    <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText]}>
                         หลายคนคงจะเคยอยากรู้ วิธีดูเพชรแท้ ว่าจริงๆแล้วเพชรแท้ดูยังไง?</Text>
                     <View style={stylesStore.header_icon_Box}>
                         <IconEntypo style={stylesStore.header_icon} name='eye' size={25} />
@@ -162,7 +162,7 @@ export class Blog extends Component {
                             style={stylesStore.body_image}
                             source={{ uri: ip + '/MySQL/uploads/page_News/วิธีดูเข็มและรองเท้แตะกุชชี่ของแท้-660x330.jpg' }}>
                         </FastImage>
-                        <Text style={[stylesStore.body_Text, stylesFont.FontSize4, stylesFont.FontFamilyText]}>
+                        <Text style={[stylesStore.body_Text, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
                             วันนี้เราจะมาสอนวิธีการแยกเข็มขัดกุชชี่และรองเท้าแตะกุชชี่</Text>
                     </View>
                 </View>
@@ -172,7 +172,7 @@ export class Blog extends Component {
                             style={stylesStore.body_image}
                             source={{ uri: ip + '/MySQL/uploads/page_News/page_J_News.jpg' }}>
                         </FastImage>
-                        <Text style={[stylesStore.body_Text, stylesFont.FontSize4, stylesFont.FontFamilyText]}>
+                        <Text style={[stylesStore.body_Text, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
                             หลายคนคงจะเคยอยากรู้วิธีดูเพชรแท้ว่าจริงๆแล้วเพชรแท้ดูยังไง?</Text>
                     </View>
                 </View>
@@ -182,7 +182,7 @@ export class Blog extends Component {
                             style={stylesStore.body_image}
                             source={{ uri: ip + '/MySQL/uploads/page_News/Supreme.jpg' }}>
                         </FastImage>
-                        <Text style={[stylesStore.body_Text, stylesFont.FontSize4, stylesFont.FontFamilyText]}>
+                        <Text style={[stylesStore.body_Text, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
                             ถ้าพูดถึงแบรนด์ที่มาแรงและหลายคนก็ยังคงชื่อชอบอยู่ในช่วง 2 – 3 ปีที่ผ่านมานี้ก็ต้องแบรนด์ ‘Supreme’ นี่แหละค่ะ</Text>
                     </View>
                 </View>
@@ -192,7 +192,7 @@ export class Blog extends Component {
                             style={stylesStore.body_image}
                             source={{ uri: ip + '/MySQL/uploads/page_News/วิธีดูเข็มและรองเท้แตะกุชชี่ของแท้-660x330.jpg' }}>
                         </FastImage>
-                        <Text style={[stylesStore.body_Text, stylesFont.FontSize4, stylesFont.FontFamilyText]}>
+                        <Text style={[stylesStore.body_Text, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
                             วันนี้เราจะมาสอนวิธีการแยกเข็มขัดกุชชี่และรองเท้าแตะกุชชี่</Text>
                     </View>
                 </View>

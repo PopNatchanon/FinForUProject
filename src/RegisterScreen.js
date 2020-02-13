@@ -297,7 +297,7 @@ export class Login extends Component {
             ref="form"
             onSubmit={this.getData}
           >
-            <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
+            <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
               อีเมล</Text>
             <TextValidator
               name="email"
@@ -308,7 +308,7 @@ export class Login extends Component {
               keyboardType="email-address"
               value={user.email}
               onChangeText={this.EmailInput}
-              style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}
+              style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
               errorStyle={{
                 container: {
                   bottom: -12,
@@ -322,7 +322,7 @@ export class Login extends Component {
                 underlineInvalidColor: 'red'
               }}
             />
-            {/* <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
+            {/* <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
               รหัสยืนยันผ่านอีเมล</Text>
             <TextValidator
               name="pass"
@@ -331,7 +331,7 @@ export class Login extends Component {
               value={user.passmail}
               maxLength={6}
               onChangeText={this.PassMailInput}
-              style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}
+              style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
               errorStyle={{
                 container: {
                   bottom: -12,
@@ -346,10 +346,10 @@ export class Login extends Component {
               }}
             />
             <View style={stylesLogin.Countdownstyle}>
-              <Text style={[stylesLogin.CountdownstyleSubmit, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
+              <Text style={[stylesLogin.CountdownstyleSubmit, stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
                 ส่ง</Text>
             </View> */}
-            <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
+            <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
               ชื่อ</Text>
             <TextValidator
               name="name"
@@ -359,7 +359,7 @@ export class Login extends Component {
               type="text"
               value={user.name}
               onChangeText={this.UnameInput}
-              style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}
+              style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
               errorStyle={{
                 container: {
                   bottom: -12,
@@ -373,7 +373,7 @@ export class Login extends Component {
                 underlineInvalidColor: 'red'
               }}
             />
-            <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
+            <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
               รหัสผ่าน</Text>
             <TextValidator
               name="password"
@@ -384,7 +384,7 @@ export class Login extends Component {
               secureTextEntry
               value={user.password}
               onChangeText={this.PassInput}
-              style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}
+              style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
               errorStyle={{
                 container: {
                   bottom: -12,
@@ -398,7 +398,7 @@ export class Login extends Component {
                 underlineInvalidColor: 'red'
               }}
             />
-            <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
+            <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
               ยืนยันรหัสผ่าน</Text>
             <TextValidator
               name="repassword"
@@ -409,7 +409,7 @@ export class Login extends Component {
               secureTextEntry
               value={user.repassword}
               onChangeText={this.RepeatPassInput}
-              style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}
+              style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
               errorStyle={{
                 container: {
                   bottom: -12,
@@ -429,7 +429,7 @@ export class Login extends Component {
                   <Picker
                     selectedValue={String(day)}
                     style={{ height: '100%', width: '100%' }}
-                    itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize5, { backgroundColor: '#fff' }]}
+                    itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize7, { backgroundColor: '#fff' }]}
                     onValueChange={(itemValue, itemIndex) => {
                       this.setState({ date: new Date(date).setDate(itemValue) })
                     }}>
@@ -440,7 +440,7 @@ export class Login extends Component {
                   <Picker
                     selectedValue={String(month)}
                     style={{ height: '100%', width: '100%' }}
-                    itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize5, { backgroundColor: '#fff' }]}
+                    itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize7, { backgroundColor: '#fff' }]}
                     onValueChange={(itemValue, itemIndex) => {
                       this.getDataDay(itemValue)
                     }}>
@@ -451,7 +451,7 @@ export class Login extends Component {
                   <Picker
                     selectedValue={String(year)}
                     style={{ height: '100%', width: '100%' }}
-                    itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize5, { backgroundColor: '#fff' }]}
+                    itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize7, { backgroundColor: '#fff' }]}
                     onValueChange={(itemValue, itemIndex) => {
                       this.getDataMo(itemValue)
                     }}>
@@ -461,7 +461,7 @@ export class Login extends Component {
               </View>
             </View>
             <View style={stylesLogin.DataGenderBox}>
-              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
                 เพศ</Text>
               <View style={{ marginTop: -10, }}>
                 <RadioButtonRN
@@ -474,7 +474,7 @@ export class Login extends Component {
                   boxStyle={{
                     width: 70,
                   }}
-                  textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize4, {
+                  textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, {
                     marginLeft: 12,
                   }]}
                   activeColor='#111'
@@ -488,13 +488,13 @@ export class Login extends Component {
                 checked={this.state.item1}
                 onPress={() => this.setState({ item1: !this.state.item1 })}
               />
-              <View style={stylesLogin.RegisterScreen_Check_Box}><Text style={[stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+              <View style={stylesLogin.RegisterScreen_Check_Box}><Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                 ฉันยอมรับเงื่อนไขของ FIN ข้อตกลงการใช้งาน และยินยอมดำเนินการกับข้อมูลส่วนตัวตามที่ระบุใน นโยบายส่วนตัว</Text></View>
             </View>
             <View style={stylesLogin.Login_Box_Text_C}>
               <TouchableOpacity onPress={this.handleSubmit}>
                 <View style={stylesLogin.Login_Box_Text_B}>
-                  <Text style={[stylesLogin.Login__Text, stylesFont.FontFamilyText, stylesFont.FontSize3, stylesMain.ItemCenterVertical]}>
+                  <Text style={[stylesLogin.Login__Text, stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical]}>
                     สมัครสมาชิก</Text>
                 </View>
               </TouchableOpacity>
@@ -519,7 +519,7 @@ export class Register extends Component {
       <View style={[stylesMain.ItemCenter, { marginBottom: 10 }]}>
         <View style={[stylesMain.FlexRow, { marginTop: 10, }]}>
           <View style={{ height: 50, width: 250, marginTop: 20, marginLeft: 20, }}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
               ฉันต้องการรับข้อเสนอและโปรโมชันสุดพิเศษจาก FIN</Text>
           </View>
           <CheckBox
@@ -532,7 +532,7 @@ export class Register extends Component {
           />
         </View>
         <View>
-          <Text style={[stylesFont.FontCenter, stylesFont.FontSize3, stylesFont.FontFamilyText, { margin: 10 }]}>
+          <Text style={[stylesFont.FontCenter, stylesFont.FontSize5, stylesFont.FontFamilyText, { margin: 10 }]}>
             สมัครสมาชิกด้วยช่องทางอื่น</Text>
         </View>
         <View style={stylesLogin.Register_Box_Button}>

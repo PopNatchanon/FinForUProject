@@ -5,12 +5,10 @@ export const { width, height } = Dimensions.get('window');
 export default StyleSheet.create({
 
     Appbar: {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#0A55A6',
         height: 50,
         flexDirection: 'row',
         width: '100%',
-        borderColor: '#ECECEC',
-        borderWidth: 1,
         justifyContent: 'space-between',
     },
     Toolbar: {

@@ -70,11 +70,11 @@ export default class CategoryScreen extends Component {
                             </View>
                             <View style={[stylesMain.FlexRow, stylesMain.SafeAreaViewNoBackground, { marginTop: 8 }]}>
                                 <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
-                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
+                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
                                         รีเซ็ต</Text>
                                 </View>
                                 <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset, { backgroundColor: '#0A55A6' }]}>
-                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, stylesFont.FontFamilyText, { color: '#fff' }]}>
+                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#fff' }]}>
                                         เสร็จสิ้น</Text>
                                 </View>
                             </View>
@@ -159,10 +159,10 @@ export class Recommend_Store extends Component {
             <View style={stylesMain.FrameBackground}>
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
                 <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         ร้านค้าที่แนะนำ</Text>
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Recommend_Store')}>
-                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
                 </View>
@@ -211,7 +211,7 @@ export class Product_Brand extends Component {
                         </View>
                         <View style={{ height: 60, paddingHorizontal: 3 }}>
                             <View style={[stylesMain.BoxProduct1NameofLines]}>
-                                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize5]}>
+                                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize7]}>
                                     {item.name}</Text>
                             </View>
                             <View style={[stylesMain.BoxProduct1PriceofLines, stylesMain.FlexRow]}>
@@ -222,7 +222,7 @@ export class Product_Brand extends Component {
                                     prefix={'฿'}
                                     renderText={value =>
                                         <Text style={[
-                                            stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize4, stylesFont.FontFamilyBold,
+                                            stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyBold,
                                         ]}>
                                             {value + ' '}</Text>
                                     }
@@ -234,7 +234,7 @@ export class Product_Brand extends Component {
                                     prefix={'฿'}
                                     renderText={value =>
                                         <Text style={[
-                                            stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize6, stylesFont.FontFamilyText,
+                                            stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText,
                                             { marginTop: 3 }
                                         ]}>
                                             {value}</Text>
@@ -250,7 +250,7 @@ export class Product_Brand extends Component {
             <View style={stylesMain.FrameBackground} >
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
                 <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         สินค้าแบรนด์ดัง
                     </Text>
                 </View>

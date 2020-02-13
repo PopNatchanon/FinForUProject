@@ -14,6 +14,7 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
@@ -104,7 +105,7 @@ export class AppBar extends Component {
                                                 width - 170,
                                 }]}>
                                     <TextInput
-                                        style={[stylesMain.TextInput, stylesFont.FontFamilyText, stylesFont.FontSize3, stylesFont.FontCenter]}
+                                        style={[stylesMain.TextInput, stylesFont.FontFamilyText, stylesFont.FontSize5, stylesFont.FontCenter]}
                                         placeholder="ค้นหาสินค้า/ร้านค้า"
                                         value={this.state.text}
                                         maxLength={30}
@@ -134,7 +135,7 @@ export class AppBar extends Component {
                                                 width - 170,
                                 }]}>
                                     <Text style={[
-                                        stylesFont.FontFamilyText, stylesFont.FontSize3, stylesFont.FontCenter,
+                                        stylesFont.FontFamilyText, stylesFont.FontSize5, stylesFont.FontCenter,
                                         stylesMain.ItemCenterVertical
                                     ]}>
                                         {SearchText ? SearchText : 'ค้นหาสินค้า/ร้านค้า'}</Text>
@@ -189,7 +190,7 @@ export class AppBar1 extends Component {
         };
     }
     render() {
-        const { titleHead, backArrow, chatBar, menuBar, storeBar, searchBar, navigation } = this.props;
+        const { titleHead, backArrow, chatBar, menuBar, storeBar, searchBar, settingBar, navigation } = this.props;
         return (
             <View style={menuBar ? stylesStore.AppbarMenu : stylesStore.Appbar}>
                 <View style={stylesMain.FlexRow}>
@@ -205,7 +206,7 @@ export class AppBar1 extends Component {
                             null
                     }
                     <Text style={[
-                        stylesStore.Text_appbar, stylesFont.FontSize1, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical
+                        stylesStore.Text_appbar, stylesFont.FontSize3, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical
                     ]}>
                         {titleHead ? titleHead : null}</Text>
                 </View>
@@ -216,6 +217,15 @@ export class AppBar1 extends Component {
                                 onPress={() => navigation.navigate('SearchScreen', { modeStore: false })}
                             >
                                 <IconAntDesign RightItem name="search1" size={25} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
+                                    marginRight: 8
+                                }]} />
+                            </TouchableOpacity> :
+                            null
+                    }{
+                        settingBar ?
+                            <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
+                                onPress={() => this.props.navigation.navigate('StoreMe_Setting')}>
+                                <IconMaterialCommunityIcons name="settings-outline" size={25} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
                                     marginRight: 8
                                 }]} />
                             </TouchableOpacity> :
@@ -353,10 +363,10 @@ export class Category extends Component {
                         resizeMode={FastImage.resizeMode.cover}
                     />
                     <View style={{ height: 20 }}>
-                        <Text numberOfLines={2} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesFont.FontCenter]}>
+                        <Text numberOfLines={2} style={[stylesFont.FontFamilyText, stylesFont.FontSize7, stylesFont.FontCenter]}>
                             {item.name}</Text>
                     </View>
-                </View >
+                </View>
             )
         })
         return (
@@ -393,7 +403,7 @@ export class Button_Bar extends Component {
                                 resizeMode={FastImage.resizeMode.stretch}
                             />
                         </View>
-                        <Text style={[stylesFont.FontCenter, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                        <Text style={[stylesFont.FontCenter, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                             ดีลสุดพิเศษ</Text>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('CoinScreen')} >
@@ -404,7 +414,7 @@ export class Button_Bar extends Component {
                                 }}
                                 resizeMode={FastImage.resizeMode.stretch}
                             />
-                            <Text style={[stylesFont.FontCenter, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                            <Text style={[stylesFont.FontCenter, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                                 FinCoin</Text>
                         </View>
                     </TouchableOpacity>
@@ -416,7 +426,7 @@ export class Button_Bar extends Component {
                                 }}
                                 resizeMode={FastImage.resizeMode.stretch}
                             />
-                            <Text style={[stylesFont.FontCenter, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                            <Text style={[stylesFont.FontCenter, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                                 แคมเปญ</Text>
                         </View>
                     </TouchableOpacity>
@@ -428,7 +438,7 @@ export class Button_Bar extends Component {
                                 }}
                                 resizeMode={FastImage.resizeMode.stretch}
                             />
-                            <Text style={[stylesFont.FontCenter, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                            <Text style={[stylesFont.FontCenter, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                                 สุดคุ้มสุดฟิน</Text>
                         </View>
                     </TouchableOpacity>
@@ -441,7 +451,7 @@ export class Button_Bar extends Component {
                                 resizeMode={FastImage.resizeMode.stretch}
                             />
                         </View>
-                        <Text style={[stylesFont.FontCenter, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                        <Text style={[stylesFont.FontCenter, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                             ผ่อนชำระ 0%</Text>
                     </TouchableOpacity>
                 </ScrollView>
@@ -460,10 +470,10 @@ export class Recommend_Brand extends Component {
         return (
             <View style={[stylesMain.FrameBackground2, stylesMain.FrameBackground_Height]}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize1, stylesFont.FontFamilyBold]}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
                         แบรนด์แนะนำ</Text>
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Recommend_Brand')}>
-                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
                 </View>
@@ -579,7 +589,7 @@ export class Popular_store extends Component {
         return (
             <View style={stylesMain.FrameBackground2}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         ร้านที่ใช่อยากให้ช้อป</Text>
                 </View>
                 <View style={stylesMain.FlexRow}>
@@ -618,7 +628,7 @@ export class Popular_product extends Component {
             <View>
                 <View style={stylesMain.FrameBackground2}>
                     <View style={stylesMain.FrameBackgroundTextBox}>
-                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                             สินค้ายอดนิยม</Text>
                     </View>
                     <View style={stylesMain.Popular_Box_A}>
@@ -657,7 +667,7 @@ export class Popular_product extends Component {
                                         </View>
                                     </View>
                                     <View style={stylesMain.PopularText_A} >
-                                        <Text style={[{ marginLeft: 8 }, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+                                        <Text style={[{ marginLeft: 8 }, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                                             สินค้าสุดฮิต</Text>
                                     </View>
                                 </TouchableOpacity>
@@ -696,7 +706,7 @@ export class Popular_product extends Component {
                                         </View>
                                     </View>
                                     <View style={stylesMain.PopularText_A} >
-                                        <Text style={[{ marginLeft: 8 }, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+                                        <Text style={[{ marginLeft: 8 }, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                                             สินค้าราคาโดน</Text>
                                     </View>
                                 </TouchableOpacity>
@@ -735,7 +745,7 @@ export class Popular_product extends Component {
                                         </View>
                                     </View>
                                     <View style={stylesMain.PopularText_A} >
-                                        <Text style={[{ marginLeft: 8 }, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+                                        <Text style={[{ marginLeft: 8 }, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                                             สินค้าขายดี</Text>
                                     </View>
                                 </TouchableOpacity>
@@ -774,7 +784,7 @@ export class Popular_product extends Component {
                                         </View>
                                     </View>
                                     <View style={stylesMain.PopularText_A} >
-                                        <Text style={[{ marginLeft: 8 }, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+                                        <Text style={[{ marginLeft: 8 }, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                                             สินค้าสุดคูล</Text>
                                     </View>
                                 </TouchableOpacity>
@@ -887,7 +897,7 @@ export class FlashSale extends Component {
                         </View>
                         <View style={{ height: 55, paddingHorizontal: 3 }}>
                             <View style={[stylesMain.BoxProduct5NameofLines]}>
-                                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize6]}>
+                                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize8]}>
                                     {item.name}</Text>
                             </View>
                             <View style={[stylesMain.BoxProduct5PriceofLines, stylesMain.FlexRow]}>
@@ -898,7 +908,7 @@ export class FlashSale extends Component {
                                     prefix={'฿'}
                                     renderText={value =>
                                         <Text style={[
-                                            stylesMain.BoxProduct5ImagePrice, stylesFont.FontSize5, stylesFont.FontFamilyBold,
+                                            stylesMain.BoxProduct5ImagePrice, stylesFont.FontSize7, stylesFont.FontFamilyBold,
                                         ]}>
                                             {value + ' '}</Text>
                                     }
@@ -910,7 +920,7 @@ export class FlashSale extends Component {
                                     prefix={'฿'}
                                     renderText={value =>
                                         <Text style={[
-                                            stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize6, stylesFont.FontFamilyText,
+                                            stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText,
                                             { marginTop: 2 }
                                         ]}>
                                             {value}</Text>
@@ -927,7 +937,7 @@ export class FlashSale extends Component {
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <View style={[stylesMain.FlexRow, { marginTop: 5, }]}>
-                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                             FLASH SALE</Text>
                         <View style={[stylesMain.FlexRow, { marginTop: 4 }]}>
                             <View style={stylesMain.Time_FlashSale_TimeBox}>
@@ -945,7 +955,7 @@ export class FlashSale extends Component {
                         </View>
                     </View>
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('FlashSaleScreen')}>
-                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
                 </View>
@@ -993,10 +1003,10 @@ export class PromotionPopular extends Component {
             <View style={stylesMain.FrameBackground2}>
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
                 <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         ลายแทงร้านค้าแนะนำ</Text>
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Recommend_Store')}>
-                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
                 </View>
@@ -1091,7 +1101,7 @@ export class Product_for_you extends Component {
                         </View>
                         <View style={{ height: 60, paddingHorizontal: 3 }}>
                             <View style={[stylesMain.BoxProduct1NameofLines]}>
-                                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize5]}>
+                                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize7]}>
                                     {item.name}</Text>
                             </View>
                             <View style={[stylesMain.BoxProduct1PriceofLines, stylesMain.FlexRow]}>
@@ -1102,7 +1112,7 @@ export class Product_for_you extends Component {
                                     prefix={'฿'}
                                     renderText={value =>
                                         <Text style={[
-                                            stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize4, stylesFont.FontFamilyBold,
+                                            stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyBold,
                                         ]}>
                                             {value + ' '}</Text>
                                     }
@@ -1114,7 +1124,7 @@ export class Product_for_you extends Component {
                                     prefix={'฿'}
                                     renderText={value =>
                                         <Text style={[
-                                            stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize6, stylesFont.FontFamilyText,
+                                            stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText,
                                             { marginTop: 3 }
                                         ]}>
                                             {value}</Text>
@@ -1130,10 +1140,10 @@ export class Product_for_you extends Component {
             <View style={[stylesMain.FrameBackground2]}>
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
                 <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize1, stylesFont.FontFamilyBold]}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
                         FIN คัดมาเพื่อคุณ</Text>
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Product_for_youScreen')}>
-                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
                 </View>
@@ -1181,7 +1191,7 @@ export class Highlight extends Component {
                         </View>
                         <View style={{ height: 60, paddingHorizontal: 3 }}>
                             <View style={[stylesMain.BoxProduct1NameofLines]}>
-                                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize5]}>
+                                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize7]}>
                                     {item.name}</Text>
                             </View>
                             <View style={[stylesMain.BoxProduct1PriceofLines, stylesMain.FlexRow]}>
@@ -1192,7 +1202,7 @@ export class Highlight extends Component {
                                     prefix={'฿'}
                                     renderText={value =>
                                         <Text style={[
-                                            stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize4, stylesFont.FontFamilyBold,
+                                            stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyBold,
                                         ]}>
                                             {value + ' '}</Text>
                                     }
@@ -1204,7 +1214,7 @@ export class Highlight extends Component {
                                     prefix={'฿'}
                                     renderText={value =>
                                         <Text style={[
-                                            stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize6, stylesFont.FontFamilyText,
+                                            stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText,
                                             { marginTop: 3 }
                                         ]}>
                                             {value}</Text>
@@ -1220,10 +1230,10 @@ export class Highlight extends Component {
             <View style={stylesMain.FrameBackground2}>
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
                 <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         ไฮไลท์ประจำสัปดาห์</Text>
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('HighlightScreen')}>
-                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
                 </View>
@@ -1272,7 +1282,7 @@ export class NewStore extends Component {
             <View style={stylesMain.FrameBackground2}>
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
                 <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         ร้านค้าห้ามพลาด!!่</Text>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
@@ -1317,7 +1327,7 @@ export class Exclusive extends Component {
                         </View>
                         <View style={{ height: 60, paddingHorizontal: 3 }}>
                             <View style={[stylesMain.BoxProduct1NameofLines]}>
-                                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize5]}>
+                                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize7]}>
                                     {item.name}</Text>
                             </View>
                             <View style={[stylesMain.BoxProduct1PriceofLines, stylesMain.FlexRow]}>
@@ -1328,7 +1338,7 @@ export class Exclusive extends Component {
                                     prefix={'฿'}
                                     renderText={value =>
                                         <Text style={[
-                                            stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize4, stylesFont.FontFamilyBold,
+                                            stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyBold,
                                         ]}>
                                             {value + ' '}</Text>
                                     }
@@ -1340,7 +1350,7 @@ export class Exclusive extends Component {
                                     prefix={'฿'}
                                     renderText={value =>
                                         <Text style={[
-                                            stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize6, stylesFont.FontFamilyText,
+                                            stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText,
                                             { marginTop: 3 }
                                         ]}>
                                             {value}</Text>
@@ -1356,11 +1366,11 @@ export class Exclusive extends Component {
             <View style={stylesMain.FrameBackground2}>
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
                 <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize1, stylesFont.FontFamilyBold]}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
                         สินค้าสุด Exclusive</Text>
                     <TouchableOpacity
                         onPress={() => this.props.navigation.navigate('ExclusiveScreen')}>
-                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
                 </View>
@@ -1388,35 +1398,34 @@ export class CategoryProduct extends Component {
         let dataCategory = this.state.dataService.map((item, indexs) => {
             var dataMySQL = [finip, item.mobile_head].join('/');
             return (
-                <View style={stylesMain.FrameBackground2} key={indexs}>
-                    <View>
-                        <View style={stylesMain.FrameBackgroundTextBox}>
-                            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
-                                {item.name}</Text>
-                                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('CategoryScreen')}>
-                            <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-                                ดูทั้งหมด</Text>
-                                </TouchableOpacity>
-                        </View>
+                <View style={[stylesMain.FrameBackground2, { marginTop: 10, backgroundColor: item.bg_m }]} key={indexs}>
+                    <View style={{}}>
                         <FastImage
                             source={{
                                 uri: dataMySQL,
                             }}
-                            style={[stylesMain.CategoryProductImageHead, stylesMain.ImageMargin]}
-                            resizeMode={FastImage.resizeMode.stretch}
+                            style={[stylesMain.CategoryProductImageHead, { marginTop: 0 }]}
+                            resizeMode={FastImage.resizeMode.cover}
                         />
+                        <View style={stylesMain.FrameBackgroundTextBox}>
+                            <Text></Text>
+                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('CategoryScreen')}>
+                                <Text style={[stylesMain.FrameBackgroundTextEnd2, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                    ดูทั้งหมด</Text>
+                            </TouchableOpacity>
+                        </View>
                         <CategoryProductSubProduct navigation={this.props.navigation} id_type={item.id_type} />
                     </View>
                     <View>
                         <View style={stylesMain.Text_Bar_Image}>
-                            <Text style={[stylesMain.Text_Bar, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                            <Text style={[stylesMain.Text_Bar, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                                 ร้านฮิต ติดเทรนด์</Text>
                         </View>
                         <CategoryProductSubStore navigation={this.props.navigation} />
                     </View>
-                    <View>
+                    <View style={{ marginBottom: 10, }}>
                         <View style={stylesMain.Text_Bar_Image}>
-                            <Text style={[stylesMain.Text_Bar, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                            <Text style={[stylesMain.Text_Bar, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                                 FIN แนะนำร้าน </Text>
                         </View>
                         <CategoryProductSubPromotion navigation={this.props.navigation} />
@@ -1467,7 +1476,7 @@ export class CategoryProductSubProduct extends Component {
                         </View>
                         <View style={{ height: 60, paddingHorizontal: 3 }}>
                             <View style={[stylesMain.BoxProduct1NameofLines]}>
-                                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize5]}>
+                                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize7]}>
                                     {item.name}</Text>
                             </View>
                             <View style={[stylesMain.BoxProduct1PriceofLines, stylesMain.FlexRow]}>
@@ -1478,7 +1487,7 @@ export class CategoryProductSubProduct extends Component {
                                     prefix={'฿'}
                                     renderText={value =>
                                         <Text style={[
-                                            stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize4, stylesFont.FontFamilyBold,
+                                            stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyBold,
                                         ]}>
                                             {value + ' '}</Text>
                                     }
@@ -1490,7 +1499,7 @@ export class CategoryProductSubProduct extends Component {
                                     prefix={'฿'}
                                     renderText={value =>
                                         <Text style={[
-                                            stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize6, stylesFont.FontFamilyText,
+                                            stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText,
                                             { marginTop: 3 }
                                         ]}>
                                             {value}</Text>
@@ -1571,12 +1580,12 @@ export class CategoryProductSubPromotion extends Component {
         let dataCategoryProductSubPromotion = this.state.dataService.map((item, indexs) => {
             var dataMySQL = [ip + '/MySQL/uploads/slide/Store_recommendFIN', item.image].join('/');
             return (
-                <View style={stylesMain.BoxStore1Box} key={indexs}>
+                <View style={[stylesMain.BoxStore1Box, { borderWidth: 0, }]} key={indexs}>
                     <FastImage
                         source={{
                             uri: dataMySQL,
                         }}
-                        style={stylesMain.BoxStore1Image}
+                        style={[stylesMain.BoxStore1Image, { borderRadius: 6, }]}
                     />
                 </View>
             );
@@ -1620,7 +1629,7 @@ export class Second_product extends Component {
                 >
                 </FastImage>
                 <View style={stylesMain.bigSlideText}>
-                    <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#FFFF' }]}>
+                    <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#FFFF' }]}>
                         โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50% </Text>
                 </View>
             </View>
@@ -1640,7 +1649,7 @@ export class Second_product extends Component {
                 </FastImage>
                 <View style={stylesMain.litleSlideText}>
                     <Text numberOfLines={2} style={[
-                        stylesMain.Second_StoreFin_ImageB_Ttext, stylesFont.FontSize6, stylesFont.FontFamilyText
+                        stylesMain.Second_StoreFin_ImageB_Ttext, stylesFont.FontSize8, stylesFont.FontFamilyText
                     ]}>
                         โปรโมชั่นพิเศษ ร้าน Modern ลดมากกว่า 50% </Text>
                 </View>
@@ -1711,7 +1720,7 @@ export class Second_product extends Component {
                         </View>
                         <View style={{ height: 60, paddingHorizontal: 3 }}>
                             <View style={[stylesMain.BoxProduct1NameofLines]}>
-                                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize5]}>
+                                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize7]}>
                                     {item.name}</Text>
                             </View>
                             <View style={[stylesMain.BoxProduct1PriceofLines, stylesMain.FlexRow]}>
@@ -1722,7 +1731,7 @@ export class Second_product extends Component {
                                     prefix={'฿'}
                                     renderText={value =>
                                         <Text style={[
-                                            stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize4, stylesFont.FontFamilyBold,
+                                            stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyBold,
                                         ]}>
                                             {value + ' '}</Text>
                                     }
@@ -1734,7 +1743,7 @@ export class Second_product extends Component {
                                     prefix={'฿'}
                                     renderText={value =>
                                         <Text style={[
-                                            stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize6, stylesFont.FontFamilyText,
+                                            stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText,
                                             { marginTop: 3 }
                                         ]}>
                                             {value}</Text>
@@ -1743,7 +1752,7 @@ export class Second_product extends Component {
                             </View>
                         </View>
                     </View>
-                </TouchableOpacity >
+                </TouchableOpacity>
             );
         })
         return (
@@ -1751,16 +1760,16 @@ export class Second_product extends Component {
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
                 <GetServices uriPointer={uri2} dataBody={dataBody2} getDataSource={this.getData2} />
                 <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize1, stylesFont.FontFamilyBold]}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
                         สินค้ามือสอง</Text>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Second_productScreen')}>
-                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('SecondScreen', { selectedIndex: 0 })}>
+                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
                 </View>
                 <View>
                     <FastImage
-                        style={[stylesMain.CategoryProductImageHead, stylesMain.ImageMargin]}
+                        style={stylesMain.CategoryProductImageHead}
                         source={{ uri: ip + '/MySQL/uploads/slide/Banner_type/watch_BannerBar.jpg' }}
                         resizeMode={FastImage.resizeMode.stretch}
                     />
@@ -1770,13 +1779,13 @@ export class Second_product extends Component {
                 </ScrollView>
                 <View style={stylesMain.Second_StoreFin}>
                     <View style={stylesMain.Second_StoreFin_BoxHead}>
-                        <FastImage
-                            style={stylesMain.Text_Bar_Image}
-                            source={{ uri: ip + '/MySQL/uploads/Text/storeFIN1.png' }}
-                        />
+                        <View style={stylesMain.Text_Bar_Image}>
+                            <Text style={[stylesMain.Text_Bar, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                                ร้านค้ามือสองแนะนำโดย FIN </Text>
+                        </View>
                         <View>
-                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Second_productScreen')}>
-                                <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('SecondScreen', { selectedIndex: 1 })}>
+                                <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                                     ดูทั้งหมด</Text>
                             </TouchableOpacity>
                         </View>
@@ -1915,7 +1924,7 @@ export class TodayProduct extends Component {
                             />
                         </View><View style={{ height: 60, paddingHorizontal: 3 }}>
                             <View style={[stylesMain.BoxProduct1NameofLines]}>
-                                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize5]}>
+                                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize7]}>
                                     {item.name}</Text>
                             </View>
                             <View style={[stylesMain.BoxProduct1PriceofLines, stylesMain.FlexRow]}>
@@ -1926,7 +1935,7 @@ export class TodayProduct extends Component {
                                     prefix={'฿'}
                                     renderText={value =>
                                         <Text style={[
-                                            stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize4, stylesFont.FontFamilyBold,
+                                            stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyBold,
                                         ]}>
                                             {value + ' '}</Text>
                                     }
@@ -1938,7 +1947,7 @@ export class TodayProduct extends Component {
                                     prefix={'฿'}
                                     renderText={value =>
                                         <Text style={[
-                                            stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize6, stylesFont.FontFamilyText,
+                                            stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText,
                                             { marginTop: 3 }
                                         ]}>
                                             {value}</Text>
@@ -1956,7 +1965,7 @@ export class TodayProduct extends Component {
                 {
                     noTitle ?
                         null :
-                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                             สินค้าคัดสรรเพื่อคุณ</Text>
                 }
                 <View style={stylesMain.BoxProduct2BoxProduct}>

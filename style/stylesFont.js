@@ -16,24 +16,30 @@ export default StyleSheet.create({
         fontFamily: 'ThaiSansNeue-ExtraBold',
     },
     FontSize1: {
-        fontSize: 22,
+        fontSize: 26,
     },
     FontSize2: {
-        fontSize: 20,
+        fontSize: 24,
     },
     FontSize3: {
-        fontSize: 18,
+        fontSize: 22,
     },
     FontSize4: {
-        fontSize: 16,
+        fontSize: 20,
     },
     FontSize5: {
-        fontSize: 14,
+        fontSize: 18,
     },
     FontSize6: {
-        fontSize: 12,
+        fontSize: 16,
     },
     FontSize7: {
+        fontSize: 14,
+    },
+    FontSize8: {
+        fontSize: 12,
+    },
+    FontSize9: {
         fontSize: 10,
     },
 })

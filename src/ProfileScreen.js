@@ -84,7 +84,7 @@ export class Headbar extends Component {
                             <View>
                                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMeScreen')} >
                                     <View style={stylesProfile.HeadbarBox1Sub}>
-                                        <Text style={[stylesProfile.HeadbarBox1SubText, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                                        <Text style={[stylesProfile.HeadbarBox1SubText, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                                             เริ่มค้าขาย</Text>
                                     </View>
                                 </TouchableOpacity>
@@ -94,16 +94,16 @@ export class Headbar extends Component {
                                 />
                             </View>
                             <View style={{ marginLeft: 15, marginTop: '21%' }}>
-                                <Text style={[stylesFont.FontSize4, stylesFont.FontFamilyText, { color: '#FFFFFF' }]}>
+                                <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#FFFFFF' }]}>
                                     {currentUser.name}</Text>
                                 <View style={{ flexDirection: 'row' }}>
                                     <Badge status="success" style={{ borderWidth: null, }} />
-                                    <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText, {
+                                    <Text style={[stylesFont.FontSize8, stylesFont.FontFamilyText, {
                                         color: statusOnline ? '#BEBDBD' : '#43e855',
                                     }]}>
                                         Active อยู่</Text>
                                 </View>
-                                <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyText, { color: '#FFFFFF' }]}>
+                                <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: '#FFFFFF' }]}>
                                     ผู้ติดตาม 20.2 พัน | กำลังติดตาม 2</Text>
                             </View>
                         </View>
@@ -132,14 +132,14 @@ export class Menubar extends Component {
                 <View style={stylesProfile.Menubar}>
                     <View>
                         <Text style={[
-                            stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize3
+                            stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize5
                         ]}>
                             รายการสั่งซื้อของฉัน</Text>
                     </View>
                     <View style={{ marginTop: 10, }}>
                         <TouchableOpacity activeOpacity={0.9} onPress={() => { this.props.navigation.navigate('Total_Order', { selectedIndex: 0 }) }}>
                             <Text style={[
-                                stylesProfile.MenubarText2, stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize4
+                                stylesProfile.MenubarText2, stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize6
                             ]}>
                                 รายการการสั่งซื้อทั้งหมด <IconEntypo name='chevron-right' size={20} />
                             </Text>
@@ -167,7 +167,7 @@ export class MenubarSub extends Component {
                                 source={require('../icon/two-money-cards.png')}
                                 style={stylesProfile.MenubarSubLine1Image}
                             />
-                            <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                            <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                 รอจ่ายเงิน</Text>
                         </View>
                     </TouchableOpacity>
@@ -177,7 +177,7 @@ export class MenubarSub extends Component {
                                 source={require('../icon/month-calendar.png')}
                                 style={stylesProfile.MenubarSubLine1Image}
                             />
-                            <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                            <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                 เตรียมจัดส่ง</Text>
                         </View>
                     </TouchableOpacity>
@@ -187,7 +187,7 @@ export class MenubarSub extends Component {
                                 source={require('../icon/truck-facing-right.png')}
                                 style={stylesProfile.MenubarSubLine1Image}
                             />
-                            <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                            <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                 ดำเนินการส่ง</Text>
                         </View>
                     </TouchableOpacity>
@@ -197,7 +197,7 @@ export class MenubarSub extends Component {
                                 source={require('../icon/rating.png')}
                                 style={stylesProfile.MenubarSubLine1Image}
                             />
-                            <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                            <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                 รีวิวสินค้า</Text>
                         </View>
                     </TouchableOpacity>
@@ -209,7 +209,7 @@ export class MenubarSub extends Component {
                                 source={require('../icon/repeat.png')}
                                 style={stylesProfile.MenubarSubLine2BoxImage}
                             />
-                            <Text style={[stylesProfile.MenubarSubLine2BoxName, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                            <Text style={[stylesProfile.MenubarSubLine2BoxName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                 คืนสินค้า/คืนเงิน</Text>
                         </View>
                     </TouchableOpacity>
@@ -219,7 +219,7 @@ export class MenubarSub extends Component {
                                 source={require('../icon/box.png')}
                                 style={stylesProfile.MenubarSubLine2BoxImage}
                             />
-                            <Text style={[stylesProfile.MenubarSubLine2BoxName, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                            <Text style={[stylesProfile.MenubarSubLine2BoxName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                 ยกเลิกสินค้า</Text>
                         </View>
                     </TouchableOpacity>
@@ -262,7 +262,7 @@ export class Listbar extends Component {
                                 <IconAntDesign name='home' size={40} style={[stylesMain.ItemCenterVertical, { color: '#fff' }]} />
                             </View>
                             <Text style={[
-                                stylesProfile.ListbarBoxText, stylesFont.FontFamilyText, stylesFont.FontSize4, stylesFont.FontCenter
+                                stylesProfile.ListbarBoxText, stylesFont.FontFamilyText, stylesFont.FontSize6, stylesFont.FontCenter
                             ]}>
                                 หน้าหลัก</Text>
                         </View>
@@ -274,7 +274,7 @@ export class Listbar extends Component {
                                     style={stylesProfile.ListbarMainRadiusIcon} />
                             </View>
                             <Text style={[
-                                stylesProfile.ListbarBoxText, stylesFont.FontFamilyText, stylesFont.FontSize4, stylesFont.FontCenter
+                                stylesProfile.ListbarBoxText, stylesFont.FontFamilyText, stylesFont.FontSize6, stylesFont.FontCenter
                             ]}>
                                 โปรโมชัน</Text>
                         </View>
@@ -285,7 +285,7 @@ export class Listbar extends Component {
                                 <IconMaterialCommunityIcons name='ticket' size={40} style={stylesProfile.ListbarMainRadiusIcon} />
                             </View>
                             <Text style={[
-                                stylesProfile.ListbarBoxText, stylesFont.FontFamilyText, stylesFont.FontSize4, stylesFont.FontCenter
+                                stylesProfile.ListbarBoxText, stylesFont.FontFamilyText, stylesFont.FontSize6, stylesFont.FontCenter
                             ]}>
                                 โค้ดส่วนลด</Text>
                         </View>
@@ -299,7 +299,7 @@ export class Listbar extends Component {
                                 />
                             </View>
                             <Text style={[
-                                stylesProfile.ListbarBoxText, stylesFont.FontFamilyText, stylesFont.FontSize4, stylesFont.FontCenter
+                                stylesProfile.ListbarBoxText, stylesFont.FontFamilyText, stylesFont.FontSize6, stylesFont.FontCenter
                             ]}>
                                 Fin coin ของฉัน</Text>
                         </View>
@@ -327,7 +327,7 @@ export class ListMenu extends Component {
                                 <IconMaterialIcons RightItem name="access-time" color='#D0B216' size={35}
                                     style={stylesProfile.ListMenuListSubIcon} />
                                 <Text style={[
-                                    stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize4,
+                                    stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6,
                                     stylesFont.FontCenter
                                 ]}>
                                     ดูล่าสุด</Text>
@@ -341,7 +341,7 @@ export class ListMenu extends Component {
                                 <IconAntDesign RightItem name="wechat" size={35} color='#0A55A6'
                                     style={stylesProfile.ListMenuListSubIcon} />
                                 <Text style={[
-                                    stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize4,
+                                    stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6,
                                     stylesFont.FontCenter
                                 ]}>
                                     แชท</Text>
@@ -356,7 +356,7 @@ export class ListMenu extends Component {
                                     stylesProfile.ListMenuListSubIcon}
                                 />
                                 <Text style={[
-                                    stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize4,
+                                    stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6,
                                     stylesFont.FontCenter
                                 ]}>
                                     สิ่งที่สนใจ</Text>
@@ -370,7 +370,7 @@ export class ListMenu extends Component {
                                 <IconFontisto RightItem name="shopping-store" size={30} color='#0A55A6' style={
                                     stylesProfile.ListMenuListSubIcon} />
                                 <Text style={[
-                                    stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize4,
+                                    stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6,
                                     stylesFont.FontCenter
                                 ]}>
                                     ร้านค้าที่ติดตาม</Text>
@@ -384,7 +384,7 @@ export class ListMenu extends Component {
                                 <IconMaterialCommunityIcons RightItem name="star-box" size={35} color='#EAD295' style={
                                     stylesProfile.ListMenuListSubIcon} />
                                 <Text style={[
-                                    stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize4,
+                                    stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6,
                                     stylesFont.FontCenter
                                 ]}>
                                     รีวิวของฉัน</Text>
@@ -398,7 +398,7 @@ export class ListMenu extends Component {
                                 <IconFeather RightItem name="help-circle" size={35} color='#00A3FF' style={
                                     stylesProfile.ListMenuListSubIcon} />
                                 <Text style={[
-                                    stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize4,
+                                    stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6,
                                     stylesFont.FontCenter
                                 ]}>
                                     ช่วยเหลือ</Text>
@@ -444,7 +444,7 @@ export class ViewCode extends Component {
         return (
             <View>
                 <View style={stylesProfile.ViewCode}>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
                         โ่ค้ดส่วนลดของฉัน</Text>
                 </View>
                 <View style={{ marginTop: 10, backgroundColor: '#fff' }}>
@@ -480,13 +480,13 @@ export class MyCode extends Component {
                                 maxLength={9}
                                 width={'90%'}
                                 placeholderTextColor={'white'}
-                                style={[stylesProfile.ViewCodeInputCode, stylesFont.FontSize4]}
+                                style={[stylesProfile.ViewCodeInputCode, stylesFont.FontSize6]}
                                 onChangeText={(text) => this.setState({ text })}
                             ></TextInput>
                         </View>
                         <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
                             <View style={[stylesProfile.ViewCodeTextCode]}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFF' }]}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#FFF' }]}>
                                     เก็บโค้ดส่วนลด</Text>
                             </View>
                         </View>
@@ -494,7 +494,7 @@ export class MyCode extends Component {
                 </View>
                 <View style={stylesMain.ItemCenter}>
                     <View style={stylesProfile.FinMinssion}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { paddingLeft: 20, padding: 2 }]}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { paddingLeft: 20, padding: 2 }]}>
                             FIN Mission</Text>
                     </View>
                     <View style={stylesProfile.FinMinssionBox}>
@@ -503,16 +503,16 @@ export class MyCode extends Component {
                                 style={stylesProfile.FinMinssionBoxPlan1Image}
                             />
                             <View style={{ marginLeft: 16 }}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { marginTop: 5 }]}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>
                                     ติดตาม ร้าน Ppooo</Text>
                                 <View style={[stylesProfile.FinMinssionBoxPlan1Code, stylesMain.ItemCenter]}>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: 'white' }]}>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: 'white' }]}>
                                         โค้ดส่วนลด 80%</Text>
                                 </View>
                             </View>
                             <View style={stylesProfile.FinMinssionBoxPlan1Follow}>
                                 <View style={[stylesProfile.FinMinssionBoxPlan1FollowBox, stylesMain.ItemCenter,]}>
-                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                         ติดตาม</Text>
                                 </View>
                             </View>
@@ -522,16 +522,16 @@ export class MyCode extends Component {
                                 style={stylesProfile.FinMinssionBoxPlan1Image}
                             />
                             <View style={{ marginLeft: 16 }}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { marginTop: 5 }]}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>
                                     ติดตาม ร้าน Ppooo</Text>
                                 <View style={[stylesProfile.FinMinssionBoxPlan1Code, stylesMain.ItemCenter]}>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: 'white' }]}>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: 'white' }]}>
                                         โค้ดส่วนลด 80%</Text>
                                 </View>
                             </View>
                             <View style={stylesProfile.FinMinssionBoxPlan1Follow}>
                                 <View style={[stylesProfile.FinMinssionBoxPlan1FollowBox, stylesMain.ItemCenter,]}>
-                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                         ติดตาม</Text>
                                 </View>
                             </View>
@@ -541,16 +541,16 @@ export class MyCode extends Component {
                                 style={stylesProfile.FinMinssionBoxPlan1Image}
                             />
                             <View style={{ marginLeft: 16 }}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { marginTop: 5 }]}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>
                                     ติดตาม ร้าน Ppooo</Text>
                                 <View style={[stylesProfile.FinMinssionBoxPlan1Code, stylesMain.ItemCenter]}>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: 'white' }]}>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: 'white' }]}>
                                         โค้ดส่วนลด 80%</Text>
                                 </View>
                             </View>
                             <View style={stylesProfile.FinMinssionBoxPlan1Follow}>
                                 <View style={[stylesProfile.FinMinssionBoxPlan1FollowBox, stylesMain.ItemCenter,]}>
-                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                         ติดตาม</Text>
                                 </View>
                             </View>
@@ -558,7 +558,7 @@ export class MyCode extends Component {
                     </View>
                     <View style={{ marginVertical: 4, backgroundColor: '#fff', }}>
                         <View style={[stylesProfile.AllFinMinssion, stylesMain.ItemCenter]}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#6791BE' }]}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#6791BE' }]}>
                                 ดูภารกิจทั้งหมด</Text>
                         </View>
                     </View>
@@ -629,7 +629,7 @@ export class CoinCollect extends Component {
                             style={stylesProfile.CoinCollectImage}
                         />
                         <View style={stylesProfile.CoinCollectBox}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 10, marginLeft: 20, }]}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { marginTop: 10, marginLeft: 20, }]}>
                                 FIN COIN</Text>
                             <View style={stylesMain.ItemCenter}>
                                 <NumberFormat
@@ -637,7 +637,7 @@ export class CoinCollect extends Component {
                                     displayType={'text'}
                                     thousandSeparator={true}
                                     renderText={
-                                        value => <Text style={[stylesFont.FontSize2, stylesFont.FontFamilyBold]}>
+                                        value => <Text style={[stylesFont.FontSize4, stylesFont.FontFamilyBold]}>
                                             {value}</Text>
                                     }
                                 />
@@ -680,12 +680,12 @@ export class CoinPageBody extends Component {
                     </View>
                     <View style={[stylesMain.FlexRow, stylesProfile.CoinPageBodyBox]}>
                         <View style={stylesProfile.CoinPageBodyBoxBody1}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                 ส่วนลด 10% สำหรับร้าน เพชร</Text>
                         </View>
                         <View style={[stylesProfile.CoinPageBodyBoxBody2, { flexDirection: 'row', justifyContent: 'flex-end' }]}>
                             <View style={[stylesProfile.CoinPageBodyBoxBody2Box, stylesMain.ItemCenter]}>
-                                <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#fff' }]}>
+                                <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#fff' }]}>
                                     แลก 10 coin</Text>
                             </View>
                         </View>

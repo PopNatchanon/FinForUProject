@@ -21,7 +21,7 @@ import Product_for_youScreen from '../src/Product_for_youScreen';
 import Popular_productScreen from '../src/Popular_productScreen';
 import CategoryScreen from '../src/CategoryScreen';
 import Same_StoreScreen from '../src/Same_StoreScreen';
-import Second_productScreen from '../src/Second_productScreen';
+import SecondScreen from '../src/SecondScreen';
 import SearchScreen from '../src/SearchScreen'
 
 // src_Bell
@@ -381,8 +381,8 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
-  Second_productScreen: {
-    screen: Second_productScreen,
+  SecondScreen: {
+    screen: SecondScreen,
     navigationOptions: () => ({
       tabBarVisible: false,
       header: null,
@@ -404,9 +404,9 @@ const PathScreen = createStackNavigator({
   },
 },
   {
-    initialRouteName: 'MainScreen',
-    // initialRouteName: 'Second_productScreen',
-    // initialRouteName: 'Customer_Order',
+    // initialRouteName: 'MainScreen',
+    // initialRouteName: 'StoreMe_Up_Product',
+    initialRouteName: 'StoreMeScreen',
     // initialRouteName: 'Customer_account',
     // initialRouteName: 'ExclusiveScreen',
   }

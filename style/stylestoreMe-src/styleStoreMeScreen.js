@@ -11,7 +11,6 @@ export default StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between'
     },
-
     Text: {
         fontSize: 18,
     },
@@ -38,28 +37,19 @@ export default StyleSheet.create({
     StoreMe_Up_ProductDetail: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        height: 60,
         width: '100%',
+        height:45,
         backgroundColor: '#FFF',
         marginTop: 5,
-        padding: 10,
-    },
-    StoreMe_Up_ProductDetail_Text: {
-        fontSize: 15,
-        margin: 10,
-    },
-    StoreMe_Up_ProductDetail_TextMax: {
-        fontSize: 12,
-        marginLeft: 10,
-        color: '#0A55A6',
-        marginTop: 5,
-        marginBottom: 5,
+        paddingLeft:10,
+        alignItems:'center',
     },
     BottomSheet: {
         justifyContent: 'center',
         alignItems: 'center',
     },
     BottomSheet_Box: {
+        borderRadius:10,
         height: 50,
         width: 300,
         alignItems: 'flex-end',
@@ -108,11 +98,6 @@ export default StyleSheet.create({
         borderColor: '#EAEAEA',
         borderWidth: 1,
     },
-    Text_ling: {
-        fontSize: 12,
-        marginLeft: 5,
-        color: '#0A55A6',
-    },
     Text_ling_Box: {
         flexDirection: 'row',
         marginTop: 5,
@@ -132,8 +117,8 @@ export default StyleSheet.create({
     SelectSheet_TextInput: {
         justifyContent: 'center',
         alignItems: 'center',
-        height: 50,
-        width: 150,
+        height: 40,
+        width: 160,
         borderColor: '#D4D4D4',
         borderWidth: 1,
         borderRadius: 8,
@@ -155,21 +140,20 @@ export default StyleSheet.create({
         alignItems: 'center',
         borderColor: '#CACACA',
         borderWidth: 1,
-        height: 40,
-        width: 140,
+        height: 30,
+        width: 110,
     },
     Category: {
         marginLeft: 10,
         width: 70,
         height: 80,
-        marginTop: 10,
+        marginTop: 15,
         justifyContent: 'center',
         alignItems: 'center',
     },
     CatagorySheet: {
         width: '100%',
         flexDirection: 'row',
-        height: 200,
         flexWrap: 'wrap',
     },
     CatagorySheet_Box: {
@@ -181,13 +165,9 @@ export default StyleSheet.create({
         height: 50,
         width: 50,
     },
-    Category_image: {
-        height: 40,
-        width: 40,
-    },
     cate_Box: {
         height: 30,
-        width: 120,
+        width: 90,
         borderColor: '#D4D4D4',
         borderWidth: 1,
         borderRadius: 8,
@@ -195,7 +175,6 @@ export default StyleSheet.create({
         marginTop: 10,
     },
     cate_BoxA: {
-        height: 70,
         width: '100%',
         flexDirection: 'row',
     },

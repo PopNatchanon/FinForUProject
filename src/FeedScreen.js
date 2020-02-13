@@ -174,7 +174,7 @@ export class Highlights extends Component {
                     uri: dataMySQL_s,
                   }}
                 />
-                <Text style={[stylesMain.BoxProduct4PlusImageText, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
+                <Text style={[stylesMain.BoxProduct4PlusImageText, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
                   {item.s_name}</Text>
               </View>
             </TouchableOpacity>
@@ -182,7 +182,7 @@ export class Highlights extends Component {
               {Follow ?
                 null :
                 <View style={stylesMain.BoxProduct4PlusButtonFollow}>
-                  <Text style={[stylesMain.BoxProduct4PlusButtonFollowText, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                  <Text style={[stylesMain.BoxProduct4PlusButtonFollowText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                     ติดตาม</Text>
                 </View>
               }
@@ -201,31 +201,31 @@ export class Highlights extends Component {
               </View>
             </TouchableOpacity>
             <View style={stylesMain.BoxProduct4ComBox}>
-              <Text style={[stylesMain.BoxProduct4ComBoxDetail, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+              <Text style={[stylesMain.BoxProduct4ComBoxDetail, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                 {item.detail}</Text>
-              <Text style={[stylesMain.BoxProduct4ComBoxTag, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+              <Text style={[stylesMain.BoxProduct4ComBoxTag, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                 ที่สุดสำหรับคุณ</Text>
               <View style={stylesMain.FlexRow}>
-                <Text style={[stylesMain.BoxProduct4ComBoxText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                <Text style={[stylesMain.BoxProduct4ComBoxText, stylesFont.FontFamilyText, stylesFont.FontSize8]}>
                   200 การเข้าชม</Text>
-                <Text style={[stylesMain.BoxProduct4ComBoxText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                <Text style={[stylesMain.BoxProduct4ComBoxText, stylesFont.FontFamilyText, stylesFont.FontSize8]}>
                   เมื่อ 3 วันที่ผ่านมา</Text>
               </View>
             </View>
             <View style={stylesMain.BoxProduct4ComBox2}>
               <View style={stylesMain.BoxProduct4ComBoxIcon}>
                 <Icons name='heart' size={20} />
-                <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                   ถูกใจ</Text>
               </View>
               <View style={stylesMain.BoxProduct4ComBoxIcon}>
                 <Icons name='comment-dots' size={20} />
-                <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                   แสดงความคิดเห็น</Text>
               </View>
               <View style={stylesMain.BoxProduct4ComBoxIcon}>
                 <Icons name='share-square' size={20} />
-                <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                   แชร์</Text>
               </View>
             </View>

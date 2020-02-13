@@ -91,7 +91,7 @@ export class Popular_store extends Component {
                             }}
                             style={stylesMain.BoxStore3Image}
                         />
-                        <Text style={[stylesMain.BoxStore3Text, stylesFont.FontFamilyText, stylesFont.FontSize4, { height: height * 0.15 }]}>
+                        <Text style={[stylesMain.BoxStore3Text, stylesFont.FontFamilyText, stylesFont.FontSize6, { height: height * 0.15 }]}>
                             {
                                 text
                             }
@@ -103,9 +103,9 @@ export class Popular_store extends Component {
         return (
             <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView]}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize2]}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
                         ร้านเด็ด</Text>
-                    <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                    <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                         ดูทั้งหมด</Text>
                 </View>
                 <ScrollView horizontal>
@@ -127,7 +127,7 @@ export class Pro_for_U extends Component {
     render() {
         return (
             <View>
-                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize2]}>
+                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
                     โปรเด็ดที่คัดมาเพื่อคุณ</Text>
                 <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, stylesMain.ItemCenter]}>
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Detail_Pro', { selectedIndex: 0 })}>
@@ -138,7 +138,7 @@ export class Pro_for_U extends Component {
                                     uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
                                 }}
                             />
-                            <Text style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                            <Text style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                 ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                         </View>
                     </TouchableOpacity>
@@ -149,7 +149,7 @@ export class Pro_for_U extends Component {
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop2.jpg',
                             }}
                         />
-                        <Text style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                        <Text style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                             ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                     </View>
                     <View style={stylesMain.BoxStore4Box}>
@@ -159,7 +159,7 @@ export class Pro_for_U extends Component {
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop3.jpg',
                             }}
                         />
-                        <Text style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                        <Text style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                             ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                     </View>
                     <View style={stylesMain.BoxStore4Box}>
@@ -169,7 +169,7 @@ export class Pro_for_U extends Component {
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop4.jpg',
                             }}
                         />
-                        <Text style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                        <Text style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                             ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                     </View>
                 </View>
@@ -189,7 +189,7 @@ export class Update_buy extends Component {
     render() {
         return (
             <View>
-                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize2]}>
+                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
                     อัพเดทคำสั่งซื้อ</Text>
                 <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, stylesMain.ItemCenter]}>
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Detail_Pro', { selectedIndex: 1 })}>
@@ -200,7 +200,7 @@ export class Update_buy extends Component {
                                     uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
                                 }}
                             />
-                            <Text style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                            <Text style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                 คุณให้คะแนนเรทติ้งการสั่งซื้อแล้วรึยัง</Text>
                         </View>
                     </TouchableOpacity>
@@ -211,7 +211,7 @@ export class Update_buy extends Component {
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
                             }}
                         />
-                        <Text style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                        <Text style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                             กรุณาชำระเงิน ........ บาท สำหรับคำสั่งซื้อ ภายในวันที่ 19-12-2019 </Text>
                     </View>
                     <View style={stylesMain.BoxStore4Box}>
@@ -221,7 +221,7 @@ export class Update_buy extends Component {
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
                             }}
                         />
-                        <Text style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                        <Text style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                             คุณให้คะแนนเรทติ้งการสั่งซื้อแล้วรึยัง??</Text>
                     </View>
                     <View style={stylesMain.BoxStore4Box}>
@@ -231,7 +231,7 @@ export class Update_buy extends Component {
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
                             }}
                         />
-                        <Text style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                        <Text style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                             กรุณาชำระเงิน ........ บาท สำหรับคำสั่งซื้อ ภายในวันที่ 19-12-2019 </Text>
                     </View>
                 </View>

@@ -88,13 +88,13 @@ export default class SearchScreen extends Component {
                             </View>
                             <View style={[stylesMain.FlexRow, stylesMain.SafeAreaViewNoBackground, { marginTop: 8 }]}>
                                 <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
-                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, stylesFont.FontFamilyText, {
+                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, {
                                         color: '#0A55A6'
                                     }]}>
                                         รีเซ็ต</Text>
                                 </View>
                                 <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset, { backgroundColor: '#0A55A6' }]}>
-                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, stylesFont.FontFamilyText, {
+                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, {
                                         color: '#fff'
                                     }]}>
                                         เสร็จสิ้น</Text>
@@ -117,14 +117,14 @@ export class HeadBox extends Component {
         return (
             <View>
                 <View style={[stylesMain.FrameBackgroundTextBox]}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                         ร้านค้าที่เกี่ยวข้องกับ <Text>"{SearchText}"</Text></Text>
                     {
                         otherOption ?
                             <TouchableOpacity onPress={() => navigation.push('SearchScreen', { modeStore: true })}>
                                 <View style={[stylesMain.FlexRow, { marginRight: 4, marginTop: 8 }]}>
                                     <Text style={[
-                                        stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize5,
+                                        stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7,
                                         stylesMain.ItemCenterVertical, {
                                             marginRight: 0,
                                         }
@@ -160,21 +160,21 @@ export class StoreCard extends Component {
                     />
                 </View>
                 <View>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
                         PPoo</Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                         ผู้ติดตาม : 12.1 พัน</Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#AAAAAA' }]}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#AAAAAA' }]}>
                         จำนวนสินค้า <Text style={{ color: '#0A55A6' }}>
                             560</Text> | คะแนน <Text style={{ color: '#0A55A6' }}>4.6</Text></Text>
                 </View>
                 <View style={stylesMain.FlexRow}>
                     <View style={[stylesMain.ItemCenter, { width: 70, height: 25, backgroundColor: '#0A55A6', borderRadius: 6, marginHorizontal: 2 }]}>
-                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize5, { color: '#fff' }]}>
+                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize7, { color: '#fff' }]}>
                             + ติดตาม</Text>
                     </View>
                     <View style={[stylesMain.ItemCenter, { width: 70, height: 25, backgroundColor: '#0A55A6', borderRadius: 6, marginHorizontal: 2 }]}>
-                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize5, { color: '#fff' }]}>
+                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize7, { color: '#fff' }]}>
                             พูดคุย</Text>
                     </View>
                 </View>

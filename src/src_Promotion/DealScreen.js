@@ -237,7 +237,7 @@ export class Deal_Calendar extends Component {
       <View style={{ paddingHorizontal: 2 }}>
         <View style={[styleMain.FrameBackground, { backgroundColor: '#B5F5D1', width: '100%' }]}>
           <View style={[stylesDeal.BoxText_T, { backgroundColor: '#5094EE', marginLeft: -3 }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, stylesDeal.Text_Head]}>ดีลเด็ดตามปฏิทิน</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ดีลเด็ดตามปฏิทิน</Text>
           </View>
           <View style={stylesDeal.Deal_Calendar_Box}>
             <View style={stylesDeal.Deal_Calendar_BoxN}>
@@ -290,10 +290,10 @@ export class Deal_Today extends Component {
       <View style={[styleMain.FrameBackground, { backgroundColor: '#AF5F92', width: '100%' }]}>
         <View style={stylesDeal.BoxText_Row}>
           <View style={[stylesDeal.BoxText_T, { backgroundColor: '#D5CD5B', marginLeft: -3 }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, stylesDeal.Text_Head]}>ดีลเด็ดประจำวัน</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ดีลเด็ดประจำวัน</Text>
           </View>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Deal_Topic', { selectedIndex: 0 })} >
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_EndW]}>ดูทั้งหมด</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndW]}>ดูทั้งหมด</Text>
           </TouchableOpacity>
         </View>
         <View style={{ padding: 10, }}>
@@ -303,64 +303,64 @@ export class Deal_Today extends Component {
               <View style={stylesDeal.Deal_Today_BoxImage}>
                 <View style={stylesDeal.Coupon_BOX}>
                   <View style={{ margin: 10 }}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>รับเงินคืน 50% Coins</Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>ใช้ได้ก่อน 31-01-2020</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7,]}>รับเงินคืน 50% Coins</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>ใช้ได้ก่อน 31-01-2020</Text>
                   </View>
                   <View style={[stylesDeal.Coupon_BOX_A,{ backgroundColor: '#86CFFF',}]}>
                     <View style={stylesDeal.Coupon_BOX_B}>
-                      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: '#FFFFFF' }]}>50%</Text>
+                      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>50%</Text>
                     </View>
                     <TouchableOpacity>
                       <View style={stylesDeal.Coupon_BOX_Text}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>เก็บ</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เก็บ</Text>
                       </View>
                     </TouchableOpacity>
                   </View>
                 </View>
                 <View style={stylesDeal.Coupon_BOX}>
                   <View style={{ margin: 10 }}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>รับเงินคืน 50% Coins</Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>ใช้ได้ก่อน 31-01-2020</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7,]}>รับเงินคืน 50% Coins</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>ใช้ได้ก่อน 31-01-2020</Text>
                   </View>
                   <View style={[stylesDeal.Coupon_BOX_A,{ backgroundColor: '#86CFFF',}]}>
                     <View style={stylesDeal.Coupon_BOX_B}>
-                      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: '#FFFFFF' }]}>50%</Text>
+                      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>50%</Text>
                     </View>
                     <TouchableOpacity>
                       <View style={stylesDeal.Coupon_BOX_Text}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>เก็บ</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เก็บ</Text>
                       </View>
                     </TouchableOpacity>
                   </View>
                 </View>
                 <View style={stylesDeal.Coupon_BOX}>
                   <View style={{ margin: 10 }}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>รับเงินคืน 50% Coins</Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>ใช้ได้ก่อน 31-01-2020</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7,]}>รับเงินคืน 50% Coins</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>ใช้ได้ก่อน 31-01-2020</Text>
                   </View>
                   <View style={[stylesDeal.Coupon_BOX_A,{ backgroundColor: '#86CFFF',}]}>
                     <View style={stylesDeal.Coupon_BOX_B}>
-                      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: '#FFFFFF' }]}>50%</Text>
+                      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>50%</Text>
                     </View>
                     <TouchableOpacity>
                       <View style={stylesDeal.Coupon_BOX_Text}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>เก็บ</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เก็บ</Text>
                       </View>
                     </TouchableOpacity>
                   </View>
                 </View>
                 <View style={stylesDeal.Coupon_BOX}>
                   <View style={{ margin: 10 }}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>รับเงินคืน 50% Coins</Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>ใช้ได้ก่อน 31-01-2020</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7,]}>รับเงินคืน 50% Coins</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>ใช้ได้ก่อน 31-01-2020</Text>
                   </View>
                   <View style={[stylesDeal.Coupon_BOX_A,{ backgroundColor: '#86CFFF',}]}>
                     <View style={stylesDeal.Coupon_BOX_B}>
-                      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: '#FFFFFF' }]}>50%</Text>
+                      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>50%</Text>
                     </View>
                     <TouchableOpacity>
                       <View style={stylesDeal.Coupon_BOX_Text}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>เก็บ</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เก็บ</Text>
                       </View>
                     </TouchableOpacity>
                   </View>
@@ -377,64 +377,64 @@ export class Deal_Today extends Component {
                 <View style={stylesDeal.Deal_Today_BoxImage}>
                 <View style={stylesDeal.Coupon_BOX}>
                   <View style={{ margin: 10 }}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>รับเงินคืน 50% Coins</Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>ใช้ได้ก่อน 31-01-2020</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7,]}>รับเงินคืน 50% Coins</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>ใช้ได้ก่อน 31-01-2020</Text>
                   </View>
                   <View style={[stylesDeal.Coupon_BOX_A,{ backgroundColor: '#E43333',}]}>
                     <View style={stylesDeal.Coupon_BOX_B}>
-                      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: '#FFFFFF' }]}>50%</Text>
+                      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>50%</Text>
                     </View>
                     <TouchableOpacity>
                       <View style={stylesDeal.Coupon_BOX_Text}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>เก็บ</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เก็บ</Text>
                       </View>
                     </TouchableOpacity>
                   </View>
                 </View>
                 <View style={stylesDeal.Coupon_BOX}>
                   <View style={{ margin: 10 }}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>รับเงินคืน 50% Coins</Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>ใช้ได้ก่อน 31-01-2020</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7,]}>รับเงินคืน 50% Coins</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>ใช้ได้ก่อน 31-01-2020</Text>
                   </View>
                   <View style={[stylesDeal.Coupon_BOX_A,{ backgroundColor: '#E43333',}]}>
                     <View style={stylesDeal.Coupon_BOX_B}>
-                      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: '#FFFFFF' }]}>50%</Text>
+                      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>50%</Text>
                     </View>
                     <TouchableOpacity>
                       <View style={stylesDeal.Coupon_BOX_Text}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>เก็บ</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เก็บ</Text>
                       </View>
                     </TouchableOpacity>
                   </View>
                 </View>
                 <View style={stylesDeal.Coupon_BOX}>
                   <View style={{ margin: 10 }}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>รับเงินคืน 50% Coins</Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>ใช้ได้ก่อน 31-01-2020</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7,]}>รับเงินคืน 50% Coins</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>ใช้ได้ก่อน 31-01-2020</Text>
                   </View>
                   <View style={[stylesDeal.Coupon_BOX_A,{ backgroundColor: '#E43333',}]}>
                     <View style={stylesDeal.Coupon_BOX_B}>
-                      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: '#FFFFFF' }]}>50%</Text>
+                      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>50%</Text>
                     </View>
                     <TouchableOpacity>
                       <View style={stylesDeal.Coupon_BOX_Text}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>เก็บ</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เก็บ</Text>
                       </View>
                     </TouchableOpacity>
                   </View>
                 </View>
                 <View style={stylesDeal.Coupon_BOX}>
                   <View style={{ margin: 10 }}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>รับเงินคืน 50% Coins</Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>ใช้ได้ก่อน 31-01-2020</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7,]}>รับเงินคืน 50% Coins</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>ใช้ได้ก่อน 31-01-2020</Text>
                   </View>
                   <View style={[stylesDeal.Coupon_BOX_A,{ backgroundColor: '#E43333',}]}>
                     <View style={stylesDeal.Coupon_BOX_B}>
-                      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: '#FFFFFF' }]}>50%</Text>
+                      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>50%</Text>
                     </View>
                     <TouchableOpacity>
                       <View style={stylesDeal.Coupon_BOX_Text}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>เก็บ</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เก็บ</Text>
                       </View>
                     </TouchableOpacity>
                   </View>
@@ -464,10 +464,10 @@ export class Deal_Exclusive extends Component {
       <View style={[styleMain.FrameBackground, { backgroundColor: '#CABA5A', width: '100%' }]}>
         <View style={stylesDeal.BoxText_Row}>
           <View style={[stylesDeal.BoxText_T, { backgroundColor: '#6170F8', marginLeft: -3 }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, stylesDeal.Text_Head]}>ดีลสุด Exclusive</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ดีลสุด Exclusive</Text>
           </View>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Deal_Topic', { selectedIndex: 1 })} >
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_EndW]}>ดูทั้งหมด</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndW]}>ดูทั้งหมด</Text>
           </TouchableOpacity>
         </View>
         <View style={stylesDeal.Deal_Exclusive}>
@@ -560,7 +560,7 @@ export class Second_Store extends Component {
           style={stylesDeal.Second_Store_Slide_image}
         />
         <View style={stylesDeal.Second_Store_Slide_BoxText}>
-          <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ร้าน K.O.D สินค้ามือสอง ลดสูงสุด 50 %</Text>
+          <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ร้าน K.O.D สินค้ามือสอง ลดสูงสุด 50 %</Text>
         </View>
 
       </View>
@@ -644,7 +644,7 @@ export class Second_Store extends Component {
               />
             </View>
             <View style={styleMain.BoxProduct1NameofLines}>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                 {item.name}</Text>
             </View>
             <View style={styleMain.BoxProduct1PriceofLines}>
@@ -654,7 +654,7 @@ export class Second_Store extends Component {
                 thousandSeparator={true}
                 prefix={'฿'}
                 renderText={value =>
-                  <Text style={[styleMain.BoxProduct1ImagePrice, stylesFont.FontSize4, stylesFont.FontFamilyText]}>
+                  <Text style={[styleMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
                     {value}</Text>
                 }
               />
@@ -667,10 +667,10 @@ export class Second_Store extends Component {
       <View style={[styleMain.FrameBackground, { width: '100%' }]}>
         <View style={stylesDeal.BoxText_Row}>
           <View style={[stylesDeal.BoxText_T, { backgroundColor: '#95D370', marginLeft: -3 }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, stylesDeal.Text_Head]}>ร้านมือสองลดราคา</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ร้านมือสองลดราคา</Text>
           </View>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Deal_Topic', { selectedIndex: 2 })} >
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_EndB]}>ดูทั้งหมด</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB]}>ดูทั้งหมด</Text>
           </TouchableOpacity>
         </View>
         <View style={stylesDeal.Second_Store}>
@@ -724,10 +724,10 @@ export class Second_Store extends Component {
         </View>
         <View style={stylesDeal.BoxText_Row}>
           <View style={[stylesDeal.BoxText_T, { backgroundColor: '#E43333', marginLeft: -3 }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, stylesDeal.Text_Head]}>มือสองลดราคา</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>มือสองลดราคา</Text>
           </View>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Deal_Topic', { selectedIndex: 3 })} >
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_EndB]}>ดูทั้งหมด</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB]}>ดูทั้งหมด</Text>
           </TouchableOpacity>
         </View>
         <ScrollView horizontal>
@@ -778,7 +778,7 @@ export class ProDed_Store extends Component {
             }}
             style={{ height: 100, width: 100, }}
           />
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}> ร้าน AVIRA ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่! </Text>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}> ร้าน AVIRA ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่! </Text>
         </View>
       )
     })
@@ -786,9 +786,9 @@ export class ProDed_Store extends Component {
       <View style={[styleMain.FrameBackground, { backgroundColor: '#9887E0', width: '100%' }]}>
         <View style={stylesDeal.BoxText_Row}>
           <View style={[stylesDeal.BoxText_T, { backgroundColor: '#F1F193', marginLeft: -3 }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { marginTop: 3 ,marginLeft:8}]}>ร้านนี้มีโปรเด็ด</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 3 ,marginLeft:8}]}>ร้านนี้มีโปรเด็ด</Text>
           </View>
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_EndW]}>ดูทั้งหมด</Text>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndW]}>ดูทั้งหมด</Text>
         </View>
         <ScrollView horizontal>
           {dataNewStore}
@@ -813,7 +813,7 @@ export class ProDed_New_Store extends Component {
       <View style={[styleMain.FrameBackground, { backgroundColor: '#F9AFF5', width: '100%' }]}>
         <View style={stylesDeal.BoxText_Row}>
           <View style={[stylesDeal.BoxText_T, { backgroundColor: '#F1F193', marginLeft: -3 }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { marginTop: 3, marginLeft:8 }]}>โปรเด็ดร้านใหม่</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 3, marginLeft:8 }]}>โปรเด็ดร้านใหม่</Text>
           </View>
         </View>
         <View style={stylesDeal.ProDed_New_Store}>
@@ -826,7 +826,7 @@ export class ProDed_New_Store extends Component {
               />
               <TouchableOpacity>
                 <View style={stylesDeal.ProDed_New_Store_Button}>
-                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -838,7 +838,7 @@ export class ProDed_New_Store extends Component {
               />
               <TouchableOpacity>
                 <View style={stylesDeal.ProDed_New_Store_Button}>
-                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -850,7 +850,7 @@ export class ProDed_New_Store extends Component {
               />
               <TouchableOpacity>
                 <View style={stylesDeal.ProDed_New_Store_Button}>
-                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -862,7 +862,7 @@ export class ProDed_New_Store extends Component {
               />
               <TouchableOpacity>
                 <View style={stylesDeal.ProDed_New_Store_Button}>
-                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -876,7 +876,7 @@ export class ProDed_New_Store extends Component {
               />
               <TouchableOpacity>
                 <View style={stylesDeal.ProDed_New_Store_Button}>
-                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -888,7 +888,7 @@ export class ProDed_New_Store extends Component {
               />
               <TouchableOpacity>
                 <View style={stylesDeal.ProDed_New_Store_Button}>
-                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -900,7 +900,7 @@ export class ProDed_New_Store extends Component {
               />
               <TouchableOpacity>
                 <View style={stylesDeal.ProDed_New_Store_Button}>
-                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -912,7 +912,7 @@ export class ProDed_New_Store extends Component {
               />
               <TouchableOpacity>
                 <View style={stylesDeal.ProDed_New_Store_Button}>
-                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -978,7 +978,7 @@ export class Shop_Deal_ForU extends Component {
               />
             </View>
             <View style={styleMain.BoxProduct1NameofLines}>
-              <Text style={[styleMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+              <Text style={[styleMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                 {item.name}</Text>
             </View>
             <View style={styleMain.BoxProduct1PriceofLines}>
@@ -988,7 +988,7 @@ export class Shop_Deal_ForU extends Component {
                 thousandSeparator={true}
                 prefix={'฿'}
                 renderText={value =>
-                  <Text style={[styleMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
+                  <Text style={[styleMain.BoxProduct1ImagePrice, stylesFont.FontSize8, stylesFont.FontFamilyText]}>
                     {value}</Text>
                 }
               />
@@ -1001,9 +1001,9 @@ export class Shop_Deal_ForU extends Component {
       <View style={[styleMain.FrameBackground, { backgroundColor: '#5ACAC8', width: '100%' }]}>
         <View style={stylesDeal.BoxText_Row}>
           <View style={[stylesDeal.BoxText_T, { backgroundColor: '#CB2342', marginLeft: -3, width: 130 }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, stylesDeal.Text_Head]}>ช้อปทุกดีลเฉพาะคุณ</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ช้อปทุกดีลเฉพาะคุณ</Text>
           </View>
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_EndW]}>ดูทั้งหมด</Text>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndW]}>ดูทั้งหมด</Text>
         </View>
         <View style={stylesDeal.Deal_For_you}>
           {dataFlashSale}

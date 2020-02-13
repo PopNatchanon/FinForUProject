@@ -69,15 +69,15 @@ export class Head_Image extends Component {
           />
         </View>
         <View style={styles.Head_BoxText}>
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>1.ยอดใช้จ่ายขั้นต่ำ 1,000 บาทขึ้นไป/ เซลล์สลิป(ผ่านวงเงินบัตรเครดิต) และรวมยอดใช้จ่ายเปลี่ยนเป็นยอดแบ่งชำระเริ่มต้น 3,000 บาทขึ้นไป </Text>
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>2.เป็นยอดใช้จ่ายที่เกิดขึ้นก่อนวันสรุปยอดบัญชี 3 วันทำการเดือนนั้นๆ </Text>
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>3.ยกเว้นยอดใช้จ่ายในเชิงธุรกิจ, ยอดใช้จ่ายจากการ ซื้อกองทุนรวม, ยอดการชำระค่าสาธารณูปโภค,</Text>
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>และค่าบริการอื่นๆจากการหักบัญชีอัตโนมัติผ่าน บัตรเครดิตกรุงศรี เฟิร์สช้อยส์ วีซ่า แพลทินัม,ยอดใช้จ่ายที่เกิดจากวงเงินชั่วคราว, และยอดใช้จ่ายที่ผิดวัตถุประสงค์และผิดกฏหมายบัตรเครดิต </Text>
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>4.โดยยอดใช้จ่าย ดังกล่าวจะไม่ได้รับคะแนนสะสมกรุงศรี เฟิร์สช้อยส์ รีวอร์ด</Text>
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>5.ทางบริษัทฯ ขอสงวนสิทธิ์ไม่รับการยกเลิก เปลี่ยนแปลง หรือแก้ไข หากบริษัทฯได้ดำเนินการตามคำขอนี้แล้วทุกกรณี</Text>
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>6.กรณีที่ท่านคืนสินค้าหรือบริการที่ร้านค้า กรุณาแจ้งทางบริษัทเพื่อทำการปิดรายการเงินผ่อนด้วยหลังจากท่านติดต่อแจ้งกับร้านค้าเรียบร้อยแล้ว</Text>
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>7.บริษัทฯ ขอสงวนสิทธิ์ในการพิจารณาเปลี่ยนยอดซื้อสินค้าแบบปกติเป็นแบ่งจ่ายรายเดือนตาม หลักเกณฑ์ของบริษัทฯ หากพบว่าประวัติของสมาชิกบัตร ไม่ตรงตามหลักเกณฑของบริษัทฯ</Text>
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>8.บริษัทฯขอสงวนสิทธิ์ในการเปลี่ยนแปลง แก้ไข และยกเลิกรายการส่งเสริมการตลาด รวมถึง เงื่อนไขต่างๆโดยไม่ต้องแจ้งให้ทราบล่วงหน้า</Text>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>1.ยอดใช้จ่ายขั้นต่ำ 1,000 บาทขึ้นไป/ เซลล์สลิป(ผ่านวงเงินบัตรเครดิต) และรวมยอดใช้จ่ายเปลี่ยนเป็นยอดแบ่งชำระเริ่มต้น 3,000 บาทขึ้นไป </Text>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>2.เป็นยอดใช้จ่ายที่เกิดขึ้นก่อนวันสรุปยอดบัญชี 3 วันทำการเดือนนั้นๆ </Text>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>3.ยกเว้นยอดใช้จ่ายในเชิงธุรกิจ, ยอดใช้จ่ายจากการ ซื้อกองทุนรวม, ยอดการชำระค่าสาธารณูปโภค,</Text>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>และค่าบริการอื่นๆจากการหักบัญชีอัตโนมัติผ่าน บัตรเครดิตกรุงศรี เฟิร์สช้อยส์ วีซ่า แพลทินัม,ยอดใช้จ่ายที่เกิดจากวงเงินชั่วคราว, และยอดใช้จ่ายที่ผิดวัตถุประสงค์และผิดกฏหมายบัตรเครดิต </Text>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>4.โดยยอดใช้จ่าย ดังกล่าวจะไม่ได้รับคะแนนสะสมกรุงศรี เฟิร์สช้อยส์ รีวอร์ด</Text>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>5.ทางบริษัทฯ ขอสงวนสิทธิ์ไม่รับการยกเลิก เปลี่ยนแปลง หรือแก้ไข หากบริษัทฯได้ดำเนินการตามคำขอนี้แล้วทุกกรณี</Text>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>6.กรณีที่ท่านคืนสินค้าหรือบริการที่ร้านค้า กรุณาแจ้งทางบริษัทเพื่อทำการปิดรายการเงินผ่อนด้วยหลังจากท่านติดต่อแจ้งกับร้านค้าเรียบร้อยแล้ว</Text>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>7.บริษัทฯ ขอสงวนสิทธิ์ในการพิจารณาเปลี่ยนยอดซื้อสินค้าแบบปกติเป็นแบ่งจ่ายรายเดือนตาม หลักเกณฑ์ของบริษัทฯ หากพบว่าประวัติของสมาชิกบัตร ไม่ตรงตามหลักเกณฑของบริษัทฯ</Text>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>8.บริษัทฯขอสงวนสิทธิ์ในการเปลี่ยนแปลง แก้ไข และยกเลิกรายการส่งเสริมการตลาด รวมถึง เงื่อนไขต่างๆโดยไม่ต้องแจ้งให้ทราบล่วงหน้า</Text>
         </View>
       </View>
 
@@ -98,7 +98,7 @@ export class Product_Pay extends Component {
     return (
       <View>
         <View style={[styles.BoxText_T, { backgroundColor: '#C4C4C4' }]}>
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}> สินค้า 0 % 10 เดือน </Text>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}> สินค้า 0 % 10 เดือน </Text>
         </View>
       </View>
 

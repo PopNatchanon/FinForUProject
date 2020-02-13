@@ -75,7 +75,7 @@ export class CancelScreen_Product extends Component {
       <SafeAreaView >
         <View style={stylesPro.products_pro}>
           <IconFeather name='edit' size={50} color='#A2A2A2' />
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { color: '#A2A2A2' }]}>ยังไม่มีคำสั่งซื้อ</Text>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>ยังไม่มีคำสั่งซื้อ</Text>
         </View>
       </SafeAreaView>
     );
@@ -121,14 +121,14 @@ export class Cancel_Product extends Component {
             <View style={styleMain.FlexRow}>
               <View style={stylesPro.Order_Product_Pro}></View>
               <View>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>หมายเลขคำสั่งซื้อ : 2223994239012</Text>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#A2A2A2' }]}>ตัวเลือกสินค้า:สีแดง</Text>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เหตุผลยกเลิกสินค้า :เนื่องจากเปลี่ยนใจ</Text>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>หมายเลขคำสั่งซื้อ : 2223994239012</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A2A2A2' }]}>ตัวเลือกสินค้า:สีแดง</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>เหตุผลยกเลิกสินค้า :เนื่องจากเปลี่ยนใจ</Text>
                 <Text>x 1</Text>
               </View>
             </View>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { color: '#0A55A6' }]}>฿10,000.00</Text>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#0A55A6' }]}>฿10,000.00</Text>
           </View>
         </View>
       </View>
@@ -148,7 +148,7 @@ export class Cancel_Detail extends Component {
   render() {
     return (
       <View style={styleMain.FrameBackground}>
-        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { marginLeft: 10, }]}>สาเหตุการยกเลิกสินค้า </Text>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, }]}>สาเหตุการยกเลิกสินค้า </Text>
         <View style={stylesPro.Cancel_Detail}>
           <View style={stylesPro.Cancel_Detail_Box}>
             <Picker
@@ -166,12 +166,12 @@ export class Cancel_Detail extends Component {
           <View style={stylesPro.Cancel_Detail_ButtonBox}>
             <TouchableOpacity>
               <View style={stylesPro.Cancel_Detail_Button}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#0A55A6' }]}>ยกเลิก</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>ยกเลิก</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity>
               <View style={[stylesPro.Cancel_Detail_Button,{marginLeft:10}]}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#0A55A6' }]}>ตกลง</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>ตกลง</Text>
               </View>
             </TouchableOpacity>
           </View>

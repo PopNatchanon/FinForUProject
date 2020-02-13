@@ -18,11 +18,16 @@ import NumberFormat from 'react-number-format';
 import Icons from 'react-native-vector-icons/FontAwesome5';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconEntypo from 'react-native-vector-icons/Entypo';
+import stylesFont from '../../style/stylesFont';
+import stylesMain from '../../style/StylesMainScreen';
 import styles from '../../style/stylestoreMe-src/styleStoreMeScreen';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import { CheckBox } from 'react-native-elements';
-import { ip } from '../../navigator/IpConfig';
+import { ip, finip } from '../../navigator/IpConfig';
 import BottomSheet from "react-native-raw-bottom-sheet";
+import { AppBar1 } from '../MainScreen';
+import { GetServices } from '../tools/Tools';
+
 
 
 
@@ -36,7 +41,7 @@ export default class StoreMe_Up_Product extends Component {
   render() {
     return (
       <SafeAreaView style={{ backgroundColor: '#E9E9E9', flex: 1, }}>
-        <Appbar navigation={this.props.navigation} />
+        <AppBar1 backArrow navigation={this.props.navigation} titleHead='เพิ่มสินค้า' />
         <ScrollView>
           <StoreMe_Up_Image />
           <StoreMe_Up_ProductDetail />
@@ -46,31 +51,7 @@ export default class StoreMe_Up_Product extends Component {
   }
 }
 
-///----------------------------------Appbar----------------------------------------///
-
-export class Appbar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-
-  render() {
-    return (
-      <View style={styles.Appbar} >
-        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
-          <IconAntDesign RightItem name='closecircleo' size={25} color='#0A55A6' />
-        </TouchableOpacity>
-        <Text style={styles.Text}>เพิ่มสินค้า</Text>
-        <Text style={{ color: '#0A55A6', fontSize: 18, }}>ส่ง</Text>
-      </View>
-    );
-  }
-}
-
 ///--------------------------------------------------------------------------///
-
-
 
 export class StoreMe_Up_Image extends Component {
   constructor(props) {
@@ -86,22 +67,18 @@ export class StoreMe_Up_Image extends Component {
           <View style={styles.StoreMe_Up_ImageA}>
             <View style={styles.StoreMe_Up_Image_Box}>
               <FastImage style={{ height: 120, width: 120, }}
-                source={{
-                  uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
-                }}
-              />
+                source={{ uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg', }} />
             </View>
             <TouchableOpacity>
               <View style={styles.StoreMe_Up_Image_Box}>
                 <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
-                <Text style={{ color: '#0A55A6', fontSize: 12, }}>+เพิ่มรูปภาพ/วีดีโอ</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
               </View>
             </TouchableOpacity>
           </View>
         </ScrollView>
-        <Text style={{ marginLeft: 10, color: '#A3A3A3', fontSize: 12, }}> *สูงสุดรวม 6 รูป</Text>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10, color: '#A3A3A3' }]}> *สูงสุดรวม 6 รูป</Text>
       </View>
-
     );
   }
 }
@@ -112,43 +89,29 @@ export class StoreMe_Up_ProductDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataSourcetype: [],
+      dataService: [],
     };
+    this.getData = this.getData.bind(this)
   }
-  getDatatype() {
-    var url = ip + '/MySQL/DataServiceMain.php';
-    var dataBody = {
-      type: 'type'
-    };
-    axios.post(
-      url,
-      dataBody,
-    ).then((getData) => {
-      this.setState({
-        dataSourcetype: getData.data,
-      })
-    })
+  getData(dataService) {
+    this.setState({ dataService })
   }
-  componentDidMount() {
-    this.getDatatype()
-  }
-
   render() {
-    let dataCategory = this.state.dataSourcetype.map((item, indexs) => {
-      var dataMySQL = [ip + '/mysql/uploads/head_product/menu', item.image_menu].join('/');
+    var uri = finip + '/home/category_mobile'
+    let dataCategory = this.state.dataService.map((item, indexs) => {
+      var dataMySQL = [finip, item.image_path, 'menu', item.image_head].join('/');
       return (
-        <View key={indexs}>
-          <View style={styles.Category}>
-            <View style={styles.CatagorySheet_Box}>
-              <FastImage
-                source={{
-                  uri: dataMySQL,
-
-                }}
-                style={styles.Category_image}
-              />
-            </View>
-            <Text style={{ fontSize: 12, textAlign: 'center', }}>{item.name}</Text>
+        <View style={styles.Category} key={indexs}>
+          <FastImage
+            source={{
+              uri: dataMySQL,
+            }}
+            style={stylesMain.Category_box}
+            resizeMode={FastImage.resizeMode.cover}
+          />
+          <View style={{ height: 20 }}>
+            <Text numberOfLines={2} style={[stylesFont.FontFamilyText, stylesFont.FontSize7, stylesFont.FontCenter]}>
+              {item.name}</Text>
           </View>
         </View>
       )
@@ -167,48 +130,91 @@ export class StoreMe_Up_ProductDetail extends Component {
             container: {
               padding: 10,
             }
-          }}
-        >
+          }}>
           <View style={{ flex: 1, }}>
-            <Text style={{ fontSize: 20, }}>กรุณาเลือกหมวดหมู่สินค้า</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>กรุณาเลือกหมวดหมู่สินค้า</Text>
+            <GetServices uriPointer={uri} getDataSource={this.getData} />
             <ScrollView>
               <View style={styles.CatagorySheet}>
                 {dataCategory}
               </View>
-              <Text style={{ fontSize: 15, }}>ประเภท</Text>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 10, }]}>ประเภท</Text>
               <View style={styles.cate_BoxA}>
-                <View style={styles.cate_Box}></View>
-                <View style={styles.cate_Box}></View>
+                <View style={styles.cate_Box}><Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'center' }]}>Sub-Cate</Text></View>
+                <View style={styles.cate_Box}><Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'center' }]}>Sub-Cate</Text></View>
               </View>
-              <Text style={{ fontSize: 15, }}>ชนิด</Text>
-              <View style={{ height: 'auto', width: '100%', flexDirection: 'row', flexWrap: 'wrap', }}>
-                <View style={styles.cate_Box}></View>
-                <View style={styles.cate_Box}></View>
-                <View style={styles.cate_Box}></View>
-                <View style={styles.cate_Box}></View>
-                <View style={styles.cate_Box}></View>
-                <View style={styles.cate_Box}></View>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ชนิด</Text>
+              <View style={{ width: '100%', flexDirection: 'row', flexWrap: 'wrap', }}>
+                <View style={styles.cate_Box}><Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'center' }]}>Sub-Cate 2</Text></View>
+                <View style={styles.cate_Box}><Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'center' }]}>Sub-Cate 2</Text></View>
+                <View style={styles.cate_Box}><Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'center' }]}>Sub-Cate 2</Text></View>
+                <View style={styles.cate_Box}><Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'center' }]}>Sub-Cate 2</Text></View>
+                <View style={styles.cate_Box}><Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'center' }]}>Sub-Cate 2</Text></View>
+                <View style={styles.cate_Box}><Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'center' }]}>Sub-Cate 2</Text></View>
               </View>
             </ScrollView>
           </View>
 
-          <View style={{justifyContent:'center', alignItems:'center',}}>
+          <View style={{ justifyContent: 'center', alignItems: 'center', }}>
             <View style={styles.BottomSheet_Botton}>
               <TouchableOpacity>
                 <View style={styles.BottomSheet_Botton_cancel}>
-                  <Text>ยกเลิก</Text>
+                  <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ยกเลิก</Text>
                 </View>
               </TouchableOpacity>
 
               <TouchableOpacity>
                 <View style={styles.BottomSheet_Botton_OK}>
-                  <Text style={{ color: '#FFF' }}>ตกลง</Text>
+                  <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตกลง</Text>
                 </View>
               </TouchableOpacity>
             </View>
           </View>
 
         </BottomSheet>
+        {/* แบรนด์สินค้า */}
+        <BottomSheet
+          ref={ref => {
+            this.Brand_NameSheet = ref;
+          }}
+          height={200}
+          duration={250}
+          customStyles={{
+            container: {
+              paddingTop: 20,
+              alignItems: "center",
+            }
+          }}
+        >
+          <View style={styles.BottomSheet}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>กรุณาพิมพ์ชื่อแบรนด์สินค้า</Text>
+            <View style={[styles.BottomSheet_Box]}>
+              <TextInput
+                style={[stylesFont.FontFamilyBold, stylesFont.FontSize4,{width:'100%'}]}
+                placeholder="ชื่อแบรนด์"
+                multiline
+                editable
+                maxLength={30}
+                value={this.state.price}
+                onChangeText={(price) => this.setState({ price })}></TextInput>
+            </View>
+            <View style={styles.BottomSheet_Botton}>
+
+              <TouchableOpacity>
+                <View style={styles.BottomSheet_Botton_cancel}>
+                  <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ยกเลิก</Text>
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity>
+                <View style={styles.BottomSheet_Botton_OK}>
+                  <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตกลง</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </BottomSheet>
+
 
         {/* ราคาสินค้า */}
         <BottomSheet
@@ -225,10 +231,10 @@ export class StoreMe_Up_ProductDetail extends Component {
           }}
         >
           <View style={styles.BottomSheet}>
-            <Text style={{ fontSize: 20, }}>กรุณากรอกราคาสินค้า</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>กรุณากรอกราคาสินค้า</Text>
             <View style={styles.BottomSheet_Box}>
               <TextInput
-                fontSize={20}
+                style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}
                 placeholder="0.00"
                 multiline
                 editable
@@ -240,13 +246,13 @@ export class StoreMe_Up_ProductDetail extends Component {
 
               <TouchableOpacity>
                 <View style={styles.BottomSheet_Botton_cancel}>
-                  <Text>ยกเลิก</Text>
+                  <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ยกเลิก</Text>
                 </View>
               </TouchableOpacity>
 
               <TouchableOpacity>
                 <View style={styles.BottomSheet_Botton_OK}>
-                  <Text style={{ color: '#FFF' }}>ตกลง</Text>
+                  <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตกลง</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -267,7 +273,7 @@ export class StoreMe_Up_ProductDetail extends Component {
             }
           }}
         >
-          <Text style={{ fontSize: 20, }}>กรุณาเพิ่มจำนวนสินค้า</Text>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>กรุณาเพิ่มจำนวนสินค้า</Text>
           <View style={styles.BottomSheet_BoxTotal}>
             <TouchableOpacity>
               <View style={styles.TotalrSheet_botton}>
@@ -275,7 +281,7 @@ export class StoreMe_Up_ProductDetail extends Component {
               </View>
             </TouchableOpacity>
             <TextInput
-              fontSize={20}
+              style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}
               placeholder="1"
               multiline
               editable
@@ -293,13 +299,13 @@ export class StoreMe_Up_ProductDetail extends Component {
 
             <TouchableOpacity>
               <View style={styles.BottomSheet_Botton_cancel}>
-                <Text>ยกเลิก</Text>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ยกเลิก</Text>
               </View>
             </TouchableOpacity>
 
             <TouchableOpacity>
               <View style={styles.BottomSheet_Botton_OK}>
-                <Text style={{ color: '#FFF' }}>ตกลง</Text>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตกลง</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -321,53 +327,89 @@ export class StoreMe_Up_ProductDetail extends Component {
         >
           <View style={styles.SelectSheet}>
             <View style={styles.SelectSheet_Box}>
-              <Text style={{ fontSize: 18, }}>สี</Text>
-              <Text style={{ fontSize: 18, color: '#0A55A6' }}>แก้ไข</Text>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>สี</Text>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#0A55A6' }]}>แก้ไข</Text>
             </View>
             <View style={{ flexDirection: 'row', }}>
               <View style={styles.SelectSheet_TextInput}>
                 <TextInput
-                  fontSize={15}
+                  style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}
                   placeholder="สี"
                   maxLength={10}
-                  value={this.state.Select}
-                  onChangeText={(Select) => this.setState({ Select })}></TextInput>
+                  value={this.state.Color}
+                  onChangeText={(Color) => this.setState({ Color })}></TextInput>
               </View>
               <View style={styles.SelectSheet_TextInput}>
-                <Text style={{ fontSize: 18, }}>+เพิ่ม</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>+เพิ่ม</Text>
               </View>
             </View>
             <View style={styles.SelectSheet_Box}>
-              <Text style={{ fontSize: 18, }}>ขนาด</Text>
-              <Text style={{ fontSize: 18, color: '#0A55A6' }}>แก้ไข</Text>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>ขนาด</Text>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#0A55A6' }]}>แก้ไข</Text>
             </View>
             <View style={{ flexDirection: 'row', }}>
               <View style={styles.SelectSheet_TextInput}>
                 <TextInput
-                  fontSize={15}
+                  style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}
                   placeholder="ขนาด"
                   maxLength={10}
-                  value={this.state.Select}
-                  onChangeText={(Select) => this.setState({ Select })}></TextInput>
+                  value={this.state.Size}
+                  onChangeText={(Size) => this.setState({ Size })}></TextInput>
               </View>
               <View style={styles.SelectSheet_TextInput}>
-                <Text style={{ fontSize: 18, }}>+เพิ่ม</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>+เพิ่ม</Text>
               </View>
             </View>
           </View>
           <View style={styles.BottomSheet_Botton}>
             <TouchableOpacity>
               <View style={styles.BottomSheet_Botton_cancel}>
-                <Text>ยกเลิก</Text>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ยกเลิก</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity>
               <View style={styles.BottomSheet_Botton_OK}>
-                <Text style={{ color: '#FFF' }}>ตกลง</Text>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตกลง</Text>
               </View>
             </TouchableOpacity>
           </View>
         </BottomSheet>
+
+        {/* สภาพสินค้า */}
+        <BottomSheet
+          ref={ref => {
+            this.LookSheet = ref;
+          }}
+          height={200}
+          duration={250}
+          customStyles={{
+            container: {
+              paddingTop: 20,
+              alignItems: "center",
+            }
+          }}
+        >
+          <View style={styles.SelectSheet}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>สภาพสินค้า</Text>
+            <View style={styles.SizeSheet_Box}>
+              <TouchableOpacity><View style={styles.SizeSheet_Boxsize}><Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ของใหม่</Text></View></TouchableOpacity>
+              <TouchableOpacity><View style={styles.SizeSheet_Boxsize}><Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ของมือสอง</Text></View></TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.BottomSheet_Botton}>
+            <TouchableOpacity>
+              <View style={styles.BottomSheet_Botton_cancel}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ยกเลิก</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <View style={styles.BottomSheet_Botton_OK}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตกลง</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </BottomSheet>
+
 
         {/* น้ำหนัก */}
         <BottomSheet
@@ -384,11 +426,11 @@ export class StoreMe_Up_ProductDetail extends Component {
           }}
         >
           <View style={styles.SelectSheet}>
-            <Text style={{ fontSize: 20, }}>กรุณาระบุน้ำหนัก</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>กรุณาระบุน้ำหนัก</Text>
             <View style={styles.WeightSheet_Box}>
               <View style={styles.SelectSheet_TextInput}>
                 <TextInput
-                  fontSize={15}
+                  style={[stylesFont.FontFamilyText, stylesFont.FontSize5,{width:'100%',height:50,}]}
                   placeholder="น้ำหนัก"
                   maxLength={10}
                   value={this.state.Weight}
@@ -397,7 +439,7 @@ export class StoreMe_Up_ProductDetail extends Component {
               <View style={styles.SelectSheet_TextInput}>
                 <Picker
                   selectedValue={this.state.language}
-                  style={{ height: 50, width: 100 }}
+                  style={{width: '100%'}}
                   onValueChange={(itemValue, itemIndex) =>
                     this.setState({ language: itemValue })
                   }>
@@ -410,12 +452,12 @@ export class StoreMe_Up_ProductDetail extends Component {
           <View style={styles.BottomSheet_Botton}>
             <TouchableOpacity>
               <View style={styles.BottomSheet_Botton_cancel}>
-                <Text>ยกเลิก</Text>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ยกเลิก</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity>
               <View style={styles.BottomSheet_Botton_OK}>
-                <Text style={{ color: '#FFF' }}>ตกลง</Text>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตกลง</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -436,22 +478,22 @@ export class StoreMe_Up_ProductDetail extends Component {
           }}
         >
           <View style={styles.SelectSheet}>
-            <Text style={{ fontSize: 20, }}>ขนาดพัสดุ</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>ขนาดพัสดุ</Text>
             <View style={styles.SizeSheet_Box}>
-              <TouchableOpacity><View style={styles.SizeSheet_Boxsize}><Text>เล็ก</Text></View></TouchableOpacity>
-              <TouchableOpacity><View style={styles.SizeSheet_Boxsize}><Text>กลาง</Text></View></TouchableOpacity>
-              <TouchableOpacity><View style={styles.SizeSheet_Boxsize}><Text>ใหญ่</Text></View></TouchableOpacity>
+              <TouchableOpacity><View style={styles.SizeSheet_Boxsize}><Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>เล็ก</Text></View></TouchableOpacity>
+              <TouchableOpacity><View style={styles.SizeSheet_Boxsize}><Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>กลาง</Text></View></TouchableOpacity>
+              <TouchableOpacity><View style={styles.SizeSheet_Boxsize}><Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ใหญ่</Text></View></TouchableOpacity>
             </View>
           </View>
           <View style={styles.BottomSheet_Botton}>
             <TouchableOpacity>
               <View style={styles.BottomSheet_Botton_cancel}>
-                <Text>ยกเลิก</Text>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ยกเลิก</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity>
               <View style={styles.BottomSheet_Botton_OK}>
-                <Text style={{ color: '#FFF' }}>ตกลง</Text>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตกลง</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -460,17 +502,16 @@ export class StoreMe_Up_ProductDetail extends Component {
 
         <View style={styles.StoreMe_Up_ProductDetail}>
           <TextInput
+            style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '100%' }]}
             placeholder="ชื่อสินค้า"
-            fontSize={15}
             maxLength={120}
-
             value={this.state.name}
             onChangeText={(name) => this.setState({ name })}></TextInput>
         </View>
-        <Text style={styles.StoreMe_Up_ProductDetail_TextMax}>20/120 ตัวอักษร</Text>
-        <View style={{ width: '100%', height: 150, backgroundColor: '#FFF', padding: 10, }}>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6', textAlign: 'right', marginRight: 10 }]}>20/120 ตัวอักษร</Text>
+        <View style={{ width: '100%', height: 130, backgroundColor: '#FFF', padding: 10, }}>
           <TextInput
-            fontSize={15}
+            style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '100%' }]}
             placeholder="รายละเอียดสินค้า"
             multiline
             editable
@@ -478,63 +519,108 @@ export class StoreMe_Up_ProductDetail extends Component {
             value={this.state.Detail}
             onChangeText={(Detail) => this.setState({ Detail })}></TextInput>
         </View>
-        <Text style={styles.StoreMe_Up_ProductDetail_TextMax}>100/5000 ตัวอักษร</Text>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6', textAlign: 'right', marginRight: 10 }]}>100/5000 ตัวอักษร</Text>
+
+        {/* หมวดสินค้า */}
+        <TouchableOpacity activeOpacity={1} onPress={() => { this.CatagorySheet.open(); }}>
+          <View style={styles.StoreMe_Up_ProductDetail}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>หมวดสินค้า</Text>
+            <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+          </View>
+        </TouchableOpacity>
+
+        {/* แบรนด์สินค้า */}
+        <TouchableOpacity activeOpacity={1} onPress={() => { this.Brand_NameSheet.open(); }}>
         <View style={styles.StoreMe_Up_ProductDetail}>
-          <Text style={styles.StoreMe_Up_ProductDetail_Text}>หมวดสินค้า</Text>
-          <TouchableOpacity onPress={() => {
-            this.CatagorySheet.open();
-          }}>
-            <IconEntypo name='chevron-right' size={35} color='#0A55A6' /></TouchableOpacity>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>แบรนด์สินค้า</Text>
+          <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
         </View>
-        <View style={styles.StoreMe_Up_ProductDetail}>
-          <Text style={styles.StoreMe_Up_ProductDetail_Text}>ราคา</Text>
-          <TouchableOpacity onPress={() => {
-            this.PriceSheet.open();
-          }}>
-            <IconEntypo name='chevron-right' size={35} color='#0A55A6' /></TouchableOpacity>
-        </View>
-        <View style={styles.StoreMe_Up_ProductDetail}>
-          <Text style={styles.StoreMe_Up_ProductDetail_Text}>คลัง</Text>
-          <TouchableOpacity onPress={() => {
-            this.TotalrSheet.open();
-          }}>
-            <IconEntypo name='chevron-right' size={35} color='#0A55A6' /></TouchableOpacity>
-        </View>
-        <View style={styles.StoreMe_Up_ProductDetail}>
-          <Text style={styles.StoreMe_Up_ProductDetail_Text}>ตัวเลือกสินค้า</Text>
-          <TouchableOpacity onPress={() => {
-            this.SelectSheet.open();
-          }}>
-            <IconEntypo name='chevron-right' size={35} color='#0A55A6' /></TouchableOpacity>
-        </View>
+        </TouchableOpacity>
+
+        {/* ราคา */}
+        <TouchableOpacity activeOpacity={1} onPress={() => { this.PriceSheet.open(); }}>
+          <View style={styles.StoreMe_Up_ProductDetail}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ราคา</Text>
+            <View style={stylesMain.FlexRow}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#A3A3A3', marginTop: 5 }]}>ตั้งราคา</Text>
+              <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+            </View>
+          </View>
+        </TouchableOpacity>
+
+        {/* คลัง */}
+        <TouchableOpacity activeOpacity={1} onPress={() => { this.TotalrSheet.open(); }}>
+          <View style={styles.StoreMe_Up_ProductDetail}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>คลัง</Text>
+            <View style={stylesMain.FlexRow}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#A3A3A3', marginTop: 5 }]}>ระบุจำนวนสินค้า</Text>
+              <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+            </View>
+          </View>
+        </TouchableOpacity>
+
+        {/* ตัวเลือกสินค้า */}
+        <TouchableOpacity activeOpacity={1} onPress={() => { this.SelectSheet.open(); }}>
+          <View style={styles.StoreMe_Up_ProductDetail}>
+            <View style={stylesMain.FlexRow}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ตัวเลือกสินค้า</Text>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginLeft: 10, color: '#A3A3A3' }]}>(ไม่จำเป็นต้องระบุ)</Text>
+            </View>
+            <View style={stylesMain.FlexRow}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#A3A3A3', marginTop: 5 }]}>เพิ่มตัวเลือกสินค้า</Text>
+              <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+            </View>
+          </View>
+        </TouchableOpacity>
+
+        {/* สภาพสินค้า */}
+        <TouchableOpacity activeOpacity={1} onPress={() => { this.LookSheet.open(); }}>
+          <View style={styles.StoreMe_Up_ProductDetail}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>สภาพสินค้า</Text>
+            <View style={stylesMain.FlexRow}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#A3A3A3', marginTop: 5 }]}>ประเภทสินค้า เช่น มือสอง</Text>
+              <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+            </View>
+          </View>
+        </TouchableOpacity>
+
         <View style={styles.Text_ling_Box}>
-          <Text style={{ marginLeft: 10, color: '#A3A3A3', fontSize: 12, }}> ฉันจะเพิ่มตัวเลือกสินค้าได้อย่างไร</Text>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginLeft: 10, color: '#A3A3A3' }]}> ฉันจะเพิ่มตัวเลือกสินค้าได้อย่างไร</Text>
           <TouchableOpacity>
-            <Text style={styles.Text_ling}>ไปยังศูนย์เรียนรู้ผู้ขาย</Text>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#0A55A6' }]}>ไปยังศูนย์เรียนรู้ผู้ขาย</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.StoreMe_Up_ProductDetail}>
-          <View style={{ flexDirection: 'row', }}>
-            <Text style={styles.StoreMe_Up_ProductDetail_Text}>น้ำหนัก</Text>
-            <Text style={{ marginTop: 10, fontSize: 15, color: '#A3A3A3', }}>(ไม่จำเป็นต้องระบุ)</Text>
+
+        {/* น้ำหนัก */}
+        <TouchableOpacity activeOpacity={1} onPress={() => { this.WeightSheet.open(); }}>
+          <View style={styles.StoreMe_Up_ProductDetail}>
+            <View style={stylesMain.FlexRow}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>น้ำหนัก</Text>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginLeft: 10, color: '#A3A3A3' }]}>(ไม่จำเป็นต้องระบุ)</Text>
+            </View>
+            <View style={stylesMain.FlexRow}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#A3A3A3', marginTop: 5 }]}>ระบุน้ำหนัก</Text>
+              <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+            </View>
           </View>
-          <TouchableOpacity onPress={() => {
-            this.WeightSheet.open();
-          }}>
-            <IconEntypo name='chevron-right' size={35} color='#0A55A6' /></TouchableOpacity>
-        </View>
+        </TouchableOpacity>
+
+        {/* ขนาดพัสดุ */}
+        <TouchableOpacity activeOpacity={1} onPress={() => { this.SizeSheet.open(); }}>
+          <View style={styles.StoreMe_Up_ProductDetail}>
+            <View style={stylesMain.FlexRow}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ขนาดพัสดุ</Text>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginLeft: 10, color: '#A3A3A3' }]}>(ไม่จำเป็นต้องระบุ)</Text>
+            </View>
+            <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+          </View>
+        </TouchableOpacity>
+
+        {/* เผยแพร่สินค้า */}
         <View style={styles.StoreMe_Up_ProductDetail}>
-          <Text style={styles.StoreMe_Up_ProductDetail_Text}>ขนาดพัสดุ</Text>
-          <TouchableOpacity onPress={() => {
-            this.SizeSheet.open();
-          }}>
-            <IconEntypo name='chevron-right' size={35} color='#0A55A6' /></TouchableOpacity>
-        </View>
-        <View style={styles.StoreMe_Up_ProductDetail}>
-          <Text style={styles.StoreMe_Up_ProductDetail_Text}>เผยแพร่สินค้า</Text>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เผยแพร่สินค้า</Text>
           <CheckBox
             size={30}
-            containerStyle={{ marginTop: -5 }}
             checkedIcon='toggle-on'
             checkedColor='#95F29F'
             uncheckedIcon='toggle-off'
@@ -542,8 +628,9 @@ export class StoreMe_Up_ProductDetail extends Component {
             onPress={() => this.setState({ item2: !this.state.item2 })}
           />
         </View>
+
         <View style={styles.StoreMe_Up_ProductDetail}>
-          <Text style={styles.StoreMe_Up_ProductDetail_Text}>เพจ Facebook</Text>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เพจ Facebook</Text>
           <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
         </View>
       </View>

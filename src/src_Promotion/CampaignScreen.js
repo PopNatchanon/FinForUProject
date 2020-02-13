@@ -15,9 +15,6 @@ import IconEntypo from 'react-native-vector-icons/Entypo';
 import styles from '../../style/stylePromotion-src/styleDealScreen';
 import styleMain from '../../style/StylesMainScreen';
 import stylesFont from '../../style/stylesFont';
-import IconFeather from 'react-native-vector-icons/Feather';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { finip, ip } from '../../navigator/IpConfig';
 import FastImage from 'react-native-fast-image';
 import { AppBar1 } from '../MainScreen';
@@ -143,7 +140,7 @@ export class CampaignBody extends Component {
               <View style={styles.CampaignBody_Icon}>
                 <IconEntypo name='share' size={20} color='#0A55A6' />
               </View>
-              <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Detail_Campaign')}>
+              <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Detail_Campaign', { selectedIndex: 0 })}>
                 <View style={styles.CampaignBody_Button}>
                   <Text style={[stylesFont.FontFamilyBold, styles.CampaignBody_ButtonText]}>รายละเอียด</Text>
                 </View>

@@ -78,25 +78,25 @@ export class Recommend_Brand_Store extends Component {
                     <View style={stylesTopic.Recommend_Brand_Product_Box}>
                         <View style={stylesTopic.Recommend_Brand_Product_Image}></View>
                         <View>
-                            <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText]}>ห้องพัก Deluxe Pool Villa</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6', }]}>฿10,000</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#C4C4C4', }]}>฿20,000</Text>
+                            <Text style={[stylesFont.FontSize8, stylesFont.FontFamilyText]}>ห้องพัก Deluxe Pool Villa</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#0A55A6', }]}>฿10,000</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#C4C4C4', }]}>฿20,000</Text>
                         </View>
                     </View>
                     <View style={stylesTopic.Recommend_Brand_Product_Box}>
                         <View style={stylesTopic.Recommend_Brand_Product_Image}></View>
                         <View>
-                            <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText]}>ห้องพัก Deluxe Pool Villa</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6', }]}>฿10,000</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#C4C4C4', }]}>฿20,000</Text>
+                            <Text style={[stylesFont.FontSize8, stylesFont.FontFamilyText]}>ห้องพัก Deluxe Pool Villa</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#0A55A6', }]}>฿10,000</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#C4C4C4', }]}>฿20,000</Text>
                         </View>
                     </View>
                     <View style={stylesTopic.Recommend_Brand_Product_Box}>
                         <View style={stylesTopic.Recommend_Brand_Product_Image}></View>
                         <View>
-                            <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText]}>ห้องพัก Deluxe Pool Villa</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6', }]}>฿10,000</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#C4C4C4', }]}>฿20,000</Text>
+                            <Text style={[stylesFont.FontSize8, stylesFont.FontFamilyText]}>ห้องพัก Deluxe Pool Villa</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#0A55A6', }]}>฿10,000</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#C4C4C4', }]}>฿20,000</Text>
                         </View>
                     </View>
                 </View>

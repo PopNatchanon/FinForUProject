@@ -150,7 +150,7 @@ export class Detail_Image extends Component {
           />
           <View style={{ flex: 1, }}>
             <View style={[stylesMain.ItemCenter, stylesDetail.ImageSlide]}>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                 {activeSlide + 1}/{this.state.imageLength}</Text>
             </View>
           </View>
@@ -163,7 +163,7 @@ export class Detail_Image extends Component {
                 prefix={'฿'}
                 renderText={
                   value =>
-                    <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize2]}>
+                    <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
                       {value}</Text>}
               />
               <View style={stylesDetail.Price_Icon_Box}>
@@ -171,7 +171,7 @@ export class Detail_Image extends Component {
                 <IconEntypo style={stylesDetail.Price_Icon} name='share' size={20} />
               </View>
             </View>
-            <Text style={[stylesDetail.Price_Text_Name, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
+            <Text style={[stylesDetail.Price_Text_Name, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
               {item.name}</Text>
             <View style={[stylesDetail.Price_Text_IconBox, stylesMain.BottomSpace]}>
               <View style={stylesDetail.Price_Text_IconBoxStar}>
@@ -180,10 +180,10 @@ export class Detail_Image extends Component {
                 <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
                 <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
                 <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
-                <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize3, { color: '#111' }]}>
+                <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#111' }]}>
                   5</Text>
                 <Text style={stylesDetail.Price_Text_Icon}>|</Text>
-                <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                   สินค้าแนะนำ</Text>
               </View>
             </View>
@@ -222,17 +222,17 @@ export class Store extends Component {
               </TouchableOpacity>
               <View style={stylesDetail.Store_Text_Box}>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreScreen', { id_item: item.id_store })}>
-                  <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
+                  <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
                     {item.store_name}</Text>
                 </TouchableOpacity>
-                <Text style={[stylesDetail.Store_Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                <Text style={[stylesDetail.Store_Text, stylesFont.FontFamilyText, stylesFont.FontSize8]}>
                   Active เมื่อ 1 ชั่วโมงที่ผ่านมา</Text>
-                <Text style={[stylesDetail.Store_Text, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                <Text style={[stylesDetail.Store_Text, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                   <IconEntypo name='location-pin' size={15} />
                   {item.store_address}</Text>
               </View>
               <View style={stylesDetail.Store_Buttom_Box}>
-                <Text style={[stylesDetail.Store_Text_Button, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                <Text style={[stylesDetail.Store_Text_Button, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                   ติดตาม</Text>
               </View>
             </View>
@@ -240,23 +240,23 @@ export class Store extends Component {
           <View style={stylesDetail.Store_Bar_A}>
             <View style={stylesDetail.Store_Bar}>
               <View>
-                <Text style={[stylesDetail.Store_Bar_int, stylesFont.FontFamilyText, stylesFont.FontSize2]}>
+                <Text style={[stylesDetail.Store_Bar_int, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
                   100</Text>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                   รายการสินค้า</Text>
               </View>
               <Text style={{ fontSize: 25, }}>|</Text>
               <View>
-                <Text style={[stylesDetail.Store_Bar_int, stylesFont.FontFamilyText, stylesFont.FontSize2]}>
+                <Text style={[stylesDetail.Store_Bar_int, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
                   90%</Text>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                   จัดส่งตรงเวลา</Text>
               </View>
               <Text style={{ fontSize: 25, }}>|</Text>
               <View>
-                <Text style={[stylesDetail.Store_Bar_int, stylesFont.FontFamilyText, stylesFont.FontSize2]}>
+                <Text style={[stylesDetail.Store_Bar_int, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
                   90%</Text>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                   อัตตราการตอบกลับแชท</Text>
               </View>
             </View>
@@ -283,15 +283,15 @@ export class Conpon extends Component {
     return (
       <View style={stylesDetail.Coupon}>
         <View style={[stylesDetail.Coupon_Box, stylesMain.ItemCenterVertical]}>
-          <Text style={[stylesDetail.Coupon_Text, stylesFont.FontSize3, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical]}>
+          <Text style={[stylesDetail.Coupon_Text, stylesFont.FontSize5, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical]}>
             คูปอง </Text>
           <View style={{ flexDirection: 'row' }}>
             <View style={stylesDetail.Coupon_Box_Pon}>
-              <Text style={[stylesDetail.Coupon_Box_Pon_Text, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+              <Text style={[stylesDetail.Coupon_Box_Pon_Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                 ลด ฿100.00</Text>
             </View>
             <View style={stylesDetail.Coupon_Box_Pon}>
-              <Text style={[stylesDetail.Coupon_Box_Pon_Text, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+              <Text style={[stylesDetail.Coupon_Box_Pon_Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                 ลด ฿300.00</Text>
             </View>
             <IconEntypo style={stylesDetail.Coupon_Icon} name='chevron-right' size={30} />
@@ -314,10 +314,10 @@ export class Selector extends Component {
     return (
       <View style={stylesDetail.Coupon}>
         <View style={[stylesDetail.Coupon_Box, stylesMain.ItemCenterVertical]}>
-          <Text style={[stylesDetail.Coupon_Text, stylesFont.FontSize3, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical]}>
+          <Text style={[stylesDetail.Coupon_Text, stylesFont.FontSize5, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical]}>
             ตัวเลือก </Text>
           <View style={{ flexDirection: 'row' }}>
-            <Text style={[stylesDetail.Coupon_Text, stylesFont.FontSize4, stylesFont.FontFamilyText, stylesMain.ItemCenterVertical]}>
+            <Text style={[stylesDetail.Coupon_Text, stylesFont.FontSize6, stylesFont.FontFamilyText, stylesMain.ItemCenterVertical]}>
               ตัวอย่างเช่น สี ขนาด</Text>
             <IconEntypo style={stylesDetail.Coupon_Icon} name='chevron-right' size={30} />
           </View>
@@ -340,39 +340,39 @@ export class Detail_Category extends Component {
       return (
         <View style={[stylesMain.FrameBackground]} key={indexs}>
           <View style={[stylesMain.FrameBackgroundTextBox, stylesDetail.BottomTitle, stylesMain.MarginBottomTitle]}>
-            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize2]}>
+            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
               ข้อมูลจำเพาะ</Text>
           </View>
           <View style={[stylesMain.BottomSpace, stylesMain.FlexRow]}>
             <View style={{ width: '25%' }}>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { marginLeft: 10 }]}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10 }]}>
                 หมวดหมู่</Text>
             </View>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
               {item.type_name}</Text>
           </View>
           <View style={[stylesMain.BottomSpace, stylesMain.FlexRow]}>
             <View style={{ width: '25%' }}>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { marginLeft: 10 }]}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10 }]}>
                 ยี่ห้อ</Text>
             </View>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
               {item.brand_product}</Text>
           </View>
           <View style={[stylesMain.BottomSpace, stylesMain.FlexRow]}>
             <View style={{ width: '25%' }}>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { marginLeft: 10 }]}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10 }]}>
                 จำนวนสินค้า</Text>
             </View>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
               {item.amount_product}</Text>
           </View>
           <View style={[stylesMain.BottomSpace, stylesMain.FlexRow]}>
             <View style={{ width: '25%' }}>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { marginLeft: 10 }]}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10 }]}>
                 ส่งจาก</Text>
             </View>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
               {item.store_address}</Text>
           </View>
         </View>
@@ -400,14 +400,14 @@ export class Detail extends Component {
       return (
         <View style={stylesMain.FrameBackground} key={indexs}>
           <View style={[stylesMain.FrameBackgroundTextBox, stylesDetail.BottomTitle, stylesMain.MarginBottomTitle]}>
-            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize2]}>
+            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
               รายละเอียดสินค้า</Text>
           </View>
           <View style={stylesDetail.Detail_Text_Box}>
             <Text numberOfLines={activeText == true ? null : 4} onTextLayout={({ nativeEvent: { lines } }) =>
               this.setState({ showMoreButton: lines.length > 4 })
             } style={[
-              stylesDetail.Detail_Text, stylesFont.FontFamilyText, stylesFont.FontSize4
+              stylesDetail.Detail_Text, stylesFont.FontFamilyText, stylesFont.FontSize6
             ]}>
               {item.detail}</Text>
             {
@@ -452,10 +452,10 @@ export class Reviews extends Component {
     return (
       <View style={stylesMain.FrameBackground}>
         <View style={stylesMain.FrameBackgroundTextBox}>
-          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
+          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
             คะแนนสินค้า</Text>
           <View style={stylesMain.FlexRow} >
-            <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize4, { marginRight: 0 }]}>
+            <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize6, { marginRight: 0 }]}>
               ดูทั้งหมด</Text>
             <IconFeather style={stylesDetail.Score_iconB} name='edit' size={20} color='#0A55A6' />
           </View>
@@ -467,14 +467,14 @@ export class Reviews extends Component {
             <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
             <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
             <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
-            <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+            <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
               5/5</Text>
-            <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+            <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
               ( 10 รีวิว)</Text>
           </View>
         </View>
         <View style={stylesDetail.Reviews_Box}>
-          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
+          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
             ภาพจากผู้ซื้อ</Text>
           <View>
             <ScrollView horizontal>
@@ -511,7 +511,7 @@ export class Reviews extends Component {
                 source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
               />
               <View style={stylesDetail.Comment_R_Text}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                   p********n</Text>
                 <View style={stylesDetail.Comment_R_Iconstar}>
                   <IconFontAwesome name='star' size={15} color='#FFAC33' />
@@ -520,9 +520,9 @@ export class Reviews extends Component {
                   <IconFontAwesome name='star' size={15} color='#FFAC33' />
                   <IconFontAwesome name='star' size={15} color='#E9E9E9' />
                 </View>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, stylesMain.BottomSpace]}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.BottomSpace]}>
                   สั่งซื้อซ้ำเป็นรอบที่ 2 ติดใจโรงแรมสะอาดราคาไม่แพง โลเคชั่นดี</Text>
-                <Text style={[stylesDetail.Comment_text_day, stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.BottomSpace]}>
+                <Text style={[stylesDetail.Comment_text_day, stylesFont.FontFamilyText, stylesFont.FontSize8, stylesMain.BottomSpace]}>
                   16-11-2019 15:56 | กรอบแว่นขนาด 50 cm</Text>
               </View>
             </View>
@@ -532,7 +532,7 @@ export class Reviews extends Component {
                 source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
               />
               <View style={stylesDetail.Comment_R_Text}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                   p********n</Text>
                 <View style={stylesDetail.Comment_R_Iconstar}>
                   <IconFontAwesome name='star' size={15} color='#FFAC33' />
@@ -541,7 +541,7 @@ export class Reviews extends Component {
                   <IconFontAwesome name='star' size={15} color='#FFAC33' />
                   <IconFontAwesome name='star' size={15} color='#E9E9E9' />
                 </View>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                   สั่งซื้อซ้ำเป็นรอบที่ 2 ติดใจโรงแรมสะอาดราคาไม่แพง โลเคชั่นดี</Text>
                 <View style={[stylesDetail.Comment_Image_A, stylesMain.BottomSpace]}>
                   <FastImage
@@ -557,7 +557,7 @@ export class Reviews extends Component {
                     source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
                   />
                 </View>
-                <Text style={[stylesDetail.Comment_text_day, stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.BottomSpace]}>
+                <Text style={[stylesDetail.Comment_text_day, stylesFont.FontFamilyText, stylesFont.FontSize8, stylesMain.BottomSpace]}>
                   16-11-2019 15:56 | กรอบแว่นขนาด 50 cm</Text>
               </View>
             </View>
@@ -567,7 +567,7 @@ export class Reviews extends Component {
                 source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
               />
               <View style={stylesDetail.Comment_R_Text}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3]}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                   p********n</Text>
                 <View style={stylesDetail.Comment_R_Iconstar}>
                   <IconFontAwesome name='star' size={15} color='#FFAC33' />
@@ -576,9 +576,9 @@ export class Reviews extends Component {
                   <IconFontAwesome name='star' size={15} color='#E9E9E9' />
                   <IconFontAwesome name='star' size={15} color='#E9E9E9' />
                 </View>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, stylesMain.BottomSpace]}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.BottomSpace]}>
                   สั่งซื้อซ้ำเป็นรอบที่ 2 ติดใจโรงแรมสะอาดราคาไม่แพง โลเคชั่นดี</Text>
-                <Text style={[stylesDetail.Comment_text_day, stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.BottomSpace]}>
+                <Text style={[stylesDetail.Comment_text_day, stylesFont.FontFamilyText, stylesFont.FontSize8, stylesMain.BottomSpace]}>
                   16-11-2019 15:56 | กรอบแว่นขนาด 50 cm</Text>
               </View>
             </View>
@@ -656,23 +656,47 @@ export class Same_Store extends Component {
           onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}
         >
           <View style={stylesMain.BoxProduct1Box} key={indexs}>
-            <FastImage
-              source={{
-                uri: dataMySQL,
-              }}
-              style={stylesMain.BoxProduct1Image}
-            />
-            <Text style={[stylesMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-              {item.name}</Text>
-            <NumberFormat
-              value={item.full_price}
-              displayType={'text'}
-              thousandSeparator={true}
-              prefix={'฿'}
-              renderText={value =>
-                <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                  {value}</Text>}
-            />
+            <View style={stylesMain.BoxProduct1ImageofLines}>
+              <FastImage
+                source={{
+                  uri: dataMySQL,
+                }}
+                style={stylesMain.BoxProduct1Image}
+              />
+            </View>
+            <View style={{ height: 60, paddingHorizontal: 3 }}>
+              <View style={[stylesMain.BoxProduct1NameofLines]}>
+                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize7]}>
+                  {item.name}</Text>
+              </View>
+              <View style={[stylesMain.BoxProduct1PriceofLines, stylesMain.FlexRow]}>
+                <NumberFormat
+                  value={item.full_price}
+                  displayType={'text'}
+                  thousandSeparator={true}
+                  prefix={'฿'}
+                  renderText={value =>
+                    <Text style={[
+                      stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyBold,
+                    ]}>
+                      {value + ' '}</Text>
+                  }
+                />
+                {/* <NumberFormat
+                  value={throughsale}
+                  displayType={'text'}
+                  thousandSeparator={true}
+                  prefix={'฿'}
+                  renderText={value =>
+                    <Text style={[
+                      stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText,
+                      { marginTop: 3 }
+                    ]}>
+                      {value}</Text>
+                  }
+                /> */}
+              </View>
+            </View>
           </View>
         </TouchableOpacity>
       )
@@ -680,10 +704,10 @@ export class Same_Store extends Component {
     return (
       <View style={stylesMain.FrameBackground}>
         <View style={stylesMain.FrameBackgroundTextBox}>
-          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize2]}>
+          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
             สินค้าจากร้านเดียวกัน</Text>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Same_StoreScreen', { type_product: 'this_store' })}>
-            <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+            <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
               ดูทั้งหมด</Text>
           </TouchableOpacity>
         </View>
@@ -742,23 +766,47 @@ export class Similar_Product extends Component {
           onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}
         >
           <View style={stylesMain.BoxProduct1Box} key={indexs}>
-            <FastImage
-              source={{
-                uri: dataMySQL,
-              }}
-              style={stylesMain.BoxProduct1Image}
-            />
-            <Text style={[stylesMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-              {item.name}</Text>
-            <NumberFormat
-              value={item.full_price}
-              displayType={'text'}
-              thousandSeparator={true}
-              prefix={'฿'}
-              renderText={value =>
-                <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                  {value}</Text>}
-            />
+            <View style={stylesMain.BoxProduct1ImageofLines}>
+              <FastImage
+                source={{
+                  uri: dataMySQL,
+                }}
+                style={stylesMain.BoxProduct1Image}
+              />
+            </View>
+            <View style={{ height: 60, paddingHorizontal: 3 }}>
+              <View style={[stylesMain.BoxProduct1NameofLines]}>
+                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize7]}>
+                  {item.name}</Text>
+              </View>
+              <View style={[stylesMain.BoxProduct1PriceofLines, stylesMain.FlexRow]}>
+                <NumberFormat
+                  value={item.full_price}
+                  displayType={'text'}
+                  thousandSeparator={true}
+                  prefix={'฿'}
+                  renderText={value =>
+                    <Text style={[
+                      stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyBold,
+                    ]}>
+                      {value + ' '}</Text>
+                  }
+                />
+                {/* <NumberFormat
+                  value={throughsale}
+                  displayType={'text'}
+                  thousandSeparator={true}
+                  prefix={'฿'}
+                  renderText={value =>
+                    <Text style={[
+                      stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText,
+                      { marginTop: 3 }
+                    ]}>
+                      {value}</Text>
+                  }
+                /> */}
+              </View>
+            </View>
           </View>
         </TouchableOpacity>
       )
@@ -766,10 +814,10 @@ export class Similar_Product extends Component {
     return (
       <View style={stylesMain.FrameBackground}>
         <View style={stylesMain.FrameBackgroundTextBox}>
-          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize2]}>
+          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
             สินค้าที่คล้ายกัน</Text>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Same_StoreScreen', { type_product: 'same_product' })}>
-            <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+            <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
               ดูทั้งหมด</Text>
           </TouchableOpacity>
         </View>
@@ -834,29 +882,50 @@ export class Might_like extends Component {
               }}
               style={stylesMain.BoxProduct3Image}
             />
-            <Text style={[stylesMain.BoxProduct2ImageName, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-              {item.name}</Text>
-            <NumberFormat
-              value={item.full_price}
-              displayType={'text'}
-              thousandSeparator={true}
-              prefix={'฿'}
-              renderText={value =>
-                <Text style={[stylesMain.BoxProduct2ImagePrice, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                  {value}</Text>
-              }
-            />
+            <View style={{ height: 60, paddingHorizontal: 3 }}>
+              <View style={[stylesMain.BoxProduct1NameofLines]}>
+                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize7]}>
+                  {item.name}</Text>
+              </View>
+              <View style={[stylesMain.BoxProduct1PriceofLines, stylesMain.FlexRow]}>
+                <NumberFormat
+                  value={item.full_price}
+                  displayType={'text'}
+                  thousandSeparator={true}
+                  prefix={'฿'}
+                  renderText={value =>
+                    <Text style={[
+                      stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyBold,
+                    ]}>
+                      {value + ' '}</Text>
+                  }
+                />
+                {/* <NumberFormat
+                  value={throughsale}
+                  displayType={'text'}
+                  thousandSeparator={true}
+                  prefix={'฿'}
+                  renderText={value =>
+                    <Text style={[
+                      stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText,
+                      { marginTop: 3 }
+                    ]}>
+                      {value}</Text>
+                  }
+                /> */}
+              </View>
+            </View>
           </View>
-        </TouchableOpacity >
+        </TouchableOpacity>
       );
     })
     return (
       <View style={stylesMain.FrameBackground}>
         <View style={stylesMain.FrameBackgroundTextBox}>
-          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize2]}>
+          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
             คุณอาจชอบสิ่งนี้</Text>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Same_StoreScreen', { type_product: 'youlike' })}>
-            <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize5, stylesFont.FontFamilyText]}>
+            <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
               ดูทั้งหมด</Text>
           </TouchableOpacity>
         </View>
@@ -903,14 +972,14 @@ export class Buy_bar extends Component {
       <View style={stylesDetail.Buy_bar}>
         <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
           <IconAntDesign name='message1' size={22} style={[stylesMain.ItemCenterVertical]} />
-          <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesMain.ItemCenterVertical]}>
+          <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesMain.ItemCenterVertical]}>
             แชท</Text>
         </View>
         <Text style={{ fontSize: 30 }}>|</Text>
         <TouchableOpacity onPress={() => id_store ? this.props.navigation.navigate('StoreScreen', { id_item: id_store }) : null}>
           <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
             <IconFontisto name='shopping-store' size={22} style={stylesMain.ItemCenterVertical} />
-            <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesMain.ItemCenterVertical]}>
+            <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesMain.ItemCenterVertical]}>
               ร้านค้า</Text>
           </View>
         </TouchableOpacity>

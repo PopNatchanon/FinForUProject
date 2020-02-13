@@ -15,7 +15,7 @@ export default StyleSheet.create({
         backgroundColor: '#fff',
         borderWidth: 1,
         marginTop: -30,
-        marginBottom: 30,
+        marginBottom: -2,
         marginLeft: width - 60
     },
     Detail_Image: {

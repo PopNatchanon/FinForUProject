@@ -1,18 +1,24 @@
+///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-    View, ScrollView, SafeAreaView, TouchableOpacity, Text, Dimensions,
+    Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View
 } from 'react-native';
-import stylesTopic from '../style/styleTopic';
-import stylesMain from '../style/StylesMainScreen';
-import stylesFont from '../style/stylesFont';
-import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
+///----------------------------------------------------------------------------------------------->>>> Import
+export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
+///----------------------------------------------------------------------------------------------->>>> Icon
+import IconAntDesign from 'react-native-vector-icons/AntDesign';
+import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
+///----------------------------------------------------------------------------------------------->>>> Styles
+import stylesFont from '../style/stylesFont';
+import stylesMain from '../style/StylesMainScreen';
+import stylesTopic from '../style/styleTopic';
+///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+import { AppBar1 } from './MainScreen';
 import { Slide } from './src_Promotion/DealScreen';
 import { TabBar, GetServices } from './tools/Tools';
-import { AppBar1 } from './MainScreen';
+///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../navigator/IpConfig';
-export const { width, height } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class FlashSaleScreen extends Component {
     constructor(props) {
@@ -20,27 +26,25 @@ export default class FlashSaleScreen extends Component {
         this.state = {
         };
     }
-
     render() {
+        const { navigation } = this.props
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                <AppBar1 titleHead={'FLASH SALE'} backArrow searchBar chatBar navigation={this.props.navigation} />
+                <AppBar1 titleHead={'FLASH SALE'} backArrow searchBar chatBar navigation={navigation} />
                 <ScrollView>
                     <Slide />
                     <Time_FlashSale />
-                    <FlashSale_Product navigation={this.props.navigation} />
-                    <FlashSale_Product navigation={this.props.navigation} />
-                    <FlashSale_Product navigation={this.props.navigation} />
-                    <FlashSale_Product navigation={this.props.navigation} />
-                    <FlashSale_Product navigation={this.props.navigation} />
+                    <FlashSale_Product navigation={navigation} />
+                    <FlashSale_Product navigation={navigation} />
+                    <FlashSale_Product navigation={navigation} />
+                    <FlashSale_Product navigation={navigation} />
+                    <FlashSale_Product navigation={navigation} />
                 </ScrollView>
             </SafeAreaView>
         );
     }
 }
-
-///-------------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Time_FlashSale
 export class Time_FlashSale extends Component {
     constructor(props) {
         super(props);
@@ -59,6 +63,7 @@ export class Time_FlashSale extends Component {
         this.setState({ selectedIndex })
     }
     render() {
+        const { dataService } = this.state
         var uri = finip + '/home/category_mobile';
         const item = [{
             name: '12:00',
@@ -76,7 +81,7 @@ export class Time_FlashSale extends Component {
         var item2 = [{
             name: 'ทั้งหมด'
         }]
-        this.state.dataService.map((item) => { return item2.push({ name: item.name }) })
+        dataService.map((item) => { return item2.push({ name: item.name }) })
         return (
             <View>
                 <View style={[stylesMain.FrameBackground, stylesMain.FlexRow]}>
@@ -113,25 +118,22 @@ export class Time_FlashSale extends Component {
                     </ScrollView>
                 </View>
             </View>
-
         );
     }
 }
-
-///-------------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> FlashSale_Product
 export class FlashSale_Product extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
+        const { navigation } = this.props
         return (
             <View style={stylesTopic.FlashSale_Product}>
                 <View style={[stylesTopic.FlashSale_ProductBox, { flex: 1 }]}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: 123 })}>
+                    <TouchableOpacity onPress={() => navigation.navigate('DetailScreen', { id_item: 123 })}>
                         <View style={stylesTopic.FlashSale_ProductBox_Image}>
                             <FastImage
                                 style={stylesTopic.Image}
@@ -141,15 +143,15 @@ export class FlashSale_Product extends Component {
                             />
                         </View>
                     </TouchableOpacity>
-                    <View style={{ flexDirection: 'row', flex: 1 }}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: 123 })}>
-                            <View style={{ width: '85%' }}>
+                    <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'space-between' }}>
+                        <TouchableOpacity onPress={() => navigation.navigate('DetailScreen', { id_item: 123 })}>
+                            <View style={{ width: '100%' }}>
                                 <Text numberOfLines={4} style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10 }]}>
-                                    ห้องพัก Deluxe Pool Villa ห้องพัก Deluxe Pool Villa ห้องพัก Deluxe Pool Villa ห้องพัก Deluxe Pool Villa ห้องพัก Deluxe Pool Villa ห้องพัก Deluxe Pool Villa ห้องพัก Deluxe Pool Villa ห้องพัก Deluxe Pool Villa ห้องพัก Deluxe Pool Villa </Text>
+                                    ห้องพัก Deluxe Pool Villa </Text>
                             </View>
                         </TouchableOpacity>
-                        <View style={{ justifyContent: 'flex-end', width: 40 }}>
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate('CartScreen')}>
+                        <View style={{ width: 40, justifyContent: 'flex-end' }}>
+                            <TouchableOpacity onPress={() => navigation.navigate('CartScreen')}>
                                 <View style={[stylesTopic.FlashSale_ProductBox_Icon]}>
                                     <IconAntDesign RightItem name="shoppingcart" size={30} color='#FFFFFF' />
                                 </View>

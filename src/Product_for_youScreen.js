@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import { AppBar, Slide } from './src_Promotion/DealScreen';
+import { Slide } from './src_Promotion/DealScreen';
 import { TodayProduct, AppBar1 } from './MainScreen';
 import { Button_Bar, SlideTab, PricesSlide } from './ExclusiveScreen';
 import stylesTopic from '../style/styleTopic';
@@ -29,12 +29,13 @@ export default class Product_for_youScreen extends Component {
   }
   render() {
     const { sliderVisible } = this.state
+    const { navigation } = this.props
     return (
       <SafeAreaView>
-        <AppBar1 backArrow navigation={this.props.navigation} titleHead='FIN คัดมาเพื่อคุณ' />
-        <Slide />
-        <Button_Bar setSliderVisible={this.setSlider} getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
+        <AppBar1 backArrow navigation={navigation} titleHead='FIN คัดมาเพื่อคุณ' />
         <ScrollView>
+          <Slide />
+          <Button_Bar setSliderVisible={this.setSlider} getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
           <TodayProduct noTitle />
         </ScrollView>
         <SlidingView
@@ -57,19 +58,19 @@ export default class Product_for_youScreen extends Component {
               <View style={stylesTopic.BackgroundLeft}></View>
             </TouchableOpacity>
             <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNoBackground]}>
-              <View style={{ height: '90%' }}>
+              <View>
                 <ScrollView>
                   <SlideTabGet />
                 </ScrollView>
-              </View>
-              <View style={[stylesMain.FlexRow, stylesMain.SafeAreaViewNoBackground, { marginTop: 8 }]}>
-                <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
-                  <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
-                    รีเซ็ต</Text>
-                </View>
-                <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset, { backgroundColor: '#0A55A6' }]}>
-                  <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#fff' }]}>
-                    เสร็จสิ้น</Text>
+                <View style={[stylesMain.FlexRow, { height: 70 }]}>
+                  <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
+                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
+                      รีเซ็ต</Text>
+                  </View>
+                  <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset, { backgroundColor: '#0A55A6' }]}>
+                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#fff' }]}>
+                      เสร็จสิ้น</Text>
+                  </View>
                 </View>
               </View>
             </View>

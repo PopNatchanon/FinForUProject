@@ -32,32 +32,33 @@ export default class MainScreen extends Component {
         this.getDataasync()
     }
     render() {
+        const { navigation } = this.props
         return (
             <SafeAreaView style={[stylesMain.SafeAreaViewNoBackground, stylesMain.BackgroundAreaView]}>
-                <AppBar navigation={this.props.navigation} />
+                <AppBar navigation={navigation} />
                 <ScrollView>
                     <Slide />
-                    <Category navigation={this.props.navigation} />
-                    <Button_Bar navigation={this.props.navigation} />
-                    <FlashSale navigation={this.props.navigation} />
-                    <Recommend_Brand navigation={this.props.navigation} />
+                    <Category navigation={navigation} />
+                    <Button_Bar navigation={navigation} />
+                    <FlashSale navigation={navigation} />
+                    <Recommend_Brand navigation={navigation} />
                     <BannerBar_ONE />
-                    <Exclusive navigation={this.props.navigation} />
-                    <NewStore navigation={this.props.navigation} />
+                    <Exclusive navigation={navigation} />
+                    <NewStore navigation={navigation} />
                     <BannerBar_TWO />
-                    <Highlight navigation={this.props.navigation} />
-                    <PromotionPopular navigation={this.props.navigation} />
-                    <Popular_store navigation={this.props.navigation} />
-                    <Popular_product navigation={this.props.navigation} />
+                    <Highlight navigation={navigation} />
+                    <PromotionPopular navigation={navigation} />
+                    <Popular_store navigation={navigation} />
+                    <Popular_product navigation={navigation} />
                     <BannerBar_TWO />
-                    <Product_for_you navigation={this.props.navigation} />
+                    <Product_for_you navigation={navigation} />
                     <BannerBar_TWO />
-                    <CategoryProduct navigation={this.props.navigation} />
-                    <Second_product navigation={this.props.navigation} />
+                    <CategoryProduct navigation={navigation} />
+                    <Second_product navigation={navigation} />
                     <BannerBar_THREE />
-                    <TodayProduct navigation={this.props.navigation} />
+                    <TodayProduct navigation={navigation} />
                 </ScrollView>
-                <Toolbar navigation={this.props.navigation} />
+                <Toolbar navigation={navigation} />
             </SafeAreaView>
         );
     }
@@ -71,6 +72,7 @@ export class AppBar extends Component {
         };
     }
     render() {
+        const { text } = this.state
         const { leftBar, rightBar, searchBar, navigation, SearchText } = this.props
         return (
             <View style={[stylesMain.Appbar, stylesMain.FlexRow, { backgroundColor: '#fff' }]}>
@@ -105,9 +107,11 @@ export class AppBar extends Component {
                                                 width - 170,
                                 }]}>
                                     <TextInput
-                                        style={[stylesMain.TextInput, stylesFont.FontFamilyText, stylesFont.FontSize5, stylesFont.FontCenter]}
+                                        style={[
+                                            stylesMain.TextInput, stylesFont.FontFamilyText, stylesFont.FontSize5, stylesFont.FontCenter
+                                        ]}
                                         placeholder="ค้นหาสินค้า/ร้านค้า"
-                                        value={this.state.text}
+                                        value={text}
                                         maxLength={30}
                                         onChangeText={(text) => this.setState({ text })}
                                     />
@@ -140,7 +144,9 @@ export class AppBar extends Component {
                                     ]}>
                                         {SearchText ? SearchText : 'ค้นหาสินค้า/ร้านค้า'}</Text>
                                 </View>
-                                <IconAntDesign RightItem name="search1" size={20} style={[stylesMain.ItemCenterVertical, { marginRight: 4 }]} />
+                                <IconAntDesign RightItem name="search1" size={20} style={[stylesMain.ItemCenterVertical, {
+                                    marginRight: 4
+                                }]} />
                             </View>
                         </TouchableOpacity>
                 }
@@ -148,11 +154,11 @@ export class AppBar extends Component {
                     rightBar == 'storebar' ?
                         <View style={[stylesMain.ItemCenter, stylesMain.FlexRow]}>
                             <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 40 }]}
-                                onPress={null/*() => this.props.navigation.navigate('CartScreen')*/}>
+                                onPress={null/*() => navigation.navigate('CartScreen')*/}>
                                 <IconFeather RightItem name="filter" size={25} />
                             </TouchableOpacity>
                             <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 40 }]}
-                                onPress={null/*() => this.props.navigation.navigate('CartScreen')*/}>
+                                onPress={null/*() => navigation.navigate('CartScreen')*/}>
                                 <IconFontAwesome5 RightItem name="ellipsis-h" size={25} />
                             </TouchableOpacity>
                         </View> :
@@ -160,12 +166,12 @@ export class AppBar extends Component {
                             {leftBar == 'backarrow' ?
                                 rightBar == 'chat' ?
                                     <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
-                                        onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 1 })}>
+                                        onPress={() => navigation.navigate('Profile_Topic', { selectedIndex: 1 })}>
                                         <IconAntDesign RightItem name="message1" size={25} />
                                     </TouchableOpacity> :
                                     null :
                                 <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
-                                    onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 1 })}>
+                                    onPress={() => navigation.navigate('Profile_Topic', { selectedIndex: 1 })}>
                                     <IconAntDesign RightItem name="message1" size={25} />
                                 </TouchableOpacity>
                             }
@@ -216,9 +222,10 @@ export class AppBar1 extends Component {
                             <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
                                 onPress={() => navigation.navigate('SearchScreen', { modeStore: false })}
                             >
-                                <IconAntDesign RightItem name="search1" size={25} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
-                                    marginRight: 8
-                                }]} />
+                                <IconAntDesign RightItem name="search1" size={25} style={[
+                                    stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
+                                        marginRight: 8
+                                    }]} />
                             </TouchableOpacity> :
                             null
                     }{
@@ -235,9 +242,10 @@ export class AppBar1 extends Component {
                             <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
                                 onPress={() => navigation.navigate('Profile_Topic', { selectedIndex: 1 })}
                             >
-                                <IconAntDesign RightItem name="message1" size={25} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
-                                    marginRight: 8
-                                }]} />
+                                <IconAntDesign RightItem name="message1" size={25} style={[
+                                    stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
+                                        marginRight: 8
+                                    }]} />
                             </TouchableOpacity> :
                             null
                     }{
@@ -245,9 +253,10 @@ export class AppBar1 extends Component {
                             <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
                                 onPress={() => navigation.navigate('Profile_Topic', { selectedIndex: 3 })}
                             >
-                                <IconFontAwesome5 RightItem name="store" size={20} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
-                                    marginRight: 8
-                                }]} />
+                                <IconFontAwesome5 RightItem name="store" size={20} style={[
+                                    stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
+                                        marginRight: 8
+                                    }]} />
                             </TouchableOpacity> :
                             null
                     }
@@ -312,6 +321,7 @@ export class Slide extends Component {
         );
     }
     render() {
+        const { dataService } = this.state
         var dataBody = {
             slide: 'banner'
         };
@@ -321,7 +331,7 @@ export class Slide extends Component {
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
                 <Carousel
                     ref={c => this.activeSlide = c}
-                    data={this.state.dataService}
+                    data={dataService}
                     renderItem={this._renderItem}
                     sliderWidth={width * 1}
                     itemWidth={width * 1}
@@ -350,8 +360,10 @@ export class Category extends Component {
         this.setState({ dataService })
     }
     render() {
+        const { dataService } = this.state
+        const { navigation } = this.props
         var uri = finip + '/home/category_mobile'
-        let dataCategory = this.state.dataService.map((item, indexs) => {
+        let dataCategory = dataService.map((item, indexs) => {
             var dataMySQL = [finip, item.image_path, 'menu', item.image_head].join('/');
             return (
                 <View style={stylesMain.Category} key={indexs}>
@@ -373,7 +385,7 @@ export class Category extends Component {
             <View style={stylesMain.FrameBackground2} >
                 <GetServices uriPointer={uri} getDataSource={this.getData} />
                 <ScrollView horizontal >
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('CategoryScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('CategoryScreen')}>
                         <View style={stylesMain.category_A}>
                             {dataCategory}
                         </View>
@@ -391,10 +403,11 @@ export class Button_Bar extends Component {
         };
     }
     render() {
+        const { navigation } = this.props
         return (
             <View style={stylesMain.FrameBackground2} >
                 <ScrollView horizontal>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('DealScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('DealScreen')}>
                         <View style={stylesMain.Button_Bar_Box}>
                             <FastImage style={stylesMain.Button_Bar_icon}
                                 source={{
@@ -406,7 +419,7 @@ export class Button_Bar extends Component {
                         <Text style={[stylesFont.FontCenter, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                             ดีลสุดพิเศษ</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('CoinScreen')} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('CoinScreen')} >
                         <View style={stylesMain.Button_Bar_Box}>
                             <FastImage style={stylesMain.Button_Bar_icon}
                                 source={{
@@ -418,7 +431,7 @@ export class Button_Bar extends Component {
                                 FinCoin</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('CampaignScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('CampaignScreen')}>
                         <View style={stylesMain.Button_Bar_Box}>
                             <FastImage style={stylesMain.Button_Bar_icon}
                                 source={{
@@ -430,7 +443,7 @@ export class Button_Bar extends Component {
                                 แคมเปญ</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('The_BestFinScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('The_BestFinScreen')}>
                         <View style={stylesMain.Button_Bar_Box}>
                             <FastImage style={stylesMain.Button_Bar_icon}
                                 source={{
@@ -442,7 +455,7 @@ export class Button_Bar extends Component {
                                 สุดคุ้มสุดฟิน</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Installment_payScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('Installment_payScreen')}>
                         <View style={stylesMain.Button_Bar_Box}>
                             <FastImage style={stylesMain.Button_Bar_icon}
                                 source={{
@@ -467,19 +480,20 @@ export class Recommend_Brand extends Component {
         };
     }
     render() {
+        const { navigation } = this.props
         return (
             <View style={[stylesMain.FrameBackground2, stylesMain.FrameBackground_Height]}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
                         แบรนด์แนะนำ</Text>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Recommend_Brand')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('Recommend_Brand')}>
                         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
                 </View>
                 <ScrollView horizontal>
                     <View style={stylesMain.FrameBackground_Box}>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Recommend_Brand')}>
+                        <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('Recommend_Brand')}>
                             <View>
                                 <FastImage
                                     style={stylesMain.Brand_image_RCM}
@@ -490,7 +504,7 @@ export class Recommend_Brand extends Component {
                                 />
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Recommend_Brand')}>
+                        <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('Recommend_Brand')}>
                             <View>
                                 <FastImage
                                     style={stylesMain.Brand_image_RCM}
@@ -501,7 +515,7 @@ export class Recommend_Brand extends Component {
                                 />
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Recommend_Brand')}>
+                        <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('Recommend_Brand')}>
                             <View >
                                 <FastImage
                                     style={stylesMain.Brand_image_RCM}
@@ -512,7 +526,7 @@ export class Recommend_Brand extends Component {
                                 />
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Recommend_Brand')}>
+                        <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('Recommend_Brand')}>
                             <View >
                                 <FastImage
                                     style={stylesMain.Brand_image_RCM}
@@ -586,6 +600,7 @@ export class Recommend_Brand extends Component {
 ///----------------------------------------------------------------------------------------------->>>> Popular_store
 export class Popular_store extends Component {
     render() {
+        const { navigation } = this.props
         return (
             <View style={stylesMain.FrameBackground2}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
@@ -593,7 +608,7 @@ export class Popular_store extends Component {
                         ร้านที่ใช่อยากให้ช้อป</Text>
                 </View>
                 <View style={stylesMain.FlexRow}>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Recommend_Store')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('Recommend_Store')}>
                         <View style={stylesMain.BoxStore1Box}>
                             <FastImage
                                 style={stylesMain.BoxStore1Image}
@@ -604,7 +619,7 @@ export class Popular_store extends Component {
                             />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Recommend_Store')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('Recommend_Store')}>
                         <View style={stylesMain.BoxStore1Box}>
                             <FastImage
                                 style={stylesMain.BoxStore1Image}
@@ -622,8 +637,8 @@ export class Popular_store extends Component {
 }
 ///----------------------------------------------------------------------------------------------->>>> Popular_product
 export class Popular_product extends Component {
-
     render() {
+        const { navigation } = this.props
         return (
             <View>
                 <View style={stylesMain.FrameBackground2}>
@@ -635,7 +650,7 @@ export class Popular_product extends Component {
                         <ScrollView horizontal>
                             <View style={stylesMain.Popular_Box_B}>
                                 <TouchableOpacity activeOpacity={1}
-                                    onPress={() => this.props.navigation.navigate('Popular_productScreen', { id_item: 0 })}>
+                                    onPress={() => navigation.navigate('Popular_productScreen', { id_item: 0 })}>
                                     <View style={stylesMain.Popular_Box_C}>
                                         <View style={stylesMain.Popular_Box_D}>
                                             <FastImage
@@ -674,7 +689,7 @@ export class Popular_product extends Component {
                             </View>
                             <View style={stylesMain.Popular_Box_B}>
                                 <TouchableOpacity activeOpacity={1}
-                                    onPress={() => this.props.navigation.navigate('Popular_productScreen', { id_item: 1 })}>
+                                    onPress={() => navigation.navigate('Popular_productScreen', { id_item: 1 })}>
                                     <View style={stylesMain.Popular_Box_C}>
                                         <View style={stylesMain.Popular_Box_D}>
                                             <FastImage
@@ -713,7 +728,7 @@ export class Popular_product extends Component {
                             </View>
                             <View style={stylesMain.Popular_Box_B}>
                                 <TouchableOpacity activeOpacity={1}
-                                    onPress={() => this.props.navigation.navigate('Popular_productScreen', { id_item: 2 })}>
+                                    onPress={() => navigation.navigate('Popular_productScreen', { id_item: 2 })}>
                                     <View style={stylesMain.Popular_Box_C}>
                                         <View style={stylesMain.Popular_Box_D}>
                                             <FastImage
@@ -752,7 +767,7 @@ export class Popular_product extends Component {
                             </View>
                             <View style={stylesMain.Popular_Box_B}>
                                 <TouchableOpacity activeOpacity={1}
-                                    onPress={() => this.props.navigation.navigate('Popular_productScreen', { id_item: 3 })}>
+                                    onPress={() => navigation.navigate('Popular_productScreen', { id_item: 3 })}>
                                     <View style={stylesMain.Popular_Box_C}>
                                         <View style={stylesMain.Popular_Box_D}>
                                             <FastImage
@@ -872,18 +887,20 @@ export class FlashSale extends Component {
         this.setState({ dataService })
     }
     render() {
+        const { dataService } = this.state
+        const { navigation } = this.props
         var uri = ip + '/mysql/DataServiceMain.php';
         var dataBody = {
             type: 'sale'
         };
-        let dataFlashSale = this.state.dataService.map((item, indexs) => {
+        let dataFlashSale = dataService.map((item, indexs) => {
             var throughsale = Number(item.full_price) + (item.full_price * 0.5)
             var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
             return (
                 <TouchableOpacity
                     activeOpacity={1}
                     key={indexs}
-                    onPress={() => this.props.navigation.navigate('FlashSaleScreen', { id_item: item.id_product })}
+                    onPress={() => navigation.navigate('FlashSaleScreen', { id_item: item.id_product })}
                 >
                     <View style={stylesMain.BoxProduct5Box} >
                         <View style={stylesMain.BoxProduct5ImageofLines}>
@@ -954,7 +971,7 @@ export class FlashSale extends Component {
                             </View>
                         </View>
                     </View>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('FlashSaleScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('FlashSaleScreen')}>
                         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
@@ -979,14 +996,16 @@ export class PromotionPopular extends Component {
         this.setState({ dataService })
     }
     render() {
+        const { dataService } = this.state
+        const { navigation } = this.props
         var uri = ip + '/MySQL/DataServiceMain.php';
         var dataBody = {
             type: 'brand2'
         };
-        let dataPromotionPopular = this.state.dataService.map((item, indexs) => {
+        let dataPromotionPopular = dataService.map((item, indexs) => {
             var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
             return (
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Recommend_Store')} key={indexs}>
+                <TouchableOpacity onPress={() => navigation.navigate('Recommend_Store')} key={indexs}>
                     <View style={[stylesMain.BoxStore2Box, { backgroundColor: '#111', borderRadius: 8, }]}>
                         <FastImage
                             source={{
@@ -1005,7 +1024,7 @@ export class PromotionPopular extends Component {
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         ลายแทงร้านค้าแนะนำ</Text>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Recommend_Store')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('Recommend_Store')}>
                         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
@@ -1030,11 +1049,12 @@ export class Confidential_PRO extends Component {
         this.setState({ dataService })
     }
     render() {
+        const { dataService } = this.state
         var uri = ip + '/MySQL/DataServiceMain.php';
         var dataBody = {
             type: 'Confidential_PRO'
         };
-        let dataConfidential_PRO = this.state.dataService.map((item, indexs) => {
+        let dataConfidential_PRO = dataService.map((item, indexs) => {
             var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
             return (
                 <View style={stylesMain.BoxStore2Box} key={indexs}>
@@ -1079,16 +1099,18 @@ export class Product_for_you extends Component {
         this.setState({ dataService })
     }
     render() {
+        const { dataService } = this.state
+        const { navigation } = this.props
         var uri = ip + '/MySQL/DataServiceMain.php';
         var dataBody = {
             type: 'foryou'
         };
-        let dataProductForYou = this.state.dataService.map((item, indexs) => {
+        let dataProductForYou = dataService.map((item, indexs) => {
             var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
             var throughsale = Number(item.full_price) + (item.full_price * 0.25);
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs}
-                    onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
+                    onPress={() => navigation.navigate('DetailScreen', { id_item: item.id_product })}>
                     <View style={stylesMain.BoxProduct1Box2} key={indexs}>
                         <View style={stylesMain.BoxProduct1ImageofLines}>
                             <FastImage
@@ -1142,7 +1164,7 @@ export class Product_for_you extends Component {
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
                         FIN คัดมาเพื่อคุณ</Text>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Product_for_youScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('Product_for_youScreen')}>
                         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
@@ -1169,16 +1191,18 @@ export class Highlight extends Component {
         this.setState({ dataService })
     }
     render() {
+        const { dataService } = this.state
+        const { navigation } = this.props
         var uri = ip + '/mysql/DataServiceMain.php';
         var dataBody = {
             type: 'sale'
         };
-        let dataService = this.state.dataService.map((item, indexs) => {
+        let dataServices = dataService.map((item, indexs) => {
             var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
             var throughsale = Number(item.full_price) + (item.full_price * 0.25);
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs}
-                    onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
+                    onPress={() => navigation.navigate('DetailScreen', { id_item: item.id_product })}>
                     <View style={stylesMain.BoxProduct1Box} key={indexs}>
                         <View style={stylesMain.BoxProduct1ImageofLines}>
                             <FastImage
@@ -1232,13 +1256,13 @@ export class Highlight extends Component {
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         ไฮไลท์ประจำสัปดาห์</Text>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('HighlightScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('HighlightScreen')}>
                         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
                 </View>
                 <ScrollView horizontal>
-                    {dataService}
+                    {dataServices}
                 </ScrollView>
             </View>
         );
@@ -1257,15 +1281,17 @@ export class NewStore extends Component {
         this.setState({ dataService })
     }
     render() {
+        const { dataService } = this.state
+        const { navigation } = this.props
         var uri = ip + '/mysql/DataServiceMain.php';
         var dataBody = {
             type: 'store2'
         };
-        let dataNewStore = this.state.dataService.map((item, indexs) => {
+        let dataNewStore = dataService.map((item, indexs) => {
             var dataMySQL = [ip + '/mysql/uploads/slide/NewStore', item.image].join('/');
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs}
-                    onPress={() => this.props.navigation.navigate('Recommend_Store', { id_item: item.id_store })}>
+                    onPress={() => navigation.navigate('Recommend_Store', { id_item: item.id_store })}>
                     <View style={stylesMain.BoxStore1Box}>
                         <FastImage
                             source={{
@@ -1285,7 +1311,7 @@ export class NewStore extends Component {
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         ร้านค้าห้ามพลาด!!่</Text>
                 </View>
-                <View style={{ flexDirection: 'row' }}>
+                <View style={stylesMain.FlexRow}>
                     {dataNewStore}
                 </View>
             </View>
@@ -1305,16 +1331,18 @@ export class Exclusive extends Component {
         this.setState({ dataService })
     }
     render() {
+        const { dataService } = this.state
+        const { navigation } = this.props
         var uri = ip + '/mysql/DataServiceMain.php';
         var dataBody = {
             type: 'product'
         };
-        let dataService = this.state.dataService.map((item, indexs) => {
+        let dataServices = dataService.map((item, indexs) => {
             var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
             var throughsale = Number(item.full_price) + (item.full_price * 0.25);
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs}
-                    onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
+                    onPress={() => navigation.navigate('DetailScreen', { id_item: item.id_product })}>
                     <View style={stylesMain.BoxProduct1Box} key={indexs}>
                         <View style={stylesMain.BoxProduct1ImageofLines}>
                             <FastImage
@@ -1369,13 +1397,13 @@ export class Exclusive extends Component {
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
                         สินค้าสุด Exclusive</Text>
                     <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate('ExclusiveScreen')}>
+                        onPress={() => navigation.navigate('ExclusiveScreen')}>
                         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
                 </View>
                 <ScrollView horizontal>
-                    {dataService}
+                    {dataServices}
                 </ScrollView>
             </View>
         );
@@ -1389,46 +1417,55 @@ export class CategoryProduct extends Component {
             dataService: [],
         }
         this.getData = this.getData.bind(this)
+        // this.IsLoading = this.IsLoading.bind(this)
     }
     getData(dataService) {
         this.setState({ dataService })
     }
+    // IsLoading(val) {
+    //     this.setState({ IsLoading: val })
+    // }
     render() {
+        const { dataService } = this.state
+        const { navigation } = this.props
         var uri = finip + '/home/category_mobile';
-        let dataCategory = this.state.dataService.map((item, indexs) => {
+        let dataCategory = dataService.map((item, indexs) => {
             var dataMySQL = [finip, item.mobile_head].join('/');
             return (
-                <View style={[stylesMain.FrameBackground2, { marginTop: 10, backgroundColor: item.bg_m }]} key={indexs}>
-                    <View style={{}}>
+                <View style={stylesMain.FrameBackground2} key={indexs}>
+                    <View>
+                        <View style={stylesMain.FrameBackgroundTextBox}>
+                            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
+                                {item.name}</Text>
+                            <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('CategoryScreen')}>
+                                <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                    ดูทั้งหมด</Text>
+                            </TouchableOpacity>
+                        </View>
                         <FastImage
                             source={{
                                 uri: dataMySQL,
                             }}
-                            style={[stylesMain.CategoryProductImageHead, { marginTop: 0 }]}
+                            style={[stylesMain.CategoryProductImageHead, stylesMain.ImageMargin]}
                             resizeMode={FastImage.resizeMode.cover}
                         />
-                        <View style={stylesMain.FrameBackgroundTextBox}>
-                            <Text></Text>
-                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('CategoryScreen')}>
-                                <Text style={[stylesMain.FrameBackgroundTextEnd2, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                    ดูทั้งหมด</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <CategoryProductSubProduct navigation={this.props.navigation} id_type={item.id_type} />
+                        <CategoryProductSubProduct navigation={navigation} id_type={item.id_type} />
                     </View>
-                    <View>
-                        <View style={stylesMain.Text_Bar_Image}>
-                            <Text style={[stylesMain.Text_Bar, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-                                ร้านฮิต ติดเทรนด์</Text>
+                    <View style={{ marginTop: 20 }}>
+                        <View>
+                            <View style={stylesMain.Text_Bar_Image}>
+                                <Text style={[stylesMain.Text_Bar, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                                    ร้านฮิต ติดเทรนด์</Text>
+                            </View>
+                            <CategoryProductSubStore navigation={navigation} />
                         </View>
-                        <CategoryProductSubStore navigation={this.props.navigation} />
-                    </View>
-                    <View style={{ marginBottom: 10, }}>
-                        <View style={stylesMain.Text_Bar_Image}>
-                            <Text style={[stylesMain.Text_Bar, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-                                FIN แนะนำร้าน </Text>
+                        <View>
+                            <View style={stylesMain.Text_Bar_Image}>
+                                <Text style={[stylesMain.Text_Bar, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                                    FIN แนะนำร้าน </Text>
+                            </View>
+                            <CategoryProductSubPromotion navigation={navigation} />
                         </View>
-                        <CategoryProductSubPromotion navigation={this.props.navigation} />
                     </View>
                 </View>
             );
@@ -1454,22 +1491,25 @@ export class CategoryProductSubProduct extends Component {
         this.setState({ dataService })
     }
     render() {
+        const { dataService } = this.state
+        const { id_type, IsLoading, navigation } = this.props
         var uri = finip + '/home/product_mobile';
         var dataBody = {
-            id_type: this.props.id_type
+            id_type: id_type
         };
-        let dataCategoryProductSubProduct = this.state.dataService.map((item, indexs) => {
+        let dataCategoryProductSubProduct = dataService.map((item, indexs) => {
             var throughsale = Number(item.full_price) + (item.full_price * 0.25);
             var dataMySQL = [finip, item.image_path, item.image].join('/');
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs}
-                    onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
+                    onPress={() => navigation.navigate('DetailScreen', { id_item: item.id_product })}>
                     <View style={stylesMain.BoxProduct1Box} key={indexs}>
                         <View style={stylesMain.BoxProduct1ImageofLines}>
                             <FastImage
                                 source={{
                                     uri: dataMySQL,
                                 }}
+                                // onLoadEnd={() => IsLoading(true)}
                                 style={stylesMain.BoxProduct1Image}
                                 resizeMode={FastImage.resizeMode.contain}
                             />
@@ -1532,15 +1572,17 @@ export class CategoryProductSubStore extends Component {
         this.setState({ dataService })
     }
     render() {
+        const { dataService } = this.state
+        const { navigation } = this.props
         var uri = ip + '/mysql/DataServiceMain.php';
         var dataBody = {
             type: 'store'
         };
-        let dataCategoryProductSubStore = this.state.dataService.map((item, indexs) => {
+        let dataCategoryProductSubStore = dataService.map((item, indexs) => {
             var dataMySQL = [ip + '/MySQL/uploads/slide/Store_recommendFIN', item.image].join('/');
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs}
-                    onPress={() => this.props.navigation.navigate('StoreScreen', { id_item: item.id_store })}>
+                    onPress={() => navigation.navigate('StoreScreen', { id_item: item.id_store })}>
                     <View style={stylesMain.CategoryProductStoreBox} key={indexs}>
                         <FastImage
                             source={{
@@ -1573,11 +1615,12 @@ export class CategoryProductSubPromotion extends Component {
         this.setState({ dataService })
     }
     render() {
+        const { dataService } = this.state
         var uri = ip + '/mysql/DataServiceMain.php';
         var dataBody = {
             type: 'store2'
         };
-        let dataCategoryProductSubPromotion = this.state.dataService.map((item, indexs) => {
+        let dataCategoryProductSubPromotion = dataService.map((item, indexs) => {
             var dataMySQL = [ip + '/MySQL/uploads/slide/Store_recommendFIN', item.image].join('/');
             return (
                 <View style={[stylesMain.BoxStore1Box, { borderWidth: 0, }]} key={indexs}>
@@ -1686,6 +1729,8 @@ export class Second_product extends Component {
         );
     }
     render() {
+        const { dataService, dataService2 } = this.state
+        const { navigation } = this.props
         var uri = ip + '/mysql/DataServiceMain.php';
         var dataBody = {
             type: 'sale'
@@ -1694,19 +1739,14 @@ export class Second_product extends Component {
         var dataBody2 = {
             type: 'slide'
         };
-        let dataFlashSale = this.state.dataService.map((item, indexs) => {
+        let dataFlashSale = dataService.map((item, indexs) => {
             var throughsale = Number(item.full_price) + (item.full_price * 0.25);
             var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
             return (
                 <TouchableOpacity
                     activeOpacity={1}
                     key={indexs}
-                    onPress={
-                        () => this.props.navigation.navigate(
-                            'DetailScreen', {
-                            id_item: item.id_product
-                        })
-                    }
+                    onPress={() => navigation.navigate('DetailScreen', { id_item: item.id_product })}
                 >
                     <View style={stylesMain.BoxProduct1Box} key={indexs}>
                         <View style={stylesMain.BoxProduct1ImageofLines}>
@@ -1762,7 +1802,7 @@ export class Second_product extends Component {
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
                         สินค้ามือสอง</Text>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('SecondScreen', { selectedIndex: 0 })}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('Second_productScreen')}>
                         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
@@ -1784,7 +1824,7 @@ export class Second_product extends Component {
                                 ร้านค้ามือสองแนะนำโดย FIN </Text>
                         </View>
                         <View>
-                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('SecondScreen', { selectedIndex: 1 })}>
+                            <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('Second_productScreen')}>
                                 <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                                     ดูทั้งหมด</Text>
                             </TouchableOpacity>
@@ -1796,7 +1836,7 @@ export class Second_product extends Component {
                                 <View>
                                     <Carousel
                                         ref={c => this.activeSlide = c}
-                                        data={this.state.dataService2}
+                                        data={dataService2}
                                         renderItem={this._renderItem}
                                         sliderWidth={width * 0.64}
                                         itemWidth={width * 0.64}
@@ -1815,7 +1855,7 @@ export class Second_product extends Component {
                                     <View style={stylesMain.Second_StoreFin_ImageB_T}>
                                         <Carousel
                                             ref={c => this.activeSlide2 = c}
-                                            data={this.state.dataService2}
+                                            data={dataService2}
                                             renderItem={this._renderItem2}
                                             sliderWidth={width * 0.32}
                                             itemWidth={width * 0.32}
@@ -1829,7 +1869,7 @@ export class Second_product extends Component {
                                     <View style={[stylesMain.Second_StoreFin_ImageB_T]}>
                                         <Carousel
                                             ref={c => this.activeSlide3 = c}
-                                            data={this.state.dataService2}
+                                            data={dataService2}
                                             renderItem={this._renderItem2}
                                             sliderWidth={width * 0.32}
                                             itemWidth={width * 0.32}
@@ -1902,17 +1942,14 @@ export class TodayProduct extends Component {
     getData(dataService) {
         this.setState({ dataService })
     }
-    render() {
-        var uri = ip + '/mysql/DataServiceMain.php';
-        var dataBody = {
-            type: 'todayproduct'
-        };
-        const { noTitle } = this.props
-        let dataToday = this.state.dataService.map((item, indexs) => {
+    dataToday() {
+        const { dataService } = this.state
+        const { navigation } = this.props
+        return dataService.map((item, indexs) => {
             var throughsale = Number(item.full_price) + (item.full_price * 0.25);
             var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
             return (
-                <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}>
+                <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => navigation.navigate('DetailScreen', { id_item: item.id_product })}>
                     <View style={stylesMain.BoxProduct2Box} key={indexs}>
                         <View style={stylesMain.BoxProduct2ImageofLines}>
                             <FastImage
@@ -1959,6 +1996,14 @@ export class TodayProduct extends Component {
                 </TouchableOpacity>
             );
         })
+    }
+    render() {
+        const { noTitle } = this.props
+        var uri = ip + '/mysql/DataServiceMain.php';
+        var dataBody = {
+            type: 'todayproduct'
+        };
+        // console.log(dataService)
         return (
             <View style={stylesMain.BoxProduct2}>
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
@@ -1969,7 +2014,7 @@ export class TodayProduct extends Component {
                             สินค้าคัดสรรเพื่อคุณ</Text>
                 }
                 <View style={stylesMain.BoxProduct2BoxProduct}>
-                    {dataToday}
+                    {this.dataToday()}
                 </View>
             </View>
         )

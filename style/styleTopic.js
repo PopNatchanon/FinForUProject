@@ -60,7 +60,6 @@ export default StyleSheet.create({
     Brand_ImageBackground: {
         height: 150,
         width: '100%',
-        marginBottom: -130
     },
     Recommend_Brand_StoreBoxPro: {
         width: '100%',
@@ -68,18 +67,19 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
         paddingLeft: 20,
         paddingRight: 20,
+        marginTop: -130
     },
     Recommend_Brand_Pro: {
         height: 80,
         width: 80,
-        backgroundColor: '#FFFFFF',
+        // backgroundColor: '#FFFFFF',
         borderRadius: 40,
         justifyContent: 'center',
         alignItems: 'center',
     },
     Recommend_Brand_Proimage: {
-        height: 60,
-        width: 60,
+        height: '100%',
+        width: '100%',
     },
     Recommend_Brand_ProButton: {
         height: 30,
@@ -196,8 +196,8 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
     },
     Store_Pro: {
-        height: 90,
-        width: 90,
+        height: 75,
+        width: 75,
         backgroundColor: '#FFFFFF',
         borderRadius: 50,
         marginLeft: 10,
@@ -220,15 +220,15 @@ export default StyleSheet.create({
         marginTop: 5,
     },
     Store_BoxButton: {
-        height: 40,
-        width: 200,
+        height: 35,
+        width: 190,
         flexDirection: 'row',
         marginRight: 10,
         marginTop: 10,
     },
     Store_Button: {
         justifyContent: 'center',
-        width: 90,
+        width: 60,
         borderColor: '#0A55A6',
         backgroundColor: '#FFFFFF',
         borderWidth: 1,
@@ -243,7 +243,7 @@ export default StyleSheet.create({
     },
     Store_Icon: {
         justifyContent: 'center',
-        width: 90,
+        width: 60,
         flexDirection: 'row',
     },
     Store_Detail: {
@@ -262,9 +262,6 @@ export default StyleSheet.create({
     },
     Store_Product: {
         width: '100%',
-        height: 160,
-        justifyContent: 'space-around',
-        alignItems: 'center',
         flexDirection: 'row',
         marginBottom: 10,
     },

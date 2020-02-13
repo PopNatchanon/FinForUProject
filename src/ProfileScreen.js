@@ -1,37 +1,29 @@
+///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-    ImageBackground,
-    View,
-    ScrollView,
-    Text,
-    TextInput,
-    SafeAreaView,
-    TouchableOpacity,
-    Dimensions,
+    Dimensions, SafeAreaView, ScrollView, ImageBackground, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
-import axios from 'axios';
-import NumberFormat from 'react-number-format';
-import {
-    Badge,
-} from 'react-native-elements'
-import FastImage from 'react-native-fast-image';
+///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
-import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+export const { width, height } = Dimensions.get('window');
+import FastImage from 'react-native-fast-image';
+import NumberFormat from 'react-number-format';
+///----------------------------------------------------------------------------------------------->>>> Icon
+import IconAntDesign from 'react-native-vector-icons/AntDesign';
+import IconEntypo from 'react-native-vector-icons/Entypo';
+import IconFeather from 'react-native-vector-icons/Feather';
+import IconFontisto from 'react-native-vector-icons/Fontisto';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import IconFontisto from 'react-native-vector-icons/Fontisto';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import IconFeather from 'react-native-vector-icons/Feather';
-import IconEntypo from 'react-native-vector-icons/Entypo';
+///----------------------------------------------------------------------------------------------->>>> Styles
+import stylesFont from '../style/stylesFont';
+import stylesMain from '../style/StylesMainScreen';
 import stylesProfile from '../style/StylesProfileScreen'
-import stylesMain from '../style/StylesMainScreen'
-import stylesFont from '../style/stylesFont'
-import stylesStore from '../style/StylesStoreScreen'
-import { finip, ip } from '../navigator/IpConfig';
-export const { width, height } = Dimensions.get('window');
-import { Toolbar, TabBar } from './tools/Tools'
-
+///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+import { GetServices, TabBar, Toolbar } from './tools/Tools';
+///----------------------------------------------------------------------------------------------->>>> Ip
+import { ip, finip } from '../navigator/IpConfig';
+///----------------------------------------------------------------------------------------------->>>> Main
 export default class StoreScreen extends Component {
     constructor(props) {
         super(props);
@@ -62,7 +54,7 @@ export default class StoreScreen extends Component {
         );
     }
 }
-
+///----------------------------------------------------------------------------------------------->>>> Headbar
 export class Headbar extends Component {
     constructor(props) {
         super(props)
@@ -84,7 +76,7 @@ export class Headbar extends Component {
                             <View>
                                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMeScreen')} >
                                     <View style={stylesProfile.HeadbarBox1Sub}>
-                                        <Text style={[stylesProfile.HeadbarBox1SubText, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                        <Text style={[stylesProfile.HeadbarBox1SubText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                             เริ่มค้าขาย</Text>
                                     </View>
                                 </TouchableOpacity>
@@ -96,13 +88,11 @@ export class Headbar extends Component {
                             <View style={{ marginLeft: 15, marginTop: '21%' }}>
                                 <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#FFFFFF' }]}>
                                     {currentUser.name}</Text>
-                                <View style={{ flexDirection: 'row' }}>
-                                    <Badge status="success" style={{ borderWidth: null, }} />
-                                    <Text style={[stylesFont.FontSize8, stylesFont.FontFamilyText, {
-                                        color: statusOnline ? '#BEBDBD' : '#43e855',
-                                    }]}>
-                                        Active อยู่</Text>
-                                </View>
+                                <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, {
+                                    color: statusOnline ? '#BEBDBD' : '#43e855',
+                                }]}>
+                                    <View style={{ height: 8, width: 8, borderRadius: 4, backgroundColor: '#43e855' }}>
+                                    </View> Active อยู่</Text>
                                 <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: '#FFFFFF' }]}>
                                     ผู้ติดตาม 20.2 พัน | กำลังติดตาม 2</Text>
                             </View>
@@ -121,7 +111,7 @@ export class Headbar extends Component {
         )
     }
 }
-
+///----------------------------------------------------------------------------------------------->>>> Menubar
 export class Menubar extends Component {
     constructor(props) {
         super(props)
@@ -152,7 +142,7 @@ export class Menubar extends Component {
         )
     }
 }
-
+///----------------------------------------------------------------------------------------------->>>> MenubarSub
 export class MenubarSub extends Component {
     constructor(props) {
         super(props)
@@ -228,7 +218,7 @@ export class MenubarSub extends Component {
         )
     }
 }
-
+///----------------------------------------------------------------------------------------------->>>> Listbar
 export class Listbar extends Component {
     constructor(props) {
         super(props)
@@ -237,7 +227,8 @@ export class Listbar extends Component {
         }
     }
     PathList() {
-        switch (this.state.pathlist) {
+        const { pathlist } = this.state
+        switch (pathlist) {
             case 0:
                 return (
                     <ListMenu navigation={this.props.navigation} />
@@ -312,7 +303,7 @@ export class Listbar extends Component {
         );
     }
 }
-
+///----------------------------------------------------------------------------------------------->>>> ListMenu
 export class ListMenu extends Component {
     constructor(props) {
         super(props);
@@ -411,7 +402,7 @@ export class ListMenu extends Component {
         )
     }
 }
-
+///----------------------------------------------------------------------------------------------->>>> ViewCode
 export class ViewCode extends Component {
     constructor(props) {
         super(props)
@@ -421,7 +412,8 @@ export class ViewCode extends Component {
         this.getData = this.getData.bind(this);
     }
     PathList() {
-        switch (this.state.pathlist) {
+        const { pathlist } = this.state
+        switch (pathlist) {
             case 0:
                 return (
                     <MyCode />
@@ -460,7 +452,7 @@ export class ViewCode extends Component {
         )
     }
 }
-
+///----------------------------------------------------------------------------------------------->>>> MyCode
 export class MyCode extends Component {
     constructor(props) {
         super(props)
@@ -469,6 +461,7 @@ export class MyCode extends Component {
         }
     }
     render() {
+        const { text } = this.state
         return (
             <View>
                 <View style={stylesProfile.ViewCode}>
@@ -476,7 +469,7 @@ export class MyCode extends Component {
                         <View style={[stylesMain.ItemCenter, { width: '70%', }]}>
                             <TextInput
                                 placeholder="ใส่โค้ดส่วนลด"
-                                value={this.state.text}
+                                value={text}
                                 maxLength={9}
                                 width={'90%'}
                                 placeholderTextColor={'white'}
@@ -567,7 +560,7 @@ export class MyCode extends Component {
         )
     }
 }
-
+///----------------------------------------------------------------------------------------------->>>> CoinCollect
 export class CoinCollect extends Component {
     constructor(props) {
         super(props)
@@ -577,7 +570,8 @@ export class CoinCollect extends Component {
         this.getData = this.getData.bind(this);
     }
     PathList() {
-        switch (this.state.pathlist) {
+        const { pathlist } = this.state
+        switch (pathlist) {
             case 0:
                 return (
                     <View>
@@ -664,7 +658,7 @@ export class CoinCollect extends Component {
         )
     }
 }
-
+///----------------------------------------------------------------------------------------------->>>> CoinPageBody
 export class CoinPageBody extends Component {
     render() {
         return (

@@ -1,27 +1,24 @@
+///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-  View,
-  ImageBackground,
-  ScrollView,
-  Text,
-  TextInput,
-  SafeAreaView,
-  TouchableOpacity,
-  Alert,
+  Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
+///----------------------------------------------------------------------------------------------->>>> Import
+import AsyncStorage from '@react-native-community/async-storage';
+export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import { Form, TextValidator } from 'react-native-validator-form';
-import AsyncStorage from '@react-native-community/async-storage';
-import { ip, finip } from '../navigator/IpConfig';
+///----------------------------------------------------------------------------------------------->>>> Icon
 import IconFeather from 'react-native-vector-icons/Feather';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
+///----------------------------------------------------------------------------------------------->>>> Styles
+import stylesFont from '../style/stylesFont';
 import stylesLogin from '../style/stylesLoginScreen';
 import stylesMain from '../style/StylesMainScreen';
-import stylesFont from '../style/stylesFont';
-import stylesStore from '../style/StylesStoreScreen';
-import RNRestart from 'react-native-restart';
-import { Toolbar } from './tools/Tools'
-
+///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+import { GetServices, Toolbar } from './tools/Tools';
+///----------------------------------------------------------------------------------------------->>>> Ip
+import { ip, finip } from '../navigator/IpConfig';
+///----------------------------------------------------------------------------------------------->>>> Main
 export default class LoginScreen extends Component {
   constructor(props) {
     super(props);
@@ -41,9 +38,7 @@ export default class LoginScreen extends Component {
     );
   }
 }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Logo
 export class Logo extends Component {
   constructor(props) {
     super(props);
@@ -61,9 +56,7 @@ export class Logo extends Component {
     );
   }
 }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Login
 export class Login extends Component {
   constructor(props) {
     super(props);
@@ -220,9 +213,7 @@ export class Login extends Component {
     );
   }
 }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Register
 export class Register extends Component {
   constructor(props) {
     super(props);
@@ -257,5 +248,3 @@ export class Register extends Component {
     );
   }
 }
-
-///--------------------------------------------------------------------------///

@@ -1,89 +1,74 @@
+///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-  View,
-  ScrollView,
-  Text,
-  TextInput,
-  SafeAreaView,
-  TouchableOpacity,
-  Dimensions,
-  Animated,
+  Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
-import axios from 'axios';
-import NumberFormat from 'react-number-format';
-import FastImage from 'react-native-fast-image';
-import Icons from 'react-native-vector-icons/FontAwesome5';
-import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
-import IconFeather from 'react-native-vector-icons/Feather';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import IconEntypo from 'react-native-vector-icons/Entypo';
-import IconFontisto from 'react-native-vector-icons/Fontisto';
-import stylesDetail from '../style/StylesDetailScreen'
-import stylesMain from '../style/StylesMainScreen'
-import stylesFont from '../style/stylesFont'
+///----------------------------------------------------------------------------------------------->>>> Import
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 export const { width, height } = Dimensions.get('window');
-import { finip, ip } from '../navigator/IpConfig'
-import { AppBar } from './MainScreen';
+import FastImage from 'react-native-fast-image';
+import NumberFormat from 'react-number-format';
 
+import axios from 'axios';
+///----------------------------------------------------------------------------------------------->>>> Icon
+import IconAntDesign from 'react-native-vector-icons/AntDesign';
+import IconEntypo from 'react-native-vector-icons/Entypo';
+import IconFeather from 'react-native-vector-icons/Feather';
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
+import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import IconFontisto from 'react-native-vector-icons/Fontisto';
+///----------------------------------------------------------------------------------------------->>>> Styles
+import stylesDetail from '../style/StylesDetailScreen'
+import stylesFont from '../style/stylesFont';
+import stylesMain from '../style/StylesMainScreen';
+///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+import { AppBar } from './MainScreen';
+import { GetServices } from './tools/Tools';
+///----------------------------------------------------------------------------------------------->>>> Ip
+import { ip, finip } from '../navigator/IpConfig';
+///----------------------------------------------------------------------------------------------->>>> Main
 export default class DetailScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataid_product: [],
+      dataService: [],
     };
+    this.getData = this.getData.bind(this)
   }
-  getid_product() {
-    var id_product = this.props.navigation.getParam('id_item')
+  getData(dataService) {
+    this.setState({ dataService })
+  }
+  render() {
+    const { dataService } = this.state
+    const { navigation } = this.props
+    var id_product = navigation.getParam('id_item')
+    var uri = finip + '/product/product_deatil_mobile';
     var dataBody = {
       id_product: id_product
     };
-    fetch([finip, 'product/product_deatil_mobile'].join('/'), {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(dataBody),
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({
-          dataid_product: responseJson,
-        })
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-  }
-  componentDidMount() {
-    this.getid_product();
-  }
-  render() {
     return (
       <SafeAreaView style={[stylesMain.SafeAreaViewNoBackground, stylesMain.BackgroundAreaView]}>
-        <AppBar leftBar='backarrow' navigation={this.props.navigation} />
+        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+        <AppBar leftBar='backarrow' navigation={navigation} />
         <ScrollView>
-          <Detail_Image navigation={this.props.navigation} dataid_product={this.state.dataid_product} />
-          <Store navigation={this.props.navigation} dataid_product={this.state.dataid_product} />
+          <Detail_Image dataService={dataService} navigation={navigation} />
+          <Store dataService={dataService} navigation={navigation} />
           <Conpon />
           <Selector />
-          <Detail_Category dataid_product={this.state.dataid_product} />
-          <Detail dataid_product={this.state.dataid_product} />
+          <Detail_Category dataService={dataService} />
+          <Detail dataService={dataService} />
           <Reviews />
           <BannerBar />
-          <Same_Store navigation={this.props.navigation} dataid_product={this.state.dataid_product} />
-          <Similar_Product navigation={this.props.navigation} dataid_product={this.state.dataid_product} />
-          <Might_like navigation={this.props.navigation} dataid_product={this.state.dataid_product} />
+          <Same_Store dataService={dataService} navigation={navigation} />
+          <Similar_Product dataService={dataService} navigation={navigation} />
+          <Might_like dataService={dataService} navigation={navigation} />
         </ScrollView>
-        <Buy_bar navigation={this.props.navigation} />
+        <Buy_bar navigation={navigation} />
       </SafeAreaView>
     );
   }
 }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>>
 export class Detail_Image extends Component {
   constructor(props) {
     super(props);
@@ -93,12 +78,11 @@ export class Detail_Image extends Component {
       imageLengthActive: 0,
     };
   }
-  componentDidMount() {
-  }
   imageGallery(image_path, gallery_image) {
+    const { imageLengthActive } = this.state
     const image = {} = gallery_image.split(';')
     const length = image.length
-    this.state.imageLengthActive == 0 ?
+    imageLengthActive == 0 ?
       this.setState({ imageLength: length, imageLengthActive: 1 }) :
       null
     var count = 0
@@ -116,45 +100,50 @@ export class Detail_Image extends Component {
   _renderItem = ({ item, indexs }) => {
     var dataMySQL = [finip, item.image_path, item.image].join('/');
     return (
-      <View style={stylesDetail.Image_Box} key={indexs}>
+      <View style={{ width: width * 1, height: width * 1, /*backgroundColor: '#d9d9d9'*/ }}>
         <FastImage
           source={{
             uri: dataMySQL,
           }}
-          style={stylesDetail.Image}
+          style={[stylesMain.BoxProduct1Image, { opacity: 0.9 }]}
+          key={indexs}
+          resizeMode={FastImage.resizeMode.contain}
         />
       </View>
     );
   }
   render() {
-    const { activeSlide } = this.state;
-    let id_product = this.props.dataid_product.map((item, indexs) => {
+    const { activeSlide, imageLength } = this.state;
+    const { dataService } = this.props;
+    // console.log(dataService)
+    let id_product = dataService.map((item, indexs) => {
       let dataMySQL
       {
         item.gallery_image ?
           dataMySQL = this.imageGallery(item.image_path, item.gallery_image) :
-          dataMySQL = this.props.dataid_product;
+          dataMySQL = dataService;
       }
-      // 
       return (
-        <View style={stylesDetail.Detail_Image} key={indexs}>
-          <Carousel
-            ref={c => this.activeSlide = c}
-            data={dataMySQL}
-            renderItem={this._renderItem}
-            sliderWidth={width * 1}
-            itemWidth={width * 1}
-            sliderHeight={400}
-            loop={true}
-            onSnapToItem={(index) => this.setState({ activeSlide: index })}
-          />
-          <View style={{ flex: 1, }}>
-            <View style={[stylesMain.ItemCenter, stylesDetail.ImageSlide]}>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-                {activeSlide + 1}/{this.state.imageLength}</Text>
+        <View style={[stylesMain.FrameBackground2, { marginTop: 0, borderTopWidth: 0 }]} key={indexs}>
+          <View style={{ /*backgroundColor: '#f9f9f9' */ }}>
+            <Carousel
+              ref={c => this.activeSlide = c}
+              data={dataMySQL}
+              renderItem={this._renderItem}
+              sliderWidth={width * 1}
+              itemWidth={width * 1}
+              sliderHeight={width * 1}
+              loop={true}
+              onSnapToItem={(index) => this.setState({ activeSlide: index })}
+            />
+            <View style={{ flex: 1, }}>
+              <View style={[stylesMain.ItemCenter, stylesDetail.ImageSlide]}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                  {activeSlide + 1}/{imageLength}</Text>
+              </View>
             </View>
           </View>
-          <View style={stylesDetail.Price_Box}>
+          <View style={[stylesDetail.Price_Box, { borderTopWidth: 0 }]}>
             <View style={stylesDetail.Price_Text_Name_Box}>
               <NumberFormat
                 value={item.full_price}
@@ -163,15 +152,15 @@ export class Detail_Image extends Component {
                 prefix={'฿'}
                 renderText={
                   value =>
-                    <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
+                    <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
                       {value}</Text>}
               />
               <View style={stylesDetail.Price_Icon_Box}>
-                <Icons style={stylesDetail.Price_Icon} name='heart' size={20} />
+                <IconFontAwesome5 style={stylesDetail.Price_Icon} name='heart' size={20} />
                 <IconEntypo style={stylesDetail.Price_Icon} name='share' size={20} />
               </View>
             </View>
-            <Text style={[stylesDetail.Price_Text_Name, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
+            <Text numberOfLines={2} style={[stylesDetail.Price_Text_Name, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
               {item.name}</Text>
             <View style={[stylesDetail.Price_Text_IconBox, stylesMain.BottomSpace]}>
               <View style={stylesDetail.Price_Text_IconBoxStar}>
@@ -182,9 +171,6 @@ export class Detail_Image extends Component {
                 <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
                 <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#111' }]}>
                   5</Text>
-                <Text style={stylesDetail.Price_Text_Icon}>|</Text>
-                <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-                  สินค้าแนะนำ</Text>
               </View>
             </View>
           </View>
@@ -196,9 +182,7 @@ export class Detail_Image extends Component {
     )
   }
 }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>>
 export class Store extends Component {
   constructor(props) {
     super(props);
@@ -206,13 +190,14 @@ export class Store extends Component {
     }
   }
   render() {
-    let id_store = this.props.dataid_product.map((item, indexs) => {
+    const { dataService, navigation } = this.props
+    let id_store = dataService.map((item, indexs) => {
       var dataMySQL = [finip, item.store_path, item.store_img].join('/');
       return (
         <View style={[stylesMain.FrameBackground, stylesMain.BottomSpace]} key={indexs}>
           <View style={stylesDetail.Store_Box1}>
             <View style={stylesDetail.Store_Box2}>
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreScreen', { id_item: item.id_store })}>
+              <TouchableOpacity onPress={() => navigation.navigate('StoreScreen', { id_item: item.id_store })}>
                 <FastImage
                   source={{
                     uri: dataMySQL,
@@ -221,7 +206,7 @@ export class Store extends Component {
                 />
               </TouchableOpacity>
               <View style={stylesDetail.Store_Text_Box}>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreScreen', { id_item: item.id_store })}>
+                <TouchableOpacity onPress={() => navigation.navigate('StoreScreen', { id_item: item.id_store })}>
                   <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
                     {item.store_name}</Text>
                 </TouchableOpacity>
@@ -271,8 +256,7 @@ export class Store extends Component {
     );
   }
 }
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>>
 export class Conpon extends Component {
   constructor(props) {
     super(props);
@@ -285,7 +269,7 @@ export class Conpon extends Component {
         <View style={[stylesDetail.Coupon_Box, stylesMain.ItemCenterVertical]}>
           <Text style={[stylesDetail.Coupon_Text, stylesFont.FontSize5, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical]}>
             คูปอง </Text>
-          <View style={{ flexDirection: 'row' }}>
+          <View style={stylesMain.FlexRow}>
             <View style={stylesDetail.Coupon_Box_Pon}>
               <Text style={[stylesDetail.Coupon_Box_Pon_Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                 ลด ฿100.00</Text>
@@ -301,9 +285,7 @@ export class Conpon extends Component {
     );
   }
 }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>>
 export class Selector extends Component {
   constructor(props) {
     super(props);
@@ -316,7 +298,7 @@ export class Selector extends Component {
         <View style={[stylesDetail.Coupon_Box, stylesMain.ItemCenterVertical]}>
           <Text style={[stylesDetail.Coupon_Text, stylesFont.FontSize5, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical]}>
             ตัวเลือก </Text>
-          <View style={{ flexDirection: 'row' }}>
+          <View style={stylesMain.FlexRow}>
             <Text style={[stylesDetail.Coupon_Text, stylesFont.FontSize6, stylesFont.FontFamilyText, stylesMain.ItemCenterVertical]}>
               ตัวอย่างเช่น สี ขนาด</Text>
             <IconEntypo style={stylesDetail.Coupon_Icon} name='chevron-right' size={30} />
@@ -326,9 +308,7 @@ export class Selector extends Component {
     );
   }
 }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>>
 export class Detail_Category extends Component {
   constructor(props) {
     super(props);
@@ -336,7 +316,8 @@ export class Detail_Category extends Component {
     }
   }
   render() {
-    let id_store = this.props.dataid_product.map((item, indexs) => {
+    const { dataService } = this.props
+    let id_store = dataService.map((item, indexs) => {
       return (
         <View style={[stylesMain.FrameBackground]} key={indexs}>
           <View style={[stylesMain.FrameBackgroundTextBox, stylesDetail.BottomTitle, stylesMain.MarginBottomTitle]}>
@@ -383,9 +364,7 @@ export class Detail_Category extends Component {
     )
   }
 }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>>
 export class Detail extends Component {
   constructor(props) {
     super(props);
@@ -395,8 +374,8 @@ export class Detail extends Component {
   }
   render() {
     const { showMoreButton, activeText } = this.state
-    let id_store = this.props.dataid_product.map((item, indexs) => {
-      const count = {} = item.detail.split('\n')
+    const { dataService } = this.props
+    let id_store = dataService.map((item, indexs) => {
       return (
         <View style={stylesMain.FrameBackground} key={indexs}>
           <View style={[stylesMain.FrameBackgroundTextBox, stylesDetail.BottomTitle, stylesMain.MarginBottomTitle]}>
@@ -438,16 +417,13 @@ export class Detail extends Component {
     )
   }
 }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>>
 export class Reviews extends Component {
   constructor(props) {
     super(props);
     this.state = {
     };
   }
-
   render() {
     return (
       <View style={stylesMain.FrameBackground}>
@@ -588,10 +564,7 @@ export class Reviews extends Component {
     );
   }
 }
-
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>>
 export class BannerBar extends Component {
   constructor(props) {
     super(props);
@@ -608,52 +581,36 @@ export class BannerBar extends Component {
     );
   }
 }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>>
 export class Same_Store extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataSale: [],
+      dataService2: [],
       countA: 0,
     };
+    this.getData = this.getData.bind(this)
   }
-  getid_product() {
-    this.props.dataid_product.map((item) => {
-      var dataBody = {
+  getData(dataService2) {
+    this.setState({ dataService2 })
+  }
+  render() {
+    const { dataService2 } = this.state
+    const { dataService, navigation } = this.props
+    var uri = finip + '/product/product_other_mobile';
+    var dataBody
+    dataService.map((item) => {
+      dataBody = {
         id_type: item.id_type,
         id_store: item.id_store,
         type_product: "this_store",
       };
-      fetch([finip, 'product/product_other_mobile'].join('/'), {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(dataBody),
-      })
-        .then((response) => response.json())
-        .then((responseJson) => {
-          this.setState({
-            dataSale: responseJson, countA: 1
-          })
-        })
-        .catch((error) => {
-          console.error(error);
-        })
     })
-  }
-  componentDidUpdate() {
-    this.state.countA == 0 ? this.getid_product() : null;
-  }
-  render() {
-    let dataSaleProduct = this.state.dataSale.map((item, indexs) => {
+    let dataSaleProduct = dataService2.map((item, indexs) => {
       var dataMySQL = [finip, item.image_path, item.image].join('/');
       return (
         <TouchableOpacity activeOpacity={1} key={indexs}
-          onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}
+          onPress={() => navigation.push('DetailScreen', { id_item: item.id_product })}
         >
           <View style={stylesMain.BoxProduct1Box} key={indexs}>
             <View style={stylesMain.BoxProduct1ImageofLines}>
@@ -661,7 +618,9 @@ export class Same_Store extends Component {
                 source={{
                   uri: dataMySQL,
                 }}
+                // onLoadEnd={() => IsLoading(true)}
                 style={stylesMain.BoxProduct1Image}
+                resizeMode={FastImage.resizeMode.contain}
               />
             </View>
             <View style={{ height: 60, paddingHorizontal: 3 }}>
@@ -703,10 +662,15 @@ export class Same_Store extends Component {
     })
     return (
       <View style={stylesMain.FrameBackground}>
+        {
+          dataBody !== undefined ?
+            <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} /> :
+            null
+        }
         <View style={stylesMain.FrameBackgroundTextBox}>
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
             สินค้าจากร้านเดียวกัน</Text>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Same_StoreScreen', { type_product: 'this_store' })}>
+          <TouchableOpacity onPress={() => navigation.navigate('Same_StoreScreen', { type_product: 'this_store' })}>
             <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
               ดูทั้งหมด</Text>
           </TouchableOpacity>
@@ -718,52 +682,36 @@ export class Same_Store extends Component {
     );
   }
 }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>>
 export class Similar_Product extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataSale: [],
+      dataService2: [],
       countA: 0,
     };
+    this.getData = this.getData.bind(this)
   }
-  getid_product() {
-    this.props.dataid_product.map((item) => {
-      var dataBody = {
+  getData(dataService2) {
+    this.setState({ dataService2 })
+  }
+  render() {
+    const { dataService2 } = this.state
+    const { dataService, navigation } = this.props
+    var uri = finip + '/product/product_other_mobile';
+    var dataBody
+    dataService.map((item) => {
+      dataBody = {
         id_type: item.id_type,
         id_store: item.id_store,
         type_product: "same_product",
       };
-      fetch([finip, 'product/product_other_mobile'].join('/'), {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(dataBody),
-      })
-        .then((response) => response.json())
-        .then((responseJson) => {
-          this.setState({
-            dataSale: responseJson, countA: 1
-          })
-        })
-        .catch((error) => {
-          console.error(error);
-        })
     })
-  }
-  componentDidUpdate() {
-    this.state.countA == 0 ? this.getid_product() : null;
-  }
-  render() {
-    let dataSaleProduct = this.state.dataSale.map((item, indexs) => {
+    let dataSaleProduct = dataService2.map((item, indexs) => {
       var dataMySQL = [finip, item.image_path, item.image].join('/');
       return (
         <TouchableOpacity activeOpacity={1} key={indexs}
-          onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}
+          onPress={() => navigation.push('DetailScreen', { id_item: item.id_product })}
         >
           <View style={stylesMain.BoxProduct1Box} key={indexs}>
             <View style={stylesMain.BoxProduct1ImageofLines}>
@@ -771,7 +719,9 @@ export class Similar_Product extends Component {
                 source={{
                   uri: dataMySQL,
                 }}
+                // onLoadEnd={() => IsLoading(true)}
                 style={stylesMain.BoxProduct1Image}
+                resizeMode={FastImage.resizeMode.contain}
               />
             </View>
             <View style={{ height: 60, paddingHorizontal: 3 }}>
@@ -793,18 +743,18 @@ export class Similar_Product extends Component {
                   }
                 />
                 {/* <NumberFormat
-                  value={throughsale}
-                  displayType={'text'}
-                  thousandSeparator={true}
-                  prefix={'฿'}
-                  renderText={value =>
-                    <Text style={[
-                      stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText,
-                      { marginTop: 3 }
-                    ]}>
-                      {value}</Text>
-                  }
-                /> */}
+                        value={throughsale}
+                        displayType={'text'}
+                        thousandSeparator={true}
+                        prefix={'฿'}
+                        renderText={value =>
+                            <Text style={[
+                                stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText,
+                                { marginTop: 3 }
+                            ]}>
+                                {value}</Text>
+                        }
+                    /> */}
               </View>
             </View>
           </View>
@@ -813,10 +763,15 @@ export class Similar_Product extends Component {
     })
     return (
       <View style={stylesMain.FrameBackground}>
+        {
+          dataBody !== undefined ?
+            <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} /> :
+            null
+        }
         <View style={stylesMain.FrameBackgroundTextBox}>
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
             สินค้าที่คล้ายกัน</Text>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Same_StoreScreen', { type_product: 'same_product' })}>
+          <TouchableOpacity onPress={() => navigation.navigate('Same_StoreScreen', { type_product: 'same_product' })}>
             <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
               ดูทั้งหมด</Text>
           </TouchableOpacity>
@@ -828,60 +783,48 @@ export class Similar_Product extends Component {
     );
   }
 }
-
-///--------------------------------------------------------------------------///s
-
+///----------------------------------------------------------------------------------------------->>>>
 export class Might_like extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataSourcePopularProduct: [],
+      dataService2: [],
       countA: 0,
     };
+    this.getData = this.getData.bind(this)
   }
-  getid_product() {
-    this.props.dataid_product.map((item) => {
-      var dataBody = {
+  getData(dataService2) {
+    this.setState({ dataService2 })
+  }
+  render() {
+    const { dataService2 } = this.state
+    const { dataService, navigation } = this.props
+    var uri = finip + '/product/product_other_mobile';
+    var dataBody
+    dataService.map((item) => {
+      dataBody = {
         id_type: item.id_type,
         id_store: item.id_store,
         type_product: "youlike",
       };
-      fetch([finip, 'product/product_other_mobile'].join('/'), {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(dataBody),
-      })
-        .then((response) => response.json())
-        .then((responseJson) => {
-          this.setState({
-            dataSourcePopularProduct: responseJson, countA: 1
-          })
-        })
-        .catch((error) => {
-          console.error(error);
-        })
     })
-  }
-  componentDidUpdate() {
-    this.state.countA == 0 ? this.getid_product() : null;
-  }
-  render() {
-    let dataToday = this.state.dataSourcePopularProduct.map((item, indexs) => {
+    let dataSaleProduct = dataService2.map((item, indexs) => {
       var dataMySQL = [finip, item.image_path, item.image].join('/');
       return (
         <TouchableOpacity activeOpacity={1} key={indexs}
-          onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}
+          onPress={() => navigation.push('DetailScreen', { id_item: item.id_product })}
         >
           <View style={stylesMain.BoxProduct3Box} key={indexs}>
-            <FastImage
-              source={{
-                uri: dataMySQL,
-              }}
-              style={stylesMain.BoxProduct3Image}
-            />
+            <View style={stylesMain.BoxProduct3ImageofLines}>
+              <FastImage
+                source={{
+                  uri: dataMySQL,
+                }}
+                // onLoadEnd={() => IsLoading(true)}
+                style={stylesMain.BoxProduct1Image}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+            </View>
             <View style={{ height: 60, paddingHorizontal: 3 }}>
               <View style={[stylesMain.BoxProduct1NameofLines]}>
                 <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize7]}>
@@ -901,82 +844,85 @@ export class Might_like extends Component {
                   }
                 />
                 {/* <NumberFormat
-                  value={throughsale}
-                  displayType={'text'}
-                  thousandSeparator={true}
-                  prefix={'฿'}
-                  renderText={value =>
-                    <Text style={[
-                      stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText,
-                      { marginTop: 3 }
-                    ]}>
-                      {value}</Text>
-                  }
-                /> */}
+                        value={throughsale}
+                        displayType={'text'}
+                        thousandSeparator={true}
+                        prefix={'฿'}
+                        renderText={value =>
+                            <Text style={[
+                                stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText,
+                                { marginTop: 3 }
+                            ]}>
+                                {value}</Text>
+                        }
+                    /> */}
               </View>
             </View>
           </View>
         </TouchableOpacity>
-      );
+      )
     })
     return (
       <View style={stylesMain.FrameBackground}>
+        {
+          dataBody !== undefined ?
+            <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} /> :
+            null
+        }
         <View style={stylesMain.FrameBackgroundTextBox}>
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
             คุณอาจชอบสิ่งนี้</Text>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Same_StoreScreen', { type_product: 'youlike' })}>
+          <TouchableOpacity onPress={() => navigation.navigate('Same_StoreScreen', { type_product: 'youlike' })}>
             <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
               ดูทั้งหมด</Text>
           </TouchableOpacity>
         </View>
         <View style={stylesDetail.PopularProductBoxProduct}>
-          {dataToday}
+          {dataSaleProduct}
         </View>
       </View>
     )
   }
 }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>>
 export class Buy_bar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataid_product: [],
+      dataService: [],
     };
+    this.getData = this.getData.bind(this)
   }
-  getid_product() {
-    var id_item = this.props.navigation.getParam('id_item')
-    var url = ip + '/mysql/DataService_Detail.php';
+  getData(dataService) {
+    this.setState({ dataService })
+  }
+  render() {
+    const { dataService } = this.state
+    const { navigation } = this.props
+    var id_item = navigation.getParam('id_item')
+    var id_store
+    var uri = ip + '/mysql/DataService_Detail.php';
     var dataBody = {
       type: 'store',
       id_product: id_item,
     };
-    axios.post(
-      url,
-      dataBody,
-    ).then((getData) => {
-      this.setState({
-        dataid_product: getData.data,
-      })
-    })
-  }
-  componentDidMount() {
-    this.getid_product();
-  }
-  render() {
-    var id_store
-    this.state.dataid_product.length == 1 ? id_store = this.state.dataid_product.map((item) => { return (item.id_store) }) : null
+    dataService.map((item) => { return (item.id_store) })
+    dataService.length == 1 ? id_store = dataService.map((item) => { return (item.id_store) }) : null
+    console.log(id_store)
     return (
       <View style={stylesDetail.Buy_bar}>
+        {
+          id_item !== undefined ?
+            <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} /> :
+            null
+        }
         <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
           <IconAntDesign name='message1' size={22} style={[stylesMain.ItemCenterVertical]} />
           <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesMain.ItemCenterVertical]}>
             แชท</Text>
         </View>
         <Text style={{ fontSize: 30 }}>|</Text>
-        <TouchableOpacity onPress={() => id_store ? this.props.navigation.navigate('StoreScreen', { id_item: id_store }) : null}>
+        <TouchableOpacity onPress={() => id_store ? navigation.navigate('StoreScreen', { id_item: id_store }) : null}>
           <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
             <IconFontisto name='shopping-store' size={22} style={stylesMain.ItemCenterVertical} />
             <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesMain.ItemCenterVertical]}>

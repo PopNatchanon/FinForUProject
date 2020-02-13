@@ -60,9 +60,9 @@ export class Second_Store extends Component {
     return (
       <View style={[stylesMain.FrameBackground, { paddingBottom: 10 }]}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 5 }}>
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1]}> ร้านค้ามือสองที่แนะนำ </Text>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}> ร้านค้ามือสองที่แนะนำ </Text>
           <TouchableOpacity>
-            <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูทั้งหมด</Text>
+            <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7]}>ดูทั้งหมด</Text>
           </TouchableOpacity>
         </View>
         <View style={[stylesMain.ItemCenter, { flexDirection: 'row', width: '100%' }]}>
@@ -74,7 +74,7 @@ export class Second_Store extends Component {
               />
             </View>
             <View style={{ width: 200, height: 40, backgroundColor: '#0A55A6' }}>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#FFFFFF', marginLeft: 5 }]}>ร้าน K.O.D สินค้ามือสองดูดีสไตล์ ลดสูงสุดกว่า 80% ทุกรายการ</Text>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#FFFFFF', marginLeft: 5 }]}>ร้าน K.O.D สินค้ามือสองดูดีสไตล์ ลดสูงสุดกว่า 80% ทุกรายการ</Text>
             </View>
           </View>
           <View style={{ marginLeft: 10, }}>
@@ -85,7 +85,7 @@ export class Second_Store extends Component {
               />
             </View>
             <View style={{ width: 200, height: 40, backgroundColor: '#0A55A6' }}>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#FFFFFF', marginLeft: 5 }]}>ร้าน K.O.D สินค้ามือสองดูดีสไตล์ ลดสูงสุดกว่า 80% ทุกรายการ</Text>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#FFFFFF', marginLeft: 5 }]}>ร้าน K.O.D สินค้ามือสองดูดีสไตล์ ลดสูงสุดกว่า 80% ทุกรายการ</Text>
             </View>
           </View>
         </View>
@@ -106,7 +106,7 @@ export class Second_Product_Brand extends Component {
   render() {
     return (
       <View style={[stylesMain.FrameBackground,{padding:5}]}>
-        <Text  style={[stylesFont.FontFamilyBold, stylesFont.FontSize1]}> สินค้ามือสองแบรนด์ดัง </Text>
+        <Text  style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}> สินค้ามือสองแบรนด์ดัง </Text>
       </View>
     );
   }

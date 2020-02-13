@@ -102,14 +102,14 @@ export class Fin_sale extends Component {
 
               />
             </View>
-            <Text style={[styleMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize5]}>{item.name}</Text>
+            <Text style={[styleMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize7]}>{item.name}</Text>
             <NumberFormat
               value={item.full_price}
               displayType={'text'}
               thousandSeparator={true}
               prefix={'฿'}
               renderText={
-                value => <Text style={[styleMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
+                value => <Text style={[styleMain.BoxProduct1ImagePrice, stylesFont.FontSize8, stylesFont.FontFamilyText]}>
                   {value}
                 </Text>}
             />
@@ -121,10 +121,10 @@ export class Fin_sale extends Component {
       <View >
         <View style={[styleMain.FrameBackground, { marginTop: 20, }]}>
           <View style={[styles.BoxText_T, { backgroundColor: '#C4C4C4', marginTop: -10, width: 160 }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}> Fin จัดหนักลดสูงสุด 80 %  </Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}> Fin จัดหนักลดสูงสุด 80 %  </Text>
           </View>
           <View style={styles.Fin_sale_BoxHead}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
           </View>
           <ScrollView horizontal>
             <View style={styles.Fin_sale_BoxProduct}>
@@ -223,10 +223,10 @@ export class Store_Sale extends Component {
       <View >
         <View style={[styleMain.FrameBackground, { marginTop: 20, }]}>
           <View style={[styles.BoxText_T, { backgroundColor: '#C4C4C4', marginTop: -10, }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}> ร้านนี้มีของลด </Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}> ร้านนี้มีของลด </Text>
           </View>
           <View style={styles.Fin_sale_BoxHead}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
           </View>
           <View style={styles.Store_Sale}>
             <View style={styles.Store_Sale_Box}>
@@ -345,14 +345,14 @@ export class Product_Cool extends Component {
 
               />
             </View>
-            <Text style={[styleMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize5]}>{item.name}</Text>
+            <Text style={[styleMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize7]}>{item.name}</Text>
             <NumberFormat
               value={item.full_price}
               displayType={'text'}
               thousandSeparator={true}
               prefix={'฿'}
               renderText={
-                value => <Text style={[styleMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
+                value => <Text style={[styleMain.BoxProduct1ImagePrice, stylesFont.FontSize8, stylesFont.FontFamilyText]}>
                   {value}
                 </Text>}
             />
@@ -364,10 +364,10 @@ export class Product_Cool extends Component {
       <View>
         <View style={[styleMain.FrameBackground, { marginTop: 20, }]}>
           <View style={[styles.BoxText_T, { backgroundColor: '#C4C4C4', marginTop: -10, }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}> สินค้าราคาโคตรคูล </Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}> สินค้าราคาโคตรคูล </Text>
           </View>
           <View style={styles.Fin_sale_BoxHead}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
           </View>
           <View>
             <View style={styles.Deal_For_you}>
@@ -425,7 +425,7 @@ export class Second_Store extends Component {
           style={styles.Second_Store_Slide_image}
         />
         <View style={styles.Second_Store_Slide_BoxText}>
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ร้าน K.O.D สินค้ามือสอง ลดสูงสุด 50 %</Text>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ร้าน K.O.D สินค้ามือสอง ลดสูงสุด 50 %</Text>
         </View>
 
       </View>
@@ -507,14 +507,14 @@ export class Second_Store extends Component {
                 style={[styleMain.BoxProduct1Image, { marginLeft: 15 }]}
               />
             </View>
-            <Text style={[styles.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize5]}>{item.name}</Text>
+            <Text style={[styles.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize7]}>{item.name}</Text>
             <NumberFormat
               value={item.full_price}
               displayType={'text'}
               thousandSeparator={true}
               prefix={'฿'}
               renderText={
-                value => <Text style={[styleMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
+                value => <Text style={[styleMain.BoxProduct1ImagePrice, stylesFont.FontSize8, stylesFont.FontFamilyText]}>
                   {value}
                 </Text>}
             />
@@ -526,9 +526,9 @@ export class Second_Store extends Component {
       <View style={styleMain.FrameBackground}>
         <View style={styles.BoxText_Row}>
           <View style={[styles.BoxText_T, { backgroundColor: '#95D370', }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, styles.Text_Head]}>ร้านมือสองลดราคา</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, styles.Text_Head]}>ร้านมือสองลดราคา</Text>
           </View>
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, styles.Text_EndB, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, styles.Text_EndB, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
         </View>
         <View style={styles.Second_Store}>
           <View style={styles.Second_Store_SlideA}>
@@ -604,9 +604,9 @@ export class Second_Store extends Component {
         </View>
         <View style={styles.BoxText_Row}>
           <View style={[styles.BoxText_T, { backgroundColor: '#E43333', }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, styles.Text_Head]}>มือสองลดราคา</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, styles.Text_Head]}>มือสองลดราคา</Text>
           </View>
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, styles.Text_EndB, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, styles.Text_EndB, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
         </View>
         <View style={styles.Deal_For_you}>
           {dataFlashSale}

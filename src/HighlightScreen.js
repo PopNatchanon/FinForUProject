@@ -1,28 +1,20 @@
-import React, { Component, PureComponent } from 'react';
+///----------------------------------------------------------------------------------------------->>>> React
+import React, { Component } from 'react';
 import {
-  View,
-  ImageBackground,
-  ScrollView,
-  Text,
-  TextInput,
-  SafeAreaView,
-  TouchableOpacity,
-  Dimensions,
+  Dimensions, SafeAreaView, ScrollView, View,
 } from 'react-native';
-import axios from 'axios';
-import NumberFormat from 'react-number-format';
-import styles from '../style/stylePromotion-src/styleDealScreen';
-import IconFeather from 'react-native-vector-icons/Feather';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
-import { finip, ip } from '../navigator/IpConfig';
-import FastImage from 'react-native-fast-image';
-import { AppBar, Slide } from './src_Promotion/DealScreen';
-import { TabBar } from './tools/Tools';
-import { FlashSale_Product } from './FlashSaleScreen';
-import { AppBar1 } from './MainScreen';
+///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
-
+///----------------------------------------------------------------------------------------------->>>> Icon
+///----------------------------------------------------------------------------------------------->>>> Styles
+import stylesMain from '../style/StylesMainScreen';
+///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+import { AppBar1 } from './MainScreen';
+import { FlashSale_Product } from './FlashSaleScreen';
+import { Slide } from './src_Promotion/DealScreen';
+import { TabBar } from './tools/Tools';
+///----------------------------------------------------------------------------------------------->>>> Ip
+///----------------------------------------------------------------------------------------------->>>> Main
 export default class HighlightScreen extends Component {
   constructor(props) {
     super(props);
@@ -31,26 +23,25 @@ export default class HighlightScreen extends Component {
   }
 
   render() {
+    const { navigation } = this.props
     return (
-      <SafeAreaView style={styles.SafeAreaView}>
-        <AppBar1  backArrow navigation={this.props.navigation} titleHead='ไฮไลท์ประจำสัปดาห์'/>
-        <Slide />
-        <Button_Bar />
+      <SafeAreaView style={stylesMain.SafeAreaView}>
+        <AppBar1 backArrow navigation={navigation} titleHead='ไฮไลท์ประจำสัปดาห์' />
         <ScrollView>
-          <FlashSale_Product/>
-          <FlashSale_Product/>
-          <FlashSale_Product/>
-          <FlashSale_Product/>
-          <FlashSale_Product/>
-          <FlashSale_Product/>
+          <Slide />
+          <Button_Bar />
+          <FlashSale_Product navigation={navigation} />
+          <FlashSale_Product navigation={navigation} />
+          <FlashSale_Product navigation={navigation} />
+          <FlashSale_Product navigation={navigation} />
+          <FlashSale_Product navigation={navigation} />
+          <FlashSale_Product navigation={navigation} />
         </ScrollView>
       </SafeAreaView>
     );
   }
 }
-
-///-------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Main
 export class Button_Bar extends Component {
   constructor(props) {
     super(props);
@@ -62,31 +53,40 @@ export class Button_Bar extends Component {
   updateIndex(selectedIndex) {
     this.setState({ selectedIndex })
   }
-
   render() {
     const item = [{
-      name: 'ทั้งหมด'
+      name: 'ทั้งหมด',
+      subname: ' '
     }, {
-      name: 'อัญมณีและ..'
+      name: 'อัญมณีและ..',
+      subname: ' '
     }, {
-      name: 'ทอง'
+      name: 'ทอง',
+      subname: ' '
     }, {
-      name: 'เครื่องเงิน'
+      name: 'เครื่องเงิน',
+      subname: ' '
     }, {
-      name: 'พระและ..'
+      name: 'พระและ..',
+      subname: ' '
     }, {
-      name: 'นาฬิกา'
+      name: 'นาฬิกา',
+      subname: ' '
     }, {
-      name: 'กระเป๋า'
+      name: 'กระเป๋า',
+      subname: ' '
     }, {
-      name: 'บ้านและสวน'
+      name: 'บ้านและสวน',
+      subname: ' '
     }, {
-      name: 'รองเท้า'
+      name: 'รองเท้า',
+      subname: ' '
     }, {
-      name: 'สุขภาพและ..'
+      name: 'สุขภาพและ..',
+      subname: ' '
     }]
     return (
-      <View style={{ width: '100%', height: 40, backgroundColor:'#FFFFFF',}}>
+      <View style={{ width: '100%', height: 40, backgroundColor: '#FFFFFF', }}>
         <ScrollView horizontal>
           <TabBar
             sendData={this.updateIndex}

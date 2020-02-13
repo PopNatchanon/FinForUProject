@@ -1,33 +1,24 @@
+///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-  View,
-  ImageBackground,
-  ScrollView,
-  Text,
-  TextInput,
-  SafeAreaView,
-  TouchableOpacity,
-  Dimensions,
+  Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
-import { ButtonGroup } from 'react-native-elements';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
-import axios from 'axios';
-import NumberFormat from 'react-number-format';
-import FastImage from 'react-native-fast-image';
-import IconFontisto from 'react-native-vector-icons/Fontisto';
-import Icons from 'react-native-vector-icons/FontAwesome5';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import IconsFeather from 'react-native-vector-icons/Feather';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import IconEntypo from 'react-native-vector-icons/Entypo'
-import stylesStore from '../style/StylesStoreScreen';
-import stylesMain from '../style/StylesMainScreen'
-import stylesFont from '../style/stylesFont'
-import { ip } from '../navigator/IpConfig'
+///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
-import { Toolbar, TabBar } from './tools/Tools'
+import FastImage from 'react-native-fast-image';
+///----------------------------------------------------------------------------------------------->>>> Icon
+import IconEntypo from 'react-native-vector-icons/Entypo';
+import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+///----------------------------------------------------------------------------------------------->>>> Styles
+import stylesFont from '../style/stylesFont';
+import stylesMain from '../style/StylesMainScreen';
+import stylesStore from '../style/StylesStoreScreen';
+///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1 } from './MainScreen';
-
+import { GetServices, TabBar, Toolbar } from './tools/Tools';
+///----------------------------------------------------------------------------------------------->>>> Ip
+import { ip, finip } from '../navigator/IpConfig';
+///----------------------------------------------------------------------------------------------->>>> Main
 export default class FeedScreen extends Component {
   constructor(props) {
     super(props);
@@ -42,24 +33,21 @@ export default class FeedScreen extends Component {
     });
   }
   render() {
+    const { selectedIndex } = this.state
     const { navigation } = this.props
     return (
       <SafeAreaView style={[stylesMain.SafeAreaViewNoBackground, stylesMain.BackgroundAreaView]}>
         <AppBar1 titleHead='ฟีด' storeBar menuBar navigation={navigation} />
         <MenuBar sendText={this.getData} />
         <ScrollView>
-          <Button_Bar selectedIndex={this.state.selectedIndex} navigation={navigation} />
-          {/* <Follow_up />
-          <Highlights/> */}
+          <Button_Bar selectedIndex={selectedIndex} navigation={navigation} />
         </ScrollView>
         <Toolbar navigation={navigation} />
       </SafeAreaView>
     );
   }
 }
-
-///-------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> MenuBar
 export class MenuBar extends Component {
   constructor(props) {
     super(props);
@@ -80,7 +68,6 @@ export class MenuBar extends Component {
     return (
       <View>
         <View>
-          {/* <View style={stylesStore.Button_Bar}> */}
           <TabBar
             sendData={this.getData}
             item={item}
@@ -95,26 +82,24 @@ export class MenuBar extends Component {
     );
   }
 }
-
-///-------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Button_Bar
 export class Button_Bar extends Component {
   constructor(props) {
     super(props);
   }
   ViewSide(selectedIndex) {
-    // const { s_name, s_image } = this.props;
+    const { navigation } = this.props;
     switch (selectedIndex) {
       case 0:
         return (
           <SafeAreaView>
-            <Highlights Follow navigation={this.props.navigation} />
+            <Highlights Follow navigation={navigation} />
           </SafeAreaView>
         );
       case 1:
         return (
           <SafeAreaView>
-            <Highlights navigation={this.props.navigation} />
+            <Highlights navigation={navigation} />
           </SafeAreaView>
         );
       default:
@@ -129,38 +114,22 @@ export class Button_Bar extends Component {
     );
   }
 }
-
-///-------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Highlights
 export class Highlights extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataSourceStoreFeed: [],
+      dataService: [],
     };
+    this.getData = this.getData.bind(this)
   }
-  getDataStoreFeed() {
-    const { Follow } = this.props
-    var url = ip + '/mysql/DataService_Detail.php';
-    var dataBody = {
-      type: 'Feed'
-    }
-    axios.post(
-      url,
-      dataBody,
-    )
-      .then((getData) => {
-        this.setState({
-          dataSourceStoreFeed: getData.data,
-        })
-      })
+  getData(dataService) {
+    this.setState({ dataService })
   }
-  componentDidMount() {
-    this.getDataStoreFeed();
-  }
-  render() {
+  dataToday() {
+    const { dataService } = this.state
     const { Follow, navigation } = this.props
-    let dataToday = this.state.dataSourceStoreFeed.map((item, indexs) => {
+    return dataService.map((item, indexs) => {
       var dataMySQL_s = [ip + '/mysql/uploads/slide/NewStore', item.s_image].join('/');
       var dataMySQL_p = [ip + '/mysql/uploads/products', item.p_image].join('/');
       return (
@@ -174,7 +143,7 @@ export class Highlights extends Component {
                     uri: dataMySQL_s,
                   }}
                 />
-                <Text style={[stylesMain.BoxProduct4PlusImageText, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
+                <Text style={[stylesMain.BoxProduct4PlusImageText, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
                   {item.s_name}</Text>
               </View>
             </TouchableOpacity>
@@ -182,7 +151,7 @@ export class Highlights extends Component {
               {Follow ?
                 null :
                 <View style={stylesMain.BoxProduct4PlusButtonFollow}>
-                  <Text style={[stylesMain.BoxProduct4PlusButtonFollowText, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                  <Text style={[stylesMain.BoxProduct4PlusButtonFollowText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                     ติดตาม</Text>
                 </View>
               }
@@ -196,36 +165,37 @@ export class Highlights extends Component {
                   source={{
                     uri: dataMySQL_p,
                   }}
-                  style={stylesMain.BoxProduct4Image}
+                  style={[stylesMain.BoxProduct4Image]}
+                  resizeMode={FastImage.resizeMode.contain}
                 />
               </View>
             </TouchableOpacity>
             <View style={stylesMain.BoxProduct4ComBox}>
-              <Text style={[stylesMain.BoxProduct4ComBoxDetail, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+              <Text style={[stylesMain.BoxProduct4ComBoxDetail, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                 {item.detail}</Text>
-              <Text style={[stylesMain.BoxProduct4ComBoxTag, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+              <Text style={[stylesMain.BoxProduct4ComBoxTag, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                 ที่สุดสำหรับคุณ</Text>
               <View style={stylesMain.FlexRow}>
-                <Text style={[stylesMain.BoxProduct4ComBoxText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                <Text style={[stylesMain.BoxProduct4ComBoxText, stylesFont.FontFamilyText, stylesFont.FontSize8]}>
                   200 การเข้าชม</Text>
-                <Text style={[stylesMain.BoxProduct4ComBoxText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                <Text style={[stylesMain.BoxProduct4ComBoxText, stylesFont.FontFamilyText, stylesFont.FontSize8]}>
                   เมื่อ 3 วันที่ผ่านมา</Text>
               </View>
             </View>
             <View style={stylesMain.BoxProduct4ComBox2}>
               <View style={stylesMain.BoxProduct4ComBoxIcon}>
-                <Icons name='heart' size={20} />
-                <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                <IconFontAwesome5 name='heart' size={20} />
+                <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                   ถูกใจ</Text>
               </View>
               <View style={stylesMain.BoxProduct4ComBoxIcon}>
-                <Icons name='comment-dots' size={20} />
-                <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                <IconFontAwesome5 name='comment-dots' size={20} />
+                <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                   แสดงความคิดเห็น</Text>
               </View>
               <View style={stylesMain.BoxProduct4ComBoxIcon}>
-                <Icons name='share-square' size={20} />
-                <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                <IconFontAwesome5 name='share-square' size={20} />
+                <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                   แชร์</Text>
               </View>
             </View>
@@ -233,10 +203,17 @@ export class Highlights extends Component {
         </View>
       );
     })
+  }
+  render() {
+    var uri = ip + '/mysql/DataService_Detail.php';
+    var dataBody = {
+      type: 'Feed'
+    }
     return (
       <View style={stylesMain.FrameBackground, stylesMain.BackgroundAreaView} >
+        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
         <View style={stylesStore.StoreFeedBoxProduct}>
-          {dataToday}
+          {this.dataToday()}
         </View>
       </View>
     )

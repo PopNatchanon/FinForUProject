@@ -79,7 +79,7 @@ export class Header extends Component {
         return (
             <View style={{ width: '100%', alignItems: 'center', marginVertical: 10, }}>
                 <View style={{ width: 150, height: 50, backgroundColor: '#0A55A6', justifyContent: 'center', borderRadius: 5, alignItems: 'center', }}>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}> {Title} </Text></View>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}> {Title} </Text></View>
             </View>
         );
     }

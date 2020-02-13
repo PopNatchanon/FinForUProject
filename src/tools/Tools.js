@@ -294,7 +294,7 @@ export class TabBar extends Component {
                     {
                         item.subname ?
                             <View style={[stylesMain.ItemCenter, { width: '100%' }]}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, {
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, {
                                     borderBottomColor: tagBottom ? this.state.pathlist == index ? tagBottom : '#fff' : null,
                                     borderBottomWidth: tagBottom ? 4 : null,
                                     width: '90%', textAlign: 'center'

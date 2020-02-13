@@ -38,9 +38,9 @@ export default class CoinScreen extends Component {
         <AppBar1 titleHead={'FIN COINS'} backArrow searchBar chatBar navigation={this.props.navigation} />
         <ScrollView>
           <Slide />
-          <View style={[styles.BoxText_T, { backgroundColor: '#C4C4C4', }]}><Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>FIN COIN </Text></View>
+          <View style={[styles.BoxText_T, { backgroundColor: '#C4C4C4', }]}><Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>FIN COIN </Text></View>
           <CoinCollect />
-          <View style={[styles.BoxText_T, { backgroundColor: '#C4C4C4', }]}><Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}> FIN จัดหนักรับ COIN เพิ่ม </Text></View>
+          <View style={[styles.BoxText_T, { backgroundColor: '#C4C4C4', }]}><Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}> FIN จัดหนักรับ COIN เพิ่ม </Text></View>
           <TodayProduct noTitle />
         </ScrollView>
         <Button_Bar navigation={this.props.navigation} />

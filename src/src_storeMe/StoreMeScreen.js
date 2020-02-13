@@ -54,7 +54,7 @@ export class Headbar extends Component {
                         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
                             <IconEntypo name='chevron-left' size={35} />
                         </TouchableOpacity>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { marginTop: 5, }]}>ร้านค้าของฉัน</Text>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { marginTop: 5, }]}>ร้านค้าของฉัน</Text>
                     </View>
                     <View style={{ flexDirection: 'row', padding: 5, }}>
                         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Setting')}>
@@ -77,10 +77,10 @@ export class Headbar extends Component {
                                 />
                             </View>
                             <View style={{ marginLeft: 15, marginTop: '20%' }}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>
                                     ppooo
                                 </Text>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>
                                     ผู้ติดตาม 20.2 พัน | กำลังติดตาม 2
                                 </Text>
                             </View>

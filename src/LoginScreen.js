@@ -1,27 +1,24 @@
+///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-  View,
-  ImageBackground,
-  ScrollView,
-  Text,
-  TextInput,
-  SafeAreaView,
-  TouchableOpacity,
-  Alert,
+  Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
+///----------------------------------------------------------------------------------------------->>>> Import
+import AsyncStorage from '@react-native-community/async-storage';
+export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import { Form, TextValidator } from 'react-native-validator-form';
-import AsyncStorage from '@react-native-community/async-storage';
-import { ip, finip } from '../navigator/IpConfig';
+///----------------------------------------------------------------------------------------------->>>> Icon
 import IconFeather from 'react-native-vector-icons/Feather';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
+///----------------------------------------------------------------------------------------------->>>> Styles
+import stylesFont from '../style/stylesFont';
 import stylesLogin from '../style/stylesLoginScreen';
 import stylesMain from '../style/StylesMainScreen';
-import stylesFont from '../style/stylesFont';
-import stylesStore from '../style/StylesStoreScreen';
-import RNRestart from 'react-native-restart';
-import { Toolbar } from './tools/Tools'
-
+///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+import { GetServices, Toolbar } from './tools/Tools';
+///----------------------------------------------------------------------------------------------->>>> Ip
+import { ip, finip } from '../navigator/IpConfig';
+///----------------------------------------------------------------------------------------------->>>> Main
 export default class LoginScreen extends Component {
   constructor(props) {
     super(props);
@@ -41,9 +38,7 @@ export default class LoginScreen extends Component {
     );
   }
 }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Logo
 export class Logo extends Component {
   constructor(props) {
     super(props);
@@ -61,9 +56,7 @@ export class Logo extends Component {
     );
   }
 }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Login
 export class Login extends Component {
   constructor(props) {
     super(props);
@@ -146,7 +139,7 @@ export class Login extends Component {
             ref="form"
             onSubmit={this.getData}
           >
-            <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
+            <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
               อีเมล</Text>
             <TextValidator
               name="email"
@@ -157,7 +150,7 @@ export class Login extends Component {
               keyboardType="email-address"
               value={user.email}
               onChangeText={this.EmailInput}
-              style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}
+              style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
               errorStyle={{
                 container: {
                   bottom: -12,
@@ -172,7 +165,7 @@ export class Login extends Component {
                 underlineInvalidColor: 'red'
               }}
             />
-            <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
+            <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
               รหัสผ่าน</Text>
             <TextValidator
               name="pass"
@@ -182,7 +175,7 @@ export class Login extends Component {
               // maxLength={6}
               secureTextEntry={eye == false ? false : true}
               onChangeText={this.PassInput}
-              style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}
+              style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
               errorStyle={{
                 container: {
                   bottom: -12,
@@ -203,13 +196,13 @@ export class Login extends Component {
               </View>
             </TouchableOpacity>
             <View style={{ marginTop: 4 }}>
-              <Text style={[stylesLogin.Login_Box_Text_L, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+              <Text style={[stylesLogin.Login_Box_Text_L, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                 ลืมรหัสผ่าน?</Text>
             </View>
             <View style={[stylesMain.ItemCenter]}>
               <TouchableOpacity onPress={this.handleSubmit}>
                 <View style={[stylesLogin.Login_Box_Text_B, stylesMain.ItemCenter]}>
-                  <Text style={[stylesLogin.Login__Text, stylesFont.FontFamilyText, stylesFont.FontSize4, stylesMain.ItemCenterVertical]}
+                  <Text style={[stylesLogin.Login__Text, stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical]}
                   >เข้าสู่ระบบ</Text>
                 </View>
               </TouchableOpacity>
@@ -220,9 +213,7 @@ export class Login extends Component {
     );
   }
 }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Register
 export class Register extends Component {
   constructor(props) {
     super(props);
@@ -234,12 +225,12 @@ export class Register extends Component {
       <View style={stylesLogin.Register_Box}>
         <View style={stylesLogin.Register_Box_A}>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('RegisterScreen')}>
-            <View><Text style={[stylesLogin.Register_Box_TextA, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+            <View><Text style={[stylesLogin.Register_Box_TextA, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
               สร้างบัญชี</Text>
             </View>
           </TouchableOpacity>
           <View>
-            <Text style={[stylesFont.FontCenter, stylesFont.FontSize3, stylesFont.FontFamilyText, { margin: 10 }]}>
+            <Text style={[stylesFont.FontCenter, stylesFont.FontSize5, stylesFont.FontFamilyText, { margin: 10 }]}>
               เข้าสู่ระบบด้วยช่องทางอื่น</Text>
           </View>
           <View style={stylesLogin.Register_Box_Button}>
@@ -257,5 +248,3 @@ export class Register extends Component {
     );
   }
 }
-
-///--------------------------------------------------------------------------///

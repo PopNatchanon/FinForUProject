@@ -105,7 +105,7 @@ export class Deal_CuponToday extends Component {
         return (
             <View>
                 <View style={{ height: 150, width: '100%', backgroundColor: '#E0F0FF', justifyContent: 'center', alignItems: 'center', marginTop: 10 }}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize2]}> เก็บคูปองลดเพิ่มทุกวัน </Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}> เก็บคูปองลดเพิ่มทุกวัน </Text>
                 </View>
                 <View style={{ padding: 10, }}>
                     <View style={styles.Deal_Today_Box}>

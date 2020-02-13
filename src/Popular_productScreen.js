@@ -1,30 +1,20 @@
-import React, { Component, PureComponent } from 'react';
+///----------------------------------------------------------------------------------------------->>>> React
+import React, { Component } from 'react';
 import {
-    View,
-    ImageBackground,
-    ScrollView,
-    Text,
-    TextInput,
-    SafeAreaView,
-    TouchableOpacity,
-    Dimensions,
+    Dimensions, SafeAreaView, ScrollView, View,
 } from 'react-native';
-import axios from 'axios';
-import NumberFormat from 'react-number-format';
-import stylesTopic from '../style/styleTopic';
-import stylesMain from '../style/StylesMainScreen';
-import stylesFont from '../style/stylesFont';
-import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import IconFeather from 'react-native-vector-icons/Feather';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
-import { finip, ip } from '../navigator/IpConfig';
-import FastImage from 'react-native-fast-image';
-import { AppBar, Slide } from './src_Promotion/DealScreen';
-import { TabBar } from './tools/Tools';
-import { TodayProduct, AppBar1 } from './MainScreen';
+///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
-
+///----------------------------------------------------------------------------------------------->>>> Icon
+///----------------------------------------------------------------------------------------------->>>> Styles
+import stylesMain from '../style/StylesMainScreen';
+import stylesTopic from '../style/styleTopic';
+///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+import { AppBar1, TodayProduct } from './MainScreen';
+import { Slide } from './src_Promotion/DealScreen';
+import { TabBar } from './tools/Tools';
+///----------------------------------------------------------------------------------------------->>>> Ip
+///----------------------------------------------------------------------------------------------->>>> Main
 export default class Popular_productScreen extends Component {
     constructor(props) {
         super(props);
@@ -32,22 +22,21 @@ export default class Popular_productScreen extends Component {
         };
     }
     render() {
-        var id_item = this.props.navigation.getParam('id_item')
+        const { navigation } = this.props
+        var id_item = navigation.getParam('id_item')
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                <AppBar1 backArrow navigation={this.props.navigation} titleHead='สินค้ายอดนิยม' />
-                <Slide />
-                <Button_Bar id_item={id_item} />
+                <AppBar1 backArrow navigation={navigation} titleHead='สินค้ายอดนิยม' />
                 <ScrollView>
+                    <Slide />
+                    <Button_Bar id_item={id_item} />
                     <TodayProduct noTitle />
                 </ScrollView>
             </SafeAreaView>
         );
     }
 }
-
-///-------------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Button_Bar
 export class Button_Bar extends Component {
     constructor(props) {
         super(props);

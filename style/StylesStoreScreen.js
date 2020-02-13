@@ -130,7 +130,7 @@ export default StyleSheet.create({
   ///-------------------------------------------------------------///
   TicketLineBox: {
     flex: 1,
-    width: 155,
+    width: 160,
     height: 70,
     padding: 8,
   },
@@ -264,8 +264,7 @@ export default StyleSheet.create({
   header_icon_Box: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    width: width - 20,
-    marginTop: 5,
+    marginTop: 25,
   },
   header_icon: {
     marginLeft: 5,
@@ -294,6 +293,7 @@ export default StyleSheet.create({
   },
   body_Text: {
     width: (width - 20) * 0.57,
-    marginLeft: 10,
+    paddingLeft: 6,
+    paddingRight: 2,
   },
 })

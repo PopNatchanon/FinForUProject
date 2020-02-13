@@ -128,10 +128,11 @@ export default StyleSheet.create({
     margin: 8,
   },
   BoxProduct3Image: {
-    width: '100%',
-    height: height * 0.25,
-    resizeMode: 'stretch',
     padding: 4,
+  },
+  BoxProduct3ImageofLines: {
+    width: '100%',
+    height: width * (1 / 2.2),
   },
   ///------------///
   BoxProduct4Box: {
@@ -142,10 +143,10 @@ export default StyleSheet.create({
     marginBottom: 10,
   },
   BoxProduct4Image: {
-    width: 200,
-    height: 200,
+    width: width,
+    height: width,
     resizeMode: 'center',
-    padding: 4,
+    paddingVertical: 4
   },
   BoxProduct4ComBox: {
     padding: 8,

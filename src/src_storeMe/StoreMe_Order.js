@@ -62,7 +62,7 @@ export class Appbar extends Component {
         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
           <IconEntypo name='chevron-left' size={35} color='#0A55A6' />
         </TouchableOpacity>
-        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { marginTop: 10, marginLeft: '30%' }]} >ออเดอร์ของฉัน</Text>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { marginTop: 10, marginLeft: '30%' }]} >ออเดอร์ของฉัน</Text>
       </View>
     );
   }
@@ -119,14 +119,14 @@ export class Order_Me extends Component {
   render() {
     return (
       <View >
-        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { margin: 5 }]}>รายการคำสั่งซื้อ</Text>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>รายการคำสั่งซื้อ</Text>
         <View style={{ backgroundColor: '#FFFFFF', width: '100%', }}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10, }}>
             <View style={{ flexDirection: 'row', }}>
               <View style={{ height: 50, width: 50, backgroundColor: '#C4C4C4', borderRadius: 25, }}></View>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { marginTop: 10, }]}> PPoo</Text>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginTop: 10, }]}> PPoo</Text>
             </View>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { color: '#0A55A6', marginTop: 10, }]}>ยังไม่ชำระ</Text>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#0A55A6', marginTop: 10, }]}>ยังไม่ชำระ</Text>
           </View>
           <View style={{ height: 150, padding: 10, flexDirection: 'row', justifyContent: 'space-between', }}>
             <View style={{ flexDirection: 'row', }}>
@@ -157,12 +157,12 @@ export class StoreMe_Totel extends Component {
     return (
       <View>
         <View style={{ width: '100%', backgroundColor: '#FFFFFF', flexDirection: 'row', justifyContent: 'space-between', padding: 10, marginTop: 5, }}>
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}> รวมการสั่งซื้อ (1 สินค้า): </Text>
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#0A55A6' }]}>฿30,000</Text>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}> รวมการสั่งซื้อ (1 สินค้า): </Text>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#0A55A6' }]}>฿30,000</Text>
         </View>
         <View style={{ width: '100%',  backgroundColor: '#FFFFFF', flexDirection: 'row', justifyContent: 'space-between', padding: 10, marginTop: 5, }}>
           <View style={{ width: 200, padding: 5, }}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ชำระเงินโดยการโอนเงินผ่านธนาคาร 29-11-2019 </Text>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ชำระเงินโดยการโอนเงินผ่านธนาคาร 29-11-2019 </Text>
           </View>
           <TouchableOpacity>
             <View style={{ height: 40, width: 100, backgroundColor: '#0A55A6', justifyContent: 'center', alignItems: 'center', borderRadius: 5, }}>
@@ -173,7 +173,7 @@ export class StoreMe_Totel extends Component {
         <View style={{ width: '100%',  backgroundColor: '#FFFFFF', flexDirection: 'row', justifyContent: 'space-between', padding: 10, marginTop: 5, }}>
           <View style={{flexDirection:'row',}}>
             <IconMaterialCommunityIcons name="car-estate" size={35} color='#B6B6B4' />
-            <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize4,{marginTop:5,}]}>Status and tracking no</Text>
+            <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize6,{marginTop:5,}]}>Status and tracking no</Text>
           </View>
           <Text style={{marginTop:5,}}>192312342342342ve6</Text>
         </View>

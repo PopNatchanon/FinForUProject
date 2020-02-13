@@ -1,26 +1,26 @@
+///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-  View,
-  ImageBackground,
-  ScrollView,
-  Text,
-  TextInput,
-  SafeAreaView,
-  TouchableOpacity,
-  Dimensions,
+  Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
+///----------------------------------------------------------------------------------------------->>>> Import
+import AsyncStorage from '@react-native-community/async-storage';
+import { CheckBox } from 'react-native-elements';
+export const { width, height } = Dimensions.get('window');
+import FastImage from 'react-native-fast-image';
+import { Form, TextValidator } from 'react-native-validator-form';
+import { Picker } from "native-base";
+import RadioButtonRN from 'radio-buttons-react-native';
+///----------------------------------------------------------------------------------------------->>>> Icon
+///----------------------------------------------------------------------------------------------->>>> Styles
+import stylesFont from '../style/stylesFont';
 import stylesLogin from '../style/stylesLoginScreen';
 import stylesMain from '../style/StylesMainScreen';
-import stylesFont from '../style/stylesFont';
-import { Form, TextValidator } from 'react-native-validator-form';
-import { CheckBox } from 'react-native-elements';
-import RadioButtonRN from 'radio-buttons-react-native';
+///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+import { GetServices, Toolbar } from './tools/Tools';
+///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
-import FastImage from 'react-native-fast-image';
-import { Picker } from "native-base";
-export const { width, height } = Dimensions.get('window');
-
+///----------------------------------------------------------------------------------------------->>>> Main
 export default class Register_OTPScreen extends Component {
   constructor(props) {
     super(props);
@@ -39,9 +39,7 @@ export default class Register_OTPScreen extends Component {
     );
   }
 }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Logo
 export class Logo extends Component {
   constructor(props) {
     super(props);
@@ -60,9 +58,7 @@ export class Logo extends Component {
     );
   }
 }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Login
 export class Login extends Component {
   constructor(props) {
     super(props);
@@ -145,8 +141,9 @@ export class Login extends Component {
     }
   }
   DataYear() {
+    const { DataYear } = this.state
     return (
-      this.state.DataYear.map((item) => {
+      DataYear.map((item) => {
         return (
           <Picker.Item label={item} value={item} key={item} />
         )
@@ -154,6 +151,7 @@ export class Login extends Component {
     )
   }
   DataMo() {
+    const { DataMo } = this.state
     var months_thai = [
       "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
       "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
@@ -163,7 +161,7 @@ export class Login extends Component {
       'August', 'September', 'October', 'November', 'December'
     ]
     return (
-      this.state.DataMo.map((item) => {
+      DataMo.map((item) => {
         return (
           <Picker.Item label={months_thai[item]} value={item} key={item} />
         )
@@ -171,8 +169,9 @@ export class Login extends Component {
     )
   }
   DataDay() {
+    const { DataDay } = this.state
     return (
-      this.state.DataDay.map((item) => {
+      DataDay.map((item) => {
         return (
           <Picker.Item label={item} value={item} key={item} />
         )
@@ -268,8 +267,8 @@ export class Login extends Component {
     user.repassword = event;
     this.setState({ user });
   }
-  render() {
-    const { activeNow } = this.state
+  FormBody() {
+    const { activeNow, item1 } = this.state
     activeNow < 2 ?
       this.setState({ activeNow: activeNow + 1, date: new Date('2000') }) :
       null
@@ -291,223 +290,226 @@ export class Login extends Component {
       }
     ];
     return (
+      <Form
+        ref="form"
+        onSubmit={this.getData}
+      >
+        <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
+          อีเมล</Text>
+        <TextValidator
+          name="email"
+          label="text"
+          validators={['required']}
+          errorMessages={['กรุณากรอกอีเมล']}
+          type="text"
+          keyboardType="email-address"
+          value={user.email}
+          onChangeText={this.EmailInput}
+          style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
+          errorStyle={{
+            container: {
+              bottom: -12,
+              left: 4,
+              position: 'absolute'
+            },
+            text: {
+              color: 'red'
+            },
+            underlineValidColor: 'gray',
+            underlineInvalidColor: 'red'
+          }}
+        />
+        {/* <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
+          รหัสยืนยันผ่านอีเมล</Text>
+        <TextValidator
+          name="pass"
+          label="text"
+          type="text"
+          value={user.passmail}
+          maxLength={6}
+          onChangeText={this.PassMailInput}
+          style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
+          errorStyle={{
+            container: {
+              bottom: -12,
+              left: 4,
+              position: 'absolute'
+            },
+            text: {
+              color: 'red'
+            },
+            underlineValidColor: 'gray',
+            underlineInvalidColor: 'red'
+          }}
+        />
+        <View style={stylesLogin.Countdownstyle}>
+          <Text style={[stylesLogin.CountdownstyleSubmit, stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
+            ส่ง</Text>
+        </View> */}
+        <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
+          ชื่อ</Text>
+        <TextValidator
+          name="name"
+          label="text"
+          validators={['required', 'isString']}
+          errorMessages={['กรุณากรอกชื่อ', 'กรุณากรอกชื่อให้ถูกต้อง']}
+          type="text"
+          value={user.name}
+          onChangeText={this.UnameInput}
+          style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
+          errorStyle={{
+            container: {
+              bottom: -12,
+              left: 4,
+              position: 'absolute'
+            },
+            text: {
+              color: 'red'
+            },
+            underlineValidColor: 'gray',
+            underlineInvalidColor: 'red'
+          }}
+        />
+        <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
+          รหัสผ่าน</Text>
+        <TextValidator
+          name="password"
+          label="text"
+          validators={['required', 'isString', 'minStringLength:6']}
+          errorMessages={['กรุณากรอกรหัสผ่าน', 'กรุณากรอกรหัสผ่านให้ถูกต้อง', 'กรุณากรอกรหัสผ่านอย่างน้อย 6 ตัว']}
+          type="text"
+          secureTextEntry
+          value={user.password}
+          onChangeText={this.PassInput}
+          style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
+          errorStyle={{
+            container: {
+              bottom: -12,
+              left: 4,
+              position: 'absolute'
+            },
+            text: {
+              color: 'red'
+            },
+            underlineValidColor: 'gray',
+            underlineInvalidColor: 'red'
+          }}
+        />
+        <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
+          ยืนยันรหัสผ่าน</Text>
+        <TextValidator
+          name="repassword"
+          label="text"
+          validators={['isPasswordMatch', 'required',]}
+          errorMessages={['รหัสผ่านไม่ตรงกัน', 'กรุณายืนยันรหัสผ่าน',]}
+          type="text"
+          secureTextEntry
+          value={user.repassword}
+          onChangeText={this.RepeatPassInput}
+          style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
+          errorStyle={{
+            container: {
+              bottom: -12,
+              left: 4,
+              position: 'absolute'
+            },
+            text: {
+              color: 'red'
+            },
+            underlineValidColor: 'gray',
+            underlineInvalidColor: 'red'
+          }}
+        />
+        <View style={[stylesLogin.DateBox, stylesMain.ItemCenter]}>
+          <View style={stylesMain.FlexRow}>
+            <View style={[stylesLogin.DateBoxBody, { width: 70, }]}>
+              <Picker
+                selectedValue={String(day)}
+                style={{ height: '100%', width: '100%' }}
+                itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize7, { backgroundColor: '#fff' }]}
+                onValueChange={(itemValue, itemIndex) => {
+                  this.setState({ date: new Date(date).setDate(itemValue) })
+                }}>
+                {DataDay}
+              </Picker>
+            </View>
+            <View style={[stylesLogin.DateBoxBody, { width: 120, }]}>
+              <Picker
+                selectedValue={String(month)}
+                style={{ height: '100%', width: '100%' }}
+                itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize7, { backgroundColor: '#fff' }]}
+                onValueChange={(itemValue, itemIndex) => {
+                  this.getDataDay(itemValue)
+                }}>
+                {DataMo}
+              </Picker>
+            </View>
+            <View style={stylesLogin.DateBoxBody}>
+              <Picker
+                selectedValue={String(year)}
+                style={{ height: '100%', width: '100%' }}
+                itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize7, { backgroundColor: '#fff' }]}
+                onValueChange={(itemValue, itemIndex) => {
+                  this.getDataMo(itemValue)
+                }}>
+                {DataYear}
+              </Picker>
+            </View>
+          </View>
+        </View>
+        <View style={stylesLogin.DataGenderBox}>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
+            เพศ</Text>
+          <View style={{ marginTop: -10, }}>
+            <RadioButtonRN
+              data={data}
+              initial={1}
+              style={{
+                flexDirection: 'row',
+              }}
+              box={false}
+              boxStyle={{
+                width: 70,
+              }}
+              textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, {
+                marginLeft: 12,
+              }]}
+              activeColor='#111'
+              circleSize={15}
+              selectedBtn={(e) => this.setState({ gender: e.value })}
+            />
+          </View>
+        </View>
+        <View style={stylesLogin.RegisterScreen_CheckBox}>
+          <CheckBox
+            checked={item1}
+            onPress={() => this.setState({ item1: !item1 })}
+          />
+          <View style={stylesLogin.RegisterScreen_Check_Box}><Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText]}>
+            ฉันยอมรับเงื่อนไขของ FIN ข้อตกลงการใช้งาน และยินยอมดำเนินการกับข้อมูลส่วนตัวตามที่ระบุใน นโยบายส่วนตัว</Text></View>
+        </View>
+        <View style={stylesLogin.Login_Box_Text_C}>
+          <TouchableOpacity onPress={this.handleSubmit}>
+            <View style={stylesLogin.Login_Box_Text_B}>
+              <Text style={[stylesLogin.Login__Text, stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical]}>
+                สมัครสมาชิก</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </Form>
+    )
+  }
+  render() {
+    return (
       <View style={stylesLogin.Login_Box}>
         <View style={stylesLogin.RegisterScreen_Box_Login}>
-          <Form
-            ref="form"
-            onSubmit={this.getData}
-          >
-            <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
-              อีเมล</Text>
-            <TextValidator
-              name="email"
-              label="text"
-              validators={['required']}
-              errorMessages={['กรุณากรอกอีเมล']}
-              type="text"
-              keyboardType="email-address"
-              value={user.email}
-              onChangeText={this.EmailInput}
-              style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}
-              errorStyle={{
-                container: {
-                  bottom: -12,
-                  left: 4,
-                  position: 'absolute'
-                },
-                text: {
-                  color: 'red'
-                },
-                underlineValidColor: 'gray',
-                underlineInvalidColor: 'red'
-              }}
-            />
-            {/* <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
-              รหัสยืนยันผ่านอีเมล</Text>
-            <TextValidator
-              name="pass"
-              label="text"
-              type="text"
-              value={user.passmail}
-              maxLength={6}
-              onChangeText={this.PassMailInput}
-              style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}
-              errorStyle={{
-                container: {
-                  bottom: -12,
-                  left: 4,
-                  position: 'absolute'
-                },
-                text: {
-                  color: 'red'
-                },
-                underlineValidColor: 'gray',
-                underlineInvalidColor: 'red'
-              }}
-            />
-            <View style={stylesLogin.Countdownstyle}>
-              <Text style={[stylesLogin.CountdownstyleSubmit, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
-                ส่ง</Text>
-            </View> */}
-            <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
-              ชื่อ</Text>
-            <TextValidator
-              name="name"
-              label="text"
-              validators={['required', 'isString']}
-              errorMessages={['กรุณากรอกชื่อ', 'กรุณากรอกชื่อให้ถูกต้อง']}
-              type="text"
-              value={user.name}
-              onChangeText={this.UnameInput}
-              style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}
-              errorStyle={{
-                container: {
-                  bottom: -12,
-                  left: 4,
-                  position: 'absolute'
-                },
-                text: {
-                  color: 'red'
-                },
-                underlineValidColor: 'gray',
-                underlineInvalidColor: 'red'
-              }}
-            />
-            <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
-              รหัสผ่าน</Text>
-            <TextValidator
-              name="password"
-              label="text"
-              validators={['required', 'isString', 'minStringLength:6']}
-              errorMessages={['กรุณากรอกรหัสผ่าน', 'กรุณากรอกรหัสผ่านให้ถูกต้อง', 'กรุณากรอกรหัสผ่านอย่างน้อย 6 ตัว']}
-              type="text"
-              secureTextEntry
-              value={user.password}
-              onChangeText={this.PassInput}
-              style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}
-              errorStyle={{
-                container: {
-                  bottom: -12,
-                  left: 4,
-                  position: 'absolute'
-                },
-                text: {
-                  color: 'red'
-                },
-                underlineValidColor: 'gray',
-                underlineInvalidColor: 'red'
-              }}
-            />
-            <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
-              ยืนยันรหัสผ่าน</Text>
-            <TextValidator
-              name="repassword"
-              label="text"
-              validators={['isPasswordMatch', 'required',]}
-              errorMessages={['รหัสผ่านไม่ตรงกัน', 'กรุณายืนยันรหัสผ่าน',]}
-              type="text"
-              secureTextEntry
-              value={user.repassword}
-              onChangeText={this.RepeatPassInput}
-              style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}
-              errorStyle={{
-                container: {
-                  bottom: -12,
-                  left: 4,
-                  position: 'absolute'
-                },
-                text: {
-                  color: 'red'
-                },
-                underlineValidColor: 'gray',
-                underlineInvalidColor: 'red'
-              }}
-            />
-            <View style={[stylesLogin.DateBox, stylesMain.ItemCenter]}>
-              <View style={stylesMain.FlexRow}>
-                <View style={[stylesLogin.DateBoxBody, { width: 70, }]}>
-                  <Picker
-                    selectedValue={String(day)}
-                    style={{ height: '100%', width: '100%' }}
-                    itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize5, { backgroundColor: '#fff' }]}
-                    onValueChange={(itemValue, itemIndex) => {
-                      this.setState({ date: new Date(date).setDate(itemValue) })
-                    }}>
-                    {DataDay}
-                  </Picker>
-                </View>
-                <View style={[stylesLogin.DateBoxBody, { width: 120, }]}>
-                  <Picker
-                    selectedValue={String(month)}
-                    style={{ height: '100%', width: '100%' }}
-                    itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize5, { backgroundColor: '#fff' }]}
-                    onValueChange={(itemValue, itemIndex) => {
-                      this.getDataDay(itemValue)
-                    }}>
-                    {DataMo}
-                  </Picker>
-                </View>
-                <View style={stylesLogin.DateBoxBody}>
-                  <Picker
-                    selectedValue={String(year)}
-                    style={{ height: '100%', width: '100%' }}
-                    itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize5, { backgroundColor: '#fff' }]}
-                    onValueChange={(itemValue, itemIndex) => {
-                      this.getDataMo(itemValue)
-                    }}>
-                    {DataYear}
-                  </Picker>
-                </View>
-              </View>
-            </View>
-            <View style={stylesLogin.DataGenderBox}>
-              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
-                เพศ</Text>
-              <View style={{ marginTop: -10, }}>
-                <RadioButtonRN
-                  data={data}
-                  initial={1}
-                  style={{
-                    flexDirection: 'row',
-                  }}
-                  box={false}
-                  boxStyle={{
-                    width: 70,
-                  }}
-                  textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize4, {
-                    marginLeft: 12,
-                  }]}
-                  activeColor='#111'
-                  circleSize={15}
-                  selectedBtn={(e) => this.setState({ gender: e.value })}
-                />
-              </View>
-            </View>
-            <View style={stylesLogin.RegisterScreen_CheckBox}>
-              <CheckBox
-                checked={this.state.item1}
-                onPress={() => this.setState({ item1: !this.state.item1 })}
-              />
-              <View style={stylesLogin.RegisterScreen_Check_Box}><Text style={[stylesFont.FontSize5, stylesFont.FontFamilyText]}>
-                ฉันยอมรับเงื่อนไขของ FIN ข้อตกลงการใช้งาน และยินยอมดำเนินการกับข้อมูลส่วนตัวตามที่ระบุใน นโยบายส่วนตัว</Text></View>
-            </View>
-            <View style={stylesLogin.Login_Box_Text_C}>
-              <TouchableOpacity onPress={this.handleSubmit}>
-                <View style={stylesLogin.Login_Box_Text_B}>
-                  <Text style={[stylesLogin.Login__Text, stylesFont.FontFamilyText, stylesFont.FontSize3, stylesMain.ItemCenterVertical]}>
-                    สมัครสมาชิก</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-          </Form>
+          {this.FormBody()}
         </View>
       </View >
     );
   }
 }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Register
 export class Register extends Component {
   constructor(props) {
     super(props);
@@ -515,11 +517,12 @@ export class Register extends Component {
     };
   }
   render() {
+    const { item1 } = this.state
     return (
       <View style={[stylesMain.ItemCenter, { marginBottom: 10 }]}>
         <View style={[stylesMain.FlexRow, { marginTop: 10, }]}>
           <View style={{ height: 50, width: 250, marginTop: 20, marginLeft: 20, }}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
               ฉันต้องการรับข้อเสนอและโปรโมชันสุดพิเศษจาก FIN</Text>
           </View>
           <CheckBox
@@ -527,12 +530,12 @@ export class Register extends Component {
             checkedIcon='toggle-on'
             checkedColor='#95F29F'
             uncheckedIcon='toggle-off'
-            checked={this.state.item1}
-            onPress={() => this.setState({ item1: !this.state.item1 })}
+            checked={item1}
+            onPress={() => this.setState({ item1: !item1 })}
           />
         </View>
         <View>
-          <Text style={[stylesFont.FontCenter, stylesFont.FontSize3, stylesFont.FontFamilyText, { margin: 10 }]}>
+          <Text style={[stylesFont.FontCenter, stylesFont.FontSize5, stylesFont.FontFamilyText, { margin: 10 }]}>
             สมัครสมาชิกด้วยช่องทางอื่น</Text>
         </View>
         <View style={stylesLogin.Register_Box_Button}>

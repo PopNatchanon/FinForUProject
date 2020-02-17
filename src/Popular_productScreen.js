@@ -46,7 +46,7 @@ export default class Popular_productScreen extends Component {
                         <ScrollView>
                             <Slide />
                             <Button_Bar id_item={id_item} getData={this.getData} />
-                            <TodayProduct loadData={dataArray[id_item]} noTitle />
+                            <TodayProduct loadData={dataArray[id_item]} navigation={navigation} noTitle />
                         </ScrollView> :
                         <ScrollView>
                             <Slide />

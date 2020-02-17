@@ -23,7 +23,7 @@ import styleMain from '../../style/StylesMainScreen';
 import stylesFont from '../../style/stylesFont';
 import { ip } from '../../navigator/IpConfig';
 import { TabBar } from '../tools/Tools';
-import { Appbar } from './Profile_Topic';
+import { AppBar1 } from '../MainScreen';
 
 export default class Order_Detail extends Component {
     constructor(props) {
@@ -35,7 +35,7 @@ export default class Order_Detail extends Component {
     render() {
         return (
             <SafeAreaView style={styleMain.SafeAreaView}>
-                <Appbar navigation={this.props.navigation} Title='รายละเอียด' />
+                <AppBar1 backArrow navigation={this.props.navigation} titleHead='รายละเอียด' />
                 <ScrollView>
                     <Detail />
                     <Order_Sending />
@@ -58,7 +58,9 @@ export class Detail extends Component {
         return (
             <View>
                 <View style={{ flexDirection: 'row', padding: 10, alignItems: 'center', backgroundColor: '#FFFFFF', marginTop: 5, }}>
-                    <View style={{ height: 30, width: 50, backgroundColor: '#A2A2A2', }}></View>
+                    <View style={{ height: 30, width: 50,borderColor:'#FC8D00',borderWidth:1,justifyContent:'center',alignItems:'center',}}>
+                        <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize3,{color:'#FC8D00'}]}>T N T</Text>
+                    </View>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}> จัดส่งโดย : TNT Express </Text>
                 </View>
                 <View style={{ justifyContent: 'center', padding: 10, marginTop: 5, backgroundColor: '#FFFFFF', }}>

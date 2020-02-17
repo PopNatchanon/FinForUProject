@@ -86,7 +86,7 @@ export default class CategoryScreen extends Component {
                         </View>
                     </View>
                 </SlidingView>
-            </SafeAreaView >
+            </SafeAreaView>
         );
     }
 }
@@ -177,7 +177,7 @@ export class Recommend_Store extends Component {
                 <View style={stylesMain.FlexRow}>
                     {dataPromotionPopular}
                 </View>
-            </View >
+            </View>
         );
     }
 }

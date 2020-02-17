@@ -67,9 +67,8 @@ export default StyleSheet.create({
         marginTop: 10,
     },
     BottomSheet_Botton: {
-        marginBottom: 10,
+        marginVertical:10,
         flexDirection: 'row',
-        marginTop: 10,
         width: 300,
         justifyContent: 'space-between',
     },

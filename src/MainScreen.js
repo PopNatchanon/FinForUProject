@@ -1417,55 +1417,46 @@ export class CategoryProduct extends Component {
             dataService: [],
         }
         this.getData = this.getData.bind(this)
-        // this.IsLoading = this.IsLoading.bind(this)
     }
     getData(dataService) {
         this.setState({ dataService })
     }
-    // IsLoading(val) {
-    //     this.setState({ IsLoading: val })
-    // }
     render() {
-        const { dataService } = this.state
-        const { navigation } = this.props
         var uri = finip + '/home/category_mobile';
-        let dataCategory = dataService.map((item, indexs) => {
+        let dataCategory = this.state.dataService.map((item, indexs) => {
             var dataMySQL = [finip, item.mobile_head].join('/');
             return (
-                <View style={stylesMain.FrameBackground2} key={indexs}>
-                    <View>
-                        <View style={stylesMain.FrameBackgroundTextBox}>
-                            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
-                                {item.name}</Text>
-                            <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('CategoryScreen')}>
-                                <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                    ดูทั้งหมด</Text>
-                            </TouchableOpacity>
-                        </View>
+                <View style={[stylesMain.FrameBackground2, { marginTop: 10, backgroundColor: item.bg_m }]} key={indexs}>
+                    <View style={{}}>
                         <FastImage
                             source={{
                                 uri: dataMySQL,
                             }}
-                            style={[stylesMain.CategoryProductImageHead, stylesMain.ImageMargin]}
+                            style={[stylesMain.CategoryProductImageHead, { marginTop: 0 }]}
                             resizeMode={FastImage.resizeMode.cover}
                         />
-                        <CategoryProductSubProduct navigation={navigation} id_type={item.id_type} />
+                        <View style={stylesMain.FrameBackgroundTextBox}>
+                            <Text></Text>
+                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('CategoryScreen')}>
+                                <Text style={[stylesMain.FrameBackgroundTextEnd2, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                    ดูทั้งหมด</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <CategoryProductSubProduct navigation={this.props.navigation} id_type={item.id_type} />
                     </View>
-                    <View style={{ marginTop: 20 }}>
-                        <View>
-                            <View style={stylesMain.Text_Bar_Image}>
-                                <Text style={[stylesMain.Text_Bar, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-                                    ร้านฮิต ติดเทรนด์</Text>
-                            </View>
-                            <CategoryProductSubStore navigation={navigation} />
+                    <View>
+                        <View style={stylesMain.Text_Bar_Image}>
+                            <Text style={[stylesMain.Text_Bar, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                                ร้านฮิต ติดเทรนด์</Text>
                         </View>
-                        <View>
-                            <View style={stylesMain.Text_Bar_Image}>
-                                <Text style={[stylesMain.Text_Bar, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-                                    FIN แนะนำร้าน </Text>
-                            </View>
-                            <CategoryProductSubPromotion navigation={navigation} />
+                        <CategoryProductSubStore navigation={this.props.navigation} />
+                    </View>
+                    <View style={{ marginBottom: 10, }}>
+                        <View style={stylesMain.Text_Bar_Image}>
+                            <Text style={[stylesMain.Text_Bar, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                                FIN แนะนำร้าน </Text>
                         </View>
+                        <CategoryProductSubPromotion navigation={this.props.navigation} />
                     </View>
                 </View>
             );

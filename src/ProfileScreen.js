@@ -107,7 +107,7 @@ export class Headbar extends Component {
                         </View>
                     </View>
                 </View>
-            </View >
+            </View>
         )
     }
 }

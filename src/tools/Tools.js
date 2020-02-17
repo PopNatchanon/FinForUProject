@@ -1,14 +1,20 @@
+///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-    Dimensions, ScrollView, Text, TouchableOpacity, View,
+    Dimensions, Text, TouchableOpacity, View,
 } from 'react-native';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import stylesMain from '../../style/StylesMainScreen';
-import stylesFont from '../../style/stylesFont'
-import stylesTopic from '../../style/styleTopic';
-export const { width, height } = Dimensions.get('window');
+///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
-///----------------------------------------------------------------------------------------------->>>>
+export const { width, height } = Dimensions.get('window');
+///----------------------------------------------------------------------------------------------->>>> Icon
+import IconAntDesign from 'react-native-vector-icons/AntDesign';
+///----------------------------------------------------------------------------------------------->>>> Styles
+import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
+import stylesFont from '../../style/stylesFont';
+import stylesMain from '../../style/StylesMainScreen';
+///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+///----------------------------------------------------------------------------------------------->>>> Ip
+///----------------------------------------------------------------------------------------------->>>> Toolbar
 export class Toolbar extends Component {
     constructor(props) {
         super(props);
@@ -136,7 +142,7 @@ export class TabBar extends Component {
             noSpace, direction, alignBox, widthBox, spaceColor, fontColor, noLimit, limitBox, SetValue, fontSizeStyle, numberBox,
             NoSelectTab, tagBottom, numberOfLines
         } = this.props;
-        const { PassSetValue } = this.state
+        const { PassSetValue, pathlist } = this.state
         const countItem = item.length;
         PassSetValue < 1 ?
             SetValue ?
@@ -153,7 +159,7 @@ export class TabBar extends Component {
                 } onPress={() => {
                     NoSelectTab ?
                         (
-                            this.state.pathlist == index ?
+                            pathlist == index ?
                                 (
                                     this.setState({ pathlist: -1 }),
                                     this.props.sendData(-1)
@@ -169,7 +175,7 @@ export class TabBar extends Component {
                         );
                 }}>
                     {
-                        this.state.pathlist == index ?
+                        pathlist == index ?
                             <View style={{
                                 width:
                                     type == 'box' ?
@@ -295,7 +301,7 @@ export class TabBar extends Component {
                         item.subname ?
                             <View style={[stylesMain.ItemCenter, { width: '100%' }]}>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, {
-                                    borderBottomColor: tagBottom ? this.state.pathlist == index ? tagBottom : '#fff' : null,
+                                    borderBottomColor: tagBottom ? pathlist == index ? tagBottom : '#fff' : null,
                                     borderBottomWidth: tagBottom ? 4 : null,
                                     width: '90%', textAlign: 'center'
                                 }]}>
@@ -347,7 +353,7 @@ export class TabBar extends Component {
         )
     }
 }
-
+///----------------------------------------------------------------------------------------------->>>>
 export class GetServices extends Component {
     constructor(props) {
         super(props);
@@ -378,5 +384,65 @@ export class GetServices extends Component {
     }
     render() {
         return (<View></View>)
+    }
+}
+///----------------------------------------------------------------------------------------------->>>>
+export class GetCoupon extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+    setCoupon() {
+        const {
+            colorCoupon, couponText, textDetail, timeOut, useCoupon, flexRow, codeList
+        } = this.props
+        return (
+            <View style={[flexRow ? stylesDeal.Coupon_BOX2 : stylesDeal.Coupon_BOX, {
+                backgroundColor: codeList != 'available' ? '#C4C4C4' : null
+            }]}>
+                <View style={{
+                    opacity: codeList != 'available' ? 0.4 : null,
+                    flexDirection: 'row',
+                    justifyContent: flexRow ? null : 'flex-end',
+                    marginBottom: codeList != 'available' ? -70 : null,
+                }}>
+                    <View style={{ width: 92, height: 70, marginLeft: 8 }}>
+                        <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7,]}>{textDetail}</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>ใช้ได้ก่อน {timeOut ? timeOut : 'NaN'}</Text>
+                    </View>
+                    <View style={[flexRow ? stylesDeal.Coupon_BOX_A2 : stylesDeal.Coupon_BOX_A, { backgroundColor: colorCoupon ? colorCoupon : '#86CFFF', }]}>
+                        <View style={stylesDeal.Coupon_BOX_B}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>{couponText}</Text>
+                        </View>
+                        <TouchableOpacity>
+                            <View style={stylesDeal.Coupon_BOX_Text}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>{useCoupon ? 'ใช้โค้ด' : 'เก็บ'}</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                {
+                    codeList != 'available' ?
+                        <View style={{ backgroundColor: '#C1C1C1', opacity: 0.7, width: 169, height: 68 }}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical, {
+                                color: '#fff', textAlign: 'center'
+                            }]}>
+                                {
+                                    codeList == 'usedCode' ?
+                                        'ใช้แล้ว' :
+                                        'หมดอายุ'
+                                }
+                            </Text>
+                        </View> :
+                        null
+                }
+            </View >
+        )
+    }
+    render() {
+        return (
+            this.setCoupon()
+        )
     }
 }

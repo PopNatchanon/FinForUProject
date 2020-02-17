@@ -4,7 +4,6 @@ import {
     Animated, Dimensions, ImageBackground, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
-import axios from 'axios';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
@@ -18,7 +17,7 @@ import stylesMain from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar } from './MainScreen';
-import { GetServices, TabBar } from './tools/Tools';
+import { GetCoupon, GetServices, TabBar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -48,7 +47,6 @@ export default class StoreScreen extends Component {
                 id_store: item.id_store, name: item.name, image: item.image, image_path: item.image_path
             })
         })
-        console.log(s_item)
         return (
             <SafeAreaView style={[stylesMain.BackgroundAreaView, { height: '100%' }]}>
                 {
@@ -387,66 +385,9 @@ export class TicketLine extends Component {
         return (
             <View style={[stylesMain.FrameBackground, { padding: 8 }]}>
                 <ScrollView horizontal>
-                    <View>
-                        <ImageBackground
-                            source={require('../icon/BoxTicket.jpg')}
-                            style={stylesStore.TicketLineBox}
-                        >
-                            <View style={{ flexDirection: 'row' }}>
-                                <View>
-                                    <Text style={[stylesStore.TicketLineText, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                        ฿100.00</Text>
-                                    <Text style={[stylesStore.TicketLineText2, stylesFont.FontFamilyText, stylesFont.FontSize8]}>
-                                        ซื้อขั้นต่ำครบ ฿10,000.00</Text>
-                                </View>
-                                <View style={stylesStore.TicketLineButtom}>
-                                    <Text style={[stylesStore.TicketLineButtomText, stylesFont.FontFamilyText, stylesFont.FontSize8]}>
-                                        เก็บ</Text>
-                                </View>
-                            </View>
-                            <View style={stylesStore.TicketEnd}></View>
-                        </ImageBackground>
-                    </View>
-                    <View style={{ marginLeft: 12 }}>
-                        <ImageBackground
-                            source={require('../icon/BoxTicket.jpg')}
-                            style={stylesStore.TicketLineBox}
-                        >
-                            <View style={{ flexDirection: 'row' }}>
-                                <View>
-                                    <Text style={[stylesStore.TicketLineText, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                        ฿200.00</Text>
-                                    <Text style={[stylesStore.TicketLineText2, stylesFont.FontFamilyText, stylesFont.FontSize8]}>
-                                        ซื้อขั้นต่ำครบ ฿20,000.00</Text>
-                                </View>
-                                <View style={stylesStore.TicketLineButtom}>
-                                    <Text style={[stylesStore.TicketLineButtomText, stylesFont.FontFamilyText, stylesFont.FontSize8]}>
-                                        เก็บ</Text>
-                                </View>
-                            </View>
-                            <View style={stylesStore.TicketEnd}></View>
-                        </ImageBackground>
-                    </View>
-                    <View style={{ marginLeft: 12 }}>
-                        <ImageBackground
-                            source={require('../icon/BoxTicket.jpg')}
-                            style={stylesStore.TicketLineBox}
-                        >
-                            <View style={{ flexDirection: 'row' }}>
-                                <View>
-                                    <Text style={[stylesStore.TicketLineText, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                        ฿300.00</Text>
-                                    <Text style={[stylesStore.TicketLineText2, stylesFont.FontFamilyText, stylesFont.FontSize8]}>
-                                        ซื้อขั้นต่ำครบ ฿30,000.00</Text>
-                                </View>
-                                <View style={stylesStore.TicketLineButtom}>
-                                    <Text style={[stylesStore.TicketLineButtomText, stylesFont.FontFamilyText, stylesFont.FontSize8]}>
-                                        เก็บ</Text>
-                                </View>
-                            </View>
-                            <View style={stylesStore.TicketEnd}></View>
-                        </ImageBackground>
-                    </View>
+                    <GetCoupon colorCoupon='#86CFFF' timeOut={'31-01-2020'} couponText={'10%'} textDetail={'รับเงินคืน 10% Coins'} />
+                    <GetCoupon colorCoupon='#86CFFF' timeOut={'31-01-2020'} couponText={'25%'} textDetail={'รับเงินคืน 25% Coins'} />
+                    <GetCoupon colorCoupon='#86CFFF' timeOut={'31-01-2020'} couponText={'50%'} textDetail={'รับเงินคืน 50% Coins'} />
                 </ScrollView>
             </View>
         )

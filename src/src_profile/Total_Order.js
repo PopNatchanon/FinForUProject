@@ -1,50 +1,40 @@
+///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-    Image,
-    ImageBackground,
-    View,
-    ScrollView,
-    Text,
-    TextInput,
-    SafeAreaView,
-    TouchableOpacity,
-    Dimensions,
-    Picker,
+    Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
-import axios from 'axios';
-import FastImage from 'react-native-fast-image';
-import NumberFormat from 'react-number-format';
-import Icons from 'react-native-vector-icons/FontAwesome5';
-import IconFeather from 'react-native-vector-icons/Feather';
-import IconEntypo from 'react-native-vector-icons/Entypo';
+///----------------------------------------------------------------------------------------------->>>> Import
+export const { width, height } = Dimensions.get('window');
+///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import stylesPro from '../../style/stylesProfile-src/stylesProfile_Topic';
-import styleMain from '../../style/StylesMainScreen';
+import IconFeather from 'react-native-vector-icons/Feather';
+import Icons from 'react-native-vector-icons/FontAwesome5';
+///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../../style/stylesFont';
-import { ip } from '../../navigator/IpConfig';
-import { TabBar } from '../tools/Tools';
+import stylesMain from '../../style/StylesMainScreen';
+import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
+///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { Appbar } from './Profile_Topic';
-
+import { TabBar } from '../tools/Tools';
+///----------------------------------------------------------------------------------------------->>>> Ip
+///----------------------------------------------------------------------------------------------->>>> Main
 export default class Total_Order extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
         const selectedIndex = this.props.navigation.getParam('selectedIndex')
         return (
-            <SafeAreaView style={[styleMain.SafeAreaView, { height: 'auto' }]}>
+            <SafeAreaView style={[stylesMain.SafeAreaView, { height: 'auto' }]}>
                 <Appbar navigation={this.props.navigation} Title='การสั่งซื้อของฉัน' />
                 <Button_bar navigation={this.props.navigation} SetselectedIndex={selectedIndex} />
             </SafeAreaView>
         );
     }
 }
-
-///------------------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Button_bar
 export class Button_bar extends Component {
     constructor(props) {
         super(props);
@@ -72,7 +62,7 @@ export class Button_bar extends Component {
                     <View>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, marginTop: 10, }]}>ที่ต้องชำระ</Text>
                         <Order_Payment navigation={this.props.navigation} />
-                        <Order_Payment navigation={this.props.navigation}/>
+                        <Order_Payment navigation={this.props.navigation} />
                     </View>
                 )
             case 2:
@@ -112,8 +102,8 @@ export class Button_bar extends Component {
             name: 'สำเร็จแล้ว'
         }]
         return (
-            <View style={styleMain.SafeAreaView}>
-                <View style={stylesPro.Button_bar}>
+            <View style={stylesMain.SafeAreaView}>
+                <View style={stylesProfileTopic.Button_bar}>
                     <ScrollView horizontal>
                         <TabBar
                             sendData={this.updateIndex}
@@ -134,40 +124,37 @@ export class Button_bar extends Component {
         );
     }
 }
-
-///------------------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Order
 export class Order extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
         return (
-            <View style={styleMain.FrameBackground}>
-                <View style={stylesPro.Order_BoxStore}>
-                    <View style={stylesPro.Order_StorePro}></View>
+            <View style={stylesMain.FrameBackground}>
+                <View style={stylesProfileTopic.Order_BoxStore}>
+                    <View style={stylesProfileTopic.Order_StorePro}></View>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5, }]}>PPoo</Text>
-                    <View style={stylesPro.Order_Box_Button}>
+                    <View style={stylesProfileTopic.Order_Box_Button}>
                         <TouchableOpacity>
-                            <View style={[stylesPro.Order_Button, { backgroundColor: '#0A55A6' }]}>
+                            <View style={[stylesProfileTopic.Order_Button, { backgroundColor: '#0A55A6' }]}>
                                 <IconAntDesign RightItem name="wechat" size={25} color='#FFFFFF' />
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>แชทเลย</Text>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity>
-                            <View style={[stylesPro.Order_Button, { borderWidth: 1 }]}>
+                            <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1 }]}>
                                 <Icons RightItem name="store" size={20} />
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูร้านค้า</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
                 </View>
-                <View style={stylesPro.Order_Product}>
-                    <View style={styleMain.FlexRow}>
-                        <View style={stylesPro.Order_Product_Pro}></View>
+                <View style={stylesProfileTopic.Order_Product}>
+                    <View style={stylesMain.FlexRow}>
+                        <View style={stylesProfileTopic.Order_Product_Pro}></View>
                         <View style={{ marginTop: 10 }}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A2A2A2' }]}>ตัวเลือกสินค้า:สีแดง</Text>
@@ -176,59 +163,55 @@ export class Order extends Component {
                     </View>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#0A55A6', marginTop: 10, }]}>฿10,000.00</Text>
                 </View>
-                <View style={stylesPro.Order_Box_price}>
-                    <View style={stylesPro.Order_Box_priceText}>
+                <View style={stylesProfileTopic.Order_Box_price}>
+                    <View style={stylesProfileTopic.Order_Box_priceText}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยอดคำสั่งซื้อทั้งหมด</Text>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, color: '#0A55A6' }]}>฿ 10,000.00</Text>
                     </View>
-                    <View style={[stylesPro.Order_Box_priceText, { marginTop: 5, }]}>
+                    <View style={[stylesProfileTopic.Order_Box_priceText, { marginTop: 5, }]}>
                         <TouchableOpacity>
-                            <View style={[stylesPro.Order_Button, { backgroundColor: '#0A55A6' }]}>
+                            <View style={[stylesProfileTopic.Order_Button, { backgroundColor: '#0A55A6' }]}>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ซื้ออีกครั้ง</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
                 </View>
             </View>
-
         );
     }
 }
-
-///------------------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Order_Payment
 export class Order_Payment extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
         return (
             <View>
-                <View style={styleMain.FrameBackground}>
-                    <View style={stylesPro.Order_BoxStore}>
-                        <View style={stylesPro.Order_StorePro}></View>
+                <View style={stylesMain.FrameBackground}>
+                    <View style={stylesProfileTopic.Order_BoxStore}>
+                        <View style={stylesProfileTopic.Order_StorePro}></View>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5, }]}>PPoo</Text>
-                        <View style={stylesPro.Order_Box_Button}>
+                        <View style={stylesProfileTopic.Order_Box_Button}>
                             <TouchableOpacity>
-                                <View style={[stylesPro.Order_Button, { backgroundColor: '#0A55A6' }]}>
+                                <View style={[stylesProfileTopic.Order_Button, { backgroundColor: '#0A55A6' }]}>
                                     <IconAntDesign RightItem name="wechat" size={25} color='#FFFFFF' />
                                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>แชทเลย</Text>
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity>
-                                <View style={[stylesPro.Order_Button, { borderWidth: 1 }]}>
+                                <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1 }]}>
                                     <Icons RightItem name="store" size={20} />
                                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูร้านค้า</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <View style={stylesPro.Order_Product}>
-                        <View style={styleMain.FlexRow}>
-                            <View style={stylesPro.Order_Product_Pro}></View>
+                    <View style={stylesProfileTopic.Order_Product}>
+                        <View style={stylesMain.FlexRow}>
+                            <View style={stylesProfileTopic.Order_Product_Pro}></View>
                             <View style={{ marginTop: 10 }}>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A2A2A2' }]}>ตัวเลือกสินค้า:สีแดง</Text>
@@ -237,19 +220,19 @@ export class Order_Payment extends Component {
                         </View>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#0A55A6', marginTop: 10, }]}>฿10,000.00</Text>
                     </View>
-                    <View style={stylesPro.Order_Box_price}>
-                        <View style={stylesPro.Order_Box_priceText}>
+                    <View style={stylesProfileTopic.Order_Box_price}>
+                        <View style={stylesProfileTopic.Order_Box_priceText}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยอดคำสั่งซื้อทั้งหมด</Text>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, color: '#0A55A6' }]}>฿ 10,000.00</Text>
                         </View>
-                        <View style={[stylesPro.Order_Box_priceText, { marginTop: 5, }]}>
+                        <View style={[stylesProfileTopic.Order_Box_priceText, { marginTop: 5, }]}>
                             <TouchableOpacity>
-                                <View style={[stylesPro.Order_Button, { backgroundColor: '#0A55A6' }]}>
+                                <View style={[stylesProfileTopic.Order_Button, { backgroundColor: '#0A55A6' }]}>
                                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ดำเนินการชำระเงิน</Text>
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={()=> this.props.navigation.navigate('CancelScreen',{selectedIndex:1})}>
-                                <View style={[stylesPro.Order_Button, { borderWidth: 1, }]}>
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('CancelScreen', { selectedIndex: 1 })}>
+                                <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
                                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยกเลิกสินค้า</Text>
                                 </View>
                             </TouchableOpacity>
@@ -260,31 +243,29 @@ export class Order_Payment extends Component {
         );
     }
 }
-///------------------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Order_Sending
 export class Order_Sending extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
         return (
-            <View style={styleMain.FrameBackground}>
-                <View style={[stylesPro.Order_BoxStore, { justifyContent: 'space-between' }]}>
-                    <View style={styleMain.FlexRow}>
-                        <View style={stylesPro.Order_StorePro}></View>
+            <View style={stylesMain.FrameBackground}>
+                <View style={[stylesProfileTopic.Order_BoxStore, { justifyContent: 'space-between' }]}>
+                    <View style={stylesMain.FlexRow}>
+                        <View style={stylesProfileTopic.Order_StorePro}></View>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5, }]}>PPoo</Text>
-                        <View style={stylesPro.Order_Box_Button}>
+                        <View style={stylesProfileTopic.Order_Box_Button}>
                             <TouchableOpacity>
-                                <View style={[stylesPro.Order_Button, { backgroundColor: '#0A55A6' }]}>
+                                <View style={[stylesProfileTopic.Order_Button, { backgroundColor: '#0A55A6' }]}>
                                     <IconAntDesign RightItem name="wechat" size={25} color='#FFFFFF' />
                                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>แชทเลย</Text>
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity>
-                                <View style={[stylesPro.Order_Button, { borderWidth: 1 }]}>
+                                <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1 }]}>
                                     <Icons RightItem name="store" size={20} />
                                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูร้านค้า</Text>
                                 </View>
@@ -292,9 +273,9 @@ export class Order_Sending extends Component {
                         </View>
                     </View>
                 </View>
-                <View style={stylesPro.Order_Product}>
-                    <View style={styleMain.FlexRow}>
-                        <View style={stylesPro.Order_Product_Pro}></View>
+                <View style={stylesProfileTopic.Order_Product}>
+                    <View style={stylesMain.FlexRow}>
+                        <View style={stylesProfileTopic.Order_Product_Pro}></View>
                         <View style={{ marginTop: 10 }}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A2A2A2' }]}>ตัวเลือกสินค้า:สีแดง</Text>
@@ -303,14 +284,15 @@ export class Order_Sending extends Component {
                     </View>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#0A55A6', marginTop: 10, }]}>฿10,000.00</Text>
                 </View>
-                <View style={stylesPro.Order_Box_price}>
-                    <View style={stylesPro.Order_Box_priceText}>
+                <View style={stylesProfileTopic.Order_Box_price}>
+                    <View style={stylesProfileTopic.Order_Box_priceText}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยอดคำสั่งซื้อทั้งหมด</Text>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, color: '#0A55A6' }]}>฿ 10,000.00</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, color: '#0A55A6' }]}>
+                            ฿ 10,000.00</Text>
                     </View>
-                    <View style={[stylesPro.Order_Box_priceText, { marginTop: 5, }]}>
+                    <View style={[stylesProfileTopic.Order_Box_priceText, { marginTop: 5, }]}>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('Order_Detail')}>
-                            <View style={[stylesPro.Order_Button, { borderWidth: 1, }]}>
+                            <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
                             </View>
                         </TouchableOpacity>
@@ -320,35 +302,29 @@ export class Order_Sending extends Component {
         );
     }
 }
-
-
-
-
-///------------------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Order_Get
 export class Order_Get extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
         return (
-            <View style={styleMain.FrameBackground}>
-                <View style={[stylesPro.Order_BoxStore, { justifyContent: 'space-between' }]}>
-                    <View style={styleMain.FlexRow}>
-                        <View style={stylesPro.Order_StorePro}></View>
+            <View style={stylesMain.FrameBackground}>
+                <View style={[stylesProfileTopic.Order_BoxStore, { justifyContent: 'space-between' }]}>
+                    <View style={stylesMain.FlexRow}>
+                        <View style={stylesProfileTopic.Order_StorePro}></View>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5, }]}>PPoo</Text>
-                        <View style={stylesPro.Order_Box_Button}>
+                        <View style={stylesProfileTopic.Order_Box_Button}>
                             <TouchableOpacity>
-                                <View style={[stylesPro.Order_Button, { backgroundColor: '#0A55A6' }]}>
+                                <View style={[stylesProfileTopic.Order_Button, { backgroundColor: '#0A55A6' }]}>
                                     <IconAntDesign RightItem name="wechat" size={25} color='#FFFFFF' />
                                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>แชทเลย</Text>
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity>
-                                <View style={[stylesPro.Order_Button, { borderWidth: 1 }]}>
+                                <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1 }]}>
                                     <Icons RightItem name="store" size={20} />
                                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูร้านค้า</Text>
                                 </View>
@@ -357,9 +333,9 @@ export class Order_Get extends Component {
                     </View>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#20BDA1', marginTop: 10, }]}>กำลังจัดส่ง</Text>
                 </View>
-                <View style={stylesPro.Order_Product}>
-                    <View style={styleMain.FlexRow}>
-                        <View style={stylesPro.Order_Product_Pro}></View>
+                <View style={stylesProfileTopic.Order_Product}>
+                    <View style={stylesMain.FlexRow}>
+                        <View style={stylesProfileTopic.Order_Product_Pro}></View>
                         <View style={{ marginTop: 10 }}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A2A2A2' }]}>ตัวเลือกสินค้า:สีแดง</Text>
@@ -368,14 +344,15 @@ export class Order_Get extends Component {
                     </View>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#0A55A6', marginTop: 10, }]}>฿10,000.00</Text>
                 </View>
-                <View style={stylesPro.Order_Box_price}>
-                    <View style={stylesPro.Order_Box_priceText}>
+                <View style={stylesProfileTopic.Order_Box_price}>
+                    <View style={stylesProfileTopic.Order_Box_priceText}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยอดคำสั่งซื้อทั้งหมด</Text>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, color: '#0A55A6' }]}>฿ 10,000.00</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, color: '#0A55A6' }]}>
+                            ฿ 10,000.00</Text>
                     </View>
-                    <View style={[stylesPro.Order_Box_priceText, { marginTop: 5, }]}>
+                    <View style={[stylesProfileTopic.Order_Box_priceText, { marginTop: 5, }]}>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('Order_Detail')}>
-                            <View style={[stylesPro.Order_Button, { borderWidth: 1, }]}>
+                            <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
                             </View>
                         </TouchableOpacity>
@@ -385,32 +362,29 @@ export class Order_Get extends Component {
         );
     }
 }
-
-///------------------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Order_Already
 export class Order_Already extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
         return (
-            <View style={styleMain.FrameBackground}>
-                <View style={[stylesPro.Order_BoxStore, { justifyContent: 'space-between' }]}>
-                    <View style={styleMain.FlexRow}>
-                        <View style={stylesPro.Order_StorePro}></View>
+            <View style={stylesMain.FrameBackground}>
+                <View style={[stylesProfileTopic.Order_BoxStore, { justifyContent: 'space-between' }]}>
+                    <View style={stylesMain.FlexRow}>
+                        <View style={stylesProfileTopic.Order_StorePro}></View>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5, }]}>PPoo</Text>
-                        <View style={stylesPro.Order_Box_Button}>
+                        <View style={stylesProfileTopic.Order_Box_Button}>
                             <TouchableOpacity>
-                                <View style={[stylesPro.Order_Button, { backgroundColor: '#0A55A6' }]}>
+                                <View style={[stylesProfileTopic.Order_Button, { backgroundColor: '#0A55A6' }]}>
                                     <IconAntDesign RightItem name="wechat" size={25} color='#FFFFFF' />
                                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>แชทเลย</Text>
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity>
-                                <View style={[stylesPro.Order_Button, { borderWidth: 1 }]}>
+                                <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1 }]}>
                                     <Icons RightItem name="store" size={20} />
                                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูร้านค้า</Text>
                                 </View>
@@ -422,9 +396,9 @@ export class Order_Already extends Component {
                         เขียนรีวิว
                     </Text>
                 </View>
-                <View style={stylesPro.Order_Product}>
-                    <View style={styleMain.FlexRow}>
-                        <View style={stylesPro.Order_Product_Pro}></View>
+                <View style={stylesProfileTopic.Order_Product}>
+                    <View style={stylesMain.FlexRow}>
+                        <View style={stylesProfileTopic.Order_Product_Pro}></View>
                         <View style={{ marginTop: 10 }}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A2A2A2' }]}>ตัวเลือกสินค้า:สีแดง</Text>
@@ -433,19 +407,20 @@ export class Order_Already extends Component {
                     </View>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#0A55A6', marginTop: 10, }]}>฿10,000.00</Text>
                 </View>
-                <View style={stylesPro.Order_Box_price}>
-                    <View style={stylesPro.Order_Box_priceText}>
+                <View style={stylesProfileTopic.Order_Box_price}>
+                    <View style={stylesProfileTopic.Order_Box_priceText}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยอดคำสั่งซื้อทั้งหมด</Text>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, color: '#0A55A6' }]}>฿ 10,000.00</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, color: '#0A55A6' }]}>
+                            ฿ 10,000.00</Text>
                     </View>
-                    <View style={[stylesPro.Order_Box_priceText, { marginTop: 5, }]}>
-                        <TouchableOpacity  onPress={() => this.props.navigation.navigate('Return_products',{selectedIndex:1})}>
+                    <View style={[stylesProfileTopic.Order_Box_priceText, { marginTop: 5, }]}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Return_products', { selectedIndex: 1 })}>
                             <View style={{ borderBottomColor: '#0A55A6', borderBottomWidth: 1, height: 20, }}>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>ส่งคำร้องคืนสินค้า</Text>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('Order_Detail')}>
-                            <View style={[stylesPro.Order_Button, { borderWidth: 1, }]}>
+                            <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
                             </View>
                         </TouchableOpacity>
@@ -455,4 +430,3 @@ export class Order_Already extends Component {
         );
     }
 }
-

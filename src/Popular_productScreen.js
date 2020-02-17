@@ -19,19 +19,39 @@ export default class Popular_productScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            id_item: null,
         };
+        this.getData = this.getData.bind(this)
+    }
+    getData(id_item) {
+        this.setState({ id_item })
     }
     render() {
         const { navigation } = this.props
-        var id_item = navigation.getParam('id_item')
+        const { id_item } = this.state
+        var loadData = navigation.getParam('loadData')
+        var dataArray = {}
+        dataArray[0] = loadData.product_hit
+        dataArray[1] = loadData.best_price
+        dataArray[2] = loadData.best_sale
+        dataArray[3] = loadData.best_cool
+        id_item == null ?
+            this.setState({ id_item: navigation.getParam('id_item') }) :
+            null
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
                 <AppBar1 backArrow navigation={navigation} titleHead='สินค้ายอดนิยม' />
-                <ScrollView>
-                    <Slide />
-                    <Button_Bar id_item={id_item} />
-                    <TodayProduct noTitle />
-                </ScrollView>
+                {
+                    id_item != null ?
+                        <ScrollView>
+                            <Slide />
+                            <Button_Bar id_item={id_item} getData={this.getData} />
+                            <TodayProduct loadData={dataArray[id_item]} noTitle />
+                        </ScrollView> :
+                        <ScrollView>
+                            <Slide />
+                        </ScrollView>
+                }
             </SafeAreaView>
         );
     }
@@ -47,6 +67,7 @@ export class Button_Bar extends Component {
     }
     updateIndex(selectedIndex) {
         this.setState({ selectedIndex })
+        this.props.getData(selectedIndex)
     }
 
     render() {
@@ -74,6 +95,3 @@ export class Button_Bar extends Component {
         );
     }
 }
-
-///-------------------------------------------------------------------------------///
-

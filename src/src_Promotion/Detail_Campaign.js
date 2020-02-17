@@ -1,26 +1,26 @@
-import React, { Component, PureComponent } from 'react';
+///----------------------------------------------------------------------------------------------->>>> React
+import React, { Component } from 'react';
 import {
-    View,
-    ImageBackground,
-    ScrollView,
-    Text,
-    TextInput,
-    SafeAreaView,
-    TouchableOpacity,
-    Dimensions,
+    Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
+///----------------------------------------------------------------------------------------------->>>> Import
 import axios from 'axios';
+export const { width, height } = Dimensions.get('window');
+import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
-import styleMain from '../../style/StylesMainScreen';
+///----------------------------------------------------------------------------------------------->>>> Icon
+///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../../style/stylesFont';
-import { finip, ip } from '../../navigator/IpConfig';
-import FastImage from 'react-native-fast-image';
-import { Store_Sale } from './The_BestFinScreen';
+import stylesMain from '../../style/StylesMainScreen';
+///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, Slide, TodayProduct, } from '../MainScreen';
 import { Button_Bar } from '../HighlightScreen';
-export const { width, height } = Dimensions.get('window');
-
+import { Store_Sale } from './The_BestFinScreen';
+import { GetCoupon, GetServices } from '../tools/Tools';
+///----------------------------------------------------------------------------------------------->>>> Ip
+import { finip, ip } from '../../navigator/IpConfig';
+///----------------------------------------------------------------------------------------------->>>> Main
 export default class Detail_Campaign extends Component {
     constructor(props) {
         super(props);
@@ -32,7 +32,7 @@ export default class Detail_Campaign extends Component {
         switch (selectedIndex) {
             case 0:
                 return (
-                    <SafeAreaView style={styleMain.SafeAreaView}>
+                    <SafeAreaView style={stylesMain.SafeAreaView}>
                         <AppBar1 titleHead={'โปรโมชั่น'} backArrow searchBar chatBar navigation={this.props.navigation} />
                         <Detail_Campaign_main navigation={this.props.navigation} />
                     </SafeAreaView>
@@ -46,27 +46,21 @@ export default class Detail_Campaign extends Component {
                 )
         }
     }
-
     render() {
         return (
             <View style={{ flex: 1 }}>
                 {this.PathList()}
             </View>
-
-
         );
     }
 }
-
-///-------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Detail_Campaign_main
 export class Detail_Campaign_main extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
         return (
             <View>
@@ -82,16 +76,13 @@ export class Detail_Campaign_main extends Component {
         );
     }
 }
-
-///-------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Head_Image
 export class Head_Image extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
         return (
             <View>
@@ -106,40 +97,20 @@ export class Head_Image extends Component {
         );
     }
 }
-
-///-------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Cate_Campaign
 export class Cate_Campaign extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataSourcetype: [],
+            dataService: [],
         };
+        this.getData = this.getData.bind(this)
     }
-    getDatatype = async () => {
-        fetch([finip, 'home/category_mobile'].join('/'), {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-        })
-            .then((response) => response.json())
-            .then((responseJson) => {
-                // console.log(responseJson);
-                this.setState({
-                    dataSourcetype: responseJson,
-                })
-            })
-            .catch((error) => {
-                console.error(error);
-            })
+    getData(dataService) {
+        this.setState({ dataService })
     }
-    componentDidMount() {
-        this.getDatatype()
-    }
-    render() {
-        let dataCategory = this.state.dataSourcetype.map((item, indexs) => {
+    dataCategory() {
+        this.state.dataService.map((item, indexs) => {
             var dataMySQL = [finip, item.image_path, 'menu', item.image_head].join('/');
             return (
                 <View style={stylesDeal.Cate_Campaign} key={indexs}>
@@ -155,29 +126,28 @@ export class Cate_Campaign extends Component {
                 </View>
             )
         })
+    }
+    render() {
+        var uri = finip + '/home/category_mobile'
         return (
             <View>
+                <GetServices uriPointer={uri} getDataSource={this.getData} />
                 <View style={stylesDeal.Cate_CampaignBox}>
                     <View style={stylesDeal.Cate_CampaignBoxA}>
-                        {dataCategory}
+                        {this.dataCategory()}
                     </View>
-
                 </View>
             </View>
-
         );
     }
 }
-
-///-------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Code_New_year
 export class Code_New_year extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
         return (
             <View style={stylesDeal.Code_New_year}>
@@ -187,70 +157,12 @@ export class Code_New_year extends Component {
                 <View style={stylesDeal.Coupon_Store_Box}>
                     <ScrollView horizontal>
                         <View style={stylesDeal.Deal_Today_BoxImage}>
-                            <View style={stylesDeal.Coupon_BOX}>
-                                <View style={{ margin: 10 }}>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7,]}>รับเงินคืน 50% Coins</Text>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>ใช้ได้ก่อน 31-01-2020</Text>
-                                </View>
-                                <View style={[stylesDeal.Coupon_BOX_A, { backgroundColor: '#86CFFF', }]}>
-                                    <View style={stylesDeal.Coupon_BOX_B}>
-                                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>50%</Text>
-                                    </View>
-                                    <TouchableOpacity>
-                                        <View style={stylesDeal.Coupon_BOX_Text}>
-                                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เก็บ</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                            <View style={stylesDeal.Coupon_BOX}>
-                                <View style={{ margin: 10 }}>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7,]}>รับเงินคืน 50% Coins</Text>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>ใช้ได้ก่อน 31-01-2020</Text>
-                                </View>
-                                <View style={[stylesDeal.Coupon_BOX_A, { backgroundColor: '#86CFFF', }]}>
-                                    <View style={stylesDeal.Coupon_BOX_B}>
-                                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>50%</Text>
-                                    </View>
-                                    <TouchableOpacity>
-                                        <View style={stylesDeal.Coupon_BOX_Text}>
-                                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เก็บ</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                            <View style={stylesDeal.Coupon_BOX}>
-                                <View style={{ margin: 10 }}>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7,]}>รับเงินคืน 50% Coins</Text>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>ใช้ได้ก่อน 31-01-2020</Text>
-                                </View>
-                                <View style={[stylesDeal.Coupon_BOX_A, { backgroundColor: '#86CFFF', }]}>
-                                    <View style={stylesDeal.Coupon_BOX_B}>
-                                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>50%</Text>
-                                    </View>
-                                    <TouchableOpacity>
-                                        <View style={stylesDeal.Coupon_BOX_Text}>
-                                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เก็บ</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                            <View style={stylesDeal.Coupon_BOX}>
-                                <View style={{ margin: 10 }}>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7,]}>รับเงินคืน 50% Coins</Text>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>ใช้ได้ก่อน 31-01-2020</Text>
-                                </View>
-                                <View style={[stylesDeal.Coupon_BOX_A, { backgroundColor: '#86CFFF', }]}>
-                                    <View style={stylesDeal.Coupon_BOX_B}>
-                                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>50%</Text>
-                                    </View>
-                                    <TouchableOpacity>
-                                        <View style={stylesDeal.Coupon_BOX_Text}>
-                                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เก็บ</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
+                            <GetCoupon colorCoupon='#86CFFF' codeList='available' timeOut={'31-01-2020'} couponText={'10%'} textDetail={'รับเงินคืน 10% Coins'} />
+                            <GetCoupon colorCoupon='#86CFFF' codeList='available' timeOut={'31-01-2020'} couponText={'25%'} textDetail={'รับเงินคืน 25% Coins'} />
+                            <GetCoupon colorCoupon='#86CFFF' codeList='available' timeOut={'31-01-2020'} couponText={'50%'} textDetail={'รับเงินคืน 50% Coins'} />
+                            <GetCoupon colorCoupon='#86CFFF' codeList='available' timeOut={'31-01-2020'} couponText={'10%'} textDetail={'รับเงินคืน 10% Coins'} />
+                            <GetCoupon colorCoupon='#86CFFF' codeList='available' timeOut={'31-01-2020'} couponText={'25%'} textDetail={'รับเงินคืน 25% Coins'} />
+                            <GetCoupon colorCoupon='#86CFFF' codeList='available' timeOut={'31-01-2020'} couponText={'50%'} textDetail={'รับเงินคืน 50% Coins'} />
                         </View>
                     </ScrollView>
                 </View>
@@ -261,42 +173,23 @@ export class Code_New_year extends Component {
                    </Text>
                 </View>
             </View>
-
         );
     }
 }
-
-///-------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> New_year_NewA
 export class New_year_NewA extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataSale: [],
+            dataService: [],
         };
+        this.getData = this.getData.bind(this)
     }
-
-    getFlashSale() {
-        var url = ip + '/mysql/DataServiceMain.php';
-        var dataBody = {
-            type: 'product'
-        };
-        axios.post(
-            url,
-            dataBody,
-        ).then((getData) => {
-            this.setState({
-                dataSale: getData.data,
-            })
-        })
+    getData(dataService) {
+        this.setState({ dataService })
     }
-
-    componentDidMount() {
-        this.getFlashSale();
-    }
-
-    render() {
-        let dataFlashSale = this.state.dataSale.map((item, indexs) => {
+    dataFlashSale() {
+        return this.state.dataService.map((item, indexs) => {
             var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
             return (
                 <TouchableOpacity
@@ -310,46 +203,65 @@ export class New_year_NewA extends Component {
                     }
                 >
                     <View style={stylesDeal.New_year_NewProduct_Box}>
-                        <View style={styleMain.BoxProduct1ImageofLines}>
-
+                        <View style={stylesMain.BoxProduct1ImageofLines2}>
                             <FastImage
                                 source={{
                                     uri: dataMySQL,
                                 }}
-                                style={[styleMain.BoxProduct1Image, { marginLeft: 10, }]}
+                                style={[stylesMain.BoxProduct1Image, { marginLeft: 10, }]}
                             />
                         </View>
-                        <Text style={[styleMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize7]}>{item.name}</Text>
-                        <NumberFormat
-                            value={item.full_price}
-                            displayType={'text'}
-                            thousandSeparator={true}
-                            prefix={'฿'}
-                            renderText={
-                                value => <Text style={[styleMain.BoxProduct1ImagePrice, stylesFont.FontSize8, stylesFont.FontFamilyText]}>
-                                    {value}
-                                </Text>}
-                        />
+                        <View style={{ height: 60, paddingHorizontal: 3 }}>
+                            <View style={[stylesMain.BoxProduct1NameofLines]}>
+                                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize7]}>
+                                    {item.name}</Text>
+                            </View>
+                            <View style={[stylesMain.BoxProduct1PriceofLines, stylesMain.FlexRow]}>
+                                <NumberFormat
+                                    value={item.full_price}
+                                    displayType={'text'}
+                                    thousandSeparator={true}
+                                    prefix={'฿'}
+                                    renderText={value =>
+                                        <Text style={[
+                                            stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyBold,
+                                        ]}>
+                                            {value + ' '}</Text>
+                                    }
+                                />
+                            </View>
+                        </View>
                     </View>
                 </TouchableOpacity>
             );
         })
+    }
+    render() {
+        var uri = ip + '/mysql/DataServiceMain.php';
+        var dataBody = {
+            type: 'product'
+        };
         return (
             <View style={stylesDeal.New_year_New}>
+                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
                 <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginTop: 10, }]}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>  ปีใหม่ ช๊อปของใหม่</Text>
                 </View>
                 <View>
                     <View >
                         <View style={stylesDeal.New_year_NewBoxText_Head}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>2020 New Collection ราคา 2,020.-</Text>
-                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Detail_Campaign', { selectedIndex: 1 })}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { textAlign: 'right', color: '#FFFFFF' }]}>ดูทั้งหมด</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>
+                                2020 New Collection ราคา 2,020.-</Text>
+                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Detail_Campaign', {
+                                selectedIndex: 1
+                            })}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { textAlign: 'right', color: '#FFFFFF' }]}>
+                                    ดูทั้งหมด</Text>
                             </TouchableOpacity>
                         </View>
                         <View>
                             <View style={[stylesDeal.New_year_NewProduct]}>
-                                {dataFlashSale}
+                                {this.dataFlashSale()}
                             </View>
                         </View>
                     </View>
@@ -358,37 +270,20 @@ export class New_year_NewA extends Component {
         );
     }
 }
-
-///-------------------------------------------------------------------------///
+///----------------------------------------------------------------------------------------------->>>> New_year_NewB
 export class New_year_NewB extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataSale: [],
+            dataService: [],
         };
+        this.getData = this.getData.bind(this)
     }
-
-    getFlashSale() {
-        var url = ip + '/mysql/DataServiceMain.php';
-        var dataBody = {
-            type: 'product'
-        };
-        axios.post(
-            url,
-            dataBody,
-        ).then((getData) => {
-            this.setState({
-                dataSale: getData.data,
-            })
-        })
+    getData(dataService) {
+        this.setState({ dataService })
     }
-
-    componentDidMount() {
-        this.getFlashSale();
-    }
-
-    render() {
-        let dataFlashSale = this.state.dataSale.map((item, indexs) => {
+    dataFlashSale() {
+        return this.state.dataService.map((item, indexs) => {
             var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
             return (
                 <TouchableOpacity
@@ -402,43 +297,54 @@ export class New_year_NewB extends Component {
                     }
                 >
                     <View style={stylesDeal.New_year_NewProduct_Box}>
-                        <View style={styleMain.BoxProduct1ImageofLines}>
-
+                        <View style={stylesMain.BoxProduct1ImageofLines}>
                             <FastImage
                                 source={{
                                     uri: dataMySQL,
                                 }}
-                                style={[styleMain.BoxProduct1Image, { marginLeft: 10, }]}
+                                style={[stylesMain.BoxProduct1Image, { marginLeft: 10, }]}
                             />
                         </View>
-                        <Text style={[styleMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize7]}>{item.name}</Text>
+                        <Text style={[stylesMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize7]}>{item.name}</Text>
                         <NumberFormat
                             value={item.full_price}
                             displayType={'text'}
                             thousandSeparator={true}
                             prefix={'฿'}
                             renderText={
-                                value => <Text style={[styleMain.BoxProduct1ImagePrice, stylesFont.FontSize8, stylesFont.FontFamilyText]}>
+                                value => <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize8, stylesFont.FontFamilyText]}>
                                     {value}
-                                </Text>}
+                                </Text>
+                            }
                         />
                     </View>
                 </TouchableOpacity>
             );
         })
+    }
+    render() {
+        var uri = ip + '/mysql/DataServiceMain.php';
+        var dataBody = {
+            type: 'product'
+        };
         return (
             <View style={stylesDeal.New_year_New}>
+                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
                 <View>
                     <View >
                         <View style={stylesDeal.New_year_NewBoxText_Head}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>ปีใหม่แล้วไปลองของใหม่ดิ</Text>
-                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Detail_Campaign', { selectedIndex: 1 })}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { textAlign: 'right', color: '#FFFFFF' }]}>ดูทั้งหมด</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}
+                            >ปีใหม่แล้วไปลองของใหม่ดิ</Text>
+                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Detail_Campaign', {
+                                selectedIndex: 1
+                            })}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { textAlign: 'right', color: '#FFFFFF' }]}>
+                                    ดูทั้งหมด</Text>
                             </TouchableOpacity>
                         </View>
                         <View>
                             <View style={[stylesDeal.New_year_NewProduct]}>
-                                {dataFlashSale}
+                                {this.dataFlashSale()}
                             </View>
                         </View>
                     </View>
@@ -447,22 +353,20 @@ export class New_year_NewB extends Component {
         );
     }
 }
-
-///-------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Detail_Campaign_New_year
 export class Detail_Campaign_New_year extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
         return (
             <View>
                 <Slide />
                 <View style={stylesDeal.New_year_NewBoxText_Head}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>2020 New Collection ราคา 2,020.-</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>
+                        2020 New Collection ราคา 2,020.-</Text>
                 </View>
                 <Button_Bar />
                 <ScrollView>

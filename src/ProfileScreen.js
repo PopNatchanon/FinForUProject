@@ -20,7 +20,7 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesProfile from '../style/StylesProfileScreen'
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { GetServices, TabBar, Toolbar } from './tools/Tools';
+import { GetCoupon, TabBar, Toolbar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -41,7 +41,7 @@ export default class StoreScreen extends Component {
     render() {
         const { currentUser } = this.state;
         return (
-            <SafeAreaView style={[stylesMain.SafeAreaViewNoBackground, stylesMain.BackgroundAreaView]}>
+            <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                 <ScrollView>
                     <View>
                         <Headbar navigation={this.props.navigation} currentUser={currentUser} />
@@ -416,7 +416,15 @@ export class ViewCode extends Component {
         switch (pathlist) {
             case 0:
                 return (
-                    <MyCode />
+                    <MyCode codeList={'available'} />
+                )
+            case 1:
+                return (
+                    <MyCode codeList={'usedCode'} />
+                )
+            case 2:
+                return (
+                    <MyCode codeList={'timeOut'} />
                 )
         }
     }
@@ -462,101 +470,122 @@ export class MyCode extends Component {
     }
     render() {
         const { text } = this.state
+        const { codeList } = this.props
         return (
-            <View>
-                <View style={stylesProfile.ViewCode}>
-                    <View style={stylesMain.FlexRow}>
-                        <View style={[stylesMain.ItemCenter, { width: '70%', }]}>
-                            <TextInput
-                                placeholder="ใส่โค้ดส่วนลด"
-                                value={text}
-                                maxLength={9}
-                                width={'90%'}
-                                placeholderTextColor={'white'}
-                                style={[stylesProfile.ViewCodeInputCode, stylesFont.FontSize6]}
-                                onChangeText={(text) => this.setState({ text })}
-                            ></TextInput>
-                        </View>
-                        <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
-                            <View style={[stylesProfile.ViewCodeTextCode]}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#FFF' }]}>
-                                    เก็บโค้ดส่วนลด</Text>
+            codeList == 'available' ?
+                <View>
+                    <View style={stylesProfile.ViewCode}>
+                        <View style={stylesMain.FlexRow}>
+                            <View style={[stylesMain.ItemCenter, { width: '70%', }]}>
+                                <TextInput
+                                    placeholder="ใส่โค้ดส่วนลด"
+                                    value={text}
+                                    maxLength={9}
+                                    width={'90%'}
+                                    placeholderTextColor={'white'}
+                                    style={[stylesProfile.ViewCodeInputCode, stylesFont.FontSize6]}
+                                    onChangeText={(text) => this.setState({ text })}
+                                ></TextInput>
                             </View>
-                        </View>
-                    </View>
-                </View>
-                <View style={stylesMain.ItemCenter}>
-                    <View style={stylesProfile.FinMinssion}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { paddingLeft: 20, padding: 2 }]}>
-                            FIN Mission</Text>
-                    </View>
-                    <View style={stylesProfile.FinMinssionBox}>
-                        <View style={[stylesMain.FlexRow, stylesProfile.FinMinssionBoxPlan1]}>
-                            <FastImage
-                                style={stylesProfile.FinMinssionBoxPlan1Image}
-                            />
-                            <View style={{ marginLeft: 16 }}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>
-                                    ติดตาม ร้าน Ppooo</Text>
-                                <View style={[stylesProfile.FinMinssionBoxPlan1Code, stylesMain.ItemCenter]}>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: 'white' }]}>
-                                        โค้ดส่วนลด 80%</Text>
-                                </View>
-                            </View>
-                            <View style={stylesProfile.FinMinssionBoxPlan1Follow}>
-                                <View style={[stylesProfile.FinMinssionBoxPlan1FollowBox, stylesMain.ItemCenter,]}>
-                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                                        ติดตาม</Text>
-                                </View>
-                            </View>
-                        </View>
-                        <View style={[stylesMain.FlexRow, stylesProfile.FinMinssionBoxPlan1]}>
-                            <FastImage
-                                style={stylesProfile.FinMinssionBoxPlan1Image}
-                            />
-                            <View style={{ marginLeft: 16 }}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>
-                                    ติดตาม ร้าน Ppooo</Text>
-                                <View style={[stylesProfile.FinMinssionBoxPlan1Code, stylesMain.ItemCenter]}>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: 'white' }]}>
-                                        โค้ดส่วนลด 80%</Text>
-                                </View>
-                            </View>
-                            <View style={stylesProfile.FinMinssionBoxPlan1Follow}>
-                                <View style={[stylesProfile.FinMinssionBoxPlan1FollowBox, stylesMain.ItemCenter,]}>
-                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                                        ติดตาม</Text>
-                                </View>
-                            </View>
-                        </View>
-                        <View style={[stylesMain.FlexRow, stylesProfile.FinMinssionBoxPlan1]}>
-                            <FastImage
-                                style={stylesProfile.FinMinssionBoxPlan1Image}
-                            />
-                            <View style={{ marginLeft: 16 }}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>
-                                    ติดตาม ร้าน Ppooo</Text>
-                                <View style={[stylesProfile.FinMinssionBoxPlan1Code, stylesMain.ItemCenter]}>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: 'white' }]}>
-                                        โค้ดส่วนลด 80%</Text>
-                                </View>
-                            </View>
-                            <View style={stylesProfile.FinMinssionBoxPlan1Follow}>
-                                <View style={[stylesProfile.FinMinssionBoxPlan1FollowBox, stylesMain.ItemCenter,]}>
-                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                                        ติดตาม</Text>
+                            <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                                <View style={[stylesProfile.ViewCodeTextCode]}>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#FFF' }]}>
+                                        เก็บโค้ดส่วนลด</Text>
                                 </View>
                             </View>
                         </View>
                     </View>
-                    <View style={{ marginVertical: 4, backgroundColor: '#fff', }}>
-                        <View style={[stylesProfile.AllFinMinssion, stylesMain.ItemCenter]}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#6791BE' }]}>
-                                ดูภารกิจทั้งหมด</Text>
+                    <View style={stylesMain.ItemCenter}>
+                        <View style={stylesProfile.FinMinssion}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { paddingLeft: 20, padding: 2 }]}>
+                                FIN Mission</Text>
+                        </View>
+                        <View style={stylesProfile.FinMinssionBox}>
+                            <View style={[stylesMain.FlexRow, stylesProfile.FinMinssionBoxPlan1]}>
+                                <FastImage
+                                    style={stylesProfile.FinMinssionBoxPlan1Image}
+                                />
+                                <View style={{ marginLeft: 16 }}>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>
+                                        ติดตาม ร้าน Ppooo</Text>
+                                    <View style={[stylesProfile.FinMinssionBoxPlan1Code, stylesMain.ItemCenter]}>
+                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: 'white' }]}>
+                                            โค้ดส่วนลด 80%</Text>
+                                    </View>
+                                </View>
+                                <View style={stylesProfile.FinMinssionBoxPlan1Follow}>
+                                    <View style={[stylesProfile.FinMinssionBoxPlan1FollowBox, stylesMain.ItemCenter,]}>
+                                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                                            ติดตาม</Text>
+                                    </View>
+                                </View>
+                            </View>
+                            <View style={[stylesMain.FlexRow, stylesProfile.FinMinssionBoxPlan1]}>
+                                <FastImage
+                                    style={stylesProfile.FinMinssionBoxPlan1Image}
+                                />
+                                <View style={{ marginLeft: 16 }}>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>
+                                        ติดตาม ร้าน Ppooo</Text>
+                                    <View style={[stylesProfile.FinMinssionBoxPlan1Code, stylesMain.ItemCenter]}>
+                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: 'white' }]}>
+                                            โค้ดส่วนลด 80%</Text>
+                                    </View>
+                                </View>
+                                <View style={stylesProfile.FinMinssionBoxPlan1Follow}>
+                                    <View style={[stylesProfile.FinMinssionBoxPlan1FollowBox, stylesMain.ItemCenter,]}>
+                                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                                            ติดตาม</Text>
+                                    </View>
+                                </View>
+                            </View>
+                            <View style={[stylesMain.FlexRow, stylesProfile.FinMinssionBoxPlan1]}>
+                                <FastImage
+                                    style={stylesProfile.FinMinssionBoxPlan1Image}
+                                />
+                                <View style={{ marginLeft: 16 }}>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>
+                                        ติดตาม ร้าน Ppooo</Text>
+                                    <View style={[stylesProfile.FinMinssionBoxPlan1Code, stylesMain.ItemCenter]}>
+                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: 'white' }]}>
+                                            โค้ดส่วนลด 80%</Text>
+                                    </View>
+                                </View>
+                                <View style={stylesProfile.FinMinssionBoxPlan1Follow}>
+                                    <View style={[stylesProfile.FinMinssionBoxPlan1FollowBox, stylesMain.ItemCenter,]}>
+                                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                                            ติดตาม</Text>
+                                    </View>
+                                </View>
+                            </View>
+                        </View>
+                        <View style={{ marginVertical: 4, backgroundColor: '#fff', }}>
+                            <View style={[stylesProfile.AllFinMinssion, stylesMain.ItemCenter]}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#6791BE' }]}>
+                                    ดูภารกิจทั้งหมด</Text>
+                            </View>
+                        </View>
+                        <View style={[stylesMain.BoxProduct2BoxProduct, { backgroundColor: '#fff', paddingTop: 2 }]}>
+                            <GetCoupon flexRow useCoupon codeList={codeList} colorCoupon='#86CFFF' timeOut={'14-02-2020'} couponText={'10%'} textDetail={'รับเงินคืน 10% Coins'} />
+                            <GetCoupon flexRow useCoupon codeList={codeList} colorCoupon='#E43333' timeOut={'1-03-2020'} couponText={'25%'} textDetail={'รับเงินคืน 25% Coins'} />
+                            <GetCoupon flexRow useCoupon codeList={codeList} colorCoupon='#E43333' timeOut={'28-02-2020'} couponText={'50%'} textDetail={'รับเงินคืน 50% Coins'} />
+                            <GetCoupon flexRow useCoupon codeList={codeList} colorCoupon='#86CFFF' timeOut={'14-02-2020'} couponText={'10%'} textDetail={'รับเงินคืน 10% Coins'} />
                         </View>
                     </View>
-                </View>
-            </View >
+                </View > :
+                codeList == 'usedCode' ?
+                    <View style={[stylesMain.BoxProduct2BoxProduct, { backgroundColor: '#fff', paddingTop: 2 }]}>
+                        <GetCoupon flexRow useCoupon codeList={codeList} colorCoupon='#86CFFF' timeOut={'14-02-2020'} couponText={'10%'} textDetail={'รับเงินคืน 10% Coins'} />
+                        <GetCoupon flexRow useCoupon codeList={codeList} colorCoupon='#E43333' timeOut={'1-03-2020'} couponText={'25%'} textDetail={'รับเงินคืน 25% Coins'} />
+                        <GetCoupon flexRow useCoupon codeList={codeList} colorCoupon='#E43333' timeOut={'28-02-2020'} couponText={'50%'} textDetail={'รับเงินคืน 50% Coins'} />
+                        <GetCoupon flexRow useCoupon codeList={codeList} colorCoupon='#86CFFF' timeOut={'14-02-2020'} couponText={'10%'} textDetail={'รับเงินคืน 10% Coins'} />
+                    </View> :
+                    <View style={[stylesMain.BoxProduct2BoxProduct, { backgroundColor: '#fff', paddingTop: 2 }]}>
+                        <GetCoupon flexRow useCoupon codeList={codeList} colorCoupon='#86CFFF' timeOut={'14-02-2020'} couponText={'10%'} textDetail={'รับเงินคืน 10% Coins'} />
+                        <GetCoupon flexRow useCoupon codeList={codeList} colorCoupon='#E43333' timeOut={'1-03-2020'} couponText={'25%'} textDetail={'รับเงินคืน 25% Coins'} />
+                        <GetCoupon flexRow useCoupon codeList={codeList} colorCoupon='#E43333' timeOut={'28-02-2020'} couponText={'50%'} textDetail={'รับเงินคืน 50% Coins'} />
+                        <GetCoupon flexRow useCoupon codeList={codeList} colorCoupon='#86CFFF' timeOut={'14-02-2020'} couponText={'10%'} textDetail={'รับเงินคืน 10% Coins'} />
+                    </View>
         )
     }
 }

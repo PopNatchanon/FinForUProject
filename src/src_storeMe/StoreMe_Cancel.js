@@ -16,7 +16,7 @@ import NumberFormat from 'react-number-format';
 import Icons from 'react-native-vector-icons/FontAwesome5';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import stylesPro from '../../style/stylesProfile-src/stylesProfile_Topic';
-import styleMain from '../../style/StylesMainScreen';
+import stylesMain from '../../style/StylesMainScreen';
 import stylesFont from '../../style/stylesFont';
 import { ip } from '../../navigator/IpConfig';
 import { AppBar1 } from '../MainScreen';
@@ -54,16 +54,16 @@ export class Cancel_Product extends Component {
   render() {
     return (
       <View>
-        <View style={styleMain.FrameBackground}>
+        <View style={stylesMain.FrameBackground}>
           <View style={{ height: 50, width: '100%', flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 10, borderColor: '#EAEAEA', borderBottomWidth:1, }}>
-            <View style={styleMain.FlexRow}>
+            <View style={stylesMain.FlexRow}>
               <View style={{ height: 40, width: 40, backgroundColor: '#C4C4C4', borderRadius: 20, margin: 5, }}></View>
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { margin: 10, }]}>PPoo</Text>
             </View>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { margin: 10, color: '#0A55A6' }]}>ถูกยกเลิก</Text>
           </View>
           <View style={{ height: 130, flexDirection: 'row', justifyContent: 'space-between', padding: 10, }}>
-            <View style={styleMain.FlexRow}>
+            <View style={stylesMain.FlexRow}>
               <View style={{ height: 80, width: 80, backgroundColor: '#C4C4C4', margin: 10, }}></View>
               <View>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>หมายเลขคำสั่งซื้อ : 2223994239012</Text>

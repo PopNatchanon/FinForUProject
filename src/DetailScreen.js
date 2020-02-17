@@ -47,7 +47,7 @@ export default class DetailScreen extends Component {
       id_product: id_product
     };
     return (
-      <SafeAreaView style={[stylesMain.SafeAreaViewNoBackground, stylesMain.BackgroundAreaView]}>
+      <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
         <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
         <AppBar leftBar='backarrow' navigation={navigation} />
         <ScrollView>
@@ -68,7 +68,7 @@ export default class DetailScreen extends Component {
     );
   }
 }
-///----------------------------------------------------------------------------------------------->>>>
+///----------------------------------------------------------------------------------------------->>>> Detail_Image
 export class Detail_Image extends Component {
   constructor(props) {
     super(props);
@@ -115,7 +115,6 @@ export class Detail_Image extends Component {
   render() {
     const { activeSlide, imageLength } = this.state;
     const { dataService } = this.props;
-    // console.log(dataService)
     let id_product = dataService.map((item, indexs) => {
       let dataMySQL
       {
@@ -182,7 +181,7 @@ export class Detail_Image extends Component {
     )
   }
 }
-///----------------------------------------------------------------------------------------------->>>>
+///----------------------------------------------------------------------------------------------->>>> Store
 export class Store extends Component {
   constructor(props) {
     super(props);
@@ -256,7 +255,7 @@ export class Store extends Component {
     );
   }
 }
-///----------------------------------------------------------------------------------------------->>>>
+///----------------------------------------------------------------------------------------------->>>> Conpon
 export class Conpon extends Component {
   constructor(props) {
     super(props);
@@ -285,7 +284,7 @@ export class Conpon extends Component {
     );
   }
 }
-///----------------------------------------------------------------------------------------------->>>>
+///----------------------------------------------------------------------------------------------->>>> Selector
 export class Selector extends Component {
   constructor(props) {
     super(props);
@@ -308,7 +307,7 @@ export class Selector extends Component {
     );
   }
 }
-///----------------------------------------------------------------------------------------------->>>>
+///----------------------------------------------------------------------------------------------->>>> Detail_Category
 export class Detail_Category extends Component {
   constructor(props) {
     super(props);
@@ -364,7 +363,7 @@ export class Detail_Category extends Component {
     )
   }
 }
-///----------------------------------------------------------------------------------------------->>>>
+///----------------------------------------------------------------------------------------------->>>> Detail
 export class Detail extends Component {
   constructor(props) {
     super(props);
@@ -417,7 +416,7 @@ export class Detail extends Component {
     )
   }
 }
-///----------------------------------------------------------------------------------------------->>>>
+///----------------------------------------------------------------------------------------------->>>> Reviews
 export class Reviews extends Component {
   constructor(props) {
     super(props);
@@ -564,7 +563,7 @@ export class Reviews extends Component {
     );
   }
 }
-///----------------------------------------------------------------------------------------------->>>>
+///----------------------------------------------------------------------------------------------->>>> BannerBar
 export class BannerBar extends Component {
   constructor(props) {
     super(props);
@@ -581,7 +580,7 @@ export class BannerBar extends Component {
     );
   }
 }
-///----------------------------------------------------------------------------------------------->>>>
+///----------------------------------------------------------------------------------------------->>>> Same_Store
 export class Same_Store extends Component {
   constructor(props) {
     super(props);
@@ -682,7 +681,7 @@ export class Same_Store extends Component {
     );
   }
 }
-///----------------------------------------------------------------------------------------------->>>>
+///----------------------------------------------------------------------------------------------->>>> Similar_Product
 export class Similar_Product extends Component {
   constructor(props) {
     super(props);
@@ -783,7 +782,7 @@ export class Similar_Product extends Component {
     );
   }
 }
-///----------------------------------------------------------------------------------------------->>>>
+///----------------------------------------------------------------------------------------------->>>> Might_like
 export class Might_like extends Component {
   constructor(props) {
     super(props);
@@ -884,7 +883,7 @@ export class Might_like extends Component {
     )
   }
 }
-///----------------------------------------------------------------------------------------------->>>>
+///----------------------------------------------------------------------------------------------->>>> Buy_bar
 export class Buy_bar extends Component {
   constructor(props) {
     super(props);
@@ -908,7 +907,6 @@ export class Buy_bar extends Component {
     };
     dataService.map((item) => { return (item.id_store) })
     dataService.length == 1 ? id_store = dataService.map((item) => { return (item.id_store) }) : null
-    console.log(id_store)
     return (
       <View style={stylesDetail.Buy_bar}>
         {
@@ -942,5 +940,3 @@ export class Buy_bar extends Component {
     );
   }
 }
-
-///--------------------------------------------------------------------------///

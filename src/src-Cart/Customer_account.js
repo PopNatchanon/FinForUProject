@@ -1,23 +1,23 @@
+///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-    View,
-    ScrollView,
-    Text,
-    TextInput,
-    SafeAreaView,
-    TouchableOpacity,
-    Dimensions,
-    Picker,
+    Dimensions, SafeAreaView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import styles from '../../style/styleCart-src/styleCustomer_account';
-import stylesMain from '../../style/StylesMainScreen';
-import stylesFont from '../../style/stylesFont';
-import { CheckBox } from 'react-native-elements';
+///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
-import { finip, ip } from '../../navigator/IpConfig';
+import { CheckBox } from 'react-native-elements';
+export const { width, height } = Dimensions.get('window');
 import ModalDropdown from 'react-native-modal-dropdown';
-
+///----------------------------------------------------------------------------------------------->>>> Icon
+import IconAntDesign from 'react-native-vector-icons/AntDesign';
+///----------------------------------------------------------------------------------------------->>>> Styles
+import styles from '../../style/styleCart-src/styleCustomer_account';
+import stylesFont from '../../style/stylesFont';
+import stylesMain from '../../style/StylesMainScreen';
+///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+///----------------------------------------------------------------------------------------------->>>> Ip
+import { ip, finip } from '../../navigator/IpConfig';
+///----------------------------------------------------------------------------------------------->>>> Main
 export default class Customer_account extends Component {
     constructor(props) {
         super(props);
@@ -43,9 +43,7 @@ export default class Customer_account extends Component {
         );
     }
 }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Appbar
 export class Appbar extends Component {
     constructor(props) {
         super(props);
@@ -67,10 +65,7 @@ export class Appbar extends Component {
         );
     }
 }
-
-///--------------------------------------------------------------------------///
-
-
+///----------------------------------------------------------------------------------------------->>>> Account
 export class Account extends Component {
     constructor(props) {
         super(props);
@@ -198,7 +193,6 @@ export class Account extends Component {
             })
         )
     }
-
     render() {
         const { province, amphoe, tumbol } = this.state
         let provinces = this.DataProvince()
@@ -225,7 +219,7 @@ export class Account extends Component {
                         onChangeText={(phone) => this.setState({ phone })}></TextInput>
                 </View>
                 <View style={styles.Account_Box}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, {marginTop:5}]}>จังหวัด</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>จังหวัด</Text>
                     <ModalDropdown
                         options={provinces}
                         style={stylesMain.ItemCenterVertical}
@@ -238,7 +232,7 @@ export class Account extends Component {
                     </ModalDropdown>
                 </View>
                 <View style={styles.Account_Box}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, {marginTop:5}]}>เขต/อำเภอ</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>เขต/อำเภอ</Text>
                     <ModalDropdown
                         options={amphoes}
                         style={stylesMain.ItemCenterVertical}
@@ -251,7 +245,7 @@ export class Account extends Component {
                     </ModalDropdown>
                 </View>
                 <View style={styles.Account_Box}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, {marginTop:5}]}>แขวง/ตำบล</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>แขวง/ตำบล</Text>
                     <ModalDropdown
                         options={tumbols}
                         style={stylesMain.ItemCenterVertical}
@@ -264,7 +258,7 @@ export class Account extends Component {
                     </ModalDropdown>
                 </View>
                 <View style={styles.Account_Box}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, {marginTop:5}]}>รหัสไปรษณีย์</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>รหัสไปรษณีย์</Text>
                     <TextInput
                         style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { height: 40 }]}
                         editable={false}
@@ -272,9 +266,9 @@ export class Account extends Component {
                         value={this.state.zipcode}
                     />
                 </View>
-                <View style={[styles.Account_Box,{height:100}]}>
+                <View style={[styles.Account_Box, { height: 100 }]}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>รายละเอียดที่อยู่</Text>
-                    <TextInput style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { height: 40 ,width:'60%', height:60,}]}
+                    <TextInput style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { height: 40, width: '60%', height: 60, }]}
                         multiline
                         editable
                         placeholder="โปรดระบุรายละเอียดบ้านเลขที่, ตึก, ชื่อถนน และ อื่นๆที่จำเป็น"
@@ -285,22 +279,18 @@ export class Account extends Component {
         );
     }
 }
-
-///--------------------------------------------------------------------------///
-
-
+///----------------------------------------------------------------------------------------------->>>> Account_main
 export class Account_main extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
         return (
             <View>
                 <View style={[styles.Account_Box]}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, {marginTop:5}]}>ตั้งเป็นที่อยู่ตั้งต้น</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>ตั้งเป็นที่อยู่ตั้งต้น</Text>
                     <CheckBox
                         size={25}
                         checkedIcon='toggle-on'
@@ -311,7 +301,7 @@ export class Account_main extends Component {
                     />
                 </View>
                 <View style={styles.Account_Box}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, {marginTop:5}]}>ตั้งเป็นที่อยู่ในการรับสินค้า</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>ตั้งเป็นที่อยู่ในการรับสินค้า</Text>
                     <CheckBox
                         size={25}
                         checkedIcon='toggle-on'
@@ -326,25 +316,25 @@ export class Account_main extends Component {
         );
     }
 }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Button_Bar
 export class Button_Bar extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
         return (
             <View style={{ alignItems: 'center', justifyContent: 'flex-end', height: 210, }}>
-            <TouchableOpacity>
-              <View style={{ height: 40, backgroundColor: '#0A55A6', width: 350, borderRadius: 5, alignItems: 'center', justifyContent: 'center', marginBottom: 10, }}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>เพิ่มที่อยู่</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
+                <TouchableOpacity>
+                    <View style={{
+                        height: 40, backgroundColor: '#0A55A6', width: 350, borderRadius: 5, alignItems: 'center',
+                        justifyContent: 'center', marginBottom: 10,
+                    }}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>เพิ่มที่อยู่</Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
         );
     }
 }

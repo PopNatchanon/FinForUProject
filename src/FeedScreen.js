@@ -36,7 +36,7 @@ export default class FeedScreen extends Component {
     const { selectedIndex } = this.state
     const { navigation } = this.props
     return (
-      <SafeAreaView style={[stylesMain.SafeAreaViewNoBackground, stylesMain.BackgroundAreaView]}>
+      <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
         <AppBar1 titleHead='ฟีด' storeBar menuBar navigation={navigation} />
         <MenuBar sendText={this.getData} />
         <ScrollView>

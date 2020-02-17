@@ -1,37 +1,25 @@
-import React, { Component, PureComponent } from 'react';
+///----------------------------------------------------------------------------------------------->>>> React
+import React, { Component } from 'react';
 import {
-    View,
-    ImageBackground,
-    ScrollView,
-    Text,
-    TextInput,
-    SafeAreaView,
-    TouchableOpacity,
-    Dimensions,
+    Dimensions, SafeAreaView, ScrollView, Text, View,
 } from 'react-native';
-import axios from 'axios';
-import NumberFormat from 'react-number-format';
-import styleMain from '../style/StylesMainScreen';
-import styles from '../style/stylePromotion-src/styleDealScreen';
-import stylesStore from '../style/StylesStoreScreen';
-import IconFeather from 'react-native-vector-icons/Feather';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
-import { finip, ip } from '../navigator/IpConfig';
-import FastImage from 'react-native-fast-image';
-import stylesFont from '../style/stylesFont';
-import { AppBar, Slide } from './src_Promotion/DealScreen';
-import { TodayProduct } from './MainScreen';
-import { Button_Bar } from '../src/HighlightScreen';
+///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
-
+///----------------------------------------------------------------------------------------------->>>> Icon
+///----------------------------------------------------------------------------------------------->>>> Styles
+import stylesFont from '../style/stylesFont';
+///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+import { AppBar1, TodayProduct, } from './MainScreen';
+import { Button_Bar } from '../src/HighlightScreen';
+import { Slide } from './src_Promotion/DealScreen';
+///----------------------------------------------------------------------------------------------->>>> Ip
+///----------------------------------------------------------------------------------------------->>>> Main
 export default class Same_StoreScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
         const type_product = this.props.navigation.getParam('type_product')
         var title
@@ -45,35 +33,33 @@ export default class Same_StoreScreen extends Component {
             case 'youlike':
                 title = 'สินค้าที่คุณอาจชอบ'
                 break;
-
             default:
                 break;
         }
         return (
             <SafeAreaView>
-                <AppBar navigation={this.props.navigation} noIcon Title={title} />
-                <Slide />
-                <Header Title={title} />
+                <AppBar1 titleHead={title} backArrow navigation={this.props.navigation} />
                 <ScrollView>
-                {type_product=='youlike'?
-                <Button_Bar />:
-                null}
+                    <Slide />
+                    <Header Title={title} />
+                    {
+                        type_product == 'youlike' ?
+                            <Button_Bar /> :
+                            null
+                    }
                     <TodayProduct noTitle navigation={this.props.navigation} />
                 </ScrollView>
             </SafeAreaView>
         );
     }
 }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Header
 export class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
         const { Title } = this.props
         return (
@@ -84,7 +70,3 @@ export class Header extends Component {
         );
     }
 }
-
-///--------------------------------------------------------------------------///
-
-

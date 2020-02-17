@@ -63,13 +63,13 @@ export default class CategoryScreen extends Component {
                         >
                             <View style={stylesTopic.BackgroundLeft}></View>
                         </TouchableOpacity>
-                        <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNoBackground]}>
+                        <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNB]}>
                             <View style={{ height: '90%' }}>
                                 <ScrollView>
                                     <SlideTabGet />
                                 </ScrollView>
                             </View>
-                            <View style={[stylesMain.FlexRow, stylesMain.SafeAreaViewNoBackground, { marginTop: 8 }]}>
+                            <View style={[stylesMain.FlexRow, stylesMain.SafeAreaViewNB, { marginTop: 8 }]}>
                                 <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
                                     <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, {
                                         color: '#0A55A6'

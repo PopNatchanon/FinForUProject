@@ -1,30 +1,26 @@
+///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-  View,
-  ImageBackground,
-  ScrollView,
-  Text,
-  TextInput,
-  SafeAreaView,
-  TouchableOpacity,
-  Dimensions,
+  Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
-import { AppBar1, TodayProduct } from '../MainScreen';
-import stylesMain from '../../style/StylesMainScreen';
-import stylesFont from '../../style/stylesFont';
-import { ip } from '../../navigator/IpConfig'
-import FastImage from 'react-native-fast-image';
-
+///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
-
-
+import FastImage from 'react-native-fast-image';
+///----------------------------------------------------------------------------------------------->>>> Icon
+///----------------------------------------------------------------------------------------------->>>> Styles
+import stylesFont from '../../style/stylesFont';
+import stylesMain from '../../style/StylesMainScreen';
+///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+import { AppBar1, TodayProduct } from '../MainScreen';
+///----------------------------------------------------------------------------------------------->>>> Ip
+import { ip, finip } from '../../navigator/IpConfig';
+///----------------------------------------------------------------------------------------------->>>> Main
 export default class Customer_Complete_Order extends Component {
   constructor(props) {
     super(props);
     this.state = {
     };
   }
-
   render() {
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
@@ -37,16 +33,13 @@ export default class Customer_Complete_Order extends Component {
     );
   }
 }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Customer_Product
 export class Customer_Product extends Component {
   constructor(props) {
     super(props);
     this.state = {
     };
   }
-
   render() {
     return (
       <View>
@@ -101,7 +94,7 @@ export class Customer_Product extends Component {
             </TouchableOpacity>
           </View>
         </View>
-        <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize5,{margin:10}]}>พิเศษสำหรับคุณ</Text>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10 }]}>พิเศษสำหรับคุณ</Text>
       </View>
     );
   }

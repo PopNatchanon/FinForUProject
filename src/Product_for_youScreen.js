@@ -1,21 +1,22 @@
+///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-  View,
-  ScrollView,
-  Text,
-  SafeAreaView,
-  TouchableOpacity,
-  Dimensions,
+  Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
-import { Slide } from './src_Promotion/DealScreen';
-import { TodayProduct, AppBar1 } from './MainScreen';
-import { Button_Bar, SlideTab, PricesSlide } from './ExclusiveScreen';
-import stylesTopic from '../style/styleTopic';
-import stylesMain from '../style/StylesMainScreen';
-import stylesFont from '../style/stylesFont';
-import SlidingView from 'rn-sliding-view';
+///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
-
+import SlidingView from 'rn-sliding-view';
+///----------------------------------------------------------------------------------------------->>>> Icon
+///----------------------------------------------------------------------------------------------->>>> Styles
+import stylesFont from '../style/stylesFont';
+import stylesMain from '../style/StylesMainScreen';
+import stylesTopic from '../style/styleTopic';
+///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+import { AppBar1, TodayProduct } from './MainScreen';
+import { Button_Bar, PricesSlide, SlideTab, } from './ExclusiveScreen';
+import { Slide } from './src_Promotion/DealScreen';
+///----------------------------------------------------------------------------------------------->>>> Ip
+///----------------------------------------------------------------------------------------------->>>> Main
 export default class Product_for_youScreen extends Component {
   constructor(props) {
     super(props);
@@ -57,7 +58,7 @@ export default class Product_for_youScreen extends Component {
             >
               <View style={stylesTopic.BackgroundLeft}></View>
             </TouchableOpacity>
-            <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNoBackground]}>
+            <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNB]}>
               <View>
                 <ScrollView>
                   <SlideTabGet />
@@ -80,7 +81,7 @@ export default class Product_for_youScreen extends Component {
     );
   }
 }
-///----------------------------------------------------------------------------------------------->>>>
+///----------------------------------------------------------------------------------------------->>>> SlideTabGet
 export class SlideTabGet extends Component {
   render() {
     const item = [{

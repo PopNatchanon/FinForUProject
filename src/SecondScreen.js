@@ -1,30 +1,27 @@
-import React, { Component, PureComponent } from 'react';
+///----------------------------------------------------------------------------------------------->>>> React
+import React, { Component } from 'react';
 import {
-  View,
-  ImageBackground,
-  ScrollView,
-  Text,
-  TextInput,
-  SafeAreaView,
-  TouchableOpacity,
-  Dimensions,
+  Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
-import NumberFormat from 'react-number-format';
-import stylesMain from '../style/StylesMainScreen';
-import { finip, ip } from '../navigator/IpConfig';
-import FastImage from 'react-native-fast-image';
-import stylesFont from '../style/stylesFont';
-import stylesTopic from '../style/styleTopic';
-import { Button_Bar, SlideTab, PricesSlide } from './ExclusiveScreen';
-import { Slide } from './src_Promotion/DealScreen';
-import { TodayProduct, AppBar, BannerBar_ONE, AppBar1 } from './MainScreen';
-import SlidingView from 'rn-sliding-view';
-import { GetServices } from './tools/Tools';
-import { Store_Detail } from './Recommend_Store';
-
-
+///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
-
+import FastImage from 'react-native-fast-image';
+import NumberFormat from 'react-number-format';
+import SlidingView from 'rn-sliding-view';
+///----------------------------------------------------------------------------------------------->>>> Icon
+///----------------------------------------------------------------------------------------------->>>> Styles
+import stylesFont from '../style/stylesFont';
+import stylesMain from '../style/StylesMainScreen';
+import stylesTopic from '../style/styleTopic';
+///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+import { AppBar, AppBar1, BannerBar_ONE, TodayProduct, } from './MainScreen';
+import { Button_Bar, PricesSlide, SlideTab, } from './ExclusiveScreen';
+import { GetServices } from './tools/Tools';
+import { Slide } from './src_Promotion/DealScreen';
+import { Store_Detail } from './Recommend_Store';
+///----------------------------------------------------------------------------------------------->>>> Ip
+import { ip, finip } from '../navigator/IpConfig';
+///----------------------------------------------------------------------------------------------->>>> Main
 export default class SecondScreen extends Component {
   constructor(props) {
     super(props);
@@ -44,25 +41,21 @@ export default class SecondScreen extends Component {
       case 1:
         return (
           <SafeAreaView style={stylesMain.SafeAreaView}>
-            <AppBar1  titleHead={'ร้านค้ามือสองที่แนะนำ'} backArrow  navigation={this.props.navigation} />
+            <AppBar1 titleHead={'ร้านค้ามือสองที่แนะนำ'} backArrow navigation={this.props.navigation} />
             <Secon_Store />
           </SafeAreaView>
         )
     }
   }
-
   render() {
     return (
       <View style={{ flex: 1 }}>
         {this.PathList()}
       </View>
-
     );
   }
 }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Second_Product
 export class Second_Product extends Component {
   constructor(props) {
     super(props);
@@ -105,13 +98,13 @@ export class Second_Product extends Component {
             >
               <View style={stylesTopic.BackgroundLeft}></View>
             </TouchableOpacity>
-            <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNoBackground]}>
+            <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNB]}>
               <View style={{ height: '90%' }}>
                 <ScrollView>
                   <SlideTabGet />
                 </ScrollView>
               </View>
-              <View style={[stylesMain.FlexRow, stylesMain.SafeAreaViewNoBackground, { marginTop: 8 }]}>
+              <View style={[stylesMain.FlexRow, stylesMain.SafeAreaViewNB, { marginTop: 8 }]}>
                 <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
                   <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
                     รีเซ็ต</Text>
@@ -128,16 +121,13 @@ export class Second_Product extends Component {
     );
   }
 }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Second_Store
 export class Second_Store extends Component {
   constructor(props) {
     super(props);
     this.state = {
     };
   }
-
   render() {
     return (
       <View style={stylesMain.FrameBackground2}>
@@ -173,9 +163,7 @@ export class Second_Store extends Component {
     );
   }
 }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Second_Product_Brand
 export class Second_Product_Brand extends Component {
   constructor(props) {
     super(props);
@@ -264,9 +252,7 @@ export class Second_Product_Brand extends Component {
     );
   }
 }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> SlideTabGet
 export class SlideTabGet extends Component {
   render() {
     const item = [{
@@ -304,16 +290,13 @@ export class SlideTabGet extends Component {
     )
   }
 }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Secon_Store
 export class Secon_Store extends Component {
   constructor(props) {
     super(props);
     this.state = {
     };
   }
-
   render() {
     return (
       <View style={{ flex: 1 }}>

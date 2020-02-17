@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
-import styleMain from '../../../style/StylesMainScreen';
+import stylesMain from '../../../style/StylesMainScreen';
 import styles from '../../../style/stylePromotion-src/styleDealScreen';
 import stylesStore from '../../../style/StylesStoreScreen';
 import IconFeather from 'react-native-vector-icons/Feather';

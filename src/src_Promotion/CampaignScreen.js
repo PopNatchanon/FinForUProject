@@ -1,37 +1,33 @@
-import React, { Component, PureComponent } from 'react';
+///----------------------------------------------------------------------------------------------->>>> React
+import React, { Component } from 'react';
 import {
-  View,
-  ImageBackground,
-  ScrollView,
-  Text,
-  TextInput,
-  SafeAreaView,
-  TouchableOpacity,
-  Dimensions,
+  Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
-import axios from 'axios';
-import NumberFormat from 'react-number-format';
-import IconEntypo from 'react-native-vector-icons/Entypo';
-import styles from '../../style/stylePromotion-src/styleDealScreen';
-import styleMain from '../../style/StylesMainScreen';
-import stylesFont from '../../style/stylesFont';
-import { finip, ip } from '../../navigator/IpConfig';
-import FastImage from 'react-native-fast-image';
-import { AppBar1 } from '../MainScreen';
-import { Slide, Button_Bar } from './DealScreen';
-import { TabBar } from '../tools/Tools';
+///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
-
+import FastImage from 'react-native-fast-image';
+///----------------------------------------------------------------------------------------------->>>> Icon
+import IconEntypo from 'react-native-vector-icons/Entypo';
+///----------------------------------------------------------------------------------------------->>>> Styles
+import stylesFont from '../../style/stylesFont';
+import stylesMain from '../../style/StylesMainScreen';
+import ststylePromotionDeal from '../../style/stylePromotion-src/styleDealScreen';
+///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+import { AppBar1, } from '../MainScreen';
+import { Button_Bar, Slide, } from './DealScreen';
+import { TabBar, } from '../tools/Tools';
+///----------------------------------------------------------------------------------------------->>>> Ip
+import { finip, ip } from '../../navigator/IpConfig';
+///----------------------------------------------------------------------------------------------->>>> Main
 export default class CampaignScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
     };
   }
-
   render() {
     return (
-      <SafeAreaView style={styleMain.SafeAreaView}>
+      <SafeAreaView style={stylesMain.SafeAreaView}>
         <AppBar1 titleHead={'แคมเปญ'} backArrow searchBar chatBar navigation={this.props.navigation} />
         <ScrollView>
           <Slide />
@@ -42,8 +38,7 @@ export default class CampaignScreen extends Component {
     );
   }
 }
-///-------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Campaign_tag
 export class Campaign_tag extends Component {
   constructor(props) {
     super(props)
@@ -106,6 +101,7 @@ export class Campaign_tag extends Component {
             inactiveFontColor={'#0A55A6'}
             item={item}
             widthBox={98}
+            fontSizeStyle={12}
             type='box'
           />
         </View>
@@ -116,33 +112,33 @@ export class Campaign_tag extends Component {
     )
   }
 }
-
+///----------------------------------------------------------------------------------------------->>>> CampaignBody
 export class CampaignBody extends Component {
   render() {
     return (
       <View style={{ alignItems: 'center' }}>
-        <View style={styles.CampaignBody}>
-          <View style={styles.CampaignBody_BoxImage}>
+        <View style={ststylePromotionDeal.CampaignBody}>
+          <View style={ststylePromotionDeal.CampaignBody_BoxImage}>
             <FastImage
               source={{
                 uri: ip + '/MySQL/uploads/slide/Banner_type/shoes_BannerBar.jpg',
-
               }}
-              style={styles.CampaignBody_Image}
+              style={ststylePromotionDeal.CampaignBody_Image}
             />
           </View>
-          <View style={styles.CampaignBody_Box}>
-            <View style={styles.CampaignBody_BoxText}>
-              <Text style={stylesFont.FontFamilyBold}>ส่วนลด 10% สำหรับร้าน เพชร </Text>
-              <Text style={stylesFont.FontFamilyText}>วันหมดอายุ 03-02-2020</Text>
+          <View style={[ststylePromotionDeal.CampaignBody_Box]}>
+            <View style={ststylePromotionDeal.CampaignBody_BoxText}>
+              <Text numberOfLines={2} style={stylesFont.FontFamilyBold}>ส่วนลด 10% สำหรับร้าน เพชร </Text>
+              <Text numberOfLines={1} style={stylesFont.FontFamilyText}>วันหมดอายุ 03-02-2020</Text>
             </View>
-            <View style={styles.CampaignBody_Icon_Button}>
-              <View style={styles.CampaignBody_Icon}>
+            <View style={[ststylePromotionDeal.CampaignBody_Icon_Button, stylesMain.ItemCenterVertical]}>
+              <View style={[ststylePromotionDeal.CampaignBody_Icon, stylesMain.ItemCenterVertical]}>
                 <IconEntypo name='share' size={20} color='#0A55A6' />
               </View>
-              <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Detail_Campaign', { selectedIndex: 0 })}>
-                <View style={styles.CampaignBody_Button}>
-                  <Text style={[stylesFont.FontFamilyBold, styles.CampaignBody_ButtonText]}>รายละเอียด</Text>
+              <TouchableOpacity activeOpacity={1} onPress={() =>
+                this.props.navigation.navigate('Detail_Campaign', { selectedIndex: 0 })}>
+                <View style={[ststylePromotionDeal.CampaignBody_Button, stylesMain.ItemCenterVertical]}>
+                  <Text style={[stylesFont.FontFamilyBold, ststylePromotionDeal.CampaignBody_ButtonText, stylesMain.ItemCenterVertical]}>รายละเอียด</Text>
                 </View>
               </TouchableOpacity>
             </View>

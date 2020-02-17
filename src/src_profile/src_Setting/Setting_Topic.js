@@ -1,30 +1,26 @@
+///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-  ImageBackground,
-  View,
-  ScrollView,
-  Text,
-  TextInput,
-  SafeAreaView,
-  TouchableOpacity,
-  Dimensions,
-  Picker
+  Dimensions, Picker, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
-;
-import IconEvilIcons from 'react-native-vector-icons/EvilIcons';
-import IconFeather from 'react-native-vector-icons/Feather';
+///----------------------------------------------------------------------------------------------->>>> Import
 import BottomSheet from "react-native-raw-bottom-sheet";
 import { CheckBox } from 'react-native-elements';
-import stylesPro from '../../../style/stylesProfile-src/stylesProfile_Topic';
-import stylesMain from '../../../style/StylesMainScreen';
-import stylesFont from '../../../style/stylesFont';
-import stylesLogin from '../../../style/stylesLoginScreen';
+export const { width, height } = Dimensions.get('window');
+///----------------------------------------------------------------------------------------------->>>> Icon
 import IconEntypo from 'react-native-vector-icons/Entypo';
+import IconEvilIcons from 'react-native-vector-icons/EvilIcons';
+import IconFeather from 'react-native-vector-icons/Feather';
+///----------------------------------------------------------------------------------------------->>>> Styles
+import stylesFont from '../../../style/stylesFont';
+import stylesMain from '../../../style/StylesMainScreen';
+import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
+import stylesLogin from '../../../style/stylesLoginScreen';
+///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { Appbar } from '../Profile_Topic';
 import { StoreMe_SettingImage } from '../../src_storeMe/StoreMe_Setting';
-
-export const { width, height } = Dimensions.get('window');
-
+///----------------------------------------------------------------------------------------------->>>> Ip
+///----------------------------------------------------------------------------------------------->>>> Main
 export default class Setting_Topic extends Component {
   PathList() {
     const selectedIndex = this.props.navigation.getParam('selectedIndex')
@@ -79,7 +75,6 @@ export default class Setting_Topic extends Component {
         )
     }
   }
-
   render() {
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
@@ -90,9 +85,7 @@ export default class Setting_Topic extends Component {
     );
   }
 }
-
-///------------------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Edit_Profile
 export class Edit_Profile extends Component {
   constructor(props) {
     super(props);
@@ -177,7 +170,71 @@ export class Edit_Profile extends Component {
       })
     )
   }
-  render() {
+  NameSheetBody() {
+    return (
+      <View>
+        <View style={{ width: '100%', alignItems: 'center', flex: 1 }}>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ชื่อ-นามสกุล</Text>
+          <View style={{ height: 40, width: '70%', borderBottomColor: '#000000', borderBottomWidth: 1, marginTop: 10, }}>
+            <TextInput
+              fontSize={15}
+              placeholder="ชื่อ"
+              maxLength={30}
+              value={this.state.Name}
+              onChangeText={(Name) => this.setState({ Name })}
+            />
+          </View>
+          <View style={{ height: 40, width: '70%', borderBottomColor: '#000000', borderBottomWidth: 1, marginTop: 10, }}>
+            <TextInput
+              fontSize={15}
+              placeholder="นามสกุล"
+              maxLength={30}
+              value={this.state.Last}
+              onChangeText={(Last) => this.setState({ Last })}
+            />
+          </View>
+        </View>
+        <TouchableOpacity>
+          <View style={{ height: 40, backgroundColor: '#0A55A6', width: 350, borderRadius: 5, alignItems: 'center', justifyContent: 'center', marginBottom: 10, }}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+  SexSheetBody() {
+    return (
+      <View>
+        <View style={{ width: '100%', alignItems: 'center', flex: 1 }}>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>เพศ</Text>
+          <View style={stylesMain.FlexRow}>
+            <CheckBox
+              size={25}
+              checkedIcon='dot-circle-o'
+              uncheckedIcon='circle-o'
+              checked={this.state.checked}
+              onPress={() => this.setState({ checked: !this.state.checked, checked2: !this.state.checked2 })}
+            />
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 15 }]}>ชาย</Text>
+            <CheckBox
+              size={25}
+              checkedIcon='dot-circle-o'
+              uncheckedIcon='circle-o'
+              checked={this.state.checked2}
+              onPress={() => this.setState({ checked2: !this.state.checked2, checked: !this.state.checked })}
+            />
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 15 }]}>หญิง</Text>
+          </View>
+        </View>
+        <TouchableOpacity>
+          <View style={{ height: 40, backgroundColor: '#0A55A6', width: 350, borderRadius: 5, alignItems: 'center', justifyContent: 'center', marginBottom: 10, }}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+  BirthdaySheetBody() {
     const { activeNow } = this.state
     activeNow < 2 ?
       this.setState({ activeNow: activeNow + 1, date: new Date('2000') }) :
@@ -190,8 +247,81 @@ export class Edit_Profile extends Component {
     var month = new Date(date).getMonth();
     var year = new Date(date).getFullYear();
     return (
+      <View>
+        <View style={{ width: '100%', flex: 1, alignItems: 'center', }}>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}> วันเกิด</Text>
+          <View style={[stylesLogin.DateBox, stylesMain.ItemCenter]}>
+            <View style={stylesMain.FlexRow}>
+              <View style={[stylesLogin.DateBoxBody, { width: 70, }]}>
+                <Picker
+                  selectedValue={String(day)}
+                  style={{ height: '100%', width: '100%' }}
+                  itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize7, { backgroundColor: '#fff' }]}
+                  onValueChange={(itemValue, itemIndex) => {
+                    this.setState({ date: new Date(date).setDate(itemValue) })
+                  }}>
+                  {DataDay}
+                </Picker>
+              </View>
+              <View style={[stylesLogin.DateBoxBody, { width: 120, }]}>
+                <Picker
+                  selectedValue={String(month)}
+                  style={{ height: '100%', width: '100%' }}
+                  itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize7, { backgroundColor: '#fff' }]}
+                  onValueChange={(itemValue, itemIndex) => {
+                    this.getDataDay(itemValue)
+                  }}>
+                  {DataMo}
+                </Picker>
+              </View>
+              <View style={stylesLogin.DateBoxBody}>
+                <Picker
+                  selectedValue={String(year)}
+                  style={{ height: '100%', width: '100%' }}
+                  itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize7, { backgroundColor: '#fff' }]}
+                  onValueChange={(itemValue, itemIndex) => {
+                    this.getDataMo(itemValue)
+                  }}>
+                  {DataYear}
+                </Picker>
+              </View>
+            </View>
+          </View>
+        </View>
+        <TouchableOpacity>
+          <View style={{ height: 40, backgroundColor: '#0A55A6', width: 350, borderRadius: 5, alignItems: 'center', justifyContent: 'center', marginBottom: 10, }}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+  Phone_numberSheet() {
+    return (
+      <View>
+        <View style={{ width: '100%', flex: 1, padding: 10, }}>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>เบอร์โทรศัพท์</Text>
+          <View style={{ height: 40, width: '100%', borderBottomColor: '#000000', borderBottomWidth: 1, marginTop: 10, }}>
+            <TextInput
+              fontSize={15}
+              placeholder="เบอร์โทรศัพท์"
+              maxLength={10}
+              value={this.state.Phone}
+              onChangeText={(Phone) => this.setState({ Phone })}
+            />
+          </View>
+        </View>
+        <TouchableOpacity>
+          <View style={{ height: 40, backgroundColor: '#0A55A6', width: 350, borderRadius: 5, alignItems: 'center', justifyContent: 'center', marginBottom: 10, }}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+  render() {
+    return (
       <View >
-
         {/* ชื่อ-นามสกุล */}
         <BottomSheet
           ref={ref => {
@@ -206,34 +336,8 @@ export class Edit_Profile extends Component {
             }
           }}
         >
-          <View style={{ width: '100%', alignItems: 'center', flex: 1 }}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ชื่อ-นามสกุล</Text>
-            <View style={{ height: 40, width: '70%', borderBottomColor: '#000000', borderBottomWidth: 1, marginTop: 10, }}>
-              <TextInput
-                fontSize={15}
-                placeholder="ชื่อ"
-                maxLength={30}
-                value={this.state.Name}
-                onChangeText={(Name) => this.setState({ Name })}
-              />
-            </View>
-            <View style={{ height: 40, width: '70%', borderBottomColor: '#000000', borderBottomWidth: 1, marginTop: 10, }}>
-              <TextInput
-                fontSize={15}
-                placeholder="นามสกุล"
-                maxLength={30}
-                value={this.state.Last}
-                onChangeText={(Last) => this.setState({ Last })}
-              />
-            </View>
-          </View>
-          <TouchableOpacity>
-            <View style={{ height: 40, backgroundColor: '#0A55A6', width: 350, borderRadius: 5, alignItems: 'center', justifyContent: 'center', marginBottom: 10, }}>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
-            </View>
-          </TouchableOpacity>
+          {this.NameSheetBody()}
         </BottomSheet>
-
         {/* เพศ */}
         <BottomSheet
           ref={ref => {
@@ -248,34 +352,8 @@ export class Edit_Profile extends Component {
             }
           }}
         >
-          <View style={{ width: '100%', alignItems: 'center', flex: 1 }}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>เพศ</Text>
-            <View style={stylesMain.FlexRow}>
-              <CheckBox
-                size={25}
-                checkedIcon='dot-circle-o'
-                uncheckedIcon='circle-o'
-                checked={this.state.checked}
-                onPress={() => this.setState({ checked: !this.state.checked, checked2: !this.state.checked2 })}
-              />
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 15 }]}>ชาย</Text>
-              <CheckBox
-                size={25}
-                checkedIcon='dot-circle-o'
-                uncheckedIcon='circle-o'
-                checked={this.state.checked2}
-                onPress={() => this.setState({ checked2: !this.state.checked2, checked: !this.state.checked })}
-              />
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 15 }]}>หญิง</Text>
-            </View>
-          </View>
-          <TouchableOpacity>
-            <View style={{ height: 40, backgroundColor: '#0A55A6', width: 350, borderRadius: 5, alignItems: 'center', justifyContent: 'center', marginBottom: 10, }}>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
-            </View>
-          </TouchableOpacity>
+          {this.SexSheetBody()}
         </BottomSheet>
-
         {/* วันเกิด */}
         <BottomSheet
           ref={ref => {
@@ -290,54 +368,8 @@ export class Edit_Profile extends Component {
             }
           }}
         >
-          <View style={{ width: '100%', flex: 1, alignItems: 'center', }}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}> วันเกิด</Text>
-
-            <View style={[stylesLogin.DateBox, stylesMain.ItemCenter]}>
-              <View style={stylesMain.FlexRow}>
-                <View style={[stylesLogin.DateBoxBody, { width: 70, }]}>
-                  <Picker
-                    selectedValue={String(day)}
-                    style={{ height: '100%', width: '100%' }}
-                    itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize7, { backgroundColor: '#fff' }]}
-                    onValueChange={(itemValue, itemIndex) => {
-                      this.setState({ date: new Date(date).setDate(itemValue) })
-                    }}>
-                    {DataDay}
-                  </Picker>
-                </View>
-                <View style={[stylesLogin.DateBoxBody, { width: 120, }]}>
-                  <Picker
-                    selectedValue={String(month)}
-                    style={{ height: '100%', width: '100%' }}
-                    itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize7, { backgroundColor: '#fff' }]}
-                    onValueChange={(itemValue, itemIndex) => {
-                      this.getDataDay(itemValue)
-                    }}>
-                    {DataMo}
-                  </Picker>
-                </View>
-                <View style={stylesLogin.DateBoxBody}>
-                  <Picker
-                    selectedValue={String(year)}
-                    style={{ height: '100%', width: '100%' }}
-                    itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize7, { backgroundColor: '#fff' }]}
-                    onValueChange={(itemValue, itemIndex) => {
-                      this.getDataMo(itemValue)
-                    }}>
-                    {DataYear}
-                  </Picker>
-                </View>
-              </View>
-            </View>
-          </View>
-          <TouchableOpacity>
-            <View style={{ height: 40, backgroundColor: '#0A55A6', width: 350, borderRadius: 5, alignItems: 'center', justifyContent: 'center', marginBottom: 10, }}>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
-            </View>
-          </TouchableOpacity>
+          {this.BirthdaySheetBody()}
         </BottomSheet>
-
         {/* เบอร์โทรศัพท์ */}
         <BottomSheet
           ref={ref => {
@@ -352,80 +384,58 @@ export class Edit_Profile extends Component {
             }
           }}
         >
-          <View style={{ width: '100%', flex: 1, padding: 10, }}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>เบอร์โทรศัพท์</Text>
-            <View style={{ height: 40, width: '100%', borderBottomColor: '#000000', borderBottomWidth: 1, marginTop: 10, }}>
-              <TextInput
-                fontSize={15}
-                placeholder="เบอร์โทรศัพท์"
-                maxLength={10}
-                value={this.state.Phone}
-                onChangeText={(Phone) => this.setState({ Phone })}
-              />
-            </View>
-          </View>
-          <TouchableOpacity>
-            <View style={{ height: 40, backgroundColor: '#0A55A6', width: 350, borderRadius: 5, alignItems: 'center', justifyContent: 'center', marginBottom: 10, }}>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
-            </View>
-          </TouchableOpacity>
+          {this.Phone_numberSheet()}
         </BottomSheet>
-
         <Appbar navigation={this.props.navigation} Title='แก้ไขโปรไฟล์' />
         <StoreMe_SettingImage />
         <View style={{ marginTop: 20, }}>
-
           <TouchableOpacity onPress={() => { this.NameSheet.open(); }}>
-            <View style={stylesPro.BoxTopic}>
+            <View style={stylesProfileTopic.BoxTopic}>
               <View style={stylesMain.FlexRow}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
                   ชื่อ-นามสกุล
             </Text>
               </View>
-              <IconEntypo name='chevron-right' style={stylesPro.SettingIcon} size={35} color='#0A55A6' />
+              <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
             </View></TouchableOpacity>
-
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 7 })} >
-            <View style={stylesPro.BoxTopic}>
+            <View style={stylesProfileTopic.BoxTopic}>
               <View style={stylesMain.FlexRow}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
                   เปลี่ยนรหัสผ่าน
             </Text>
               </View>
-              <IconEntypo name='chevron-right' style={stylesPro.SettingIcon} size={35} color='#0A55A6' />
+              <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
             </View>
           </TouchableOpacity>
-
           <TouchableOpacity onPress={() => { this.SexSheet.open(); }}>
-            <View style={stylesPro.BoxTopic}>
+            <View style={stylesProfileTopic.BoxTopic}>
               <View style={stylesMain.FlexRow}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
                   เพศ
             </Text>
               </View>
-              <IconEntypo name='chevron-right' style={stylesPro.SettingIcon} size={35} color='#0A55A6' />
+              <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
             </View>
           </TouchableOpacity>
-
           <TouchableOpacity onPress={() => { this.BirthdaySheet.open(); }}>
-            <View style={stylesPro.BoxTopic}>
+            <View style={stylesProfileTopic.BoxTopic}>
               <View style={stylesMain.FlexRow}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
                   วันเกิด
             </Text>
               </View>
-              <IconEntypo name='chevron-right' style={stylesPro.SettingIcon} size={35} color='#0A55A6' />
+              <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
             </View>
           </TouchableOpacity>
-
           <TouchableOpacity onPress={() => { this.Phone_numberSheet.open(); }}>
-            <View style={stylesPro.BoxTopic}>
+            <View style={stylesProfileTopic.BoxTopic}>
               <View style={stylesMain.FlexRow}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
                   โทรศัพท์
             </Text>
               </View>
-              <IconEntypo name='chevron-right' style={stylesPro.SettingIcon} size={35} color='#0A55A6' />
+              <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
             </View>
           </TouchableOpacity>
           <View style={{ alignItems: 'center', justifyContent: 'flex-end', height: 350, }}>
@@ -440,15 +450,13 @@ export class Edit_Profile extends Component {
     );
   }
 }
-///------------------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Edit_Pass
 export class Edit_Pass extends Component {
   constructor(props) {
     super(props);
     this.state = {
     };
   }
-
   render() {
     return (
       <View>
@@ -502,25 +510,20 @@ export class Edit_Pass extends Component {
     );
   }
 }
-
-
-///------------------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Edit_Address
 export class Edit_Address extends Component {
   constructor(props) {
     super(props);
     this.state = {
     };
   }
-
   render() {
-
     return (
       <SafeAreaView>
         <Appbar navigation={this.props.navigation} Title='ที่อยู่ของฉัน' />
-        <Address_Customar  MainAddress/>
+        <Address_Customar MainAddress />
         <Address_Customar />
-        <View style={{ alignItems: 'center', justifyContent: 'flex-end', height:475}}>
+        <View style={{ alignItems: 'center', justifyContent: 'flex-end', height: 475 }}>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Customer_account')}>
             <View style={{ height: 40, backgroundColor: '#0A55A6', width: 350, borderRadius: 5, alignItems: 'center', justifyContent: 'center', marginBottom: 10, }}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>เพิ่มที่อยู่</Text>
@@ -531,15 +534,13 @@ export class Edit_Address extends Component {
     );
   }
 }
-///------------------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Address_Customar
 export class Address_Customar extends Component {
   constructor(props) {
     super(props);
     this.state = {
     };
   }
-
   render() {
     const { MainAddress } = this.props
     return (
@@ -564,21 +565,18 @@ export class Address_Customar extends Component {
     );
   }
 }
-
-///------------------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Edit_Chat
 export class Edit_Chat extends Component {
   constructor(props) {
     super(props);
     this.state = {
     };
   }
-
   render() {
     return (
       <SafeAreaView >
         <Appbar navigation={this.props.navigation} Title='ตั้งค่าการแชท' />
-        <View style={stylesPro.BoxTopic}>
+        <View style={stylesProfileTopic.BoxTopic}>
           <View style={{ margin: 10 }}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>อนุญาตให้ทำการแชทจากหน้าโปรไฟล์</Text>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#CECECE' }]}> เปิดใช้งานเพื่ออนุญาตให้ผู้ใช้สามารถพูดคุยผ่านหน้าโปรไฟล์ได้</Text>
@@ -596,48 +594,42 @@ export class Edit_Chat extends Component {
     );
   }
 }
-
-///------------------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Edit_Bell
 export class Edit_Bell extends Component {
   constructor(props) {
     super(props);
     this.state = {
     };
   }
-
   render() {
     return (
       <SafeAreaView >
         <Appbar navigation={this.props.navigation} Title='ตั้งค่าการแจ้งเตือน' />
         <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 5 })} >
-          <View style={stylesPro.BoxTopic}>
+          <View style={stylesProfileTopic.BoxTopic}>
             <View style={stylesMain.FlexRow}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
                 การแจ้งเตือน
             </Text>
             </View>
-            <IconEntypo name='chevron-right' style={stylesPro.SettingIcon} size={35} color='#0A55A6' />
+            <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 6 })} >
-          <View style={stylesPro.BoxTopic}>
+          <View style={stylesProfileTopic.BoxTopic}>
             <View style={stylesMain.FlexRow}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
                 การแจ้งเตือนทาง E-mail
             </Text>
             </View>
-            <IconEntypo name='chevron-right' style={stylesPro.SettingIcon} size={35} color='#0A55A6' />
+            <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
           </View>
         </TouchableOpacity>
       </SafeAreaView>
     );
   }
 }
-
-///------------------------------------------------------------------------------------///
-
-
+///----------------------------------------------------------------------------------------------->>>> Language_Screen
 export class Language_Screen extends Component {
   constructor(props) {
     super(props);
@@ -645,12 +637,11 @@ export class Language_Screen extends Component {
       checked2: true,
     };
   }
-
   render() {
     return (
       <SafeAreaView >
         <Appbar navigation={this.props.navigation} Title='ภาษา' />
-        <View style={stylesPro.BoxTopic}>
+        <View style={stylesProfileTopic.BoxTopic}>
           <View style={stylesMain.FlexRow}>
             <CheckBox
               checked={this.state.checked}
@@ -661,7 +652,7 @@ export class Language_Screen extends Component {
                </Text>
           </View>
         </View>
-        <View style={stylesPro.BoxTopic}>
+        <View style={stylesProfileTopic.BoxTopic}>
           <View style={stylesMain.FlexRow}>
             <CheckBox
               checked={this.state.checked2}
@@ -673,30 +664,28 @@ export class Language_Screen extends Component {
           </View>
         </View>
         <View style={{ alignItems: 'center', justifyContent: 'flex-end', height: 620, }}>
-            <TouchableOpacity>
-              <View style={{ height: 40, backgroundColor: '#0A55A6', width: 350, borderRadius: 5, alignItems: 'center', justifyContent: 'center', marginBottom: 10, }}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึกการเปลี่ยนแปลง</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity>
+            <View style={{ height: 40, backgroundColor: '#0A55A6', width: 350, borderRadius: 5, alignItems: 'center', justifyContent: 'center', marginBottom: 10, }}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึกการเปลี่ยนแปลง</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
       </SafeAreaView>
     );
   }
 }
-///------------------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Edit_Setting_Bell
 export class Edit_Setting_Bell extends Component {
   constructor(props) {
     super(props);
     this.state = {
     };
   }
-
   render() {
     return (
       <SafeAreaView>
         <Appbar navigation={this.props.navigation} Title='การแจ้งเตือน' />
-        <View style={stylesPro.BoxTopic}>
+        <View style={stylesProfileTopic.BoxTopic}>
           <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
               การแจ้งเตือน
@@ -711,7 +700,7 @@ export class Edit_Setting_Bell extends Component {
             onPress={() => this.setState({ item1: !this.state.item1 })}
           />
         </View>
-        <View style={stylesPro.BoxTopic}>
+        <View style={stylesProfileTopic.BoxTopic}>
           <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
               อัพเดทคำสั่งซื้อ
@@ -726,7 +715,7 @@ export class Edit_Setting_Bell extends Component {
             onPress={() => this.setState({ item2: !this.state.item2 })}
           />
         </View>
-        <View style={stylesPro.BoxTopic}>
+        <View style={stylesProfileTopic.BoxTopic}>
           <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
               พูดคุย
@@ -741,7 +730,7 @@ export class Edit_Setting_Bell extends Component {
             onPress={() => this.setState({ item3: !this.state.item3 })}
           />
         </View>
-        <View style={stylesPro.BoxTopic}>
+        <View style={stylesProfileTopic.BoxTopic}>
           <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
               โปรโมชั่น
@@ -760,20 +749,18 @@ export class Edit_Setting_Bell extends Component {
     );
   }
 }
-///------------------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Edit_Setting_Email
 export class Edit_Setting_Email extends Component {
   constructor(props) {
     super(props);
     this.state = {
     };
   }
-
   render() {
     return (
       <SafeAreaView>
         <Appbar navigation={this.props.navigation} Title='การแจ้งเตือนทางE-mail' />
-        <View style={stylesPro.BoxTopic}>
+        <View style={stylesProfileTopic.BoxTopic}>
           <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
               การแจ้งเตือนทาง E-mail
@@ -788,7 +775,7 @@ export class Edit_Setting_Email extends Component {
             onPress={() => this.setState({ item1: !this.state.item1 })}
           />
         </View>
-        <View style={stylesPro.BoxTopic}>
+        <View style={stylesProfileTopic.BoxTopic}>
           <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
               อัพเดทคำสั่งซื้อ
@@ -803,7 +790,7 @@ export class Edit_Setting_Email extends Component {
             onPress={() => this.setState({ item2: !this.state.item2 })}
           />
         </View>
-        <View style={stylesPro.BoxTopic}>
+        <View style={stylesProfileTopic.BoxTopic}>
           <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
               จดหมายข่าว
@@ -822,8 +809,3 @@ export class Edit_Setting_Email extends Component {
     );
   }
 }
-///------------------------------------------------------------------------------------///
-
-
-
-

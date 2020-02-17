@@ -1,30 +1,20 @@
-// หน้ายกเลิกสินค้า  
+///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-  Image,
-  ImageBackground,
-  View,
-  ScrollView,
-  Text,
-  TextInput,
-  SafeAreaView,
-  TouchableOpacity,
-  Dimensions,
-  Picker,
+  Dimensions, Picker, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
-import axios from 'axios';
-import FastImage from 'react-native-fast-image';
-import NumberFormat from 'react-number-format';
-import Icons from 'react-native-vector-icons/FontAwesome5';
-import IconEntypo from 'react-native-vector-icons/Entypo';
-import stylesPro from '../../style/stylesProfile-src/stylesProfile_Topic';
+///----------------------------------------------------------------------------------------------->>>> Import
+export const { width, height } = Dimensions.get('window');
+///----------------------------------------------------------------------------------------------->>>> Icon
 import IconFeather from 'react-native-vector-icons/Feather';
-import styleMain from '../../style/StylesMainScreen';
+///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../../style/stylesFont';
-import { ip } from '../../navigator/IpConfig';
+import stylesMain from '../../style/StylesMainScreen';
+import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
+///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { Appbar } from './Profile_Topic';
-
-
+///----------------------------------------------------------------------------------------------->>>> Ip
+///----------------------------------------------------------------------------------------------->>>> Main
 export default class CancelScreen extends Component {
   constructor(props) {
     super(props);
@@ -48,10 +38,9 @@ export default class CancelScreen extends Component {
         )
     }
   }
-
   render() {
     return (
-      <SafeAreaView style={styleMain.SafeAreaView}>
+      <SafeAreaView style={stylesMain.SafeAreaView}>
         <Appbar navigation={this.props.navigation} Title='ยกเลิกสินค้า' />
         <ScrollView>
           {this.PathList()}
@@ -60,20 +49,17 @@ export default class CancelScreen extends Component {
     );
   }
 }
-
-///-----------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> CancelScreen_Product
 export class CancelScreen_Product extends Component {
   constructor(props) {
     super(props);
     this.state = {
     };
   }
-
   render() {
     return (
       <SafeAreaView >
-        <View style={stylesPro.products_pro}>
+        <View style={stylesProfileTopic.products_pro}>
           <IconFeather name='edit' size={50} color='#A2A2A2' />
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>ยังไม่มีคำสั่งซื้อ</Text>
         </View>
@@ -81,17 +67,13 @@ export class CancelScreen_Product extends Component {
     );
   }
 }
-
-///-----------------------------------------------------------------------------///
-
-
+///----------------------------------------------------------------------------------------------->>>> CancelScreen_From
 export class CancelScreen_From extends Component {
   constructor(props) {
     super(props);
     this.state = {
     };
   }
-
   render() {
     return (
       <SafeAreaView  >
@@ -103,23 +85,20 @@ export class CancelScreen_From extends Component {
     );
   }
 }
-
-///-----------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Cancel_Product
 export class Cancel_Product extends Component {
   constructor(props) {
     super(props);
     this.state = {
     };
   }
-
   render() {
     return (
       <View>
-        <View style={styleMain.FrameBackground}>
-          <View style={stylesPro.Order_Product}>
-            <View style={styleMain.FlexRow}>
-              <View style={stylesPro.Order_Product_Pro}></View>
+        <View style={stylesMain.FrameBackground}>
+          <View style={stylesProfileTopic.Order_Product}>
+            <View style={stylesMain.FlexRow}>
+              <View style={stylesProfileTopic.Order_Product_Pro}></View>
               <View>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>หมายเลขคำสั่งซื้อ : 2223994239012</Text>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
@@ -135,22 +114,19 @@ export class Cancel_Product extends Component {
     );
   }
 }
-
-///-----------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Cancel_Detail
 export class Cancel_Detail extends Component {
   constructor(props) {
     super(props);
     this.state = {
     };
   }
-
   render() {
     return (
-      <View style={styleMain.FrameBackground}>
+      <View style={stylesMain.FrameBackground}>
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, }]}>สาเหตุการยกเลิกสินค้า </Text>
-        <View style={stylesPro.Cancel_Detail}>
-          <View style={stylesPro.Cancel_Detail_Box}>
+        <View style={stylesProfileTopic.Cancel_Detail}>
+          <View style={stylesProfileTopic.Cancel_Detail_Box}>
             <Picker
               selectedValue={this.state.language}
               style={{ height: 35, width: '100%' }}
@@ -163,14 +139,14 @@ export class Cancel_Detail extends Component {
               <Picker.Item label="มีสินค้าที่ถูกกว่า" value="js2" />
             </Picker>
           </View>
-          <View style={stylesPro.Cancel_Detail_ButtonBox}>
+          <View style={stylesProfileTopic.Cancel_Detail_ButtonBox}>
             <TouchableOpacity>
-              <View style={stylesPro.Cancel_Detail_Button}>
+              <View style={stylesProfileTopic.Cancel_Detail_Button}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>ยกเลิก</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity>
-              <View style={[stylesPro.Cancel_Detail_Button,{marginLeft:10}]}>
+              <View style={[stylesProfileTopic.Cancel_Detail_Button, { marginLeft: 10 }]}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>ตกลง</Text>
               </View>
             </TouchableOpacity>
@@ -180,4 +156,3 @@ export class Cancel_Detail extends Component {
     );
   }
 }
-

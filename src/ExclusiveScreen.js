@@ -62,7 +62,7 @@ export default class ExclusiveScreen extends Component {
             >
               <View style={stylesTopic.BackgroundLeft}></View>
             </TouchableOpacity>
-            <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNoBackground]}>
+            <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNB]}>
               <View>
                 <ScrollView>
                   <SlideTabGet />
@@ -121,7 +121,7 @@ export class SlideTab extends Component {
       <View>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesMain.ItemCenterVertical, { marginLeft: 8, marginTop: 8, }]}>
           {Title}</Text>
-        <View style={stylesMain.SafeAreaViewNoBackground}>
+        <View style={stylesMain.SafeAreaViewNB}>
           <View style={{ width: '100%' }}>
             <View style={{ width: '100%', height: 140 }}>
               {
@@ -219,7 +219,7 @@ export class PricesSlide extends Component {
       <View>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesMain.ItemCenterVertical, { marginLeft: 8, marginTop: 8, }]}>
           ราคา</Text>
-        <View style={stylesMain.SafeAreaViewNoBackground}>
+        <View style={stylesMain.SafeAreaViewNB}>
           <View style={{ width: '100%' }}>
             <View style={[stylesMain.ItemCenter, stylesMain.FlexRow, { width: '100%', height: 80 }]}>
               <TextInput placeholder='ต่ำสุด' style={[

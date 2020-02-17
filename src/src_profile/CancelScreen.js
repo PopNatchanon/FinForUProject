@@ -13,6 +13,7 @@ import stylesMain from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { Appbar } from './Profile_Topic';
+import { AppBar1 } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class CancelScreen extends Component {
@@ -41,7 +42,7 @@ export default class CancelScreen extends Component {
   render() {
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
-        <Appbar navigation={this.props.navigation} Title='ยกเลิกสินค้า' />
+        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ยกเลิกสินค้า' />
         <ScrollView>
           {this.PathList()}
         </ScrollView>

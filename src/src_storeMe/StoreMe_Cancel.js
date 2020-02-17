@@ -19,7 +19,7 @@ import stylesPro from '../../style/stylesProfile-src/stylesProfile_Topic';
 import stylesMain from '../../style/StylesMainScreen';
 import stylesFont from '../../style/stylesFont';
 import { ip } from '../../navigator/IpConfig';
-import { Appbar } from '../../src/src_profile/Profile_Topic';
+import { AppBar1 } from '../MainScreen';
 
 export default class StoreMe_Cancel extends Component {
   constructor(props) {
@@ -31,16 +31,12 @@ export default class StoreMe_Cancel extends Component {
   render() {
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
-        <Appbar navigation={this.props.navigation} Title='ยกเลิกสินค้า' />
+        <AppBar1 backArrow  navigation={this.props.navigation} titleHead='ยกเลิกสินค้า' />
         <ScrollView>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { marginLeft: 5, marginTop:5, }]}>รายการที่ยกเลิกสินค้า </Text>
           <Cancel_Product />
           <Cancel_Product />
-          <Cancel_Product />
-          <Cancel_Product />
-          <Cancel_Product />
         </ScrollView>
-
       </SafeAreaView>
     );
   }

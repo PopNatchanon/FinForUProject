@@ -38,11 +38,14 @@ import Setting_Topic from '../src/src_profile/src_Setting/Setting_Topic';
 
 // src_storeMe
 import StoreMeScreen from '../src/src_storeMe/StoreMeScreen';
+import StoreMe_Topic from '../src/src_storeMe/StoreMe_Topic';
 import StoreMe_Setting from '../src/src_storeMe/StoreMe_Setting';
 import StoreMe_Up_Product from '../src/src_storeMe/StoreMe_Up_Product';
-import StoreMe_Order from '../src/src_storeMe/StoreMe_Order';
+import StoreMe_Return from '../src/src_storeMe/StoreMe_Return';
 import StoreMe_Cancel from '../src/src_storeMe/StoreMe_Cancel';
+import StoreMe_Detail_Order from '../src/src_storeMe/StoreMe_Detail_Order';
 import Setting_TopicStore from '../src/src_storeMe/src_SettingStore/Setting_TopicStore';
+
 
 // src-Cart
 import Customer_account from '../src/src-Cart/Customer_account';
@@ -262,6 +265,13 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
+  StoreMe_Topic: {
+    screen: StoreMe_Topic,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
   StoreMe_Setting: {
     screen: StoreMe_Setting,
     navigationOptions: () => ({
@@ -276,8 +286,8 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
-  StoreMe_Order: {
-    screen: StoreMe_Order,
+  StoreMe_Return: {
+    screen: StoreMe_Return,
     navigationOptions: () => ({
       tabBarVisible: false,
       header: null,
@@ -292,6 +302,13 @@ const PathScreen = createStackNavigator({
   },
   Setting_TopicStore: {
     screen: Setting_TopicStore,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
+  StoreMe_Detail_Order: {
+    screen: StoreMe_Detail_Order,
     navigationOptions: () => ({
       tabBarVisible: false,
       header: null,
@@ -405,7 +422,7 @@ const PathScreen = createStackNavigator({
 },
   {
     initialRouteName: 'MainScreen',
-    // initialRouteName: 'StoreMe_Up_Product',
+    // initialRouteName: 'ProfileScreen',
     // initialRouteName: 'StoreMeScreen',
     // initialRouteName: 'Customer_account',
     // initialRouteName: 'Same_StoreScreen',

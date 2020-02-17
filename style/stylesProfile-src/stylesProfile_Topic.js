@@ -268,12 +268,6 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
         padding: 10,
     },
-    Return_Pro: {
-        height: 80,
-        width: 80,
-        backgroundColor: '#C4C4C4',
-        margin: 10,
-    },
     Return_Detail_Box: {
         height: 40,
         width: '100%',

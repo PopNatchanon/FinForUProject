@@ -4,6 +4,7 @@ import {
   Dimensions, Picker, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
+import FastImage from 'react-native-fast-image';
 export const { width, height } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
@@ -13,8 +14,9 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { Appbar } from './Profile_Topic';
+import { AppBar1 } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
+import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class Return_products extends Component {
   constructor(props) {
@@ -42,7 +44,7 @@ export default class Return_products extends Component {
   render() {
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
-        <Appbar navigation={this.props.navigation} Title='คืนสินค้า/คืนเงิน' />
+        <AppBar1 backArrow navigation={this.props.navigation} titleHead='คืนสินค้า/คืนเงิน' />
         <ScrollView>
           {this.PathList()}
         </ScrollView>
@@ -97,7 +99,13 @@ export class Return extends Component {
       <View style={stylesMain.FrameBackground}>
         <View style={stylesProfileTopic.Return}>
           <View style={stylesMain.FlexRow}>
-            <View style={stylesProfileTopic.Return_Pro}></View>
+            <View style={{ height: 100, width: 100, borderColor: '#F3F3F3', borderWidth: 1 ,margin:10}}>
+              <FastImage style={stylesMain.BoxProduct1Image}
+                source={{
+                  uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
+                }}
+              />
+            </View>
             <View style={{ marginTop: 10 }}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A2A2A2' }]}>ตัวเลือกสินค้า:สีแดง</Text>

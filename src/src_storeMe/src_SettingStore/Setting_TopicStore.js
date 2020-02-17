@@ -27,8 +27,8 @@ import { CheckBox } from 'react-native-elements';
 import { ip } from '../../../navigator/IpConfig';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../../../style/stylestoreMe-src/styleStoreMeScreen';
-import { Appbar } from '../../src_profile/Profile_Topic';
 import { Address_Customar } from '../../src_profile/src_Setting/Setting_Topic';
+import { AppBar1 } from '../../MainScreen';
 
 export const { width, height } = Dimensions.get('window');
 
@@ -39,7 +39,7 @@ export default class Setting_TopicStore extends Component {
             case 0:
                 return (
                     <View>
-                        <Appbar navigation={this.props.navigation} Title='แก้ไขเอกสารการจดแจ้ง' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' />
                         <Notification navigation={this.props.navigation} />
                         {/* แก้ไขเอกสารการจดแจ้ง */}
                     </View>
@@ -47,7 +47,7 @@ export default class Setting_TopicStore extends Component {
             case 1:
                 return (
                     <View>
-                        <Appbar navigation={this.props.navigation} Title='แก้ไขบัญชีธนาคาร' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขบัญชีธนาคาร' />
                         <Edit_Bank navigation={this.props.navigation} />
                         {/* แก้ไขบัญชีธนาคาร */}
                     </View>
@@ -55,7 +55,7 @@ export default class Setting_TopicStore extends Component {
             case 2:
                 return (
                     <View>
-                        <Appbar navigation={this.props.navigation} Title='แก้ไขเอกสารการจดแจ้ง' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' />
                         <Notification_From navigation={this.props.navigation} />
                         {/* หนังสือจดทะเบียนบริษัท จากกรมพัฒนาธุรกิจการค้า */}
                     </View>
@@ -63,50 +63,64 @@ export default class Setting_TopicStore extends Component {
             case 3:
                 return (
                     <View>
-                        <Appbar navigation={this.props.navigation} Title='แก้ไขเอกสารการจดแจ้ง' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' />
                         <Notification_From navigation={this.props.navigation} DetailHead='สำเนาบัตรประชาชน/พาสปอร์ตของกรรมการผู้มีอำนาจลงนาม' />
                     </View>
                 )
             case 4:
                 return (
                     <View>
-                        <Appbar navigation={this.props.navigation} Title='แก้ไขเอกสารการจดแจ้ง' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' />
                         <Notification_From navigation={this.props.navigation} DetailHead='ใบทะเบียนภาษีมูลค่าเพิ่ม' />
                     </View>
                 )
             case 5:
                 return (
                     <View>
-                        <Appbar navigation={this.props.navigation} Title='แก้ไขเอกสารการจดแจ้ง' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' />
                         <Notification_From navigation={this.props.navigation} DetailHead='ใบจดทะเบียนเครื่องหมายการค้า' />
                     </View>
                 )
             case 6:
                 return (
                     <View>
-                        <Appbar navigation={this.props.navigation} Title='แก้ไขเอกสารการจดแจ้ง' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' />
                         <Notification_From navigation={this.props.navigation} DetailHead='หนังสือรับรองการเป็นตัวแทนจำหน่าย (ไม่จำเป็นต้องระบุ)' />
                     </View>
                 )
             case 7:
                 return (
                     <View>
-                        <Appbar navigation={this.props.navigation} Title='แก้ไขเอกสารการจดแจ้ง' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' />
                         <Notification_From navigation={this.props.navigation} DetailHead='สำเนาบัญชีธนาคารของผู้ขาย' />
                     </View>
                 )
             case 8:
                 return (
                     <View>
-                        <Appbar navigation={this.props.navigation} Title='แก้ไขเอกสารการจดแจ้ง' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' />
                         <Notification_From navigation={this.props.navigation} DetailHead='สำเนาบัญชีธนาคารของผู้ขาย' />
                     </View>
                 )
             case 9:
                 return (
                     <View>
-                        <Appbar navigation={this.props.navigation} Title='ที่อยู่ร้านค้าของฉัน' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ที่อยู่ร้านค้าของฉัน' />
                         <Setting_Address_Store navigation={this.props.navigation} />
+                    </View>
+                )
+            case 10:
+                return (
+                    <View>
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='เพิ่มเลขพัสดุ' />
+                        <Up_Code_Number />
+                    </View>
+                )
+            case 11:
+                return (
+                    <View>
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเลขพัสดุ' />
+                        <Up_Code_Number />
                     </View>
                 )
         }
@@ -432,3 +446,47 @@ export class Setting_Address_Store extends Component {
     }
 }
 
+///------------------------------------------------------------------------------///
+
+export class Up_Code_Number extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
+    render() {
+        return (
+            <View style={stylesMain.FrameBackground}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { margin: 10 }]}>กรอกเลขพัสดุ</Text>
+                <View style={{ alignItems: 'center' }}>
+                    <View style={{ width: '90%', height: 40, borderWidth: 1, borderRadius: 5, }}>
+                        <TextInput
+                            style={stylesFont.FontFamilyText}
+                            fontSize={15}
+                            placeholder=""
+                            multiline
+                            editable
+                            maxLength={50}
+                            value={this.state.NumberCode}
+                            onChangeText={(NumberCode) => this.setState({ NumberCode })}>
+                        </TextInput>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FF0000' }]}>*กรุณาตรวจเลขพัสดุ </Text>
+                    </View>
+                    <View style={[styles.BottomSheet_Botton, { paddingTop: 15 }]}>
+                        <TouchableOpacity>
+                            <View style={styles.BottomSheet_Botton_cancel}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ยกเลิก</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <View style={styles.BottomSheet_Botton_OK}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตกลง</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View>
+        );
+    }
+}

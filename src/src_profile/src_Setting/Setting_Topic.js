@@ -19,6 +19,7 @@ import stylesLogin from '../../../style/stylesLoginScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { Appbar } from '../Profile_Topic';
 import { StoreMe_SettingImage } from '../../src_storeMe/StoreMe_Setting';
+import { AppBar1 } from '../../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class Setting_Topic extends Component {
@@ -520,7 +521,7 @@ export class Edit_Address extends Component {
   render() {
     return (
       <SafeAreaView>
-        <Appbar navigation={this.props.navigation} Title='ที่อยู่ของฉัน' />
+        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ที่อยู่ของฉัน' />
         <Address_Customar MainAddress />
         <Address_Customar />
         <View style={{ alignItems: 'center', justifyContent: 'flex-end', height: 475 }}>

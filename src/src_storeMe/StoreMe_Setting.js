@@ -15,7 +15,7 @@ import stylesMain from '../../style/StylesMainScreen';
 import stylesFont from '../../style/stylesFont';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import styles from '../../style/stylestoreMe-src/styleStoreMeScreen';
-import { Appbar } from '../src_profile/Profile_Topic';
+import { AppBar1 } from '../MainScreen';
 
 export const { width, height } = Dimensions.get('window');
 
@@ -29,7 +29,7 @@ export default class StoreMe_Setting extends Component {
     render() {
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                <Appbar navigation={this.props.navigation} Title='ตั้งค่าร้านค้า' />
+                <AppBar1 backArrow navigation={this.props.navigation} titleHead='ตั้งค่าร้านค้า' />
                 <StoreMe_Setting_Topic navigation={this.props.navigation} />
             </SafeAreaView>
         );

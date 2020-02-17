@@ -36,7 +36,7 @@ export default class ExclusiveScreen extends Component {
     const { sliderVisible } = this.state
     const { navigation } = this.props
     return (
-      <SafeAreaView style={stylesMain.SafeAreaView} >
+      <SafeAreaView style={stylesMain.SafeAreaView}>
         <AppBar1 titleHead={'สินค้าสุด Exclusive'} backArrow searchBar chatBar navigation={navigation} />
         <ScrollView>
           <Slide />
@@ -54,12 +54,12 @@ export default class ExclusiveScreen extends Component {
           }}
           position="right"
           changeVisibilityCallback={() => this.setState({ sliderVisible: !sliderVisible })}
-        >
+       >
           <View style={stylesMain.FlexRow}>
             <TouchableOpacity
               activeOpacity={1}
               onPress={() => this.setState({ sliderVisible: !sliderVisible })}
-            >
+           >
               <View style={stylesTopic.BackgroundLeft}></View>
             </TouchableOpacity>
             <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNB]}>
@@ -131,7 +131,7 @@ export class SlideTab extends Component {
                     {this.dataItem(item)}
                   </ScrollView>
               }
-              {item.length > 4 ?
+              {item.length> 4 ?
                 <TouchableOpacity onPress={() => {
                   activeText == true ?
                     this.setState({ activeText: false }) :
@@ -159,7 +159,7 @@ export class SlideTab extends Component {
             </View>
           </View>
         </View>
-      </View >
+      </View>
     )
   }
   render() {
@@ -208,7 +208,7 @@ export class SlideTabGet extends Component {
           <SlideTab Title='แบรนด์' item={item2} />
           <PricesSlide />
         </View>
-      </View >
+      </View>
     )
   }
 }

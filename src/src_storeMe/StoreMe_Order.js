@@ -58,11 +58,11 @@ export class Appbar extends Component {
 
   render() {
     return (
-      <View style={{ width: '100%', backgroundColor: '#FFFFFF', height: 50, flexDirection: 'row', }} >
+      <View style={{ width: '100%', backgroundColor: '#FFFFFF', height: 50, flexDirection: 'row', }}>
         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
           <IconEntypo name='chevron-left' size={35} color='#0A55A6' />
         </TouchableOpacity>
-        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { marginTop: 10, marginLeft: '30%' }]} >ออเดอร์ของฉัน</Text>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { marginTop: 10, marginLeft: '30%' }]}>ออเดอร์ของฉัน</Text>
       </View>
     );
   }
@@ -118,7 +118,7 @@ export class Order_Me extends Component {
 
   render() {
     return (
-      <View >
+      <View>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>รายการคำสั่งซื้อ</Text>
         <View style={{ backgroundColor: '#FFFFFF', width: '100%', }}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10, }}>

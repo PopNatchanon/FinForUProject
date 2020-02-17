@@ -13,7 +13,10 @@ import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+import FastImage from 'react-native-fast-image';
+import NumberFormat from 'react-number-format';
 ///----------------------------------------------------------------------------------------------->>>> Ip
+import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Toolbar
 export class Toolbar extends Component {
     constructor(props) {
@@ -37,38 +40,38 @@ export class Toolbar extends Component {
         }
         return (
             <View style={stylesMain.Toolbar}>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('MainScreen')} >
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('MainScreen')}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign style={{ marginLeft: 5, }} name="home" size={25} />
                         <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>Home</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('FeedScreen')} >
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('FeedScreen')}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="tagso" size={25} />
                         <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}> Feed</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('NewsScreen')} >
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('NewsScreen')}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="notification" size={25} />
                         <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>News</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('BellScreen')} >
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('BellScreen')}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="bells" size={25} />
                         <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>เตือน</Text>
                     </View>
                 </TouchableOpacity>
                 {u_name == null ?
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('LoginScreen')} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('LoginScreen')}>
                         <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                             <IconAntDesign name="user" size={25} />
                             <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>ฉัน</Text>
                         </View>
                     </TouchableOpacity> :
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('ProfileScreen')} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('ProfileScreen')}>
                         <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                             <IconAntDesign name="user" size={25} />
                             <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>
@@ -437,12 +440,142 @@ export class GetCoupon extends Component {
                         </View> :
                         null
                 }
-            </View >
+            </View>
         )
     }
     render() {
         return (
             this.setCoupon()
+        )
+    }
+}
+export class ProductBox extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+    ProductBoxRender() {
+        const { dataService, typeip, mode, navigation, nameSize, pointerUrl, pointerid_store, postpath, prepath } = this.props
+        return dataService.map((item, indexs) => {
+            var throughsale = Number(item.full_price) + (item.full_price * 0.5)
+            var discount = Number(item.full_price) - throughsale / 100
+            var url
+            { typeip == 'ip' ? url = ip : url = finip }
+            var dataMySQL = typeip == 'ip' ?
+                [url,
+                    prepath ?
+                        postpath ?
+                            prepath + '/' + item.image_path + '/' + postpath :
+                            prepath + '/' + item.image_path :
+                        postpath ?
+                            item.image_path + '/' + postpath :
+                            item.image_path,
+                    item.image].join('/') :
+                [url, item.image_path, item.image].join('/');
+            return (
+                <TouchableOpacity
+                    activeOpacity={1}
+                    key={indexs}
+                    onPress={() => navigation.push(
+                        pointerUrl,
+                        pointerid_store ?
+                            { id_item: item.id_product } :
+                            null
+                    )}
+                >
+                    <View style={
+                        mode == 'row4col1' ?
+                            stylesMain.BoxProduct5Box :
+                            mode == 'row3col2' ?
+                                stylesMain.BoxProduct1Box2 :
+                                mode == 'row3colall' ?
+                                    stylesMain.BoxProduct2Box :
+                                    stylesMain.BoxProduct1Box
+                    }>
+                        <View style={
+                            mode == 'row4col1' ?
+                                stylesMain.BoxProduct5ImageofLines :
+                                mode == 'row3colall' ?
+                                    stylesMain.BoxProduct2ImageofLines :
+                                    stylesMain.BoxProduct1ImageofLines
+                        }>
+                            <FastImage
+                                source={{
+                                    uri: dataMySQL,
+                                }}
+                                style={
+                                    mode == 'row4col1' ?
+                                        stylesMain.BoxProduct5Image :
+                                        mode == 'row3colall' ?
+                                            stylesMain.BoxProduct2Image :
+                                            stylesMain.BoxProduct1Image
+                                }
+                                resizeMode={FastImage.resizeMode.contain}
+                            />
+                        </View>
+                        <View style={{
+                            height:
+                                mode == 'row4col1' ?
+                                    55 :
+                                    60,
+                            paddingHorizontal: 3
+                        }}>
+                            <View style={[
+                                stylesMain.BoxProduct1NameofLines
+                            ]}>
+                                <Text numberOfLines={2} style={[
+                                    stylesFont.FontFamilySemiBold,
+                                    {
+                                        fontSize: nameSize ? nameSize : 16,
+                                    }
+                                ]}>
+                                    {item.name}</Text>
+                            </View>
+                            <View style={[
+                                stylesMain.BoxProduct1PriceofLines,
+                                stylesMain.FlexRow
+                            ]}>
+                                <NumberFormat
+                                    value={item.full_price}
+                                    displayType={'text'}
+                                    thousandSeparator={true}
+                                    prefix={'฿'}
+                                    renderText={value =>
+                                        <Text style={[
+                                            stylesMain.BoxProduct1ImagePrice,
+                                            stylesFont.FontFamilyBoldBold, {
+                                                fontSize: nameSize ? nameSize : 14,
+                                            }
+                                        ]}>
+                                            {value + ' '}</Text>
+                                    }
+                                />
+                                <NumberFormat
+                                    value={throughsale}
+                                    displayType={'text'}
+                                    thousandSeparator={true}
+                                    prefix={'฿'}
+                                    renderText={value =>
+                                        <Text style={[
+                                            stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText, {
+                                                marginTop: 2,
+                                                fontSize: nameSize ? nameSize : 14
+                                            }
+                                        ]}>
+                                            {value}</Text>
+                                    }
+                                />
+                            </View>
+                        </View>
+                    </View>
+                </TouchableOpacity>
+            );
+        })
+    }
+    render() {
+        return (
+            this.ProductBoxRender()
         )
     }
 }

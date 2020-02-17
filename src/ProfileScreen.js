@@ -74,7 +74,7 @@ export class Headbar extends Component {
                     <View style={stylesProfile.HeadbarBox1}>
                         <View style={stylesMain.FlexRow}>
                             <View>
-                                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMeScreen')} >
+                                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMeScreen')}>
                                     <View style={stylesProfile.HeadbarBox1Sub}>
                                         <Text style={[stylesProfile.HeadbarBox1SubText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                             เริ่มค้าขาย</Text>
@@ -107,7 +107,7 @@ export class Headbar extends Component {
                         </View>
                     </View>
                 </View>
-            </View >
+            </View>
         )
     }
 }
@@ -312,7 +312,7 @@ export class ListMenu extends Component {
         return (
             <View>
                 <View style={stylesProfile.ListMenu}>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 0 })} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 0 })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconMaterialIcons RightItem name="access-time" color='#D0B216' size={35}
@@ -326,7 +326,7 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 1 })} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 1 })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconAntDesign RightItem name="wechat" size={35} color='#0A55A6'
@@ -340,7 +340,7 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 2 })} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 2 })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconAntDesign RightItem name="heart" size={35} color='#D74024' style={
@@ -355,7 +355,7 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 3 })} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 3 })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconFontisto RightItem name="shopping-store" size={30} color='#0A55A6' style={
@@ -369,7 +369,7 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 4 })} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 4 })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconMaterialCommunityIcons RightItem name="star-box" size={35} color='#EAD295' style={
@@ -383,7 +383,7 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 5 })} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 5 })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconFeather RightItem name="help-circle" size={35} color='#00A3FF' style={
@@ -485,7 +485,7 @@ export class MyCode extends Component {
                                     placeholderTextColor={'white'}
                                     style={[stylesProfile.ViewCodeInputCode, stylesFont.FontSize6]}
                                     onChangeText={(text) => this.setState({ text })}
-                                ></TextInput>
+                               ></TextInput>
                             </View>
                             <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
                                 <View style={[stylesProfile.ViewCodeTextCode]}>
@@ -572,7 +572,7 @@ export class MyCode extends Component {
                             <GetCoupon flexRow useCoupon codeList={codeList} colorCoupon='#86CFFF' timeOut={'14-02-2020'} couponText={'10%'} textDetail={'รับเงินคืน 10% Coins'} />
                         </View>
                     </View>
-                </View > :
+                </View> :
                 codeList == 'usedCode' ?
                     <View style={[stylesMain.BoxProduct2BoxProduct, { backgroundColor: '#fff', paddingTop: 2 }]}>
                         <GetCoupon flexRow useCoupon codeList={codeList} colorCoupon='#86CFFF' timeOut={'14-02-2020'} couponText={'10%'} textDetail={'รับเงินคืน 10% Coins'} />

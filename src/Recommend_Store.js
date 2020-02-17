@@ -162,7 +162,7 @@ export class Store_Detail extends Component {
                                 />
                             </View>
                         </TouchableOpacity>
-                        <View style={{ margin: 10, }} >
+                        <View style={{ margin: 10, }}>
                             <TouchableOpacity onPress={() => navigation.navigate('StoreScreen', { id_item: 23 })}>
                                 <View style={stylesTopic.Store_Name}>
                                     <Text style={[stylesTopic.Store_NameText, stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
@@ -188,7 +188,7 @@ export class Store_Detail extends Component {
                                             ติดตาม</Text>
                                     </View>
                                     <TouchableOpacity onPress={() => navigation.navigate('StoreScreen', { id_item: 23 })} style={[
-                                        stylesTopic.Store_Button, { backgroundColor: '#0A55A6', marginLeft: 8, }]} >
+                                        stylesTopic.Store_Button, { backgroundColor: '#0A55A6', marginLeft: 8, }]}>
                                         <Text style={[stylesFont.FontFamilyText, { textAlign: 'center', color: '#FFFFFF' }]}>
                                             เข้าดูร้านค้า</Text>
                                     </TouchableOpacity>
@@ -220,7 +220,7 @@ export class Store_Detail extends Component {
                         </View>
                     </View>
                 </View>
-            </View >
+            </View>
         )
     }
 }

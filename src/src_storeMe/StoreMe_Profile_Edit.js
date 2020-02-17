@@ -58,12 +58,12 @@ export class Appbar extends Component {
 
     render() {
         return (
-            <View style={{ width: '100%', backgroundColor: '#FFFFFF', height: 50, flexDirection: 'row', justifyContent: 'space-between', paddingRight: 10, }} >
+            <View style={{ width: '100%', backgroundColor: '#FFFFFF', height: 50, flexDirection: 'row', justifyContent: 'space-between', paddingRight: 10, }}>
                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
                     <IconEntypo name='chevron-left' size={35} color='#0A55A6' />
                 </TouchableOpacity>
-                <Text style={{ marginTop: 10, fontSize: 16, }} >แก้ไขรายละเอียดร้านค้า</Text>
-                <Text style={{ marginTop: 10, fontSize: 16, color: '#0A55A6', }} >บันทึก</Text>
+                <Text style={{ marginTop: 10, fontSize: 16, }}>แก้ไขรายละเอียดร้านค้า</Text>
+                <Text style={{ marginTop: 10, fontSize: 16, color: '#0A55A6', }}>บันทึก</Text>
             </View>
         );
     }

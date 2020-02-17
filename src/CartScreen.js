@@ -64,14 +64,14 @@ export class Product_Cart extends Component {
         return (
             <View>
                 {
-                    storecount > 0 ?
+                    storecount> 0 ?
 
                         <CartProduct itemData={this.props.itemData} sendData={this.props.sendText} /> :
                         <View style={stylesCart.Product_Cart}>
                             <View style={[stylesMain.ItemCenter, { height: 200, width: '100%' }]}>
                                 <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
                                     <IconFeather name="shopping-cart" size={60} />
-                                    <Text >
+                                    <Text>
                                         ไม่มีสินค้าในรถเข็นของคุณ</Text>
                                 </View>
                             </View>
@@ -172,7 +172,7 @@ export class CartProduct extends Component {
                                 />
                                 <View style={{ flexDirection: 'row' }}>
                                     <TouchableOpacity onPress={() => {
-                                        if (ItemArray[index].itemCount > 1) {
+                                        if (ItemArray[index].itemCount> 1) {
                                             ItemArray[index].itemCount = ItemArray[index].itemCount - 1
                                             this.setState({ ItemArray })
                                             this.props.sendData(ItemArray);
@@ -203,7 +203,7 @@ export class CartProduct extends Component {
                                     </TouchableOpacity>
                                 </View>
                             </View>
-                        </View >
+                        </View>
                     )
                 }
             })
@@ -368,7 +368,7 @@ export class Buy_bar extends Component {
         })
         return (
             <View style={stylesCart.Bar}>
-                <View style={stylesCart.Bar_Code} >
+                <View style={stylesCart.Bar_Code}>
                     <IconFoundation name='burst' size={30} style={stylesMain.ItemCenterVertical} />
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical]}>
                         โค้ดส่วนลด</Text>
@@ -411,7 +411,7 @@ export class Buy_bar extends Component {
                         </View>
                     </TouchableOpacity>
                 </View>
-            </View >
+            </View>
         );
     }
 }

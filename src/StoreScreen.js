@@ -55,7 +55,7 @@ export default class StoreScreen extends Component {
                         null
                 }
                 <AppBar leftBar='backarrow' rightBar='storebar' navigation={navigation} />
-                <ScrollView >
+                <ScrollView>
                     <StoreHead navigation={navigation} item={s_item} />
                     <StoreHeadDetails navigation={navigation} item={s_item} />
                     <Menubar navigation={navigation} item={s_item} />
@@ -75,7 +75,7 @@ export class StoreHead extends Component {
             var dataMySQL = [ip + '/mysql/uploads/slide/NewStore', item.image].join('/')
             return (
                 <View style={stylesStore.StoreHead}>
-                    <View >
+                    <View>
                         <ImageBackground
                             source={require('../icon/bgprofile.jpg')}
                             style={stylesStore.StoreHeadImage}
@@ -417,7 +417,7 @@ export class DealTop extends Component {
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs}
                     onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}
-                >
+               >
                     <View style={stylesMain.BoxProduct1Box} key={indexs}>
                         <View style={stylesMain.BoxProduct1ImageofLines}>
                             <FastImage
@@ -504,7 +504,7 @@ export class NewProduct extends Component {
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs}
                     onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}
-                >
+               >
                     <View style={stylesMain.BoxProduct1Box} key={indexs}>
                         <View style={stylesMain.BoxProduct1ImageofLines}>
                             <FastImage
@@ -680,7 +680,7 @@ export class PopularProduct extends Component {
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs}
                     onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}
-                >
+               >
                     <View style={stylesMain.BoxProduct3Box} key={indexs}>
                         <View style={stylesMain.BoxProduct3ImageofLines}>
                             <FastImage
@@ -837,7 +837,7 @@ export class ShowProduct extends Component {
             return (
                 <TouchableOpacity activeOpacity={1} key={indexs}
                     onPress={() => this.props.navigation.push('DetailScreen', { id_item: item.id_product })}
-                >
+               >
                     <View style={stylesMain.BoxProduct3Box} key={indexs}>
                         <View style={stylesMain.BoxProduct3ImageofLines}>
                             <FastImage
@@ -967,7 +967,7 @@ export class BoxProduct4 extends Component {
             type: 'storefeed'
         };
         return (
-            <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView]} >
+            <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView]}>
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
                 <View style={stylesMain.BoxProductWarp}>
                     {this.dataToday()}

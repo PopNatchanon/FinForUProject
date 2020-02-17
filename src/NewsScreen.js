@@ -112,7 +112,7 @@ export class Button_Bar extends Component {
                 return (
                     < SafeAreaView>
                         <Blog Body='Blog' />
-                    </SafeAreaView >
+                    </SafeAreaView>
                 );
             default:
         }

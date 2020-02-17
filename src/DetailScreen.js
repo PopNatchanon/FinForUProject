@@ -23,7 +23,7 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar } from './MainScreen';
-import { GetServices } from './tools/Tools';
+import { GetServices, ProductBox } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -99,7 +99,6 @@ export class Detail_Image extends Component {
   }
   _renderItem = ({ item, indexs }) => {
     var dataMySQL = [finip, item.image_full_path, item.image].join('/');
-    console.log(dataMySQL)
     return (
       <View style={{ width: width * 1, height: width * 1, /*backgroundColor: '#d9d9d9'*/ }}>
         <FastImage
@@ -360,7 +359,7 @@ export class Detail_Category extends Component {
       );
     })
     return (
-      <View>{id_store}</View >
+      <View>{id_store}</View>
     )
   }
 }
@@ -430,7 +429,7 @@ export class Reviews extends Component {
         <View style={stylesMain.FrameBackgroundTextBox}>
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
             คะแนนสินค้า</Text>
-          <View style={stylesMain.FlexRow} >
+          <View style={stylesMain.FlexRow}>
             <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize6, { marginRight: 0 }]}>
               ดูทั้งหมด</Text>
             <IconFeather style={stylesDetail.Score_iconB} name='edit' size={20} color='#0A55A6' />
@@ -606,60 +605,7 @@ export class Same_Store extends Component {
         type_product: "this_store",
       };
     })
-    let dataSaleProduct = dataService2.map((item, indexs) => {
-      var dataMySQL = [finip, item.image_path, item.image].join('/');
-      return (
-        <TouchableOpacity activeOpacity={1} key={indexs}
-          onPress={() => navigation.push('DetailScreen', { id_item: item.id_product })}
-        >
-          <View style={stylesMain.BoxProduct1Box} key={indexs}>
-            <View style={stylesMain.BoxProduct1ImageofLines}>
-              <FastImage
-                source={{
-                  uri: dataMySQL,
-                }}
-                // onLoadEnd={() => IsLoading(true)}
-                style={stylesMain.BoxProduct1Image}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            </View>
-            <View style={{ height: 60, paddingHorizontal: 3 }}>
-              <View style={[stylesMain.BoxProduct1NameofLines]}>
-                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize7]}>
-                  {item.name}</Text>
-              </View>
-              <View style={[stylesMain.BoxProduct1PriceofLines, stylesMain.FlexRow]}>
-                <NumberFormat
-                  value={item.full_price}
-                  displayType={'text'}
-                  thousandSeparator={true}
-                  prefix={'฿'}
-                  renderText={value =>
-                    <Text style={[
-                      stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyBold,
-                    ]}>
-                      {value + ' '}</Text>
-                  }
-                />
-                {/* <NumberFormat
-                  value={throughsale}
-                  displayType={'text'}
-                  thousandSeparator={true}
-                  prefix={'฿'}
-                  renderText={value =>
-                    <Text style={[
-                      stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText,
-                      { marginTop: 3 }
-                    ]}>
-                      {value}</Text>
-                  }
-                /> */}
-              </View>
-            </View>
-          </View>
-        </TouchableOpacity>
-      )
-    })
+    console.log(dataService2)
     return (
       <View style={stylesMain.FrameBackground}>
         {
@@ -676,7 +622,12 @@ export class Same_Store extends Component {
           </TouchableOpacity>
         </View>
         <ScrollView horizontal>
-          {dataSaleProduct}
+          {
+            dataService2 ?
+              <ProductBox dataService={dataService2} navigation={navigation} typeip='fin' prepath='mysql'
+                mode='row3col1' pointerUrl='DetailScreen' pointerid_store /> :
+              null
+          }
         </ScrollView>
       </View>
     );
@@ -707,60 +658,6 @@ export class Similar_Product extends Component {
         type_product: "same_product",
       };
     })
-    let dataSaleProduct = dataService2.map((item, indexs) => {
-      var dataMySQL = [finip, item.image_path, item.image].join('/');
-      return (
-        <TouchableOpacity activeOpacity={1} key={indexs}
-          onPress={() => navigation.push('DetailScreen', { id_item: item.id_product })}
-        >
-          <View style={stylesMain.BoxProduct1Box} key={indexs}>
-            <View style={stylesMain.BoxProduct1ImageofLines}>
-              <FastImage
-                source={{
-                  uri: dataMySQL,
-                }}
-                // onLoadEnd={() => IsLoading(true)}
-                style={stylesMain.BoxProduct1Image}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            </View>
-            <View style={{ height: 60, paddingHorizontal: 3 }}>
-              <View style={[stylesMain.BoxProduct1NameofLines]}>
-                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize7]}>
-                  {item.name}</Text>
-              </View>
-              <View style={[stylesMain.BoxProduct1PriceofLines, stylesMain.FlexRow]}>
-                <NumberFormat
-                  value={item.full_price}
-                  displayType={'text'}
-                  thousandSeparator={true}
-                  prefix={'฿'}
-                  renderText={value =>
-                    <Text style={[
-                      stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyBold,
-                    ]}>
-                      {value + ' '}</Text>
-                  }
-                />
-                {/* <NumberFormat
-                        value={throughsale}
-                        displayType={'text'}
-                        thousandSeparator={true}
-                        prefix={'฿'}
-                        renderText={value =>
-                            <Text style={[
-                                stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText,
-                                { marginTop: 3 }
-                            ]}>
-                                {value}</Text>
-                        }
-                    /> */}
-              </View>
-            </View>
-          </View>
-        </TouchableOpacity>
-      )
-    })
     return (
       <View style={stylesMain.FrameBackground}>
         {
@@ -777,7 +674,12 @@ export class Similar_Product extends Component {
           </TouchableOpacity>
         </View>
         <ScrollView horizontal>
-          {dataSaleProduct}
+          {
+            dataService2 ?
+              <ProductBox dataService={dataService2} navigation={navigation} typeip='fin' prepath='mysql'
+                mode='row3col1' pointerUrl='DetailScreen' pointerid_store /> :
+              null
+          }
         </ScrollView>
       </View>
     );
@@ -808,60 +710,6 @@ export class Might_like extends Component {
         type_product: "youlike",
       };
     })
-    let dataSaleProduct = dataService2.map((item, indexs) => {
-      var dataMySQL = [finip, item.image_path, item.image].join('/');
-      return (
-        <TouchableOpacity activeOpacity={1} key={indexs}
-          onPress={() => navigation.push('DetailScreen', { id_item: item.id_product })}
-        >
-          <View style={stylesMain.BoxProduct3Box} key={indexs}>
-            <View style={stylesMain.BoxProduct3ImageofLines}>
-              <FastImage
-                source={{
-                  uri: dataMySQL,
-                }}
-                // onLoadEnd={() => IsLoading(true)}
-                style={stylesMain.BoxProduct1Image}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            </View>
-            <View style={{ height: 60, paddingHorizontal: 3 }}>
-              <View style={[stylesMain.BoxProduct1NameofLines]}>
-                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize7]}>
-                  {item.name}</Text>
-              </View>
-              <View style={[stylesMain.BoxProduct1PriceofLines, stylesMain.FlexRow]}>
-                <NumberFormat
-                  value={item.full_price}
-                  displayType={'text'}
-                  thousandSeparator={true}
-                  prefix={'฿'}
-                  renderText={value =>
-                    <Text style={[
-                      stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyBold,
-                    ]}>
-                      {value + ' '}</Text>
-                  }
-                />
-                {/* <NumberFormat
-                        value={throughsale}
-                        displayType={'text'}
-                        thousandSeparator={true}
-                        prefix={'฿'}
-                        renderText={value =>
-                            <Text style={[
-                                stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText,
-                                { marginTop: 3 }
-                            ]}>
-                                {value}</Text>
-                        }
-                    /> */}
-              </View>
-            </View>
-          </View>
-        </TouchableOpacity>
-      )
-    })
     return (
       <View style={stylesMain.FrameBackground}>
         {
@@ -878,7 +726,12 @@ export class Might_like extends Component {
           </TouchableOpacity>
         </View>
         <View style={stylesDetail.PopularProductBoxProduct}>
-          {dataSaleProduct}
+          {
+            dataService2 ?
+              <ProductBox dataService={dataService2} navigation={navigation} typeip='fin' prepath='mysql'
+                mode='row3col1' pointerUrl='DetailScreen' pointerid_store /> :
+              null
+          }
         </View>
       </View>
     )

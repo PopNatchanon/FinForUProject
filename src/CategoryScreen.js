@@ -55,12 +55,12 @@ export default class CategoryScreen extends Component {
                     }}
                     position="right"
                     changeVisibilityCallback={() => this.setState({ sliderVisible: !sliderVisible })}
-                >
+               >
                     <View style={stylesMain.FlexRow}>
                         <TouchableOpacity
                             activeOpacity={1}
                             onPress={() => this.setState({ sliderVisible: !sliderVisible })}
-                        >
+                       >
                             <View style={stylesTopic.BackgroundLeft}></View>
                         </TouchableOpacity>
                         <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNB]}>
@@ -86,7 +86,7 @@ export default class CategoryScreen extends Component {
                         </View>
                     </View>
                 </SlidingView>
-            </SafeAreaView >
+            </SafeAreaView>
         );
     }
 }
@@ -124,7 +124,7 @@ export class SlideTabGet extends Component {
                     <SlideTab Title='แบรนด์' item={item2} />
                     <PricesSlide />
                 </View>
-            </View >
+            </View>
         )
     }
 }
@@ -151,7 +151,7 @@ export class Recommend_Store extends Component {
             var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
             return (
                 <TouchableOpacity onPress={() => { navigation.navigate('Recommend_Store') }}>
-                    <View style={stylesMain.BoxStore1Box} key={indexs} >
+                    <View style={stylesMain.BoxStore1Box} key={indexs}>
                         <FastImage
                             source={{
                                 uri: dataMySQL,
@@ -177,7 +177,7 @@ export class Recommend_Store extends Component {
                 <View style={stylesMain.FlexRow}>
                     {dataPromotionPopular}
                 </View>
-            </View >
+            </View>
         );
     }
 }
@@ -255,7 +255,7 @@ export class Product_Brand extends Component {
             )
         })
         return (
-            <View style={stylesMain.FrameBackground} >
+            <View style={stylesMain.FrameBackground}>
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>

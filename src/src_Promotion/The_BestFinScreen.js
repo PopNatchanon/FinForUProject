@@ -68,7 +68,7 @@ export class Fin_sale extends Component {
               id_item: item.id_product
             })
           }
-        >
+       >
           <View style={stylesMain.BoxProduct1Box}>
             <View style={stylesMain.BoxProduct1ImageofLines}>
               <FastImage
@@ -279,7 +279,7 @@ export class Product_Cool extends Component {
               id_item: item.id_product
             })
           }
-        >
+       >
           <View style={[stylesMain.BoxProduct4Box, { marginBottom: 4 }]}>
             <View style={stylesMain.BoxProduct1ImageofLines}>
               <FastImage
@@ -505,7 +505,7 @@ export class Second_Store extends Component {
               id_item: item.id_product
             })
           }
-        >
+       >
           <View style={[stylesMain.BoxProduct4Box, { marginBottom: 4 }]}>
             <View style={stylesMain.BoxProduct1ImageofLines}>
               <FastImage

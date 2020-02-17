@@ -50,12 +50,12 @@ export default class Product_for_youScreen extends Component {
           }}
           position="right"
           changeVisibilityCallback={() => this.setState({ sliderVisible: !sliderVisible })}
-        >
+       >
           <View style={stylesMain.FlexRow}>
             <TouchableOpacity
               activeOpacity={1}
               onPress={() => this.setState({ sliderVisible: !sliderVisible })}
-            >
+           >
               <View style={stylesTopic.BackgroundLeft}></View>
             </TouchableOpacity>
             <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNB]}>
@@ -115,7 +115,7 @@ export class SlideTabGet extends Component {
           <SlideTab Title='แบรนด์' item={item2} />
           <PricesSlide />
         </View>
-      </View >
+      </View>
     )
   }
 }

@@ -185,7 +185,7 @@ export class StoreMe_Up_ProductDetail extends Component {
               alignItems: "center",
             }
           }}
-        >
+       >
           <View style={styles.BottomSheet}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>กรุณาพิมพ์ชื่อแบรนด์สินค้า</Text>
             <View style={[styles.BottomSheet_Box]}>
@@ -229,7 +229,7 @@ export class StoreMe_Up_ProductDetail extends Component {
               alignItems: "center",
             }
           }}
-        >
+       >
           <View style={styles.BottomSheet}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>กรุณากรอกราคาสินค้า</Text>
             <View style={styles.BottomSheet_Box}>
@@ -272,7 +272,7 @@ export class StoreMe_Up_ProductDetail extends Component {
               alignItems: "center",
             }
           }}
-        >
+       >
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>กรุณาเพิ่มจำนวนสินค้า</Text>
           <View style={styles.BottomSheet_BoxTotal}>
             <TouchableOpacity>
@@ -324,7 +324,7 @@ export class StoreMe_Up_ProductDetail extends Component {
               alignItems: "center",
             }
           }}
-        >
+       >
           <View style={styles.SelectSheet}>
             <View style={styles.SelectSheet_Box}>
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>สี</Text>
@@ -388,7 +388,7 @@ export class StoreMe_Up_ProductDetail extends Component {
               alignItems: "center",
             }
           }}
-        >
+       >
           <View style={styles.SelectSheet}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>สภาพสินค้า</Text>
             <View style={styles.SizeSheet_Box}>
@@ -424,7 +424,7 @@ export class StoreMe_Up_ProductDetail extends Component {
               alignItems: "center",
             }
           }}
-        >
+       >
           <View style={styles.SelectSheet}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>กรุณาระบุน้ำหนัก</Text>
             <View style={styles.WeightSheet_Box}>
@@ -476,7 +476,7 @@ export class StoreMe_Up_ProductDetail extends Component {
               alignItems: "center",
             }
           }}
-        >
+       >
           <View style={styles.SelectSheet}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>ขนาดพัสดุ</Text>
             <View style={styles.SizeSheet_Box}>

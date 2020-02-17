@@ -9,6 +9,9 @@ export default StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
+  BoxProductWarpBox: {
+    height: 360,
+  },
   ///------------///
   BoxProduct1Box: {
     backgroundColor: '#FFFFFF', width: 115,
@@ -238,19 +241,6 @@ export default StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  BoxProduct5NameofLines: {
-    width: '100%',
-  },
-  BoxProduct5PriceofLines: {
-    width: '100%',
-  },
-  BoxProduct5ImagePrice: {
-    color: '#0A55A6',
-  },
-  BoxProduct5ImagePriceThrough: {
-    color: '#C4C4C4',
-    textDecorationLine: 'line-through',
-  },
   ///------------///
   BoxStore1Box: {
     width: (width * 1 / 2) - 9,
@@ -367,9 +357,6 @@ export default StyleSheet.create({
     borderTopWidth: 1,
     marginTop: 10,
   },
-  FrameBackground3Out: {
-    marginBottom: 10
-  },
   FrameBackground3: {
     width,
     height: height * 0.07,
@@ -378,7 +365,7 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     borderTopWidth: 1,
     marginTop: 40,
-    marginBottom: -90,
+    marginBottom: -80,
   },
   FrameBackgroundTextBox: {
     flexDirection: 'row',

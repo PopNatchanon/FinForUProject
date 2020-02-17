@@ -210,7 +210,7 @@ export class Highlights extends Component {
       type: 'Feed'
     }
     return (
-      <View style={stylesMain.FrameBackground, stylesMain.BackgroundAreaView} >
+      <View style={stylesMain.FrameBackground, stylesMain.BackgroundAreaView}>
         <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
         <View style={stylesStore.StoreFeedBoxProduct}>
           {this.dataToday()}

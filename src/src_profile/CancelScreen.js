@@ -58,7 +58,7 @@ export class CancelScreen_Product extends Component {
   }
   render() {
     return (
-      <SafeAreaView >
+      <SafeAreaView>
         <View style={stylesProfileTopic.products_pro}>
           <IconFeather name='edit' size={50} color='#A2A2A2' />
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>ยังไม่มีคำสั่งซื้อ</Text>
@@ -76,7 +76,7 @@ export class CancelScreen_From extends Component {
   }
   render() {
     return (
-      <SafeAreaView  >
+      <SafeAreaView >
         <ScrollView>
           <Cancel_Product />
           <Cancel_Detail />

@@ -79,7 +79,7 @@ export default class Profile_Topic extends Component {
                         <AppbarChat navigation={this.props.navigation} Title='Supreme Store' />
                         <Chat_Detail navigation={this.props.navigation} />
                         <View style={{ width: '100%', maxHeight: 150, backgroundColor: '#FFFFFF', borderColor: '#ECECEC', borderWidth: 1, flexDirection: 'row', justifyContent: 'center', paddingVertical: 5, }}>
-                            <View style={{ width: '80%', borderColor: '#ECECEC', borderWidth: 1, borderRadius: 20, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', }} >
+                            <View style={{ width: '80%', borderColor: '#ECECEC', borderWidth: 1, borderRadius: 20, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', }}>
                                 <TextInput
                                     style={{ width: '85%', padding: 10 }}
                                     fontSize={15}
@@ -141,7 +141,7 @@ export class Appbar extends Component {
     render() {
         const { Title } = this.props
         return (
-            <View style={stylesProfileTopic.Appbar} >
+            <View style={stylesProfileTopic.Appbar}>
                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
                     <IconEntypo name='chevron-left' size={35} color='#0A55A6' />
                 </TouchableOpacity>
@@ -160,7 +160,7 @@ export class AppbarChat extends Component {
     render() {
         const { Title } = this.props
         return (
-            <View style={stylesProfileTopic.Appbar} >
+            <View style={stylesProfileTopic.Appbar}>
                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
                     <IconEntypo name='chevron-left' size={35} color='#0A55A6' />
                 </TouchableOpacity>
@@ -182,7 +182,7 @@ export class ChatScreen extends Component {
     render() {
         return (
             <ScrollView>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 6 })} >
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 6 })}>
                     <Chat_Box />
                 </TouchableOpacity>
                 <Chat_Box />
@@ -303,7 +303,7 @@ export class Follow_storeScreen extends Component {
     }
     render() {
         return (
-            <ScrollView >
+            <ScrollView>
                 <Follow_store_Box />
                 <Might_like_Store />
             </ScrollView>
@@ -537,7 +537,7 @@ export class Review_me extends Component {
                         </View>
                         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', {
                             selectedIndex: 7
-                        })} >
+                        })}>
                             <View style={stylesProfileTopic.Review_me_Box_head}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>รีวิว</Text>
                             </View>

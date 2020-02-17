@@ -58,7 +58,7 @@ export class ListMenu extends Component {
                             </Text>
                     </View>
                 </View>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 0 })} >
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 0 })}>
                     <View style={stylesProfileTopic.BoxTopic}>
                         <View style={stylesProfile.ListMenuListSub}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -68,7 +68,7 @@ export class ListMenu extends Component {
                         <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 1 })} >
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 1 })}>
                     <View style={stylesProfileTopic.BoxTopic}>
                         <View style={stylesProfile.ListMenuListSub}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -85,7 +85,7 @@ export class ListMenu extends Component {
                             </Text>
                     </View>
                 </View>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 2 })} >
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 2 })}>
                     <View style={stylesProfileTopic.BoxTopic}>
                         <View style={stylesProfile.ListMenuListSub}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -95,7 +95,7 @@ export class ListMenu extends Component {
                         <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 3 })} >
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 3 })}>
                     <View style={stylesProfileTopic.BoxTopic}>
                         <View style={stylesProfile.ListMenuListSub}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -105,7 +105,7 @@ export class ListMenu extends Component {
                         <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 4 })} >
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 4 })}>
                     <View style={stylesProfileTopic.BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
                             ภาษา
@@ -121,7 +121,7 @@ export class ListMenu extends Component {
                             </Text>
                     </View>
                 </View>
-                {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('Help_meScreen')} > */}
+                {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('Help_meScreen')}> */}
                 <View style={stylesProfileTopic.BoxTopic}>
                     <View style={stylesProfile.ListMenuListSub}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -131,7 +131,7 @@ export class ListMenu extends Component {
                     <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
                 </View>
                 {/* </TouchableOpacity> */}
-                <TouchableOpacity activeOpacity={1} onPress={null/*() => this.props.navigation.navigate()*/} >
+                <TouchableOpacity activeOpacity={1} onPress={null/*() => this.props.navigation.navigate()*/}>
                     <View style={stylesProfileTopic.BoxTopic}>
                         <View style={stylesProfile.ListMenuListSub}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -141,7 +141,7 @@ export class ListMenu extends Component {
                         <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1} onPress={null/*() => this.props.navigation.navigate()*/} >
+                <TouchableOpacity activeOpacity={1} onPress={null/*() => this.props.navigation.navigate()*/}>
                     <View style={stylesProfileTopic.BoxTopic}>
                         <View style={stylesProfile.ListMenuListSub}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -152,9 +152,9 @@ export class ListMenu extends Component {
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity style={{ marginTop: 10 }} onPress={() => this.logoutPress()}>
-                    <View style={stylesProfileTopic.Button_Logout} >
+                    <View style={stylesProfileTopic.Button_Logout}>
                         <View style={stylesProfileTopic.Button_LogoutBox}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]} >ออกจากระบบ</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ออกจากระบบ</Text>
                         </View>
                     </View>
                 </TouchableOpacity>

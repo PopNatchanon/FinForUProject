@@ -201,7 +201,7 @@ export class New_year_NewA extends Component {
                             id_item: item.id_product
                         })
                     }
-                >
+               >
                     <View style={stylesDeal.New_year_NewProduct_Box}>
                         <View style={stylesMain.BoxProduct1ImageofLines2}>
                             <FastImage
@@ -248,7 +248,7 @@ export class New_year_NewA extends Component {
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>  ปีใหม่ ช๊อปของใหม่</Text>
                 </View>
                 <View>
-                    <View >
+                    <View>
                         <View style={stylesDeal.New_year_NewBoxText_Head}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>
                                 2020 New Collection ราคา 2,020.-</Text>
@@ -295,7 +295,7 @@ export class New_year_NewB extends Component {
                             id_item: item.id_product
                         })
                     }
-                >
+               >
                     <View style={stylesDeal.New_year_NewProduct_Box}>
                         <View style={stylesMain.BoxProduct1ImageofLines}>
                             <FastImage
@@ -331,10 +331,10 @@ export class New_year_NewB extends Component {
             <View style={stylesDeal.New_year_New}>
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
                 <View>
-                    <View >
+                    <View>
                         <View style={stylesDeal.New_year_NewBoxText_Head}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}
-                            >ปีใหม่แล้วไปลองของใหม่ดิ</Text>
+                           >ปีใหม่แล้วไปลองของใหม่ดิ</Text>
                             <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Detail_Campaign', {
                                 selectedIndex: 1
                             })}>

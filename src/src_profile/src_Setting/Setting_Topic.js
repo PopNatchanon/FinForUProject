@@ -321,7 +321,7 @@ export class Edit_Profile extends Component {
   }
   render() {
     return (
-      <View >
+      <View>
         {/* ชื่อ-นามสกุล */}
         <BottomSheet
           ref={ref => {
@@ -335,7 +335,7 @@ export class Edit_Profile extends Component {
               alignItems: "center",
             }
           }}
-        >
+       >
           {this.NameSheetBody()}
         </BottomSheet>
         {/* เพศ */}
@@ -351,7 +351,7 @@ export class Edit_Profile extends Component {
               alignItems: "center",
             }
           }}
-        >
+       >
           {this.SexSheetBody()}
         </BottomSheet>
         {/* วันเกิด */}
@@ -367,7 +367,7 @@ export class Edit_Profile extends Component {
               alignItems: "center",
             }
           }}
-        >
+       >
           {this.BirthdaySheetBody()}
         </BottomSheet>
         {/* เบอร์โทรศัพท์ */}
@@ -383,7 +383,7 @@ export class Edit_Profile extends Component {
               alignItems: "center",
             }
           }}
-        >
+       >
           {this.Phone_numberSheet()}
         </BottomSheet>
         <Appbar navigation={this.props.navigation} Title='แก้ไขโปรไฟล์' />
@@ -398,7 +398,7 @@ export class Edit_Profile extends Component {
               </View>
               <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
             </View></TouchableOpacity>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 7 })} >
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 7 })}>
             <View style={stylesProfileTopic.BoxTopic}>
               <View style={stylesMain.FlexRow}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -574,7 +574,7 @@ export class Edit_Chat extends Component {
   }
   render() {
     return (
-      <SafeAreaView >
+      <SafeAreaView>
         <Appbar navigation={this.props.navigation} Title='ตั้งค่าการแชท' />
         <View style={stylesProfileTopic.BoxTopic}>
           <View style={{ margin: 10 }}>
@@ -603,9 +603,9 @@ export class Edit_Bell extends Component {
   }
   render() {
     return (
-      <SafeAreaView >
+      <SafeAreaView>
         <Appbar navigation={this.props.navigation} Title='ตั้งค่าการแจ้งเตือน' />
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 5 })} >
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 5 })}>
           <View style={stylesProfileTopic.BoxTopic}>
             <View style={stylesMain.FlexRow}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -615,7 +615,7 @@ export class Edit_Bell extends Component {
             <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 6 })} >
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 6 })}>
           <View style={stylesProfileTopic.BoxTopic}>
             <View style={stylesMain.FlexRow}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -639,7 +639,7 @@ export class Language_Screen extends Component {
   }
   render() {
     return (
-      <SafeAreaView >
+      <SafeAreaView>
         <Appbar navigation={this.props.navigation} Title='ภาษา' />
         <View style={stylesProfileTopic.BoxTopic}>
           <View style={stylesMain.FlexRow}>

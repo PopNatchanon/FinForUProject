@@ -90,12 +90,12 @@ export class Second_Product extends Component {
           }}
           position="right"
           changeVisibilityCallback={() => this.setState({ sliderVisible: !sliderVisible })}
-        >
+       >
           <View style={stylesMain.FlexRow}>
             <TouchableOpacity
               activeOpacity={1}
               onPress={() => this.setState({ sliderVisible: !sliderVisible })}
-            >
+           >
               <View style={stylesTopic.BackgroundLeft}></View>
             </TouchableOpacity>
             <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNB]}>
@@ -188,8 +188,8 @@ export class Second_Product_Brand extends Component {
           activeOpacity={1}
           key={indexs}
           onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}
-        >
-          <View style={stylesMain.BoxProduct5Box} >
+       >
+          <View style={stylesMain.BoxProduct5Box}>
             <View style={stylesMain.BoxProduct5ImageofLines}>
               <FastImage
                 source={{
@@ -200,11 +200,11 @@ export class Second_Product_Brand extends Component {
               />
             </View>
             <View style={{ height: 55, paddingHorizontal: 3 }}>
-              <View style={[stylesMain.BoxProduct5NameofLines]}>
+              <View style={[stylesMain.BoxProduct1NameofLines]}>
                 <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize8]}>
                   {item.name}</Text>
               </View>
-              <View style={[stylesMain.BoxProduct5PriceofLines, stylesMain.FlexRow]}>
+              <View style={[stylesMain.BoxProduct1PriceofLines, stylesMain.FlexRow]}>
                 <NumberFormat
                   value={item.full_price}
                   displayType={'text'}
@@ -212,7 +212,7 @@ export class Second_Product_Brand extends Component {
                   prefix={'฿'}
                   renderText={value =>
                     <Text style={[
-                      stylesMain.BoxProduct5ImagePrice, stylesFont.FontSize7, stylesFont.FontFamilyBold,
+                      stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize7, stylesFont.FontFamilyBold,
                     ]}>
                       {value + ' '}</Text>
                   }

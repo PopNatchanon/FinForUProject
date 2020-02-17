@@ -53,7 +53,7 @@ export class Headbar extends Component {
 
         return (
             <View>
-                {/* <View style={styles.Appbar} >
+                {/* <View style={styles.Appbar}>
                     <View style={{ flexDirection: 'row', paddingTop: 5 }}>
                         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
                             <IconEntypo name='chevron-left' size={35} color='#FFFFFF' />
@@ -183,7 +183,7 @@ export class ListMenu extends Component {
             <View>
                 <View style={styles.ListMenu}>
 
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Up_Product')} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Up_Product')}>
                         <View style={styles.ListMenuList}>
                             <View style={styles.ListMenuListSub}>
                                 <IconAntDesign RightItem name="plussquareo" size={35} color='#0A55A6' style={styles.ListMenuListSubIcon} />
@@ -196,7 +196,7 @@ export class ListMenu extends Component {
                         </View>
                     </TouchableOpacity>
 
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Order')} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Order')}>
                         <View style={styles.ListMenuList}>
                             <View style={styles.ListMenuListSub}>
                                 <IconMaterialIcons RightItem name="access-time" color='#D0B216' size={35} style={styles.ListMenuListSubIcon} />
@@ -208,7 +208,7 @@ export class ListMenu extends Component {
                         </View>
                     </TouchableOpacity>
 
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('InterestedScreen')} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('InterestedScreen')}>
                         <View style={styles.ListMenuList}>
                             <View style={styles.ListMenuListSub}>
                                 <IconMaterialCommunityIcons name="car-estate" size={35} color='#B6B6B4' style={styles.ListMenuListSubIcon} />
@@ -220,7 +220,7 @@ export class ListMenu extends Component {
                         </View>
                     </TouchableOpacity>
 
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Follow_storeScreen')} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Follow_storeScreen')}>
                         <View style={styles.ListMenuList}>
                             <View style={styles.ListMenuListSub}>
                                 <IconAntDesign RightItem name="linechart" size={30} color='#0A55A6' style={styles.ListMenuListSubIcon} />
@@ -232,7 +232,7 @@ export class ListMenu extends Component {
                         </View>
                     </TouchableOpacity>
 
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Review_meScreen')} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Review_meScreen')}>
                         <View style={styles.ListMenuList}>
                             <View style={styles.ListMenuListSub}>
                                 <IconMaterialCommunityIcons RightItem name="star" size={35} color='#EAD295' style={styles.ListMenuListSubIcon} />
@@ -243,7 +243,7 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Help_meScreen')} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Help_meScreen')}>
                         <View style={styles.ListMenuList}>
                             <View style={styles.ListMenuListSub}>
                                 <IconEntypo RightItem name="megaphone" size={35} color='#EB6417' style={styles.ListMenuListSubIcon} />
@@ -254,7 +254,7 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Help_meScreen')} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Help_meScreen')}>
                         <View style={styles.ListMenuList}>
                             <View style={styles.ListMenuListSub}>
                                 <IconFeather RightItem name="help-circle" size={35} color='#00A3FF' style={styles.ListMenuListSubIcon} />
@@ -265,7 +265,7 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Help_meScreen')} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Help_meScreen')}>
                         <View style={styles.ListMenuList}>
                             <View style={styles.ListMenuListSub}>
                                 <IconsFontAwesome5 RightItem name="store-alt" size={30} color='#06BBBB' style={styles.ListMenuListSubIcon} />

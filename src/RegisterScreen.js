@@ -292,7 +292,7 @@ export class Login extends Component {
       <Form
         ref="form"
         onSubmit={this.getData}
-      >
+     >
         <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
           อีเมล</Text>
         <TextValidator
@@ -504,7 +504,7 @@ export class Login extends Component {
         <View style={stylesLogin.RegisterScreen_Box_Login}>
           {this.FormBody()}
         </View>
-      </View >
+      </View>
     );
   }
 }

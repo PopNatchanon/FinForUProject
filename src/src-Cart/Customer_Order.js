@@ -238,7 +238,7 @@ export class Option_payment extends Component {
                             alignItems: "center"
                         }
                     }}
-                >
+               >
                     <View style={{ alignItems: 'center', height: 'auto', }}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { marginBottom: 10 }]}>เลือกวิธีการชำระเงิน</Text>
                         <View style={stylesCustomerOrder.Payment_Box}>
@@ -250,7 +250,7 @@ export class Option_payment extends Component {
                                 this.state.path1 != 1 ?
                                     this.setState({ path1: 1 }) :
                                     this.setState({ path1: 0 })
-                            }} >
+                            }}>
                                 <IconEntypo name={this.state.path1 == 1 ? 'chevron-up' : 'chevron-down'} size={20} />
                             </TouchableOpacity>
                         </View>
@@ -268,7 +268,7 @@ export class Option_payment extends Component {
                                 this.state.path1 != 2 ?
                                     this.setState({ path1: 2 }) :
                                     this.setState({ path1: 0 })
-                            }} >
+                            }}>
                                 <IconEntypo name={this.state.path1 == 2 ? 'chevron-up' : 'chevron-down'} size={20} />
                             </TouchableOpacity>
                         </View>
@@ -286,7 +286,7 @@ export class Option_payment extends Component {
                                 this.state.path1 != 3 ?
                                     this.setState({ path1: 3 }) :
                                     this.setState({ path1: 0 })
-                            }} >
+                            }}>
                                 <IconEntypo name={this.state.path1 == 3 ? 'chevron-up' : 'chevron-down'} size={20} />
                             </TouchableOpacity>
                         </View>
@@ -304,7 +304,7 @@ export class Option_payment extends Component {
                                 this.state.path1 != 4 ?
                                     this.setState({ path1: 4 }) :
                                     this.setState({ path1: 0 })
-                            }} >
+                            }}>
                                 <IconEntypo name={this.state.path1 == 4 ? 'chevron-up' : 'chevron-down'} size={20} />
                             </TouchableOpacity>
                         </View>
@@ -331,7 +331,7 @@ export class Option_payment extends Component {
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>รวมค่าสินค้า</Text>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>ค่าจัดส่ง</Text>
                     </View>
-                    <View >
+                    <View>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#0A55A6' }]}>฿90,000</Text>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#0A55A6' }]}>Free</Text>
                     </View>

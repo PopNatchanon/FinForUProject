@@ -14,8 +14,8 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { Appbar } from './Profile_Topic';
 import { TabBar } from '../tools/Tools';
+import { AppBar1 } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class Total_Order extends Component {
@@ -28,7 +28,7 @@ export default class Total_Order extends Component {
         const selectedIndex = this.props.navigation.getParam('selectedIndex')
         return (
             <SafeAreaView style={[stylesMain.SafeAreaView, { height: 'auto' }]}>
-                <Appbar navigation={this.props.navigation} Title='การสั่งซื้อของฉัน' />
+                <AppBar1 backArrow navigation={this.props.navigation} titleHead='การสั่งซื้อของฉัน' />
                 <Button_bar navigation={this.props.navigation} SetselectedIndex={selectedIndex} />
             </SafeAreaView>
         );

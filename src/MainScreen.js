@@ -1502,77 +1502,39 @@ export class Second_product extends Component {
             activeSlide: 0,
         };
     }
-    _renderItem = ({ item, indexs }) => {
-        var dataMySQL = [finip, item.image_path, item.image].join('/')
-        return (
-            <View key={indexs}>
-                <FastImage
-                    source={{
-                        uri: dataMySQL,
-                    }}
-                    style={stylesMain.bigSlideImage}
-                    resizeMode={FastImage.resizeMode.stretch}
-                >
-                </FastImage>
-                <View style={stylesMain.bigSlideText}>
-                    <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#FFFF' }]}>
-                        {item.detail}</Text>
-                </View>
-            </View>
-        );
-    }
-    _renderItem2 = ({ item, indexs }) => {
-        var dataMySQL = [finip, item.image_path, item.image].join('/')
-        return (
-            <View key={indexs}>
-                <FastImage
-                    source={{
-                        uri: dataMySQL,
-                    }}
-                    style={stylesMain.litleSlideImage}
-                    resizeMode={FastImage.resizeMode.stretch}
-                >
-                </FastImage>
-                <View style={stylesMain.litleSlideText}>
-                    <Text numberOfLines={2} style={[
-                        stylesMain.Second_StoreFin_ImageB_Ttext, stylesFont.FontSize7, stylesFont.FontFamilyText
-                    ]}>
-                        {item.detail}</Text>
-                </View>
-            </View>
-        );
-    }
-    get pagination() {
-        const { activeSlide } = this.state;
-        const { loadData } = this.props
-        return loadData.list_store2_1 ?
-            (
-                <View style={{ marginTop: -110, marginBottom: 90 }}>
-                    <Pagination
-                        dotsLength={loadData.list_store2_1.length}
-                        activeDotIndex={activeSlide}
-                        containerStyle={{ backgroundColor: 'rgba(120, 120, 120, 0)', width: width * 0.64 }}
-                        dotStyle={{
-                            width: 15,
-                            height: 15,
-                            borderRadius: 30,
-                            backgroundColor: 'rgba(0, 0, 0, 0)',
-                            borderColor: 'rgba(255, 255, 255, 0.92)',
-                            borderWidth: 2,
+    renderItem1(item) {
+        return item.map((item, index) => {
+            var dataMySQL = [finip, item.image_path, item.image].join('/')
+            return (
+                <View key={index} style={{ width: width * 0.64, height: 240 }}>
+                    <FastImage
+                        source={{
+                            uri: dataMySQL,
                         }}
-                        inactiveDotStyle={{
-                            width: 15,
-                            height: 5,
-                            borderRadius: 5,
-                            backgroundColor: 'rgba(255, 255, 255, 0.92)',
-                        }}
-                        carouselRef={this.activeSlide}
-                        tappableDots={!!this.activeSlide}
-                        inactiveDotScale={0.6}
-                    />
+                        style={stylesMain.bigSlideImage}
+                        resizeMode={FastImage.resizeMode.stretch}
+                    >
+                    </FastImage>
                 </View>
-            ) :
-            null
+            );
+        })
+    }
+    renderItem2(item) {
+        return item.map((item, index) => {
+            var dataMySQL = [finip, item.image_path, item.image].join('/')
+            return (
+                <View key={index} style={{ width: width * 0.32, height: 130 }}>
+                    <FastImage
+                        source={{
+                            uri: dataMySQL,
+                        }}
+                        style={stylesMain.litleSlideImage}
+                        resizeMode={FastImage.resizeMode.stretch}
+                    >
+                    </FastImage>
+                </View>
+            );
+        })
     }
     dataFlashSale() {
         const { loadData, navigation } = this.props
@@ -1682,19 +1644,7 @@ export class Second_product extends Component {
                             loadData.list_store2_1 ?
                                 < View style={stylesMain.Second_StoreFin_ImageA}>
                                     <View>
-                                        <Carousel
-                                            ref={c => this.activeSlide = c}
-                                            data={loadData.list_store2_1}
-                                            renderItem={this._renderItem}
-                                            sliderWidth={width * 0.64}
-                                            itemWidth={width * 0.64}
-                                            sliderHeight={240}
-                                            loop={true}
-                                            autoplay={true}
-                                            autoplayDelay={3000}
-                                            autoplayInterval={3000}
-                                            onSnapToItem={(index) => this.setState({ activeSlide: index })}
-                                        />
+                                        {this.renderItem1(loadData.list_store2_1)}
                                     </View>
                                     {this.pagination}
                                 </View> :
@@ -1705,32 +1655,10 @@ export class Second_product extends Component {
                                 <View>
                                     <View style={stylesMain.Second_StoreFin_ImageB}>
                                         <View style={stylesMain.Second_StoreFin_ImageB_T}>
-                                            <Carousel
-                                                ref={c => this.activeSlide2 = c}
-                                                data={[loadData.list_store2_2[0]]}
-                                                renderItem={this._renderItem2}
-                                                sliderWidth={width * 0.32}
-                                                itemWidth={width * 0.32}
-                                                sliderHeight={130}
-                                                loop={true}
-                                                autoplay={true}
-                                                autoplayDelay={2000}
-                                                autoplayInterval={3000}
-                                            />
+                                            {this.renderItem2([loadData.list_store2_2[0]])}
                                         </View>
                                         <View style={[stylesMain.Second_StoreFin_ImageB_T]}>
-                                            <Carousel
-                                                ref={c => this.activeSlide3 = c}
-                                                data={[loadData.list_store2_2[1]]}
-                                                renderItem={this._renderItem2}
-                                                sliderWidth={width * 0.32}
-                                                itemWidth={width * 0.32}
-                                                sliderHeight={130}
-                                                loop={true}
-                                                autoplay={true}
-                                                autoplayDelay={2000}
-                                                autoplayInterval={3000}
-                                            />
+                                            {this.renderItem2([loadData.list_store2_2[1]])}
                                         </View>
                                     </View>
                                 </View> :
@@ -1738,7 +1666,7 @@ export class Second_product extends Component {
                         }
                     </View>
                 </View>
-            </View >
+            </View>
         )
     }
     getFooter() {

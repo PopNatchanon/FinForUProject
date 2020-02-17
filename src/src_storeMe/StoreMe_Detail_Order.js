@@ -4,33 +4,64 @@ import {
     Dimensions, SafeAreaView, ScrollView, Text, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
+import FastImage from 'react-native-fast-image';
 export const { width, height } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1 } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
+import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class Order_Detail extends Component {
+
+export default class StoreMe_Detail_Order extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-        };
+        this.state = {         
+        };    
     }
+
+    PathList() {
+        const selectedIndex = this.props.navigation.getParam('selectedIndex')
+        switch (selectedIndex) {
+            case 0:
+                return (
+                    <SafeAreaView style={stylesMain.SafeAreaView}>
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='รายละเอียด' />
+                        <ScrollView>
+                            <Detail />
+                            <Order_Sending />
+                        </ScrollView>
+                    </SafeAreaView>
+                )
+            case 1:
+                return (
+                    <SafeAreaView style={stylesMain.SafeAreaView}>
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='รายละเอียด' />
+                        <ScrollView>
+                            <Detail />
+                            <Order_Sending />
+                            <StoreMe_Detail_Reviews />
+                        </ScrollView>
+                    </SafeAreaView>
+                )
+
+        }
+    }
+
     render() {
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                <AppBar1 backArrow navigation={this.props.navigation} titleHead='รายละเอียด' />
-                <ScrollView>
-                    <Detail />
-                    <Order_Sending />
-                </ScrollView>
+                {this.PathList()}
             </SafeAreaView>
         );
     }
 }
+
+
 ///----------------------------------------------------------------------------------------------->>>> Detail
 export class Detail extends Component {
     constructor(props) {
@@ -43,8 +74,8 @@ export class Detail extends Component {
         return (
             <View>
                 <View style={{ flexDirection: 'row', padding: 10, alignItems: 'center', backgroundColor: '#FFFFFF', marginTop: 5, }}>
-                    <View style={{ height: 30, width: 50,borderColor:'#FC8D00',borderWidth:1,justifyContent:'center',alignItems:'center',}}>
-                        <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize3,{color:'#FC8D00'}]}>T N T</Text>
+                    <View style={{ height: 30, width: 50, borderColor: '#FC8D00', borderWidth: 1, justifyContent: 'center', alignItems: 'center', }}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FC8D00' }]}>T N T</Text>
                     </View>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}> จัดส่งโดย : TNT Express </Text>
                 </View>
@@ -120,6 +151,58 @@ export class Order_Sending extends Component {
                 </View>
                 <View style={{ backgroundColor: '#FFFFFF', marginTop: 5, padding: 10, }}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>หมายเลขคำสั่งซื้อ : 2223994239012</Text>
+                </View>
+            </View>
+        );
+    }
+}
+///----------------------------------------------------------------------------------------------->>>>
+
+export class StoreMe_Detail_Reviews extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
+    render() {
+        return (
+            <View>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10, }]}> การรีวิว </Text>
+                <View style={{ width: '100%', alignItems: 'center', padding: 10, backgroundColor: '#FFFFFF' }}>
+                    <View style={{ flexDirection: 'row', width: '50%', justifyContent: 'space-around', marginVertical: 10, }}>
+                        <IconFontAwesome name='star' size={35} color='#FFAC33' />
+                        <IconFontAwesome name='star' size={35} color='#FFAC33' />
+                        <IconFontAwesome name='star' size={35} color='#FFAC33' />
+                        <IconFontAwesome name='star' size={35} color='#FFAC33' />
+                        <IconFontAwesome name='star' size={35} color='#FFAC33' />
+                    </View>
+                    <View style={{ width: '100%', height: 100, backgroundColor: '#F3F3F3' }}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { margin: 10 }]}>แพคสินค้าโอเคดีครับ จัดส่งไว้ครับ</Text>
+                    </View>
+                    <View style={{ padding: 10, flexDirection: 'row', justifyContent: 'space-around', width: '100%' }}>
+                        <View style={{ height: 100, width: 100, borderColor: '#F3F3F3', borderWidth: 1 }}>
+                            <FastImage style={stylesMain.BoxProduct1Image}
+                                source={{
+                                    uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
+                                }}
+                            />
+                        </View>
+                        <View style={{ height: 100, width: 100, borderColor: '#F3F3F3', borderWidth: 1 }}>
+                            <FastImage style={stylesMain.BoxProduct1Image}
+                                source={{
+                                    uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
+                                }}
+                            />
+                        </View>
+                        <View style={{ height: 100, width: 100, borderColor: '#F3F3F3', borderWidth: 1 }}>
+                            <FastImage style={stylesMain.BoxProduct1Image}
+                                source={{
+                                    uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
+                                }}
+                            />
+                        </View>
+                    </View>
                 </View>
             </View>
         );

@@ -231,7 +231,7 @@ export class Order_Me_Deliver extends Component {
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, color: '#0A55A6' }]}>฿ 10,000.00</Text>
                             </View>
                             <View style={[stylesPro.Order_Box_priceText, { marginTop: 5, }]}>
-                                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Order_Detail')}>
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreMe_Detail_Order', { selectedIndex: 0 })}>
                                     <View style={[stylesPro.Order_Button, { borderWidth: 1, }]}>
                                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
                                     </View>
@@ -292,7 +292,7 @@ export class Order_Me_Prepare extends Component {
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, color: '#0A55A6' }]}>฿ 10,000.00</Text>
                             </View>
                             <View style={[stylesPro.Order_Box_priceText, { marginTop: 5, }]}>
-                                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Order_Detail')}>
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreMe_Detail_Order', { selectedIndex: 0 })}>
                                     <View style={[stylesPro.Order_Button, { borderWidth: 1, }]}>
                                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
                                     </View>
@@ -350,7 +350,7 @@ export class Order_Me_Reviews extends Component {
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, color: '#0A55A6' }]}>฿ 10,000.00</Text>
                             </View>
                             <View style={[stylesPro.Order_Box_priceText, { marginTop: 5, }]}>
-                                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Order_Detail')}>
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreMe_Detail_Order', { selectedIndex: 0 })}>
                                     <View style={[stylesPro.Order_Button, { borderWidth: 1, }]}>
                                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
                                     </View>
@@ -407,7 +407,7 @@ export class Order_Me_Already extends Component {
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, color: '#0A55A6' }]}>฿ 10,000.00</Text>
                             </View>
                             <View style={[stylesPro.Order_Box_priceText, { marginTop: 5, }]}>
-                                <TouchableOpacity onPress={() => this.props.navigation.navigate('Order_Detail')}>
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreMe_Detail_Order', { selectedIndex: 1 })}>
                                     <View style={[stylesPro.Order_Button, { borderWidth: 1, }]}>
                                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
                                     </View>

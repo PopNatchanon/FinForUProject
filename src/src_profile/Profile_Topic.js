@@ -13,6 +13,7 @@ import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import IconIonicons from 'react-native-vector-icons/Ionicons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
@@ -21,6 +22,7 @@ import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topi
 import { PopularProduct } from '../StoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
+import { AppBar1 } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class Profile_Topic extends Component {
     constructor(props) {
@@ -35,41 +37,41 @@ export default class Profile_Topic extends Component {
             case 0:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <Appbar navigation={this.props.navigation} />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ดูล่าสุด'/>
                         <LatestScreen navigation={this.props.navigation} />
                     </SafeAreaView>
                 )
             case 1:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <Appbar navigation={this.props.navigation} Title='แชท' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แชท' />
                         <ChatScreen navigation={this.props.navigation} />
                     </SafeAreaView>)
             case 2:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <Appbar navigation={this.props.navigation} Title='สิ่งที่สนใจ' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='สิ่งที่สนใจ' />
                         <InterestedScreen navigation={this.props.navigation} />
                     </SafeAreaView>
                 )
             case 3:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <Appbar navigation={this.props.navigation} Title='ร้านที่ติดตาม' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ร้านที่ติดตาม' />
                         <Follow_storeScreen navigation={this.props.navigation} />
                     </SafeAreaView>
                 )
             case 4:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <Appbar navigation={this.props.navigation} Title='รีวิวของฉัน' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='รีวิวของฉัน' />
                         <Review_meScreen navigation={this.props.navigation} />
                     </SafeAreaView>
                 )
             case 5:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <Appbar navigation={this.props.navigation} Title='Fin Helpcenter' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='Fin Helpcenter' />
                         <Help_meScreen navigation={this.props.navigation} />
                     </SafeAreaView>
                 )
@@ -104,7 +106,7 @@ export default class Profile_Topic extends Component {
             case 7:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <Appbar navigation={this.props.navigation} Title='รีวิวของฉัน' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='รีวิวของฉัน' />
                         <Review_From />
                     </SafeAreaView>
                 )
@@ -131,25 +133,25 @@ export class LatestScreen extends Component {
         );
     }
 }
-///----------------------------------------------------------------------------------------------->>>> Appbar
-export class Appbar extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    render() {
-        const { Title } = this.props
-        return (
-            <View style={stylesProfileTopic.Appbar} >
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
-                    <IconEntypo name='chevron-left' size={35} color='#0A55A6' />
-                </TouchableOpacity>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 5 }]}>{Title ? Title : 'ดูล่าสุด'}</Text>
-            </View>
-        );
-    }
-}
+// ///----------------------------------------------------------------------------------------------->>>> Appbar
+// export class Appbar extends Component {
+//     constructor(props) {
+//         super(props);
+//         this.state = {
+//         };
+//     }
+//     render() {
+//         const { Title } = this.props
+//         return (
+//             <View style={stylesProfileTopic.Appbar} >
+//                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
+//                     <IconEntypo name='chevron-left' size={35} color='#0A55A6' />
+//                 </TouchableOpacity>
+//                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 5 }]}>{Title ? Title : 'ดูล่าสุด'}</Text>
+//             </View>
+//         );
+//     }
+// }
 ///----------------------------------------------------------------------------------------------->>>> AppbarChat
 export class AppbarChat extends Component {
     constructor(props) {
@@ -709,9 +711,9 @@ export class Review_From extends Component {
                         <IconFontAwesome name='star' size={35} color='#FFAC33' />
                         <IconFontAwesome name='star' size={35} color='#FFAC33' />
                     </View>
-                    <View style={{ backgroundColor: '#F4F4F4', marginTop: 10, height: 150, width: '100%' }}>
+                    <View style={{ backgroundColor: '#F4F4F4', marginTop: 10, height: 150, width: '100%'}}>
                         <TextInput
-                            style={[stylesFont.FontFamilyText, { margin: 10, }]}
+                            style={[stylesFont.FontFamilyText, { margin: 10, width:'95%' }]}
                             fontSize={18}
                             placeholder="ไม่ต้องอาย โปรดมาช่วยรีวิวเรา"
                             multiline

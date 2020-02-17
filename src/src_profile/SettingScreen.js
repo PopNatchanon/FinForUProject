@@ -15,17 +15,17 @@ import stylesMain from '../../style/StylesMainScreen';
 import stylesProfile from '../../style/StylesProfileScreen'
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { Appbar } from './Profile_Topic';
+import { AppBar1 } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class StoreMeScreen extends Component {
+export default class SettingScreen extends Component {
     constructor(props) {
         super(props);
     }
     render() {
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                <Appbar navigation={this.props.navigation} Title='ตั้งค่าบัญชี' />
+                <AppBar1 backArrow navigation={this.props.navigation} titleHead='ตั้งค่าบัญชี' />
                 <ScrollView>
                     <View>
                         <ListMenu navigation={this.props.navigation} />
@@ -158,7 +158,7 @@ export class ListMenu extends Component {
                         </View>
                     </View>
                 </TouchableOpacity>
-                <Text>FIN Shopping V 1.0.01</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginTop: 10 }]}>FIN Shopping V 1.0.01</Text>
             </View>
 
         )

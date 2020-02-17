@@ -30,7 +30,7 @@ export default class StoreMe_Cancel extends Component {
 
   render() {
     return (
-      <SafeAreaView style={styleMain.SafeAreaView}>
+      <SafeAreaView style={stylesMain.SafeAreaView}>
         <AppBar1 backArrow  navigation={this.props.navigation} titleHead='ยกเลิกสินค้า' />
         <ScrollView>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { marginLeft: 5, marginTop:5, }]}>รายการที่ยกเลิกสินค้า </Text>

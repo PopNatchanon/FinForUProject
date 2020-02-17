@@ -1750,47 +1750,29 @@ export class Second_product extends Component {
             </View >
         )
     }
-    Second_Storefooter() {
+    getFooter() {
         const { loadData, navigation } = this.props
+        return loadData.list_store2_3 ?
+            loadData.list_store2_3.map((item, index) => {
+                var dataMySQL = [finip, item.image_path, item.image].join('/');
+                return (
+                    <View style={stylesMain.Second_Storefooter_image} key={index}>
+                        <FastImage
+                            style={[stylesMain.BoxProduct1Image, { borderRadius: 5 },]}
+                            source={{ uri: dataMySQL }}
+                            resizeMode={FastImage.resizeMode.stretch}
+                        />
+                    </View>
+                )
+            }) :
+            null
+    }
+    Second_Storefooter() {
         return (
             <View style={stylesMain.Second_Storefooter}>
                 <ScrollView horizontal>
                     <View style={stylesMain.FlexRow}>
-                        <View style={stylesMain.Second_Storefooter_image}>
-                            <FastImage
-                                style={[stylesMain.BoxProduct1Image, { borderRadius: 5 },]}
-                                source={{ uri: ip + '/MySQL/uploads/slide/Store_recommendFIN/luxury_shop1.jpg' }}
-                                resizeMode={FastImage.resizeMode.stretch}
-                            />
-                        </View>
-                        <View style={stylesMain.Second_Storefooter_image}>
-                            <FastImage
-                                style={[stylesMain.BoxProduct1Image, { borderRadius: 5 },]}
-                                source={{ uri: ip + '/MySQL/uploads/slide/Store_recommendFIN/luxury_shop1.jpg' }}
-                                resizeMode={FastImage.resizeMode.stretch}
-                            />
-                        </View>
-                        <View style={stylesMain.Second_Storefooter_image}>
-                            <FastImage
-                                style={[stylesMain.BoxProduct1Image, { borderRadius: 5 },]}
-                                source={{ uri: ip + '/MySQL/uploads/slide/Store_recommendFIN/luxury_shop1.jpg' }}
-                                resizeMode={FastImage.resizeMode.stretch}
-                            />
-                        </View>
-                        <View style={stylesMain.Second_Storefooter_image}>
-                            <FastImage
-                                style={[stylesMain.BoxProduct1Image, { borderRadius: 5 },]}
-                                source={{ uri: ip + '/MySQL/uploads/slide/Store_recommendFIN/luxury_shop1.jpg' }}
-                                resizeMode={FastImage.resizeMode.stretch}
-                            />
-                        </View>
-                        <View style={stylesMain.Second_Storefooter_image}>
-                            <FastImage
-                                style={[stylesMain.BoxProduct1Image, { borderRadius: 5 },]}
-                                source={{ uri: ip + '/MySQL/uploads/slide/Store_recommendFIN/luxury_shop1.jpg' }}
-                                resizeMode={FastImage.resizeMode.stretch}
-                            />
-                        </View>
+                        {this.getFooter()}
                     </View>
                 </ScrollView>
             </View>
@@ -1806,7 +1788,7 @@ export class Second_product extends Component {
                     this.Second_Storebody()
                 }
                 {
-                    // this.Second_Storefooter()
+                    this.Second_Storefooter()
                 }
             </View>
         )

@@ -78,7 +78,7 @@ export class Detail_Image extends Component {
       imageLengthActive: 0,
     };
   }
-  imageGallery(image_path, gallery_image) {
+  imageGallery(image_full_path, gallery_image) {
     const { imageLengthActive } = this.state
     const image = {} = gallery_image.split(';')
     const length = image.length
@@ -89,7 +89,7 @@ export class Detail_Image extends Component {
     var myJSON = new Array()
     var item
     while (length > count) {
-      item = { "image_path": image_path, "image": image[count] };
+      item = { "image_full_path": image_full_path, "image": image[count] };
       myJSON.push(item)
       count++
     }
@@ -98,7 +98,8 @@ export class Detail_Image extends Component {
     )
   }
   _renderItem = ({ item, indexs }) => {
-    var dataMySQL = [finip, item.image_path, item.image].join('/');
+    var dataMySQL = [finip, item.image_full_path, item.image].join('/');
+    console.log(dataMySQL)
     return (
       <View style={{ width: width * 1, height: width * 1, /*backgroundColor: '#d9d9d9'*/ }}>
         <FastImage
@@ -119,7 +120,7 @@ export class Detail_Image extends Component {
       let dataMySQL
       {
         item.gallery_image ?
-          dataMySQL = this.imageGallery(item.image_path, item.gallery_image) :
+          dataMySQL = this.imageGallery(item.image_full_path, item.gallery_image) :
           dataMySQL = dataService;
       }
       return (
@@ -909,11 +910,11 @@ export class Buy_bar extends Component {
     dataService.length == 1 ? id_store = dataService.map((item) => { return (item.id_store) }) : null
     return (
       <View style={stylesDetail.Buy_bar}>
-        {
+        {/* {
           id_item !== undefined ?
             <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} /> :
             null
-        }
+        } */}
         <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
           <IconAntDesign name='message1' size={22} style={[stylesMain.ItemCenterVertical]} />
           <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesMain.ItemCenterVertical]}>

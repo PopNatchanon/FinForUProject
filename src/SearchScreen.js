@@ -1,16 +1,23 @@
+///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-    View, Text, SafeAreaView, TouchableOpacity, ScrollView
+    Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
+///----------------------------------------------------------------------------------------------->>>> Import
+export const { width, height } = Dimensions.get('window');
+import FastImage from 'react-native-fast-image';
+import SlidingView from 'rn-sliding-view';
+///----------------------------------------------------------------------------------------------->>>> Icon
 import IconEntypo from 'react-native-vector-icons/Entypo';
+///----------------------------------------------------------------------------------------------->>>> Styles
+import stylesFont from '../style/stylesFont';
+import stylesMain from '../style/StylesMainScreen';
+import stylesTopic from '../style/styleTopic';
+///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, BannerBar_THREE, TodayProduct } from './MainScreen';
 import { Button_Bar, SlideTab, PricesSlide } from './ExclusiveScreen';
-import SlidingView from 'rn-sliding-view';
-import stylesTopic from '../style/styleTopic';
-import stylesMain from '../style/StylesMainScreen';
-import stylesFont from '../style/stylesFont';
-import FastImage from 'react-native-fast-image';
-import { finip, ip } from '../navigator/IpConfig';
+///----------------------------------------------------------------------------------------------->>>> Ip
+import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class SearchScreen extends Component {
     constructor(props) {
@@ -80,13 +87,13 @@ export default class SearchScreen extends Component {
                         >
                             <View style={stylesTopic.BackgroundLeft}></View>
                         </TouchableOpacity>
-                        <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNoBackground]}>
+                        <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNB]}>
                             <View style={{ height: '90%' }}>
                                 <ScrollView>
                                     <SlideTabGet />
                                 </ScrollView>
                             </View>
-                            <View style={[stylesMain.FlexRow, stylesMain.SafeAreaViewNoBackground, { marginTop: 8 }]}>
+                            <View style={[stylesMain.FlexRow, stylesMain.SafeAreaViewNB, { marginTop: 8 }]}>
                                 <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
                                     <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, {
                                         color: '#0A55A6'

@@ -17,7 +17,6 @@ import stylesFont from '../style/stylesFont';
 import stylesLogin from '../style/stylesLoginScreen';
 import stylesMain from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { GetServices, Toolbar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main

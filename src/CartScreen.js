@@ -1,31 +1,26 @@
+///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-    View,
-    ScrollView,
-    Text,
-    TextInput,
-    SafeAreaView,
-    TouchableOpacity,
-    Dimensions,
+    Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
+///----------------------------------------------------------------------------------------------->>>> Import
 import { CheckBox } from 'react-native-elements';
-import axios from 'axios';
-import NumberFormat from 'react-number-format';
-import FastImage from 'react-native-fast-image';
-import Icons from 'react-native-vector-icons/FontAwesome5';
-import IconFeather from 'react-native-vector-icons/Feather';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import IconFoundation from 'react-native-vector-icons/Foundation';
-import stylesCart from '../style/stylesCartScreen';
-import stylesDetail from '../style/StylesDetailScreen';
-import stylesMain from '../style/StylesMainScreen';
-import stylesStore from '../style/StylesStoreScreen';
-import stylesFont from '../style/stylesFont';
-import { ip } from '../navigator/IpConfig';
-import { PopularProduct } from './StoreScreen'
-import { AppBar1 } from './MainScreen';
 export const { width, height } = Dimensions.get('window');
-
+import FastImage from 'react-native-fast-image';
+import NumberFormat from 'react-number-format';
+///----------------------------------------------------------------------------------------------->>>> Icon
+import IconFeather from 'react-native-vector-icons/Feather';
+import IconFoundation from 'react-native-vector-icons/Foundation';
+///----------------------------------------------------------------------------------------------->>>> Styles
+import stylesCart from '../style/stylesCartScreen';
+import stylesFont from '../style/stylesFont';
+import stylesMain from '../style/StylesMainScreen';
+///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+import { AppBar1 } from './MainScreen';
+import { PopularProduct } from './StoreScreen'
+///----------------------------------------------------------------------------------------------->>>> Ip
+import { ip, finip } from '../navigator/IpConfig';
+///----------------------------------------------------------------------------------------------->>>> Main
 export default class CartScreen extends Component {
     constructor(props) {
         super(props);
@@ -45,7 +40,7 @@ export default class CartScreen extends Component {
     render() {
         const { itemCount, itemData } = this.state
         return (
-            <SafeAreaView style={[stylesMain.SafeAreaViewNoBackground, stylesMain.BackgroundAreaView]}>
+            <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                 <AppBar1 navigation={this.props.navigation} titleHead='รถเข็น' chatBar backArrow />
                 <ScrollView>
                     <Product_Cart itemData={itemData} sendText={this.getText} />
@@ -57,9 +52,7 @@ export default class CartScreen extends Component {
         );
     }
 }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Product_Cart
 export class Product_Cart extends Component {
     constructor(props) {
         super(props);
@@ -88,7 +81,7 @@ export class Product_Cart extends Component {
         );
     }
 }
-
+///----------------------------------------------------------------------------------------------->>>> CartProduct
 export class CartProduct extends Component {
     constructor(props) {
         super(props);
@@ -336,9 +329,7 @@ export class CartProduct extends Component {
         )
     }
 }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Product_Like
 // export class Product_Like extends Component {
 //     constructor(props) {
 //         super(props);
@@ -353,9 +344,7 @@ export class CartProduct extends Component {
 //         );
 //     }
 // }
-
-///--------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Buy_bar
 export class Buy_bar extends Component {
     constructor(props) {
         super(props);

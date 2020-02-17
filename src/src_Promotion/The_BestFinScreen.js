@@ -1,39 +1,35 @@
-import React, { Component, PureComponent } from 'react';
+///----------------------------------------------------------------------------------------------->>>> React
+import React, { Component } from 'react';
 import {
-  View,
-  ImageBackground,
-  ScrollView,
-  Text,
-  TextInput,
-  SafeAreaView,
-  TouchableOpacity,
-  Dimensions,
+  Dimensions, Image, ImageBackground, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
+///----------------------------------------------------------------------------------------------->>>> Import
 import axios from 'axios';
-import NumberFormat from 'react-number-format';
-import styleMain from '../../style/StylesMainScreen';
-import IconEntypo from 'react-native-vector-icons/Entypo';
-import styles from '../../style/stylePromotion-src/styleDealScreen';
-import IconFeather from 'react-native-vector-icons/Feather';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-import { finip, ip } from '../../navigator/IpConfig';
-import FastImage from 'react-native-fast-image';
-import { Slide, Button_Bar, } from './DealScreen';
-import { AppBar1 } from '../MainScreen';
-import stylesFont from '../../style/stylesFont';
 export const { width, height } = Dimensions.get('window');
-
+import FastImage from 'react-native-fast-image';
+import NumberFormat from 'react-number-format';
+///----------------------------------------------------------------------------------------------->>>> Icon
+///----------------------------------------------------------------------------------------------->>>> Styles
+import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
+import stylesFont from '../../style/stylesFont';
+import stylesMain from '../../style/StylesMainScreen';
+///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+import { AppBar1 } from '../MainScreen';
+import { Button_Bar, Slide, } from './DealScreen';
+import { GetServices, Toolbar } from '../../src/tools/Tools';
+///----------------------------------------------------------------------------------------------->>>> Ip
+import { ip, finip } from '../../navigator/IpConfig';
+///----------------------------------------------------------------------------------------------->>>> Main
 export default class The_BestFinScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
     };
   }
-
   render() {
     return (
-      <SafeAreaView style={styleMain.SafeAreaView}>
+      <SafeAreaView style={stylesMain.SafeAreaView}>
         <AppBar1 titleHead={'สุดคุ้มสุดฟิน'} backArrow searchBar chatBar navigation={this.props.navigation} />
         <ScrollView>
           <Slide />
@@ -47,39 +43,20 @@ export default class The_BestFinScreen extends Component {
     );
   }
 }
-
-///-------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Fin_sale
 export class Fin_sale extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataSale: [],
+      dataService: [],
     };
+    this.getData = this.getData.bind(this)
   }
-
-  getFlashSale() {
-    var url = ip + '/mysql/DataServiceMain.php';
-    var dataBody = {
-      type: 'sale'
-    };
-    axios.post(
-      url,
-      dataBody,
-    ).then((getData) => {
-      this.setState({
-        dataSale: getData.data,
-      })
-    })
+  getData(dataService) {
+    this.setState({ dataService })
   }
-
-  componentDidMount() {
-    this.getFlashSale();
-  }
-
-
-  render() {
-    let dataFlashSale = this.state.dataSale.map((item, indexs) => {
+  dataFlashSale() {
+    this.state.dataService.map((item, indexs) => {
       var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
       return (
         <TouchableOpacity
@@ -92,24 +69,23 @@ export class Fin_sale extends Component {
             })
           }
         >
-          <View style={styleMain.BoxProduct1Box}>
-            <View style={styleMain.BoxProduct1ImageofLines}>
+          <View style={stylesMain.BoxProduct1Box}>
+            <View style={stylesMain.BoxProduct1ImageofLines}>
               <FastImage
                 source={{
                   uri: dataMySQL,
                 }}
-                style={styleMain.BoxProduct1Image}
-
+                style={stylesMain.BoxProduct1Image}
               />
             </View>
-            <Text style={[styleMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize7]}>{item.name}</Text>
+            <Text style={[stylesMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize7]}>{item.name}</Text>
             <NumberFormat
               value={item.full_price}
               displayType={'text'}
               thousandSeparator={true}
               prefix={'฿'}
-              renderText={
-                value => <Text style={[styleMain.BoxProduct1ImagePrice, stylesFont.FontSize8, stylesFont.FontFamilyText]}>
+              renderText={value =>
+                <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize8, stylesFont.FontFamilyText]}>
                   {value}
                 </Text>}
             />
@@ -117,58 +93,43 @@ export class Fin_sale extends Component {
         </TouchableOpacity>
       );
     })
+  }
+  render() {
+    var uri = ip + '/mysql/DataServiceMain.php';
+    var dataBody = {
+      type: 'sale'
+    };
+
     return (
-      <View >
-        <View style={[styleMain.FrameBackground, { marginTop: 20, }]}>
-          <View style={[styles.BoxText_T, { backgroundColor: '#C4C4C4', marginTop: -10, width: 160 }]}>
+      <View>
+        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+        <View style={[stylesMain.FrameBackground, { marginTop: 20, }]}>
+          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginTop: -10, width: 160 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}> Fin จัดหนักลดสูงสุด 80 %  </Text>
           </View>
-          <View style={styles.Fin_sale_BoxHead}>
+          <View style={stylesDeal.Fin_sale_BoxHead}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
           </View>
           <ScrollView horizontal>
-            <View style={styles.Fin_sale_BoxProduct}>
-              {dataFlashSale}</View>
+            <View style={stylesDeal.Fin_sale_BoxProduct}>
+              {this.dataFlashSale()}</View>
           </ScrollView>
         </View>
       </View>
-
     );
   }
 }
-
-///-------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Store_Sale
 export class Store_Sale extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataSourceSlide: [],
-      activeSlide: 0,
+      dataService: [],
     };
+    this.getData = this.getData.bind(this)
   }
-
-  getDataSlide() {
-    var dataBody = {
-      slide: 'banner'
-    };
-    fetch(finip + '/home/home_mobile', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(dataBody),
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({
-          dataSourceSlide: responseJson,
-        })
-      })
-      .catch((error) => {
-        console.error(error);
-      })
+  getData(dataService) {
+    this.setState({ dataService })
   }
   _renderItem = ({ item, indexs }) => {
     var dataMySQL = [finip, item.image_path, item.image].join('/');
@@ -183,16 +144,12 @@ export class Store_Sale extends Component {
       </View>
     );
   }
-
-  componentDidMount() {
-    this.getDataSlide()
-  }
   get pagination() {
-    const { dataSourceSlide, activeSlide } = this.state;
+    const { dataService, activeSlide } = this.state;
     return (
       <View style={{ marginTop: -60 }}>
         <Pagination
-          dotsLength={dataSourceSlide.length}
+          dotsLength={dataService.length}
           activeDotIndex={activeSlide}
           // containerStyle={{ backgroundColor: 'rgba(120, 120, 120, 0.1)' }}
           dotStyle={{
@@ -217,111 +174,100 @@ export class Store_Sale extends Component {
       </View>
     );
   }
-
-  render() {
+  Store_Sale_Box() {
     return (
-      <View >
-        <View style={[styleMain.FrameBackground, { marginTop: 20, }]}>
-          <View style={[styles.BoxText_T, { backgroundColor: '#C4C4C4', marginTop: -10, }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}> ร้านนี้มีของลด </Text>
-          </View>
-          <View style={styles.Fin_sale_BoxHead}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
-          </View>
-          <View style={styles.Store_Sale}>
-            <View style={styles.Store_Sale_Box}>
-
-              {/* BoxA */}
-              <View style={styles.Store_Sale_BoxA}>
-                <View style={styles.Store_Sale_BoxA_Carousel}>
-                  <Carousel
-                    ref={c => this.activeSlide = c}
-                    data={this.state.dataSourceSlide}
-                    renderItem={this._renderItem}
-                    sliderWidth={width * 0.585}
-                    itemWidth={width * 0.585}
-                    sliderHeight={100}
-                    loop={true}
-                    autoplay={true}
-                    autoplayDelay={3000}
-                    autoplayInterval={3000}
-                    onSnapToItem={(index) => this.setState({ activeSlide: index })}
-                  />
-                </View>
-                <View style={styles.Store_Sale_BoxA_Boximage}>
-                  <View style={styles.Store_Sale_BoxA_image}>
-                    <FastImage style={styles.Store_Sale_Image}
-                      source={{
-                        uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop2.jpg',
-                      }}
-                    />
-                  </View>
-                  <View style={styles.Store_Sale_BoxA_image}>
-                    <FastImage style={styles.Store_Sale_Image}
-                      source={{
-                        uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop2.jpg',
-                      }}
-                    />
-                  </View>
-                </View>
+      <View style={stylesDeal.Store_Sale}>
+        <View style={stylesDeal.Store_Sale_Box}>
+          {/* BoxA */}
+          <View style={stylesDeal.Store_Sale_BoxA}>
+            <View style={stylesDeal.Store_Sale_BoxA_Carousel}>
+              <Carousel
+                ref={c => this.activeSlide = c}
+                data={this.state.dataService}
+                renderItem={this._renderItem}
+                sliderWidth={width * 0.585}
+                itemWidth={width * 0.585}
+                sliderHeight={100}
+                loop={true}
+                autoplay={true}
+                autoplayDelay={3000}
+                autoplayInterval={3000}
+                onSnapToItem={(index) => this.setState({ activeSlide: index })}
+              />
+            </View>
+            <View style={stylesDeal.Store_Sale_BoxA_Boximage}>
+              <View style={stylesDeal.Store_Sale_BoxA_image}>
+                <FastImage style={stylesDeal.Store_Sale_Image}
+                  source={{
+                    uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop2.jpg',
+                  }}
+                />
               </View>
-
-              {/* BoxB */}
-              <View style={styles.Store_Sale_BoxB_Boximage}>
-                <View style={styles.Store_Sale_BoxB_image}>
-                  <FastImage style={styles.Store_Sale_Image}
-                    source={{
-                      uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop2.jpg',
-                    }}
-                  />
-                </View>
-                <View style={styles.Store_Sale_BoxB_image}>
-                  <FastImage style={styles.Store_Sale_Image}
-                    source={{
-                      uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop2.jpg',
-                    }}
-                  />
-                </View>
+              <View style={stylesDeal.Store_Sale_BoxA_image}>
+                <FastImage style={stylesDeal.Store_Sale_Image}
+                  source={{
+                    uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop2.jpg',
+                  }}
+                />
               </View>
             </View>
           </View>
+          {/* BoxB */}
+          <View style={stylesDeal.Store_Sale_BoxB_Boximage}>
+            <View style={stylesDeal.Store_Sale_BoxB_image}>
+              <FastImage style={stylesDeal.Store_Sale_Image}
+                source={{
+                  uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop2.jpg',
+                }}
+              />
+            </View>
+            <View style={stylesDeal.Store_Sale_BoxB_image}>
+              <FastImage style={stylesDeal.Store_Sale_Image}
+                source={{
+                  uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop2.jpg',
+                }}
+              />
+            </View>
+          </View>
+        </View>
+      </View>
+    )
+  }
+  render() {
+    var uri = finip + '/home/home_mobile'
+    var dataBody = {
+      slide: 'banner'
+    };
+    return (
+      <View>
+        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+        <View style={[stylesMain.FrameBackground, { marginTop: 20, }]}>
+          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginTop: -10, }]}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}> ร้านนี้มีของลด </Text>
+          </View>
+          <View style={stylesDeal.Fin_sale_BoxHead}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
+          </View>
+          {this.Store_Sale_Box()}
         </View>
       </View>
     );
   }
 }
-
-///-------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Product_Cool
 export class Product_Cool extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataSale: [],
+      dataService: [],
     };
+    this.getData = this.getData.bind(this)
   }
-
-  getFlashSale() {
-    var url = ip + '/mysql/DataServiceMain.php';
-    var dataBody = {
-      type: 'product'
-    };
-    axios.post(
-      url,
-      dataBody,
-    ).then((getData) => {
-      this.setState({
-        dataSale: getData.data,
-      })
-    })
+  getData(dataService) {
+    this.setState({ dataService })
   }
-
-  componentDidMount() {
-    this.getFlashSale();
-  }
-
-  render() {
-    let dataFlashSale = this.state.dataSale.map((item, indexs) => {
+  dataFlashSale() {
+    return this.state.dataService.map((item, indexs) => {
       var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
       return (
         <TouchableOpacity
@@ -334,44 +280,71 @@ export class Product_Cool extends Component {
             })
           }
         >
-          <View style={[styles.Deal_For_youBox, { marginTop: 10 }]}>
-            <View style={styleMain.BoxProduct1ImageofLines}>
+          <View style={[stylesMain.BoxProduct4Box, { marginBottom: 4 }]}>
+            <View style={stylesMain.BoxProduct1ImageofLines}>
               <FastImage
                 source={{
                   uri: dataMySQL,
-
                 }}
-                style={[styleMain.BoxProduct1Image, { marginLeft: 15, }]}
-
+                style={[stylesMain.BoxProduct1Image]}
               />
             </View>
-            <Text style={[styleMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize7]}>{item.name}</Text>
-            <NumberFormat
-              value={item.full_price}
-              displayType={'text'}
-              thousandSeparator={true}
-              prefix={'฿'}
-              renderText={
-                value => <Text style={[styleMain.BoxProduct1ImagePrice, stylesFont.FontSize8, stylesFont.FontFamilyText]}>
-                  {value}
-                </Text>}
-            />
+            <View style={{ height: 60, paddingHorizontal: 3 }}>
+              <View style={[stylesMain.BoxProduct1NameofLines]}>
+                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize7]}>
+                  {item.name}</Text>
+              </View>
+              <View style={[stylesMain.BoxProduct1PriceofLines, stylesMain.FlexRow]}>
+                <NumberFormat
+                  value={item.full_price}
+                  displayType={'text'}
+                  thousandSeparator={true}
+                  prefix={'฿'}
+                  renderText={value =>
+                    <Text style={[
+                      stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyBold,
+                    ]}>
+                      {value + ' '}</Text>
+                  }
+                />
+                {/* <NumberFormat
+                  value={throughsale}
+                  displayType={'text'}
+                  thousandSeparator={true}
+                  prefix={'฿'}
+                  renderText={value =>
+                    <Text style={[
+                      stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText,
+                      { marginTop: 3 }
+                    ]}>
+                      {value}</Text>
+                  }
+                /> */}
+              </View>
+            </View>
           </View>
         </TouchableOpacity>
       );
     })
+  }
+  render() {
+    var uri = ip + '/mysql/DataServiceMain.php';
+    var dataBody = {
+      type: 'product'
+    };
     return (
       <View>
-        <View style={[styleMain.FrameBackground, { marginTop: 20, }]}>
-          <View style={[styles.BoxText_T, { backgroundColor: '#C4C4C4', marginTop: -10, }]}>
+        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+        <View style={[stylesMain.FrameBackground, { marginTop: 20, }]}>
+          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginTop: -10 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}> สินค้าราคาโคตรคูล </Text>
           </View>
-          <View style={styles.Fin_sale_BoxHead}>
+          <View style={[stylesDeal.Fin_sale_BoxHead, { marginTop: -10 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
           </View>
           <View>
-            <View style={styles.Deal_For_you}>
-              {dataFlashSale}
+            <View style={[stylesDeal.Deal_For_you, { marginTop: 10 }]}>
+              {this.dataFlashSale()}
             </View>
           </View>
         </View>
@@ -379,40 +352,23 @@ export class Product_Cool extends Component {
     );
   }
 }
-
-///-------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Second_Store
 export class Second_Store extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataSale: [],
-      dataSourceSlide: [],
+      dataService: [],
+      dataService2: [],
       activeSlide: 0,
     };
+    this.getData = this.getData.bind(this)
+    this.getData2 = this.getData2.bind(this)
   }
-
-  getDataSlide() {
-    var dataBody = {
-      slide: 'banner'
-    };
-    fetch(finip + '/home/home_mobile', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(dataBody),
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({
-          dataSourceSlide: responseJson,
-        })
-      })
-      .catch((error) => {
-        console.error(error);
-      })
+  getData(dataService) {
+    this.setState({ dataService })
+  }
+  getData2(dataService2) {
+    this.setState({ dataService2 })
   }
   _renderItem = ({ item, indexs }) => {
     var dataMySQL = [finip, item.image_path, item.image].join('/');
@@ -422,22 +378,20 @@ export class Second_Store extends Component {
           source={{
             uri: dataMySQL,
           }}
-          style={styles.Second_Store_Slide_image}
+          style={stylesDeal.Second_Store_Slide_image}
         />
-        <View style={styles.Second_Store_Slide_BoxText}>
+        <View style={stylesDeal.Second_Store_Slide_BoxText}>
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ร้าน K.O.D สินค้ามือสอง ลดสูงสุด 50 %</Text>
         </View>
-
       </View>
     );
   }
-
   get pagination() {
-    const { dataSourceSlide, activeSlide } = this.state;
+    const { dataService, activeSlide } = this.state;
     return (
       <View style={{ marginTop: -60 }}>
         <Pagination
-          dotsLength={dataSourceSlide.length}
+          dotsLength={dataService.length}
           activeDotIndex={activeSlide}
           // containerStyle={{ backgroundColor: 'rgba(120, 120, 120, 0.1)' }}
           dotStyle={{
@@ -462,30 +416,84 @@ export class Second_Store extends Component {
       </View>
     );
   }
-
-  getFlashSale() {
-    var url = ip + '/mysql/DataServiceMain.php';
-    var dataBody = {
-      type: 'product'
-    };
-    axios.post(
-      url,
-      dataBody,
-    ).then((getData) => {
-      this.setState({
-        dataSale: getData.data,
-      })
-    })
+  Second_StoreBody() {
+    return (
+      <View style={stylesDeal.Second_Store}>
+        <View style={stylesDeal.Second_Store_SlideA}>
+          <Carousel
+            ref={c => this.activeSlide = c}
+            data={this.state.dataService}
+            renderItem={this._renderItem}
+            sliderWidth={width * 0.89}
+            itemWidth={width * 0.89}
+            sliderHeight={160}
+            loop={true}
+            autoplay={true}
+            autoplayDelay={3000}
+            autoplayInterval={3000}
+            onSnapToItem={(index) => this.setState({ activeSlide: index })}
+          />
+        </View>
+        <View style={stylesDeal.Second_Store_SlideB}>
+          <View style={stylesDeal.Second_Store_SlideB_Box}>
+            <Carousel
+              ref={c => this.activeSlide = c}
+              data={this.state.dataService}
+              renderItem={this._renderItem}
+              sliderWidth={width * 0.43}
+              itemWidth={width * 0.43}
+              sliderHeight={120}
+              loop={true}
+              autoplay={true}
+              autoplayDelay={3000}
+              autoplayInterval={3000}
+              onSnapToItem={(index) => this.setState({ activeSlide: index })}
+            />
+          </View>
+          <View style={stylesDeal.Second_Store_SlideB_Box}>
+            <Carousel
+              ref={c => this.activeSlide = c}
+              data={this.state.dataService}
+              renderItem={this._renderItem}
+              sliderWidth={width * 0.43}
+              itemWidth={width * 0.43}
+              sliderHeight={120}
+              loop={true}
+              autoplay={true}
+              autoplayDelay={3000}
+              autoplayInterval={3000}
+              onSnapToItem={(index) => this.setState({ activeSlide: index })}
+            />
+          </View>
+        </View>
+        <View style={{ height: 60, marginTop: 10, width: '90%', justifyContent: 'space-between', flexDirection: 'row', }}>
+          <View style={{ width: '33%', backgroundColor: 'red', height: '100%', }}>
+            <FastImage style={stylesDeal.Store_Sale_Image}
+              source={{
+                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop2.jpg',
+              }}
+            />
+          </View>
+          <View style={{ width: '33%', backgroundColor: 'red', height: '100%', }}>
+            <FastImage style={stylesDeal.Store_Sale_Image}
+              source={{
+                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop2.jpg',
+              }}
+            />
+          </View>
+          <View style={{ width: '33%', backgroundColor: 'red', height: '100%', }}>
+            <FastImage style={stylesDeal.Store_Sale_Image}
+              source={{
+                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop2.jpg',
+              }}
+            />
+          </View>
+        </View>
+      </View>
+    )
   }
-
-  componentDidMount() {
-    this.getFlashSale();
-    this.getDataSlide()
-  }
-
-
-  render() {
-    let dataFlashSale = this.state.dataSale.map((item, indexs) => {
+  dataFlashSale() {
+    return this.state.dataService2.map((item, indexs) => {
       var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
       return (
         <TouchableOpacity
@@ -498,122 +506,83 @@ export class Second_Store extends Component {
             })
           }
         >
-          <View style={[styles.Deal_For_youBox, { marginTop: 10 }]}>
-            <View style={styleMain.BoxProduct1ImageofLines}>
+          <View style={[stylesMain.BoxProduct4Box, { marginBottom: 4 }]}>
+            <View style={stylesMain.BoxProduct1ImageofLines}>
               <FastImage
                 source={{
                   uri: dataMySQL,
                 }}
-                style={[styleMain.BoxProduct1Image, { marginLeft: 15 }]}
+                style={[stylesMain.BoxProduct1Image]}
               />
             </View>
-            <Text style={[styles.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize7]}>{item.name}</Text>
-            <NumberFormat
-              value={item.full_price}
-              displayType={'text'}
-              thousandSeparator={true}
-              prefix={'฿'}
-              renderText={
-                value => <Text style={[styleMain.BoxProduct1ImagePrice, stylesFont.FontSize8, stylesFont.FontFamilyText]}>
-                  {value}
-                </Text>}
-            />
+            <View style={{ height: 60, paddingHorizontal: 3 }}>
+              <View style={[stylesMain.BoxProduct1NameofLines]}>
+                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize7]}>
+                  {item.name}</Text>
+              </View>
+              <View style={[stylesMain.BoxProduct1PriceofLines, stylesMain.FlexRow]}>
+                <NumberFormat
+                  value={item.full_price}
+                  displayType={'text'}
+                  thousandSeparator={true}
+                  prefix={'฿'}
+                  renderText={value =>
+                    <Text style={[
+                      stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyBold,
+                    ]}>
+                      {value + ' '}</Text>
+                  }
+                />
+                {/* <NumberFormat
+                  value={throughsale}
+                  displayType={'text'}
+                  thousandSeparator={true}
+                  prefix={'฿'}
+                  renderText={value =>
+                    <Text style={[
+                      stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText,
+                      { marginTop: 3 }
+                    ]}>
+                      {value}</Text>
+                  }
+                /> */}
+              </View>
+            </View>
           </View>
         </TouchableOpacity>
       );
     })
+  }
+  render() {
+    var uri = finip + '/home/home_mobile';
+    var dataBody = {
+      slide: 'banner'
+    };
+    var uri2 = ip + '/mysql/DataServiceMain.php';
+    var dataBody2 = {
+      type: 'product'
+    };
     return (
-      <View style={styleMain.FrameBackground}>
-        <View style={styles.BoxText_Row}>
-          <View style={[styles.BoxText_T, { backgroundColor: '#95D370', }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, styles.Text_Head]}>ร้านมือสองลดราคา</Text>
+      <View style={stylesMain.FrameBackground}>
+        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+        <GetServices uriPointer={uri2} dataBody={dataBody2} getDataSource={this.getData2} />
+        <View style={stylesDeal.BoxText_Row}>
+          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#95D370', }]}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ร้านมือสองลดราคา</Text>
           </View>
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, styles.Text_EndB, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
         </View>
-        <View style={styles.Second_Store}>
-          <View style={styles.Second_Store_SlideA}>
-            <Carousel
-              ref={c => this.activeSlide = c}
-              data={this.state.dataSourceSlide}
-              renderItem={this._renderItem}
-              sliderWidth={width * 0.89}
-              itemWidth={width * 0.89}
-              sliderHeight={160}
-              loop={true}
-              autoplay={true}
-              autoplayDelay={3000}
-              autoplayInterval={3000}
-              onSnapToItem={(index) => this.setState({ activeSlide: index })}
-            />
+        {this.Second_StoreBody()}
+        <View style={stylesDeal.BoxText_Row}>
+          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#E43333', }]}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>มือสองลดราคา</Text>
           </View>
-          <View style={styles.Second_Store_SlideB}>
-            <View style={styles.Second_Store_SlideB_Box}>
-              <Carousel
-                ref={c => this.activeSlide = c}
-                data={this.state.dataSourceSlide}
-                renderItem={this._renderItem}
-                sliderWidth={width * 0.43}
-                itemWidth={width * 0.43}
-                sliderHeight={120}
-                loop={true}
-                autoplay={true}
-                autoplayDelay={3000}
-                autoplayInterval={3000}
-                onSnapToItem={(index) => this.setState({ activeSlide: index })}
-              />
-            </View>
-            <View style={styles.Second_Store_SlideB_Box}>
-              <Carousel
-                ref={c => this.activeSlide = c}
-                data={this.state.dataSourceSlide}
-                renderItem={this._renderItem}
-                sliderWidth={width * 0.43}
-                itemWidth={width * 0.43}
-                sliderHeight={120}
-                loop={true}
-                autoplay={true}
-                autoplayDelay={3000}
-                autoplayInterval={3000}
-                onSnapToItem={(index) => this.setState({ activeSlide: index })}
-              />
-            </View>
-          </View>
-          <View style={{ height: 80, marginTop: 10, width: '90%', justifyContent: 'space-between', flexDirection: 'row', }}>
-            <View style={{ width: 125, backgroundColor: 'red', height: '100%', }}>
-              <FastImage style={styles.Store_Sale_Image}
-                source={{
-                  uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop2.jpg',
-                }}
-              />
-            </View>
-            <View style={{ width: 125, backgroundColor: 'red', height: '100%', }}>
-              <FastImage style={styles.Store_Sale_Image}
-                source={{
-                  uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop2.jpg',
-                }}
-              />
-            </View>
-            <View style={{ width: 125, backgroundColor: 'red', height: '100%', }}>
-              <FastImage style={styles.Store_Sale_Image}
-                source={{
-                  uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop2.jpg',
-                }}
-              />
-            </View>
-          </View>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
         </View>
-        <View style={styles.BoxText_Row}>
-          <View style={[styles.BoxText_T, { backgroundColor: '#E43333', }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, styles.Text_Head]}>มือสองลดราคา</Text>
-          </View>
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, styles.Text_EndB, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
-        </View>
-        <View style={styles.Deal_For_you}>
-          {dataFlashSale}
+        <View style={[stylesDeal.Deal_For_you, { marginTop: 6 }]}>
+          {this.dataFlashSale()}
         </View>
       </View>
     );
   }
 }
-
-

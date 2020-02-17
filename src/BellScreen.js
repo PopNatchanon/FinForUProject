@@ -32,7 +32,7 @@ export default class BellScreen extends Component {
     }
     render() {
         return (
-            <SafeAreaView style={[stylesMain.SafeAreaViewNoBackground, stylesMain.BackgroundAreaView]}>
+            <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                 <AppBar1 titleHead='การแจ้งเตือน' />
                 <ScrollView>
                     <Popular_store />

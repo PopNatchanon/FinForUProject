@@ -1,25 +1,20 @@
+///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-    ImageBackground,
-    View,
-    ScrollView,
-    Text,
-    TextInput,
-    SafeAreaView,
-    TouchableOpacity,
-    Dimensions,
-    Picker
+    Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
-;
+///----------------------------------------------------------------------------------------------->>>> Import
+export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
-import stylesMain from '../../style/StylesMainScreen';
+///----------------------------------------------------------------------------------------------->>>> Icon
+///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../../style/stylesFont';
-import stylesLogin from '../../style/stylesLoginScreen';
-import IconEntypo from 'react-native-vector-icons/Entypo';
+import stylesMain from '../../style/StylesMainScreen';
+///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { Appbar } from '../src_profile/Profile_Topic';
-import { ip } from '../../navigator/IpConfig';
-import reactNativeModalDropdown from 'react-native-modal-dropdown';
-
+///----------------------------------------------------------------------------------------------->>>> Ip
+import { ip, finip } from '../../navigator/IpConfig';
+///----------------------------------------------------------------------------------------------->>>> Main
 export default class Detail_Pro extends Component {
     PathList() {
         const selectedIndex = this.props.navigation.getParam('selectedIndex')
@@ -39,9 +34,8 @@ export default class Detail_Pro extends Component {
                             <Detail_Order />
                             <Detail_Product />
                         </ScrollView>
-                        <Detail_Button navigation={this.props.navigation}/>
+                        <Detail_Button navigation={this.props.navigation} />
                     </View>
-
                 )
             case 2:
                 return (
@@ -52,7 +46,6 @@ export default class Detail_Pro extends Component {
                 )
         }
     }
-
     render() {
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
@@ -64,16 +57,13 @@ export default class Detail_Pro extends Component {
         );
     }
 }
-
-///------------------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Detail_Promotion
 export class Detail_Promotion extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
         return (
             <View>
@@ -118,26 +108,25 @@ export class Detail_Promotion extends Component {
         );
     }
 }
-
-///------------------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Detail_Order
 export class Detail_Order extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
         return (
             <View>
                 <View style={stylesMain.FrameBackground}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}> ยกเลิกแล้ว </Text>
-                    <Text style={[stylesFont.FontFamilyText, { marginLeft: 20, }]}>คำสั่งซื้อของคุณถูกยกเลิกแล้วเนื่องจากคุณไม่ชำระเงินตามเวลาที่กำหนด</Text>
+                    <Text style={[stylesFont.FontFamilyText, { marginLeft: 20, }]}>
+                        คำสั่งซื้อของคุณถูกยกเลิกแล้วเนื่องจากคุณไม่ชำระเงินตามเวลาที่กำหนด</Text>
                 </View>
                 <View style={stylesMain.FrameBackground}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}> ที่อยู่ในการจัดส่ง </Text>
-                    <Text style={[stylesFont.FontFamilyText, { marginLeft: 20, }]}>PPooo 3123 หมู่ที่7 ตำบลบ้านพร้าว, อำเภอป่าพะยอม, จังหวัดพัทลุง, 93210 (+66)0800000000</Text>
+                    <Text style={[stylesFont.FontFamilyText, { marginLeft: 20, }]}>
+                        PPooo 3123 หมู่ที่7 ตำบลบ้านพร้าว, อำเภอป่าพะยอม, จังหวัดพัทลุง, 93210 (+66)0800000000</Text>
                 </View>
                 <View style={stylesMain.FrameBackground}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}> สรุปยอดรวมทั้งสิ้น </Text>
@@ -154,23 +143,25 @@ export class Detail_Order extends Component {
         );
     }
 }
-
-///------------------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Detail_Product
 export class Detail_Product extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
         return (
             <View style={stylesMain.FrameBackground}>
-                <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', padding: 10, borderColor: '#ECECEC', borderWidth: 1, }]}>
+                <View style={[stylesMain.FlexRow, {
+                    justifyContent: 'space-between', padding: 10, borderColor: '#ECECEC', borderWidth: 1,
+                }]}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}> PPooy </Text>
                 </View>
-                <View style={{ borderColor: '#ECECEC', borderWidth: 1, padding: 10, marginTop: 5, flexDirection: 'row', justifyContent: 'space-between' }}>
+                <View style={{
+                    borderColor: '#ECECEC', borderWidth: 1, padding: 10, marginTop: 5, flexDirection: 'row',
+                    justifyContent: 'space-between'
+                }}>
                     <View style={{ height: 100, width: 100, flexDirection: 'row' }}>
                         <FastImage style={{ height: '100%', width: '100%', }}
                             source={{
@@ -191,24 +182,25 @@ export class Detail_Product extends Component {
         );
     }
 }
-
-///------------------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Detail_Product_Check
 export class Detail_Product_Check extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
         return (
             <View style={stylesMain.FrameBackground}>
-                <View style={[stylesMain.FlexRow, { padding: 10, justifyContent: 'space-between', borderColor: '#ECECEC', borderWidth: 1 }]}>
+                <View style={[stylesMain.FlexRow, {
+                    padding: 10, justifyContent: 'space-between', borderColor: '#ECECEC', borderWidth: 1
+                }]}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}> ยกเลิกโดย </Text>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>FIN</Text>
                 </View>
-                <View style={[stylesMain.FlexRow, { padding: 10, justifyContent: 'space-between', borderColor: '#ECECEC', borderWidth: 1 }]}>
+                <View style={[stylesMain.FlexRow, {
+                    padding: 10, justifyContent: 'space-between', borderColor: '#ECECEC', borderWidth: 1
+                }]}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>วัน/เวลาที่ยกเลิก</Text>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>19-2-2020/23.00 น.</Text>
                 </View>
@@ -220,24 +212,22 @@ export class Detail_Product_Check extends Component {
         );
     }
 }
-
-///------------------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Detail_Button
 export class Detail_Button extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
         return (
             <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Detail_Pro', { selectedIndex: 2 })}>
-                <View style={{ width: '100%', backgroundColor: '#0A55A6', height: 50, alignItems: 'center', justifyContent: 'center', marginTop: 10 }}>
+                <View style={{
+                    width: '100%', backgroundColor: '#0A55A6', height: 50, alignItems: 'center', justifyContent: 'center', marginTop: 10
+                }}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตรวจสอบรายละเอียด</Text>
                 </View>
             </TouchableOpacity>
-
         );
     }
 }

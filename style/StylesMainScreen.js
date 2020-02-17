@@ -26,6 +26,14 @@ export default StyleSheet.create({
     width: 113,
     height: 113,
   },
+  BoxProduct1ImageofLines2: {
+    width: width * 0.28,
+    height: width * 0.28,
+  },
+  BoxProduct1ImageofLines3: {
+    width: width * 0.18,
+    height: width * 0.18,
+  },
   BoxProduct1Image: {
     width: '100%',
     height: '100%',
@@ -267,11 +275,26 @@ export default StyleSheet.create({
     marginBottom: 8,
     marginLeft: 10,
   },
+  BoxStore2Box2: {
+    width: 160,
+    height: 80,
+    borderColor: '#ECECEC',
+    marginTop: 10,
+    marginBottom: 8,
+    marginLeft: 10,
+  },
   BoxStore2Image: {
     width: '100%',
     height: '100%',
     borderColor: '#ECECEC',
     borderRadius: 8,
+  },
+  BoxStore2Image2: {
+    width: '100%',
+    height: 60,
+    borderColor: '#ECECEC',
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
   },
   ///------------///
   BoxStore3Box: {
@@ -344,6 +367,19 @@ export default StyleSheet.create({
     borderTopWidth: 1,
     marginTop: 10,
   },
+  FrameBackground3Out: {
+    marginBottom: 10
+  },
+  FrameBackground3: {
+    width,
+    height: height * 0.07,
+    borderColor: '#ECECEC',
+    backgroundColor: '#fff',
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
+    marginTop: 40,
+    marginBottom: -90,
+  },
   FrameBackgroundTextBox: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -412,7 +448,7 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: '#E9E9E9',
   },
-  SafeAreaViewNoBackground: {
+  SafeAreaViewNB: {
     flex: 1,
   },
   LOGO: {
@@ -477,22 +513,26 @@ export default StyleSheet.create({
   },
   ///------------------------------------------------------------------------------------------///
   FrameBackground_Height: {
-    height: 150
+    height: 102
   },
   FrameBackground_Box: {
     flexDirection: 'column',
     flexWrap: 'wrap',
   },
-  Brand_image_RCM: {
+  Brand_image_Box: {
+    height: 28,
+    width: 117,
     borderColor: '#ECECEC',
     borderWidth: 1,
-    height: 50,
-    width: 117,
     marginLeft: 2,
     marginTop: 2,
   },
+  Brand_image_RCM: {
+    height: '100%',
+    width: '100%',
+  },
   ImageMargin: {
-    marginBottom: -20
+    marginBottom: -10
   },
   ///------------------------------------------------------------------------------------------///
   Popular_Box_A: {
@@ -611,7 +651,7 @@ export default StyleSheet.create({
     marginTop: 10,
   },
   Text_Bar: {
-    marginLeft:5,
+    marginLeft: 5,
     color: '#FFFFFF',
   },
   ///------------------------------------------------------------------///
@@ -681,6 +721,7 @@ export default StyleSheet.create({
   litleSlideText: {
     backgroundColor: '#0A55A6', height: '30%', width: '100%',
     borderBottomLeftRadius: 5, borderBottomRightRadius: 5,
+    paddingTop: 0,
     padding: 2,
   },
 });

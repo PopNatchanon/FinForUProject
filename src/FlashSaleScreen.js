@@ -57,7 +57,6 @@ export class Time_FlashSale extends Component {
     }
     getData(dataService) {
         this.setState({ dataService })
-        console.log(dataService)
     }
     updateIndex(selectedIndex) {
         this.setState({ selectedIndex })

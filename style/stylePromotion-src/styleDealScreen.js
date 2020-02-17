@@ -25,7 +25,7 @@ export default StyleSheet.create({
     },
     slide: {
         height: 150,
-    }, 
+    },
     Box_Icon: {
         flexDirection: 'row',
         marginTop: 5,
@@ -108,23 +108,25 @@ export default StyleSheet.create({
         height: 'auto',
         width: '100%',
         justifyContent: 'space-around',
-        padding: 10,
+        padding: 5,
         flexDirection: 'row',
+        flexWrap: 'wrap'
     },
     Deal_Exclusive_Box: {
         backgroundColor: '#FFFFFF',
         borderColor: '#C4C4C4',
         borderWidth: 1,
-        height: 160,
-        width: 130,
+        width: width * 0.3,
         justifyContent: 'center',
         alignItems: 'center',
+        marginTop: 8,
     },
     Deal_Exclusive_BoxImageIcon: {
-        height: 160,
-        width: 130,
+        height: height * 0.20,
+        width: width * 0.3,
         justifyContent: 'center',
         alignItems: 'center',
+        marginTop: 8,
     },
     Deal_Exclusive_Image: {
         height: 120,
@@ -201,7 +203,6 @@ export default StyleSheet.create({
         height: 'auto',
         width: '100%',
         justifyContent: 'space-around',
-        padding: 10,
         flexDirection: 'row',
         flexWrap: 'wrap',
     },
@@ -209,7 +210,7 @@ export default StyleSheet.create({
         backgroundColor: '#FFFFFF',
         borderColor: '#C4C4C4',
         borderWidth: 1,
-        width: 130,
+        width: width * 0.3,
         marginTop: 10,
     },
 
@@ -221,29 +222,31 @@ export default StyleSheet.create({
         height: 200,
         borderWidth: 1,
         borderColor: '#EAEAEA',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
     },
     CampaignBody_BoxImage: {
         width: '100%',
-        height: 140
+        height: 140,
     },
     CampaignBody_Image: {
         width: '100%',
-        height: '100%'
+        height: '100%',
     },
     CampaignBody_Box: {
         flexDirection: 'row',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        width: '100%',
+        height: 60,
     },
     CampaignBody_BoxText: {
         padding: 4,
-        width: 200,
+        width: '64%',
     },
     CampaignBody_Icon_Button: {
         flexDirection: 'row',
         padding: 5,
-        justifyContent: 'space-between',
-        marginLeft: 50,
+        width: '36%',
+        // marginLeft: 50,
     },
     CampaignBody_Icon: {
         justifyContent: 'center',
@@ -256,10 +259,10 @@ export default StyleSheet.create({
     },
     CampaignBody_Button: {
         backgroundColor: '#0A55A6',
-        width: 120,
+        width: 80,
         alignItems: 'center',
         borderRadius: 4,
-        marginLeft: 10,
+        marginLeft: 2,
         height: 35,
     },
     CampaignBody_ButtonText: {
@@ -400,7 +403,7 @@ export default StyleSheet.create({
     },
     New_year_NewProduct_Box: {
         marginTop: 10,
-        width: 130,
+        width: width * 0.3,
         borderColor: '#ECECEC',
         borderWidth: 1,
         backgroundColor: '#FFFF'
@@ -409,21 +412,38 @@ export default StyleSheet.create({
     ///--------------------------------รูปแบบคูปอง-----------------------------------------///
 
     Coupon_BOX: {
-        marginLeft:10,
+        marginLeft: 10,
         height: 70,
-        width: 180,
-        borderColor: '#111111',
+        width: 170,
+        borderColor: '#E1E1E1',
         borderWidth: 1,
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        borderRadius: 5
+        borderRadius: 5,
+        backgroundColor: '#fff',
+    },
+    Coupon_BOX2: {
+        margin: 4,
+        height: 70,
+        width: 170,
+        borderColor: '#E1E1E1',
+        borderWidth: 1,
+        borderRadius: 5,
+        backgroundColor: '#fff',
     },
     Coupon_BOX_A: {
-        height: '100%',
-        width: '40%',
+        height: 68,
+        width: 70,
         alignItems: 'center',
-        paddingTop: 5
-        
+        paddingTop: 5,
+        borderTopRightRadius: 4,
+        borderBottomRightRadius: 4,
+    },
+    Coupon_BOX_A2: {
+        height: 68,
+        width: 68,
+        alignItems: 'center',
+        paddingTop: 5,
+        borderTopRightRadius: 4,
+        borderBottomRightRadius: 4,
     },
     Coupon_BOX_B: {
         height: 30,

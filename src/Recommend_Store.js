@@ -14,7 +14,7 @@ import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> tools
 import { AppBar } from './MainScreen';
-import { GetServices } from './tools/Tools';
+import { GetServices, ProductBox } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> ip
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -82,64 +82,8 @@ export class Store_Detail extends Component {
     getData(dataService) {
         this.setState({ dataService })
     }
-    itemDataService() {
-        const { dataService } = this.state
-        const { navigation } = this.props
-        return dataService.map((item, indexs) => {
-            var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
-            var throughsale = Number(item.full_price) + (item.full_price * 0.25);
-            return (
-                <TouchableOpacity activeOpacity={1} key={indexs}
-                    onPress={() => navigation.navigate('DetailScreen', { id_item: item.id_product })}>
-                    <View style={stylesMain.BoxProduct1Box} key={indexs}>
-                        <View style={stylesMain.BoxProduct1ImageofLines}>
-                            <FastImage
-                                source={{
-                                    uri: dataMySQL,
-                                }}
-                                style={stylesMain.BoxProduct1Image}
-                                resizeMode={FastImage.resizeMode.contain}
-                            />
-                        </View>
-                        <View style={{ height: 60, paddingHorizontal: 3 }}>
-                            <View style={[stylesMain.BoxProduct1NameofLines]}>
-                                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize7]}>
-                                    {item.name}</Text>
-                            </View>
-                            <View style={[stylesMain.BoxProduct1PriceofLines, stylesMain.FlexRow]}>
-                                <NumberFormat
-                                    value={item.full_price}
-                                    displayType={'text'}
-                                    thousandSeparator={true}
-                                    prefix={'฿'}
-                                    renderText={value =>
-                                        <Text style={[
-                                            stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyBold,
-                                        ]}>
-                                            {value + ' '}</Text>
-                                    }
-                                />
-                                <NumberFormat
-                                    value={throughsale}
-                                    displayType={'text'}
-                                    thousandSeparator={true}
-                                    prefix={'฿'}
-                                    renderText={value =>
-                                        <Text style={[
-                                            stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText,
-                                            { marginTop: 3 }
-                                        ]}>
-                                            {value}</Text>
-                                    }
-                                />
-                            </View>
-                        </View>
-                    </View>
-                </TouchableOpacity>
-            )
-        })
-    }
     render() {
+        const { dataService } = this.state
         const { navigation } = this.props
         var uri = ip + '/mysql/DataServiceMain.php';
         var dataBody = {
@@ -215,7 +159,13 @@ export class Store_Detail extends Component {
                         </View>
                         <View style={stylesTopic.Store_Product}>
                             <ScrollView horizontal>
-                                {this.itemDataService()}
+                                {
+                                    dataService ?
+                                        <ProductBox dataService={dataService} navigation={navigation} typeip='ip' mode='row3col1' prepath='mysql'
+                                            pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                                        /> :
+                                        null
+                                }
                             </ScrollView>
                         </View>
                     </View>

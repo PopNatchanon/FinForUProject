@@ -8,10 +8,13 @@ import AsyncStorage from '@react-native-community/async-storage';
 export const { width, height } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
+import IconEntypo from 'react-native-vector-icons/Entypo';
+import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
+import stylesStore from '../../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
@@ -456,8 +459,8 @@ export class ProductBox extends Component {
         };
     }
     ProductBoxRender() {
-        const { dataService, typeip, mode, navigation, nameSize, pointerUrl, pointerid_store, postpath, prepath } = this.props
-        return dataService.map((item, indexs) => {
+        const { dataService, dispriceSize, typeip, mode, navigation, nameSize, pointerUrl, pointerid_store, postpath, prepath, priceSize } = this.props
+        return dataService.map((item, index) => {
             var throughsale = Number(item.full_price) + (item.full_price * 0.5)
             var discount = Number(item.full_price) - throughsale / 100
             var url
@@ -476,7 +479,7 @@ export class ProductBox extends Component {
             return (
                 <TouchableOpacity
                     activeOpacity={1}
-                    key={indexs}
+                    key={index}
                     onPress={() => navigation.push(
                         pointerUrl,
                         pointerid_store ?
@@ -484,21 +487,32 @@ export class ProductBox extends Component {
                             null
                     )}
                 >
-                    <View style={
+                    <View style={[
                         mode == 'row4col1' ?
                             stylesMain.BoxProduct5Box :
                             mode == 'row3col2' ?
                                 stylesMain.BoxProduct1Box2 :
-                                mode == 'row3colall' ?
-                                    stylesMain.BoxProduct2Box :
-                                    stylesMain.BoxProduct1Box
-                    }>
+                                mode == 'row3col2_2' ?
+                                    stylesMain.BoxProduct4Box :
+                                    mode == 'row3colall' ?
+                                        stylesMain.BoxProduct2Box :
+                                        mode == 'row2colall' ?
+                                            stylesMain.BoxProduct3Box :
+                                            mode == '5item' ?
+                                                stylesDeal.Deal_Exclusive_Box :
+                                                stylesMain.BoxProduct1Box,
+                        { marginBottom: mode == 'row3col2_2' ? 4 : null }
+                    ]}>
                         <View style={
                             mode == 'row4col1' ?
                                 stylesMain.BoxProduct5ImageofLines :
                                 mode == 'row3colall' ?
                                     stylesMain.BoxProduct2ImageofLines :
-                                    stylesMain.BoxProduct1ImageofLines
+                                    mode == 'row2colall' ?
+                                        stylesMain.BoxProduct3ImageofLines :
+                                        mode == '5item' ?
+                                            stylesMain.BoxProduct1ImageofLines2 :
+                                            stylesMain.BoxProduct1ImageofLines
                         }>
                             <FastImage
                                 source={{
@@ -507,7 +521,7 @@ export class ProductBox extends Component {
                                 style={
                                     mode == 'row4col1' ?
                                         stylesMain.BoxProduct5Image :
-                                        mode == 'row3colall' ?
+                                        mode == 'row3colall' || mode == '5item' ?
                                             stylesMain.BoxProduct2Image :
                                             stylesMain.BoxProduct1Image
                                 }
@@ -545,7 +559,7 @@ export class ProductBox extends Component {
                                         <Text style={[
                                             stylesMain.BoxProduct1ImagePrice,
                                             stylesFont.FontFamilyBoldBold, {
-                                                fontSize: nameSize ? nameSize : 14,
+                                                fontSize: priceSize ? priceSize : 14,
                                             }
                                         ]}>
                                             {value + ' '}</Text>
@@ -560,7 +574,7 @@ export class ProductBox extends Component {
                                         <Text style={[
                                             stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText, {
                                                 marginTop: 2,
-                                                fontSize: nameSize ? nameSize : 14
+                                                fontSize: dispriceSize ? dispriceSize : 14
                                             }
                                         ]}>
                                             {value}</Text>
@@ -569,13 +583,133 @@ export class ProductBox extends Component {
                             </View>
                         </View>
                     </View>
-                </TouchableOpacity>
+                </TouchableOpacity >
             );
         })
     }
     render() {
         return (
             this.ProductBoxRender()
+        )
+    }
+}
+export class FeedBox extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+    FeedBoxRender() {
+        const { dataService, Follow, Header, typeip, navigation, postpath, prepath } = this.props
+        return dataService.map((item, index) => {
+            var url
+            { typeip == 'ip' ? url = ip : url = finip }
+            var dataMySQL_p
+            Header ?
+                dataMySQL_p = typeip == 'ip' ?
+                    [url,
+                        prepath ?
+                            postpath ?
+                                prepath + '/' + item.image_path + '/' + postpath :
+                                prepath + '/' + item.image_path :
+                            postpath ?
+                                item.image_path + '/' + postpath :
+                                item.image_path,
+                        item.p_image].join('/') :
+                    [url, item.image_path, item.p_image].join('/') :
+                dataMySQL_p = typeip == 'ip' ?
+                    [url,
+                        prepath ?
+                            postpath ?
+                                prepath + '/' + item.image_path + '/' + postpath :
+                                prepath + '/' + item.image_path :
+                            postpath ?
+                                item.image_path + '/' + postpath :
+                                item.image_path,
+                        item.image].join('/') :
+                    [url, item.image_path, item.image].join('/');
+            var dataMySQL_s = [ip + '/mysql/uploads/slide/NewStore', item.s_image].join('/');
+            return (
+                <View style={stylesMain.BoxProduct4Box} key={index}>
+                    {
+                        Header ?
+                            <View style={stylesMain.BoxProduct4PlusHeader}>
+                                <TouchableOpacity onPress={() => { navigation.navigate('StoreScreen', { id_item: item.p_id_store }) }}>
+                                    <View style={stylesMain.FlexRow}>
+                                        <FastImage
+                                            style={stylesMain.BoxProduct4PlusImage}
+                                            source={{
+                                                uri: dataMySQL_s,
+                                            }}
+                                        />
+                                        <Text style={[
+                                            stylesMain.BoxProduct4PlusImageText, stylesFont.FontFamilyBold, stylesFont.FontSize5
+                                        ]}>
+                                            {item.s_name}</Text>
+                                    </View>
+                                </TouchableOpacity>
+                                <View style={stylesMain.BoxProduct4PlusButtonBox}>
+                                    {Follow ?
+                                        null :
+                                        <View style={stylesMain.BoxProduct4PlusButtonFollow}>
+                                            <Text style={[
+                                                stylesMain.BoxProduct4PlusButtonFollowText, stylesFont.FontFamilyText, stylesFont.FontSize6
+                                            ]}>
+                                                ติดตาม</Text>
+                                        </View>
+                                    }
+                                    <IconEntypo name='dots-three-vertical' size={25} />
+                                </View>
+                            </View> :
+                            null
+                    }
+                    <View>
+                        <View style={[stylesMain.ItemCenter, { width: '100%' }]}>
+                            <FastImage
+                                source={{
+                                    uri: dataMySQL_p,
+                                }}
+                                style={stylesMain.BoxProduct4Image}
+                                resizeMode={FastImage.resizeMode.contain}
+                            />
+                        </View>
+                        <View style={stylesMain.BoxProduct4ComBox}>
+                            <Text style={[stylesMain.BoxProduct4ComBoxDetail, stylesStore.SukhumvitSetText]}>
+                                {item.detail}</Text>
+                            <Text style={[stylesMain.BoxProduct4ComBoxTag, stylesStore.SukhumvitSetText]}>
+                                ที่สุดสำหรับคุณ</Text>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Text style={[stylesMain.BoxProduct4ComBoxText, stylesStore.SukhumvitSetText]}>
+                                    200 การเข้าชม</Text>
+                                <Text style={[stylesMain.BoxProduct4ComBoxText, stylesStore.SukhumvitSetText]}>
+                                    เมื่อ 3 วันที่ผ่านมา</Text>
+                            </View>
+                        </View>
+                        <View style={stylesMain.BoxProduct4ComBox2}>
+                            <View style={stylesMain.BoxProduct4ComBoxIcon}>
+                                <IconFontAwesome5 name='heart' size={20} />
+                                <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesStore.SukhumvitSetText]}>
+                                    ถูกใจ</Text>
+                            </View>
+                            <View style={stylesMain.BoxProduct4ComBoxIcon}>
+                                <IconFontAwesome5 name='comment-dots' size={20} />
+                                <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesStore.SukhumvitSetText]}>
+                                    แสดงความคิดเห็น</Text>
+                            </View>
+                            <View style={stylesMain.BoxProduct4ComBoxIcon}>
+                                <IconFontAwesome5 name='share-square' size={20} />
+                                <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesStore.SukhumvitSetText]}>
+                                    แชร์</Text>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+            );
+        })
+    }
+    render() {
+        return (
+            this.FeedBoxRender()
         )
     }
 }

@@ -64,7 +64,7 @@ export class Product_Cart extends Component {
         return (
             <View>
                 {
-                    storecount> 0 ?
+                    storecount > 0 ?
 
                         <CartProduct itemData={this.props.itemData} sendData={this.props.sendText} /> :
                         <View style={stylesCart.Product_Cart}>
@@ -148,7 +148,8 @@ export class CartProduct extends Component {
                                 }}
                             />
                             <View style={{
-                                backgroundColor: '#fffffe', width: 140, height: 140, marginVertical: 6, borderColor: '#ECECEC', borderWidth: 1
+                                backgroundColor: '#fffffe', width: 140, height: 140, marginVertical: 6, borderColor: '#ECECEC',
+                                borderWidth: 1
                             }}>
                                 <FastImage
                                     style={[stylesMain.BoxProduct2Image, { flex: 1 }]}
@@ -172,7 +173,7 @@ export class CartProduct extends Component {
                                 />
                                 <View style={{ flexDirection: 'row' }}>
                                     <TouchableOpacity onPress={() => {
-                                        if (ItemArray[index].itemCount> 1) {
+                                        if (ItemArray[index].itemCount > 1) {
                                             ItemArray[index].itemCount = ItemArray[index].itemCount - 1
                                             this.setState({ ItemArray })
                                             this.props.sendData(ItemArray);
@@ -185,7 +186,9 @@ export class CartProduct extends Component {
                                                 -</Text>
                                         </View>
                                     </TouchableOpacity>
-                                    <View style={[stylesMain.ItemCenter, stylesFont.FontFamilyText, { width: 50, height: 25, borderColor: '#ECECEC', borderWidth: 1 }]}>
+                                    <View style={[stylesMain.ItemCenter, stylesFont.FontFamilyText, {
+                                        width: 50, height: 25, borderColor: '#ECECEC', borderWidth: 1
+                                    }]}>
                                         <Text style={[stylesMain.ItemCenterVertical]}>
                                             {ItemArray[index].itemCount}</Text>
                                     </View>
@@ -244,9 +247,13 @@ export class CartProduct extends Component {
                                             this.setState({ ItemHead })
                                         }}
                                     />
-                                    <View style={[stylesMain.ItemCenterVertical, { width: 30, height: 30, borderRadius: 20, backgroundColor: '#cecece' }]}>
+                                    <View style={[stylesMain.ItemCenterVertical, {
+                                        width: 30, height: 30, borderRadius: 20, backgroundColor: '#cecece'
+                                    }]}>
                                     </View>
-                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 16, }]}>
+                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize5, {
+                                        marginLeft: 16,
+                                    }]}>
                                         PPpp</Text>
                                 </View>
                                 <View>
@@ -374,7 +381,9 @@ export class Buy_bar extends Component {
                         โค้ดส่วนลด</Text>
                     <View style={[stylesCart.Bar_Code_Box, stylesMain.ItemCenterVertical]}></View>
                     <View style={[stylesCart.Bar_Code_Box_Text, stylesMain.ItemCenterVertical]}>
-                        <Text style={[stylesCart.Bar_Code_Text, stylesFont.FontSize6, stylesFont.FontFamilyText, stylesMain.ItemCenterVertical]}>
+                        <Text style={[
+                            stylesCart.Bar_Code_Text, stylesFont.FontSize6, stylesFont.FontFamilyText, stylesMain.ItemCenterVertical
+                        ]}>
                             ใช้โค้ด</Text>
                     </View>
                 </View>
@@ -399,14 +408,18 @@ export class Buy_bar extends Component {
                             thousandSeparator={true}
                             prefix={'฿'}
                             renderText={value =>
-                                <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { marginLeft: 4, color: '#0A55A6' }]}>
+                                <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, {
+                                    marginLeft: 4, color: '#0A55A6'
+                                }]}>
                                     {value}</Text>
                             }
                         />
                     </View>
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Customer_Order')}>
                         <View style={stylesCart.BOX_Buy}>
-                            <Text style={[stylesCart.BOX_Buy_Text, stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical]}>
+                            <Text style={[
+                                stylesCart.BOX_Buy_Text, stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical
+                            ]}>
                                 ชำระเงิน</Text>
                         </View>
                     </TouchableOpacity>

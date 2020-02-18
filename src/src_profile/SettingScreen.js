@@ -160,7 +160,6 @@ export class ListMenu extends Component {
                 </TouchableOpacity>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginTop: 10 }]}>FIN Shopping V 1.0.01</Text>
             </View>
-
         )
     }
 }

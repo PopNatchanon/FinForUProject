@@ -16,7 +16,7 @@ import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, AppBar1, BannerBar_ONE, TodayProduct, } from './MainScreen';
 import { Button_Bar, PricesSlide, SlideTab, } from './ExclusiveScreen';
-import { GetServices } from './tools/Tools';
+import { GetServices, ProductBox } from './tools/Tools';
 import { Slide } from './src_Promotion/DealScreen';
 import { Store_Detail } from './Recommend_Store';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -61,23 +61,38 @@ export class Second_Product extends Component {
     super(props);
     this.state = {
       sliderVisible: false,
+      dataService: [],
     };
+    this.getData = this.getData.bind(this)
     this.setSlider = this.setSlider.bind(this)
+  }
+  getData(dataService) {
+    this.setState({ dataService })
   }
   setSlider(value) {
     this.setState({ sliderVisible: value })
   }
   render() {
-    const { sliderVisible } = this.state
+    const { dataService, sliderVisible } = this.state
+    const { navigation } = this.props
+    var uri = ip + '/mysql/DataServiceMain.php';
+    var dataBody = {
+      type: 'sale'
+    };
     return (
       <View style={{ flex: 1 }}>
+        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
         <ScrollView>
           <Slide />
-          <Second_Store navigation={this.props.navigation} />
-          <Second_Product_Brand navigation={this.props.navigation} />
+          <Second_Store navigation={navigation} />
+          <Second_Product_Brand navigation={navigation} />
           <BannerBar_ONE />
           <Button_Bar setSliderVisible={this.setSlider} getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
-          <TodayProduct noTitle navigation={this.props.navigation} />
+          {
+            dataService ?
+              <TodayProduct noTitle navigation={navigation} loadData={dataService} typeip prepath='mysql' /> :
+              null
+          }
         </ScrollView>
         <SlidingView
           disableDrag
@@ -90,12 +105,12 @@ export class Second_Product extends Component {
           }}
           position="right"
           changeVisibilityCallback={() => this.setState({ sliderVisible: !sliderVisible })}
-       >
+        >
           <View style={stylesMain.FlexRow}>
             <TouchableOpacity
               activeOpacity={1}
               onPress={() => this.setState({ sliderVisible: !sliderVisible })}
-           >
+            >
               <View style={stylesTopic.BackgroundLeft}></View>
             </TouchableOpacity>
             <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNB]}>
@@ -176,66 +191,12 @@ export class Second_Product_Brand extends Component {
     this.setState({ dataService })
   }
   render() {
+    const { dataService } = this.state
+    const { navigation } = this.props
     var uri = ip + '/mysql/DataServiceMain.php';
     var dataBody = {
       type: 'sale'
     };
-    let dataFlashSale = this.state.dataService.map((item, indexs) => {
-      var throughsale = Number(item.full_price) + (item.full_price * 0.5)
-      var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
-      return (
-        <TouchableOpacity
-          activeOpacity={1}
-          key={indexs}
-          onPress={() => this.props.navigation.navigate('DetailScreen', { id_item: item.id_product })}
-       >
-          <View style={stylesMain.BoxProduct5Box}>
-            <View style={stylesMain.BoxProduct5ImageofLines}>
-              <FastImage
-                source={{
-                  uri: dataMySQL,
-                }}
-                style={stylesMain.BoxProduct5Image}
-                resizeMode={FastImage.resizeMode.contain}
-              />
-            </View>
-            <View style={{ height: 55, paddingHorizontal: 3 }}>
-              <View style={[stylesMain.BoxProduct1NameofLines]}>
-                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize8]}>
-                  {item.name}</Text>
-              </View>
-              <View style={[stylesMain.BoxProduct1PriceofLines, stylesMain.FlexRow]}>
-                <NumberFormat
-                  value={item.full_price}
-                  displayType={'text'}
-                  thousandSeparator={true}
-                  prefix={'฿'}
-                  renderText={value =>
-                    <Text style={[
-                      stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize7, stylesFont.FontFamilyBold,
-                    ]}>
-                      {value + ' '}</Text>
-                  }
-                />
-                <NumberFormat
-                  value={throughsale}
-                  displayType={'text'}
-                  thousandSeparator={true}
-                  prefix={'฿'}
-                  renderText={value =>
-                    <Text style={[
-                      stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText,
-                      { marginTop: 2 }
-                    ]}>
-                      {value}</Text>
-                  }
-                />
-              </View>
-            </View>
-          </View>
-        </TouchableOpacity>
-      );
-    })
     return (
       <View style={stylesMain.FrameBackground2}>
         <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
@@ -246,7 +207,13 @@ export class Second_Product_Brand extends Component {
           </View>
         </View>
         <ScrollView horizontal>
-          {dataFlashSale}
+          {
+            dataService ?
+              <ProductBox dataService={dataService} navigation={navigation} typeip='ip' mode='row4col1' prepath='mysql'
+                pointerUrl='DetailScreen' pointerid_store nameSize={10} priceSize={12} dispriceSize={10}
+              /> :
+              null
+          }
         </ScrollView>
       </View>
     );

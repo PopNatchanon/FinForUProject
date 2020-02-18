@@ -643,7 +643,6 @@ export default StyleSheet.create({
   },
   ///------------------------------------------------------------------///
   Second_StoreFin: {
-    height: 280,
     width,
   },
   Second_StoreFin_BoxHead: {
@@ -653,23 +652,22 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
   },
   Second_StoreFin_Image: {
-    height: 230,
     width: width,
     marginLeft: 6,
     flexDirection: 'row',
   },
   Second_StoreFin_ImageA: {
-    height: 230,
+    height: 155,
     width: width * 0.64,
     marginTop: 6,
     marginRight: 6,
   },
   Second_StoreFin_ImageB: {
-    height: 190,
+    height: 155,
     marginTop: 6,
   },
   Second_StoreFin_ImageB_T: {
-    height: 112,
+    height: 74,
     width: width * 0.32,
     marginBottom: 3
   },
@@ -703,7 +701,7 @@ export default StyleSheet.create({
   },
   litleSlideImage: {
     height: 70, width: '100%',
-    borderTopLeftRadius: 5, borderTopRightRadius: 5,
+    borderRadius: 5,
   },
   litleSlideText: {
     backgroundColor: '#0A55A6', height: '30%', width: '100%',

@@ -98,10 +98,10 @@ export class StoreMe_Up_ProductDetail extends Component {
   }
   render() {
     var uri = finip + '/home/category_mobile'
-    let dataCategory = this.state.dataService.map((item, indexs) => {
+    let dataCategory = this.state.dataService.map((item, index) => {
       var dataMySQL = [finip, item.image_path, 'menu', item.image_head].join('/');
       return (
-        <View style={styles.Category} key={indexs}>
+        <View style={styles.Category} key={index}>
           <FastImage
             source={{
               uri: dataMySQL,

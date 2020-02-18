@@ -15,7 +15,7 @@ import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, Slide, BannerBar_TWO, TodayProduct, } from './MainScreen';
 import { Button_Bar, SlideTab, PricesSlide } from './ExclusiveScreen';
-import { GetServices } from './tools/Tools';
+import { GetServices, ProductBox } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -24,17 +24,27 @@ export default class CategoryScreen extends Component {
         super(props);
         this.state = {
             sliderVisible: false,
+            dataService: [],
         };
         this.setSlider = this.setSlider.bind(this)
+        this.getData = this.getData.bind(this)
+    }
+    getData(dataService) {
+        this.setState({ dataService })
     }
     setSlider(value) {
         this.setState({ sliderVisible: value })
     }
     render() {
-        const { sliderVisible } = this.state
+        const { dataService, sliderVisible } = this.state
         const { navigation } = this.props
+        var uri = ip + '/mysql/DataServiceMain.php';
+        var dataBody = {
+            type: 'sale'
+        };
         return (
             <SafeAreaView style={[stylesMain.SafeAreaView]}>
+                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
                 <AppBar leftBar='backarrow' navigation={navigation} />
                 <ScrollView>
                     <Slide />
@@ -42,7 +52,11 @@ export default class CategoryScreen extends Component {
                     <Product_Brand navigation={navigation} />
                     <BannerBar_TWO />
                     <Button_Bar setSliderVisible={this.setSlider} getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
-                    <TodayProduct noTitle navigation={navigation} />
+                    {
+                        dataService ?
+                            <TodayProduct noTitle navigation={navigation} loadData={dataService} typeip prepath='mysql' /> :
+                            null
+                    }
                 </ScrollView>
                 <SlidingView
                     disableDrag
@@ -55,12 +69,12 @@ export default class CategoryScreen extends Component {
                     }}
                     position="right"
                     changeVisibilityCallback={() => this.setState({ sliderVisible: !sliderVisible })}
-               >
+                >
                     <View style={stylesMain.FlexRow}>
                         <TouchableOpacity
                             activeOpacity={1}
                             onPress={() => this.setState({ sliderVisible: !sliderVisible })}
-                       >
+                        >
                             <View style={stylesTopic.BackgroundLeft}></View>
                         </TouchableOpacity>
                         <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNB]}>
@@ -147,11 +161,11 @@ export class Recommend_Store extends Component {
         var dataBody = {
             type: 'brand2'
         };
-        let dataPromotionPopular = dataService.map((item, indexs) => {
+        let dataPromotionPopular = dataService.map((item, index) => {
             var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
             return (
-                <TouchableOpacity onPress={() => { navigation.navigate('Recommend_Store') }}>
-                    <View style={stylesMain.BoxStore1Box} key={indexs}>
+                <TouchableOpacity onPress={() => { navigation.navigate('Recommend_Store') }} key={index}>
+                    <View style={stylesMain.BoxStore1Box}>
                         <FastImage
                             source={{
                                 uri: dataMySQL,
@@ -200,60 +214,6 @@ export class Product_Brand extends Component {
         var dataBody = {
             type: 'product'
         };
-        let dataNewProduct = dataService.map((item, indexs) => {
-            var throughsale = Number(item.full_price) + (item.full_price * 0.25);
-            var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
-            return (
-                <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => navigation.navigate('DetailScreen', {
-                    id_item: item.id_product
-                })}>
-                    <View style={stylesMain.BoxProduct1Box} key={indexs}>
-                        <View style={stylesMain.BoxProduct1ImageofLines}>
-                            <FastImage
-                                source={{
-                                    uri: dataMySQL,
-                                }}
-                                style={stylesMain.BoxProduct1Image}
-                                resizeMode={FastImage.resizeMode.contain}
-                            />
-                        </View>
-                        <View style={{ height: 60, paddingHorizontal: 3 }}>
-                            <View style={[stylesMain.BoxProduct1NameofLines]}>
-                                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize7]}>
-                                    {item.name}</Text>
-                            </View>
-                            <View style={[stylesMain.BoxProduct1PriceofLines, stylesMain.FlexRow]}>
-                                <NumberFormat
-                                    value={item.full_price}
-                                    displayType={'text'}
-                                    thousandSeparator={true}
-                                    prefix={'฿'}
-                                    renderText={value =>
-                                        <Text style={[
-                                            stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyBold,
-                                        ]}>
-                                            {value + ' '}</Text>
-                                    }
-                                />
-                                <NumberFormat
-                                    value={throughsale}
-                                    displayType={'text'}
-                                    thousandSeparator={true}
-                                    prefix={'฿'}
-                                    renderText={value =>
-                                        <Text style={[
-                                            stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText,
-                                            { marginTop: 3 }
-                                        ]}>
-                                            {value}</Text>
-                                    }
-                                />
-                            </View>
-                        </View>
-                    </View>
-                </TouchableOpacity>
-            )
-        })
         return (
             <View style={stylesMain.FrameBackground}>
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
@@ -263,7 +223,13 @@ export class Product_Brand extends Component {
                     </Text>
                 </View>
                 <ScrollView horizontal>
-                    {dataNewProduct}
+                    {
+                        dataService ?
+                            <ProductBox dataService={dataService} navigation={navigation} typeip='ip' mode='row3col1' prepath='mysql'
+                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                            /> :
+                            null
+                    }
                 </ScrollView>
             </View>
         );

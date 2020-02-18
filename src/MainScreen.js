@@ -297,10 +297,10 @@ export class Slide extends Component {
     getData(dataService) {
         this.setState({ dataService })
     }
-    _renderItem = ({ item, indexs }) => {
+    _renderItem = ({ item, index }) => {
         var dataMySQL = [finip, item.image_path, item.image].join('/');
         return (
-            <View style={stylesMain.child} key={indexs}>
+            <View style={stylesMain.child} key={index}>
                 <FastImage
                     source={{
                         uri: dataMySQL,
@@ -382,10 +382,10 @@ export class Category extends Component {
         const { dataService } = this.state
         const { navigation } = this.props
         var uri = finip + '/home/category_mobile'
-        let dataCategory = dataService.map((item, indexs) => {
+        let dataCategory = dataService.map((item, index) => {
             var dataMySQL = [finip, item.image_path, 'menu', item.image_head].join('/');
             return (
-                <View style={stylesMain.Category} key={indexs}>
+                <View style={stylesMain.Category} key={index}>
                     <FastImage
                         source={{
                             uri: dataMySQL,
@@ -815,7 +815,7 @@ export class FlashSale extends Component {
                     {
                         dataService ?
                             <ProductBox dataService={dataService} navigation={navigation} typeip='ip' prepath='mysql' mode='row4col1'
-                                pointerUrl='FlashSaleScreen' pointerid_store /> :
+                                pointerUrl='FlashSaleScreen' pointerid_store nameSize={10} priceSize={12} dispriceSize={10} /> :
                             null
                     }
                 </ScrollView>
@@ -833,10 +833,10 @@ export class PromotionPopular extends Component {
     dataPromotionPopular() {
         const { loadData, navigation } = this.props
         return loadData ?
-            loadData.map((item, indexs) => {
+            loadData.map((item, index) => {
                 var dataMySQL = [finip, item.image_path, item.image].join('/');
                 return (
-                    <TouchableOpacity onPress={() => navigation.navigate('Recommend_Store')} key={indexs}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Recommend_Store')} key={index}>
                         <View style={[stylesMain.BoxStore2Box2]}>
                             <FastImage
                                 source={{
@@ -893,10 +893,10 @@ export class Confidential_PRO extends Component {
         var dataBody = {
             type: 'Confidential_PRO'
         };
-        let dataConfidential_PRO = dataService.map((item, indexs) => {
+        let dataConfidential_PRO = dataService.map((item, index) => {
             var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
             return (
-                <View style={stylesMain.BoxStore2Box} key={indexs}>
+                <View style={stylesMain.BoxStore2Box} key={index}>
                     <FastImage
                         source={{
                             uri: dataMySQL,
@@ -948,8 +948,8 @@ export class Product_for_you extends Component {
                     <View style={[stylesMain.ProductForYouFlexBox, stylesMain.Product_for_you]}>
                         {
                             loadData ?
-                                <ProductBox dataService={loadData} navigation={navigation} typeip='fin' prepath='mysql' mode='row3col2'
-                                    pointerUrl='DetailScreen' pointerid_store /> :
+                                <ProductBox dataService={loadData} navigation={navigation} typeip='fin' mode='row3col2'
+                                    pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12} /> :
                                 null
                         }
                     </View>
@@ -980,8 +980,9 @@ export class Highlight extends Component {
                 <ScrollView horizontal>
                     {
                         loadData ?
-                            <ProductBox dataService={loadData} navigation={navigation} typeip='fin' prepath='mysql' mode='row3col1'
-                                pointerUrl='DetailScreen' pointerid_store /> :
+                            <ProductBox dataService={loadData} navigation={navigation} typeip='fin' mode='row3col1'
+                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                            /> :
                             null
                     }
                 </ScrollView>
@@ -999,10 +1000,10 @@ export class NewStore extends Component {
     dataNewStore() {
         const { loadData, navigation } = this.props
         return loadData ?
-            loadData.map((item, indexs) => {
+            loadData.map((item, index) => {
                 var dataMySQL = [finip, item.image_path, item.image].join('/');
                 return (
-                    <TouchableOpacity activeOpacity={1} key={indexs}
+                    <TouchableOpacity activeOpacity={1} key={index}
                         onPress={() => navigation.navigate('Recommend_Store', { id_item: item.id_store })}>
                         <View style={stylesMain.BoxStore1Box}>
                             <FastImage
@@ -1053,8 +1054,9 @@ export class Exclusive extends Component {
                 <ScrollView horizontal>
                     {
                         loadData ?
-                            <ProductBox dataService={loadData} navigation={navigation} typeip='fin' prepath='mysql' mode='row3col1'
-                                pointerUrl='DetailScreen' pointerid_store /> :
+                            <ProductBox dataService={loadData} navigation={navigation} typeip='fin' mode='row3col1'
+                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                            /> :
                             null
                     }
                 </ScrollView>
@@ -1075,11 +1077,12 @@ export class CategoryProduct extends Component {
         this.setState({ dataService })
     }
     render() {
+        const { NoStoreReCom } = this.props
         var uri = finip + '/home/category_mobile';
-        let dataCategory = this.state.dataService.map((item, indexs) => {
+        let dataCategory = this.state.dataService.map((item, index) => {
             var dataMySQL = [finip, item.mobile_head].join('/');
             return (
-                <View style={[stylesMain.FrameBackground2, { marginTop: 10, backgroundColor: item.bg_m }]} key={indexs}>
+                <View style={[stylesMain.FrameBackground2, { marginTop: 10, backgroundColor: item.bg_m }]} key={index}>
                     <View style={{}}>
                         <FastImage
                             source={{
@@ -1097,23 +1100,34 @@ export class CategoryProduct extends Component {
                         </View>
                         <CategoryProductSubProduct navigation={this.props.navigation} id_type={item.id_type} />
                     </View>
-                    <View>
-                        <View>
-                            <View style={stylesMain.Text_Bar_Image}>
-                                <Text style={[stylesMain.Text_Bar, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-                                    ร้านฮิต ติดเทรนด์</Text>
+                    {
+                        NoStoreReCom ?
+                            null :
+                            <View>
+                                <View style={stylesMain.Text_Bar_Image}>
+                                    <Text style={[stylesMain.Text_Bar, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                                        ร้านฮิต ติดเทรนด์</Text>
+                                </View>
+                                <CategoryProductSubStore navigation={this.props.navigation} />
                             </View>
-                            <CategoryProductSubStore navigation={navigation} />
-                        </View>
-                        <CategoryProductSubStore navigation={this.props.navigation} />
-                    </View>
-                    <View style={{ marginBottom: 10, }}>
-                        <View style={stylesMain.Text_Bar_Image}>
-                            <Text style={[stylesMain.Text_Bar, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-                                FIN แนะนำร้าน </Text>
-                        </View>
-                        <CategoryProductSubPromotion navigation={this.props.navigation} />
-                    </View>
+                    }
+                    {
+                        NoStoreReCom ?
+                            <View style={{ marginBottom: 10, }}>
+                                <View style={{ marginTop: 10, }}>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 8, color: '#fff' }]}>
+                                        ร้านนี้ผ่อนได้ </Text>
+                                </View>
+                                <CategoryProductSubStore navigation={this.props.navigation} />
+                            </View> :
+                            <View style={{ marginBottom: 10, }}>
+                                <View style={stylesMain.Text_Bar_Image}>
+                                    <Text style={[stylesMain.Text_Bar, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                                        FIN แนะนำร้าน </Text>
+                                </View>
+                                <CategoryProductSubPromotion navigation={this.props.navigation} />
+                            </View>
+                    }
                 </View>
             );
         })
@@ -1150,8 +1164,9 @@ export class CategoryProductSubProduct extends Component {
                 <View style={[stylesMain.ProductForYouFlexBox, stylesMain.BoxProductWarpBox]}>
                     {
                         dataService ?
-                            <ProductBox dataService={dataService} navigation={navigation} typeip='fin' prepath='mysql' mode='row3col2'
-                                pointerUrl='DetailScreen' pointerid_store /> :
+                            <ProductBox dataService={dataService} navigation={navigation} typeip='fin' mode='row3col2'
+                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                            /> :
                             null
                     }
                 </View>
@@ -1178,12 +1193,12 @@ export class CategoryProductSubStore extends Component {
         var dataBody = {
             type: 'store'
         };
-        let dataCategoryProductSubStore = dataService.map((item, indexs) => {
+        let dataCategoryProductSubStore = dataService.map((item, index) => {
             var dataMySQL = [ip + '/MySQL/uploads/slide/Store_recommendFIN', item.image].join('/');
             return (
-                <TouchableOpacity activeOpacity={1} key={indexs}
+                <TouchableOpacity activeOpacity={1} key={index}
                     onPress={() => navigation.navigate('StoreScreen', { id_item: item.id_store })}>
-                    <View style={stylesMain.CategoryProductStoreBox} key={indexs}>
+                    <View style={stylesMain.CategoryProductStoreBox} key={index}>
                         <FastImage
                             source={{
                                 uri: dataMySQL,
@@ -1220,10 +1235,10 @@ export class CategoryProductSubPromotion extends Component {
         var dataBody = {
             type: 'store2'
         };
-        let dataCategoryProductSubPromotion = dataService.map((item, indexs) => {
+        let dataCategoryProductSubPromotion = dataService.map((item, index) => {
             var dataMySQL = [ip + '/MySQL/uploads/slide/Store_recommendFIN', item.image].join('/');
             return (
-                <View style={[stylesMain.BoxStore1Box, { borderWidth: 0, }]} key={indexs}>
+                <View style={[stylesMain.BoxStore1Box, { borderWidth: 0, }]} key={index}>
                     <FastImage
                         source={{
                             uri: dataMySQL,
@@ -1253,7 +1268,7 @@ export class Second_product extends Component {
         return item.map((item, index) => {
             var dataMySQL = [finip, item.image_path, item.image].join('/')
             return (
-                <View key={index} style={{ width: width * 0.64, height: 240 }}>
+                <View key={index} style={{ width: width * 0.64, height: 196 }}>
                     <FastImage
                         source={{
                             uri: dataMySQL,
@@ -1286,30 +1301,34 @@ export class Second_product extends Component {
     Second_Storeheader() {
         const { loadData, navigation } = this.props
         return (
-            <View>
-                <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
-                        สินค้ามือสอง</Text>
-                    <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('Second_productScreen')}>
-                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                            ดูทั้งหมด</Text>
-                    </TouchableOpacity>
-                </View>
-                <View>
+            <View style={[stylesMain.FrameBackground2, { marginTop: 0, backgroundColor: loadData.bg_m }]}>
+                <View style={{}}>
                     <FastImage
-                        style={stylesMain.CategoryProductImageHead}
-                        source={{ uri: ip + '/MySQL/uploads/slide/Banner_type/watch_BannerBar.jpg' }}
-                        resizeMode={FastImage.resizeMode.stretch}
+                        style={[stylesMain.CategoryProductImageHead, { marginTop: 0 }]}
+                        source={{ uri: ip + '/MySQL/uploads/slide/Banner_type/GlassesBannerBar.jpg' }}
+                        resizeMode={FastImage.resizeMode.cover}
                     />
+                    <View style={stylesMain.FrameBackgroundTextBox}>
+                        <Text></Text>
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate(
+                            'SecondScreen', { selectedIndex: 0 })}
+                        >
+                            <Text style={[stylesMain.FrameBackgroundTextEnd2, stylesFont.FontFamilyText, stylesFont.FontSize7, {
+                                color: '#0A55A6'
+                            }]}>
+                                ดูทั้งหมด</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <ScrollView horizontal>
+                        {
+                            loadData.product_second ?
+                                <ProductBox dataService={loadData.product_second} navigation={navigation} typeip='fin' mode='row3col1'
+                                    pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                                /> :
+                                null
+                        }
+                    </ScrollView>
                 </View>
-                <ScrollView horizontal>
-                    {
-                        loadData.product_second ?
-                            <ProductBox dataService={loadData.product_second} navigation={navigation} typeip='fin' prepath='mysql'
-                                mode='row3col1' pointerUrl='DetailScreen' pointerid_store /> :
-                            null
-                    }
-                </ScrollView>
             </View>
         )
     }
@@ -1323,7 +1342,7 @@ export class Second_product extends Component {
                             ร้านค้ามือสองแนะนำโดย FIN </Text>
                     </View>
                     <View>
-                        <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('Second_productScreen')}>
+                        <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('SecondScreen', { selectedIndex: 1 })}>
                             <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                                 ดูทั้งหมด</Text>
                         </TouchableOpacity>
@@ -1411,65 +1430,10 @@ export class TodayProduct extends Component {
         this.state = {
         };
     }
-    dataToday(loadData) {
-        const { navigation } = this.props;
-        return loadData.map((item, indexs) => {
-            var throughsale = Number(item.full_price) + (item.full_price * 0.25);
-            var dataMySQL = [finip, item.image_path, item.image].join('/');
-            return (
-                <TouchableOpacity activeOpacity={1} key={indexs} onPress={() => navigation.navigate('DetailScreen', { id_item: item.id_product })}>
-                    <View style={stylesMain.BoxProduct2Box} key={indexs}>
-                        <View style={stylesMain.BoxProduct2ImageofLines}>
-                            <FastImage
-                                source={{
-                                    uri: dataMySQL,
-                                }}
-                                style={stylesMain.BoxProduct2Image}
-                                resizeMode={FastImage.resizeMode.contain}
-                            />
-                        </View>
-                        <View style={{ height: 60, paddingHorizontal: 3 }}>
-                            <View style={[stylesMain.BoxProduct1NameofLines]}>
-                                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize7]}>
-                                    {item.name}</Text>
-                            </View>
-                            <View style={[stylesMain.BoxProduct1PriceofLines, stylesMain.FlexRow]}>
-                                <NumberFormat
-                                    value={item.full_price}
-                                    displayType={'text'}
-                                    thousandSeparator={true}
-                                    prefix={'฿'}
-                                    renderText={value =>
-                                        <Text style={[
-                                            stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyBold,
-                                        ]}>
-                                            {value + ' '}</Text>
-                                    }
-                                />
-                                <NumberFormat
-                                    value={throughsale}
-                                    displayType={'text'}
-                                    thousandSeparator={true}
-                                    prefix={'฿'}
-                                    renderText={value =>
-                                        <Text style={[
-                                            stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText,
-                                            { marginTop: 3 }
-                                        ]}>
-                                            {value}</Text>
-                                    }
-                                />
-                            </View>
-                        </View>
-                    </View>
-                </TouchableOpacity>
-            );
-        })
-    }
     render() {
-        const { loadData, navigation, noTitle, } = this.props
+        const { loadData, navigation, noTitle, prepath, typeip } = this.props
         return (
-            <View style={stylesMain.BoxProduct2}>
+            <View style={[stylesMain.BoxProduct2, { backgroundColor: 'transparent' }]}>
                 {
                     noTitle ?
                         null :
@@ -1479,13 +1443,10 @@ export class TodayProduct extends Component {
                 <View style={stylesMain.BoxProduct2BoxProduct}>
                     {
                         loadData ?
-                            <ProductBox dataService={loadData} navigation={navigation} typeip='fin' prepath='mysql'
-                                mode='row3colall' pointerUrl='DetailScreen' pointerid_store /> :
-                            null
-                    }
-                    {
-                        loadData ?
-                            this.dataToday(loadData) :
+                            <ProductBox dataService={loadData} navigation={navigation} typeip={typeip ? 'ip' : 'fin'} mode='row3colall'
+                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                                prepath={prepath ? prepath : null}
+                            /> :
                             null
                     }
                 </View>

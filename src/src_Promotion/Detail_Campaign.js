@@ -110,10 +110,10 @@ export class Cate_Campaign extends Component {
         this.setState({ dataService })
     }
     dataCategory() {
-        this.state.dataService.map((item, indexs) => {
+        this.state.dataService.map((item, index) => {
             var dataMySQL = [finip, item.image_path, 'menu', item.image_head].join('/');
             return (
-                <View style={stylesDeal.Cate_Campaign} key={indexs}>
+                <View style={stylesDeal.Cate_Campaign} key={index}>
                     <View style={stylesDeal.Cate_CampaignBoxImage}>
                         <FastImage
                             source={{
@@ -189,12 +189,12 @@ export class New_year_NewA extends Component {
         this.setState({ dataService })
     }
     dataFlashSale() {
-        return this.state.dataService.map((item, indexs) => {
+        return this.state.dataService.map((item, index) => {
             var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
             return (
                 <TouchableOpacity
                     activeOpacity={1}
-                    key={indexs}
+                    key={index}
                     onPress={
                         () => this.props.navigation.navigate(
                             'DetailScreen', {
@@ -283,12 +283,12 @@ export class New_year_NewB extends Component {
         this.setState({ dataService })
     }
     dataFlashSale() {
-        return this.state.dataService.map((item, indexs) => {
+        return this.state.dataService.map((item, index) => {
             var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
             return (
                 <TouchableOpacity
                     activeOpacity={1}
-                    key={indexs}
+                    key={index}
                     onPress={
                         () => this.props.navigation.navigate(
                             'DetailScreen', {

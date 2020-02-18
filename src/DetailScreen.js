@@ -97,7 +97,7 @@ export class Detail_Image extends Component {
       myJSON
     )
   }
-  _renderItem = ({ item, indexs }) => {
+  _renderItem = ({ item, index }) => {
     var dataMySQL = [finip, item.image_full_path, item.image].join('/');
     return (
       <View style={{ width: width * 1, height: width * 1, /*backgroundColor: '#d9d9d9'*/ }}>
@@ -106,7 +106,7 @@ export class Detail_Image extends Component {
             uri: dataMySQL,
           }}
           style={[stylesMain.BoxProduct1Image, { opacity: 0.9 }]}
-          key={indexs}
+          key={index}
           resizeMode={FastImage.resizeMode.contain}
         />
       </View>
@@ -115,7 +115,7 @@ export class Detail_Image extends Component {
   render() {
     const { activeSlide, imageLength } = this.state;
     const { dataService } = this.props;
-    let id_product = dataService.map((item, indexs) => {
+    let id_product = dataService.map((item, index) => {
       let dataMySQL
       {
         item.gallery_image ?
@@ -123,7 +123,7 @@ export class Detail_Image extends Component {
           dataMySQL = dataService;
       }
       return (
-        <View style={[stylesMain.FrameBackground2, { marginTop: 0, borderTopWidth: 0 }]} key={indexs}>
+        <View style={[stylesMain.FrameBackground2, { marginTop: 0, borderTopWidth: 0 }]} key={index}>
           <View style={{ /*backgroundColor: '#f9f9f9' */ }}>
             <Carousel
               ref={c => this.activeSlide = c}
@@ -190,10 +190,10 @@ export class Store extends Component {
   }
   render() {
     const { dataService, navigation } = this.props
-    let id_store = dataService.map((item, indexs) => {
+    let id_store = dataService.map((item, index) => {
       var dataMySQL = [finip, item.store_path, item.store_img].join('/');
       return (
-        <View style={[stylesMain.FrameBackground, stylesMain.BottomSpace]} key={indexs}>
+        <View style={[stylesMain.FrameBackground, stylesMain.BottomSpace]} key={index}>
           <View style={stylesDetail.Store_Box1}>
             <View style={stylesDetail.Store_Box2}>
               <TouchableOpacity onPress={() => navigation.navigate('StoreScreen', { id_item: item.id_store })}>
@@ -316,9 +316,9 @@ export class Detail_Category extends Component {
   }
   render() {
     const { dataService } = this.props
-    let id_store = dataService.map((item, indexs) => {
+    let id_store = dataService.map((item, index) => {
       return (
-        <View style={[stylesMain.FrameBackground]} key={indexs}>
+        <View style={[stylesMain.FrameBackground]} key={index}>
           <View style={[stylesMain.FrameBackgroundTextBox, stylesDetail.BottomTitle, stylesMain.MarginBottomTitle]}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
               ข้อมูลจำเพาะ</Text>
@@ -374,9 +374,9 @@ export class Detail extends Component {
   render() {
     const { showMoreButton, activeText } = this.state
     const { dataService } = this.props
-    let id_store = dataService.map((item, indexs) => {
+    let id_store = dataService.map((item, index) => {
       return (
-        <View style={stylesMain.FrameBackground} key={indexs}>
+        <View style={stylesMain.FrameBackground} key={index}>
           <View style={[stylesMain.FrameBackgroundTextBox, stylesDetail.BottomTitle, stylesMain.MarginBottomTitle]}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
               รายละเอียดสินค้า</Text>
@@ -605,7 +605,6 @@ export class Same_Store extends Component {
         type_product: "this_store",
       };
     })
-    console.log(dataService2)
     return (
       <View style={stylesMain.FrameBackground}>
         {
@@ -624,8 +623,9 @@ export class Same_Store extends Component {
         <ScrollView horizontal>
           {
             dataService2 ?
-              <ProductBox dataService={dataService2} navigation={navigation} typeip='fin' prepath='mysql'
-                mode='row3col1' pointerUrl='DetailScreen' pointerid_store /> :
+              <ProductBox dataService={dataService2} navigation={navigation} typeip='fin' mode='row3col1' pointerUrl='DetailScreen'
+                pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+              /> :
               null
           }
         </ScrollView>
@@ -676,8 +676,9 @@ export class Similar_Product extends Component {
         <ScrollView horizontal>
           {
             dataService2 ?
-              <ProductBox dataService={dataService2} navigation={navigation} typeip='fin' prepath='mysql'
-                mode='row3col1' pointerUrl='DetailScreen' pointerid_store /> :
+              <ProductBox dataService={dataService2} navigation={navigation} typeip='fin' mode='row3col1' pointerUrl='DetailScreen'
+                pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+              /> :
               null
           }
         </ScrollView>
@@ -728,8 +729,9 @@ export class Might_like extends Component {
         <View style={stylesDetail.PopularProductBoxProduct}>
           {
             dataService2 ?
-              <ProductBox dataService={dataService2} navigation={navigation} typeip='fin' prepath='mysql'
-                mode='row3col1' pointerUrl='DetailScreen' pointerid_store /> :
+              <ProductBox dataService={dataService2} navigation={navigation} typeip='fin' mode='row2colall' pointerUrl='DetailScreen'
+                pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+              /> :
               null
           }
         </View>

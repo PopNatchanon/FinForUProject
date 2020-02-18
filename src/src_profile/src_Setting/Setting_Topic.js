@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-  Dimensions, Picker, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
+  Dimensions, Picker, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import BottomSheet from "react-native-raw-bottom-sheet";
@@ -173,7 +173,7 @@ export class Edit_Profile extends Component {
   }
   NameSheetBody() {
     return (
-      <View>
+      <>
         <View style={{ width: '100%', alignItems: 'center', flex: 1 }}>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ชื่อ-นามสกุล</Text>
           <View style={{ height: 40, width: '70%', borderBottomColor: '#000000', borderBottomWidth: 1, marginTop: 10, }}>
@@ -200,12 +200,12 @@ export class Edit_Profile extends Component {
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
           </View>
         </TouchableOpacity>
-      </View>
+      </>
     )
   }
   SexSheetBody() {
     return (
-      <View>
+      <>
         <View style={{ width: '100%', alignItems: 'center', flex: 1 }}>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>เพศ</Text>
           <View style={stylesMain.FlexRow}>
@@ -232,7 +232,7 @@ export class Edit_Profile extends Component {
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
           </View>
         </TouchableOpacity>
-      </View>
+      </>
     )
   }
   BirthdaySheetBody() {
@@ -248,7 +248,7 @@ export class Edit_Profile extends Component {
     var month = new Date(date).getMonth();
     var year = new Date(date).getFullYear();
     return (
-      <View>
+      <>
         <View style={{ width: '100%', flex: 1, alignItems: 'center', }}>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}> วันเกิด</Text>
           <View style={[stylesLogin.DateBox, stylesMain.ItemCenter]}>
@@ -294,12 +294,12 @@ export class Edit_Profile extends Component {
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
           </View>
         </TouchableOpacity>
-      </View>
+      </>
     )
   }
-  Phone_numberSheet() {
+  Phone_numberSheetBody() {
     return (
-      <View>
+      <>
         <View style={{ width: '100%', flex: 1, padding: 10, }}>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>เบอร์โทรศัพท์</Text>
           <View style={{ height: 40, width: '100%', borderBottomColor: '#000000', borderBottomWidth: 1, marginTop: 10, }}>
@@ -317,14 +317,14 @@ export class Edit_Profile extends Component {
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
           </View>
         </TouchableOpacity>
-      </View>
+      </>
     )
   }
   render() {
     return (
       <View>
         {/* ชื่อ-นามสกุล */}
-        <BottomSheet
+        {/* <BottomSheet
           ref={ref => {
             this.NameSheet = ref;
           }}
@@ -336,11 +336,11 @@ export class Edit_Profile extends Component {
               alignItems: "center",
             }
           }}
-       >
+        >
           {this.NameSheetBody()}
-        </BottomSheet>
+        </BottomSheet> */}
         {/* เพศ */}
-        <BottomSheet
+        {/* <BottomSheet
           ref={ref => {
             this.SexSheet = ref;
           }}
@@ -352,11 +352,11 @@ export class Edit_Profile extends Component {
               alignItems: "center",
             }
           }}
-       >
+        >
           {this.SexSheetBody()}
-        </BottomSheet>
+        </BottomSheet> */}
         {/* วันเกิด */}
-        <BottomSheet
+        {/* <BottomSheet
           ref={ref => {
             this.BirthdaySheet = ref;
           }}
@@ -368,11 +368,11 @@ export class Edit_Profile extends Component {
               alignItems: "center",
             }
           }}
-       >
+        >
           {this.BirthdaySheetBody()}
-        </BottomSheet>
+        </BottomSheet> */}
         {/* เบอร์โทรศัพท์ */}
-        <BottomSheet
+        {/* <BottomSheet
           ref={ref => {
             this.Phone_numberSheet = ref;
           }}
@@ -384,11 +384,11 @@ export class Edit_Profile extends Component {
               alignItems: "center",
             }
           }}
-       >
-          {this.Phone_numberSheet()}
-        </BottomSheet>
-        <Appbar navigation={this.props.navigation} Title='แก้ไขโปรไฟล์' />
-        <StoreMe_SettingImage />
+        >
+          {this.Phone_numberSheetBody()}
+        </BottomSheet> */}
+        {/* <Appbar navigation={this.props.navigation} Title='แก้ไขโปรไฟล์' /> */}
+        {/* <StoreMe_SettingImage /> */}
         <View style={{ marginTop: 20, }}>
           <TouchableOpacity onPress={() => { this.NameSheet.open(); }}>
             <View style={stylesProfileTopic.BoxTopic}>

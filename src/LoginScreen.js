@@ -138,7 +138,7 @@ export class Login extends Component {
           <Form
             ref="form"
             onSubmit={this.getData}
-          >
+         >
             <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
               อีเมล</Text>
             <TextValidator
@@ -191,7 +191,7 @@ export class Login extends Component {
             />
             <TouchableOpacity style={stylesLogin.eyestyle}
               onPress={() => { eye == false ? this.setState({ eye: true }) : this.setState({ eye: false }) }}>
-              <View >
+              <View>
                 <IconFeather RightItem name={eye == false ? "eye" : "eye-off"} size={20} style={{ marginTop: 5 }} />
               </View>
             </TouchableOpacity>
@@ -203,7 +203,7 @@ export class Login extends Component {
               <TouchableOpacity onPress={this.handleSubmit}>
                 <View style={[stylesLogin.Login_Box_Text_B, stylesMain.ItemCenter]}>
                   <Text style={[stylesLogin.Login__Text, stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical]}
-                  >เข้าสู่ระบบ</Text>
+                 >เข้าสู่ระบบ</Text>
                 </View>
               </TouchableOpacity>
             </View>

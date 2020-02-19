@@ -216,7 +216,7 @@ export class ListMenu extends Component {
                         </View>
                     </TouchableOpacity>
 
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Follow_storeScreen')} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Follow_storeScreen')}>
                         <View style={styles.ListMenuList}>
                             <View style={styles.ListMenuListSub}>
                                 <IconAntDesign RightItem name="linechart" size={30} color='#0A55A6' style={styles.ListMenuListSubIcon} />
@@ -228,7 +228,7 @@ export class ListMenu extends Component {
                         </View>
                     </TouchableOpacity>
 
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Review_meScreen')} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Review_meScreen')}>
                         <View style={styles.ListMenuList}>
                             <View style={styles.ListMenuListSub}>
                                 <IconMaterialCommunityIcons RightItem name="star" size={35} color='#EAD295' style={styles.ListMenuListSubIcon} />
@@ -250,7 +250,7 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Help_meScreen')} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Help_meScreen')}>
                         <View style={styles.ListMenuList}>
                             <View style={styles.ListMenuListSub}>
                                 <IconsFontAwesome5 RightItem name="store-alt" size={30} color='#06BBBB' style={styles.ListMenuListSubIcon} />

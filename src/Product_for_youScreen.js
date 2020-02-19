@@ -14,30 +14,46 @@ import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, TodayProduct } from './MainScreen';
 import { Button_Bar, PricesSlide, SlideTab, } from './ExclusiveScreen';
+import { GetServices, ProductBox, Toolbar } from './tools/Tools';
 import { Slide } from './src_Promotion/DealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
+import { finip, ip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class Product_for_youScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       sliderVisible: false,
+      dataService: [],
     };
+    this.getData = this.getData.bind(this)
     this.setSlider = this.setSlider.bind(this)
+  }
+  getData(dataService) {
+    this.setState({ dataService })
   }
   setSlider(value) {
     this.setState({ sliderVisible: value })
   }
   render() {
-    const { sliderVisible } = this.state
+    const { dataService, sliderVisible } = this.state
     const { navigation } = this.props
+    var uri = ip + '/mysql/DataServiceMain.php';
+    var dataBody = {
+      type: 'sale'
+    };
     return (
       <SafeAreaView>
+        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
         <AppBar1 backArrow navigation={navigation} titleHead='FIN คัดมาเพื่อคุณ' />
         <ScrollView>
           <Slide />
           <Button_Bar setSliderVisible={this.setSlider} getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
-          <TodayProduct noTitle />
+          {
+            dataService ?
+              <TodayProduct noTitle navigation={navigation} loadData={dataService} typeip prepath='mysql' /> :
+              null
+          }
         </ScrollView>
         <SlidingView
           disableDrag
@@ -115,7 +131,7 @@ export class SlideTabGet extends Component {
           <SlideTab Title='แบรนด์' item={item2} />
           <PricesSlide />
         </View>
-      </View >
+      </View>
     )
   }
 }

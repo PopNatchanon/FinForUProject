@@ -58,10 +58,10 @@ export class Popular_store extends Component {
     }
     dataNewStore() {
         const text = 'ร้าน AVIRA ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!';
-        return this.state.dataService.map((item, indexs) => {
+        return this.state.dataService.map((item, index) => {
             var dataMySQL = [ip + '/mysql/uploads/slide/NewStore', item.image].join('/');
             return (
-                <TouchableOpacity activeOpacity={1} key={indexs}
+                <TouchableOpacity activeOpacity={1} key={index}
                     onPress={() => this.props.navigation.navigate('StoreScreen', { id_item: item.id_store })}>
                     <View style={stylesMain.BoxStore3Box}>
                         <FastImage
@@ -128,48 +128,42 @@ export class Pro_for_U extends Component {
                                 ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                         </View>
                     </TouchableOpacity>
-                    <View style={stylesMain.BoxStore4Box}>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Detail_Pro', { selectedIndex: 0 })}>
-                            <View style={stylesMain.BoxStore4Box}>
-                                <FastImage
-                                    style={stylesMain.BoxStore4Image}
-                                    source={{
-                                        uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop2.jpg',
-                                    }}
-                                />
-                                <Text numberOfLines={4} style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                                    ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={stylesMain.BoxStore4Box}>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Detail_Pro', { selectedIndex: 0 })}>
-                            <View style={stylesMain.BoxStore4Box}>
-                                <FastImage
-                                    style={stylesMain.BoxStore4Image}
-                                    source={{
-                                        uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop3.jpg',
-                                    }}
-                                />
-                                <Text numberOfLines={4} style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                                    ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={stylesMain.BoxStore4Box}>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Detail_Pro', { selectedIndex: 0 })}>
-                            <View style={stylesMain.BoxStore4Box}>
-                                <FastImage
-                                    style={stylesMain.BoxStore4Image}
-                                    source={{
-                                        uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop4.jpg',
-                                    }}
-                                />
-                                <Text numberOfLines={4} style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                                    ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Detail_Pro', { selectedIndex: 0 })}>
+                        <View style={stylesMain.BoxStore4Box}>
+                            <FastImage
+                                style={stylesMain.BoxStore4Image}
+                                source={{
+                                    uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop2.jpg',
+                                }}
+                            />
+                            <Text numberOfLines={4} style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                                ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Detail_Pro', { selectedIndex: 0 })}>
+                        <View style={stylesMain.BoxStore4Box}>
+                            <FastImage
+                                style={stylesMain.BoxStore4Image}
+                                source={{
+                                    uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop3.jpg',
+                                }}
+                            />
+                            <Text numberOfLines={4} style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                                ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Detail_Pro', { selectedIndex: 0 })}>
+                        <View style={stylesMain.BoxStore4Box}>
+                            <FastImage
+                                style={stylesMain.BoxStore4Image}
+                                source={{
+                                    uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop4.jpg',
+                                }}
+                            />
+                            <Text numberOfLines={4} style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                                ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
             </View>
         );

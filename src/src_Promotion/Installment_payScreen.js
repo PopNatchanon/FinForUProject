@@ -32,7 +32,7 @@ export default class Installment_payScreen extends Component {
           <Slide />
           <Head_Image />
           <Product_Pay />
-          <CategoryProduct navigation={this.props.navigation} />
+          <CategoryProduct NoStoreReCom navigation={this.props.navigation} />
         </ScrollView>
         <Button_Bar navigation={this.props.navigation} />
       </SafeAreaView>

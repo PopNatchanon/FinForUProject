@@ -319,9 +319,9 @@ export class Edit_Profile extends Component {
   }
   render() {
     return (
-      <View >
+      <View>
         {/* ชื่อ-นามสกุล */}
-        <BottomSheet
+       <BottomSheet
           ref={ref => {
             this.NameSheet = ref;
           }}
@@ -335,9 +335,9 @@ export class Edit_Profile extends Component {
           }}
         >
           {this.NameSheetBody()}
-        </BottomSheet>
+        </BottomSheet> 
         {/* เพศ */}
-        <BottomSheet
+         <BottomSheet
           ref={ref => {
             this.SexSheet = ref;
           }}
@@ -351,9 +351,9 @@ export class Edit_Profile extends Component {
           }}
         >
           {this.SexSheetBody()}
-        </BottomSheet>
+        </BottomSheet> 
         {/* วันเกิด */}
-        <BottomSheet
+         <BottomSheet
           ref={ref => {
             this.BirthdaySheet = ref;
           }}
@@ -367,9 +367,9 @@ export class Edit_Profile extends Component {
           }}
         >
           {this.BirthdaySheetBody()}
-        </BottomSheet>
+        </BottomSheet> 
         {/* เบอร์โทรศัพท์ */}
-        <BottomSheet
+         <BottomSheet
           ref={ref => {
             this.Phone_numberSheet = ref;
           }}
@@ -397,7 +397,7 @@ export class Edit_Profile extends Component {
               </View>
               <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
             </View></TouchableOpacity>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 7 })} >
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 7 })}>
             <View style={stylesProfileTopic.BoxTopic}>
               <View style={stylesMain.FlexRow}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -614,7 +614,7 @@ export class Edit_Bell extends Component {
             <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 6 })} >
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 6 })}>
           <View style={stylesProfileTopic.BoxTopic}>
             <View style={stylesMain.FlexRow}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>

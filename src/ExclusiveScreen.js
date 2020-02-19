@@ -18,30 +18,45 @@ import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, TodayProduct } from './MainScreen';
 import { Slide } from './src_Promotion/DealScreen';
-import { TabBar } from './tools/Tools';
+import { GetServices, TabBar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
+import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class ExclusiveScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       sliderVisible: false,
+      dataService: [],
     };
+    this.getData = this.getData.bind(this)
     this.setSlider = this.setSlider.bind(this)
   }
   setSlider(value) {
     this.setState({ sliderVisible: value })
   }
+  getData(dataService) {
+    this.setState({ dataService })
+  }
   render() {
-    const { sliderVisible } = this.state
+    const { dataService, sliderVisible } = this.state
     const { navigation } = this.props
+    var uri = ip + '/mysql/DataServiceMain.php';
+    var dataBody = {
+      type: 'sale'
+    };
     return (
-      <SafeAreaView style={stylesMain.SafeAreaView} >
+      <SafeAreaView style={stylesMain.SafeAreaView}>
+        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
         <AppBar1 titleHead={'สินค้าสุด Exclusive'} backArrow searchBar chatBar navigation={navigation} />
         <ScrollView>
           <Slide />
           <Button_Bar setSliderVisible={this.setSlider} getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
-          <TodayProduct noTitle navigation={navigation} />
+          {
+            dataService ?
+              <TodayProduct noTitle navigation={navigation} loadData={dataService} typeip prepath='mysql' /> :
+              null
+          }
         </ScrollView>
         <SlidingView
           disableDrag
@@ -159,7 +174,7 @@ export class SlideTab extends Component {
             </View>
           </View>
         </View>
-      </View >
+      </View>
     )
   }
   render() {
@@ -208,7 +223,7 @@ export class SlideTabGet extends Component {
           <SlideTab Title='แบรนด์' item={item2} />
           <PricesSlide />
         </View>
-      </View >
+      </View>
     )
   }
 }

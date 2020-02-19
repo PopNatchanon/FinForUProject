@@ -128,7 +128,7 @@ export class Login extends Component {
             <Form
               ref="form"
               onSubmit={this.getData}
-            >
+           >
               <Text style={styles.Login_Box_Textlabel}>
                 อีเมล
               </Text>
@@ -179,7 +179,7 @@ export class Login extends Component {
               />
               <View style={styles.Countdownstyle}>
                 <Text style={styles.CountdownstyleSubmit}
-                >
+               >
                   ส่ง
                 </Text>
               </View>

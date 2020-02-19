@@ -77,7 +77,7 @@ export class Customer_Product extends Component {
             <View style={{ backgroundColor: '#F8F8F8', width: '95%', borderRadius: 5, padding: 10 }}>
               <View style={{ padding: 10, flexDirection: 'row', justifyContent: 'space-between', }}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>ยอดรวม (1 ชิ้น)</Text>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]} > ฿ 15,000.00</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}> ฿ 15,000.00</Text>
               </View>
               <View style={{ backgroundColor: '#D7D7D7', width: '100%', height: 3, marginTop: 10, }}></View>
               <View style={{ padding: 10, flexDirection: 'row', justifyContent: 'space-between', }}>

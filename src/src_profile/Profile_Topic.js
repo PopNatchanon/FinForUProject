@@ -314,7 +314,7 @@ export class Follow_storeScreen extends Component {
     }
     render() {
         return (
-            <ScrollView >
+            <ScrollView>
                 <Follow_store_Box />
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 10, marginLeft: 10, }]}>ร้านค้าที่คุณอาจชอบ</Text>
                 <Might_like_Store />
@@ -500,7 +500,7 @@ export class Review_me extends Component {
                         </View>
                         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', {
                             selectedIndex: 7
-                        })} >
+                        })}>
                             <View style={stylesProfileTopic.Review_me_Box_head}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>รีวิว</Text>
                             </View>

@@ -15,6 +15,9 @@ export default StyleSheet.create({
     FontFamilyBold: {
         fontFamily: 'ThaiSansNeue-ExtraBold',
     },
+    FontFamilyBoldBold: {
+        fontFamily: 'ThaiSansNeue-UltraBold',
+    },
     FontSize1: {
         fontSize: 26,
     },

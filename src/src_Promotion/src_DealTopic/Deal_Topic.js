@@ -1,39 +1,37 @@
-import React, { Component, PureComponent } from 'react';
+///----------------------------------------------------------------------------------------------->>>> React
+import React, { Component } from 'react';
 import {
-    View,
-    ImageBackground,
-    ScrollView,
-    Text,
-    TextInput,
-    SafeAreaView,
-    TouchableOpacity,
-    Dimensions,
+    Dimensions, SafeAreaView, ScrollView, Text, View,
 } from 'react-native';
-import axios from 'axios';
-import NumberFormat from 'react-number-format';
-import stylesMain from '../../../style/StylesMainScreen';
-import styles from '../../../style/stylePromotion-src/styleDealScreen';
-import stylesStore from '../../../style/StylesStoreScreen';
-import IconFeather from 'react-native-vector-icons/Feather';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
-import { finip, ip } from '../../../navigator/IpConfig';
-import FastImage from 'react-native-fast-image';
-import stylesFont from '../../../style/stylesFont';
-
+///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
-import { AppBar } from '../DealScreen';
+import FastImage from 'react-native-fast-image';
+///----------------------------------------------------------------------------------------------->>>> Icon
+///----------------------------------------------------------------------------------------------->>>> Styles
+import stylesFont from '../../../style/stylesFont';
+import stylesPromotionDeal from '../../../style/stylePromotion-src/styleDealScreen';
+///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { Button_Bar } from '../../HighlightScreen';
+import { GetServices, ProductBox, Toolbar } from '../../tools/Tools';
 import { TodayProduct, Slide, AppBar1 } from '../../MainScreen';
 import { Store_Detail } from '../../Recommend_Store';
-
+///----------------------------------------------------------------------------------------------->>>> Ip
+import { finip, ip } from '../../../navigator/IpConfig';
+///----------------------------------------------------------------------------------------------->>>> Main
 export default class Deal_Topic extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            dataService: [],
         };
+        this.getData = this.getData.bind(this)
+    }
+    getData(dataService) {
+        this.setState({ dataService })
     }
     PathList() {
+        const { dataService } = this.state
+        const { navigation } = this.props
         const selectedIndex = this.props.navigation.getParam('selectedIndex')
         switch (selectedIndex) {
             case 0:
@@ -47,11 +45,15 @@ export default class Deal_Topic extends Component {
             case 1:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ดีลสุด Exclusive'  />
-                        <Slide />
-                        <Button_Bar navigation={this.props.navigation} />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ดีลสุด Exclusive' />
                         <ScrollView>
-                            <TodayProduct noTitle navigation={this.props.navigation} />
+                            <Slide />
+                            <Button_Bar navigation={this.props.navigation} />
+                            {
+                                dataService ?
+                                    <TodayProduct noTitle navigation={navigation} loadData={dataService} typeip prepath='mysql' /> :
+                                    null
+                            }
                         </ScrollView>
                     </View>
                 )
@@ -59,9 +61,9 @@ export default class Deal_Topic extends Component {
                 return (
                     <View>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='ร้านค้ามือสองลดราคา' />
-                        <Slide />
-                        <Button_Bar />
                         <ScrollView>
+                            <Slide />
+                            <Button_Bar />
                             <Store_Detail />
                             <Store_Detail />
                             <Store_Detail />
@@ -73,10 +75,14 @@ export default class Deal_Topic extends Component {
                 return (
                     <View>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='สินค้ามือสองลดราคา' />
-                        <Slide />
-                        <Button_Bar navigation={this.props.navigation} />
                         <ScrollView>
-                            <TodayProduct noTitle navigation={this.props.navigation} />
+                            <Slide />
+                            <Button_Bar navigation={this.props.navigation} />
+                            {
+                                dataService ?
+                                    <TodayProduct noTitle navigation={navigation} loadData={dataService} typeip prepath='mysql' /> :
+                                    null
+                            }
                         </ScrollView>
                     </View>
                 )
@@ -98,23 +104,25 @@ export default class Deal_Topic extends Component {
     }
 
     render() {
+        var uri = ip + '/mysql/DataServiceMain.php';
+        var dataBody = {
+            type: 'sale'
+        };
         return (
             <SafeAreaView style={{ flex: 1 }}>
+                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
                 {this.PathList()}
             </SafeAreaView>
         );
     }
 }
-
-///------------------------------------------------------------------------------------///
-
+///----------------------------------------------------------------------------------------------->>>> Main
 export class Deal_CuponToday extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
         return (
             <View>
@@ -122,26 +130,26 @@ export class Deal_CuponToday extends Component {
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}> เก็บคูปองลดเพิ่มทุกวัน </Text>
                 </View>
                 <View style={{ padding: 10, }}>
-                    <View style={styles.Deal_Today_Box}>
+                    <View style={stylesPromotionDeal.Deal_Today_Box}>
                         <Text style={stylesFont.FontFamilyText}> คูปองส่วนลดจาก FIN</Text>
                         <ScrollView horizontal>
-                            <View style={styles.Deal_Today_BoxImage}>
-                                <FastImage style={styles.Deal_Today_Coinimage}
+                            <View style={stylesPromotionDeal.Deal_Today_BoxImage}>
+                                <FastImage style={stylesPromotionDeal.Deal_Today_Coinimage}
                                     source={{
                                         uri: ip + '/MySQL/uploads/icon_brand/Coins_50.png',
                                     }}
                                 />
-                                <FastImage style={[styles.Deal_Today_Coinimage, { marginLeft: 5, }]}
+                                <FastImage style={[stylesPromotionDeal.Deal_Today_Coinimage, { marginLeft: 5, }]}
                                     source={{
                                         uri: ip + '/MySQL/uploads/icon_brand/Coins_50.png',
                                     }}
                                 />
-                                <FastImage style={[styles.Deal_Today_Coinimage, { marginLeft: 5, }]}
+                                <FastImage style={[stylesPromotionDeal.Deal_Today_Coinimage, { marginLeft: 5, }]}
                                     source={{
                                         uri: ip + '/MySQL/uploads/icon_brand/Coins_50.png',
                                     }}
                                 />
-                                <FastImage style={[styles.Deal_Today_Coinimage, { marginLeft: 5, }]}
+                                <FastImage style={[stylesPromotionDeal.Deal_Today_Coinimage, { marginLeft: 5, }]}
                                     source={{
                                         uri: ip + '/MySQL/uploads/icon_brand/Coins_50.png',
                                     }}
@@ -154,7 +162,3 @@ export class Deal_CuponToday extends Component {
         );
     }
 }
-
-///------------------------------------------------------------------------------------///
-
-

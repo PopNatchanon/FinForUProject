@@ -59,13 +59,13 @@ export class StoreMe_Setting_Topic extends Component {
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 0 })} >
+                <TouchableOpacity onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 0 })}>
                     <View style={styles.StoreMe_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>เอกสารการจดแจ้ง</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_TopicStore', { selectedIndex: 9 })} >
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_TopicStore', { selectedIndex: 9 })}>
                     <View style={styles.StoreMe_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ที่อยู่ร้านค้าของฉัน</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />

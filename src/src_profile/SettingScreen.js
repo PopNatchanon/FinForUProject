@@ -58,7 +58,7 @@ export class ListMenu extends Component {
                             </Text>
                     </View>
                 </View>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 0 })} >
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 0 })}>
                     <View style={stylesProfileTopic.BoxTopic}>
                         <View style={stylesProfile.ListMenuListSub}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -68,7 +68,7 @@ export class ListMenu extends Component {
                         <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 1 })} >
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 1 })}>
                     <View style={stylesProfileTopic.BoxTopic}>
                         <View style={stylesProfile.ListMenuListSub}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -85,7 +85,7 @@ export class ListMenu extends Component {
                             </Text>
                     </View>
                 </View>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 2 })} >
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 2 })}>
                     <View style={stylesProfileTopic.BoxTopic}>
                         <View style={stylesProfile.ListMenuListSub}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -95,7 +95,7 @@ export class ListMenu extends Component {
                         <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 3 })} >
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 3 })}>
                     <View style={stylesProfileTopic.BoxTopic}>
                         <View style={stylesProfile.ListMenuListSub}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -105,7 +105,7 @@ export class ListMenu extends Component {
                         <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 4 })} >
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 4 })}>
                     <View style={stylesProfileTopic.BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
                             ภาษา
@@ -141,7 +141,7 @@ export class ListMenu extends Component {
                         <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1} onPress={null/*() => this.props.navigation.navigate()*/} >
+                <TouchableOpacity activeOpacity={1} onPress={null/*() => this.props.navigation.navigate()*/}>
                     <View style={stylesProfileTopic.BoxTopic}>
                         <View style={stylesProfile.ListMenuListSub}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -162,7 +162,6 @@ export class ListMenu extends Component {
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginTop: 5 }]}>FIN Shopping V 1.0.01</Text>
                 </View>
             </View>
-
         )
     }
 }

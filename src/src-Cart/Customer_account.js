@@ -53,11 +53,11 @@ export class Appbar extends Component {
     render() {
         return (
             <View style={styles.Appbar}>
-                <IconAntDesign name='mail' size={30} />
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginLeft: 10, }]}>ที่อยู่ใหม่</Text>
+                <IconAntDesign name='mail' size={30} color='#FFFFFF' />
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginLeft: 10, color:'#FFFFFF'}]}>ที่อยู่ใหม่</Text>
                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
                     <View>
-                        <IconAntDesign RightItem name='closecircleo' size={25} color='#0A55A6' style={{ marginLeft: 160, marginRight: 10, }} />
+                        <IconAntDesign RightItem name='closecircleo' size={25} color='#FFFFFF' style={{ marginLeft: 160, marginRight: 10, }} />
                     </View>
                 </TouchableOpacity>
             </View>
@@ -275,7 +275,7 @@ export class Account extends Component {
                         value={this.state.text}
                         onChangeText={(text) => this.setState({ text })}></TextInput>
                 </View>
-            </View >
+            </View>
         );
     }
 }
@@ -331,7 +331,7 @@ export class Button_Bar extends Component {
                         height: 40, backgroundColor: '#0A55A6', width: 350, borderRadius: 5, alignItems: 'center',
                         justifyContent: 'center', marginBottom: 10,
                     }}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>เพิ่มที่อยู่</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
                     </View>
                 </TouchableOpacity>
             </View>

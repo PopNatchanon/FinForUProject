@@ -99,7 +99,7 @@ export class Detail_Image extends Component {
   }
   _renderItem = ({ item, indexs }) => {
     var dataMySQL = [finip, item.image_full_path, item.image].join('/');
-    console.log(dataMySQL)
+    // console.log(dataMySQL)
     return (
       <View style={{ width: width * 1, height: width * 1, /*backgroundColor: '#d9d9d9'*/ }}>
         <FastImage

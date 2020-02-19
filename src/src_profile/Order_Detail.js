@@ -9,6 +9,7 @@ export const { width, height } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
+import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1 } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -42,13 +43,13 @@ export class Detail extends Component {
     render() {
         return (
             <View>
-                <View style={{ flexDirection: 'row', padding: 10, alignItems: 'center', backgroundColor: '#FFFFFF', marginTop: 5, }}>
-                    <View style={{ height: 30, width: 50,borderColor:'#FC8D00',borderWidth:1,justifyContent:'center',alignItems:'center',}}>
+                <View style={stylesProfileTopic.Order_Detail}>
+                    <View style={stylesProfileTopic.Order_Detail_ICON}>
                         <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize3,{color:'#FC8D00'}]}>T N T</Text>
                     </View>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}> จัดส่งโดย : TNT Express </Text>
                 </View>
-                <View style={{ justifyContent: 'center', padding: 10, marginTop: 5, backgroundColor: '#FFFFFF', }}>
+                <View style={stylesProfileTopic.Order_Detail_Address}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ผู้รับ : ส.ยายยิ้ม</Text>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 20, }]}>
                         123 ม.5 ต.อ่างทอง อ.เมือง จ.ราชบุรี 70000</Text>

@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-  Dimensions, Picker, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
+  Dimensions, Picker, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import BottomSheet from "react-native-raw-bottom-sheet";
@@ -17,8 +17,7 @@ import stylesMain from '../../../style/StylesMainScreen';
 import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
 import stylesLogin from '../../../style/stylesLoginScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { Appbar } from '../Profile_Topic';
-import { StoreMe_SettingImage } from '../../src_storeMe/StoreMe_Setting';
+import { StoreMe_SettingImage } from '../../src_storeMe/StoreMe_Profile_Edit';
 import { AppBar1 } from '../../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -78,10 +77,8 @@ export default class Setting_Topic extends Component {
   }
   render() {
     return (
-      <SafeAreaView style={stylesMain.SafeAreaView}>
-        <ScrollView>
+      <SafeAreaView style={stylesMain.SafeAreaView}> 
           {this.PathList()}
-        </ScrollView>
       </SafeAreaView>
     );
   }
@@ -173,10 +170,10 @@ export class Edit_Profile extends Component {
   }
   NameSheetBody() {
     return (
-      <View>
-        <View style={{ width: '100%', alignItems: 'center', flex: 1 }}>
+      <>
+        <View style={stylesProfileTopic.Edit_Profile}>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ชื่อ-นามสกุล</Text>
-          <View style={{ height: 40, width: '70%', borderBottomColor: '#000000', borderBottomWidth: 1, marginTop: 10, }}>
+          <View style={stylesProfileTopic.Edit_Profile_Box}>
             <TextInput
               fontSize={15}
               placeholder="ชื่อ"
@@ -185,7 +182,7 @@ export class Edit_Profile extends Component {
               onChangeText={(Name) => this.setState({ Name })}
             />
           </View>
-          <View style={{ height: 40, width: '70%', borderBottomColor: '#000000', borderBottomWidth: 1, marginTop: 10, }}>
+          <View style={stylesProfileTopic.Edit_Profile_Box}>
             <TextInput
               fontSize={15}
               placeholder="นามสกุล"
@@ -196,17 +193,17 @@ export class Edit_Profile extends Component {
           </View>
         </View>
         <TouchableOpacity>
-          <View style={{ height: 40, backgroundColor: '#0A55A6', width: 350, borderRadius: 5, alignItems: 'center', justifyContent: 'center', marginBottom: 10, }}>
+          <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
           </View>
         </TouchableOpacity>
-      </View>
+      </>
     )
   }
   SexSheetBody() {
     return (
-      <View>
-        <View style={{ width: '100%', alignItems: 'center', flex: 1 }}>
+      <>
+        <View style={stylesProfileTopic.Edit_Profile}>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>เพศ</Text>
           <View style={stylesMain.FlexRow}>
             <CheckBox
@@ -228,11 +225,11 @@ export class Edit_Profile extends Component {
           </View>
         </View>
         <TouchableOpacity>
-          <View style={{ height: 40, backgroundColor: '#0A55A6', width: 350, borderRadius: 5, alignItems: 'center', justifyContent: 'center', marginBottom: 10, }}>
+          <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
           </View>
         </TouchableOpacity>
-      </View>
+      </>
     )
   }
   BirthdaySheetBody() {
@@ -248,15 +245,15 @@ export class Edit_Profile extends Component {
     var month = new Date(date).getMonth();
     var year = new Date(date).getFullYear();
     return (
-      <View>
-        <View style={{ width: '100%', flex: 1, alignItems: 'center', }}>
+      <>
+        <View style={stylesProfileTopic.Edit_Profile}>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}> วันเกิด</Text>
           <View style={[stylesLogin.DateBox, stylesMain.ItemCenter]}>
             <View style={stylesMain.FlexRow}>
               <View style={[stylesLogin.DateBoxBody, { width: 70, }]}>
                 <Picker
                   selectedValue={String(day)}
-                  style={{ height: '100%', width: '100%' }}
+                  style={stylesMain.BoxProduct1Image}
                   itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize7, { backgroundColor: '#fff' }]}
                   onValueChange={(itemValue, itemIndex) => {
                     this.setState({ date: new Date(date).setDate(itemValue) })
@@ -267,7 +264,7 @@ export class Edit_Profile extends Component {
               <View style={[stylesLogin.DateBoxBody, { width: 120, }]}>
                 <Picker
                   selectedValue={String(month)}
-                  style={{ height: '100%', width: '100%' }}
+                  style={stylesMain.BoxProduct1Image}
                   itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize7, { backgroundColor: '#fff' }]}
                   onValueChange={(itemValue, itemIndex) => {
                     this.getDataDay(itemValue)
@@ -278,7 +275,7 @@ export class Edit_Profile extends Component {
               <View style={stylesLogin.DateBoxBody}>
                 <Picker
                   selectedValue={String(year)}
-                  style={{ height: '100%', width: '100%' }}
+                  style={stylesMain.BoxProduct1Image}
                   itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize7, { backgroundColor: '#fff' }]}
                   onValueChange={(itemValue, itemIndex) => {
                     this.getDataMo(itemValue)
@@ -290,19 +287,19 @@ export class Edit_Profile extends Component {
           </View>
         </View>
         <TouchableOpacity>
-          <View style={{ height: 40, backgroundColor: '#0A55A6', width: 350, borderRadius: 5, alignItems: 'center', justifyContent: 'center', marginBottom: 10, }}>
+          <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
           </View>
         </TouchableOpacity>
-      </View>
+      </>
     )
   }
-  Phone_numberSheet() {
+  Phone_numberSheetBody() {
     return (
-      <View>
-        <View style={{ width: '100%', flex: 1, padding: 10, }}>
+      <>
+        <View style={stylesProfileTopic.Edit_Profile}>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>เบอร์โทรศัพท์</Text>
-          <View style={{ height: 40, width: '100%', borderBottomColor: '#000000', borderBottomWidth: 1, marginTop: 10, }}>
+          <View style={stylesProfileTopic.Edit_Profile_Box}>
             <TextInput
               fontSize={15}
               placeholder="เบอร์โทรศัพท์"
@@ -317,7 +314,7 @@ export class Edit_Profile extends Component {
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
           </View>
         </TouchableOpacity>
-      </View>
+      </>
     )
   }
   render() {
@@ -385,9 +382,10 @@ export class Edit_Profile extends Component {
             }
           }}
         >
-          {this.Phone_numberSheet()}
+          {this.Phone_numberSheetBody()}
         </BottomSheet>
-        <Appbar navigation={this.props.navigation} Title='แก้ไขโปรไฟล์' />
+
+        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขโปรไฟล์' />
         <StoreMe_SettingImage />
         <View style={{ marginTop: 20, }}>
           <TouchableOpacity onPress={() => { this.NameSheet.open(); }}>
@@ -441,7 +439,7 @@ export class Edit_Profile extends Component {
           </TouchableOpacity>
           <View style={{ alignItems: 'center', justifyContent: 'flex-end', height: 350, }}>
             <TouchableOpacity>
-              <View style={{ height: 40, backgroundColor: '#0A55A6', width: 350, borderRadius: 5, alignItems: 'center', justifyContent: 'center', marginBottom: 10, }}>
+              <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึกการเปลี่ยนแปลง</Text>
               </View>
             </TouchableOpacity>
@@ -461,11 +459,11 @@ export class Edit_Pass extends Component {
   render() {
     return (
       <View>
-        <Appbar navigation={this.props.navigation} Title='เปลี่ยนรหัสผ่าน' />
-        <View style={{ width: '100%', backgroundColor: '#FFFFFF', alignItems: 'center', paddingBottom: 20, marginTop: 10, }}>
+        <AppBar1 backArrow navigation={this.props.navigation} titleHead='เปลี่ยนรหัสผ่าน' />
+        <View style={stylesProfileTopic.Edit_Pass}>
           <View style={{ width: '80%' }}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>รหัสผ่านปัจจุบัน</Text>
-            <View style={{ height: 40, width: '100%', borderBottomColor: '#000000', borderBottomWidth: 1, marginTop: 10, flexDirection: 'row', justifyContent: 'flex-end', }}>
+            <View style={stylesProfileTopic.Edit_Pass_TextInput}>
               <TextInput
                 fontSize={15}
                 placeholder=""
@@ -477,7 +475,7 @@ export class Edit_Pass extends Component {
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 10 }]}>กรุณาระบุรหัสผ่านใหม่ด่านล่าง</Text>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#BFBFBF', marginLeft: 10, }]}>ประกอบไปด้วยตัวเลขและตัวอักษร อย่างน้อย 6 อักษร</Text>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 10, }]}>รหัสผ่านใหม่</Text>
-            <View style={{ height: 40, width: '100%', borderBottomColor: '#000000', borderBottomWidth: 1, marginTop: 10, flexDirection: 'row', justifyContent: 'flex-end', }}>
+            <View style={stylesProfileTopic.Edit_Pass_TextInput}>
               <TextInput
                 fontSize={15}
                 placeholder=""
@@ -488,7 +486,7 @@ export class Edit_Pass extends Component {
               <IconFeather RightItem name='eye-off' size={20} style={{ marginTop: 5, }} />
             </View>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 10, }]}>พิมพ์รหัสผ่านใหม่อีกครั้ง</Text>
-            <View style={{ height: 40, width: '100%', borderBottomColor: '#000000', borderBottomWidth: 1, marginTop: 10, flexDirection: 'row', justifyContent: 'flex-end', }}>
+            <View style={stylesProfileTopic.Edit_Pass_TextInput}>
               <TextInput
                 fontSize={15}
                 placeholder=""
@@ -502,7 +500,7 @@ export class Edit_Pass extends Component {
         </View>
         <View style={{ alignItems: 'center', justifyContent: 'flex-end', height: 410, }}>
           <TouchableOpacity>
-            <View style={{ height: 40, backgroundColor: '#0A55A6', width: 350, borderRadius: 5, alignItems: 'center', justifyContent: 'center', marginBottom: 10, }}>
+            <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>เปลี่ยนรหัสผ่าน</Text>
             </View>
           </TouchableOpacity>
@@ -526,7 +524,7 @@ export class Edit_Address extends Component {
         <Address_Customar />
         <View style={{ alignItems: 'center', justifyContent: 'flex-end', height: 475 }}>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Customer_account')}>
-            <View style={{ height: 40, backgroundColor: '#0A55A6', width: 350, borderRadius: 5, alignItems: 'center', justifyContent: 'center', marginBottom: 10, }}>
+            <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>เพิ่มที่อยู่</Text>
             </View>
           </TouchableOpacity>
@@ -545,9 +543,9 @@ export class Address_Customar extends Component {
   render() {
     const { MainAddress } = this.props
     return (
-      <View style={{ width: '100%', backgroundColor: '#FFFFFF', marginTop: 10 }}>
-        <View style={{ flexDirection: 'row', padding: 10, justifyContent: 'space-between' }}>
-          <View style={{ flexDirection: 'row', }}>
+      <View style={stylesProfileTopic.Address_Customar}>
+        <View style={stylesProfileTopic.Address_Customar_Box}>
+          <View style={stylesMain.FlexRow}>
             <IconEvilIcons name='location' size={30} color='#0A55A6' />
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ที่อยู่ในการจัดส่ง</Text>
           </View>
@@ -576,7 +574,7 @@ export class Edit_Chat extends Component {
   render() {
     return (
       <SafeAreaView >
-        <Appbar navigation={this.props.navigation} Title='ตั้งค่าการแชท' />
+        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ตั้งค่าการแชท' />
         <View style={stylesProfileTopic.BoxTopic}>
           <View style={{ margin: 10 }}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>อนุญาตให้ทำการแชทจากหน้าโปรไฟล์</Text>
@@ -605,7 +603,7 @@ export class Edit_Bell extends Component {
   render() {
     return (
       <SafeAreaView >
-        <Appbar navigation={this.props.navigation} Title='ตั้งค่าการแจ้งเตือน' />
+        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ตั้งค่าการแจ้งเตือน' />
         <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 5 })} >
           <View style={stylesProfileTopic.BoxTopic}>
             <View style={stylesMain.FlexRow}>
@@ -641,7 +639,7 @@ export class Language_Screen extends Component {
   render() {
     return (
       <SafeAreaView >
-        <Appbar navigation={this.props.navigation} Title='ภาษา' />
+        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ภาษา' />
         <View style={stylesProfileTopic.BoxTopic}>
           <View style={stylesMain.FlexRow}>
             <CheckBox
@@ -666,7 +664,7 @@ export class Language_Screen extends Component {
         </View>
         <View style={{ alignItems: 'center', justifyContent: 'flex-end', height: 620, }}>
           <TouchableOpacity>
-            <View style={{ height: 40, backgroundColor: '#0A55A6', width: 350, borderRadius: 5, alignItems: 'center', justifyContent: 'center', marginBottom: 10, }}>
+            <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึกการเปลี่ยนแปลง</Text>
             </View>
           </TouchableOpacity>
@@ -685,7 +683,7 @@ export class Edit_Setting_Bell extends Component {
   render() {
     return (
       <SafeAreaView>
-        <Appbar navigation={this.props.navigation} Title='การแจ้งเตือน' />
+        <AppBar1 backArrow navigation={this.props.navigation} titleHead='การแจ้งเตือน' />
         <View style={stylesProfileTopic.BoxTopic}>
           <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -760,7 +758,7 @@ export class Edit_Setting_Email extends Component {
   render() {
     return (
       <SafeAreaView>
-        <Appbar navigation={this.props.navigation} Title='การแจ้งเตือนทางE-mail' />
+        <AppBar1 backArrow navigation={this.props.navigation} titleHead='การแจ้งเตือนทางE-mail' />
         <View style={stylesProfileTopic.BoxTopic}>
           <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>

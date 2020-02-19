@@ -40,6 +40,7 @@ import Setting_Topic from '../src/src_profile/src_Setting/Setting_Topic';
 import StoreMeScreen from '../src/src_storeMe/StoreMeScreen';
 import StoreMe_Topic from '../src/src_storeMe/StoreMe_Topic';
 import StoreMe_Setting from '../src/src_storeMe/StoreMe_Setting';
+import StoreMe_Profile_Edit from '../src/src_storeMe/StoreMe_Profile_Edit';
 import StoreMe_Up_Product from '../src/src_storeMe/StoreMe_Up_Product';
 import StoreMe_Return from '../src/src_storeMe/StoreMe_Return';
 import StoreMe_Cancel from '../src/src_storeMe/StoreMe_Cancel';
@@ -274,6 +275,13 @@ const PathScreen = createStackNavigator({
   },
   StoreMe_Setting: {
     screen: StoreMe_Setting,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
+  StoreMe_Profile_Edit: {
+    screen: StoreMe_Profile_Edit,
     navigationOptions: () => ({
       tabBarVisible: false,
       header: null,

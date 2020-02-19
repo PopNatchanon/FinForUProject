@@ -121,7 +121,7 @@ export class ListMenu extends Component {
                             </Text>
                     </View>
                 </View>
-                {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('Help_meScreen')} > */}
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 5 })} >
                 <View style={stylesProfileTopic.BoxTopic}>
                     <View style={stylesProfile.ListMenuListSub}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -130,7 +130,7 @@ export class ListMenu extends Component {
                     </View>
                     <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
                 </View>
-                {/* </TouchableOpacity> */}
+                </TouchableOpacity>
                 <TouchableOpacity activeOpacity={1} onPress={null/*() => this.props.navigation.navigate()*/} >
                     <View style={stylesProfileTopic.BoxTopic}>
                         <View style={stylesProfile.ListMenuListSub}>
@@ -151,14 +151,16 @@ export class ListMenu extends Component {
                         <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={{ marginTop: 10 }} onPress={() => this.logoutPress()}>
-                    <View style={stylesProfileTopic.Button_Logout} >
-                        <View style={stylesProfileTopic.Button_LogoutBox}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]} >ออกจากระบบ</Text>
+                <View style={{ alignItems: 'center' }}>
+                    <TouchableOpacity style={{ marginTop: 10 }} onPress={() => this.logoutPress()}>
+                        <View style={stylesProfileTopic.Button_Logout} >
+                            <View style={stylesProfileTopic.Button_LogoutBox}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]} >ออกจากระบบ</Text>
+                            </View>
                         </View>
-                    </View>
-                </TouchableOpacity>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginTop: 10 }]}>FIN Shopping V 1.0.01</Text>
+                    </TouchableOpacity>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginTop: 5 }]}>FIN Shopping V 1.0.01</Text>
+                </View>
             </View>
 
         )

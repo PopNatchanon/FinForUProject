@@ -11,7 +11,7 @@ import FastImage from 'react-native-fast-image';
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { Appbar } from '../src_profile/Profile_Topic';
+import { AppBar1 } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -22,14 +22,14 @@ export default class Detail_Pro extends Component {
             case 0:
                 return (
                     <View>
-                        <Appbar navigation={this.props.navigation} Title='รายละเอียดโปรโมชัน' />
+                        <AppBar1 backArrow  navigation={this.props.navigation} titleHead='รายละเอียดโปรโมชัน' />
                         <Detail_Promotion />
                     </View>
                 )
             case 1:
                 return (
                     <View>
-                        <Appbar navigation={this.props.navigation} Title='รายละเอียดคำสั่งซื้อ' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='รายละเอียดคำสั่งซื้อ' />
                         <ScrollView>
                             <Detail_Order />
                             <Detail_Product />
@@ -40,7 +40,7 @@ export default class Detail_Pro extends Component {
             case 2:
                 return (
                     <View>
-                        <Appbar navigation={this.props.navigation} Title='รายละเอียดคำสั่งซื้อ' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='รายละเอียดคำสั่งซื้อ' />
                         <Detail_Product_Check />
                     </View>
                 )

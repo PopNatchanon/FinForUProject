@@ -8,7 +8,7 @@ export default StyleSheet.create({
     Appbar: {
         width: '100%',
         height: 50,
-        backgroundColor: '#FFF',
+        backgroundColor: '#0A55A6',
         flexDirection: 'row',
         justifyContent: 'flex-end',
         alignItems: 'center',

@@ -55,30 +55,32 @@ export class Headbar extends Component {
 
         return (
             <View>
-                <ImageBackground
-                    source={require('../../icon/bgprofile.jpg')}
-                    style={styles.HeadbarImage}
-                />
-                <View style={styles.HeadbarA}>
-                    <View style={styles.HeadbarBox1}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <View>
-                                <FastImage
-                                    style={styles.HeadbarBoxImage}
-                                />
-                            </View>
-                            <View style={{ marginLeft: 15, marginTop: '20%' }}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>
-                                    ppooo
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreMe_Profile_Edit')}>
+                    <ImageBackground
+                        source={require('../../icon/bgprofile.jpg')}
+                        style={styles.HeadbarImage}
+                    />
+                    <View style={styles.HeadbarA}>
+                        <View style={styles.HeadbarBox1}>
+                            <View style={{ flexDirection: 'row' }}>
+                                <View>
+                                    <FastImage
+                                        style={styles.HeadbarBoxImage}
+                                    />
+                                </View>
+                                <View style={{ marginLeft: 15, marginTop: '20%' }}>
+                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>
+                                        ppooo
                                 </Text>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>
-                                    ผู้ติดตาม 20.2 พัน | กำลังติดตาม 2
+                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>
+                                        ผู้ติดตาม 20.2 พัน | กำลังติดตาม 2
                                 </Text>
+                                </View>
                             </View>
-                        </View>
 
+                        </View>
                     </View>
-                </View>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -134,34 +136,34 @@ export class MenubarSub extends Component {
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Cancel')}>
-                    <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
-                        <FastImage
-                            source={require('../../icon/box.png')}
-                            style={styles.MenubarSubLine1Image}
-                        />
-                        <Text style={[styles.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                            ยกเลิก
+                        <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
+                            <FastImage
+                                source={require('../../icon/box.png')}
+                                style={styles.MenubarSubLine1Image}
+                            />
+                            <Text style={[styles.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                                ยกเลิก
                         </Text>
-                    </View>
+                        </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Return',{ selectedIndex: 0 })}>
-                    <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
-                        <FastImage
-                            source={require('../../icon/repeat.png')}
-                            style={styles.MenubarSubLine1Image}
-                        />
-                        <Text style={[styles.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                            คืนสินค้า/คืนเงิน
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Return', { selectedIndex: 0 })}>
+                        <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
+                            <FastImage
+                                source={require('../../icon/repeat.png')}
+                                style={styles.MenubarSubLine1Image}
+                            />
+                            <Text style={[styles.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                                คืนสินค้า/คืนเงิน
                         </Text>
-                    </View>
+                        </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Return',{ selectedIndex: 2 })}>
-                    <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
-                        <IconFeather name='more-horizontal' size={50} />
-                        <Text style={[styles.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                            คลัง
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Return', { selectedIndex: 2 })}>
+                        <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
+                            <IconFeather name='more-horizontal' size={50} />
+                            <Text style={[styles.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                                คลัง
                         </Text>
-                    </View>
+                        </View>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -237,7 +239,7 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Help_meScreen')} >
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 5 })} >
                         <View style={styles.ListMenuList}>
                             <View style={styles.ListMenuListSub}>
                                 <IconFeather RightItem name="help-circle" size={35} color='#00A3FF' style={styles.ListMenuListSubIcon} />

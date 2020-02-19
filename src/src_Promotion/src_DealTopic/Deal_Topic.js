@@ -80,6 +80,20 @@ export default class Deal_Topic extends Component {
                         </ScrollView>
                     </View>
                 )
+                case 4:
+                    return (
+                        <View>
+                            <AppBar1 backArrow navigation={this.props.navigation} titleHead='ร้านค้าที่มีดีล' />
+                            <Slide />
+                            <Button_Bar />
+                            <ScrollView>
+                                <Store_Detail />
+                                <Store_Detail />
+                                <Store_Detail />
+                                <Store_Detail />
+                            </ScrollView>
+                        </View>
+                    )
         }
     }
 

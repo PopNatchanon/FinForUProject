@@ -15,6 +15,7 @@ import stylesMain from '../../style/StylesMainScreen';
 import stylesFont from '../../style/stylesFont';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import styles from '../../style/stylestoreMe-src/styleStoreMeScreen';
+import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 import { AppBar1 } from '../MainScreen';
 
 export const { width, height } = Dimensions.get('window');
@@ -51,7 +52,7 @@ export class StoreMe_Setting_Topic extends Component {
                 <View style={[styles.StoreMe_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>บัญชีร้านของฉัน</Text>
                 </View>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreMeScreen')}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreMe_Profile_Edit')}>
                     <View style={styles.StoreMe_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>หน้าร้านของฉัน</Text>
 
@@ -73,25 +74,33 @@ export class StoreMe_Setting_Topic extends Component {
                 <View style={[styles.StoreMe_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>การตั้งค่า</Text>
                 </View>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 2 })} >
                 <View style={styles.StoreMe_Setting_BoxTopic}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ตั้งค่าการแชท</Text>
                     <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                 </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 3 })} >
                 <View style={styles.StoreMe_Setting_BoxTopic}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ตั้งค่าการแจ้งเตือน</Text>
                     <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                 </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 4 })} >
                 <View style={styles.StoreMe_Setting_BoxTopic}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ภาษา</Text>
                     <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                 </View>
+                </TouchableOpacity>
                 <View style={[styles.StoreMe_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>ช่วยเหลือ</Text>
                 </View>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 5 })} >
                 <View style={styles.StoreMe_Setting_BoxTopic}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ศูนย์ช่วยเหลือ</Text>
                     <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                 </View>
+                </TouchableOpacity>
                 <View style={styles.StoreMe_Setting_BoxTopic}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>กฎและข้อบังคับ</Text>
                     <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
@@ -102,14 +111,14 @@ export class StoreMe_Setting_Topic extends Component {
                 </View>
 
                 <View style={{ alignItems: 'center' }}>
-                    <TouchableOpacity>
-                        <View style={{ width: 400, height: 50, backgroundColor: '#0A55A6', justifyContent: 'center', alignItems: 'center', borderRadius: 5, marginTop: 10, }}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>
-                                ออกจากระบบ
-                    </Text>
+                    <TouchableOpacity style={{ marginTop: 10 }} onPress={() => this.logoutPress()}>
+                        <View style={stylesProfileTopic.Button_Logout} >
+                            <View style={stylesProfileTopic.Button_LogoutBox}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]} >ออกจากระบบ</Text>
+                            </View>
                         </View>
                     </TouchableOpacity>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginTop: 10 }]}>FIN Shopping V 1.0.01</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginTop: 5 }]}>FIN Shopping V 1.0.01</Text>
                 </View>
             </View>
         );

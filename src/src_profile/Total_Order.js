@@ -4,6 +4,7 @@ import {
     Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
+import FastImage from 'react-native-fast-image';
 export const { width, height } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
@@ -17,6 +18,7 @@ import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topi
 import { TabBar } from '../tools/Tools';
 import { AppBar1 } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
+import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class Total_Order extends Component {
     constructor(props) {
@@ -154,7 +156,9 @@ export class Order extends Component {
                 </View>
                 <View style={stylesProfileTopic.Order_Product}>
                     <View style={stylesMain.FlexRow}>
-                        <View style={stylesProfileTopic.Order_Product_Pro}></View>
+                        <View style={stylesProfileTopic.Order_Product_Pro}>
+
+                        </View>
                         <View style={{ marginTop: 10 }}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A2A2A2' }]}>ตัวเลือกสินค้า:สีแดง</Text>
@@ -192,7 +196,11 @@ export class Order_Payment extends Component {
             <View>
                 <View style={stylesMain.FrameBackground}>
                     <View style={stylesProfileTopic.Order_BoxStore}>
-                        <View style={stylesProfileTopic.Order_StorePro}></View>
+                        <FastImage style={stylesProfileTopic.Order_StorePro}
+                            source={{
+                                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
+                            }}
+                        />
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5, }]}>PPoo</Text>
                         <View style={stylesProfileTopic.Order_Box_Button}>
                             <TouchableOpacity>
@@ -211,7 +219,13 @@ export class Order_Payment extends Component {
                     </View>
                     <View style={stylesProfileTopic.Order_Product}>
                         <View style={stylesMain.FlexRow}>
-                            <View style={stylesProfileTopic.Order_Product_Pro}></View>
+                            <View style={stylesProfileTopic.Order_Product_Pro}>
+                                <FastImage style={stylesMain.BoxProduct1Image}
+                                    source={{
+                                        uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
+                                    }}
+                                />
+                            </View>
                             <View style={{ marginTop: 10 }}>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A2A2A2' }]}>ตัวเลือกสินค้า:สีแดง</Text>
@@ -255,7 +269,11 @@ export class Order_Sending extends Component {
             <View style={stylesMain.FrameBackground}>
                 <View style={[stylesProfileTopic.Order_BoxStore, { justifyContent: 'space-between' }]}>
                     <View style={stylesMain.FlexRow}>
-                        <View style={stylesProfileTopic.Order_StorePro}></View>
+                        <FastImage style={stylesProfileTopic.Order_StorePro}
+                            source={{
+                                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
+                            }}
+                        />
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5, }]}>PPoo</Text>
                         <View style={stylesProfileTopic.Order_Box_Button}>
                             <TouchableOpacity>
@@ -275,7 +293,13 @@ export class Order_Sending extends Component {
                 </View>
                 <View style={stylesProfileTopic.Order_Product}>
                     <View style={stylesMain.FlexRow}>
-                        <View style={stylesProfileTopic.Order_Product_Pro}></View>
+                        <View style={stylesProfileTopic.Order_Product_Pro}>
+                            <FastImage style={stylesMain.BoxProduct1Image}
+                                source={{
+                                    uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
+                                }}
+                            />
+                        </View>
                         <View style={{ marginTop: 10 }}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A2A2A2' }]}>ตัวเลือกสินค้า:สีแดง</Text>
@@ -314,7 +338,11 @@ export class Order_Get extends Component {
             <View style={stylesMain.FrameBackground}>
                 <View style={[stylesProfileTopic.Order_BoxStore, { justifyContent: 'space-between' }]}>
                     <View style={stylesMain.FlexRow}>
-                        <View style={stylesProfileTopic.Order_StorePro}></View>
+                        <FastImage style={stylesProfileTopic.Order_StorePro}
+                            source={{
+                                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
+                            }}
+                        />
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5, }]}>PPoo</Text>
                         <View style={stylesProfileTopic.Order_Box_Button}>
                             <TouchableOpacity>
@@ -335,7 +363,13 @@ export class Order_Get extends Component {
                 </View>
                 <View style={stylesProfileTopic.Order_Product}>
                     <View style={stylesMain.FlexRow}>
-                        <View style={stylesProfileTopic.Order_Product_Pro}></View>
+                        <View style={stylesProfileTopic.Order_Product_Pro}>
+                            <FastImage style={stylesMain.BoxProduct1Image}
+                                source={{
+                                    uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
+                                }}
+                            />
+                        </View>
                         <View style={{ marginTop: 10 }}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A2A2A2' }]}>ตัวเลือกสินค้า:สีแดง</Text>
@@ -374,7 +408,11 @@ export class Order_Already extends Component {
             <View style={stylesMain.FrameBackground}>
                 <View style={[stylesProfileTopic.Order_BoxStore, { justifyContent: 'space-between' }]}>
                     <View style={stylesMain.FlexRow}>
-                        <View style={stylesProfileTopic.Order_StorePro}></View>
+                        <FastImage style={stylesProfileTopic.Order_StorePro}
+                            source={{
+                                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
+                            }}
+                        />
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5, }]}>PPoo</Text>
                         <View style={stylesProfileTopic.Order_Box_Button}>
                             <TouchableOpacity>
@@ -398,7 +436,13 @@ export class Order_Already extends Component {
                 </View>
                 <View style={stylesProfileTopic.Order_Product}>
                     <View style={stylesMain.FlexRow}>
-                        <View style={stylesProfileTopic.Order_Product_Pro}></View>
+                        <View style={stylesProfileTopic.Order_Product_Pro}>
+                            <FastImage style={stylesMain.BoxProduct1Image}
+                                source={{
+                                    uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
+                                }}
+                            />
+                        </View>
                         <View style={{ marginTop: 10 }}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A2A2A2' }]}>ตัวเลือกสินค้า:สีแดง</Text>

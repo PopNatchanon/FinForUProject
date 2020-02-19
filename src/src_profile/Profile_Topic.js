@@ -37,7 +37,7 @@ export default class Profile_Topic extends Component {
             case 0:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ดูล่าสุด'/>
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ดูล่าสุด' />
                         <LatestScreen navigation={this.props.navigation} />
                     </SafeAreaView>
                 )
@@ -80,10 +80,10 @@ export default class Profile_Topic extends Component {
                     <SafeAreaView style={stylesMain.SafeAreaView}>
                         <AppbarChat navigation={this.props.navigation} Title='Supreme Store' />
                         <Chat_Detail navigation={this.props.navigation} />
-                        <View style={{ width: '100%', maxHeight: 150, backgroundColor: '#FFFFFF', borderColor: '#ECECEC', borderWidth: 1, flexDirection: 'row', justifyContent: 'center', paddingVertical: 5, }}>
-                            <View style={{ width: '80%', borderColor: '#ECECEC', borderWidth: 1, borderRadius: 20, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', }} >
+                        <View style={stylesProfileTopic.Chat_Box}>
+                            <View style={stylesProfileTopic.Chat_Box_TextInput} >
                                 <TextInput
-                                    style={{ width: '85%', padding: 10 }}
+                                    style={{ width: '90%', padding: 10 }}
                                     fontSize={15}
                                     placeholder="่ส่งข้อความ"
                                     multiline
@@ -92,9 +92,10 @@ export default class Profile_Topic extends Component {
                                     value={this.state.Detail}
                                     onChangeText={(Detail) => this.setState({ Detail })}
                                 />
-                                <IconAntDesign RightItem name='smileo' size={25} color='#0A55A6' style={{ margin: 10, }} />
+                                <TouchableOpacity>
+                                    <IconAntDesign RightItem name='smileo' size={25} color='#0A55A6' style={{ marginRight: 10, marginBottom: 10 }} />
+                                </TouchableOpacity>
                             </View>
-
                             <View style={{ justifyContent: 'flex-end', marginLeft: 10, }}>
                                 <TouchableOpacity>
                                     <IconFeather name='send' size={30} color='#0A55A6' style={{ margin: 10, }} />
@@ -110,11 +111,27 @@ export default class Profile_Topic extends Component {
                         <Review_From />
                     </SafeAreaView>
                 )
+            case 8:
+                return (
+                    <SafeAreaView style={stylesMain.SafeAreaView}>
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='Fin Helpcenter' />
+                        <ScrollView>
+                            <Account_Help navigation={this.props.navigation} />
+                        </ScrollView>
+                    </SafeAreaView>
+                )
+            case 9:
+                return (
+                    <SafeAreaView style={stylesMain.SafeAreaView}>
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='Fin Helpcenter' />
+                        <Topic_DetailHelp navigation={this.props.navigation} />
+                    </SafeAreaView>
+                )
         }
     }
     render() {
         return (
-            <View style={{ flex: 1 }}>{this.PathList()}</View>
+            <View style={stylesMain.SafeAreaView}>{this.PathList()}</View>
         );
     }
 }
@@ -133,25 +150,7 @@ export class LatestScreen extends Component {
         );
     }
 }
-// ///----------------------------------------------------------------------------------------------->>>> Appbar
-// export class Appbar extends Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//         };
-//     }
-//     render() {
-//         const { Title } = this.props
-//         return (
-//             <View style={stylesProfileTopic.Appbar} >
-//                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
-//                     <IconEntypo name='chevron-left' size={35} color='#0A55A6' />
-//                 </TouchableOpacity>
-//                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 5 }]}>{Title ? Title : 'ดูล่าสุด'}</Text>
-//             </View>
-//         );
-//     }
-// }
+
 ///----------------------------------------------------------------------------------------------->>>> AppbarChat
 export class AppbarChat extends Component {
     constructor(props) {
@@ -162,12 +161,12 @@ export class AppbarChat extends Component {
     render() {
         const { Title } = this.props
         return (
-            <View style={stylesProfileTopic.Appbar} >
+            <View style={stylesProfileTopic.AppbarChat} >
                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
                     <IconEntypo name='chevron-left' size={35} color='#0A55A6' />
                 </TouchableOpacity>
                 <View>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { marginTop: 5 }]}>{Title ? Title : 'ดูล่าสุด'}</Text>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { marginTop: 5 }]}>{Title ? Title : ''}</Text>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#ADADAD' }]}>ใช้งานล่าสุดเมือ 5นาที ที่แล้ว</Text>
                 </View>
             </View>
@@ -184,10 +183,12 @@ export class ChatScreen extends Component {
     render() {
         return (
             <ScrollView>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 6 })} >
-                    <Chat_Box />
+                <TouchableOpacity onPress={() => this.props.navigation.push('Profile_Topic', { selectedIndex: 6 })} >
+                    <Chat_Tag />
                 </TouchableOpacity>
-                <Chat_Box />
+                <TouchableOpacity onPress={() => this.props.navigation.push('Profile_Topic', { selectedIndex: 6 })} >
+                    <Chat_Tag />
+                </TouchableOpacity>
             </ScrollView>
         );
     }
@@ -201,7 +202,7 @@ export class Chat_Detail extends Component {
     }
     render() {
         return (
-            <View style={{ flex: 1, backgroundColor: '#FFFFFF', marginTop: 5, padding: 10 }}>
+            <View style={stylesProfileTopic.Chat_Detail}>
                 <Message_recipient />
                 <Message_sender />
             </View>
@@ -218,11 +219,15 @@ export class Message_recipient extends Component {
     }
     render() {
         return (
-            <View style={{ flexDirection: 'row', marginTop: 10 }}>
-                <View style={{ width: 50, height: 50, borderRadius: 25, borderColor: '#111111', borderWidth: 1, }}></View>
-                <View style={{ borderColor: '#0A55A6', borderWidth: 1, maxWidth: '70%', marginLeft: 10, borderRadius: 5, padding: 10 }}>
+            <View style={[stylesMain.FlexRow, { marginTop: 10 }]}>
+                <FastImage style={stylesProfileTopic.Message_BoxProfile}
+                    source={{
+                        uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
+                    }}
+                />
+                <View style={[stylesProfileTopic.Message_Box, { marginLeft: 10, }]}>
                     <Text style={stylesFont.FontFamilyText}>สวัสดีครับ
-                    55555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555</Text>
+                    5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555566666666666666666666666666666666666666666666666666666666666666666666666666666</Text>
                 </View>
             </View>
         );
@@ -238,15 +243,19 @@ export class Message_sender extends Component {
     render() {
         return (
             <View style={{ flexDirection: 'row-reverse', marginTop: 10 }}>
-                <View style={{ borderColor: '#111111', borderWidth: 1, width: 50, height: 50, borderRadius: 25, }}></View>
-                <View style={{ borderColor: '#0A55A6', borderWidth: 1, maxWidth: '60%', margin: 10, borderRadius: 5, padding: 10 }}>
+                <FastImage style={stylesProfileTopic.Message_BoxProfile}
+                    source={{
+                        uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop2.jpg',
+                    }}
+                />
+                <View style={[stylesProfileTopic.Message_Box, { marginRight: 10 }]}>
                     <Text style={stylesFont.FontFamilyText}>สวัสดีค่ะ</Text></View>
             </View>
         );
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Chat_Box
-export class Chat_Box extends Component {
+export class Chat_Tag extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -255,26 +264,26 @@ export class Chat_Box extends Component {
     render() {
         return (
             <View>
-                <View style={stylesProfileTopic.Chat_Box}>
+                <View style={stylesProfileTopic.Chat_Tag}>
                     <View style={stylesMain.FlexRow}>
                         <View>
-                            <FastImage style={stylesProfileTopic.Chat_Box_image}
+                            <FastImage style={stylesProfileTopic.Chat_Tag_image}
                                 source={{
                                     uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
                                 }}
                             />
-                            <View style={{ height: 20, width: 70, alignItems: 'flex-end', marginTop: -20 }}>
-                                <View style={{ height: 15, width: 15, backgroundColor: '#1BE72F', borderRadius: 10, }}></View>
+                            <View style={stylesProfileTopic.Chat_Tag_online}>
+                                <View style={stylesProfileTopic.Chat_Tag_online_point}></View>
                             </View>
                         </View>
-                        <View style={stylesProfileTopic.Chat_Box_text}>
+                        <View style={stylesProfileTopic.Chat_Tag_text}>
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ppooooo</Text>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>สินค้าได้ถูกขายแล้วค่ะ</Text>
                         </View>
                     </View>
-                    <View style={stylesProfileTopic.Chat_Box_icon}>
+                    <View style={stylesProfileTopic.Chat_Tag_icon}>
                         <IconFontAwesome5 name='bell' size={25} />
-                        <IconFontAwesome style={stylesProfileTopic.Chat_icon} name='trash-o' size={25} />
+                        <IconFontAwesome style={{ marginLeft: 10, }} name='trash-o' size={25} />
                     </View>
                 </View>
             </View>
@@ -307,6 +316,10 @@ export class Follow_storeScreen extends Component {
         return (
             <ScrollView >
                 <Follow_store_Box />
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 10, marginLeft: 10, }]}>ร้านค้าที่คุณอาจชอบ</Text>
+                <Might_like_Store />
+                <Might_like_Store />
+                <Might_like_Store />
                 <Might_like_Store />
             </ScrollView>
         );
@@ -384,7 +397,6 @@ export class Might_like_Store extends Component {
     render() {
         return (
             <View>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 10, marginLeft: 10, }]}>ร้านค้าที่คุณอาจชอบ</Text>
                 <View style={stylesProfileTopic.Might_like_Store}>
                     <View style={stylesProfileTopic.Follow_store_Box}>
                         <View style={{ flexDirection: 'row', }}>
@@ -398,9 +410,11 @@ export class Might_like_Store extends Component {
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>81% คะแนนร้านค้า</Text>
                             </View>
                         </View>
-                        <View style={stylesProfileTopic.Follow_store_Button}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>ติดตาม</Text>
-                        </View>
+                        <TouchableOpacity>
+                            <View style={stylesProfileTopic.Follow_store_Button}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>ติดตาม</Text>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                     <View style={stylesProfileTopic.Might_like_Store_Box}>
                         <View style={stylesProfileTopic.Might_like_Store_BoxP}>
@@ -431,67 +445,14 @@ export class Might_like_Store extends Component {
                                 <Text style={{ fontSize: 9, }}>ห้องพัก Deluxe Pool Villa</Text>
                                 <Text style={{ fontSize: 9, color: '#0A55A6' }}>฿3,xxx</Text>
                             </View>
-                            <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
-                                <View style={{ borderColor: '#0A55A6', borderWidth: 1, borderRadius: 30, }}>
-                                    <IconEntypo name='chevron-right' size={35} />
+                            <TouchableOpacity style={stylesProfileTopic.Might_like_Store_BoxPro}>
+                                <View>
+                                    <View style={stylesProfileTopic.Might_like_Store_Total}>
+                                        <IconEntypo name='chevron-right' size={35} />
+                                    </View>
+                                    <Text style={stylesFont.FontFamilyBold}>ดูทั้งหมด</Text>
                                 </View>
-                                <Text style={stylesFont.FontFamilyBold}>ดูทั้งหมด</Text>
-                            </View>
-                        </View>
-                    </View>
-                </View>
-                <View style={stylesProfileTopic.Might_like_Store}>
-                    <View style={stylesProfileTopic.Follow_store_Box}>
-                        <View style={{ flexDirection: 'row', }}>
-                            <FastImage style={stylesProfileTopic.Follow_store_Box_image}
-                                source={{
-                                    uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
-                                }}
-                            />
-                            <View style={stylesProfileTopic.Follow_store_Box_text}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ppooo</Text>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>81% คะแนนร้านค้า</Text>
-                            </View>
-                        </View>
-                        <View style={stylesProfileTopic.Follow_store_Button}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>ติดตาม</Text>
-                        </View>
-                    </View>
-                    <View style={stylesProfileTopic.Might_like_Store_Box}>
-                        <View style={stylesProfileTopic.Might_like_Store_BoxP}>
-                            <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
-                                <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage}
-                                    source={{
-                                        uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
-                                    }}
-                                />
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>ห้องพัก Deluxe Pool Villa</Text>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#0A55A6' }]}>฿3,xxx</Text>
-                            </View>
-                            <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
-                                <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage}
-                                    source={{
-                                        uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
-                                    }}
-                                />
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>ห้องพัก Deluxe Pool Villa</Text>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#0A55A6' }]}>฿3,xxx</Text>
-                            </View>
-                            <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
-                                <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage}
-                                    source={{
-                                        uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
-                                    }}
-                                />
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>ห้องพัก Deluxe Pool Villa</Text>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#0A55A6' }]}>฿3,xxx</Text>
-                            </View>
-                            <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
-                                <View style={{ borderColor: '#0A55A6', borderWidth: 1, borderRadius: 30, }}>
-                                    <IconEntypo name='chevron-right' size={35} />
-                                </View>
-                                <Text style={stylesFont.FontFamilyBold}>ดูทั้งหมด</Text>
-                            </View>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>
@@ -576,9 +537,11 @@ export class Help_meScreen extends Component {
     render() {
         return (
             <View>
-                <Help_me />
-                <Question />
-                <Topic />
+                <ScrollView>
+                    <Help_me navigation={this.props.navigation} />
+                    <Question navigation={this.props.navigation} />
+                    <Topic_Help navigation={this.props.navigation} />
+                </ScrollView>
             </View>
         );
     }
@@ -602,13 +565,19 @@ export class Help_me extends Component {
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>
                             คุณต้องการความช่วยเหลือด้านใดคะ?</Text>
                         <View style={stylesProfileTopic.Help_me_Textinput}>
-                            <TextInput style={stylesProfileTopic.TextInput, stylesFont.FontFamilyText, {
-                                fontSize: 15,
-                            }}
-                                placeholder="กรุณากรอกสิ่งที่ให้เราช่วยเหลือ"
-                                value={this.state.text}
-                                onChangeText={(text) => this.setState({ text })}></TextInput>
-                            <IconAntDesign RightItem name="search1" size={25} style={{ marginLeft: 15, }} /></View>
+                            <View style={{ flexDirection: 'row', width: '85%', paddingLeft: 10, backgroundColor: '#FFFFFF', borderRadius: 5 }}>
+                                <TextInput style={{ width: '90%' }}
+                                    fontSize={15}
+                                    placeholder="กรุณากรอกสิ่งที่ให้เราช่วยเหลือ"
+                                    value={this.state.text}
+                                    // maxLength={20}
+                                    onChangeText={(text) => this.setState({ text })}>
+                                </TextInput>
+                                <TouchableOpacity>
+                                    <IconAntDesign RightItem name="search1" size={20} style={{ margin: 10 }} />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
                     </View>
                 </ImageBackground>
             </View>
@@ -625,58 +594,223 @@ export class Question extends Component {
     render() {
         return (
             <View>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}> คำถามยอดฮิต </Text>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { margin: 5 }]}>คำถามยอดฮิต </Text>
                 <View style={stylesProfileTopic.Question_Box}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}> ฉันจะเริ่มซื้อของใน FinShoppingMallต้องทำอย่างไร</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ฉันจะเริ่มซื้อของใน FinShoppingMallต้องทำอย่างไร</Text>
                 </View>
                 <View style={stylesProfileTopic.Question_Box}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}> ช่องทางการเงินมีกี่ประเภท</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ช่องทางการเงินมีกี่ประเภท</Text>
                 </View>
                 <View style={stylesProfileTopic.Question_Box}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}> ฉันตรวจสอบสินค้าได้อย่างไร</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ฉันตรวจสอบสินค้าได้อย่างไร</Text>
                 </View>
             </View>
         );
     }
 }
-///----------------------------------------------------------------------------------------------->>>> Topic
-export class Topic extends Component {
+///----------------------------------------------------------------------------------------------->>>> Topic_Help
+export class Topic_Help extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
     render() {
+        const HeadTitle_Help = this.props.navigation.getParam('HeadTitle_Help')
         return (
-            <View style={stylesProfileTopic.Topic}>
+            <View style={stylesMain.FrameBackground}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}> หัวข้อ </Text>
-                <View style={{ justifyContent: 'center', alignItems: 'center', }}>
-                    <View style={stylesProfileTopic.Topic_Box}>
+                <View style={{ justifyContent: 'center', alignItems: 'center', paddingBottom: 10 }}>
+                    <TouchableOpacity style={stylesProfileTopic.Topic_Box} onPress={() =>
+                        HeadTitle_Help ?
+                            HeadTitle_Help == 'บัญชีของฉัน' ?
+                                null :
+                                this.props.navigation.replace('Profile_Topic', { selectedIndex: 8, HeadTitle_Help: 'บัญชีของฉัน' }) :
+                            this.props.navigation.push('Profile_Topic', { selectedIndex: 8, HeadTitle_Help: 'บัญชีของฉัน' })
+                    }>
                         <IconAntDesign RightItem name="user" size={30} style={stylesProfileTopic.Topic_Box_icon} />
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>บัญชีของฉัน</Text>
-                    </View>
-                    <View style={stylesProfileTopic.Topic_Box}>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={stylesProfileTopic.Topic_Box} onPress={() =>
+                        HeadTitle_Help ?
+                            HeadTitle_Help == 'การคืนสินค้า' ?
+                                null :
+                                this.props.navigation.replace('Profile_Topic', { selectedIndex: 8, HeadTitle_Help: 'การคืนสินค้า' }) :
+                            this.props.navigation.push('Profile_Topic', { selectedIndex: 8, HeadTitle_Help: 'การคืนสินค้า' })
+                    }>
                         <IconAntDesign RightItem name="retweet" size={30} style={stylesProfileTopic.Topic_Box_icon} />
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>การคืนสินค้า</Text>
-                    </View>
-                    <View style={stylesProfileTopic.Topic_Box}>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={stylesProfileTopic.Topic_Box} onPress={() =>
+                        HeadTitle_Help ?
+                            HeadTitle_Help == 'การชำระเงิน' ?
+                                null :
+                                this.props.navigation.replace('Profile_Topic', { selectedIndex: 8, HeadTitle_Help: 'การชำระเงิน' }) :
+                            this.props.navigation.push('Profile_Topic', { selectedIndex: 8, HeadTitle_Help: 'การชำระเงิน' })
+                    }>
                         <IconEntypo RightItem name="credit-card" size={30} style={stylesProfileTopic.Topic_Box_icon} />
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>การชำระเงิน</Text>
-                    </View>
-                    <View style={stylesProfileTopic.Topic_Box}>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={stylesProfileTopic.Topic_Box} onPress={() =>
+                        HeadTitle_Help ?
+                            HeadTitle_Help == 'การสั่งซื้อ' ?
+                                null :
+                                this.props.navigation.replace('Profile_Topic', { selectedIndex: 8, HeadTitle_Help: 'การสั่งซื้อ' }) :
+                            this.props.navigation.push('Profile_Topic', { selectedIndex: 8, HeadTitle_Help: 'การสั่งซื้อ' })
+                    }>
                         <IconAntDesign RightItem name="shoppingcart" size={30} style={stylesProfileTopic.Topic_Box_icon} />
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>การสั่งซื้อ</Text>
-                    </View>
-                    <View style={stylesProfileTopic.Topic_Box}>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={stylesProfileTopic.Topic_Box} onPress={() =>
+                        HeadTitle_Help ?
+                            HeadTitle_Help == 'หัวข้ออื่นๆ' ?
+                                null :
+                                this.props.navigation.replace('Profile_Topic', { selectedIndex: 8, HeadTitle_Help: 'หัวข้ออื่นๆ' }) :
+                            this.props.navigation.push('Profile_Topic', { selectedIndex: 8, HeadTitle_Help: 'หัวข้ออื่นๆ' })
+                    }>
                         <IconAntDesign RightItem name="ellipsis1" size={30} style={stylesProfileTopic.Topic_Box_icon} />
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>หัวข้ออื่นๆ</Text>
-                    </View>
+                    </TouchableOpacity>
                 </View>
-
             </View>
         );
     }
 }
+///----------------------------------------------------------------------------------------------->>>>Account_Help
+
+export class Account_Help extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
+    render() {
+        const HeadTitle_Help = this.props.navigation.getParam('HeadTitle_Help')
+        return (
+            <View>
+                <View style={stylesProfileTopic.Account_Help}>
+                    <View style={stylesProfileTopic.Account_Help_TextInput}>
+                        <TextInput style={{ width: '90%' }}
+                            fontSize={15}
+                            placeholder="กรุณากรอกสิ่งที่ให้เราช่วยเหลือ"
+                            value={this.state.text}
+                            // maxLength={20}
+                            onChangeText={(text) => this.setState({ text })}>
+                        </TextInput>
+                        <TouchableOpacity>
+                            <IconAntDesign RightItem name="search1" size={20} style={{ margin: 10 }} />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { margin: 10 }]}> {HeadTitle_Help} </Text>
+                <TouchableOpacity onPress={() => this.props.navigation.push('Profile_Topic', { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help })}>
+                    <View style={stylesProfileTopic.Question_Box}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ทำไมฉันจึงไม่สามารถเปลี่ยนเบอร์โทรศัพท์ที่ลงทะเบียนไว้ได้?</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.props.navigation.push('Profile_Topic', { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help })}>
+                    <View style={stylesProfileTopic.Question_Box}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ทำไมคำขอลบบัญชีของฉันจึงถูกปฏิเสธ?</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.props.navigation.push('Profile_Topic', { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help })}>
+                    <View style={stylesProfileTopic.Question_Box}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ฉันสามารถเปลี่ยนบัญชีผู้ใช้และเปลี่ยนชื่อของร้านค้าได้อย่างไร</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.props.navigation.push('Profile_Topic', { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help })}>
+                    <View style={stylesProfileTopic.Question_Box}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ทำไมฉันถึงลงชื่อเข้าใช้งานไม่ได้?</Text>
+                    </View>
+                </TouchableOpacity>
+                <Topic_Help navigation={this.props.navigation} />
+            </View>
+
+
+        );
+    }
+}
+///----------------------------------------------------------------------------------------------->>>>Topic_DetailHelp
+
+export class Topic_DetailHelp extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
+    render() {
+        const HeadTitle_Help = this.props.navigation.getParam('HeadTitle_Help')
+        return (
+            <View style={stylesMain.SafeAreaView}>
+                <ScrollView>
+                    <View style={stylesProfileTopic.Account_Help}>
+                        <View style={stylesProfileTopic.Account_Help_TextInput}>
+                            <TextInput style={{ width: '90%' }}
+                                fontSize={15}
+                                placeholder="กรุณากรอกสิ่งที่ให้เราช่วยเหลือ"
+                                value={this.state.text}
+                                // maxLength={20}
+                                onChangeText={(text) => this.setState({ text })}>
+                            </TextInput>
+                            <TouchableOpacity>
+                                <IconAntDesign RightItem name="search1" size={20} style={{ margin: 10 }} />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { margin: 10 }]}> {HeadTitle_Help} </Text>
+                    <View style={stylesProfileTopic.Topic_DetailHelp_BoxText}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                            ในกรณีที่คุณไม่สามารถเปลี่ยนเบอร์โทรศัพท์ได้ อาจเป็นเพราะเข้าข่ายเหตุผลดังต่อไปนี้:
+                            เลขบัตรเครดิต หรือ เลขบัญชีธนาคารที่ลงทะเบียนไว้ ไม่ถูกต้อง
+                            ใส่รหัสผ่าน  ไม่ถูกต้อง
+                            ใส่วันที่หมดอายุของบัตรเครดิต ไม่ถูกต้อง
+                            ใส่เลขบัญชีธนาคาร ไม่ถูกต้อง</Text>
+                        <View style={{ height: 80, width: '100%', backgroundColor: '#ECECEC', alignItems: 'center', justifyContent: 'center', borderWidth: 1, marginVertical: 10 }}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize1]}>ภาพประกอบ</Text>
+                        </View>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                            หากคุณไม่สามารถเปลี่ยนเบอร์โทรศัพท์เองได้ กรุณาลองใหม่อีกครั้งในอีก 24 ชม. หรือ
+                            กรอกแบบฟอร์มยื่นเรื่องเปลี่ยนเบอร์โทรศัพท์ ผ่านลิ้งก์ คลิกที่นี่
+                            ในกรณีที่คุณไม่สะดวก สามารถติดต่อ Call center  เพื่อทำการเปลี่ยนเบอร์โทรศัพท์
+                            โดยให้ข้อมูลดังต่อไปนี้เมื่อคุณติดต่อ กรุณาให้ข้อมูลดังต่อไปนี้เมื่อคุณติดต่อ : Username
+                            เบอร์โทรศัพท์ปัจจุบัน เบอร์โทรศัพท์ใหม่ที่ต้องการเปลี่ยน อีเมลล์ สำเนาบัตรประชาชน
+                            หมายเหตุ:
+                            ชื่อตามสำเนาบัตรประชาชนต้องตรงกับชื่อผู้ใช้งานในแอพพลิเคชั่น พรัอมทั้งเซ็นต์ลายเซ็นกำกับ และระบุข้อความ ดังนี้
+                            - รับรองสำเนาถูกต้อง
+                            - เพื่อเปลี่ยนเบอร์โทรศัพท์ของ Username: xxxxxxx เป็นเบอร์ 08x-xxxxxxx
+                            เพื่อความปลอดภัยของบัญชีผู้ใช้ มีกระบวนการตรวจสอบสำหรับการยืนยันตัวตนเมื่อมีคำร้องขอเปลี่ยนเบอร์โทรศัพท์ที่ลงทะเบียนไว้
+                    </Text>
+                    </View>
+                    <View style={[stylesMain.FrameBackground]}>
+                        <View style={stylesProfileTopic.Topic_DetailHelp_Tag}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>บทความที่เกี่ยวข้อง</Text>
+                        </View>
+                        <View style={stylesProfileTopic.Topic_DetailHelp_Tag}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>การลงทะเบียนและเข้าใช้งาน</Text>
+                        </View>
+                        <View style={stylesProfileTopic.Topic_DetailHelp_Tag}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>จัดการบัญชี</Text>
+                        </View>
+                        <View style={stylesProfileTopic.Topic_DetailHelp_Tag}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>ชวนเพื่อน</Text>
+                        </View>
+                    </View>
+                    <View style={{ alignItems: 'center' }}>
+                        <TouchableOpacity>
+                            <View style={stylesProfileTopic.Topic_DetailHelp_ButtonChat}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>แชทกับ FIN</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </ScrollView>
+            </View>
+        );
+    }
+}
+
+
 ///----------------------------------------------------------------------------------------------->>>> Review_From
 export class Review_From extends Component {
     constructor(props) {
@@ -687,13 +821,13 @@ export class Review_From extends Component {
     }
     render() {
         return (
-            <View style={{ flex: 1 }}>
-                <View style={{ flexDirection: 'row', padding: 10, backgroundColor: '#FFFFFF', marginTop: 10 }}>
+            <View style={stylesMain.SafeAreaView}>
+                <View style={stylesProfileTopic.Review_From}>
                     <IconIonicons name='md-key' size={30} />
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}> คุณภาพสินค้า </Text>
                 </View>
-                <View style={{ backgroundColor: '#FFFFFF', padding: 10, alignItems: 'center', }}>
-                    <View style={{ backgroundColor: '#F4F4F4', padding: 10, flexDirection: 'row', width: '100%' }}>
+                <View style={stylesProfileTopic.Review_From_Boximage}>
+                    <View style={stylesProfileTopic.Review_From_image}>
                         <FastImage style={stylesProfileTopic.Review_me_image}
                             source={{
                                 uri: ip + '/MySQL/uploads/products/2019-10-29-1572319733.jpg',
@@ -704,16 +838,16 @@ export class Review_From extends Component {
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>สี : น้ำตาล</Text>
                         </View>
                     </View>
-                    <View style={{ flexDirection: 'row', width: '70%', justifyContent: 'space-around', marginVertical: 10, }}>
+                    <View style={stylesProfileTopic.Review_From_Star_Box}>
                         <IconFontAwesome name='star' size={35} color='#FFAC33' />
                         <IconFontAwesome name='star' size={35} color='#FFAC33' />
                         <IconFontAwesome name='star' size={35} color='#FFAC33' />
                         <IconFontAwesome name='star' size={35} color='#FFAC33' />
                         <IconFontAwesome name='star' size={35} color='#FFAC33' />
                     </View>
-                    <View style={{ backgroundColor: '#F4F4F4', marginTop: 10, height: 150, width: '100%'}}>
+                    <View style={stylesProfileTopic.Review_From_TextInput}>
                         <TextInput
-                            style={[stylesFont.FontFamilyText, { margin: 10, width:'95%' }]}
+                            style={[stylesFont.FontFamilyText, { margin: 10, width: '95%' }]}
                             fontSize={18}
                             placeholder="ไม่ต้องอาย โปรดมาช่วยรีวิวเรา"
                             multiline
@@ -734,10 +868,7 @@ export class Review_From extends Component {
                         </View>
                         <View style={{ marginTop: 10, alignItems: 'flex-end' }}>
                             <TouchableOpacity>
-                                <View style={{
-                                    height: 50, width: 150, borderColor: '#CACACA', borderWidth: 1, flexDirection: 'row',
-                                    alignItems: 'center', justifyContent: 'center', borderRadius: 5,
-                                }}>
+                                <View style={stylesProfileTopic.Review_From_UpImage}>
                                     <IconAntDesign RightItem name='camerao' size={35} color='#CACACA' />
                                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#CACACA' }]}>
                                         อัพโหลดรูปภาพ(0/3)</Text>
@@ -758,13 +889,11 @@ export class Review_From extends Component {
                                 นโยบายความเป็นส่วนตัวของ FIN</Text>
                         </View>
                     </View>
-                    <TouchableOpacity>
-                        <View style={{
-                            backgroundColor: '#0A55A6', width: '100%', height: 50, justifyContent: 'center', alignItems: 'center',
-                        }}>
+                    <View style={{ alignItems: 'center', width: '100%' }}>
+                        <TouchableOpacity style={stylesProfileTopic.Review_From_Buttonshare}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>แชร์รีวิว</Text>
-                        </View>
-                    </TouchableOpacity>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
         );

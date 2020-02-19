@@ -23,10 +23,11 @@ import styles from '../../style/stylestoreMe-src/styleStoreMeScreen';
 import { CheckBox } from 'react-native-elements';
 import { ip } from '../../navigator/IpConfig';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { AppBar1 } from '../MainScreen';
 
 export const { width, height } = Dimensions.get('window');
 
-export default class StoreMe_Setting extends Component {
+export default class StoreMe_Profile_Edit extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -36,7 +37,7 @@ export default class StoreMe_Setting extends Component {
     render() {
         return (
             <SafeAreaView style={{ flex: 1, backgroundColor: '#E9E9E9', }}>
-                <Appbar navigation={this.props.navigation} />
+                <AppBar1 backArrow  navigation={this.props.navigation} titleHead='แก้ไขรายละเอียดร้านค้า' />
                 <ScrollView>
                     <StoreMe_SettingImage />
                     <StoreMe_Detail />
@@ -47,27 +48,27 @@ export default class StoreMe_Setting extends Component {
     }
 }
 
-///------------------------------------------------------------------------------///
+// ///------------------------------------------------------------------------------///
 
-export class Appbar extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
+// export class Appbar extends Component {
+//     constructor(props) {
+//         super(props);
+//         this.state = {
+//         };
+//     }
 
-    render() {
-        return (
-            <View style={{ width: '100%', backgroundColor: '#FFFFFF', height: 50, flexDirection: 'row', justifyContent: 'space-between', paddingRight: 10, }} >
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
-                    <IconEntypo name='chevron-left' size={35} color='#0A55A6' />
-                </TouchableOpacity>
-                <Text style={{ marginTop: 10, fontSize: 16, }} >แก้ไขรายละเอียดร้านค้า</Text>
-                <Text style={{ marginTop: 10, fontSize: 16, color: '#0A55A6', }} >บันทึก</Text>
-            </View>
-        );
-    }
-}
+//     render() {
+//         return (
+//             <View style={{ width: '100%', backgroundColor: '#FFFFFF', height: 50, flexDirection: 'row', justifyContent: 'space-between', paddingRight: 10, }} >
+//                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
+//                     <IconEntypo name='chevron-left' size={35} color='#0A55A6' />
+//                 </TouchableOpacity>
+//                 <Text style={{ marginTop: 10, fontSize: 16, }} >แก้ไขรายละเอียดร้านค้า</Text>
+//                 <Text style={{ marginTop: 10, fontSize: 16, color: '#0A55A6', }} >บันทึก</Text>
+//             </View>
+//         );
+//     }
+// }
 
 ///------------------------------------------------------------------------------///
 

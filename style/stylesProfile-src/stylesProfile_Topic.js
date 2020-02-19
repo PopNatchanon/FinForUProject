@@ -4,16 +4,15 @@ export const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
 
-    Appbar: {
+
+    ///-----------------------------------ChatScreen-------------------------------------------///
+    AppbarChat: {
         height: 50,
         flexDirection: 'row',
         width: '100%',
         backgroundColor: '#FFFFFF'
     },
-
-    ///-----------------------------------ChatScreen-------------------------------------------///
-
-    Chat_Box: {
+    Chat_Tag: {
         backgroundColor: '#FFFFFF',
         width: '100%',
         padding: 10,
@@ -23,22 +22,70 @@ export default StyleSheet.create({
         borderWidth: 1,
         marginTop: 5,
     },
-    Chat_Box_image: {
+    Chat_Tag_image: {
         height: 70,
         width: 70,
         marginTop: 10,
         borderRadius: 40,
     },
-    Chat_Box_text: {
+    Chat_Tag_online: {
+        height: 20,
+        width: 70,
+        alignItems: 'flex-end',
+        marginTop: -20
+    },
+    Chat_Tag_online_point: {
+        height: 15,
+        width: 15,
+        backgroundColor: '#1BE72F',
+        borderRadius: 10,
+    },
+    Chat_Tag_text: {
         marginLeft: 10,
         marginTop: 10,
     },
-    Chat_Box_icon: {
+    Chat_Tag_icon: {
         flexDirection: 'row',
         marginTop: 10,
     },
-    Chat_icon: {
-        marginLeft: 10,
+    Chat_Detail: {
+        flex: 1,
+        backgroundColor: '#FFFFFF',
+        marginTop: 5,
+        padding: 10
+    },
+    Message_BoxProfile: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        borderColor: '#111111',
+        borderWidth: 1,
+    },
+    Message_Box: {
+        borderColor: '#0A55A6',
+        borderWidth: 1,
+        maxWidth: '70%',
+        borderRadius: 10,
+        padding: 10
+    },
+    Chat_Box: {
+        width: '100%',
+        maxHeight: 150,
+        backgroundColor: '#FFFFFF',
+        borderColor: '#ECECEC',
+        borderWidth: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        paddingVertical: 5,
+    },
+    Chat_Box_TextInput: {
+        width: '80%',
+        borderColor: '#ECECEC',
+        borderWidth: 1,
+        borderRadius: 20,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'flex-end',
     },
 
     ///-----------------------------------Follow_storeScreen-----------------------------------///
@@ -104,6 +151,11 @@ export default StyleSheet.create({
         height: 100,
         width: 90,
     },
+    Might_like_Store_Total: {
+        borderColor: '#0A55A6',
+        borderWidth: 1,
+        borderRadius: 30,
+    },
 
     ///-----------------------------------Review_me-----------------------------------///
 
@@ -143,7 +195,53 @@ export default StyleSheet.create({
         height: 60,
         width: 60,
     },
-
+    Review_From: {
+        flexDirection: 'row',
+        padding: 10,
+        backgroundColor: '#FFFFFF',
+        marginTop: 10
+    },
+    Review_From_Boximage: {
+        backgroundColor: '#FFFFFF',
+        padding: 10,
+        alignItems: 'center',
+    },
+    Review_From_image: {
+        backgroundColor: '#F4F4F4',
+        padding: 10,
+        flexDirection: 'row',
+        width: '100%'
+    },
+    Review_From_Star_Box: {
+        flexDirection: 'row',
+        width: '70%',
+        justifyContent: 'space-around',
+        marginVertical: 10,
+    },
+    Review_From_TextInput: {
+        backgroundColor: '#F4F4F4',
+        marginTop: 10,
+        height: 150,
+        width: '100%'
+    },
+    Review_From_UpImage: {
+        height: 50,
+        width: 150,
+        borderColor: '#CACACA',
+        borderWidth: 1, flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 5,
+    },
+    Review_From_Buttonshare: {
+        margin: 10,
+        borderRadius: 5,
+        backgroundColor: '#0A55A6',
+        width: '90%',
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     ///-----------------------------------Help_me-----------------------------------///
 
     Help_me_ImageBackground: {
@@ -155,41 +253,20 @@ export default StyleSheet.create({
         alignItems: 'center',
         paddingTop: 40,
     },
-    Help_me_Textinput: {
-        backgroundColor: '#FFFF',
-        flexDirection: 'row',
-        width: 300,
-        height: 40,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 10,
-    },
-    TextInput: {
-        width: 230,
-        height: 40,
-        // fontSize: 15,
-        textAlign: 'center',
-    },
     Question_Box: {
         justifyContent: 'center',
-        marginTop: 10,
+        marginTop: 5,
         width: '100%',
         height: 40,
         backgroundColor: '#FFF',
     },
-    Topic: {
-        marginTop: 10,
-        height,
-        width: '100%',
-        backgroundColor: '#FFF'
-    },
     Topic_Box: {
+        paddingTop: 10,
         marginTop: 10,
+        width: '90%',
         height: 50,
-        width: 430,
         borderColor: '#E9E9E9',
         borderWidth: 1,
-        padding: 10,
         flexDirection: 'row',
     },
     Topic_Box_icon: {
@@ -197,7 +274,40 @@ export default StyleSheet.create({
         marginLeft: 10,
         marginRight: 10,
     },
-
+    Account_Help: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        paddingVertical: 10,
+        backgroundColor: '#ffffff'
+    },
+    Account_Help_TextInput: {
+        borderColor: '#E5E5E5',
+        borderWidth: 1,
+        flexDirection: 'row',
+        width: '95%',
+        paddingLeft: 10,
+        borderRadius: 5,
+    },
+    Topic_DetailHelp_BoxText: {
+        width: '100%',
+        padding: 10,
+        backgroundColor: '#FFFFFF'
+    },
+    Topic_DetailHelp_Tag: {
+        width: '100%',
+        borderColor: '#EAEAEA',
+        borderWidth: 1,
+        padding: 10
+    },
+    Topic_DetailHelp_ButtonChat: {
+        width: 100,
+        height: 50,
+        backgroundColor: '#0A55A6',
+        margin: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 5
+    },
     ///-----------------------------------Total_Order-----------------------------------///
     Button_bar: {
         height: 40,
@@ -239,7 +349,6 @@ export default StyleSheet.create({
     Order_Product_Pro: {
         height: 80,
         width: 80,
-        backgroundColor: '#C4C4C4',
         margin: 10,
     },
     Order_Box_price: {
@@ -338,7 +447,7 @@ export default StyleSheet.create({
         justifyContent: 'center',
     },
 
-    ///-----------------------------------Setting_Topic-----------------------------------///
+    ///-----------------------------------Setting-----------------------------------///
 
     BoxTopic: {
         backgroundColor: '#fff',
@@ -353,7 +462,7 @@ export default StyleSheet.create({
     },
     Button_Logout: {
         width: '100%',
-        height: 60,
+        height: 50,
         alignContent: 'center',
         alignItems: 'center'
     },
@@ -364,4 +473,80 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+
+    ///-----------------------------------Setting_Topic-----------------------------------///
+
+    Edit_Profile: {
+        width: '100%',
+        alignItems: 'center',
+        flex: 1
+    },
+    Edit_Profile_Box: {
+        height: 40,
+        width: '70%',
+        borderBottomColor: '#000000',
+        borderBottomWidth: 1,
+        marginTop: 10,
+    },
+    Edit_Profile_Button_Save: {
+        height: 40,
+        backgroundColor: '#0A55A6',
+        width: 350,
+        borderRadius: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 10,
+    },
+    Edit_Pass: {
+        width: '100%',
+        backgroundColor: '#FFFFFF',
+        alignItems: 'center',
+        paddingBottom: 20,
+        marginTop: 10,
+    },
+    Edit_Pass_TextInput: {
+        height: 40,
+        width: '100%',
+        borderBottomColor: '#000000',
+        borderBottomWidth: 1,
+        marginTop: 10,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+    },
+    Address_Customar: {
+        width: '100%',
+        backgroundColor: '#FFFFFF',
+        marginTop: 10
+    },
+    Address_Customar_Box: {
+        flexDirection: 'row',
+        padding: 10,
+        justifyContent: 'space-between'
+    },
+
+    ///-----------------------------------Order_Detail-----------------------------------///
+
+    Order_Detail: {
+        flexDirection: 'row',
+        padding: 10,
+        alignItems: 'center',
+        backgroundColor: '#FFFFFF',
+        marginTop: 5,
+    },
+    Order_Detail_ICON: {
+        height: 30,
+        width: 50,
+        borderColor: '#FC8D00',
+        borderWidth: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    Order_Detail_Address: {
+        justifyContent: 'center',
+        padding: 10,
+        marginTop: 5,
+        backgroundColor: '#FFFFFF',
+    },
+    
+ 
 })

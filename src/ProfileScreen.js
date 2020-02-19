@@ -64,12 +64,14 @@ export class Headbar extends Component {
         const uri = [finip, currentUser.image_path, currentUser.image].join('/')
         return (
             <View>
-                <View style={{ backgroundColor: '#4a4a4a', }}>
-                    <ImageBackground
-                        source={require('../icon/bgprofile.jpg')}
-                        style={stylesProfile.HeadbarImage}
-                    />
-                </View>
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 0 })}>
+                    <View style={{ backgroundColor: '#4a4a4a', }}>
+                        <ImageBackground
+                            source={require('../icon/bgprofile.jpg')}
+                            style={stylesProfile.HeadbarImage}
+                        />
+                    </View>
+                </TouchableOpacity>
                 <View style={stylesProfile.HeadbarA}>
                     <View style={stylesProfile.HeadbarBox1}>
                         <View style={stylesMain.FlexRow}>
@@ -485,7 +487,7 @@ export class MyCode extends Component {
                                     placeholderTextColor={'white'}
                                     style={[stylesProfile.ViewCodeInputCode, stylesFont.FontSize6]}
                                     onChangeText={(text) => this.setState({ text })}
-                               ></TextInput>
+                                ></TextInput>
                             </View>
                             <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
                                 <View style={[stylesProfile.ViewCodeTextCode]}>

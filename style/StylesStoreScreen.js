@@ -22,12 +22,12 @@ export default StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 30,
-    marginTop: 40,
+    marginTop: 60,
     marginLeft: 19,
   },
   StoreHeadText: {
     color: '#FFFFFF',
-    marginTop: 48,
+    marginTop: 62,
     marginLeft: 20,
   },
   StoreHeadTextOther: {
@@ -50,7 +50,7 @@ export default StyleSheet.create({
     width: 70,
     height: 20,
     // marginLeft: 30,
-    marginTop: 6,
+    marginTop: 4,
   },
   StoreHeadButtomText: {
     color: '#FFFFFF',
@@ -94,12 +94,11 @@ export default StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderColor: '#ECECEC',
     borderWidth: 1,
-    marginTop: 10,
     flexDirection: 'row'
   },
   ///---------------------------------------------------///
   Banner: {
-    marginTop: 10,
+    // marginTop: 10,
     backgroundColor: '#FFFFFF',
     borderColor: '#ECECEC',
     borderWidth: 1,

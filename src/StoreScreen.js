@@ -9,6 +9,8 @@ export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
 ///----------------------------------------------------------------------------------------------->>>> Icon
+import IconAntDesign from 'react-native-vector-icons/AntDesign';
+import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 ///----------------------------------------------------------------------------------------------->>>> Styles
@@ -27,14 +29,51 @@ export default class StoreScreen extends Component {
         this.state = {
             dataService: [],
             activeSlide: 0,
+            selectedIndex: 0,
+            scrollY: new Animated.Value(0)
         };
         this.getData = this.getData.bind(this)
+        this.getSelectedIndex = this.getSelectedIndex.bind(this);
+    }
+    getSelectedIndex(selectedIndex) {
+        this.setState({ selectedIndex })
     }
     getData(dataService) {
         this.setState({ dataService })
     }
+    ViewSide(selectedIndex, item) {
+        const { navigation } = this.props;
+        switch (selectedIndex) {
+            case 0:
+                return (
+                    <>
+                        <Banner navigation={navigation} item={item} />
+                        <TicketLine />
+                        <DealTop navigation={navigation} />
+                        <NewProduct navigation={navigation} />
+                        <BannerBar_ONE />
+                        <PopularProduct navigation={navigation} />
+                    </>
+                );
+            case 1:
+                return (
+                    <>
+                        <Banner navigation={navigation} item={item} />
+                        <SubMenu />
+                    </>
+                );
+            case 2:
+                return (
+                    <>
+                        <Banner navigation={navigation} item={item} />
+                        <BoxProduct4 navigation={navigation} />
+                    </>
+                );
+            default:
+        }
+    }
     render() {
-        const { dataService } = this.state
+        const { dataService, selectedIndex } = this.state
         const { navigation } = this.props
         const id_item = navigation.getParam('id_item')
         var uri = ip + '/mysql/DataServiceStore.php';
@@ -42,25 +81,117 @@ export default class StoreScreen extends Component {
             type: 'storedata',
             id: Number(id_item)
         };
+        const maxheight = 70
         var s_item = dataService.map((item) => {
             return ({
                 id_store: item.id_store, name: item.name, image: item.image, image_path: item.image_path
             })
         })
+        const AnimatedHeadopacity = this.state.scrollY.interpolate({
+            inputRange: [0, maxheight],
+            outputRange: [1, 0],
+            extrapolate: 'clamp',
+        })
+        const AnimatedDetailsopacity = this.state.scrollY.interpolate({
+            inputRange: [maxheight, maxheight + 220],
+            outputRange: [1, 0],
+            extrapolate: 'clamp',
+        })
+        const AnimatedHead = this.state.scrollY.interpolate({
+            inputRange: [0, maxheight],
+            outputRange: [maxheight, 50],
+            extrapolate: 'clamp',
+        })
+        const AnimatedHeadbg = this.state.scrollY.interpolate({
+            inputRange: [0, maxheight / 2],
+            outputRange: ['transparent', '#fff'],
+            extrapolate: 'clamp',
+        })
+        const AnimatedHeadbd = this.state.scrollY.interpolate({
+            inputRange: [0, maxheight / 2],
+            outputRange: ['transparent', '#ECECEC'],
+            extrapolate: 'clamp',
+        })
+        const AnimatedHeadi = this.state.scrollY.interpolate({
+            inputRange: [0, maxheight / 2],
+            outputRange: ['#fff', '#111'],
+            extrapolate: 'clamp',
+        })
+        const wheight = maxheight * 3.5
+        const AnimatedHeadA = this.state.scrollY.interpolate({
+            inputRange: [wheight, wheight],
+            outputRange: [50, 95],
+            extrapolate: 'clamp',
+        })
+        const AnimatedHeadB = this.state.scrollY.interpolate({
+            inputRange: [wheight, wheight],
+            outputRange: [-50, -80],
+            extrapolate: 'clamp',
+        })
+        const AnimatedMenuopacityA = this.state.scrollY.interpolate({
+            inputRange: [wheight, wheight],
+            outputRange: [0, 1],
+            extrapolate: 'clamp',
+        })
+        console.log(this.state.scrollY)
         return (
-            <SafeAreaView style={[stylesMain.BackgroundAreaView, { height: '100%' }]}>
+            <View style={[stylesMain.BackgroundAreaView, { height: '100%', }]}>
                 {
                     id_item !== undefined ?
                         <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} /> :
                         null
                 }
-                <AppBar leftBar='backarrow' rightBar='storebar' navigation={navigation} />
-                <ScrollView>
-                    <StoreHead navigation={navigation} item={s_item} />
-                    <StoreHeadDetails navigation={navigation} item={s_item} />
-                    <Menubar navigation={navigation} item={s_item} />
+                <Animated.View style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: AnimatedHead,
+                    opacity: AnimatedHeadopacity,
+                }}>
+                    <View style={[stylesStore.StoreHead]}>
+                        <ImageBackground
+                            source={require('../icon/bgprofile.jpg')}
+                            style={stylesStore.StoreHeadImage}
+                        />
+                    </View>
+                </Animated.View>
+                <Animated.View style={{ height: 50 }}>
+                    <View style={{
+                        position: 'relative',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                    }}>
+                        <AppBar leftBar='backarrow' rightBar='storebar' navigation={navigation}
+                            ABGColor={AnimatedHeadbg} ABDColor={AnimatedHeadbd} AIColor={AnimatedHeadi}
+                        />
+                    </View>
+                </Animated.View>
+                <ScrollView
+                    scrollEventThrottle={8}
+                    onScroll={
+                        Animated.event([{
+                            nativeEvent: { contentOffset: { y: this.state.scrollY } }
+                        }])
+                    }
+                >
+                    <Animated.View style={{
+                        marginTop: -50,
+                        opacity: AnimatedHeadopacity,
+                    }}>
+                        <StoreHead navigation={navigation} item={s_item} />
+                    </Animated.View>
+                    <Animated.View style={{
+                        opacity: AnimatedDetailsopacity,
+                        height: 120,
+                    }}>
+                        <StoreHeadDetails navigation={navigation} item={s_item} />
+                    </Animated.View>
+                    <Menubar navigation={navigation} item={s_item} getSelectedIndex={this.getSelectedIndex} />
+                    {this.ViewSide(selectedIndex, s_item)}
                 </ScrollView>
-            </SafeAreaView>
+            </View >
         );
     }
 }
@@ -74,41 +205,35 @@ export class StoreHead extends Component {
         return item.map((item, index) => {
             var dataMySQL = [ip + '/mysql/uploads/slide/NewStore', item.image].join('/')
             return (
-                <View style={stylesStore.StoreHead} key={index}>
-                    <View>
-                        <ImageBackground
-                            source={require('../icon/bgprofile.jpg')}
-                            style={stylesStore.StoreHeadImage}
-                        />
-                        <View style={stylesStore.StoreHeadBox}>
-                            <View style={stylesMain.FlexRow}>
-                                <View>
-                                    <FastImage
-                                        source={{
-                                            uri: dataMySQL,
-                                        }}
-                                        style={stylesStore.StoreHeadFace}
-                                        resizeMode={FastImage.resizeMode.cover}
-                                    />
-                                </View>
-                                <View>
-                                    <Text style={[stylesStore.StoreHeadText, stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
-                                        {item.name}</Text>
-                                    <Text style={[stylesStore.StoreHeadTextOther, stylesFont.FontFamilyText, stylesFont.FontSize8]}>
-                                        Active เมื่อ 1 ชั่วโมงที่ผ่านมา</Text>
-                                    <Text style={[stylesStore.StoreHeadTextOther2, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                        ผู้ติดตาม 20.2 พัน | กำลังติดตาม 2</Text>
-                                </View>
+                <View style={[stylesStore.StoreHead]} key={index}>
+                    <View style={stylesStore.StoreHeadBox}>
+                        <View style={stylesMain.FlexRow}>
+                            <View>
+                                <FastImage
+                                    source={{
+                                        uri: dataMySQL,
+                                    }}
+                                    style={stylesStore.StoreHeadFace}
+                                    resizeMode={FastImage.resizeMode.cover}
+                                />
                             </View>
-                            <View style={stylesStore.HeadButtom}>
-                                <View style={stylesStore.StoreHeadButtom}>
-                                    <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                        ติดตาม</Text>
-                                </View>
-                                <View style={stylesStore.StoreHeadButtom}>
-                                    <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                        แชท</Text>
-                                </View>
+                            <View>
+                                <Text style={[stylesStore.StoreHeadText, stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
+                                    {item.name}</Text>
+                                <Text style={[stylesStore.StoreHeadTextOther, stylesFont.FontFamilyText, stylesFont.FontSize8]}>
+                                    Active เมื่อ 1 ชั่วโมงที่ผ่านมา</Text>
+                                <Text style={[stylesStore.StoreHeadTextOther2, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                    ผู้ติดตาม 20.2 พัน | กำลังติดตาม 2</Text>
+                            </View>
+                        </View>
+                        <View style={stylesStore.HeadButtom}>
+                            <View style={stylesStore.StoreHeadButtom}>
+                                <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                    ติดตาม</Text>
+                            </View>
+                            <View style={stylesStore.StoreHeadButtom}>
+                                <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                    แชท</Text>
                             </View>
                         </View>
                     </View>
@@ -196,48 +321,13 @@ export class Menubar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedIndex: 0,
         }
         this.getData = this.getData.bind(this);
     }
-    getData(val) {
-        this.setState({
-            selectedIndex: val
-        });
-    }
-    ViewSide(selectedIndex) {
-        const { item, navigation } = this.props;
-        switch (selectedIndex) {
-            case 0:
-                return (
-                    <SafeAreaView>
-                        <Banner navigation={navigation} item={item} />
-                        <TicketLine />
-                        <DealTop navigation={navigation} />
-                        <NewProduct navigation={navigation} />
-                        <BannerBar_ONE />
-                        <PopularProduct navigation={navigation} />
-                    </SafeAreaView>
-                );
-            case 1:
-                return (
-                    <SafeAreaView>
-                        <Banner navigation={navigation} item={item} />
-                        <SubMenu />
-                    </SafeAreaView>
-                );
-            case 2:
-                return (
-                    <SafeAreaView>
-                        <Banner navigation={navigation} item={item} />
-                        <BoxProduct4 navigation={navigation} />
-                    </SafeAreaView>
-                );
-            default:
-        }
+    getData(selectedIndex) {
+        this.props.getSelectedIndex(selectedIndex)
     }
     render() {
-        const { selectedIndex } = this.state
         const item = [{
             name: 'หน้าหลัก'
         }, {
@@ -246,7 +336,7 @@ export class Menubar extends Component {
             name: 'ฟีด'
         }]
         return (
-            <View style={[stylesMain.SafeAreaView]}>
+            <View>
                 <View style={[stylesStore.Menubar]}>
                     <TabBar
                         sendData={this.getData}
@@ -257,9 +347,6 @@ export class Menubar extends Component {
                         type='box'
                     />
                 </View>
-                <ScrollView>
-                    {this.ViewSide(selectedIndex)}
-                </ScrollView>
             </View>
         )
     }

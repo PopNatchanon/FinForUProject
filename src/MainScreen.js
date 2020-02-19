@@ -1,9 +1,10 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-    Dimensions, Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
+    Animated, Dimensions, Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
+import * as Animatable from 'react-native-animatable';
 import AsyncStorage from '@react-native-community/async-storage';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 export const { width, height } = Dimensions.get('window');
@@ -92,16 +93,22 @@ export class AppBar extends Component {
     }
     render() {
         const { text } = this.state
-        const { leftBar, rightBar, searchBar, navigation, SearchText } = this.props
+        const { ABDColor, ABGColor, AIColor, leftBar, rightBar, searchBar, navigation, SearchText } = this.props
+        const AIconEntypo = Animatable.createAnimatableComponent(IconEntypo)
+        const AIconFeather = Animatable.createAnimatableComponent(IconFeather)
+        const AIconFontAwesome5 = Animatable.createAnimatableComponent(IconFontAwesome5)
         return (
-            <View style={[stylesMain.Appbar, stylesMain.FlexRow, { backgroundColor: '#fff' }]}>
+            <Animated.View style={[stylesMain.Appbar, stylesMain.FlexRow, {
+                backgroundColor: ABGColor ? ABGColor : '#fff',
+                borderColor: ABDColor ? ABDColor : '#ECECEC'
+            }]}>
                 {
                     leftBar == 'backarrow' ?
                         <View>
                             <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30 }]}
                                 activeOpacity={1}
                                 onPress={() => navigation.goBack()}>
-                                <IconEntypo name="chevron-left" size={30} />
+                                <AIconEntypo name="chevron-left" size={30} style={{ color: AIColor ? AIColor : '#111' }} />
                             </TouchableOpacity>
                         </View> :
                         null
@@ -135,7 +142,7 @@ export class AppBar extends Component {
                                         onChangeText={(text) => this.setState({ text })}
                                     />
                                 </View>
-                                <IconAntDesign RightItem name="search1" size={20}
+                                <IconAntDesign name="search1" size={20}
                                     style={[stylesMain.ItemCenterVertical, { marginRight: 4 }]}
                                 />
                             </View>
@@ -163,7 +170,7 @@ export class AppBar extends Component {
                                     ]}>
                                         {SearchText ? SearchText : 'ค้นหาสินค้า/ร้านค้า'}</Text>
                                 </View>
-                                <IconAntDesign RightItem name="search1" size={20} style={[stylesMain.ItemCenterVertical, {
+                                <IconAntDesign name="search1" size={20} style={[stylesMain.ItemCenterVertical, {
                                     marginRight: 4
                                 }]} />
                             </View>
@@ -174,11 +181,11 @@ export class AppBar extends Component {
                         <View style={[stylesMain.ItemCenter, stylesMain.FlexRow]}>
                             <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 40 }]}
                                 onPress={null/*() => navigation.navigate('CartScreen')*/}>
-                                <IconFeather RightItem name="filter" size={25} />
+                                <AIconFeather name="filter" size={25} style={{ color: AIColor ? AIColor : '#111' }} />
                             </TouchableOpacity>
                             <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 40 }]}
                                 onPress={null/*() => navigation.navigate('CartScreen')*/}>
-                                <IconFontAwesome5 RightItem name="ellipsis-h" size={25} />
+                                <AIconFontAwesome5 name="ellipsis-h" size={25} style={{ color: AIColor ? AIColor : '#111' }} />
                             </TouchableOpacity>
                         </View> :
                         <View style={[stylesMain.FlexRow, stylesMain.ItemCenterVertical]}>
@@ -186,12 +193,12 @@ export class AppBar extends Component {
                                 rightBar == 'chat' ?
                                     <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
                                         onPress={() => navigation.navigate('Profile_Topic', { selectedIndex: 1 })}>
-                                        <IconAntDesign RightItem name="message1" size={25} />
+                                        <IconAntDesign name="message1" size={25} />
                                     </TouchableOpacity> :
                                     null :
                                 <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
                                     onPress={() => navigation.navigate('Profile_Topic', { selectedIndex: 1 })}>
-                                    <IconAntDesign RightItem name="message1" size={25} />
+                                    <IconAntDesign name="message1" size={25} />
                                 </TouchableOpacity>
                             }
                             <TouchableOpacity style={[stylesMain.ItemCenter, {
@@ -199,11 +206,11 @@ export class AppBar extends Component {
                                     leftBar == 'backarrow' ?
                                         rightBar == 'chat' ? 40 : 50 : 40
                             }]} onPress={() => navigation.navigate('CartScreen')}>
-                                <IconAntDesign RightItem name="shoppingcart" size={25} />
+                                <IconAntDesign name="shoppingcart" size={25} />
                             </TouchableOpacity>
                         </View>
                 }
-            </View>
+            </Animated.View>
         );
     }
 }
@@ -1108,7 +1115,7 @@ export class CategoryProduct extends Component {
                                     <Text style={[stylesMain.Text_Bar, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                                         ร้านฮิต ติดเทรนด์</Text>
                                 </View>
-                                <CategoryProductSubStore navigation={this.props.navigation} />
+                                <CategoryProductSubStore navigation={this.props.navigation} id_type={item.id_type} />
                             </View>
                     }
                     {
@@ -1118,14 +1125,14 @@ export class CategoryProduct extends Component {
                                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 8, color: '#fff' }]}>
                                         ร้านนี้ผ่อนได้ </Text>
                                 </View>
-                                <CategoryProductSubStore navigation={this.props.navigation} />
+                                <CategoryProductSubStore navigation={this.props.navigation} id_type={item.id_type} />
                             </View> :
                             <View style={{ marginBottom: 10, }}>
                                 <View style={stylesMain.Text_Bar_Image}>
                                     <Text style={[stylesMain.Text_Bar, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                                         FIN แนะนำร้าน </Text>
                                 </View>
-                                <CategoryProductSubPromotion navigation={this.props.navigation} />
+                                <CategoryProductSubPromotion navigation={this.props.navigation} id_type={item.id_type} />
                             </View>
                     }
                 </View>
@@ -1186,33 +1193,41 @@ export class CategoryProductSubStore extends Component {
     getData(dataService) {
         this.setState({ dataService })
     }
-    render() {
+    dataCategoryProductSubStore() {
         const { dataService } = this.state
         const { navigation } = this.props
-        var uri = ip + '/mysql/DataServiceMain.php';
+        // console.log(dataService)
+        return dataService.banner ?
+            dataService.banner.map((item, index) => {
+                var dataMySQL = [finip, item.image_path, item.image].join('/');
+                return (
+                    <TouchableOpacity activeOpacity={1} key={index}
+                    // onPress={() => navigation.navigate('StoreScreen', { id_item: item.id_store })}
+                    >
+                        <View style={stylesMain.CategoryProductStoreBox} key={index}>
+                            <FastImage
+                                source={{
+                                    uri: dataMySQL,
+                                }}
+                                style={stylesMain.CategoryProductStoreImage}
+                            />
+                        </View>
+                    </TouchableOpacity>
+                );
+            }) :
+            null
+    }
+    render() {
+        const { id_type } = this.props
+        var uri = finip + '/home/publish_cate_mobile';
         var dataBody = {
-            type: 'store'
+            promotion: 'shop',
+            id_type: id_type,
         };
-        let dataCategoryProductSubStore = dataService.map((item, index) => {
-            var dataMySQL = [ip + '/MySQL/uploads/slide/Store_recommendFIN', item.image].join('/');
-            return (
-                <TouchableOpacity activeOpacity={1} key={index}
-                    onPress={() => navigation.navigate('StoreScreen', { id_item: item.id_store })}>
-                    <View style={stylesMain.CategoryProductStoreBox} key={index}>
-                        <FastImage
-                            source={{
-                                uri: dataMySQL,
-                            }}
-                            style={stylesMain.CategoryProductStoreImage}
-                        />
-                    </View>
-                </TouchableOpacity>
-            );
-        })
         return (
             <ScrollView horizontal>
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
-                {dataCategoryProductSubStore}
+                {this.dataCategoryProductSubStore()}
             </ScrollView>
         );
     }
@@ -1223,35 +1238,70 @@ export class CategoryProductSubPromotion extends Component {
         super(props);
         this.state = {
             dataService: [],
+            dataService2: [],
         }
         this.getData = this.getData.bind(this)
+        this.getData2 = this.getData2.bind(this)
     }
     getData(dataService) {
         this.setState({ dataService })
     }
-    render() {
+    getData2(dataService2) {
+        this.setState({ dataService2 })
+    }
+    dataCategoryProductSubPromotion() {
         const { dataService } = this.state
-        var uri = ip + '/mysql/DataServiceMain.php';
+        return dataService.banner ?
+            dataService.banner.map((item, index) => {
+                var dataMySQL = [finip, item.image_path, item.image].join('/');
+                return (
+                    <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, }]} key={index}>
+                        <FastImage
+                            source={{
+                                uri: dataMySQL,
+                            }}
+                            style={[stylesMain.BoxStore1Image, { borderRadius: 6, }]}
+                        />
+                    </View>
+                );
+            }) :
+            null
+    }
+    dataCategoryProductSubPromotion2() {
+        const { dataService2 } = this.state
+        return dataService2.banner ?
+            dataService2.banner.map((item, index) => {
+                var dataMySQL = [finip, item.image_path, item.image].join('/');
+                return (
+                    <View style={[stylesMain.BoxStore1Box3, { borderWidth: 0, }]} key={index}>
+                        <FastImage
+                            source={{
+                                uri: dataMySQL,
+                            }}
+                            style={[stylesMain.BoxStore1Image, { borderRadius: 6, }]}
+                        />
+                    </View>
+                );
+            }) :
+            null
+    }
+    render() {
+        const { id_type } = this.props
+        var uri = finip + '/home/publish_cate_mobile';
         var dataBody = {
-            type: 'store2'
+            promotion: 'promotions_1',
+            id_type: id_type,
         };
-        let dataCategoryProductSubPromotion = dataService.map((item, index) => {
-            var dataMySQL = [ip + '/MySQL/uploads/slide/Store_recommendFIN', item.image].join('/');
-            return (
-                <View style={[stylesMain.BoxStore1Box, { borderWidth: 0, }]} key={index}>
-                    <FastImage
-                        source={{
-                            uri: dataMySQL,
-                        }}
-                        style={[stylesMain.BoxStore1Image, { borderRadius: 6, }]}
-                    />
-                </View>
-            );
-        })
+        var dataBody2 = {
+            promotion: 'promotions_2',
+            id_type: id_type,
+        };
         return (
             <ScrollView horizontal>
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
-                {dataCategoryProductSubPromotion}
+                <GetServices uriPointer={uri} dataBody={dataBody2} getDataSource={this.getData2} />
+                {this.dataCategoryProductSubPromotion()}
+                {this.dataCategoryProductSubPromotion2()}
             </ScrollView>
         );
     }

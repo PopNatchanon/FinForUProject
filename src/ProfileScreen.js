@@ -82,6 +82,7 @@ export class Headbar extends Component {
                                             เริ่มค้าขาย</Text>
                                     </View>
                                 </TouchableOpacity>
+                                
                                 <FastImage
                                     source={{ uri: uri }}
                                     style={stylesProfile.HeadbarBoxImage}

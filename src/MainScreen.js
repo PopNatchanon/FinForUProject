@@ -1109,17 +1109,6 @@ export class CategoryProduct extends Component {
                     </View>
                     {
                         NoStoreReCom ?
-                            null :
-                            <View>
-                                <View style={stylesMain.Text_Bar_Image}>
-                                    <Text style={[stylesMain.Text_Bar, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-                                        ร้านฮิต ติดเทรนด์</Text>
-                                </View>
-                                <CategoryProductSubStore navigation={this.props.navigation} id_type={item.id_type} />
-                            </View>
-                    }
-                    {
-                        NoStoreReCom ?
                             <View style={{ marginBottom: 10, }}>
                                 <View style={{ marginTop: 10, }}>
                                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 8, color: '#fff' }]}>
@@ -1128,10 +1117,6 @@ export class CategoryProduct extends Component {
                                 <CategoryProductSubStore navigation={this.props.navigation} id_type={item.id_type} />
                             </View> :
                             <View style={{ marginBottom: 10, }}>
-                                <View style={stylesMain.Text_Bar_Image}>
-                                    <Text style={[stylesMain.Text_Bar, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-                                        FIN แนะนำร้าน </Text>
-                                </View>
                                 <CategoryProductSubPromotion navigation={this.props.navigation} id_type={item.id_type} />
                             </View>
                     }
@@ -1193,43 +1178,53 @@ export class CategoryProductSubStore extends Component {
     getData(dataService) {
         this.setState({ dataService })
     }
-    dataCategoryProductSubStore() {
-        const { dataService } = this.state
-        const { navigation } = this.props
-        // console.log(dataService)
-        return dataService.banner ?
-            dataService.banner.map((item, index) => {
-                var dataMySQL = [finip, item.image_path, item.image].join('/');
-                return (
-                    <TouchableOpacity activeOpacity={1} key={index}
-                    // onPress={() => navigation.navigate('StoreScreen', { id_item: item.id_store })}
-                    >
-                        <View style={stylesMain.CategoryProductStoreBox} key={index}>
-                            <FastImage
-                                source={{
-                                    uri: dataMySQL,
-                                }}
-                                style={stylesMain.CategoryProductStoreImage}
-                            />
-                        </View>
-                    </TouchableOpacity>
-                );
-            }) :
-            null
+    _renderItem = ({ item, index }) => {
+        var dataMySQL = [finip, item.image_path, item.image].join('/');
+        return (
+            <TouchableOpacity activeOpacity={1} key={index}
+            // onPress={() => navigation.navigate('StoreScreen', { id_item: item.id_store })}
+            >
+                <View style={stylesMain.CategoryProductStoreBox}>
+                    <FastImage
+                        source={{
+                            uri: dataMySQL,
+                        }}
+                        style={stylesMain.CategoryProductStoreImage}
+                    />
+                </View>
+            </TouchableOpacity>
+        );
     }
     render() {
+        const { dataService } = this.state
         const { id_type } = this.props
         var uri = finip + '/home/publish_cate_mobile';
         var dataBody = {
             promotion: 'shop',
             id_type: id_type,
         };
-        return (
-            <ScrollView horizontal>
-                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
-                {this.dataCategoryProductSubStore()}
-            </ScrollView>
-        );
+        return ([
+            <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />,
+            dataService.banner ?
+                <Carousel
+                    ref={c => this.activeSlide = c}
+                    data={dataService.banner}
+                    renderItem={this._renderItem}
+                    sliderWidth={width * 0.6}
+                    itemWidth={185}
+                    sliderHeight={90}
+                    onSnapToItem={(index) => this.setState({ activeSlide: index })}
+                    enableMomentum={true}
+                    contentContainerCustomStyle={{ paddingVertical: 5 }}
+                    activeSlideAlignment={'start'}
+                    activeAnimationType={'spring'}
+                    activeAnimationOptions={{
+                        friction: 4,
+                        tension: 40
+                    }}
+                /> :
+                null
+        ]);
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> CategoryProductSubPromotion
@@ -1257,6 +1252,7 @@ export class CategoryProductSubPromotion extends Component {
                 return (
                     <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, }]} key={index}>
                         <FastImage
+                            style={stylesMain.BoxProduct1Image}
                             source={{
                                 uri: dataMySQL,
                             }}
@@ -1275,6 +1271,7 @@ export class CategoryProductSubPromotion extends Component {
                 return (
                     <View style={[stylesMain.BoxStore1Box3, { borderWidth: 0, }]} key={index}>
                         <FastImage
+                            style={stylesMain.BoxProduct1Image}
                             source={{
                                 uri: dataMySQL,
                             }}
@@ -1297,12 +1294,15 @@ export class CategoryProductSubPromotion extends Component {
             id_type: id_type,
         };
         return (
-            <ScrollView horizontal>
+            <View style={[stylesMain.FlexRow, { width: '100%' }]}>
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
                 <GetServices uriPointer={uri} dataBody={dataBody2} getDataSource={this.getData2} />
                 {this.dataCategoryProductSubPromotion()}
-                {this.dataCategoryProductSubPromotion2()}
-            </ScrollView>
+                <View >
+                    {this.dataCategoryProductSubPromotion2()}
+                    <CategoryProductSubStore navigation={this.props.navigation} id_type={id_type} />
+                </View>
+            </View>
         );
     }
 }

@@ -49,7 +49,7 @@ export default class ExclusiveScreen extends Component {
       <SafeAreaView style={stylesMain.SafeAreaView}>
         <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
         <AppBar1 titleHead={'สินค้าสุด Exclusive'} backArrow searchBar chatBar navigation={navigation} />
-        <ScrollView>
+        <ScrollView stickyHeaderIndices={[1]}>
           <Slide />
           <Button_Bar setSliderVisible={this.setSlider} getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
           {

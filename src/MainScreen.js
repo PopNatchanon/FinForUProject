@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-    Animated, Dimensions, Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
+    Alert, BackHandler, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import * as Animatable from 'react-native-animatable';
@@ -9,12 +9,12 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
-import NumberFormat from 'react-number-format';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import IconIonicons from 'react-native-vector-icons/Ionicons';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../style/stylesFont';
@@ -25,22 +25,45 @@ import { GetServices, ProductBox, Toolbar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
+const exitAlert = () => {
+    Alert.alert(
+        'Confirm exit',
+        'Do you want to quit the app?'
+        [
+        { text: 'CANCEL' },
+        { text: 'OK', onPress: () => BackHandler.exitApp() }
+        ]
+    );
+};
+export { exitAlert };
 export default class MainScreen extends Component {
+    _didFocusSubscription;
+    _willBlurSubscription;
     constructor(props) {
         super(props);
         this.state = {
             dataService: [],
         };
         this.getData = this.getData.bind(this)
-    }
-    getData(dataService) {
-        this.setState({ dataService })
-    }
-    getDataasync = async () => {
-        const currentUser = await AsyncStorage.getItem('@MyKey')
+        this._didFocusSubscription = props.navigation.addListener('didFocus', payload =>
+            BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)
+        );
     }
     componentDidMount() {
-        this.getDataasync()
+        this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload =>
+            BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress)
+        );
+    }
+    componentWillUnmount() {
+        this._didFocusSubscription && this._didFocusSubscription.remove();
+        this._willBlurSubscription && this._willBlurSubscription.remove();
+    }
+    handleBackPress = () => {
+        BackHandler.exitApp(); // works best when the goBack is async
+        return true;
+    };
+    getData(dataService) {
+        this.setState({ dataService })
     }
     render() {
         const { dataService } = this.state
@@ -98,7 +121,7 @@ export class AppBar extends Component {
         const AIconFeather = Animatable.createAnimatableComponent(IconFeather)
         const AIconFontAwesome5 = Animatable.createAnimatableComponent(IconFontAwesome5)
         return (
-            <Animated.View style={[stylesMain.Appbar, stylesMain.FlexRow, {
+            <Animatable.View style={[stylesMain.Appbar, stylesMain.FlexRow, {
                 backgroundColor: ABGColor ? ABGColor : '#fff',
                 borderColor: ABDColor ? ABDColor : '#ECECEC'
             }]}>
@@ -210,7 +233,7 @@ export class AppBar extends Component {
                             </TouchableOpacity>
                         </View>
                 }
-            </Animated.View>
+            </Animatable.View>
         );
     }
 }
@@ -258,9 +281,10 @@ export class AppBar1 extends Component {
                         settingBar ?
                             <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
                                 onPress={() => this.props.navigation.navigate('StoreMe_Setting')}>
-                                <IconMaterialCommunityIcons name="settings-outline" size={25} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
-                                    marginRight: 8
-                                }]} />
+                                <IconMaterialCommunityIcons name="settings-outline" size={25} style={[
+                                    stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
+                                        marginRight: 8
+                                    }]} />
                             </TouchableOpacity> :
                             null
                     }{
@@ -347,7 +371,7 @@ export class Slide extends Component {
         );
     }
     render() {
-        const { dataService } = this.state
+        const { activeSlide, dataService } = this.state
         var dataBody = {
             slide: 'banner'
         };
@@ -369,7 +393,25 @@ export class Slide extends Component {
                     onSnapToItem={(index) => this.setState({ activeSlide: index })}
                 />
                 {this.pagination}
-            </View>
+                {/* <View style={{ flexDirection: 'row', width: '100%', marginTop: -100, marginBottom: 50, justifyContent: 'space-between' }}>
+                    {
+                        activeSlide == 0 ?
+                            <IconIonicons name='ios-arrow-back' size={30} style={{ color: 'transparent', backgroundColor: 'transparent', }} /> :
+                            <TouchableOpacity onPress={() => { this.activeSlide.snapToPrev() }}>
+                                <IconIonicons name='ios-arrow-back' size={30} style={{ color: '#0A55A6', backgroundColor: '#FFFFFF', height: 40, width: 40, borderRadius: 30, borderWidth: 2, borderColor: '#E4E4E4', textAlign: 'center', textAlignVertical: 'center', }} />
+                            </TouchableOpacity>
+                    }
+                    {
+                        activeSlide == dataService.length - 1 ?
+                            <IconIonicons name='ios-arrow-forward' size={30} style={{ color: 'transparent', backgroundColor: 'transparent', }} /> :
+                            <TouchableOpacity onPress={() => { this.activeSlide.snapToPrev() }}>
+                                <IconIonicons name='ios-arrow-forward' size={30} style={{ color: '#0A55A6', backgroundColor: '#FFFFFF', height: 40, width: 40, borderRadius: 30, borderWidth: 2, borderColor: '#E4E4E4', textAlign: 'center', textAlignVertical: 'center', }} />
+                            </TouchableOpacity>
+
+
+                    }
+                </View> */}
+            </View >
         );
     }
 }
@@ -385,11 +427,9 @@ export class Category extends Component {
     getData(dataService) {
         this.setState({ dataService })
     }
-    render() {
+    dataCategory() {
         const { dataService } = this.state
-        const { navigation } = this.props
-        var uri = finip + '/home/category_mobile'
-        let dataCategory = dataService.map((item, index) => {
+        return dataService.map((item, index) => {
             var dataMySQL = [finip, item.image_path, 'menu', item.image_head].join('/');
             return (
                 <View style={stylesMain.Category} key={index}>
@@ -407,13 +447,17 @@ export class Category extends Component {
                 </View>
             )
         })
+    }
+    render() {
+        var uri = finip + '/home/category_mobile'
+        const { navigation } = this.props
         return (
             <View style={stylesMain.FrameBackground2}>
                 <GetServices uriPointer={uri} getDataSource={this.getData} />
                 <ScrollView horizontal>
                     <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('CategoryScreen')}>
                         <View style={stylesMain.category_A}>
-                            {dataCategory}
+                            {this.dataCategory()}
                         </View>
                     </TouchableOpacity>
                 </ScrollView>
@@ -577,7 +621,6 @@ export class Popular_store extends Component {
             null
     }
     render() {
-        const { navigation } = this.props
         return (
             <View style={stylesMain.FrameBackground2}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
@@ -855,7 +898,10 @@ export class PromotionPopular extends Component {
                             <View style={{
                                 height: 20, paddingHorizontal: 4, padding: 1, backgroundColor: '#0A55A6', borderBottomLeftRadius: 8, borderBottomRightRadius: 8
                             }}>
-                                <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#fff', marginLeft: 2 }]}>{item.detail}</Text>
+                                <Text numberOfLines={1} style={[
+                                    stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#fff', marginLeft: 2 }
+                                ]}>
+                                    {item.detail}</Text>
                             </View>
                         </View>
                     </TouchableOpacity>
@@ -1351,7 +1397,7 @@ export class Second_product extends Component {
     Second_Storeheader() {
         const { loadData, navigation } = this.props
         return (
-            <View style={[stylesMain.FrameBackground2, { marginTop: 0, backgroundColor: loadData.bg_m }]}>
+            <View style={[stylesMain.FrameBackground2, { marginTop: 0, backgroundColor: loadData.bg_m, borderBottomWidth: null }]}>
                 <View style={{}}>
                     <FastImage
                         style={[stylesMain.CategoryProductImageHead, { marginTop: 0 }]}

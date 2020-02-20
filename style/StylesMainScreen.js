@@ -374,6 +374,7 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     borderTopWidth: 1,
     marginTop: 10,
+    paddingBottom: 4,
   },
   FrameBackground3: {
     width,
@@ -382,7 +383,7 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     borderBottomWidth: 1,
     borderTopWidth: 1,
-    marginTop: 40,
+    marginTop: 30,
     marginBottom: -80,
   },
   FrameBackgroundTextBox: {

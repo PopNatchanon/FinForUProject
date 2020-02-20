@@ -1,9 +1,10 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-  Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
+  Animated, Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
+import * as Animatable from 'react-native-animatable';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
@@ -32,6 +33,7 @@ export default class DetailScreen extends Component {
     super(props);
     this.state = {
       dataService: [],
+      scrollY: new Animated.Value(0)
     };
     this.getData = this.getData.bind(this)
   }
@@ -46,12 +48,63 @@ export default class DetailScreen extends Component {
     var dataBody = {
       id_product: id_product
     };
+    const maxheight = width - 50
+    const AnimatedHead = this.state.scrollY.interpolate({
+      inputRange: [0, maxheight],
+      outputRange: [0, -1 * maxheight],
+      extrapolate: 'clamp',
+    })
+    const AnimatedHeadbg = this.state.scrollY.interpolate({
+      inputRange: [maxheight / 2, maxheight],
+      outputRange: ['transparent', '#fff'],
+      extrapolate: 'clamp',
+    })
+    const AnimatedHeadbd = this.state.scrollY.interpolate({
+      inputRange: [maxheight / 2, maxheight],
+      outputRange: ['transparent', '#ECECEC'],
+      extrapolate: 'clamp',
+    })
+    const AnimatedHeadi = this.state.scrollY.interpolate({
+      inputRange: [maxheight / 2, maxheight],
+      outputRange: ['#ECECEC', 'transparent'],
+      extrapolate: 'clamp',
+    })
     return (
       <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
         <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
-        <AppBar leftBar='backarrow' navigation={navigation} />
-        <ScrollView>
+        {/* <View style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+        }}>
+          <Animatable.View style={{ marginTop: AnimatedHead }}>
+          </Animatable.View>
+        </View> */}
+        <Animatable.View style={{ height: 50, }}>
+          <View style={{
+            position: 'relative',
+            top: 0,
+            left: 0,
+            right: 0,
+            overflow: 'hidden',
+          }}>
+            <AppBar leftBar='backarrow' navigation={navigation}
+            // ABGColor={AnimatedHeadbg} ABDColor={AnimatedHeadbd} AIBGColor={AnimatedHeadi}
+            />
+          </View>
+        </Animatable.View>
+        <ScrollView
+          scrollEventThrottle={16}
+          onScroll={
+            Animated.event([{
+              nativeEvent: { contentOffset: { y: this.state.scrollY } }
+            }])
+          }
+        >
+          {/* <View style={{ marginTop: -50 }}></View> */}
           <Detail_Image dataService={dataService} navigation={navigation} />
+          <Detail_Data dataService={dataService} navigation={navigation} />
           <Store dataService={dataService} navigation={navigation} />
           <Conpon />
           <Selector />
@@ -112,10 +165,10 @@ export class Detail_Image extends Component {
       </View>
     );
   }
-  render() {
+  id_product() {
     const { activeSlide, imageLength } = this.state;
     const { dataService } = this.props;
-    let id_product = dataService.map((item, index) => {
+    return dataService.map((item, index) => {
       let dataMySQL
       {
         item.gallery_image ?
@@ -142,6 +195,28 @@ export class Detail_Image extends Component {
               </View>
             </View>
           </View>
+        </View>
+      );
+    })
+  }
+  render() {
+    return (
+      <View>{this.id_product()}</View>
+    )
+  }
+}
+///----------------------------------------------------------------------------------------------->>>> Detail_Data
+export class Detail_Data extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
+  id_product() {
+    const { dataService } = this.props;
+    return dataService.map((item, index) => {
+      return (
+        <View style={[stylesMain.FrameBackground2, { marginTop: 0, borderTopWidth: 0 }]} key={index}>
           <View style={[stylesDetail.Price_Box, { borderTopWidth: 0 }]}>
             <View style={stylesDetail.Price_Text_Name_Box}>
               <NumberFormat
@@ -176,8 +251,10 @@ export class Detail_Image extends Component {
         </View>
       );
     })
+  }
+  render() {
     return (
-      <View>{id_product}</View>
+      <View>{this.id_product()}</View>
     )
   }
 }

@@ -626,7 +626,7 @@ export default StyleSheet.create({
     margin: 5,
   },
   CategoryProductStoreBox: {
-    width: '100%',
+    width: '95%',
     height: 90,
     marginBottom: 8,
     marginLeft: 5,

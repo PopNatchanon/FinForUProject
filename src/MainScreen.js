@@ -1290,14 +1290,17 @@ export class CategoryProductSubStore extends Component {
                     ref={c => this.activeSlide = c}
                     data={dataService.banner}
                     renderItem={this._renderItem}
-                    sliderWidth={width * 0.6}
-                    itemWidth={185}
+                    sliderWidth={width}
+                    itemWidth={105}
                     sliderHeight={90}
+                    itemHeight={85}
                     onSnapToItem={(index) => this.setState({ activeSlide: index })}
                     enableMomentum={true}
                     contentContainerCustomStyle={{ paddingVertical: 5 }}
                     activeSlideAlignment={'start'}
                     activeAnimationType={'spring'}
+                    vertical
+                    autoplay
                     activeAnimationOptions={{
                         friction: 4,
                         tension: 40
@@ -1371,17 +1374,16 @@ export class CategoryProductSubPromotion extends Component {
             promotion: 'promotions_2',
             id_type: id_type,
         };
-        return (
+        return ([
             <View style={[stylesMain.FlexRow, { width: '100%' }]}>
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
                 <GetServices uriPointer={uri} dataBody={dataBody2} getDataSource={this.getData2} />
                 {this.dataCategoryProductSubPromotion()}
-                <View >
-                    {this.dataCategoryProductSubPromotion2()}
-                    <CategoryProductSubStore navigation={this.props.navigation} id_type={id_type} />
-                </View>
-            </View>
-        );
+                {this.dataCategoryProductSubPromotion2()}
+
+            </View>,
+                <CategoryProductSubStore navigation={this.props.navigation} id_type={id_type} />
+        ]);
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Second_product

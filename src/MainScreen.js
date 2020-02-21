@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-    Alert, BackHandler, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
+    Animated, BackHandler, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import * as Animatable from 'react-native-animatable';
@@ -25,43 +25,14 @@ import { GetServices, ProductBox, Toolbar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-const exitAlert = () => {
-    Alert.alert(
-        'Confirm exit',
-        'Do you want to quit the app?'
-        [
-        { text: 'CANCEL' },
-        { text: 'OK', onPress: () => BackHandler.exitApp() }
-        ]
-    );
-};
-export { exitAlert };
 export default class MainScreen extends Component {
-    _didFocusSubscription;
-    _willBlurSubscription;
     constructor(props) {
         super(props);
         this.state = {
             dataService: [],
         };
         this.getData = this.getData.bind(this)
-        this._didFocusSubscription = props.navigation.addListener('didFocus', payload =>
-            BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)
-        );
     }
-    componentDidMount() {
-        this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload =>
-            BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress)
-        );
-    }
-    componentWillUnmount() {
-        this._didFocusSubscription && this._didFocusSubscription.remove();
-        this._willBlurSubscription && this._willBlurSubscription.remove();
-    }
-    handleBackPress = () => {
-        BackHandler.exitApp(); // works best when the goBack is async
-        return true;
-    };
     getData(dataService) {
         this.setState({ dataService })
     }
@@ -102,8 +73,71 @@ export default class MainScreen extends Component {
                     <TodayProduct navigation={navigation} loadData={dataService.for_you2} />
                 </ScrollView>
                 <Toolbar navigation={navigation} />
+                <ExitAppModule />
             </SafeAreaView>
         );
+    }
+}
+///----------------------------------------------------------------------------------------------->>>> ExitAppModule
+export class ExitAppModule extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            backClickCount: 0,
+        };
+        this.springValue = new Animated.Value(0);
+    }
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton.bind(this));
+    }
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton.bind(this));
+    }
+    _spring() {
+        this.setState({ backClickCount: 1 }, () => {
+            Animated.sequence([
+                Animated.timing(
+                    this.springValue,
+                    {
+                        toValue: 1,
+                        duration: 300,
+                        useNativeDriver: true,
+                    }
+                ),
+                Animated.timing(
+                    this.springValue,
+                    {
+                        toValue: 1,
+                        duration: 700,
+                        useNativeDriver: true,
+                    }
+                ),
+                Animated.timing(
+                    this.springValue,
+                    {
+                        toValue: 0,
+                        duration: 300,
+                        useNativeDriver: true,
+                    }
+                ),
+            ]).start(() => {
+                this.setState({ backClickCount: 0 });
+            });
+        });
+
+    }
+    handleBackButton = () => {
+        this.state.backClickCount == 1 ? BackHandler.exitApp() : this._spring();
+        return true;
+    };
+    render() {
+        return (
+            <Animatable.View style={[stylesMain.animatedView, { opacity: this.springValue, transform: [{ translateY: -.08 * height }] }]}>
+                <View style={stylesMain.animatedViewSub}>
+                    <Text style={[stylesMain.exitTitleText, stylesFont.FontFamilyText]}>กดอีกครั้งเพื่อออก</Text>
+                </View>
+            </Animatable.View>
+        )
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> AppBar ค้นหา

@@ -19,7 +19,7 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1 } from './MainScreen';
+import { AppBar1, ExitAppModule } from './MainScreen';
 import { GetServices, Toolbar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
@@ -40,6 +40,7 @@ export default class BellScreen extends Component {
                     <Update_buy navigation={this.props.navigation} />
                 </ScrollView>
                 <Toolbar navigation={this.props.navigation} />
+                <ExitAppModule />
             </SafeAreaView>
         );
     }

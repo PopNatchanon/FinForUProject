@@ -11,7 +11,7 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1 } from './MainScreen';
+import { AppBar1, ExitAppModule } from './MainScreen';
 import { FeedBox, GetServices, TabBar, Toolbar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
@@ -40,6 +40,7 @@ export default class FeedScreen extends Component {
           <Button_Bar selectedIndex={selectedIndex} navigation={navigation} />
         </ScrollView>
         <Toolbar navigation={navigation} />
+        <ExitAppModule />
       </SafeAreaView>
     );
   }

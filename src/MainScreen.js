@@ -1252,11 +1252,10 @@ export class CategoryProductSubPromotion extends Component {
                 return (
                     <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, }]} key={index}>
                         <FastImage
-                            style={stylesMain.BoxProduct1Image}
                             source={{
                                 uri: dataMySQL,
                             }}
-                            style={[stylesMain.BoxStore1Image, { borderRadius: 6, }]}
+                            style={[stylesMain.BoxProduct1Image, { borderRadius: 6, }]}
                         />
                     </View>
                 );
@@ -1271,11 +1270,10 @@ export class CategoryProductSubPromotion extends Component {
                 return (
                     <View style={[stylesMain.BoxStore1Box3, { borderWidth: 0, }]} key={index}>
                         <FastImage
-                            style={stylesMain.BoxProduct1Image}
                             source={{
                                 uri: dataMySQL,
                             }}
-                            style={[stylesMain.BoxStore1Image, { borderRadius: 6, }]}
+                            style={[stylesMain.BoxProduct1Image, { borderRadius: 6, }]}
                         />
                     </View>
                 );

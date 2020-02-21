@@ -252,19 +252,18 @@ export default StyleSheet.create({
     marginLeft: 5,
   },
   BoxStore1Box2: {
-    width: '40%',
-    height: 200,
+    width: '55%',
+    height: 105,
     marginTop: 10,
     marginBottom: 5,
     marginLeft: 5,
   },
   BoxStore1Box3: {
-    width: '90%',
+    width: width * 0.40,
     height: 105,
     borderColor: '#ECECEC',
     borderWidth: 1,
     marginTop: 10,
-    // marginBottom: 5,
     marginLeft: 5,
   },
   BoxStore1Image: {
@@ -380,7 +379,7 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     borderBottomWidth: 1,
     borderTopWidth: 1,
-    marginTop: 40,
+    marginTop: 30,
     marginBottom: -80,
   },
   FrameBackgroundTextBox: {
@@ -596,7 +595,7 @@ export default StyleSheet.create({
     margin: 5,
   },
   CategoryProductStoreBox: {
-    width: 180,
+    width: '100%',
     height: 90,
     marginBottom: 8,
     marginLeft: 5,

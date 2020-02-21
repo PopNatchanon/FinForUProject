@@ -20,6 +20,7 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesProfile from '../style/StylesProfileScreen'
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+import { ExitAppModule } from './MainScreen';
 import { GetCoupon, TabBar, Toolbar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
@@ -50,6 +51,7 @@ export default class StoreScreen extends Component {
                     </View>
                 </ScrollView>
                 <Toolbar navigation={this.props.navigation} />
+                <ExitAppModule />
             </SafeAreaView>
         );
     }

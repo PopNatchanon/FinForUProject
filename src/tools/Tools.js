@@ -538,7 +538,7 @@ export class ProductBox extends Component {
                             <View style={[
                                 stylesMain.BoxProduct1NameofLines
                             ]}>
-                                <Text numberOfLines={2} style={[
+                                <Text numberOfLines={1} style={[
                                     stylesFont.FontFamilySemiBold,
                                     {
                                         fontSize: nameSize ? nameSize : 16,
@@ -548,7 +548,6 @@ export class ProductBox extends Component {
                             </View>
                             <View style={[
                                 stylesMain.BoxProduct1PriceofLines,
-                                stylesMain.FlexRow
                             ]}>
                                 <NumberFormat
                                     value={item.full_price}
@@ -562,7 +561,7 @@ export class ProductBox extends Component {
                                                 fontSize: priceSize ? priceSize : 14,
                                             }
                                         ]}>
-                                            {value + ' '}</Text>
+                                            {value}</Text>
                                     }
                                 />
                                 <NumberFormat
@@ -573,7 +572,7 @@ export class ProductBox extends Component {
                                     renderText={value =>
                                         <Text style={[
                                             stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText, {
-                                                marginTop: 2,
+                                                marginTop: 0,
                                                 fontSize: dispriceSize ? dispriceSize : 14
                                             }
                                         ]}>

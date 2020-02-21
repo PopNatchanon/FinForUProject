@@ -99,19 +99,19 @@ export class Second_Product extends Component {
               <View style={stylesTopic.BackgroundLeft}></View>
             </TouchableOpacity>
             <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNB]}>
-              <View style={{ height: '90%' }}>
+              <View>
                 <ScrollView>
                   <SlideTabGet />
                 </ScrollView>
-              </View>
-              <View style={[stylesMain.FlexRow, stylesMain.SafeAreaViewNB, { marginTop: 8 }]}>
-                <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
-                  <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
-                    รีเซ็ต</Text>
-                </View>
-                <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset, { backgroundColor: '#0A55A6' }]}>
-                  <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#fff' }]}>
-                    เสร็จสิ้น</Text>
+                <View style={[stylesMain.FlexRow, { height: 70 }]}>
+                  <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
+                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
+                      รีเซ็ต</Text>
+                  </View>
+                  <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset, { backgroundColor: '#0A55A6' }]}>
+                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#fff' }]}>
+                      เสร็จสิ้น</Text>
+                  </View>
                 </View>
               </View>
             </View>

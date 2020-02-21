@@ -185,7 +185,6 @@ export default StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderColor: '#ECECEC',
     borderWidth: 1,
-    marginTop: 10,
     flexDirection: 'row',
     justifyContent: 'space-around',
   },

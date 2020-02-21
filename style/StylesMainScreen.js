@@ -3,6 +3,36 @@ export const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
   ///***------------------------------------------------------------------------------------------------------***///
+  animatedView: {
+    width,
+    elevation: 2,
+    position: "absolute",
+    bottom: 0,
+    padding: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  animatedViewSub: {
+    width: 150,
+    borderRadius: 20,
+    backgroundColor: "#E4E4E4",
+    padding: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  exitTitleText: {
+    textAlign: "center",
+    color: "#111111",
+    marginRight: 10,
+  },
+  exitText: {
+    color: "#e5933a",
+    paddingHorizontal: 10,
+    paddingVertical: 3
+  },
+  //-----------------------------
   BoxProductWarp: {
     width,
     marginTop: 4,
@@ -371,6 +401,7 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     borderTopWidth: 1,
     marginTop: 10,
+    paddingBottom: 4,
   },
   FrameBackground3: {
     width,

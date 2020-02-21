@@ -17,6 +17,7 @@ import stylesFont from '../style/stylesFont';
 import stylesLogin from '../style/stylesLoginScreen';
 import stylesMain from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+import { ExitAppModule } from './MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -34,6 +35,7 @@ export default class Register_OTPScreen extends Component {
           <Login navigation={this.props.navigation} />
           <Register />
         </ScrollView>
+        <ExitAppModule />
       </SafeAreaView>
     );
   }
@@ -292,7 +294,7 @@ export class Login extends Component {
       <Form
         ref="form"
         onSubmit={this.getData}
-     >
+      >
         <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
           อีเมล</Text>
         <TextValidator

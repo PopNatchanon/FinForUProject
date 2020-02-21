@@ -4,15 +4,11 @@ import {
     Animated, Dimensions, ImageBackground, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
+import * as Animatable from 'react-native-animatable';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
-import NumberFormat from 'react-number-format';
 ///----------------------------------------------------------------------------------------------->>>> Icon
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import IconEntypo from 'react-native-vector-icons/Entypo';
-import IconFeather from 'react-native-vector-icons/Feather';
-import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
@@ -30,46 +26,75 @@ export default class StoreScreen extends Component {
             dataService: [],
             activeSlide: 0,
             selectedIndex: 0,
+            selectedIndex2: 0,
             scrollY: new Animated.Value(0)
         };
         this.getData = this.getData.bind(this)
         this.getSelectedIndex = this.getSelectedIndex.bind(this);
+        this.getSelectedIndex2 = this.getSelectedIndex2.bind(this);
     }
     getSelectedIndex(selectedIndex) {
         this.setState({ selectedIndex })
+    }
+    getSelectedIndex2(selectedIndex2) {
+        this.setState({ selectedIndex2 })
     }
     getData(dataService) {
         this.setState({ dataService })
     }
     ViewSide(selectedIndex, item) {
+        const { selectedIndex2 } = this.state
         const { navigation } = this.props;
         switch (selectedIndex) {
             case 0:
-                return (
-                    <>
-                        <Banner navigation={navigation} item={item} />
-                        <TicketLine />
-                        <DealTop navigation={navigation} />
-                        <NewProduct navigation={navigation} />
-                        <BannerBar_ONE />
-                        <PopularProduct navigation={navigation} />
-                    </>
-                );
+                return ([
+                    <Banner navigation={navigation} item={item} />,
+                    <TicketLine />,
+                    <DealTop navigation={navigation} />,
+                    <NewProduct navigation={navigation} />,
+                    <BannerBar_ONE />,
+                    <PopularProduct navigation={navigation} />
+                ]);
             case 1:
-                return (
-                    <>
-                        <Banner navigation={navigation} item={item} />
-                        <SubMenu />
-                    </>
-                );
+                return ([
+                    <Banner navigation={navigation} item={item} />,
+                    <SubMenu getSelectedIndex2={this.getSelectedIndex2} />,
+                    this.ViewSubSide(selectedIndex2)
+                ]);
             case 2:
-                return (
-                    <>
-                        <Banner navigation={navigation} item={item} />
-                        <BoxProduct4 navigation={navigation} />
-                    </>
-                );
+                return ([
+
+                    <Banner navigation={navigation} item={item} />,
+                    <BoxProduct4 navigation={navigation} />
+                ]);
             default:
+        }
+    }
+    ViewSubSide(selectedIndex2) {
+        if (selectedIndex2 == 0) {
+            return (
+                <View>
+                    <ShowProduct noTitle navigation={this.props.navigation} />
+                </View>
+            )
+        } else if (selectedIndex2 == 1) {
+            return (
+                <View>
+                    <ShowProduct noTitle navigation={this.props.navigation} />
+                </View>
+            )
+        } else if (selectedIndex2 == 2) {
+            return (
+                <View>
+                    <ShowProduct noTitle navigation={this.props.navigation} />
+                </View>
+            )
+        } else if (selectedIndex2 == 3) {
+            return (
+                <View>
+                    <ShowProduct noTitle navigation={this.props.navigation} />
+                </View>
+            )
         }
     }
     render() {
@@ -117,23 +142,7 @@ export default class StoreScreen extends Component {
             outputRange: ['#fff', '#111'],
             extrapolate: 'clamp',
         })
-        const wheight = maxheight * 3.5
-        const AnimatedHeadA = this.state.scrollY.interpolate({
-            inputRange: [wheight, wheight],
-            outputRange: [50, 95],
-            extrapolate: 'clamp',
-        })
-        const AnimatedHeadB = this.state.scrollY.interpolate({
-            inputRange: [wheight, wheight],
-            outputRange: [-50, -80],
-            extrapolate: 'clamp',
-        })
-        const AnimatedMenuopacityA = this.state.scrollY.interpolate({
-            inputRange: [wheight, wheight],
-            outputRange: [0, 1],
-            extrapolate: 'clamp',
-        })
-        console.log(this.state.scrollY)
+        // const wheight = maxheight * 3.5
         return (
             <View style={[stylesMain.BackgroundAreaView, { height: '100%', }]}>
                 {
@@ -141,7 +150,7 @@ export default class StoreScreen extends Component {
                         <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} /> :
                         null
                 }
-                <Animated.View style={{
+                <Animatable.View style={{
                     position: 'absolute',
                     top: 0,
                     left: 0,
@@ -155,8 +164,8 @@ export default class StoreScreen extends Component {
                             style={stylesStore.StoreHeadImage}
                         />
                     </View>
-                </Animated.View>
-                <Animated.View style={{ height: 50 }}>
+                </Animatable.View>
+                <Animatable.View style={{ height: 50 }}>
                     <View style={{
                         position: 'relative',
                         top: 0,
@@ -167,27 +176,28 @@ export default class StoreScreen extends Component {
                             ABGColor={AnimatedHeadbg} ABDColor={AnimatedHeadbd} AIColor={AnimatedHeadi}
                         />
                     </View>
-                </Animated.View>
+                </Animatable.View>
                 <ScrollView
                     scrollEventThrottle={8}
+                    stickyHeaderIndices={[2, selectedIndex == 1 ? 4 : null]}
                     onScroll={
                         Animated.event([{
                             nativeEvent: { contentOffset: { y: this.state.scrollY } }
                         }])
                     }
                 >
-                    <Animated.View style={{
+                    <Animatable.View style={{
                         marginTop: -50,
                         opacity: AnimatedHeadopacity,
                     }}>
                         <StoreHead navigation={navigation} item={s_item} />
-                    </Animated.View>
-                    <Animated.View style={{
+                    </Animatable.View>
+                    <Animatable.View style={{
                         opacity: AnimatedDetailsopacity,
                         height: 120,
                     }}>
                         <StoreHeadDetails navigation={navigation} item={s_item} />
-                    </Animated.View>
+                    </Animatable.View>
                     <Menubar navigation={navigation} item={s_item} getSelectedIndex={this.getSelectedIndex} />
                     {this.ViewSide(selectedIndex, s_item)}
                 </ScrollView>
@@ -268,7 +278,7 @@ export class StoreHeadDetails extends Component {
                 id: item.id_store
             };
             return (
-                <View style={stylesStore.StoreHeadDetails} key={index}>
+                <View style={[stylesStore.StoreHeadDetails, { paddingTop: 0, marginBottom: 10, }]} key={index}>
                     {
                         item !== undefined ?
                             <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} /> :
@@ -454,7 +464,7 @@ export class Banner extends Component {
             type: 'slide'
         };
         return (
-            <View>
+            <View style={{ marginVertical: 10 }}>
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
                 {this.getDetail()}
             </View>
@@ -470,7 +480,7 @@ export class TicketLine extends Component {
     }
     getTicketLine() {
         return (
-            <View style={[stylesMain.FrameBackground]}>
+            <View style={[stylesMain.FrameBackground, { marginTop: 0 }]}>
                 <ScrollView horizontal>
                     <GetCoupon flexRow useCoupon codeList={'available'} colorCoupon='#86CFFF' timeOut={'31-01-2020'} couponText={'10%'} textDetail={'รับเงินคืน 10% Coins'} />
                     <GetCoupon flexRow useCoupon codeList={'available'} colorCoupon='#86CFFF' timeOut={'31-01-2020'} couponText={'25%'} textDetail={'รับเงินคืน 25% Coins'} />
@@ -698,39 +708,11 @@ export class SubMenu extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedIndex: 0
         }
         this.updateIndex = this.updateIndex.bind(this)
     }
-    updateIndex(selectedIndex) {
-        this.setState({ selectedIndex })
-    }
-    ViewSide(selectedIndex) {
-        if (selectedIndex == 0) {
-            return (
-                <View>
-                    <ShowProduct noTitle navigation={this.props.navigation} />
-                </View>
-            )
-        } else if (selectedIndex == 1) {
-            return (
-                <View>
-                    <ShowProduct noTitle navigation={this.props.navigation} />
-                </View>
-            )
-        } else if (selectedIndex == 2) {
-            return (
-                <View>
-                    <ShowProduct noTitle navigation={this.props.navigation} />
-                </View>
-            )
-        } else if (selectedIndex == 3) {
-            return (
-                <View>
-                    <ShowProduct noTitle navigation={this.props.navigation} />
-                </View>
-            )
-        }
+    updateIndex(selectedIndex2) {
+        this.props.getSelectedIndex2(selectedIndex2)
     }
     render() {
         const item = [{
@@ -742,10 +724,9 @@ export class SubMenu extends Component {
         }, {
             name: 'ราคา'
         }]
-        const { selectedIndex } = this.state
         return (
             <View>
-                <View style={stylesStore.SubMenu}>
+                <View style={[stylesStore.SubMenu, { height: 45, paddingTop: 2, }]}>
                     <TabBar
                         sendData={this.updateIndex}
                         item={item}
@@ -755,7 +736,6 @@ export class SubMenu extends Component {
                         type='tag'
                     />
                 </View>
-                {this.ViewSide(selectedIndex)}
             </View>
         )
     }
@@ -815,7 +795,7 @@ export class BoxProduct4 extends Component {
             type: 'storefeed'
         };
         return (
-            <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView]}>
+            <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, { marginTop: 0, marginBottom: 10 }]}>
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
                 <View style={stylesMain.BoxProductWarp}>
                     {

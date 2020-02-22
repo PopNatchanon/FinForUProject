@@ -1196,7 +1196,7 @@ export class CategoryProduct extends Component {
                                 </View>
                                 <CategoryProductSubStore navigation={this.props.navigation} id_type={item.id_type} />
                             </View> :
-                            <View style={{ marginBottom: 10, }}>
+                            <View style={{ marginBottom: 0, }}>
                                 <CategoryProductSubPromotion navigation={this.props.navigation} id_type={item.id_type} />
                             </View>
                     }
@@ -1261,8 +1261,7 @@ export class CategoryProductSubStore extends Component {
     _renderItem = ({ item, index }) => {
         var dataMySQL = [finip, item.image_path, item.image].join('/');
         return (
-            <TouchableOpacity activeOpacity={1} key={index}
-            // onPress={() => navigation.navigate('StoreScreen', { id_item: item.id_store })}
+            <TouchableOpacity activeOpacity={1} key={index}  
             >
                 <View style={stylesMain.CategoryProductStoreBox}>
                     <FastImage
@@ -1290,22 +1289,21 @@ export class CategoryProductSubStore extends Component {
                     ref={c => this.activeSlide = c}
                     data={dataService.banner}
                     renderItem={this._renderItem}
-                    sliderWidth={width}
-                    itemWidth={105}
+                    sliderWidth={width * 1}
+                    itemWidth={width * 0.50}
                     sliderHeight={90}
                     itemHeight={85}
                     onSnapToItem={(index) => this.setState({ activeSlide: index })}
-                    enableMomentum={true}
                     contentContainerCustomStyle={{ paddingVertical: 5 }}
                     activeSlideAlignment={'start'}
-                    activeAnimationType={'spring'}
-                    vertical
                     autoplay
-                    activeAnimationOptions={{
-                        friction: 4,
-                        tension: 40
-                    }}
-                /> :
+                    autoplayDelay={5000}
+                    autoplayInterval={5000}
+                    inactiveSlideScale={1}
+                    inactiveSlideOpacity={1}
+                    loop
+                />
+                :
                 null
         ]);
     }
@@ -1331,7 +1329,7 @@ export class CategoryProductSubPromotion extends Component {
         const { dataService } = this.state
         return dataService.banner ?
             dataService.banner.map((item, index) => {
-                var dataMySQL = [finip, item.image_path, item.image].join('/');
+                var dataMySQL = [finip, item.path_mobile, item.image].join('/');
                 return (
                     <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, }]} key={index}>
                         <FastImage
@@ -1349,7 +1347,7 @@ export class CategoryProductSubPromotion extends Component {
         const { dataService2 } = this.state
         return dataService2.banner ?
             dataService2.banner.map((item, index) => {
-                var dataMySQL = [finip, item.image_path, item.image].join('/');
+                var dataMySQL = [finip, item.path_mobile, item.image].join('/');
                 return (
                     <View style={[stylesMain.BoxStore1Box3, { borderWidth: 0, }]} key={index}>
                         <FastImage
@@ -1382,7 +1380,7 @@ export class CategoryProductSubPromotion extends Component {
                 {this.dataCategoryProductSubPromotion2()}
 
             </View>,
-                <CategoryProductSubStore navigation={this.props.navigation} id_type={id_type} />
+            <CategoryProductSubStore navigation={this.props.navigation} id_type={id_type} />
         ]);
     }
 }

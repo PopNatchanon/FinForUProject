@@ -310,7 +310,7 @@ export class Edit_Profile extends Component {
           </View>
         </View>
         <TouchableOpacity>
-          <View style={{ height: 40, backgroundColor: '#0A55A6', width: 350, borderRadius: 5, alignItems: 'center', justifyContent: 'center', marginBottom: 10, }}>
+          <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
           </View>
         </TouchableOpacity>

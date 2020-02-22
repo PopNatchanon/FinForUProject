@@ -1,28 +1,27 @@
+///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-    ImageBackground,
-    View,
-    ScrollView,
-    Text,
-    TextInput,
-    SafeAreaView,
-    TouchableOpacity,
-    Dimensions,
+    Dimensions, SafeAreaView, ScrollView, ImageBackground, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
-import stylesMain from '../../style/StylesMainScreen';
-import stylesFont from '../../style/stylesFont';
+///----------------------------------------------------------------------------------------------->>>> Import
+export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
+///----------------------------------------------------------------------------------------------->>>> Icon
+import IconAntDesign from 'react-native-vector-icons/AntDesign';
+import IconEntypo from 'react-native-vector-icons/Entypo';
+import IconFeather from 'react-native-vector-icons/Feather';
 import IconsFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import IconFeather from 'react-native-vector-icons/Feather';
-import IconEntypo from 'react-native-vector-icons/Entypo';
-import styles from '../../style/StylesProfileScreen'
+///----------------------------------------------------------------------------------------------->>>> styleStoreMe
+import stylesFont from '../../style/stylesFont';
+import stylesMain from '../../style/StylesMainScreen';
+import stylesProfile from '../../style/StylesProfileScreen';
+///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+///----------------------------------------------------------------------------------------------->>>> Ip.
 import { ip } from '../../navigator/IpConfig';
+///----------------------------------------------------------------------------------------------->>>> Main
 import { AppBar1 } from '../MainScreen';
-
-export const { width, height } = Dimensions.get('window');
 
 export default class StoreMeScreen extends Component {
     constructor(props) {
@@ -30,7 +29,7 @@ export default class StoreMeScreen extends Component {
     }
     render() {
         return (
-            <SafeAreaView style={styles.SafeAreaView}>
+            <SafeAreaView style={stylesMain.SafeAreaView}>
                 <AppBar1 backArrow navigation={this.props.navigation} settingBar chatBar titleHead='ร้านของฉัน' />
                 <ScrollView>
                     <View>
@@ -52,29 +51,26 @@ export class Headbar extends Component {
         super(props)
     }
     render() {
-
         return (
             <View>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreMe_Profile_Edit')}>
                     <ImageBackground
                         source={require('../../icon/bgprofile.jpg')}
-                        style={styles.HeadbarImage}
+                        style={stylesProfile.HeadbarImage}
                     />
-                    <View style={styles.HeadbarA}>
-                        <View style={styles.HeadbarBox1}>
-                            <View style={{ flexDirection: 'row' }}>
+                    <View style={stylesProfile.HeadbarA}>
+                        <View style={stylesProfile.HeadbarBox1}>
+                            <View style={[stylesMain.FlexRow,{marginVertical:15}]}>
                                 <View>
                                     <FastImage
-                                        style={styles.HeadbarBoxImage}
+                                        style={stylesProfile.HeadbarBoxImage}
                                     />
                                 </View>
-                                <View style={{ marginLeft: 15, marginTop: '20%' }}>
-                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>
-                                        ppooo
-                                </Text>
-                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>
-                                        ผู้ติดตาม 20.2 พัน | กำลังติดตาม 2
-                                </Text>
+                                <View style={{ marginLeft: 15, marginTop: '10%' }}>
+                                    <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#FFFFFF' }]}>
+                                        ppooo</Text>
+                                    <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: '#FFFFFF' }]}>
+                                        ผู้ติดตาม 20.2 พัน | กำลังติดตาม 2</Text>
                                 </View>
                             </View>
 
@@ -94,8 +90,8 @@ export class Menubar extends Component {
     }
     render() {
         return (
-            <View>
-                <View style={{ width: '100%', marginTop: 45, flexDirection: 'row', justifyContent: 'space-between', borderColor: '#E9E9E9', borderWidth: 1, padding: 5 }}>
+            <View style={stylesProfile.Menu}>
+                <View style={[stylesProfile.Menubar,{height:35,}]}>
                     <View style={stylesMain.FlexRow}>
                         <IconsFontAwesome5 RightItem name="store" size={20} color='#0A55A6' />
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,]}> การขายของฉัน </Text>
@@ -122,26 +118,26 @@ export class MenubarSub extends Component {
     }
     render() {
         return (
-            <View style={styles.MenubarSub}>
-                <View style={styles.MenubarSubLine1}>
+            <View style={stylesProfile.MenubarSub}>
+                <View style={stylesProfile.MenubarSubLine1}>
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Topic', { selectedIndex: 1 })}>
                         <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
                             <FastImage
                                 source={require('../../icon/truck-facing-right.png')}
-                                style={styles.MenubarSubLine1Image}
+                                style={stylesProfile.MenubarSubLine1Image}
                             />
-                            <Text style={[styles.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                            <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                 ที่ต้องจัดส่ง
                         </Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Cancel')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Return', { selectedIndex: 3 })}>
                         <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
                             <FastImage
                                 source={require('../../icon/box.png')}
-                                style={styles.MenubarSubLine1Image}
+                                style={stylesProfile.MenubarSubLine1Image}
                             />
-                            <Text style={[styles.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                            <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                 ยกเลิก
                         </Text>
                         </View>
@@ -150,9 +146,9 @@ export class MenubarSub extends Component {
                         <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
                             <FastImage
                                 source={require('../../icon/repeat.png')}
-                                style={styles.MenubarSubLine1Image}
+                                style={stylesProfile.MenubarSubLine1Image}
                             />
-                            <Text style={[styles.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                            <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                 คืนสินค้า/คืนเงิน
                         </Text>
                         </View>
@@ -160,7 +156,7 @@ export class MenubarSub extends Component {
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Return', { selectedIndex: 2 })}>
                         <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
                             <IconFeather name='more-horizontal' size={50} />
-                            <Text style={[styles.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                            <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                 คลัง
                         </Text>
                         </View>
@@ -178,87 +174,87 @@ export class ListMenu extends Component {
     render() {
         return (
             <View>
-                <View style={styles.ListMenu}>
+                <View style={stylesProfile.ListMenu}>
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Up_Product')} >
-                        <View style={styles.ListMenuList}>
-                            <View style={styles.ListMenuListSub}>
-                                <IconAntDesign RightItem name="plussquareo" size={35} color='#0A55A6' style={styles.ListMenuListSubIcon} />
+                        <View style={stylesProfile.ListMenuList}>
+                            <View style={stylesProfile.ListMenuListSub}>
+                                <IconAntDesign RightItem name="plussquareo" size={35} color='#0A55A6' style={stylesProfile.ListMenuListSubIcon} />
 
-                                <Text style={[styles.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                                <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     เพิ่มสินค้า
                             </Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} color='#0A55A6' />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
 
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Topic', { selectedIndex: 0 })} >
-                        <View style={styles.ListMenuList}>
-                            <View style={styles.ListMenuListSub}>
-                                <IconMaterialIcons RightItem name="access-time" color='#D0B216' size={35} style={styles.ListMenuListSubIcon} />
-                                <Text style={[styles.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                        <View style={stylesProfile.ListMenuList}>
+                            <View style={stylesProfile.ListMenuListSub}>
+                                <IconMaterialIcons RightItem name="access-time" color='#D0B216' size={35} style={stylesProfile.ListMenuListSubIcon} />
+                                <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     ออเดอร์ล่าสุด
                             </Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} color='#0A55A6' />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
 
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Topic', { selectedIndex: 2 })} >
-                        <View style={styles.ListMenuList}>
-                            <View style={styles.ListMenuListSub}>
-                                <IconMaterialCommunityIcons name="car-estate" size={35} color='#B6B6B4' style={styles.ListMenuListSubIcon} />
-                                <Text style={[styles.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                        <View style={stylesProfile.ListMenuList}>
+                            <View style={stylesProfile.ListMenuListSub}>
+                                <IconMaterialCommunityIcons name="car-estate" size={35} color='#B6B6B4' style={stylesProfile.ListMenuListSubIcon} />
+                                <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     การจัดส่งของฉัน
                             </Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} color='#0A55A6' />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
 
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Follow_storeScreen')}>
-                        <View style={styles.ListMenuList}>
-                            <View style={styles.ListMenuListSub}>
-                                <IconAntDesign RightItem name="linechart" size={30} color='#0A55A6' style={styles.ListMenuListSubIcon} />
-                                <Text style={[styles.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                        <View style={stylesProfile.ListMenuList}>
+                            <View style={stylesProfile.ListMenuListSub}>
+                                <IconAntDesign RightItem name="linechart" size={30} color='#0A55A6' style={stylesProfile.ListMenuListSubIcon} />
+                                <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     สถิติร้านค้าของฉัน
                             </Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} color='#0A55A6' />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
 
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Review_meScreen')}>
-                        <View style={styles.ListMenuList}>
-                            <View style={styles.ListMenuListSub}>
-                                <IconMaterialCommunityIcons RightItem name="star" size={35} color='#EAD295' style={styles.ListMenuListSubIcon} />
-                                <Text style={[styles.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                        <View style={stylesProfile.ListMenuList}>
+                            <View style={stylesProfile.ListMenuListSub}>
+                                <IconMaterialCommunityIcons RightItem name="star" size={35} color='#EAD295' style={stylesProfile.ListMenuListSubIcon} />
+                                <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     คะแนนของฉัน
                             </Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} color='#0A55A6' />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 5 })} >
-                        <View style={styles.ListMenuList}>
-                            <View style={styles.ListMenuListSub}>
-                                <IconFeather RightItem name="help-circle" size={35} color='#00A3FF' style={styles.ListMenuListSubIcon} />
-                                <Text style={[styles.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                        <View style={stylesProfile.ListMenuList}>
+                            <View style={stylesProfile.ListMenuListSub}>
+                                <IconFeather RightItem name="help-circle" size={35} color='#00A3FF' style={stylesProfile.ListMenuListSubIcon} />
+                                <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     ช่วยเหลือ
                             </Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} color='#0A55A6' />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Help_meScreen')}>
-                        <View style={styles.ListMenuList}>
-                            <View style={styles.ListMenuListSub}>
-                                <IconsFontAwesome5 RightItem name="store-alt" size={30} color='#06BBBB' style={styles.ListMenuListSubIcon} />
-                                <Text style={[styles.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                        <View style={stylesProfile.ListMenuList}>
+                            <View style={stylesProfile.ListMenuListSub}>
+                                <IconsFontAwesome5 RightItem name="store-alt" size={30} color='#06BBBB' style={stylesProfile.ListMenuListSubIcon} />
+                                <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     ร้านค้าของฉัน
                             </Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={styles.ListMenuListIcon} size={35} color='#0A55A6' />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -277,7 +273,7 @@ export class StoreMe_Product extends Component {
 
     render() {
         return (
-            <View>
+            <View style={stylesMain.FrameBackground}>
                 <View style={{ padding: 10 }}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>รายการสินค้าของฉัน</Text>
                 </View>

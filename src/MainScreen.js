@@ -9,6 +9,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
+import SplashScreen from 'react-native-splash-screen'
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -21,7 +22,7 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { GetServices, ProductBox, Toolbar } from './tools/Tools';
+import { GetServices, ProductBox, Toolbar, LoadingScreen } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -30,8 +31,14 @@ export default class MainScreen extends Component {
         super(props);
         this.state = {
             dataService: [],
+            IsLoading: 0,
         };
         this.getData = this.getData.bind(this)
+    }
+    componentDidMount() {
+        // do stuff while splash screen is shown
+        // After having done stuff (such as async tasks) hide the splash screen
+        SplashScreen.hide();
     }
     getData(dataService) {
         this.setState({ dataService })
@@ -42,6 +49,7 @@ export default class MainScreen extends Component {
         const { navigation } = this.props
         return (
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
+                {/* <LoadingScreen /> */}
                 <GetServices uriPointer={uri} getDataSource={this.getData} />
                 <AppBar navigation={navigation} />
                 <ScrollView>
@@ -73,7 +81,7 @@ export default class MainScreen extends Component {
                     <TodayProduct navigation={navigation} loadData={dataService.for_you2} />
                 </ScrollView>
                 <Toolbar navigation={navigation} />
-                <ExitAppModule />
+                <ExitAppModule navigation={navigation} />
             </SafeAreaView>
         );
     }
@@ -124,11 +132,20 @@ export class ExitAppModule extends Component {
                 this.setState({ backClickCount: 0 });
             });
         });
-
     }
     handleBackButton = () => {
-        this.state.backClickCount == 1 ? BackHandler.exitApp() : this._spring();
-        return true;
+        const { navigation } = this.props
+        var routeProps = navigation.dangerouslyGetParent().state.routes.length
+        console.log(routeProps)
+        return routeProps == 1 ? ([
+            console.log('Exit'),
+            this.state.backClickCount == 1 ? BackHandler.exitApp() : this._spring(),
+            true
+        ]) : ([
+            console.log('Go Back'),
+            navigation.goBack(),
+            true
+        ])
     };
     render() {
         return (
@@ -441,8 +458,6 @@ export class Slide extends Component {
                             <TouchableOpacity onPress={() => { this.activeSlide.snapToPrev() }}>
                                 <IconIonicons name='ios-arrow-forward' size={30} style={{ color: '#0A55A6', backgroundColor: '#FFFFFF', height: 40, width: 40, borderRadius: 30, borderWidth: 2, borderColor: '#E4E4E4', textAlign: 'center', textAlignVertical: 'center', }} />
                             </TouchableOpacity>
-
-
                     }
                 </View> */}
             </View >
@@ -1261,7 +1276,7 @@ export class CategoryProductSubStore extends Component {
     _renderItem = ({ item, index }) => {
         var dataMySQL = [finip, item.image_path, item.image].join('/');
         return (
-            <TouchableOpacity activeOpacity={1} key={index}
+            <TouchableOpacity activeOpacity={1} key={['A', index].join('.')}
             // onPress={() => navigation.navigate('StoreScreen', { id_item: item.id_store })}
             >
                 <View style={stylesMain.CategoryProductStoreBox}>
@@ -1283,31 +1298,31 @@ export class CategoryProductSubStore extends Component {
             promotion: 'shop',
             id_type: id_type,
         };
-        return ([
-            <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />,
-            dataService.banner ?
-                <Carousel
-                    ref={c => this.activeSlide = c}
-                    data={dataService.banner}
-                    renderItem={this._renderItem}
-                    sliderWidth={width}
-                    itemWidth={105}
-                    sliderHeight={90}
-                    itemHeight={85}
-                    onSnapToItem={(index) => this.setState({ activeSlide: index })}
-                    enableMomentum={true}
-                    contentContainerCustomStyle={{ paddingVertical: 5 }}
-                    activeSlideAlignment={'start'}
-                    activeAnimationType={'spring'}
-                    vertical
-                    autoplay
-                    activeAnimationOptions={{
-                        friction: 4,
-                        tension: 40
-                    }}
-                /> :
-                null
-        ]);
+        return (
+            <>
+                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+                {
+                    dataService.banner ?
+                        <Carousel
+                            ref={c => this.activeSlide = c}
+                            data={dataService.banner}
+                            renderItem={this._renderItem}
+                            sliderWidth={width}
+                            itemWidth={width * 0.49}
+                            sliderHeight={90}
+                            itemHeight={85}
+                            onSnapToItem={(index) => this.setState({ activeSlide: index })}
+                            activeSlideAlignment={'start'}
+                            inactiveSlideScale={1}
+                            inactiveSlideOpacity={1}
+                            autoplay
+                            autoplayDelay={3000}
+                            loop
+                        /> :
+                        null
+                }
+            </>
+        );
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> CategoryProductSubPromotion
@@ -1331,9 +1346,9 @@ export class CategoryProductSubPromotion extends Component {
         const { dataService } = this.state
         return dataService.banner ?
             dataService.banner.map((item, index) => {
-                var dataMySQL = [finip, item.image_path, item.image].join('/');
+                var dataMySQL = [finip, item.path_mobile, item.image].join('/');
                 return (
-                    <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, }]} key={index}>
+                    <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, }]} key={['B', index].join('.')}>
                         <FastImage
                             source={{
                                 uri: dataMySQL,
@@ -1349,9 +1364,9 @@ export class CategoryProductSubPromotion extends Component {
         const { dataService2 } = this.state
         return dataService2.banner ?
             dataService2.banner.map((item, index) => {
-                var dataMySQL = [finip, item.image_path, item.image].join('/');
+                var dataMySQL = [finip, item.path_mobile, item.image].join('/');
                 return (
-                    <View style={[stylesMain.BoxStore1Box3, { borderWidth: 0, }]} key={index}>
+                    <View style={[stylesMain.BoxStore1Box3, { borderWidth: 0, }]} key={['C', index].join('.')}>
                         <FastImage
                             source={{
                                 uri: dataMySQL,
@@ -1374,16 +1389,17 @@ export class CategoryProductSubPromotion extends Component {
             promotion: 'promotions_2',
             id_type: id_type,
         };
-        return ([
-            <View style={[stylesMain.FlexRow, { width: '100%' }]}>
-                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
-                <GetServices uriPointer={uri} dataBody={dataBody2} getDataSource={this.getData2} />
-                {this.dataCategoryProductSubPromotion()}
-                {this.dataCategoryProductSubPromotion2()}
-
-            </View>,
+        return (
+            <>
+                <View style={[stylesMain.FlexRow, { width: '100%' }]}>
+                    <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+                    <GetServices uriPointer={uri} dataBody={dataBody2} getDataSource={this.getData2} />
+                    {this.dataCategoryProductSubPromotion()}
+                    {this.dataCategoryProductSubPromotion2()}
+                </View>
                 <CategoryProductSubStore navigation={this.props.navigation} id_type={id_type} />
-        ]);
+            </>
+        );
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Second_product

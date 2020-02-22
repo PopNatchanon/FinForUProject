@@ -23,7 +23,7 @@ import stylesDetail from '../style/StylesDetailScreen'
 import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar } from './MainScreen';
+import { AppBar, ExitAppModule } from './MainScreen';
 import { GetServices, ProductBox } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
@@ -117,6 +117,7 @@ export default class DetailScreen extends Component {
           <Might_like dataService={dataService} navigation={navigation} />
         </ScrollView>
         <Buy_bar navigation={navigation} />
+        <ExitAppModule navigation={navigation} />
       </SafeAreaView>
     );
   }

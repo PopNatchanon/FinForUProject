@@ -16,7 +16,7 @@ import stylesCart from '../style/stylesCartScreen';
 import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1 } from './MainScreen';
+import { AppBar1, ExitAppModule } from './MainScreen';
 import { PopularProduct } from './StoreScreen'
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
@@ -39,6 +39,7 @@ export default class CartScreen extends Component {
     }
     render() {
         const { itemCount, itemData } = this.state
+        const { navigation } = this.props;
         return (
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                 <AppBar1 navigation={this.props.navigation} titleHead='รถเข็น' chatBar backArrow />
@@ -48,6 +49,7 @@ export default class CartScreen extends Component {
                     <PopularProduct navigation={this.props.navigation} headText={'คุณอาจชอบสิ่งนี้'} />
                 </ScrollView>
                 <Buy_bar sendData={this.getData} navigation={this.props.navigation} itemCount={itemCount} />
+                <ExitAppModule navigation={navigation} />
             </SafeAreaView>
         );
     }
@@ -65,7 +67,6 @@ export class Product_Cart extends Component {
             <View>
                 {
                     storecount > 0 ?
-
                         <CartProduct itemData={this.props.itemData} sendData={this.props.sendText} /> :
                         <View style={stylesCart.Product_Cart}>
                             <View style={[stylesMain.ItemCenter, { height: 200, width: '100%' }]}>

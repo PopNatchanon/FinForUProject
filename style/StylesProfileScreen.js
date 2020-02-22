@@ -1,9 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
-
 export const { width, height } = Dimensions.get('window');
-
 export default StyleSheet.create({
-
     Appbar: {
         backgroundColor: '#0A55A6',
         height: 50,

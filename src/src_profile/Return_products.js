@@ -14,7 +14,7 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1 } from '../MainScreen';
+import { AppBar1, ExitAppModule } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -48,6 +48,7 @@ export default class Return_products extends Component {
         <ScrollView>
           {this.PathList()}
         </ScrollView>
+        <ExitAppModule navigation={this.props.navigation} />
       </SafeAreaView>
     );
   }
@@ -99,7 +100,7 @@ export class Return extends Component {
       <View style={stylesMain.FrameBackground}>
         <View style={stylesProfileTopic.Return}>
           <View style={stylesMain.FlexRow}>
-            <View style={{ height: 100, width: 100, borderColor: '#F3F3F3', borderWidth: 1 ,margin:10}}>
+            <View style={{ height: 100, width: 100, borderColor: '#F3F3F3', borderWidth: 1, margin: 10 }}>
               <FastImage style={stylesMain.BoxProduct1Image}
                 source={{
                   uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',

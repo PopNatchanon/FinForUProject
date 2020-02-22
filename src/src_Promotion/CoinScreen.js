@@ -11,7 +11,7 @@ import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, TodayProduct } from '../MainScreen';
+import { AppBar1, TodayProduct, ExitAppModule } from '../MainScreen';
 import { Button_Bar, Slide } from './DealScreen';
 import { CoinCollect } from '../ProfileScreen';
 import { GetServices, ProductBox } from '../tools/Tools';
@@ -56,6 +56,7 @@ export default class CoinScreen extends Component {
           }
         </ScrollView>
         <Button_Bar navigation={this.props.navigation} />
+        <ExitAppModule navigation={this.props.navigation} />
       </SafeAreaView>
     );
   }

@@ -9,11 +9,12 @@ export const { width, height } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesMain from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1 } from './MainScreen';
+import { AppBar1, ExitAppModule } from './MainScreen';
 import { FlashSale_Product } from './FlashSaleScreen';
 import { Slide } from './src_Promotion/DealScreen';
-import { TabBar } from './tools/Tools';
+import { GetServices, TabBar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
+import { finip, ip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class HighlightScreen extends Component {
   constructor(props) {
@@ -21,7 +22,6 @@ export default class HighlightScreen extends Component {
     this.state = {
     };
   }
-
   render() {
     const { navigation } = this.props
     return (
@@ -37,6 +37,7 @@ export default class HighlightScreen extends Component {
           <FlashSale_Product navigation={navigation} />
           <FlashSale_Product navigation={navigation} />
         </ScrollView>
+        <ExitAppModule navigation={navigation} />
       </SafeAreaView>
     );
   }
@@ -47,50 +48,31 @@ export class Button_Bar extends Component {
     super(props);
     this.state = {
       selectedIndex: 0,
+      dataService: [],
     };
     this.updateIndex = this.updateIndex.bind(this)
+    this.getData = this.getData.bind(this)
+  }
+  getData(dataService) {
+    this.setState({ dataService })
   }
   updateIndex(selectedIndex) {
     this.setState({ selectedIndex })
   }
   render() {
-    const item = [{
-      name: 'ทั้งหมด',
-      subname: ' '
-    }, {
-      name: 'อัญมณีและ..',
-      subname: ' '
-    }, {
-      name: 'ทอง',
-      subname: ' '
-    }, {
-      name: 'เครื่องเงิน',
-      subname: ' '
-    }, {
-      name: 'พระและ..',
-      subname: ' '
-    }, {
-      name: 'นาฬิกา',
-      subname: ' '
-    }, {
-      name: 'กระเป๋า',
-      subname: ' '
-    }, {
-      name: 'บ้านและสวน',
-      subname: ' '
-    }, {
-      name: 'รองเท้า',
-      subname: ' '
-    }, {
-      name: 'สุขภาพและ..',
-      subname: ' '
+    const { dataService } = this.state
+    var uri = finip + '/home/category_mobile';
+    var item2 = [{
+      name: 'ทั้งหมด'
     }]
+    dataService.map((item) => { return item2.push({ name: item.name }) })
     return (
-      <View style={{ width: '100%', height: 40, backgroundColor: '#FFFFFF', }}>
+      <View style={{ width: '100%', height: 40, backgroundColor: '#FFFFFF', borderColor: '#ECECEC', borderWidth: 1, }}>
+        <GetServices uriPointer={uri} getDataSource={this.getData} />
         <ScrollView horizontal>
           <TabBar
             sendData={this.updateIndex}
-            item={item}
+            item={item2}
             noLimit
             // widthBox={98}
             activeColor={'#fff'}

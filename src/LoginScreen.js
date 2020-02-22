@@ -15,6 +15,7 @@ import stylesFont from '../style/stylesFont';
 import stylesLogin from '../style/stylesLoginScreen';
 import stylesMain from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+import { ExitAppModule } from './MainScreen'
 import { GetServices, Toolbar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
@@ -26,6 +27,7 @@ export default class LoginScreen extends Component {
     };
   }
   render() {
+    const { navigation } = this.props
     return (
       <SafeAreaView style={[stylesMain.SafeAreaView]}>
         <ScrollView>
@@ -34,6 +36,7 @@ export default class LoginScreen extends Component {
           <Register navigation={this.props.navigation} />
         </ScrollView>
         <Toolbar navigation={this.props.navigation} />
+        <ExitAppModule navigation={navigation} />
       </SafeAreaView>
     );
   }
@@ -138,7 +141,7 @@ export class Login extends Component {
           <Form
             ref="form"
             onSubmit={this.getData}
-         >
+          >
             <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
               อีเมล</Text>
             <TextValidator
@@ -203,7 +206,7 @@ export class Login extends Component {
               <TouchableOpacity onPress={this.handleSubmit}>
                 <View style={[stylesLogin.Login_Box_Text_B, stylesMain.ItemCenter]}>
                   <Text style={[stylesLogin.Login__Text, stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical]}
-                 >เข้าสู่ระบบ</Text>
+                  >เข้าสู่ระบบ</Text>
                 </View>
               </TouchableOpacity>
             </View>

@@ -13,7 +13,7 @@ import stylesPromotionDeal from '../../../style/stylePromotion-src/styleDealScre
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { Button_Bar } from '../../HighlightScreen';
 import { GetServices, ProductBox, Toolbar } from '../../tools/Tools';
-import { TodayProduct, Slide, AppBar1 } from '../../MainScreen';
+import { TodayProduct, Slide, AppBar1, ExitAppModule } from '../../MainScreen';
 import { Store_Detail } from '../../Recommend_Store';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../../../navigator/IpConfig';
@@ -46,7 +46,7 @@ export default class Deal_Topic extends Component {
                 return (
                     <View>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='ดีลสุด Exclusive' />
-                        <ScrollView>
+                        <ScrollView stickyHeaderIndices={[1]}>
                             <Slide />
                             <Button_Bar navigation={this.props.navigation} />
                             {
@@ -61,7 +61,7 @@ export default class Deal_Topic extends Component {
                 return (
                     <View>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='ร้านค้ามือสองลดราคา' />
-                        <ScrollView>
+                        <ScrollView stickyHeaderIndices={[1]}>
                             <Slide />
                             <Button_Bar />
                             <Store_Detail />
@@ -75,7 +75,7 @@ export default class Deal_Topic extends Component {
                 return (
                     <View>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='สินค้ามือสองลดราคา' />
-                        <ScrollView>
+                        <ScrollView stickyHeaderIndices={[1]}>
                             <Slide />
                             <Button_Bar navigation={this.props.navigation} />
                             {
@@ -90,7 +90,7 @@ export default class Deal_Topic extends Component {
                 return (
                     <View>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='ร้านค้าที่มีดีล' />
-                        <ScrollView>
+                        <ScrollView stickyHeaderIndices={[1]}>
                             <Slide />
                             <Button_Bar />
                             <Store_Detail />
@@ -102,16 +102,16 @@ export default class Deal_Topic extends Component {
                 )
         }
     }
-
     render() {
         var uri = ip + '/mysql/DataServiceMain.php';
         var dataBody = {
-            type: 'sale'
+            type: 'todayproduct'
         };
         return (
             <SafeAreaView style={{ flex: 1 }}>
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
                 {this.PathList()}
+                <ExitAppModule navigation={this.props.navigation} />
             </SafeAreaView>
         );
     }

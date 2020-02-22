@@ -9,7 +9,7 @@ export const { width, height } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../style/stylesFont';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, TodayProduct, } from './MainScreen';
+import { AppBar1, TodayProduct,ExitAppModule } from './MainScreen';
 import { Button_Bar } from '../src/HighlightScreen';
 import { Slide } from './src_Promotion/DealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -21,6 +21,7 @@ export default class Same_StoreScreen extends Component {
         };
     }
     render() {
+        const { navigation } = this.props
         const type_product = this.props.navigation.getParam('type_product')
         var title
         switch (type_product) {
@@ -49,6 +50,7 @@ export default class Same_StoreScreen extends Component {
                     }
                     <TodayProduct noTitle navigation={this.props.navigation} />
                 </ScrollView>
+                <ExitAppModule navigation={navigation} />
             </SafeAreaView>
         );
     }

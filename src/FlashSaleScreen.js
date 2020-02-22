@@ -1,9 +1,10 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-    Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View
+    Animated, Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
+import * as Animatable from 'react-native-animatable';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 ///----------------------------------------------------------------------------------------------->>>> Icon
@@ -14,7 +15,7 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1 } from './MainScreen';
+import { AppBar1, ExitAppModule } from './MainScreen';
 import { Slide } from './src_Promotion/DealScreen';
 import { TabBar, GetServices } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -24,22 +25,47 @@ export default class FlashSaleScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            scrollY: new Animated.Value(0)
         };
     }
     render() {
         const { navigation } = this.props
+        const marginTopFlashsale = this.state.scrollY.interpolate({
+            inputRange: [145, 155],
+            outputRange: [10, 0],
+            extrapolate: 'clamp',
+        })
+        const marginTopTime = this.state.scrollY.interpolate({
+            inputRange: [155, 180],
+            outputRange: [0, -56],
+            extrapolate: 'clamp',
+        })
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
                 <AppBar1 titleHead={'FLASH SALE'} backArrow searchBar chatBar navigation={navigation} />
-                <ScrollView>
+                <ScrollView
+                    stickyHeaderIndices={[1]}
+                    scrollEventThrottle={8}
+                    onScroll={
+                        Animated.event([{
+                            nativeEvent: { contentOffset: { y: this.state.scrollY } }
+                        }])
+                    }
+                >
                     <Slide />
-                    <Time_FlashSale />
+                    <Time_FlashSale marginTopFlashsale={marginTopFlashsale} marginTopTime={marginTopTime} />
+                    <FlashSale_Product navigation={navigation} />
+                    <FlashSale_Product navigation={navigation} />
+                    <FlashSale_Product navigation={navigation} />
+                    <FlashSale_Product navigation={navigation} />
+                    <FlashSale_Product navigation={navigation} />
                     <FlashSale_Product navigation={navigation} />
                     <FlashSale_Product navigation={navigation} />
                     <FlashSale_Product navigation={navigation} />
                     <FlashSale_Product navigation={navigation} />
                     <FlashSale_Product navigation={navigation} />
                 </ScrollView>
+                <ExitAppModule navigation={navigation} />
             </SafeAreaView>
         );
     }
@@ -51,8 +77,10 @@ export class Time_FlashSale extends Component {
         this.state = {
             dataService: [],
             selectedIndex: 0,
+            selectedIndex2: 0,
         }
         this.updateIndex = this.updateIndex.bind(this)
+        this.updateIndex2 = this.updateIndex2.bind(this)
         this.getData = this.getData.bind(this)
     }
     getData(dataService) {
@@ -61,8 +89,12 @@ export class Time_FlashSale extends Component {
     updateIndex(selectedIndex) {
         this.setState({ selectedIndex })
     }
+    updateIndex2(selectedIndex2) {
+        this.setState({ selectedIndex2 })
+    }
     render() {
         const { dataService } = this.state
+        const { marginTopFlashsale, marginTopTime } = this.props
         var uri = finip + '/home/category_mobile';
         const item = [{
             name: '12:00',
@@ -81,43 +113,43 @@ export class Time_FlashSale extends Component {
             name: 'ทั้งหมด'
         }]
         dataService.map((item) => { return item2.push({ name: item.name }) })
-        return (
-            <View>
-                <View style={[stylesMain.FrameBackground, stylesMain.FlexRow]}>
-                    <GetServices uriPointer={uri} getDataSource={this.getData} />
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>FLASH SALE</Text>
-                    <IconMaterialIcons name='access-time' size={25} style={{ marginLeft: 10, }} />
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 3 }]}>จบใน</Text>
-                    <View style={stylesMain.Time_FlashSale_TimeBox}><Text style={stylesMain.Time_FlashSale_TimeText}>01</Text></View>
-                    <View style={stylesMain.Time_FlashSale_TimeBox}><Text style={stylesMain.Time_FlashSale_TimeText}>45</Text></View>
-                    <View style={stylesMain.Time_FlashSale_TimeBox}><Text style={stylesMain.Time_FlashSale_TimeText}>40</Text></View>
-                </View>
-                <View style={[stylesTopic.FlashSale_Tag, { paddingBottom: 0 }]}>
+        return ([
+            <Animatable.View elevation={1} style={[stylesMain.FrameBackground, stylesMain.FlexRow, {
+                marginTop: marginTopFlashsale, marginBottom: marginTopTime,
+            }]}>
+                <GetServices uriPointer={uri} getDataSource={this.getData} />
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>FLASH SALE</Text>
+                <IconMaterialIcons name='access-time' size={25} style={{ marginLeft: 10, }} />
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 3 }]}>จบใน</Text>
+                <View style={stylesMain.Time_FlashSale_TimeBox}><Text style={stylesMain.Time_FlashSale_TimeText}>01</Text></View>
+                <View style={stylesMain.Time_FlashSale_TimeBox}><Text style={stylesMain.Time_FlashSale_TimeText}>45</Text></View>
+                <View style={stylesMain.Time_FlashSale_TimeBox}><Text style={stylesMain.Time_FlashSale_TimeText}>40</Text></View>
+            </Animatable.View>,
+            <Animatable.View style={[stylesTopic.FlashSale_Tag, { paddingBottom: 0 }]}>
+                <TabBar
+                    sendData={this.updateIndex}
+                    item={item}
+                    // widthBox={98}
+                    activeColor={'#fff'}
+                    type='tag'
+                    tagBottom={'#0A55A6'}
+                    noMarginIop
+                />
+            </Animatable.View>,
+            <View style={stylesTopic.FlashSale_Tag}>
+                <ScrollView horizontal>
                     <TabBar
-                        sendData={this.updateIndex}
-                        item={item}
-                        // widthBox={98}
-                        activeColor={'#fff'}
-                        type='tag'
-                        tagBottom={'#0A55A6'}
-                        noMarginIop
+                        inactiveColor='#0A55A6'
+                        sendData={this.updateIndex2}
+                        item={item2}
+                        numberOfLines={1}
+                        radiusBox={4}
+                        noLimit
+                        type='box'
                     />
-                </View>
-                <View style={stylesTopic.FlashSale_Tag}>
-                    <ScrollView horizontal>
-                        <TabBar
-                            inactiveColor='#0A55A6'
-                            sendData={this.updateIndex}
-                            item={item2}
-                            numberOfLines={1}
-                            radiusBox={4}
-                            noLimit
-                            type='box'
-                        />
-                    </ScrollView>
-                </View>
+                </ScrollView>
             </View>
-        );
+        ]);
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> FlashSale_Product

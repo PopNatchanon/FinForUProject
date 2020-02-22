@@ -20,7 +20,7 @@ import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1 } from '../MainScreen';
+import { AppBar1, ExitAppModule } from '../MainScreen';
 import { GetCoupon, GetServices, ProductBox, } from '../tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
@@ -31,7 +31,6 @@ export default class DealScreen extends Component {
     this.state = {
     };
   }
-
   render() {
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
@@ -41,12 +40,13 @@ export default class DealScreen extends Component {
           <Deal_Calendar />
           <Deal_Today navigation={this.props.navigation} />
           <Deal_Exclusive navigation={this.props.navigation} />
-          <ProDed_Store navigation={this.props.navigation}/>
+          <ProDed_Store navigation={this.props.navigation} />
           <ProDed_New_Store />
           <Second_Store navigation={this.props.navigation} />
           <Shop_Deal_ForU navigation={this.props.navigation} />
         </ScrollView>
         <Button_Bar navigation={this.props.navigation} />
+        <ExitAppModule navigation={this.props.navigation} />
       </SafeAreaView>
     );
   }
@@ -196,7 +196,6 @@ export class Button_Bar extends Component {
           </View>
         </TouchableOpacity>
       </View>
-
     );
   }
 }
@@ -254,7 +253,6 @@ export class Deal_Today extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
     };
   }
   render() {
@@ -382,7 +380,6 @@ export class Second_Store extends Component {
         <View style={stylesDeal.Second_Store_Slide_BoxText}>
           <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ร้าน K.O.D สินค้ามือสอง ลดสูงสุด 50 %</Text>
         </View>
-
       </View>
     );
   }
@@ -560,14 +557,13 @@ export class ProDed_Store extends Component {
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 3, marginLeft: 8 }]}>ร้านนี้มีดีล</Text>
           </View>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Deal_Topic', { selectedIndex: 4 })} >
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndW]}>ดูทั้งหมด</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndW]}>ดูทั้งหมด</Text>
           </TouchableOpacity>
         </View>
         <ScrollView horizontal>
           {this.dataNewStore()}
         </ScrollView>
       </View>
-
     );
   }
 }

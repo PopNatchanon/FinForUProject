@@ -13,7 +13,7 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> tools
-import { AppBar } from './MainScreen';
+import { AppBar,ExitAppModule } from './MainScreen';
 import { GetServices, ProductBox } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> ip
 import { ip, finip } from '../navigator/IpConfig';
@@ -36,6 +36,7 @@ export default class Recommend_Store extends Component {
                     <Store_Detail navigation={navigation} />
                     <Store_Detail navigation={navigation} />
                 </ScrollView>
+                <ExitAppModule navigation={navigation} />
             </SafeAreaView>
         );
     }

@@ -1,11 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
-
 export const { width, height } = Dimensions.get('window');
-
 export default StyleSheet.create({
-
     ///---------------------------------CategoryScreen----------------------------------------///
-
     Image: {
         height: '100%', width: '100%'
     },
@@ -14,9 +10,7 @@ export default StyleSheet.create({
         marginLeft: 10,
         marginVertical: 10,
     },
-
     ///--------------------------------FlashSaleScreen-----------------------------------------///
-
     FlashSale_Tag: {
         width: '100%',
         paddingVertical: 4,
@@ -54,9 +48,7 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-
     ///--------------------------------Recommend_Brand-----------------------------------------///
-
     Brand_ImageBackground: {
         height: 150,
         width: '100%',
@@ -157,7 +149,6 @@ export default StyleSheet.create({
         borderWidth: 1, borderRadius: 4
     },
     ///--------------------------------Recommend_Store-----------------------------------------///
-
     Header: {
         height: 'auto',
         width: '100%',
@@ -271,7 +262,5 @@ export default StyleSheet.create({
         borderColor: '#ECECEC',
         borderWidth: 1,
     },
-
     ///----------------------------------------------------------------------------///
-
 })

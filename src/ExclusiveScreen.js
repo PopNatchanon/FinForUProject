@@ -16,7 +16,7 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, TodayProduct } from './MainScreen';
+import { AppBar1, TodayProduc, ExitAppModulet } from './MainScreen';
 import { Slide } from './src_Promotion/DealScreen';
 import { GetServices, TabBar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -43,7 +43,7 @@ export default class ExclusiveScreen extends Component {
     const { navigation } = this.props
     var uri = ip + '/mysql/DataServiceMain.php';
     var dataBody = {
-      type: 'sale'
+      type: 'todayproduct'
     };
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
@@ -96,6 +96,7 @@ export default class ExclusiveScreen extends Component {
             </View>
           </View>
         </SlidingView>
+        <ExitAppModule navigation={navigation} />
       </SafeAreaView>
     );
   }

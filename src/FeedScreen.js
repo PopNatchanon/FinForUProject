@@ -40,7 +40,7 @@ export default class FeedScreen extends Component {
           <Button_Bar selectedIndex={selectedIndex} navigation={navigation} />
         </ScrollView>
         <Toolbar navigation={navigation} />
-        <ExitAppModule />
+        <ExitAppModule navigation={navigation} />
       </SafeAreaView>
     );
   }

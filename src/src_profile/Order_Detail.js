@@ -11,7 +11,7 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1 } from '../MainScreen';
+import { AppBar1, ExitAppModule } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class Order_Detail extends Component {
@@ -28,6 +28,7 @@ export default class Order_Detail extends Component {
                     <Detail />
                     <Order_Sending />
                 </ScrollView>
+                <ExitAppModule navigation={this.props.navigation} />
             </SafeAreaView>
         );
     }
@@ -39,13 +40,12 @@ export class Detail extends Component {
         this.state = {
         };
     }
-
     render() {
         return (
             <View>
                 <View style={stylesProfileTopic.Order_Detail}>
                     <View style={stylesProfileTopic.Order_Detail_ICON}>
-                        <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize3,{color:'#FC8D00'}]}>T N T</Text>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FC8D00' }]}>T N T</Text>
                     </View>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}> จัดส่งโดย : TNT Express </Text>
                 </View>

@@ -31,6 +31,7 @@ export default class BellScreen extends Component {
         };
     }
     render() {
+        const { navigation } = this.props
         return (
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                 <AppBar1 titleHead='การแจ้งเตือน' />
@@ -40,7 +41,7 @@ export default class BellScreen extends Component {
                     <Update_buy navigation={this.props.navigation} />
                 </ScrollView>
                 <Toolbar navigation={this.props.navigation} />
-                <ExitAppModule />
+                <ExitAppModule navigation={navigation} />
             </SafeAreaView>
         );
     }

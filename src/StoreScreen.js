@@ -14,7 +14,7 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar } from './MainScreen';
+import { AppBar, ExitAppModule } from './MainScreen';
 import { FeedBox, GetCoupon, GetServices, ProductBox, TabBar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
@@ -63,7 +63,6 @@ export default class StoreScreen extends Component {
                 ]);
             case 2:
                 return ([
-
                     <Banner navigation={navigation} item={item} />,
                     <BoxProduct4 navigation={navigation} />
                 ]);
@@ -201,6 +200,7 @@ export default class StoreScreen extends Component {
                     <Menubar navigation={navigation} item={s_item} getSelectedIndex={this.getSelectedIndex} />
                     {this.ViewSide(selectedIndex, s_item)}
                 </ScrollView>
+                <ExitAppModule navigation={navigation} />
             </View >
         );
     }
@@ -383,7 +383,6 @@ export class Banner extends Component {
                         uri: dataMySQL,
                     }}
                     style={stylesStore.BannerSlide}
-
                 />
             </View>
         );

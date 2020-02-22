@@ -24,13 +24,9 @@ export default StyleSheet.create({
     Logo: {
         height: 80,
         width: 200,
-
     },
-
     ///--------------------------------------------------------------------------///
-
     Login_Box: {
-
         width,
         marginTop: 40,
         justifyContent: 'center',
@@ -81,23 +77,19 @@ export default StyleSheet.create({
         textAlign: 'center',
     },
     ///--------------------------------------------------------------------------///
-
     Register_Box: {
         justifyContent: 'center',
         alignItems: 'center',
         // flex: 1,
-
     },
     Register_Box_A: {
         // height: 250,
         width: 300,
         // backgroundColor:'black',
     },
-
     Register_Box_TextA: {
         textAlign: 'right',
         color: '#0A55A6',
-
     },
     Register_Box_Button: {
         marginTop: 10,
@@ -112,14 +104,11 @@ export default StyleSheet.create({
         borderRadius: 5,
         resizeMode: 'stretch',
     },
-
     ///--------------------------------------------------------------------------///
-
     Register_OTP_Box_A: {
         height: 300,
         width: 300,
     },
-
     ///--------------------------------------------------------------------------///
     RegisterScreen_Text: {
         fontSize: 11,
@@ -155,13 +144,11 @@ export default StyleSheet.create({
         marginHorizontal: 2,
         backgroundColor: '#fff'
     },
-
     DataGenderBox: {
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         marginTop: 14
     },
-
     ///--------------------------------------------------------------------------///
     Countdownstyle: {
         marginTop: -40,

@@ -14,7 +14,7 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar, BannerBar_THREE, TodayProduct } from './MainScreen';
+import { AppBar, BannerBar_THREE, TodayProduct, ExitAppModule} from './MainScreen';
 import { Button_Bar, SlideTab, PricesSlide } from './ExclusiveScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
@@ -106,6 +106,7 @@ export default class SearchScreen extends Component {
                         </View>
                     </View>
                 </SlidingView>
+                <ExitAppModule navigation={navigation} />
             </SafeAreaView>
         );
     }

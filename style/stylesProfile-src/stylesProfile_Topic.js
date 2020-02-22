@@ -1,10 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
-
 export const { width, height } = Dimensions.get('window');
-
 export default StyleSheet.create({
-
-
     ///-----------------------------------ChatScreen-------------------------------------------///
     AppbarChat: {
         height: 50,
@@ -87,9 +83,7 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'flex-end',
     },
-
     ///-----------------------------------Follow_storeScreen-----------------------------------///
-
     Follow_store_Box: {
         backgroundColor: '#FFF',
         height: 'auto',
@@ -156,9 +150,7 @@ export default StyleSheet.create({
         borderWidth: 1,
         borderRadius: 30,
     },
-
     ///-----------------------------------Review_me-----------------------------------///
-
     Review_me: {
         marginVertical: 10,
         width: '100%',
@@ -243,7 +235,6 @@ export default StyleSheet.create({
         alignItems: 'center',
     },
     ///-----------------------------------Help_me-----------------------------------///
-
     Help_me_ImageBackground: {
         height: 180,
         width: '100%',
@@ -361,7 +352,6 @@ export default StyleSheet.create({
         justifyContent: 'flex-end',
     },
     ///-----------------------------------Return_products-----------------------------------///
-
     // Return_products_pro Class
     products_pro: {
         backgroundColor: '#FFFFFF',
@@ -419,9 +409,7 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-
     ///-----------------------------------CancelScreen-----------------------------------///
-
     Cancel_Detail: {
         alignItems: 'center',
         marginTop: 10,
@@ -446,9 +434,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-
     ///-----------------------------------Setting-----------------------------------///
-
     BoxTopic: {
         backgroundColor: '#fff',
         flexDirection: 'row',
@@ -473,9 +459,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-
     ///-----------------------------------Setting_Topic-----------------------------------///
-
     Edit_Profile: {
         width: '100%',
         alignItems: 'center',
@@ -523,9 +507,7 @@ export default StyleSheet.create({
         padding: 10,
         justifyContent: 'space-between'
     },
-
     ///-----------------------------------Order_Detail-----------------------------------///
-
     Order_Detail: {
         flexDirection: 'row',
         padding: 10,
@@ -547,6 +529,4 @@ export default StyleSheet.create({
         marginTop: 5,
         backgroundColor: '#FFFFFF',
     },
-    
- 
 })

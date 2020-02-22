@@ -14,7 +14,7 @@ import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, Slide, TodayProduct, } from '../MainScreen';
+import { AppBar1, Slide, TodayProduct, ExitAppModule, } from '../MainScreen';
 import { Button_Bar } from '../HighlightScreen';
 import { Store_Sale } from './The_BestFinScreen';
 import { GetCoupon, GetServices } from '../tools/Tools';
@@ -50,6 +50,7 @@ export default class Detail_Campaign extends Component {
         return (
             <View style={{ flex: 1 }}>
                 {this.PathList()}
+                <ExitAppModule navigation={this.props.navigation} />
             </View>
         );
     }

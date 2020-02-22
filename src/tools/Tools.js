@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-    Dimensions, Text, TouchableOpacity, View,
+    ActivityIndicator, Animated, Dimensions, Text, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
@@ -709,6 +709,30 @@ export class FeedBox extends Component {
     render() {
         return (
             this.FeedBoxRender()
+        )
+    }
+}
+export class LoadingScreen extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            sliderVisible: false,
+        };
+        this.springValue = new Animated.Value(0);
+    }
+    render() {
+        return (
+            <View elevation={1} style={[stylesMain.ItemCenter, {
+                width, height, opacity: 1, position: 'relative', backgroundColor: '#1A3263'
+            }]}>
+                <View style={stylesMain.ItemCenterVertical}>
+                    <FastImage
+                        style={[{ width: 300, height: 180 }]}
+                        source={require('../../images/iconlogo.png')}
+                        resizeMode={FastImage.resizeMode.cover}
+                    />
+                </View>
+            </View>
         )
     }
 }

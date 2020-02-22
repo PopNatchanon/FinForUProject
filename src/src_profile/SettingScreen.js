@@ -15,7 +15,7 @@ import stylesMain from '../../style/StylesMainScreen';
 import stylesProfile from '../../style/StylesProfileScreen'
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1 } from '../MainScreen';
+import { AppBar1, ExitAppModule } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class SettingScreen extends Component {
@@ -31,6 +31,7 @@ export default class SettingScreen extends Component {
                         <ListMenu navigation={this.props.navigation} />
                     </View>
                 </ScrollView>
+                <ExitAppModule navigation={this.props.navigation} />
             </SafeAreaView>
         );
     }
@@ -110,7 +111,6 @@ export class ListMenu extends Component {
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
                             ภาษา
                             </Text>
-
                         <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
@@ -122,14 +122,14 @@ export class ListMenu extends Component {
                     </View>
                 </View>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 5 })} >
-                <View style={stylesProfileTopic.BoxTopic}>
-                    <View style={stylesProfile.ListMenuListSub}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
-                            ศูนย์ช่วยเหลือ
+                    <View style={stylesProfileTopic.BoxTopic}>
+                        <View style={stylesProfile.ListMenuListSub}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
+                                ศูนย์ช่วยเหลือ
                             </Text>
+                        </View>
+                        <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
                     </View>
-                    <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
-                </View>
                 </TouchableOpacity>
                 <TouchableOpacity activeOpacity={1} onPress={null/*() => this.props.navigation.navigate()*/} >
                     <View style={stylesProfileTopic.BoxTopic}>

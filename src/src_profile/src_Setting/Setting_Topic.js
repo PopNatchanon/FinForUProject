@@ -17,8 +17,8 @@ import stylesMain from '../../../style/StylesMainScreen';
 import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
 import stylesLogin from '../../../style/stylesLoginScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+import { AppBar1, ExitAppModule } from '../../MainScreen';
 import { StoreMe_SettingImage } from '../../src_storeMe/StoreMe_Profile_Edit';
-import { AppBar1 } from '../../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class Setting_Topic extends Component {
@@ -77,8 +77,9 @@ export default class Setting_Topic extends Component {
   }
   render() {
     return (
-      <SafeAreaView style={stylesMain.SafeAreaView}> 
-          {this.PathList()}
+      <SafeAreaView style={stylesMain.SafeAreaView}>
+        {this.PathList()}
+        <ExitAppModule navigation={this.props.navigation} />
       </SafeAreaView>
     );
   }
@@ -321,7 +322,7 @@ export class Edit_Profile extends Component {
     return (
       <View>
         {/* ชื่อ-นามสกุล */}
-       <BottomSheet
+        <BottomSheet
           ref={ref => {
             this.NameSheet = ref;
           }}
@@ -335,9 +336,9 @@ export class Edit_Profile extends Component {
           }}
         >
           {this.NameSheetBody()}
-        </BottomSheet> 
+        </BottomSheet>
         {/* เพศ */}
-         <BottomSheet
+        <BottomSheet
           ref={ref => {
             this.SexSheet = ref;
           }}
@@ -351,9 +352,9 @@ export class Edit_Profile extends Component {
           }}
         >
           {this.SexSheetBody()}
-        </BottomSheet> 
+        </BottomSheet>
         {/* วันเกิด */}
-         <BottomSheet
+        <BottomSheet
           ref={ref => {
             this.BirthdaySheet = ref;
           }}
@@ -367,9 +368,9 @@ export class Edit_Profile extends Component {
           }}
         >
           {this.BirthdaySheetBody()}
-        </BottomSheet> 
+        </BottomSheet>
         {/* เบอร์โทรศัพท์ */}
-         <BottomSheet
+        <BottomSheet
           ref={ref => {
             this.Phone_numberSheet = ref;
           }}
@@ -384,7 +385,6 @@ export class Edit_Profile extends Component {
         >
           {this.Phone_numberSheetBody()}
         </BottomSheet>
-
         <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขโปรไฟล์' />
         <StoreMe_SettingImage />
         <View style={{ marginTop: 20, }}>

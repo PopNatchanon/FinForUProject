@@ -255,7 +255,6 @@ export default StyleSheet.create({
     textAlign: 'center',
     color: '#FFFF'
   },
-
   ///------------///
   BoxProduct5Box: {
     backgroundColor: '#FFFFFF', width: 85,
@@ -282,7 +281,7 @@ export default StyleSheet.create({
     marginLeft: 5,
   },
   BoxStore1Box2: {
-    width: '55%',
+    width: width * 0.55,
     height: 105,
     marginTop: 10,
     marginBottom: 5,
@@ -626,7 +625,7 @@ export default StyleSheet.create({
     margin: 5,
   },
   CategoryProductStoreBox: {
-    width: '95%',
+    width: '98%',
     height: 90,
     marginBottom: 8,
     marginLeft: 5,

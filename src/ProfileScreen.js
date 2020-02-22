@@ -41,6 +41,7 @@ export default class StoreScreen extends Component {
     }
     render() {
         const { currentUser } = this.state;
+        const { navigation } = this.props
         return (
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                 <ScrollView>
@@ -51,7 +52,7 @@ export default class StoreScreen extends Component {
                     </View>
                 </ScrollView>
                 <Toolbar navigation={this.props.navigation} />
-                <ExitAppModule />
+                <ExitAppModule navigation={navigation} />
             </SafeAreaView>
         );
     }
@@ -140,7 +141,6 @@ export class Menubar extends Component {
                             </Text>
                         </TouchableOpacity>
                     </View>
-
                 </View>
                 <MenubarSub navigation={this.props.navigation} />
             </View>

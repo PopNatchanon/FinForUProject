@@ -13,7 +13,7 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1 } from './MainScreen';
+import { AppBar1, ExitAppModule} from './MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -23,7 +23,6 @@ export default class Recommend_Brand extends Component {
         this.state = {
         };
     }
-
     render() {
         const { navigation } = this.props
         return (
@@ -211,6 +210,7 @@ export class Recommend_Brand_Store extends Component {
                         </View>
                     </TouchableOpacity>
                 </View>
+                <ExitAppModule navigation={navigation} />
             </View>
         );
     }

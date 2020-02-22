@@ -13,7 +13,7 @@ import stylesMain from '../style/StylesMainScreen';
 import stylesFont from '../style/stylesFont';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar, Slide, BannerBar_TWO, TodayProduct, } from './MainScreen';
+import { AppBar, Slide, BannerBar_TWO, TodayProduct, ExitAppModule, } from './MainScreen';
 import { Button_Bar, SlideTab, PricesSlide } from './ExclusiveScreen';
 import { GetServices, ProductBox } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -40,17 +40,18 @@ export default class CategoryScreen extends Component {
         const { navigation } = this.props
         var uri = ip + '/mysql/DataServiceMain.php';
         var dataBody = {
-            type: 'sale'
+            type: 'todayproduct'
         };
         return (
             <SafeAreaView style={[stylesMain.SafeAreaView]}>
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
                 <AppBar leftBar='backarrow' navigation={navigation} />
-                <ScrollView stickyHeaderIndices={[4]}>
+                <ScrollView stickyHeaderIndices={[5]}>
                     <Slide />
                     <Recommend_Store navigation={navigation} />
                     <Product_Brand navigation={navigation} />
                     <BannerBar_TWO />
+                    <View style={{ marginBottom: 10 }}></View>
                     <Button_Bar setSliderVisible={this.setSlider} getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
                     {
                         dataService ?
@@ -58,44 +59,45 @@ export default class CategoryScreen extends Component {
                             null
                     }
                 </ScrollView>
-        <SlidingView
-          disableDrag
-          componentVisible={sliderVisible}
-          containerStyle={{
-            backgroundColor: null,
-            justifyContent: 'center',
-            alignContent: 'stretch',
-            width: '100%'
-          }}
-          position="right"
-          changeVisibilityCallback={() => this.setState({ sliderVisible: !sliderVisible })}
-        >
-          <View style={stylesMain.FlexRow}>
-            <TouchableOpacity
-              activeOpacity={1}
-              onPress={() => this.setState({ sliderVisible: !sliderVisible })}
-            >
-              <View style={stylesTopic.BackgroundLeft}></View>
-            </TouchableOpacity>
-            <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNB]}>
-              <View>
-                <ScrollView>
-                  <SlideTabGet />
-                </ScrollView>
-                <View style={[stylesMain.FlexRow, { height: 70 }]}>
-                  <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
-                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
-                      รีเซ็ต</Text>
-                  </View>
-                  <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset, { backgroundColor: '#0A55A6' }]}>
-                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#fff' }]}>
-                      เสร็จสิ้น</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-        </SlidingView>
+                <SlidingView
+                    disableDrag
+                    componentVisible={sliderVisible}
+                    containerStyle={{
+                        backgroundColor: null,
+                        justifyContent: 'center',
+                        alignContent: 'stretch',
+                        width: '100%'
+                    }}
+                    position="right"
+                    changeVisibilityCallback={() => this.setState({ sliderVisible: !sliderVisible })}
+                >
+                    <View style={stylesMain.FlexRow}>
+                        <TouchableOpacity
+                            activeOpacity={1}
+                            onPress={() => this.setState({ sliderVisible: !sliderVisible })}
+                        >
+                            <View style={stylesTopic.BackgroundLeft}></View>
+                        </TouchableOpacity>
+                        <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNB]}>
+                            <View>
+                                <ScrollView>
+                                    <SlideTabGet />
+                                </ScrollView>
+                                <View style={[stylesMain.FlexRow, { height: 70 }]}>
+                                    <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
+                                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
+                                            รีเซ็ต</Text>
+                                    </View>
+                                    <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset, { backgroundColor: '#0A55A6' }]}>
+                                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#fff' }]}>
+                                            เสร็จสิ้น</Text>
+                                    </View>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+                </SlidingView>
+                <ExitAppModule navigation={navigation} />
             </SafeAreaView>
         );
     }

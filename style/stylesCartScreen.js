@@ -17,7 +17,6 @@ export default StyleSheet.create({
     },
     Icon_appbar_Text: {
         flexDirection: 'row',
-
     },
     Icon_appbar: {
         color: '#FFFF',
@@ -29,26 +28,20 @@ export default StyleSheet.create({
         marginTop: 6,
         fontSize: 15,
     },
-
     ///--------------------------------------------------------------------------///
-
     Product_Cart: {
         backgroundColor: '#FFFFFF',
         borderColor: '#ECECEC',
         borderWidth: 1,
         // height: 200,
         width,
-
     },
-
     ///--------------------------------------------------------------------------///
-
     Bar: {
         backgroundColor: '#FFFFFF',
         borderColor: '#ECECEC',
         borderWidth: 1,
         width,
-
     },
     Bar_Code: {
         height: 40,
@@ -57,7 +50,6 @@ export default StyleSheet.create({
         borderWidth: 1,
         flexDirection: 'row',
         justifyContent: 'space-around',
-
     },
     Bar_Code_Box: {
         width: 200,

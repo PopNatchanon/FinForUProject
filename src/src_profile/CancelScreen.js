@@ -12,7 +12,7 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1 } from '../MainScreen';
+import { AppBar1, ExitAppModule } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class CancelScreen extends Component {
@@ -45,6 +45,7 @@ export default class CancelScreen extends Component {
         <ScrollView>
           {this.PathList()}
         </ScrollView>
+        <ExitAppModule navigation={this.props.navigation} />
       </SafeAreaView>
     );
   }

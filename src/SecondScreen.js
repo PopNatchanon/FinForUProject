@@ -14,7 +14,7 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar, AppBar1, BannerBar_ONE, TodayProduct, } from './MainScreen';
+import { AppBar, AppBar1, BannerBar_ONE, TodayProduct, ExitAppModule, } from './MainScreen';
 import { Button_Bar, PricesSlide, SlideTab, } from './ExclusiveScreen';
 import { GetServices } from './tools/Tools';
 import { Slide } from './src_Promotion/DealScreen';
@@ -48,9 +48,11 @@ export default class SecondScreen extends Component {
     }
   }
   render() {
+    const { navigation } = this.props
     return (
       <View style={{ flex: 1 }}>
         {this.PathList()}
+        <ExitAppModule navigation={navigation} />
       </View>
     );
   }

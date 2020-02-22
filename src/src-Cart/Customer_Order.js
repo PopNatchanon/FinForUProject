@@ -17,7 +17,7 @@ import stylesCustomerOrder from '../../style/styleCart-src/styleCustomer_Order';
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1 } from '../MainScreen';
+import { AppBar1, ExitAppModule } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -40,6 +40,7 @@ export default class Customer_Order extends Component {
                     <Option_payment navigation={this.props.navigation} />
                 </ScrollView>
                 <Bar_payment navigation={this.props.navigation} />
+                <ExitAppModule navigation={this.props.navigation} />
             </SafeAreaView>
         );
     }
@@ -61,7 +62,6 @@ export class Appbar_New_account extends Component {
                     </View>
                 </TouchableOpacity>
             </View>
-
         );
     }
 }
@@ -238,7 +238,7 @@ export class Option_payment extends Component {
                             alignItems: "center"
                         }
                     }}
-               >
+                >
                     <View style={{ alignItems: 'center', height: 'auto', }}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { marginBottom: 10 }]}>เลือกวิธีการชำระเงิน</Text>
                         <View style={stylesCustomerOrder.Payment_Box}>

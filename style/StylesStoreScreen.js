@@ -137,7 +137,6 @@ export default StyleSheet.create({
     marginTop: 10,
     color: '#FFFFFF',
   },
-
   TicketLineText2: {
     marginTop: 6,
     marginBottom: 5,

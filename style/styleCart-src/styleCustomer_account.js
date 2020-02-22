@@ -1,10 +1,6 @@
-
 import { StyleSheet, Dimensions } from 'react-native';
-
 export const { width, height } = Dimensions.get('window');
-
 export default StyleSheet.create({
-
     Appbar: {
         width: '100%',
         height: 50,
@@ -21,6 +17,4 @@ export default StyleSheet.create({
         marginTop: 2,
         padding: 10,
     },
-  
-    
 })

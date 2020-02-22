@@ -39,6 +39,7 @@ export default class NewsScreen extends Component {
     }
     render() {
         const { selectedIndex } = this.state
+        const { navigation } = this.props
         var titleValue
         selectedIndex == 0 ? titleValue = 'NEWS' : titleValue = 'BLOG'
         return (
@@ -49,7 +50,7 @@ export default class NewsScreen extends Component {
                     <Button_Bar selectedIndex={selectedIndex} />
                 </ScrollView>
                 <Toolbar navigation={this.props.navigation} />
-                <ExitAppModule />
+                <ExitAppModule navigation={navigation} />
             </SafeAreaView>
         );
     }

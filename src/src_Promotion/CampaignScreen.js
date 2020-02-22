@@ -13,7 +13,7 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 import ststylePromotionDeal from '../../style/stylePromotion-src/styleDealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, } from '../MainScreen';
+import { AppBar1, ExitAppModule, } from '../MainScreen';
 import { Button_Bar, Slide, } from './DealScreen';
 import { TabBar, } from '../tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -34,6 +34,7 @@ export default class CampaignScreen extends Component {
           <Campaign_tag navigation={this.props.navigation} />
         </ScrollView>
         <Button_Bar navigation={this.props.navigation} />
+        <ExitAppModule navigation={this.props.navigation} />
       </SafeAreaView>
     );
   }

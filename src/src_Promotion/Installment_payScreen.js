@@ -12,7 +12,7 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 import stylesPromotionDeal from '../../style/stylePromotion-src/styleDealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1 } from '../MainScreen';
+import { AppBar1, ExitAppModule } from '../MainScreen';
 import { Button_Bar, Slide, } from './DealScreen';
 import { CategoryProduct } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -35,6 +35,7 @@ export default class Installment_payScreen extends Component {
           <CategoryProduct NoStoreReCom navigation={this.props.navigation} />
         </ScrollView>
         <Button_Bar navigation={this.props.navigation} />
+        <ExitAppModule navigation={this.props.navigation} />
       </SafeAreaView>
     );
   }
@@ -79,7 +80,6 @@ export class Head_Image extends Component {
             8.บริษัทฯขอสงวนสิทธิ์ในการเปลี่ยนแปลง แก้ไข และยกเลิกรายการส่งเสริมการตลาด รวมถึง เงื่อนไขต่างๆโดยไม่ต้องแจ้งให้ทราบล่วงหน้า</Text>
         </View>
       </View>
-
     );
   }
 }

@@ -15,6 +15,7 @@ import styles from '../../style/styleCart-src/styleCustomer_account';
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+import { ExitAppModule } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -39,6 +40,7 @@ export default class Customer_account extends Component {
                 <Account currentUser={this.state.currentUser} />
                 <Account_main />
                 <Button_Bar />
+                <ExitAppModule navigation={this.props.navigation} />
             </SafeAreaView>
         );
     }
@@ -54,14 +56,13 @@ export class Appbar extends Component {
         return (
             <View style={styles.Appbar}>
                 <IconAntDesign name='mail' size={30} color='#FFFFFF' />
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginLeft: 10, color:'#FFFFFF'}]}>ที่อยู่ใหม่</Text>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginLeft: 10, color: '#FFFFFF' }]}>ที่อยู่ใหม่</Text>
                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
                     <View>
                         <IconAntDesign RightItem name='closecircleo' size={25} color='#FFFFFF' style={{ marginLeft: 160, marginRight: 10, }} />
                     </View>
                 </TouchableOpacity>
             </View>
-
         );
     }
 }
@@ -226,7 +227,7 @@ export class Account extends Component {
                         textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
                         dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, {}]}
                         renderButtonText={(index) => { this.setState({ province: index }), this.getDataAmphoe(index) }}
-                   >
+                    >
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                             {province}</Text>
                     </ModalDropdown>
@@ -239,7 +240,7 @@ export class Account extends Component {
                         textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
                         dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, {}]}
                         renderButtonText={(index) => this.getDataTumbol(index)}
-                   >
+                    >
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                             {amphoe}</Text>
                     </ModalDropdown>
@@ -252,7 +253,7 @@ export class Account extends Component {
                         textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
                         dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, {}]}
                         renderButtonText={(index) => this.setState({ tumbol: index })}
-                   >
+                    >
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                             {tumbol}</Text>
                     </ModalDropdown>
@@ -311,7 +312,6 @@ export class Account_main extends Component {
                         onPress={() => this.setState({ item2: !this.state.item2 })}
                     />
                 </View>
-
             </View>
         );
     }

@@ -10,7 +10,6 @@ import LoginScreen from '../src/LoginScreen';
 import FeedScreen from '../src/FeedScreen';
 import NewsScreen from '../src/NewsScreen';
 import BellScreen from '../src/BellScreen';
-import Register_OTPScreen from '../src/Register_OTPScreen';
 import RegisterScreen from '../src/RegisterScreen';
 import Recommend_Brand from '../src/Recommend_Brand';
 import FlashSaleScreen from '../src/FlashSaleScreen';
@@ -128,13 +127,6 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
-  Register_OTPScreen: {
-    screen: Register_OTPScreen,
-    navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
-    })
-  },
   RegisterScreen: {
     screen: RegisterScreen,
     navigationOptions: () => ({
@@ -213,7 +205,6 @@ const PathScreen = createStackNavigator({
     })
   },
   // src_profile
-
   Profile_Topic: {
     screen: Profile_Topic,
     navigationOptions: () => ({
@@ -256,9 +247,7 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
-
   // src_storeMe
-
   StoreMeScreen: {
     screen: StoreMeScreen,
     navigationOptions: () => ({
@@ -322,9 +311,7 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
-
   // src-Cart
-
   Customer_account: {
     screen: Customer_account,
     navigationOptions: () => ({
@@ -346,9 +333,7 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
-
   // src_Promotion
-  
   Deal_Topic: {
     screen: Deal_Topic,
     navigationOptions: () => ({
@@ -356,7 +341,6 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
-
   DealScreen: {
     screen: DealScreen,
     navigationOptions: () => ({

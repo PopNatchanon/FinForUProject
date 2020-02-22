@@ -19,10 +19,10 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+import { AppBar1, ExitAppModule } from '../MainScreen';
 import { PopularProduct } from '../StoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
-import { AppBar1 } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class Profile_Topic extends Component {
     constructor(props) {
@@ -131,7 +131,10 @@ export default class Profile_Topic extends Component {
     }
     render() {
         return (
-            <View style={stylesMain.SafeAreaView}>{this.PathList()}</View>
+            <View style={stylesMain.SafeAreaView}>
+                {this.PathList()}
+                <ExitAppModule navigation={this.props.navigation} />
+            </View>
         );
     }
 }
@@ -206,7 +209,6 @@ export class Chat_Detail extends Component {
                 <Message_recipient />
                 <Message_sender />
             </View>
-
         );
     }
 }
@@ -457,7 +459,6 @@ export class Might_like_Store extends Component {
                     </View>
                 </View>
             </View>
-
         );
     }
 }
@@ -684,7 +685,6 @@ export class Account_Help extends Component {
         this.state = {
         };
     }
-
     render() {
         const HeadTitle_Help = this.props.navigation.getParam('HeadTitle_Help')
         return (
@@ -726,8 +726,6 @@ export class Account_Help extends Component {
                 </TouchableOpacity>
                 <Topic_Help navigation={this.props.navigation} />
             </View>
-
-
         );
     }
 }
@@ -739,7 +737,6 @@ export class Topic_DetailHelp extends Component {
         this.state = {
         };
     }
-
     render() {
         const HeadTitle_Help = this.props.navigation.getParam('HeadTitle_Help')
         return (

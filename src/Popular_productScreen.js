@@ -10,7 +10,7 @@ export const { width, height } = Dimensions.get('window');
 import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, TodayProduct } from './MainScreen';
+import { AppBar1, TodayProduct, ExitAppModule} from './MainScreen';
 import { Slide } from './src_Promotion/DealScreen';
 import { TabBar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -52,6 +52,7 @@ export default class Popular_productScreen extends Component {
                             <Slide />
                         </ScrollView>
                 }
+                <ExitAppModule navigation={navigation} />
             </SafeAreaView>
         );
     }
@@ -69,7 +70,6 @@ export class Button_Bar extends Component {
         this.setState({ selectedIndex })
         this.props.getData(selectedIndex)
     }
-
     render() {
         const { id_item } = this.props
         const item = [{

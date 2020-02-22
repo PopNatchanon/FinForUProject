@@ -11,7 +11,7 @@ import FastImage from 'react-native-fast-image';
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1 } from '../MainScreen';
+import { AppBar1, ExitAppModule } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -22,7 +22,7 @@ export default class Detail_Pro extends Component {
             case 0:
                 return (
                     <View>
-                        <AppBar1 backArrow  navigation={this.props.navigation} titleHead='รายละเอียดโปรโมชัน' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='รายละเอียดโปรโมชัน' />
                         <Detail_Promotion />
                     </View>
                 )
@@ -52,8 +52,8 @@ export default class Detail_Pro extends Component {
                 <View>
                     {this.PathList()}
                 </View>
+                <ExitAppModule navigation={this.props.navigation} />
             </SafeAreaView>
-
         );
     }
 }

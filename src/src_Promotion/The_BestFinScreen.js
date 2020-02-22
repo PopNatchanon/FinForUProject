@@ -15,7 +15,7 @@ import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1 } from '../MainScreen';
+import { AppBar1, ExitAppModule } from '../MainScreen';
 import { Button_Bar, Slide, } from './DealScreen';
 import { GetServices, ProductBox } from '../../src/tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -39,6 +39,7 @@ export default class The_BestFinScreen extends Component {
           <Second_Store navigation={this.props.navigation} />
         </ScrollView>
         <Button_Bar navigation={this.props.navigation} />
+        <ExitAppModule navigation={this.props.navigation} />
       </SafeAreaView>
     );
   }
@@ -62,7 +63,6 @@ export class Fin_sale extends Component {
     var dataBody = {
       type: 'sale'
     };
-
     return (
       <View>
         <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />

@@ -1,11 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
-
 export const { width, height } = Dimensions.get('window');
-
 export default StyleSheet.create({
-
     ///--------------------------------------DealScreen---------------------------------------///
-
     Icon_appbar: {
         color: '#FFFF',
         marginLeft: 10,
@@ -213,9 +209,7 @@ export default StyleSheet.create({
         width: width * 0.3,
         marginTop: 10,
     },
-
     ///--------------------------------CampaignScreen-----------------------------------------///
-
     CampaignBody: {
         marginTop: 10,
         width: width * 0.96,
@@ -270,9 +264,7 @@ export default StyleSheet.create({
         color: '#FFFFFF',
         margin: 5,
     },
-
     ///--------------------------------The_BestFinScreen-----------------------------------------///
-
     Fin_sale_BoxHead: {
         height: 12,
         width: '100%',
@@ -324,9 +316,7 @@ export default StyleSheet.create({
     Store_Sale_BoxB_image: {
         height: '49%'
     },
-
     ///--------------------------------Installment_payScreen-----------------------------------------///
-
     Head_BoxImage: {
         height: 150,
         width: '100%',
@@ -341,9 +331,7 @@ export default StyleSheet.create({
         backgroundColor: '#FFFFFF',
         padding: 10,
     },
-
     ///--------------------------------Detail_Campaign-----------------------------------------///
-
     Head_BoxImageDetail: {
         width: '100%',
         height: 250,
@@ -399,7 +387,6 @@ export default StyleSheet.create({
         justifyContent: 'space-around',
         flexWrap: 'wrap',
         marginTop: -20,
-
     },
     New_year_NewProduct_Box: {
         marginTop: 10,
@@ -408,9 +395,7 @@ export default StyleSheet.create({
         borderWidth: 1,
         backgroundColor: '#FFFF'
     },
-
     ///--------------------------------รูปแบบคูปอง-----------------------------------------///
-
     Coupon_BOX: {
         marginLeft: 10,
         height: 70,
@@ -459,5 +444,4 @@ export default StyleSheet.create({
         alignItems: 'center',
         marginTop: 5
     }
-
 })

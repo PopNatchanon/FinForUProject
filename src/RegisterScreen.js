@@ -28,6 +28,7 @@ export default class Register_OTPScreen extends Component {
     };
   }
   render() {
+    const { navigation } = this.props
     return (
       <SafeAreaView style={[stylesMain.SafeAreaView]}>
         <ScrollView>
@@ -35,7 +36,7 @@ export default class Register_OTPScreen extends Component {
           <Login navigation={this.props.navigation} />
           <Register />
         </ScrollView>
-        <ExitAppModule />
+        <ExitAppModule navigation={navigation} />
       </SafeAreaView>
     );
   }
@@ -197,7 +198,6 @@ export class Login extends Component {
       .then((response) => response.json())
       .then((responseJson) => {
         if (responseJson.result == 'Complete') {
-
           fetch(finip + '/auth/login_customer', {
             method: 'POST',
             headers: {

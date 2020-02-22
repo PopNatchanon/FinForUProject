@@ -15,8 +15,8 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+import { AppBar1, ExitAppModule } from '../MainScreen';
 import { TabBar } from '../tools/Tools';
-import { AppBar1 } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -32,6 +32,7 @@ export default class Total_Order extends Component {
             <SafeAreaView style={[stylesMain.SafeAreaView, { height: 'auto' }]}>
                 <AppBar1 backArrow navigation={this.props.navigation} titleHead='การสั่งซื้อของฉัน' />
                 <Button_bar navigation={this.props.navigation} SetselectedIndex={selectedIndex} />
+                <ExitAppModule navigation={this.props.navigation} />
             </SafeAreaView>
         );
     }
@@ -157,7 +158,6 @@ export class Order extends Component {
                 <View style={stylesProfileTopic.Order_Product}>
                     <View style={stylesMain.FlexRow}>
                         <View style={stylesProfileTopic.Order_Product_Pro}>
-
                         </View>
                         <View style={{ marginTop: 10 }}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>

@@ -1,25 +1,29 @@
+
+///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-  Image,
-  ImageBackground,
-  View,
-  ScrollView,
-  Text,
-  TextInput,
-  SafeAreaView,
-  TouchableOpacity,
-  Dimensions,
+    Dimensions, SafeAreaView, ScrollView, ImageBackground, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
-import axios from 'axios';
+///----------------------------------------------------------------------------------------------->>>> Import
+export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
-import NumberFormat from 'react-number-format';
-import Icons from 'react-native-vector-icons/FontAwesome5';
+///----------------------------------------------------------------------------------------------->>>> Icon
+import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
-import stylesPro from '../../style/stylesProfile-src/stylesProfile_Topic';
-import stylesMain from '../../style/StylesMainScreen';
+import IconFeather from 'react-native-vector-icons/Feather';
+import IconsFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
+///----------------------------------------------------------------------------------------------->>>> styleStoreMe
 import stylesFont from '../../style/stylesFont';
+import stylesMain from '../../style/StylesMainScreen';
+import stylesProfile from '../../style/StylesProfileScreen';
+///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+///----------------------------------------------------------------------------------------------->>>> Ip.
 import { ip } from '../../navigator/IpConfig';
+///----------------------------------------------------------------------------------------------->>>> Main
 import { AppBar1 } from '../MainScreen';
+
 
 export default class StoreMe_Cancel extends Component {
   constructor(props) {

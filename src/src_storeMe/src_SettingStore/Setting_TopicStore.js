@@ -1,36 +1,24 @@
+///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-    Image,
-    ImageBackground,
-    View,
-    ScrollView,
-    Text,
-    TextInput,
-    SafeAreaView,
-    TouchableOpacity,
-    Dimensions,
-    requireNativeComponent,
-    Picker,
+    Dimensions, SafeAreaView, Text, TextInput, TouchableOpacity, View, Picker,
 } from 'react-native';
+///----------------------------------------------------------------------------------------------->>>> Import
+export const { width, height } = Dimensions.get('window');
+import { Address_Customar } from '../../src_profile/src_Setting/Setting_Topic';
+///----------------------------------------------------------------------------------------------->>>> Icon
+import IconAntDesign from 'react-native-vector-icons/AntDesign';
+import IconEntypo from 'react-native-vector-icons/Entypo';
+///----------------------------------------------------------------------------------------------->>>> styleStoreMe
 import stylesMain from '../../../style/StylesMainScreen';
 import stylesFont from '../../../style/stylesFont';
 import stylesLogin from '../../../style/stylesLoginScreen';
-import axios from 'axios';
-import FastImage from 'react-native-fast-image';
-import NumberFormat from 'react-number-format';
-import Icons from 'react-native-vector-icons/FontAwesome5';
-import IconFeather from 'react-native-vector-icons/Feather';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
-import IconEntypo from 'react-native-vector-icons/Entypo';
-import { CheckBox } from 'react-native-elements';
-import { ip } from '../../../navigator/IpConfig';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import styles from '../../../style/stylestoreMe-src/styleStoreMeScreen';
-import { Address_Customar } from '../../src_profile/src_Setting/Setting_Topic';
+import stylesStoreMe from '../../../style/stylestoreMe-src/styleStoreMeScreen';
+import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
+///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+///----------------------------------------------------------------------------------------------->>>> Ip.
+///----------------------------------------------------------------------------------------------->>>> Main
 import { AppBar1 } from '../../MainScreen';
-
-export const { width, height } = Dimensions.get('window');
 
 export default class Setting_TopicStore extends Component {
     PathList() {
@@ -125,11 +113,9 @@ export default class Setting_TopicStore extends Component {
                 )
         }
     }
-
-
     render() {
         return (
-            <View style={stylesMain.SafeAreaView}>{this.PathList()}</View>
+            <SafeAreaView style={stylesMain.SafeAreaView}>{this.PathList()}</SafeAreaView>
         );
     }
 }
@@ -146,50 +132,50 @@ export class Notification extends Component {
     render() {
         return (
             <View>
-                <View style={[styles.StoreMe_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
+                <View style={[stylesStoreMe.StoreMe_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>แก้ไขบัญชีธนาคาร</Text>
                 </View>
                 <TouchableOpacity onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 1 })}>
-                    <View style={styles.StoreMe_Setting_BoxTopic}>
+                    <View style={stylesStoreMe.StoreMe_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>บัญชีธนาคาร</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <View style={[styles.StoreMe_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
+                <View style={[stylesStoreMe.StoreMe_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>แก้ไขเอกสารจดแจ้ง</Text>
                 </View>
                 <TouchableOpacity onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 2 })}>
-                    <View style={styles.StoreMe_Setting_BoxTopic}>
+                    <View style={stylesStoreMe.StoreMe_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>หนังสือจดทะเบียนบริษัท จากกรมพัฒนาธุรกิจการค้า</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 3 })}>
-                    <View style={styles.StoreMe_Setting_BoxTopic}>
+                    <View style={stylesStoreMe.StoreMe_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>สำเนาบัตรประชาชน/พาสปอร์ตของกรรมการผู้มีอำนาจลงนาม</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 4 })}>
-                    <View style={styles.StoreMe_Setting_BoxTopic}>
+                    <View style={stylesStoreMe.StoreMe_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ใบทะเบียนภาษีมูลค่าเพิ่ม</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 5 })}>
-                    <View style={styles.StoreMe_Setting_BoxTopic}>
+                    <View style={stylesStoreMe.StoreMe_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ใบจดทะเบียนเครื่องหมายการค้า</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 6 })}>
-                    <View style={styles.StoreMe_Setting_BoxTopic}>
+                    <View style={stylesStoreMe.StoreMe_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>หนังสือรับรองการเป็นตัวแทนจำหน่าย (ไม่จำเป็นต้องระบุ)</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 7 })}>
-                    <View style={styles.StoreMe_Setting_BoxTopic}>
+                    <View style={stylesStoreMe.StoreMe_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>สำเนาบัญชีธนาคารของผู้ขาย</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
@@ -214,7 +200,7 @@ export class Edit_Bank extends Component {
             <View>
                 <View style={{ padding: 10 }}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>ชื่อธนาคาร</Text>
-                    <View style={{ width: '100%', height: 50, backgroundColor: '#FFFFFF' }}>
+                    <View style={stylesStoreMe.Edit_Box}>
                         <Picker
                             selectedValue={this.state.language}
                             style={[stylesFont.FontFamilyText, { width: '100%' }]}
@@ -232,7 +218,7 @@ export class Edit_Bank extends Component {
                         </Picker>
                     </View>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>หมายเลขบัญชีธนาคาร</Text>
-                    <View style={{ width: '100%', height: 50, backgroundColor: '#FFFFFF' }}>
+                    <View style={stylesStoreMe.Edit_Box}>
                         <TextInput
                             style={stylesFont.FontFamilyText}
                             fontSize={15}
@@ -244,7 +230,7 @@ export class Edit_Bank extends Component {
                             onChangeText={(NumberBank) => this.setState({ NumberBank })}></TextInput>
                     </View>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>ชื่อบัญชีธนาคาร</Text>
-                    <View style={{ width: '100%', height: 50, backgroundColor: '#FFFFFF' }}>
+                    <View style={stylesStoreMe.Edit_Box}>
                         <TextInput
                             style={stylesFont.FontFamilyText}
                             fontSize={15}
@@ -366,9 +352,9 @@ export class Notification_From extends Component {
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'center', marginTop: 10 }]}> {DetailHead ? DetailHead : 'หนังสือจดทะเบียนบริษัท จากกรมพัฒนาธุรกิจการค้า'} </Text>
                     <View style={{ padding: 10 }}>
                         <TouchableOpacity>
-                            <View style={{ height: 100, width: 100, borderColor: '#0A55A6', borderWidth: 1, justifyContent: 'center', alignItems: 'center', }}>
+                            <View style={stylesStoreMe.StoreMe_Up_Image_Box}>
                                 <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
-                                <Text style={{ color: '#0A55A6', fontSize: 12, }}>รูปภาพ</Text>
+                                <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize6,{ color: '#0A55A6'}]}>รูปภาพ</Text>
                             </View>
                         </TouchableOpacity>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { width: 250, marginTop: 10, color: '#B7B7B7' }]}>*กรุณาอัพโหลดเอกสารที่เป็นปัจจุบัน หากไม่ทำรายการ เราจะทำการถอนการขายสินค้าของท่านบนเว็บของเรา</Text>
@@ -380,7 +366,7 @@ export class Notification_From extends Component {
                                     <View style={[stylesLogin.DateBoxBody, { width: 70, }]}>
                                         <Picker
                                             selectedValue={String(day)}
-                                            style={{ height: '100%', width: '100%' }}
+                                            style={stylesMain.BoxProduct1Image}
                                             itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { backgroundColor: '#fff' }]}
                                             onValueChange={(itemValue, itemIndex) => {
                                                 this.setState({ date: new Date(date).setDate(itemValue) })
@@ -391,7 +377,7 @@ export class Notification_From extends Component {
                                     <View style={[stylesLogin.DateBoxBody, { width: 120, }]}>
                                         <Picker
                                             selectedValue={String(month)}
-                                            style={{ height: '100%', width: '100%' }}
+                                            style={stylesMain.BoxProduct1Image}
                                             itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { backgroundColor: '#fff' }]}
                                             onValueChange={(itemValue, itemIndex) => {
                                                 this.getDataDay(itemValue)
@@ -402,7 +388,7 @@ export class Notification_From extends Component {
                                     <View style={stylesLogin.DateBoxBody}>
                                         <Picker
                                             selectedValue={String(year)}
-                                            style={{ height: '100%', width: '100%' }}
+                                            style={stylesMain.BoxProduct1Image}
                                             itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { backgroundColor: '#fff' }]}
                                             onValueChange={(itemValue, itemIndex) => {
                                                 this.getDataMo(itemValue)
@@ -436,7 +422,7 @@ export class Setting_Address_Store extends Component {
                 <Address_Customar />
                 <View style={{ alignItems: 'center', justifyContent: 'flex-end', height: 475 }}>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Customer_account')}>
-                        <View style={{ height: 40, backgroundColor: '#0A55A6', width: 350, borderRadius: 5, alignItems: 'center', justifyContent: 'center', marginBottom: 10, }}>
+                        <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { color: '#FFFFFF' }]}>เพิ่มที่อยู่</Text>
                         </View>
                     </TouchableOpacity>
@@ -460,7 +446,7 @@ export class Up_Code_Number extends Component {
             <View style={stylesMain.FrameBackground}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { margin: 10 }]}>กรอกเลขพัสดุ</Text>
                 <View style={{ alignItems: 'center' }}>
-                    <View style={{ width: '90%', height: 40, borderWidth: 1, borderRadius: 5, }}>
+                    <View style={stylesStoreMe.Up_Code_Number_BoxTextInput}>
                         <TextInput
                             style={stylesFont.FontFamilyText}
                             fontSize={15}
@@ -473,14 +459,14 @@ export class Up_Code_Number extends Component {
                         </TextInput>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FF0000' }]}>*กรุณาตรวจเลขพัสดุ </Text>
                     </View>
-                    <View style={[styles.BottomSheet_Botton, { paddingTop: 15 }]}>
+                    <View style={[stylesStoreMe.BottomSheet_Botton, { paddingTop: 15 }]}>
                         <TouchableOpacity>
-                            <View style={styles.BottomSheet_Botton_cancel}>
+                            <View style={stylesStoreMe.BottomSheet_Botton_cancel}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ยกเลิก</Text>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity>
-                            <View style={styles.BottomSheet_Botton_OK}>
+                            <View style={stylesStoreMe.BottomSheet_Botton_OK}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตกลง</Text>
                             </View>
                         </TouchableOpacity>

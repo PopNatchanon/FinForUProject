@@ -285,13 +285,11 @@ export default StyleSheet.create({
     height: 105,
     marginTop: 10,
     marginBottom: 5,
-    marginLeft: 5,
+    marginHorizontal:5,
   },
   BoxStore1Box3: {
     width: width * 0.40,
     height: 105,
-    borderColor: '#ECECEC',
-    borderWidth: 1,
     marginTop: 10,
     marginLeft: 5,
   },
@@ -627,7 +625,6 @@ export default StyleSheet.create({
   CategoryProductStoreBox: {
     width: '98%',
     height: 90,
-    marginBottom: 8,
     marginLeft: 5,
   },
   CategoryProductStoreImage: {

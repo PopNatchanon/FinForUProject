@@ -1,31 +1,28 @@
+///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-    Image,
-    ImageBackground,
-    View,
-    ScrollView,
-    Text,
-    TextInput,
-    SafeAreaView,
-    TouchableOpacity,
-    Dimensions,
-    requireNativeComponent,
+    Dimensions, SafeAreaView, ScrollView, ImageBackground, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
-import axios from 'axios';
+///----------------------------------------------------------------------------------------------->>>> Import
+export const { width, height } = Dimensions.get('window');
+import BottomSheet from "react-native-raw-bottom-sheet";
 import FastImage from 'react-native-fast-image';
-import NumberFormat from 'react-number-format';
-import Icons from 'react-native-vector-icons/FontAwesome5';
-import IconFeather from 'react-native-vector-icons/Feather';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
-import IconEntypo from 'react-native-vector-icons/Entypo';
-import styles from '../../style/stylestoreMe-src/styleStoreMeScreen';
 import { CheckBox } from 'react-native-elements';
-import { ip } from '../../navigator/IpConfig';
-import Icon from 'react-native-vector-icons/FontAwesome';
+///----------------------------------------------------------------------------------------------->>>> Icon
+import IconAntDesign from 'react-native-vector-icons/AntDesign';
+import IconEntypo from 'react-native-vector-icons/Entypo';
+import IconFeather from 'react-native-vector-icons/Feather';
+///----------------------------------------------------------------------------------------------->>>> stylesStoreMe
+import stylesFont from '../../style/stylesFont';
+import stylesMain from '../../style/StylesMainScreen';
+import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
+import stylesProfile from '../../style/StylesProfileScreen';
+import stylesStoreMe from '../../style/stylestoreMe-src/styleStoreMeScreen';
+///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+///----------------------------------------------------------------------------------------------->>>> Ip
+///----------------------------------------------------------------------------------------------->>>> Main
 import { AppBar1 } from '../MainScreen';
 
-export const { width, height } = Dimensions.get('window');
 
 export default class StoreMe_Profile_Edit extends Component {
     constructor(props) {
@@ -36,8 +33,8 @@ export default class StoreMe_Profile_Edit extends Component {
 
     render() {
         return (
-            <SafeAreaView style={{ flex: 1, backgroundColor: '#E9E9E9', }}>
-                <AppBar1 backArrow  navigation={this.props.navigation} titleHead='แก้ไขรายละเอียดร้านค้า' />
+            <SafeAreaView style={stylesMain.SafeAreaView}>
+                <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขรายละเอียดร้านค้า' />
                 <ScrollView>
                     <StoreMe_SettingImage />
                     <StoreMe_Detail />
@@ -47,28 +44,6 @@ export default class StoreMe_Profile_Edit extends Component {
         );
     }
 }
-
-// ///------------------------------------------------------------------------------///
-
-// export class Appbar extends Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//         };
-//     }
-
-//     render() {
-//         return (
-//             <View style={{ width: '100%', backgroundColor: '#FFFFFF', height: 50, flexDirection: 'row', justifyContent: 'space-between', paddingRight: 10, }} >
-//                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
-//                     <IconEntypo name='chevron-left' size={35} color='#0A55A6' />
-//                 </TouchableOpacity>
-//                 <Text style={{ marginTop: 10, fontSize: 16, }} >แก้ไขรายละเอียดร้านค้า</Text>
-//                 <Text style={{ marginTop: 10, fontSize: 16, color: '#0A55A6', }} >บันทึก</Text>
-//             </View>
-//         );
-//     }
-// }
 
 ///------------------------------------------------------------------------------///
 
@@ -85,28 +60,31 @@ export class StoreMe_SettingImage extends Component {
             <View>
                 <ImageBackground
                     source={require('../../icon/bgprofile.jpg')}
-                    style={{ width: '100%', height: 150, }}
+                    style={stylesProfile.HeadbarImage}
 
                 />
                 <View style={{ paddingLeft: 20, }}>
-                    <View style={{ height: 100, width: 100, backgroundColor: '#FFFFFF', borderRadius: 50, marginTop: -130, }}>
+                    <View style={stylesStoreMe.StoreMe_SettingImage}>
                     </View>
 
-                    <View style={{ height: 30, width: 110, marginTop: -50, }}>
-                        <View style={{ height: 30, width: 30, backgroundColor: '#C4C4C4', alignSelf: 'flex-end', borderRadius: 15, borderColor: '#FFFFFF', borderWidth: 2, justifyContent: 'center', alignItems: 'center', }}>
-                            <IconFeather name='camera' size={17} />
+                    <View style={stylesStoreMe.StoreMe_SettingImageIconBox}>
+                        <View style={stylesStoreMe.StoreMe_SettingImageIconBox_Camara}>
+                            <TouchableOpacity>
+                                <IconFeather name='camera' size={17} />
+                            </TouchableOpacity>
                         </View>
                     </View>
-                    <View style={{ backgroundColor: '#222222', height: 30, width: 100, opacity: 0.1, }}>
-                        <Text style={{ textAlign: 'center', }}>แก้ไข</Text>
+
+                    <View style={stylesStoreMe.StoreMe_SettingBoxText_Edit}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'center', }]}>แก้ไข</Text>
                     </View>
                 </View>
 
-                <View style={{ width: '100%', height: 40, flexDirection: 'row-reverse', marginTop: -50, }}>
+                <View style={stylesStoreMe.StoreMe_SettingImageEdit_BG}>
                     <TouchableOpacity>
-                        <View style={{ flexDirection: 'row', }}>
-                            <Text style={{ textAlign: 'right', fontSize: 16, marginRight: 10, color: '#FFFFFF' }}>แตะเพื่อเปลี่ยน</Text>
-                            <IconFeather name='camera' size={20} color='#FFFFFF' style={{ marginRight: 20, }} />
+                        <View style={stylesMain.FlexRow}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'right', color: '#FFFFFF' }]}>แตะเพื่อเปลี่ยน</Text>
+                            <IconFeather name='camera' size={20} color='#FFFFFF' style={{ marginHorizontal: 10, }} />
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -128,40 +106,29 @@ export class StoreMe_Detail extends Component {
     render() {
         return (
             <View>
-                <View style={{ backgroundColor: '#FFFFFF', marginTop: 15, width: '100%', height: 50, alignItems: 'center', justifyContent: 'center', }}>
+                <View style={[stylesMain.FrameBackground, stylesMain.ItemCenter, { paddingVertical: 5, marginTop: 15 }]}>
                     <TextInput
-                        style={{ height: 40, borderColor: '#ECECEC', borderWidth: 1, width: '95%' }}
+                        style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesStoreMe.StoreMe_Detail_TextInput, { height: 50 }]}
                         placeholder=" ชื่อร้าน"
-                        fontSize={15}
                         maxLength={40}
                         value={this.state.name}
                         onChangeText={(name) => this.setState({ name })}>
                     </TextInput>
                 </View>
-                <View style={{ backgroundColor: '#FFFFFF', marginTop: 5, width: '100%', height: 'auto', padding: 10, }}>
-                    <Text>  คำอธิบายรูปภาพ</Text>
-                
-                        <TouchableOpacity>
-                            <View style={{
-                                marginTop: 10,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                marginLeft: 10,
-                                width: 130,
-                                height: 100,
-                                borderColor: '#0A55A6',
-                                borderWidth: 1,
-                            }}>
-                                <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
-                                <Text style={{ color: '#0A55A6', fontSize: 12, }}>+เพิ่มรูปภาพ</Text>
-                            </View>
-                        </TouchableOpacity>
-                    
+                <View style={[stylesMain.FrameBackground, { paddingVertical: 5, marginTop: 5 }]}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>  คำอธิบายรูปภาพ</Text>
+                    <TouchableOpacity>
+                        <View style={stylesStoreMe.StoreMe_Detail_BoxUp_Image}>
+                            <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ</Text>
+                        </View>
+                    </TouchableOpacity>
+
                 </View>
-                <View style={{ backgroundColor: '#FFFFFF', marginTop: 5, width: '100%', height: 150, alignItems: 'center', justifyContent: 'center', }}>
-                    <View style={{ height: 130, borderColor: '#ECECEC', borderWidth: 1, width: '95%' }}>
+                <View style={[stylesMain.FrameBackground, stylesMain.ItemCenter, { paddingVertical: 5, marginTop: 5 }]}>
+                    <View style={[stylesStoreMe.StoreMe_Detail_TextInput, { height: 130 }]}>
                         <TextInput
-                            fontSize={15}
+                            style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}
                             placeholder="รายละเอียด"
                             multiline
                             editable
@@ -184,24 +151,59 @@ export class StoreMe_SettingButton extends Component {
         this.state = {
         };
     }
-
+    Phone_numberSheetBody() {
+        return (
+            <>
+                <View style={stylesProfileTopic.Edit_Profile}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>เบอร์โทรศัพท์</Text>
+                    <View style={stylesProfileTopic.Edit_Profile_Box}>
+                        <TextInput
+                            fontSize={15}
+                            placeholder="เบอร์โทรศัพท์"
+                            maxLength={10}
+                            value={this.state.Phone}
+                            onChangeText={(Phone) => this.setState({ Phone })}
+                        />
+                    </View>
+                </View>
+                <TouchableOpacity>
+                    <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
+                    </View>
+                </TouchableOpacity>
+            </>
+        )
+    }
     render() {
         return (
             <View>
-                <View style={styles.StoreMe_Up_ProductDetail}>
-                    <Text style={styles.StoreMe_Up_ProductDetail_Text}>โทรศัพท์</Text>
+                <BottomSheet
+                    ref={ref => {
+                        this.Phone_numberSheet = ref;
+                    }}
+                    height={200}
+                    duration={250}
+                    customStyles={{
+                        container: {
+                            paddingTop: 20,
+                            alignItems: "center",
+                        }
+                    }}
+                >
+                    {this.Phone_numberSheetBody()}
+                </BottomSheet>
+                <TouchableOpacity onPress={() => { this.Phone_numberSheet.open(); }}>
+                    <View style={stylesStoreMe.StoreMe_Up_ProductDetail}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โทรศัพท์</Text>
+                        <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+                    </View>
+                </TouchableOpacity>
+                <View style={stylesStoreMe.StoreMe_Up_ProductDetail}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เพจ Facebook</Text>
                     <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                 </View>
-                <View style={styles.StoreMe_Up_ProductDetail}>
-                    <Text style={styles.StoreMe_Up_ProductDetail_Text}>E-mail</Text>
-                    <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
-                </View>
-                <View style={styles.StoreMe_Up_ProductDetail}>
-                    <Text style={styles.StoreMe_Up_ProductDetail_Text}>เพจ Facebook</Text>
-                    <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
-                </View>
-                <View style={styles.StoreMe_Up_ProductDetail}>
-                    <Text style={styles.StoreMe_Up_ProductDetail_Text}>เผยแพร่สินค้า</Text>
+                <View style={stylesStoreMe.StoreMe_Up_ProductDetail}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เผยแพร่สินค้า</Text>
                     <CheckBox
                         size={30}
                         containerStyle={{ marginTop: -5 }}

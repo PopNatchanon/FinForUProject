@@ -1211,7 +1211,7 @@ export class CategoryProduct extends Component {
                                 </View>
                                 <CategoryProductSubStore navigation={this.props.navigation} id_type={item.id_type} />
                             </View> :
-                            <View style={{ marginBottom: 10, }}>
+                            <View style={{ marginBottom: 0, }}>
                                 <CategoryProductSubPromotion navigation={this.props.navigation} id_type={item.id_type} />
                             </View>
                     }
@@ -1276,8 +1276,7 @@ export class CategoryProductSubStore extends Component {
     _renderItem = ({ item, index }) => {
         var dataMySQL = [finip, item.image_path, item.image].join('/');
         return (
-            <TouchableOpacity activeOpacity={1} key={['A', index].join('.')}
-            // onPress={() => navigation.navigate('StoreScreen', { id_item: item.id_store })}
+            <TouchableOpacity activeOpacity={1} key={index}  
             >
                 <View style={stylesMain.CategoryProductStoreBox}>
                     <FastImage

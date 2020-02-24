@@ -1,10 +1,11 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-    ActivityIndicator, Animated, Dimensions, Text, TouchableOpacity, View,
+    ActivityIndicator, Animated, Dimensions, Modal, Text, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
+import { WebView } from 'react-native-webview';
 export const { width, height } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
@@ -19,7 +20,7 @@ import stylesStore from '../../style/StylesStoreScreen';
 import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '../../navigator/IpConfig';
+import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Toolbar
 export class Toolbar extends Component {
     constructor(props) {
@@ -107,7 +108,7 @@ export class TabBar extends Component {
     //     }
     // }
     /*
-    // v0.6.28012020
+    // v0.8.23022020
     // <TabBar
     // /////ส่งออกมาจากTabBarและส่งค่าที่คลิกไปยังฟังก์ชันgetData
     // sendData={this.getData}
@@ -146,7 +147,7 @@ export class TabBar extends Component {
         const {
             item, activeColor, activeWidth, type, radiusBox, activeFontColor, inactiveFontColor, inactiveColor, inactiveBoxColor,
             noSpace, direction, alignBox, widthBox, spaceColor, fontColor, noLimit, limitBox, SetValue, fontSizeStyle, numberBox,
-            NoSelectTab, tagBottom, numberOfLines
+            NoSelectTab, tagBottom, numberOfLines, setVertical
         } = this.props;
         const { PassSetValue, pathlist } = this.state
         const countItem = item.length;
@@ -202,7 +203,7 @@ export class TabBar extends Component {
                                                     limitBox * (1 / countItem) :
                                                     width * (1 / countItem),
                                 borderLeftWidth: type == 'tag' ? index == 0 ? null : 0.5 : null,
-                                borderRightWidth: type == 'tag' ? index == countItem ? null : 0.5 : null,
+                                borderRightWidth: type == 'tag' ? index == countItem - 1 ? null : 0.5 : null,
                                 alignContent: 'center',
                                 alignItems: 'center',
                                 borderBottomColor: type == 'box' ?
@@ -210,7 +211,7 @@ export class TabBar extends Component {
                                     activeColor ? activeColor : '#0A55A6',
                                 borderBottomWidth: type == 'tag' ? null : type == 'box' ? null : 4,
                                 paddingLeft: numberBox ? width * (1 / 60) : null,
-                                paddingTop: numberBox ? 10 : null,
+                                paddingVertical: setVertical ? setVertical : null
                             }}>
                                 <View style={
                                     type == 'box' ?
@@ -264,10 +265,10 @@ export class TabBar extends Component {
                                                     limitBox * (1 / countItem) :
                                                     width * (1 / countItem),
                                 borderLeftWidth: type == 'tag' ? index == 0 ? null : 0.5 : null,
-                                borderRightWidth: type == 'tag' ? index == countItem ? null : 0.5 : null,
+                                borderRightWidth: type == 'tag' ? index == countItem - 1 ? null : 0.5 : null,
                                 alignContent: 'center', alignItems: 'center',
                                 paddingLeft: numberBox ? width * (1 / 60) : null,
-                                paddingTop: numberBox ? 10 : null,
+                                paddingVertical: setVertical ? setVertical : null
                             }}>
                                 <View style={
                                     type == 'box' ?
@@ -323,7 +324,7 @@ export class TabBar extends Component {
     render() {
         const {
             item, activeColor, activeWidth, type, radiusBox, activeFontColor, inactiveFontColor, inactiveColor, inactiveBoxColor,
-            noSpace, direction, alignBox, widthBox, spaceColor, fontColor, noLimit, numberBox, noMarginIop
+            noSpace, direction, alignBox, widthBox, spaceColor, fontColor, noLimit, numberBox,
         } = this.props;
         return (
             numberBox ?
@@ -345,7 +346,6 @@ export class TabBar extends Component {
                                             'flex-start'
                             } :
                             {
-                                paddingTop: noMarginIop ? null : 10,
                                 borderWidth: type == 'tag' ? null : noSpace ? null : 1,
                                 backgroundColor: spaceColor ? spaceColor : null,
                                 borderColor: type == 'tag' ? null : spaceColor ? spaceColor : '#ECECEC',
@@ -716,22 +716,42 @@ export class LoadingScreen extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            sliderVisible: false,
+            modalVisible: true,
         };
-        this.springValue = new Animated.Value(0);
+    }
+    setModalVisible(visible) {
+        this.setState({ modalVisible: visible });
     }
     render() {
         return (
-            <View elevation={1} style={[stylesMain.ItemCenter, {
-                width, height, opacity: 1, position: 'relative', backgroundColor: '#1A3263'
-            }]}>
-                <View style={stylesMain.ItemCenterVertical}>
-                    <FastImage
-                        style={[{ width: 300, height: 180 }]}
-                        source={require('../../images/iconlogo.png')}
-                        resizeMode={FastImage.resizeMode.cover}
-                    />
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={this.state.modalVisible}
+                onRequestClose={() => {
+                    this.setModalVisible(!this.state.modalVisible);
+                }}>
+                <View style={[stylesMain.ItemCenter, { height, width }]}>
+                    <View style={{ height, width, backgroundColor: '#555555', opacity: 0.5, position: 'absolute' }}></View>
+                    <View style={[stylesMain.ItemCenterVertical, { height: 80, width: 80, borderRadius: 8, backgroundColor: '#ECECEC' }]}>
+                        <ActivityIndicator style={stylesMain.ItemCenterVertical} color='#1A3263' size='large' />
+                    </View>
                 </View>
+            </Modal>
+        )
+    }
+}
+export class BrowerScreen extends Component {
+    render() {
+        const { url } = this.props
+        return (
+            <View style={{ flex: 1 }}>
+                <WebView
+                    source={{
+                        uri: url
+                    }}
+                    style={{ flex: 1 }}
+                />
             </View>
         )
     }

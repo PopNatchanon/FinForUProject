@@ -22,7 +22,7 @@ import stylesStore from '../style/StylesStoreScreen';
 import { AppBar1, ExitAppModule } from './MainScreen';
 import { GetServices, TabBar, Toolbar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '../navigator/IpConfig';
+import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class NewsScreen extends Component {
     constructor(props) {

@@ -20,7 +20,7 @@ import { GetServices } from './tools/Tools';
 import { Slide } from './src_Promotion/DealScreen';
 import { Store_Detail } from './Recommend_Store';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '../navigator/IpConfig';
+import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class SecondScreen extends Component {
   constructor(props) {

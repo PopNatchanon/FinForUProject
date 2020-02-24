@@ -14,7 +14,7 @@ import { FlashSale_Product } from './FlashSaleScreen';
 import { Slide } from './src_Promotion/DealScreen';
 import { GetServices, TabBar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { finip, ip } from '../navigator/IpConfig';
+import { finip, ip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class HighlightScreen extends Component {
   constructor(props) {
@@ -74,7 +74,8 @@ export class Button_Bar extends Component {
             sendData={this.updateIndex}
             item={item2}
             noLimit
-            // widthBox={98}
+            numberBox
+            numberOfLines={1}
             activeColor={'#fff'}
             activeFontColor={'#0A55A6'}
             type='tag'

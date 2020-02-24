@@ -17,7 +17,7 @@ import stylesStore from '../style/StylesStoreScreen';
 import { AppBar, ExitAppModule } from './MainScreen';
 import { FeedBox, GetCoupon, GetServices, ProductBox, TabBar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '../navigator/IpConfig';
+import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class StoreScreen extends Component {
     constructor(props) {

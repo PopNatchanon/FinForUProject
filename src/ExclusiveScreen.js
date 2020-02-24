@@ -20,7 +20,7 @@ import { AppBar1, TodayProduc, ExitAppModulet } from './MainScreen';
 import { Slide } from './src_Promotion/DealScreen';
 import { GetServices, TabBar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '../navigator/IpConfig';
+import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class ExclusiveScreen extends Component {
   constructor(props) {
@@ -296,6 +296,7 @@ export class Button_Bar extends Component {
               sendData={this.updateIndex}
               item={item}
               limitBox={width * 0.7}
+              setVertical={4}
               activeColor={'#fff'}
               activeFontColor={'#0A55A6'}
               type='tag'
@@ -306,7 +307,7 @@ export class Button_Bar extends Component {
             setSliderVisible(!sliderVisible)
           }}>
             <View style={stylesTopic.Button_Bar_Icon}>
-              <IconFeather RightItem name="filter" size={20} color='#0A55A6' />
+              <IconFeather RightItem name="filter" size={18} color='#0A55A6' />
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ตัวกรอง</Text>
             </View>
           </TouchableOpacity>

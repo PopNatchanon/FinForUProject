@@ -16,7 +16,7 @@ import stylesTopic from '../style/styleTopic';
 import { AppBar,ExitAppModule } from './MainScreen';
 import { GetServices, ProductBox } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> ip
-import { ip, finip } from '../navigator/IpConfig';
+import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class Recommend_Store extends Component {
     constructor(props) {

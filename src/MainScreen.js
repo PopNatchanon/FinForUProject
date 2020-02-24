@@ -2,10 +2,10 @@
 import React, { Component } from 'react';
 import {
     Animated, BackHandler, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
+    Linking
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import * as Animatable from 'react-native-animatable';
-import AsyncStorage from '@react-native-community/async-storage';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
@@ -22,68 +22,94 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { GetServices, ProductBox, Toolbar, LoadingScreen } from './tools/Tools';
+import { BrowerScreen, GetServices, ProductBox, Toolbar, LoadingScreen, } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '../navigator/IpConfig';
+import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class MainScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
             dataService: [],
-            IsLoading: 0,
+            LoadingStart: 0,
+            LoadingEnd: 0,
         };
         this.getData = this.getData.bind(this)
+        this.LoadingStart = this.LoadingStart.bind(this)
+        this.LoadingEnd = this.LoadingEnd.bind(this)
     }
     componentDidMount() {
-        // do stuff while splash screen is shown
-        // After having done stuff (such as async tasks) hide the splash screen
-        SplashScreen.hide();
+        setTimeout(() => {
+            SplashScreen.hide();
+        }, 1000);
+    }
+    LoadingStart() {
+        this.setState({ LoadingStart: this.state.LoadingStart + 1 })
+    }
+    LoadingEnd() {
+        this.setState({ LoadingEnd: this.state.LoadingEnd + 1 })
     }
     getData(dataService) {
         this.setState({ dataService })
     }
     render() {
         const { dataService } = this.state
-        var uri = finip + '/home/publish_mobile'
         const { navigation } = this.props
-        return (
-            <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
-                {/* <LoadingScreen /> */}
-                <GetServices uriPointer={uri} getDataSource={this.getData} />
-                <AppBar navigation={navigation} />
-                <ScrollView>
-                    <Slide />
-                    <Category navigation={navigation} />
-                    <Button_Bar navigation={navigation} />
-                    <FlashSale navigation={navigation} />
-                    <Recommend_Brand navigation={navigation} loadData={dataService.brand} />
-                    <BannerBar_ONE />
-                    <Exclusive navigation={navigation} loadData={dataService.exclusive} />
-                    <NewStore navigation={navigation} loadData={dataService.dont_miss} />
-                    <BannerBar_TWO />
-                    <Highlight navigation={navigation} loadData={dataService.hi_week} />
-                    <PromotionPopular navigation={navigation} loadData={dataService.recommend_store} />
-                    <Popular_store navigation={navigation} loadData={dataService.store_good} />
-                    <Popular_product navigation={navigation} loadData={{
-                        product_hit: dataService.product_hit, best_price: dataService.best_price,
-                        best_sale: dataService.best_sale, best_cool: dataService.best_cool
-                    }} />
-                    <BannerBar_TWO />
-                    <Product_for_you navigation={navigation} loadData={dataService.for_you} />
-                    <BannerBar_TWO />
-                    <CategoryProduct navigation={navigation} />
-                    <Second_product navigation={navigation} loadData={{
-                        product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
-                        list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3
-                    }} />
-                    <BannerBar_THREE />
-                    <TodayProduct navigation={navigation} loadData={dataService.for_you2} />
-                </ScrollView>
-                <Toolbar navigation={navigation} />
-                <ExitAppModule navigation={navigation} />
-            </SafeAreaView>
-        );
+        const browerProps = navigation.getParam('browerProps')
+        var uri = finip + '/home/publish_mobile'
+        return browerProps ?
+            ([
+                <View style={{ height: 50, width }}>
+                    <View style={stylesMain.ItemCenterVertical}>
+                        <AppBar1 backArrow colorBar='#fff' backArrowColor='#111111' navigation={navigation} />
+                    </View>
+                </View>,
+                <BrowerScreen url={browerProps} />
+            ]) :
+            (
+                <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
+                    {
+                        // LoadingEnd == LoadingStart ?
+                        // null :
+                        // < LoadingScreen />
+                    }
+                    <GetServices uriPointer={uri} getDataSource={this.getData} />
+                    <AppBar navigation={navigation} />
+                    <ScrollView>
+                        {/* <TouchableOpacity onPress={() => navigation.push('MainScreen', { browerProps: 'https://www.finforu.com/' })}>
+                            <View style={{ width }}><Text>Enter</Text></View>
+                        </TouchableOpacity> */}
+                        <Slide />
+                        <Category navigation={navigation} />
+                        <Button_Bar navigation={navigation} />
+                        <FlashSale navigation={navigation} />
+                        <Recommend_Brand navigation={navigation} loadData={dataService.brand} />
+                        <BannerBar_ONE />
+                        <Exclusive navigation={navigation} loadData={dataService.exclusive} />
+                        <NewStore navigation={navigation} loadData={dataService.dont_miss} />
+                        <BannerBar_TWO />
+                        <Highlight navigation={navigation} loadData={dataService.hi_week} />
+                        <PromotionPopular navigation={navigation} loadData={dataService.recommend_store} />
+                        <Popular_store navigation={navigation} loadData={dataService.store_good} />
+                        <Popular_product navigation={navigation} loadData={{
+                            product_hit: dataService.product_hit, best_price: dataService.best_price,
+                            best_sale: dataService.best_sale, best_cool: dataService.best_cool
+                        }} />
+                        <BannerBar_TWO />
+                        <Product_for_you navigation={navigation} loadData={dataService.for_you} />
+                        <BannerBar_TWO />
+                        <CategoryProduct navigation={navigation} />
+                        <Second_product navigation={navigation} loadData={{
+                            product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
+                            list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3
+                        }} />
+                        <BannerBar_THREE />
+                        <TodayProduct navigation={navigation} loadData={dataService.for_you2} />
+                    </ScrollView>
+                    <Toolbar navigation={navigation} />
+                    <ExitAppModule navigation={navigation} />
+                </SafeAreaView>
+            );
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> ExitAppModule
@@ -136,6 +162,7 @@ export class ExitAppModule extends Component {
     handleBackButton = () => {
         const { navigation } = this.props
         var routeProps = navigation.dangerouslyGetParent().state.routes.length
+        console.log(navigation.dangerouslyGetParent().state.routes)
         console.log(routeProps)
         return routeProps == 1 ? ([
             console.log('Exit'),
@@ -143,7 +170,7 @@ export class ExitAppModule extends Component {
             true
         ]) : ([
             console.log('Go Back'),
-            navigation.goBack(),
+            navigation.pop(),
             true
         ])
     };
@@ -296,9 +323,9 @@ export class AppBar1 extends Component {
         };
     }
     render() {
-        const { titleHead, backArrow, chatBar, menuBar, storeBar, searchBar, settingBar, navigation } = this.props;
+        const { titleHead, backArrow, backArrowColor, chatBar, colorBar, menuBar, storeBar, searchBar, settingBar, navigation, } = this.props;
         return (
-            <View style={menuBar ? stylesStore.AppbarMenu : stylesStore.Appbar}>
+            <View style={colorBar ? colorBar : menuBar ? stylesStore.AppbarMenu : stylesStore.Appbar}>
                 <View style={stylesMain.FlexRow}>
                     {
                         backArrow ?
@@ -307,6 +334,7 @@ export class AppBar1 extends Component {
                                 onPress={() => navigation.goBack()}
                             >
                                 <IconEntypo style={[stylesStore.Icon_appbar, {
+                                    color: backArrowColor ? backArrowColor : '#ffffff'
                                 }]} name="chevron-left" size={30} />
                             </TouchableOpacity> :
                             null
@@ -366,6 +394,85 @@ export class AppBar1 extends Component {
         );
     }
 }
+///----------------------------------------------------------------------------------------------->>>> NewSlide
+// const styles = StyleSheet.create({
+//     wrapper: {},
+//     slide1: {
+//       flex: 1,
+//       justifyContent: 'center',
+//       alignItems: 'center',
+//       backgroundColor: '#9DD6EB'
+//     },
+//     slide2: {
+//       flex: 1,
+//       justifyContent: 'center',
+//       alignItems: 'center',
+//       backgroundColor: '#97CAE5'
+//     },
+//     slide3: {
+//       flex: 1,
+//       justifyContent: 'center',
+//       alignItems: 'center',
+//       backgroundColor: '#92BBD9'
+//     },
+//     text: {
+//       color: '#fff',
+//       fontSize: 30,
+//       fontWeight: 'bold'
+//     }
+//   })
+// export class NewSlide extends Component {
+//     constructor(props) {
+//         super(props);
+//         this.state = {
+//             dataService: [],
+//             activeSlide: 0,
+//         };
+//         this.getData = this.getData.bind(this)
+//     }
+//     getData(dataService) {
+//         this.setState({ dataService })
+//     }
+//     _renderItem = ({ item, index }) => {
+//         var dataMySQL = [finip, item.image_path, item.image].join('/');
+//         return (
+//             <View style={stylesMain.child} key={index}>
+//                 <FastImage
+//                     source={{
+//                         uri: dataMySQL,
+//                     }}
+//                     style={stylesMain.childSlide}
+//                     resizeMode={FastImage.resizeMode.stretch}
+//                     onLoadStart={() => this.props.LoadingStart()}
+//                     onLoadEnd={() => this.props.LoadingEnd()}
+//                 />
+//             </View>
+//         );
+//     }
+//     render() {
+//         const { activeSlide, dataService } = this.state
+//         var dataBody = {
+//             slide: 'banner'
+//         };
+//         var uri = finip + '/home/home_mobile'
+//         return (
+//             <View>
+//                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+//                 <Swiper>
+//                     <View style={styles.slide1}>
+//                         <Text style={styles.text}>Hello Swiper</Text>
+//                     </View>
+//                     <View style={styles.slide2}>
+//                         <Text style={styles.text}>Beautiful</Text>
+//                     </View>
+//                     <View style={styles.slide3}>
+//                         <Text style={styles.text}>And simple</Text>
+//                     </View>
+//                 </Swiper>
+//             </View >
+//         );
+//     }
+// }
 ///----------------------------------------------------------------------------------------------->>>> Slide
 export class Slide extends Component {
     constructor(props) {
@@ -1276,7 +1383,7 @@ export class CategoryProductSubStore extends Component {
     _renderItem = ({ item, index }) => {
         var dataMySQL = [finip, item.image_path, item.image].join('/');
         return (
-            <TouchableOpacity activeOpacity={1} key={index}  
+            <TouchableOpacity activeOpacity={1} key={index}
             >
                 <View style={stylesMain.CategoryProductStoreBox}>
                     <FastImage

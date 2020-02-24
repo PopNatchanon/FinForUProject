@@ -13,7 +13,7 @@ import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, TodayProduct, ExitAppModule } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '../../navigator/IpConfig';
+import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class Customer_Complete_Order extends Component {
   constructor(props) {

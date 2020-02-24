@@ -19,7 +19,7 @@ import stylesMain from '../../style/StylesMainScreen';
 import stylesProfile from '../../style/StylesProfileScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 ///----------------------------------------------------------------------------------------------->>>> Ip.
-import { ip } from '../../navigator/IpConfig';
+import { ip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 import { AppBar1 } from '../MainScreen';
 

@@ -26,7 +26,7 @@ import stylesMain from '../style/StylesMainScreen';
 import { AppBar, ExitAppModule } from './MainScreen';
 import { GetServices, ProductBox } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '../navigator/IpConfig';
+import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class DetailScreen extends Component {
   constructor(props) {

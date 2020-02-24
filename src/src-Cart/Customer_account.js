@@ -17,7 +17,7 @@ import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { ExitAppModule } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '../../navigator/IpConfig';
+import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class Customer_account extends Component {
     constructor(props) {

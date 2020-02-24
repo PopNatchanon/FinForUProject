@@ -18,7 +18,7 @@ import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topi
 import { AppBar1, ExitAppModule } from '../MainScreen';
 import { TabBar } from '../tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '../../navigator/IpConfig';
+import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class Total_Order extends Component {
     constructor(props) {

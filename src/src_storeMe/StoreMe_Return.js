@@ -17,7 +17,7 @@ import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topi
 import stylesStoreMe from '../../style/stylestoreMe-src/styleStoreMeScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 ///----------------------------------------------------------------------------------------------->>>> Ip.
-import { ip } from '../../navigator/IpConfig';
+import { ip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 import { AppBar1 } from '../../src/MainScreen';
 

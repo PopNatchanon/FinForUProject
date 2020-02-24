@@ -16,7 +16,7 @@ import { Button_Bar, Slide } from './DealScreen';
 import { CoinCollect } from '../ProfileScreen';
 import { GetServices, ProductBox } from '../tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { finip, ip } from '../../navigator/IpConfig';
+import { finip, ip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class CoinScreen extends Component {
   constructor(props) {

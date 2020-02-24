@@ -118,9 +118,8 @@ export default StyleSheet.create({
     Button_Bar_BoxText: {
         paddingHorizontal: 10,
         borderRightColor: 'black',
-        borderRightWidth: 1,
-        height: 20,
-        marginTop: 10,
+        borderRightWidth: 1.2,
+        height: 28,
     },
     Button_Bar_Icon: {
         marginRight: 10,

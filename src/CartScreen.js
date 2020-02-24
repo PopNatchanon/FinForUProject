@@ -19,7 +19,7 @@ import stylesMain from '../style/StylesMainScreen';
 import { AppBar1, ExitAppModule } from './MainScreen';
 import { PopularProduct } from './StoreScreen'
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '../navigator/IpConfig';
+import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class CartScreen extends Component {
     constructor(props) {

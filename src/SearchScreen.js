@@ -17,7 +17,7 @@ import stylesTopic from '../style/styleTopic';
 import { AppBar, BannerBar_THREE, TodayProduct, ExitAppModule} from './MainScreen';
 import { Button_Bar, SlideTab, PricesSlide } from './ExclusiveScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '../navigator/IpConfig';
+import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class SearchScreen extends Component {
     constructor(props) {

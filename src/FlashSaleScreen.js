@@ -19,7 +19,7 @@ import { AppBar1, ExitAppModule } from './MainScreen';
 import { Slide } from './src_Promotion/DealScreen';
 import { TabBar, GetServices } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { finip, ip } from '../navigator/IpConfig';
+import { finip, ip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class FlashSaleScreen extends Component {
     constructor(props) {

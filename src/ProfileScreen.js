@@ -23,7 +23,7 @@ import stylesProfile from '../style/StylesProfileScreen'
 import { ExitAppModule } from './MainScreen';
 import { GetCoupon, TabBar, Toolbar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '../navigator/IpConfig';
+import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class StoreScreen extends Component {
     constructor(props) {
@@ -85,7 +85,7 @@ export class Headbar extends Component {
                                             เริ่มค้าขาย</Text>
                                     </View>
                                 </TouchableOpacity>
-                                
+
                                 <FastImage
                                     source={{ uri: uri }}
                                     style={stylesProfile.HeadbarBoxImage}
@@ -456,6 +456,7 @@ export class ViewCode extends Component {
                     <TabBar
                         sendData={this.getData}
                         item={item}
+                        setVertical={4}
                     />
                 </View>
                 <View>

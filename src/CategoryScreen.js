@@ -17,7 +17,7 @@ import { AppBar, Slide, BannerBar_TWO, TodayProduct, ExitAppModule, } from './Ma
 import { Button_Bar, SlideTab, PricesSlide } from './ExclusiveScreen';
 import { GetServices, ProductBox } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { finip, ip } from '../navigator/IpConfig';
+import { finip, ip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class CategoryScreen extends Component {
     constructor(props) {
@@ -210,7 +210,7 @@ export class Product_Brand extends Component {
         const { navigation } = this.props
         var uri = ip + '/mysql/DataServiceMain.php';
         var dataBody = {
-            type: 'product'
+            type: 'todayproduct'
         };
         return (
             <View style={stylesMain.FrameBackground}>

@@ -22,7 +22,7 @@ import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topi
 import { AppBar1, ExitAppModule } from '../MainScreen';
 import { PopularProduct } from '../StoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '../../navigator/IpConfig';
+import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class Profile_Topic extends Component {
     constructor(props) {

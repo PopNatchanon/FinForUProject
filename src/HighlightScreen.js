@@ -14,7 +14,7 @@ import { FlashSale_Product } from './FlashSaleScreen';
 import { Slide } from './src_Promotion/DealScreen';
 import { GetServices, TabBar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { finip, ip } from '../navigator/IpConfig';
+import { finip, ip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class HighlightScreen extends Component {
   constructor(props) {

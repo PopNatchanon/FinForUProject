@@ -20,7 +20,7 @@ import { AppBar1, TodayProduc, ExitAppModulet } from './MainScreen';
 import { Slide } from './src_Promotion/DealScreen';
 import { GetServices, TabBar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '../navigator/IpConfig';
+import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class ExclusiveScreen extends Component {
   constructor(props) {
@@ -297,7 +297,7 @@ export class Button_Bar extends Component {
               item={item}
               limitBox={width * 0.7}
               activeColor={'#fff'}
-              activeFontColor={'#0A55A6'}
+              activeFontColor={''}
               type='tag'
             />
           </View>

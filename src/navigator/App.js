@@ -1,65 +1,65 @@
 import React, { Component } from 'react';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation'
-import MainScreen from '../src/MainScreen';
-import StoreScreen from '../src/StoreScreen';
-import DetailScreen from '../src/DetailScreen';
-import ProfileScreen from '../src/ProfileScreen';
-import CartScreen from '../src/CartScreen';
-import LoginScreen from '../src/LoginScreen';
-import FeedScreen from '../src/FeedScreen';
-import NewsScreen from '../src/NewsScreen';
-import BellScreen from '../src/BellScreen';
-import RegisterScreen from '../src/RegisterScreen';
-import Recommend_Brand from '../src/Recommend_Brand';
-import FlashSaleScreen from '../src/FlashSaleScreen';
-import HighlightScreen from '../src/HighlightScreen';
-import Recommend_Store from '../src/Recommend_Store';
-import ExclusiveScreen from '../src/ExclusiveScreen';
-import Product_for_youScreen from '../src/Product_for_youScreen';
-import Popular_productScreen from '../src/Popular_productScreen';
-import CategoryScreen from '../src/CategoryScreen';
-import Same_StoreScreen from '../src/Same_StoreScreen';
-import SecondScreen from '../src/SecondScreen';
-import SearchScreen from '../src/SearchScreen'
+import MainScreen from '../MainScreen';
+import StoreScreen from '../StoreScreen';
+import DetailScreen from '../DetailScreen';
+import ProfileScreen from '../ProfileScreen';
+import CartScreen from '../CartScreen';
+import LoginScreen from '../LoginScreen';
+import FeedScreen from '../FeedScreen';
+import NewsScreen from '../NewsScreen';
+import BellScreen from '../BellScreen';
+import RegisterScreen from '../RegisterScreen';
+import Recommend_Brand from '../Recommend_Brand';
+import FlashSaleScreen from '../FlashSaleScreen';
+import HighlightScreen from '../HighlightScreen';
+import Recommend_Store from '../Recommend_Store';
+import ExclusiveScreen from '../ExclusiveScreen';
+import Product_for_youScreen from '../Product_for_youScreen';
+import Popular_productScreen from '../Popular_productScreen';
+import CategoryScreen from '../CategoryScreen';
+import Same_StoreScreen from '../Same_StoreScreen';
+import SecondScreen from '../SecondScreen';
+import SearchScreen from '../SearchScreen'
 
 // src_Bell
-import Detail_Pro from '../src/src_Bell/Detail_Pro';
+import Detail_Pro from '../src_Bell/Detail_Pro';
 
 // src_profile
-import Profile_Topic from '../src/src_profile/Profile_Topic';
-import SettingScreen from '../src/src_profile/SettingScreen';
-import CancelScreen from '../src/src_profile/CancelScreen';
-import Return_products from '../src/src_profile/Return_products';
-import Total_Order from '../src/src_profile/Total_Order';
-import Order_Detail from '../src/src_profile/Order_Detail';
-import Setting_Topic from '../src/src_profile/src_Setting/Setting_Topic';
+import Profile_Topic from '../src_profile/Profile_Topic';
+import SettingScreen from '../src_profile/SettingScreen';
+import CancelScreen from '../src_profile/CancelScreen';
+import Return_products from '../src_profile/Return_products';
+import Total_Order from '../src_profile/Total_Order';
+import Order_Detail from '../src_profile/Order_Detail';
+import Setting_Topic from '../src_profile/src_Setting/Setting_Topic';
 
 // src_storeMe
-import StoreMeScreen from '../src/src_storeMe/StoreMeScreen';
-import StoreMe_Topic from '../src/src_storeMe/StoreMe_Topic';
-import StoreMe_Setting from '../src/src_storeMe/StoreMe_Setting';
-import StoreMe_Profile_Edit from '../src/src_storeMe/StoreMe_Profile_Edit';
-import StoreMe_Up_Product from '../src/src_storeMe/StoreMe_Up_Product';
-import StoreMe_Return from '../src/src_storeMe/StoreMe_Return';
-import StoreMe_Cancel from '../src/src_storeMe/StoreMe_Cancel';
-import StoreMe_Detail_Order from '../src/src_storeMe/StoreMe_Detail_Order';
-import Setting_TopicStore from '../src/src_storeMe/src_SettingStore/Setting_TopicStore';
+import StoreMeScreen from '../src_storeMe/StoreMeScreen';
+import StoreMe_Topic from '../src_storeMe/StoreMe_Topic';
+import StoreMe_Setting from '../src_storeMe/StoreMe_Setting';
+import StoreMe_Profile_Edit from '../src_storeMe/StoreMe_Profile_Edit';
+import StoreMe_Up_Product from '../src_storeMe/StoreMe_Up_Product';
+import StoreMe_Return from '../src_storeMe/StoreMe_Return';
+import StoreMe_Cancel from '../src_storeMe/StoreMe_Cancel';
+import StoreMe_Detail_Order from '../src_storeMe/StoreMe_Detail_Order';
+import Setting_TopicStore from '../src_storeMe/src_SettingStore/Setting_TopicStore';
 
 
 // src-Cart
-import Customer_account from '../src/src-Cart/Customer_account';
-import Customer_Order from '../src/src-Cart/Customer_Order';
-import Customer_Complete_Order from '../src/src-Cart/Customer_Complete_Order';
+import Customer_account from '../src-Cart/Customer_account';
+import Customer_Order from '../src-Cart/Customer_Order';
+import Customer_Complete_Order from '../src-Cart/Customer_Complete_Order';
 
 // src_Promotion
-import Deal_Topic from '../src/src_Promotion/src_DealTopic/Deal_Topic';
-import DealScreen from '../src/src_Promotion/DealScreen';
-import CoinScreen from '../src/src_Promotion/CoinScreen';
-import CampaignScreen from '../src/src_Promotion/CampaignScreen';
-import The_BestFinScreen from '../src/src_Promotion/The_BestFinScreen';
-import Installment_payScreen from '../src/src_Promotion/Installment_payScreen';
-import Detail_Campaign from '../src/src_Promotion/Detail_Campaign';
+import Deal_Topic from '../src_Promotion/src_DealTopic/Deal_Topic';
+import DealScreen from '../src_Promotion/DealScreen';
+import CoinScreen from '../src_Promotion/CoinScreen';
+import CampaignScreen from '../src_Promotion/CampaignScreen';
+import The_BestFinScreen from '../src_Promotion/The_BestFinScreen';
+import Installment_payScreen from '../src_Promotion/Installment_payScreen';
+import Detail_Campaign from '../src_Promotion/Detail_Campaign';
 
 ///----------------------------------------------------------------------------------------------->>>>
 

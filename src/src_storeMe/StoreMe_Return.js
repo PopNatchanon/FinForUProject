@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-  Dimensions, SafeAreaView, Text, TextInput, TouchableOpacity, View, Picker, ScrollView,
+  Dimensions, SafeAreaView, Text, TouchableOpacity, View, ScrollView,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
@@ -17,7 +17,7 @@ import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topi
 import stylesStoreMe from '../../style/stylestoreMe-src/styleStoreMeScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 ///----------------------------------------------------------------------------------------------->>>> Ip.
-import { ip } from '../../navigator/IpConfig';
+import { ip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 import { AppBar1 } from '../../src/MainScreen';
 
@@ -184,7 +184,7 @@ export class StoreMe_Return_Detail extends Component {
           </View>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10, borderColor: '#EAEAEA', borderBottomWidth: 1, }}>
             <View style={stylesMain.FlexRow}>
-            <View style={stylesProfileTopic.Order_Product_Pro}>
+              <View style={stylesProfileTopic.Order_Product_Pro}>
                 <FastImage style={stylesMain.BoxProduct1Image}
                   source={{
                     uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
@@ -203,35 +203,35 @@ export class StoreMe_Return_Detail extends Component {
           </View>
           <View style={{ padding: 10 }}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { margin: 5 }]}>ข้อมูลการยกเลิก</Text>
-            <View style={{ }}>
-              <View style={{ width: '65%', height: '100%' }}>
+            <View style={stylesStoreMe.StoreMe_Return_DetailBox}>
+              <View style={stylesStoreMe.StoreMe_Return_DetailBoxA}>
                 <FastImage
-                  style={{ height: '100%', width: '100%' }}
+                  style={stylesMain.BoxProduct1Image}
                   source={{
                     uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
                   }}
                 />
               </View>
-              <View style={{ height: '100%', width: '30%', justifyContent: 'space-between' }}>
-                <View style={{ width: '100%', height: '30%', }}>
+              <View style={stylesStoreMe.StoreMe_Return_DetailBoxB}>
+                <View style={stylesStoreMe.StoreMe_Return_DetailBoxB_Image}>
                   <FastImage
-                    style={{ height: '100%', width: '100%', borderColor: '#C8C8C8', borderRadius: 5, borderWidth: 1, }}
+                    style={stylesStoreMe.StoreMe_Return_DetailB_Image}
                     source={{
                       uri: ip + '/MySQL/uploads/products/2019-03-16-1552756517.jpg',
                     }}
                   />
                 </View>
-                <View style={{ width: '100%', height: '30%', }}>
+                <View style={stylesStoreMe.StoreMe_Return_DetailBoxB_Image}>
                   <FastImage
-                    style={{ height: '100%', width: '100%', borderColor: '#C8C8C8', borderRadius: 5, borderWidth: 1, }}
+                    style={stylesStoreMe.StoreMe_Return_DetailB_Image}
                     source={{
                       uri: ip + '/MySQL/uploads/products/2019-03-16-1552756517.jpg',
                     }}
                   />
                 </View>
-                <View style={{ width: '100%', height: '30%', }}>
+                <View style={stylesStoreMe.StoreMe_Return_DetailBoxB_Image}>
                   <FastImage
-                    style={{ height: '100%', width: '100%', borderColor: '#C8C8C8', borderRadius: 5, borderWidth: 1, }}
+                    style={stylesStoreMe.StoreMe_Return_DetailB_Image}
                     source={{
                       uri: ip + '/MySQL/uploads/products/2019-03-16-1552756517.jpg',
                     }}
@@ -252,7 +252,7 @@ export class StoreMe_Return_Detail extends Component {
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginTop: 15 }]}>ตรวจสอบแล้ว</Text>
             </View>
             <TouchableOpacity>
-              <View style={{ height: 30, width: 100, backgroundColor: '#0A55A6', justifyContent: 'center', alignItems: 'center', borderRadius: 5, marginTop: 10 }}>
+              <View style={stylesStoreMe.StoreMe_Return_Button}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ยืนยัน</Text>
               </View>
             </TouchableOpacity>
@@ -275,9 +275,9 @@ export class Treasury_store_Product extends Component {
     return (
       <View style={stylesMain.SafeAreaView}>
         <View style={stylesMain.FrameBackground}>
-          <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', padding: 10, borderColor: '#EFEFEF', borderWidth: 1 }]}>
+          <View style={[stylesMain.FlexRow, {  }]}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
-            <View style={[stylesMain.FlexRow, { width: 100, justifyContent: 'space-between' }]}>
+            <View style={[stylesMain.FlexRow,stylesStoreMe.Treasury_store_Text]}>
               <TouchableOpacity style={stylesMain.FlexRow} >
                 <IconFontAwesome name='trash-o' size={20} color='#6B87CF' />
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#6B87CF' }]}>ลบ</Text>
@@ -291,7 +291,7 @@ export class Treasury_store_Product extends Component {
           <View style={{ padding: 10, justifyContent: 'space-around', flexDirection: 'row' }}>
             <View style={{ height: 80, width: 80, }}>
               <FastImage
-                style={{ height: '100%', width: '100%', }}
+                style={stylesMain.BoxProduct1Image}
                 source={{
                   uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
                 }}

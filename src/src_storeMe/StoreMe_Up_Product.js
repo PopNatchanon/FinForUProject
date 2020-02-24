@@ -23,7 +23,7 @@ import stylesMain from '../../style/StylesMainScreen';
 import styles from '../../style/stylestoreMe-src/styleStoreMeScreen';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import { CheckBox } from 'react-native-elements';
-import { ip, finip } from '../../navigator/IpConfig';
+import { ip, finip } from '.././navigator/IpConfig';
 import BottomSheet from "react-native-raw-bottom-sheet";
 import { AppBar1 } from '../MainScreen';
 import { GetServices } from '../tools/Tools';

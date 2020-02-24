@@ -24,7 +24,7 @@ import stylesMain from '../../style/StylesMainScreen';
 import stylesFont from '../../style/stylesFont';
 import { TabBar } from '../tools/Tools';
 import { PopularProduct } from '../StoreScreen';
-import { ip } from '../../navigator/IpConfig';
+import { ip } from '.././navigator/IpConfig';
 import { AppBar1 } from '../MainScreen';
 import { Order } from '../src_profile/Total_Order';
 

@@ -14,7 +14,7 @@ import stylesStore from '../style/StylesStoreScreen';
 import { AppBar1, ExitAppModule } from './MainScreen';
 import { FeedBox, GetServices, TabBar, Toolbar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '../navigator/IpConfig';
+import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class FeedScreen extends Component {
   constructor(props) {
@@ -71,7 +71,7 @@ export class MenuBar extends Component {
             item={item}
             noSpace
             widthBox={100}
-            spaceColor='#1A3263'
+            spaceColor='#0A55A6'
             activeColor='#fff'
             fontColor='#fff'
           />

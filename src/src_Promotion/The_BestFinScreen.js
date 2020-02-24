@@ -19,7 +19,7 @@ import { AppBar1, ExitAppModule } from '../MainScreen';
 import { Button_Bar, Slide, } from './DealScreen';
 import { GetServices, ProductBox } from '../../src/tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '../../navigator/IpConfig';
+import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class The_BestFinScreen extends Component {
   constructor(props) {

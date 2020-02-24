@@ -16,7 +16,7 @@ import { GetServices, ProductBox, Toolbar } from '../../tools/Tools';
 import { TodayProduct, Slide, AppBar1, ExitAppModule } from '../../MainScreen';
 import { Store_Detail } from '../../Recommend_Store';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { finip, ip } from '../../../navigator/IpConfig';
+import { finip, ip } from '../.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class Deal_Topic extends Component {
     constructor(props) {

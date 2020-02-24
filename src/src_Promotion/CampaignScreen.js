@@ -17,7 +17,7 @@ import { AppBar1, ExitAppModule, } from '../MainScreen';
 import { Button_Bar, Slide, } from './DealScreen';
 import { TabBar, } from '../tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { finip, ip } from '../../navigator/IpConfig';
+import { finip, ip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class CampaignScreen extends Component {
   constructor(props) {

@@ -19,7 +19,7 @@ import { Button_Bar } from '../HighlightScreen';
 import { Store_Sale } from './The_BestFinScreen';
 import { GetCoupon, GetServices } from '../tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { finip, ip } from '../../navigator/IpConfig';
+import { finip, ip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class Detail_Campaign extends Component {
     constructor(props) {

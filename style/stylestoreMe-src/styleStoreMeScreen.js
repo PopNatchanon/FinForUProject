@@ -262,7 +262,8 @@ export default StyleSheet.create({
     StoreMe_Product_BeforeBoxFooter: {
         borderColor: '#EAEAEA',
         borderTopWidth: 1, alignItems: 'flex-end',
-        justifyContent: 'center', padding: 10, height: 80
+        justifyContent: 'center', padding: 10, 
+        height: 80
     },
     StoreMe_Return_DetailBox: {
         width: '100%',
@@ -271,5 +272,33 @@ export default StyleSheet.create({
         height: 300,
         justifyContent: 'space-between'
     },
-
+    StoreMe_Return_DetailBoxA:{
+        width: '65%', height: '100%' 
+    },
+    StoreMe_Return_DetailBoxB:{
+        height: '100%', width: '30%', 
+        justifyContent: 'space-between'
+    },
+    StoreMe_Return_DetailBoxB_Image:{
+        width: '100%', height: '30%', 
+    },
+    StoreMe_Return_DetailB_Image:{
+        height: '100%', width: '100%', 
+        borderColor: '#C8C8C8', borderRadius: 5, borderWidth: 1,
+    },
+    StoreMe_Return_Button:{
+        height: 30, width: 100, 
+        backgroundColor: '#0A55A6', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        borderRadius: 5, marginTop: 10 
+    },
+    ///----------------------------Treasury_store_Product-------------------------------///
+    Treasury_store_Product:{
+        justifyContent: 'space-between',
+         padding: 10, borderColor: '#EFEFEF', borderWidth: 1
+    },
+    Treasury_store_Text:{
+        width: 100, justifyContent: 'space-between'
+    },
 })

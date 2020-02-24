@@ -17,7 +17,7 @@ import { Button_Bar, PricesSlide, SlideTab, } from './ExclusiveScreen';
 import { GetServices, ProductBox, Toolbar } from './tools/Tools';
 import { Slide } from './src_Promotion/DealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { finip, ip } from '../navigator/IpConfig';
+import { finip, ip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class Product_for_youScreen extends Component {
   constructor(props) {

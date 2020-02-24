@@ -17,7 +17,7 @@ import { AppBar, Slide, BannerBar_TWO, TodayProduct, ExitAppModule, } from './Ma
 import { Button_Bar, SlideTab, PricesSlide } from './ExclusiveScreen';
 import { GetServices, ProductBox } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { finip, ip } from '../navigator/IpConfig';
+import { finip, ip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class CategoryScreen extends Component {
     constructor(props) {

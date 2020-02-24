@@ -285,7 +285,7 @@ export default StyleSheet.create({
     height: 105,
     marginTop: 10,
     marginBottom: 5,
-    marginHorizontal:5,
+    marginHorizontal: 5,
   },
   BoxStore1Box3: {
     width: width * 0.40,
@@ -749,4 +749,12 @@ export default StyleSheet.create({
     paddingTop: 0,
     padding: 2,
   },
+  ///------------------------------------------------------------------/// ส่วนลด เปอร์เซ็น
+  Box_On_sale: {
+    alignItems:'center',
+    justifyContent:'center',
+    backgroundColor: '#fb3449',
+    paddingHorizontal: 5,
+    marginLeft: 5
+  }
 });

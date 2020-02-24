@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-  Animated, Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
+  Animated, Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View, Modal
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import * as Animatable from 'react-native-animatable';
@@ -36,41 +36,29 @@ export default class DetailScreen extends Component {
       scrollY: new Animated.Value(0)
     };
     this.getData = this.getData.bind(this)
+    this.showImage = this.showImage.bind(this)
+  }
+  showImage(showItemImage) {
+    this.setState({ showItemImage })
   }
   getData(dataService) {
     this.setState({ dataService })
   }
   render() {
-    const { dataService } = this.state
+    const { dataService, showItemImage } = this.state
     const { navigation } = this.props
     var id_product = navigation.getParam('id_item')
     var uri = finip + '/product/product_deatil_mobile';
     var dataBody = {
       id_product: id_product
     };
-    const maxheight = width - 50
-    const AnimatedHead = this.state.scrollY.interpolate({
-      inputRange: [0, maxheight],
-      outputRange: [0, -1 * maxheight],
-      extrapolate: 'clamp',
-    })
-    const AnimatedHeadbg = this.state.scrollY.interpolate({
-      inputRange: [maxheight / 2, maxheight],
-      outputRange: ['transparent', '#fff'],
-      extrapolate: 'clamp',
-    })
-    const AnimatedHeadbd = this.state.scrollY.interpolate({
-      inputRange: [maxheight / 2, maxheight],
-      outputRange: ['transparent', '#ECECEC'],
-      extrapolate: 'clamp',
-    })
-    const AnimatedHeadi = this.state.scrollY.interpolate({
-      inputRange: [maxheight / 2, maxheight],
-      outputRange: ['#ECECEC', 'transparent'],
-      extrapolate: 'clamp',
-    })
     return (
       <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
+        {
+          showItemImage == true ?
+            <Show_Image showImage={this.showImage} /> :
+            null
+        }
         <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
         {/* <View style={{
           position: 'absolute',
@@ -103,7 +91,7 @@ export default class DetailScreen extends Component {
           }
         >
           {/* <View style={{ marginTop: -50 }}></View> */}
-          <Detail_Image dataService={dataService} navigation={navigation} />
+          <Detail_Image dataService={dataService} navigation={navigation} showImage={this.showImage} />
           <Detail_Data dataService={dataService} navigation={navigation} />
           <Store dataService={dataService} navigation={navigation} />
           <Conpon />
@@ -154,16 +142,18 @@ export class Detail_Image extends Component {
   _renderItem = ({ item, index }) => {
     var dataMySQL = [finip, item.image_full_path, item.image].join('/');
     return (
-      <View style={{ width: width * 1, height: width * 1, /*backgroundColor: '#d9d9d9'*/ }}>
-        <FastImage
-          source={{
-            uri: dataMySQL,
-          }}
-          style={[stylesMain.BoxProduct1Image, { opacity: 0.9 }]}
-          key={index}
-          resizeMode={FastImage.resizeMode.contain}
-        />
-      </View>
+      <TouchableOpacity onPress={() => [this.props.showImage(true)]} >
+        <View style={{ width: width * 1, height: width * 1, /*backgroundColor: '#d9d9d9'*/ }}>
+          <FastImage
+            source={{
+              uri: dataMySQL,
+            }}
+            style={[stylesMain.BoxProduct1Image, { opacity: 0.9 }]}
+            key={index}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+        </View>
+      </TouchableOpacity>
     );
   }
   id_product() {
@@ -178,7 +168,7 @@ export class Detail_Image extends Component {
       }
       return (
         <View style={[stylesMain.FrameBackground2, { marginTop: 0, borderTopWidth: 0 }]} key={index}>
-          <View style={{ /*backgroundColor: '#f9f9f9' */ }}>
+          <View>
             <Carousel
               ref={c => this.activeSlide = c}
               data={dataMySQL}
@@ -186,7 +176,7 @@ export class Detail_Image extends Component {
               sliderWidth={width * 1}
               itemWidth={width * 1}
               sliderHeight={width * 1}
-              loop={true}
+              // loop={true}
               onSnapToItem={(index) => this.setState({ activeSlide: index })}
             />
             <View style={{ flex: 1, }}>
@@ -220,16 +210,21 @@ export class Detail_Data extends Component {
         <View style={[stylesMain.FrameBackground2, { marginTop: 0, borderTopWidth: 0 }]} key={index}>
           <View style={[stylesDetail.Price_Box, { borderTopWidth: 0 }]}>
             <View style={stylesDetail.Price_Text_Name_Box}>
-              <NumberFormat
-                value={item.full_price}
-                displayType={'text'}
-                thousandSeparator={true}
-                prefix={'฿'}
-                renderText={
-                  value =>
-                    <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
-                      {value}</Text>}
-              />
+              <View style={[stylesMain.FlexRow, { paddingVertical: 10, }]}>
+                <NumberFormat
+                  value={item.full_price}
+                  displayType={'text'}
+                  thousandSeparator={true}
+                  prefix={'฿'}
+                  renderText={
+                    value =>
+                      <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+                        {value}</Text>}
+                />
+                <View style={[stylesMain.Box_On_sale, { borderRadius: 20 }]}>
+                  <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>-55%</Text>
+                </View>
+              </View>
               <View style={stylesDetail.Price_Icon_Box}>
                 <IconFontAwesome5 style={stylesDetail.Price_Icon} name='heart' size={20} />
                 <IconEntypo style={stylesDetail.Price_Icon} name='share' size={20} />
@@ -245,7 +240,7 @@ export class Detail_Data extends Component {
                 <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
                 <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
                 <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#111' }]}>
-                  5</Text>
+                </Text>
               </View>
             </View>
           </View>
@@ -871,6 +866,43 @@ export class Buy_bar extends Component {
             ซื้อเลย</Text>
         </View>
       </View>
+    );
+  }
+}
+///----------------------------------------------------------------------------------------------->>>>
+
+export class Show_Image extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
+  render() {
+    return (
+      <Modal
+        animationType='fade'
+        transparent={true}
+        visible={true}
+        onRequestClose={() => {
+          this.props.showImage(false);
+        }}
+      >
+        <View style={[{ height, width }]}>
+          <View style={{
+            height, width, backgroundColor: '#111', position: 'absolute'
+          }}></View>
+          <View>
+            <TouchableOpacity style={[{ width: 40 }]}
+              activeOpacity={1}
+              onPress={() => this.props.showImage(false)}>
+              <IconFontisto name="close" size={30} style={{ color: '#fff', margin: 2 }} />
+            </TouchableOpacity>
+          </View>
+          <View style={[{ height, width }]}>
+
+          </View>
+        </View>
+      </Modal>
     );
   }
 }

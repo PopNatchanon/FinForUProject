@@ -277,7 +277,7 @@ export class Listbar extends Component {
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={0.9} onPress={() => { this.setState({ pathlist: 2 }) }}>
                         <View style={[stylesMain.FlexColumn, stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
-                            <View style={[stylesMain.ItemCenter, stylesProfile.ListbarMainRadius, { backgroundColor: '#1A3263' }]}>
+                            <View style={[stylesMain.ItemCenter, stylesProfile.ListbarMainRadius, { backgroundColor: '#0A55A6' }]}>
                                 <IconMaterialCommunityIcons name='ticket' size={40} style={stylesProfile.ListbarMainRadiusIcon} />
                             </View>
                             <Text style={[

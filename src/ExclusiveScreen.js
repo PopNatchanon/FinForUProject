@@ -298,7 +298,7 @@ export class Button_Bar extends Component {
               limitBox={width * 0.7}
               setVertical={4}
               activeColor={'#fff'}
-              activeFontColor={'#0A55A6'}
+              activeFontColor={''}
               type='tag'
             />
           </View>

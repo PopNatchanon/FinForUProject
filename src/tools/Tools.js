@@ -20,7 +20,7 @@ import stylesStore from '../../style/StylesStoreScreen';
 import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '.././navigator/IpConfig';
+import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Toolbar
 export class Toolbar extends Component {
     constructor(props) {
@@ -462,7 +462,7 @@ export class ProductBox extends Component {
         const { dataService, dispriceSize, typeip, mode, navigation, nameSize, pointerUrl, pointerid_store, postpath, prepath, priceSize } = this.props
         return dataService.map((item, index) => {
             var throughsale = Number(item.full_price) + (item.full_price * 0.5)
-            var discount = Number(item.full_price) - throughsale / 100
+            var discount = 55
             var url
             { typeip == 'ip' ? url = ip : url = finip }
             var dataMySQL = typeip == 'ip' ?
@@ -549,21 +549,26 @@ export class ProductBox extends Component {
                             <View style={[
                                 stylesMain.BoxProduct1PriceofLines,
                             ]}>
-                                <NumberFormat
-                                    value={item.full_price}
-                                    displayType={'text'}
-                                    thousandSeparator={true}
-                                    prefix={'฿'}
-                                    renderText={value =>
-                                        <Text style={[
-                                            stylesMain.BoxProduct1ImagePrice,
-                                            stylesFont.FontFamilyBoldBold, {
-                                                fontSize: priceSize ? priceSize : 14,
-                                            }
-                                        ]}>
-                                            {value}</Text>
-                                    }
-                                />
+                                <View style={[stylesMain.FlexRow, { paddingVertical: 2 }]}>
+                                    <NumberFormat
+                                        value={item.full_price}
+                                        displayType={'text'}
+                                        thousandSeparator={true}
+                                        prefix={'฿'}
+                                        renderText={value =>
+                                            <Text style={[
+                                                stylesMain.BoxProduct1ImagePrice,
+                                                stylesFont.FontFamilyBoldBold, {
+                                                    fontSize: priceSize ? priceSize : 14,
+                                                }
+                                            ]}>
+                                                {value}</Text>
+                                        }
+                                    />
+                                    <View style={[stylesMain.Box_On_sale, { borderRadius: 10 }]}>
+                                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, { color: '#FFFFFF' }]}>{'-' + discount + '%'}</Text>
+                                    </View>
+                                </View>
                                 <NumberFormat
                                     value={throughsale}
                                     displayType={'text'}
@@ -582,7 +587,7 @@ export class ProductBox extends Component {
                             </View>
                         </View>
                     </View>
-                </TouchableOpacity >
+                </TouchableOpacity>
             );
         })
     }

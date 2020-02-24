@@ -189,7 +189,7 @@ export default StyleSheet.create({
   },
   ///------------------------------FeedScreen------------------------------------///
   AppbarMenu: {
-    backgroundColor: '#1A3263',
+    backgroundColor: '#0A55A6',
     width,
     height: 50,
     flexDirection: 'row',
@@ -198,7 +198,7 @@ export default StyleSheet.create({
     paddingBottom: 5,
   },
   Appbar: {
-    backgroundColor: '#1A3263',
+    backgroundColor: '#0A55A6',
     width,
     height: 54,
     flexDirection: 'row',

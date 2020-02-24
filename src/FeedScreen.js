@@ -71,7 +71,7 @@ export class MenuBar extends Component {
             item={item}
             noSpace
             widthBox={100}
-            spaceColor='#1A3263'
+            spaceColor='#0A55A6'
             activeColor='#fff'
             fontColor='#fff'
           />

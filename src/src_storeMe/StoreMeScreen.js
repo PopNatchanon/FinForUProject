@@ -60,7 +60,7 @@ export class Headbar extends Component {
                     />
                     <View style={stylesProfile.HeadbarA}>
                         <View style={stylesProfile.HeadbarBox1}>
-                            <View style={[stylesMain.FlexRow,{marginVertical:15}]}>
+                            <View style={[stylesMain.FlexRow, { marginVertical: 15 }]}>
                                 <View>
                                     <FastImage
                                         style={stylesProfile.HeadbarBoxImage}
@@ -91,13 +91,13 @@ export class Menubar extends Component {
     render() {
         return (
             <View style={stylesProfile.Menu}>
-                <View style={[stylesProfile.Menubar,{height:35,}]}>
+                <View style={[stylesProfile.Menubar, { height: 35, }]}>
                     <View style={stylesMain.FlexRow}>
                         <IconsFontAwesome5 RightItem name="store" size={20} color='#0A55A6' />
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,]}> การขายของฉัน </Text>
                     </View>
                     <View style={stylesMain.FlexRow}>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Topic', { selectedIndex: 0 })} >
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Totel_Order', { selectedIndex: 0 })} >
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#BABABA' }]}>
                                 ดูประวัติการขาย
                             </Text>
@@ -120,7 +120,7 @@ export class MenubarSub extends Component {
         return (
             <View style={stylesProfile.MenubarSub}>
                 <View style={stylesProfile.MenubarSubLine1}>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Topic', { selectedIndex: 1 })}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Totel_Order', { selectedIndex: 1 })}>
                         <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
                             <FastImage
                                 source={require('../../icon/truck-facing-right.png')}
@@ -187,8 +187,7 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Topic', { selectedIndex: 0 })} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Totel_Order', { selectedIndex: 0 })} >
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconMaterialIcons RightItem name="access-time" color='#D0B216' size={35} style={stylesProfile.ListMenuListSubIcon} />
@@ -199,11 +198,10 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Topic', { selectedIndex: 2 })} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Totel_Order', { selectedIndex: 2 })} >
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
-                                <IconMaterialCommunityIcons name="car-estate" size={35} color='#B6B6B4' style={stylesProfile.ListMenuListSubIcon} />
+                                <IconMaterialCommunityIcons name="car-estate" size={35} color='#9E9E9E' style={stylesProfile.ListMenuListSubIcon} />
                                 <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     การจัดส่งของฉัน
                             </Text>
@@ -211,11 +209,21 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Follow_storeScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Topic', { selectedIndex: 0 })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
-                                <IconAntDesign RightItem name="linechart" size={30} color='#0A55A6' style={stylesProfile.ListMenuListSubIcon} />
+                                <IconEntypo RightItem name="megaphone" size={35} color='#FC6B00' style={stylesProfile.ListMenuListSubIcon} />
+                                <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                                    จัดการโฆษณา
+                            </Text>
+                            </View>
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Topic', { selectedIndex: 1 })}>
+                        <View style={stylesProfile.ListMenuList}>
+                            <View style={stylesProfile.ListMenuListSub}>
+                                <IconEntypo RightItem name="bar-graph" size={30} color='#0A55A6' style={stylesProfile.ListMenuListSubIcon} />
                                 <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     สถิติร้านค้าของฉัน
                             </Text>
@@ -223,11 +231,10 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Review_meScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Topic', { selectedIndex: 2 })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
-                                <IconMaterialCommunityIcons RightItem name="star" size={35} color='#EAD295' style={stylesProfile.ListMenuListSubIcon} />
+                                <IconMaterialCommunityIcons RightItem name="star" size={35} color='#FFAC33' style={stylesProfile.ListMenuListSubIcon} />
                                 <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     คะแนนของฉัน
                             </Text>
@@ -251,7 +258,7 @@ export class ListMenu extends Component {
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconsFontAwesome5 RightItem name="store-alt" size={30} color='#06BBBB' style={stylesProfile.ListMenuListSubIcon} />
                                 <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                                    ร้านค้าของฉัน
+                                    คลังสินค้าของฉัน
                             </Text>
                             </View>
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />

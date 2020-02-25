@@ -9,8 +9,7 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
-
-import axios from 'axios';
+import SmartGallery from "react-native-smart-gallery";
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -33,10 +32,12 @@ export default class DetailScreen extends Component {
     super(props);
     this.state = {
       dataService: [],
-      scrollY: new Animated.Value(0)
+      scrollY: new Animated.Value(0),
+      setActive: true,
     };
     this.getData = this.getData.bind(this)
     this.showImage = this.showImage.bind(this)
+    this.setShowImage = this.setShowImage.bind(this)
   }
   showImage(showItemImage) {
     this.setState({ showItemImage })
@@ -44,8 +45,11 @@ export default class DetailScreen extends Component {
   getData(dataService) {
     this.setState({ dataService })
   }
+  setShowImage(setShowItemImage) {
+    this.setState({ setShowItemImage, setActive: false })
+  }
   render() {
-    const { dataService, showItemImage } = this.state
+    const { dataService, showItemImage, setShowItemImage, setActive } = this.state
     const { navigation } = this.props
     var id_product = navigation.getParam('id_item')
     var uri = finip + '/product/product_deatil_mobile';
@@ -56,7 +60,7 @@ export default class DetailScreen extends Component {
       <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
         {
           showItemImage == true ?
-            <Show_Image showImage={this.showImage} /> :
+            <Show_Image showImage={this.showImage} setShowItemImage={setShowItemImage} /> :
             null
         }
         <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
@@ -91,7 +95,8 @@ export default class DetailScreen extends Component {
           }
         >
           {/* <View style={{ marginTop: -50 }}></View> */}
-          <Detail_Image dataService={dataService} navigation={navigation} showImage={this.showImage} />
+          <Detail_Image dataService={dataService} navigation={navigation} showImage={this.showImage} setShowImage={this.setShowImage}
+            setActive={setActive} />
           <Detail_Data dataService={dataService} navigation={navigation} />
           <Store dataService={dataService} navigation={navigation} />
           <Conpon />
@@ -157,15 +162,20 @@ export class Detail_Image extends Component {
     );
   }
   id_product() {
-    const { activeSlide, imageLength } = this.state;
-    const { dataService } = this.props;
+    const { activeSlide, imageLength, } = this.state;
+    const { dataService, setActive, } = this.props;
     return dataService.map((item, index) => {
       let dataMySQL
-      {
-        item.gallery_image ?
-          dataMySQL = this.imageGallery(item.image_full_path, item.gallery_image) :
-          dataMySQL = dataService;
-      }
+      item.gallery_image ?
+        dataMySQL = this.imageGallery(item.image_full_path, item.gallery_image) :
+        dataMySQL = dataService;
+      dataMySQL ?
+        setActive == true ?
+          [
+            this.props.setShowImage(dataMySQL)
+          ] :
+          null :
+        null
       return (
         <View style={[stylesMain.FrameBackground2, { marginTop: 0, borderTopWidth: 0 }]} key={index}>
           <View>
@@ -869,15 +879,28 @@ export class Buy_bar extends Component {
     );
   }
 }
-///----------------------------------------------------------------------------------------------->>>>
-
+///----------------------------------------------------------------------------------------------->>>> Show_Image
 export class Show_Image extends Component {
   constructor(props) {
     super(props);
     this.state = {
     };
   }
+  setShowItemImage() {
+    const { setShowItemImage } = this.props
+    console.log('Show_Image')
+    console.log(setShowItemImage)
+    var dataMySQL = new Array()
+    setShowItemImage ?
+      setShowItemImage.map((item) => {
+        var items = { uri: [finip, item.image_full_path, item.image].join('/') }
+        dataMySQL.push(items)
+      }) :
+      null
+    return dataMySQL
+  }
   render() {
+    this.setShowItemImage()
     return (
       <Modal
         animationType='fade'
@@ -887,20 +910,16 @@ export class Show_Image extends Component {
           this.props.showImage(false);
         }}
       >
+        {/* <TouchableOpacity
+          style={[{ width: 40 }]}
+          activeOpacity={1}
+          onPress={() => this.props.showImage(false)}>
+          <IconFontisto name="close" size={30} style={{ color: '#785216', margin: 2 }} />
+        </TouchableOpacity> */}
         <View style={[{ height, width }]}>
-          <View style={{
-            height, width, backgroundColor: '#111', position: 'absolute'
-          }}></View>
-          <View>
-            <TouchableOpacity style={[{ width: 40 }]}
-              activeOpacity={1}
-              onPress={() => this.props.showImage(false)}>
-              <IconFontisto name="close" size={30} style={{ color: '#fff', margin: 2 }} />
-            </TouchableOpacity>
-          </View>
-          <View style={[{ height, width }]}>
-
-          </View>
+          <SmartGallery
+            images={this.setShowItemImage()}
+          />
         </View>
       </Modal>
     );

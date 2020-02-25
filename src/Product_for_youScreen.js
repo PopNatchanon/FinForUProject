@@ -12,7 +12,7 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, TodayProduct, ExitAppModule} from './MainScreen';
+import { AppBar1, TodayProduct, ExitAppModule } from './MainScreen';
 import { Button_Bar, PricesSlide, SlideTab, } from './ExclusiveScreen';
 import { GetServices, ProductBox, Toolbar } from './tools/Tools';
 import { Slide } from './src_Promotion/DealScreen';
@@ -46,8 +46,9 @@ export default class Product_for_youScreen extends Component {
       <SafeAreaView>
         <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
         <AppBar1 backArrow navigation={navigation} titleHead='FIN คัดมาเพื่อคุณ' />
-        <ScrollView>
+        <ScrollView stickyHeaderIndices={[2]}>
           <Slide />
+          <View style={{ marginBottom: 10 }}></View>
           <Button_Bar setSliderVisible={this.setSlider} getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
           {
             dataService ?

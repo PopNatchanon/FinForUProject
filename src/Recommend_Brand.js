@@ -13,7 +13,8 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule} from './MainScreen';
+import { AppBar1, ExitAppModule } from './MainScreen';
+import { GetServices, ProductBox, } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -34,6 +35,7 @@ export default class Recommend_Brand extends Component {
                     <Recommend_Brand_Store navigation={navigation} />
                     <Recommend_Brand_Store navigation={navigation} />
                 </ScrollView>
+                <ExitAppModule navigation={navigation} />
             </SafeAreaView>
         );
     }
@@ -47,6 +49,16 @@ export class Recommend_Brand_Store extends Component {
     }
     render() {
         const { navigation } = this.props
+        var dataService = [{
+            image_path: 'uploads/products', image: '2019-10-29-1572330830.jpg', name: 'ห้องพัก Pool Villa',
+            full_price: 10000, id_product: 23,
+        }, {
+            image_path: 'uploads/products', image: '2019-10-29-1572330808.jpg', name: 'ห้องพัก Deluxe Pool Villa',
+            full_price: 20000, id_product: 24,
+        }, {
+            image_path: 'uploads/products', image: '2019-10-29-1572330888.jpg', name: 'ห้องพัก Special Pool Villa',
+            full_price: 30000, id_product: 25,
+        },]
         return (
             <View style={stylesMain.FrameBackground2}>
                 <FastImage
@@ -71,146 +83,15 @@ export class Recommend_Brand_Store extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={stylesMain.FlexRow}>
-                    <TouchableOpacity onPress={() => navigation.navigate('DetailScreen', { id_item: 23 })}>
-                        <View style={stylesMain.BoxProduct1Box}>
-                            <View style={stylesMain.BoxProduct1ImageofLines}>
-                                <FastImage
-                                    source={{
-                                        uri: ip + '/MySQL/uploads/products/2019-10-29-1572330830.jpg',
-                                    }}
-                                    style={stylesMain.BoxProduct1Image}
-                                    resizeMode={FastImage.resizeMode.contain}
-                                />
-                            </View>
-                            <View style={{ height: 60, paddingHorizontal: 3 }}>
-                                <View style={[stylesMain.BoxProduct1NameofLines]}>
-                                    <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize7]}>
-                                        ห้องพัก Deluxe Pool Villa</Text>
-                                </View>
-                                <View style={[stylesMain.BoxProduct1PriceofLines, stylesMain.FlexRow]}>
-                                    <NumberFormat
-                                        value={10000}
-                                        displayType={'text'}
-                                        thousandSeparator={true}
-                                        prefix={'฿'}
-                                        renderText={value =>
-                                            <Text style={[
-                                                stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyBold,
-                                            ]}>
-                                                {value + ' '}</Text>
-                                        }
-                                    />
-                                    <NumberFormat
-                                        value={20000}
-                                        displayType={'text'}
-                                        thousandSeparator={true}
-                                        prefix={'฿'}
-                                        renderText={value =>
-                                            <Text style={[
-                                                stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText,
-                                                { marginTop: 3 }
-                                            ]}>
-                                                {value}</Text>
-                                        }
-                                    />
-                                </View>
-                            </View>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate('DetailScreen', { id_item: 23 })}>
-                        <View style={stylesMain.BoxProduct1Box}>
-                            <View style={stylesMain.BoxProduct1ImageofLines}>
-                                <FastImage
-                                    source={{
-                                        uri: ip + '/MySQL/uploads/products/2019-10-29-1572330830.jpg',
-                                    }}
-                                    style={stylesMain.BoxProduct1Image}
-                                    resizeMode={FastImage.resizeMode.contain}
-                                />
-                            </View>
-                            <View style={{ height: 60, paddingHorizontal: 3 }}>
-                                <View style={[stylesMain.BoxProduct1NameofLines]}>
-                                    <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize7]}>
-                                        ห้องพัก Deluxe Pool Villa</Text>
-                                </View>
-                                <View style={[stylesMain.BoxProduct1PriceofLines, stylesMain.FlexRow]}>
-                                    <NumberFormat
-                                        value={10000}
-                                        displayType={'text'}
-                                        thousandSeparator={true}
-                                        prefix={'฿'}
-                                        renderText={value =>
-                                            <Text style={[
-                                                stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyBold,
-                                            ]}>
-                                                {value + ' '}</Text>
-                                        }
-                                    />
-                                    <NumberFormat
-                                        value={20000}
-                                        displayType={'text'}
-                                        thousandSeparator={true}
-                                        prefix={'฿'}
-                                        renderText={value =>
-                                            <Text style={[
-                                                stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText,
-                                                { marginTop: 3 }
-                                            ]}>
-                                                {value}</Text>
-                                        }
-                                    />
-                                </View>
-                            </View>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate('DetailScreen', { id_item: 23 })}>
-                        <View style={stylesMain.BoxProduct1Box}>
-                            <View style={stylesMain.BoxProduct1ImageofLines}>
-                                <FastImage
-                                    source={{
-                                        uri: ip + '/MySQL/uploads/products/2019-10-29-1572330830.jpg',
-                                    }}
-                                    style={stylesMain.BoxProduct1Image}
-                                    resizeMode={FastImage.resizeMode.contain}
-                                />
-                            </View>
-                            <View style={{ height: 60, paddingHorizontal: 3 }}>
-                                <View style={[stylesMain.BoxProduct1NameofLines]}>
-                                    <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize7]}>
-                                        ห้องพัก Deluxe Pool Villa</Text>
-                                </View>
-                                <View style={[stylesMain.BoxProduct1PriceofLines, stylesMain.FlexRow]}>
-                                    <NumberFormat
-                                        value={10000}
-                                        displayType={'text'}
-                                        thousandSeparator={true}
-                                        prefix={'฿'}
-                                        renderText={value =>
-                                            <Text style={[
-                                                stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyBold,
-                                            ]}>
-                                                {value + ' '}</Text>
-                                        }
-                                    />
-                                    <NumberFormat
-                                        value={20000}
-                                        displayType={'text'}
-                                        thousandSeparator={true}
-                                        prefix={'฿'}
-                                        renderText={value =>
-                                            <Text style={[
-                                                stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText,
-                                                { marginTop: 3 }
-                                            ]}>
-                                                {value}</Text>
-                                        }
-                                    />
-                                </View>
-                            </View>
-                        </View>
-                    </TouchableOpacity>
+                    {
+                        dataService ?
+                            <ProductBox dataService={dataService} navigation={navigation} typeip={'ip'}
+                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                                prepath='mysql'
+                            /> :
+                            null
+                    }
                 </View>
-                <ExitAppModule navigation={navigation} />
             </View>
         );
     }

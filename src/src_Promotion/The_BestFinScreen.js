@@ -67,8 +67,8 @@ export class Fin_sale extends Component {
       <View>
         <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
         <View style={[stylesMain.FrameBackground, { marginTop: 20, }]}>
-          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginTop: -10, width: 160 }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}> Fin จัดหนักลดสูงสุด 80 %  </Text>
+          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginTop: -10, marginLeft: -3, width: 180 }]}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>Fin จัดหนักลดสูงสุด 80 % </Text>
           </View>
           <View style={stylesDeal.Fin_sale_BoxHead}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
@@ -212,8 +212,8 @@ export class Store_Sale extends Component {
       <View>
         <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
         <View style={[stylesMain.FrameBackground, { marginTop: 20, }]}>
-          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginTop: -10, }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}> ร้านนี้มีของลด </Text>
+          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginTop: -10, marginLeft: -3, width: 100 }]}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ร้านนี้มีของลด </Text>
           </View>
           <View style={stylesDeal.Fin_sale_BoxHead}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
@@ -247,8 +247,8 @@ export class Product_Cool extends Component {
       <View>
         <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
         <View style={[stylesMain.FrameBackground, { marginTop: 20, }]}>
-          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginTop: -10 }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>สินค้าราคาโคตรคูล</Text>
+          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginTop: -10, marginLeft: -3, width: 140 }]}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>สินค้าราคาโคตรคูล </Text>
           </View>
           <View style={[stylesDeal.Fin_sale_BoxHead, { marginTop: -10 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
@@ -409,68 +409,9 @@ export class Second_Store extends Component {
       </View>
     )
   }
-  dataFlashSale() {
-    return this.state.dataService2.map((item, index) => {
-      var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
-      return (
-        <TouchableOpacity
-          activeOpacity={1}
-          key={index}
-          onPress={
-            () => this.props.navigation.navigate(
-              'DetailScreen', {
-              id_item: item.id_product
-            })
-          }
-        >
-          <View style={[stylesMain.BoxProduct4Box, { marginBottom: 4 }]}>
-            <View style={stylesMain.BoxProduct1ImageofLines}>
-              <FastImage
-                source={{
-                  uri: dataMySQL,
-                }}
-                style={[stylesMain.BoxProduct1Image]}
-              />
-            </View>
-            <View style={{ height: 60, paddingHorizontal: 3 }}>
-              <View style={[stylesMain.BoxProduct1NameofLines]}>
-                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize7]}>
-                  {item.name}</Text>
-              </View>
-              <View style={[stylesMain.BoxProduct1PriceofLines, stylesMain.FlexRow]}>
-                <NumberFormat
-                  value={item.full_price}
-                  displayType={'text'}
-                  thousandSeparator={true}
-                  prefix={'฿'}
-                  renderText={value =>
-                    <Text style={[
-                      stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyBold,
-                    ]}>
-                      {value + ' '}</Text>
-                  }
-                />
-                {/* <NumberFormat
-                  value={throughsale}
-                  displayType={'text'}
-                  thousandSeparator={true}
-                  prefix={'฿'}
-                  renderText={value =>
-                    <Text style={[
-                      stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText,
-                      { marginTop: 3 }
-                    ]}>
-                      {value}</Text>
-                  }
-                /> */}
-              </View>
-            </View>
-          </View>
-        </TouchableOpacity>
-      );
-    })
-  }
   render() {
+    const { dataService2 } = this.state
+    const { navigation } = this.props
     var uri = finip + '/home/home_mobile';
     var dataBody = {
       slide: 'banner'
@@ -484,20 +425,26 @@ export class Second_Store extends Component {
         <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
         <GetServices uriPointer={uri2} dataBody={dataBody2} getDataSource={this.getData2} />
         <View style={stylesDeal.BoxText_Row}>
-          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#95D370', }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ร้านมือสองลดราคา</Text>
+          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#95D370', marginLeft: -3, width: 140 }]}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ร้านมือสองลดราคา </Text>
           </View>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
         </View>
         {this.Second_StoreBody()}
         <View style={stylesDeal.BoxText_Row}>
-          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#E43333', }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>มือสองลดราคา</Text>
+          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#E43333', marginLeft: -3, width: 140 }]}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ร้านมือสองลดราคา </Text>
           </View>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
         </View>
         <View style={[stylesDeal.Deal_For_you, { marginTop: 6 }]}>
-          {this.dataFlashSale()}
+          {
+            dataService2 ?
+              <ProductBox dataService={dataService2} navigation={navigation} typeip='ip' mode='row3col2_2' prepath='mysql'
+                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+              /> :
+              null
+          }
         </View>
       </View>
     );

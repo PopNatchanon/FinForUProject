@@ -70,6 +70,7 @@ export class MenuBar extends Component {
             sendData={this.getData}
             item={item}
             noSpace
+            setVertical={2}
             widthBox={100}
             spaceColor='#0A55A6'
             activeColor='#fff'

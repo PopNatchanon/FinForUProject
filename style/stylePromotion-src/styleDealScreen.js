@@ -269,8 +269,9 @@ export default StyleSheet.create({
         height: 12,
         width: '100%',
         alignItems: 'flex-end',
-        marginTop: -10,
+        marginTop: -15,
         paddingRight: 10,
+        marginBottom: 8,
     },
     Fin_sale_BoxProduct: {
         flexDirection: 'row',

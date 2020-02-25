@@ -8,6 +8,7 @@ export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> Styles
+import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 import stylesPromotionDeal from '../../style/stylePromotion-src/styleDealScreen';
@@ -93,8 +94,8 @@ export class Product_Pay extends Component {
   render() {
     return (
       <View>
-        <View style={[stylesPromotionDeal.BoxText_T, { backgroundColor: '#C4C4C4' }]}>
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}> สินค้า 0 % 10 เดือน </Text>
+        <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginLeft: -3, width: 140 }]}>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>สินค้า 0 % 10 เดือน </Text>
         </View>
       </View>
     );

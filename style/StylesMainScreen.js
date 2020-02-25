@@ -390,6 +390,7 @@ export default StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
     marginTop: 10,
+    paddingBottom: 4,
   },
   FrameBackground2: {
     width,
@@ -751,8 +752,8 @@ export default StyleSheet.create({
   },
   ///------------------------------------------------------------------/// ส่วนลด เปอร์เซ็น
   Box_On_sale: {
-    alignItems:'center',
-    justifyContent:'center',
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: '#fb3449',
     paddingHorizontal: 5,
     marginLeft: 5

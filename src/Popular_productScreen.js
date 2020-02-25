@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-    Dimensions, SafeAreaView, ScrollView, View,
+    Dimensions, SafeAreaView, ScrollView, View, TouchableOpacity, Text,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
@@ -10,7 +10,7 @@ export const { width, height } = Dimensions.get('window');
 import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, TodayProduct, ExitAppModule} from './MainScreen';
+import { AppBar1, TodayProduct, ExitAppModule } from './MainScreen';
 import { Slide } from './src_Promotion/DealScreen';
 import { TabBar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -24,7 +24,12 @@ export default class Popular_productScreen extends Component {
         this.getData = this.getData.bind(this)
     }
     getData(id_item) {
+        // console.log(id_item)
+        // console.log('scrollView')
+        // console.log(this._scrollView.scrollTo({ x: 0, y: 0, animated: true }))
         this.setState({ id_item })
+        this._scrollView.scrollTo({ x: 0, y: 0, animated: true })
+        this._scrollView.scrollTo({ x: 0, y: 0, animated: true })
     }
     render() {
         const { navigation } = this.props
@@ -43,8 +48,12 @@ export default class Popular_productScreen extends Component {
                 <AppBar1 backArrow navigation={navigation} titleHead='สินค้ายอดนิยม' />
                 {
                     id_item != null ?
-                        <ScrollView>
+                        <ScrollView
+                            stickyHeaderIndices={[2]}
+                            ref={view => this._scrollView = view}
+                        >
                             <Slide />
+                            <View style={{ marginBottom: 10 }}></View>
                             <Button_Bar id_item={id_item} getData={this.getData} />
                             <TodayProduct loadData={dataArray[id_item]} navigation={navigation} noTitle />
                         </ScrollView> :

@@ -108,7 +108,7 @@ export class TabBar extends Component {
     //     }
     // }
     /*
-    // v0.8.23022020
+    // v0.9.25022020
     // <TabBar
     // /////ส่งออกมาจากTabBarและส่งค่าที่คลิกไปยังฟังก์ชันgetData
     // sendData={this.getData}
@@ -147,7 +147,7 @@ export class TabBar extends Component {
         const {
             item, activeColor, activeWidth, type, radiusBox, activeFontColor, inactiveFontColor, inactiveColor, inactiveBoxColor,
             noSpace, direction, alignBox, widthBox, spaceColor, fontColor, noLimit, limitBox, SetValue, fontSizeStyle, numberBox,
-            NoSelectTab, tagBottom, numberOfLines, setVertical
+            NoSelectTab, tagBottom, numberOfLines, setVertical, tagBottomColor,
         } = this.props;
         const { PassSetValue, pathlist } = this.state
         const countItem = item.length;
@@ -183,37 +183,39 @@ export class TabBar extends Component {
                 }}>
                     {
                         pathlist == index ?
-                            <View style={{
-                                width:
-                                    type == 'box' ?
-                                        noSpace ?
-                                            null :
-                                            noLimit ?
-                                                numberBox ?
-                                                    '100%' :
-                                                    width * (1 / 4) :
-                                                width * (1 / countItem) :
-                                        noSpace ?
-                                            widthBox ?
-                                                widthBox :
-                                                width * (1 / countItem) :
-                                            noLimit ?
-                                                width * (1 / 4.2) :
-                                                limitBox ?
-                                                    limitBox * (1 / countItem) :
-                                                    width * (1 / countItem),
-                                borderLeftWidth: type == 'tag' ? index == 0 ? null : 0.5 : null,
-                                borderRightWidth: type == 'tag' ? index == countItem - 1 ? null : 0.5 : null,
-                                alignContent: 'center',
-                                alignItems: 'center',
-                                borderBottomColor: type == 'box' ?
-                                    null :
-                                    activeColor ? activeColor : '#0A55A6',
-                                borderBottomWidth: type == 'tag' ? null : type == 'box' ? null : 4,
-                                paddingLeft: numberBox ? width * (1 / 60) : null,
-                                paddingVertical: setVertical ? setVertical : null
-                            }}>
-                                <View style={
+                            <View style={[
+                                stylesMain.ItemCenterVertical, {
+                                    width:
+                                        type == 'box' ?
+                                            noSpace ?
+                                                null :
+                                                noLimit ?
+                                                    numberBox ?
+                                                        '100%' :
+                                                        width * (1 / 4) :
+                                                    width * (1 / countItem) :
+                                            noSpace ?
+                                                widthBox ?
+                                                    widthBox :
+                                                    width * (1 / countItem) :
+                                                noLimit ?
+                                                    width * (1 / 4.2) :
+                                                    limitBox ?
+                                                        limitBox * (1 / countItem) :
+                                                        width * (1 / countItem),
+                                    borderLeftWidth: type == 'tag' ? index == 0 ? null : 0.5 : null,
+                                    borderRightWidth: type == 'tag' ? index == countItem - 1 ? null : 0.5 : null,
+                                    alignContent: 'center',
+                                    alignItems: 'center',
+                                    borderBottomColor: type == 'box' ?
+                                        null :
+                                        activeColor ? activeColor : '#0A55A6',
+                                    borderBottomWidth: type == 'tag' ? null : type == 'box' ? null : 4,
+                                    paddingLeft: numberBox ? width * (1 / 60) : null,
+                                    paddingVertical: setVertical ? setVertical : null
+                                }]}>
+                                <View style={[
+                                    stylesMain.ItemCenterVertical,
                                     type == 'box' ?
                                         {
                                             width:
@@ -237,7 +239,7 @@ export class TabBar extends Component {
                                             borderRadius: radiusBox ? radiusBox : 0,
                                         } :
                                         null
-                                }>
+                                ]}>
                                     <Text numberOfLines={numberOfLines} style={[stylesFont.FontFamilySemiBold, {
                                         fontSize: fontSizeStyle ? fontSizeStyle : 16,
                                         color: type == 'box' ?
@@ -248,29 +250,35 @@ export class TabBar extends Component {
                                     </Text>
                                 </View>
                             </View> :
-                            <View style={{
-                                width:
-                                    type == 'box' ?
-                                        noSpace ?
-                                            null :
-                                            noLimit ?
-                                                numberBox ?
-                                                    '100%' :
-                                                    width * (1 / 4) : width * (1 / countItem) :
-                                        noSpace ?
-                                            widthBox ? widthBox : width * (1 / countItem) :
-                                            noLimit ?
-                                                width * (1 / 4.2) :
-                                                limitBox ?
-                                                    limitBox * (1 / countItem) :
-                                                    width * (1 / countItem),
-                                borderLeftWidth: type == 'tag' ? index == 0 ? null : 0.5 : null,
-                                borderRightWidth: type == 'tag' ? index == countItem - 1 ? null : 0.5 : null,
-                                alignContent: 'center', alignItems: 'center',
-                                paddingLeft: numberBox ? width * (1 / 60) : null,
-                                paddingVertical: setVertical ? setVertical : null
-                            }}>
-                                <View style={
+                            <View style={[
+                                stylesMain.ItemCenterVertical, {
+                                    width:
+                                        type == 'box' ?
+                                            noSpace ?
+                                                null :
+                                                noLimit ?
+                                                    numberBox ?
+                                                        '100%' :
+                                                        width * (1 / 4) : width * (1 / countItem) :
+                                            noSpace ?
+                                                widthBox ? widthBox : width * (1 / countItem) :
+                                                noLimit ?
+                                                    width * (1 / 4.2) :
+                                                    limitBox ?
+                                                        limitBox * (1 / countItem) :
+                                                        width * (1 / countItem),
+                                    borderLeftWidth: type == 'tag' ? index == 0 ? null : 0.5 : null,
+                                    borderRightWidth: type == 'tag' ? index == countItem - 1 ? null : 0.5 : null,
+                                    borderBottomColor: type == 'box' ?
+                                        null :
+                                        spaceColor ? spaceColor : '#fff',
+                                    borderBottomWidth: type == 'tag' ? null : type == 'box' ? null : 4,
+                                    alignContent: 'center', alignItems: 'center',
+                                    paddingLeft: numberBox ? width * (1 / 60) : null,
+                                    paddingVertical: setVertical ? setVertical : null
+                                }]}>
+                                <View style={[
+                                    stylesMain.ItemCenterVertical,
                                     type == 'box' ?
                                         {
                                             width:
@@ -294,7 +302,7 @@ export class TabBar extends Component {
                                             borderRadius: radiusBox ? radiusBox : 0,
                                         } :
                                         null
-                                }>
+                                ]}>
                                     <Text numberOfLines={numberOfLines} style={[stylesFont.FontFamilySemiBold, {
                                         fontSize: fontSizeStyle ? fontSizeStyle : 16,
                                         color: inactiveFontColor ? inactiveFontColor : fontColor ? fontColor : 'black'
@@ -303,18 +311,36 @@ export class TabBar extends Component {
                                     </Text>
                                 </View>
                             </View>
-                    }
-                    {
+                    }{
                         item.subname ?
                             <View style={[stylesMain.ItemCenter, { width: '100%' }]}>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, {
-                                    borderBottomColor: tagBottom ? pathlist == index ? tagBottom : '#fff' : null,
+                                    borderBottomColor: tagBottom ? pathlist == index ? tagBottom : tagBottomColor ? tagBottomColor : '#fff' : null,
                                     borderBottomWidth: tagBottom ? 4 : null,
                                     width: '90%', textAlign: 'center'
                                 }]}>
                                     {item.subname}
                                 </Text>
                             </View> :
+                            null
+                    }{
+                        tagBottomColor ?
+                            item.subname ?
+                                null :
+                                <View style={[stylesMain.ItemCenter, { width: '100%' }]}>
+                                    <View style={[{
+                                        borderBottomColor:
+                                            tagBottom ?
+                                                pathlist == index ?
+                                                    tagBottomColor ?
+                                                        tagBottomColor :
+                                                        '#0A55A6' :
+                                                    '#fff' :
+                                                null,
+                                        borderBottomWidth: tagBottom ? 4 : null,
+                                        width: '90%', textAlign: 'center'
+                                    }]}></View>
+                                </View> :
                             null
                     }
                 </TouchableOpacity>
@@ -332,7 +358,8 @@ export class TabBar extends Component {
                     this.tab()
                 ) :
                 (
-                    <View style={
+                    <View style={[
+                        stylesMain.ItemCenterVertical,
                         type == 'box' ?
                             {
                                 borderLeftWidth: noSpace ? 0.5 : null,
@@ -352,7 +379,7 @@ export class TabBar extends Component {
                                 flexDirection: direction == 'column' ? 'column' : 'row',
                                 width: noLimit ? null : '100%',
                             }
-                    }>
+                    ]}>
                         {this.tab()}
                     </View>
                 )

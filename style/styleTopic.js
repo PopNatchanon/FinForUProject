@@ -13,12 +13,11 @@ export default StyleSheet.create({
     ///--------------------------------FlashSaleScreen-----------------------------------------///
     FlashSale_Tag: {
         width: '100%',
-        paddingVertical: 4,
+        paddingVertical: 6,
         backgroundColor: '#FFFFFF',
         borderColor: '#ECECEC',
         borderWidth: 1,
         flexDirection: 'row',
-        marginTop: 5,
     },
     FlashSale_Product: {
         backgroundColor: '#FFFFFF',
@@ -116,10 +115,10 @@ export default StyleSheet.create({
         borderBottomWidth: 1,
     },
     Button_Bar_BoxText: {
-        paddingHorizontal: 10,
+        paddingHorizontal: 9,
         borderRightColor: 'black',
         borderRightWidth: 1.2,
-        height: 28,
+        height: 24,
     },
     Button_Bar_Icon: {
         marginRight: 10,

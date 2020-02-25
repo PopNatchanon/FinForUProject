@@ -14,8 +14,8 @@ import stylesFont from '../style/stylesFont';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, Slide, BannerBar_TWO, TodayProduct, ExitAppModule, } from './MainScreen';
-import { Button_Bar, SlideTab, PricesSlide } from './ExclusiveScreen';
-import { GetServices, ProductBox } from './tools/Tools';
+import { Button_Bar, SlideTab, PricesSlide, } from './ExclusiveScreen';
+import { GetServices, ProductBox, } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main

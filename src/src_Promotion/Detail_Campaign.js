@@ -189,55 +189,9 @@ export class New_year_NewA extends Component {
     getData(dataService) {
         this.setState({ dataService })
     }
-    dataFlashSale() {
-        return this.state.dataService.map((item, index) => {
-            var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
-            return (
-                <TouchableOpacity
-                    activeOpacity={1}
-                    key={index}
-                    onPress={
-                        () => this.props.navigation.navigate(
-                            'DetailScreen', {
-                            id_item: item.id_product
-                        })
-                    }
-               >
-                    <View style={stylesDeal.New_year_NewProduct_Box}>
-                        <View style={stylesMain.BoxProduct1ImageofLines2}>
-                            <FastImage
-                                source={{
-                                    uri: dataMySQL,
-                                }}
-                                style={[stylesMain.BoxProduct1Image, { marginLeft: 10, }]}
-                            />
-                        </View>
-                        <View style={{ height: 60, paddingHorizontal: 3 }}>
-                            <View style={[stylesMain.BoxProduct1NameofLines]}>
-                                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize7]}>
-                                    {item.name}</Text>
-                            </View>
-                            <View style={[stylesMain.BoxProduct1PriceofLines, stylesMain.FlexRow]}>
-                                <NumberFormat
-                                    value={item.full_price}
-                                    displayType={'text'}
-                                    thousandSeparator={true}
-                                    prefix={'฿'}
-                                    renderText={value =>
-                                        <Text style={[
-                                            stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize6, stylesFont.FontFamilyBold,
-                                        ]}>
-                                            {value + ' '}</Text>
-                                    }
-                                />
-                            </View>
-                        </View>
-                    </View>
-                </TouchableOpacity>
-            );
-        })
-    }
     render() {
+        const { dataService } = this.state
+        const { navigation } = this.props
         var uri = ip + '/mysql/DataServiceMain.php';
         var dataBody = {
             type: 'product'
@@ -262,7 +216,14 @@ export class New_year_NewA extends Component {
                         </View>
                         <View>
                             <View style={[stylesDeal.New_year_NewProduct]}>
-                                {this.dataFlashSale()}
+                                {
+                                    dataService ?
+                                        <ProductBox dataService={dataService} navigation={navigation} typeip={'ip'}
+                                            pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                                            prepath='mysql'
+                                        /> :
+                                        null
+                                }
                             </View>
                         </View>
                     </View>
@@ -283,46 +244,6 @@ export class New_year_NewB extends Component {
     getData(dataService) {
         this.setState({ dataService })
     }
-    dataFlashSale() {
-        return this.state.dataService.map((item, index) => {
-            var dataMySQL = [ip + '/mysql', item.image_path, item.image].join('/');
-            return (
-                <TouchableOpacity
-                    activeOpacity={1}
-                    key={index}
-                    onPress={
-                        () => this.props.navigation.navigate(
-                            'DetailScreen', {
-                            id_item: item.id_product
-                        })
-                    }
-               >
-                    <View style={stylesDeal.New_year_NewProduct_Box}>
-                        <View style={stylesMain.BoxProduct1ImageofLines}>
-                            <FastImage
-                                source={{
-                                    uri: dataMySQL,
-                                }}
-                                style={[stylesMain.BoxProduct1Image, { marginLeft: 10, }]}
-                            />
-                        </View>
-                        <Text style={[stylesMain.BoxProduct1ImageName, stylesFont.FontFamilyText, stylesFont.FontSize7]}>{item.name}</Text>
-                        <NumberFormat
-                            value={item.full_price}
-                            displayType={'text'}
-                            thousandSeparator={true}
-                            prefix={'฿'}
-                            renderText={
-                                value => <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize8, stylesFont.FontFamilyText]}>
-                                    {value}
-                                </Text>
-                            }
-                        />
-                    </View>
-                </TouchableOpacity>
-            );
-        })
-    }
     render() {
         var uri = ip + '/mysql/DataServiceMain.php';
         var dataBody = {
@@ -335,7 +256,7 @@ export class New_year_NewB extends Component {
                     <View>
                         <View style={stylesDeal.New_year_NewBoxText_Head}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}
-                           >ปีใหม่แล้วไปลองของใหม่ดิ</Text>
+                            >ปีใหม่แล้วไปลองของใหม่ดิ</Text>
                             <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Detail_Campaign', {
                                 selectedIndex: 1
                             })}>
@@ -345,7 +266,14 @@ export class New_year_NewB extends Component {
                         </View>
                         <View>
                             <View style={[stylesDeal.New_year_NewProduct]}>
-                                {this.dataFlashSale()}
+                                {
+                                    dataService ?
+                                        <ProductBox dataService={dataService} navigation={navigation} typeip={'ip'}
+                                            pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                                            prepath='mysql'
+                                        /> :
+                                        null
+                                }
                             </View>
                         </View>
                     </View>

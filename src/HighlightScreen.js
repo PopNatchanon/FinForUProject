@@ -27,8 +27,9 @@ export default class HighlightScreen extends Component {
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
         <AppBar1 backArrow navigation={navigation} titleHead='ไฮไลท์ประจำสัปดาห์' />
-        <ScrollView>
+        <ScrollView stickyHeaderIndices={[2]}>
           <Slide />
+          <View style={{ marginBottom: 10 }}></View>
           <Button_Bar />
           <FlashSale_Product navigation={navigation} />
           <FlashSale_Product navigation={navigation} />
@@ -77,7 +78,9 @@ export class Button_Bar extends Component {
             numberBox
             numberOfLines={1}
             activeColor={'#fff'}
-            activeFontColor={'#0A55A6'}
+            activeFontColor={'#111'}
+            tagBottomColor={'#0A55A6'}
+            tagBottom
             type='tag'
           />
         </ScrollView>

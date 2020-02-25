@@ -8,11 +8,12 @@ export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> Styles
+import stylesMain from '../../../style/StylesMainScreen'
 import stylesFont from '../../../style/stylesFont';
 import stylesPromotionDeal from '../../../style/stylePromotion-src/styleDealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { Button_Bar } from '../../HighlightScreen';
-import { GetServices, ProductBox, Toolbar } from '../../tools/Tools';
+import { GetServices, GetCoupon } from '../../tools/Tools';
 import { TodayProduct, Slide, AppBar1, ExitAppModule } from '../../MainScreen';
 import { Store_Detail } from '../../Recommend_Store';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -46,8 +47,9 @@ export default class Deal_Topic extends Component {
                 return (
                     <View>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='ดีลสุด Exclusive' />
-                        <ScrollView stickyHeaderIndices={[1]}>
+                        <ScrollView stickyHeaderIndices={[2]}>
                             <Slide />
+                            <View style={{ marginBottom: 10 }}></View>
                             <Button_Bar navigation={this.props.navigation} />
                             {
                                 dataService ?
@@ -61,8 +63,9 @@ export default class Deal_Topic extends Component {
                 return (
                     <View>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='ร้านค้ามือสองลดราคา' />
-                        <ScrollView stickyHeaderIndices={[1]}>
+                        <ScrollView stickyHeaderIndices={[2]}>
                             <Slide />
+                            <View style={{ marginBottom: 10 }}></View>
                             <Button_Bar />
                             <Store_Detail />
                             <Store_Detail />
@@ -75,8 +78,9 @@ export default class Deal_Topic extends Component {
                 return (
                     <View>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='สินค้ามือสองลดราคา' />
-                        <ScrollView stickyHeaderIndices={[1]}>
+                        <ScrollView stickyHeaderIndices={[2]}>
                             <Slide />
+                            <View style={{ marginBottom: 10 }}></View>
                             <Button_Bar navigation={this.props.navigation} />
                             {
                                 dataService ?
@@ -90,8 +94,9 @@ export default class Deal_Topic extends Component {
                 return (
                     <View>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='ร้านค้าที่มีดีล' />
-                        <ScrollView stickyHeaderIndices={[1]}>
+                        <ScrollView stickyHeaderIndices={[2]}>
                             <Slide />
+                            <View style={{ marginBottom: 10 }}></View>
                             <Button_Bar />
                             <Store_Detail />
                             <Store_Detail />
@@ -108,7 +113,7 @@ export default class Deal_Topic extends Component {
             type: 'todayproduct'
         };
         return (
-            <SafeAreaView style={{ flex: 1 }}>
+            <SafeAreaView style={stylesMain.SafeAreaView}>
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
                 {this.PathList()}
                 <ExitAppModule navigation={this.props.navigation} />
@@ -133,28 +138,9 @@ export class Deal_CuponToday extends Component {
                     <View style={stylesPromotionDeal.Deal_Today_Box}>
                         <Text style={stylesFont.FontFamilyText}> คูปองส่วนลดจาก FIN</Text>
                         <ScrollView horizontal>
-                            <View style={stylesPromotionDeal.Deal_Today_BoxImage}>
-                                <FastImage style={stylesPromotionDeal.Deal_Today_Coinimage}
-                                    source={{
-                                        uri: ip + '/MySQL/uploads/icon_brand/Coins_50.png',
-                                    }}
-                                />
-                                <FastImage style={[stylesPromotionDeal.Deal_Today_Coinimage, { marginLeft: 5, }]}
-                                    source={{
-                                        uri: ip + '/MySQL/uploads/icon_brand/Coins_50.png',
-                                    }}
-                                />
-                                <FastImage style={[stylesPromotionDeal.Deal_Today_Coinimage, { marginLeft: 5, }]}
-                                    source={{
-                                        uri: ip + '/MySQL/uploads/icon_brand/Coins_50.png',
-                                    }}
-                                />
-                                <FastImage style={[stylesPromotionDeal.Deal_Today_Coinimage, { marginLeft: 5, }]}
-                                    source={{
-                                        uri: ip + '/MySQL/uploads/icon_brand/Coins_50.png',
-                                    }}
-                                />
-                            </View>
+                            <GetCoupon colorCoupon='#86CFFF' codeList='available' timeOut={'31-01-2020'} couponText={'10%'} textDetail={'รับเงินคืน 10% Coins'} />
+                            <GetCoupon colorCoupon='#86CFFF' codeList='available' timeOut={'31-01-2020'} couponText={'25%'} textDetail={'รับเงินคืน 25% Coins'} />
+                            <GetCoupon colorCoupon='#86CFFF' codeList='available' timeOut={'31-01-2020'} couponText={'50%'} textDetail={'รับเงินคืน 50% Coins'} />
                         </ScrollView>
                     </View>
                 </View>

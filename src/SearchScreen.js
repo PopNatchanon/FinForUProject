@@ -14,8 +14,9 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar, BannerBar_THREE, TodayProduct, ExitAppModule} from './MainScreen';
+import { AppBar, BannerBar_THREE, TodayProduct, ExitAppModule } from './MainScreen';
 import { Button_Bar, SlideTab, PricesSlide } from './ExclusiveScreen';
+import { GetServices } from './tools/Tools'
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -25,8 +26,13 @@ export default class SearchScreen extends Component {
         this.state = {
             Count: 0,
             sliderVisible: false,
+            dataService: [],
         };
         this.setSlider = this.setSlider.bind(this)
+        this.getData = this.getData.bind(this)
+    }
+    getData(dataService) {
+        this.setState({ dataService })
     }
     setSlider(value) {
         this.setState({ sliderVisible: value })
@@ -37,11 +43,16 @@ export default class SearchScreen extends Component {
         this.setState({ modeStore })
     }
     render() {
-        const { sliderVisible, modeStore } = this.state;
+        const { dataService, sliderVisible, modeStore } = this.state;
         const { navigation } = this.props;
+        var uri = ip + '/mysql/DataServiceMain.php';
+        var dataBody = {
+            type: 'todayproduct'
+        };
         const SearchText = 'Louis';
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
+                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
                 <AppBar navigation={navigation} SearchText={SearchText} leftBar='backarrow' />
                 {
                     modeStore == true ?
@@ -62,9 +73,11 @@ export default class SearchScreen extends Component {
                                 <StoreCard />
                                 <BannerBar_THREE />
                                 <Button_Bar setSliderVisible={this.setSlider} getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
-                                <ScrollView>
-                                    <TodayProduct noTitle navigation={navigation} />
-                                </ScrollView>
+                                {
+                                    dataService ?
+                                        <TodayProduct noTitle navigation={navigation} loadData={dataService} typeip prepath='mysql' /> :
+                                        null
+                                }
                             </ScrollView>
                         )
                 }

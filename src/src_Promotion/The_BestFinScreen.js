@@ -4,7 +4,6 @@ import {
   Dimensions, Image, ImageBackground, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
-import axios from 'axios';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
@@ -78,7 +77,7 @@ export class Fin_sale extends Component {
               {
                 dataService ?
                   <ProductBox dataService={dataService} navigation={navigation} typeip='ip' mode='row3col1' prepath='mysql'
-                    pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                    pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
                   /> :
                   null
               }
@@ -258,7 +257,7 @@ export class Product_Cool extends Component {
               {
                 dataService ?
                   <ProductBox dataService={dataService} navigation={navigation} typeip='ip' mode='row3col2_2' prepath='mysql'
-                    pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                    pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
                   /> :
                   null
               }
@@ -441,7 +440,7 @@ export class Second_Store extends Component {
           {
             dataService2 ?
               <ProductBox dataService={dataService2} navigation={navigation} typeip='ip' mode='row3col2_2' prepath='mysql'
-                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
               /> :
               null
           }

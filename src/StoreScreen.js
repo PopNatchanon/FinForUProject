@@ -48,23 +48,23 @@ export default class StoreScreen extends Component {
         switch (selectedIndex) {
             case 0:
                 return ([
-                    <Banner navigation={navigation} item={item} />,
-                    <TicketLine />,
-                    <DealTop navigation={navigation} />,
-                    <NewProduct navigation={navigation} />,
-                    <BannerBar_ONE />,
-                    <PopularProduct navigation={navigation} />
+                    <Banner navigation={navigation} item={item} key={'Banner'} />,
+                    <TicketLine key={'TicketLine'} />,
+                    <DealTop navigation={navigation} key={'DealTop'} />,
+                    <NewProduct navigation={navigation} key={'NewProduct'} />,
+                    <BannerBar_ONE key={'BannerBar_ONE'} />,
+                    <PopularProduct navigation={navigation} key={'PopularProduct'} />
                 ]);
             case 1:
                 return ([
-                    <Banner navigation={navigation} item={item} />,
-                    <SubMenu getSelectedIndex2={this.getSelectedIndex2} />,
+                    <Banner navigation={navigation} item={item} key={'Banner'} />,
+                    <SubMenu getSelectedIndex2={this.getSelectedIndex2} key={'SubMenu'} />,
                     this.ViewSubSide(selectedIndex2)
                 ]);
             case 2:
                 return ([
-                    <Banner navigation={navigation} item={item} />,
-                    <BoxProduct4 navigation={navigation} />
+                    <Banner navigation={navigation} item={item} key={'Banner'} />,
+                    <BoxProduct4 navigation={navigation} key={'BoxProduct4'} />
                 ]);
             default:
         }
@@ -72,25 +72,25 @@ export default class StoreScreen extends Component {
     ViewSubSide(selectedIndex2) {
         if (selectedIndex2 == 0) {
             return (
-                <View>
+                <View key={'ShowProduct'}>
                     <ShowProduct noTitle navigation={this.props.navigation} />
                 </View>
             )
         } else if (selectedIndex2 == 1) {
             return (
-                <View>
+                <View key={'ShowProduct'}>
                     <ShowProduct noTitle navigation={this.props.navigation} />
                 </View>
             )
         } else if (selectedIndex2 == 2) {
             return (
-                <View>
+                <View key={'ShowProduct'}>
                     <ShowProduct noTitle navigation={this.props.navigation} />
                 </View>
             )
         } else if (selectedIndex2 == 3) {
             return (
-                <View>
+                <View key={'ShowProduct'}>
                     <ShowProduct noTitle navigation={this.props.navigation} />
                 </View>
             )
@@ -524,7 +524,7 @@ export class DealTop extends Component {
                     {
                         dataService ?
                             <ProductBox dataService={dataService} navigation={navigation} typeip='ip' prepath='mysql' mode='row3col1'
-                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
                             /> :
                             null
                     }
@@ -563,7 +563,7 @@ export class NewProduct extends Component {
                     {
                         dataService ?
                             <ProductBox dataService={dataService} navigation={navigation} typeip='ip' prepath='mysql' mode='row3col1'
-                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
                             /> :
                             null
                     }
@@ -693,7 +693,7 @@ export class PopularProduct extends Component {
                     {
                         dataService ?
                             <ProductBox dataService={dataService} navigation={navigation} typeip='ip' prepath='mysql' mode='row2colall'
-                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
                             /> :
                             null
                     }
@@ -765,7 +765,7 @@ export class ShowProduct extends Component {
                     {
                         dataService ?
                             <ProductBox dataService={dataService} navigation={navigation} typeip='ip' prepath='mysql' mode='row2colall'
-                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
                             /> :
                             null
                     }

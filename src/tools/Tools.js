@@ -388,6 +388,7 @@ export class TabBar extends Component {
 }
 ///----------------------------------------------------------------------------------------------->>>>
 export class GetServices extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -395,6 +396,7 @@ export class GetServices extends Component {
         };
     }
     getDataSource = async () => {
+        this._isMounted = true;
         const { dataBody, uriPointer } = this.props
         fetch(uriPointer, {
             method: 'POST',
@@ -406,7 +408,9 @@ export class GetServices extends Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                this.props.getDataSource(responseJson);
+                if (this._isMounted) {
+                    this.props.getDataSource(responseJson);
+                }
             })
             .catch((error) => {
                 console.error(error);
@@ -414,6 +418,9 @@ export class GetServices extends Component {
     }
     componentDidMount() {
         this.getDataSource()
+    }
+    componentWillUnmount() {
+        this._isMounted = false;
     }
     render() {
         return (<View></View>)
@@ -603,8 +610,8 @@ export class ProductBox extends Component {
                                     prefix={'฿'}
                                     renderText={value =>
                                         <Text style={[
-                                            stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontSize8, stylesFont.FontFamilyText, {
-                                                marginTop: 0,
+                                            stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontFamilyText, {
+                                                marginTop: -4,
                                                 fontSize: dispriceSize ? dispriceSize : 14
                                             }
                                         ]}>

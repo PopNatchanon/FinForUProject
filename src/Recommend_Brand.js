@@ -86,7 +86,7 @@ export class Recommend_Brand_Store extends Component {
                     {
                         dataService ?
                             <ProductBox dataService={dataService} navigation={navigation} typeip={'ip'}
-                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
                                 prepath='mysql'
                             /> :
                             null

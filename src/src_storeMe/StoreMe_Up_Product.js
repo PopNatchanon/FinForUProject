@@ -12,7 +12,6 @@ import {
   Button,
   Picker,
 } from 'react-native';
-import axios from 'axios';
 import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
 import Icons from 'react-native-vector-icons/FontAwesome5';

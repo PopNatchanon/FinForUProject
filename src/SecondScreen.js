@@ -213,7 +213,7 @@ export class Second_Product_Brand extends Component {
           {
             dataService ?
               <ProductBox dataService={dataService} navigation={navigation} typeip='ip' mode='row4col1' prepath='mysql'
-                pointerUrl='DetailScreen' pointerid_store nameSize={12} priceSize={14} dispriceSize={12}
+                pointerUrl='DetailScreen' pointerid_store nameSize={11} priceSize={12} dispriceSize={12}
               /> :
               null
           }

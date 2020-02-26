@@ -339,7 +339,7 @@ export class Deal_Exclusive extends Component {
           {
             dataService ?
               <ProductBox dataService={dataService} navigation={navigation} typeip={'ip'} mode='5item'
-                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
                 prepath='mysql'
               /> :
               null
@@ -504,7 +504,7 @@ export class Second_Store extends Component {
             {
               dataService ?
                 <ProductBox dataService={dataService} navigation={navigation} typeip={'ip'} mode='row3col1'
-                  pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                  pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
                   prepath='mysql'
                 /> :
                 null
@@ -719,7 +719,7 @@ export class Shop_Deal_ForU extends Component {
           {
             dataService ?
               <ProductBox dataService={dataService} navigation={navigation} typeip={'ip'} mode='5item'
-                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
                 prepath='mysql'
               /> :
               null

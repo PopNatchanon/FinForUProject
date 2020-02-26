@@ -1,5 +1,5 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component } from 'react';
+import React from 'react';
 import {
     Dimensions, ImageBackground, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
@@ -24,7 +24,7 @@ import { PopularProduct } from '../StoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class Profile_Topic extends Component {
+export default class Profile_Topic extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -139,7 +139,7 @@ export default class Profile_Topic extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> LatestScreen
-export class LatestScreen extends Component {
+export class LatestScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -155,7 +155,7 @@ export class LatestScreen extends Component {
 }
 
 ///----------------------------------------------------------------------------------------------->>>> AppbarChat
-export class AppbarChat extends Component {
+export class AppbarChat extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -166,18 +166,18 @@ export class AppbarChat extends Component {
         return (
             <View style={stylesProfileTopic.AppbarChat} >
                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
-                    <IconEntypo name='chevron-left' size={35} color='#0A55A6' />
+                    <IconEntypo name='chevron-left' size={35} color='#0A55A6' style={stylesMain.ItemCenterVertical} />
                 </TouchableOpacity>
                 <View>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { marginTop: 5 }]}>{Title ? Title : ''}</Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#ADADAD' }]}>ใช้งานล่าสุดเมือ 5นาที ที่แล้ว</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#ADADAD', marginTop: -2 }]}>ใช้งานล่าสุดเมือ 5นาที ที่แล้ว</Text>
                 </View>
             </View>
         );
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> ChatScreen
-export class ChatScreen extends Component {
+export class ChatScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -197,10 +197,11 @@ export class ChatScreen extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Chat_Detail
-export class Chat_Detail extends Component {
+export class Chat_Detail extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            messages: [],
         };
     }
     render() {
@@ -213,7 +214,7 @@ export class Chat_Detail extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Message_recipient
-export class Message_recipient extends Component {
+export class Message_recipient extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -227,16 +228,17 @@ export class Message_recipient extends Component {
                         uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
                     }}
                 />
-                <View style={[stylesProfileTopic.Message_Box, { marginLeft: 10, }]}>
-                    <Text style={stylesFont.FontFamilyText}>สวัสดีครับ
-                    5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555566666666666666666666666666666666666666666666666666666666666666666666666666666</Text>
+                <View style={[stylesProfileTopic.Message_Box, { marginLeft: 10, height: 'auto' }]}>
+                    <View>
+                        <Text style={stylesFont.FontFamilyText}>สวัสดีครับ</Text>
+                    </View>
                 </View>
             </View>
         );
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Message_sender
-export class Message_sender extends Component {
+export class Message_sender extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -245,19 +247,15 @@ export class Message_sender extends Component {
     render() {
         return (
             <View style={{ flexDirection: 'row-reverse', marginTop: 10 }}>
-                <FastImage style={stylesProfileTopic.Message_BoxProfile}
-                    source={{
-                        uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop2.jpg',
-                    }}
-                />
-                <View style={[stylesProfileTopic.Message_Box, { marginRight: 10 }]}>
-                    <Text style={stylesFont.FontFamilyText}>สวัสดีค่ะ</Text></View>
+                <View style={[stylesProfileTopic.Message_Box, { marginRight: 6 }]}>
+                    <Text style={stylesFont.FontFamilyText}>สวัสดีค่ะ</Text>
+                </View>
             </View>
         );
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Chat_Box
-export class Chat_Tag extends Component {
+export class Chat_Tag extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -268,7 +266,7 @@ export class Chat_Tag extends Component {
             <View>
                 <View style={stylesProfileTopic.Chat_Tag}>
                     <View style={stylesMain.FlexRow}>
-                        <View>
+                        <View style={stylesMain.ItemCenterVertical}>
                             <FastImage style={stylesProfileTopic.Chat_Tag_image}
                                 source={{
                                     uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
@@ -293,7 +291,7 @@ export class Chat_Tag extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> InterestedScreen
-export class InterestedScreen extends Component {
+export class InterestedScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -308,7 +306,7 @@ export class InterestedScreen extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Follow_storeScreen
-export class Follow_storeScreen extends Component {
+export class Follow_storeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -328,7 +326,7 @@ export class Follow_storeScreen extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Follow_store_Box
-export class Follow_store_Box extends Component {
+export class Follow_store_Box extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -390,7 +388,7 @@ export class Follow_store_Box extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Might_like_Store
-export class Might_like_Store extends Component {
+export class Might_like_Store extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -463,7 +461,7 @@ export class Might_like_Store extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Review_meScreen
-export class Review_meScreen extends Component {
+export class Review_meScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -483,7 +481,7 @@ export class Review_meScreen extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Review_me
-export class Review_me extends Component {
+export class Review_me extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -529,7 +527,7 @@ export class Review_me extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Help_meScreen
-export class Help_meScreen extends Component {
+export class Help_meScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -548,7 +546,7 @@ export class Help_meScreen extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Help_me
-export class Help_me extends Component {
+export class Help_me extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -586,7 +584,7 @@ export class Help_me extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Question
-export class Question extends Component {
+export class Question extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -610,7 +608,7 @@ export class Question extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Topic_Help
-export class Topic_Help extends Component {
+export class Topic_Help extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -678,8 +676,7 @@ export class Topic_Help extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>>Account_Help
-
-export class Account_Help extends Component {
+export class Account_Help extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -730,8 +727,7 @@ export class Account_Help extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>>Topic_DetailHelp
-
-export class Topic_DetailHelp extends Component {
+export class Topic_DetailHelp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -806,10 +802,8 @@ export class Topic_DetailHelp extends Component {
         );
     }
 }
-
-
 ///----------------------------------------------------------------------------------------------->>>> Review_From
-export class Review_From extends Component {
+export class Review_From extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

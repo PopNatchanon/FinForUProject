@@ -13,7 +13,7 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> tools
-import { AppBar,ExitAppModule } from './MainScreen';
+import { AppBar, ExitAppModule } from './MainScreen';
 import { GetServices, ProductBox } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> ip
 import { ip, finip } from './navigator/IpConfig';
@@ -163,7 +163,7 @@ export class Store_Detail extends Component {
                                 {
                                     dataService ?
                                         <ProductBox dataService={dataService} navigation={navigation} typeip='ip' mode='row3col1' prepath='mysql'
-                                            pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                                            pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
                                         /> :
                                         null
                                 }

@@ -4,7 +4,6 @@ import {
     Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
-import axios from 'axios';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
@@ -219,7 +218,7 @@ export class New_year_NewA extends Component {
                                 {
                                     dataService ?
                                         <ProductBox dataService={dataService} navigation={navigation} typeip={'ip'}
-                                            pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                                            pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
                                             prepath='mysql'
                                         /> :
                                         null
@@ -269,7 +268,7 @@ export class New_year_NewB extends Component {
                                 {
                                     dataService ?
                                         <ProductBox dataService={dataService} navigation={navigation} typeip={'ip'}
-                                            pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                                            pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
                                             prepath='mysql'
                                         /> :
                                         null

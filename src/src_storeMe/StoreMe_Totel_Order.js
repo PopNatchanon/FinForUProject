@@ -10,7 +10,6 @@ import {
     TouchableOpacity,
     Dimensions,
 } from 'react-native';
-import axios from 'axios';
 import FastImage from 'react-native-fast-image';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';

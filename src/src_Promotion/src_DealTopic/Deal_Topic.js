@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-    Dimensions, SafeAreaView, ScrollView, Text, View,
+    Dimensions, SafeAreaView, ScrollView, Text, View, TouchableOpacity,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
@@ -11,11 +11,13 @@ import FastImage from 'react-native-fast-image';
 import stylesMain from '../../../style/StylesMainScreen'
 import stylesFont from '../../../style/stylesFont';
 import stylesPromotionDeal from '../../../style/stylePromotion-src/styleDealScreen';
+import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { Button_Bar } from '../../HighlightScreen';
 import { GetServices, GetCoupon } from '../../tools/Tools';
 import { TodayProduct, Slide, AppBar1, ExitAppModule } from '../../MainScreen';
 import { Store_Detail } from '../../Recommend_Store';
+import { ProductBox } from '../../tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -37,10 +39,15 @@ export default class Deal_Topic extends Component {
         switch (selectedIndex) {
             case 0:
                 return (
-                    <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} />
-                        <Deal_CuponToday navigation={this.props.navigation} />
-                        <Button_Bar navigation={this.props.navigation} />
+                    <View style={stylesMain.SafeAreaView}>
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ดีลสุดคุ้ม' />
+                        <ScrollView>
+                            <Deal_CuponToday navigation={this.props.navigation} />
+                            <Button_Bar navigation={this.props.navigation} />
+                            <Deal_ProductToday />
+                            <Deal_ProductToday />
+                            <Deal_ProductToday />
+                        </ScrollView>
                     </View>
                 )
             case 1:
@@ -142,6 +149,95 @@ export class Deal_CuponToday extends Component {
                             <GetCoupon colorCoupon='#86CFFF' codeList='available' timeOut={'31-01-2020'} couponText={'25%'} textDetail={'รับเงินคืน 25% Coins'} />
                             <GetCoupon colorCoupon='#86CFFF' codeList='available' timeOut={'31-01-2020'} couponText={'50%'} textDetail={'รับเงินคืน 50% Coins'} />
                         </ScrollView>
+                    </View>
+                </View>
+            </View>
+        );
+    }
+}
+///----------------------------------------------------------------------------------------------->>>>
+
+export class Deal_ProductToday extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
+    render() {
+
+        return (
+            <View style={stylesMain.SafeAreaView}>
+                <View style={[stylesMain.FrameBackground, { borderColor: '#ECECEC', borderWidth: 1 }]}>
+                    <View style={[stylesMain.FlexRow, { margin: 5 }]}>
+                        <FastImage style={{ height: 40, width: 40, marginTop: 10, borderRadius: 20, }}
+                            source={{
+                                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
+                            }}
+                        />
+                        <View style={stylesProfileTopic.Follow_store_Box_text}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>Lacoste Store</Text>
+                        </View>
+                    </View>
+                    <View style={{ width: '100%', justifyContent: 'space-around', flexDirection: 'row', padding: 5 }}>
+                        <View style={[stylesMain.ItemCenter, { width: '20%', borderColor: '#ECECEC', borderWidth: 0.5, height: 120, padding: 5 }]}>
+                            <View style={{ height: '80%', width: '100%' }}>
+                                <FastImage style={stylesMain.BoxProduct1Image}
+                                    source={{
+                                        uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
+                                    }}
+                                />
+                            </View>
+                            <View style={{ borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, paddingHorizontal: 5 }}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6' }]}>฿3,xxx</Text>
+                            </View>
+                        </View>
+                        <View style={[stylesMain.ItemCenter, { width: '20%', borderColor: '#ECECEC', borderWidth: 0.5, height: 120, padding: 5 }]}>
+                            <View style={{ height: '80%', width: '100%' }}>
+                                <FastImage style={stylesMain.BoxProduct1Image}
+                                    source={{
+                                        uri: ip + '/MySQL/uploads/products/2019-10-29-1572329268.jpg',
+                                    }}
+                                />
+                            </View>
+                            <View style={{ borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, paddingHorizontal: 5 }}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6' }]}>฿3,xxx</Text>
+                            </View>
+                        </View>
+                        <View style={[stylesMain.ItemCenter, { width: '20%', borderColor: '#ECECEC', borderWidth: 1, height: 120, padding: 5 }]}>
+                            <View style={{ height: '80%', width: '100%' }}>
+                                <FastImage style={stylesMain.BoxProduct1Image}
+                                    source={{
+                                        uri: ip + '/MySQL/uploads/products/2019-10-09-1570615168.png',
+                                    }}
+                                />
+                            </View>
+                            <View style={{ borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, paddingHorizontal: 5 }}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6' }]}>฿3,xxx</Text>
+                            </View>
+                        </View>
+                        <View style={[stylesMain.ItemCenter, { width: '20%', borderColor: '#ECECEC', borderWidth: 0.5, height: 120, padding: 5 }]}>
+                            <View style={{ height: '80%', width: '100%' }}>
+                                <FastImage style={stylesMain.BoxProduct1Image}
+                                    source={{
+                                        uri: ip + '/MySQL/uploads/products/2019-10-29-1572321327.png',
+                                    }}
+                                />
+                            </View>
+                            <View style={{ borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, paddingHorizontal: 5 }}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6' }]}>฿3,xxx</Text>
+                            </View>
+                        </View>
+                        <View style={[stylesMain.ItemCenter, { width: '20%', borderColor: '#ECECEC', borderWidth: 0.5, height: 120, padding: 5, backgroundColor: '#0A55A6' }]}>
+                            <View>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { color: '#FFFFFF' }]}>50%</Text>
+                                <TouchableOpacity>
+                                    <View style={[stylesMain.ItemCenter, { backgroundColor: '#FFFFFF', paddingHorizontal: 5, borderRadius: 5 }]}>
+                                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#0A55A6' }]}>เก็บ</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
                     </View>
                 </View>
             </View>

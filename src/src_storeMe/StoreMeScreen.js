@@ -225,7 +225,7 @@ export class ListMenu extends Component {
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconEntypo RightItem name="bar-graph" size={30} color='#0A55A6' style={stylesProfile.ListMenuListSubIcon} />
                                 <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                                    สถิติร้านค้าของฉัน
+                                      สถิติร้านค้าของฉัน
                             </Text>
                             </View>
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
@@ -309,7 +309,7 @@ export class StoreMe_Product_Box extends Component {
 
                 <View style={{ alignItems: 'center', height: 100 }}>
                     <FastImage
-                        style={{ height: '100%', width: '100%' }}
+                        style={stylesMain.BoxProduct1Image}
                         source={{
                             uri: ip + '/MySQL/uploads/products/2019-10-09-1570615168.png',
                         }}

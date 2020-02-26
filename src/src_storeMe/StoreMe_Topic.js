@@ -6,7 +6,8 @@ import {
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
-import ModalDropdown from 'react-native-modal-dropdown';
+import { CheckBox } from 'react-native-elements';
+
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -70,7 +71,7 @@ export default class StoreMe_Topic extends Component {
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='จัดการโฆษณา' />
-                        <StoreMe_Advertisement_PacketBuy />
+                        <StoreMe_Advertisement_PacketBuy navigation={this.props.navigation} />
                     </SafeAreaView>
                 )
             case 5:
@@ -84,7 +85,31 @@ export default class StoreMe_Topic extends Component {
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='FIN แคมเปญ' />
-                        <StoreMe_Fin_Campaign />
+                        <StoreMe_Fin_Campaign navigation={this.props.navigation} />
+                    </SafeAreaView>
+                )
+            case 7:
+                return (
+                    <SafeAreaView style={stylesMain.SafeAreaView}>
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='FIN แคมเปญ' />
+                        <View style={{ backgroundColor: '#FFFFFF' }}>
+                            <View style={{ flexDirection: 'row', padding: 5, borderColor: '#EAEAEA', borderWidth: 1 }}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { margin: 10 }]}> เลือกสินค้า </Text>
+                                <View style={{ flexDirection: 'row', width: '65%', paddingLeft: 10, borderColor: '#EAEAEA', borderRadius: 5, borderWidth: 1,}}>
+                                    <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { width: '90%' }]}
+                                        placeholder=""
+                                        value={this.state.text}
+                                        onChangeText={(text) => this.setState({ text })}>
+                                    </TextInput>
+                                    <TouchableOpacity>
+                                        <IconAntDesign RightItem name="search1" size={20} style={{marginVertical:10}} />
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View>
+                        <StoreMe_Fin_Campaign_Product />
+                        <StoreMe_Fin_Campaign_Product />
+                        <StoreMe_Fin_Campaign_ProductSelect />
                     </SafeAreaView>
                 )
         }
@@ -346,29 +371,74 @@ export class StoreMe_Advertisement_PacketBuy extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            Name: '',
+            Tel: '',
+            Mail: '',
+            Line: '',
+            checked: true,
         };
     }
 
     render() {
         return (
             <View style={stylesMain.FrameBackground}>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { borderBottomWidth: 1, textAlign: 'center' }]}>รายละเอียดผู้ติดต่อ</Text>
-                <View>
-                    <Text>ชื่อผู้ติดต่อ*</Text>
-
-                </View>
-                <View>
-                    <Text>หมายเลขโทรศัพท์*</Text>
-                </View>
-                <View>
-                    <Text>อีเมล*</Text>
-                </View>
-                <View>
-                    <Text>LINE ID</Text>
-                </View>
-                <View>
-                    <Text>เรื่องที่ติดต่อ</Text>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { borderBottomWidth: 1, }]}> รายละเอียดผู้ติดต่อ</Text>
+                <View style={{ padding: 10 }}>
+                    <View>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginVertical: 5 }]}>ชื่อผู้ติดต่อ*</Text>
+                        <View style={stylesStoreMe.StoreMe_Advertisement_PacketTextInput}>
+                            <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { width: '100%', padding: 10 }]}
+                                placeholder=""
+                                value={this.state.Name}
+                                onChangeText={(Name) => this.setState({ Name })}>
+                            </TextInput>
+                        </View>
+                    </View>
+                    <View>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginVertical: 5 }]}>หมายเลขโทรศัพท์*</Text>
+                        <View style={stylesStoreMe.StoreMe_Advertisement_PacketTextInput}>
+                            <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { width: '100%', padding: 10 }]}
+                                placeholder=""
+                                value={this.state.Tel}
+                                onChangeText={(Tel) => this.setState({ Tel })}>
+                            </TextInput>
+                        </View>
+                    </View>
+                    <View>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginVertical: 5 }]}>อีเมล*</Text>
+                        <View style={stylesStoreMe.StoreMe_Advertisement_PacketTextInput}>
+                            <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { width: '100%', padding: 10 }]}
+                                placeholder=""
+                                value={this.state.Mail}
+                                onChangeText={(Mail) => this.setState({ Mail })}>
+                            </TextInput>
+                        </View>
+                    </View>
+                    <View>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginVertical: 5 }]}>LINE ID</Text>
+                        <View style={stylesStoreMe.StoreMe_Advertisement_PacketTextInput}>
+                            <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { width: '100%', padding: 10 }]}
+                                placeholder=""
+                                value={this.state.Line}
+                                onChangeText={(Line) => this.setState({ Line })}>
+                            </TextInput>
+                        </View>
+                    </View>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginVertical: 5 }]}>เรื่องที่ติดต่อ</Text>
+                    <View style={stylesMain.FlexRow}>
+                        <CheckBox
+                            checked={this.state.checked}
+                            onPress={() => this.setState({ checked: !this.state.checked, checked2: !this.state.checked2 })}
+                        />
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginTop: 15 }]}>สนใจโฆษณาร้านกับ FIN (มีค่าใช้จ่าย)</Text>
+                    </View>
+                    <View style={{ alignItems: 'flex-end' }}>
+                        <TouchableOpacity>
+                            <View style={[stylesMain.ItemCenter, { borderColor: '#0A55A6', borderWidth: 1, backgroundColor: '#0A55A6', padding: 5, marginLeft: 10, borderRadius: 5, width: 100 }]}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ติดต่อแอดมิน</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
         );
@@ -397,11 +467,114 @@ export class StoreMe_Fin_Campaign extends Component {
         }]
         return (
             <View>
-                <View style={stylesMain.FrameBackground}>
+                <View style={{ backgroundColor: '#fff' }}>
                     <TabBar
                         sendData={this.updataIndex}
+                        setVertical={4}
                         item={item}
                     />
+                </View>
+                <View style={{ flexDirection: 'row', backgroundColor: '#FFFFFF', padding: 10, marginTop: 10 }}>
+                    <View style={{ height: 90, width: '40%' }}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/products/Campaign9999.png',
+                            }}
+                        />
+                    </View>
+                    <View style={{ width: '60%', padding: 10 }}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                            มาเข้าร่วมแคมเปญกับเราสิ! สิทธิพิเศษสำหรับร้านค้าใน
+                            Fin เข้าร่วมแคมเปญ " 9 Baht
+                            คอลเลคชั่นราคาต่ำกว่า 199 บาท ! (วันที่่ 5 - 11 มี.ค.) " เลย
+                    </Text>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>การเข้าร่วมโปรโมชั่นจะสิ้นสุดภายใน3 วัน 1 ชั่วโมง</Text>
+                        <TouchableOpacity style={{ alignItems: 'flex-end', marginTop: 10 }} onPress={() => this.props.navigation.push('StoreMe_Topic', { selectedIndex: 7 })}>
+                            <View style={[stylesMain.ItemCenter, { backgroundColor: '#7ED0E8', width: 130, borderRadius: 5, height: 30 }]}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FFFFFF' }]}>เข้าร่วมโปรโมชั่น ตอนนี้!</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View>
+        );
+    }
+}
+
+///----------------------------------------------------------------------------------------------->>>>
+
+export class StoreMe_Fin_Campaign_Product extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            checked: true,
+
+        };
+    }
+
+    render() {
+        return (
+            <View style={{ backgroundColor: '#FFFFFF' ,width:'100%' }}>
+                <View style={{ flexDirection: 'row', padding: 10, borderColor: '#EAEAEA', borderWidth: 1 }}>
+                    <CheckBox
+                        checked={this.state.checked}
+                        onPress={() => this.setState({ checked: !this.state.checked, checked2: !this.state.checked2 })}
+                    />
+                    <View style={{ height: 80, width: 80, borderColor: '#EAEAEA', borderWidth: 1 ,padding:5}}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/products/2019-10-29-1572320317.jpg',
+                            }}
+                        />
+                    </View>
+                    <View style={{ padding: 10 }}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>กระเป๋าสะพายไหล่ Chanel</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>จำนวน : 20</Text>
+                    </View>
+                    <View style={{ justifyContent: 'flex-end' }}>
+                        <View style={{ backgroundColor: '#EB4768', padding: 5, borderRadius: 5 }}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FFFFFF' }]}>ไม่เหมาะสม</Text>
+                        </View>
+                    </View>
+                </View>
+            </View>
+
+        );
+    }
+}
+///----------------------------------------------------------------------------------------------->>>>
+
+export class StoreMe_Fin_Campaign_ProductSelect extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
+    render() {
+        return (
+            <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', backgroundColor: '#FFFFFF' }]}>
+                <View style={stylesMain.FlexRow}>
+                    <CheckBox
+                        checked={this.state.checked}
+                        onPress={() => this.setState({ checked: !this.state.checked, checked2: !this.state.checked2 })}
+                    />
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 15 }]}>เลือกทั้งหมด</Text>
+                </View>
+                <View style={[stylesMain.FlexRow, { marginTop: 15, marginRight: 10 }]}>
+                    <TouchableOpacity>
+                        <View style={[stylesMain.ItemCenter, { borderColor: '#0A55A6', borderWidth: 1, padding: 5, width: 100, borderRadius: 5 }]}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#0A55A6' }]}>ยกเลิก</Text>
+                        </View>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity>
+                        <View style={[stylesMain.ItemCenter, { borderColor: '#0A55A6', borderWidth: 1, backgroundColor: '#0A55A6', padding: 5, marginLeft: 10, borderRadius: 5, width: 100 }]}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตกลง</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
             </View>
         );

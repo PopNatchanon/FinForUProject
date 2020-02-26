@@ -161,6 +161,14 @@ export default StyleSheet.create({
     Coupon_Box_Pon_Text: {
         textAlign: 'center',
     },
+    Coupon_Box_Pon: {
+        borderRadius:5,
+        marginHorizontal:5,
+        borderWidth:1,
+        paddingHorizontal:10,
+        borderColor: '#0A55A6',
+        backgroundColor: '#C0DBF9'
+    },
     ///--------------------------------------------------------------------------///
     Detail_Text: {
         padding: 6,
@@ -224,7 +232,7 @@ export default StyleSheet.create({
     Comment_text_day: {
         color: '#0A55A6',
     },
-   
+
     ///--------------------------------------------------------------------------///
     Banner_Bar: {
         backgroundColor: '#FFFFFF',
@@ -316,4 +324,5 @@ export default StyleSheet.create({
         color: '#FFF',
     },
     ///--------------------------------------------------------------------------///
+
 })

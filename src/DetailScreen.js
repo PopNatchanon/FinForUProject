@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-  Animated, Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View, Modal
+  Animated, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, Modal
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import * as Animatable from 'react-native-animatable';
@@ -10,6 +10,7 @@ export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
 import SmartGallery from "react-native-smart-gallery";
+import BottomSheet from "react-native-raw-bottom-sheet";
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -23,7 +24,7 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, ExitAppModule } from './MainScreen';
-import { GetServices, ProductBox } from './tools/Tools';
+import { GetServices, ProductBox, GetCoupon } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -100,7 +101,7 @@ export default class DetailScreen extends Component {
           <Detail_Data dataService={dataService} navigation={navigation} />
           <Store dataService={dataService} navigation={navigation} />
           <Conpon />
-          <Selector />
+          <Selector dataService={dataService} />
           <Detail_Category dataService={dataService} />
           <Detail dataService={dataService} />
           <Reviews />
@@ -147,7 +148,7 @@ export class Detail_Image extends Component {
   _renderItem = ({ item, index }) => {
     var dataMySQL = [finip, item.image_full_path, item.image].join('/');
     return (
-      <TouchableOpacity onPress={() => [this.props.showImage(true)]} >
+      <TouchableOpacity activeOpacity={1} onPress={() => [this.props.showImage(true)]} >
         <View style={{ width: width * 1, height: width * 1, /*backgroundColor: '#d9d9d9'*/ }}>
           <FastImage
             source={{
@@ -345,25 +346,62 @@ export class Conpon extends Component {
     this.state = {
     };
   }
+  ConponSheetBody() {
+    return (
+      <>
+        <View style={{ flex: 1, paddingHorizontal: 15 }}>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { textAlign: 'center' }]}>รับคูปอง</Text>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ส่วนลดร้านค้า</Text>
+          <ScrollView>
+            <Coupon_Detail_BottomSheet />
+            <Coupon_Detail_BottomSheet />
+            <Coupon_Detail_BottomSheet />
+            <Coupon_Detail_BottomSheet />
+          </ScrollView>
+        </View>
+      </>
+    )
+  }
   render() {
     return (
-      <View style={stylesDetail.Coupon}>
-        <View style={[stylesDetail.Coupon_Box, stylesMain.ItemCenterVertical]}>
-          <Text style={[stylesDetail.Coupon_Text, stylesFont.FontSize5, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical]}>
-            คูปอง </Text>
-          <View style={stylesMain.FlexRow}>
-            <View style={stylesDetail.Coupon_Box_Pon}>
-              <Text style={[stylesDetail.Coupon_Box_Pon_Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                ลด ฿100.00</Text>
+      <>
+        <BottomSheet
+          ref={ref => {
+            this.ConponSheet = ref;
+          }}
+          height={height * 0.5}
+          duration={250}
+          customStyles={{
+            container: {
+              paddingTop: 10,
+              alignItems: "center",
+              borderTopLeftRadius: 10,
+              borderTopRightRadius: 10,
+            }
+          }}
+        >
+          {this.ConponSheetBody()}
+        </BottomSheet>
+        <View style={stylesDetail.Coupon}>
+          <TouchableOpacity activeOpacity={1} onPress={() => { this.ConponSheet.open(); }}>
+            <View style={[stylesDetail.Coupon_Box, stylesMain.ItemCenterVertical]}>
+              <Text style={[stylesDetail.Coupon_Text, stylesFont.FontSize5, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical]}>
+                คูปอง </Text>
+              <View style={stylesMain.FlexRow}>
+                <View style={[stylesDetail.Coupon_Box_Pon, stylesMain.ItemCenter]}>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                    ลด ฿100.00</Text>
+                </View>
+                <View style={[stylesDetail.Coupon_Box_Pon, stylesMain.ItemCenter]}>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                    ลด ฿300.00</Text>
+                </View>
+                <IconEntypo style={stylesDetail.Coupon_Icon} name='chevron-right' size={30} color='#0A55A6' />
+              </View>
             </View>
-            <View style={stylesDetail.Coupon_Box_Pon}>
-              <Text style={[stylesDetail.Coupon_Box_Pon_Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                ลด ฿300.00</Text>
-            </View>
-            <IconEntypo style={stylesDetail.Coupon_Icon} name='chevron-right' size={30} />
-          </View>
+          </TouchableOpacity>
         </View>
-      </View>
+      </>
     );
   }
 }
@@ -372,21 +410,107 @@ export class Selector extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      itemCount: 1,
     };
+  }
+  SelectorSheetBody() {
+    const { dataService } = this.props
+    const { itemCount } = this.state
+    return dataService.map((item, index) => {
+      console.log(item)
+      return (
+        <View style={{ flex: 1, paddingHorizontal: 15 }} key={index}>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { textAlign: 'center' }]}>ตัวเลือก</Text>
+          <ScrollView>
+            <View style={{ flexDirection: 'row' }}>
+              <View style={{ height: 80, width: 80, borderWidth: 1, backgroundColor: '#E1E1E1' }}></View>
+              <View style={{ width: '70%', marginLeft: 10 }}>
+                <NumberFormat
+                  value={item.full_price}
+                  displayType={'text'}
+                  thousandSeparator={true}
+                  prefix={'฿'}
+                  renderText={
+                    value =>
+                      <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
+                        {value}</Text>}
+                />
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>{item.name}</Text>
+              </View>
+            </View>
+          </ScrollView>
+          <View>
+            <View style={{ flexDirection: 'row',height:80, width:'100%', justifyContent:'center'}}>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>จำนวน</Text>
+              <TouchableOpacity onPress={() => {
+                if (itemCount > 1) {
+                  this.setState({ itemCount: itemCount - 1 })
+                }
+              }}>
+                <View style={[stylesMain.ItemCenter, {
+                  width: 30, height: 40, borderColor: '#ECECEC', borderRightWidth: 0, borderWidth: 1
+                }]}>
+                  <Text style={[stylesMain.ItemCenterVertical]}>
+                    -</Text>
+                </View>
+              </TouchableOpacity>
+              <View style={[stylesMain.ItemCenter, stylesFont.FontFamilyText, {
+                width: 50, height: 40, borderColor: '#ECECEC', borderWidth: 1
+              }]}>
+                <TextInput style={[stylesMain.ItemCenterVertical]} keyboardType={'numeric'}
+                  onChangeText={(value) => { value > 0 ? this.setState({ itemCount: value * 1 }) : this.setState({ itemCount: 1 }) }}>
+                  {itemCount}
+                </TextInput>
+              </View>
+              <TouchableOpacity onPress={() => {
+                this.setState({ itemCount: itemCount + 1 })
+              }}>
+                <View style={[stylesMain.ItemCenter, {
+                  width: 30, height: 40, borderColor: '#ECECEC', borderLeftWidth: 0, borderWidth: 1
+                }]}>
+                  <Text style={[stylesMain.ItemCenterVertical]}>
+                    +</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      )
+    })
   }
   render() {
     return (
-      <View style={stylesDetail.Coupon}>
-        <View style={[stylesDetail.Coupon_Box, stylesMain.ItemCenterVertical]}>
-          <Text style={[stylesDetail.Coupon_Text, stylesFont.FontSize5, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical]}>
-            ตัวเลือก </Text>
-          <View style={stylesMain.FlexRow}>
-            <Text style={[stylesDetail.Coupon_Text, stylesFont.FontSize6, stylesFont.FontFamilyText, stylesMain.ItemCenterVertical]}>
-              ตัวอย่างเช่น สี ขนาด</Text>
-            <IconEntypo style={stylesDetail.Coupon_Icon} name='chevron-right' size={30} />
-          </View>
+      <>
+        <BottomSheet
+          ref={ref => {
+            this.SelectorSheet = ref;
+          }}
+          height={height * 0.5}
+          duration={250}
+          customStyles={{
+            container: {
+              borderTopLeftRadius: 10,
+              borderTopRightRadius: 10,
+              paddingTop: 10,
+            }
+          }}
+        >
+          {this.SelectorSheetBody()}
+        </BottomSheet>
+        <View style={stylesDetail.Coupon}>
+          <TouchableOpacity activeOpacity={1} onPress={() => { this.SelectorSheet.open(); }}>
+            <View style={[stylesDetail.Coupon_Box, stylesMain.ItemCenterVertical]}>
+              <Text style={[stylesDetail.Coupon_Text, stylesFont.FontSize5, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical]}>
+                ตัวเลือก </Text>
+              <View style={stylesMain.FlexRow}>
+                <Text style={[stylesDetail.Coupon_Text, stylesFont.FontSize6, stylesFont.FontFamilyText, stylesMain.ItemCenterVertical]}>
+                  ตัวอย่างเช่น สี ขนาด</Text>
+                <IconEntypo style={stylesDetail.Coupon_Icon} name='chevron-right' size={30} color='#0A55A6' />
+              </View>
+            </View>
+          </TouchableOpacity>
         </View>
-      </View>
+      </>
     );
   }
 }
@@ -925,3 +1049,34 @@ export class Show_Image extends Component {
     );
   }
 }
+///----------------------------------------------------------------------------------------------->>>>
+
+export class Coupon_Detail_BottomSheet extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
+
+  render() {
+    return (
+      <View style={{ width: '100%', height: 100, borderWidth: 1, backgroundColor: '#C0DBF9', flexDirection: 'row', justifyContent: 'space-between', padding: 15, borderRadius: 5, marginVertical: 10 }}>
+        <View>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>฿1,000</Text>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ซื้อขั้นต่ำ ฿10,000</Text>
+        </View>
+        <View style={{ justifyContent: 'space-between' }}>
+          <View style={{ backgroundColor: '#C4C4C4' }}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>2020.02.22-2020.03.01</Text>
+          </View>
+          <TouchableOpacity>
+            <View style={[stylesMain.ItemCenter, { backgroundColor: '#0A55A6', paddingHorizontal: 10, borderRadius: 5 }]}>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>รับคูปอง</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
+}
+

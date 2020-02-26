@@ -133,7 +133,6 @@ export default StyleSheet.create({
         width: 430,
     },
     Might_like_Store_BoxPro: {
-        height: 'auto',
         width: 95,
         borderColor: '#ECECEC',
         borderWidth: 1,

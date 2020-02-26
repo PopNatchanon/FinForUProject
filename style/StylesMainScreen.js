@@ -427,7 +427,6 @@ export default StyleSheet.create({
   FrameBackgroundTextEnd2: {
     color: '#fff',
     marginRight: 8,
-    marginTop: 4,
   },
   Time_FlashSale_TimeBox: {
     height: 30,

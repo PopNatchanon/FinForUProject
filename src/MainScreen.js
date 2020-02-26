@@ -1297,14 +1297,16 @@ export class CategoryProduct extends Component {
                             source={{
                                 uri: dataMySQL,
                             }}
-                            style={[stylesMain.CategoryProductImageHead, { marginTop: 0 }]}
+                            style={[stylesMain.CategoryProductImageHead]}
                             resizeMode={FastImage.resizeMode.cover}
                         />
-                        <View style={stylesMain.FrameBackgroundTextBox}>
+                        <View style={[stylesMain.FrameBackgroundTextBox,{marginTop:-10,marginBottom:-5}]}>
                             <Text></Text>
-                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('CategoryScreen')}>
-                                <Text style={[stylesMain.FrameBackgroundTextEnd2, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                    ดูทั้งหมด</Text>
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('CategoryScreen')}>
+                                <View style={{backgroundColor:'#0A55A6',borderTopLeftRadius:20,width:50,alignItems:'flex-end'}}>
+                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7,{color:'#FFFFFF'}]}>
+                                        ดูทั้งหมด </Text>
+                                </View>
                             </TouchableOpacity>
                         </View>
                         <CategoryProductSubProduct navigation={this.props.navigation} id_type={item.id_type} />

@@ -19,14 +19,14 @@ export default StyleSheet.create({
         marginTop: 5,
     },
     Chat_Tag_image: {
-        height: 70,
-        width: 70,
-        marginTop: 10,
+        height: 60,
+        width: 60,
+        // marginTop: 10,
         borderRadius: 40,
     },
     Chat_Tag_online: {
         height: 20,
-        width: 70,
+        width: 60,
         alignItems: 'flex-end',
         marginTop: -20
     },
@@ -54,15 +54,14 @@ export default StyleSheet.create({
         width: 50,
         height: 50,
         borderRadius: 25,
-        borderColor: '#111111',
-        borderWidth: 1,
     },
     Message_Box: {
         borderColor: '#0A55A6',
         borderWidth: 1,
         maxWidth: '70%',
         borderRadius: 10,
-        padding: 10
+        paddingHorizontal: 8,
+        paddingVertical: 6,
     },
     Chat_Box: {
         width: '100%',

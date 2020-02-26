@@ -1,5 +1,5 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component } from 'react';
+import React from 'react';
 import {
     ActivityIndicator, Animated, Dimensions, Modal, Text, TouchableOpacity, View,
 } from 'react-native';
@@ -22,7 +22,8 @@ import NumberFormat from 'react-number-format';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Toolbar
-export class Toolbar extends Component {
+export class Toolbar extends React.Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -30,11 +31,17 @@ export class Toolbar extends Component {
         }
     }
     getDataasync = async () => {
-        const currentUser = await AsyncStorage.getItem('@MyKey')
-        this.setState({ currentUser: JSON.parse(currentUser) })
+        this._isMounted = true;
+        if (this._isMounted) {
+            const currentUser = await AsyncStorage.getItem('@MyKey')
+            this.setState({ currentUser: JSON.parse(currentUser) })
+        }
     }
     componentDidMount() {
         this.getDataasync()
+    }
+    componentWillUnmount() {
+        this._isMounted = false;
     }
     render() {
         const { currentUser } = this.state;
@@ -93,7 +100,7 @@ export class Toolbar extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>>
-export class TabBar extends Component {
+export class TabBar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -387,7 +394,7 @@ export class TabBar extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>>
-export class GetServices extends Component {
+export class GetServices extends React.Component {
     _isMounted = false;
     constructor(props) {
         super(props);
@@ -427,7 +434,7 @@ export class GetServices extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>>
-export class GetCoupon extends Component {
+export class GetCoupon extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -486,7 +493,7 @@ export class GetCoupon extends Component {
         )
     }
 }
-export class ProductBox extends Component {
+export class ProductBox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -631,7 +638,7 @@ export class ProductBox extends Component {
         )
     }
 }
-export class FeedBox extends Component {
+export class FeedBox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -751,7 +758,7 @@ export class FeedBox extends Component {
         )
     }
 }
-export class LoadingScreen extends Component {
+export class LoadingScreen extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -780,7 +787,7 @@ export class LoadingScreen extends Component {
         )
     }
 }
-export class BrowerScreen extends Component {
+export class BrowerScreen extends React.Component {
     render() {
         const { url } = this.props
         return (

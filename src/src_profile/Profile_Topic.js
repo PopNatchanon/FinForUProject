@@ -1,5 +1,5 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component } from 'react';
+import React from 'react';
 import {
     Dimensions, ImageBackground, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
@@ -24,7 +24,7 @@ import { PopularProduct } from '../StoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class Profile_Topic extends Component {
+export default class Profile_Topic extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -139,7 +139,7 @@ export default class Profile_Topic extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> LatestScreen
-export class LatestScreen extends Component {
+export class LatestScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -155,7 +155,7 @@ export class LatestScreen extends Component {
 }
 
 ///----------------------------------------------------------------------------------------------->>>> AppbarChat
-export class AppbarChat extends Component {
+export class AppbarChat extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -177,7 +177,7 @@ export class AppbarChat extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> ChatScreen
-export class ChatScreen extends Component {
+export class ChatScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -197,7 +197,7 @@ export class ChatScreen extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Chat_Detail
-export class Chat_Detail extends Component {
+export class Chat_Detail extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -214,7 +214,7 @@ export class Chat_Detail extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Message_recipient
-export class Message_recipient extends Component {
+export class Message_recipient extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -238,7 +238,7 @@ export class Message_recipient extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Message_sender
-export class Message_sender extends Component {
+export class Message_sender extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -255,7 +255,7 @@ export class Message_sender extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Chat_Box
-export class Chat_Tag extends Component {
+export class Chat_Tag extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -291,7 +291,7 @@ export class Chat_Tag extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> InterestedScreen
-export class InterestedScreen extends Component {
+export class InterestedScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -306,7 +306,7 @@ export class InterestedScreen extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Follow_storeScreen
-export class Follow_storeScreen extends Component {
+export class Follow_storeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -326,7 +326,7 @@ export class Follow_storeScreen extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Follow_store_Box
-export class Follow_store_Box extends Component {
+export class Follow_store_Box extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -388,7 +388,7 @@ export class Follow_store_Box extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Might_like_Store
-export class Might_like_Store extends Component {
+export class Might_like_Store extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -461,7 +461,7 @@ export class Might_like_Store extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Review_meScreen
-export class Review_meScreen extends Component {
+export class Review_meScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -481,7 +481,7 @@ export class Review_meScreen extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Review_me
-export class Review_me extends Component {
+export class Review_me extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -527,7 +527,7 @@ export class Review_me extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Help_meScreen
-export class Help_meScreen extends Component {
+export class Help_meScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -546,7 +546,7 @@ export class Help_meScreen extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Help_me
-export class Help_me extends Component {
+export class Help_me extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -584,7 +584,7 @@ export class Help_me extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Question
-export class Question extends Component {
+export class Question extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -608,7 +608,7 @@ export class Question extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Topic_Help
-export class Topic_Help extends Component {
+export class Topic_Help extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -676,7 +676,7 @@ export class Topic_Help extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>>Account_Help
-export class Account_Help extends Component {
+export class Account_Help extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -727,7 +727,7 @@ export class Account_Help extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>>Topic_DetailHelp
-export class Topic_DetailHelp extends Component {
+export class Topic_DetailHelp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -803,7 +803,7 @@ export class Topic_DetailHelp extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Review_From
-export class Review_From extends Component {
+export class Review_From extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

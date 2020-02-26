@@ -1,5 +1,5 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component } from 'react';
+import React from 'react';
 import {
     Animated, BackHandler, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
     Linking
@@ -26,7 +26,7 @@ import { BrowerScreen, GetServices, ProductBox, Toolbar, LoadingScreen, } from '
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class MainScreen extends Component {
+export default class MainScreen extends React.Component {
     _isMounted = false;
     constructor(props) {
         super(props);
@@ -38,6 +38,21 @@ export default class MainScreen extends Component {
         this.getData = this.getData.bind(this)
         this.LoadingStart = this.LoadingStart.bind(this)
         this.LoadingEnd = this.LoadingEnd.bind(this)
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        const { dataService } = this.state
+        const { navigation } = this.props
+        // console.log('nextProps')
+        // console.log(nextProps)
+        // console.log('nextState')
+        // console.log(nextState)
+        if (dataService !== nextState.dataService) {
+            return true
+        }
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
     }
     componentDidMount() {
         setTimeout(() => {
@@ -120,13 +135,28 @@ export default class MainScreen extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> ExitAppModule
-export class ExitAppModule extends Component {
+export class ExitAppModule extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             backClickCount: 0,
         };
         this.springValue = new Animated.Value(0);
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        const { backClickCount } = this.state
+        const { navigation } = this.props
+        // console.log('nextProps')
+        // console.log(nextProps)
+        // console.log('nextState')
+        // console.log(nextState)
+        if (backClickCount !== nextState.backClickCount) {
+            return true
+        }
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
     }
     componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton.bind(this));
@@ -192,12 +222,27 @@ export class ExitAppModule extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> AppBar ค้นหา
-export class AppBar extends Component {
+export class AppBar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             text: '',
         };
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        const { text } = this.state
+        const { navigation } = this.props
+        // console.log('nextProps')
+        // console.log(nextProps)
+        // console.log('nextState')
+        // console.log(nextState)
+        if (text !== nextState.text) {
+            return true
+        }
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
     }
     render() {
         const { text } = this.state
@@ -323,11 +368,22 @@ export class AppBar extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> AppBar สีคราม
-export class AppBar1 extends Component {
+export class AppBar1 extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        const { navigation } = this.props
+        // console.log('nextProps')
+        // console.log(nextProps)
+        // console.log('nextState')
+        // console.log(nextState)
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
     }
     render() {
         const { titleHead, backArrow, backArrowColor, chatBar, colorBar, menuBar, storeBar, searchBar, settingBar, navigation, } = this.props;
@@ -428,7 +484,7 @@ export class AppBar1 extends Component {
 //       fontWeight: 'bold'
 //     }
 //   })
-// export class NewSlide extends Component {
+// export class NewSlide extends React.Component {
 //     constructor(props) {
 //         super(props);
 //         this.state = {
@@ -481,7 +537,7 @@ export class AppBar1 extends Component {
 //     }
 // }
 ///----------------------------------------------------------------------------------------------->>>> Slide
-export class Slide extends Component {
+export class Slide extends React.Component {
     _isMounted = false;
     constructor(props) {
         super(props);
@@ -491,10 +547,30 @@ export class Slide extends Component {
         };
         this.getData = this.getData.bind(this)
     }
+    shouldComponentUpdate(nextProps, nextState) {
+        const { dataService, activeSlide } = this.state
+        // console.log('nextProps')
+        // console.log(nextProps)
+        // console.log('nextState')
+        // console.log(nextState)
+        if (dataService !== nextState.dataService) {
+            return true
+        }
+        if (activeSlide !== nextState.activeSlide) {
+            return true
+        }
+        return false
+    }
     getData(dataService) {
         this._isMounted = true;
         if (this._isMounted) {
             this.setState({ dataService })
+        }
+    }
+    getActiveSlide(activeSlide) {
+        this._isMounted = true;
+        if (this._isMounted) {
+            this.setState({ activeSlide })
         }
     }
     componentWillUnmount() {
@@ -507,6 +583,8 @@ export class Slide extends Component {
                 <FastImage
                     source={{
                         uri: dataMySQL,
+                        width: width * 1,
+                        height: height * 0.5,
                     }}
                     style={stylesMain.childSlide}
                     resizeMode={FastImage.resizeMode.stretch}
@@ -548,6 +626,7 @@ export class Slide extends Component {
             slide: 'banner'
         };
         var uri = finip + '/home/home_mobile'
+        // console.log(activeSlide)
         return (
             <View>
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
@@ -562,7 +641,7 @@ export class Slide extends Component {
                     autoplay={true}
                     autoplayDelay={3000}
                     autoplayInterval={3000}
-                    onSnapToItem={(index) => this.setState({ activeSlide: index })}
+                    onSnapToItem={(index) => this.getActiveSlide(index)}
                 />
                 {this.pagination}
                 {/* <View style={{ flexDirection: 'row', width: '100%', marginTop: -100, marginBottom: 50, justifyContent: 'space-between' }}>
@@ -586,7 +665,8 @@ export class Slide extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Category
-export class Category extends Component {
+export class Category extends React.Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -594,8 +674,29 @@ export class Category extends Component {
         };
         this.getData = this.getData.bind(this)
     }
+    shouldComponentUpdate(nextProps, nextState) {
+        const { dataService } = this.state
+        const { navigation } = this.props
+        // console.log('nextProps ' + [nextProps].length)
+        // console.log(nextProps)
+        // console.log('nextState ' + [nextState].length)
+        // console.log(nextState)
+        if (dataService !== nextState.dataService) {
+            return true
+        }
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
     getData(dataService) {
-        this.setState({ dataService })
+        this._isMounted = true;
+        if (this._isMounted) {
+            this.setState({ dataService })
+        }
     }
     dataCategory() {
         const { dataService } = this.state
@@ -606,6 +707,8 @@ export class Category extends Component {
                     <FastImage
                         source={{
                             uri: dataMySQL,
+                            height: 60,
+                            width: 60,
                         }}
                         style={stylesMain.Category_box}
                         resizeMode={FastImage.resizeMode.cover}
@@ -636,11 +739,22 @@ export class Category extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Button_Bar
-export class Button_Bar extends Component {
+export class Button_Bar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        const { navigation } = this.props
+        // console.log('nextProps ')
+        // console.log(nextProps)
+        // console.log('nextState ')
+        // console.log(nextState)
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
     }
     render() {
         const { navigation } = this.props
@@ -653,6 +767,8 @@ export class Button_Bar extends Component {
                             <FastImage style={stylesMain.Button_Bar_icon}
                                 source={{
                                     uri: ip + '/MySQL/uploads/icon_brand/unicorn-face.jpg',
+                                    height: 50,
+                                    width: 50,
                                 }}
                                 resizeMode={FastImage.resizeMode.stretch}
                             />
@@ -665,6 +781,8 @@ export class Button_Bar extends Component {
                             <FastImage style={stylesMain.Button_Bar_icon}
                                 source={{
                                     uri: ip + '/MySQL/uploads/icon_brand/unicorn-face.jpg',
+                                    height: 50,
+                                    width: 50,
                                 }}
                                 resizeMode={FastImage.resizeMode.stretch}
                             />
@@ -677,6 +795,8 @@ export class Button_Bar extends Component {
                             <FastImage style={stylesMain.Button_Bar_icon}
                                 source={{
                                     uri: ip + '/MySQL/uploads/icon_brand/unicorn-face.jpg',
+                                    height: 50,
+                                    width: 50,
                                 }}
                                 resizeMode={FastImage.resizeMode.stretch}
                             />
@@ -689,6 +809,8 @@ export class Button_Bar extends Component {
                             <FastImage style={stylesMain.Button_Bar_icon}
                                 source={{
                                     uri: ip + '/MySQL/uploads/icon_brand/unicorn-face.jpg',
+                                    height: 50,
+                                    width: 50,
                                 }}
                                 resizeMode={FastImage.resizeMode.stretch}
                             />
@@ -701,6 +823,8 @@ export class Button_Bar extends Component {
                             <FastImage style={stylesMain.Button_Bar_icon}
                                 source={{
                                     uri: ip + '/MySQL/uploads/icon_brand/unicorn-face.jpg',
+                                    height: 50,
+                                    width: 50,
                                 }}
                                 resizeMode={FastImage.resizeMode.stretch}
                             />
@@ -714,11 +838,25 @@ export class Button_Bar extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Brand_RCM
-export class Recommend_Brand extends Component {
+export class Recommend_Brand extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        const { navigation, loadData } = this.props
+        // console.log('nextProps ')
+        // console.log(nextProps)
+        // console.log('nextState ')
+        // console.log(nextState)
+        if (loadData !== nextProps.loadData) {
+            return true
+        }
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
     }
     recommendBrand() {
         const { loadData, navigation } = this.props
@@ -732,6 +870,8 @@ export class Recommend_Brand extends Component {
                                 style={[stylesMain.Brand_image_RCM, stylesMain.ItemCenterVertical]}
                                 source={{
                                     uri: dataMySQL,
+                                    height: 28,
+                                    width: 117,
                                 }}
                                 resizeMode={FastImage.resizeMode.cover}
                             />
@@ -763,11 +903,25 @@ export class Recommend_Brand extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Popular_store
-export class Popular_store extends Component {
+export class Popular_store extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         }
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        const { navigation, loadData } = this.props
+        // console.log('nextProps ')
+        // console.log(nextProps)
+        // console.log('nextState ')
+        // console.log(nextState)
+        if (loadData !== nextProps.loadData) {
+            return true
+        }
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
     }
     PopularStoreItem() {
         const { loadData, navigation } = this.props;
@@ -781,6 +935,8 @@ export class Popular_store extends Component {
                                 style={stylesMain.BoxStore1Image}
                                 source={{
                                     uri: dataMySQL,
+                                    width: (width * 1 / 2) - 9,
+                                    height: 100,
                                 }}
                                 resizeMode={FastImage.resizeMode.stretch}
                             />
@@ -805,11 +961,25 @@ export class Popular_store extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Popular_product
-export class Popular_product extends Component {
+export class Popular_product extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        const { navigation, loadData } = this.props
+        // console.log('nextProps ')
+        // console.log(nextProps)
+        // console.log('nextState ')
+        // console.log(nextState)
+        if (loadData !== nextProps.loadData) {
+            return true
+        }
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
     }
     productCate(type) {
         return type.map((item, index) => {
@@ -818,13 +988,18 @@ export class Popular_product extends Component {
                 <View style={stylesMain.Popular_Box_D} key={index}>
                     <FastImage
                         style={stylesMain.Image_icon_top}
-                        source={require('../icon/top.png')}
+                        source={require('../icon/top.png'), {
+                            height: 25,
+                            width: 20,
+                        }}
                         resizeMode={FastImage.resizeMode.contain}
                     />
                     <FastImage
                         style={stylesMain.Popular_image_Box}
                         source={{
                             uri: dataMySQL,
+                            height: 80,
+                            width: 80,
                         }}
                         resizeMode={FastImage.resizeMode.contain}
                     />
@@ -923,7 +1098,7 @@ export class Popular_product extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> BannerBar_ONE
-export class BannerBar_ONE extends Component {
+export class BannerBar_ONE extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -936,6 +1111,8 @@ export class BannerBar_ONE extends Component {
                     style={stylesMain.Banner_Bar_image}
                     source={{
                         uri: ip + '/MySQL/uploads/slide/Banner_type/shoes_BannerBar.jpg',
+                        width,
+                        height: 70,
                     }}
                     resizeMode={FastImage.resizeMode.stretch}
                 />
@@ -944,7 +1121,7 @@ export class BannerBar_ONE extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> BannerBar_TWO
-export class BannerBar_TWO extends Component {
+export class BannerBar_TWO extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -957,6 +1134,8 @@ export class BannerBar_TWO extends Component {
                     style={stylesMain.Banner_Bar_image}
                     source={{
                         uri: ip + '/MySQL/uploads/slide/Banner_type/GlassesBannerBar.jpg',
+                        width,
+                        height: 70,
                     }}
                     resizeMode={FastImage.resizeMode.stretch}
                 />
@@ -965,7 +1144,7 @@ export class BannerBar_TWO extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> BannerBar_THREE
-export class BannerBar_THREE extends Component {
+export class BannerBar_THREE extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -978,6 +1157,8 @@ export class BannerBar_THREE extends Component {
                     style={stylesMain.Banner_Bar_image}
                     source={{
                         uri: ip + '/MySQL/uploads/slide/banner_sale.jpg',
+                        width,
+                        height: 70,
                     }}
                     resizeMode={FastImage.resizeMode.stretch}
                 />
@@ -986,7 +1167,7 @@ export class BannerBar_THREE extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> FlashSale
-export class FlashSale extends Component {
+export class FlashSale extends React.Component {
     _isMounted = false;
     constructor(props) {
         super(props);
@@ -994,6 +1175,21 @@ export class FlashSale extends Component {
             dataService: [],
         };
         this.getData = this.getData.bind(this)
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        const { dataService } = this.state
+        const { navigation } = this.props
+        // console.log('nextProps ')
+        // console.log(nextProps)
+        // console.log('nextState ')
+        // console.log(nextState)
+        if (dataService !== nextState.dataService) {
+            return true
+        }
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
     }
     componentWillUnmount() {
         this._isMounted = false;
@@ -1051,11 +1247,25 @@ export class FlashSale extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> PromotionPopular
-export class PromotionPopular extends Component {
+export class PromotionPopular extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        const { navigation, loadData } = this.props
+        // console.log('nextProps ')
+        // console.log(nextProps)
+        // console.log('nextState ')
+        // console.log(nextState)
+        if (loadData !== nextProps.loadData) {
+            return true
+        }
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
     }
     dataPromotionPopular() {
         const { loadData, navigation } = this.props
@@ -1068,6 +1278,8 @@ export class PromotionPopular extends Component {
                             <FastImage
                                 source={{
                                     uri: dataMySQL,
+                                    width: 160,
+                                    height: 80,
                                 }}
                                 style={[stylesMain.BoxStore2Image2]}
                                 resizeMode={FastImage.resizeMode.stretch}
@@ -1106,7 +1318,7 @@ export class PromotionPopular extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Confidential_PRO
-export class Confidential_PRO extends Component {
+export class Confidential_PRO extends React.Component {
     _isMounted = false;
     constructor(props) {
         super(props);
@@ -1114,6 +1326,21 @@ export class Confidential_PRO extends Component {
             dataService: [],
         };
         this.getData = this.getData.bind(this)
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        const { dataService } = this.state
+        const { navigation } = this.props
+        // console.log('nextProps ')
+        // console.log(nextProps)
+        // console.log('nextState ')
+        // console.log(nextState)
+        if (dataService !== nextState.dataService) {
+            return true
+        }
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
     }
     componentWillUnmount() {
         this._isMounted = false;
@@ -1137,6 +1364,8 @@ export class Confidential_PRO extends Component {
                     <FastImage
                         source={{
                             uri: dataMySQL,
+                            width: 160,
+                            height: 60,
                         }}
                         style={stylesMain.BoxStore2Image}
                         resizeMode={FastImage.resizeMode.stretch}
@@ -1163,11 +1392,25 @@ export class Confidential_PRO extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Product_for_you
-export class Product_for_you extends Component {
+export class Product_for_you extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        const { navigation, loadData } = this.props
+        // console.log('nextProps ')
+        // console.log(nextProps)
+        // console.log('nextState ')
+        // console.log(nextState)
+        if (loadData !== nextProps.loadData) {
+            return true
+        }
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
     }
     render() {
         const { loadData, navigation } = this.props
@@ -1196,11 +1439,25 @@ export class Product_for_you extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Highlight
-export class Highlight extends Component {
+export class Highlight extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        const { navigation, loadData } = this.props
+        // console.log('nextProps ')
+        // console.log(nextProps)
+        // console.log('nextState ')
+        // console.log(nextState)
+        if (loadData !== nextProps.loadData) {
+            return true
+        }
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
     }
     render() {
         const { loadData, navigation } = this.props
@@ -1228,11 +1485,25 @@ export class Highlight extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> NewStore
-export class NewStore extends Component {
+export class NewStore extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        const { navigation, loadData } = this.props
+        // console.log('nextProps ')
+        // console.log(nextProps)
+        // console.log('nextState ')
+        // console.log(nextState)
+        if (loadData !== nextProps.loadData) {
+            return true
+        }
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
     }
     dataNewStore() {
         const { loadData, navigation } = this.props
@@ -1271,9 +1542,23 @@ export class NewStore extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Exclusive
-export class Exclusive extends Component {
+export class Exclusive extends React.Component {
     constructor(props) {
         super(props);
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        const { navigation, loadData } = this.props
+        // console.log('nextProps ')
+        // console.log(nextProps)
+        // console.log('nextState ')
+        // console.log(nextState)
+        if (loadData !== nextProps.loadData) {
+            return true
+        }
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
     }
     render() {
         const { loadData, navigation } = this.props
@@ -1302,7 +1587,7 @@ export class Exclusive extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> CategoryProduct
-export class CategoryProduct extends Component {
+export class CategoryProduct extends React.Component {
     _isMounted = false;
     constructor(props) {
         super(props);
@@ -1310,6 +1595,21 @@ export class CategoryProduct extends Component {
             dataService: [],
         }
         this.getData = this.getData.bind(this)
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        const { dataService } = this.state
+        const { navigation } = this.props
+        // console.log('nextProps ')
+        // console.log(nextProps)
+        // console.log('nextState ')
+        // console.log(nextState)
+        if (dataService !== nextState.dataService) {
+            return true
+        }
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
     }
     componentWillUnmount() {
         this._isMounted = false;
@@ -1369,7 +1669,7 @@ export class CategoryProduct extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> CategoryProductSubProduct
-export class CategoryProductSubProduct extends Component {
+export class CategoryProductSubProduct extends React.Component {
     _isMounted = false;
     constructor(props) {
         super(props);
@@ -1377,6 +1677,24 @@ export class CategoryProductSubProduct extends Component {
             dataService: [],
         }
         this.getData = this.getData.bind(this)
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        const { dataService } = this.state
+        const { id_type, navigation } = this.props
+        // console.log('nextProps ')
+        // console.log(nextProps)
+        // console.log('nextState ')
+        // console.log(nextState)
+        if (dataService !== nextState.dataService) {
+            return true
+        }
+        if (id_type !== nextProps.id_type) {
+            return true
+        }
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
     }
     componentWillUnmount() {
         this._isMounted = false;
@@ -1411,7 +1729,7 @@ export class CategoryProductSubProduct extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> CategoryProductSubStore
-export class CategoryProductSubStore extends Component {
+export class CategoryProductSubStore extends React.Component {
     _isMounted = false;
     constructor(props) {
         super(props);
@@ -1419,6 +1737,27 @@ export class CategoryProductSubStore extends Component {
             dataService: [],
         }
         this.getData = this.getData.bind(this)
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        const { activeSlide, dataService } = this.state
+        const { id_type, navigation } = this.props
+        // console.log('nextProps ')
+        // console.log(nextProps)
+        // console.log('nextState ')
+        // console.log(nextState)
+        if (activeSlide !== nextState.activeSlide) {
+            return true
+        }
+        if (dataService !== nextState.dataService) {
+            return true
+        }
+        if (id_type !== nextProps.id_type) {
+            return true
+        }
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
     }
     componentWillUnmount() {
         this._isMounted = false;
@@ -1438,6 +1777,8 @@ export class CategoryProductSubStore extends Component {
                     <FastImage
                         source={{
                             uri: dataMySQL,
+                            width: '98%',
+                            height: 90,
                         }}
                         style={stylesMain.CategoryProductStoreImage}
                     />
@@ -1481,7 +1822,7 @@ export class CategoryProductSubStore extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> CategoryProductSubPromotion
-export class CategoryProductSubPromotion extends Component {
+export class CategoryProductSubPromotion extends React.Component {
     _isMounted = false;
     constructor(props) {
         super(props);
@@ -1504,6 +1845,24 @@ export class CategoryProductSubPromotion extends Component {
             this.setState({ dataService2 })
         }
     }
+    shouldComponentUpdate(nextProps, nextState) {
+        const { dataService } = this.state
+        const { id_type, navigation } = this.props
+        // console.log('nextProps ')
+        // console.log(nextProps)
+        // console.log('nextState ')
+        // console.log(nextState)
+        if (dataService !== nextState.dataService) {
+            return true
+        }
+        if (id_type !== nextProps.id_type) {
+            return true
+        }
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
     componentWillUnmount() {
         this._isMounted = false;
     }
@@ -1517,6 +1876,8 @@ export class CategoryProductSubPromotion extends Component {
                         <FastImage
                             source={{
                                 uri: dataMySQL,
+                                width: width * 0.55,
+                                height: 105,
                             }}
                             style={[stylesMain.BoxProduct1Image, { borderRadius: 6, }]}
                         />
@@ -1535,6 +1896,8 @@ export class CategoryProductSubPromotion extends Component {
                         <FastImage
                             source={{
                                 uri: dataMySQL,
+                                width: width * 0.40,
+                                height: 105,
                             }}
                             style={[stylesMain.BoxProduct1Image, { borderRadius: 6, }]}
                         />
@@ -1568,12 +1931,30 @@ export class CategoryProductSubPromotion extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Second_product
-export class Second_product extends Component {
+export class Second_product extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             activeSlide: 0,
         };
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        const { activeSlide } = this.state
+        const { loadData, navigation } = this.props
+        // console.log('nextProps ')
+        // console.log(nextProps)
+        // console.log('nextState ')
+        // console.log(nextState)
+        if (activeSlide !== nextState.activeSlide) {
+            return true
+        }
+        if (loadData !== nextProps.loadData) {
+            return true
+        }
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
     }
     renderItem1(item) {
         return item.map((item, index) => {
@@ -1583,6 +1964,8 @@ export class Second_product extends Component {
                     <FastImage
                         source={{
                             uri: dataMySQL,
+                            width: width * 0.64,
+                            height: 196,
                         }}
                         style={stylesMain.bigSlideImage}
                         resizeMode={FastImage.resizeMode.stretch}
@@ -1600,6 +1983,8 @@ export class Second_product extends Component {
                     <FastImage
                         source={{
                             uri: dataMySQL,
+                            width: width * 0.32,
+                            height: 130,
                         }}
                         style={stylesMain.litleSlideImage}
                         resizeMode={FastImage.resizeMode.stretch}
@@ -1735,11 +2120,25 @@ export class Second_product extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> TodayProduct
-export class TodayProduct extends Component {
+export class TodayProduct extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        const { loadData, navigation } = this.props
+        // console.log('nextProps ')
+        // console.log(nextProps)
+        // console.log('nextState ')
+        // console.log(nextState)
+        if (loadData !== nextProps.loadData) {
+            return true
+        }
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
     }
     render() {
         const { loadData, navigation, noTitle, prepath, typeip } = this.props

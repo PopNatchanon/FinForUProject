@@ -166,11 +166,11 @@ export class AppbarChat extends Component {
         return (
             <View style={stylesProfileTopic.AppbarChat} >
                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
-                    <IconEntypo name='chevron-left' size={35} color='#0A55A6' />
+                    <IconEntypo name='chevron-left' size={35} color='#0A55A6' style={stylesMain.ItemCenterVertical} />
                 </TouchableOpacity>
                 <View>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { marginTop: 5 }]}>{Title ? Title : ''}</Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#ADADAD' }]}>ใช้งานล่าสุดเมือ 5นาที ที่แล้ว</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#ADADAD', marginTop: -2 }]}>ใช้งานล่าสุดเมือ 5นาที ที่แล้ว</Text>
                 </View>
             </View>
         );
@@ -201,6 +201,7 @@ export class Chat_Detail extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            messages: [],
         };
     }
     render() {
@@ -227,9 +228,10 @@ export class Message_recipient extends Component {
                         uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
                     }}
                 />
-                <View style={[stylesProfileTopic.Message_Box, { marginLeft: 10, }]}>
-                    <Text style={stylesFont.FontFamilyText}>สวัสดีครับ
-                    5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555566666666666666666666666666666666666666666666666666666666666666666666666666666</Text>
+                <View style={[stylesProfileTopic.Message_Box, { marginLeft: 10, height: 'auto' }]}>
+                    <View>
+                        <Text style={stylesFont.FontFamilyText}>สวัสดีครับ</Text>
+                    </View>
                 </View>
             </View>
         );
@@ -245,13 +247,9 @@ export class Message_sender extends Component {
     render() {
         return (
             <View style={{ flexDirection: 'row-reverse', marginTop: 10 }}>
-                <FastImage style={stylesProfileTopic.Message_BoxProfile}
-                    source={{
-                        uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop2.jpg',
-                    }}
-                />
-                <View style={[stylesProfileTopic.Message_Box, { marginRight: 10 }]}>
-                    <Text style={stylesFont.FontFamilyText}>สวัสดีค่ะ</Text></View>
+                <View style={[stylesProfileTopic.Message_Box, { marginRight: 6 }]}>
+                    <Text style={stylesFont.FontFamilyText}>สวัสดีค่ะ</Text>
+                </View>
             </View>
         );
     }
@@ -268,7 +266,7 @@ export class Chat_Tag extends Component {
             <View>
                 <View style={stylesProfileTopic.Chat_Tag}>
                     <View style={stylesMain.FlexRow}>
-                        <View>
+                        <View style={stylesMain.ItemCenterVertical}>
                             <FastImage style={stylesProfileTopic.Chat_Tag_image}
                                 source={{
                                     uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
@@ -678,7 +676,6 @@ export class Topic_Help extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>>Account_Help
-
 export class Account_Help extends Component {
     constructor(props) {
         super(props);
@@ -730,7 +727,6 @@ export class Account_Help extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>>Topic_DetailHelp
-
 export class Topic_DetailHelp extends Component {
     constructor(props) {
         super(props);
@@ -806,8 +802,6 @@ export class Topic_DetailHelp extends Component {
         );
     }
 }
-
-
 ///----------------------------------------------------------------------------------------------->>>> Review_From
 export class Review_From extends Component {
     constructor(props) {

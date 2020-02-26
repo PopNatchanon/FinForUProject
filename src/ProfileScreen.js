@@ -109,7 +109,9 @@ export class Headbar extends Component {
                                     size={25} color='#FFFFFF'
                                 />
                             </TouchableOpacity>
-                            <IconFeather RightItem name="shopping-cart" size={25} color='#FFFFFF' />
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('CartScreen')}>
+                                <IconFeather RightItem name="shopping-cart" size={25} color='#FFFFFF' />
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>

@@ -707,7 +707,7 @@ export class Same_Store extends Component {
           {
             dataService2 ?
               <ProductBox dataService={dataService2} navigation={navigation} typeip='fin' mode='row3col1' pointerUrl='DetailScreen'
-                pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
               /> :
               null
           }
@@ -760,7 +760,7 @@ export class Similar_Product extends Component {
           {
             dataService2 ?
               <ProductBox dataService={dataService2} navigation={navigation} typeip='fin' mode='row3col1' pointerUrl='DetailScreen'
-                pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
               /> :
               null
           }
@@ -813,7 +813,7 @@ export class Might_like extends Component {
           {
             dataService2 ?
               <ProductBox dataService={dataService2} navigation={navigation} typeip='fin' mode='row2colall' pointerUrl='DetailScreen'
-                pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
               /> :
               null
           }

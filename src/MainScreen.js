@@ -27,6 +27,7 @@ import { BrowerScreen, GetServices, ProductBox, Toolbar, LoadingScreen, } from '
 import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class MainScreen extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -43,6 +44,9 @@ export default class MainScreen extends Component {
             SplashScreen.hide();
         }, 1000);
     }
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
     LoadingStart() {
         this.setState({ LoadingStart: this.state.LoadingStart + 1 })
     }
@@ -50,7 +54,10 @@ export default class MainScreen extends Component {
         this.setState({ LoadingEnd: this.state.LoadingEnd + 1 })
     }
     getData(dataService) {
-        this.setState({ dataService })
+        this._isMounted = true;
+        if (this._isMounted) {
+            this.setState({ dataService })
+        }
     }
     render() {
         const { dataService } = this.state
@@ -475,6 +482,7 @@ export class AppBar1 extends Component {
 // }
 ///----------------------------------------------------------------------------------------------->>>> Slide
 export class Slide extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -484,7 +492,13 @@ export class Slide extends Component {
         this.getData = this.getData.bind(this)
     }
     getData(dataService) {
-        this.setState({ dataService })
+        this._isMounted = true;
+        if (this._isMounted) {
+            this.setState({ dataService })
+        }
+    }
+    componentWillUnmount() {
+        this._isMounted = false;
     }
     _renderItem = ({ item, index }) => {
         var dataMySQL = [finip, item.image_path, item.image].join('/');
@@ -973,6 +987,7 @@ export class BannerBar_THREE extends Component {
 }
 ///----------------------------------------------------------------------------------------------->>>> FlashSale
 export class FlashSale extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -980,8 +995,14 @@ export class FlashSale extends Component {
         };
         this.getData = this.getData.bind(this)
     }
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
     getData(dataService) {
-        this.setState({ dataService })
+        this._isMounted = true;
+        if (this._isMounted) {
+            this.setState({ dataService })
+        }
     }
     render() {
         const { dataService } = this.state
@@ -1021,7 +1042,7 @@ export class FlashSale extends Component {
                     {
                         dataService ?
                             <ProductBox dataService={dataService} navigation={navigation} typeip='ip' prepath='mysql' mode='row4col1'
-                                pointerUrl='FlashSaleScreen' pointerid_store nameSize={10} priceSize={12} dispriceSize={10} /> :
+                                pointerUrl='FlashSaleScreen' pointerid_store nameSize={11} priceSize={12} dispriceSize={12} /> :
                             null
                     }
                 </ScrollView>
@@ -1086,6 +1107,7 @@ export class PromotionPopular extends Component {
 }
 ///----------------------------------------------------------------------------------------------->>>> Confidential_PRO
 export class Confidential_PRO extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -1093,8 +1115,14 @@ export class Confidential_PRO extends Component {
         };
         this.getData = this.getData.bind(this)
     }
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
     getData(dataService) {
-        this.setState({ dataService })
+        this._isMounted = true;
+        if (this._isMounted) {
+            this.setState({ dataService })
+        }
     }
     render() {
         const { dataService } = this.state
@@ -1158,7 +1186,7 @@ export class Product_for_you extends Component {
                         {
                             loadData ?
                                 <ProductBox dataService={loadData} navigation={navigation} typeip='fin' mode='row3col2'
-                                    pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12} /> :
+                                    pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} /> :
                                 null
                         }
                     </View>
@@ -1190,7 +1218,7 @@ export class Highlight extends Component {
                     {
                         loadData ?
                             <ProductBox dataService={loadData} navigation={navigation} typeip='fin' mode='row3col1'
-                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
                             /> :
                             null
                     }
@@ -1264,7 +1292,7 @@ export class Exclusive extends Component {
                     {
                         loadData ?
                             <ProductBox dataService={loadData} navigation={navigation} typeip='fin' mode='row3col1'
-                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
                             /> :
                             null
                     }
@@ -1275,6 +1303,7 @@ export class Exclusive extends Component {
 }
 ///----------------------------------------------------------------------------------------------->>>> CategoryProduct
 export class CategoryProduct extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -1282,8 +1311,14 @@ export class CategoryProduct extends Component {
         }
         this.getData = this.getData.bind(this)
     }
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
     getData(dataService) {
-        this.setState({ dataService })
+        this._isMounted = true;
+        if (this._isMounted) {
+            this.setState({ dataService })
+        }
     }
     render() {
         const { NoStoreReCom } = this.props
@@ -1335,6 +1370,7 @@ export class CategoryProduct extends Component {
 }
 ///----------------------------------------------------------------------------------------------->>>> CategoryProductSubProduct
 export class CategoryProductSubProduct extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -1342,8 +1378,14 @@ export class CategoryProductSubProduct extends Component {
         }
         this.getData = this.getData.bind(this)
     }
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
     getData(dataService) {
-        this.setState({ dataService })
+        this._isMounted = true;
+        if (this._isMounted) {
+            this.setState({ dataService })
+        }
     }
     render() {
         const { id_type, navigation } = this.props
@@ -1359,7 +1401,7 @@ export class CategoryProductSubProduct extends Component {
                     {
                         dataService ?
                             <ProductBox dataService={dataService} navigation={navigation} typeip='fin' mode='row3col2'
-                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
                             /> :
                             null
                     }
@@ -1370,6 +1412,7 @@ export class CategoryProductSubProduct extends Component {
 }
 ///----------------------------------------------------------------------------------------------->>>> CategoryProductSubStore
 export class CategoryProductSubStore extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -1377,8 +1420,14 @@ export class CategoryProductSubStore extends Component {
         }
         this.getData = this.getData.bind(this)
     }
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
     getData(dataService) {
-        this.setState({ dataService })
+        this._isMounted = true;
+        if (this._isMounted) {
+            this.setState({ dataService })
+        }
     }
     _renderItem = ({ item, index }) => {
         var dataMySQL = [finip, item.image_path, item.image].join('/');
@@ -1433,6 +1482,7 @@ export class CategoryProductSubStore extends Component {
 }
 ///----------------------------------------------------------------------------------------------->>>> CategoryProductSubPromotion
 export class CategoryProductSubPromotion extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -1443,10 +1493,19 @@ export class CategoryProductSubPromotion extends Component {
         this.getData2 = this.getData2.bind(this)
     }
     getData(dataService) {
-        this.setState({ dataService })
+        this._isMounted = true;
+        if (this._isMounted) {
+            this.setState({ dataService })
+        }
     }
     getData2(dataService2) {
-        this.setState({ dataService2 })
+        this._isMounted = true;
+        if (this._isMounted) {
+            this.setState({ dataService2 })
+        }
+    }
+    componentWillUnmount() {
+        this._isMounted = false;
     }
     dataCategoryProductSubPromotion() {
         const { dataService } = this.state
@@ -1575,7 +1634,7 @@ export class Second_product extends Component {
                         {
                             loadData.product_second ?
                                 <ProductBox dataService={loadData.product_second} navigation={navigation} typeip='fin' mode='row3col1'
-                                    pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                                    pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
                                 /> :
                                 null
                         }
@@ -1696,7 +1755,7 @@ export class TodayProduct extends Component {
                     {
                         loadData ?
                             <ProductBox dataService={loadData} navigation={navigation} typeip={typeip ? 'ip' : 'fin'} mode='row3colall'
-                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={16} dispriceSize={12}
+                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
                                 prepath={prepath ? prepath : null}
                             /> :
                             null

@@ -1908,7 +1908,7 @@ export class Second_product extends React.Component {
         return item.map((item, index) => {
             var dataMySQL = [finip, item.image_path, item.image].join('/')
             return (
-                <View key={index} style={{ width: 200, height: 180 }}>
+                <View key={index} style={{ width: width * 0.64, height: 196  }}>
                     <FastImage
                         source={{
                             uri: dataMySQL,
@@ -1916,7 +1916,6 @@ export class Second_product extends React.Component {
                             height: 196,
                         }}
                         style={stylesMain.bigSlideImage}
-                        resizeMode={FastImage.resizeMode.stretch}
                         resizeMode={FastImage.resizeMode.cover}
                     >
                     </FastImage>
@@ -1945,12 +1944,16 @@ export class Second_product extends React.Component {
     }
     get Second_Storeheader() {
         const { loadData, navigation } = this.props
+        var url
+        loadData.mobile_bar ?
+            loadData.mobile_bar.map((item) => { (url = [finip, item.image_path, item.image].join('/')) }) :
+            null
         return (
             <View style={[stylesMain.FrameBackground2, { marginTop: 0, backgroundColor: loadData.bg_m, borderBottomWidth: null }]}>
                 <View style={{}}>
                     <FastImage
                         style={[stylesMain.CategoryProductImageHead, { marginTop: 0 }]}
-                        source={{ uri: ip + '/MySQL/uploads/slide/Banner_type/GlassesBannerBar.jpg' }}
+                        source={{ uri: url }}
                         resizeMode={FastImage.resizeMode.cover}
                     />
                     <View style={stylesMain.FrameBackgroundTextBox}>

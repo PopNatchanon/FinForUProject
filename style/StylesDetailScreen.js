@@ -158,14 +158,11 @@ export default StyleSheet.create({
     Coupon_Icon: {
         marginRight: 15,
     },
-    Coupon_Box_Pon_Text: {
-        textAlign: 'center',
-    },
     Coupon_Box_Pon: {
-        borderRadius:5,
-        marginHorizontal:5,
-        borderWidth:1,
-        paddingHorizontal:10,
+        borderRadius: 5,
+        marginHorizontal: 5,
+        borderWidth: 1,
+        paddingHorizontal: 10,
         borderColor: '#0A55A6',
         backgroundColor: '#C0DBF9'
     },
@@ -304,7 +301,7 @@ export default StyleSheet.create({
         borderWidth: 1,
     },
     Buy_bar_Iconshop: {
-        width: 120,
+        width: 100,
         height: 40,
         flexDirection: 'row',
         borderColor: '#C4C4C4',
@@ -314,15 +311,31 @@ export default StyleSheet.create({
     },
     Buy_bar_IconBuy: {
         backgroundColor: '#0A55A6',
-        width: 110,
+        width: 100,
         height: 40,
         borderRadius: 4,
-        borderColor: '#C4C4C4',
+        borderColor: '#0A55A6',
         borderWidth: 1,
     },
     Buy_bar_IconBuytext: {
         color: '#FFF',
     },
     ///--------------------------------------------------------------------------///
-
+    Selector_BottomSheet_BoxImage: {
+        height: 80, width: 80,
+        borderWidth: 1,
+        borderRadius: 8,
+        padding:5,  
+    },
+    Selector_BottomSheet_itemCount: {
+        width: 50, height: 40,
+        borderColor: '#ECECEC', borderWidth: 1,
+    },
+    Selector_BottomSheet_itemCount_TextInput: {
+        width: '40%', height: 40, borderColor: '#ECECEC', borderWidth: 1
+    },
+    Selector_BottomSheet_BoxButtom: {
+        flexDirection: 'row', margin: 10,
+        justifyContent: 'space-between', width: '100%'
+    },
 })

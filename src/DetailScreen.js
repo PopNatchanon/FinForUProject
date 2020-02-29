@@ -24,7 +24,7 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, ExitAppModule } from './MainScreen';
-import { GetServices, ProductBox, GetCoupon } from './tools/Tools';
+import { GetServices, ProductBox, GetCoupon, TabBar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -411,19 +411,55 @@ export class Selector extends Component {
     super(props);
     this.state = {
       itemCount: 1,
+      selectedIndex: 0,
     };
+    this.updateIndex = this.updateIndex.bind(this)
+  }
+  updateIndex(selectedIndex) {
+    this.setState({ selectedIndex })
+  }
+  dataItem(item) {
+    return (
+      <View style={[stylesMain.FlexRow, { width: '100%', flexWrap: 'wrap', alignItems: 'center' }]}>
+        <TabBar
+          sendData={this.updateIndex}
+          item={item}
+          type='box'
+          noLimit
+          numberBox
+          radiusBox={4}
+        />
+      </View>
+    )
   }
   SelectorSheetBody() {
+    const items = [{
+      name: 'สีดำ'
+    }, {
+      name: 'สีขาว'
+    }, {
+      name: 'สีเขียว'
+    }, {
+      name: 'สีเหลือง'
+    }]
     const { dataService } = this.props
     const { itemCount } = this.state
     return dataService.map((item, index) => {
-      console.log(item)
+      // console.log(item)
+      var dataMySQL = [finip, item.image_full_path, item.image].join('/');
       return (
         <View style={{ flex: 1, paddingHorizontal: 15 }} key={index}>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { textAlign: 'center' }]}>ตัวเลือก</Text>
           <ScrollView>
-            <View style={{ flexDirection: 'row' }}>
-              <View style={{ height: 80, width: 80, borderWidth: 1, backgroundColor: '#E1E1E1' }}></View>
+            <View style={{ flexDirection: 'row'}}>
+              <View style={stylesDetail.Selector_BottomSheet_BoxImage}>
+                <FastImage
+                  source={{
+                    uri: dataMySQL,
+                  }}
+                  style={stylesMain.BoxProduct1Image}
+                />
+              </View>
               <View style={{ width: '70%', marginLeft: 10 }}>
                 <NumberFormat
                   value={item.full_price}
@@ -438,26 +474,27 @@ export class Selector extends Component {
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>{item.name}</Text>
               </View>
             </View>
+            <View style={{ padding: 10 }}>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>สี</Text>
+              {this.dataItem(items)}
+            </View>
           </ScrollView>
-          <View>
-            <View style={{ flexDirection: 'row',height:80, width:'100%', justifyContent:'center'}}>
-              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>จำนวน</Text>
+          <View style={{ alignItems: 'center' }}>
+            <View style={{ flexDirection: 'row', width: '90%', }}>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>จำนวน</Text>
               <TouchableOpacity onPress={() => {
                 if (itemCount > 1) {
                   this.setState({ itemCount: itemCount - 1 })
                 }
               }}>
-                <View style={[stylesMain.ItemCenter, {
-                  width: 30, height: 40, borderColor: '#ECECEC', borderRightWidth: 0, borderWidth: 1
-                }]}>
+                <View style={[stylesMain.ItemCenter, stylesDetail.Selector_BottomSheet_itemCount, { borderTopLeftRadius: 5, borderBottomLeftRadius: 5, }]}>
                   <Text style={[stylesMain.ItemCenterVertical]}>
                     -</Text>
                 </View>
               </TouchableOpacity>
-              <View style={[stylesMain.ItemCenter, stylesFont.FontFamilyText, {
-                width: 50, height: 40, borderColor: '#ECECEC', borderWidth: 1
-              }]}>
-                <TextInput style={[stylesMain.ItemCenterVertical]} keyboardType={'numeric'}
+              <View style={[stylesMain.ItemCenter, stylesFont.FontFamilyText, stylesDetail.Selector_BottomSheet_itemCount_TextInput]}>
+                <TextInput style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]} keyboardType={'numeric'}
+                  maxLength={6}
                   onChangeText={(value) => { value > 0 ? this.setState({ itemCount: value * 1 }) : this.setState({ itemCount: 1 }) }}>
                   {itemCount}
                 </TextInput>
@@ -465,11 +502,24 @@ export class Selector extends Component {
               <TouchableOpacity onPress={() => {
                 this.setState({ itemCount: itemCount + 1 })
               }}>
-                <View style={[stylesMain.ItemCenter, {
-                  width: 30, height: 40, borderColor: '#ECECEC', borderLeftWidth: 0, borderWidth: 1
-                }]}>
+                <View style={[stylesMain.ItemCenter, stylesDetail.Selector_BottomSheet_itemCount, { borderTopRightRadius: 5, borderBottomRightRadius: 5, }]}>
                   <Text style={[stylesMain.ItemCenterVertical]}>
                     +</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+            <View style={stylesDetail.Selector_BottomSheet_BoxButtom}>
+              <TouchableOpacity>
+                <View style={[stylesDetail.Buy_bar_Iconshop, stylesMain.ItemCenter, stylesMain.ItemCenterVertical,{width:160}]}>
+                  <IconAntDesign name='shoppingcart' size={25} />
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontCenter, { marginLeft: 10 }]}>
+                    เพิ่มลงรถเข็น</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <View style={[stylesDetail.Buy_bar_IconBuy, stylesMain.ItemCenter, stylesMain.ItemCenterVertical,{width:160}]}>
+                  <Text style={[stylesDetail.Buy_bar_IconBuytext, stylesFont.FontFamilyText, stylesFont.FontCenter]}>
+                    ซื้อเลย</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -978,9 +1028,11 @@ export class Buy_bar extends Component {
             null
         } */}
         <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
-          <IconAntDesign name='message1' size={22} style={[stylesMain.ItemCenterVertical]} />
-          <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesMain.ItemCenterVertical]}>
-            แชท</Text>
+          <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 1 })}>
+            <IconAntDesign name='message1' size={22} style={[stylesMain.ItemCenterVertical]} />
+            <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesMain.ItemCenterVertical]}>
+              แชท</Text>
+          </TouchableOpacity>
         </View>
         <Text style={{ fontSize: 30 }}>|</Text>
         <TouchableOpacity onPress={() => id_store ? navigation.navigate('StoreScreen', { id_item: id_store }) : null}>
@@ -990,15 +1042,19 @@ export class Buy_bar extends Component {
               ร้านค้า</Text>
           </View>
         </TouchableOpacity>
-        <View style={[stylesDetail.Buy_bar_Iconshop, stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
-          <IconAntDesign name='shoppingcart' size={25} />
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontCenter]}>
-            เพิ่มลงรถเข็น</Text>
-        </View>
-        <View style={[stylesDetail.Buy_bar_IconBuy, stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
-          <Text style={[stylesDetail.Buy_bar_IconBuytext, stylesFont.FontFamilyText, stylesFont.FontCenter]}>
-            ซื้อเลย</Text>
-        </View>
+        <TouchableOpacity>
+          <View style={[stylesDetail.Buy_bar_Iconshop, stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
+            <IconAntDesign name='shoppingcart' size={25} />
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontCenter, { marginLeft: 10 }]}>
+              เพิ่มลงรถเข็น</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <View style={[stylesDetail.Buy_bar_IconBuy, stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
+            <Text style={[stylesDetail.Buy_bar_IconBuytext, stylesFont.FontFamilyText, stylesFont.FontCenter]}>
+              ซื้อเลย</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   }

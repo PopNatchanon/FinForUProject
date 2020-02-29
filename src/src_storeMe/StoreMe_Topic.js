@@ -230,7 +230,8 @@ export class StoreMe_Score extends Component {
                         </View>
                     </View>
                 </View>
-                <View style={stylesMain.FrameBackground}><Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>ความคิดเห็น</Text></View>
+                <View style={[stylesMain.FrameBackground,{padding:10}]}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>ความคิดเห็น</Text></View>
                 <StoreMe_Comment navigation={this.props.navigation} Comment_Reply />
                 <StoreMe_Comment navigation={this.props.navigation} Comment_Reply />
                 <StoreMe_Comment navigation={this.props.navigation} Comment_Reply />
@@ -257,26 +258,26 @@ export class StoreMe_Comment extends Component {
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { margin: 10, }]}>PPoo</Text>
                     </View>
                 </View>
-                <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', borderColor: '#EAEAEA', borderBottomWidth: 1, }]}>
+                <View style={[stylesMain.FlexRow, {borderColor: '#EAEAEA', borderBottomWidth: 1, padding:5,}]}>
                     <View style={stylesMain.FlexRow}>
-                        <View style={{ height: 80, width: 80, margin: 10 }}>
+                        <View style={{ height: 80, width: 80,}}>
                             <FastImage style={stylesMain.BoxProduct1Image}
                                 source={{
                                     uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
                                 }}
                             />
                         </View>
-                        <View style={{ padding: 10 }}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A2A2A2' }]}>ตัวเลือกสินค้า:สีแดง</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>เหตุผลยกเลิกสินค้า :เนื่องจากเปลี่ยนใจ</Text>
+                        <View style={{ padding: 5, width:'55%'}}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#A2A2A2' }]}>ตัวเลือกสินค้า:สีแดง</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>เหตุผลยกเลิกสินค้า :เนื่องจากเปลี่ยนใจ</Text>
                         </View>
                     </View>
                     {Comment_Reply
                         ?
-                        <TouchableOpacity style={[stylesMain.FlexRow, { alignItems: 'flex-end', margin: 10 }]} onPress={() => this.props.navigation.push('StoreMe_Topic', { selectedIndex: 5 })}>
-                            <IconFeather name='edit' size={20} color='#20BDA1' />
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#20BDA1' }]} > เขียนตอบกลับ</Text>
+                        <TouchableOpacity style={[stylesMain.FlexRow, { alignItems: 'flex-end'}]} onPress={() => this.props.navigation.push('StoreMe_Topic', { selectedIndex: 5 })}>
+                            <IconFeather name='edit' size={15} color='#20BDA1' />
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#20BDA1' }]} > เขียนตอบกลับ</Text>
                         </TouchableOpacity> : null
                     }
 

@@ -149,7 +149,7 @@ export class Button_Bar extends Component {
           <View style={stylesDeal.Button_Bar_Box}>
             <FastImage style={stylesDeal.Button_Bar_BoxICON}
               source={{
-                uri: ip + '/MySQL/uploads/icon_brand/b01.png',
+                uri: ip + '/MySQL/uploads/icon_5/06.jpg',
               }}
             />
             <Text style={[stylesDeal.Button_Bar_BoxText, stylesFont.FontFamilyText]}>ดีลสุดพิเศษ</Text>
@@ -159,7 +159,7 @@ export class Button_Bar extends Component {
           <View style={stylesDeal.Button_Bar_Box}>
             <FastImage style={stylesDeal.Button_Bar_BoxICON}
               source={{
-                uri: ip + '/MySQL/uploads/icon_brand/b02.png',
+                uri: ip + '/MySQL/uploads/icon_5/07.jpg',
               }}
             />
             <Text style={[stylesDeal.Button_Bar_BoxText, stylesFont.FontFamilyText]}>FinCoin</Text>
@@ -169,7 +169,7 @@ export class Button_Bar extends Component {
           <View style={stylesDeal.Button_Bar_Box}>
             <FastImage style={stylesDeal.Button_Bar_BoxICON}
               source={{
-                uri: ip + '/MySQL/uploads/icon_brand/b03.png',
+                uri: ip + '/MySQL/uploads/icon_5/08.jpg',
               }}
             />
             <Text style={[stylesDeal.Button_Bar_BoxText, stylesFont.FontFamilyText]}>แคมเปญ</Text>
@@ -179,7 +179,7 @@ export class Button_Bar extends Component {
           <View style={stylesDeal.Button_Bar_Box}>
             <FastImage style={stylesDeal.Button_Bar_BoxICON}
               source={{
-                uri: ip + '/MySQL/uploads/icon_brand/b04.png',
+                uri: ip + '/MySQL/uploads/icon_5/09.jpg',
               }}
             />
             <Text style={[stylesDeal.Button_Bar_BoxText, stylesFont.FontFamilyText]}>สุดคุ้มสุดฟิน</Text>
@@ -189,7 +189,7 @@ export class Button_Bar extends Component {
           <View style={stylesDeal.Button_Bar_Box}>
             <FastImage style={stylesDeal.Button_Bar_BoxICON}
               source={{
-                uri: ip + '/MySQL/uploads/icon_brand/b05.png',
+                uri: ip + '/MySQL/uploads/icon_5/010.jpg',
               }}
             />
             <Text style={[stylesDeal.Button_Bar_BoxText, stylesFont.FontFamilyText]}>ผ่อนชำระ 0%</Text>

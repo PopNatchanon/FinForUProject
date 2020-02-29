@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-    Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
+    Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View, PermissionsAndroid,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
@@ -9,6 +9,7 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
+import ImagePicker from 'react-native-image-picker';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -36,6 +37,7 @@ export default class BellScreen extends Component {
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                 <AppBar1 titleHead='การแจ้งเตือน' />
                 <ScrollView>
+                    <Test_Up_Image />
                     <Popular_store />
                     <Pro_for_U navigation={this.props.navigation} />
                     <Update_buy navigation={this.props.navigation} />
@@ -229,6 +231,60 @@ export class Update_buy extends Component {
                             กรุณาชำระเงิน ........ บาท สำหรับคำสั่งซื้อ ภายในวันที่ 19-12-2019 </Text>
                     </View>
                 </View>
+            </View>
+        );
+    }
+}
+///----------------------------------------------------------------------------------------------->>>>
+
+export class Test_Up_Image extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+    UploadImage() {
+        const options = {
+            title: 'Select Avatar',
+            customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+            storageOptions: {
+                skipBackup: true,
+                path: 'images',
+            },
+        };
+        ImagePicker.showImagePicker(options, (response) => {
+            console.log('Response = ', response);
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+            } else {
+                const source = { uri: 'data:image/jpeg;base64,' + response.data };
+                // You can also display the image using data:
+                // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+                this.setState({
+                    avatarSource: source,
+                });
+            }
+        });
+    }
+    render() {
+        const { avatarSource } = this.state
+        return (
+            <View>
+                <TouchableOpacity onPress={() => this.UploadImage()}>
+                    {
+                        avatarSource ?
+                            <FastImage
+                                source={{ uri: avatarSource.uri }}
+                                style={{ height: 150, width: 150 }}
+                            /> :
+                            <Text> ใส่รูป</Text>
+                    }
+                </TouchableOpacity>
+
             </View>
         );
     }

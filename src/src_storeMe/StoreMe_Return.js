@@ -275,7 +275,7 @@ export class Treasury_store_Product extends Component {
     return (
       <View style={stylesMain.SafeAreaView}>
         <View style={stylesMain.FrameBackground}>
-          <View style={[stylesMain.FlexRow, {  }]}>
+          <View style={[stylesMain.FlexRow, {justifyContent:'space-between',paddingHorizontal:10}]}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
             <View style={[stylesMain.FlexRow,stylesStoreMe.Treasury_store_Text]}>
               <TouchableOpacity style={stylesMain.FlexRow} >

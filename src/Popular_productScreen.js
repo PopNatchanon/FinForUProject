@@ -28,8 +28,6 @@ export default class Popular_productScreen extends Component {
         // console.log('scrollView')
         // console.log(this._scrollView.scrollTo({ x: 0, y: 0, animated: true }))
         this.setState({ id_item })
-        this._scrollView.scrollTo({ x: 0, y: 0, animated: true })
-        this._scrollView.scrollTo({ x: 0, y: 0, animated: true })
     }
     render() {
         const { navigation } = this.props

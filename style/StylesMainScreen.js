@@ -567,40 +567,36 @@ export default StyleSheet.create({
     marginBottom: -10
   },
   ///------------------------------------------------------------------------------------------///
-  Popular_Box_A: {
-    height: 150,
-    width,
-    flexDirection: 'row',
-    marginTop: 6,
-  },
   Popular_Box_B: {
-    height: 140,
-    width: 200,
+    width: 175,
+    height:140,
     flexDirection: 'column',
-    marginLeft: 10,
-  },
-  Popular_Box_C: {
-    height: 110,
-    width,
-    flexDirection: 'row',
+    marginLeft: 5,
+    marginVertical:5,
+    backgroundColor:'#EDEDED',
+    paddingHorizontal:2,
   },
   Popular_Box_D: {
-    borderColor: '#ECECEC',
-    borderWidth: 1,
-    height: 110,
-    width: 100,
+    marginHorizontal:3,
+    marginTop:5,
+    height: 80,
+    width: 80,
   },
   Popular_image_Box: {
     height: 80,
     width: 80,
-    marginLeft: 10,
+    backgroundColor:'#FFFFFF',
+    borderColor: '#EAEAEA',
+    borderWidth: 1,
+    borderRadius:5,
   },
   PopularText_A: {
-    backgroundColor: '#ECECEC',
+    backgroundColor: '#0A55A6',
     borderColor: '#ECECEC',
     borderWidth: 0.5,
     height: 20,
-    width: 200,
+    width: 100,
+
   },
   Image_icon_top: {
     height: 25,
@@ -668,7 +664,7 @@ export default StyleSheet.create({
     height: 50,
     width: 50,
     borderRadius: 50,
-    borderColor: '#0A55A6',
+    borderColor: '#FFFFFF',
     borderWidth: 2,
     resizeMode: 'stretch',
   },
@@ -699,8 +695,8 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   Second_StoreFin_ImageA: {
-    height: 155,
-    width: width * 0.64,
+    height: 200,
+    width: 200,
     marginTop: 6,
     marginRight: 6,
   },
@@ -709,8 +705,8 @@ export default StyleSheet.create({
     marginTop: 6,
   },
   Second_StoreFin_ImageB_T: {
-    height: 74,
-    width: width * 0.32,
+    height: 90,
+    width: width * 0.40,
     marginBottom: 3
   },
   Second_StoreFin_ImageB_Ttext: {
@@ -735,14 +731,14 @@ export default StyleSheet.create({
     borderBottomLeftRadius: 5,
   },
   bigSlideImage: {
-    height: '75%', width: '100%',
+    height: '100%', width: '100%',
   },
   bigSlideText: {
     backgroundColor: '#0A55A6', height: '23%', width: '100%',
     padding: 2
   },
   litleSlideImage: {
-    height: 70, width: '100%',
+    height: '100%', width: '100%',
     borderRadius: 5,
   },
   litleSlideText: {

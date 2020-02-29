@@ -180,7 +180,7 @@ export class Deal_ProductToday extends Component {
                         </View>
                     </View>
                     <View style={{ width: '100%', justifyContent: 'space-around', flexDirection: 'row', padding: 5 }}>
-                        <View style={[stylesMain.ItemCenter, { width: '20%', borderColor: '#ECECEC', borderWidth: 0.5, height: 120, padding: 5 }]}>
+                        <View style={[stylesMain.ItemCenter, { width: '25%', borderColor: '#ECECEC', borderWidth: 0.5, height: 120, padding: 5 }]}>
                             <View style={{ height: '80%', width: '100%' }}>
                                 <FastImage style={stylesMain.BoxProduct1Image}
                                     source={{
@@ -192,7 +192,7 @@ export class Deal_ProductToday extends Component {
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6' }]}>฿3,xxx</Text>
                             </View>
                         </View>
-                        <View style={[stylesMain.ItemCenter, { width: '20%', borderColor: '#ECECEC', borderWidth: 0.5, height: 120, padding: 5 }]}>
+                        <View style={[stylesMain.ItemCenter, { width: '25%', borderColor: '#ECECEC', borderWidth: 0.5, height: 120, padding: 5 }]}>
                             <View style={{ height: '80%', width: '100%' }}>
                                 <FastImage style={stylesMain.BoxProduct1Image}
                                     source={{
@@ -204,7 +204,7 @@ export class Deal_ProductToday extends Component {
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6' }]}>฿3,xxx</Text>
                             </View>
                         </View>
-                        <View style={[stylesMain.ItemCenter, { width: '20%', borderColor: '#ECECEC', borderWidth: 1, height: 120, padding: 5 }]}>
+                        <View style={[stylesMain.ItemCenter, { width: '25%', borderColor: '#ECECEC', borderWidth: 1, height: 120, padding: 5 }]}>
                             <View style={{ height: '80%', width: '100%' }}>
                                 <FastImage style={stylesMain.BoxProduct1Image}
                                     source={{
@@ -216,19 +216,7 @@ export class Deal_ProductToday extends Component {
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6' }]}>฿3,xxx</Text>
                             </View>
                         </View>
-                        <View style={[stylesMain.ItemCenter, { width: '20%', borderColor: '#ECECEC', borderWidth: 0.5, height: 120, padding: 5 }]}>
-                            <View style={{ height: '80%', width: '100%' }}>
-                                <FastImage style={stylesMain.BoxProduct1Image}
-                                    source={{
-                                        uri: ip + '/MySQL/uploads/products/2019-10-29-1572321327.png',
-                                    }}
-                                />
-                            </View>
-                            <View style={{ borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, paddingHorizontal: 5 }}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6' }]}>฿3,xxx</Text>
-                            </View>
-                        </View>
-                        <View style={[stylesMain.ItemCenter, { width: '20%', borderColor: '#ECECEC', borderWidth: 0.5, height: 120, padding: 5, backgroundColor: '#0A55A6' }]}>
+                        <View style={[stylesMain.ItemCenter, { width: '25%', borderColor: '#ECECEC', borderWidth: 0.5, height: 120, padding: 5, backgroundColor: '#0A55A6' }]}>
                             <View>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { color: '#FFFFFF' }]}>50%</Text>
                                 <TouchableOpacity>

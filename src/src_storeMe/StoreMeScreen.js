@@ -253,13 +253,13 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Help_meScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Return', { selectedIndex: 2 })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconsFontAwesome5 RightItem name="store-alt" size={30} color='#06BBBB' style={stylesProfile.ListMenuListSubIcon} />
                                 <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     คลังสินค้าของฉัน
-                            </Text>
+                                </Text>
                             </View>
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
@@ -338,7 +338,6 @@ export class StoreMe_Product_Box extends Component {
                         </View>
                     </TouchableOpacity>
                 </View>
-
             </View>
         );
     }

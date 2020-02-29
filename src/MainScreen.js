@@ -40,17 +40,10 @@ export default class MainScreen extends React.Component {
         this.LoadingStart = this.LoadingStart.bind(this)
         this.LoadingEnd = this.LoadingEnd.bind(this)
     }
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate = (nextProps, nextState) => {
         const { dataService } = this.state
         const { navigation } = this.props
-        // console.log('nextProps')
-        // console.log(nextProps)
-        // console.log('nextState')
-        // console.log(nextState)
-        if (dataService !== nextState.dataService) {
-            return true
-        }
-        if (navigation !== nextProps.navigation) {
+        if (dataService !== nextState.dataService || navigation !== nextProps.navigation) {
             return true
         }
         return false
@@ -69,7 +62,7 @@ export default class MainScreen extends React.Component {
     LoadingEnd() {
         this.setState({ LoadingEnd: this.state.LoadingEnd + 1 })
     }
-    getData(dataService) {
+    getData = (dataService) => {
         this._isMounted = true;
         if (this._isMounted) {
             this.setState({ dataService })
@@ -143,17 +136,10 @@ export class ExitAppModule extends React.Component {
         };
         this.springValue = new Animated.Value(0);
     }
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate = (nextProps, nextState) => {
         const { backClickCount } = this.state
         const { navigation } = this.props
-        // console.log('nextProps')
-        // console.log(nextProps)
-        // console.log('nextState')
-        // console.log(nextState)
-        if (backClickCount !== nextState.backClickCount) {
-            return true
-        }
-        if (navigation !== nextProps.navigation) {
+        if (backClickCount !== nextState.backClickCount || navigation !== nextProps.navigation) {
             return true
         }
         return false
@@ -164,7 +150,7 @@ export class ExitAppModule extends React.Component {
     componentWillUnmount() {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton.bind(this));
     }
-    _spring() {
+    _spring = () => {
         this.setState({ backClickCount: 1 }, () => {
             Animated.sequence([
                 Animated.timing(
@@ -199,14 +185,10 @@ export class ExitAppModule extends React.Component {
     handleBackButton = () => {
         const { navigation } = this.props
         var routeProps = navigation.dangerouslyGetParent().state.routes.length
-        console.log(navigation.dangerouslyGetParent().state.routes)
-        console.log(routeProps)
         return routeProps == 1 ? ([
-            console.log('Exit'),
             this.state.backClickCount == 1 ? BackHandler.exitApp() : this._spring(),
             true
         ]) : ([
-            console.log('Go Back'),
             navigation.pop(),
             true
         ])
@@ -229,24 +211,36 @@ export class AppBar extends React.Component {
             text: '',
         };
     }
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate = (nextProps, nextState) => {
         const { text } = this.state
         const { navigation } = this.props
-        // console.log('nextProps')
-        // console.log(nextProps)
-        // console.log('nextState')
-        // console.log(nextState)
-        if (text !== nextState.text) {
-            return true
-        }
-        if (navigation !== nextProps.navigation) {
+        if (text !== nextState.text || navigation !== nextProps.navigation) {
             return true
         }
         return false
     }
+    navigationGoBack = () => {
+        const { navigation, } = this.props
+        navigation.goBack()
+    }
+    setText = (text) => {
+        this.setState({ text })
+    }
+    navigationSearchScreen = () => {
+        const { navigation, } = this.props
+        navigation.navigate('SearchScreen', { modeStore: false })
+    }
+    navigationProfile_Topic = () => {
+        const { navigation, } = this.props
+        navigation.navigate('Profile_Topic', { selectedIndex: 1 })
+    }
+    navigationCartScreen = () => {
+        const { navigation, } = this.props
+        navigation.navigate('CartScreen')
+    }
     render() {
         const { text } = this.state
-        const { ABDColor, ABGColor, AIColor, leftBar, rightBar, searchBar, navigation, SearchText } = this.props
+        const { ABDColor, ABGColor, AIColor, leftBar, rightBar, searchBar, SearchText } = this.props
         const AIconEntypo = Animatable.createAnimatableComponent(IconEntypo)
         const AIconFeather = Animatable.createAnimatableComponent(IconFeather)
         const AIconFontAwesome5 = Animatable.createAnimatableComponent(IconFontAwesome5)
@@ -260,7 +254,7 @@ export class AppBar extends React.Component {
                         <View>
                             <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30 }]}
                                 activeOpacity={1}
-                                onPress={() => navigation.goBack()}>
+                                onPress={this.navigationGoBack}>
                                 <AIconEntypo name="chevron-left" size={30} style={{ color: AIColor ? AIColor : '#111' }} />
                             </TouchableOpacity>
                         </View> :
@@ -268,7 +262,7 @@ export class AppBar extends React.Component {
                 }
                 {
                     searchBar ?
-                        <TouchableOpacity activeOpacity={1} onPress={() => { navigation.goBack() }}>
+                        <TouchableOpacity activeOpacity={1} onPress={this.navigationGoBack}>
                             <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical]}>
                                 <FastImage
                                     style={[stylesMain.LOGO, stylesMain.ItemCenterVertical]}
@@ -292,7 +286,7 @@ export class AppBar extends React.Component {
                                         placeholder="ค้นหาสินค้า/ร้านค้า"
                                         value={text}
                                         maxLength={30}
-                                        onChangeText={(text) => this.setState({ text })}
+                                        onChangeText={this.setText}
                                     />
                                 </View>
                                 <IconAntDesign name="search1" size={20}
@@ -300,7 +294,7 @@ export class AppBar extends React.Component {
                                 />
                             </View>
                         </TouchableOpacity> :
-                        <TouchableOpacity activeOpacity={1} onPress={() => { navigation.navigate('SearchScreen', { modeStore: false }) }}>
+                        <TouchableOpacity activeOpacity={1} onPress={this.navigationSearchScreen}>
                             <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical]}>
                                 <FastImage
                                     style={[stylesMain.LOGO, stylesMain.ItemCenterVertical]}
@@ -345,12 +339,12 @@ export class AppBar extends React.Component {
                             {leftBar == 'backarrow' ?
                                 rightBar == 'chat' ?
                                     <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
-                                        onPress={() => navigation.navigate('Profile_Topic', { selectedIndex: 1 })}>
+                                        onPress={this.navigationProfile_Topic}>
                                         <IconAntDesign name="message1" size={25} />
                                     </TouchableOpacity> :
                                     null :
                                 <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
-                                    onPress={() => navigation.navigate('Profile_Topic', { selectedIndex: 1 })}>
+                                    onPress={this.navigationProfile_Topic}>
                                     <IconAntDesign name="message1" size={25} />
                                 </TouchableOpacity>
                             }
@@ -358,7 +352,7 @@ export class AppBar extends React.Component {
                                 width:
                                     leftBar == 'backarrow' ?
                                         rightBar == 'chat' ? 40 : 50 : 40
-                            }]} onPress={() => navigation.navigate('CartScreen')}>
+                            }]} onPress={this.navigationCartScreen}>
                                 <IconAntDesign name="shoppingcart" size={25} />
                             </TouchableOpacity>
                         </View>
@@ -374,19 +368,36 @@ export class AppBar1 extends React.Component {
         this.state = {
         };
     }
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation } = this.props
-        // console.log('nextProps')
-        // console.log(nextProps)
-        // console.log('nextState')
-        // console.log(nextState)
         if (navigation !== nextProps.navigation) {
             return true
         }
         return false
     }
+    navigationGoBack = () => {
+        const { navigation, } = this.props
+        navigation.goBack()
+    }
+    setText = (text) => {
+        this.setState({ text })
+    }
+    navigationSearchScreen = () => {
+        const { navigation, } = this.props
+        navigation.navigate('SearchScreen', { modeStore: false })
+    }
+    navigationStoreMe_Setting = () => {
+        const { navigation, } = this.props
+        navigation.navigate('StoreMe_Setting')
+    }
+    navigationProfile_Topic = (value) => {
+        const { navigation, } = this.props
+        navigation.navigate('Profile_Topic', { selectedIndex: value })
+    }
     render() {
-        const { titleHead, backArrow, backArrowColor, chatBar, colorBar, menuBar, storeBar, searchBar, settingBar, navigation, } = this.props;
+        const {
+            titleHead, backArrow, backArrowColor, chatBar, colorBar, menuBar, storeBar, searchBar, settingBar,
+        } = this.props;
         return (
             <View style={colorBar ? colorBar : menuBar ? stylesStore.AppbarMenu : stylesStore.Appbar}>
                 <View style={stylesMain.FlexRow}>
@@ -394,7 +405,7 @@ export class AppBar1 extends React.Component {
                         backArrow ?
                             <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30 }]}
                                 activeOpacity={1}
-                                onPress={() => navigation.goBack()}
+                                onPress={this.navigationGoBack}
                             >
                                 <IconEntypo style={[stylesStore.Icon_appbar, {
                                     color: backArrowColor ? backArrowColor : '#ffffff'
@@ -411,7 +422,7 @@ export class AppBar1 extends React.Component {
                     {
                         searchBar ?
                             <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
-                                onPress={() => navigation.navigate('SearchScreen', { modeStore: false })}
+                                onPress={this.navigationNavigateScreen}
                             >
                                 <IconAntDesign RightItem name="search1" size={25} style={[
                                     stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
@@ -422,7 +433,7 @@ export class AppBar1 extends React.Component {
                     }{
                         settingBar ?
                             <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
-                                onPress={() => this.props.navigation.navigate('StoreMe_Setting')}>
+                                onPress={this.navigationStoreMe_Setting}>
                                 <IconMaterialCommunityIcons name="settings-outline" size={25} style={[
                                     stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
                                         marginRight: 8
@@ -432,7 +443,7 @@ export class AppBar1 extends React.Component {
                     }{
                         chatBar ?
                             <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
-                                onPress={() => navigation.navigate('Profile_Topic', { selectedIndex: 1 })}
+                                onPress={() => this.navigationProfile_Topic(1)}
                             >
                                 <IconAntDesign RightItem name="message1" size={25} style={[
                                     stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
@@ -443,7 +454,7 @@ export class AppBar1 extends React.Component {
                     }{
                         storeBar ?
                             <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
-                                onPress={() => navigation.navigate('Profile_Topic', { selectedIndex: 3 })}
+                                onPress={() => this.navigationProfile_Topic(3)}
                             >
                                 <IconFontAwesome5 RightItem name="store" size={20} style={[
                                     stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
@@ -547,27 +558,20 @@ export class Slide extends React.Component {
         };
         this.getData = this.getData.bind(this)
     }
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate = (nextProps, nextState) => {
         const { dataService, activeSlide } = this.state
-        // console.log('nextProps')
-        // console.log(nextProps)
-        // console.log('nextState')
-        // console.log(nextState)
-        if (dataService !== nextState.dataService) {
-            return true
-        }
-        if (activeSlide !== nextState.activeSlide) {
+        if (dataService !== nextState.dataService || activeSlide !== nextState.activeSlide) {
             return true
         }
         return false
     }
-    getData(dataService) {
+    getData = (dataService) => {
         this._isMounted = true;
         if (this._isMounted) {
             this.setState({ dataService })
         }
     }
-    getActiveSlide(activeSlide) {
+    getActiveSlide = (activeSlide) => {
         this._isMounted = true;
         if (this._isMounted) {
             this.setState({ activeSlide })
@@ -621,12 +625,11 @@ export class Slide extends React.Component {
         );
     }
     render() {
-        const { activeSlide, dataService } = this.state
+        const { dataService } = this.state
         var dataBody = {
             slide: 'banner'
         };
         var uri = finip + '/home/home_mobile'
-        // console.log(activeSlide)
         return (
             <View>
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
@@ -641,7 +644,11 @@ export class Slide extends React.Component {
                     autoplay={true}
                     autoplayDelay={3000}
                     autoplayInterval={3000}
-                    onSnapToItem={(index) => this.getActiveSlide(index)}
+                    onSnapToItem={this.getActiveSlide}
+                    removeClippedSubviews={true}
+                    initialNumToRender={dataService.length}
+                    maxToRenderPerBatch={1}
+                    useScrollView={true}
                 />
                 {this.pagination}
                 {/* <View style={{ flexDirection: 'row', width: '100%', marginTop: -100, marginBottom: 50, justifyContent: 'space-between' }}>
@@ -674,17 +681,10 @@ export class Category extends React.Component {
         };
         this.getData = this.getData.bind(this)
     }
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate = (nextProps, nextState) => {
         const { dataService } = this.state
         const { navigation } = this.props
-        // console.log('nextProps ' + [nextProps].length)
-        // console.log(nextProps)
-        // console.log('nextState ' + [nextState].length)
-        // console.log(nextState)
-        if (dataService !== nextState.dataService) {
-            return true
-        }
-        if (navigation !== nextProps.navigation) {
+        if (dataService !== nextState.dataService || navigation !== nextProps.navigation) {
             return true
         }
         return false
@@ -692,13 +692,17 @@ export class Category extends React.Component {
     componentWillUnmount() {
         this._isMounted = false;
     }
-    getData(dataService) {
+    getData = (dataService) => {
         this._isMounted = true;
         if (this._isMounted) {
             this.setState({ dataService })
         }
     }
-    dataCategory() {
+    navigationNavigateScreen = (value) => {
+        const { navigation } = this.props
+        navigation.navigate(value)
+    }
+    get dataCategory() {
         const { dataService } = this.state
         return dataService.map((item, index) => {
             var dataMySQL = [finip, item.image_path, 'menu', item.image_head].join('/');
@@ -723,14 +727,13 @@ export class Category extends React.Component {
     }
     render() {
         var uri = finip + '/home/category_mobile'
-        const { navigation } = this.props
         return (
             <View style={stylesMain.FrameBackground2}>
                 <GetServices uriPointer={uri} getDataSource={this.getData} />
                 <ScrollView horizontal>
-                    <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('CategoryScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('CategoryScreen')}>
                         <View style={stylesMain.category_A}>
-                            {this.dataCategory()}
+                            {this.dataCategory}
                         </View>
                     </TouchableOpacity>
                 </ScrollView>
@@ -745,29 +748,27 @@ export class Button_Bar extends React.Component {
         this.state = {
         };
     }
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation } = this.props
-        // console.log('nextProps ')
-        // console.log(nextProps)
-        // console.log('nextState ')
-        // console.log(nextState)
         if (navigation !== nextProps.navigation) {
             return true
         }
         return false
     }
-    render() {
+    navigationNavigateScreen = (value) => {
         const { navigation } = this.props
+        navigation.navigate(value)
+    }
+    render() {
         return (
             <View>
                 <View style={stylesMain.FrameBackground3}></View>
                 <ScrollView horizontal>
-                    <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('DealScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('DealScreen')}>
                         <View style={stylesMain.Button_Bar_Box}>
                             <FastImage style={stylesMain.Button_Bar_icon}
                                 source={{
                                     uri: ip + '/MySQL/uploads/icon_5/06.jpg',
-                                    
                                 }}
                                 resizeMode={FastImage.resizeMode.stretch}
                             />
@@ -775,12 +776,11 @@ export class Button_Bar extends React.Component {
                         <Text style={[stylesFont.FontCenter, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                             ดีลสุดพิเศษ</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('CoinScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('CoinScreen')}>
                         <View style={stylesMain.Button_Bar_Box}>
                             <FastImage style={stylesMain.Button_Bar_icon}
                                 source={{
                                     uri: ip + '/MySQL/uploads/icon_5/07.jpg',
-                                    
                                 }}
                                 resizeMode={FastImage.resizeMode.stretch}
                             />
@@ -788,12 +788,11 @@ export class Button_Bar extends React.Component {
                                 FinCoin</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('CampaignScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('CampaignScreen')}>
                         <View style={stylesMain.Button_Bar_Box}>
                             <FastImage style={stylesMain.Button_Bar_icon}
                                 source={{
                                     uri: ip + '/MySQL/uploads/icon_5/08.jpg',
-                                   
                                 }}
                                 resizeMode={FastImage.resizeMode.stretch}
                             />
@@ -801,12 +800,11 @@ export class Button_Bar extends React.Component {
                                 แคมเปญ</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('The_BestFinScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('The_BestFinScreen')}>
                         <View style={stylesMain.Button_Bar_Box}>
                             <FastImage style={stylesMain.Button_Bar_icon}
                                 source={{
                                     uri: ip + '/MySQL/uploads/icon_5/09.jpg',
-                                   
                                 }}
                                 resizeMode={FastImage.resizeMode.stretch}
                             />
@@ -814,7 +812,7 @@ export class Button_Bar extends React.Component {
                                 สุดคุ้มสุดฟิน</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('Installment_payScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('Installment_payScreen')}>
                         <View style={stylesMain.Button_Bar_Box}>
                             <FastImage style={stylesMain.Button_Bar_icon}
                                 source={{
@@ -838,27 +836,24 @@ export class Recommend_Brand extends React.Component {
         this.state = {
         };
     }
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation, loadData } = this.props
-        // console.log('nextProps ')
-        // console.log(nextProps)
-        // console.log('nextState ')
-        // console.log(nextState)
-        if (loadData !== nextProps.loadData) {
-            return true
-        }
-        if (navigation !== nextProps.navigation) {
+        if (loadData !== nextProps.loadData || navigation !== nextProps.navigation) {
             return true
         }
         return false
     }
-    recommendBrand() {
-        const { loadData, navigation } = this.props
+    navigationNavigateScreen = (value) => {
+        const { navigation } = this.props
+        navigation.navigate(value)
+    }
+    get recommendBrand() {
+        const { loadData } = this.props
         return loadData ?
             loadData.map((item, index) => {
                 var dataMySQL = [finip, item.image_path, item.image].join('/')
                 return (
-                    <TouchableOpacity activeOpacity={1} key={index} onPress={() => navigation.navigate('Recommend_Brand')}>
+                    <TouchableOpacity activeOpacity={1} key={index} onPress={() => this.navigationNavigateScreen('Recommend_Brand')}>
                         <View style={stylesMain.Brand_image_Box}>
                             <FastImage
                                 style={[stylesMain.Brand_image_RCM, stylesMain.ItemCenterVertical]}
@@ -876,20 +871,19 @@ export class Recommend_Brand extends React.Component {
             null
     }
     render() {
-        const { navigation } = this.props
         return (
             <View style={[stylesMain.FrameBackground2, stylesMain.FrameBackground_Height]}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
                         แบรนด์แนะนำ</Text>
-                    <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('Recommend_Brand')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('Recommend_Brand')}>
                         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
                 </View>
                 <ScrollView horizontal>
                     <View style={stylesMain.FrameBackground_Box}>
-                        {this.recommendBrand()}
+                        {this.recommendBrand}
                     </View>
                 </ScrollView>
             </View>
@@ -903,27 +897,24 @@ export class Popular_store extends React.Component {
         this.state = {
         }
     }
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation, loadData } = this.props
-        // console.log('nextProps ')
-        // console.log(nextProps)
-        // console.log('nextState ')
-        // console.log(nextState)
-        if (loadData !== nextProps.loadData) {
-            return true
-        }
-        if (navigation !== nextProps.navigation) {
+        if (loadData !== nextProps.loadData || navigation !== nextProps.navigation) {
             return true
         }
         return false
     }
-    PopularStoreItem() {
-        const { loadData, navigation } = this.props;
+    navigationNavigateScreen = (value) => {
+        const { navigation } = this.props;
+        navigation.navigate(value)
+    }
+    get PopularStoreItem() {
+        const { loadData } = this.props;
         return loadData ?
             loadData.map((item, index) => {
                 var dataMySQL = [finip, item.image_path, item.image].join('/')
                 return (
-                    <TouchableOpacity activeOpacity={1} key={index} onPress={() => navigation.navigate('Recommend_Store')}>
+                    <TouchableOpacity activeOpacity={1} key={index} onPress={() => this.navigationNavigateScreen('Recommend_Store')}>
                         <View style={stylesMain.BoxStore1Box}>
                             <FastImage
                                 style={stylesMain.BoxStore1Image}
@@ -948,7 +939,7 @@ export class Popular_store extends React.Component {
                         ร้านที่ใช่อยากให้ช้อป</Text>
                 </View>
                 <View style={stylesMain.FlexRow}>
-                    {this.PopularStoreItem()}
+                    {this.PopularStoreItem}
                 </View>
             </View>
         )
@@ -961,21 +952,14 @@ export class Popular_product extends React.Component {
         this.state = {
         };
     }
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation, loadData } = this.props
-        // console.log('nextProps ')
-        // console.log(nextProps)
-        // console.log('nextState ')
-        // console.log(nextState)
-        if (loadData !== nextProps.loadData) {
-            return true
-        }
-        if (navigation !== nextProps.navigation) {
+        if (loadData !== nextProps.loadData || navigation !== nextProps.navigation) {
             return true
         }
         return false
     }
-    productCate(type) {
+    productCate = (type) => {
         return type.map((item, index) => {
             var dataMySQL = [finip, item.image_path, item.image].join('/');
             return (
@@ -1010,8 +994,14 @@ export class Popular_product extends React.Component {
             )
         })
     }
-    render() {
+    navigationNavigateScreen = (value) => {
         const { loadData, navigation } = this.props
+        navigation.navigate('Popular_productScreen', {
+            id_item: value, loadData: loadData
+        })
+    }
+    render() {
+        const { loadData } = this.props
         return (
             <View>
                 <View style={stylesMain.FrameBackground2}>
@@ -1028,9 +1018,7 @@ export class Popular_product extends React.Component {
                             {
                                 loadData.product_hit ?
                                     <TouchableOpacity activeOpacity={1}
-                                        onPress={() => navigation.navigate('Popular_productScreen', {
-                                            id_item: 0, loadData: loadData
-                                        })}>
+                                        onPress={() => this.navigationNavigateScreen(0)}>
                                         <View style={stylesMain.Popular_Box_B}>
                                             <View style={stylesMain.PopularText_A}>
                                                 <Text style={[{ marginLeft: 8, color: '#fff' }, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
@@ -1046,9 +1034,7 @@ export class Popular_product extends React.Component {
                             {
                                 loadData.best_price ?
                                     <TouchableOpacity activeOpacity={1}
-                                        onPress={() => navigation.navigate('Popular_productScreen', {
-                                            id_item: 1, loadData: loadData
-                                        })}>
+                                        onPress={() => this.navigationNavigateScreen(1)}>
                                         <View style={stylesMain.Popular_Box_B}>
                                             <View style={stylesMain.PopularText_A}>
                                                 <Text style={[{ marginLeft: 8, color: '#fff' }, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
@@ -1064,9 +1050,7 @@ export class Popular_product extends React.Component {
                             {
                                 loadData.best_sale ?
                                     <TouchableOpacity activeOpacity={1}
-                                        onPress={() => navigation.navigate('Popular_productScreen', {
-                                            id_item: 2, loadData: loadData
-                                        })}>
+                                        onPress={() => this.navigationNavigateScreen(2)}>
                                         <View style={stylesMain.Popular_Box_B}>
                                             <View style={stylesMain.PopularText_A}>
                                                 <Text style={[{ marginLeft: 8, color: '#fff' }, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
@@ -1082,9 +1066,7 @@ export class Popular_product extends React.Component {
                             {
                                 loadData.best_cool ?
                                     <TouchableOpacity activeOpacity={1}
-                                        onPress={() => navigation.navigate('Popular_productScreen', {
-                                            id_item: 3, loadData: loadData
-                                        })}>
+                                        onPress={() => this.navigationNavigateScreen(3)}>
                                         <View style={stylesMain.Popular_Box_B}>
                                             <View style={stylesMain.PopularText_A}>
                                                 <Text style={[{ marginLeft: 8, color: '#fff' }, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
@@ -1183,17 +1165,10 @@ export class FlashSale extends React.Component {
         };
         this.getData = this.getData.bind(this)
     }
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate = (nextProps, nextState) => {
         const { dataService } = this.state
         const { navigation } = this.props
-        // console.log('nextProps ')
-        // console.log(nextProps)
-        // console.log('nextState ')
-        // console.log(nextState)
-        if (dataService !== nextState.dataService) {
-            return true
-        }
-        if (navigation !== nextProps.navigation) {
+        if (dataService !== nextState.dataService || navigation !== nextProps.navigation) {
             return true
         }
         return false
@@ -1201,11 +1176,15 @@ export class FlashSale extends React.Component {
     componentWillUnmount() {
         this._isMounted = false;
     }
-    getData(dataService) {
+    getData = (dataService) => {
         this._isMounted = true;
         if (this._isMounted) {
             this.setState({ dataService })
         }
+    }
+    navigationNavigateScreen = (value) => {
+        const { navigation } = this.props
+        navigation.navigate(value)
     }
     render() {
         const { dataService } = this.state
@@ -1236,7 +1215,7 @@ export class FlashSale extends React.Component {
                             </View>
                         </View>
                     </View>
-                    <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('FlashSaleScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('FlashSaleScreen')}>
                         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
@@ -1260,27 +1239,24 @@ export class PromotionPopular extends React.Component {
         this.state = {
         };
     }
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation, loadData } = this.props
-        // console.log('nextProps ')
-        // console.log(nextProps)
-        // console.log('nextState ')
-        // console.log(nextState)
-        if (loadData !== nextProps.loadData) {
-            return true
-        }
-        if (navigation !== nextProps.navigation) {
+        if (loadData !== nextProps.loadData || navigation !== nextProps.navigation) {
             return true
         }
         return false
     }
-    dataPromotionPopular() {
-        const { loadData, navigation } = this.props
+    navigationNavigateScreen = (value) => {
+        const { navigation } = this.props
+        navigation.navigate(value)
+    }
+    get dataPromotionPopular() {
+        const { loadData } = this.props
         return loadData ?
             loadData.map((item, index) => {
                 var dataMySQL = [finip, item.image_path, item.image].join('/');
                 return (
-                    <TouchableOpacity onPress={() => navigation.navigate('Recommend_Store')} key={index}>
+                    <TouchableOpacity onPress={() => this.navigationNavigateScreen('Recommend_Store')} key={index}>
                         <View style={[stylesMain.BoxStore2Box2]}>
                             <FastImage
                                 source={{
@@ -1306,19 +1282,18 @@ export class PromotionPopular extends React.Component {
             null
     }
     render() {
-        const { navigation } = this.props
         return (
             <View style={stylesMain.FrameBackground2}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         ลายแทงร้านค้าแนะนำ</Text>
-                    <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('Recommend_Store')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('Recommend_Store')}>
                         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
                 </View>
                 <ScrollView horizontal>
-                    {this.dataPromotionPopular()}
+                    {this.dataPromotionPopular}
                 </ScrollView>
             </View>
         );
@@ -1334,17 +1309,10 @@ export class Confidential_PRO extends React.Component {
         };
         this.getData = this.getData.bind(this)
     }
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate = (nextProps, nextState) => {
         const { dataService } = this.state
         const { navigation } = this.props
-        // console.log('nextProps ')
-        // console.log(nextProps)
-        // console.log('nextState ')
-        // console.log(nextState)
-        if (dataService !== nextState.dataService) {
-            return true
-        }
-        if (navigation !== nextProps.navigation) {
+        if (dataService !== nextState.dataService || navigation !== nextProps.navigation) {
             return true
         }
         return false
@@ -1352,19 +1320,15 @@ export class Confidential_PRO extends React.Component {
     componentWillUnmount() {
         this._isMounted = false;
     }
-    getData(dataService) {
+    getData = (dataService) => {
         this._isMounted = true;
         if (this._isMounted) {
             this.setState({ dataService })
         }
     }
-    render() {
+    get dataConfidential_PRO() {
         const { dataService } = this.state
-        var uri = ip + '/MySQL/DataServiceMain.php';
-        var dataBody = {
-            type: 'Confidential_PRO'
-        };
-        let dataConfidential_PRO = dataService.map((item, index) => {
+        dataService.map((item, index) => {
             var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
             return (
                 <View style={stylesMain.BoxStore2Box} key={index}>
@@ -1380,6 +1344,12 @@ export class Confidential_PRO extends React.Component {
                 </View>
             )
         })
+    }
+    render() {
+        var uri = ip + '/MySQL/DataServiceMain.php';
+        var dataBody = {
+            type: 'Confidential_PRO'
+        };
         return (
             <View style={[stylesMain.FrameBackground2]}>
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
@@ -1391,7 +1361,7 @@ export class Confidential_PRO extends React.Component {
                 </View>
                 <ScrollView horizontal>
                     <View style={stylesMain.Confidential_A}>
-                        {dataConfidential_PRO}
+                        {this.dataConfidential_PRO}
                     </View>
                 </ScrollView>
             </View>
@@ -1405,19 +1375,16 @@ export class Product_for_you extends React.Component {
         this.state = {
         };
     }
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation, loadData } = this.props
-        // console.log('nextProps ')
-        // console.log(nextProps)
-        // console.log('nextState ')
-        // console.log(nextState)
-        if (loadData !== nextProps.loadData) {
-            return true
-        }
-        if (navigation !== nextProps.navigation) {
+        if (loadData !== nextProps.loadData || navigation !== nextProps.navigation) {
             return true
         }
         return false
+    }
+    navigationNavigateScreen = (value) => {
+        const { navigation } = this.props
+        navigation.navigate(value)
     }
     render() {
         const { loadData, navigation } = this.props
@@ -1426,7 +1393,7 @@ export class Product_for_you extends React.Component {
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
                         FIN คัดมาเพื่อคุณ</Text>
-                    <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('Product_for_youScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('Product_for_youScreen')}>
                         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
@@ -1452,19 +1419,16 @@ export class Highlight extends React.Component {
         this.state = {
         };
     }
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation, loadData } = this.props
-        // console.log('nextProps ')
-        // console.log(nextProps)
-        // console.log('nextState ')
-        // console.log(nextState)
-        if (loadData !== nextProps.loadData) {
-            return true
-        }
-        if (navigation !== nextProps.navigation) {
+        if (loadData !== nextProps.loadData || navigation !== nextProps.navigation) {
             return true
         }
         return false
+    }
+    navigationNavigateScreen = (value) => {
+        const { navigation } = this.props
+        navigation.navigate(value)
     }
     render() {
         const { loadData, navigation } = this.props
@@ -1473,7 +1437,7 @@ export class Highlight extends React.Component {
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         ไฮไลท์ประจำสัปดาห์</Text>
-                    <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('HighlightScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('HighlightScreen')}>
                         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
@@ -1498,28 +1462,25 @@ export class NewStore extends React.Component {
         this.state = {
         };
     }
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation, loadData } = this.props
-        // console.log('nextProps ')
-        // console.log(nextProps)
-        // console.log('nextState ')
-        // console.log(nextState)
-        if (loadData !== nextProps.loadData) {
-            return true
-        }
-        if (navigation !== nextProps.navigation) {
+        if (loadData !== nextProps.loadData || navigation !== nextProps.navigation) {
             return true
         }
         return false
     }
-    dataNewStore() {
-        const { loadData, navigation } = this.props
+    navigationNavigateScreen = (value) => {
+        const { navigation } = this.props
+        navigation.navigate('Recommend_Store', { id_item: value })
+    }
+    get dataNewStore() {
+        const { loadData } = this.props
         return loadData ?
             loadData.map((item, index) => {
                 var dataMySQL = [finip, item.image_path, item.image].join('/');
                 return (
                     <TouchableOpacity activeOpacity={1} key={index}
-                        onPress={() => navigation.navigate('Recommend_Store', { id_item: item.id_store })}>
+                        onPress={() => this.navigationNavigateScreen(item.id_store)}>
                         <View style={stylesMain.BoxStore1Box}>
                             <FastImage
                                 source={{
@@ -1542,7 +1503,7 @@ export class NewStore extends React.Component {
                         ร้านค้าห้ามพลาด!!่</Text>
                 </View>
                 <View style={stylesMain.FlexRow}>
-                    {this.dataNewStore()}
+                    {this.dataNewStore}
                 </View>
             </View>
         );
@@ -1553,19 +1514,16 @@ export class Exclusive extends React.Component {
     constructor(props) {
         super(props);
     }
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation, loadData } = this.props
-        // console.log('nextProps ')
-        // console.log(nextProps)
-        // console.log('nextState ')
-        // console.log(nextState)
-        if (loadData !== nextProps.loadData) {
-            return true
-        }
-        if (navigation !== nextProps.navigation) {
+        if (loadData !== nextProps.loadData || navigation !== nextProps.navigation) {
             return true
         }
         return false
+    }
+    navigationNavigateScreen = (value) => {
+        const { navigation } = this.props
+        navigation.navigate(value)
     }
     render() {
         const { loadData, navigation } = this.props
@@ -1575,7 +1533,7 @@ export class Exclusive extends React.Component {
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
                         สินค้าสุด Exclusive</Text>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('ExclusiveScreen')}>
+                        onPress={() => this.navigationNavigateScreen('ExclusiveScreen')}>
                         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
@@ -1603,17 +1561,10 @@ export class CategoryProduct extends React.Component {
         }
         this.getData = this.getData.bind(this)
     }
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate = (nextProps, nextState) => {
         const { dataService } = this.state
         const { navigation } = this.props
-        // console.log('nextProps ')
-        // console.log(nextProps)
-        // console.log('nextState ')
-        // console.log(nextState)
-        if (dataService !== nextState.dataService) {
-            return true
-        }
-        if (navigation !== nextProps.navigation) {
+        if (dataService !== nextState.dataService || navigation !== nextProps.navigation) {
             return true
         }
         return false
@@ -1621,16 +1572,20 @@ export class CategoryProduct extends React.Component {
     componentWillUnmount() {
         this._isMounted = false;
     }
-    getData(dataService) {
+    getData = (dataService) => {
         this._isMounted = true;
         if (this._isMounted) {
             this.setState({ dataService })
         }
     }
-    render() {
-        const { NoStoreReCom } = this.props
-        var uri = finip + '/home/category_mobile';
-        let dataCategory = this.state.dataService.map((item, index) => {
+    navigationNavigateScreen = (value) => {
+        const { navigation } = this.props
+        navigation.navigate(value)
+    }
+    get dataCategory() {
+        const { dataService } = this.state
+        const { NoStoreReCom, navigation } = this.props
+        return dataService.map((item, index) => {
             var dataMySQL = [finip, item.mobile_head].join('/');
             return (
                 <View style={[stylesMain.FrameBackground2, { marginTop: 10, backgroundColor: item.bg_m }]} key={index}>
@@ -1644,14 +1599,14 @@ export class CategoryProduct extends React.Component {
                         />
                         <View style={[stylesMain.FrameBackgroundTextBox, { marginTop: -10, marginBottom: -5 }]}>
                             <Text></Text>
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate('CategoryScreen')}>
+                            <TouchableOpacity onPress={() => this.navigationNavigateScreen('CategoryScreen')}>
                                 <View style={{ backgroundColor: '#0A55A6', borderTopLeftRadius: 20, width: 50, alignItems: 'flex-end' }}>
                                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FFFFFF' }]}>
                                         ดูทั้งหมด </Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
-                        <CategoryProductSubProduct navigation={this.props.navigation} id_type={item.id_type} />
+                        <CategoryProductSubProduct navigation={navigation} id_type={item.id_type} />
                     </View>
                     {
                         NoStoreReCom ?
@@ -1660,19 +1615,23 @@ export class CategoryProduct extends React.Component {
                                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 8, color: '#fff' }]}>
                                         ร้านนี้ผ่อนได้ </Text>
                                 </View>
-                                <CategoryProductSubStore navigation={this.props.navigation} id_type={item.id_type} />
+                                <CategoryProductSubStore navigation={navigation} id_type={item.id_type} />
                             </View> :
                             <View style={{ marginBottom: 0, }}>
-                                <CategoryProductSubPromotion navigation={this.props.navigation} id_type={item.id_type} />
+                                <CategoryProductSubPromotion navigation={navigation} id_type={item.id_type} />
+                                <CategoryProductSubStore navigation={this.props.navigation} id_type={item.id_type} />
                             </View>
                     }
                 </View>
             );
         })
+    }
+    render() {
+        var uri = finip + '/home/category_mobile';
         return (
             <View>
                 <GetServices uriPointer={uri} getDataSource={this.getData} />
-                {dataCategory}
+                {this.dataCategory}
             </View>
         )
     }
@@ -1687,20 +1646,10 @@ export class CategoryProductSubProduct extends React.Component {
         }
         this.getData = this.getData.bind(this)
     }
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate = (nextProps, nextState) => {
         const { dataService } = this.state
         const { id_type, navigation } = this.props
-        // console.log('nextProps ')
-        // console.log(nextProps)
-        // console.log('nextState ')
-        // console.log(nextState)
-        if (dataService !== nextState.dataService) {
-            return true
-        }
-        if (id_type !== nextProps.id_type) {
-            return true
-        }
-        if (navigation !== nextProps.navigation) {
+        if (dataService !== nextState.dataService || id_type !== nextProps.id_type || navigation !== nextProps.navigation) {
             return true
         }
         return false
@@ -1708,7 +1657,7 @@ export class CategoryProductSubProduct extends React.Component {
     componentWillUnmount() {
         this._isMounted = false;
     }
-    getData(dataService) {
+    getData = (dataService) => {
         this._isMounted = true;
         if (this._isMounted) {
             this.setState({ dataService })
@@ -1747,23 +1696,11 @@ export class CategoryProductSubStore extends React.Component {
         }
         this.getData = this.getData.bind(this)
     }
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate = (nextProps, nextState) => {
         const { activeSlide, dataService } = this.state
         const { id_type, navigation } = this.props
-        // console.log('nextProps ')
-        // console.log(nextProps)
-        // console.log('nextState ')
-        // console.log(nextState)
-        if (activeSlide !== nextState.activeSlide) {
-            return true
-        }
-        if (dataService !== nextState.dataService) {
-            return true
-        }
-        if (id_type !== nextProps.id_type) {
-            return true
-        }
-        if (navigation !== nextProps.navigation) {
+        if (activeSlide !== nextState.activeSlide || dataService !== nextState.dataService || id_type !== nextProps.id_type ||
+            navigation !== nextProps.navigation) {
             return true
         }
         return false
@@ -1771,7 +1708,7 @@ export class CategoryProductSubStore extends React.Component {
     componentWillUnmount() {
         this._isMounted = false;
     }
-    getData(dataService) {
+    getData = (dataService) => {
         this._isMounted = true;
         if (this._isMounted) {
             this.setState({ dataService })
@@ -1790,10 +1727,14 @@ export class CategoryProductSubStore extends React.Component {
                             height: 90,
                         }}
                         style={stylesMain.CategoryProductStoreImage}
+                        resizeMode={FastImage.resizeMode.cover}
                     />
                 </View>
             </TouchableOpacity>
         );
+    }
+    setActiveSlide = (index) => {
+        this.setState({ activeSlide: index })
     }
     render() {
         const { dataService } = this.state
@@ -1816,10 +1757,14 @@ export class CategoryProductSubStore extends React.Component {
                             itemWidth={width * 0.49}
                             sliderHeight={90}
                             itemHeight={85}
-                            onSnapToItem={(index) => this.setState({ activeSlide: index })}
+                            onSnapToItem={this.setActiveSlide}
                             activeSlideAlignment={'start'}
                             inactiveSlideScale={1}
                             inactiveSlideOpacity={1}
+                            removeClippedSubviews={true}
+                            initialNumToRender={dataService.banner.length}
+                            maxToRenderPerBatch={1}
+                            useScrollView={true}
                             autoplay
                             autoplayDelay={3000}
                             loop
@@ -1842,25 +1787,21 @@ export class CategoryProductSubPromotion extends React.Component {
         this.getData = this.getData.bind(this)
         this.getData2 = this.getData2.bind(this)
     }
-    getData(dataService) {
+    getData = (dataService) => {
         this._isMounted = true;
         if (this._isMounted) {
             this.setState({ dataService })
         }
     }
-    getData2(dataService2) {
+    getData2 = (dataService2) => {
         this._isMounted = true;
         if (this._isMounted) {
             this.setState({ dataService2 })
         }
     }
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate = (nextProps, nextState) => {
         const { dataService, dataService2 } = this.state
         const { id_type, navigation } = this.props
-        // console.log('nextProps ')
-        // console.log(nextProps)
-        // console.log('nextState ')
-        // console.log(nextState)
         if (dataService !== nextState.dataService || dataService2 !== nextState.dataService2 || id_type !== nextProps.id_type || navigation !== nextProps.navigation) {
             return true
         }
@@ -1869,13 +1810,13 @@ export class CategoryProductSubPromotion extends React.Component {
     componentWillUnmount() {
         this._isMounted = false;
     }
-    dataCategoryProductSubPromotion() {
+    get dataCategoryProductSubPromotion() {
         const { dataService } = this.state
         return dataService.banner ?
             dataService.banner.map((item, index) => {
                 var dataMySQL = [finip, item.path_mobile, item.image].join('/');
                 return (
-                    <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, }]} key={['B', index].join('.')}>
+                    <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, }]} key={index}>
                         <FastImage
                             source={{
                                 uri: dataMySQL,
@@ -1889,13 +1830,13 @@ export class CategoryProductSubPromotion extends React.Component {
             }) :
             null
     }
-    dataCategoryProductSubPromotion2() {
+    get dataCategoryProductSubPromotion2() {
         const { dataService2 } = this.state
         return dataService2.banner ?
             dataService2.banner.map((item, index) => {
                 var dataMySQL = [finip, item.path_mobile, item.image].join('/');
                 return (
-                    <View style={[stylesMain.BoxStore1Box3, { borderWidth: 0, }]} key={['C', index].join('.')}>
+                    <View style={[stylesMain.BoxStore1Box3, { borderWidth: 0, }]} key={index}>
                         <FastImage
                             source={{
                                 uri: dataMySQL,
@@ -1910,6 +1851,7 @@ export class CategoryProductSubPromotion extends React.Component {
             null
     }
     render() {
+        const { dataService, dataService2 } = this.state
         const { id_type } = this.props
         var uri = finip + '/home/publish_cate_mobile';
         var dataBody = {
@@ -1925,10 +1867,14 @@ export class CategoryProductSubPromotion extends React.Component {
                 <View style={[stylesMain.FlexRow, { width: '100%' }]}>
                     <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
                     <GetServices uriPointer={uri} dataBody={dataBody2} getDataSource={this.getData2} />
-                    {this.dataCategoryProductSubPromotion()}
-                    {this.dataCategoryProductSubPromotion2()}
+                    {
+                        dataService.banner && dataService2.banner ? ([
+                            this.dataCategoryProductSubPromotion,
+                            this.dataCategoryProductSubPromotion2
+                        ]) :
+                            null
+                    }
                 </View>
-                <CategoryProductSubStore navigation={this.props.navigation} id_type={id_type} />
             </>
         );
     }
@@ -1941,29 +1887,22 @@ export class Second_product extends React.Component {
             activeSlide: 0,
         };
     }
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate = (nextProps, nextState) => {
         const { activeSlide } = this.state
         const { loadData, navigation } = this.props
-        // console.log('nextProps ')
-        // console.log(nextProps)
-        // console.log('nextState ')
-        // console.log(nextState)
-        if (activeSlide !== nextState.activeSlide) {
-            return true
-        }
-        if (loadData !== nextProps.loadData) {
-            return true
-        }
-        if (navigation !== nextProps.navigation) {
+        if (activeSlide !== nextState.activeSlide || loadData !== nextProps.loadData || navigation !== nextProps.navigation) {
             return true
         }
         return false
     }
-    renderItem1(item) {
+    navigationNavigateScreen = (value) => {
+        this.props.navigation.navigate('SecondScreen', { selectedIndex: value })
+    }
+    renderItem1 = (item) => {
         return item.map((item, index) => {
             var dataMySQL = [finip, item.image_path, item.image].join('/')
             return (
-                <View key={index} style={{ width: 200, height: 180 }}>
+                <View key={index} style={{ width: width * 0.64, height: 196  }}>
                     <FastImage
                         source={{
                             uri: dataMySQL,
@@ -1977,7 +1916,7 @@ export class Second_product extends React.Component {
             );
         })
     }
-    renderItem2(item) {
+    renderItem2 = (item) => {
         return item.map((item, index) => {
             var dataMySQL = [finip, item.image_path, item.image].join('/')
             return (
@@ -1995,14 +1934,12 @@ export class Second_product extends React.Component {
             );
         })
     }
-    Second_Storeheader() {
+    get Second_Storeheader() {
         const { loadData, navigation } = this.props
-        // console.log(loadData.mobile_bar)
         var url
         loadData.mobile_bar ?
             loadData.mobile_bar.map((item) => { (url = [finip, item.image_path, item.image].join('/')) }) :
             null
-        // console.log(url)
         return (
             <View style={[stylesMain.FrameBackground2, { marginTop: 0, backgroundColor: '#d6b364'/*loadData.bg_m,*/, borderBottomWidth: null }]}>
                 <View style={{}}>
@@ -2013,7 +1950,8 @@ export class Second_product extends React.Component {
                     />
                     <View style={[stylesMain.FrameBackgroundTextBox, { marginTop: -10, marginBottom: -5 }]}>
                         <Text></Text>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('CategoryScreen')}>
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen(0)}
+                        >
                             <View style={{ backgroundColor: '#0A55A6', borderTopLeftRadius: 20, width: 50, alignItems: 'flex-end' }}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FFFFFF' }]}>
                                     ดูทั้งหมด </Text>
@@ -2033,8 +1971,8 @@ export class Second_product extends React.Component {
             </View>
         )
     }
-    Second_Storebody() {
-        const { loadData, navigation } = this.props
+    get Second_Storebody() {
+        const { loadData } = this.props
         return (
             <View style={stylesMain.Second_StoreFin}>
                 <View style={stylesMain.Second_StoreFin_BoxHead}>
@@ -2043,7 +1981,7 @@ export class Second_product extends React.Component {
                             ร้านค้ามือสองแนะนำโดย FIN </Text>
                     </View>
                     <View>
-                        <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('SecondScreen', { selectedIndex: 1 })}>
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen(1)}>
                             <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                                 ดูทั้งหมด</Text>
                         </TouchableOpacity>
@@ -2080,8 +2018,8 @@ export class Second_product extends React.Component {
             </View>
         )
     }
-    getFooter() {
-        const { loadData, navigation } = this.props
+    get getFooter() {
+        const { loadData } = this.props
         return loadData.mobile_slide ?
             loadData.mobile_slide.map((item, index) => {
                 var dataMySQL = [finip, item.image_path, item.image].join('/');
@@ -2097,12 +2035,12 @@ export class Second_product extends React.Component {
             }) :
             null
     }
-    Second_Storefooter() {
+    get Second_Storefooter() {
         return (
             <View style={stylesMain.Second_Storefooter}>
                 <ScrollView horizontal>
                     <View style={stylesMain.FlexRow}>
-                        {this.getFooter()}
+                        {this.getFooter}
                     </View>
                 </ScrollView>
             </View>
@@ -2112,13 +2050,13 @@ export class Second_product extends React.Component {
         return (
             <View style={stylesMain.FrameBackground2}>
                 {
-                    this.Second_Storeheader()
+                    this.Second_Storeheader
                 }
                 {
-                    this.Second_Storebody()
+                    this.Second_Storebody
                 }
                 {
-                    this.Second_Storefooter()
+                    this.Second_Storefooter
                 }
             </View>
         )
@@ -2131,16 +2069,9 @@ export class TodayProduct extends React.Component {
         this.state = {
         };
     }
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate = (nextProps, nextState) => {
         const { loadData, navigation } = this.props
-        // console.log('nextProps ')
-        // console.log(nextProps)
-        // console.log('nextState ')
-        // console.log(nextState)
-        if (loadData !== nextProps.loadData) {
-            return true
-        }
-        if (navigation !== nextProps.navigation) {
+        if (loadData !== nextProps.loadData || navigation !== nextProps.navigation) {
             return true
         }
         return false

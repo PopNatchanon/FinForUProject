@@ -30,6 +30,14 @@ export class Toolbar extends React.Component {
             currentUser: {},
         }
     }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { currentUser } = this.state
+        const { navigation } = this.props
+        if (currentUser !== nextState.currentUser || navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
     getDataasync = async () => {
         this._isMounted = true;
         if (this._isMounted) {
@@ -43,6 +51,10 @@ export class Toolbar extends React.Component {
     componentWillUnmount() {
         this._isMounted = false;
     }
+    navigationNavigateScreen = (value) => {
+        const { navigation } = this.props
+        navigation.replace(value)
+    }
     render() {
         const { currentUser } = this.state;
         var u_name = null;
@@ -51,38 +63,38 @@ export class Toolbar extends React.Component {
         }
         return (
             <View style={stylesMain.Toolbar}>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('MainScreen')}>
+                <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('MainScreen')}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign style={{ marginLeft: 5, }} name="home" size={25} />
                         <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>Home</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('FeedScreen')}>
+                <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('FeedScreen')}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="tagso" size={25} />
                         <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}> Feed</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('NewsScreen')}>
+                <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('NewsScreen')}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="notification" size={25} />
                         <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>News</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('BellScreen')}>
+                <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('BellScreen')}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="bells" size={25} />
                         <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>เตือน</Text>
                     </View>
                 </TouchableOpacity>
                 {u_name == null ?
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('LoginScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('LoginScreen')}>
                         <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                             <IconAntDesign name="user" size={25} />
                             <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>ฉัน</Text>
                         </View>
                     </TouchableOpacity> :
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('ProfileScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('ProfileScreen')}>
                         <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                             <IconAntDesign name="user" size={25} />
                             <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>
@@ -107,6 +119,14 @@ export class TabBar extends React.Component {
             pathlist: 0,
             PassSetValue: 0,
         }
+    }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { currentUser, PassSetValue, pathlist } = this.state
+        const { activeColor, fontColor, item, noSpace, sendData, setVertical, spaceColor, widthBox } = this.props
+        if (currentUser !== nextState.currentUser || PassSetValue !== nextState.PassSetValue || pathlist !== nextState.pathlist || activeColor !== nextProps.activeColor || fontColor !== nextProps.fontColor || item !== nextProps.item || noSpace !== nextProps.noSpace || sendData !== nextProps.sendData || setVertical !== nextProps.setVertical || spaceColor !== nextProps.spaceColor || widthBox !== nextProps.widthBox) {
+            return true
+        }
+        return false
     }
     // setDataItem() {
     //     const { setData } = this.props
@@ -150,7 +170,17 @@ export class TabBar extends React.Component {
     // /////|color| กำหนดสีตัวอักษรทั้งหมด
     // fontColor='#fff'
     />*/
-    tab() {
+    setStart = () => {
+        const {
+            SetValue,
+        } = this.props;
+        const { PassSetValue } = this.state
+    }
+    setSelectTab = (index) => {
+        this.setState({ pathlist: index })
+        this.props.sendData(index)
+    }
+    get tab() {
         const {
             item, activeColor, activeWidth, type, radiusBox, activeFontColor, inactiveFontColor, inactiveColor, inactiveBoxColor,
             noSpace, direction, alignBox, widthBox, spaceColor, fontColor, noLimit, limitBox, SetValue, fontSizeStyle, numberBox,
@@ -160,8 +190,7 @@ export class TabBar extends React.Component {
         const countItem = item.length;
         PassSetValue < 1 ?
             SetValue ?
-                (this.setState({ pathlist: SetValue, PassSetValue: PassSetValue + 1 }),
-                    this.props.sendData(SetValue)) :
+                this.setStart :
                 null :
             null
         return item.map((item, index) => {
@@ -172,21 +201,10 @@ export class TabBar extends React.Component {
                         1
                 } onPress={() => {
                     NoSelectTab ?
-                        (
-                            pathlist == index ?
-                                (
-                                    this.setState({ pathlist: -1 }),
-                                    this.props.sendData(-1)
-                                ) :
-                                (
-                                    this.setState({ pathlist: index }),
-                                    this.props.sendData(index)
-                                )
-                        ) :
-                        (
-                            this.setState({ pathlist: index }),
-                            this.props.sendData(index)
-                        );
+                        pathlist == index ?
+                            this.setSelectTab(-1) :
+                            this.setSelectTab(index) :
+                        this.setSelectTab(index);
                 }}>
                     {
                         pathlist == index ?
@@ -362,7 +380,7 @@ export class TabBar extends React.Component {
         return (
             numberBox ?
                 (
-                    this.tab()
+                    this.tab
                 ) :
                 (
                     <View style={[
@@ -387,7 +405,7 @@ export class TabBar extends React.Component {
                                 width: noLimit ? null : '100%',
                             }
                     ]}>
-                        {this.tab()}
+                        {this.tab}
                     </View>
                 )
         )
@@ -399,8 +417,14 @@ export class GetServices extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataSource: [],
         };
+    }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { dataBody, getDataSource, uriPointer } = this.props
+        if (dataBody !== nextProps.dataBody || getDataSource !== nextProps.getDataSource || uriPointer !== nextProps.uriPointer) {
+            return true
+        }
+        return false
     }
     getDataSource = async () => {
         this._isMounted = true;
@@ -440,7 +464,7 @@ export class GetCoupon extends React.Component {
         this.state = {
         };
     }
-    setCoupon() {
+    get setCoupon() {
         const {
             colorCoupon, couponText, textDetail, timeOut, useCoupon, flexRow, codeList
         } = this.props
@@ -489,7 +513,7 @@ export class GetCoupon extends React.Component {
     }
     render() {
         return (
-            this.setCoupon()
+            this.setCoupon
         )
     }
 }
@@ -499,8 +523,24 @@ export class ProductBox extends React.Component {
         this.state = {
         };
     }
-    ProductBoxRender() {
-        const { dataService, dispriceSize, typeip, mode, navigation, nameSize, pointerUrl, pointerid_store, postpath, prepath, priceSize } = this.props
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { dataService, dispriceSize, typeip, mode, nameSize, postpath, prepath, priceSize, navigation, pointerUrl, pointerid_store } = this.props
+        if (dataService !== nextProps.dataService || dispriceSize !== nextProps.dispriceSize || typeip !== nextProps.typeip || mode !== nextProps.mode || nameSize !== nextProps.nameSize || postpath !== nextProps.postpath || prepath !== nextProps.prepath || priceSize !== nextProps.priceSize || navigation !== nextProps.navigation || pointerUrl !== nextProps.pointerUrl || pointerid_store !== nextProps.pointerid_store) {
+            return true
+        }
+        return false
+    }
+    navigationNavigateScreen = (id_product) => {
+        const { navigation, pointerUrl, pointerid_store, } = this.props
+        navigation.push(
+            pointerUrl,
+            pointerid_store ?
+                { id_item: id_product } :
+                null
+        )
+    }
+    get ProductBoxRender() {
+        const { dataService, dispriceSize, typeip, mode, nameSize, postpath, prepath, priceSize } = this.props
         return dataService.map((item, index) => {
             var throughsale = Number(item.full_price) + (item.full_price * 0.5)
             var discount = 55
@@ -521,12 +561,7 @@ export class ProductBox extends React.Component {
                 <TouchableOpacity
                     activeOpacity={1}
                     key={index}
-                    onPress={() => navigation.push(
-                        pointerUrl,
-                        pointerid_store ?
-                            { id_item: item.id_product } :
-                            null
-                    )}
+                    onPress={() => this.navigationNavigateScreen(item.id_product)}
                 >
                     <View style={[
                         mode == 'row4col1' ?
@@ -634,7 +669,7 @@ export class ProductBox extends React.Component {
     }
     render() {
         return (
-            this.ProductBoxRender()
+            this.ProductBoxRender
         )
     }
 }
@@ -644,8 +679,24 @@ export class FeedBox extends React.Component {
         this.state = {
         };
     }
-    FeedBoxRender() {
-        const { dataService, Follow, Header, typeip, navigation, postpath, prepath } = this.props
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { dataService, Follow, Header, typeip, postpath, prepath, navigation, } = this.props
+        if (dataService !== nextProps.dataService || Follow !== nextProps.Follow || Header !== nextProps.Header || typeip !== nextProps.typeip || postpath !== nextProps.postpath || prepath !== nextProps.prepath || navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
+    navigationNavigateScreen = (p_id_store) => {
+        const { navigation, } = this.props
+        navigation.push(
+            'StoreScreen',
+            p_id_store ?
+                { id_item: p_id_store } :
+                null
+        )
+    }
+    get FeedBoxRender() {
+        const { dataService, Follow, Header, typeip, postpath, prepath } = this.props
         return dataService.map((item, index) => {
             var url
             { typeip == 'ip' ? url = ip : url = finip }
@@ -679,7 +730,7 @@ export class FeedBox extends React.Component {
                     {
                         Header ?
                             <View style={stylesMain.BoxProduct4PlusHeader}>
-                                <TouchableOpacity onPress={() => { navigation.navigate('StoreScreen', { id_item: item.p_id_store }) }}>
+                                <TouchableOpacity onPress={() => navigationNavigateScreen(item.p_id_store)}>
                                     <View style={stylesMain.FlexRow}>
                                         <FastImage
                                             style={stylesMain.BoxProduct4PlusImage}
@@ -754,7 +805,7 @@ export class FeedBox extends React.Component {
     }
     render() {
         return (
-            this.FeedBoxRender()
+            this.FeedBoxRender
         )
     }
 }
@@ -765,7 +816,7 @@ export class LoadingScreen extends React.Component {
             modalVisible: true,
         };
     }
-    setModalVisible(visible) {
+    setModalVisible = (visible) => {
         this.setState({ modalVisible: visible });
     }
     render() {
@@ -774,9 +825,7 @@ export class LoadingScreen extends React.Component {
                 animationType="fade"
                 transparent={true}
                 visible={this.state.modalVisible}
-                onRequestClose={() => {
-                    this.setModalVisible(!this.state.modalVisible);
-                }}>
+                onRequestClose={() => this.setModalVisible(!this.state.modalVisible)}>
                 <View style={[stylesMain.ItemCenter, { height, width }]}>
                     <View style={{ height, width, backgroundColor: '#555555', opacity: 0.5, position: 'absolute' }}></View>
                     <View style={[stylesMain.ItemCenterVertical, { height: 80, width: 80, borderRadius: 8, backgroundColor: '#ECECEC' }]}>
@@ -788,6 +837,13 @@ export class LoadingScreen extends React.Component {
     }
 }
 export class BrowerScreen extends React.Component {
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { url } = this.props
+        if (url !== nextProps.url) {
+            return true
+        }
+        return false
+    }
     render() {
         const { url } = this.props
         return (

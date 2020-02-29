@@ -17,11 +17,13 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from './MainScreen';
+import { GetServices } from './tools/Tools';
 import { PopularProduct } from './StoreScreen'
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class CartScreen extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -31,24 +33,41 @@ export default class CartScreen extends Component {
         this.getText = this.getText.bind(this)
         this.getData = this.getData.bind(this)
     }
-    getText(val) {
-        this.setState({ itemCount: val })
+    componentWillUnmount() {
+        this._isMounted = false;
     }
-    getData(val) {
-        this.setState({ itemData: val })
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { itemCount, itemData } = this.state
+        const { navigation } = this.props
+        if (itemCount !== nextState.itemCount || itemData !== nextState.itemData || navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
+    getText(itemCount) {
+        this._isMounted = true;
+        if (this._isMounted) {
+            this.setState({ itemCount })
+        }
+    }
+    getData(itemData) {
+        this._isMounted = true;
+        if (this._isMounted) {
+            this.setState({ itemData })
+        }
     }
     render() {
         const { itemCount, itemData } = this.state
         const { navigation } = this.props;
         return (
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
-                <AppBar1 navigation={this.props.navigation} titleHead='รถเข็น' chatBar backArrow />
+                <AppBar1 navigation={navigation} titleHead='รถเข็น' chatBar backArrow />
                 <ScrollView>
                     <Product_Cart itemData={itemData} sendText={this.getText} />
                     {/* <Product_Like /> */}
-                    <PopularProduct navigation={this.props.navigation} headText={'คุณอาจชอบสิ่งนี้'} />
+                    <PopularProduct navigation={navigation} headText={'คุณอาจชอบสิ่งนี้'} />
                 </ScrollView>
-                <Buy_bar sendData={this.getData} navigation={this.props.navigation} itemCount={itemCount} />
+                <Buy_bar sendData={this.getData} navigation={navigation} itemCount={itemCount} />
                 <ExitAppModule navigation={navigation} />
             </SafeAreaView>
         );
@@ -61,13 +80,21 @@ export class Product_Cart extends Component {
         this.state = {
         };
     }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { itemData, sendText } = this.props
+        if (itemData !== nextProps.itemData || sendText !== nextProps.sendText) {
+            return true
+        }
+        return false
+    }
     render() {
+        const { itemData, sendText } = this.props
         const storecount = 1
         return (
             <View>
                 {
                     storecount > 0 ?
-                        <CartProduct itemData={this.props.itemData} sendData={this.props.sendText} /> :
+                        <CartProduct itemData={itemData} sendData={sendText} /> :
                         <View style={stylesCart.Product_Cart}>
                             <View style={[stylesMain.ItemCenter, { height: 200, width: '100%' }]}>
                                 <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
@@ -84,44 +111,38 @@ export class Product_Cart extends Component {
 }
 ///----------------------------------------------------------------------------------------------->>>> CartProduct
 export class CartProduct extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
-            dataSourceSlide: [],
+            dataService: [],
             ItemHead: [],
             ItemArray: [],
             HeadCount: 0,
         };
+        this.getData = this.getData.bind(this)
     }
-    getDataSlide = async () => {
-        var dataBody = {
-            type: 'sale'
-        };
-        fetch(ip + '/mysql/DataServiceMain.php', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(dataBody),
-        })
-            .then((response) => response.json())
-            .then((responseJson) => {
-                this.setState({
-                    dataSourceSlide: responseJson,
-                })
-            })
-            .catch((error) => {
-                console.error(error);
-            })
+    getData = (dataService) => {
+        this._isMounted = true;
+        if (this._isMounted) {
+            this.setState({ dataService })
+        }
     }
-    componentDidMount() {
-        this.getDataSlide()
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { HeadCount, ItemArray, ItemHead, dataService } = this.state
+        const { itemData, sendData } = this.props
+        if (HeadCount !== nextState.HeadCount || ItemArray !== nextState.ItemArray || ItemHead !== nextState.ItemHead || dataService !== nextState.dataService || itemData !== nextProps.itemData || sendData !== nextProps.sendData) {
+            return true
+        }
+        return false
+    }
+    componentWillUnmount() {
+        this._isMounted = false;
     }
     productItem(ItemHead) {
         const { ItemArray } = this.state
-        return (
-            this.state.dataSourceSlide.map((item, index) => {
+        return this.state.dataService ? (
+            this.state.dataService.map((item, index) => {
                 if (ItemHead == item.id_store) {
                     if (ItemArray[index] == null) {
                         ItemArray[index] = {
@@ -143,7 +164,7 @@ export class CartProduct extends Component {
                                     ItemArray[index].checked ?
                                         ItemArray[index].checked = false :
                                         ItemArray[index].checked = true
-                                    this.ChangeCheck()
+                                    this.ChangeCheck
                                     this.setState({ ItemArray })
                                     this.props.sendData(ItemArray);
                                 }}
@@ -211,12 +232,13 @@ export class CartProduct extends Component {
                     )
                 }
             })
-        )
+        ) :
+            null
     }
     storeItem() {
         const { ItemHead, ItemArray, HeadCount } = this.state
-        return (
-            this.state.dataSourceSlide.map((item, index) => {
+        return this.state.dataService ? (
+            this.state.dataService.map((item, index) => {
                 if (ItemHead[index] == null) {
                     if (ItemHead.length == 0) {
                         ItemHead[0] = { id_store: item.id_store, checked: true }
@@ -265,7 +287,8 @@ export class CartProduct extends Component {
                     }
                 }
             })
-        )
+        ) :
+            null
     }
     ChangeCheckMain(ItemHead) {
         const { ItemArray } = this.state
@@ -279,7 +302,7 @@ export class CartProduct extends Component {
             }
         })
     }
-    ChangeCheck() {
+    ChangeCheck = () => {
         const { ItemHead, ItemArray, itemData } = this.state
         var count = 0
         var countMain = 0
@@ -317,7 +340,13 @@ export class CartProduct extends Component {
             }
         })
     }
-    checkBox() {
+    setStateIHID = (ItemHead, itemData) => {
+        this._isMounted = true;
+        if (this._isMounted) {
+            this.setState({ ItemHead, itemData })
+        }
+    }
+    checkBox = () => {
         const { ItemHead, ItemArray } = this.state
         const { itemData } = this.props
         while (itemData.num < 1) {
@@ -325,15 +354,21 @@ export class CartProduct extends Component {
                 itemData.num = itemData.num + 1
                 ItemHead[m].checked = itemData.checked
                 this.ChangeCheckMain(ItemHead)
-                this.setState({ ItemHead, itemData })
+                this.setStateIHID(ItemHead, itemData)
             }
         }
     }
     render() {
-        const { itemData } = this.props
-        this.checkBox()
+        var dataBody = {
+            type: 'sale'
+        };
+        var uri = ip + '/mysql/DataServiceMain.php'
+        this.checkBox
         return (
-            this.storeItem()
+            <>
+                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+                {this.storeItem()}
+            </>
         )
     }
 }
@@ -360,7 +395,7 @@ export class Buy_bar extends Component {
             checked: true,
         };
     }
-    StateBox() {
+    StateBox = () => {
         var { checked } = this.state
         checked = !checked
         this.props.sendData({ checked: checked, num: 0 });
@@ -396,7 +431,7 @@ export class Buy_bar extends Component {
                             textStyle={14}
                             fontFamily={'SukhumvitSet-Text'}
                             checked={this.state.checked}
-                            onPress={() => { this.StateBox() }}
+                            onPress={this.StateBox}
                         />
                     </View>
                     <View style={[stylesCart.Bar_Buy_price, { marginLeft: -20 }]}>

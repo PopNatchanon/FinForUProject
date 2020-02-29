@@ -24,9 +24,6 @@ export default class Popular_productScreen extends Component {
         this.getData = this.getData.bind(this)
     }
     getData(id_item) {
-        // console.log(id_item)
-        // console.log('scrollView')
-        // console.log(this._scrollView.scrollTo({ x: 0, y: 0, animated: true }))
         this.setState({ id_item })
     }
     render() {

@@ -888,8 +888,6 @@ export class Show_Image extends Component {
   }
   setShowItemImage() {
     const { setShowItemImage } = this.props
-    console.log('Show_Image')
-    console.log(setShowItemImage)
     var dataMySQL = new Array()
     setShowItemImage ?
       setShowItemImage.map((item) => {

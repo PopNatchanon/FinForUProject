@@ -9,6 +9,7 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
+import ImagePicker from 'react-native-image-crop-picker';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -30,17 +31,25 @@ export default class BellScreen extends Component {
         this.state = {
         };
     }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { navigation } = this.props
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
     render() {
         const { navigation } = this.props
         return (
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                 <AppBar1 titleHead='การแจ้งเตือน' />
                 <ScrollView>
+                    <UploadImage />
                     <Popular_store />
-                    <Pro_for_U navigation={this.props.navigation} />
-                    <Update_buy navigation={this.props.navigation} />
+                    <Pro_for_U navigation={navigation} />
+                    <Update_buy navigation={navigation} />
                 </ScrollView>
-                <Toolbar navigation={this.props.navigation} />
+                <Toolbar navigation={navigation} />
                 <ExitAppModule navigation={navigation} />
             </SafeAreaView>
         );
@@ -48,6 +57,7 @@ export default class BellScreen extends Component {
 }
 ///----------------------------------------------------------------------------------------------->>>> Popular_store
 export class Popular_store extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -55,16 +65,35 @@ export class Popular_store extends Component {
         };
         this.getData = this.getData.bind(this)
     }
-    getData(dataService) {
-        this.setState({ dataService })
+    componentWillUnmount() {
+        this._isMounted = false;
     }
-    dataNewStore() {
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { dataService } = this.state
+        const { navigation } = this.props
+        if (dataService !== nextState.dataService || navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
+    getData = (dataService) => {
+        this._isMounted = true;
+        if (this._isMounted) {
+            this.setState({ dataService })
+        }
+    }
+    navigationNavigateScreen = (value) => {
+        const { navigation } = this.props
+        navigation.navigate('StoreScreen', { id_item: value })
+    }
+    get dataNewStore() {
+        const { dataService } = this.state
         const text = 'ร้าน AVIRA ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!';
-        return this.state.dataService.map((item, index) => {
+        return dataService.map((item, index) => {
             var dataMySQL = [ip + '/mysql/uploads/slide/NewStore', item.image].join('/');
             return (
                 <TouchableOpacity activeOpacity={1} key={index}
-                    onPress={() => this.props.navigation.navigate('StoreScreen', { id_item: item.id_store })}>
+                    onPress={() => this.navigationNavigateScreen(item.id_store)}>
                     <View style={stylesMain.BoxStore3Box}>
                         <FastImage
                             source={{
@@ -97,10 +126,114 @@ export class Popular_store extends Component {
                         ดูทั้งหมด</Text>
                 </View>
                 <ScrollView horizontal>
-                    {this.dataNewStore()}
+                    {this.dataNewStore}
                 </ScrollView>
             </View>
         );
+    }
+}
+///----------------------------------------------------------------------------------------------->>>> Pro_for_U
+export class UploadImage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            avatarSource: [],
+        };
+    }
+    UploadImageSingle = (index) => {
+        const { avatarSource } = this.state
+        const options = {
+        };
+        ImagePicker.openPicker(options).then(response => {
+            console.log('Response = ', response);
+            // You can also display the image using data:
+            // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+            avatarSource[index] = response
+            this.setState({ avatarSource })
+        });
+    }
+    UploadImageMultiple = () => {
+        const { avatarSource } = this.state
+        const options = {
+            multiple: true,
+        };
+        ImagePicker.openPicker(options).then(response => {
+            console.log('Response = ', response);
+            // You can also display the image using data:
+            // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+            response.map((item, index) => index + avatarSource.length <= 7 && avatarSource.push(item))
+            this.setState({ avatarSource })
+        });
+    }
+    UploadImageData = () => {
+        const { avatarSource } = this.state
+        console.log('avatarSource2222')
+        console.log(avatarSource)
+        var uri = [ip, 'sql/uploadimage/updateimage.php'].join('/')
+        avatarSource && (
+            fetch(uri, {
+                method: "POST",
+                body: avatarSource
+            })
+                .then(response => response.json())
+                .then(response => {
+                    console.log("upload succes", response);
+                    alert("Upload success!");
+                    this.setState({ avatarSource: null });
+                })
+                .catch(error => {
+                    console.log("upload error", error);
+                    alert("Upload failed!");
+                })
+        )
+    }
+    render() {
+        const { avatarSource } = this.state
+        console.log('avatarSource')
+        console.log(avatarSource)
+        return (
+            <>
+                <ScrollView horizontal>
+                    {
+                        avatarSource ? [
+                            avatarSource.map((item, index) => {
+                                console.log(item)
+                                return (
+                                    <TouchableOpacity onPress={() => this.UploadImageSingle(index)} key={index}>
+                                        <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                                            <FastImage
+                                                source={{ uri: item.path }}
+                                                style={[stylesMain.ItemCenterVertical, { height: '100%', width: '100%' }]}
+                                            />
+                                        </View>
+                                    </TouchableOpacity>
+                                )
+                            }),
+                            avatarSource.length < 7 &&
+                            <TouchableOpacity onPress={this.UploadImageMultiple} key={'upload'}>
+                                <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                                    <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
+                                        <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
+                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+                        ] :
+                            <TouchableOpacity onPress={this.UploadImageMultiple}>
+                                <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                                    <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
+                                        <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
+                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+                    }
+                </ScrollView>
+                <TouchableOpacity onPress={this.UploadImageData} style={stylesMain.ItemCenter}>
+                    <Text style={[{ width: 75, height: 40, borderWidth: 1, borderColor: '#456488', marginTop: 10, textAlign: 'center', textAlignVertical: 'center', color: '#fff', backgroundColor: '#456488' }]}>Upload</Text>
+                </TouchableOpacity>
+            </>
+        )
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Pro_for_U
@@ -110,6 +243,17 @@ export class Pro_for_U extends Component {
         this.state = {
         };
     }
+    navigationNavigateScreen = () => {
+        const { navigation } = this.props
+        navigation.navigate('Detail_Pro', { selectedIndex: 0 })
+    }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { navigation } = this.props
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
     render() {
         return (
             <View>
@@ -118,7 +262,7 @@ export class Pro_for_U extends Component {
                         โปรเด็ดที่คัดมาเพื่อคุณ</Text>
                 </View>
                 <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, stylesMain.ItemCenter]}>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Detail_Pro', { selectedIndex: 0 })}>
+                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen}>
                         <View style={stylesMain.BoxStore4Box}>
                             <FastImage
                                 style={stylesMain.BoxStore4Image}
@@ -130,7 +274,7 @@ export class Pro_for_U extends Component {
                                 ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Detail_Pro', { selectedIndex: 0 })}>
+                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen}>
                         <View style={stylesMain.BoxStore4Box}>
                             <FastImage
                                 style={stylesMain.BoxStore4Image}
@@ -142,7 +286,7 @@ export class Pro_for_U extends Component {
                                 ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Detail_Pro', { selectedIndex: 0 })}>
+                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen}>
                         <View style={stylesMain.BoxStore4Box}>
                             <FastImage
                                 style={stylesMain.BoxStore4Image}
@@ -154,7 +298,7 @@ export class Pro_for_U extends Component {
                                 ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Detail_Pro', { selectedIndex: 0 })}>
+                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen}>
                         <View style={stylesMain.BoxStore4Box}>
                             <FastImage
                                 style={stylesMain.BoxStore4Image}
@@ -167,7 +311,7 @@ export class Pro_for_U extends Component {
                         </View>
                     </TouchableOpacity>
                 </View>
-            </View>
+            </View >
         );
     }
 }
@@ -178,6 +322,17 @@ export class Update_buy extends Component {
         this.state = {
         };
     }
+    navigationNavigateScreen = () => {
+        const { navigation } = this.props
+        navigation.navigate('Detail_Pro', { selectedIndex: 1 })
+    }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { navigation } = this.props
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
     render() {
         return (
             <View>
@@ -186,7 +341,7 @@ export class Update_buy extends Component {
                         อัพเดทคำสั่งซื้อ</Text>
                 </View>
                 <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, stylesMain.ItemCenter]}>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Detail_Pro', { selectedIndex: 1 })}>
+                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen}>
                         <View style={stylesMain.BoxStore4Box}>
                             <FastImage
                                 style={stylesMain.BoxStore4Image}

@@ -25,6 +25,7 @@ import { GetServices, TabBar, Toolbar } from './tools/Tools';
 import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class NewsScreen extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -32,10 +33,24 @@ export default class NewsScreen extends Component {
         };
         this.getData = this.getData.bind(this)
     }
-    getData(val) {
-        this.setState({
-            selectedIndex: val
-        });
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { selectedIndex } = this.state
+        const { navigation } = this.props
+        if (selectedIndex !== nextState.selectedIndex || navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
+    getData = (val) => {
+        this._isMounted = true;
+        if (this._isMounted) {
+            this.setState({
+                selectedIndex: val
+            });
+        }
     }
     render() {
         const { selectedIndex } = this.state
@@ -49,7 +64,7 @@ export default class NewsScreen extends Component {
                 <ScrollView>
                     <Button_Bar selectedIndex={selectedIndex} />
                 </ScrollView>
-                <Toolbar navigation={this.props.navigation} />
+                <Toolbar navigation={navigation} />
                 <ExitAppModule navigation={navigation} />
             </SafeAreaView>
         );
@@ -60,15 +75,17 @@ export class MenuBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            text: '',
-            selectedIndex: 0
         }
         this.getData = this.getData.bind(this)
     }
-    getData(val) {
-        this.setState({
-            selectedIndex: val
-        });
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { sendText } = this.props
+        if (sendText !== nextProps.sendText) {
+            return true
+        }
+        return false
+    }
+    getData = (val) => {
         this.props.sendText(val);
     }
     render() {
@@ -100,10 +117,17 @@ export class Button_Bar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedIndex: 0
         }
     }
-    ViewSide(selectedIndex) {
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { selectedIndex } = this.props
+        if (selectedIndex !== nextProps.selectedIndex) {
+            return true
+        }
+        return false
+    }
+    get ViewSide() {
+        const { selectedIndex } = this.props
         switch (selectedIndex) {
             case 0:
                 return (
@@ -121,10 +145,9 @@ export class Button_Bar extends Component {
         }
     }
     render() {
-        const { selectedIndex } = this.props
         return (
             <View>
-                {this.ViewSide(selectedIndex)}
+                {this.ViewSide}
             </View>
         );
     }
@@ -135,6 +158,13 @@ export class Blog extends Component {
         super(props);
         this.state = {
         };
+    }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { Body } = this.props
+        if (Body !== nextProps.Body) {
+            return true
+        }
+        return false
     }
     render() {
         return (

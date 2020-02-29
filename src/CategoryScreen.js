@@ -20,6 +20,7 @@ import { GetServices, ProductBox, } from './tools/Tools';
 import { finip, ip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class CategoryScreen extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -29,11 +30,32 @@ export default class CategoryScreen extends Component {
         this.setSlider = this.setSlider.bind(this)
         this.getData = this.getData.bind(this)
     }
-    getData(dataService) {
-        this.setState({ dataService })
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { dataService, sliderVisible } = this.state
+        const { navigation } = this.props
+        if (dataService !== nextState.dataService || sliderVisible !== nextState.sliderVisible || navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
     }
-    setSlider(value) {
-        this.setState({ sliderVisible: value })
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+    getData = (dataService) => {
+        this._isMounted = true;
+        if (this._isMounted) {
+            this.setState({ dataService })
+        }
+    }
+    setSlider = (sliderVisible) => {
+        this._isMounted = true;
+        if (this._isMounted) {
+            this.setState({ sliderVisible })
+        }
+    }
+    setStateSliderVisible = () => {
+        const { sliderVisible } = this.state
+        this.setState({ sliderVisible: !sliderVisible })
     }
     render() {
         const { dataService, sliderVisible } = this.state
@@ -54,9 +76,8 @@ export default class CategoryScreen extends Component {
                     <View style={{ marginBottom: 10 }}></View>
                     <Button_Bar setSliderVisible={this.setSlider} getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
                     {
-                        dataService ?
-                            <TodayProduct noTitle navigation={navigation} loadData={dataService} typeip prepath='mysql' /> :
-                            null
+                        dataService &&
+                        <TodayProduct noTitle navigation={navigation} loadData={dataService} typeip prepath='mysql' />
                     }
                 </ScrollView>
                 <SlidingView
@@ -69,12 +90,12 @@ export default class CategoryScreen extends Component {
                         width: '100%'
                     }}
                     position="right"
-                    changeVisibilityCallback={() => this.setState({ sliderVisible: !sliderVisible })}
+                    changeVisibilityCallback={this.setStateSliderVisible}
                 >
                     <View style={stylesMain.FlexRow}>
                         <TouchableOpacity
                             activeOpacity={1}
-                            onPress={() => this.setState({ sliderVisible: !sliderVisible })}
+                            onPress={this.setStateSliderVisible}
                         >
                             <View style={stylesTopic.BackgroundLeft}></View>
                         </TouchableOpacity>
@@ -149,20 +170,27 @@ export class Recommend_Store extends Component {
         };
         this.getData = this.getData.bind(this)
     }
-    getData(dataService) {
-        this.setState({ dataService })
-    }
-    render() {
+    shouldComponentUpdate = (nextProps, nextState) => {
         const { dataService } = this.state
         const { navigation } = this.props
-        var uri = ip + '/MySQL/DataServiceMain.php';
-        var dataBody = {
-            type: 'brand2'
-        };
-        let dataPromotionPopular = dataService.map((item, index) => {
+        if (dataService !== nextState.dataService || navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
+    getData = (dataService) => {
+        this.setState({ dataService })
+    }
+    navigationNavigateScreen = () => {
+        const { navigation } = this.props
+        navigation.navigate('Recommend_Store')
+    }
+    get dataPromotionPopular() {
+        const { dataService } = this.state
+        return dataService.map((item, index) => {
             var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
             return (
-                <TouchableOpacity onPress={() => { navigation.navigate('Recommend_Store') }} key={index}>
+                <TouchableOpacity onPress={this.navigationNavigateScreen} key={index}>
                     <View style={stylesMain.BoxStore1Box}>
                         <FastImage
                             source={{
@@ -175,19 +203,25 @@ export class Recommend_Store extends Component {
                 </TouchableOpacity>
             )
         })
+    }
+    render() {
+        var uri = ip + '/MySQL/DataServiceMain.php';
+        var dataBody = {
+            type: 'brand2'
+        };
         return (
             <View style={stylesMain.FrameBackground}>
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         ร้านค้าที่แนะนำ</Text>
-                    <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('Recommend_Store')}>
+                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen}>
                         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={stylesMain.FlexRow}>
-                    {dataPromotionPopular}
+                    {this.dataPromotionPopular}
                 </View>
             </View>
         );
@@ -202,7 +236,15 @@ export class Product_Brand extends Component {
         };
         this.getData = this.getData.bind(this)
     }
-    getData(dataService) {
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { dataService } = this.state
+        const { navigation } = this.props
+        if (dataService !== nextState.dataService || navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
+    getData = (dataService) => {
         this.setState({ dataService })
     }
     render() {

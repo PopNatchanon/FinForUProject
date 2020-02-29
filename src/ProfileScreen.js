@@ -26,15 +26,30 @@ import { GetCoupon, TabBar, Toolbar } from './tools/Tools';
 import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class StoreScreen extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
             currentUser: {},
         }
     }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { currentUser } = this.state;
+        const { navigation } = this.props
+        if (currentUser !== nextState.currentUser || navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
     getDataasync = async () => {
+        this._isMounted = true;
         const currentUser = await AsyncStorage.getItem('@MyKey')
-        this.setState({ currentUser: JSON.parse(currentUser) })
+        if (this._isMounted) {
+            this.setState({ currentUser: JSON.parse(currentUser) })
+        }
+    }
+    componentWillUnmount() {
+        this._isMounted = false;
     }
     componentDidMount() {
         this.getDataasync()
@@ -46,12 +61,17 @@ export default class StoreScreen extends Component {
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                 <ScrollView>
                     <View>
-                        <Headbar navigation={this.props.navigation} currentUser={currentUser} />
-                        <Menubar navigation={this.props.navigation} />
-                        <Listbar navigation={this.props.navigation} />
+                        {
+                            currentUser ?
+                                <Headbar navigation={navigation} currentUser={currentUser} /> :
+                                null
+
+                        }
+                        <Menubar navigation={navigation} />
+                        <Listbar navigation={navigation} />
                     </View>
                 </ScrollView>
-                <Toolbar navigation={this.props.navigation} />
+                <Toolbar navigation={navigation} />
                 <ExitAppModule navigation={navigation} />
             </SafeAreaView>
         );
@@ -62,12 +82,27 @@ export class Headbar extends Component {
     constructor(props) {
         super(props)
     }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { currentUser, statusOnline, navigation } = this.props
+        if (currentUser !== nextProps.currentUser || statusOnline !== nextProps.statusOnline || navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
+    navigationNavigateScreen = () => {
+        const { navigation } = this.props
+        navigation.navigate('Setting_Topic', { selectedIndex: 0 })
+    }
+    navigationNavigateScreen2 = (value) => {
+        const { navigation } = this.props
+        navigation.navigate(value)
+    }
     render() {
         const { currentUser, statusOnline } = this.props
         const uri = [finip, currentUser.image_path, currentUser.image].join('/')
         return (
             <View>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 0 })}>
+                <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen}>
                     <View style={{ backgroundColor: '#4a4a4a', }}>
                         <ImageBackground
                             source={require('../icon/bgprofile.jpg')}
@@ -79,7 +114,7 @@ export class Headbar extends Component {
                     <View style={stylesProfile.HeadbarBox1}>
                         <View style={stylesMain.FlexRow}>
                             <View>
-                                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMeScreen')}>
+                                <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen2('StoreMeScreen')}>
                                     <View style={stylesProfile.HeadbarBox1Sub}>
                                         <Text style={[stylesProfile.HeadbarBox1SubText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                             เริ่มค้าขาย</Text>
@@ -104,12 +139,12 @@ export class Headbar extends Component {
                             </View>
                         </View>
                         <View style={{ flexDirection: 'row', padding: 8 }}>
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate('SettingScreen')}>
+                            <TouchableOpacity onPress={() => this.navigationNavigateScreen2('SettingScreen')}>
                                 <IconMaterialCommunityIcons RightItem name="settings-outline" style={{ marginRight: 6 }}
                                     size={25} color='#FFFFFF'
                                 />
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate('CartScreen')}>
+                            <TouchableOpacity onPress={() => this.navigationNavigateScreen2('CartScreen')}>
                                 <IconFeather RightItem name="shopping-cart" size={25} color='#FFFFFF' />
                             </TouchableOpacity>
                         </View>
@@ -124,7 +159,19 @@ export class Menubar extends Component {
     constructor(props) {
         super(props)
     }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { navigation } = this.props
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
+    navigationNavigateScreen = () => {
+        const { navigation } = this.props
+        navigation.navigate('Total_Order', { selectedIndex: 0 })
+    }
     render() {
+        const { navigation } = this.props
         return (
             <View style={stylesProfile.Menu}>
                 <View style={stylesProfile.Menubar}>
@@ -135,7 +182,7 @@ export class Menubar extends Component {
                             รายการสั่งซื้อของฉัน</Text>
                     </View>
                     <View style={{ marginTop: 10, }}>
-                        <TouchableOpacity activeOpacity={0.9} onPress={() => { this.props.navigation.navigate('Total_Order', { selectedIndex: 0 }) }}>
+                        <TouchableOpacity activeOpacity={0.9} onPress={this.navigationNavigateScreen}>
                             <Text style={[
                                 stylesProfile.MenubarText2, stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize6
                             ]}>
@@ -144,7 +191,7 @@ export class Menubar extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <MenubarSub navigation={this.props.navigation} />
+                <MenubarSub navigation={navigation} />
             </View>
         )
     }
@@ -154,11 +201,26 @@ export class MenubarSub extends Component {
     constructor(props) {
         super(props)
     }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { navigation } = this.props
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
+    navigationNavigateScreen = (value) => {
+        const { navigation } = this.props
+        navigation.navigate('Total_Order', { selectedIndex: value })
+    }
+    navigationNavigateScreen2 = (value) => {
+        const { navigation } = this.props
+        navigation.navigate(value, { selectedIndex: 0 })
+    }
     render() {
         return (
             <View style={stylesProfile.MenubarSub}>
                 <View style={stylesMain.FlexRow}>
-                    <TouchableOpacity activeOpacity={0.9} onPress={() => { this.props.navigation.navigate('Total_Order', { selectedIndex: 1 }) }}>
+                    <TouchableOpacity activeOpacity={0.9} onPress={() => this.navigationNavigateScreen(1)}>
                         <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <FastImage
                                 source={require('../icon/two-money-cards.png')}
@@ -168,7 +230,7 @@ export class MenubarSub extends Component {
                                 รอจ่ายเงิน</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={0.9} onPress={() => { this.props.navigation.navigate('Total_Order', { selectedIndex: 2 }) }}>
+                    <TouchableOpacity activeOpacity={0.9} onPress={() => this.navigationNavigateScreen(2)}>
                         <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <FastImage
                                 source={require('../icon/month-calendar.png')}
@@ -178,7 +240,7 @@ export class MenubarSub extends Component {
                                 เตรียมจัดส่ง</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={0.9} onPress={() => { this.props.navigation.navigate('Total_Order', { selectedIndex: 3 }) }}>
+                    <TouchableOpacity activeOpacity={0.9} onPress={() => this.navigationNavigateScreen(3)}>
                         <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <FastImage
                                 source={require('../icon/truck-facing-right.png')}
@@ -188,7 +250,7 @@ export class MenubarSub extends Component {
                                 ดำเนินการส่ง</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={0.9} onPress={() => { this.props.navigation.navigate('Total_Order', { selectedIndex: 4 }) }}>
+                    <TouchableOpacity activeOpacity={0.9} onPress={() => this.navigationNavigateScreen(4)}>
                         <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <FastImage
                                 source={require('../icon/rating.png')}
@@ -200,7 +262,7 @@ export class MenubarSub extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={[stylesProfile.MenubarSubLine2, stylesMain.FlexRow]}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Return_products', { selectedIndex: 0 })}>
+                    <TouchableOpacity onPress={() => this.navigationNavigateScreen2('Return_products')}>
                         <View style={[stylesProfile.MenubarSubLine2Box, stylesMain.ItemCenter, stylesMain.FlexRow]}>
                             <FastImage
                                 source={require('../icon/repeat.png')}
@@ -210,7 +272,7 @@ export class MenubarSub extends Component {
                                 คืนสินค้า/คืนเงิน</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('CancelScreen', { selectedIndex: 0 })}>
+                    <TouchableOpacity onPress={() => this.navigationNavigateScreen2('CancelScreen')}>
                         <View style={[stylesProfile.MenubarSubLine2Box, stylesMain.ItemCenter, stylesMain.FlexRow]}>
                             <FastImage
                                 source={require('../icon/box.png')}
@@ -227,34 +289,57 @@ export class MenubarSub extends Component {
 }
 ///----------------------------------------------------------------------------------------------->>>> Listbar
 export class Listbar extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props)
         this.state = {
             pathlist: 0,
         }
     }
-    PathList() {
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+    shouldComponentUpdate = (nextProps, nextState) => {
         const { pathlist } = this.state
+        const { navigation } = this.props
+        if (pathlist !== nextState.pathlist || navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
+    get PathList() {
+        const { pathlist } = this.state
+        const { navigation } = this.props
         switch (pathlist) {
             case 0:
                 return (
-                    <ListMenu navigation={this.props.navigation} />
+                    <ListMenu navigation={navigation} />
                 )
             case 2:
                 return (
-                    <ViewCode navigation={this.props.navigation} />
+                    <ViewCode navigation={navigation} />
                 )
             case 3:
                 return (
-                    <CoinCollect navigation={this.props.navigation} />
+                    <CoinCollect navigation={navigation} />
                 )
+        }
+    }
+    navigationNavigateScreen = () => {
+        const { navigation } = this.props
+        navigation.navigate('DealScreen')
+    }
+    setStatePathList = (pathlist) => {
+        this._isMounted = true;
+        if (this._isMounted) {
+            this.setState({ pathlist })
         }
     }
     render() {
         return (
             <View>
                 <View style={[stylesProfile.ListbarMain, stylesMain.FlexRow]}>
-                    <TouchableOpacity activeOpacity={0.9} onPress={() => { this.setState({ pathlist: 0 }) }}>
+                    <TouchableOpacity activeOpacity={0.9} onPress={() => this.setStatePathList(0)}>
                         <View style={[stylesMain.FlexColumn, stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <View style={[stylesMain.ItemCenter, stylesProfile.ListbarMainRadius, { backgroundColor: '#0A81A6' }]}>
                                 <IconAntDesign name='home' size={40} style={[stylesMain.ItemCenterVertical, { color: '#fff' }]} />
@@ -265,7 +350,7 @@ export class Listbar extends Component {
                                 หน้าหลัก</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={0.9} onPress={() => { this.props.navigation.navigate('DealScreen') }}>
+                    <TouchableOpacity activeOpacity={0.9} onPress={this.navigationNavigateScreen}>
                         <View style={[stylesMain.FlexColumn, stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <View style={[stylesMain.ItemCenter, stylesProfile.ListbarMainRadius, { backgroundColor: '#128BCE' }]}>
                                 <IconMaterialCommunityIcons name='octagram-outline' size={40}
@@ -277,7 +362,7 @@ export class Listbar extends Component {
                                 โปรโมชัน</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={0.9} onPress={() => { this.setState({ pathlist: 2 }) }}>
+                    <TouchableOpacity activeOpacity={0.9} onPress={() => this.setStatePathList(2)}>
                         <View style={[stylesMain.FlexColumn, stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <View style={[stylesMain.ItemCenter, stylesProfile.ListbarMainRadius, { backgroundColor: '#0A55A6' }]}>
                                 <IconMaterialCommunityIcons name='ticket' size={40} style={stylesProfile.ListbarMainRadiusIcon} />
@@ -288,7 +373,7 @@ export class Listbar extends Component {
                                 โค้ดส่วนลด</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={0.9} onPress={() => { this.setState({ pathlist: 3 }) }}>
+                    <TouchableOpacity activeOpacity={0.9} onPress={() => this.setStatePathList(3)}>
                         <View style={[stylesMain.FlexColumn, stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <View style={[stylesMain.ItemCenter, stylesProfile.ListbarMainRadius, { backgroundColor: '#fadf2d' }]}>
                                 <FastImage
@@ -304,7 +389,7 @@ export class Listbar extends Component {
                     </TouchableOpacity>
                 </View>
                 <View>
-                    {this.PathList()}
+                    {this.PathList}
                 </View>
             </View>
         );
@@ -315,11 +400,22 @@ export class ListMenu extends Component {
     constructor(props) {
         super(props);
     }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { navigation } = this.props
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
+    navigationNavigateScreen = (selectedIndex) => {
+        const { navigation } = this.props
+        navigation.navigate('Profile_Topic', { selectedIndex })
+    }
     render() {
         return (
             <View>
                 <View style={stylesProfile.ListMenu}>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 0 })}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen(0)}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconMaterialIcons RightItem name="access-time" color='#D0B216' size={35}
@@ -333,7 +429,7 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 1 })}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen(1)}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconAntDesign RightItem name="wechat" size={35} color='#0A55A6'
@@ -347,7 +443,7 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 2 })}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen(2)}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconAntDesign RightItem name="heart" size={35} color='#D74024' style={
@@ -362,7 +458,7 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 3 })}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen(3)}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconFontisto RightItem name="shopping-store" size={30} color='#0A55A6' style={
@@ -376,7 +472,7 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 4 })}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen(4)}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconMaterialCommunityIcons RightItem name="star-box" size={35} color='#EAD295' style={
@@ -390,7 +486,7 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 5 })}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen(5)}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconFeather RightItem name="help-circle" size={35} color='#00A3FF' style={
@@ -411,6 +507,7 @@ export class ListMenu extends Component {
 }
 ///----------------------------------------------------------------------------------------------->>>> ViewCode
 export class ViewCode extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props)
         this.state = {
@@ -418,7 +515,15 @@ export class ViewCode extends Component {
         }
         this.getData = this.getData.bind(this);
     }
-    PathList() {
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { pathlist } = this.state
+        const { navigation } = this.props
+        if (pathlist !== nextState.pathlist || navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
+    get PathList() {
         const { pathlist } = this.state
         switch (pathlist) {
             case 0:
@@ -435,10 +540,13 @@ export class ViewCode extends Component {
                 )
         }
     }
-    getData(val) {
-        this.setState({
-            pathlist: val
-        });
+    getData = (pathlist) => {
+        this._isMounted = true;
+        if (this._isMounted) {
+            this.setState({
+                pathlist
+            });
+        }
     }
     render() {
         const item = [{
@@ -462,7 +570,7 @@ export class ViewCode extends Component {
                     />
                 </View>
                 <View>
-                    {this.PathList()}
+                    {this.PathList}
                 </View>
             </View>
         )
@@ -470,10 +578,27 @@ export class ViewCode extends Component {
 }
 ///----------------------------------------------------------------------------------------------->>>> MyCode
 export class MyCode extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props)
         this.state = {
             text: '',
+        }
+    }
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { text } = this.state
+        if (text !== nextState.text) {
+            return true
+        }
+        return false
+    }
+    setStateText = (text) => {
+        this._isMounted = true;
+        if (this._isMounted) {
+            this.setState({ text })
         }
     }
     render() {
@@ -492,7 +617,7 @@ export class MyCode extends Component {
                                     width={'90%'}
                                     placeholderTextColor={'white'}
                                     style={[stylesProfile.ViewCodeInputCode, stylesFont.FontSize6]}
-                                    onChangeText={(text) => this.setState({ text })}
+                                    onChangeText={this.setStateText}
                                 ></TextInput>
                             </View>
                             <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
@@ -599,6 +724,7 @@ export class MyCode extends Component {
 }
 ///----------------------------------------------------------------------------------------------->>>> CoinCollect
 export class CoinCollect extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props)
         this.state = {
@@ -606,7 +732,18 @@ export class CoinCollect extends Component {
         }
         this.getData = this.getData.bind(this);
     }
-    PathList() {
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { pathlist } = this.state
+        const { navigation } = this.props
+        if (pathlist !== nextState.pathlist || navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
+    get PathList() {
         const { pathlist } = this.state
         switch (pathlist) {
             case 0:
@@ -635,10 +772,13 @@ export class CoinCollect extends Component {
                 )
         }
     }
-    getData(val) {
-        this.setState({
-            pathlist: val
-        });
+    getData = (pathlist) => {
+        this._isMounted = true;
+        if (this._isMounted) {
+            this.setState({
+                pathlist
+            });
+        }
     }
     render() {
         const item = [{
@@ -689,7 +829,7 @@ export class CoinCollect extends Component {
                     />
                 </View>
                 <View>
-                    {this.PathList()}
+                    {this.PathList}
                 </View>
             </View>
         )

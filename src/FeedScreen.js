@@ -17,6 +17,7 @@ import { FeedBox, GetServices, TabBar, Toolbar } from './tools/Tools';
 import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class FeedScreen extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -24,10 +25,24 @@ export default class FeedScreen extends Component {
     };
     this.getData = this.getData.bind(this)
   }
-  getData(val) {
-    this.setState({
-      selectedIndex: val
-    });
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { selectedIndex } = this.state
+    const { navigation } = this.props
+    if (selectedIndex !== nextState.selectedIndex || navigation !== nextProps.navigation) {
+      return true
+    }
+    return false
+  }
+  getData = (val) => {
+    this._isMounted = true;
+    if (this._isMounted) {
+      this.setState({
+        selectedIndex: val
+      });
+    }
   }
   render() {
     const { selectedIndex } = this.state
@@ -50,11 +65,10 @@ export class MenuBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: '',
     }
     this.getData = this.getData.bind(this)
   }
-  getData(val) {
+  getData = (val) => {
     this.props.sendText(val);
   }
   render() {
@@ -86,8 +100,15 @@ export class Button_Bar extends Component {
   constructor(props) {
     super(props);
   }
-  ViewSide(selectedIndex) {
-    const { navigation } = this.props;
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { selectedIndex, navigation } = this.props
+    if (selectedIndex !== nextProps.selectedIndex || navigation !== nextProps.navigation) {
+      return true
+    }
+    return false
+  }
+  get ViewSide() {
+    const { selectedIndex, navigation } = this.props;
     switch (selectedIndex) {
       case 0:
         return (
@@ -105,16 +126,16 @@ export class Button_Bar extends Component {
     }
   }
   render() {
-    const { selectedIndex } = this.props
     return (
       <View>
-        {this.ViewSide(selectedIndex)}
+        {this.ViewSide}
       </View>
     );
   }
 }
 ///----------------------------------------------------------------------------------------------->>>> Highlights
 export class Highlights extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -122,8 +143,22 @@ export class Highlights extends Component {
     };
     this.getData = this.getData.bind(this)
   }
-  getData(dataService) {
-    this.setState({ dataService })
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { dataService } = this.state
+    const { Follow, navigation } = this.props
+    if (dataService !== nextState.dataService || Follow !== nextProps.Follow || navigation !== nextProps.navigation) {
+      return true
+    }
+    return false
+  }
+  getData = (dataService) => {
+    this._isMounted = true;
+    if (this._isMounted) {
+      this.setState({ dataService })
+    }
   }
   render() {
     const { dataService } = this.state

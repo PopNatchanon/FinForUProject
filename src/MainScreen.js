@@ -107,10 +107,9 @@ export default class MainScreen extends React.Component {
                         <Button_Bar navigation={navigation} />
                         <FlashSale navigation={navigation} />
                         <Recommend_Brand navigation={navigation} loadData={dataService.brand} />
-                        <BannerBar_ONE />
+                        <BannerBar_TWO />
                         <Exclusive navigation={navigation} loadData={dataService.exclusive} />
                         <NewStore navigation={navigation} loadData={dataService.dont_miss} />
-                        <BannerBar_TWO />
                         <Highlight navigation={navigation} loadData={dataService.hi_week} />
                         <PromotionPopular navigation={navigation} loadData={dataService.recommend_store} />
                         <Popular_store navigation={navigation} loadData={dataService.store_good} />
@@ -118,9 +117,8 @@ export default class MainScreen extends React.Component {
                             product_hit: dataService.product_hit, best_price: dataService.best_price,
                             best_sale: dataService.best_sale, best_cool: dataService.best_cool
                         }} />
-                        <BannerBar_TWO />
+                        <BannerBar_ONE />
                         <Product_for_you navigation={navigation} loadData={dataService.for_you} />
-                        <BannerBar_TWO />
                         <CategoryProduct navigation={navigation} />
                         <Second_product navigation={navigation} loadData={{
                             product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,

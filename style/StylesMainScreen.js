@@ -429,7 +429,6 @@ export default StyleSheet.create({
   FrameBackgroundTextEnd2: {
     color: '#fff',
     marginRight: 8,
-    marginTop: 4,
   },
   Time_FlashSale_TimeBox: {
     height: 30,
@@ -568,40 +567,36 @@ export default StyleSheet.create({
     marginBottom: -10
   },
   ///------------------------------------------------------------------------------------------///
-  Popular_Box_A: {
-    height: 150,
-    width,
-    flexDirection: 'row',
-    marginTop: 6,
-  },
   Popular_Box_B: {
-    height: 140,
-    width: 200,
+    width: 175,
+    height:140,
     flexDirection: 'column',
-    marginLeft: 10,
-  },
-  Popular_Box_C: {
-    height: 110,
-    width,
-    flexDirection: 'row',
+    marginLeft: 5,
+    marginVertical:5,
+    backgroundColor:'#EDEDED',
+    paddingHorizontal:2,
   },
   Popular_Box_D: {
-    borderColor: '#ECECEC',
-    borderWidth: 1,
-    height: 110,
-    width: 100,
+    marginHorizontal:3,
+    marginTop:5,
+    height: 80,
+    width: 80,
   },
   Popular_image_Box: {
     height: 80,
     width: 80,
-    marginLeft: 10,
+    backgroundColor:'#FFFFFF',
+    borderColor: '#EAEAEA',
+    borderWidth: 1,
+    borderRadius:5,
   },
   PopularText_A: {
-    backgroundColor: '#ECECEC',
+    backgroundColor: '#0A55A6',
     borderColor: '#ECECEC',
     borderWidth: 0.5,
     height: 20,
-    width: 200,
+    width: 100,
+
   },
   Image_icon_top: {
     height: 25,
@@ -669,7 +664,7 @@ export default StyleSheet.create({
     height: 50,
     width: 50,
     borderRadius: 50,
-    borderColor: '#0A55A6',
+    borderColor: '#FFFFFF',
     borderWidth: 2,
     resizeMode: 'stretch',
   },

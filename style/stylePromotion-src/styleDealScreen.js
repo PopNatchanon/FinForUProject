@@ -28,11 +28,10 @@ export default StyleSheet.create({
         margin: 10,
     },
     Button_Bar: {
-        paddingTop: 10,
-        paddingBottom: 10,
+        paddingTop: 5,
+        paddingBottom: 5,
         backgroundColor: '#FFFFFF',
         width: '100%',
-        height: 'auto',
         flexDirection: 'row',
     },
     Button_Bar_Box: {
@@ -41,13 +40,12 @@ export default StyleSheet.create({
         alignContent: 'center',
     },
     Button_Bar_BoxICON: {
-        height: 25,
-        width: 25,
+        height: 50,
+        width: 50,
         backgroundColor: '#C4C4C4',
         borderRadius: 40,
     },
     Button_Bar_BoxText: {
-        marginTop: 5,
         textAlign: 'center',
     },
     BoxText_Row: {

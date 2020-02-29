@@ -563,7 +563,7 @@ export class Help_me extends React.Component {
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>สวัสดีค่ะ คุณ xxxxxxxxx </Text>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>
                             คุณต้องการความช่วยเหลือด้านใดคะ?</Text>
-                        <View style={stylesProfileTopic.Help_me_Textinput}>
+                        <View>
                             <View style={{ flexDirection: 'row', width: '85%', paddingLeft: 10, backgroundColor: '#FFFFFF', borderRadius: 5 }}>
                                 <TextInput style={{ width: '90%' }}
                                     fontSize={15}

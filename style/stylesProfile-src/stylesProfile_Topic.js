@@ -132,7 +132,6 @@ export default StyleSheet.create({
         width: 430,
     },
     Might_like_Store_BoxPro: {
-        height: 'auto',
         width: 95,
         borderColor: '#ECECEC',
         borderWidth: 1,
@@ -312,6 +311,7 @@ export default StyleSheet.create({
         paddingVertical: 5,
     },
     Order_StorePro: {
+        margin:5,
         height: 40,
         width: 40,
         backgroundColor: '#A2A2A2',

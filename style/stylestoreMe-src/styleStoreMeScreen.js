@@ -310,6 +310,12 @@ export default StyleSheet.create({
         paddingLeft: 10
     },
     //   ------------------>
+    StoreMe_Advertisement_PacketTextInput: {
+        flexDirection: 'row',
+        width: '100%', borderColor: '#EAEAEA',
+        borderRadius: 5, borderWidth: 1, 
+    },
+    //   ------------------>
     StoreMe_Statistics: {
         borderBottomColor: '#000000',
         borderBottomWidth: 1,

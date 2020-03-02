@@ -63,38 +63,38 @@ export class Toolbar extends React.Component {
         }
         return (
             <View style={stylesMain.Toolbar}>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('MainScreen')}>
+                <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'MainScreen')}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign style={{ marginLeft: 5, }} name="home" size={25} />
                         <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>Home</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('FeedScreen')}>
+                <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'FeedScreen')}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="tagso" size={25} />
                         <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}> Feed</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('NewsScreen')}>
+                <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'NewsScreen')}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="notification" size={25} />
                         <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>News</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('BellScreen')}>
+                <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'BellScreen')}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="bells" size={25} />
                         <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>เตือน</Text>
                     </View>
                 </TouchableOpacity>
                 {u_name == null ?
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('LoginScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'LoginScreen')}>
                         <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                             <IconAntDesign name="user" size={25} />
                             <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>ฉัน</Text>
                         </View>
                     </TouchableOpacity> :
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('ProfileScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'ProfileScreen')}>
                         <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                             <IconAntDesign name="user" size={25} />
                             <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>
@@ -111,7 +111,7 @@ export class Toolbar extends React.Component {
         )
     }
 }
-///----------------------------------------------------------------------------------------------->>>>
+///----------------------------------------------------------------------------------------------->>>> TabBar
 export class TabBar extends React.Component {
     constructor(props) {
         super(props);
@@ -122,18 +122,13 @@ export class TabBar extends React.Component {
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { currentUser, PassSetValue, pathlist } = this.state
-        const { activeColor, fontColor, item, noSpace, sendData, setVertical, spaceColor, widthBox } = this.props
-        if (currentUser !== nextState.currentUser || PassSetValue !== nextState.PassSetValue || pathlist !== nextState.pathlist || activeColor !== nextProps.activeColor || fontColor !== nextProps.fontColor || item !== nextProps.item || noSpace !== nextProps.noSpace || sendData !== nextProps.sendData || setVertical !== nextProps.setVertical || spaceColor !== nextProps.spaceColor || widthBox !== nextProps.widthBox) {
+        const { activeColor, fontColor, item, noSpace, sendData, setVertical, spaceColor, widthBox, activeWidth, type, radiusBox, activeFontColor, inactiveFontColor, inactiveColor, inactiveBoxColor, direction, alignBox, noLimit, limitBox, SetValue, fontSizeStyle, numberBox, NoSelectTab, tagBottom, numberOfLines, tagBottomColor,
+        } = this.props
+        if (currentUser !== nextState.currentUser || PassSetValue !== nextState.PassSetValue || pathlist !== nextState.pathlist || activeColor !== nextProps.activeColor || fontColor !== nextProps.fontColor || item !== nextProps.item || noSpace !== nextProps.noSpace || sendData !== nextProps.sendData || setVertical !== nextProps.setVertical || spaceColor !== nextProps.spaceColor || widthBox !== nextProps.widthBox || activeWidth !== nextProps.activeWidth || type !== nextProps.type || radiusBox !== nextProps.radiusBox || activeFontColor !== nextProps.activeFontColor || inactiveFontColor !== nextProps.inactiveFontColor || inactiveColor !== nextProps.inactiveColor || inactiveBoxColor !== nextProps.inactiveBoxColor || direction !== nextProps.direction || alignBox !== nextProps.alignBox || noLimit !== nextProps.noLimit || limitBox !== nextProps.limitBox || SetValue !== nextProps.SetValue || fontSizeStyle !== nextProps.fontSizeStyle || numberBox !== nextProps.numberBox || NoSelectTab !== nextProps.NoSelectTab || tagBottom !== nextProps.tagBottom || numberOfLines !== nextProps.numberOfLines || tagBottomColor !== nextProps.tagBottomColor) {
             return true
         }
         return false
     }
-    // setDataItem() {
-    //     const { setData } = this.props
-    //     if (setData.activeSetData < 1) {
-    //         setData.activeSetData = setData.activeSetData + 1
-    //     }
-    // }
     /*
     // v0.9.25022020
     // <TabBar
@@ -170,15 +165,12 @@ export class TabBar extends React.Component {
     // /////|color| กำหนดสีตัวอักษรทั้งหมด
     // fontColor='#fff'
     />*/
-    setStart = () => {
-        const {
-            SetValue,
-        } = this.props;
-        const { PassSetValue } = this.state
-    }
     setSelectTab = (index) => {
-        this.setState({ pathlist: index })
-        this.props.sendData(index)
+        this._isMounted = true;
+        if (this._isMounted) {
+            this.setState({ pathlist: index })
+            this.props.sendData(index)
+        }
     }
     get tab() {
         const {
@@ -189,8 +181,9 @@ export class TabBar extends React.Component {
         const { PassSetValue, pathlist } = this.state
         const countItem = item.length;
         PassSetValue < 1 ?
-            SetValue ?
-                this.setStart :
+            SetValue ? (
+                this.setState({ pathlist: SetValue, PassSetValue: PassSetValue + 1 }),
+                this.props.sendData(SetValue)) :
                 null :
             null
         return item.map((item, index) => {
@@ -411,7 +404,7 @@ export class TabBar extends React.Component {
         )
     }
 }
-///----------------------------------------------------------------------------------------------->>>>
+///----------------------------------------------------------------------------------------------->>>> GetServices
 export class GetServices extends React.Component {
     _isMounted = false;
     constructor(props) {
@@ -457,7 +450,7 @@ export class GetServices extends React.Component {
         return (<View></View>)
     }
 }
-///----------------------------------------------------------------------------------------------->>>>
+///----------------------------------------------------------------------------------------------->>>> GetCoupon
 export class GetCoupon extends React.Component {
     constructor(props) {
         super(props);
@@ -517,6 +510,7 @@ export class GetCoupon extends React.Component {
         )
     }
 }
+///----------------------------------------------------------------------------------------------->>>> ProductBox
 export class ProductBox extends React.Component {
     constructor(props) {
         super(props);
@@ -530,17 +524,12 @@ export class ProductBox extends React.Component {
         }
         return false
     }
-    navigationNavigateScreen = (id_product) => {
-        const { navigation, pointerUrl, pointerid_store, } = this.props
-        navigation.push(
-            pointerUrl,
-            pointerid_store ?
-                { id_item: id_product } :
-                null
-        )
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props
+        navigation.push(value, value2)
     }
     get ProductBoxRender() {
-        const { dataService, dispriceSize, typeip, mode, nameSize, postpath, prepath, priceSize } = this.props
+        const { dataService, dispriceSize, typeip, mode, nameSize, postpath, prepath, priceSize, pointerUrl, pointerid_store } = this.props
         return dataService.map((item, index) => {
             var throughsale = Number(item.full_price) + (item.full_price * 0.5)
             var discount = 55
@@ -561,7 +550,7 @@ export class ProductBox extends React.Component {
                 <TouchableOpacity
                     activeOpacity={1}
                     key={index}
-                    onPress={() => this.navigationNavigateScreen(item.id_product)}
+                    onPress={this.navigationNavigateScreen.bind(this, pointerUrl, pointerid_store ? { id_item: item.id_product } : null)}
                 >
                     <View style={[
                         mode == 'row4col1' ?
@@ -673,6 +662,7 @@ export class ProductBox extends React.Component {
         )
     }
 }
+///----------------------------------------------------------------------------------------------->>>> FeedBox
 export class FeedBox extends React.Component {
     constructor(props) {
         super(props);
@@ -686,14 +676,9 @@ export class FeedBox extends React.Component {
         }
         return false
     }
-    navigationNavigateScreen = (p_id_store) => {
+    navigationNavigateScreen = (value, value2) => {
         const { navigation, } = this.props
-        navigation.push(
-            'StoreScreen',
-            p_id_store ?
-                { id_item: p_id_store } :
-                null
-        )
+        navigation.push(value, value2)
     }
     get FeedBoxRender() {
         const { dataService, Follow, Header, typeip, postpath, prepath } = this.props
@@ -730,7 +715,7 @@ export class FeedBox extends React.Component {
                     {
                         Header ?
                             <View style={stylesMain.BoxProduct4PlusHeader}>
-                                <TouchableOpacity onPress={() => navigationNavigateScreen(item.p_id_store)}>
+                                <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: item.p_id_store })}>
                                     <View style={stylesMain.FlexRow}>
                                         <FastImage
                                             style={stylesMain.BoxProduct4PlusImage}
@@ -809,6 +794,7 @@ export class FeedBox extends React.Component {
         )
     }
 }
+///----------------------------------------------------------------------------------------------->>>> LoadingScreen
 export class LoadingScreen extends React.Component {
     constructor(props) {
         super(props)
@@ -825,7 +811,7 @@ export class LoadingScreen extends React.Component {
                 animationType="fade"
                 transparent={true}
                 visible={this.state.modalVisible}
-                onRequestClose={() => this.setModalVisible(!this.state.modalVisible)}>
+                onRequestClose={this.setModalVisible.bind(!this.state.modalVisible)}>
                 <View style={[stylesMain.ItemCenter, { height, width }]}>
                     <View style={{ height, width, backgroundColor: '#555555', opacity: 0.5, position: 'absolute' }}></View>
                     <View style={[stylesMain.ItemCenterVertical, { height: 80, width: 80, borderRadius: 8, backgroundColor: '#ECECEC' }]}>
@@ -836,6 +822,7 @@ export class LoadingScreen extends React.Component {
         )
     }
 }
+///----------------------------------------------------------------------------------------------->>>> BrowerScreen
 export class BrowerScreen extends React.Component {
     shouldComponentUpdate = (nextProps, nextState) => {
         const { url } = this.props

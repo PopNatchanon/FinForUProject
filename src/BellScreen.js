@@ -1,5 +1,5 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component } from 'react';
+import React from 'react';
 import {
     Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View, PermissionsAndroid,
 } from 'react-native';
@@ -25,7 +25,7 @@ import { GetServices, Toolbar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class BellScreen extends Component {
+export default class BellScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -45,7 +45,7 @@ export default class BellScreen extends Component {
                 <AppBar1 titleHead='การแจ้งเตือน' />
                 <ScrollView>
                     <UploadImage />
-                    <Popular_store />
+                    <Popular_store navigation={navigation} />
                     <Pro_for_U navigation={navigation} />
                     <Update_buy navigation={navigation} />
                 </ScrollView>
@@ -56,7 +56,7 @@ export default class BellScreen extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Popular_store
-export class Popular_store extends Component {
+export class Popular_store extends React.Component {
     _isMounted = false;
     constructor(props) {
         super(props);
@@ -82,9 +82,9 @@ export class Popular_store extends Component {
             this.setState({ dataService })
         }
     }
-    navigationNavigateScreen = (value) => {
+    navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
-        navigation.navigate('StoreScreen', { id_item: value })
+        navigation.navigate(value, value2)
     }
     get dataNewStore() {
         const { dataService } = this.state
@@ -93,7 +93,7 @@ export class Popular_store extends Component {
             var dataMySQL = [ip + '/mysql/uploads/slide/NewStore', item.image].join('/');
             return (
                 <TouchableOpacity activeOpacity={1} key={index}
-                    onPress={() => this.navigationNavigateScreen(item.id_store)}>
+                    onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: item.id_store })}>
                     <View style={stylesMain.BoxStore3Box}>
                         <FastImage
                             source={{
@@ -133,15 +133,15 @@ export class Popular_store extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Pro_for_U
-export class Pro_for_U extends Component {
+export class Pro_for_U extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-    navigationNavigateScreen = () => {
+    navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
-        navigation.navigate('Detail_Pro', { selectedIndex: 0 })
+        navigation.navigate(value, value2)
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation } = this.props
@@ -158,7 +158,7 @@ export class Pro_for_U extends Component {
                         โปรเด็ดที่คัดมาเพื่อคุณ</Text>
                 </View>
                 <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, stylesMain.ItemCenter]}>
-                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen}>
+                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Detail_Pro', { selectedIndex: 0 })}>
                         <View style={stylesMain.BoxStore4Box}>
                             <FastImage
                                 style={stylesMain.BoxStore4Image}
@@ -170,7 +170,7 @@ export class Pro_for_U extends Component {
                                 ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen}>
+                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Detail_Pro', { selectedIndex: 0 })}>
                         <View style={stylesMain.BoxStore4Box}>
                             <FastImage
                                 style={stylesMain.BoxStore4Image}
@@ -182,7 +182,7 @@ export class Pro_for_U extends Component {
                                 ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen}>
+                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Detail_Pro', { selectedIndex: 0 })}>
                         <View style={stylesMain.BoxStore4Box}>
                             <FastImage
                                 style={stylesMain.BoxStore4Image}
@@ -194,7 +194,7 @@ export class Pro_for_U extends Component {
                                 ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen}>
+                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Detail_Pro', { selectedIndex: 0 })}>
                         <View style={stylesMain.BoxStore4Box}>
                             <FastImage
                                 style={stylesMain.BoxStore4Image}
@@ -212,15 +212,15 @@ export class Pro_for_U extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Pro_for_U
-export class Update_buy extends Component {
+export class Update_buy extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-    navigationNavigateScreen = () => {
+    navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
-        navigation.navigate('Detail_Pro', { selectedIndex: 1 })
+        navigation.navigate(value, value2)
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation } = this.props
@@ -237,7 +237,7 @@ export class Update_buy extends Component {
                         อัพเดทคำสั่งซื้อ</Text>
                 </View>
                 <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, stylesMain.ItemCenter]}>
-                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen}>
+                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Detail_Pro', { selectedIndex: 1 })}>
                         <View style={stylesMain.BoxStore4Box}>
                             <FastImage
                                 style={stylesMain.BoxStore4Image}
@@ -285,7 +285,7 @@ export class Update_buy extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Pro_for_U
-export class UploadImage extends Component {
+export class UploadImage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -297,7 +297,6 @@ export class UploadImage extends Component {
         const options = {
         };
         ImagePicker.openPicker(options).then(response => {
-            console.log('Response = ', response);
             // You can also display the image using data:
             // const source = { uri: 'data:image/jpeg;base64,' + response.data };
             avatarSource[index] = response
@@ -310,7 +309,6 @@ export class UploadImage extends Component {
             multiple: true,
         };
         ImagePicker.openPicker(options).then(response => {
-            console.log('Response = ', response);
             // You can also display the image using data:
             // const source = { uri: 'data:image/jpeg;base64,' + response.data };
             response.map((item, index) => index + avatarSource.length <= 7 && avatarSource.push(item))
@@ -319,8 +317,6 @@ export class UploadImage extends Component {
     }
     UploadImageData = () => {
         const { avatarSource } = this.state
-        console.log('avatarSource2222')
-        console.log(avatarSource)
         var uri = [ip, 'sql/uploadimage/updateimage.php'].join('/')
         avatarSource && (
             fetch(uri, {
@@ -341,17 +337,14 @@ export class UploadImage extends Component {
     }
     render() {
         const { avatarSource } = this.state
-        console.log('avatarSource')
-        console.log(avatarSource)
         return (
             <>
                 <ScrollView horizontal>
                     {
                         avatarSource ? [
                             avatarSource.map((item, index) => {
-                                console.log(item)
                                 return (
-                                    <TouchableOpacity onPress={() => this.UploadImageSingle(index)} key={index}>
+                                    <TouchableOpacity onPress={this.UploadImageSingle.bind(this, index)} key={index}>
                                         <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>
                                             <FastImage
                                                 source={{ uri: item.path }}

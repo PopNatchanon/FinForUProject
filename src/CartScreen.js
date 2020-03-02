@@ -1,5 +1,5 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component } from 'react';
+import React from 'react';
 import {
     Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
@@ -22,7 +22,7 @@ import { PopularProduct } from './StoreScreen'
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class CartScreen extends Component {
+export default class CartScreen extends React.Component {
     _isMounted = false;
     constructor(props) {
         super(props);
@@ -74,7 +74,7 @@ export default class CartScreen extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Product_Cart
-export class Product_Cart extends Component {
+export class Product_Cart extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -110,7 +110,7 @@ export class Product_Cart extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> CartProduct
-export class CartProduct extends Component {
+export class CartProduct extends React.Component {
     _isMounted = false;
     constructor(props) {
         super(props);
@@ -373,7 +373,7 @@ export class CartProduct extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Product_Like
-// export class Product_Like extends Component {
+// export class Product_Like extends React.Component {
 //     constructor(props) {
 //         super(props);
 //         this.state = {
@@ -388,7 +388,7 @@ export class CartProduct extends Component {
 //     }
 // }
 ///----------------------------------------------------------------------------------------------->>>> Buy_bar
-export class Buy_bar extends Component {
+export class Buy_bar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -400,6 +400,9 @@ export class Buy_bar extends Component {
         checked = !checked
         this.props.sendData({ checked: checked, num: 0 });
         this.setState({ checked })
+    }
+    navigationNavigateScreen = (value, value2) => {
+        this.props.navigation.navigate(value, value2)
     }
     render() {
         const { itemCount } = this.props;
@@ -451,7 +454,7 @@ export class Buy_bar extends Component {
                             }
                         />
                     </View>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Customer_Order')}>
+                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Customer_Order')}>
                         <View style={stylesCart.BOX_Buy}>
                             <Text style={[
                                 stylesCart.BOX_Buy_Text, stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical

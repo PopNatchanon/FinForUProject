@@ -1,5 +1,5 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component } from 'react';
+import React from 'react';
 import {
     SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
@@ -19,7 +19,7 @@ import { GetServices, ProductBox, } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class CategoryScreen extends Component {
+export default class CategoryScreen extends React.Component {
     _isMounted = false;
     constructor(props) {
         super(props);
@@ -29,6 +29,7 @@ export default class CategoryScreen extends Component {
         };
         this.setSlider = this.setSlider.bind(this)
         this.getData = this.getData.bind(this)
+        this.setStateSliderVisible = this.setStateSliderVisible.bind(this)
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { dataService, sliderVisible } = this.state
@@ -55,7 +56,10 @@ export default class CategoryScreen extends Component {
     }
     setStateSliderVisible = () => {
         const { sliderVisible } = this.state
-        this.setState({ sliderVisible: !sliderVisible })
+        this._isMounted = true;
+        if (this._isMounted) {
+            this.setState({ sliderVisible: !sliderVisible })
+        }
     }
     render() {
         const { dataService, sliderVisible } = this.state
@@ -124,7 +128,7 @@ export default class CategoryScreen extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> SlideTabGet
-export class SlideTabGet extends Component {
+export class SlideTabGet extends React.Component {
     render() {
         const item = [{
             name: 'กระเป๋าสะพายข้าง'
@@ -162,13 +166,18 @@ export class SlideTabGet extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Recommend_Store
-export class Recommend_Store extends Component {
+export class Recommend_Store extends React.Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
             dataService: [],
         };
         this.getData = this.getData.bind(this)
+        this.navigationNavigateScreen = this.navigationNavigateScreen.bind(this)
+    }
+    componentWillUnmount() {
+        this._isMounted = false;
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { dataService } = this.state
@@ -179,18 +188,21 @@ export class Recommend_Store extends Component {
         return false
     }
     getData = (dataService) => {
-        this.setState({ dataService })
+        this._isMounted = true;
+        if (this._isMounted) {
+            this.setState({ dataService })
+        }
     }
-    navigationNavigateScreen = () => {
+    navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
-        navigation.navigate('Recommend_Store')
+        navigation.navigate(value, value2)
     }
     get dataPromotionPopular() {
         const { dataService } = this.state
         return dataService.map((item, index) => {
             var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
             return (
-                <TouchableOpacity onPress={this.navigationNavigateScreen} key={index}>
+                <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Recommend_Store')} key={index}>
                     <View style={stylesMain.BoxStore1Box}>
                         <FastImage
                             source={{
@@ -215,7 +227,7 @@ export class Recommend_Store extends Component {
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         ร้านค้าที่แนะนำ</Text>
-                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen}>
+                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Recommend_Store')}>
                         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
@@ -228,13 +240,17 @@ export class Recommend_Store extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Product_Brand
-export class Product_Brand extends Component {
+export class Product_Brand extends React.Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
             dataService: [],
         };
         this.getData = this.getData.bind(this)
+    }
+    componentWillUnmount() {
+        this._isMounted = false;
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { dataService } = this.state
@@ -245,7 +261,10 @@ export class Product_Brand extends Component {
         return false
     }
     getData = (dataService) => {
-        this.setState({ dataService })
+        this._isMounted = true;
+        if (this._isMounted) {
+            this.setState({ dataService })
+        }
     }
     render() {
         const { dataService } = this.state

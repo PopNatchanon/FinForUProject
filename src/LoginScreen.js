@@ -26,6 +26,13 @@ export default class LoginScreen extends Component {
     this.state = {
     };
   }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { navigation } = this.props
+    if (navigation !== nextProps.navigation) {
+      return true
+    }
+    return false
+  }
   render() {
     const { navigation } = this.props
     return (
@@ -65,11 +72,8 @@ export class Login extends Component {
     super(props);
     this.state = {
       user: {},
+      eye: true,
     }
-    this.EmailInput = this.EmailInput.bind(this);
-    this.PassInput = this.PassInput.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.getData = this.getData.bind(this);
   }
   storeData = async (item) => {
     try {
@@ -84,6 +88,10 @@ export class Login extends Component {
     } catch (e) {
       // clear error
     }
+  }
+  navigationNavigateScreen = (value, value2) => {
+    const { navigation } = this.props
+    navigation.replace(value, value2)
   }
   getData = async () => {
     const { user } = this.state;
@@ -108,12 +116,12 @@ export class Login extends Component {
           userser.gender = item.gender
           userser.address = item.address
         })
-        this.clearAll()
-        this.storeData(userser)
+        this.clearAll.bind(this)
+        this.storeData.bind(this, userser)
         if (userser.address != null) {
-          this.props.navigation.replace('MainScreen');
+          this.navigationNavigateScreen.bind('MainScreen');
         } else {
-          this.props.navigation.replace('MainScreen');
+          this.navigationNavigateScreen.bind('MainScreen');
         }
       })
       .catch((error) => {
@@ -133,6 +141,9 @@ export class Login extends Component {
     user.password = event;
     this.setState({ user });
   }
+  setStateEye = (eye) => {
+    this.setState({ eye })
+  }
   render() {
     const { user, eye } = this.state;
     return (
@@ -140,7 +151,7 @@ export class Login extends Component {
         <View style={stylesLogin.Login_BoxA}>
           <Form
             ref="form"
-            onSubmit={this.getData}
+            onSubmit={this.getData.bind(this)}
           >
             <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
               อีเมล</Text>
@@ -152,7 +163,7 @@ export class Login extends Component {
               type="text"
               keyboardType="email-address"
               value={user.email}
-              onChangeText={this.EmailInput}
+              onChangeText={this.EmailInput.bind(this)}
               style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
               errorStyle={{
                 container: {
@@ -176,8 +187,8 @@ export class Login extends Component {
               type="text"
               value={user.password}
               // maxLength={6}
-              secureTextEntry={eye == false ? false : true}
-              onChangeText={this.PassInput}
+              secureTextEntry={eye}
+              onChangeText={this.PassInput.bind(this)}
               style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
               errorStyle={{
                 container: {
@@ -193,7 +204,7 @@ export class Login extends Component {
               }}
             />
             <TouchableOpacity style={stylesLogin.eyestyle}
-              onPress={() => { eye == false ? this.setState({ eye: true }) : this.setState({ eye: false }) }}>
+              onPress={this.setStateEye.bind(!eye)}>
               <View>
                 <IconFeather RightItem name={eye == false ? "eye" : "eye-off"} size={20} style={{ marginTop: 5 }} />
               </View>
@@ -203,7 +214,7 @@ export class Login extends Component {
                 ลืมรหัสผ่าน?</Text>
             </View>
             <View style={[stylesMain.ItemCenter]}>
-              <TouchableOpacity onPress={this.handleSubmit}>
+              <TouchableOpacity onPress={this.handleSubmit.bind(this)}>
                 <View style={[stylesLogin.Login_Box_Text_B, stylesMain.ItemCenter]}>
                   <Text style={[stylesLogin.Login__Text, stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical]}
                   >เข้าสู่ระบบ</Text>
@@ -223,11 +234,15 @@ export class Register extends Component {
     this.state = {
     };
   }
+  navigationNavigateScreen = (value, value2) => {
+    const { navigation } = this.props
+    navigation.navigate(value, value2)
+  }
   render() {
     return (
       <View style={stylesLogin.Register_Box}>
         <View style={stylesLogin.Register_Box_A}>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('RegisterScreen')}>
+          <TouchableOpacity onPress={this.navigationNavigateScreen.bind('RegisterScreen')}>
             <View><Text style={[stylesLogin.Register_Box_TextA, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
               สร้างบัญชี</Text>
             </View>

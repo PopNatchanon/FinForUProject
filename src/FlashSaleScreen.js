@@ -29,13 +29,14 @@ export default class FlashSaleScreen extends Component {
         };
     }
     render() {
+        const { scrollY } = this.state
         const { navigation } = this.props
-        const marginTopFlashsale = this.state.scrollY.interpolate({
+        const marginTopFlashsale = scrollY.interpolate({
             inputRange: [145, 155],
             outputRange: [10, 0],
             extrapolate: 'clamp',
         })
-        const marginTopTime = this.state.scrollY.interpolate({
+        const marginTopTime = scrollY.interpolate({
             inputRange: [155, 180],
             outputRange: [0, -56],
             extrapolate: 'clamp',
@@ -48,7 +49,7 @@ export default class FlashSaleScreen extends Component {
                     scrollEventThrottle={8}
                     onScroll={
                         Animated.event([{
-                            nativeEvent: { contentOffset: { y: this.state.scrollY } }
+                            nativeEvent: { contentOffset: { y: scrollY } }
                         }])
                     }
                 >
@@ -79,9 +80,14 @@ export class Time_FlashSale extends Component {
             selectedIndex: 0,
             selectedIndex2: 0,
         }
-        this.updateIndex = this.updateIndex.bind(this)
-        this.updateIndex2 = this.updateIndex2.bind(this)
-        this.getData = this.getData.bind(this)
+    }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { dataService } = this.state
+        const { marginTopFlashsale, marginTopTime } = this.props
+        if (dataService !== nextState.dataService || marginTopFlashsale !== nextProps.marginTopFlashsale || marginTopTime !== nextProps.marginTopTime) {
+            return true
+        }
+        return false
     }
     getData(dataService) {
         this.setState({ dataService })
@@ -117,7 +123,7 @@ export class Time_FlashSale extends Component {
             <Animatable.View elevation={1} style={[stylesMain.FrameBackground, stylesMain.FlexRow, {
                 marginTop: marginTopFlashsale, marginBottom: marginTopTime,
             }]}>
-                <GetServices uriPointer={uri} getDataSource={this.getData} />
+                <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} />
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>FLASH SALE</Text>
                 <IconMaterialIcons name='access-time' size={25} style={{ marginLeft: 10, }} />
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 3 }]}>จบใน</Text>
@@ -127,7 +133,7 @@ export class Time_FlashSale extends Component {
             </Animatable.View>,
             <Animatable.View style={[stylesTopic.FlashSale_Tag, { paddingBottom: 0 }]}>
                 <TabBar
-                    sendData={this.updateIndex}
+                    sendData={this.updateIndex.bind(this)}
                     item={item}
                     // widthBox={98}
                     activeColor={'#fff'}
@@ -140,7 +146,7 @@ export class Time_FlashSale extends Component {
                 <ScrollView horizontal>
                     <TabBar
                         inactiveColor='#0A55A6'
-                        sendData={this.updateIndex2}
+                        sendData={this.updateIndex2.bind(this)}
                         item={item2}
                         numberOfLines={1}
                         radiusBox={4}
@@ -159,12 +165,22 @@ export class FlashSale_Product extends Component {
         this.state = {
         };
     }
-    render() {
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { navigation } = this.props;
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
+    navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
+        navigation.navigate(value, value2)
+    }
+    render() {
         return (
             <View style={stylesTopic.FlashSale_Product}>
                 <View style={[stylesTopic.FlashSale_ProductBox, { flex: 1 }]}>
-                    <TouchableOpacity onPress={() => navigation.navigate('DetailScreen', { id_item: 123 })}>
+                    <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'DetailScreen', { id_item: 123 })}>
                         <View style={stylesTopic.FlashSale_ProductBox_Image}>
                             <FastImage
                                 style={stylesTopic.Image}
@@ -175,14 +191,14 @@ export class FlashSale_Product extends Component {
                         </View>
                     </TouchableOpacity>
                     <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'space-between' }}>
-                        <TouchableOpacity onPress={() => navigation.navigate('DetailScreen', { id_item: 123 })}>
+                        <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'DetailScreen', { id_item: 123 })}>
                             <View style={{ width: '100%' }}>
                                 <Text numberOfLines={4} style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10 }]}>
                                     ห้องพัก Deluxe Pool Villa </Text>
                             </View>
                         </TouchableOpacity>
                         <View style={{ width: 40, justifyContent: 'flex-end' }}>
-                            <TouchableOpacity onPress={() => navigation.navigate('CartScreen')}>
+                            <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'CartScreen')}>
                                 <View style={[stylesTopic.FlashSale_ProductBox_Icon]}>
                                     <IconAntDesign RightItem name="shoppingcart" size={30} color='#FFFFFF' />
                                 </View>

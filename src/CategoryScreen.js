@@ -20,16 +20,12 @@ import { GetServices, ProductBox, } from './tools/Tools';
 import { finip, ip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class CategoryScreen extends React.Component {
-    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
             sliderVisible: false,
             dataService: [],
         };
-        this.setSlider = this.setSlider.bind(this)
-        this.getData = this.getData.bind(this)
-        this.setStateSliderVisible = this.setStateSliderVisible.bind(this)
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { dataService, sliderVisible } = this.state
@@ -39,27 +35,15 @@ export default class CategoryScreen extends React.Component {
         }
         return false
     }
-    componentWillUnmount() {
-        this._isMounted = false;
-    }
     getData = (dataService) => {
-        this._isMounted = true;
-        if (this._isMounted) {
             this.setState({ dataService })
-        }
     }
     setSlider = (sliderVisible) => {
-        this._isMounted = true;
-        if (this._isMounted) {
             this.setState({ sliderVisible })
-        }
     }
     setStateSliderVisible = () => {
         const { sliderVisible } = this.state
-        this._isMounted = true;
-        if (this._isMounted) {
             this.setState({ sliderVisible: !sliderVisible })
-        }
     }
     render() {
         const { dataService, sliderVisible } = this.state
@@ -70,7 +54,7 @@ export default class CategoryScreen extends React.Component {
         };
         return (
             <SafeAreaView style={[stylesMain.SafeAreaView]}>
-                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
                 <AppBar leftBar='backarrow' navigation={navigation} />
                 <ScrollView stickyHeaderIndices={[5]}>
                     <Slide />
@@ -78,7 +62,7 @@ export default class CategoryScreen extends React.Component {
                     <Product_Brand navigation={navigation} />
                     <BannerBar_TWO />
                     <View style={{ marginBottom: 10 }}></View>
-                    <Button_Bar setSliderVisible={this.setSlider} getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
+                    <Button_Bar setSliderVisible={this.setSlider.bind(this)} getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
                     {
                         dataService &&
                         <TodayProduct noTitle navigation={navigation} loadData={dataService} typeip prepath='mysql' />
@@ -94,12 +78,12 @@ export default class CategoryScreen extends React.Component {
                         width: '100%'
                     }}
                     position="right"
-                    changeVisibilityCallback={this.setStateSliderVisible}
+                    changeVisibilityCallback={this.setStateSliderVisible.bind(this)}
                 >
                     <View style={stylesMain.FlexRow}>
                         <TouchableOpacity
                             activeOpacity={1}
-                            onPress={this.setStateSliderVisible}
+                            onPress={this.setStateSliderVisible.bind(this)}
                         >
                             <View style={stylesTopic.BackgroundLeft}></View>
                         </TouchableOpacity>
@@ -167,17 +151,11 @@ export class SlideTabGet extends React.Component {
 }
 ///----------------------------------------------------------------------------------------------->>>> Recommend_Store
 export class Recommend_Store extends React.Component {
-    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
             dataService: [],
         };
-        this.getData = this.getData.bind(this)
-        this.navigationNavigateScreen = this.navigationNavigateScreen.bind(this)
-    }
-    componentWillUnmount() {
-        this._isMounted = false;
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { dataService } = this.state
@@ -188,10 +166,7 @@ export class Recommend_Store extends React.Component {
         return false
     }
     getData = (dataService) => {
-        this._isMounted = true;
-        if (this._isMounted) {
             this.setState({ dataService })
-        }
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
@@ -223,7 +198,7 @@ export class Recommend_Store extends React.Component {
         };
         return (
             <View style={stylesMain.FrameBackground}>
-                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={getData.bind(this)} />
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         ร้านค้าที่แนะนำ</Text>
@@ -241,16 +216,11 @@ export class Recommend_Store extends React.Component {
 }
 ///----------------------------------------------------------------------------------------------->>>> Product_Brand
 export class Product_Brand extends React.Component {
-    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
             dataService: [],
         };
-        this.getData = this.getData.bind(this)
-    }
-    componentWillUnmount() {
-        this._isMounted = false;
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { dataService } = this.state
@@ -261,10 +231,7 @@ export class Product_Brand extends React.Component {
         return false
     }
     getData = (dataService) => {
-        this._isMounted = true;
-        if (this._isMounted) {
             this.setState({ dataService })
-        }
     }
     render() {
         const { dataService } = this.state
@@ -275,7 +242,7 @@ export class Product_Brand extends React.Component {
         };
         return (
             <View style={stylesMain.FrameBackground}>
-                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         สินค้าแบรนด์ดัง
@@ -283,11 +250,10 @@ export class Product_Brand extends React.Component {
                 </View>
                 <ScrollView horizontal>
                     {
-                        dataService ?
-                            <ProductBox dataService={dataService} navigation={navigation} typeip='ip' mode='row3col1' prepath='mysql'
-                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                            /> :
-                            null
+                        dataService &&
+                        <ProductBox dataService={dataService} navigation={navigation} typeip='ip' mode='row3col1' prepath='mysql'
+                            pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
+                        />
                     }
                 </ScrollView>
             </View>

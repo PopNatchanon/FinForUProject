@@ -23,7 +23,6 @@ import NumberFormat from 'react-number-format';
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Toolbar
 export class Toolbar extends React.Component {
-    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -39,17 +38,11 @@ export class Toolbar extends React.Component {
         return false
     }
     getDataasync = async () => {
-        this._isMounted = true;
-        if (this._isMounted) {
-            const currentUser = await AsyncStorage.getItem('@MyKey')
+        const currentUser = await AsyncStorage.getItem('@MyKey')
             this.setState({ currentUser: JSON.parse(currentUser) })
-        }
     }
     componentDidMount() {
         this.getDataasync()
-    }
-    componentWillUnmount() {
-        this._isMounted = false;
     }
     navigationNavigateScreen = (value) => {
         const { navigation } = this.props
@@ -165,11 +158,12 @@ export class TabBar extends React.Component {
     // /////|color| กำหนดสีตัวอักษรทั้งหมด
     // fontColor='#fff'
     />*/
-    setSelectTab = (index) => {
+    setSelectTab = (pathlist, PassSetValue) => {
         this._isMounted = true;
+        const { sendData } = this.props
         if (this._isMounted) {
-            this.setState({ pathlist: index })
-            this.props.sendData(index)
+            this.setState({ pathlist, PassSetValue })
+            sendData(pathlist)
         }
     }
     get tab() {
@@ -180,25 +174,22 @@ export class TabBar extends React.Component {
         } = this.props;
         const { PassSetValue, pathlist } = this.state
         const countItem = item.length;
-        PassSetValue < 1 ?
-            SetValue ? (
-                this.setState({ pathlist: SetValue, PassSetValue: PassSetValue + 1 }),
-                this.props.sendData(SetValue)) :
-                null :
-            null
+        PassSetValue < 1 &&
+            SetValue &&
+            this.setSelectTab.bind(SetValue, PassSetValue + 1)
         return item.map((item, index) => {
             return (
                 <TouchableOpacity key={index} activeOpacity={
                     type == 'box' ?
                         0.2 :
                         1
-                } onPress={() => {
+                } onPress={
                     NoSelectTab ?
                         pathlist == index ?
-                            this.setSelectTab(-1) :
-                            this.setSelectTab(index) :
-                        this.setSelectTab(index);
-                }}>
+                            this.setSelectTab.bind(this, -1) :
+                            this.setSelectTab.bind(this, index) :
+                        this.setSelectTab.bind(this, index)
+                }>
                     {
                         pathlist == index ?
                             <View style={[
@@ -330,36 +321,34 @@ export class TabBar extends React.Component {
                                 </View>
                             </View>
                     }{
-                        item.subname ?
+                        item.subname &&
+                        <View style={[stylesMain.ItemCenter, { width: '100%' }]}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, {
+                                borderBottomColor: tagBottom ? pathlist == index ? tagBottom : tagBottomColor ? tagBottomColor : '#fff' : null,
+                                borderBottomWidth: tagBottom ? 4 : null,
+                                width: '90%', textAlign: 'center'
+                            }]}>
+                                {item.subname}
+                            </Text>
+                        </View>
+                    }{
+                        tagBottomColor &&
+                            item.subname ?
+                            null :
                             <View style={[stylesMain.ItemCenter, { width: '100%' }]}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, {
-                                    borderBottomColor: tagBottom ? pathlist == index ? tagBottom : tagBottomColor ? tagBottomColor : '#fff' : null,
+                                <View style={[{
+                                    borderBottomColor:
+                                        tagBottom ?
+                                            pathlist == index ?
+                                                tagBottomColor ?
+                                                    tagBottomColor :
+                                                    '#0A55A6' :
+                                                '#fff' :
+                                            null,
                                     borderBottomWidth: tagBottom ? 4 : null,
                                     width: '90%', textAlign: 'center'
-                                }]}>
-                                    {item.subname}
-                                </Text>
-                            </View> :
-                            null
-                    }{
-                        tagBottomColor ?
-                            item.subname ?
-                                null :
-                                <View style={[stylesMain.ItemCenter, { width: '100%' }]}>
-                                    <View style={[{
-                                        borderBottomColor:
-                                            tagBottom ?
-                                                pathlist == index ?
-                                                    tagBottomColor ?
-                                                        tagBottomColor :
-                                                        '#0A55A6' :
-                                                    '#fff' :
-                                                null,
-                                        borderBottomWidth: tagBottom ? 4 : null,
-                                        width: '90%', textAlign: 'center'
-                                    }]}></View>
-                                </View> :
-                            null
+                                }]}></View>
+                            </View>
                     }
                 </TouchableOpacity>
             )
@@ -406,7 +395,6 @@ export class TabBar extends React.Component {
 }
 ///----------------------------------------------------------------------------------------------->>>> GetServices
 export class GetServices extends React.Component {
-    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -421,7 +409,7 @@ export class GetServices extends React.Component {
     }
     getDataSource = async () => {
         this._isMounted = true;
-        const { dataBody, uriPointer } = this.props
+        const { dataBody, uriPointer, getDataSource } = this.props
         fetch(uriPointer, {
             method: 'POST',
             headers: {
@@ -432,9 +420,7 @@ export class GetServices extends React.Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                if (this._isMounted) {
-                    this.props.getDataSource(responseJson);
-                }
+                    getDataSource(responseJson);
             })
             .catch((error) => {
                 console.error(error);
@@ -442,9 +428,6 @@ export class GetServices extends React.Component {
     }
     componentDidMount() {
         this.getDataSource()
-    }
-    componentWillUnmount() {
-        this._isMounted = false;
     }
     render() {
         return (<View></View>)
@@ -487,19 +470,18 @@ export class GetCoupon extends React.Component {
                     </View>
                 </View>
                 {
-                    codeList != 'available' ?
-                        <View style={{ backgroundColor: '#C1C1C1', opacity: 0.7, width: 169, height: 68 }}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical, {
-                                color: '#fff', textAlign: 'center'
-                            }]}>
-                                {
-                                    codeList == 'usedCode' ?
-                                        'ใช้แล้ว' :
-                                        'หมดอายุ'
-                                }
-                            </Text>
-                        </View> :
-                        null
+                    codeList != 'available' &&
+                    <View style={{ backgroundColor: '#C1C1C1', opacity: 0.7, width: 169, height: 68 }}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical, {
+                            color: '#fff', textAlign: 'center'
+                        }]}>
+                            {
+                                codeList == 'usedCode' ?
+                                    'ใช้แล้ว' :
+                                    'หมดอายุ'
+                            }
+                        </Text>
+                    </View>
                 }
             </View>
         )
@@ -713,36 +695,35 @@ export class FeedBox extends React.Component {
             return (
                 <View style={stylesMain.BoxProduct4Box} key={index}>
                     {
-                        Header ?
-                            <View style={stylesMain.BoxProduct4PlusHeader}>
-                                <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: item.p_id_store })}>
-                                    <View style={stylesMain.FlexRow}>
-                                        <FastImage
-                                            style={stylesMain.BoxProduct4PlusImage}
-                                            source={{
-                                                uri: dataMySQL_s,
-                                            }}
-                                        />
-                                        <Text style={[
-                                            stylesMain.BoxProduct4PlusImageText, stylesFont.FontFamilyBold, stylesFont.FontSize5
-                                        ]}>
-                                            {item.s_name}</Text>
-                                    </View>
-                                </TouchableOpacity>
-                                <View style={stylesMain.BoxProduct4PlusButtonBox}>
-                                    {Follow ?
-                                        null :
-                                        <View style={stylesMain.BoxProduct4PlusButtonFollow}>
-                                            <Text style={[
-                                                stylesMain.BoxProduct4PlusButtonFollowText, stylesFont.FontFamilyText, stylesFont.FontSize6
-                                            ]}>
-                                                ติดตาม</Text>
-                                        </View>
-                                    }
-                                    <IconEntypo name='dots-three-vertical' size={25} />
+                        Header &&
+                        <View style={stylesMain.BoxProduct4PlusHeader}>
+                            <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: item.p_id_store })}>
+                                <View style={stylesMain.FlexRow}>
+                                    <FastImage
+                                        style={stylesMain.BoxProduct4PlusImage}
+                                        source={{
+                                            uri: dataMySQL_s,
+                                        }}
+                                    />
+                                    <Text style={[
+                                        stylesMain.BoxProduct4PlusImageText, stylesFont.FontFamilyBold, stylesFont.FontSize5
+                                    ]}>
+                                        {item.s_name}</Text>
                                 </View>
-                            </View> :
-                            null
+                            </TouchableOpacity>
+                            <View style={stylesMain.BoxProduct4PlusButtonBox}>
+                                {Follow ?
+                                    null :
+                                    <View style={stylesMain.BoxProduct4PlusButtonFollow}>
+                                        <Text style={[
+                                            stylesMain.BoxProduct4PlusButtonFollowText, stylesFont.FontFamilyText, stylesFont.FontSize6
+                                        ]}>
+                                            ติดตาม</Text>
+                                    </View>
+                                }
+                                <IconEntypo name='dots-three-vertical' size={25} />
+                            </View>
+                        </View>
                     }
                     <View>
                         <View style={[stylesMain.ItemCenter, { width: '100%' }]}>
@@ -811,7 +792,7 @@ export class LoadingScreen extends React.Component {
                 animationType="fade"
                 transparent={true}
                 visible={this.state.modalVisible}
-                onRequestClose={this.setModalVisible.bind(!this.state.modalVisible)}>
+                onRequestClose={this.setModalVisible.bind(this, !this.state.modalVisible)}>
                 <View style={[stylesMain.ItemCenter, { height, width }]}>
                     <View style={{ height, width, backgroundColor: '#555555', opacity: 0.5, position: 'absolute' }}></View>
                     <View style={[stylesMain.ItemCenterVertical, { height: 80, width: 80, borderRadius: 8, backgroundColor: '#ECECEC' }]}>

@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React from 'react';
 import {
-  Animated, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, Modal
+  Animated, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, Modal, Image
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import * as Animatable from 'react-native-animatable';
@@ -29,7 +29,6 @@ import { GetServices, ProductBox, GetCoupon, TabBar } from './tools/Tools';
 import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class DetailScreen extends React.Component {
-  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -37,12 +36,6 @@ export default class DetailScreen extends React.Component {
       scrollY: new Animated.Value(0),
       setActive: true,
     };
-    this.getData = this.getData.bind(this)
-    this.showImage = this.showImage.bind(this)
-    this.setShowImage = this.setShowImage.bind(this)
-  }
-  componentWillUnmount() {
-    this._isMounted = false;
   }
   shouldComponentUpdate = (nextProps, nextState) => {
     const { activeSlide, dataService, scrollY, setActive, setShowItemImage, showItemImage } = this.state
@@ -53,39 +46,36 @@ export default class DetailScreen extends React.Component {
     return false
   }
   showImage = (showItemImage) => {
-    this._isMounted = true;
-    if (this._isMounted) {
+      console.log('showItemImage')
+      console.log(showItemImage)
       this.setState({ showItemImage })
-    }
   }
   getData = (dataService) => {
-    this._isMounted = true;
-    if (this._isMounted) {
       this.setState({ dataService })
-    }
   }
   setShowImage = (setShowItemImage) => {
-    this._isMounted = true;
-    if (this._isMounted) {
       this.setState({ setShowItemImage, setActive: false })
-    }
   }
   render() {
-    const { dataService, showItemImage, setShowItemImage, setActive } = this.state
+    const { dataService, showItemImage, setShowItemImage, setActive, scrollY } = this.state
     const { navigation } = this.props
     var id_product = navigation.getParam('id_item')
     var uri = finip + '/product/product_deatil_mobile';
     var dataBody = {
       id_product: id_product
     };
+    console.log('render')
+    console.log('showItemImage')
+    console.log(showItemImage)
+    console.log('setShowItemImage')
+    console.log(setShowItemImage)
     return (
       <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
         {
-          showItemImage == true ?
-            <Show_Image showImage={this.showImage} setShowItemImage={setShowItemImage} /> :
-            null
+          showItemImage == true &&
+          <Show_Image showImage={this.showImage.bind(this)} setShowItemImage={setShowItemImage} />
         }
-        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
         <Animatable.View style={{ height: 50, }}>
           <View style={{
             position: 'relative',
@@ -102,12 +92,12 @@ export default class DetailScreen extends React.Component {
           scrollEventThrottle={16}
           onScroll={
             Animated.event([{
-              nativeEvent: { contentOffset: { y: this.state.scrollY } }
+              nativeEvent: { contentOffset: { y: scrollY } }
             }])
           }
         >
           {/* <View style={{ marginTop: -50 }}></View> */}
-          <Detail_Image dataService={dataService} navigation={navigation} showImage={this.showImage} setShowImage={this.setShowImage}
+          <Detail_Image dataService={dataService} navigation={navigation} showImage={this.showImage.bind(this)} setShowImage={this.setShowImage.bind(this)}
             setActive={setActive} />
           <Detail_Data dataService={dataService} navigation={navigation} />
           <Store dataService={dataService} navigation={navigation} />
@@ -121,7 +111,7 @@ export default class DetailScreen extends React.Component {
           <Similar_Product dataService={dataService} navigation={navigation} />
           <Might_like dataService={dataService} navigation={navigation} />
         </ScrollView>
-        <Buy_bar navigation={navigation} />
+        <Buy_bar navigation={navigation} dataService={dataService} />
         <ExitAppModule navigation={navigation} />
       </SafeAreaView>
     );
@@ -129,7 +119,6 @@ export default class DetailScreen extends React.Component {
 }
 ///----------------------------------------------------------------------------------------------->>>> Detail_Image
 export class Detail_Image extends React.Component {
-  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -137,7 +126,6 @@ export class Detail_Image extends React.Component {
       imageLength: 1,
       imageLengthActive: 0,
     };
-    this.sendShowImage = this.sendShowImage.bind(this)
   }
   shouldComponentUpdate = (nextProps, nextState) => {
     const { activeSlide, imageLength, imageLengthActive } = this.state
@@ -146,9 +134,6 @@ export class Detail_Image extends React.Component {
       return true
     }
     return false
-  }
-  componentWillUnmount() {
-    this._isMounted = false;
   }
   setStateImageLength = (length) => {
     this._isMounted = true;
@@ -160,9 +145,8 @@ export class Detail_Image extends React.Component {
     const { imageLengthActive } = this.state
     const image = {} = gallery_image.split(';')
     const length = image.length
-    imageLengthActive == 0 ?
-      this.setStateImageLength(length) :
-      null
+    imageLengthActive == 0 &&
+      this.setStateImageLength.bind(this, length)
     var count = 0
     var myJSON = new Array()
     var item
@@ -174,12 +158,13 @@ export class Detail_Image extends React.Component {
     return myJSON
   }
   sendShowImage = () => {
-    this.props.showImage(true)
+    const { showImage } = this.props
+    showImage(true)
   }
   _renderItem = ({ item, index }) => {
     var dataMySQL = [finip, item.image_full_path, item.image].join('/');
     return (
-      <TouchableOpacity activeOpacity={1} onPress={this.sendShowImage} >
+      <TouchableOpacity activeOpacity={1} onPress={this.sendShowImage.bind(this)} >
         <View style={{ width: width * 1, height: width * 1, /*backgroundColor: '#d9d9d9'*/ }}>
           <FastImage
             source={{
@@ -194,26 +179,19 @@ export class Detail_Image extends React.Component {
     );
   }
   setStateActiveSlide = (index) => {
-    this._isMounted = true;
-    if (this._isMounted) {
       this.setState({ activeSlide: index })
-    }
   }
   get id_product() {
     const { activeSlide, imageLength, } = this.state;
-    const { dataService, setActive, } = this.props;
+    const { dataService, setActive, setShowImage } = this.props;
     return dataService.map((item, index) => {
       let dataMySQL
       item.gallery_image ?
-        dataMySQL = this.imageGallery(item.image_full_path, item.gallery_image) :
+        dataMySQL = this.imageGallery.bind(this, item.image_full_path, item.gallery_image) :
         dataMySQL = dataService;
-      dataMySQL ?
-        setActive == true ?
-          [
-            this.props.setShowImage(dataMySQL)
-          ] :
-          null :
-        null
+      dataMySQL &&
+        setActive == true &&
+        setShowImage(dataMySQL)
       return (
         <View style={[stylesMain.FrameBackground2, { marginTop: 0, borderTopWidth: 0 }]} key={index}>
           <View>
@@ -317,17 +295,22 @@ export class Store extends React.Component {
     }
   }
   shouldComponentUpdate = (nextProps, nextState) => {
+    const { ImageStore } = this.state
     const { dataService, navigation } = this.props
-    if (dataService !== nextProps.dataService || navigation !== nextProps.navigation) {
+    if (ImageStore !== nextState.ImageStore || dataService !== nextProps.dataService || navigation !== nextProps.navigation) {
       return true
     }
     return false
+  }
+  LoadingStore = (ImageStore) => {
+      this.setState({ ImageStore })
   }
   navigationNavigateScreen = (value, value2) => {
     const { navigation } = this.props
     navigation.navigate(value, value2)
   }
   get id_store() {
+    const { ImageStore } = this.state
     const { dataService } = this.props
     return dataService.map((item, index) => {
       var dataMySQL = [finip, item.store_path, item.store_img].join('/');
@@ -340,8 +323,9 @@ export class Store extends React.Component {
                   source={{
                     uri: dataMySQL,
                   }}
-                  style={[stylesDetail.Store_Image, { marginLeft: 10, }]}
-                />
+                  onError={this.LoadingStore.bind(this, false)}
+                  onLoad={this.LoadingStore.bind(this, true)}
+                  style={[stylesDetail.Store_Image, { marginLeft: 10, backgroundColor: ImageStore == true ? 'transparent' : '#959595' }]} />
               </TouchableOpacity>
               <View style={stylesDetail.Store_Text_Box}>
                 <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: item.id_store })}>
@@ -403,7 +387,7 @@ export class Conpon extends React.Component {
     this.state = {
     };
   }
-  ConponSheetBody() {
+  get ConponSheetBody() {
     return (
       <>
         <View style={{ flex: 1, paddingHorizontal: 15 }}>
@@ -437,7 +421,7 @@ export class Conpon extends React.Component {
             }
           }}
         >
-          {this.ConponSheetBody()}
+          {this.ConponSheetBody}
         </BottomSheet>
         <View style={stylesDetail.Coupon}>
           <TouchableOpacity activeOpacity={1} onPress={() => { this.ConponSheet.open(); }}>
@@ -470,16 +454,26 @@ export class Selector extends React.Component {
       itemCount: 1,
       selectedIndex: 0,
     };
-    this.updateIndex = this.updateIndex.bind(this)
   }
-  updateIndex(selectedIndex) {
-    this.setState({ selectedIndex })
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { itemCount, selectedIndex } = this.state
+    const { dataService } = this.props
+    if (itemCount !== nextState.itemCount || selectedIndex !== nextState.selectedIndex || dataService !== nextProps.dataService) {
+      return true
+    }
+    return false
+  }
+  updateIndex = (selectedIndex) => {
+      this.setState({ selectedIndex })
+  }
+  setStateItemCount = (value) => {
+      this.setState({ itemCount: value * 1 })
   }
   dataItem(item) {
     return (
       <View style={[stylesMain.FlexRow, { width: '100%', flexWrap: 'wrap', alignItems: 'center' }]}>
         <TabBar
-          sendData={this.updateIndex}
+          sendData={this.updateIndex.bind(this)}
           item={item}
           type='box'
           noLimit
@@ -489,7 +483,7 @@ export class Selector extends React.Component {
       </View>
     )
   }
-  SelectorSheetBody() {
+  get SelectorSheetBody() {
     const items = [{
       name: 'สีดำ'
     }, {
@@ -539,11 +533,7 @@ export class Selector extends React.Component {
           <View style={{ alignItems: 'center' }}>
             <View style={{ flexDirection: 'row', width: '90%', }}>
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>จำนวน</Text>
-              <TouchableOpacity onPress={() => {
-                if (itemCount > 1) {
-                  this.setState({ itemCount: itemCount - 1 })
-                }
-              }}>
+              <TouchableOpacity onPress={this.setStateItemCount.bind(this, itemCount - 1)}>
                 <View style={[stylesMain.ItemCenter, stylesDetail.Selector_BottomSheet_itemCount, { borderTopLeftRadius: 5, borderBottomLeftRadius: 5, }]}>
                   <Text style={[stylesMain.ItemCenterVertical]}>
                     -</Text>
@@ -551,14 +541,12 @@ export class Selector extends React.Component {
               </TouchableOpacity>
               <View style={[stylesMain.ItemCenter, stylesFont.FontFamilyText, stylesDetail.Selector_BottomSheet_itemCount_TextInput]}>
                 <TextInput style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]} keyboardType={'numeric'}
-                  maxLength={6}
-                  onChangeText={(value) => { value > 0 ? this.setState({ itemCount: value * 1 }) : this.setState({ itemCount: 1 }) }}>
+                  maxLength={6} min={1}
+                  onChangeText={this.setStateItemCount.bind(this)}>
                   {itemCount}
                 </TextInput>
               </View>
-              <TouchableOpacity onPress={() => {
-                this.setState({ itemCount: itemCount + 1 })
-              }}>
+              <TouchableOpacity onPress={this.setStateItemCount.bind(this, itemCount + 1)}>
                 <View style={[stylesMain.ItemCenter, stylesDetail.Selector_BottomSheet_itemCount, { borderTopRightRadius: 5, borderBottomRightRadius: 5, }]}>
                   <Text style={[stylesMain.ItemCenterVertical]}>
                     +</Text>
@@ -581,7 +569,7 @@ export class Selector extends React.Component {
               </TouchableOpacity>
             </View>
           </View>
-        </View>
+        </View >
       )
     })
   }
@@ -602,7 +590,7 @@ export class Selector extends React.Component {
             }
           }}
         >
-          {this.SelectorSheetBody()}
+          {this.SelectorSheetBody}
         </BottomSheet>
         <View style={stylesDetail.Coupon}>
           <TouchableOpacity activeOpacity={1} onPress={() => { this.SelectorSheet.open(); }}>
@@ -628,9 +616,16 @@ export class Detail_Category extends React.Component {
     this.state = {
     }
   }
-  render() {
+  shouldComponentUpdate = (nextProps, nextState) => {
     const { dataService } = this.props
-    let id_store = dataService.map((item, index) => {
+    if (dataService !== nextProps.dataService) {
+      return true
+    }
+    return false
+  }
+  get id_store() {
+    const { dataService } = this.props
+    return dataService.map((item, index) => {
       return (
         <View style={[stylesMain.FrameBackground]} key={index}>
           <View style={[stylesMain.FrameBackgroundTextBox, stylesDetail.BottomTitle, stylesMain.MarginBottomTitle]}>
@@ -672,8 +667,10 @@ export class Detail_Category extends React.Component {
         </View>
       );
     })
+  }
+  render() {
     return (
-      <View>{id_store}</View>
+      <View>{this.id_store}</View>
     )
   }
 }
@@ -685,10 +682,27 @@ export class Detail extends React.Component {
       activeText: false,
     };
   }
-  render() {
+  shouldComponentUpdate = (nextProps, nextState) => {
     const { showMoreButton, activeText } = this.state
     const { dataService } = this.props
-    let id_store = dataService.map((item, index) => {
+    if (showMoreButton !== nextState.showMoreButton || activeText !== nextState.activeText || dataService !== nextProps.dataService) {
+      return true
+    }
+    return false
+  }
+  setStateShowMoreButton = (showMoreButton) => {
+    this._isMounted = true;
+    if (this._isMounted) {
+      this.setState({ showMoreButton })
+    }
+  }
+  setStateActiveText = (activeText) => {
+    this.setState({ activeText })
+  }
+  get id_store() {
+    const { showMoreButton, activeText } = this.state
+    const { dataService } = this.props
+    return dataService.map((item, index) => {
       return (
         <View style={stylesMain.FrameBackground} key={index}>
           <View style={[stylesMain.FrameBackgroundTextBox, stylesDetail.BottomTitle, stylesMain.MarginBottomTitle]}>
@@ -696,37 +710,38 @@ export class Detail extends React.Component {
               รายละเอียดสินค้า</Text>
           </View>
           <View style={stylesDetail.Detail_Text_Box}>
-            <Text numberOfLines={activeText == true ? null : 4} onTextLayout={({ nativeEvent: { lines } }) =>
-              this.setState({ showMoreButton: lines.length > 4 })
+            <Text numberOfLines={activeText == false && 4} onTextLayout={({ nativeEvent: { lines } }) =>
+              this.setStateShowMoreButton.bind(this, lines.length > 4)
             } style={[
               stylesDetail.Detail_Text, stylesFont.FontFamilyText, stylesFont.FontSize6
             ]}>
               {item.detail}</Text>
             {
-              showMoreButton == true ?
-                <TouchableOpacity onPress={() => {
-                  activeText == true ?
-                    this.setState({ activeText: false }) :
-                    this.setState({ activeText: true })
-                }}>
-                  <View style={[stylesDetail.Detail_Box, stylesMain.ItemCenter]}>
-                    <Text style={[stylesDetail.Detail_Text_A, stylesMain.ItemCenterVertical, { fontFamily: 'SukhumvitSet-Text', }]}>
-                      {
-                        activeText == true ?
-                          'ย่อ' :
-                          'ดูเพิ่มเติม'
-                      }</Text>
-                    <IconEntypo name={activeText == true ? 'chevron-up' : 'chevron-down'} size={25} color='#0A55A6' />
-                  </View>
-                </TouchableOpacity> :
-                null
+              showMoreButton == true &&
+              <TouchableOpacity onPress={() => {
+                activeText == true ?
+                  this.setStateActiveText.bind(this, false) :
+                  this.setStateActiveText.bind(this, true)
+              }}>
+                <View style={[stylesDetail.Detail_Box, stylesMain.ItemCenter]}>
+                  <Text style={[stylesDetail.Detail_Text_A, stylesMain.ItemCenterVertical, { fontFamily: 'SukhumvitSet-Text', }]}>
+                    {
+                      activeText == true ?
+                        'ย่อ' :
+                        'ดูเพิ่มเติม'
+                    }</Text>
+                  <IconEntypo name={activeText == true ? 'chevron-up' : 'chevron-down'} size={25} color='#0A55A6' />
+                </View>
+              </TouchableOpacity>
             }
           </View>
         </View>
       );
     })
+  }
+  render() {
     return (
-      <View>{id_store}</View>
+      <View>{this.id_store}</View>
     )
   }
 }
@@ -900,12 +915,22 @@ export class Same_Store extends React.Component {
     super(props);
     this.state = {
       dataService2: [],
-      countA: 0,
     };
-    this.getData = this.getData.bind(this)
   }
-  getData(dataService2) {
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { dataService2 } = this.state
+    const { dataService, navigation } = this.props
+    if (dataService2 !== nextState.dataService2 || dataService !== nextProps.dataService || navigation !== nextProps.navigation) {
+      return true
+    }
+    return false
+  }
+  getData = (dataService2) => {
     this.setState({ dataService2 })
+  }
+  navigationNavigateScreen = (value, value2) => {
+    const { navigation } = this.props
+    navigation.navigate(value, value2)
   }
   render() {
     const { dataService2 } = this.state
@@ -922,25 +947,23 @@ export class Same_Store extends React.Component {
     return (
       <View style={stylesMain.FrameBackground}>
         {
-          dataBody !== undefined ?
-            <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} /> :
-            null
+          dataBody !== undefined &&
+          <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
         }
         <View style={stylesMain.FrameBackgroundTextBox}>
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
             สินค้าจากร้านเดียวกัน</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Same_StoreScreen', { type_product: 'this_store' })}>
+          <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Same_StoreScreen', { type_product: 'this_store' })}>
             <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
               ดูทั้งหมด</Text>
           </TouchableOpacity>
         </View>
         <ScrollView horizontal>
           {
-            dataService2 ?
-              <ProductBox dataService={dataService2} navigation={navigation} typeip='fin' mode='row3col1' pointerUrl='DetailScreen'
-                pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-              /> :
-              null
+            dataService2 &&
+            <ProductBox dataService={dataService2} navigation={navigation} typeip='fin' mode='row3col1' pointerUrl='DetailScreen'
+              pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
+            />
           }
         </ScrollView>
       </View>
@@ -953,12 +976,23 @@ export class Similar_Product extends React.Component {
     super(props);
     this.state = {
       dataService2: [],
-      countA: 0,
     };
     this.getData = this.getData.bind(this)
   }
-  getData(dataService2) {
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { dataService2 } = this.state
+    const { dataService, navigation } = this.props
+    if (dataService2 !== nextState.dataService2 || dataService !== nextProps.dataService || navigation !== nextProps.navigation) {
+      return true
+    }
+    return false
+  }
+  getData = (dataService2) => {
     this.setState({ dataService2 })
+  }
+  navigationNavigateScreen = (value, value2) => {
+    const { navigation } = this.props
+    navigation.navigate(value, value2)
   }
   render() {
     const { dataService2 } = this.state
@@ -975,25 +1009,23 @@ export class Similar_Product extends React.Component {
     return (
       <View style={stylesMain.FrameBackground}>
         {
-          dataBody !== undefined ?
-            <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} /> :
-            null
+          dataBody !== undefined &&
+          <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
         }
         <View style={stylesMain.FrameBackgroundTextBox}>
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
             สินค้าที่คล้ายกัน</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Same_StoreScreen', { type_product: 'same_product' })}>
+          <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Same_StoreScreen', { type_product: 'same_product' })}>
             <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
               ดูทั้งหมด</Text>
           </TouchableOpacity>
         </View>
         <ScrollView horizontal>
           {
-            dataService2 ?
-              <ProductBox dataService={dataService2} navigation={navigation} typeip='fin' mode='row3col1' pointerUrl='DetailScreen'
-                pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-              /> :
-              null
+            dataService2 &&
+            <ProductBox dataService={dataService2} navigation={navigation} typeip='fin' mode='row3col1' pointerUrl='DetailScreen'
+              pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
+            />
           }
         </ScrollView>
       </View>
@@ -1006,12 +1038,23 @@ export class Might_like extends React.Component {
     super(props);
     this.state = {
       dataService2: [],
-      countA: 0,
     };
     this.getData = this.getData.bind(this)
   }
-  getData(dataService2) {
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { dataService2 } = this.state
+    const { dataService, navigation } = this.props
+    if (dataService2 !== nextState.dataService2 || dataService !== nextProps.dataService || navigation !== nextProps.navigation) {
+      return true
+    }
+    return false
+  }
+  getData = (dataService2) => {
     this.setState({ dataService2 })
+  }
+  navigationNavigateScreen = (value, value2) => {
+    const { navigation } = this.props
+    navigation.navigate(value, value2)
   }
   render() {
     const { dataService2 } = this.state
@@ -1028,25 +1071,23 @@ export class Might_like extends React.Component {
     return (
       <View style={stylesMain.FrameBackground}>
         {
-          dataBody !== undefined ?
-            <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} /> :
-            null
+          dataBody !== undefined &&
+          <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
         }
         <View style={stylesMain.FrameBackgroundTextBox}>
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
             คุณอาจชอบสิ่งนี้</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Same_StoreScreen', { type_product: 'youlike' })}>
+          <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Same_StoreScreen', { type_product: 'youlike' })}>
             <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
               ดูทั้งหมด</Text>
           </TouchableOpacity>
         </View>
         <View style={stylesDetail.PopularProductBoxProduct}>
           {
-            dataService2 ?
-              <ProductBox dataService={dataService2} navigation={navigation} typeip='fin' mode='row2colall' pointerUrl='DetailScreen'
-                pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-              /> :
-              null
+            dataService2 &&
+            <ProductBox dataService={dataService2} navigation={navigation} typeip='fin' mode='row2colall' pointerUrl='DetailScreen'
+              pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
+            />
           }
         </View>
       </View>
@@ -1060,59 +1101,74 @@ export class Buy_bar extends React.Component {
     this.state = {
       dataService: [],
     };
-    this.getData = this.getData.bind(this)
+    // this.getData = this.getData.bind(this)
   }
-  getData(dataService) {
-    this.setState({ dataService })
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { dataService, navigation } = this.props
+    if (dataService !== nextProps.dataService || navigation !== nextProps.navigation) {
+      return true
+    }
+    return false
+  }
+  // getData = (dataService) => {
+  //     this.setState({ dataService })
+  // }
+  navigationNavigateScreen = (value, value2) => {
+    const { navigation } = this.props
+    navigation.navigate(value, value2)
+  }
+  get dataService() {
+    const { navigation, dataService } = this.props
+    var id_store
+    // var uri = ip + '/mysql/DataService_Detail.php';
+    // var dataBody = {
+    //   type: 'store',
+    //   id_product: id_item,
+    // }
+    return dataService.map((item, index) => {
+      return (
+        < View style={stylesDetail.Buy_bar} key={index}>
+          {/* {
+          id_item !== undefined &&
+            <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} /> 
+        } */}
+          < View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical]} >
+            <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 })}>
+              <IconAntDesign name='message1' size={22} style={[stylesMain.ItemCenterVertical]} />
+              <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesMain.ItemCenterVertical]}>
+                แชท</Text>
+            </TouchableOpacity>
+          </View >
+          <Text style={{ fontSize: 30 }}>|</Text>
+          <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: item.id_store })}>
+            <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
+              <IconFontisto name='shopping-store' size={22} style={stylesMain.ItemCenterVertical} />
+              <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesMain.ItemCenterVertical]}>
+                ร้านค้า</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <View style={[stylesDetail.Buy_bar_Iconshop, stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
+              <IconAntDesign name='shoppingcart' size={25} />
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontCenter, { marginLeft: 10 }]}>
+                เพิ่มลงรถเข็น</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <View style={[stylesDetail.Buy_bar_IconBuy, stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
+              <Text style={[stylesDetail.Buy_bar_IconBuytext, stylesFont.FontFamilyText, stylesFont.FontCenter]}>
+                ซื้อเลย</Text>
+            </View>
+          </TouchableOpacity>
+        </View >
+      )
+    })
   }
   render() {
-    const { dataService } = this.state
-    const { navigation } = this.props
-    var id_item = navigation.getParam('id_item')
-    var id_store
-    var uri = ip + '/mysql/DataService_Detail.php';
-    var dataBody = {
-      type: 'store',
-      id_product: id_item,
-    };
-    dataService.map((item) => { return (item.id_store) })
-    dataService.length == 1 ? id_store = dataService.map((item) => { return (item.id_store) }) : null
+    // dataService.length == 1 &&
+    //   id_store = dataService.map((item) => { return (item.id_store) })
     return (
-      <View style={stylesDetail.Buy_bar}>
-        {/* {
-          id_item !== undefined ?
-            <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} /> :
-            null
-        } */}
-        <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
-          <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 1 })}>
-            <IconAntDesign name='message1' size={22} style={[stylesMain.ItemCenterVertical]} />
-            <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesMain.ItemCenterVertical]}>
-              แชท</Text>
-          </TouchableOpacity>
-        </View>
-        <Text style={{ fontSize: 30 }}>|</Text>
-        <TouchableOpacity onPress={() => id_store ? navigation.navigate('StoreScreen', { id_item: id_store }) : null}>
-          <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
-            <IconFontisto name='shopping-store' size={22} style={stylesMain.ItemCenterVertical} />
-            <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesMain.ItemCenterVertical]}>
-              ร้านค้า</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <View style={[stylesDetail.Buy_bar_Iconshop, stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
-            <IconAntDesign name='shoppingcart' size={25} />
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontCenter, { marginLeft: 10 }]}>
-              เพิ่มลงรถเข็น</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <View style={[stylesDetail.Buy_bar_IconBuy, stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
-            <Text style={[stylesDetail.Buy_bar_IconBuytext, stylesFont.FontFamilyText, stylesFont.FontCenter]}>
-              ซื้อเลย</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
+      this.dataService
     );
   }
 }
@@ -1123,52 +1179,59 @@ export class Show_Image extends React.Component {
     this.state = {
     };
   }
-  setShowItemImage() {
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { dataService, navigation, setShowItemImage, showImage } = this.props
+    console.log('nextProps')
+    console.log(nextProps)
+    console.log('nextState')
+    console.log(nextState)
+    if (dataService !== nextProps.dataService || navigation !== nextProps.navigation || setShowItemImage !== nextProps.setShowItemImage || showImage !== nextProps.showImage) {
+      return true
+    }
+    return false
+  }
+  setShowItemImage = () => {
     const { setShowItemImage } = this.props
     var dataMySQL = new Array()
-    setShowItemImage ?
+    setShowItemImage &&
       setShowItemImage.map((item) => {
         var items = { uri: [finip, item.image_full_path, item.image].join('/') }
         dataMySQL.push(items)
-      }) :
-      null
+      })
+    console.log('setdataMySQL')
+    console.log(dataMySQL)
     return dataMySQL
   }
   render() {
-    this.setShowItemImage()
+    const { showImage } = this.props
+    var dataMySQL = this.setShowItemImage.bind(this)
+    console.log('dataMySQL')
+    console.log(dataMySQL)
     return (
       <Modal
         animationType='fade'
         transparent={true}
         visible={true}
         onRequestClose={() => {
-          this.props.showImage(false);
+          showImage(false);
         }}
       >
-        {/* <TouchableOpacity
-          style={[{ width: 40 }]}
-          activeOpacity={1}
-          onPress={() => this.props.showImage(false)}>
-          <IconFontisto name="close" size={30} style={{ color: '#785216', margin: 2 }} />
-        </TouchableOpacity> */}
         <View style={[{ height, width }]}>
-          <SmartGallery
-            images={this.setShowItemImage()}
-          />
+          {/* <SmartGallery
+            images={dataMySQL}
+          /> */}
         </View>
       </Modal>
     );
   }
 }
 ///----------------------------------------------------------------------------------------------->>>>
-
-export class Coupon_Detail_BottomSheet extends Component {
+export class Coupon_Detail_BottomSheet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
     };
   }
-
   render() {
     return (
       <View style={{ width: '100%', height: 100, borderWidth: 1, backgroundColor: '#C0DBF9', flexDirection: 'row', justifyContent: 'space-between', padding: 15, borderRadius: 5, marginVertical: 10 }}>

@@ -221,24 +221,18 @@ export class AppBar extends React.Component {
         }
         return false
     }
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props
+        value == 'goBack' ?
+            navigation.goBack() :
+            navigation.navigate(value, value2)
+    }
     navigationGoBack = () => {
         const { navigation, } = this.props
         navigation.goBack()
     }
     setText = (text) => {
         this.setState({ text })
-    }
-    navigationSearchScreen = () => {
-        const { navigation, } = this.props
-        navigation.navigate('SearchScreen', { modeStore: false })
-    }
-    navigationProfile_Topic = () => {
-        const { navigation, } = this.props
-        navigation.navigate('Profile_Topic', { selectedIndex: 1 })
-    }
-    navigationCartScreen = () => {
-        const { navigation, } = this.props
-        navigation.navigate('CartScreen')
     }
     render() {
         const { text } = this.state
@@ -256,7 +250,7 @@ export class AppBar extends React.Component {
                         <View>
                             <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30 }]}
                                 activeOpacity={1}
-                                onPress={this.navigationGoBack}>
+                                onPress={this.navigationNavigateScreen.bind(this, 'goBack')}>
                                 <AIconEntypo name="chevron-left" size={30} style={{ color: AIColor ? AIColor : '#111' }} />
                             </TouchableOpacity>
                         </View> :
@@ -264,7 +258,7 @@ export class AppBar extends React.Component {
                 }
                 {
                     searchBar ?
-                        <TouchableOpacity activeOpacity={1} onPress={this.navigationGoBack}>
+                        <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'goBack')}>
                             <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical]}>
                                 <FastImage
                                     style={[stylesMain.LOGO, stylesMain.ItemCenterVertical]}
@@ -296,7 +290,7 @@ export class AppBar extends React.Component {
                                 />
                             </View>
                         </TouchableOpacity> :
-                        <TouchableOpacity activeOpacity={1} onPress={this.navigationSearchScreen}>
+                        <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'SearchScreen', { modeStore: false })}>
                             <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical]}>
                                 <FastImage
                                     style={[stylesMain.LOGO, stylesMain.ItemCenterVertical]}
@@ -339,22 +333,24 @@ export class AppBar extends React.Component {
                         </View> :
                         <View style={[stylesMain.FlexRow, stylesMain.ItemCenterVertical]}>
                             {leftBar == 'backarrow' ?
-                                rightBar == 'chat' ?
-                                    <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
-                                        onPress={this.navigationProfile_Topic}>
-                                        <IconAntDesign name="message1" size={25} />
-                                    </TouchableOpacity> :
-                                    null :
+                                rightBar == 'chat' &&
                                 <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
-                                    onPress={this.navigationProfile_Topic}>
+                                    onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 })}>
+                                    <IconAntDesign name="message1" size={25} />
+                                </TouchableOpacity> :
+                                <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
+                                    onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 })}>
                                     <IconAntDesign name="message1" size={25} />
                                 </TouchableOpacity>
                             }
                             <TouchableOpacity style={[stylesMain.ItemCenter, {
                                 width:
                                     leftBar == 'backarrow' ?
-                                        rightBar == 'chat' ? 40 : 50 : 40
-                            }]} onPress={this.navigationCartScreen}>
+                                        rightBar == 'chat' ?
+                                            40 :
+                                            50 :
+                                        40
+                            }]} onPress={this.navigationNavigateScreen.bind(this, 'CartScreen')}>
                                 <IconAntDesign name="shoppingcart" size={25} />
                             </TouchableOpacity>
                         </View>
@@ -377,24 +373,14 @@ export class AppBar1 extends React.Component {
         }
         return false
     }
-    navigationGoBack = () => {
-        const { navigation, } = this.props
-        navigation.goBack()
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props
+        value == 'goBack' ?
+            navigation.goBack() :
+            navigation.navigate(value, value2)
     }
     setText = (text) => {
         this.setState({ text })
-    }
-    navigationSearchScreen = () => {
-        const { navigation, } = this.props
-        navigation.navigate('SearchScreen', { modeStore: false })
-    }
-    navigationStoreMe_Setting = () => {
-        const { navigation, } = this.props
-        navigation.navigate('StoreMe_Setting')
-    }
-    navigationProfile_Topic = (value) => {
-        const { navigation, } = this.props
-        navigation.navigate('Profile_Topic', { selectedIndex: value })
     }
     render() {
         const {
@@ -404,66 +390,61 @@ export class AppBar1 extends React.Component {
             <View style={colorBar ? colorBar : menuBar ? stylesStore.AppbarMenu : stylesStore.Appbar}>
                 <View style={stylesMain.FlexRow}>
                     {
-                        backArrow ?
-                            <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30 }]}
-                                activeOpacity={1}
-                                onPress={this.navigationGoBack}
-                            >
-                                <IconEntypo style={[stylesStore.Icon_appbar, {
-                                    color: backArrowColor ? backArrowColor : '#ffffff'
-                                }]} name="chevron-left" size={30} />
-                            </TouchableOpacity> :
-                            null
+                        backArrow &&
+                        <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30 }]}
+                            activeOpacity={1}
+                            onPress={this.navigationNavigateScreen.bind(this, 'goBack')}
+                        >
+                            <IconEntypo style={[stylesStore.Icon_appbar, {
+                                color: backArrowColor ? backArrowColor : '#ffffff'
+                            }]} name="chevron-left" size={30} />
+                        </TouchableOpacity>
                     }
                     <Text style={[
                         stylesStore.Text_appbar, stylesFont.FontSize3, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical
                     ]}>
-                        {titleHead ? titleHead : null}</Text>
+                        {titleHead && titleHead}</Text>
                 </View>
                 <View style={stylesMain.FlexRow}>
                     {
-                        searchBar ?
-                            <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
-                                onPress={this.navigationNavigateScreen}
-                            >
-                                <IconAntDesign RightItem name="search1" size={25} style={[
-                                    stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
-                                        marginRight: 8
-                                    }]} />
-                            </TouchableOpacity> :
-                            null
+                        searchBar &&
+                        <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
+                            onPress={this.navigationNavigateScreen.bind(this, 'SearchScreen', { modeStore: false })}
+                        >
+                            <IconAntDesign RightItem name="search1" size={25} style={[
+                                stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
+                                    marginRight: 8
+                                }]} />
+                        </TouchableOpacity>
                     }{
-                        settingBar ?
-                            <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
-                                onPress={this.navigationStoreMe_Setting}>
-                                <IconMaterialCommunityIcons name="settings-outline" size={25} style={[
-                                    stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
-                                        marginRight: 8
-                                    }]} />
-                            </TouchableOpacity> :
-                            null
+                        settingBar &&
+                        <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
+                            onPress={this.navigationNavigateScreen.bind(this, 'StoreMe_Setting')}>
+                            <IconMaterialCommunityIcons name="settings-outline" size={25} style={[
+                                stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
+                                    marginRight: 8
+                                }]} />
+                        </TouchableOpacity>
                     }{
-                        chatBar ?
-                            <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
-                                onPress={() => this.navigationProfile_Topic(1)}
-                            >
-                                <IconAntDesign RightItem name="message1" size={25} style={[
-                                    stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
-                                        marginRight: 8
-                                    }]} />
-                            </TouchableOpacity> :
-                            null
+                        chatBar &&
+                        <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
+                            onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 })}
+                        >
+                            <IconAntDesign RightItem name="message1" size={25} style={[
+                                stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
+                                    marginRight: 8
+                                }]} />
+                        </TouchableOpacity>
                     }{
-                        storeBar ?
-                            <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
-                                onPress={() => this.navigationProfile_Topic(3)}
-                            >
-                                <IconFontAwesome5 RightItem name="store" size={20} style={[
-                                    stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
-                                        marginRight: 8
-                                    }]} />
-                            </TouchableOpacity> :
-                            null
+                        storeBar &&
+                        <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
+                            onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 3 })}
+                        >
+                            <IconFontAwesome5 RightItem name="store" size={20} style={[
+                                stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
+                                    marginRight: 8
+                                }]} />
+                        </TouchableOpacity>
                     }
                 </View>
             </View>
@@ -558,7 +539,6 @@ export class Slide extends React.Component {
             dataService: [],
             activeSlide: 0,
         };
-        this.getData = this.getData.bind(this)
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { dataService, activeSlide } = this.state
@@ -634,11 +614,11 @@ export class Slide extends React.Component {
         var uri = finip + '/home/home_mobile'
         return (
             <View>
-                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
                 <Carousel
                     ref={c => this.activeSlide = c}
                     data={dataService}
-                    renderItem={this._renderItem}
+                    renderItem={this._renderItem.bind(this)}
                     sliderWidth={width * 1}
                     itemWidth={width * 1}
                     sliderHeight={height * 0.5}
@@ -646,7 +626,7 @@ export class Slide extends React.Component {
                     autoplay={true}
                     autoplayDelay={3000}
                     autoplayInterval={3000}
-                    onSnapToItem={this.getActiveSlide}
+                    onSnapToItem={this.getActiveSlide.bind(this)}
                     removeClippedSubviews={true}
                     initialNumToRender={dataService.length}
                     maxToRenderPerBatch={1}
@@ -1908,7 +1888,7 @@ export class Second_product extends React.Component {
         return item.map((item, index) => {
             var dataMySQL = [finip, item.image_path, item.image].join('/')
             return (
-                <View key={index} style={{ width: width * 0.64, height: 196  }}>
+                <View key={index} style={{ width: width * 0.64, height: 196 }}>
                     <FastImage
                         source={{
                             uri: dataMySQL,

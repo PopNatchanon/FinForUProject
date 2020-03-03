@@ -22,6 +22,13 @@ export default class HighlightScreen extends Component {
     this.state = {
     };
   }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { navigation } = this.props
+    if (navigation !== nextProps.navigation) {
+      return true
+    }
+    return false
+  }
   render() {
     const { navigation } = this.props
     return (
@@ -51,8 +58,13 @@ export class Button_Bar extends Component {
       selectedIndex: 0,
       dataService: [],
     };
-    this.updateIndex = this.updateIndex.bind(this)
-    this.getData = this.getData.bind(this)
+  }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { dataService, selectedIndex } = this.state
+    if (dataService !== nextState.dataService || selectedIndex !== nextState.selectedIndex) {
+      return true
+    }
+    return false
   }
   getData(dataService) {
     this.setState({ dataService })
@@ -69,10 +81,10 @@ export class Button_Bar extends Component {
     dataService.map((item) => { return item2.push({ name: item.name }) })
     return (
       <View style={{ width: '100%', height: 40, backgroundColor: '#FFFFFF', borderColor: '#ECECEC', borderWidth: 1, }}>
-        <GetServices uriPointer={uri} getDataSource={this.getData} />
+        <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} />
         <ScrollView horizontal>
           <TabBar
-            sendData={this.updateIndex}
+            sendData={this.updateIndex.bind(this)}
             item={item2}
             noLimit
             numberBox

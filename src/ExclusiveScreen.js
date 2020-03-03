@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import {
   Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
-
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
@@ -20,7 +19,7 @@ import { AppBar1, TodayProduct, ExitAppModule, } from './MainScreen';
 import { Slide, } from './src_Promotion/DealScreen';
 import { GetServices, TabBar, } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip, } from './navigator/IpConfig';
+import { ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class ExclusiveScreen extends Component {
   constructor(props) {
@@ -29,13 +28,19 @@ export default class ExclusiveScreen extends Component {
       sliderVisible: false,
       dataService: [],
     };
-    this.getData = this.getData.bind(this)
-    this.setSlider = this.setSlider.bind(this)
   }
-  setSlider(value) {
-    this.setState({ sliderVisible: value })
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { dataService, sliderVisible } = this.state
+    const { navigation } = this.props
+    if (dataService !== nextState.dataService || sliderVisible !== nextState.sliderVisible || navigation !== nextProps.navigation) {
+      return true
+    }
+    return false
   }
-  getData(dataService) {
+  setSlider = (sliderVisible) => {
+    this.setState({ sliderVisible })
+  }
+  getData = (dataService) => {
     this.setState({ dataService })
   }
   render() {
@@ -47,12 +52,12 @@ export default class ExclusiveScreen extends Component {
     };
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
-        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
         <AppBar1 titleHead={'สินค้าสุด Exclusive'} backArrow searchBar chatBar navigation={navigation} />
         <ScrollView stickyHeaderIndices={[2]}>
           <Slide />
           <View style={{ marginBottom: 10 }}></View>
-          <Button_Bar setSliderVisible={this.setSlider} getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
+          <Button_Bar setSliderVisible={this.setSlider.bind(this)} getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
           {
             dataService ?
               <TodayProduct noTitle navigation={navigation} loadData={dataService} typeip prepath='mysql' /> :
@@ -69,12 +74,12 @@ export default class ExclusiveScreen extends Component {
             width: '100%'
           }}
           position="right"
-          changeVisibilityCallback={() => this.setState({ sliderVisible: !sliderVisible })}
+          changeVisibilityCallback={this.setSlider.bind(this, !sliderVisible)}
         >
           <View style={stylesMain.FlexRow}>
             <TouchableOpacity
               activeOpacity={1}
-              onPress={() => this.setState({ sliderVisible: !sliderVisible })}
+              onPress={this.setSlider.bind(this, !sliderVisible)}
             >
               <View style={stylesTopic.BackgroundLeft}></View>
             </TouchableOpacity>
@@ -110,9 +115,20 @@ export class SlideTab extends Component {
       activeText: false,
       selectedIndex: null,
     }
-    this.updateIndex = this.updateIndex.bind(this)
   }
-  updateIndex(selectedIndex) {
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { dataService, selectedIndex, activeText } = this.state
+    const { navigation, Title, item } = this.props
+    console.log('nextProps')
+    console.log(nextProps)
+    console.log('nextState')
+    console.log(nextState)
+    if (dataService !== nextState.dataService || selectedIndex !== nextState.selectedIndex || activeText !== nextState.activeText || navigation !== nextProps.navigation || Title !== nextProps.Title || item !== nextProps.item) {
+      return true
+    }
+    return false
+  }
+  updateIndex = (selectedIndex) => {
     this.setState({ selectedIndex })
   }
   dataItem(item) {
@@ -120,7 +136,7 @@ export class SlideTab extends Component {
     return (
       <View style={[stylesMain.FlexRow, { width: '100%', flexWrap: 'wrap' }]}>
         <TabBar
-          sendData={this.updateIndex}
+          sendData={this.updateIndex.bind(this)}
           SetValue={selectedIndex != null ? selectedIndex : -1}
           item={item}
           type='box'
@@ -132,7 +148,14 @@ export class SlideTab extends Component {
       </View>
     )
   }
-  dataContainer(Title, item) {
+  setStateActiveText = (activeText) => {
+    this._isMounted = true;
+    if (this._isMounted) {
+      this.setState({ activeText })
+    }
+  }
+  get dataContainer() {
+    const { Title, item } = this.props
     const { activeText } = this.state
     return (
       <View>
@@ -149,11 +172,7 @@ export class SlideTab extends Component {
                   </ScrollView>
               }
               {item.length > 4 ?
-                <TouchableOpacity onPress={() => {
-                  activeText == true ?
-                    this.setState({ activeText: false }) :
-                    this.setState({ activeText: true })
-                }}>
+                <TouchableOpacity onPress={this.setStateActiveText.bind(this, !activeText)}>
                   <View style={[stylesDetail.Detail_Box, stylesMain.ItemCenter, {
                     borderTopWidth: null,
                   }]}>
@@ -180,13 +199,12 @@ export class SlideTab extends Component {
     )
   }
   render() {
-    const { Title, item } = this.props
     const { activeText } = this.state
     return (
       <View style={{
         height: activeText == true ? 320 : 180
       }}>
-        {this.dataContainer(Title, item)}
+        {this.dataContainer}
       </View>
     )
   }
@@ -263,10 +281,20 @@ export class Button_Bar extends Component {
       selectedIndex: 0,
       sliderVisible: false,
     };
-    this.updateIndex = this.updateIndex.bind(this)
   }
-  updateIndex(selectedIndex) {
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { sliderVisible, selectedIndex } = this.state;
+    const { getSliderVisible, setSliderVisible } = this.props;
+    if (sliderVisible !== nextState.sliderVisible || selectedIndex !== nextState.selectedIndex || getSliderVisible !== nextProps.getSliderVisible || setSliderVisible !== nextProps.setSliderVisible) {
+      return true
+    }
+    return false
+  }
+  updateIndex = (selectedIndex) => {
     this.setState({ selectedIndex })
+  }
+  setStateSliderVisible = (sliderVisible, getSliderVisible) => {
+    this.setState({ sliderVisible, getSliderVisible })
   }
   render() {
     const { sliderVisible } = this.state;
@@ -274,7 +302,7 @@ export class Button_Bar extends Component {
     while (getSliderVisible.count < 1) {
       getSliderVisible.count = getSliderVisible.count + 1
       var Slider = getSliderVisible.getSlider
-      this.setState({ sliderVisible: Slider, getSliderVisible })
+      this.setStateSliderVisible.bind(this, Slider, getSliderVisible)
     }
     const item = [{
       name: 'ยอดนิยม'
@@ -294,7 +322,7 @@ export class Button_Bar extends Component {
           </View>
           <View>
             <TabBar
-              sendData={this.updateIndex}
+              sendData={this.updateIndex.bind(this)}
               item={item}
               limitBox={width * 0.7}
               setVertical={2}
@@ -304,7 +332,7 @@ export class Button_Bar extends Component {
             />
           </View>
           <TouchableOpacity onPress={() => {
-            this.setState({ sliderVisible: !sliderVisible })
+            this.setStateSliderVisible.bind(this, !sliderVisible)
             setSliderVisible(!sliderVisible)
           }}>
             <View style={[stylesMain.ItemCenterVertical, stylesTopic.Button_Bar_Icon, { borderLeftColor: 'black', borderLeftWidth: 1.2 }]}>

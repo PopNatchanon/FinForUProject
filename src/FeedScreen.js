@@ -17,16 +17,11 @@ import { FeedBox, GetServices, TabBar, Toolbar } from './tools/Tools';
 import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class FeedScreen extends Component {
-  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
       selectedIndex: 0
     };
-    this.getData = this.getData.bind(this)
-  }
-  componentWillUnmount() {
-    this._isMounted = false;
   }
   shouldComponentUpdate = (nextProps, nextState) => {
     const { selectedIndex } = this.state
@@ -36,13 +31,8 @@ export default class FeedScreen extends Component {
     }
     return false
   }
-  getData = (val) => {
-    this._isMounted = true;
-    if (this._isMounted) {
-      this.setState({
-        selectedIndex: val
-      });
-    }
+  getData = (selectedIndex) => {
+    this.setState({ selectedIndex });
   }
   render() {
     const { selectedIndex } = this.state
@@ -50,7 +40,7 @@ export default class FeedScreen extends Component {
     return (
       <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
         <AppBar1 titleHead='ฟีด' storeBar menuBar navigation={navigation} />
-        <MenuBar sendText={this.getData} />
+        <MenuBar sendText={this.getData.bind(this)} />
         <ScrollView>
           <Button_Bar selectedIndex={selectedIndex} navigation={navigation} />
         </ScrollView>
@@ -66,10 +56,10 @@ export class MenuBar extends Component {
     super(props);
     this.state = {
     }
-    this.getData = this.getData.bind(this)
   }
   getData = (val) => {
-    this.props.sendText(val);
+    const { sendText } = this.props
+    sendText(val);
   }
   render() {
     const item = [{
@@ -81,7 +71,7 @@ export class MenuBar extends Component {
       <View>
         <View>
           <TabBar
-            sendData={this.getData}
+            sendData={this.getData.bind(this)}
             item={item}
             noSpace
             setVertical={2}
@@ -135,16 +125,11 @@ export class Button_Bar extends Component {
 }
 ///----------------------------------------------------------------------------------------------->>>> Highlights
 export class Highlights extends Component {
-  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
       dataService: [],
     };
-    this.getData = this.getData.bind(this)
-  }
-  componentWillUnmount() {
-    this._isMounted = false;
   }
   shouldComponentUpdate = (nextProps, nextState) => {
     const { dataService } = this.state
@@ -155,10 +140,7 @@ export class Highlights extends Component {
     return false
   }
   getData = (dataService) => {
-    this._isMounted = true;
-    if (this._isMounted) {
-      this.setState({ dataService })
-    }
+    this.setState({ dataService })
   }
   render() {
     const { dataService } = this.state
@@ -169,7 +151,7 @@ export class Highlights extends Component {
     }
     return (
       <View style={stylesMain.FrameBackground, stylesMain.BackgroundAreaView}>
-        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
         <View style={stylesStore.StoreFeedBoxProduct}>
           {
             dataService ?

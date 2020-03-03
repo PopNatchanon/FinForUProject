@@ -57,16 +57,11 @@ export default class BellScreen extends React.Component {
 }
 ///----------------------------------------------------------------------------------------------->>>> Popular_store
 export class Popular_store extends React.Component {
-    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
             dataService: [],
         };
-        this.getData = this.getData.bind(this)
-    }
-    componentWillUnmount() {
-        this._isMounted = false;
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { dataService } = this.state
@@ -77,10 +72,7 @@ export class Popular_store extends React.Component {
         return false
     }
     getData = (dataService) => {
-        this._isMounted = true;
-        if (this._isMounted) {
             this.setState({ dataService })
-        }
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
@@ -118,7 +110,7 @@ export class Popular_store extends React.Component {
         };
         return (
             <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView]}>
-                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
                         ร้านเด็ด</Text>

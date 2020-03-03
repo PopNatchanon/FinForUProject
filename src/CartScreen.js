@@ -23,18 +23,12 @@ import { PopularProduct } from './StoreScreen'
 import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class CartScreen extends React.Component {
-    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
             itemCount: [],
             itemData: [],
         };
-        this.getText = this.getText.bind(this)
-        this.getData = this.getData.bind(this)
-    }
-    componentWillUnmount() {
-        this._isMounted = false;
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { itemCount, itemData } = this.state
@@ -45,16 +39,10 @@ export default class CartScreen extends React.Component {
         return false
     }
     getText(itemCount) {
-        this._isMounted = true;
-        if (this._isMounted) {
-            this.setState({ itemCount })
-        }
+        this.setState({ itemCount })
     }
     getData(itemData) {
-        this._isMounted = true;
-        if (this._isMounted) {
-            this.setState({ itemData })
-        }
+        this.setState({ itemData })
     }
     render() {
         const { itemCount, itemData } = this.state
@@ -63,11 +51,11 @@ export default class CartScreen extends React.Component {
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                 <AppBar1 navigation={navigation} titleHead='รถเข็น' chatBar backArrow />
                 <ScrollView>
-                    <Product_Cart itemData={itemData} sendText={this.getText} />
+                    <Product_Cart itemData={itemData} sendText={this.getText.bind(this)} />
                     {/* <Product_Like /> */}
                     <PopularProduct navigation={navigation} headText={'คุณอาจชอบสิ่งนี้'} />
                 </ScrollView>
-                <Buy_bar sendData={this.getData} navigation={navigation} itemCount={itemCount} />
+                <Buy_bar sendData={this.getData.bind(this)} navigation={navigation} itemCount={itemCount} />
                 <ExitAppModule navigation={navigation} />
             </SafeAreaView>
         );
@@ -111,7 +99,6 @@ export class Product_Cart extends React.Component {
 }
 ///----------------------------------------------------------------------------------------------->>>> CartProduct
 export class CartProduct extends React.Component {
-    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -123,10 +110,7 @@ export class CartProduct extends React.Component {
         this.getData = this.getData.bind(this)
     }
     getData = (dataService) => {
-        this._isMounted = true;
-        if (this._isMounted) {
-            this.setState({ dataService })
-        }
+        this.setState({ dataService })
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { HeadCount, ItemArray, ItemHead, dataService } = this.state
@@ -136,12 +120,10 @@ export class CartProduct extends React.Component {
         }
         return false
     }
-    componentWillUnmount() {
-        this._isMounted = false;
-    }
     productItem(ItemHead) {
         const { ItemArray } = this.state
-        return this.state.dataService ? (
+        const { sendData } = this.props
+        return this.state.dataService && (
             this.state.dataService.map((item, index) => {
                 if (ItemHead == item.id_store) {
                     if (ItemArray[index] == null) {
@@ -150,7 +132,7 @@ export class CartProduct extends React.Component {
                             id_store: item.id_store
                         }
                         this.setState({ ItemArray })
-                        this.props.sendData(ItemArray);
+                        sendData(ItemArray);
                     }
                     var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
                     return (
@@ -166,7 +148,7 @@ export class CartProduct extends React.Component {
                                         ItemArray[index].checked = true
                                     this.ChangeCheck
                                     this.setState({ ItemArray })
-                                    this.props.sendData(ItemArray);
+                                    sendData(ItemArray);
                                 }}
                             />
                             <View style={{
@@ -198,7 +180,7 @@ export class CartProduct extends React.Component {
                                         if (ItemArray[index].itemCount > 1) {
                                             ItemArray[index].itemCount = ItemArray[index].itemCount - 1
                                             this.setState({ ItemArray })
-                                            this.props.sendData(ItemArray);
+                                            sendData(ItemArray);
                                         }
                                     }}>
                                         <View style={[stylesMain.ItemCenter, {
@@ -217,7 +199,7 @@ export class CartProduct extends React.Component {
                                     <TouchableOpacity onPress={() => {
                                         ItemArray[index].itemCount = ItemArray[index].itemCount + 1
                                         this.setState({ ItemArray })
-                                        this.props.sendData(ItemArray);
+                                        sendData(ItemArray);
                                     }}>
                                         <View style={[stylesMain.ItemCenter, {
                                             width: 30, height: 25, borderColor: '#ECECEC', borderLeftWidth: 0, borderWidth: 1
@@ -232,12 +214,11 @@ export class CartProduct extends React.Component {
                     )
                 }
             })
-        ) :
-            null
+        )
     }
     storeItem() {
         const { ItemHead, ItemArray, HeadCount } = this.state
-        return this.state.dataService ? (
+        return this.state.dataService && (
             this.state.dataService.map((item, index) => {
                 if (ItemHead[index] == null) {
                     if (ItemHead.length == 0) {
@@ -287,8 +268,7 @@ export class CartProduct extends React.Component {
                     }
                 }
             })
-        ) :
-            null
+        )
     }
     ChangeCheckMain(ItemHead) {
         const { ItemArray } = this.state

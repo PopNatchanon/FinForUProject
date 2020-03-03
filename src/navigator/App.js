@@ -417,7 +417,7 @@ const PathScreen = createStackNavigator({
     // initialRouteName: 'ExclusiveScreen',
     // initialRouteName: 'StoreMeScreen',
     // initialRouteName: 'DealScreen',
-    // initialRouteName: 'DetailScreen',
+    // initialRouteName: 'CancelScreen',
   }
 );
 

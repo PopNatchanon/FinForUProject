@@ -201,6 +201,8 @@ export default StyleSheet.create({
     StoreMe_SettingImage: {
         height: 100, width: 100,
         backgroundColor: '#FFFFFF',
+        borderColor:'#FFFFFF',
+        borderWidth:2,
         borderRadius: 50,
         marginTop: -130,
     },

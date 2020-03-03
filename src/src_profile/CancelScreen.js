@@ -5,8 +5,11 @@ import {
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
+import FastImage from 'react-native-fast-image';
+import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert'
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconFeather from 'react-native-vector-icons/Feather';
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
@@ -14,6 +17,7 @@ import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topi
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
+import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class CancelScreen extends Component {
   constructor(props) {
@@ -22,7 +26,8 @@ export default class CancelScreen extends Component {
     };
   }
   PathList() {
-    const selectedIndex = this.props.navigation.getParam('selectedIndex')
+    // const selectedIndex = this.props.navigation.getParam('selectedIndex')
+    const selectedIndex = 1
     switch (selectedIndex) {
       case 0:
         return (
@@ -99,7 +104,13 @@ export class Cancel_Product extends Component {
         <View style={stylesMain.FrameBackground}>
           <View style={stylesProfileTopic.Order_Product}>
             <View style={stylesMain.FlexRow}>
-              <View style={stylesProfileTopic.Order_Product_Pro}></View>
+              <View style={stylesProfileTopic.Order_Product_Pro}>
+                <FastImage style={stylesMain.BoxProduct1Image}
+                  source={{
+                    uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
+                  }}
+                />
+              </View>
               <View>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>หมายเลขคำสั่งซื้อ : 2223994239012</Text>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
@@ -140,19 +151,62 @@ export class Cancel_Detail extends Component {
               <Picker.Item label="มีสินค้าที่ถูกกว่า" value="js2" />
             </Picker>
           </View>
-          <View style={stylesProfileTopic.Cancel_Detail_ButtonBox}>
+          <Cancel_Alert />
+        </View>
+      </View>
+    );
+  }
+}
+///----------------------------------------------------------------------------------------------->>>> 
+
+export class Cancel_Alert extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      show: false
+    }
+  }
+  handleOpen = () => {
+    this.setState({ show: true })
+  }
+  handleClose = () => {
+    this.setState({ show: false })
+  }
+  get _renderHeader() {
+    return (
+      <IconFontAwesome name='close' size={50} color='white' />
+    )
+  }
+  render() {
+    return (
+      <View>
+        <View style={stylesProfileTopic.Cancel_Detail_ButtonBox}>
             <TouchableOpacity>
               <View style={stylesProfileTopic.Cancel_Detail_Button}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>ยกเลิก</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={this.handleOpen}>
               <View style={[stylesProfileTopic.Cancel_Detail_Button, { marginLeft: 10 }]}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>ตกลง</Text>
               </View>
             </TouchableOpacity>
           </View>
-        </View>
+        <SCLAlert
+          theme="danger"
+          headerIconComponent={this._renderHeader}
+          show={this.state.show}
+          title="ยกเลิกสินค้า"
+          titleStyle={[stylesFont.FontFamilyBold,stylesFont.FontSize2]}
+          subtitle="กรุณารอการตรวจสอบจากร้านค้า"
+          subtitleStyle={stylesFont.FontFamilyText}
+          onRequestClose={() => null}
+        >
+          <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
+            <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ width: 150, }}>ยกเลิก</SCLAlertButton>
+            <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ width: 150, }}>ยืนยัน</SCLAlertButton>
+          </View>
+        </SCLAlert>
       </View>
     );
   }

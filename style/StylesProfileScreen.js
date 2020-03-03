@@ -24,7 +24,7 @@ export default StyleSheet.create({
     HeadbarImage: {
         width,
         height: 150,
-        // opacity: 0.5,
+        backgroundColor:'#1a3263',
     },
     HeadbarA: {
         marginTop: -150,
@@ -47,7 +47,7 @@ export default StyleSheet.create({
         color: '#ECECEC',
     },
     HeadbarBoxImage: {
-        backgroundColor: '#ECECEC',
+        backgroundColor: '#FFFFFF',
         width: 80,
         height: 80,
         borderRadius: 40,

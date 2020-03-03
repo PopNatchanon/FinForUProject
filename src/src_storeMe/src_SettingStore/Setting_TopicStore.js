@@ -1,14 +1,18 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-    Dimensions, SafeAreaView, Text, TextInput, TouchableOpacity, View, Picker,
+    Dimensions, SafeAreaView, Text, TextInput, TouchableOpacity, View, Picker, ScrollView,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import { Address_Customar } from '../../src_profile/src_Setting/Setting_Topic';
+import ImagePicker from 'react-native-image-crop-picker';
+import FastImage from 'react-native-fast-image';
+import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert'
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 ///----------------------------------------------------------------------------------------------->>>> styleStoreMe
 import stylesMain from '../../../style/StylesMainScreen';
 import stylesFont from '../../../style/stylesFont';
@@ -27,7 +31,7 @@ export default class Setting_TopicStore extends Component {
             case 0:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
                         <Notification navigation={this.props.navigation} />
                         {/* แก้ไขเอกสารการจดแจ้ง */}
                     </View>
@@ -35,7 +39,7 @@ export default class Setting_TopicStore extends Component {
             case 1:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขบัญชีธนาคาร' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขบัญชีธนาคาร' saveBar />
                         <Edit_Bank navigation={this.props.navigation} />
                         {/* แก้ไขบัญชีธนาคาร */}
                     </View>
@@ -43,7 +47,7 @@ export default class Setting_TopicStore extends Component {
             case 2:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
                         <Notification_From navigation={this.props.navigation} />
                         {/* หนังสือจดทะเบียนบริษัท จากกรมพัฒนาธุรกิจการค้า */}
                     </View>
@@ -51,42 +55,42 @@ export default class Setting_TopicStore extends Component {
             case 3:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
                         <Notification_From navigation={this.props.navigation} DetailHead='สำเนาบัตรประชาชน/พาสปอร์ตของกรรมการผู้มีอำนาจลงนาม' />
                     </View>
                 )
             case 4:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
                         <Notification_From navigation={this.props.navigation} DetailHead='ใบทะเบียนภาษีมูลค่าเพิ่ม' />
                     </View>
                 )
             case 5:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
                         <Notification_From navigation={this.props.navigation} DetailHead='ใบจดทะเบียนเครื่องหมายการค้า' />
                     </View>
                 )
             case 6:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
                         <Notification_From navigation={this.props.navigation} DetailHead='หนังสือรับรองการเป็นตัวแทนจำหน่าย (ไม่จำเป็นต้องระบุ)' />
                     </View>
                 )
             case 7:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
                         <Notification_From navigation={this.props.navigation} DetailHead='สำเนาบัญชีธนาคารของผู้ขาย' />
                     </View>
                 )
             case 8:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
                         <Notification_From navigation={this.props.navigation} DetailHead='สำเนาบัญชีธนาคารของผู้ขาย' />
                     </View>
                 )
@@ -119,16 +123,13 @@ export default class Setting_TopicStore extends Component {
         );
     }
 }
-
 ///----------------------------------------แก้ไขเอกสารการจดแจ้ง--------------------------------------///
-
 export class Notification extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
         return (
             <View>
@@ -185,7 +186,6 @@ export class Notification extends Component {
         );
     }
 }
-
 ///----------------------------------------แก้ไขบัญชีธนาคาร--------------------------------------///
 
 export class Edit_Bank extends Component {
@@ -194,7 +194,6 @@ export class Edit_Bank extends Component {
         this.state = {
         };
     }
-
     render() {
         return (
             <View>
@@ -259,8 +258,58 @@ export class Notification_From extends Component {
             DataMo: [],
             DataDay: [],
             activeNow: 0,
+            avatarSource: [],
         };
     }
+    UploadImageSingle = (index) => {
+        const { avatarSource } = this.state
+        const options = {
+            includeBase64: true
+        };
+        ImagePicker.openPicker(options).then(response => {
+            console.log('Response = ', response);
+            // You can also display the image using data:
+            // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+            avatarSource[index] = response
+            this.setState({ avatarSource })
+        });
+    }
+    UploadImageMultiple = () => {
+        const { avatarSource } = this.state
+        const options = {
+            multiple: true,
+            includeBase64: true
+        };
+        ImagePicker.openPicker(options).then(response => {
+            console.log('Response = ', response);
+            // You can also display the image using data:
+            // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+            response.map((item, index) => index + avatarSource.length <= 7 && avatarSource.push(item))
+            this.setState({ avatarSource })
+        });
+    }
+    // UploadImageData = () => {
+    //     const { avatarSource } = this.state
+    //     console.log('avatarSource2222')
+    //     console.log(avatarSource)
+    //     var uri = [ip, 'sql/uploadimage/updateimage.php'].join('/')
+    //     avatarSource && (
+    //         fetch(uri, {
+    //             method: "POST",
+    //             body: avatarSource
+    //         })
+    //             .then(response => response.json())
+    //             .then(response => {
+    //                 console.log("upload succes", response);
+    //                 alert("Upload success!");
+    //                 this.setState({ avatarSource: null });
+    //             })
+    //             .catch(error => {
+    //                 console.log("upload error", error);
+    //                 alert("Upload failed!");
+    //             })
+    //     )
+    // }
     componentDidMount() {
         this.getDataYear()
         this.getDataMo(new Date())
@@ -334,6 +383,7 @@ export class Notification_From extends Component {
         )
     }
     render() {
+        const { avatarSource } = this.state
         const { DetailHead } = this.props
         const { activeNow, } = this.state
         activeNow < 2 ?
@@ -351,12 +401,42 @@ export class Notification_From extends Component {
                 <View style={stylesMain.FrameBackground}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'center', marginTop: 10 }]}> {DetailHead ? DetailHead : 'หนังสือจดทะเบียนบริษัท จากกรมพัฒนาธุรกิจการค้า'} </Text>
                     <View style={{ padding: 10 }}>
-                        <TouchableOpacity>
-                            <View style={stylesStoreMe.StoreMe_Up_Image_Box}>
-                                <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
-                                <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize6,{ color: '#0A55A6'}]}>รูปภาพ</Text>
-                            </View>
-                        </TouchableOpacity>
+                        <ScrollView horizontal>
+                            {
+                                avatarSource ? [
+                                    avatarSource.map((item, index) => {
+                                        {/* console.log(item) */ }
+                                        return (
+                                            <TouchableOpacity onPress={() => this.UploadImageSingle(index)} key={index}>
+                                                <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                                                    <FastImage
+                                                        source={{ uri: item.path }}
+                                                        style={[stylesMain.ItemCenterVertical, { height: '100%', width: '100%' }]}
+                                                    />
+                                                </View>
+                                            </TouchableOpacity>
+                                        )
+                                    }),
+                                    avatarSource.length < 7 &&
+                                    <TouchableOpacity onPress={this.UploadImageMultiple} key={'upload'}>
+                                        <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                                            <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
+                                                <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
+                                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
+                                            </View>
+                                        </View>
+                                    </TouchableOpacity>
+                                ] :
+                                    <TouchableOpacity onPress={this.UploadImageMultiple}>
+                                        <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                                            <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
+                                                <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
+                                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
+                                            </View>
+                                        </View>
+                                    </TouchableOpacity>
+                            }
+                        </ScrollView>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { width: 250, marginTop: 10, color: '#B7B7B7' }]}>*กรุณาอัพโหลดเอกสารที่เป็นปัจจุบัน หากไม่ทำรายการ เราจะทำการถอนการขายสินค้าของท่านบนเว็บของเรา</Text>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginTop: 10 }]}>โปรดระบุวันหมดอายุ</Text>
                         <View style={{ width: '100%', alignItems: 'center', }}>
@@ -438,9 +518,20 @@ export class Up_Code_Number extends Component {
     constructor(props) {
         super(props);
         this.state = {
-        };
+            show: false
+        }
     }
-
+    handleOpen = () => {
+        this.setState({ show: true })
+    }
+    handleClose = () => {
+        this.setState({ show: false })
+    }
+    get _renderHeader() {
+        return (
+            <IconFontAwesome name='check' size={50} color='white' />
+        )
+    }
     render() {
         return (
             <View style={stylesMain.FrameBackground}>
@@ -465,13 +556,28 @@ export class Up_Code_Number extends Component {
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ยกเลิก</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={this.handleOpen}>
                             <View style={stylesStoreMe.BottomSheet_Botton_OK}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตกลง</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
                 </View>
+                <SCLAlert
+                    theme="success"
+                    headerIconComponent={this._renderHeader}
+                    show={this.state.show}
+                    title="กรุณาตรวจสอบหมายเลขพัสดุ"
+                    titleStyle={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}
+                    subtitle="tnt1237174823403268 "
+                    subtitleStyle={stylesFont.FontFamilyText}
+                    onRequestClose={() => null}
+                >
+                    <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
+                        <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ width: 150, }}>ยกเลิก</SCLAlertButton>
+                        <SCLAlertButton theme="success" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ width: 150, }}>ยืนยัน</SCLAlertButton>
+                    </View>
+                </SCLAlert>
             </View>
         );
     }

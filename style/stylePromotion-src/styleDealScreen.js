@@ -40,8 +40,8 @@ export default StyleSheet.create({
         alignContent: 'center',
     },
     Button_Bar_BoxICON: {
-        height: 50,
-        width: 50,
+        height: 40,
+        width: 40,
         backgroundColor: '#C4C4C4',
         borderRadius: 40,
     },
@@ -123,7 +123,7 @@ export default StyleSheet.create({
         marginTop: 8,
     },
     Deal_Exclusive_Image: {
-        height: 120,
+        height: 130,
         width: 120,
     },
     Second_Store: {

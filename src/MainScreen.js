@@ -40,10 +40,18 @@ export default class MainScreen extends React.Component {
         this.LoadingStart = this.LoadingStart.bind(this)
         this.LoadingEnd = this.LoadingEnd.bind(this)
     }
+    componentDidMount() {
+        this.getDataAsync.bind(this)
+    }
+    getDataAsync = async () => {
+        const currentUser = await AsyncStorage.getItem('@MyKey')
+        this.setState({ currentUser: JSON.parse(currentUser) })
+        console.log(JSON.parse(currentUser))
+    }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService } = this.state
+        const { dataService, currentUser } = this.state
         const { navigation } = this.props
-        if (dataService !== nextState.dataService || navigation !== nextProps.navigation) {
+        if (dataService !== nextState.dataService || currentUser !== nextState.currentUser || navigation !== nextProps.navigation) {
             return true
         }
         return false
@@ -69,10 +77,12 @@ export default class MainScreen extends React.Component {
         }
     }
     render() {
-        const { dataService } = this.state
+        const { dataService, currentUser } = this.state
         const { navigation } = this.props
         const browerProps = navigation.getParam('browerProps')
         var uri = finip + '/home/publish_mobile'
+        console.log('currentUser')
+        console.log(currentUser)
         return browerProps ?
             ([
                 <View style={{ height: 50, width }}>
@@ -100,10 +110,9 @@ export default class MainScreen extends React.Component {
                         <Button_Bar navigation={navigation} />
                         <FlashSale navigation={navigation} />
                         <Recommend_Brand navigation={navigation} loadData={dataService.brand} />
-                        <BannerBar_ONE />
+                        <BannerBar_TWO />
                         <Exclusive navigation={navigation} loadData={dataService.exclusive} />
                         <NewStore navigation={navigation} loadData={dataService.dont_miss} />
-                        <BannerBar_TWO />
                         <Highlight navigation={navigation} loadData={dataService.hi_week} />
                         <PromotionPopular navigation={navigation} loadData={dataService.recommend_store} />
                         <Popular_store navigation={navigation} loadData={dataService.store_good} />
@@ -111,9 +120,8 @@ export default class MainScreen extends React.Component {
                             product_hit: dataService.product_hit, best_price: dataService.best_price,
                             best_sale: dataService.best_sale, best_cool: dataService.best_cool
                         }} />
-                        <BannerBar_TWO />
+                        <BannerBar_ONE />
                         <Product_for_you navigation={navigation} loadData={dataService.for_you} />
-                        <BannerBar_TWO />
                         <CategoryProduct navigation={navigation} />
                         <Second_product navigation={navigation} loadData={{
                             product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
@@ -384,7 +392,7 @@ export class AppBar1 extends React.Component {
     }
     render() {
         const {
-            titleHead, backArrow, backArrowColor, chatBar, colorBar, menuBar, storeBar, searchBar, settingBar,
+            titleHead, backArrow, backArrowColor, chatBar, colorBar, menuBar, storeBar, searchBar, settingBar, saveBar,
         } = this.props;
         return (
             <View style={colorBar ? colorBar : menuBar ? stylesStore.AppbarMenu : stylesStore.Appbar}>
@@ -444,6 +452,19 @@ export class AppBar1 extends React.Component {
                                 stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
                                     marginRight: 8
                                 }]} />
+                        </TouchableOpacity>
+                    }{
+                        saveBar &&
+                        <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
+                        // onPress={() => ()}
+                        >
+                            <Text style={[
+                                stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize4, {
+                                    width: 50,
+                                    marginRight: 8,
+                                }]} >
+                                บันทึก
+                                        </Text>
                         </TouchableOpacity>
                     }
                 </View>
@@ -751,7 +772,6 @@ export class Button_Bar extends React.Component {
                             <FastImage style={stylesMain.Button_Bar_icon}
                                 source={{
                                     uri: ip + '/MySQL/uploads/icon_5/06.jpg',
-
                                 }}
                                 resizeMode={FastImage.resizeMode.stretch}
                             />
@@ -764,7 +784,6 @@ export class Button_Bar extends React.Component {
                             <FastImage style={stylesMain.Button_Bar_icon}
                                 source={{
                                     uri: ip + '/MySQL/uploads/icon_5/07.jpg',
-
                                 }}
                                 resizeMode={FastImage.resizeMode.stretch}
                             />
@@ -777,7 +796,6 @@ export class Button_Bar extends React.Component {
                             <FastImage style={stylesMain.Button_Bar_icon}
                                 source={{
                                     uri: ip + '/MySQL/uploads/icon_5/08.jpg',
-
                                 }}
                                 resizeMode={FastImage.resizeMode.stretch}
                             />
@@ -790,7 +808,6 @@ export class Button_Bar extends React.Component {
                             <FastImage style={stylesMain.Button_Bar_icon}
                                 source={{
                                     uri: ip + '/MySQL/uploads/icon_5/09.jpg',
-
                                 }}
                                 resizeMode={FastImage.resizeMode.stretch}
                             />
@@ -1940,10 +1957,10 @@ export class Second_product extends React.Component {
                         <Text></Text>
                         <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen(0)}
                         >
-                            <Text style={[stylesMain.FrameBackgroundTextEnd2, stylesFont.FontFamilyText, stylesFont.FontSize7, {
-                                color: '#0A55A6'
-                            }]}>
-                                ดูทั้งหมด</Text>
+                            <View style={{ backgroundColor: '#0A55A6', borderTopLeftRadius: 20, width: 50, alignItems: 'flex-end' }}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FFFFFF' }]}>
+                                    ดูทั้งหมด </Text>
+                            </View>
                         </TouchableOpacity>
                     </View>
                     <ScrollView horizontal>

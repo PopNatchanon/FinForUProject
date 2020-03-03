@@ -332,7 +332,7 @@ export class Deal_Exclusive extends Component {
             <Text style={[stylesFont.FontFamilyText, { color: '#FFFFFF' }]}>สินค้าลด 60% </Text>
             <FastImage style={stylesDeal.Deal_Exclusive_Image}
               source={{
-                uri: ip + '/MySQL/uploads/icon_brand/ht.png',
+                uri: ip + '/MySQL/uploads/Unicorn/04.png',
               }}
             />
           </View>

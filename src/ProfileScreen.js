@@ -15,6 +15,7 @@ import IconFeather from 'react-native-vector-icons/Feather';
 import IconFontisto from 'react-native-vector-icons/Fontisto';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
@@ -41,18 +42,19 @@ export default class StoreScreen extends Component {
         }
         return false
     }
-    getDataasync = async () => {
+    getDataAsync = async () => {
         this._isMounted = true;
         const currentUser = await AsyncStorage.getItem('@MyKey')
         if (this._isMounted) {
             this.setState({ currentUser: JSON.parse(currentUser) })
+            console.log(JSON.parse(currentUser))
         }
     }
     componentWillUnmount() {
         this._isMounted = false;
     }
     componentDidMount() {
-        this.getDataasync()
+        this.getDataAsync()
     }
     render() {
         const { currentUser } = this.state;
@@ -65,7 +67,6 @@ export default class StoreScreen extends Component {
                             currentUser ?
                                 <Headbar navigation={navigation} currentUser={currentUser} /> :
                                 null
-
                         }
                         <Menubar navigation={navigation} />
                         <Listbar navigation={navigation} />
@@ -99,7 +100,8 @@ export class Headbar extends Component {
     }
     render() {
         const { currentUser, statusOnline } = this.props
-        const uri = [finip, currentUser.image_path, currentUser.image].join('/')
+        const uri = finip + '/' + currentUser.image_path + '/' + currentUser.image
+        console.log(uri)
         return (
             <View>
                 <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen}>
@@ -120,14 +122,14 @@ export class Headbar extends Component {
                                             เริ่มค้าขาย</Text>
                                     </View>
                                 </TouchableOpacity>
-
                                 <FastImage
                                     source={{ uri: uri }}
-                                    style={stylesProfile.HeadbarBoxImage}
-                                />
+                                    style={[stylesProfile.HeadbarBoxImage, stylesMain.ItemCenter]}>
+                                    {/* <IconFontAwesome5 name="user-alt" size={50} color='#1a3263' /> */}
+                                </FastImage>
                             </View>
                             <View style={{ marginLeft: 15, marginTop: '21%' }}>
-                                <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#FFFFFF' }]}>
+                                <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>
                                     {currentUser.name}</Text>
                                 <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, {
                                     color: statusOnline ? '#BEBDBD' : '#43e855',

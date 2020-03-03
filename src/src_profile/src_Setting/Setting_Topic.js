@@ -4,6 +4,7 @@ import {
   Dimensions, Picker, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
+import AsyncStorage from '@react-native-community/async-storage';
 import BottomSheet from "react-native-raw-bottom-sheet";
 import { CheckBox } from 'react-native-elements';
 export const { width, height } = Dimensions.get('window');
@@ -20,15 +21,31 @@ import stylesLogin from '../../../style/stylesLoginScreen';
 import { AppBar1, ExitAppModule } from '../../MainScreen';
 import { StoreMe_SettingImage } from '../../src_storeMe/StoreMe_Profile_Edit';
 ///----------------------------------------------------------------------------------------------->>>> Ip
+import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class Setting_Topic extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentUser: {},
+    }
+  }
+  componentDidMount() {
+    this.getDataAsync()
+  }
+  getDataAsync = async () => {
+    const currentUser = await AsyncStorage.getItem('@MyKey')
+    this.setState({ currentUser: JSON.parse(currentUser) })
+    console.log(JSON.parse(currentUser))
+  }
   PathList() {
+    const { currentUser } = this.state
     const selectedIndex = this.props.navigation.getParam('selectedIndex')
     switch (selectedIndex) {
       case 0:
         return (
           <View>
-            <Edit_Profile navigation={this.props.navigation} />
+            <Edit_Profile navigation={this.props.navigation} currentUser={currentUser} />
           </View>
         )
       case 1:
@@ -169,31 +186,49 @@ export class Edit_Profile extends Component {
       })
     )
   }
+  SaveName = async () => {
+    const uri = finip + '/profile/update_profile_api'
+    const dataBody = {
+      id_customer: this.props.currentUser.id_customer,
+      name: this.state.Name,
+      gender: this.props.currentUser.gender,
+      file: this.props.currentUser.image,
+      date_of_birth: this.props.currentUser.date_of_birth
+    }
+    console.log(uri)
+    console.log(JSON.stringify(dataBody))
+    fetch(uri, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(dataBody),
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log(responseJson)
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+  }
   NameSheetBody() {
     return (
       <>
         <View style={stylesProfileTopic.Edit_Profile}>
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ชื่อ-นามสกุล</Text>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ชื่อผู้ใช้</Text>
           <View style={stylesProfileTopic.Edit_Profile_Box}>
             <TextInput
               fontSize={15}
-              placeholder="ชื่อ"
+              placeholder="ชื่อผู้ใช้"
               maxLength={30}
               value={this.state.Name}
               onChangeText={(Name) => this.setState({ Name })}
             />
           </View>
-          <View style={stylesProfileTopic.Edit_Profile_Box}>
-            <TextInput
-              fontSize={15}
-              placeholder="นามสกุล"
-              maxLength={30}
-              value={this.state.Last}
-              onChangeText={(Last) => this.setState({ Last })}
-            />
-          </View>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={this.SaveName.bind(this)}>
           <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
           </View>

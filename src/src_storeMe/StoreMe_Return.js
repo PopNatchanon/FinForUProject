@@ -7,6 +7,7 @@ import {
 export const { width, height } = Dimensions.get('window');
 import { CheckBox } from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
+import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert'
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -53,12 +54,12 @@ export default class StoreMe_Return extends Component {
             <AppBar1 backArrow navigation={this.props.navigation} titleHead='คลังสินค้า' />
             <ScrollView>
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { margin: 5, }]}>รายการสินค้า</Text>
-              <Treasury_store_Product />
-              <Treasury_store_Product />
-              <Treasury_store_Product />
-              <Treasury_store_Product />
-              <Treasury_store_Product />
-              <Treasury_store_Product />
+              <Treasury_store_Product navigation={this.props.navigation}/>
+              <Treasury_store_Product navigation={this.props.navigation}/>
+              <Treasury_store_Product navigation={this.props.navigation}/>
+              <Treasury_store_Product navigation={this.props.navigation}/>
+              <Treasury_store_Product navigation={this.props.navigation}/>
+              <Treasury_store_Product navigation={this.props.navigation}/>
             </ScrollView>
           </View>
         )
@@ -268,21 +269,32 @@ export class Treasury_store_Product extends Component {
   constructor(props) {
     super(props);
     this.state = {
-    };
+      show: false
+    }
   }
-
+  handleOpen = () => {
+    this.setState({ show: true })
+  }
+  handleClose = () => {
+    this.setState({ show: false })
+  }
+  get _renderHeader() {
+    return (
+      <IconFontAwesome name='trash-o' size={50} color='white' />
+    )
+  }
   render() {
     return (
       <View style={stylesMain.SafeAreaView}>
         <View style={stylesMain.FrameBackground}>
-          <View style={[stylesMain.FlexRow, {justifyContent:'space-between',paddingHorizontal:10}]}>
+          <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', paddingHorizontal: 10 }]}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
-            <View style={[stylesMain.FlexRow,stylesStoreMe.Treasury_store_Text]}>
-              <TouchableOpacity style={stylesMain.FlexRow} >
+            <View style={[stylesMain.FlexRow, stylesStoreMe.Treasury_store_Text]}>
+              <TouchableOpacity onPress={this.handleOpen} style={stylesMain.FlexRow}>
                 <IconFontAwesome name='trash-o' size={20} color='#6B87CF' />
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#6B87CF' }]}>ลบ</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={stylesMain.FlexRow} >
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreMe_Up_Product')} style={stylesMain.FlexRow} >
                 <IconFeather name='edit' size={20} color='#6B87CF' />
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#6B87CF' }]}>แก้ไข</Text>
               </TouchableOpacity>
@@ -319,8 +331,22 @@ export class Treasury_store_Product extends Component {
           </View>
         </View>
         <View>
-
         </View>
+        <SCLAlert
+          theme="danger"
+          headerIconComponent={this._renderHeader}
+          show={this.state.show}
+          title="คุณต้องการลบสินค้าชิ้นนี้หรือไม่"
+          titleStyle={[stylesFont.FontFamilyBold,stylesFont.FontSize2]}
+          subtitle="Name Product"
+          subtitleStyle={stylesFont.FontFamilyText}
+          onRequestClose={() => null}
+        >
+          <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
+            <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ width: 150, }}>ยกเลิก</SCLAlertButton>
+            <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ width: 150, }}>ยืนยัน</SCLAlertButton>
+          </View>
+        </SCLAlert>
       </View>
     );
   }

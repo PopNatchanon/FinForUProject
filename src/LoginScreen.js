@@ -72,6 +72,8 @@ export class Login extends Component {
     this.getData = this.getData.bind(this);
   }
   storeData = async (item) => {
+    console.log('storeData')
+    console.log(item)
     try {
       await AsyncStorage.setItem('@MyKey', JSON.stringify(item))
     } catch (e) {
@@ -98,7 +100,10 @@ export class Login extends Component {
       .then((response) => response.json())
       .then((responseJson) => {
         var userser = {};
+        console.log(responseJson)
         responseJson.map((item) => {
+          console.log('responseJson')
+          console.log(item)
           userser.id_customer = item.id_customer
           userser.name = item.name
           userser.email = item.email
@@ -106,8 +111,11 @@ export class Login extends Component {
           userser.image = item.image
           userser.image_path = item.image_path
           userser.gender = item.gender
+          userser.date_of_birth = item.date_of_birth
           userser.address = item.address
         })
+        console.log('userser')
+        console.log(userser)
         this.clearAll()
         this.storeData(userser)
         if (userser.address != null) {

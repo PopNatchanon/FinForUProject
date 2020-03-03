@@ -380,10 +380,6 @@ export default StyleSheet.create({
         borderColor: '#D5D5D5',
         borderWidth: 1,
     },
-    Return_ImageBox: {
-        margin: 10,
-        alignItems: 'flex-end'
-    },
     Up_Image_Box: {
         backgroundColor: '#FFFFFF',
         justifyContent: 'center',

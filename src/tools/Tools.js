@@ -59,7 +59,9 @@ export class Toolbar extends React.Component {
         const { currentUser } = this.state;
         var u_name = null;
         if (currentUser != null) {
-            u_name = currentUser.name;
+            currentUser.name ?
+                u_name = currentUser.name :
+                u_name = ['null'];
         }
         return (
             <View style={stylesMain.Toolbar}>
@@ -87,7 +89,7 @@ export class Toolbar extends React.Component {
                         <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>เตือน</Text>
                     </View>
                 </TouchableOpacity>
-                {u_name == null ?
+                {currentUser == null ?
                     <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('LoginScreen')}>
                         <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                             <IconAntDesign name="user" size={25} />
@@ -98,11 +100,7 @@ export class Toolbar extends React.Component {
                         <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                             <IconAntDesign name="user" size={25} />
                             <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>
-                                {
-                                    u_name.length > 6 ?
-                                        'บัญชีของ' + u_name.substring(0, 3) + '...' :
-                                        'บัญชีของ' + u_name
-                                }
+                                {u_name}
                             </Text>
                         </View>
                     </TouchableOpacity>

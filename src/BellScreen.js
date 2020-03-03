@@ -9,7 +9,6 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
-import ImagePicker from 'react-native-image-crop-picker';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -44,7 +43,6 @@ export default class BellScreen extends Component {
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                 <AppBar1 titleHead='การแจ้งเตือน' />
                 <ScrollView>
-                    <UploadImage />
                     <Popular_store />
                     <Pro_for_U navigation={navigation} />
                     <Update_buy navigation={navigation} />
@@ -285,106 +283,3 @@ export class Update_buy extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Pro_for_U
-export class UploadImage extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            avatarSource: [],
-        };
-    }
-    UploadImageSingle = (index) => {
-        const { avatarSource } = this.state
-        const options = {
-        };
-        ImagePicker.openPicker(options).then(response => {
-            console.log('Response = ', response);
-            // You can also display the image using data:
-            // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-            avatarSource[index] = response
-            this.setState({ avatarSource })
-        });
-    }
-    UploadImageMultiple = () => {
-        const { avatarSource } = this.state
-        const options = {
-            multiple: true,
-        };
-        ImagePicker.openPicker(options).then(response => {
-            console.log('Response = ', response);
-            // You can also display the image using data:
-            // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-            response.map((item, index) => index + avatarSource.length <= 7 && avatarSource.push(item))
-            this.setState({ avatarSource })
-        });
-    }
-    UploadImageData = () => {
-        const { avatarSource } = this.state
-        console.log('avatarSource2222')
-        console.log(avatarSource)
-        var uri = [ip, 'sql/uploadimage/updateimage.php'].join('/')
-        avatarSource && (
-            fetch(uri, {
-                method: "POST",
-                body: avatarSource
-            })
-                .then(response => response.json())
-                .then(response => {
-                    console.log("upload succes", response);
-                    alert("Upload success!");
-                    this.setState({ avatarSource: null });
-                })
-                .catch(error => {
-                    console.log("upload error", error);
-                    alert("Upload failed!");
-                })
-        )
-    }
-    render() {
-        const { avatarSource } = this.state
-        console.log('avatarSource')
-        console.log(avatarSource)
-        return (
-            <>
-                <ScrollView horizontal>
-                    {
-                        avatarSource ? [
-                            avatarSource.map((item, index) => {
-                                console.log(item)
-                                return (
-                                    <TouchableOpacity onPress={() => this.UploadImageSingle(index)} key={index}>
-                                        <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>
-                                            <FastImage
-                                                source={{ uri: item.path }}
-                                                style={[stylesMain.ItemCenterVertical, { height: '100%', width: '100%' }]}
-                                            />
-                                        </View>
-                                    </TouchableOpacity>
-                                )
-                            }),
-                            avatarSource.length < 7 &&
-                            <TouchableOpacity onPress={this.UploadImageMultiple} key={'upload'}>
-                                <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>
-                                    <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
-                                        <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
-                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
-                                    </View>
-                                </View>
-                            </TouchableOpacity>
-                        ] :
-                            <TouchableOpacity onPress={this.UploadImageMultiple}>
-                                <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>
-                                    <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
-                                        <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
-                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
-                                    </View>
-                                </View>
-                            </TouchableOpacity>
-                    }
-                </ScrollView>
-                <TouchableOpacity onPress={this.UploadImageData} style={stylesMain.ItemCenter}>
-                    <Text style={[{ width: 75, height: 40, borderWidth: 1, borderColor: '#456488', marginTop: 10, textAlign: 'center', textAlignVertical: 'center', color: '#fff', backgroundColor: '#456488' }]}>Upload</Text>
-                </TouchableOpacity>
-            </>
-        )
-    }
-}

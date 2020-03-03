@@ -6,6 +6,7 @@ import {
 ///----------------------------------------------------------------------------------------------->>>> Import
 import FastImage from 'react-native-fast-image';
 export const { width, height } = Dimensions.get('window');
+import ImagePicker from 'react-native-image-crop-picker';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconFeather from 'react-native-vector-icons/Feather';
@@ -100,7 +101,7 @@ export class Return extends Component {
       <View style={stylesMain.FrameBackground}>
         <View style={stylesProfileTopic.Return}>
           <View style={stylesMain.FlexRow}>
-            <View style={{ height: 100, width: 100, borderColor: '#F3F3F3', borderWidth: 1, margin: 10 }}>
+            <View style={stylesProfileTopic.Order_Product_Pro}>
               <FastImage style={stylesMain.BoxProduct1Image}
                 source={{
                   uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
@@ -124,14 +125,49 @@ export class Return_Detail extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      avatarSource: [],
+      Text:'',
     };
   }
+  UploadImageSingle = (index) => {
+    const { avatarSource } = this.state
+    const options = {
+      includeBase64: true
+    };
+    ImagePicker.openPicker(options).then(response => {
+      console.log('Response = ', response);
+      // You can also display the image using data:
+      // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+      avatarSource[index] = response
+      this.setState({ avatarSource })
+    });
+  }
+  UploadImageMultiple = () => {
+    const { avatarSource } = this.state
+    const options = {
+      multiple: true,
+      includeBase64: true
+    };
+    ImagePicker.openPicker(options).then(response => {
+      console.log('Response = ', response);
+      // You can also display the image using data:
+      // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+      response.map((item, index) => index + avatarSource.length <= 7 && avatarSource.push(item))
+      this.setState({ avatarSource })
+    });
+  }
   render() {
+    const { avatarSource } = this.state
     return (
       <View style={{ padding: 10, }}>
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ยอดเงินคืน</Text>
-        <View style={stylesProfileTopic.Return_Detail_Box}>
-        </View>
+          <TextInput
+            style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesProfileTopic.Return_Detail_Box]}
+            placeholder="กรอกจำนวนยอดเงินคืน"
+            maxLength={40}
+            value={this.state.Text}
+            onChangeText={(Text) => this.setState({ Text })}>
+          </TextInput>
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>เหตุผลการคืนสินค้า</Text>
         <View style={stylesProfileTopic.Return_Detail_Box}>
           <Picker
@@ -155,21 +191,52 @@ export class Return_Detail extends Component {
             value={this.state.Detail}
             onChangeText={(Detail) => this.setState({ Detail })}></TextInput>
         </View>
-        <View style={stylesProfileTopic.Return_ImageBox}>
-          <TouchableOpacity>
-            <View style={stylesProfileTopic.Up_Image_Box}>
-              <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ(0/6)</Text>
-            </View>
-          </TouchableOpacity>
+        <View style={stylesMain.FrameBackground}>
+          <ScrollView horizontal>
+            {
+              avatarSource ? [
+                avatarSource.map((item, index) => {
+                  {/* console.log(item) */ }
+                  return (
+                    <TouchableOpacity onPress={() => this.UploadImageSingle(index)} key={index}>
+                      <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                        <FastImage
+                          source={{ uri: item.path }}
+                          style={[stylesMain.ItemCenterVertical, { height: '100%', width: '100%' }]}
+                        />
+                      </View>
+                    </TouchableOpacity>
+                  )
+                }),
+                avatarSource.length < 7 &&
+                <TouchableOpacity onPress={this.UploadImageMultiple} key={'upload'}>
+                  <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                    <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
+                      <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
+                      <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              ] :
+                <TouchableOpacity onPress={this.UploadImageMultiple}>
+                  <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                    <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
+                      <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
+                      <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+            }
+          </ScrollView>
+
         </View>
         <View style={stylesProfileTopic.Return_ButtonBox}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={this.UploadImageData} style={stylesMain.ItemCenter}>
             <View style={stylesProfileTopic.Return_Button}>
               <Text>เปลี่ยนสินค้า</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={this.UploadImageData} style={stylesMain.ItemCenter}>
             <View style={[stylesProfileTopic.Return_Button, { marginLeft: 10, }]}>
               <Text>ขอเงินคืน</Text>
             </View>

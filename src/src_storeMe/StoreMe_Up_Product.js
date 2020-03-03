@@ -8,6 +8,7 @@ export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import BottomSheet from "react-native-raw-bottom-sheet";
 import { CheckBox } from 'react-native-elements';
+import ImagePicker from 'react-native-image-crop-picker';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -31,7 +32,7 @@ export default class StoreMe_Up_Product extends Component {
   render() {
     return (
       <SafeAreaView style={{ backgroundColor: '#E9E9E9', flex: 1, }}>
-        <AppBar1 backArrow navigation={this.props.navigation} titleHead='เพิ่มสินค้า' />
+        <AppBar1 backArrow navigation={this.props.navigation} titleHead='เพิ่มสินค้า' saveBar />
         <ScrollView>
           <StoreMe_Up_Image />
           <StoreMe_Up_ProductDetail />
@@ -45,30 +46,108 @@ export class StoreMe_Up_Image extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      avatarSource: [],
     };
   }
+  UploadImageSingle = (index) => {
+    const { avatarSource } = this.state
+    const options = {
+      includeBase64: true
+    };
+    ImagePicker.openPicker(options).then(response => {
+      console.log('Response = ', response);
+      // You can also display the image using data:
+      // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+      avatarSource[index] = response
+      this.setState({ avatarSource })
+    });
+  }
+  UploadImageMultiple = () => {
+    const { avatarSource } = this.state
+    const options = {
+      multiple: true,
+      includeBase64: true
+    };
+    ImagePicker.openPicker(options).then(response => {
+      console.log('Response = ', response);
+      // You can also display the image using data:
+      // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+      response.map((item, index) => index + avatarSource.length <= 7 && avatarSource.push(item))
+      this.setState({ avatarSource })
+    });
+  }
+  UploadImageData = () => {
+    const { avatarSource } = this.state
+    console.log('avatarSource2222')
+    console.log(avatarSource)
+    var uri = [ip, 'sql/uploadimage/updateimage.php'].join('/')
+    avatarSource && (
+      fetch(uri, {
+        method: "POST",
+        body: avatarSource
+      })
+        .then(response => response.json())
+        .then(response => {
+          console.log("upload succes", response);
+          alert("Upload success!");
+          this.setState({ avatarSource: null });
+        })
+        .catch(error => {
+          console.log("upload error", error);
+          alert("Upload failed!");
+        })
+    )
+  }
   render() {
+    const { avatarSource } = this.state
+    // console.log('avatarSource')
+    // console.log(avatarSource)
     return (
-      <View style={stylesStoreMe.StoreMe_Up_Image}>
+      <View style={stylesMain.FrameBackground}>
         <ScrollView horizontal>
-          <View style={stylesStoreMe.StoreMe_Up_ImageA}>
-            <View style={stylesStoreMe.StoreMe_Up_Image_Box}>
-              <FastImage style={stylesMain.BoxProduct1Image}
-                source={{ uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg', }} />
-            </View>
-            <TouchableOpacity>
-              <View style={stylesStoreMe.StoreMe_Up_Image_Box}>
-                <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
+          {
+            avatarSource ? [
+              avatarSource.map((item, index) => {
+                {/* console.log(item) */}
+                return (
+                  <TouchableOpacity onPress={() => this.UploadImageSingle(index)} key={index}>
+                    <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                      <FastImage
+                        source={{ uri: item.path }}
+                        style={[stylesMain.ItemCenterVertical,stylesMain.BoxProduct1Image]}
+                      />
+                    </View>
+                  </TouchableOpacity>
+                )
+              }),
+              avatarSource.length < 7 &&
+              <TouchableOpacity onPress={this.UploadImageMultiple} key={'upload'}>
+                <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                  <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
+                    <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            ] :
+              <TouchableOpacity onPress={this.UploadImageMultiple}>
+                <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                  <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
+                    <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+          }
         </ScrollView>
-        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10, color: '#A3A3A3' }]}> *สูงสุดรวม 6 รูป</Text>
+        <TouchableOpacity onPress={this.UploadImageData} style={stylesMain.ItemCenter}>
+          <Text style={[{ width: 75, height: 40, borderWidth: 1, borderColor: '#456488', marginTop: 10, textAlign: 'center', textAlignVertical: 'center', color: '#fff', backgroundColor: '#456488' }]}>Upload</Text>
+        </TouchableOpacity>
       </View>
-    );
+    )
   }
 }
+
 ///--------------------------------------------------------------------------///
 export class StoreMe_Up_ProductDetail extends Component {
   constructor(props) {

@@ -152,13 +152,13 @@ export class ListMenu extends Component {
                     </View>
                 </TouchableOpacity>
                 <View style={{ alignItems: 'center' }}>
+                    <View style={stylesProfileTopic.Button_Logout} >
                     <TouchableOpacity style={{ marginTop: 10 }} onPress={() => this.logoutPress()}>
-                        <View style={stylesProfileTopic.Button_Logout} >
-                            <View style={stylesProfileTopic.Button_LogoutBox}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]} >ออกจากระบบ</Text>
-                            </View>
+                        <View style={stylesProfileTopic.Button_LogoutBox}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]} >ออกจากระบบ</Text>
                         </View>
-                    </TouchableOpacity>
+                       </TouchableOpacity>
+                    </View>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginTop: 5 }]}>FIN Shopping V 1.0.01</Text>
                 </View>
             </View>

@@ -40,10 +40,18 @@ export default class MainScreen extends React.Component {
         this.LoadingStart = this.LoadingStart.bind(this)
         this.LoadingEnd = this.LoadingEnd.bind(this)
     }
+    componentDidMount() {
+        this.getDataAsync.bind(this)
+    }
+    getDataAsync = async () => {
+        const currentUser = await AsyncStorage.getItem('@MyKey')
+        this.setState({ currentUser: JSON.parse(currentUser) })
+        console.log(JSON.parse(currentUser))
+    }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService } = this.state
+        const { dataService, currentUser } = this.state
         const { navigation } = this.props
-        if (dataService !== nextState.dataService || navigation !== nextProps.navigation) {
+        if (dataService !== nextState.dataService || currentUser !== nextState.currentUser || navigation !== nextProps.navigation) {
             return true
         }
         return false
@@ -69,10 +77,12 @@ export default class MainScreen extends React.Component {
         }
     }
     render() {
-        const { dataService } = this.state
+        const { dataService, currentUser } = this.state
         const { navigation } = this.props
         const browerProps = navigation.getParam('browerProps')
         var uri = finip + '/home/publish_mobile'
+        console.log('currentUser')
+        console.log(currentUser)
         return browerProps ?
             ([
                 <View style={{ height: 50, width }}>
@@ -396,7 +406,7 @@ export class AppBar1 extends React.Component {
     }
     render() {
         const {
-            titleHead, backArrow, backArrowColor, chatBar, colorBar, menuBar, storeBar, searchBar, settingBar,
+            titleHead, backArrow, backArrowColor, chatBar, colorBar, menuBar, storeBar, searchBar, settingBar, saveBar,
         } = this.props;
         return (
             <View style={colorBar ? colorBar : menuBar ? stylesStore.AppbarMenu : stylesStore.Appbar}>
@@ -460,6 +470,20 @@ export class AppBar1 extends React.Component {
                                     stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
                                         marginRight: 8
                                     }]} />
+                            </TouchableOpacity> :
+                            null
+                    }{
+                        saveBar ?
+                            <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
+                            // onPress={() => ()}
+                            >
+                                <Text style={[
+                                    stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize4, {
+                                        width: 50,
+                                        marginRight: 8,
+                                    }]} >
+                                    บันทึก
+                                    </Text>
                             </TouchableOpacity> :
                             null
                     }
@@ -1902,7 +1926,7 @@ export class Second_product extends React.Component {
         return item.map((item, index) => {
             var dataMySQL = [finip, item.image_path, item.image].join('/')
             return (
-                <View key={index} style={{ width: width * 0.64, height: 196  }}>
+                <View key={index} style={{ width: width * 0.64, height: 196 }}>
                     <FastImage
                         source={{
                             uri: dataMySQL,

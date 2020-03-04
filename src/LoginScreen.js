@@ -124,17 +124,17 @@ export class Login extends Component {
         })
         this.clearAll()
         this.storeData(userser)
-        if (userser.address != null) {
-          this.navigationNavigateScreen.bind('MainScreen');
+        if (userser != null) {
+          this.navigationNavigateScreen.bind(this, 'MainScreen');
         } else {
-          this.navigationNavigateScreen.bind('MainScreen');
+          this.navigationNavigateScreen.bind(this, 'MainScreen');
         }
       })
       .catch((error) => {
         console.error(error);
       })
   }
-  handleSubmit() {
+  handleSubmit = () => {
     this.refs.form.submit();
   }
   EmailInput(event) {
@@ -152,6 +152,8 @@ export class Login extends Component {
   }
   render() {
     const { user, eye } = this.state;
+    console.log('eye')
+    console.log(eye)
     return (
       <View style={stylesLogin.Login_Box}>
         <View style={stylesLogin.Login_BoxA}>
@@ -210,7 +212,7 @@ export class Login extends Component {
               }}
             />
             <TouchableOpacity style={stylesLogin.eyestyle}
-              onPress={this.setStateEye.bind(!eye)}>
+              onPress={this.setStateEye.bind(this, !eye)}>
               <View>
                 <IconFeather RightItem name={eye == false ? "eye" : "eye-off"} size={20} style={{ marginTop: 5 }} />
               </View>

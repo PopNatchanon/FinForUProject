@@ -52,9 +52,8 @@ export class Toolbar extends React.Component {
         const { currentUser } = this.state;
         var u_name = null;
         if (currentUser != null) {
-            currentUser.name ?
-                u_name = currentUser.name :
-                u_name = ['null'];
+            currentUser.name &&
+                (u_name = currentUser.name)
         }
         return (
             <View style={stylesMain.Toolbar}>
@@ -92,7 +91,7 @@ export class Toolbar extends React.Component {
                     <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'ProfileScreen')}>
                         <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                             <IconAntDesign name="user" size={25} />
-                            <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>
+                            <Text numberOfLines={1} style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>
                                 {u_name}
                             </Text>
                         </View>
@@ -689,7 +688,7 @@ export class FeedBox extends React.Component {
                                 item.image_path,
                         item.image].join('/') :
                     [url, item.image_path, item.image].join('/');
-            var dataMySQL_s = [ip + '/mysql/uploads/slide/NewStore', item.s_image].join('/');
+            var dataMySQL_s = ip + '/' + 'mysql/uploads/slide/NewStore' + '/' + item.s_image;
             return (
                 <View style={stylesMain.BoxProduct4Box} key={index}>
                     {

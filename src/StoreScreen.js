@@ -29,17 +29,22 @@ export default class StoreScreen extends Component {
             selectedIndex2: 0,
             scrollY: new Animated.Value(0)
         };
-        this.getData = this.getData.bind(this)
-        this.getSelectedIndex = this.getSelectedIndex.bind(this);
-        this.getSelectedIndex2 = this.getSelectedIndex2.bind(this);
     }
-    getSelectedIndex(selectedIndex) {
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { dataService, selectedIndex, selectedIndex2, scrollY } = this.state
+        const { navigation } = this.props;
+        if (dataService !== nextState.dataService || selectedIndex !== nextState.selectedIndex || selectedIndex2 !== nextState.selectedIndex2 || scrollY !== nextState.scrollY || navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
+    getSelectedIndex = (selectedIndex) => {
         this.setState({ selectedIndex })
     }
-    getSelectedIndex2(selectedIndex2) {
+    getSelectedIndex2 = (selectedIndex2) => {
         this.setState({ selectedIndex2 })
     }
-    getData(dataService) {
+    getData = (dataService) => {
         this.setState({ dataService })
     }
     ViewSide(selectedIndex, item) {
@@ -58,8 +63,8 @@ export default class StoreScreen extends Component {
             case 1:
                 return ([
                     <Banner navigation={navigation} item={item} key={'Banner'} />,
-                    <SubMenu getSelectedIndex2={this.getSelectedIndex2} key={'SubMenu'} />,
-                    this.ViewSubSide(selectedIndex2)
+                    <SubMenu getSelectedIndex2={this.getSelectedIndex2.bind(this)} key={'SubMenu'} />,
+                    this.ViewSubSide.bind(this, selectedIndex2)
                 ]);
             case 2:
                 return ([
@@ -70,34 +75,35 @@ export default class StoreScreen extends Component {
         }
     }
     ViewSubSide(selectedIndex2) {
+        const { navigation } = this.props;
         if (selectedIndex2 == 0) {
             return (
                 <View key={'ShowProduct'}>
-                    <ShowProduct noTitle navigation={this.props.navigation} />
+                    <ShowProduct noTitle navigation={navigation} />
                 </View>
             )
         } else if (selectedIndex2 == 1) {
             return (
                 <View key={'ShowProduct'}>
-                    <ShowProduct noTitle navigation={this.props.navigation} />
+                    <ShowProduct noTitle navigation={navigation} />
                 </View>
             )
         } else if (selectedIndex2 == 2) {
             return (
                 <View key={'ShowProduct'}>
-                    <ShowProduct noTitle navigation={this.props.navigation} />
+                    <ShowProduct noTitle navigation={navigation} />
                 </View>
             )
         } else if (selectedIndex2 == 3) {
             return (
                 <View key={'ShowProduct'}>
-                    <ShowProduct noTitle navigation={this.props.navigation} />
+                    <ShowProduct noTitle navigation={navigation} />
                 </View>
             )
         }
     }
     render() {
-        const { dataService, selectedIndex } = this.state
+        const { dataService, selectedIndex, scrollY } = this.state
         const { navigation } = this.props
         const id_item = navigation.getParam('id_item')
         var uri = ip + '/mysql/DataServiceStore.php';
@@ -111,32 +117,32 @@ export default class StoreScreen extends Component {
                 id_store: item.id_store, name: item.name, image: item.image, image_path: item.image_path
             })
         })
-        const AnimatedHeadopacity = this.state.scrollY.interpolate({
+        const AnimatedHeadopacity = scrollY.interpolate({
             inputRange: [0, maxheight],
             outputRange: [1, 0],
             extrapolate: 'clamp',
         })
-        const AnimatedDetailsopacity = this.state.scrollY.interpolate({
+        const AnimatedDetailsopacity = scrollY.interpolate({
             inputRange: [maxheight, maxheight + 220],
             outputRange: [1, 0],
             extrapolate: 'clamp',
         })
-        const AnimatedHead = this.state.scrollY.interpolate({
+        const AnimatedHead = scrollY.interpolate({
             inputRange: [0, maxheight],
             outputRange: [maxheight, 50],
             extrapolate: 'clamp',
         })
-        const AnimatedHeadbg = this.state.scrollY.interpolate({
+        const AnimatedHeadbg = scrollY.interpolate({
             inputRange: [0, maxheight / 2],
             outputRange: ['transparent', '#fff'],
             extrapolate: 'clamp',
         })
-        const AnimatedHeadbd = this.state.scrollY.interpolate({
+        const AnimatedHeadbd = scrollY.interpolate({
             inputRange: [0, maxheight / 2],
             outputRange: ['transparent', '#ECECEC'],
             extrapolate: 'clamp',
         })
-        const AnimatedHeadi = this.state.scrollY.interpolate({
+        const AnimatedHeadi = scrollY.interpolate({
             inputRange: [0, maxheight / 2],
             outputRange: ['#fff', '#111'],
             extrapolate: 'clamp',
@@ -145,9 +151,8 @@ export default class StoreScreen extends Component {
         return (
             <View style={[stylesMain.BackgroundAreaView, { height: '100%', }]}>
                 {
-                    id_item !== undefined ?
-                        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} /> :
-                        null
+                    id_item !== undefined &&
+                    <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
                 }
                 <Animatable.View style={{
                     position: 'absolute',
@@ -178,10 +183,10 @@ export default class StoreScreen extends Component {
                 </Animatable.View>
                 <ScrollView
                     scrollEventThrottle={8}
-                    stickyHeaderIndices={[2, selectedIndex == 1 ? 4 : null]}
+                    stickyHeaderIndices={[2, selectedIndex == 1 && 4]}
                     onScroll={
                         Animated.event([{
-                            nativeEvent: { contentOffset: { y: this.state.scrollY } }
+                            nativeEvent: { contentOffset: { y: scrollY } }
                         }])
                     }
                 >
@@ -197,7 +202,7 @@ export default class StoreScreen extends Component {
                     }}>
                         <StoreHeadDetails navigation={navigation} item={s_item} />
                     </Animatable.View>
-                    <Menubar navigation={navigation} item={s_item} getSelectedIndex={this.getSelectedIndex} />
+                    <Menubar navigation={navigation} item={s_item} getSelectedIndex={this.getSelectedIndex.bind(this)} />
                     {this.ViewSide(selectedIndex, s_item)}
                 </ScrollView>
                 <ExitAppModule navigation={navigation} />
@@ -210,7 +215,7 @@ export class StoreHead extends Component {
     constructor(props) {
         super(props);
     }
-    getDetailStore() {
+    get getDetailStore() {
         const { item } = this.props;
         return item.map((item, index) => {
             var dataMySQL = [ip + '/mysql/uploads/slide/NewStore', item.image].join('/')
@@ -253,7 +258,7 @@ export class StoreHead extends Component {
     }
     render() {
         return (
-            this.getDetailStore()
+            this.getDetailStore
         )
     }
 }
@@ -264,12 +269,11 @@ export class StoreHeadDetails extends Component {
         this.state = {
             dataService: [],
         };
-        this.getData = this.getData.bind(this)
     }
-    getData(dataService) {
+    getData = (dataService) => {
         this.setState({ dataService })
     }
-    getDetailStore() {
+    get getDetailStore() {
         const { item } = this.props;
         return item.map((item, index) => {
             var uri = ip + '/mysql/DataServiceStore.php';
@@ -281,7 +285,7 @@ export class StoreHeadDetails extends Component {
                 <View style={[stylesStore.StoreHeadDetails, { paddingTop: 0, marginBottom: 10, }]} key={index}>
                     {
                         item !== undefined ?
-                            <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} /> :
+                            <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} /> :
                             null
                     }
                     <View>
@@ -322,7 +326,7 @@ export class StoreHeadDetails extends Component {
     }
     render() {
         return (
-            this.getDetailStore()
+            this.getDetailStore
         )
     }
 }

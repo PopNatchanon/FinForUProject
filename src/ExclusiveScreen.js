@@ -119,10 +119,6 @@ export class SlideTab extends Component {
   shouldComponentUpdate = (nextProps, nextState) => {
     const { dataService, selectedIndex, activeText } = this.state
     const { navigation, Title, item } = this.props
-    console.log('nextProps')
-    console.log(nextProps)
-    console.log('nextState')
-    console.log(nextState)
     if (dataService !== nextState.dataService || selectedIndex !== nextState.selectedIndex || activeText !== nextState.activeText || navigation !== nextProps.navigation || Title !== nextProps.Title || item !== nextProps.item) {
       return true
     }

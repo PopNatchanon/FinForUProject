@@ -46,8 +46,6 @@ export default class DetailScreen extends React.Component {
     return false
   }
   showImage = (showItemImage) => {
-      console.log('showItemImage')
-      console.log(showItemImage)
       this.setState({ showItemImage })
   }
   getData = (dataService) => {
@@ -64,11 +62,6 @@ export default class DetailScreen extends React.Component {
     var dataBody = {
       id_product: id_product
     };
-    console.log('render')
-    console.log('showItemImage')
-    console.log(showItemImage)
-    console.log('setShowItemImage')
-    console.log(setShowItemImage)
     return (
       <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
         {
@@ -496,7 +489,6 @@ export class Selector extends React.Component {
     const { dataService } = this.props
     const { itemCount } = this.state
     return dataService.map((item, index) => {
-      // console.log(item)
       var dataMySQL = [finip, item.image_full_path, item.image].join('/');
       return (
         <View style={{ flex: 1, paddingHorizontal: 15 }} key={index}>
@@ -1181,10 +1173,6 @@ export class Show_Image extends React.Component {
   }
   shouldComponentUpdate = (nextProps, nextState) => {
     const { dataService, navigation, setShowItemImage, showImage } = this.props
-    console.log('nextProps')
-    console.log(nextProps)
-    console.log('nextState')
-    console.log(nextState)
     if (dataService !== nextProps.dataService || navigation !== nextProps.navigation || setShowItemImage !== nextProps.setShowItemImage || showImage !== nextProps.showImage) {
       return true
     }
@@ -1198,15 +1186,11 @@ export class Show_Image extends React.Component {
         var items = { uri: [finip, item.image_full_path, item.image].join('/') }
         dataMySQL.push(items)
       })
-    console.log('setdataMySQL')
-    console.log(dataMySQL)
     return dataMySQL
   }
   render() {
     const { showImage } = this.props
     var dataMySQL = this.setShowItemImage.bind(this)
-    console.log('dataMySQL')
-    console.log(dataMySQL)
     return (
       <Modal
         animationType='fade'

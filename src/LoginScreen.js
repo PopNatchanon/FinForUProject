@@ -76,8 +76,6 @@ export class Login extends Component {
     }
   }
   storeData = async (item) => {
-    console.log('storeData')
-    console.log(item)
     try {
       await AsyncStorage.setItem('@MyKey', JSON.stringify(item))
     } catch (e) {
@@ -108,10 +106,7 @@ export class Login extends Component {
       .then((response) => response.json())
       .then((responseJson) => {
         var userser = {};
-        console.log(responseJson)
         responseJson.map((item) => {
-          console.log('responseJson')
-          console.log(item)
           userser.id_customer = item.id_customer
           userser.name = item.name
           userser.email = item.email
@@ -152,14 +147,12 @@ export class Login extends Component {
   }
   render() {
     const { user, eye } = this.state;
-    console.log('eye')
-    console.log(eye)
     return (
       <View style={stylesLogin.Login_Box}>
         <View style={stylesLogin.Login_BoxA}>
           <Form
             ref="form"
-            onSubmit={this.getData.bind(this)}
+            onSubmit={() => this.getData}
           >
             <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
               อีเมล</Text>
@@ -231,7 +224,7 @@ export class Login extends Component {
             </View>
           </Form>
         </View>
-      </View>
+      </View >
     );
   }
 }
@@ -250,7 +243,7 @@ export class Register extends Component {
     return (
       <View style={stylesLogin.Register_Box}>
         <View style={stylesLogin.Register_Box_A}>
-          <TouchableOpacity onPress={this.navigationNavigateScreen.bind('RegisterScreen')}>
+          <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'RegisterScreen')}>
             <View><Text style={[stylesLogin.Register_Box_TextA, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
               สร้างบัญชี</Text>
             </View>

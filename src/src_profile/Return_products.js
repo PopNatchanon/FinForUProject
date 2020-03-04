@@ -7,9 +7,11 @@ import {
 import FastImage from 'react-native-fast-image';
 export const { width, height } = Dimensions.get('window');
 import ImagePicker from 'react-native-image-crop-picker';
+import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconFeather from 'react-native-vector-icons/Feather';
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
@@ -191,7 +193,7 @@ export class Return_Detail extends Component {
             value={this.state.Detail}
             onChangeText={(Detail) => this.setState({ Detail })}></TextInput>
         </View>
-        <View style={stylesMain.FrameBackground}>
+        <View style={{width:'100%',backgroundColor:'#FFFFFF',borderColor:'#D5D5D5',borderWidth:1,paddingVertical:10,marginTop:5}}>
           <ScrollView horizontal>
             {
               avatarSource ? [
@@ -227,21 +229,57 @@ export class Return_Detail extends Component {
                   </View>
                 </TouchableOpacity>
             }
-          </ScrollView>
-
+          </ScrollView>  
         </View>
-        <View style={stylesProfileTopic.Return_ButtonBox}>
-          <TouchableOpacity onPress={this.UploadImageData} style={stylesMain.ItemCenter}>
+        <Return_Alert/>
+      </View>
+    );
+  }
+}
+///----------------------------------------------------------------------------------------------->>>>
+export class Return_Alert extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      show: false
+    }
+  }
+  handleOpen = () => {
+    this.setState({ show: true })
+  }
+  handleClose = () => {
+    this.setState({ show: false })
+  }
+  get _renderHeader() {
+    return (
+      <IconFontAwesome name='edit' size={50} color='white' />
+    )
+  }
+  render() {
+    return (
+      <View>
+      <View style={stylesProfileTopic.Return_ButtonBox}>
+          <TouchableOpacity onPress={this.handleOpen}  style={stylesMain.ItemCenter}>
             <View style={stylesProfileTopic.Return_Button}>
-              <Text>เปลี่ยนสินค้า</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={this.UploadImageData} style={stylesMain.ItemCenter}>
-            <View style={[stylesProfileTopic.Return_Button, { marginLeft: 10, }]}>
-              <Text>ขอเงินคืน</Text>
+              <Text>คืนสินค้า</Text>
             </View>
           </TouchableOpacity>
         </View>
+        <SCLAlert
+          theme="success"
+          headerIconComponent={this._renderHeader}
+          show={this.state.show}
+          title="เปลี่ยนสินค้า"
+          titleStyle={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}
+          subtitle="กรุณารอการตรวจสอบจากร้านค้า"
+          subtitleStyle={stylesFont.FontFamilyText}
+          onRequestClose={() => null}
+        >
+          <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
+            <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยกเลิก</SCLAlertButton>
+            <SCLAlertButton theme="success" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยืนยัน</SCLAlertButton>
+          </View>
+        </SCLAlert>
       </View>
     );
   }

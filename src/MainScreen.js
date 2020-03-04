@@ -1859,12 +1859,14 @@ export class Second_product extends React.Component {
                         </TouchableOpacity>
                     </View>
                     <ScrollView horizontal>
-                        {
-                            loadData.product_second &&
-                            <ProductBox dataService={loadData.product_second} navigation={navigation} typeip='fin' mode='row3col1'
-                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                            />
-                        }
+                        <View style={[stylesMain.ProductForYouFlexBox, { height: 370 }]}>
+                            {
+                                loadData.product_second &&
+                                <ProductBox dataService={loadData.product_second} navigation={navigation} typeip='fin' mode='row3col1'
+                                    pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
+                                />
+                            }
+                        </View>
                     </ScrollView>
                 </View>
             </View>

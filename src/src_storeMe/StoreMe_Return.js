@@ -342,9 +342,9 @@ export class Treasury_store_Product extends Component {
           subtitleStyle={stylesFont.FontFamilyText}
           onRequestClose={() => null}
         >
-          <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
-            <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ width: 150, }}>ยกเลิก</SCLAlertButton>
-            <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ width: 150, }}>ยืนยัน</SCLAlertButton>
+          <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around',}]}>
+            <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding:10 ,paddingHorizontal:40}}>ยกเลิก</SCLAlertButton>
+            <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding:10 ,paddingHorizontal:40}}>ยืนยัน</SCLAlertButton>
           </View>
         </SCLAlert>
       </View>

@@ -63,7 +63,7 @@ export class StoreMe_SettingImage extends Component {
             includeBase64: true
         };
         ImagePicker.openPicker(options).then(response => {
-            console.log('Response = ', response);
+            // console.log('Response = ', response);
             // You can also display the image using data:
             // const source = { uri: 'data:image/jpeg;base64,' + response.data };
             this.setState({ avatarSource2: response })
@@ -74,7 +74,7 @@ export class StoreMe_SettingImage extends Component {
             includeBase64: true
         };
         ImagePicker.openPicker(options).then(response => {
-            console.log('Response = ', response);
+            // console.log('Response = ', response);
             // You can also display the image using data:
             // const source = { uri: 'data:image/jpeg;base64,' + response.data };
             this.setState({ avatarSource3: response })
@@ -143,7 +143,7 @@ export class StoreMe_Up_Image extends Component {
             includeBase64: true
         };
         ImagePicker.openPicker(options).then(response => {
-            console.log('Response = ', response);
+            // console.log('Response = ', response);
             // You can also display the image using data:
             // const source = { uri: 'data:image/jpeg;base64,' + response.data };
             avatarSource[index] = response
@@ -157,7 +157,7 @@ export class StoreMe_Up_Image extends Component {
             includeBase64: true
         };
         ImagePicker.openPicker(options).then(response => {
-            console.log('Response = ', response);
+            // console.log('Response = ', response);
             // You can also display the image using data:
             // const source = { uri: 'data:image/jpeg;base64,' + response.data };
             response.map((item, index) => index + avatarSource.length <= 7 && avatarSource.push(item))
@@ -166,8 +166,6 @@ export class StoreMe_Up_Image extends Component {
     }
     UploadImageData = () => {
         const { avatarSource } = this.state
-        console.log('avatarSource2222')
-        console.log(avatarSource)
         var uri = [ip, 'sql/uploadimage/updateimage.php'].join('/')
         avatarSource && (
             fetch(uri, {
@@ -188,8 +186,6 @@ export class StoreMe_Up_Image extends Component {
     }
     render() {
         const { avatarSource } = this.state
-        // console.log('avatarSource')
-        // console.log(avatarSource)
         return (
             <View style={stylesMain.FrameBackground}>
                 <View style={[stylesMain.FrameBackground, stylesMain.ItemCenter, { paddingVertical: 5, marginTop: 15 }]}>
@@ -207,7 +203,6 @@ export class StoreMe_Up_Image extends Component {
                         {
                             avatarSource ? [
                                 avatarSource.map((item, index) => {
-                                    {/* console.log(item) */ }
                                     return (
                                         <TouchableOpacity onPress={() => this.UploadImageSingle(index)} key={index}>
                                             <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>

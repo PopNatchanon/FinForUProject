@@ -267,7 +267,7 @@ export class Notification_From extends Component {
             includeBase64: true
         };
         ImagePicker.openPicker(options).then(response => {
-            console.log('Response = ', response);
+            // console.log('Response = ', response);
             // You can also display the image using data:
             // const source = { uri: 'data:image/jpeg;base64,' + response.data };
             avatarSource[index] = response
@@ -281,7 +281,7 @@ export class Notification_From extends Component {
             includeBase64: true
         };
         ImagePicker.openPicker(options).then(response => {
-            console.log('Response = ', response);
+            // console.log('Response = ', response);
             // You can also display the image using data:
             // const source = { uri: 'data:image/jpeg;base64,' + response.data };
             response.map((item, index) => index + avatarSource.length <= 7 && avatarSource.push(item))

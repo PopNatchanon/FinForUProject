@@ -36,7 +36,6 @@ export default class Setting_Topic extends Component {
   getDataAsync = async () => {
     const currentUser = await AsyncStorage.getItem('@MyKey')
     this.setState({ currentUser: JSON.parse(currentUser) })
-    console.log(JSON.parse(currentUser))
   }
   PathList() {
     const { currentUser } = this.state
@@ -112,12 +111,20 @@ export class Edit_Profile extends Component {
       DataMo: [],
       DataDay: [],
       activeNow: 0,
+      currentUser: [],
     };
   }
   componentDidMount() {
     this.getDataYear()
     this.getDataMo(new Date())
     this.getDataDay(new Date())
+    this.getDataAsync()
+  }
+  getDataAsync = async () => {
+    var currentUser = []
+    const data = await AsyncStorage.getItem('@MyKey')
+    currentUser.push(JSON.parse(data))
+    this.setState({ currentUser })
   }
   getDataYear() {
     var dates = new Date().getFullYear();
@@ -195,8 +202,6 @@ export class Edit_Profile extends Component {
       file: this.props.currentUser.image,
       date_of_birth: this.props.currentUser.date_of_birth
     }
-    console.log(uri)
-    console.log(JSON.stringify(dataBody))
     fetch(uri, {
       method: 'POST',
       headers: {
@@ -214,6 +219,8 @@ export class Edit_Profile extends Component {
       })
   }
   NameSheetBody() {
+    const { Name } = this.state
+    console.log(Name)
     return (
       <>
         <View style={stylesProfileTopic.Edit_Profile}>
@@ -223,7 +230,7 @@ export class Edit_Profile extends Component {
               fontSize={15}
               placeholder="ชื่อผู้ใช้"
               maxLength={30}
-              value={this.state.Name}
+              value={Name}
               onChangeText={(Name) => this.setState({ Name })}
             />
           </View>
@@ -353,7 +360,30 @@ export class Edit_Profile extends Component {
       </>
     )
   }
+  setCurrentUser = () => {
+    const { currentUser } = this.state
+    currentUser.map((item) => {
+      console.log('setCurrentUser:Map')
+      console.log(item)
+      var checked
+      var checked2
+      if (item.gender == 'male') {
+        checked = true
+        checked2 = false
+      } else {
+        checked = false
+        checked2 = true
+      }
+      this.setState({ Name: item.name, checked, checked2 })
+
+    })
+  }
   render() {
+    const { currentUser, Name } = this.state
+    console.log('render:currentUser')
+    console.log(currentUser)
+    currentUser != null && Name == null &&
+      this.setCurrentUser()
     return (
       <View>
         {/* ชื่อ-นามสกุล */}
@@ -432,7 +462,7 @@ export class Edit_Profile extends Component {
               </View>
               <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
             </View></TouchableOpacity>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 7 })}>
+          <TouchableOpacity onPress={() => this.props.navigation.push('Setting_Topic', { selectedIndex: 7 })}>
             <View style={stylesProfileTopic.BoxTopic}>
               <View style={stylesMain.FlexRow}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>

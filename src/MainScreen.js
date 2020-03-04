@@ -70,7 +70,6 @@ export default class MainScreen extends React.Component {
         const { navigation } = this.props
         const browerProps = navigation.getParam('browerProps')
         var uri = finip + '/home/publish_mobile'
-        console.log(currentUser)
         return browerProps ?
             ([
                 <View style={{ height: 50, width }}>

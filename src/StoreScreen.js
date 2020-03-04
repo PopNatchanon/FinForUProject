@@ -215,10 +215,17 @@ export class StoreHead extends Component {
     constructor(props) {
         super(props);
     }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { item } = this.props;
+        if (item !== nextProps.item) {
+            return true
+        }
+        return false
+    }
     get getDetailStore() {
         const { item } = this.props;
         return item.map((item, index) => {
-            var dataMySQL = [ip + '/mysql/uploads/slide/NewStore', item.image].join('/')
+            var dataMySQL = ip + '/mysql/uploads/slide/NewStore/' + item.image
             return (
                 <View style={[stylesStore.StoreHead]} key={index}>
                     <View style={stylesStore.StoreHeadBox}>
@@ -270,6 +277,14 @@ export class StoreHeadDetails extends Component {
             dataService: [],
         };
     }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { dataService } = this.state;
+        const { item } = this.props;
+        if (dataService !== nextState.dataService || item !== nextProps.item) {
+            return true
+        }
+        return false
+    }
     getData = (dataService) => {
         this.setState({ dataService })
     }
@@ -284,9 +299,12 @@ export class StoreHeadDetails extends Component {
             return (
                 <View style={[stylesStore.StoreHeadDetails, { paddingTop: 0, marginBottom: 10, }]} key={index}>
                     {
-                        item !== undefined ?
-                            <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} /> :
-                            null
+                        item !== undefined &&
+                        <GetServices
+                            uriPointer={uri}
+                            dataBody={dataBody}
+                            getDataSource={this.getData.bind(this)}
+                        />
                     }
                     <View>
                         <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
@@ -317,7 +335,7 @@ export class StoreHeadDetails extends Component {
                             <Text style={[stylesStore.StoreHeadDetailsText2_2, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                                 80 %</Text>
                             <Text style={[stylesStore.StoreHeadDetailsText2_3, stylesFont.FontFamilyText, stylesFont.FontSize8]}>
-                                ( ภายในไม่กี่ชั่วโมง)</Text>
+                                ( ภายในไม่กี่ชั่วโมง )</Text>
                         </View>
                     </View>
                 </View>
@@ -336,10 +354,17 @@ export class Menubar extends Component {
         super(props);
         this.state = {
         }
-        this.getData = this.getData.bind(this);
     }
-    getData(selectedIndex) {
-        this.props.getSelectedIndex(selectedIndex)
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { getSelectedIndex } = this.props;
+        if (getSelectedIndex !== nextProps.getSelectedIndex) {
+            return true
+        }
+        return false
+    }
+    getData = (selectedIndex) => {
+        const { getSelectedIndex } = this.props
+        getSelectedIndex(selectedIndex)
     }
     render() {
         const item = [{
@@ -353,7 +378,7 @@ export class Menubar extends Component {
             <View>
                 <View style={[stylesStore.Menubar]}>
                     <TabBar
-                        sendData={this.getData}
+                        sendData={this.getData.bind(this)}
                         item={item}
                         // activeColor='red'
                         radiusBox={4}
@@ -373,13 +398,23 @@ export class Banner extends Component {
             dataService: [],
             activeSlide: 0,
         };
-        this.getData = this.getData.bind(this)
     }
-    getData(dataService) {
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { dataService, activeSlide } = this.state;
+        const { item } = this.props;
+        if (dataService !== nextState.dataService || activeSlide !== nextState.activeSlide || item !== nextProps.item) {
+            return true
+        }
+        return false
+    }
+    getData = (dataService) => {
         this.setState({ dataService })
     }
+    getData2 = (activeSlide) => {
+        this.setState({ activeSlide })
+    }
     _renderItem = ({ item, index }) => {
-        var dataMySQL = [ip + '/mysql/uploads/slide/bannerstore', item.image].join('/')
+        var dataMySQL = ip + '/mysql/uploads/slide/bannerstore/' + item.image
         return (
             <View style={stylesStore.BannerBox} key={index}>
                 <FastImage
@@ -421,7 +456,7 @@ export class Banner extends Component {
             </View>
         );
     }
-    getDetail() {
+    get getDetail() {
         const { dataService } = this.state;
         const { item } = this.props;
         const slideWidth = width * 0.9522;
@@ -444,7 +479,7 @@ export class Banner extends Component {
                                 autoplay={true}
                                 autoplayDelay={slideDelay}
                                 autoplayInterval={slideDelay}
-                                onSnapToItem={(index) => this.setState({ activeSlide: index })}
+                                onSnapToItem={this.getData2.bind(this)}
                             />
                             {this.pagination}
                         </View>
@@ -468,8 +503,12 @@ export class Banner extends Component {
         };
         return (
             <View style={{ marginVertical: 10 }}>
-                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
-                {this.getDetail()}
+                <GetServices
+                    uriPointer={uri}
+                    dataBody={dataBody}
+                    getDataSource={this.getData.bind(this)}
+                />
+                {this.getDetail}
             </View>
         )
     }
@@ -481,7 +520,7 @@ export class TicketLine extends Component {
         this.state = {
         };
     }
-    getTicketLine() {
+    get getTicketLine() {
         return (
             <View style={[stylesMain.FrameBackground, { marginTop: 0 }]}>
                 <ScrollView horizontal>
@@ -494,7 +533,7 @@ export class TicketLine extends Component {
     }
     render() {
         return (
-            this.getTicketLine()
+            this.getTicketLine
         )
     }
 }
@@ -505,9 +544,15 @@ export class DealTop extends Component {
         this.state = {
             dataService: [],
         };
-        this.getData = this.getData.bind(this)
     }
-    getData(dataService) {
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { dataService } = this.state;
+        if (dataService !== nextState.dataService) {
+            return true
+        }
+        return false
+    }
+    getData = (dataService) => {
         this.setState({ dataService })
     }
     render() {
@@ -519,18 +564,30 @@ export class DealTop extends Component {
         };
         return (
             <View style={[stylesMain.FrameBackground, { backgroundColor: null }]}>
-                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+                <GetServices
+                    uriPointer={uri}
+                    dataBody={dataBody}
+                    getDataSource={this.getData.bind(this)}
+                />
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
                         ดีลเด็ด</Text>
                 </View>
                 <ScrollView horizontal>
                     {
-                        dataService ?
-                            <ProductBox dataService={dataService} navigation={navigation} typeip='ip' prepath='mysql' mode='row3col1'
-                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                            /> :
-                            null
+                        dataService &&
+                        <ProductBox
+                            dataService={dataService}
+                            navigation={navigation}
+                            typeip='ip'
+                            prepath='mysql'
+                            mode='row3col1'
+                            pointerUrl='DetailScreen'
+                            pointerid_store
+                            nameSize={14}
+                            priceSize={15}
+                            dispriceSize={15}
+                        />
                     }
                 </ScrollView>
             </View>
@@ -544,9 +601,15 @@ export class NewProduct extends Component {
         this.state = {
             dataService: [],
         };
-        this.getData = this.getData.bind(this)
     }
-    getData(dataService) {
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { dataService } = this.state;
+        if (dataService !== nextState.dataService) {
+            return true
+        }
+        return false
+    }
+    getData = (dataService) => {
         this.setState({ dataService })
     }
     render() {
@@ -558,18 +621,30 @@ export class NewProduct extends Component {
         };
         return (
             <View style={[stylesMain.FrameBackground, { backgroundColor: null }]}>
-                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+                <GetServices
+                    uriPointer={uri}
+                    dataBody={dataBody}
+                    getDataSource={this.getData.bind(this)}
+                />
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
                         สินค้ามาใหม่</Text>
                 </View>
                 <ScrollView horizontal>
                     {
-                        dataService ?
-                            <ProductBox dataService={dataService} navigation={navigation} typeip='ip' prepath='mysql' mode='row3col1'
-                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                            /> :
-                            null
+                        dataService &&
+                        <ProductBox
+                            dataService={dataService}
+                            navigation={navigation}
+                            typeip='ip'
+                            prepath='mysql'
+                            mode='row3col1'
+                            pointerUrl='DetailScreen'
+                            pointerid_store
+                            nameSize={14}
+                            priceSize={15}
+                            dispriceSize={15}
+                        />
                     }
                 </ScrollView>
             </View>
@@ -584,13 +659,23 @@ export class BannerBar_ONE extends Component {
             dataService: [],
             activeSlide: 0,
         };
-        this.getData = this.getData.bind(this)
     }
-    getData(dataService) {
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { dataService, activeSlide } = this.state;
+        const { item } = this.props;
+        if (dataService !== nextState.dataService || activeSlide !== nextState.activeSlide || item !== nextProps.item) {
+            return true
+        }
+        return false
+    }
+    getData = (dataService) => {
         this.setState({ dataService })
     }
+    getData2 = (activeSlide) => {
+        this.setState({ activeSlide })
+    }
     _renderItem = ({ item, index }) => {
-        var dataMySQL = [ip + '/mysql/uploads/slide/bannerstore', item.image].join('/')
+        var dataMySQL = ip + '/mysql/uploads/slide/bannerstore/' + item.image
         return (
             <View style={stylesStore.Banner_Bar_Box} key={index}>
                 <FastImage
@@ -644,7 +729,11 @@ export class BannerBar_ONE extends Component {
         };
         return (
             <View>
-                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+                <GetServices
+                    uriPointer={uri}
+                    dataBody={dataBody}
+                    getDataSource={this.getData.bind(this)}
+                />
                 <View style={stylesStore.Banner_Bar}>
                     <Carousel
                         ref={c => this.activeSlide = c}
@@ -657,7 +746,7 @@ export class BannerBar_ONE extends Component {
                         autoplay={true}
                         autoplayDelay={slideDelay}
                         autoplayInterval={slideDelay}
-                        onSnapToItem={(index) => this.setState({ activeSlide: index })}
+                        onSnapToItem={this.getData2.bind(this)}
                     />
                 </View>
                 {this.pagination}
@@ -672,9 +761,16 @@ export class PopularProduct extends Component {
         this.state = {
             dataService: [],
         };
-        this.getData = this.getData.bind(this)
     }
-    getData(dataService) {
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { dataService } = this.state
+        const { headText, navigation, noHeadText } = this.props;
+        if (dataService !== nextState.dataService || headText !== nextProps.headText || navigation !== nextProps.navigation || noHeadText !== nextProps.noHeadText) {
+            return true
+        }
+        return false
+    }
+    getData = (dataService) => {
         this.setState({ dataService })
     }
     render() {
@@ -686,20 +782,35 @@ export class PopularProduct extends Component {
         };
         return (
             <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, { borderColor: '#E9E9E9' }]}>
-                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+                <GetServices
+                    uriPointer={uri}
+                    dataBody={dataBody}
+                    getDataSource={this.getData.bind(this)}
+                />
                 {
                     noHeadText ?
                         null :
                         <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
-                            {headText ? headText : 'สินค้าขายดี'}</Text>
+                            {
+                                headText ?
+                                    headText :
+                                    'สินค้าขายดี'
+                            }</Text>
                 }
                 <View style={stylesMain.BoxProductWarp}>
                     {
-                        dataService ?
-                            <ProductBox dataService={dataService} navigation={navigation} typeip='ip' prepath='mysql' mode='row2colall'
-                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                            /> :
-                            null
+                        dataService &&
+                        <ProductBox
+                            dataService={dataService}
+                            navigation={navigation}
+                            typeip='ip'
+                            prepath='mysql'
+                            mode='row2colall'
+                            pointerUrl='DetailScreen'
+                            pointerid_store nameSize={14}
+                            priceSize={15}
+                            dispriceSize={15}
+                        />
                     }
                 </View>
             </View>
@@ -712,10 +823,18 @@ export class SubMenu extends Component {
         super(props);
         this.state = {
         }
-        this.updateIndex = this.updateIndex.bind(this)
     }
-    updateIndex(selectedIndex2) {
-        this.props.getSelectedIndex2(selectedIndex2)
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { dataService } = this.state
+        const { headText, navigation, noHeadText, getSelectedIndex2 } = this.props;
+        if (dataService !== nextState.dataService || headText !== nextProps.headText || navigation !== nextProps.navigation || noHeadText !== nextProps.noHeadText || getSelectedIndex2 !== nextProps.getSelectedIndex2) {
+            return true
+        }
+        return false
+    }
+    updateInde = (selectedIndex2) => {
+        const { getSelectedIndex2 } = this.props
+        getSelectedIndex2(selectedIndex2)
     }
     render() {
         const item = [{
@@ -731,7 +850,7 @@ export class SubMenu extends Component {
             <View>
                 <View style={[stylesStore.SubMenu, { height: 45, paddingTop: 2, }]}>
                     <TabBar
-                        sendData={this.updateIndex}
+                        sendData={this.updateIndex.bind(this)}
                         item={item}
                         // widthBox={98}
                         activeColor={'#fff'}
@@ -750,9 +869,16 @@ export class ShowProduct extends Component {
         this.state = {
             dataService: [],
         };
-        this.getData = this.getData.bind(this)
     }
-    getData(dataService) {
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { dataService } = this.state
+        const { navigation } = this.props;
+        if (dataService !== nextState.dataService || navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
+    getData = (dataService) => {
         this.setState({ dataService })
     }
     render() {
@@ -764,14 +890,26 @@ export class ShowProduct extends Component {
         };
         return (
             <View style={[stylesMain.FrameBackground]}>
-                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+                <GetServices
+                    uriPointer={uri}
+                    dataBody={dataBody}
+                    getDataSource={this.getData.bind(this)}
+                />
                 <View style={stylesMain.BoxProductWarp}>
                     {
-                        dataService ?
-                            <ProductBox dataService={dataService} navigation={navigation} typeip='ip' prepath='mysql' mode='row2colall'
-                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                            /> :
-                            null
+                        dataService &&
+                        <ProductBox
+                            dataService={dataService}
+                            navigation={navigation}
+                            typeip='ip'
+                            prepath='mysql'
+                            mode='row2colall'
+                            pointerUrl='DetailScreen'
+                            pointerid_store
+                            nameSize={14}
+                            priceSize={15}
+                            dispriceSize={15}
+                        />
                     }
                 </View>
             </View>
@@ -785,10 +923,17 @@ export class BoxProduct4 extends Component {
         this.state = {
             dataService: [],
         };
-        this.getData = this.getData.bind(this)
     }
-    getData(dataService) {
+    getData = (dataService) => {
         this.setState({ dataService })
+    }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { dataService } = this.state
+        const { navigation } = this.props;
+        if (dataService !== nextState.dataService || navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
     }
     render() {
         const { dataService } = this.state
@@ -799,13 +944,20 @@ export class BoxProduct4 extends Component {
         };
         return (
             <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, { marginTop: 0, marginBottom: 10 }]}>
-                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+                <GetServices
+                    uriPointer={uri}
+                    dataBody={dataBody}
+                    getDataSource={this.getData.bind(this)}
+                />
                 <View style={stylesMain.BoxProductWarp}>
                     {
-                        dataService ?
-                            <FeedBox dataService={dataService} navigation={navigation} typeip='ip' prepath='mysql'
-                            /> :
-                            null
+                        dataService &&
+                        <FeedBox
+                            dataService={dataService}
+                            navigation={navigation}
+                            typeip='ip'
+                            prepath='mysql'
+                        />
                     }
                 </View>
             </View>

@@ -47,7 +47,6 @@ export default class StoreScreen extends Component {
         const currentUser = await AsyncStorage.getItem('@MyKey')
         if (this._isMounted) {
             this.setState({ currentUser: JSON.parse(currentUser) })
-            console.log(JSON.parse(currentUser))
         }
     }
     componentWillUnmount() {
@@ -101,7 +100,6 @@ export class Headbar extends Component {
     render() {
         const { currentUser, statusOnline } = this.props
         const uri = finip + '/' + currentUser.image_path + '/' + currentUser.image
-        console.log(uri)
         return (
             <View>
                 <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen}>

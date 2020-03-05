@@ -47,6 +47,7 @@ export class ListMenu extends Component {
         }
     }
     logoutPress = async () => {
+        this.handleClose()
         try {
             await AsyncStorage.clear()
             RNRestart.Restart();

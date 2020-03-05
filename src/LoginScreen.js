@@ -91,6 +91,8 @@ export class Login extends Component {
   }
   navigationNavigateScreen = (value, value2) => {
     const { navigation } = this.props
+    console.log(value)
+    navigation.goBack()
     navigation.replace(value, value2)
   }
   getData = async () => {
@@ -120,9 +122,9 @@ export class Login extends Component {
         this.clearAll()
         this.storeData(userser)
         if (userser != null) {
-          this.navigationNavigateScreen.bind(this, 'MainScreen');
+          this.navigationNavigateScreen('MainScreen');
         } else {
-          this.navigationNavigateScreen.bind(this, 'MainScreen');
+          this.navigationNavigateScreen('MainScreen');
         }
       })
       .catch((error) => {
@@ -152,7 +154,7 @@ export class Login extends Component {
         <View style={stylesLogin.Login_BoxA}>
           <Form
             ref="form"
-            onSubmit={() => this.getData}
+            onSubmit={() => this.getData()}
           >
             <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
               อีเมล</Text>

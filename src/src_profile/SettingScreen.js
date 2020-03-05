@@ -7,8 +7,10 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 export const { width, height } = Dimensions.get('window');
 import RNRestart from 'react-native-restart';
+import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconEntypo from 'react-native-vector-icons/Entypo';
+import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
@@ -40,14 +42,29 @@ export default class SettingScreen extends Component {
 export class ListMenu extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            show: false
+        }
     }
     logoutPress = async () => {
+        this.handleClose()
         try {
             await AsyncStorage.clear()
             RNRestart.Restart();
         } catch (e) {
             // clear error
         }
+    }
+    handleOpen = () => {
+        this.setState({ show: true })
+    }
+    handleClose = () => {
+        this.setState({ show: false })
+    }
+    get _renderHeader() {
+        return (
+            <IconMaterialIcons name='exit-to-app' size={50} color='white' />
+        )
     }
     render() {
         return (
@@ -153,14 +170,29 @@ export class ListMenu extends Component {
                 </TouchableOpacity>
                 <View style={{ alignItems: 'center' }}>
                     <View style={stylesProfileTopic.Button_Logout} >
-                    <TouchableOpacity style={{ marginTop: 10 }} onPress={() => this.logoutPress()}>
-                        <View style={stylesProfileTopic.Button_LogoutBox}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]} >ออกจากระบบ</Text>
-                        </View>
-                       </TouchableOpacity>
+                        <TouchableOpacity style={{ marginTop: 10 }} onPress={this.handleOpen}>
+                            <View style={stylesProfileTopic.Button_LogoutBox}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]} >ออกจากระบบ</Text>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginTop: 5 }]}>FIN Shopping V 1.0.01</Text>
                 </View>
+                <SCLAlert
+                    theme="danger"
+                    headerIconComponent={this._renderHeader}
+                    show={this.state.show}
+                    title="ออกจากระบบ"
+                    titleStyle={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}
+                    subtitle="คุณต้องการออกจากระบบหรือไม่?"
+                    subtitleStyle={stylesFont.FontFamilyText}
+                    onRequestClose={() => null}
+                >
+                    <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
+                        <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ width: 150, }}>ไม่</SCLAlertButton>
+                        <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={this.logoutPress} containerStyle={{ width: 150, }}>ใช่</SCLAlertButton>
+                    </View>
+                </SCLAlert>
             </View>
         )
     }

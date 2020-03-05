@@ -6,7 +6,7 @@ import {
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
-import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert'
+import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -181,30 +181,30 @@ export class Cancel_Alert extends Component {
     return (
       <View>
         <View style={stylesProfileTopic.Cancel_Detail_ButtonBox}>
-            <TouchableOpacity>
-              <View style={stylesProfileTopic.Cancel_Detail_Button}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>ยกเลิก</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={this.handleOpen}>
-              <View style={[stylesProfileTopic.Cancel_Detail_Button, { marginLeft: 10 }]}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>ตกลง</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity>
+            <View style={stylesProfileTopic.Cancel_Detail_Button}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>ยกเลิก</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.handleOpen}>
+            <View style={[stylesProfileTopic.Cancel_Detail_Button, { marginLeft: 10 }]}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>ตกลง</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
         <SCLAlert
           theme="danger"
           headerIconComponent={this._renderHeader}
           show={this.state.show}
           title="ยกเลิกสินค้า"
-          titleStyle={[stylesFont.FontFamilyBold,stylesFont.FontSize2]}
+          titleStyle={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}
           subtitle="กรุณารอการตรวจสอบจากร้านค้า"
           subtitleStyle={stylesFont.FontFamilyText}
           onRequestClose={() => null}
         >
           <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
-            <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ width: 150, }}>ยกเลิก</SCLAlertButton>
-            <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ width: 150, }}>ยืนยัน</SCLAlertButton>
+            <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยกเลิก</SCLAlertButton>
+            <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยืนยัน</SCLAlertButton>
           </View>
         </SCLAlert>
       </View>

@@ -453,6 +453,7 @@ export default StyleSheet.create({
         backgroundColor: '#0A55A6',
         alignItems: 'center',
         justifyContent: 'center',
+        borderRadius:5,
     },
     ///-----------------------------------Setting_Topic-----------------------------------///
     Edit_Profile: {

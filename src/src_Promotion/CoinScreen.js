@@ -42,11 +42,11 @@ export default class CoinScreen extends Component {
         <AppBar1 titleHead={'FIN COINS'} backArrow searchBar chatBar navigation={this.props.navigation} />
         <ScrollView>
           <Slide />
-          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', width: 100 }]}>
+          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', width: 100 ,marginTop:10}]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>FIN COIN</Text>
           </View>
           <CoinCollect />
-          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', width: 160 }]}>
+          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', width: 160 ,marginTop:10}]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>FIN จัดหนักรับ COIN เพิ่ม</Text>
           </View>
           {
@@ -61,4 +61,6 @@ export default class CoinScreen extends Component {
     );
   }
 }
+
+///----------------------------------------------------------------------------------------------->>>>
 

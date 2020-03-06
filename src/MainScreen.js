@@ -15,9 +15,11 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
+import stylesDeal from '../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
@@ -1042,7 +1044,7 @@ export class Popular_product extends React.Component {
                         </ScrollView>
                     </View>
                 </View>
-            </View >
+            </View>
         )
     }
 }
@@ -1150,19 +1152,23 @@ export class FlashSale extends React.Component {
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <View style={[stylesMain.FlexRow, { marginTop: 5, }]}>
-                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
+                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBoldBold, stylesFont.FontSize3, { color: '#dc3545' }]}>
                             FLASH SALE</Text>
                         <View style={[stylesMain.FlexRow, { marginTop: 4 }]}>
+                            <View style={{ flexDirection: 'row', marginLeft: 10 }}>
+                                <IconFontAwesome name='clock-o' size={30} />
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>จบใน</Text>
+                            </View>
                             <View style={stylesMain.Time_FlashSale_TimeBox}>
-                                <Text style={stylesMain.Time_FlashSale_TimeText}>
+                                <Text style={[stylesMain.Time_FlashSale_TimeText, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
                                     01</Text>
                             </View>
                             <View style={stylesMain.Time_FlashSale_TimeBox}>
-                                <Text style={stylesMain.Time_FlashSale_TimeText}>
+                                <Text style={[stylesMain.Time_FlashSale_TimeText, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
                                     45</Text>
                             </View>
                             <View style={stylesMain.Time_FlashSale_TimeBox}>
-                                <Text style={stylesMain.Time_FlashSale_TimeText}>
+                                <Text style={[stylesMain.Time_FlashSale_TimeText, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
                                     40</Text>
                             </View>
                         </View>
@@ -1519,23 +1525,16 @@ export class CategoryProduct extends React.Component {
             var dataMySQL = finip + '/' + item.mobile_head;
             return (
                 <View style={[stylesMain.FrameBackground2, { marginTop: 10, backgroundColor: item.bg_m }]} key={index}>
-                    <View style={{}}>
-                        <FastImage
-                            source={{
-                                uri: dataMySQL,
-                            }}
-                            style={[stylesMain.CategoryProductImageHead]}
-                            resizeMode={FastImage.resizeMode.cover}
-                        />
-                        <View style={[stylesMain.FrameBackgroundTextBox, { marginTop: -10, marginBottom: -5 }]}>
-                            <Text></Text>
-                            <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'CategoryScreen')}>
-                                <View style={{ backgroundColor: '#0A55A6', borderTopLeftRadius: 20, width: 50, alignItems: 'flex-end' }}>
-                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FFFFFF' }]}>
-                                        ดูทั้งหมด </Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
+                    <View>
+                        <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'CategoryScreen')}>
+                            <FastImage
+                                source={{
+                                    uri: dataMySQL,
+                                }}
+                                style={[stylesMain.CategoryProductImageHead]}
+                                resizeMode={FastImage.resizeMode.cover}
+                            />
+                        </TouchableOpacity>
                         <CategoryProductSubProduct navigation={navigation} id_type={item.id_type} />
                     </View>
                     {
@@ -1835,28 +1834,26 @@ export class Second_product extends React.Component {
         })
     }
     get Second_Storeheader() {
-        const { loadData, navigation } = this.props
+        const { loadData, navigation, Header_Second } = this.props
         var url
         loadData.mobile_bar &&
             loadData.mobile_bar.map((item) => { (url = finip + '/' + item.image_path + '/' + item.image) })
         return (
             <View style={[stylesMain.FrameBackground2, { marginTop: 0, backgroundColor: loadData.bg_m, borderBottomWidth: null }]}>
-                <View style={{}}>
-                    <FastImage
-                        style={[stylesMain.CategoryProductImageHead, { marginTop: 0 }]}
-                        source={{ uri: url }}
-                        resizeMode={FastImage.resizeMode.cover}
-                    />
-                    <View style={stylesMain.FrameBackgroundTextBox}>
-                        <Text></Text>
-                        <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'SecondScreen', { selectedIndex: 0 })}
-                        >
-                            <View style={{ backgroundColor: '#0A55A6', borderTopLeftRadius: 20, width: 50, alignItems: 'flex-end' }}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FFFFFF' }]}>
-                                    ดูทั้งหมด </Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
+                <View>
+                    {
+                        Header_Second ?
+                            <View style={[stylesDeal.BoxText_T, { backgroundColor: '#E43333', marginLeft: -3, }]}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>มือสองลดราคา</Text>
+                            </View> :
+                            <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'SecondScreen', { selectedIndex: 0 })}>
+                                <FastImage
+                                    style={[stylesMain.CategoryProductImageHead, { marginTop: 0 }]}
+                                    source={{ uri: url }}
+                                    resizeMode={FastImage.resizeMode.cover}
+                                />
+                            </TouchableOpacity>
+                    }
                     <ScrollView horizontal>
                         <View style={[stylesMain.ProductForYouFlexBox, { height: 370 }]}>
                             {
@@ -1872,14 +1869,18 @@ export class Second_product extends React.Component {
         )
     }
     get Second_Storebody() {
-        const { loadData } = this.props
+        const { loadData, Header_Second } = this.props
         return (
             <View style={stylesMain.Second_StoreFin}>
                 <View style={stylesMain.Second_StoreFin_BoxHead}>
-                    <View style={stylesMain.Text_Bar_Image}>
-                        <Text style={[stylesMain.Text_Bar, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-                            ร้านค้ามือสองแนะนำโดย FIN </Text>
-                    </View>
+                    {
+                        Header_Second ?
+                            <View style={[stylesDeal.BoxText_T, { backgroundColor: '#95D370', marginLeft: -3, }]}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ร้านมือสองลดราคา</Text>
+                            </View> :
+                            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
+                                ร้านค้ามือสองแนะนำโดย FIN </Text>
+                    }
                     <View>
                         <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'SecondScreen', { selectedIndex: 1 })}>
                             <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7]}>

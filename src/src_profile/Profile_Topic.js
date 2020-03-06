@@ -7,6 +7,7 @@ import {
 import { CheckBox } from 'react-native-elements';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
+import { GiftedChat } from 'react-native-gifted-chat'
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -79,28 +80,8 @@ export default class Profile_Topic extends React.Component {
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
                         <AppbarChat navigation={this.props.navigation} Title='Supreme Store' />
-                        <Chat_Detail navigation={this.props.navigation} />
-                        <View style={stylesProfileTopic.Chat_Box}>
-                            <View style={stylesProfileTopic.Chat_Box_TextInput} >
-                                <TextInput
-                                    style={{ width: '90%', padding: 10 }}
-                                    fontSize={15}
-                                    placeholder="่ส่งข้อความ"
-                                    multiline
-                                    editable
-                                    maxLength={2000}
-                                    value={this.state.Detail}
-                                    onChangeText={(Detail) => this.setState({ Detail })}
-                                />
-                                <TouchableOpacity>
-                                    <IconAntDesign RightItem name='smileo' size={25} color='#0A55A6' style={{ marginRight: 10, marginBottom: 10 }} />
-                                </TouchableOpacity>
-                            </View>
-                            <View style={{ justifyContent: 'flex-end', marginLeft: 10, }}>
-                                <TouchableOpacity>
-                                    <IconFeather name='send' size={30} color='#0A55A6' style={{ margin: 10, }} />
-                                </TouchableOpacity>
-                            </View>
+                        <View>
+                            <Chat_Cutomer />
                         </View>
                     </SafeAreaView>
                 )
@@ -196,64 +177,63 @@ export class ChatScreen extends React.Component {
         );
     }
 }
-///----------------------------------------------------------------------------------------------->>>> Chat_Detail
-export class Chat_Detail extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            messages: [],
-        };
+///----------------------------------------------------------------------------------------------->>>> Chat_Box
+class Chat_Cutomer extends React.Component {
+    state = {
+        messages: [],
     }
+
+    componentDidMount() {
+        this.setState({
+            messages: [
+                {
+                    _id: 1,
+                    text: 'Hello Cutomer',
+                    createdAt: new Date(),
+                    user: {
+                        _id: 2,
+                        name: 'React Native',
+                        avatar: 'https://placeimg.com/140/140/any',
+                    },
+                },
+                {
+                    _id: 2,
+                    text: 'Hello Store',
+                    createdAt: new Date(),
+                    user: {
+                        _id: 1,
+                        name: 'React Native',
+                        avatar: 'https://placeimg.com/140/140/any',
+                    },
+                },
+            ],
+        })
+    }
+
+    onSend(messages = []) {
+        this.setState(previousState => ({
+            messages: GiftedChat.append(previousState.messages, messages),
+        }))
+    }
+
     render() {
+        console.log(this.state.messages)
         return (
-            <View style={stylesProfileTopic.Chat_Detail}>
-                <Message_recipient />
-                <Message_sender />
-            </View>
-        );
-    }
-}
-///----------------------------------------------------------------------------------------------->>>> Message_recipient
-export class Message_recipient extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    render() {
-        return (
-            <View style={[stylesMain.FlexRow, { marginTop: 10 }]}>
-                <FastImage style={stylesProfileTopic.Message_BoxProfile}
-                    source={{
-                        uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
+            <View style={{ height: '96.5%', backgroundColor: '#FFFFFF' }}>
+                <GiftedChat
+                    messages={this.state.messages}
+                    onSend={messages => this.onSend(messages)}
+                    user={{
+                        _id: 2,
                     }}
                 />
-                <View style={[stylesProfileTopic.Message_Box, { marginLeft: 10, height: 'auto' }]}>
-                    <View>
-                        <Text style={stylesFont.FontFamilyText}>สวัสดีครับ</Text>
-                    </View>
-                </View>
             </View>
-        );
+        )
     }
 }
-///----------------------------------------------------------------------------------------------->>>> Message_sender
-export class Message_sender extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    render() {
-        return (
-            <View style={{ flexDirection: 'row-reverse', marginTop: 10 }}>
-                <View style={[stylesProfileTopic.Message_Box, { marginRight: 6 }]}>
-                    <Text style={stylesFont.FontFamilyText}>สวัสดีค่ะ</Text>
-                </View>
-            </View>
-        );
-    }
-}
+
+
+
 ///----------------------------------------------------------------------------------------------->>>> Chat_Box
 export class Chat_Tag extends React.Component {
     constructor(props) {

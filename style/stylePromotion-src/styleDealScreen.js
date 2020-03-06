@@ -68,7 +68,7 @@ export default StyleSheet.create({
     BoxText_T: {
         width: 140,
         height: 30,
-        marginTop: 10,
+        borderBottomEndRadius: 180,
     },
     Deal_Calendar_Box: {
         width: '100%',

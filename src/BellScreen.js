@@ -70,7 +70,7 @@ export class Popular_store extends React.Component {
         return false
     }
     getData = (dataService) => {
-            this.setState({ dataService })
+        this.setState({ dataService })
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
@@ -197,7 +197,7 @@ export class Pro_for_U extends React.Component {
                         </View>
                     </TouchableOpacity>
                 </View>
-            </View >
+            </View>
         );
     }
 }
@@ -274,3 +274,4 @@ export class Update_buy extends React.Component {
         );
     }
 }
+///----------------------------------------------------------------------------------------------->>>>

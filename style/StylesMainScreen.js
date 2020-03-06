@@ -669,17 +669,6 @@ export default StyleSheet.create({
     resizeMode: 'stretch',
   },
   ///------------------------------------------------------------------///
-  Text_Bar_Image: {
-    backgroundColor: '#0A55A6',
-    height: 22,
-    width: 170,
-    marginTop: 10,
-  },
-  Text_Bar: {
-    marginLeft: 5,
-    color: '#FFFFFF',
-  },
-  ///------------------------------------------------------------------///
   Second_StoreFin: {
     width,
   },

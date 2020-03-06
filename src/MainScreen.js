@@ -1878,10 +1878,8 @@ export class Second_product extends React.Component {
                             <View style={[stylesDeal.BoxText_T, { backgroundColor: '#95D370', marginLeft: -3, }]}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ร้านมือสองลดราคา</Text>
                             </View> :
-                            <View style={stylesMain.Text_Bar_Image}>
-                                <Text style={[stylesMain.Text_Bar, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-                                    ร้านค้ามือสองแนะนำโดย FIN </Text>
-                            </View>
+                            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
+                                ร้านค้ามือสองแนะนำโดย FIN </Text>
                     }
                     <View>
                         <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'SecondScreen', { selectedIndex: 1 })}>

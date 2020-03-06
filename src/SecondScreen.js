@@ -28,20 +28,28 @@ export default class SecondScreen extends Component {
     this.state = {
     };
   }
-  PathList() {
-    const selectedIndex = this.props.navigation.getParam('selectedIndex')
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { navigation } = this.props;
+    if (navigation !== nextProps.navigation) {
+      return true
+    }
+    return false
+  }
+  get PathList() {
+    const { navigation } = this.props;
+    const selectedIndex = navigation.getParam('selectedIndex')
     switch (selectedIndex) {
       case 0:
         return (
           <SafeAreaView style={stylesMain.SafeAreaView}>
-            <AppBar leftBar='backarrow' navigation={this.props.navigation} />
-            <Second_Product navigation={this.props.navigation} />
+            <AppBar leftBar='backarrow' navigation={navigation} />
+            <Second_Product navigation={navigation} />
           </SafeAreaView>
         )
       case 1:
         return (
           <SafeAreaView style={stylesMain.SafeAreaView}>
-            <AppBar1 titleHead={'ร้านค้ามือสองที่แนะนำ'} backArrow navigation={this.props.navigation} />
+            <AppBar1 titleHead={'ร้านค้ามือสองที่แนะนำ'} backArrow navigation={navigation} />
             <Secon_Store />
           </SafeAreaView>
         )
@@ -51,7 +59,7 @@ export default class SecondScreen extends Component {
     const { navigation } = this.props
     return (
       <View style={{ flex: 1 }}>
-        {this.PathList()}
+        {this.PathList}
         <ExitAppModule navigation={navigation} />
       </View>
     );
@@ -65,13 +73,19 @@ export class Second_Product extends Component {
       sliderVisible: false,
       dataService: [],
     };
-    this.getData = this.getData.bind(this)
-    this.setSlider = this.setSlider.bind(this)
   }
-  setSlider(value) {
-    this.setState({ sliderVisible: value })
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { dataService, sliderVisible } = this.state
+    const { navigation } = this.props
+    if (dataService !== nextState.dataService || sliderVisible !== nextState.sliderVisible || navigation !== nextProps.navigation) {
+      return true
+    }
+    return false
   }
-  getData(dataService) {
+  setSlider = (sliderVisible) => {
+    this.setState({ sliderVisible })
+  }
+  getData = (dataService) => {
     this.setState({ dataService })
   }
   render() {
@@ -83,18 +97,27 @@ export class Second_Product extends Component {
     };
     return (
       <View style={{ flex: 1 }}>
-        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+        <GetServices
+          uriPointer={uri}
+          dataBody={dataBody}
+          getDataSource={this.getData.bind(this)}
+        />
         <ScrollView stickyHeaderIndices={[5]}>
           <Slide />
-          <Second_Store navigation={this.props.navigation} />
-          <Second_Product_Brand navigation={this.props.navigation} />
+          <Second_Store navigation={navigation} />
+          <Second_Product_Brand navigation={navigation} />
           <BannerBar_ONE />
           <View style={{ marginBottom: 10 }}></View>
-          <Button_Bar setSliderVisible={this.setSlider} getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
+          <Button_Bar setSliderVisible={this.setSlider.bind(this)} getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
           {
-            dataService ?
-              <TodayProduct noTitle navigation={navigation} loadData={dataService} typeip prepath='mysql' /> :
-              null
+            dataService &&
+            <TodayProduct
+              noTitle
+              navigation={navigation}
+              loadData={dataService}
+              typeip
+              prepath='mysql'
+            />
           }
         </ScrollView>
         <SlidingView
@@ -107,12 +130,12 @@ export class Second_Product extends Component {
             width: '100%'
           }}
           position="right"
-          changeVisibilityCallback={() => this.setState({ sliderVisible: !sliderVisible })}
+          changeVisibilityCallback={this.setSlider.bind(this, !sliderVisible)}
         >
           <View style={stylesMain.FlexRow}>
             <TouchableOpacity
               activeOpacity={1}
-              onPress={() => this.setState({ sliderVisible: !sliderVisible })}
+              onPress={this.setSlider.bind(this, !sliderVisible)}
             >
               <View style={stylesTopic.BackgroundLeft}></View>
             </TouchableOpacity>
@@ -135,7 +158,7 @@ export class Second_Product extends Component {
             </View>
           </View>
         </SlidingView>
-      </View>
+      </View >
     );
   }
 }
@@ -146,6 +169,17 @@ export class Second_Store extends Component {
     this.state = {
     };
   }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { navigation } = this.props
+    if (navigation !== nextProps.navigation) {
+      return true
+    }
+    return false
+  }
+  navigationNavigateScreen = (value, value2) => {
+    const { navigation } = this.props
+    navigation.navigate(value, value2)
+  }
   render() {
     return (
       <View style={stylesMain.FrameBackground2}>
@@ -154,7 +188,7 @@ export class Second_Store extends Component {
             ร้านค้ามือสองที่แนะนำ</Text>
         </View>
         <View style={stylesMain.FlexRow}>
-          <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Recommend_Store')}>
+          <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Recommend_Store')}>
             <View style={stylesMain.BoxStore1Box}>
               <FastImage
                 style={stylesMain.BoxStore1Image}
@@ -165,7 +199,7 @@ export class Second_Store extends Component {
               />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Recommend_Store')}>
+          <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Recommend_Store')}>
             <View style={stylesMain.BoxStore1Box}>
               <FastImage
                 style={stylesMain.BoxStore1Image}
@@ -188,9 +222,16 @@ export class Second_Product_Brand extends Component {
     this.state = {
       dataService: [],
     };
-    this.getData = this.getData.bind(this)
   }
-  getData(dataService) {
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { dataService } = this.state
+    const { navigation } = this.props
+    if (dataService !== nextState.dataService || navigation !== nextProps.navigation) {
+      return true
+    }
+    return false
+  }
+  getData = (dataService) => {
     this.setState({ dataService })
   }
   render() {
@@ -202,7 +243,11 @@ export class Second_Product_Brand extends Component {
     };
     return (
       <View style={stylesMain.FrameBackground2}>
-        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+        <GetServices
+          uriPointer={uri}
+          dataBody={dataBody}
+          getDataSource={this.getData.bind(this)}
+        />
         <View style={stylesMain.FrameBackgroundTextBox}>
           <View style={[stylesMain.FlexRow, { marginTop: 5, }]}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
@@ -211,11 +256,19 @@ export class Second_Product_Brand extends Component {
         </View>
         <ScrollView horizontal>
           {
-            dataService ?
-              <ProductBox dataService={dataService} navigation={navigation} typeip='ip' mode='row4col1' prepath='mysql'
-                pointerUrl='DetailScreen' pointerid_store nameSize={11} priceSize={12} dispriceSize={12}
-              /> :
-              null
+            dataService &&
+            <ProductBox
+              dataService={dataService}
+              navigation={navigation}
+              typeip='ip'
+              mode='row4col1'
+              prepath='mysql'
+              pointerUrl='DetailScreen'
+              pointerid_store
+              nameSize={11}
+              priceSize={12}
+              dispriceSize={12}
+            />
           }
         </ScrollView>
       </View>
@@ -273,7 +326,9 @@ export class Secon_Store extends Component {
         <ScrollView>
           <Slide />
           <View style={{ alignItems: 'center', marginTop: 10, }}>
-            <View style={{ backgroundColor: '#0A55A6', width: 170, height: 40, alignItems: 'center', justifyContent: 'center', borderRadius: 5, }}>
+            <View style={{
+              backgroundColor: '#0A55A6', width: 170, height: 40, alignItems: 'center', justifyContent: 'center', borderRadius: 5,
+            }}>
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>สินค้าที่คุณอาจชอบ</Text></View>
           </View>
           <Store_Detail />

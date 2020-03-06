@@ -39,10 +39,10 @@ export default class LoginScreen extends Component {
       <SafeAreaView style={[stylesMain.SafeAreaView]}>
         <ScrollView>
           <Logo />
-          <Login navigation={this.props.navigation} />
-          <Register navigation={this.props.navigation} />
+          <Login navigation={navigation} />
+          <Register navigation={navigation} />
         </ScrollView>
-        <Toolbar navigation={this.props.navigation} />
+        <Toolbar navigation={navigation} />
         <ExitAppModule navigation={navigation} />
       </SafeAreaView>
     );

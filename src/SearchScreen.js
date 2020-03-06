@@ -28,14 +28,23 @@ export default class SearchScreen extends Component {
             sliderVisible: false,
             dataService: [],
         };
-        this.setSlider = this.setSlider.bind(this)
-        this.getData = this.getData.bind(this)
     }
-    getData(dataService) {
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { dataService, sliderVisible, modeStore } = this.state;
+        const { navigation } = this.props;
+        if (
+            dataService !== nextState.dataService || sliderVisible !== nextState.sliderVisible || modeStore !== nextState.modeStore ||
+            navigation !== nextProps.navigation
+        ) {
+            return true
+        }
+        return false
+    }
+    getData = (dataService) => {
         this.setState({ dataService })
     }
-    setSlider(value) {
-        this.setState({ sliderVisible: value })
+    setSlider = (sliderVisible) => {
+        this.setState({ sliderVisible })
     }
     componentDidMount() {
         const { navigation } = this.props;
@@ -52,31 +61,32 @@ export default class SearchScreen extends Component {
         const SearchText = 'Louis';
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
                 <AppBar navigation={navigation} SearchText={SearchText} leftBar='backarrow' />
                 {
                     modeStore == true ?
                         (
                             <ScrollView>
                                 <HeadBox navigation={navigation} SearchText={SearchText} />
-                                <StoreCard />
-                                <StoreCard />
-                                <StoreCard />
-                                <StoreCard />
-                                <StoreCard />
-                                <StoreCard />
+                                <StoreCard navigation={navigation} />
+                                <StoreCard navigation={navigation} />
+                                <StoreCard navigation={navigation} />
+                                <StoreCard navigation={navigation} />
+                                <StoreCard navigation={navigation} />
+                                <StoreCard navigation={navigation} />
                             </ScrollView>
                         ) :
                         (
                             <ScrollView>
                                 <HeadBox navigation={navigation} SearchText={SearchText} otherOption />
-                                <StoreCard />
+                                <StoreCard navigation={navigation} />
                                 <BannerBar_THREE />
-                                <Button_Bar setSliderVisible={this.setSlider} getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
+                                <Button_Bar setSliderVisible={this.setSlider.bind(this)} getSliderVisible={{
+                                    getSlider: sliderVisible, count: 0
+                                }} />
                                 {
-                                    dataService ?
-                                        <TodayProduct noTitle navigation={navigation} loadData={dataService} typeip prepath='mysql' /> :
-                                        null
+                                    dataService &&
+                                    <TodayProduct noTitle navigation={navigation} loadData={dataService} typeip prepath='mysql' />
                                 }
                             </ScrollView>
                         )
@@ -91,12 +101,12 @@ export default class SearchScreen extends Component {
                         width: '100%'
                     }}
                     position="right"
-                    changeVisibilityCallback={() => this.setState({ sliderVisible: !sliderVisible })}
+                    changeVisibilityCallback={this.setSlider.bind(this, !sliderVisible)}
                 >
                     <View style={stylesMain.FlexRow}>
                         <TouchableOpacity
                             activeOpacity={1}
-                            onPress={() => this.setState({ sliderVisible: !sliderVisible })}
+                            onPress={this.setSlider.bind(this, !sliderVisible)}
                         >
                             <View style={stylesTopic.BackgroundLeft}></View>
                         </TouchableOpacity>
@@ -107,11 +117,19 @@ export default class SearchScreen extends Component {
                                 </ScrollView>
                                 <View style={[stylesMain.FlexRow, { height: 70 }]}>
                                     <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
-                                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
+                                        <Text style={[
+                                            stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, {
+                                                color: '#0A55A6'
+                                            }
+                                        ]}>
                                             รีเซ็ต</Text>
                                     </View>
                                     <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset, { backgroundColor: '#0A55A6' }]}>
-                                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#fff' }]}>
+                                        <Text style={[
+                                            stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, {
+                                                color: '#fff'
+                                            }
+                                        ]}>
                                             เสร็จสิ้น</Text>
                                     </View>
                                 </View>
@@ -129,30 +147,40 @@ export class HeadBox extends Component {
     constructor(props) {
         super(props)
     }
-    render() {
+    shouldComponentUpdate = (nextProps, nextState) => {
         const { SearchText, otherOption, navigation } = this.props
+        if (SearchText !== nextProps.SearchText || otherOption !== nextProps.otherOption || navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props
+        navigation.push(value, value2)
+    }
+    render() {
+        const { SearchText, otherOption } = this.props
         return (
             <View>
                 <View style={[stylesMain.FrameBackgroundTextBox]}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                         ร้านค้าที่เกี่ยวข้องกับ <Text>"{SearchText}"</Text></Text>
                     {
-                        otherOption ?
-                            <TouchableOpacity onPress={() => navigation.push('SearchScreen', { modeStore: true })}>
-                                <View style={[stylesMain.FlexRow, { marginRight: 4, marginTop: 8 }]}>
-                                    <Text style={[
-                                        stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7,
-                                        stylesMain.ItemCenterVertical, {
-                                            marginRight: 0,
-                                        }
-                                    ]}>
-                                        ร้านค้าอื่นๆ</Text>
-                                    <IconEntypo name="chevron-right" size={18} style={[stylesMain.ItemCenterVertical, {
-                                        color: '#0A55A6'
-                                    }]} />
-                                </View>
-                            </TouchableOpacity>
-                            : null
+                        otherOption &&
+                        <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'SearchScreen', { modeStore: true })}>
+                            <View style={[stylesMain.FlexRow, { marginRight: 4, marginTop: 8 }]}>
+                                <Text style={[
+                                    stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7,
+                                    stylesMain.ItemCenterVertical, {
+                                        marginRight: 0,
+                                    }
+                                ]}>
+                                    ร้านค้าอื่นๆ</Text>
+                                <IconEntypo name="chevron-right" size={18} style={[stylesMain.ItemCenterVertical, {
+                                    color: '#0A55A6'
+                                }]} />
+                            </View>
+                        </TouchableOpacity>
                     }
                 </View>
             </View>
@@ -164,37 +192,60 @@ export class StoreCard extends Component {
     constructor(props) {
         super(props)
     }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { navigation } = this.props
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props
+        navigation.navigate(value, value2)
+    }
     render() {
         var dataMySQL = [ip, 'mysql/uploads/slide/NewStore/luxury_shop2.jpg'].join('/');
         return (
             <View style={stylesMain.BoxStore5Box}>
-                <View style={[stylesMain.BoxStore5Image, stylesMain.ItemCenterVertical, { width: 45, height: 45, marginRight: 10, }]}>
-                    <FastImage
-                        source={{
-                            uri: dataMySQL,
-                        }}
-                        style={[stylesMain.BoxStore5Image]}
-                    />
-                </View>
-                <View>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
-                        PPoo</Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                        ผู้ติดตาม : 12.1 พัน</Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#AAAAAA' }]}>
-                        จำนวนสินค้า <Text style={{ color: '#0A55A6' }}>
-                            560</Text> | คะแนน <Text style={{ color: '#0A55A6' }}>4.6</Text></Text>
-                </View>
-                <View style={stylesMain.FlexRow}>
-                    <View style={[stylesMain.ItemCenter, { width: 70, height: 25, backgroundColor: '#0A55A6', borderRadius: 6, marginHorizontal: 2 }]}>
-                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize7, { color: '#fff' }]}>
-                            + ติดตาม</Text>
+                <TouchableOpacity style={stylesMain.FlexRow}
+                    onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: 24 })}
+                >
+                    <View style={[stylesMain.BoxStore5Image, stylesMain.ItemCenterVertical, { width: 45, height: 45, marginRight: 10, }]}>
+                        <FastImage
+                            source={{
+                                uri: dataMySQL,
+                            }}
+                            style={[stylesMain.BoxStore5Image]}
+                        />
                     </View>
-                    <View style={[stylesMain.ItemCenter, { width: 70, height: 25, backgroundColor: '#0A55A6', borderRadius: 6, marginHorizontal: 2 }]}>
-                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize7, { color: '#fff' }]}>
-                            พูดคุย</Text>
+                    <View>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
+                            PPoo</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                            ผู้ติดตาม : 12.1 พัน</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#AAAAAA' }]}>
+                            จำนวนสินค้า <Text style={{ color: '#0A55A6' }}>
+                                560</Text> | คะแนน <Text style={{ color: '#0A55A6' }}>4.6</Text></Text>
                     </View>
-                </View>
+                    <View style={stylesMain.FlexRow}>
+                        <View style={[
+                            stylesMain.ItemCenter, {
+                                width: 70, height: 25, backgroundColor: '#0A55A6', borderRadius: 6, marginHorizontal: 2
+                            }
+                        ]}>
+                            <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize7, { color: '#fff' }]}>
+                                + ติดตาม</Text>
+                        </View>
+                        <View style={[{ width: 70, height: 25, backgroundColor: '#0A55A6', borderRadius: 6, marginHorizontal: 2 }]}>
+                            <TouchableOpacity style={[stylesMain.ItemCenter, { width: '100%', height: '100%' }]}
+                                onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 })}
+                            >
+                                <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize7, { color: '#fff' }]}>
+                                    พูดคุย</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </TouchableOpacity>
             </View>
         )
     }

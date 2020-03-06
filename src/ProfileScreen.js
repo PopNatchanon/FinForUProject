@@ -89,20 +89,17 @@ export class Headbar extends Component {
         }
         return false
     }
-    navigationNavigateScreen = () => {
+    navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
-        navigation.navigate('Setting_Topic', { selectedIndex: 0 })
-    }
-    navigationNavigateScreen2 = (value) => {
-        const { navigation } = this.props
-        navigation.navigate(value)
+        navigation.navigate(value, value2)
     }
     render() {
         const { currentUser, statusOnline } = this.props
         const uri = finip + '/' + currentUser.image_path + '/' + currentUser.image
         return (
             <View>
-                <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen}>
+                <TouchableOpacity activeOpacity={1}
+                    onPress={this.navigationNavigateScreen.bind(this, 'Setting_Topic', { selectedIndex: 0 })}>
                     <View style={{ backgroundColor: '#4a4a4a', }}>
                         <ImageBackground
                             source={require('../icon/bgprofile.jpg')}
@@ -114,7 +111,7 @@ export class Headbar extends Component {
                     <View style={stylesProfile.HeadbarBox1}>
                         <View style={stylesMain.FlexRow}>
                             <View>
-                                <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen2('StoreMeScreen')}>
+                                <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'StoreMeScreen')}>
                                     <View style={stylesProfile.HeadbarBox1Sub}>
                                         <Text style={[stylesProfile.HeadbarBox1SubText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                             เริ่มค้าขาย</Text>
@@ -139,12 +136,12 @@ export class Headbar extends Component {
                             </View>
                         </View>
                         <View style={{ flexDirection: 'row', padding: 8 }}>
-                            <TouchableOpacity onPress={() => this.navigationNavigateScreen2('SettingScreen')}>
+                            <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'SettingScreen')}>
                                 <IconMaterialCommunityIcons RightItem name="settings-outline" style={{ marginRight: 6 }}
                                     size={25} color='#FFFFFF'
                                 />
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => this.navigationNavigateScreen2('CartScreen')}>
+                            <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'CartScreen')}>
                                 <IconFeather RightItem name="shopping-cart" size={25} color='#FFFFFF' />
                             </TouchableOpacity>
                         </View>
@@ -166,9 +163,9 @@ export class Menubar extends Component {
         }
         return false
     }
-    navigationNavigateScreen = () => {
+    navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
-        navigation.navigate('Total_Order', { selectedIndex: 0 })
+        navigation.navigate(value, value2)
     }
     render() {
         const { navigation } = this.props
@@ -182,7 +179,8 @@ export class Menubar extends Component {
                             รายการสั่งซื้อของฉัน</Text>
                     </View>
                     <View style={{ marginTop: 10, }}>
-                        <TouchableOpacity activeOpacity={0.9} onPress={this.navigationNavigateScreen}>
+                        <TouchableOpacity activeOpacity={0.9}
+                            onPress={this.navigationNavigateScreen.bind(this, 'Total_Order', { selectedIndex: 0 })}>
                             <Text style={[
                                 stylesProfile.MenubarText2, stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize6
                             ]}>
@@ -208,19 +206,16 @@ export class MenubarSub extends Component {
         }
         return false
     }
-    navigationNavigateScreen = (value) => {
+    navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
-        navigation.navigate('Total_Order', { selectedIndex: value })
-    }
-    navigationNavigateScreen2 = (value) => {
-        const { navigation } = this.props
-        navigation.navigate(value, { selectedIndex: 0 })
+        navigation.navigate(value, value2)
     }
     render() {
         return (
             <View style={stylesProfile.MenubarSub}>
                 <View style={stylesMain.FlexRow}>
-                    <TouchableOpacity activeOpacity={0.9} onPress={() => this.navigationNavigateScreen(1)}>
+                    <TouchableOpacity activeOpacity={0.9}
+                        onPress={this.navigationNavigateScreen.bind(this, 'Total_Order', { selectedIndex: 1 })}>
                         <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <FastImage
                                 source={require('../icon/two-money-cards.png')}
@@ -230,7 +225,8 @@ export class MenubarSub extends Component {
                                 รอจ่ายเงิน</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={0.9} onPress={() => this.navigationNavigateScreen(2)}>
+                    <TouchableOpacity activeOpacity={0.9}
+                        onPress={this.navigationNavigateScreen.bind(this, 'Total_Order', { selectedIndex: 2 })}>
                         <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <FastImage
                                 source={require('../icon/month-calendar.png')}
@@ -240,7 +236,8 @@ export class MenubarSub extends Component {
                                 เตรียมจัดส่ง</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={0.9} onPress={() => this.navigationNavigateScreen(3)}>
+                    <TouchableOpacity activeOpacity={0.9}
+                        onPress={this.navigationNavigateScreen.bind(this, 'Total_Order', { selectedIndex: 3 })}>
                         <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <FastImage
                                 source={require('../icon/truck-facing-right.png')}
@@ -250,7 +247,8 @@ export class MenubarSub extends Component {
                                 ดำเนินการส่ง</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={0.9} onPress={() => this.navigationNavigateScreen(4)}>
+                    <TouchableOpacity activeOpacity={0.9}
+                        onPress={this.navigationNavigateScreen.bind(this, 'Total_Order', { selectedIndex: 4 })}>
                         <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <FastImage
                                 source={require('../icon/rating.png')}
@@ -262,7 +260,7 @@ export class MenubarSub extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={[stylesProfile.MenubarSubLine2, stylesMain.FlexRow]}>
-                    <TouchableOpacity onPress={() => this.navigationNavigateScreen2('Return_products')}>
+                    <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Return_products', { selectedIndex: 0 })}>
                         <View style={[stylesProfile.MenubarSubLine2Box, stylesMain.ItemCenter, stylesMain.FlexRow]}>
                             <FastImage
                                 source={require('../icon/repeat.png')}
@@ -272,7 +270,7 @@ export class MenubarSub extends Component {
                                 คืนสินค้า/คืนเงิน</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.navigationNavigateScreen2('CancelScreen')}>
+                    <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'CancelScreen', { selectedIndex: 0 })}>
                         <View style={[stylesProfile.MenubarSubLine2Box, stylesMain.ItemCenter, stylesMain.FlexRow]}>
                             <FastImage
                                 source={require('../icon/box.png')}
@@ -289,15 +287,11 @@ export class MenubarSub extends Component {
 }
 ///----------------------------------------------------------------------------------------------->>>> Listbar
 export class Listbar extends Component {
-    _isMounted = false;
     constructor(props) {
         super(props)
         this.state = {
             pathlist: 0,
         }
-    }
-    componentWillUnmount() {
-        this._isMounted = false;
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { pathlist } = this.state
@@ -325,21 +319,18 @@ export class Listbar extends Component {
                 )
         }
     }
-    navigationNavigateScreen = () => {
+    navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
-        navigation.navigate('DealScreen')
+        navigation.navigate(value, value2)
     }
     setStatePathList = (pathlist) => {
-        this._isMounted = true;
-        if (this._isMounted) {
-            this.setState({ pathlist })
-        }
+        this.setState({ pathlist })
     }
     render() {
         return (
             <View>
                 <View style={[stylesProfile.ListbarMain, stylesMain.FlexRow]}>
-                    <TouchableOpacity activeOpacity={0.9} onPress={() => this.setStatePathList(0)}>
+                    <TouchableOpacity activeOpacity={0.9} onPress={this.setStatePathList.bind(this, 0)}>
                         <View style={[stylesMain.FlexColumn, stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <View style={[stylesMain.ItemCenter, stylesProfile.ListbarMainRadius, { backgroundColor: '#0A81A6' }]}>
                                 <IconAntDesign name='home' size={40} style={[stylesMain.ItemCenterVertical, { color: '#fff' }]} />
@@ -350,7 +341,7 @@ export class Listbar extends Component {
                                 หน้าหลัก</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={0.9} onPress={this.navigationNavigateScreen}>
+                    <TouchableOpacity activeOpacity={0.9} onPress={this.navigationNavigateScreen.bind(this, 'DealScreen')}>
                         <View style={[stylesMain.FlexColumn, stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <View style={[stylesMain.ItemCenter, stylesProfile.ListbarMainRadius, { backgroundColor: '#128BCE' }]}>
                                 <IconMaterialCommunityIcons name='octagram-outline' size={40}
@@ -362,7 +353,7 @@ export class Listbar extends Component {
                                 โปรโมชัน</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={0.9} onPress={() => this.setStatePathList(2)}>
+                    <TouchableOpacity activeOpacity={0.9} onPress={this.setStatePathList.bind(this, 2)}>
                         <View style={[stylesMain.FlexColumn, stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <View style={[stylesMain.ItemCenter, stylesProfile.ListbarMainRadius, { backgroundColor: '#0A55A6' }]}>
                                 <IconMaterialCommunityIcons name='ticket' size={40} style={stylesProfile.ListbarMainRadiusIcon} />
@@ -373,7 +364,7 @@ export class Listbar extends Component {
                                 โค้ดส่วนลด</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={0.9} onPress={() => this.setStatePathList(3)}>
+                    <TouchableOpacity activeOpacity={0.9} onPress={this.setStatePathList.bind(this, 3)}>
                         <View style={[stylesMain.FlexColumn, stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <View style={[stylesMain.ItemCenter, stylesProfile.ListbarMainRadius, { backgroundColor: '#fadf2d' }]}>
                                 <FastImage
@@ -407,15 +398,16 @@ export class ListMenu extends Component {
         }
         return false
     }
-    navigationNavigateScreen = (selectedIndex) => {
+    navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
-        navigation.navigate('Profile_Topic', { selectedIndex })
+        navigation.navigate(value, value2)
     }
     render() {
         return (
             <View>
                 <View style={stylesProfile.ListMenu}>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen(0)}>
+                    <TouchableOpacity activeOpacity={1}
+                        onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 0 })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconMaterialIcons RightItem name="access-time" color='#D0B216' size={35}
@@ -429,7 +421,8 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen(1)}>
+                    <TouchableOpacity activeOpacity={1}
+                        onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconAntDesign RightItem name="wechat" size={35} color='#0A55A6'
@@ -443,7 +436,8 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen(2)}>
+                    <TouchableOpacity activeOpacity={1}
+                        onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 2 })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconAntDesign RightItem name="heart" size={35} color='#D74024' style={
@@ -458,7 +452,8 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen(3)}>
+                    <TouchableOpacity activeOpacity={1}
+                        onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 3 })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconFontisto RightItem name="shopping-store" size={30} color='#0A55A6' style={
@@ -472,7 +467,8 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen(4)}>
+                    <TouchableOpacity activeOpacity={1}
+                        onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 4 })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconMaterialCommunityIcons RightItem name="star-box" size={35} color='#EAD295' style={
@@ -486,7 +482,8 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen(5)}>
+                    <TouchableOpacity activeOpacity={1}
+                        onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 5 })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconFeather RightItem name="help-circle" size={35} color='#00A3FF' style={
@@ -507,13 +504,11 @@ export class ListMenu extends Component {
 }
 ///----------------------------------------------------------------------------------------------->>>> ViewCode
 export class ViewCode extends Component {
-    _isMounted = false;
     constructor(props) {
         super(props)
         this.state = {
             pathlist: 0
         }
-        this.getData = this.getData.bind(this);
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { pathlist } = this.state
@@ -541,12 +536,7 @@ export class ViewCode extends Component {
         }
     }
     getData = (pathlist) => {
-        this._isMounted = true;
-        if (this._isMounted) {
-            this.setState({
-                pathlist
-            });
-        }
+        this.setState({ pathlist });
     }
     render() {
         const item = [{
@@ -564,7 +554,7 @@ export class ViewCode extends Component {
                 </View>
                 <View style={{ marginTop: 10, backgroundColor: '#fff' }}>
                     <TabBar
-                        sendData={this.getData}
+                        sendData={this.getData.bind(this)}
                         item={item}
                         setVertical={4}
                     />
@@ -578,28 +568,22 @@ export class ViewCode extends Component {
 }
 ///----------------------------------------------------------------------------------------------->>>> MyCode
 export class MyCode extends Component {
-    _isMounted = false;
     constructor(props) {
         super(props)
         this.state = {
             text: '',
         }
     }
-    componentWillUnmount() {
-        this._isMounted = false;
-    }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { text } = this.state
-        if (text !== nextState.text) {
+        const { codeList } = this.props
+        if (text !== nextState.text || codeList !== nextProps.codeList) {
             return true
         }
         return false
     }
     setStateText = (text) => {
-        this._isMounted = true;
-        if (this._isMounted) {
-            this.setState({ text })
-        }
+        this.setState({ text })
     }
     render() {
         const { text } = this.state
@@ -617,7 +601,7 @@ export class MyCode extends Component {
                                     width={'90%'}
                                     placeholderTextColor={'white'}
                                     style={[stylesProfile.ViewCodeInputCode, stylesFont.FontSize6]}
-                                    onChangeText={this.setStateText}
+                                    onChangeText={this.setStateText.bind(this)}
                                 ></TextInput>
                             </View>
                             <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
@@ -699,41 +683,132 @@ export class MyCode extends Component {
                             </View>
                         </View>
                         <View style={[stylesMain.BoxProduct2BoxProduct, { backgroundColor: '#fff', paddingTop: 2 }]}>
-                            <GetCoupon flexRow useCoupon codeList={codeList} colorCoupon='#86CFFF' timeOut={'14-02-2020'} couponText={'10%'} textDetail={'รับเงินคืน 10% Coins'} />
-                            <GetCoupon flexRow useCoupon codeList={codeList} colorCoupon='#E43333' timeOut={'1-03-2020'} couponText={'25%'} textDetail={'รับเงินคืน 25% Coins'} />
-                            <GetCoupon flexRow useCoupon codeList={codeList} colorCoupon='#E43333' timeOut={'28-02-2020'} couponText={'50%'} textDetail={'รับเงินคืน 50% Coins'} />
-                            <GetCoupon flexRow useCoupon codeList={codeList} colorCoupon='#86CFFF' timeOut={'14-02-2020'} couponText={'10%'} textDetail={'รับเงินคืน 10% Coins'} />
+                            <GetCoupon
+                                flexRow
+                                useCoupon
+                                codeList={codeList}
+                                colorCoupon='#86CFFF'
+                                timeOut={'14-02-2020'}
+                                couponText={'10%'}
+                                textDetail={'รับเงินคืน 10% Coins'}
+                            />
+                            <GetCoupon
+                                flexRow
+                                useCoupon
+                                codeList={codeList}
+                                colorCoupon='#E43333'
+                                timeOut={'1-03-2020'}
+                                couponText={'25%'}
+                                textDetail={'รับเงินคืน 25% Coins'}
+                            />
+                            <GetCoupon
+                                flexRow
+                                useCoupon
+                                codeList={codeList}
+                                colorCoupon='#E43333'
+                                timeOut={'28-02-2020'}
+                                couponText={'50%'}
+                                textDetail={'รับเงินคืน 50% Coins'}
+                            />
+                            <GetCoupon
+                                flexRow
+                                useCoupon
+                                codeList={codeList}
+                                colorCoupon='#86CFFF'
+                                timeOut={'14-02-2020'}
+                                couponText={'10%'}
+                                textDetail={'รับเงินคืน 10% Coins'}
+                            />
                         </View>
                     </View>
                 </View> :
                 codeList == 'usedCode' ?
                     <View style={[stylesMain.BoxProduct2BoxProduct, { backgroundColor: '#fff', paddingTop: 2 }]}>
-                        <GetCoupon flexRow useCoupon codeList={codeList} colorCoupon='#86CFFF' timeOut={'14-02-2020'} couponText={'10%'} textDetail={'รับเงินคืน 10% Coins'} />
-                        <GetCoupon flexRow useCoupon codeList={codeList} colorCoupon='#E43333' timeOut={'1-03-2020'} couponText={'25%'} textDetail={'รับเงินคืน 25% Coins'} />
-                        <GetCoupon flexRow useCoupon codeList={codeList} colorCoupon='#E43333' timeOut={'28-02-2020'} couponText={'50%'} textDetail={'รับเงินคืน 50% Coins'} />
-                        <GetCoupon flexRow useCoupon codeList={codeList} colorCoupon='#86CFFF' timeOut={'14-02-2020'} couponText={'10%'} textDetail={'รับเงินคืน 10% Coins'} />
+                        <GetCoupon
+                            flexRow
+                            useCoupon
+                            codeList={codeList}
+                            colorCoupon='#86CFFF'
+                            timeOut={'14-02-2020'}
+                            couponText={'10%'}
+                            textDetail={'รับเงินคืน 10% Coins'}
+                        />
+                        <GetCoupon
+                            flexRow
+                            useCoupon
+                            codeList={codeList}
+                            colorCoupon='#E43333'
+                            timeOut={'1-03-2020'}
+                            couponText={'25%'}
+                            textDetail={'รับเงินคืน 25% Coins'}
+                        />
+                        <GetCoupon
+                            flexRow
+                            useCoupon
+                            codeList={codeList}
+                            colorCoupon='#E43333'
+                            timeOut={'28-02-2020'}
+                            couponText={'50%'}
+                            textDetail={'รับเงินคืน 50% Coins'}
+                        />
+                        <GetCoupon
+                            flexRow
+                            useCoupon
+                            codeList={codeList}
+                            colorCoupon='#86CFFF'
+                            timeOut={'14-02-2020'}
+                            couponText={'10%'}
+                            textDetail={'รับเงินคืน 10% Coins'}
+                        />
                     </View> :
                     <View style={[stylesMain.BoxProduct2BoxProduct, { backgroundColor: '#fff', paddingTop: 2 }]}>
-                        <GetCoupon flexRow useCoupon codeList={codeList} colorCoupon='#86CFFF' timeOut={'14-02-2020'} couponText={'10%'} textDetail={'รับเงินคืน 10% Coins'} />
-                        <GetCoupon flexRow useCoupon codeList={codeList} colorCoupon='#E43333' timeOut={'1-03-2020'} couponText={'25%'} textDetail={'รับเงินคืน 25% Coins'} />
-                        <GetCoupon flexRow useCoupon codeList={codeList} colorCoupon='#E43333' timeOut={'28-02-2020'} couponText={'50%'} textDetail={'รับเงินคืน 50% Coins'} />
-                        <GetCoupon flexRow useCoupon codeList={codeList} colorCoupon='#86CFFF' timeOut={'14-02-2020'} couponText={'10%'} textDetail={'รับเงินคืน 10% Coins'} />
+                        <GetCoupon
+                            flexRow
+                            useCoupon
+                            codeList={codeList}
+                            colorCoupon='#86CFFF'
+                            timeOut={'14-02-2020'}
+                            couponText={'10%'}
+                            textDetail={'รับเงินคืน 10% Coins'}
+                        />
+                        <GetCoupon
+                            flexRow
+                            useCoupon
+                            codeList={codeList}
+                            colorCoupon='#E43333'
+                            timeOut={'1-03-2020'}
+                            couponText={'25%'}
+                            textDetail={'รับเงินคืน 25% Coins'}
+                        />
+                        <GetCoupon
+                            flexRow
+                            useCoupon
+                            codeList={codeList}
+                            colorCoupon='#E43333'
+                            timeOut={'28-02-2020'}
+                            couponText={'50%'}
+                            textDetail={'รับเงินคืน 50% Coins'}
+                        />
+                        <GetCoupon
+                            flexRow
+                            useCoupon
+                            codeList={codeList}
+                            colorCoupon='#86CFFF'
+                            timeOut={'14-02-2020'}
+                            couponText={'10%'}
+                            textDetail={'รับเงินคืน 10% Coins'}
+                        />
                     </View>
         )
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> CoinCollect
 export class CoinCollect extends Component {
-    _isMounted = false;
     constructor(props) {
         super(props)
         this.state = {
             pathlist: 0
         }
-        this.getData = this.getData.bind(this);
-    }
-    componentWillUnmount() {
-        this._isMounted = false;
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { pathlist } = this.state
@@ -773,12 +848,7 @@ export class CoinCollect extends Component {
         }
     }
     getData = (pathlist) => {
-        this._isMounted = true;
-        if (this._isMounted) {
-            this.setState({
-                pathlist
-            });
-        }
+        this.setState({ pathlist });
     }
     render() {
         const item = [{
@@ -818,7 +888,7 @@ export class CoinCollect extends Component {
                 </View>
                 <View style={{ marginTop: 10 }}>
                     <TabBar
-                        sendData={this.getData}
+                        sendData={this.getData.bind(this)}
                         inactiveBoxColor={'#fff'}
                         inactiveColor={'#0A55A6'}
                         inactiveFontColor={'#0A55A6'}
@@ -856,7 +926,9 @@ export class CoinPageBody extends Component {
                         </View>
                         <View style={[stylesProfile.CoinPageBodyBoxBody2, { flexDirection: 'row', justifyContent: 'flex-end' }]}>
                             <View style={[stylesProfile.CoinPageBodyBoxBody2Box, stylesMain.ItemCenter]}>
-                                <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#fff' }]}>
+                                <Text style={[
+                                    stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#fff' }
+                                ]}>
                                     แลก 10 coin</Text>
                             </View>
                         </View>

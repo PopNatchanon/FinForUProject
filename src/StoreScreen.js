@@ -33,7 +33,10 @@ export default class StoreScreen extends Component {
     shouldComponentUpdate = (nextProps, nextState) => {
         const { dataService, selectedIndex, selectedIndex2, scrollY } = this.state
         const { navigation } = this.props;
-        if (dataService !== nextState.dataService || selectedIndex !== nextState.selectedIndex || selectedIndex2 !== nextState.selectedIndex2 || scrollY !== nextState.scrollY || navigation !== nextProps.navigation) {
+        if (
+            dataService !== nextState.dataService || selectedIndex !== nextState.selectedIndex ||
+            selectedIndex2 !== nextState.selectedIndex2 || scrollY !== nextState.scrollY || navigation !== nextProps.navigation
+        ) {
             return true
         }
         return false
@@ -57,14 +60,13 @@ export default class StoreScreen extends Component {
                     <TicketLine key={'TicketLine'} />,
                     <DealTop navigation={navigation} key={'DealTop'} />,
                     <NewProduct navigation={navigation} key={'NewProduct'} />,
-                    <BannerBar_ONE key={'BannerBar_ONE'} />,
                     <PopularProduct navigation={navigation} key={'PopularProduct'} />
                 ]);
             case 1:
                 return ([
                     <Banner navigation={navigation} item={item} key={'Banner'} />,
                     <SubMenu getSelectedIndex2={this.getSelectedIndex2.bind(this)} key={'SubMenu'} />,
-                    this.ViewSubSide.bind(this, selectedIndex2)
+                    this.ViewSubSide(selectedIndex2)
                 ]);
             case 2:
                 return ([
@@ -152,7 +154,11 @@ export default class StoreScreen extends Component {
             <View style={[stylesMain.BackgroundAreaView, { height: '100%', }]}>
                 {
                     id_item !== undefined &&
-                    <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
+                    <GetServices
+                        uriPointer={uri}
+                        dataBody={dataBody}
+                        getDataSource={this.getData.bind(this)}
+                    />
                 }
                 <Animatable.View style={{
                     position: 'absolute',
@@ -222,6 +228,10 @@ export class StoreHead extends Component {
         }
         return false
     }
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props
+        navigation.navigate(value, value2)
+    }
     get getDetailStore() {
         const { item } = this.props;
         return item.map((item, index) => {
@@ -253,10 +263,12 @@ export class StoreHead extends Component {
                                 <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                                     ติดตาม</Text>
                             </View>
-                            <View style={stylesStore.StoreHeadButtom}>
-                                <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                    แชท</Text>
-                            </View>
+                            <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 })}>
+                                <View style={stylesStore.StoreHeadButtom}>
+                                    <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                        แชท</Text>
+                                </View>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>
@@ -524,9 +536,33 @@ export class TicketLine extends Component {
         return (
             <View style={[stylesMain.FrameBackground, { marginTop: 0 }]}>
                 <ScrollView horizontal>
-                    <GetCoupon flexRow useCoupon codeList={'available'} colorCoupon='#86CFFF' timeOut={'31-01-2020'} couponText={'10%'} textDetail={'รับเงินคืน 10% Coins'} />
-                    <GetCoupon flexRow useCoupon codeList={'available'} colorCoupon='#86CFFF' timeOut={'31-01-2020'} couponText={'25%'} textDetail={'รับเงินคืน 25% Coins'} />
-                    <GetCoupon flexRow useCoupon codeList={'available'} colorCoupon='#86CFFF' timeOut={'31-01-2020'} couponText={'50%'} textDetail={'รับเงินคืน 50% Coins'} />
+                    <GetCoupon
+                        flexRow
+                        useCoupon
+                        codeList={'available'}
+                        // colorCoupon='#86CFFF'
+                        timeOut={'31-01-2020'}
+                        couponText={'10%'}
+                        textDetail={'รับเงินคืน 10% Coins'}
+                    />
+                    <GetCoupon
+                        flexRow
+                        useCoupon
+                        codeList={'available'}
+                        // colorCoupon='#86CFFF'
+                        timeOut={'31-01-2020'}
+                        couponText={'10%'}
+                        textDetail={'รับเงินคืน 10% Coins'}
+                    />
+                    <GetCoupon
+                        flexRow
+                        useCoupon
+                        codeList={'available'}
+                        // colorCoupon='#86CFFF'
+                        timeOut={'31-01-2020'}
+                        couponText={'10%'}
+                        textDetail={'รับเงินคืน 10% Coins'}
+                    />
                 </ScrollView>
             </View>
         )
@@ -651,109 +687,6 @@ export class NewProduct extends Component {
         );
     }
 }
-///----------------------------------------------------------------------------------------------->>>> BannerBar_ONE
-export class BannerBar_ONE extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            dataService: [],
-            activeSlide: 0,
-        };
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService, activeSlide } = this.state;
-        const { item } = this.props;
-        if (dataService !== nextState.dataService || activeSlide !== nextState.activeSlide || item !== nextProps.item) {
-            return true
-        }
-        return false
-    }
-    getData = (dataService) => {
-        this.setState({ dataService })
-    }
-    getData2 = (activeSlide) => {
-        this.setState({ activeSlide })
-    }
-    _renderItem = ({ item, index }) => {
-        var dataMySQL = ip + '/mysql/uploads/slide/bannerstore/' + item.image
-        return (
-            <View style={stylesStore.Banner_Bar_Box} key={index}>
-                <FastImage
-                    source={{
-                        uri: dataMySQL,
-                    }}
-                    style={stylesStore.Banner_Bar_image}
-                />
-            </View>
-        );
-    }
-    get pagination() {
-        const { dataService, activeSlide } = this.state;
-        return (
-            <View style={{ marginTop: -45, marginBottom: -10 }}>
-                <Pagination
-                    dotsLength={dataService.length}
-                    activeDotIndex={activeSlide}
-                    // containerStyle={{ backgroundColor: 'rgba(120, 120, 120, 0.1)' }}
-                    dotStyle={{
-                        width: 10,
-                        height: 10,
-                        borderRadius: 30,
-                        backgroundColor: 'rgba(0, 0, 0, 0)',
-                        borderColor: 'rgba(255, 255, 255, 0.92)',
-                        borderWidth: 2,
-                    }}
-                    inactiveDotStyle={{
-                        width: 10,
-                        height: 4,
-                        borderRadius: 5,
-                        backgroundColor: 'rgba(255, 255, 255, 0.92)',
-                    }}
-                    carouselRef={this.activeSlide}
-                    tappableDots={!!this.activeSlide}
-                    // inactiveDotOpacity={0.6}
-                    inactiveDotScale={0.6}
-                />
-            </View>
-        );
-    }
-    render() {
-        const { item } = this.props;
-        const { dataService } = this.state
-        const slideWidth = width * 1;
-        const slideHeight = 80;
-        const slideDelay = 3000;
-        var uri = ip + '/mysql/DataServiceStore.php';
-        var dataBody = {
-            type: 'slide'
-        };
-        return (
-            <View>
-                <GetServices
-                    uriPointer={uri}
-                    dataBody={dataBody}
-                    getDataSource={this.getData.bind(this)}
-                />
-                <View style={stylesStore.Banner_Bar}>
-                    <Carousel
-                        ref={c => this.activeSlide = c}
-                        data={dataService}
-                        renderItem={this._renderItem}
-                        sliderWidth={slideWidth}
-                        itemWidth={slideWidth}
-                        sliderHeight={slideHeight}
-                        loop={true}
-                        autoplay={true}
-                        autoplayDelay={slideDelay}
-                        autoplayInterval={slideDelay}
-                        onSnapToItem={this.getData2.bind(this)}
-                    />
-                </View>
-                {this.pagination}
-            </View>
-        );
-    }
-}
 ///----------------------------------------------------------------------------------------------->>>> PopularProduct
 export class PopularProduct extends Component {
     constructor(props) {
@@ -765,7 +698,10 @@ export class PopularProduct extends Component {
     shouldComponentUpdate = (nextProps, nextState) => {
         const { dataService } = this.state
         const { headText, navigation, noHeadText } = this.props;
-        if (dataService !== nextState.dataService || headText !== nextProps.headText || navigation !== nextProps.navigation || noHeadText !== nextProps.noHeadText) {
+        if (
+            dataService !== nextState.dataService || headText !== nextProps.headText || navigation !== nextProps.navigation ||
+            noHeadText !== nextProps.noHeadText
+        ) {
             return true
         }
         return false
@@ -807,7 +743,8 @@ export class PopularProduct extends Component {
                             prepath='mysql'
                             mode='row2colall'
                             pointerUrl='DetailScreen'
-                            pointerid_store nameSize={14}
+                            pointerid_store
+                            nameSize={14}
                             priceSize={15}
                             dispriceSize={15}
                         />
@@ -827,12 +764,15 @@ export class SubMenu extends Component {
     shouldComponentUpdate = (nextProps, nextState) => {
         const { dataService } = this.state
         const { headText, navigation, noHeadText, getSelectedIndex2 } = this.props;
-        if (dataService !== nextState.dataService || headText !== nextProps.headText || navigation !== nextProps.navigation || noHeadText !== nextProps.noHeadText || getSelectedIndex2 !== nextProps.getSelectedIndex2) {
+        if (
+            dataService !== nextState.dataService || headText !== nextProps.headText || navigation !== nextProps.navigation ||
+            noHeadText !== nextProps.noHeadText || getSelectedIndex2 !== nextProps.getSelectedIndex2
+        ) {
             return true
         }
         return false
     }
-    updateInde = (selectedIndex2) => {
+    updateIndex = (selectedIndex2) => {
         const { getSelectedIndex2 } = this.props
         getSelectedIndex2(selectedIndex2)
     }

@@ -27,13 +27,20 @@ export default class Register_OTPScreen extends Component {
     this.state = {
     };
   }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { navigation } = this.props
+    if (navigation !== nextProps.navigation) {
+      return true
+    }
+    return false
+  }
   render() {
     const { navigation } = this.props
     return (
       <SafeAreaView style={[stylesMain.SafeAreaView]}>
         <ScrollView>
           <Logo />
-          <Login navigation={this.props.navigation} />
+          <Login navigation={navigation} />
           <Register />
         </ScrollView>
         <ExitAppModule navigation={navigation} />
@@ -72,14 +79,20 @@ export class Login extends Component {
       DataMo: [],
       DataDay: [],
       activeNow: 0,
+      item1: false,
     };
-    this.EmailInput = this.EmailInput.bind(this);
-    // this.PassMailInput = this.PassMailInput.bind(this);
-    this.UnameInput = this.UnameInput.bind(this);
-    this.PassInput = this.PassInput.bind(this);
-    this.RepeatPassInput = this.RepeatPassInput.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.getData = this.getData.bind(this);
+  }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { user, date, show, DataYear, DataMo, DataDay, activeNow, item1 } = this.state
+    const { navigation } = this.props
+    if (
+      user !== nextState.user || date !== nextState.date || show !== nextState.show || DataYear !== nextState.DataYear ||
+      DataMo !== nextState.DataMo || DataDay !== nextState.DataDay || activeNow !== nextState.activeNow ||
+      navigation !== nextProps.navigation
+    ) {
+      return true
+    }
+    return false
   }
   componentDidMount() {
     const { user } = this.state;
@@ -110,7 +123,7 @@ export class Login extends Component {
   componentWillUnmount() {
     Form.removeValidationRule('isPasswordMatch');
   }
-  getDataYear() {
+  getDataYear = () => {
     var dates = new Date().getFullYear();
     var box = [];
     for (min = 1950; min <= parseInt(dates); min = min + 1) {
@@ -118,7 +131,7 @@ export class Login extends Component {
     }
     this.setState({ DataYear: box, date: new Date() })
   }
-  getDataMo(itemValue) {
+  getDataMo = (itemValue) => {
     const { date } = this.state
     if (itemValue != null) {
       const item = String(itemValue)
@@ -130,8 +143,17 @@ export class Login extends Component {
       this.setState({ DataMo: box })
     }
   }
-  getDataDay(itemValue) {
+  getDataDaySet = (itemValue) => {
     const { date } = this.state
+    if (itemValue != null) {
+      const item = String(itemValue)
+      this.setState({ date: new Date(date).setDate(item) })
+    }
+  }
+  getDataDay = (itemValue) => {
+    const { date } = this.state
+    console.log('setDataDay')
+    console.log(itemValue)
     if (itemValue != null) {
       const item = String(itemValue)
       this.setState({ date: new Date(date).setMonth(item) })
@@ -141,6 +163,8 @@ export class Login extends Component {
       }
       this.setState({ DataDay: box })
     }
+    console.log('getDataDay')
+    console.log(date)
   }
   DataYear() {
     const { DataYear } = this.state
@@ -180,13 +204,14 @@ export class Login extends Component {
       })
     )
   }
-  getData() {
-    const { user, date, gender } = this.state;
-    user.date = new Date(date).getDate();
-    user.month = new Date(date).getMonth() + 1;
-    user.year = new Date(date).getFullYear();
-    user.gender = gender;
+  getData = () => {
+    const { user, date, } = this.state;
+    const { navigation } = this.props
+    user.birth_date = new Date(date).getDate();
+    user.birth_mon = new Date(date).getMonth() + 1;
+    user.birth_year = new Date(date).getFullYear();
     this.setState({ user });
+    console.log(user)
     fetch(finip + '/auth/register_customer', {
       method: 'POST',
       headers: {
@@ -222,11 +247,11 @@ export class Login extends Component {
               this.clearAll()
               this.storeData(userser)
               if (userser.address != null) {
-                this.props.navigation.goBack();
-                this.props.navigation.replace('MainScreen');
+                navigation.goBack();
+                navigation.replace('MainScreen');
               } else {
-                this.props.navigation.goBack();
-                this.props.navigation.replace('MainScreen');
+                navigation.goBack();
+                navigation.replace('MainScreen');
               }
             })
             .catch((error) => {
@@ -240,10 +265,10 @@ export class Login extends Component {
         console.error(error);
       })
   }
-  handleSubmit() {
+  handleSubmit = () => {
     this.refs.form.submit();
   }
-  EmailInput(event) {
+  EmailInput = (event) => {
     const { user } = this.state;
     user.email = event;
     this.setState({ user });
@@ -253,26 +278,39 @@ export class Login extends Component {
   //   user.passmail = event;
   //   this.setState({ user });
   // }
-  UnameInput(event) {
+  UnameInput = (event) => {
     const { user } = this.state;
     user.name = event;
     this.setState({ user });
   }
-  PassInput(event) {
+  PassInput = (event) => {
     const { user } = this.state;
     user.password = event;
     this.setState({ user });
   }
-  RepeatPassInput(event) {
+  RepeatPassInput = (event) => {
     const { user } = this.state;
     user.repassword = event;
     this.setState({ user });
   }
-  FormBody() {
+  TelphoneInput = (event) => {
+    const { user } = this.state;
+    user.telphone = event;
+    this.setState({ user });
+  }
+  GenderInput = (event) => {
+    const { user } = this.state;
+    user.gender = event.value;
+    this.setState({ user });
+  }
+  setStateItem1 = () => {
+    const { item1 } = this.state
+    this.setState({ item1: !item1 })
+  }
+  get FormBody() {
     const { activeNow, item1 } = this.state
-    activeNow < 2 ?
-      this.setState({ activeNow: activeNow + 1, date: new Date('2000') }) :
-      null
+    activeNow < 2 &&
+      this.setState({ activeNow: activeNow + 1, date: new Date('2000') })
     const { user, date, } = this.state;
     let DataDay = this.DataDay()
     let DataMo = this.DataMo()
@@ -293,7 +331,7 @@ export class Login extends Component {
     return (
       <Form
         ref="form"
-        onSubmit={this.getData}
+        onSubmit={this.getData.bind(this)}
       >
         <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
           อีเมล</Text>
@@ -305,7 +343,7 @@ export class Login extends Component {
           type="text"
           keyboardType="email-address"
           value={user.email}
-          onChangeText={this.EmailInput}
+          onChangeText={this.EmailInput.bind(this)}
           style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
           errorStyle={{
             container: {
@@ -328,7 +366,7 @@ export class Login extends Component {
           type="text"
           value={user.passmail}
           maxLength={6}
-          onChangeText={this.PassMailInput}
+          onChangeText={this.PassMailInput.bind(this)}
           style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
           errorStyle={{
             container: {
@@ -356,7 +394,7 @@ export class Login extends Component {
           errorMessages={['กรุณากรอกชื่อ', 'กรุณากรอกชื่อให้ถูกต้อง']}
           type="text"
           value={user.name}
-          onChangeText={this.UnameInput}
+          onChangeText={this.UnameInput.bind(this)}
           style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
           errorStyle={{
             container: {
@@ -381,7 +419,7 @@ export class Login extends Component {
           type="text"
           secureTextEntry
           value={user.password}
-          onChangeText={this.PassInput}
+          onChangeText={this.PassInput.bind(this)}
           style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
           errorStyle={{
             container: {
@@ -406,7 +444,31 @@ export class Login extends Component {
           type="text"
           secureTextEntry
           value={user.repassword}
-          onChangeText={this.RepeatPassInput}
+          onChangeText={this.RepeatPassInput.bind(this)}
+          style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
+          errorStyle={{
+            container: {
+              bottom: -12,
+              left: 4,
+              position: 'absolute'
+            },
+            text: {
+              color: 'red'
+            },
+            underlineValidColor: 'gray',
+            underlineInvalidColor: 'red'
+          }}
+        />
+        <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
+          หมายเลขโทรศัพท์</Text>
+        <TextValidator
+          name="telphone"
+          label="text"
+          validators={['required',]}
+          errorMessages={['กรุณากรอกหมายเลขโทรศัพท์',]}
+          type="text"
+          value={user.telphone}
+          onChangeText={this.TelphoneInput.bind(this)}
           style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
           errorStyle={{
             container: {
@@ -428,9 +490,7 @@ export class Login extends Component {
                 selectedValue={String(day)}
                 style={{ height: '100%', width: '100%' }}
                 itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize7, { backgroundColor: '#fff' }]}
-                onValueChange={(itemValue, itemIndex) => {
-                  this.setState({ date: new Date(date).setDate(itemValue) })
-                }}>
+                onValueChange={this.getDataDaySet.bind(this)}>
                 {DataDay}
               </Picker>
             </View>
@@ -439,9 +499,7 @@ export class Login extends Component {
                 selectedValue={String(month)}
                 style={{ height: '100%', width: '100%' }}
                 itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize7, { backgroundColor: '#fff' }]}
-                onValueChange={(itemValue, itemIndex) => {
-                  this.getDataDay(itemValue)
-                }}>
+                onValueChange={this.getDataDay.bind(this)}>
                 {DataMo}
               </Picker>
             </View>
@@ -450,9 +508,7 @@ export class Login extends Component {
                 selectedValue={String(year)}
                 style={{ height: '100%', width: '100%' }}
                 itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize7, { backgroundColor: '#fff' }]}
-                onValueChange={(itemValue, itemIndex) => {
-                  this.getDataMo(itemValue)
-                }}>
+                onValueChange={this.getDataMo.bind(this)}>
                 {DataYear}
               </Picker>
             </View>
@@ -477,34 +533,36 @@ export class Login extends Component {
               }]}
               activeColor='#111'
               circleSize={15}
-              selectedBtn={(e) => this.setState({ gender: e.value })}
+              selectedBtn={this.GenderInput.bind(this)}
             />
           </View>
         </View>
         <View style={stylesLogin.RegisterScreen_CheckBox}>
           <CheckBox
             checked={item1}
-            onPress={() => this.setState({ item1: !item1 })}
+            onPress={this.setStateItem1.bind(this)}
           />
-          <View style={stylesLogin.RegisterScreen_Check_Box}><Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText]}>
-            ฉันยอมรับเงื่อนไขของ FIN ข้อตกลงการใช้งาน และยินยอมดำเนินการกับข้อมูลส่วนตัวตามที่ระบุใน นโยบายส่วนตัว</Text></View>
+          <View style={stylesLogin.RegisterScreen_Check_Box}>
+            <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText]}>
+              ฉันยอมรับเงื่อนไขของ FIN ข้อตกลงการใช้งาน และยินยอมดำเนินการกับข้อมูลส่วนตัวตามที่ระบุใน นโยบายส่วนตัว</Text>
+          </View>
         </View>
         <View style={stylesLogin.Login_Box_Text_C}>
-          <TouchableOpacity onPress={this.handleSubmit}>
-            <View style={stylesLogin.Login_Box_Text_B}>
+          <TouchableOpacity activeOpacity={item1 == true ? 0.2 : 1} onPress={item1 == true ? this.handleSubmit.bind(this) : null}>
+            <View style={[stylesLogin.Login_Box_Text_B, { backgroundColor: item1 == true ? '#0A55A6' : '#ECECEC' }]}>
               <Text style={[stylesLogin.Login__Text, stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical]}>
                 สมัครสมาชิก</Text>
             </View>
           </TouchableOpacity>
         </View>
-      </Form>
+      </Form >
     )
   }
   render() {
     return (
       <View style={stylesLogin.Login_Box}>
         <View style={stylesLogin.RegisterScreen_Box_Login}>
-          {this.FormBody()}
+          {this.FormBody}
         </View>
       </View>
     );
@@ -515,7 +573,19 @@ export class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      item1: false,
     };
+  }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { item1 } = this.state
+    if (item1 !== nextState.item1) {
+      return true
+    }
+    return false
+  }
+  setStateItem1 = () => {
+    const { item1 } = this.state
+    this.setState({ item1: !item1 })
   }
   render() {
     const { item1 } = this.state
@@ -532,7 +602,7 @@ export class Register extends Component {
             checkedColor='#95F29F'
             uncheckedIcon='toggle-off'
             checked={item1}
-            onPress={() => this.setState({ item1: !item1 })}
+            onPress={this.setStateItem1.bind(this)}
           />
         </View>
         <View>

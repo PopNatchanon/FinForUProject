@@ -1967,8 +1967,8 @@ export class TodayProduct extends React.Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { loadData, navigation } = this.props
-        if (loadData !== nextProps.loadData || navigation !== nextProps.navigation) {
+        const { loadData, navigation, noTitle, prepath, typeip } = this.props
+        if (loadData !== nextProps.loadData || navigation !== nextProps.navigation || noTitle !== nextProps.noTitle || prepath !== nextProps.prepath || typeip !== nextProps.typeip) {
             return true
         }
         return false

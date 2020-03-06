@@ -277,9 +277,12 @@ export class Edit_Profile extends Component {
   }
   BirthdaySheetBody() {
     const { activeNow } = this.state
-    activeNow < 2 ?
-      this.setState({ activeNow: activeNow + 1, date: new Date('2000') }) :
-      null
+    const { currentUser } = this.state
+    currentUser.map((item) => {
+      activeNow < 2 ?
+        this.setState({ activeNow: activeNow + 1, date: item.date_of_birth }) :
+        null
+    })
     const { date, } = this.state;
     let DataDay = this.DataDay()
     let DataMo = this.DataMo()
@@ -374,8 +377,7 @@ export class Edit_Profile extends Component {
         checked = false
         checked2 = true
       }
-      this.setState({ Name: item.name, checked, checked2 })
-
+      this.setState({ Name: item.name, checked, checked2, Phone: item.telphone })
     })
   }
   render() {

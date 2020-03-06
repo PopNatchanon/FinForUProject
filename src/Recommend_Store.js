@@ -24,6 +24,13 @@ export default class Recommend_Store extends Component {
         this.state = {
         };
     }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { navigation } = this.props
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
     render() {
         const { navigation } = this.props
         return (
@@ -78,9 +85,20 @@ export class Store_Detail extends Component {
         this.state = {
             dataService: [],
         };
-        this.getData = this.getData.bind(this)
     }
-    getData(dataService) {
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { dataService } = this.state
+        const { navigation } = this.props
+        if (dataService !== nextState.dataService || navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props
+        navigation.navigate(value, value2)
+    }
+    getData = (dataService) => {
         this.setState({ dataService })
     }
     render() {
@@ -92,14 +110,14 @@ export class Store_Detail extends Component {
         };
         return (
             <View style={stylesMain.FrameBackground}>
-                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
                 <View>
                     <FastImage
                         style={stylesTopic.Store_Image}
                         source={require('../icon/bgprofile.jpg')}
                     />
                     <View style={stylesTopic.Store_Box}>
-                        <TouchableOpacity onPress={() => navigation.navigate('StoreScreen', { id_item: 23 })}>
+                        <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: 23 })}>
                             <View style={stylesTopic.Store_Pro}>
                                 <FastImage
                                     style={{ height: '100%', width: '100%' }}
@@ -108,7 +126,7 @@ export class Store_Detail extends Component {
                             </View>
                         </TouchableOpacity>
                         <View style={{ margin: 10, }}>
-                            <TouchableOpacity onPress={() => navigation.navigate('StoreScreen', { id_item: 23 })}>
+                            <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: 23 })}>
                                 <View style={stylesTopic.Store_Name}>
                                     <Text style={[stylesTopic.Store_NameText, stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
                                         O&B official</Text>
@@ -132,8 +150,10 @@ export class Store_Detail extends Component {
                                         <Text style={[stylesFont.FontFamilyText, { textAlign: 'center', color: '#0A55A6' }]}>
                                             ติดตาม</Text>
                                     </View>
-                                    <TouchableOpacity onPress={() => navigation.navigate('StoreScreen', { id_item: 23 })} style={[
-                                        stylesTopic.Store_Button, { backgroundColor: '#0A55A6', marginLeft: 8, }]}>
+                                    <TouchableOpacity
+                                        onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: 23 })}
+                                        style={[stylesTopic.Store_Button, { backgroundColor: '#0A55A6', marginLeft: 8, }]}
+                                    >
                                         <Text style={[stylesFont.FontFamilyText, { textAlign: 'center', color: '#FFFFFF' }]}>
                                             เข้าดูร้านค้า</Text>
                                     </TouchableOpacity>
@@ -161,11 +181,19 @@ export class Store_Detail extends Component {
                         <View style={stylesTopic.Store_Product}>
                             <ScrollView horizontal>
                                 {
-                                    dataService ?
-                                        <ProductBox dataService={dataService} navigation={navigation} typeip='ip' mode='row3col1' prepath='mysql'
-                                            pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                                        /> :
-                                        null
+                                    dataService &&
+                                    <ProductBox
+                                        dataService={dataService}
+                                        navigation={navigation}
+                                        typeip='ip'
+                                        mode='row3col1'
+                                        prepath='mysql'
+                                        pointerUrl='DetailScreen'
+                                        pointerid_store
+                                        nameSize={14}
+                                        priceSize={15}
+                                        dispriceSize={15}
+                                    />
                                 }
                             </ScrollView>
                         </View>

@@ -55,49 +55,74 @@ export class Toolbar extends React.Component {
             currentUser.name &&
                 (u_name = currentUser.name)
         }
+        var routeProps = this.props.navigation.dangerouslyGetParent().state.routes
+        var routeLength = this.props.navigation.dangerouslyGetParent().state.routes.length
+        var routeSelcet
+        routeProps.map((item, index) => {
+            routeLength == index + 1 && (
+                routeSelcet = item.routeName
+            )
+        })
         return (
             <View style={stylesMain.Toolbar}>
-                <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'MainScreen')}>
+                <TouchableOpacity activeOpacity={1}
+                    onPress={routeSelcet != 'MainScreen' && this.navigationNavigateScreen.bind(this, 'MainScreen')}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                        <IconAntDesign style={{ marginLeft: 5, }} name="home" size={25} />
-                        <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>Home</Text>
+                        <IconAntDesign name="home" size={25} color={routeSelcet == 'MainScreen' ? '#0A55A6' : '#111'} />
+                        <Text style={{
+                            fontSize: 13, fontFamily: 'SukhumvitSet-Text', color: routeSelcet == 'MainScreen' ? '#0A55A6' : '#111'
+                        }}>Home</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'FeedScreen')}>
+                <TouchableOpacity activeOpacity={1}
+                    onPress={routeSelcet != 'FeedScreen' && this.navigationNavigateScreen.bind(this, 'FeedScreen')}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                        <IconAntDesign name="tagso" size={25} />
-                        <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}> Feed</Text>
+                        <IconAntDesign name="tagso" size={25} color={routeSelcet == 'FeedScreen' ? '#0A55A6' : '#111'} />
+                        <Text style={{
+                            fontSize: 13, fontFamily: 'SukhumvitSet-Text', color: routeSelcet == 'FeedScreen' ? '#0A55A6' : '#111'
+                        }}> Feed</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'NewsScreen')}>
+                <TouchableOpacity activeOpacity={1}
+                    onPress={routeSelcet != 'NewsScreen' && this.navigationNavigateScreen.bind(this, 'NewsScreen')}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                        <IconAntDesign name="notification" size={25} />
-                        <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>News</Text>
+                        <IconAntDesign name="notification" size={25} color={routeSelcet == 'NewsScreen' ? '#0A55A6' : '#111'} />
+                        <Text style={{
+                            fontSize: 13, fontFamily: 'SukhumvitSet-Text', color: routeSelcet == 'NewsScreen' ? '#0A55A6' : '#111'
+                        }}>News</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'BellScreen')}>
+                <TouchableOpacity activeOpacity={1}
+                    onPress={routeSelcet != 'BellScreen' && this.navigationNavigateScreen.bind(this, 'BellScreen')}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                        <IconAntDesign name="bells" size={25} />
-                        <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>เตือน</Text>
+                        <IconAntDesign name="bells" size={25} color={routeSelcet == 'BellScreen' ? '#0A55A6' : '#111'} />
+                        <Text style={{
+                            fontSize: 13, fontFamily: 'SukhumvitSet-Text', color: routeSelcet == 'BellScreen' ? '#0A55A6' : '#111'
+                        }}>เตือน</Text>
                     </View>
                 </TouchableOpacity>
-                {currentUser == null ?
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('LoginScreen')}>
-                        <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                            <IconAntDesign name="user" size={25} />
-                            <Text style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>ฉัน</Text>
-                        </View>
-                    </TouchableOpacity> :
-                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'ProfileScreen')}>
-                        <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                            <IconAntDesign name="user" size={25} />
-                            <Text numberOfLines={1} style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text' }}>
-                                {u_name}
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
+                {
+                    currentUser == null ?
+                        <TouchableOpacity activeOpacity={1}
+                            onPress={routeSelcet != 'LoginScreen' && this.navigationNavigateScreen.bind(this, 'LoginScreen')}>
+                            <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
+                                <IconAntDesign name="user" size={25} color={routeSelcet == 'LoginScreen' ? '#0A55A6' : '#111'} />
+                                <Text style={{
+                                    fontSize: 13, fontFamily: 'SukhumvitSet-Text', color: routeSelcet == 'LoginScreen' ? '#0A55A6' : '#111'
+                                }}>ฉัน</Text>
+                            </View>
+                        </TouchableOpacity> :
+                        <TouchableOpacity activeOpacity={1}
+                            onPress={routeSelcet != 'ProfileScreen' && this.navigationNavigateScreen.bind(this, 'ProfileScreen')}>
+                            <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
+                                <IconAntDesign name="user" size={25} color={routeSelcet == 'ProfileScreen' ? '#0A55A6' : '#111'} />
+                                <Text numberOfLines={1} style={{
+                                    fontSize: 13, fontFamily: 'SukhumvitSet-Text', color: routeSelcet == 'ProfileScreen' ? '#0A55A6' : '#111'
+                                }}>{u_name}</Text>
+                            </View>
+                        </TouchableOpacity>
                 }
-            </View>
+            </View >
         )
     }
 }

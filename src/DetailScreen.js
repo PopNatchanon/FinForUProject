@@ -40,19 +40,23 @@ export default class DetailScreen extends React.Component {
   shouldComponentUpdate = (nextProps, nextState) => {
     const { activeSlide, dataService, scrollY, setActive, setShowItemImage, showItemImage } = this.state
     const { navigation } = this.props
-    if (dataService !== nextState.dataService || activeSlide !== nextState.activeSlide || setShowItemImage !== nextState.setShowItemImage || scrollY !== nextState.scrollY || setActive !== nextState.setActive || showItemImage !== nextState.showItemImage || navigation !== nextProps.navigation) {
+    if (
+      dataService !== nextState.dataService || activeSlide !== nextState.activeSlide || setShowItemImage !== nextState.setShowItemImage
+      || scrollY !== nextState.scrollY || setActive !== nextState.setActive || showItemImage !== nextState.showItemImage ||
+      navigation !== nextProps.navigation
+    ) {
       return true
     }
     return false
   }
   showImage = (showItemImage) => {
-      this.setState({ showItemImage })
+    this.setState({ showItemImage })
   }
   getData = (dataService) => {
-      this.setState({ dataService })
+    this.setState({ dataService })
   }
   setShowImage = (setShowItemImage) => {
-      this.setState({ setShowItemImage, setActive: false })
+    this.setState({ setShowItemImage, setActive: false })
   }
   render() {
     const { dataService, showItemImage, setShowItemImage, setActive, scrollY } = this.state
@@ -90,9 +94,12 @@ export default class DetailScreen extends React.Component {
           }
         >
           {/* <View style={{ marginTop: -50 }}></View> */}
-          <Detail_Image dataService={dataService} navigation={navigation} showImage={this.showImage.bind(this)} setShowImage={this.setShowImage.bind(this)}
-            setActive={setActive} />
-          <Detail_Data dataService={dataService} navigation={navigation} />
+          {
+            dataService.product_data &&
+            <Detail_Image dataService={dataService.product_data} navigation={navigation} showImage={this.showImage.bind(this)} setShowImage={this.setShowImage.bind(this)}
+              setActive={setActive} />
+          }
+          {/* <Detail_Data dataService={dataService} navigation={navigation} />
           <Store dataService={dataService} navigation={navigation} />
           <Conpon />
           <Selector dataService={dataService} />
@@ -102,9 +109,9 @@ export default class DetailScreen extends React.Component {
           <BannerBar />
           <Same_Store dataService={dataService} navigation={navigation} />
           <Similar_Product dataService={dataService} navigation={navigation} />
-          <Might_like dataService={dataService} navigation={navigation} />
+          <Might_like dataService={dataService} navigation={navigation} /> */}
         </ScrollView>
-        <Buy_bar navigation={navigation} dataService={dataService} />
+        {/* <Buy_bar navigation={navigation} dataService={dataService} /> */}
         <ExitAppModule navigation={navigation} />
       </SafeAreaView>
     );
@@ -129,17 +136,14 @@ export class Detail_Image extends React.Component {
     return false
   }
   setStateImageLength = (length) => {
-    this._isMounted = true;
-    if (this._isMounted) {
-      this.setState({ imageLength: length, imageLengthActive: 1 })
-    }
+    this.setState({ imageLength: length, imageLengthActive: 1 })
   }
   imageGallery = (image_full_path, gallery_image) => {
     const { imageLengthActive } = this.state
     const image = {} = gallery_image.split(';')
     const length = image.length
     imageLengthActive == 0 &&
-      this.setStateImageLength.bind(this, length)
+      this.setStateImageLength(length)
     var count = 0
     var myJSON = new Array()
     var item
@@ -172,7 +176,7 @@ export class Detail_Image extends React.Component {
     );
   }
   setStateActiveSlide = (index) => {
-      this.setState({ activeSlide: index })
+    this.setState({ activeSlide: index })
   }
   get id_product() {
     const { activeSlide, imageLength, } = this.state;
@@ -180,7 +184,7 @@ export class Detail_Image extends React.Component {
     return dataService.map((item, index) => {
       let dataMySQL
       item.gallery_image ?
-        dataMySQL = this.imageGallery.bind(this, item.image_full_path, item.gallery_image) :
+        dataMySQL = this.imageGallery(item.image_full_path, item.gallery_image) :
         dataMySQL = dataService;
       dataMySQL &&
         setActive == true &&
@@ -196,7 +200,7 @@ export class Detail_Image extends React.Component {
               itemWidth={width * 1}
               sliderHeight={width * 1}
               // loop={true}
-              onSnapToItem={this.setStateActiveSlide}
+              onSnapToItem={this.setStateActiveSlide.bind(this)}
             />
             <View style={{ flex: 1, }}>
               <View style={[stylesMain.ItemCenter, stylesDetail.ImageSlide]}>
@@ -296,7 +300,7 @@ export class Store extends React.Component {
     return false
   }
   LoadingStore = (ImageStore) => {
-      this.setState({ ImageStore })
+    this.setState({ ImageStore })
   }
   navigationNavigateScreen = (value, value2) => {
     const { navigation } = this.props
@@ -457,10 +461,10 @@ export class Selector extends React.Component {
     return false
   }
   updateIndex = (selectedIndex) => {
-      this.setState({ selectedIndex })
+    this.setState({ selectedIndex })
   }
   setStateItemCount = (value) => {
-      this.setState({ itemCount: value * 1 })
+    this.setState({ itemCount: value * 1 })
   }
   dataItem(item) {
     return (
@@ -929,7 +933,11 @@ export class Same_Store extends React.Component {
     const { dataService, navigation } = this.props
     var uri = finip + '/product/product_other_mobile';
     var dataBody
+    var id_type
+    var id_store
     dataService.map((item) => {
+      id_type = item.id_type
+      id_store = item.id_store
       dataBody = {
         id_type: item.id_type,
         id_store: item.id_store,
@@ -945,7 +953,7 @@ export class Same_Store extends React.Component {
         <View style={stylesMain.FrameBackgroundTextBox}>
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
             สินค้าจากร้านเดียวกัน</Text>
-          <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Same_StoreScreen', { type_product: 'this_store' })}>
+          <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Same_StoreScreen', { type_product: 'this_store', id_type: id_type, id_store: id_store })}>
             <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
               ดูทั้งหมด</Text>
           </TouchableOpacity>
@@ -991,7 +999,11 @@ export class Similar_Product extends React.Component {
     const { dataService, navigation } = this.props
     var uri = finip + '/product/product_other_mobile';
     var dataBody
+    var id_type
+    var id_store
     dataService.map((item) => {
+      id_type = item.id_type
+      id_store = item.id_store
       dataBody = {
         id_type: item.id_type,
         id_store: item.id_store,
@@ -1007,7 +1019,7 @@ export class Similar_Product extends React.Component {
         <View style={stylesMain.FrameBackgroundTextBox}>
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
             สินค้าที่คล้ายกัน</Text>
-          <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Same_StoreScreen', { type_product: 'same_product' })}>
+          <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Same_StoreScreen', { type_product: 'same_product', id_type: id_type, id_store: id_store })}>
             <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
               ดูทั้งหมด</Text>
           </TouchableOpacity>
@@ -1053,7 +1065,11 @@ export class Might_like extends React.Component {
     const { dataService, navigation } = this.props
     var uri = finip + '/product/product_other_mobile';
     var dataBody
+    var id_type
+    var id_store
     dataService.map((item) => {
+      id_type = item.id_type
+      id_store = item.id_store
       dataBody = {
         id_type: item.id_type,
         id_store: item.id_store,
@@ -1069,7 +1085,7 @@ export class Might_like extends React.Component {
         <View style={stylesMain.FrameBackgroundTextBox}>
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
             คุณอาจชอบสิ่งนี้</Text>
-          <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Same_StoreScreen', { type_product: 'youlike' })}>
+          <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Same_StoreScreen', { type_product: 'youlike', id_type: id_type, id_store: id_store })}>
             <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
               ดูทั้งหมด</Text>
           </TouchableOpacity>

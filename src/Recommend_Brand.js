@@ -24,6 +24,13 @@ export default class Recommend_Brand extends Component {
         this.state = {
         };
     }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { navigation } = this.props
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
     render() {
         const { navigation } = this.props
         return (
@@ -46,6 +53,17 @@ export class Recommend_Brand_Store extends Component {
         super(props);
         this.state = {
         };
+    }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { navigation } = this.props
+        if (navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props
+        navigation.navigate(value, value2)
     }
     render() {
         const { navigation } = this.props
@@ -76,7 +94,7 @@ export class Recommend_Brand_Store extends Component {
                             resizeMode={FastImage.resizeMode.contain}
                         />
                     </View>
-                    <TouchableOpacity onPress={() => navigation.navigate('StoreScreen', { id_item: 23 })}>
+                    <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: 23 })}>
                         <View style={[stylesTopic.Recommend_Brand_ProButton]}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เข้าดูร้าน</Text>
                         </View>
@@ -84,12 +102,11 @@ export class Recommend_Brand_Store extends Component {
                 </View>
                 <View style={stylesMain.FlexRow}>
                     {
-                        dataService ?
-                            <ProductBox dataService={dataService} navigation={navigation} typeip={'ip'}
-                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                                prepath='mysql'
-                            /> :
-                            null
+                        dataService &&
+                        <ProductBox dataService={dataService} navigation={navigation} typeip={'ip'}
+                            pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
+                            prepath='mysql'
+                        />
                     }
                 </View>
             </View>

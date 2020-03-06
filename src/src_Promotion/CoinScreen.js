@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
+import { GiftedChat } from 'react-native-gifted-chat'
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
@@ -42,11 +43,12 @@ export default class CoinScreen extends Component {
         <AppBar1 titleHead={'FIN COINS'} backArrow searchBar chatBar navigation={this.props.navigation} />
         <ScrollView>
           <Slide />
-          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', width: 100 }]}>
+          <Example/>
+          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', width: 100 ,marginTop:10}]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>FIN COIN</Text>
           </View>
           <CoinCollect />
-          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', width: 160 }]}>
+          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', width: 160 ,marginTop:10}]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>FIN จัดหนักรับ COIN เพิ่ม</Text>
           </View>
           {
@@ -62,3 +64,44 @@ export default class CoinScreen extends Component {
   }
 }
 
+///----------------------------------------------------------------------------------------------->>>>
+class Example extends React.Component {
+  state = {
+    messages: [],
+  }
+
+  componentDidMount() {
+    this.setState({
+      messages: [
+        {
+          _id: 1,
+          text: 'Hello developer',
+          createdAt: new Date(),
+          user: {
+            _id: 2,
+            name: 'React Native',
+            avatar: 'https://placeimg.com/140/140/any',
+          },
+        },
+      ],
+    })
+  }
+
+  onSend(messages = []) {
+    this.setState(previousState => ({
+      messages: GiftedChat.append(previousState.messages, messages),
+    }))
+  }
+
+  render() {
+    return (
+      <GiftedChat
+        messages={this.state.messages}
+        onSend={messages => this.onSend(messages)}
+        user={{
+          _id: 1,
+        }}
+      />
+    )
+  }
+}

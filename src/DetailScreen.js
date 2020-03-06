@@ -561,7 +561,7 @@ export class Selector extends React.Component {
               </TouchableOpacity>
             </View>
           </View>
-        </View >
+        </View>
       )
     })
   }

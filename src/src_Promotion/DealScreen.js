@@ -20,7 +20,7 @@ import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule } from '../MainScreen';
+import { AppBar1, ExitAppModule, Second_product } from '../MainScreen';
 import { GetCoupon, GetServices, ProductBox, } from '../tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';
@@ -29,11 +29,18 @@ export default class DealScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      dataService: []
     };
   }
+  getData = (dataService) => {
+    this.setState({ dataService })
+  }
   render() {
+    const { dataService, } = this.state
+    var uri = finip + '/home/publish_mobile'
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
+        <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} />
         <AppBar1 titleHead={'ดีลสุดคุ้ม'} backArrow searchBar chatBar navigation={this.props.navigation} />
         <ScrollView>
           <Slide />
@@ -42,7 +49,12 @@ export default class DealScreen extends Component {
           <Deal_Exclusive navigation={this.props.navigation} />
           <ProDed_Store navigation={this.props.navigation} />
           <ProDed_New_Store />
-          <Second_Store navigation={this.props.navigation} />
+          <Second_product navigation={this.props.navigation} loadData={{
+            product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
+            list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3,
+            mobile_bar: dataService.mobile_bar, mobile_slide: dataService.mobile_slide,
+          }} Header_Second/>
+          {/* <Second_Store navigation={this.props.navigation} /> */}
           <Shop_Deal_ForU navigation={this.props.navigation} />
         </ScrollView>
         <Button_Bar navigation={this.props.navigation} />
@@ -210,7 +222,7 @@ export class Deal_Calendar extends Component {
     return (
       <View style={{ paddingHorizontal: 2 }}>
         <View style={[stylesMain.FrameBackground, { backgroundColor: '#B5F5D1', width: '100%' }]}>
-          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#5094EE', marginLeft: -3 }]}>
+          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#5094EE', marginLeft: -3, }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ดีลเด็ดตามปฏิทิน</Text>
           </View>
           <View style={stylesDeal.Deal_Calendar_Box}>
@@ -329,7 +341,6 @@ export class Deal_Exclusive extends Component {
         </View>
         <View style={stylesDeal.Deal_Exclusive}>
           <View style={stylesDeal.Deal_Exclusive_BoxImageIcon}>
-            <Text style={[stylesFont.FontFamilyText, { color: '#FFFFFF' }]}>สินค้าลด 60% </Text>
             <FastImage style={stylesDeal.Deal_Exclusive_Image}
               source={{
                 uri: ip + '/MySQL/uploads/Unicorn/04.png',

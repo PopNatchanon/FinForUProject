@@ -47,7 +47,7 @@ export default class Detail_Campaign extends Component {
     }
     render() {
         return (
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, height:'100%' }}>
                 {this.PathList()}
                 <ExitAppModule navigation={this.props.navigation} />
             </View>
@@ -109,9 +109,10 @@ export class Cate_Campaign extends Component {
     getData(dataService) {
         this.setState({ dataService })
     }
-    dataCategory() {
-        this.state.dataService.map((item, index) => {
+    get dataCategory() {
+        return this.state.dataService.map((item, index) => {
             var dataMySQL = [finip, item.image_path, 'menu', item.image_head].join('/');
+            console.log(dataMySQL)
             return (
                 <View style={stylesDeal.Cate_Campaign} key={index}>
                     <View style={stylesDeal.Cate_CampaignBoxImage}>
@@ -134,7 +135,7 @@ export class Cate_Campaign extends Component {
                 <GetServices uriPointer={uri} getDataSource={this.getData} />
                 <View style={stylesDeal.Cate_CampaignBox}>
                     <View style={stylesDeal.Cate_CampaignBoxA}>
-                        {this.dataCategory()}
+                        {this.dataCategory}
                     </View>
                 </View>
             </View>
@@ -244,6 +245,8 @@ export class New_year_NewB extends Component {
         this.setState({ dataService })
     }
     render() {
+        const { dataService } = this.state
+        const { navigation } = this.props
         var uri = ip + '/mysql/DataServiceMain.php';
         var dataBody = {
             type: 'product'

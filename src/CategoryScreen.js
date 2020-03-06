@@ -198,7 +198,7 @@ export class Recommend_Store extends React.Component {
         };
         return (
             <View style={stylesMain.FrameBackground}>
-                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={getData.bind(this)} />
+                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         ร้านค้าที่แนะนำ</Text>

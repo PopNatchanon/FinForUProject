@@ -14,7 +14,7 @@ import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule } from '../MainScreen';
+import { AppBar1, ExitAppModule, Second_product } from '../MainScreen';
 import { Button_Bar, Slide, } from './DealScreen';
 import { GetServices, ProductBox } from '../../src/tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -24,18 +24,30 @@ export default class The_BestFinScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      dataService: []
     };
   }
+  getData = (dataService) => {
+    this.setState({ dataService })
+  }
   render() {
+    const { dataService, } = this.state
+    var uri = finip + '/home/publish_mobile'
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
+        <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} />
         <AppBar1 titleHead={'สุดคุ้มสุดฟิน'} backArrow searchBar chatBar navigation={this.props.navigation} />
         <ScrollView>
           <Slide />
           <Fin_sale navigation={this.props.navigation} />
           <Store_Sale />
           <Product_Cool navigation={this.props.navigation} />
-          <Second_Store navigation={this.props.navigation} />
+          <Second_product navigation={this.props.navigation} loadData={{
+            product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
+            list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3,
+            mobile_bar: dataService.mobile_bar, mobile_slide: dataService.mobile_slide,
+          }} Header_Second />
+          {/* <Second_Store navigation={this.props.navigation} /> */}
         </ScrollView>
         <Button_Bar navigation={this.props.navigation} />
         <ExitAppModule navigation={this.props.navigation} />
@@ -65,8 +77,8 @@ export class Fin_sale extends Component {
     return (
       <View>
         <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
-        <View style={[stylesMain.FrameBackground, { marginTop: 20, }]}>
-          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginTop: -10, marginLeft: -3, width: 180 }]}>
+        <View style={[stylesMain.FrameBackground, { marginTop: 10, }]}>
+          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginLeft: -3, width: 180 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>Fin จัดหนักลดสูงสุด 80 % </Text>
           </View>
           <View style={stylesDeal.Fin_sale_BoxHead}>
@@ -210,8 +222,8 @@ export class Store_Sale extends Component {
     return (
       <View>
         <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
-        <View style={[stylesMain.FrameBackground, { marginTop: 20, }]}>
-          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginTop: -10, marginLeft: -3, width: 100 }]}>
+        <View style={[stylesMain.FrameBackground, { marginTop: 10, }]}>
+          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginLeft: -3, width: 100 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ร้านนี้มีของลด </Text>
           </View>
           <View style={stylesDeal.Fin_sale_BoxHead}>
@@ -245,8 +257,8 @@ export class Product_Cool extends Component {
     return (
       <View>
         <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
-        <View style={[stylesMain.FrameBackground, { marginTop: 20, }]}>
-          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginTop: -10, marginLeft: -3, width: 140 }]}>
+        <View style={[stylesMain.FrameBackground, { marginTop: 10, }]}>
+          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginLeft: -3, width: 140 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>สินค้าราคาโคตรคูล </Text>
           </View>
           <View style={[stylesDeal.Fin_sale_BoxHead, { marginTop: -10 }]}>

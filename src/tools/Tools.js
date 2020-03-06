@@ -66,7 +66,7 @@ export class Toolbar extends React.Component {
         return (
             <View style={stylesMain.Toolbar}>
                 <TouchableOpacity activeOpacity={1}
-                    onPress={routeSelcet != 'MainScreen' && this.navigationNavigateScreen.bind(this, 'MainScreen')}>
+                    onPress={routeSelcet != 'MainScreen' ? this.navigationNavigateScreen.bind(this, 'MainScreen') : null}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="home" size={25} color={routeSelcet == 'MainScreen' ? '#0A55A6' : '#111'} />
                         <Text style={{
@@ -75,7 +75,7 @@ export class Toolbar extends React.Component {
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity activeOpacity={1}
-                    onPress={routeSelcet != 'FeedScreen' && this.navigationNavigateScreen.bind(this, 'FeedScreen')}>
+                    onPress={routeSelcet != 'FeedScreen' ? this.navigationNavigateScreen.bind(this, 'FeedScreen') : null}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="tagso" size={25} color={routeSelcet == 'FeedScreen' ? '#0A55A6' : '#111'} />
                         <Text style={{
@@ -84,7 +84,7 @@ export class Toolbar extends React.Component {
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity activeOpacity={1}
-                    onPress={routeSelcet != 'NewsScreen' && this.navigationNavigateScreen.bind(this, 'NewsScreen')}>
+                    onPress={routeSelcet != 'NewsScreen' ? this.navigationNavigateScreen.bind(this, 'NewsScreen') : null}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="notification" size={25} color={routeSelcet == 'NewsScreen' ? '#0A55A6' : '#111'} />
                         <Text style={{
@@ -93,7 +93,7 @@ export class Toolbar extends React.Component {
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity activeOpacity={1}
-                    onPress={routeSelcet != 'BellScreen' && this.navigationNavigateScreen.bind(this, 'BellScreen')}>
+                    onPress={routeSelcet != 'BellScreen' ? this.navigationNavigateScreen.bind(this, 'BellScreen') : null}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="bells" size={25} color={routeSelcet == 'BellScreen' ? '#0A55A6' : '#111'} />
                         <Text style={{
@@ -104,7 +104,7 @@ export class Toolbar extends React.Component {
                 {
                     currentUser == null ?
                         <TouchableOpacity activeOpacity={1}
-                            onPress={routeSelcet != 'LoginScreen' && this.navigationNavigateScreen.bind(this, 'LoginScreen')}>
+                            onPress={routeSelcet != 'LoginScreen' ? this.navigationNavigateScreen.bind(this, 'LoginScreen') : null}>
                             <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                                 <IconAntDesign name="user" size={25} color={routeSelcet == 'LoginScreen' ? '#0A55A6' : '#111'} />
                                 <Text style={{
@@ -113,7 +113,7 @@ export class Toolbar extends React.Component {
                             </View>
                         </TouchableOpacity> :
                         <TouchableOpacity activeOpacity={1}
-                            onPress={routeSelcet != 'ProfileScreen' && this.navigationNavigateScreen.bind(this, 'ProfileScreen')}>
+                            onPress={routeSelcet != 'ProfileScreen' ? this.navigationNavigateScreen.bind(this, 'ProfileScreen') : null}>
                             <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                                 <IconAntDesign name="user" size={25} color={routeSelcet == 'ProfileScreen' ? '#0A55A6' : '#111'} />
                                 <Text numberOfLines={1} style={{

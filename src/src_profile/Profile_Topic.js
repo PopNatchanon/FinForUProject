@@ -7,7 +7,7 @@ import {
 import { CheckBox } from 'react-native-elements';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
-import { GiftedChat } from 'react-native-gifted-chat'
+import { GiftedChat, Bubble } from 'react-native-gifted-chat'
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -188,20 +188,11 @@ class Chat_Cutomer extends React.Component {
             messages: [
                 {
                     _id: 1,
-                    text: 'Hello Cutomer',
+                    text: 'Hello developer',
                     createdAt: new Date(),
+                    image:'https://cdn.pixabay.com/photo/2013/07/21/13/00/rose-165819_960_720.jpg',
                     user: {
                         _id: 2,
-                        name: 'React Native',
-                        avatar: 'https://placeimg.com/140/140/any',
-                    },
-                },
-                {
-                    _id: 2,
-                    text: 'Hello Store',
-                    createdAt: new Date(),
-                    user: {
-                        _id: 1,
                         name: 'React Native',
                         avatar: 'https://placeimg.com/140/140/any',
                     },
@@ -215,18 +206,61 @@ class Chat_Cutomer extends React.Component {
             messages: GiftedChat.append(previousState.messages, messages),
         }))
     }
-
+    renderBubble = props => {
+        return (
+            <Bubble
+                {...props}
+                wrapperStyle={{
+                    left: {
+                        backgroundColor: '#f0f0f0',
+                    },
+                }}
+            />
+        )
+    }
+    renderMessageImage = props => {
+        return (
+            <FastImage
+                {...props}
+            />
+        )
+    }
     render() {
         console.log(this.state.messages)
         return (
-            <View style={{ height: '96.5%', backgroundColor: '#FFFFFF' }}>
+            <View style={{ height: '97%', width: '100%', backgroundColor: '#FFFFFF' }}>
                 <GiftedChat
                     messages={this.state.messages}
                     onSend={messages => this.onSend(messages)}
                     user={{
-                        _id: 2,
+                        _id: 1,
                     }}
                 />
+                {/* <GiftedChat
+                    messages={this.state.messages}
+                    onSend={messages => this.onSend(messages)}
+                    loadEarlier={this.state.loadEarlier}
+                    onLoadEarlier={this.onLoadEarlier}
+                    isLoadingEarlier={this.state.isLoadingEarlier}
+                    parsePatterns={this.parsePatterns}
+                    imageProps={this.imageProps}
+                    user={{_id: 1,}}
+                    scrollToBottom
+                    isCustomViewBottom
+                    showUserAvatar 
+                    showAvatarForEveryMessage 
+                    onQuickReply={this.onQuickReply}
+                    renderAccessory={this.renderAccessory}
+                    renderMessageVideo={this.renderMessageVideo}
+                    renderActions={this.renderCustomActions}
+                    renderBubble={this.renderBubble}//This is what you must add in the code
+                    renderSystemMessage={this.renderSystemMessage}
+                    renderCustomView={this.renderCustomView}
+                    renderMessageImage={this.renderMessageImage}
+                    quickReplyStyle={{ borderRadius: 2 }}
+                    renderQuickReplySend={this.renderQuickReplySend}
+                    timeTextStyle={{ left: { color: 'red' }, right: { color: 'yellow' } }} 
+                /> */}
             </View>
         )
     }
@@ -870,3 +904,4 @@ export class Review_From extends React.Component {
         );
     }
 }
+

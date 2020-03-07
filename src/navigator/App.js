@@ -22,6 +22,8 @@ import CategoryScreen from '../CategoryScreen';
 import Same_StoreScreen from '../Same_StoreScreen';
 import SecondScreen from '../SecondScreen';
 import SearchScreen from '../SearchScreen'
+// src_Detail
+import Reviews_score from '../src-Detail/Reviews_score';
 
 // src_Bell
 import Detail_Pro from '../src_Bell/Detail_Pro';
@@ -199,6 +201,15 @@ const PathScreen = createStackNavigator({
   },
   CategoryScreen: {
     screen: CategoryScreen,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
+
+  // src_Detail
+  Reviews_score: {
+    screen: Reviews_score,
     navigationOptions: () => ({
       tabBarVisible: false,
       header: null,
@@ -413,8 +424,8 @@ const PathScreen = createStackNavigator({
   },
 },
   {
-    initialRouteName: 'MainScreen',
-    // initialRouteName: 'ExclusiveScreen',
+    // initialRouteName: 'MainScreen',
+    initialRouteName: 'Reviews_score',
     // initialRouteName: 'StoreMeScreen',
     // initialRouteName: 'DealScreen',
     // initialRouteName: 'CancelScreen',

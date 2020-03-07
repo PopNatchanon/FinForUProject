@@ -104,10 +104,10 @@ export default class DetailScreen extends React.Component {
           <Conpon />
           <Selector dataService={dataService} />
           <Detail_Category dataService={dataService} />
-          <Detail dataService={dataService} />
-          <Reviews />
+          <Detail dataService={dataService} /> */}
+          <Reviews navigation={navigation} />
           <BannerBar />
-          <Same_Store dataService={dataService} navigation={navigation} />
+          {/* <Same_Store dataService={dataService} navigation={navigation} />
           <Similar_Product dataService={dataService} navigation={navigation} />
           <Might_like dataService={dataService} navigation={navigation} /> */}
         </ScrollView>
@@ -748,17 +748,26 @@ export class Reviews extends React.Component {
     this.state = {
     };
   }
+  navigationNavigateScreen = (value, value2) => {
+      const { navigation } = this.props
+      value == 'goBack' ?
+          navigation.goBack() :
+          navigation.navigate(value, value2)
+  }
   render() {
     return (
       <View style={stylesMain.FrameBackground}>
         <View style={stylesMain.FrameBackgroundTextBox}>
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
             คะแนนสินค้า</Text>
+            <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Reviews_score')}>
           <View style={stylesMain.FlexRow}>
-            <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize6, { marginRight: 0 }]}>
-              ดูทั้งหมด</Text>
-            <IconFeather style={stylesDetail.Score_iconB} name='edit' size={20} color='#0A55A6' />
+              <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize6, { marginRight: 0 }]}>
+                ดูทั้งหมด</Text>
+              <IconFeather style={stylesDetail.Score_iconB} name='edit' size={20} color='#0A55A6' />
           </View>
+          </TouchableOpacity>
+
         </View>
         <View style={stylesDetail.Price_Text_IconBox}>
           <View style={stylesDetail.Price_Text_IconBoxStar}>

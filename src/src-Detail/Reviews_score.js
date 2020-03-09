@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-  Animated, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, Modal, Image
+    Animated, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, Modal, Image
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import * as Animatable from 'react-native-animatable';
@@ -42,7 +42,10 @@ export default class Reviews_score extends Component {
                 <AppBar1 backArrow navigation={navigation} titleHead='คะแนน' />
                 <Reviews_Bar />
                 <ScrollView>
-                    <Reviews_Box/>
+                    <Reviews_Box />
+                    <Reviews_Box />
+                    <Reviews_Box />
+                    <Reviews_Box />
                 </ScrollView>
             </SafeAreaView>
         );
@@ -75,7 +78,7 @@ export class Reviews_Bar extends Component {
     }
     dataItem(items2) {
         return (
-            <View style={[stylesMain.FlexRow, { width: '100%', justifyContent: 'center' }]}>
+            <View style={[stylesMain.FlexRow, { width: '100%', justifyContent: 'center' ,alignItems:'center'}]}>
                 <TabBar
                     sendData={this.updateIndex.bind(this)}
                     item={items2}
@@ -95,36 +98,36 @@ export class Reviews_Bar extends Component {
         },]
         const items2 = [{
             name: <>
-                <IconFontAwesome name='star' size={10} color='#FFAC33' />
-                <IconFontAwesome name='star' size={10} color='#FFAC33' />
-                <IconFontAwesome name='star' size={10} color='#FFAC33' />
-                <IconFontAwesome name='star' size={10} color='#FFAC33' />
-                <IconFontAwesome name='star' size={10} color='#FFAC33' />
+                <IconFontAwesome name='star' size={9} color='#FFAC33' />
+                <IconFontAwesome name='star' size={9} color='#FFAC33' />
+                <IconFontAwesome name='star' size={9} color='#FFAC33' />
+                <IconFontAwesome name='star' size={9} color='#FFAC33' />
+                <IconFontAwesome name='star' size={9} color='#FFAC33' />
             </>
         }, {
             name: <>
-                <IconFontAwesome name='star' size={10} color='#FFAC33' />
-                <IconFontAwesome name='star' size={10} color='#FFAC33' />
-                <IconFontAwesome name='star' size={10} color='#FFAC33' />
-                <IconFontAwesome name='star' size={10} color='#FFAC33' />
+                <IconFontAwesome name='star' size={9} color='#FFAC33' />
+                <IconFontAwesome name='star' size={9} color='#FFAC33' />
+                <IconFontAwesome name='star' size={9} color='#FFAC33' />
+                <IconFontAwesome name='star' size={9} color='#FFAC33' />
             </>
         }, {
             name: <>
-                <IconFontAwesome name='star' size={10} color='#FFAC33' />
-                <IconFontAwesome name='star' size={10} color='#FFAC33' />
-                <IconFontAwesome name='star' size={10} color='#FFAC33' />
+                <IconFontAwesome name='star' size={9} color='#FFAC33' />
+                <IconFontAwesome name='star' size={9} color='#FFAC33' />
+                <IconFontAwesome name='star' size={9} color='#FFAC33' />
             </>
         }, {
             name: <>
-                <IconFontAwesome name='star' size={10} color='#FFAC33' />
-                <IconFontAwesome name='star' size={10} color='#FFAC33' />
+                <IconFontAwesome name='star' size={9} color='#FFAC33' />
+                <IconFontAwesome name='star' size={9} color='#FFAC33' />
 
             </>
         }, {
-            name: <IconFontAwesome name='star' size={10} color='#FFAC33' />
+            name: <IconFontAwesome name='star' size={9} color='#FFAC33' />
         },]
         return (
-            <View style={[stylesMain.FrameBackground,{paddingBottom:10}]}>
+            <View style={{backgroundColor:'#FFFFFF',borderBottomColor:'#E9E9E9',borderBottomWidth:2,paddingBottom:10}}>
                 <View style={{ width: '100%', marginTop: 10 }}>
                     {this.dataItem(items1)}
                 </View>
@@ -137,44 +140,73 @@ export class Reviews_Bar extends Component {
 }
 ///----------------------------------------------------------------------------------------------->>>>
 export class Reviews_Box extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
 
-  render() {
-    return (
-        <View style={stylesDetail.Comment_R_Text}>
-        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-            p********n</Text>
-        <View style={stylesDetail.Comment_R_Iconstar}>
-            <IconFontAwesome name='star' size={15} color='#FFAC33' />
-            <IconFontAwesome name='star' size={15} color='#FFAC33' />
-            <IconFontAwesome name='star' size={15} color='#FFAC33' />
-            <IconFontAwesome name='star' size={15} color='#FFAC33' />
-            <IconFontAwesome name='star' size={15} color='#E9E9E9' />
-        </View>
-        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-            สั่งซื้อซ้ำเป็นรอบที่ 2 ติดใจโรงแรมสะอาดราคาไม่แพง โลเคชั่นดี</Text>
-        <View style={[stylesDetail.Comment_Image_A, stylesMain.BottomSpace]}>
-            <FastImage
-                style={stylesDetail.Reviews_Image}
-                source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
-            />
-            <FastImage
-                style={stylesDetail.Reviews_Image}
-                source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
-            />
-            <FastImage
-                style={stylesDetail.Reviews_Image}
-                source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
-            />
-        </View>
-        <Text style={[stylesDetail.Comment_text_day, stylesFont.FontFamilyText, stylesFont.FontSize8, stylesMain.BottomSpace]}>
-            16-11-2019 15:56 | กรอบแว่นขนาด 50 cm</Text>
-    </View>
-    );
-  }
+    render() {
+        return (
+            <View style={{backgroundColor:'#FFFFFF' }}>
+                <View style={stylesDetail.Comment_R}>
+                    <FastImage
+                        style={stylesDetail.Comment_R_Image}
+                        source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
+                    />
+                    <View style={stylesDetail.Comment_R_Text}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                            p********n</Text>
+                        <View style={stylesDetail.Comment_R_Iconstar}>
+                            <IconFontAwesome name='star' size={15} color='#FFAC33' />
+                            <IconFontAwesome name='star' size={15} color='#FFAC33' />
+                            <IconFontAwesome name='star' size={15} color='#FFAC33' />
+                            <IconFontAwesome name='star' size={15} color='#FFAC33' />
+                            <IconFontAwesome name='star' size={15} color='#E9E9E9' />
+                        </View>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.BottomSpace]}>
+                            สั่งซื้อซ้ำเป็นรอบที่ 2 ติดใจโรงแรมสะอาดราคาไม่แพง โลเคชั่นดี</Text>
+                        <Text style={[stylesDetail.Comment_text_day, stylesFont.FontFamilyText, stylesFont.FontSize8, stylesMain.BottomSpace]}>
+                            16-11-2019 15:56 | กรอบแว่นขนาด 50 cm</Text>
+                    </View>
+                </View>
+                <View style={stylesDetail.Comment_R}>
+                    <FastImage
+                        style={stylesDetail.Comment_R_Image}
+                        source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
+                    />
+                    <View style={stylesDetail.Comment_R_Text}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                            p********n</Text>
+                        <View style={stylesDetail.Comment_R_Iconstar}>
+                            <IconFontAwesome name='star' size={15} color='#FFAC33' />
+                            <IconFontAwesome name='star' size={15} color='#FFAC33' />
+                            <IconFontAwesome name='star' size={15} color='#FFAC33' />
+                            <IconFontAwesome name='star' size={15} color='#FFAC33' />
+                            <IconFontAwesome name='star' size={15} color='#E9E9E9' />
+                        </View>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                            สั่งซื้อซ้ำเป็นรอบที่ 2 ติดใจโรงแรมสะอาดราคาไม่แพง โลเคชั่นดี</Text>
+                        <View style={[stylesDetail.Comment_Image_A, stylesMain.BottomSpace]}>
+                            <FastImage
+                                style={stylesDetail.Reviews_Image}
+                                source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
+                            />
+                            <FastImage
+                                style={stylesDetail.Reviews_Image}
+                                source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
+                            />
+                            <FastImage
+                                style={stylesDetail.Reviews_Image}
+                                source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
+                            />
+                        </View>
+                        <Text style={[stylesDetail.Comment_text_day, stylesFont.FontFamilyText, stylesFont.FontSize8, stylesMain.BottomSpace]}>
+                            16-11-2019 15:56 | กรอบแว่นขนาด 50 cm</Text>
+                    </View>
+                </View>
+            </View>
+        );
+    }
 }
 

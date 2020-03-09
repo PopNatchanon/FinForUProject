@@ -122,7 +122,7 @@ export class Toolbar extends React.Component {
                             </View>
                         </TouchableOpacity>
                 }
-            </View >
+            </View>
         )
     }
 }

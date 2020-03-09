@@ -313,10 +313,6 @@ export class Listbar extends Component {
                 return (
                     <ViewCode navigation={navigation} />
                 )
-            case 3:
-                return (
-                    <CoinCollect navigation={navigation} />
-                )
         }
     }
     navigationNavigateScreen = (value, value2) => {
@@ -364,7 +360,7 @@ export class Listbar extends Component {
                                 โค้ดส่วนลด</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={0.9} onPress={this.setStatePathList.bind(this, 3)}>
+                    <TouchableOpacity activeOpacity={0.9} onPress={this.navigationNavigateScreen.bind(this, 'CoinScreen')}>
                         <View style={[stylesMain.FlexColumn, stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <View style={[stylesMain.ItemCenter, stylesProfile.ListbarMainRadius, { backgroundColor: '#fadf2d' }]}>
                                 <FastImage
@@ -803,138 +799,3 @@ export class MyCode extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> CoinCollect
-export class CoinCollect extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            pathlist: 0
-        }
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { pathlist } = this.state
-        const { navigation } = this.props
-        if (pathlist !== nextState.pathlist || navigation !== nextProps.navigation) {
-            return true
-        }
-        return false
-    }
-    get PathList() {
-        const { pathlist } = this.state
-        switch (pathlist) {
-            case 0:
-                return (
-                    <View>
-                        <CoinPageBody />
-                    </View>
-                )
-            case 1:
-                return (
-                    <View>
-                        <CoinPageBody />
-                    </View>
-                )
-            case 2:
-                return (
-                    <View>
-                        <CoinPageBody />
-                    </View>
-                )
-            case 3:
-                return (
-                    <View>
-                        <CoinPageBody />
-                    </View>
-                )
-        }
-    }
-    getData = (pathlist) => {
-        this.setState({ pathlist });
-    }
-    render() {
-        const item = [{
-            name: 'คูปองทั้งหมด'
-        }, {
-            name: 'ท่องเที่ยว'
-        }, {
-            name: 'ส่วนลด'
-        }, {
-            name: 'อื่นๆ'
-        }]
-        const coin = 1000;
-        return (
-            <View>
-                <View style={stylesProfile.CoinCollect}>
-                    <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, stylesMain.FlexRow, { width }]}>
-                        <FastImage
-                            source={require('../icon/bitcoin2.png')}
-                            style={stylesProfile.CoinCollectImage}
-                        />
-                        <View style={stylesProfile.CoinCollectBox}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { marginTop: 10, marginLeft: 20, }]}>
-                                FIN COIN</Text>
-                            <View style={stylesMain.ItemCenter}>
-                                <NumberFormat
-                                    value={coin}
-                                    displayType={'text'}
-                                    thousandSeparator={true}
-                                    renderText={
-                                        value => <Text style={[stylesFont.FontSize4, stylesFont.FontFamilyBold]}>
-                                            {value}</Text>
-                                    }
-                                />
-                            </View>
-                        </View>
-                    </View>
-                </View>
-                <View style={{ marginTop: 10 }}>
-                    <TabBar
-                        sendData={this.getData.bind(this)}
-                        inactiveBoxColor={'#fff'}
-                        inactiveColor={'#0A55A6'}
-                        inactiveFontColor={'#0A55A6'}
-                        item={item}
-                        widthBox={98}
-                        fontSizeStyle={12}
-                        type='box'
-                    />
-                </View>
-                <View>
-                    {this.PathList}
-                </View>
-            </View>
-        )
-    }
-}
-///----------------------------------------------------------------------------------------------->>>> CoinPageBody
-export class CoinPageBody extends Component {
-    render() {
-        return (
-            <View style={stylesMain.ItemCenter}>
-                <View style={stylesProfile.CoinPageBody}>
-                    <View style={{ width: '100%', height: 140 }}>
-                        <FastImage
-                            source={{
-                                uri: ip + '/MySQL/uploads/slide/Banner_type/shoes_BannerBar.jpg',
-                            }}
-                            style={{ width: '100%', height: '100%' }}
-                        />
-                    </View>
-                    <View style={[stylesMain.FlexRow, stylesProfile.CoinPageBodyBox]}>
-                        <View style={stylesProfile.CoinPageBodyBoxBody1}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                                ส่วนลด 10% สำหรับร้าน เพชร</Text>
-                        </View>
-                        <View style={[stylesProfile.CoinPageBodyBoxBody2, { flexDirection: 'row', justifyContent: 'flex-end' }]}>
-                            <View style={[stylesProfile.CoinPageBodyBoxBody2Box, stylesMain.ItemCenter]}>
-                                <Text style={[
-                                    stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#fff' }
-                                ]}>
-                                    แลก 10 coin</Text>
-                            </View>
-                        </View>
-                    </View>
-                </View>
-            </View>
-        )
-    }
-}

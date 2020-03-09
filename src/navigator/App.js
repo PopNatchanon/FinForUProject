@@ -424,10 +424,9 @@ const PathScreen = createStackNavigator({
   },
 },
   {
-    // initialRouteName: 'MainScreen',
-    initialRouteName: 'Reviews_score',
-    // initialRouteName: 'StoreMeScreen',
-    // initialRouteName: 'DealScreen',
+    initialRouteName: 'MainScreen',
+    // initialRouteName: 'Reviews_score',
+    // initialRouteName: 'ProfileScreen',
     // initialRouteName: 'CancelScreen',
   }
 );

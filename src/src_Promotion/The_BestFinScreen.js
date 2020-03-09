@@ -120,7 +120,7 @@ export class Store_Sale extends Component {
           source={{
             uri: dataMySQL,
           }}
-          style={{ height: '100%', width: '100%' }}
+          style={stylesMain.BoxProduct1Image}
         />
       </View>
     );

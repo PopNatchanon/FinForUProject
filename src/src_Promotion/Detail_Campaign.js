@@ -19,6 +19,7 @@ import { Store_Sale } from './The_BestFinScreen';
 import { GetCoupon, GetServices, ProductBox } from '../tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '.././navigator/IpConfig';
+import StylesMainScreen from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class Detail_Campaign extends Component {
     constructor(props) {
@@ -33,7 +34,14 @@ export default class Detail_Campaign extends Component {
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
                         <AppBar1 titleHead={'โปรโมชั่น'} backArrow searchBar chatBar navigation={this.props.navigation} />
-                        <Detail_Campaign_main navigation={this.props.navigation} />
+                        <ScrollView>
+                            <Head_Image />
+                            <Cate_Campaign />
+                            <Code_New_year />
+                            <New_year_NewA navigation={this.props.navigation} />
+                            <Store_Sale />
+                            <New_year_NewB navigation={this.props.navigation} />
+                        </ScrollView>
                     </SafeAreaView>
                 )
             case 1:
@@ -47,35 +55,14 @@ export default class Detail_Campaign extends Component {
     }
     render() {
         return (
-            <View style={{ flex: 1, height:'100%' }}>
+            <View style={{ flex: 1 }}>
                 {this.PathList()}
                 <ExitAppModule navigation={this.props.navigation} />
             </View>
         );
     }
 }
-///----------------------------------------------------------------------------------------------->>>> Detail_Campaign_main
-export class Detail_Campaign_main extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    render() {
-        return (
-            <View>
-                <ScrollView>
-                    <Head_Image />
-                    <Cate_Campaign />
-                    <Code_New_year />
-                    <New_year_NewA navigation={this.props.navigation} />
-                    <Store_Sale />
-                    <New_year_NewB navigation={this.props.navigation} />
-                </ScrollView>
-            </View>
-        );
-    }
-}
+
 ///----------------------------------------------------------------------------------------------->>>> Head_Image
 export class Head_Image extends Component {
     constructor(props) {
@@ -152,7 +139,7 @@ export class Code_New_year extends Component {
     render() {
         return (
             <View style={stylesDeal.Code_New_year}>
-                <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginTop: 10, }]}>
+                <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', }]}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}> แจกใหญ่ ปีใหม่</Text>
                 </View>
                 <View style={stylesDeal.Coupon_Store_Box}>
@@ -199,7 +186,7 @@ export class New_year_NewA extends Component {
         return (
             <View style={stylesDeal.New_year_New}>
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
-                <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginTop: 10, }]}>
+                <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', }]}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>  ปีใหม่ ช๊อปของใหม่</Text>
                 </View>
                 <View>

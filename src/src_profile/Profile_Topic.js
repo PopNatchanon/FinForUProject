@@ -7,7 +7,8 @@ import {
 import { CheckBox } from 'react-native-elements';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
-import { GiftedChat, Bubble } from 'react-native-gifted-chat'
+import { GiftedChat, Bubble } from 'react-native-gifted-chat';
+import ImagePicker from 'react-native-image-crop-picker';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -29,7 +30,8 @@ export default class Profile_Topic extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            text: ''
+            text: '',
+            selectedIndex: 7,
         };
     }
     PathList() {
@@ -89,7 +91,9 @@ export default class Profile_Topic extends React.Component {
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='รีวิวของฉัน' />
-                        <Review_From />
+                        <ScrollView>
+                            <Review_From />
+                        </ScrollView>
                     </SafeAreaView>
                 )
             case 8:
@@ -190,7 +194,7 @@ class Chat_Cutomer extends React.Component {
                     _id: 1,
                     text: 'Hello developer',
                     createdAt: new Date(),
-                    image:'https://cdn.pixabay.com/photo/2013/07/21/13/00/rose-165819_960_720.jpg',
+                    image: 'https://cdn.pixabay.com/photo/2013/07/21/13/00/rose-165819_960_720.jpg',
                     user: {
                         _id: 2,
                         name: 'React Native',
@@ -822,9 +826,55 @@ export class Review_From extends React.Component {
         super(props);
         this.state = {
             checked2: true,
+            avatarSource: [],
         };
     }
+    UploadImageSingle = (index) => {
+        const { avatarSource } = this.state
+        const options = {
+            includeBase64: true
+        };
+        ImagePicker.openPicker(options).then(response => {
+            // console.log('Response = ', response);
+            // You can also display the image using data:
+            // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+            avatarSource[index] = response
+            this.setState({ avatarSource })
+        });
+    }
+    UploadImageMultiple = () => {
+        const { avatarSource } = this.state
+        const options = {
+            multiple: true,
+            includeBase64: true
+        };
+        ImagePicker.openPicker(options).then(response => {
+            response.map((item, index) => index + avatarSource.length <= 7 && avatarSource.push(item))
+            this.setState({ avatarSource })
+        });
+    }
+    UploadImageData = () => {
+        const { avatarSource } = this.state
+        var uri = [ip, 'sql/uploadimage/updateimage.php'].join('/')
+        avatarSource && (
+            fetch(uri, {
+                method: "POST",
+                body: avatarSource
+            })
+                .then(response => response.json())
+                .then(response => {
+                    console.log("upload succes", response);
+                    alert("Upload success!");
+                    this.setState({ avatarSource: null });
+                })
+                .catch(error => {
+                    console.log("upload error", error);
+                    alert("Upload failed!");
+                })
+        )
+    }
     render() {
+        const { avatarSource } = this.state
         return (
             <View style={stylesMain.SafeAreaView}>
                 <View style={stylesProfileTopic.Review_From}>
@@ -871,7 +921,44 @@ export class Review_From extends React.Component {
                                 stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#EAEAEA', marginTop: 15, marginLeft: -10 }]}>
                                 ไม่ระบุตัวตน</Text>
                         </View>
-                        <View style={{ marginTop: 10, alignItems: 'flex-end' }}>
+                        <View style={stylesMain.FrameBackground}>
+                            <ScrollView horizontal>
+                                {
+                                    avatarSource ? [
+                                        avatarSource.map((item, index) => {
+                                            return (
+                                                <TouchableOpacity onPress={() => this.UploadImageSingle(index)} key={index}>
+                                                    <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                                                        <FastImage
+                                                            source={{ uri: item.path }}
+                                                            style={[stylesMain.ItemCenterVertical, stylesMain.BoxProduct1Image]}
+                                                        />
+                                                    </View>
+                                                </TouchableOpacity>
+                                            )
+                                        }),
+                                        avatarSource.length < 7 &&
+                                        <TouchableOpacity onPress={this.UploadImageMultiple} key={'upload'}>
+                                            <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                                                <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
+                                                    <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
+                                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
+                                                </View>
+                                            </View>
+                                        </TouchableOpacity>
+                                    ] :
+                                        <TouchableOpacity onPress={this.UploadImageMultiple}>
+                                            <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                                                <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
+                                                    <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
+                                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
+                                                </View>
+                                            </View>
+                                        </TouchableOpacity>
+                                }
+                            </ScrollView>
+                        </View>
+                        {/* <View style={{ marginTop: 10, alignItems: 'flex-end' }}>
                             <TouchableOpacity>
                                 <View style={stylesProfileTopic.Review_From_UpImage}>
                                     <IconAntDesign RightItem name='camerao' size={35} color='#CACACA' />
@@ -879,14 +966,14 @@ export class Review_From extends React.Component {
                                         อัพโหลดรูปภาพ(0/3)</Text>
                                 </View>
                             </TouchableOpacity>
-                        </View>
+                        </View> */}
                     </View>
                 </View>
                 <View style={{ flex: 1, justifyContent: 'flex-end', }}>
                     <View style={stylesMain.FlexRow}>
                         <CheckBox
                             checked={this.state.checked1}
-                            onPress={() => this.setState({ checked1: !this.state.checked, checked2: !this.state.checked2 })}
+                            onPress={() => this.setState({ checked1: !this.state.checked1, checked2: !this.state.checked2 })}
                         />
                         <View style={[stylesMain.FlexRow, { marginTop: 15, }]}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>ข้าพเจ้ายอมรับและทราบข้อตกลงตาม </Text>

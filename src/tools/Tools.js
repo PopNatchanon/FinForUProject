@@ -416,6 +416,7 @@ export class TabBar extends React.Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> GetServices
+
 export class GetServices extends React.Component {
     constructor(props) {
         super(props);
@@ -429,30 +430,29 @@ export class GetServices extends React.Component {
         }
         return false
     }
-    getDataSource = async () => {
-        this._isMounted = true;
-        const { dataBody, uriPointer, getDataSource } = this.props
-        fetch(uriPointer, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(dataBody),
-        })
-            .then((response) => response.json())
-            .then((responseJson) => {
-                getDataSource(responseJson);
+       getDataSource = async () => {
+            const { dataBody, uriPointer, getDataSource } = this.props
+            fetch(uriPointer, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dataBody),
             })
-            .catch((error) => {
-                console.error(error);
-            })
-    }
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    getDataSource(responseJson);
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
+        }
     componentDidMount() {
         this.getDataSource()
     }
     render() {
-        return (<View></View>)
+        return null
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> GetCoupon

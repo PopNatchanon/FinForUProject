@@ -4,6 +4,7 @@ import {
   Animated, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, Modal, Image
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
+import AsyncStorage from '@react-native-community/async-storage'
 import * as Animatable from 'react-native-animatable';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 export const { width, height } = Dimensions.get('window');
@@ -37,6 +38,15 @@ export default class DetailScreen extends React.Component {
       setActive: true,
     };
   }
+  getDataAsync = async () => {
+    const currentUser = await AsyncStorage.getItem('@MyKey')
+    this.setState({ currentUser: JSON.parse(currentUser) })
+    console.log('Main|currentUser')
+    console.log(currentUser)
+  }
+  componentDidMount() {
+    this.getDataAsync()
+  }
   shouldComponentUpdate = (nextProps, nextState) => {
     const { activeSlide, dataService, scrollY, setActive, setShowItemImage, showItemImage } = this.state
     const { navigation } = this.props
@@ -59,7 +69,7 @@ export default class DetailScreen extends React.Component {
     this.setState({ setShowItemImage, setActive: false })
   }
   render() {
-    const { dataService, showItemImage, setShowItemImage, setActive, scrollY } = this.state
+    const { dataService, showItemImage, setShowItemImage, setActive, scrollY, currentUser } = this.state
     const { navigation } = this.props
     var id_product = navigation.getParam('id_item')
     var uri = finip + '/product/product_deatil_mobile';
@@ -92,16 +102,20 @@ export default class DetailScreen extends React.Component {
               nativeEvent: { contentOffset: { y: scrollY } }
             }])
           }
+          style={{ height: '100%' }}
         >
           {/* <View style={{ marginTop: -50 }}></View> */}
           {
             dataService.product_data &&
-            <Detail_Image dataService={dataService.product_data} navigation={navigation} showImage={this.showImage.bind(this)} setShowImage={this.setShowImage.bind(this)}
-              setActive={setActive} />
+            <Detail_Image dataService={dataService.product_data} navigation={navigation} showImage={this.showImage.bind(this)}
+              setShowImage={this.setShowImage.bind(this)} setActive={setActive} />
           }
-          {/* <Detail_Data dataService={dataService} navigation={navigation} />
+          {/* <Detail_Data dataService={dataService} navigation={navigation} /> */}
           <Store dataService={dataService} navigation={navigation} />
-          <Conpon />
+          {
+            currentUser &&
+            <Conpon dataService={dataService} currentUser={currentUser} />
+          }
           <Selector dataService={dataService} />
           <Detail_Category dataService={dataService} />
           <Detail dataService={dataService} /> */}
@@ -109,7 +123,7 @@ export default class DetailScreen extends React.Component {
           <BannerBar />
           {/* <Same_Store dataService={dataService} navigation={navigation} />
           <Similar_Product dataService={dataService} navigation={navigation} />
-          <Might_like dataService={dataService} navigation={navigation} /> */}
+          <Might_like dataService={dataService} navigation={navigation} />
         </ScrollView>
         {/* <Buy_bar navigation={navigation} dataService={dataService} /> */}
         <ExitAppModule navigation={navigation} />
@@ -130,7 +144,11 @@ export class Detail_Image extends React.Component {
   shouldComponentUpdate = (nextProps, nextState) => {
     const { activeSlide, imageLength, imageLengthActive } = this.state
     const { setShowImage, navigation, dataService, setActive, showImage } = this.props
-    if (activeSlide !== nextState.activeSlide || imageLength !== nextState.imageLength || imageLengthActive !== nextState.imageLengthActive || setShowImage !== nextProps.setShowImage || navigation !== nextProps.navigation || dataService !== nextProps.dataService || setActive !== nextProps.setActive || showImage !== nextProps.showImage) {
+    if (
+      activeSlide !== nextState.activeSlide || imageLength !== nextState.imageLength || setShowImage !== nextProps.setShowImage ||
+      imageLengthActive !== nextState.imageLengthActive || navigation !== nextProps.navigation || dataService !== nextProps.dataService
+      || setActive !== nextProps.setActive || showImage !== nextProps.showImage
+    ) {
       return true
     }
     return false
@@ -224,62 +242,264 @@ export class Detail_Data extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      arrayCountA: 0,
+      arrayCountB: 0,
+      arrayCountC: 0,
+      arrayCountD: 0,
+      dataServiceArray: { maxvalue: 0, minvalue: 0, maxfullvalue: 0, minfullvalue: 0 },
+      dataServiceArray2: [],
+      dataServiceArray3: [],
+      RunTime: false,
     };
   }
   shouldComponentUpdate = (nextProps, nextState) => {
+    const {
+      dataServiceArray, countItem, RunTime, dataServiceArray2, dataServiceArray3, arrayCountA, arrayCountB, arrayCountC, arrayCountD,
+      id_product
+    } = this.state
     const { dataService } = this.props;
-    if (dataService !== nextProps.dataService) {
+    console.log('dataServiceArray')
+    console.log(dataServiceArray)
+    if (
+      dataServiceArray !== nextState.dataServiceArray || countItem !== nextState.countItem || RunTime !== nextState.RunTime ||
+      dataService !== nextProps.dataService || id_product !== nextState.id_product || arrayCountA !== nextState.arrayCountA ||
+      arrayCountB !== nextState.arrayCountB || arrayCountC !== nextState.arrayCountC || arrayCountD !== nextState.arrayCountD ||
+      dataServiceArray2 !== nextState.dataServiceArray2 || dataServiceArray3 !== nextState.dataServiceArray3
+    ) {
       return true
     }
     return false
   }
-  get id_product() {
+  SetData2 = () => {
+    const { arrayCountA, arrayCountB, arrayCountC, dataServiceArray3 } = this.state;
+    var { arrayCountD, dataServiceArray } = this.state;
+    dataServiceArray3 && arrayCountC == 0 && (
+      this.setState({ arrayCountC: dataServiceArray3.length })
+    )
+    console.log('dataServiceArray3 != null && arrayCountC != 0 && arrayCountA == arrayCountB + 1 && arrayCountC != arrayCountD + 1')
+    console.log(dataServiceArray3 != null && arrayCountC != 0 && arrayCountA == arrayCountB + 1 && arrayCountC != arrayCountD + 1)
+    if (dataServiceArray3 != null && arrayCountC != 0 && arrayCountA == arrayCountB + 1 && arrayCountC != arrayCountD + 1) {
+      for (arrayCountD; arrayCountC > arrayCountD; arrayCountD++) {
+        console.log('dataServiceArray3[' + arrayCountD + ']')
+        console.log(dataServiceArray3[arrayCountD])
+        var uri = finip + '/product/get_product_amount'
+        var dataBody = {
+          id_product: dataServiceArray3[arrayCountD].id_product,
+          detail_color: dataServiceArray3[arrayCountD].detail_1,
+          val_size: dataServiceArray3[arrayCountD].detail_2,
+        }
+        console.log(uri)
+        console.log(dataBody)
+        this.setState({ arrayCountD })
+        fetch(uri, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(dataBody),
+        })
+          .then((response) => response.json())
+          .then((responseJson) => {
+            console.log('responseJson')
+            console.log(responseJson.price_data)
+            console.log(Number.isInteger(responseJson.price_data * 1))
+            var price_data
+            var full_price_data = dataServiceArray3[arrayCountD].price
+            if (Number.isInteger(responseJson.price_data * 1) != true) {
+              var price_data2 = responseJson.price_data.split(",")
+              var price_data3 = ''
+              price_data2.map((item) => { price_data3 += item })
+              price_data = price_data3 * 1
+            } else {
+              price_data = responseJson.price_data * 1
+            }
+            console.log('full_price_data')
+            console.log(full_price_data)
+            console.log('price_data')
+            console.log(price_data)
+            if (price_data != null) {
+              console.log('dataServiceArray.maxfullvalue == 0 && dataServiceArray.minfullvalue == 0')
+              console.log(dataServiceArray.maxfullvalue == 0 && dataServiceArray.minfullvalue == 0)
+              if (dataServiceArray.maxfullvalue == 0 && dataServiceArray.minfullvalue == 0) {
+                dataServiceArray.maxfullvalue = dataServiceArray.minfullvalue = full_price_data
+              }
+              console.log('dataServiceArray.maxfullvalue < full_price_data')
+              console.log(dataServiceArray.maxfullvalue < full_price_data)
+              if (dataServiceArray.maxfullvalue < full_price_data) {
+                dataServiceArray.maxfullvalue = full_price_data
+              }
+              console.log('dataServiceArray.minfullvalue > full_price_data')
+              console.log(dataServiceArray.minfullvalue > full_price_data)
+              if (dataServiceArray.minfullvalue > full_price_data) {
+                dataServiceArray.minfullvalue = full_price_data
+              }
+              console.log('dataServiceArray.maxvalue == 0 && dataServiceArray.minvalue == 0')
+              console.log(dataServiceArray.maxvalue == 0 && dataServiceArray.minvalue == 0)
+              if (dataServiceArray.maxvalue == 0 && dataServiceArray.minvalue == 0) {
+                dataServiceArray.maxvalue = dataServiceArray.minvalue = price_data
+              }
+              console.log('dataServiceArray.maxvalue < price_data')
+              console.log(dataServiceArray.maxvalue < price_data)
+              if (dataServiceArray.maxvalue < price_data) {
+                dataServiceArray.maxvalue = price_data
+              }
+              console.log('dataServiceArray.minvalue > price_data')
+              console.log(dataServiceArray.minvalue > price_data)
+              if (dataServiceArray.minvalue > price_data) {
+                dataServiceArray.minvalue = price_data
+              }
+              console.log(arrayCountD)
+              console.log(dataServiceArray)
+              this.setState({ dataServiceArray })
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+          })
+      }
+    }
+    // var uri2 = finip + '/product/get_product_amount'
+    // var dataBody2 = {
+    //   id_product: item.id_product,
+    //   val_size: item3.detail_2,
+    //   detail_color: item2.detail_1,
+    // }
+    // fetch(uri2, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(dataBody2),
+    // })
+    //   .then((response2) => response2.json())
+    //   .then((responseJson2) => {
+    //     console.log('responseJson2')
+    //     console.log(responseJson2)
+    //     dataServiceArray2.push(responseJson2.price_data)
+    //     this.setState({ dataServiceArray2, arrayCountD: arrayCountD + 1 })
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   })
+  }
+  SetData = () => {
+    const { arrayCountA, } = this.state;
+    var { arrayCountB, dataServiceArray2, dataServiceArray3 } = this.state;
     const { dataService } = this.props;
-    return dataService.map((item, index) => {
-      return (
-        <View style={[stylesMain.FrameBackground2, { marginTop: 0, borderTopWidth: 0 }]} key={index}>
-          <View style={[stylesDetail.Price_Box, { borderTopWidth: 0 }]}>
-            <View style={stylesDetail.Price_Text_Name_Box}>
-              <View style={[stylesMain.FlexRow, { paddingVertical: 10, }]}>
-                <NumberFormat
-                  value={item.full_price}
-                  displayType={'text'}
-                  thousandSeparator={true}
-                  prefix={'฿'}
-                  renderText={
-                    value =>
-                      <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
-                        {value}</Text>}
-                />
-                <View style={[stylesMain.Box_On_sale, { borderRadius: 20 }]}>
-                  <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>-55%</Text>
+    var detail_product = dataService.detail_product
+    var id_product
+    dataService.product_data && (
+      dataService.product_data.map((item) => { id_product = item.id_product })
+    )
+    detail_product && arrayCountA == 0 && (
+      this.setState({ arrayCountA: detail_product.length })
+    )
+    if (detail_product != null && arrayCountA != 0 && arrayCountA != arrayCountB + 1) {
+      var n = 0
+      var p = 0
+      for (arrayCountB; arrayCountA > arrayCountB; arrayCountB++) {
+        var uri = finip + '/product/get_value_size'
+        var dataBody = {
+          id_product: id_product,
+          detail_color: detail_product[arrayCountB].detail_1,
+        }
+        dataServiceArray2[arrayCountB] = detail_product[arrayCountB]
+        this.setState({ arrayCountB, dataServiceArray2 })
+        fetch(uri, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(dataBody),
+        })
+          .then((response) => response.json())
+          .then((responseJson) => {
+            var o = 0
+            for (var m = n; responseJson.data_size.length + n > m; m++) {
+              dataServiceArray3[m] = responseJson.data_size[o]
+              dataServiceArray3[m].detail_1 = detail_product[p].detail_1
+              dataServiceArray3[m].id_product = id_product
+              o++
+            }
+            n = responseJson.data_size.length
+            p++
+            this.setState({ dataServiceArray3, arrayCountC: dataServiceArray3.length })
+          })
+          .catch((error) => {
+            console.error(error);
+          })
+      }
+    }
+  }
+  get id_product() {
+    const { dataService } = this.props
+    return dataService.product_data &&
+      dataService.product_data.map((item, index) => {
+        console.log(item)
+        return (
+          <View style={[stylesMain.FrameBackground2, { marginTop: 0, borderTopWidth: 0 }]} key={index}>
+            <View style={[stylesDetail.Price_Box, { borderTopWidth: 0 }]}>
+              <View style={stylesDetail.Price_Text_Name_Box}>
+                <View style={[stylesMain.FlexRow, { paddingVertical: 10, }]}>
+                  <NumberFormat
+                    value={item.full_price}
+                    displayType={'text'}
+                    thousandSeparator={true}
+                    prefix={'฿'}
+                    renderText={
+                      value =>
+                        <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+                          {value}</Text>}
+                  />
+                  <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+                    {item.full_price ? null : ' - '}</Text>
+                  <NumberFormat
+                    value={item.maxvalue}
+                    displayType={'text'}
+                    thousandSeparator={true}
+                    prefix={'฿'}
+                    renderText={
+                      value =>
+                        <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+                          {value}</Text>}
+                  />
+                  <View style={[stylesMain.Box_On_sale, { borderRadius: 20 }]}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>-55%</Text>
+                  </View>
+                </View>
+                <View style={stylesDetail.Price_Icon_Box}>
+                  <IconFontAwesome5 style={stylesDetail.Price_Icon} name='heart' size={20} />
+                  <IconEntypo style={stylesDetail.Price_Icon} name='share' size={20} />
                 </View>
               </View>
-              <View style={stylesDetail.Price_Icon_Box}>
-                <IconFontAwesome5 style={stylesDetail.Price_Icon} name='heart' size={20} />
-                <IconEntypo style={stylesDetail.Price_Icon} name='share' size={20} />
-              </View>
-            </View>
-            <Text numberOfLines={2} style={[stylesDetail.Price_Text_Name, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
-              {item.name}</Text>
-            <View style={[stylesDetail.Price_Text_IconBox, stylesMain.BottomSpace]}>
-              <View style={stylesDetail.Price_Text_IconBoxStar}>
-                <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
-                <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
-                <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
-                <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
-                <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
-                <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#111' }]}>
-                </Text>
+              <Text numberOfLines={2} style={[stylesDetail.Price_Text_Name, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
+                {item.name}</Text>
+              <View style={[stylesDetail.Price_Text_IconBox, stylesMain.BottomSpace]}>
+                <View style={stylesDetail.Price_Text_IconBoxStar}>
+                  <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
+                  <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
+                  <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
+                  <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
+                  <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
+                  <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#111' }]}>
+                  </Text>
+                </View>
               </View>
             </View>
           </View>
-        </View>
-      );
-    })
+        )
+      })
   }
   render() {
+    // const { dataServiceArray2 } = this.state
+    // console.log('dataServiceArray2')
+    // console.log(dataServiceArray2)
     return (
+      this.SetData(),
+      this.SetData2(),
       <View>{this.id_product}</View>
     )
   }
@@ -309,65 +529,64 @@ export class Store extends React.Component {
   get id_store() {
     const { ImageStore } = this.state
     const { dataService } = this.props
-    return dataService.map((item, index) => {
-      var dataMySQL = [finip, item.store_path, item.store_img].join('/');
-      return (
-        <View style={[stylesMain.FrameBackground, stylesMain.BottomSpace]} key={index}>
-          <View style={stylesDetail.Store_Box1}>
-            <View style={stylesDetail.Store_Box2}>
-              <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: item.id_store })}>
-                <FastImage
-                  source={{
-                    uri: dataMySQL,
-                  }}
-                  onError={this.LoadingStore.bind(this, false)}
-                  onLoad={this.LoadingStore.bind(this, true)}
-                  style={[stylesDetail.Store_Image, { marginLeft: 10, backgroundColor: ImageStore == true ? 'transparent' : '#959595' }]} />
-              </TouchableOpacity>
-              <View style={stylesDetail.Store_Text_Box}>
+    return dataService.product_data &&
+      dataService.product_data.map((item, index) => {
+        var dataMySQL = [finip, item.store_path, item.store_img].join('/');
+        return (
+          <View style={[stylesMain.FrameBackground, stylesMain.BottomSpace]} key={index}>
+            <View style={stylesDetail.Store_Box1}>
+              <View style={stylesDetail.Store_Box2}>
                 <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: item.id_store })}>
-                  <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
-                    {item.store_name}</Text>
+                  <FastImage
+                    source={{
+                      uri: dataMySQL,
+                    }}
+                    style={[stylesDetail.Store_Image, { marginLeft: 10, backgroundColor: ImageStore == true ? 'transparent' : '#959595' }]} />
                 </TouchableOpacity>
-                <Text style={[stylesDetail.Store_Text, stylesFont.FontFamilyText, stylesFont.FontSize8]}>
-                  Active เมื่อ 1 ชั่วโมงที่ผ่านมา</Text>
-                <Text style={[stylesDetail.Store_Text, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                  <IconEntypo name='location-pin' size={15} />
-                  {item.store_address}</Text>
+                <View style={stylesDetail.Store_Text_Box}>
+                  <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: item.id_store })}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
+                      {item.store_name}</Text>
+                  </TouchableOpacity>
+                  <Text style={[stylesDetail.Store_Text, stylesFont.FontFamilyText, stylesFont.FontSize8]}>
+                    Active เมื่อ 1 ชั่วโมงที่ผ่านมา</Text>
+                  <Text style={[stylesDetail.Store_Text, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                    <IconEntypo name='location-pin' size={15} />
+                    {item.store_address}</Text>
+                </View>
+                <View style={stylesDetail.Store_Buttom_Box}>
+                  <Text style={[stylesDetail.Store_Text_Button, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                    ติดตาม</Text>
+                </View>
               </View>
-              <View style={stylesDetail.Store_Buttom_Box}>
-                <Text style={[stylesDetail.Store_Text_Button, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                  ติดตาม</Text>
+            </View>
+            <View style={stylesDetail.Store_Bar_A}>
+              <View style={stylesDetail.Store_Bar}>
+                <View>
+                  <Text style={[stylesDetail.Store_Bar_int, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                    100</Text>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                    รายการสินค้า</Text>
+                </View>
+                <Text style={{ fontSize: 25, }}>|</Text>
+                <View>
+                  <Text style={[stylesDetail.Store_Bar_int, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                    90%</Text>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                    จัดส่งตรงเวลา</Text>
+                </View>
+                <Text style={{ fontSize: 25, }}>|</Text>
+                <View>
+                  <Text style={[stylesDetail.Store_Bar_int, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                    90%</Text>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                    อัตตราการตอบกลับแชท</Text>
+                </View>
               </View>
             </View>
           </View>
-          <View style={stylesDetail.Store_Bar_A}>
-            <View style={stylesDetail.Store_Bar}>
-              <View>
-                <Text style={[stylesDetail.Store_Bar_int, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
-                  100</Text>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                  รายการสินค้า</Text>
-              </View>
-              <Text style={{ fontSize: 25, }}>|</Text>
-              <View>
-                <Text style={[stylesDetail.Store_Bar_int, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
-                  90%</Text>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                  จัดส่งตรงเวลา</Text>
-              </View>
-              <Text style={{ fontSize: 25, }}>|</Text>
-              <View>
-                <Text style={[stylesDetail.Store_Bar_int, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
-                  90%</Text>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                  อัตตราการตอบกลับแชท</Text>
-              </View>
-            </View>
-          </View>
-        </View>
-      );
-    })
+        );
+      })
   }
   render() {
     return (
@@ -401,8 +620,26 @@ export class Conpon extends React.Component {
     )
   }
   render() {
+    const { currentUser, dataService } = this.props
+    console.log('currentUser')
+    console.log(currentUser)
+    console.log('dataService')
+    console.log(dataService)
+    var uri = finip + '/coupon/get_store_coupon';
+    // var dataBody = {
+    //   id_customer: 'storedata',
+    //   id_product: id_item
+    // };
     return (
       <>
+        {/* {
+          id_item !== undefined &&
+          <GetServices
+            uriPointer={uri}
+            dataBody={dataBody}
+            getDataSource={this.getData.bind(this)}
+          />
+        } */}
         <BottomSheet
           ref={ref => {
             this.ConponSheet = ref;
@@ -481,95 +718,98 @@ export class Selector extends React.Component {
     )
   }
   get SelectorSheetBody() {
-    const items = [{
-      name: 'สีดำ'
-    }, {
-      name: 'สีขาว'
-    }, {
-      name: 'สีเขียว'
-    }, {
-      name: 'สีเหลือง'
-    }]
+    // this.SetItem()
     const { dataService } = this.props
     const { itemCount } = this.state
-    return dataService.map((item, index) => {
-      var dataMySQL = [finip, item.image_full_path, item.image].join('/');
-      return (
-        <View style={{ flex: 1, paddingHorizontal: 15 }} key={index}>
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { textAlign: 'center' }]}>ตัวเลือก</Text>
-          <ScrollView>
-            <View style={{ flexDirection: 'row' }}>
-              <View style={stylesDetail.Selector_BottomSheet_BoxImage}>
-                <FastImage
-                  source={{
-                    uri: dataMySQL,
-                  }}
-                  style={stylesMain.BoxProduct1Image}
-                />
+    var items = []
+    dataService.detail_product &&
+      dataService.detail_product.map((item) => {
+        console.log(item)
+        items.push({ name: item.detail_1 })
+      })
+    console.log(items)
+    return dataService.product_data &&
+      dataService.product_data.map((item, index) => {
+        var dataMySQL = [finip, item.image_full_path, item.image].join('/');
+        return (
+          <View style={{ flex: 1, paddingHorizontal: 15 }} key={index}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { textAlign: 'center' }]}>ตัวเลือก</Text>
+            <ScrollView>
+              <View style={{ flexDirection: 'row' }}>
+                <View style={stylesDetail.Selector_BottomSheet_BoxImage}>
+                  <FastImage
+                    source={{
+                      uri: dataMySQL,
+                    }}
+                    style={stylesMain.BoxProduct1Image}
+                  />
+                </View>
+                <View style={{ width: '70%', marginLeft: 10 }}>
+                  <NumberFormat
+                    value={item.full_price}
+                    displayType={'text'}
+                    thousandSeparator={true}
+                    prefix={'฿'}
+                    renderText={
+                      value =>
+                        <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
+                          {value}</Text>}
+                  />
+                  <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>{item.name}</Text>
+                </View>
               </View>
-              <View style={{ width: '70%', marginLeft: 10 }}>
-                <NumberFormat
-                  value={item.full_price}
-                  displayType={'text'}
-                  thousandSeparator={true}
-                  prefix={'฿'}
-                  renderText={
-                    value =>
-                      <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
-                        {value}</Text>}
-                />
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>{item.name}</Text>
+              <View style={{ padding: 10 }}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>สี</Text>
+                {this.dataItem(items)}
               </View>
-            </View>
-            <View style={{ padding: 10 }}>
-              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>สี</Text>
-              {this.dataItem(items)}
-            </View>
-          </ScrollView>
-          <View style={{ alignItems: 'center' }}>
-            <View style={{ flexDirection: 'row', width: '90%', }}>
-              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>จำนวน</Text>
-              <TouchableOpacity onPress={this.setStateItemCount.bind(this, itemCount - 1)}>
-                <View style={[stylesMain.ItemCenter, stylesDetail.Selector_BottomSheet_itemCount, { borderTopLeftRadius: 5, borderBottomLeftRadius: 5, }]}>
-                  <Text style={[stylesMain.ItemCenterVertical]}>
-                    -</Text>
+            </ScrollView>
+            <View style={{ alignItems: 'center' }}>
+              <View style={{ flexDirection: 'row', width: '90%', }}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>จำนวน</Text>
+                <TouchableOpacity onPress={this.setStateItemCount.bind(this, itemCount - 1)}>
+                  <View style={[stylesMain.ItemCenter, stylesDetail.Selector_BottomSheet_itemCount, { borderTopLeftRadius: 5, borderBottomLeftRadius: 5, }]}>
+                    <Text style={[stylesMain.ItemCenterVertical]}>
+                      -</Text>
+                  </View>
+                </TouchableOpacity>
+                <View style={[stylesMain.ItemCenter, stylesFont.FontFamilyText, stylesDetail.Selector_BottomSheet_itemCount_TextInput]}>
+                  <TextInput style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]} keyboardType={'numeric'}
+                    maxLength={6} min={1}
+                    onChangeText={this.setStateItemCount.bind(this)}>
+                    {itemCount}
+                  </TextInput>
                 </View>
-              </TouchableOpacity>
-              <View style={[stylesMain.ItemCenter, stylesFont.FontFamilyText, stylesDetail.Selector_BottomSheet_itemCount_TextInput]}>
-                <TextInput style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]} keyboardType={'numeric'}
-                  maxLength={6} min={1}
-                  onChangeText={this.setStateItemCount.bind(this)}>
-                  {itemCount}
-                </TextInput>
+                <TouchableOpacity onPress={this.setStateItemCount.bind(this, itemCount + 1)}>
+                  <View style={[stylesMain.ItemCenter, stylesDetail.Selector_BottomSheet_itemCount, { borderTopRightRadius: 5, borderBottomRightRadius: 5, }]}>
+                    <Text style={[stylesMain.ItemCenterVertical]}>
+                      +</Text>
+                  </View>
+                </TouchableOpacity>
               </View>
-              <TouchableOpacity onPress={this.setStateItemCount.bind(this, itemCount + 1)}>
-                <View style={[stylesMain.ItemCenter, stylesDetail.Selector_BottomSheet_itemCount, { borderTopRightRadius: 5, borderBottomRightRadius: 5, }]}>
-                  <Text style={[stylesMain.ItemCenterVertical]}>
-                    +</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-            <View style={stylesDetail.Selector_BottomSheet_BoxButtom}>
-              <TouchableOpacity>
-                <View style={[stylesDetail.Buy_bar_Iconshop, stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 160 }]}>
-                  <IconAntDesign name='shoppingcart' size={25} />
-                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontCenter, { marginLeft: 10 }]}>
-                    เพิ่มลงรถเข็น</Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <View style={[stylesDetail.Buy_bar_IconBuy, stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 160 }]}>
-                  <Text style={[stylesDetail.Buy_bar_IconBuytext, stylesFont.FontFamilyText, stylesFont.FontCenter]}>
-                    ซื้อเลย</Text>
-                </View>
-              </TouchableOpacity>
+              <View style={stylesDetail.Selector_BottomSheet_BoxButtom}>
+                <TouchableOpacity>
+                  <View style={[stylesDetail.Buy_bar_Iconshop, stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 160 }]}>
+                    <IconAntDesign name='shoppingcart' size={25} />
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontCenter, { marginLeft: 10 }]}>
+                      เพิ่มลงรถเข็น</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <View style={[stylesDetail.Buy_bar_IconBuy, stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 160 }]}>
+                    <Text style={[stylesDetail.Buy_bar_IconBuytext, stylesFont.FontFamilyText, stylesFont.FontCenter]}>
+                      ซื้อเลย</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
-      )
-    })
+        )
+      })
   }
   render() {
+    const { dataService } = this.props
+    dataService.detail_product &&
+      console.log(dataService.detail_product.length)
     return (
       <>
         <BottomSheet
@@ -588,19 +828,22 @@ export class Selector extends React.Component {
         >
           {this.SelectorSheetBody}
         </BottomSheet>
-        <View style={stylesDetail.Coupon}>
-          <TouchableOpacity activeOpacity={1} onPress={() => { this.SelectorSheet.open(); }}>
-            <View style={[stylesDetail.Coupon_Box, stylesMain.ItemCenterVertical]}>
-              <Text style={[stylesDetail.Coupon_Text, stylesFont.FontSize5, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical]}>
-                ตัวเลือก </Text>
-              <View style={stylesMain.FlexRow}>
-                <Text style={[stylesDetail.Coupon_Text, stylesFont.FontSize6, stylesFont.FontFamilyText, stylesMain.ItemCenterVertical]}>
-                  ตัวอย่างเช่น สี ขนาด</Text>
-                <IconEntypo style={stylesDetail.Coupon_Icon} name='chevron-right' size={30} color='#0A55A6' />
+        {
+          dataService.detail_product && dataService.detail_product.length > 1 &&
+          <View style={stylesDetail.Coupon}>
+            <TouchableOpacity activeOpacity={1} onPress={() => { this.SelectorSheet.open(); }}>
+              <View style={[stylesDetail.Coupon_Box, stylesMain.ItemCenterVertical]}>
+                <Text style={[stylesDetail.Coupon_Text, stylesFont.FontSize5, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical]}>
+                  ตัวเลือก </Text>
+                <View style={stylesMain.FlexRow}>
+                  <Text style={[stylesDetail.Coupon_Text, stylesFont.FontSize6, stylesFont.FontFamilyText, stylesMain.ItemCenterVertical]}>
+                    ตัวอย่างเช่น สี ขนาด</Text>
+                  <IconEntypo style={stylesDetail.Coupon_Icon} name='chevron-right' size={30} color='#0A55A6' />
+                </View>
               </View>
-            </View>
-          </TouchableOpacity>
-        </View>
+            </TouchableOpacity>
+          </View>
+        }
       </>
     );
   }
@@ -621,48 +864,49 @@ export class Detail_Category extends React.Component {
   }
   get id_store() {
     const { dataService } = this.props
-    return dataService.map((item, index) => {
-      return (
-        <View style={[stylesMain.FrameBackground]} key={index}>
-          <View style={[stylesMain.FrameBackgroundTextBox, stylesDetail.BottomTitle, stylesMain.MarginBottomTitle]}>
-            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
-              ข้อมูลจำเพาะ</Text>
-          </View>
-          <View style={[stylesMain.BottomSpace, stylesMain.FlexRow]}>
-            <View style={{ width: '25%' }}>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10 }]}>
-                หมวดหมู่</Text>
+    return dataService.product_data &&
+      dataService.product_data.map((item, index) => {
+        return (
+          <View style={[stylesMain.FrameBackground]} key={index}>
+            <View style={[stylesMain.FrameBackgroundTextBox, stylesDetail.BottomTitle, stylesMain.MarginBottomTitle]}>
+              <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
+                ข้อมูลจำเพาะ</Text>
             </View>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-              {item.type_name}</Text>
-          </View>
-          <View style={[stylesMain.BottomSpace, stylesMain.FlexRow]}>
-            <View style={{ width: '25%' }}>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10 }]}>
-                ยี่ห้อ</Text>
+            <View style={[stylesMain.BottomSpace, stylesMain.FlexRow]}>
+              <View style={{ width: '25%' }}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10 }]}>
+                  หมวดหมู่</Text>
+              </View>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                {item.type_name}</Text>
             </View>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-              {item.brand_product}</Text>
-          </View>
-          <View style={[stylesMain.BottomSpace, stylesMain.FlexRow]}>
-            <View style={{ width: '25%' }}>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10 }]}>
-                จำนวนสินค้า</Text>
+            <View style={[stylesMain.BottomSpace, stylesMain.FlexRow]}>
+              <View style={{ width: '25%' }}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10 }]}>
+                  ยี่ห้อ</Text>
+              </View>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                {item.brand_product}</Text>
             </View>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-              {item.amount_product}</Text>
-          </View>
-          <View style={[stylesMain.BottomSpace, stylesMain.FlexRow]}>
-            <View style={{ width: '25%' }}>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10 }]}>
-                ส่งจาก</Text>
+            <View style={[stylesMain.BottomSpace, stylesMain.FlexRow]}>
+              <View style={{ width: '25%' }}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10 }]}>
+                  จำนวนสินค้า</Text>
+              </View>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                {item.amount_product}</Text>
             </View>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-              {item.store_address}</Text>
+            <View style={[stylesMain.BottomSpace, stylesMain.FlexRow]}>
+              <View style={{ width: '25%' }}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10 }]}>
+                  ส่งจาก</Text>
+              </View>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                {item.store_address}</Text>
+            </View>
           </View>
-        </View>
-      );
-    })
+        );
+      })
   }
   render() {
     return (
@@ -687,10 +931,7 @@ export class Detail extends React.Component {
     return false
   }
   setStateShowMoreButton = (showMoreButton) => {
-    this._isMounted = true;
-    if (this._isMounted) {
-      this.setState({ showMoreButton })
-    }
+    this.setState({ showMoreButton })
   }
   setStateActiveText = (activeText) => {
     this.setState({ activeText })
@@ -698,42 +939,41 @@ export class Detail extends React.Component {
   get id_store() {
     const { showMoreButton, activeText } = this.state
     const { dataService } = this.props
-    return dataService.map((item, index) => {
-      return (
-        <View style={stylesMain.FrameBackground} key={index}>
-          <View style={[stylesMain.FrameBackgroundTextBox, stylesDetail.BottomTitle, stylesMain.MarginBottomTitle]}>
-            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
-              รายละเอียดสินค้า</Text>
+    console.log('activeText')
+    console.log(activeText)
+    return dataService.product_data &&
+      dataService.product_data.map((item, index) => {
+        return (
+          <View style={stylesMain.FrameBackground} key={index}>
+            <View style={[stylesMain.FrameBackgroundTextBox, stylesDetail.BottomTitle, stylesMain.MarginBottomTitle]}>
+              <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
+                รายละเอียดสินค้า</Text>
+            </View>
+            <View style={stylesDetail.Detail_Text_Box}>
+              <Text numberOfLines={activeText == false ? 4 : null} onTextLayout={({ nativeEvent: { lines } }) =>
+                this.setStateShowMoreButton(lines.length > 4)
+              } style={[
+                stylesDetail.Detail_Text, stylesFont.FontFamilyText, stylesFont.FontSize6
+              ]}>
+                {item.detail}</Text>
+              {
+                showMoreButton == true &&
+                <TouchableOpacity onPress={this.setStateActiveText.bind(this, !activeText)}>
+                  <View style={[stylesDetail.Detail_Box, stylesMain.ItemCenter]}>
+                    <Text style={[stylesDetail.Detail_Text_A, stylesMain.ItemCenterVertical, { fontFamily: 'SukhumvitSet-Text', }]}>
+                      {
+                        activeText == true ?
+                          'ย่อ' :
+                          'ดูเพิ่มเติม'
+                      }</Text>
+                    <IconEntypo name={activeText == true ? 'chevron-up' : 'chevron-down'} size={25} color='#0A55A6' />
+                  </View>
+                </TouchableOpacity>
+              }
+            </View>
           </View>
-          <View style={stylesDetail.Detail_Text_Box}>
-            <Text numberOfLines={activeText == false && 4} onTextLayout={({ nativeEvent: { lines } }) =>
-              this.setStateShowMoreButton.bind(this, lines.length > 4)
-            } style={[
-              stylesDetail.Detail_Text, stylesFont.FontFamilyText, stylesFont.FontSize6
-            ]}>
-              {item.detail}</Text>
-            {
-              showMoreButton == true &&
-              <TouchableOpacity onPress={() => {
-                activeText == true ?
-                  this.setStateActiveText.bind(this, false) :
-                  this.setStateActiveText.bind(this, true)
-              }}>
-                <View style={[stylesDetail.Detail_Box, stylesMain.ItemCenter]}>
-                  <Text style={[stylesDetail.Detail_Text_A, stylesMain.ItemCenterVertical, { fontFamily: 'SukhumvitSet-Text', }]}>
-                    {
-                      activeText == true ?
-                        'ย่อ' :
-                        'ดูเพิ่มเติม'
-                    }</Text>
-                  <IconEntypo name={activeText == true ? 'chevron-up' : 'chevron-down'} size={25} color='#0A55A6' />
-                </View>
-              </TouchableOpacity>
-            }
-          </View>
-        </View>
-      );
-    })
+        );
+      })
   }
   render() {
     return (
@@ -944,15 +1184,16 @@ export class Same_Store extends React.Component {
     var dataBody
     var id_type
     var id_store
-    dataService.map((item) => {
-      id_type = item.id_type
-      id_store = item.id_store
-      dataBody = {
-        id_type: item.id_type,
-        id_store: item.id_store,
-        type_product: "this_store",
-      };
-    })
+    dataService.product_data &&
+      dataService.product_data.map((item) => {
+        id_type = item.id_type
+        id_store = item.id_store
+        dataBody = {
+          id_type: item.id_type,
+          id_store: item.id_store,
+          type_product: "this_store",
+        };
+      })
     return (
       <View style={stylesMain.FrameBackground}>
         {
@@ -1010,15 +1251,16 @@ export class Similar_Product extends React.Component {
     var dataBody
     var id_type
     var id_store
-    dataService.map((item) => {
-      id_type = item.id_type
-      id_store = item.id_store
-      dataBody = {
-        id_type: item.id_type,
-        id_store: item.id_store,
-        type_product: "same_product",
-      };
-    })
+    dataService.product_data &&
+      dataService.product_data.map((item) => {
+        id_type = item.id_type
+        id_store = item.id_store
+        dataBody = {
+          id_type: item.id_type,
+          id_store: item.id_store,
+          type_product: "same_product",
+        };
+      })
     return (
       <View style={stylesMain.FrameBackground}>
         {
@@ -1076,15 +1318,16 @@ export class Might_like extends React.Component {
     var dataBody
     var id_type
     var id_store
-    dataService.map((item) => {
-      id_type = item.id_type
-      id_store = item.id_store
-      dataBody = {
-        id_type: item.id_type,
-        id_store: item.id_store,
-        type_product: "youlike",
-      };
-    })
+    dataService.product_data &&
+      dataService.product_data.map((item) => {
+        id_type = item.id_type
+        id_store = item.id_store
+        dataBody = {
+          id_type: item.id_type,
+          id_store: item.id_store,
+          type_product: "youlike",
+        };
+      })
     return (
       <View style={stylesMain.FrameBackground}>
         {
@@ -1142,44 +1385,45 @@ export class Buy_bar extends React.Component {
     //   type: 'store',
     //   id_product: id_item,
     // }
-    return dataService.map((item, index) => {
-      return (
-        < View style={stylesDetail.Buy_bar} key={index}>
-          {/* {
+    return dataService.product_data &&
+      dataService.product_data.map((item, index) => {
+        return (
+          < View style={stylesDetail.Buy_bar} key={index}>
+            {/* {
           id_item !== undefined &&
             <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} /> 
         } */}
-          < View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical]} >
-            <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 })}>
-              <IconAntDesign name='message1' size={22} style={[stylesMain.ItemCenterVertical]} />
-              <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesMain.ItemCenterVertical]}>
-                แชท</Text>
+            < View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical]} >
+              <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 })}>
+                <IconAntDesign name='message1' size={22} style={[stylesMain.ItemCenterVertical]} />
+                <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesMain.ItemCenterVertical]}>
+                  แชท</Text>
+              </TouchableOpacity>
+            </View >
+            <Text style={{ fontSize: 30 }}>|</Text>
+            <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: item.id_store })}>
+              <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
+                <IconFontisto name='shopping-store' size={22} style={stylesMain.ItemCenterVertical} />
+                <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesMain.ItemCenterVertical]}>
+                  ร้านค้า</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <View style={[stylesDetail.Buy_bar_Iconshop, stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
+                <IconAntDesign name='shoppingcart' size={25} />
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontCenter, { marginLeft: 10 }]}>
+                  เพิ่มลงรถเข็น</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <View style={[stylesDetail.Buy_bar_IconBuy, stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
+                <Text style={[stylesDetail.Buy_bar_IconBuytext, stylesFont.FontFamilyText, stylesFont.FontCenter]}>
+                  ซื้อเลย</Text>
+              </View>
             </TouchableOpacity>
           </View >
-          <Text style={{ fontSize: 30 }}>|</Text>
-          <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: item.id_store })}>
-            <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
-              <IconFontisto name='shopping-store' size={22} style={stylesMain.ItemCenterVertical} />
-              <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesMain.ItemCenterVertical]}>
-                ร้านค้า</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <View style={[stylesDetail.Buy_bar_Iconshop, stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
-              <IconAntDesign name='shoppingcart' size={25} />
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontCenter, { marginLeft: 10 }]}>
-                เพิ่มลงรถเข็น</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <View style={[stylesDetail.Buy_bar_IconBuy, stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
-              <Text style={[stylesDetail.Buy_bar_IconBuytext, stylesFont.FontFamilyText, stylesFont.FontCenter]}>
-                ซื้อเลย</Text>
-            </View>
-          </TouchableOpacity>
-        </View >
-      )
-    })
+        )
+      })
   }
   render() {
     // dataService.length == 1 &&

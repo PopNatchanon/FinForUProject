@@ -48,12 +48,12 @@ export default class DetailScreen extends React.Component {
     this.getDataAsync()
   }
   shouldComponentUpdate = (nextProps, nextState) => {
-    const { activeSlide, dataService, scrollY, setActive, setShowItemImage, showItemImage } = this.state
+    const { activeSlide, dataService, scrollY, setActive, setShowItemImage, showItemImage, BuyProduct } = this.state
     const { navigation } = this.props
     if (
       dataService !== nextState.dataService || activeSlide !== nextState.activeSlide || setShowItemImage !== nextState.setShowItemImage
       || scrollY !== nextState.scrollY || setActive !== nextState.setActive || showItemImage !== nextState.showItemImage ||
-      navigation !== nextProps.navigation
+      BuyProduct !== nextState.BuyProduct || navigation !== nextProps.navigation
     ) {
       return true
     }
@@ -68,14 +68,19 @@ export default class DetailScreen extends React.Component {
   setShowImage = (setShowItemImage) => {
     this.setState({ setShowItemImage, setActive: false })
   }
+  BuyProduct = (BuyProduct) => {
+    this.setState({ BuyProduct })
+  }
   render() {
-    const { dataService, showItemImage, setShowItemImage, setActive, scrollY, currentUser } = this.state
+    const { dataService, showItemImage, setShowItemImage, setActive, scrollY, currentUser, BuyProduct } = this.state
     const { navigation } = this.props
     var id_product = navigation.getParam('id_item')
     var uri = finip + '/product/product_deatil_mobile';
     var dataBody = {
       id_product: id_product
     };
+    console.log('DetailScreen|typeSelect')
+    console.log(BuyProduct)
     return (
       <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
         {
@@ -110,13 +115,10 @@ export default class DetailScreen extends React.Component {
             <Detail_Image dataService={dataService.product_data} navigation={navigation} showImage={this.showImage.bind(this)}
               setShowImage={this.setShowImage.bind(this)} setActive={setActive} />
           }
-          {/* <Detail_Data dataService={dataService} navigation={navigation} /> */}
+          <Detail_Data dataService={dataService} navigation={navigation} />
           <Store dataService={dataService} navigation={navigation} />
-          {
-            currentUser &&
-            <Conpon dataService={dataService} currentUser={currentUser} />
-          }
-          <Selector dataService={dataService} />
+          <Conpon dataService={dataService} currentUser={currentUser} />
+          <Selector dataService={dataService} BuyProduct={BuyProduct} />
           <Detail_Category dataService={dataService} />
           <Detail dataService={dataService} />
           <Reviews />
@@ -125,7 +127,10 @@ export default class DetailScreen extends React.Component {
           <Similar_Product dataService={dataService} navigation={navigation} />
           <Might_like dataService={dataService} navigation={navigation} />
         </ScrollView>
-        {/* <Buy_bar navigation={navigation} dataService={dataService} /> */}
+        {
+          dataService.product_data &&
+          <Buy_bar navigation={navigation} dataService={dataService} BuyProduct={this.BuyProduct.bind(this)} />
+        }
         <ExitAppModule navigation={navigation} />
       </SafeAreaView>
     );
@@ -258,8 +263,6 @@ export class Detail_Data extends React.Component {
       id_product
     } = this.state
     const { dataService } = this.props;
-    console.log('dataServiceArray')
-    console.log(dataServiceArray)
     if (
       dataServiceArray !== nextState.dataServiceArray || countItem !== nextState.countItem || RunTime !== nextState.RunTime ||
       dataService !== nextProps.dataService || id_product !== nextState.id_product || arrayCountA !== nextState.arrayCountA ||
@@ -270,175 +273,100 @@ export class Detail_Data extends React.Component {
     }
     return false
   }
-  SetData2 = () => {
-    const { arrayCountA, arrayCountB, arrayCountC, dataServiceArray3 } = this.state;
-    var { arrayCountD, dataServiceArray } = this.state;
-    dataServiceArray3 && arrayCountC == 0 && (
-      this.setState({ arrayCountC: dataServiceArray3.length })
-    )
-    console.log('dataServiceArray3 != null && arrayCountC != 0 && arrayCountA == arrayCountB + 1 && arrayCountC != arrayCountD + 1')
-    console.log(dataServiceArray3 != null && arrayCountC != 0 && arrayCountA == arrayCountB + 1 && arrayCountC != arrayCountD + 1)
-    if (dataServiceArray3 != null && arrayCountC != 0 && arrayCountA == arrayCountB + 1 && arrayCountC != arrayCountD + 1) {
-      for (arrayCountD; arrayCountC > arrayCountD; arrayCountD++) {
-        console.log('dataServiceArray3[' + arrayCountD + ']')
-        console.log(dataServiceArray3[arrayCountD])
-        var uri = finip + '/product/get_product_amount'
-        var dataBody = {
-          id_product: dataServiceArray3[arrayCountD].id_product,
-          detail_color: dataServiceArray3[arrayCountD].detail_1,
-          val_size: dataServiceArray3[arrayCountD].detail_2,
-        }
-        console.log(uri)
-        console.log(dataBody)
-        this.setState({ arrayCountD })
-        fetch(uri, {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(dataBody),
-        })
-          .then((response) => response.json())
-          .then((responseJson) => {
-            console.log('responseJson')
-            console.log(responseJson.price_data)
-            console.log(Number.isInteger(responseJson.price_data * 1))
-            var price_data
-            var full_price_data = dataServiceArray3[arrayCountD].price
-            if (Number.isInteger(responseJson.price_data * 1) != true) {
-              var price_data2 = responseJson.price_data.split(",")
-              var price_data3 = ''
-              price_data2.map((item) => { price_data3 += item })
-              price_data = price_data3 * 1
-            } else {
-              price_data = responseJson.price_data * 1
-            }
-            console.log('full_price_data')
-            console.log(full_price_data)
-            console.log('price_data')
-            console.log(price_data)
-            if (price_data != null) {
-              console.log('dataServiceArray.maxfullvalue == 0 && dataServiceArray.minfullvalue == 0')
-              console.log(dataServiceArray.maxfullvalue == 0 && dataServiceArray.minfullvalue == 0)
-              if (dataServiceArray.maxfullvalue == 0 && dataServiceArray.minfullvalue == 0) {
-                dataServiceArray.maxfullvalue = dataServiceArray.minfullvalue = full_price_data
-              }
-              console.log('dataServiceArray.maxfullvalue < full_price_data')
-              console.log(dataServiceArray.maxfullvalue < full_price_data)
-              if (dataServiceArray.maxfullvalue < full_price_data) {
-                dataServiceArray.maxfullvalue = full_price_data
-              }
-              console.log('dataServiceArray.minfullvalue > full_price_data')
-              console.log(dataServiceArray.minfullvalue > full_price_data)
-              if (dataServiceArray.minfullvalue > full_price_data) {
-                dataServiceArray.minfullvalue = full_price_data
-              }
-              console.log('dataServiceArray.maxvalue == 0 && dataServiceArray.minvalue == 0')
-              console.log(dataServiceArray.maxvalue == 0 && dataServiceArray.minvalue == 0)
-              if (dataServiceArray.maxvalue == 0 && dataServiceArray.minvalue == 0) {
-                dataServiceArray.maxvalue = dataServiceArray.minvalue = price_data
-              }
-              console.log('dataServiceArray.maxvalue < price_data')
-              console.log(dataServiceArray.maxvalue < price_data)
-              if (dataServiceArray.maxvalue < price_data) {
-                dataServiceArray.maxvalue = price_data
-              }
-              console.log('dataServiceArray.minvalue > price_data')
-              console.log(dataServiceArray.minvalue > price_data)
-              if (dataServiceArray.minvalue > price_data) {
-                dataServiceArray.minvalue = price_data
-              }
-              console.log(arrayCountD)
-              console.log(dataServiceArray)
-              this.setState({ dataServiceArray })
-            }
-          })
-          .catch((error) => {
-            console.error(error);
-          })
-      }
-    }
-    // var uri2 = finip + '/product/get_product_amount'
-    // var dataBody2 = {
-    //   id_product: item.id_product,
-    //   val_size: item3.detail_2,
-    //   detail_color: item2.detail_1,
-    // }
-    // fetch(uri2, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(dataBody2),
-    // })
-    //   .then((response2) => response2.json())
-    //   .then((responseJson2) => {
-    //     console.log('responseJson2')
-    //     console.log(responseJson2)
-    //     dataServiceArray2.push(responseJson2.price_data)
-    //     this.setState({ dataServiceArray2, arrayCountD: arrayCountD + 1 })
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //   })
-  }
-  SetData = () => {
-    const { arrayCountA, } = this.state;
-    var { arrayCountB, dataServiceArray2, dataServiceArray3 } = this.state;
-    const { dataService } = this.props;
-    var detail_product = dataService.detail_product
-    var id_product
-    dataService.product_data && (
-      dataService.product_data.map((item) => { id_product = item.id_product })
-    )
-    detail_product && arrayCountA == 0 && (
-      this.setState({ arrayCountA: detail_product.length })
-    )
-    if (detail_product != null && arrayCountA != 0 && arrayCountA != arrayCountB + 1) {
-      var n = 0
-      var p = 0
-      for (arrayCountB; arrayCountA > arrayCountB; arrayCountB++) {
-        var uri = finip + '/product/get_value_size'
-        var dataBody = {
-          id_product: id_product,
-          detail_color: detail_product[arrayCountB].detail_1,
-        }
-        dataServiceArray2[arrayCountB] = detail_product[arrayCountB]
-        this.setState({ arrayCountB, dataServiceArray2 })
-        fetch(uri, {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(dataBody),
-        })
-          .then((response) => response.json())
-          .then((responseJson) => {
-            var o = 0
-            for (var m = n; responseJson.data_size.length + n > m; m++) {
-              dataServiceArray3[m] = responseJson.data_size[o]
-              dataServiceArray3[m].detail_1 = detail_product[p].detail_1
-              dataServiceArray3[m].id_product = id_product
-              o++
-            }
-            n = responseJson.data_size.length
-            p++
-            this.setState({ dataServiceArray3, arrayCountC: dataServiceArray3.length })
-          })
-          .catch((error) => {
-            console.error(error);
-          })
-      }
-    }
-  }
+  // SetData2 = () => {
+  //   const { arrayCountA, arrayCountB, arrayCountC, dataServiceArray3 } = this.state;
+  //   var { arrayCountD, dataServiceArray } = this.state;
+  //   dataServiceArray3 && arrayCountC == 0 && (
+  //     this.setState({ arrayCountC: dataServiceArray3.length })
+  //   )
+  //   if (dataServiceArray3 != null && arrayCountC != 0 && arrayCountA == arrayCountB + 1 && arrayCountC != arrayCountD + 1) {
+  //     for (arrayCountD; arrayCountC > arrayCountD; arrayCountD++) {
+  //       console.log('dataServiceArray3[' + arrayCountD + ']')
+  //       console.log(dataServiceArray3[arrayCountD])
+  //       var uri = finip + '/product/get_product_amount'
+  //       var dataBody = {
+  //         id_product: dataServiceArray3[arrayCountD].id_product,
+  //         detail_color: dataServiceArray3[arrayCountD].detail_1,
+  //         val_size: dataServiceArray3[arrayCountD].detail_2,
+  //       }
+  //       this.setState({ arrayCountD })
+  //       fetch(uri, {
+  //         method: 'POST',
+  //         headers: {
+  //           'Accept': 'application/json',
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify(dataBody),
+  //       })
+  //         .then((response) => response.json())
+  //         .then((responseJson) => {
+  //           if (dataServiceArray3[arrayCountD].ps_id != null && responseJson.ps_id == dataServiceArray3[arrayCountD].ps_id) {
+  //             console.log('responseJson:' + arrayCountD)
+  //             dataServiceArray3[arrayCountD].amount_data = responseJson.amount_data
+  //             dataServiceArray3[arrayCountD].price_data = responseJson.price_data
+  //           }
+  //           this.setState({ dataServiceArray3 })
+  //         })
+  //         .catch((error) => {
+  //           console.error(error);
+  //         })
+  //     }
+  //   }
+  // }
+  // SetData = () => {
+  //   const { arrayCountA, } = this.state;
+  //   var { arrayCountB, dataServiceArray2, dataServiceArray3 } = this.state;
+  //   const { dataService } = this.props;
+  //   var detail_product = dataService.detail_product
+  //   var id_product
+  //   dataService.product_data && (
+  //     dataService.product_data.map((item) => { id_product = item.id_product })
+  //   )
+  //   detail_product && arrayCountA == 0 && (
+  //     this.setState({ arrayCountA: detail_product.length })
+  //   )
+  //   if (detail_product != null && arrayCountA != 0 && arrayCountA != arrayCountB + 1) {
+  //     var n = 0
+  //     var p = 0
+  //     for (arrayCountB; arrayCountA > arrayCountB; arrayCountB++) {
+  //       var uri = finip + '/product/get_value_size'
+  //       var dataBody = {
+  //         id_product: id_product,
+  //         detail_color: detail_product[arrayCountB].detail_1,
+  //       }
+  //       dataServiceArray2[arrayCountB] = detail_product[arrayCountB]
+  //       this.setState({ arrayCountB, dataServiceArray2 })
+  //       fetch(uri, {
+  //         method: 'POST',
+  //         headers: {
+  //           'Accept': 'application/json',
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify(dataBody),
+  //       })
+  //         .then((response) => response.json())
+  //         .then((responseJson) => {
+  //           var o = 0
+  //           for (var m = n; responseJson.data_size.length + n > m; m++) {
+  //             dataServiceArray3[m] = responseJson.data_size[o]
+  //             dataServiceArray3[m].detail_1 = detail_product[p].detail_1
+  //             dataServiceArray3[m].id_product = id_product
+  //             o++
+  //           }
+  //           n = responseJson.data_size.length
+  //           p++
+  //           this.setState({ dataServiceArray3, arrayCountC: dataServiceArray3.length })
+  //         })
+  //         .catch((error) => {
+  //           console.error(error);
+  //         })
+  //     }
+  //   }
+  // }
   get id_product() {
     const { dataService } = this.props
     return dataService.product_data &&
       dataService.product_data.map((item, index) => {
-        console.log(item)
         return (
           <View style={[stylesMain.FrameBackground2, { marginTop: 0, borderTopWidth: 0 }]} key={index}>
             <View style={[stylesDetail.Price_Box, { borderTopWidth: 0 }]}>
@@ -498,8 +426,8 @@ export class Detail_Data extends React.Component {
     // console.log('dataServiceArray2')
     // console.log(dataServiceArray2)
     return (
-      this.SetData(),
-      this.SetData2(),
+      // this.SetData(),
+      // this.SetData2(),
       <View>{this.id_product}</View>
     )
   }
@@ -541,6 +469,9 @@ export class Store extends React.Component {
                     source={{
                       uri: dataMySQL,
                     }}
+
+                    onError={this.LoadingStore.bind(this, false)}
+                    onLoad={this.LoadingStore.bind(this, true)}
                     style={[stylesDetail.Store_Image, { marginLeft: 10, backgroundColor: ImageStore == true ? 'transparent' : '#959595' }]} />
                 </TouchableOpacity>
                 <View style={stylesDetail.Store_Text_Box}>
@@ -691,8 +622,9 @@ export class Selector extends React.Component {
   }
   shouldComponentUpdate = (nextProps, nextState) => {
     const { itemCount, selectedIndex } = this.state
-    const { dataService } = this.props
-    if (itemCount !== nextState.itemCount || selectedIndex !== nextState.selectedIndex || dataService !== nextProps.dataService) {
+    const { dataService, BuyProduct } = this.props
+    if (itemCount !== nextState.itemCount || selectedIndex !== nextState.selectedIndex || dataService !== nextProps.dataService ||
+      BuyProduct !== nextProps.BuyProduct) {
       return true
     }
     return false
@@ -719,7 +651,7 @@ export class Selector extends React.Component {
   }
   get SelectorSheetBody() {
     // this.SetItem()
-    const { dataService } = this.props
+    const { dataService, BuyProduct } = this.props
     const { itemCount } = this.state
     var items = []
     dataService.detail_product &&
@@ -787,29 +719,35 @@ export class Selector extends React.Component {
                 </TouchableOpacity>
               </View>
               <View style={stylesDetail.Selector_BottomSheet_BoxButtom}>
-                <TouchableOpacity>
-                  <View style={[stylesDetail.Buy_bar_Iconshop, stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 160 }]}>
-                    <IconAntDesign name='shoppingcart' size={25} />
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontCenter, { marginLeft: 10 }]}>
-                      เพิ่มลงรถเข็น</Text>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <View style={[stylesDetail.Buy_bar_IconBuy, stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 160 }]}>
-                    <Text style={[stylesDetail.Buy_bar_IconBuytext, stylesFont.FontFamilyText, stylesFont.FontCenter]}>
-                      ซื้อเลย</Text>
-                  </View>
-                </TouchableOpacity>
+                {
+                  (BuyProduct == 'addcart' || BuyProduct == null) &&
+                  < TouchableOpacity >
+                    <View style={[stylesDetail.Buy_bar_Iconshop, stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: BuyProduct ? 320 : 160 }]}>
+                      <IconAntDesign name='shoppingcart' size={25} />
+                      <Text style={[stylesFont.FontFamilyText, stylesFont.FontCenter, { marginLeft: 10 }]}>
+                        เพิ่มลงรถเข็น</Text>
+                    </View>
+                  </TouchableOpacity>
+                }
+                {
+                  (BuyProduct == 'gocart' || BuyProduct == null) &&
+                  <TouchableOpacity>
+                    <View style={[stylesDetail.Buy_bar_IconBuy, stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: BuyProduct ? 320 : 160 }]}>
+                      <Text style={[stylesDetail.Buy_bar_IconBuytext, stylesFont.FontFamilyText, stylesFont.FontCenter]}>
+                        ซื้อเลย</Text>
+                    </View>
+                  </TouchableOpacity>
+                }
               </View>
             </View>
-          </View>
+          </View >
         )
       })
   }
   render() {
-    const { dataService } = this.props
-    dataService.detail_product &&
-      console.log(dataService.detail_product.length)
+    const { dataService, BuyProduct } = this.props
+    dataService.detail_product && BuyProduct &&
+      this.SelectorSheet.open()
     return (
       <>
         <BottomSheet
@@ -1350,40 +1288,29 @@ export class Buy_bar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataService: [],
     };
-    // this.getData = this.getData.bind(this)
   }
   shouldComponentUpdate = (nextProps, nextState) => {
-    const { dataService, navigation } = this.props
-    if (dataService !== nextProps.dataService || navigation !== nextProps.navigation) {
+    const { dataService, navigation, BuyProduct } = this.props
+    if (dataService !== nextProps.dataService || navigation !== nextProps.navigation || BuyProduct !== nextProps.BuyProduct) {
       return true
     }
     return false
   }
-  // getData = (dataService) => {
-  //     this.setState({ dataService })
-  // }
   navigationNavigateScreen = (value, value2) => {
     const { navigation } = this.props
     navigation.navigate(value, value2)
   }
-  get dataService() {
-    const { navigation, dataService } = this.props
-    var id_store
-    // var uri = ip + '/mysql/DataService_Detail.php';
-    // var dataBody = {
-    //   type: 'store',
-    //   id_product: id_item,
-    // }
+  BuyProduct = (typeSelect) => {
+    const { BuyProduct } = this.props
+    BuyProduct(typeSelect)
+  }
+  get dataServices() {
+    const { dataService } = this.props
     return dataService.product_data &&
       dataService.product_data.map((item, index) => {
         return (
           < View style={stylesDetail.Buy_bar} key={index}>
-            {/* {
-          id_item !== undefined &&
-            <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} /> 
-        } */}
             < View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical]} >
               <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 })}>
                 <IconAntDesign name='message1' size={22} style={[stylesMain.ItemCenterVertical]} />
@@ -1399,14 +1326,14 @@ export class Buy_bar extends React.Component {
                   ร้านค้า</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={this.BuyProduct.bind(this, 'addcart')}>
               <View style={[stylesDetail.Buy_bar_Iconshop, stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
                 <IconAntDesign name='shoppingcart' size={25} />
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontCenter, { marginLeft: 10 }]}>
                   เพิ่มลงรถเข็น</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={this.BuyProduct.bind(this, 'gocart')}>
               <View style={[stylesDetail.Buy_bar_IconBuy, stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
                 <Text style={[stylesDetail.Buy_bar_IconBuytext, stylesFont.FontFamilyText, stylesFont.FontCenter]}>
                   ซื้อเลย</Text>
@@ -1417,10 +1344,8 @@ export class Buy_bar extends React.Component {
       })
   }
   render() {
-    // dataService.length == 1 &&
-    //   id_store = dataService.map((item) => { return (item.id_store) })
     return (
-      this.dataService
+      this.dataServices
     );
   }
 }

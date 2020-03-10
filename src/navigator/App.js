@@ -63,6 +63,7 @@ import The_BestFinScreen from '../src_Promotion/The_BestFinScreen';
 import Installment_payScreen from '../src_Promotion/Installment_payScreen';
 import Detail_Campaign from '../src_Promotion/Detail_Campaign';
 
+import Test_Chat from '../Test_Chat';
 ///----------------------------------------------------------------------------------------------->>>>
 
 const PathScreen = createStackNavigator({
@@ -422,11 +423,18 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
+  Test_Chat: {
+    screen: Test_Chat,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
 },
   {
-    initialRouteName: 'MainScreen',
+    // initialRouteName: 'MainScreen',
     // initialRouteName: 'Reviews_score',
-    // initialRouteName: 'ProfileScreen',
+    initialRouteName: 'ProfileScreen',
     // initialRouteName: 'CancelScreen',
   }
 );

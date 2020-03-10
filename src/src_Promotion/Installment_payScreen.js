@@ -56,7 +56,9 @@ export class Head_Image extends Component {
             source={{
               uri: ip + '/MySQL/uploads/slide/banner_payment.jpg',
             }}
+            resizeMode={'cover'}
           />
+          
         </View>
         <View style={stylesPromotionDeal.Head_BoxText}>
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>

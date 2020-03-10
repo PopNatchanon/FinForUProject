@@ -317,8 +317,7 @@ export default StyleSheet.create({
     },
     ///--------------------------------Installment_payScreen-----------------------------------------///
     Head_BoxImage: {
-        height: 150,
-        width: '100%',
+        height: 120,
         marginTop: 10,
     },
     Head_Image: {

@@ -348,18 +348,18 @@ export class Order_Get extends Component {
                             <TouchableOpacity>
                                 <View style={[stylesProfileTopic.Order_Button, { backgroundColor: '#0A55A6' }]}>
                                     <IconAntDesign RightItem name="wechat" size={25} color='#FFFFFF' />
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>แชทเลย</Text>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>แชทเลย</Text>
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity>
                                 <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1 }]}>
                                     <Icons RightItem name="store" size={20} />
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูร้านค้า</Text>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>ดูร้านค้า</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#20BDA1', marginTop: 10, }]}>กำลังจัดส่ง</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#20BDA1', marginTop: 10, }]}>กำลังจัดส่ง</Text>
                 </View>
                 <View style={stylesProfileTopic.Order_Product}>
                     <View style={stylesMain.FlexRow}>

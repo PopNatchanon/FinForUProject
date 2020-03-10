@@ -99,7 +99,7 @@ export class Cate_Campaign extends Component {
     get dataCategory() {
         return this.state.dataService.map((item, index) => {
             var dataMySQL = [finip, item.image_path, 'menu', item.image_head].join('/');
-            console.log(dataMySQL)
+            //console.log(dataMySQL)
             return (
                 <View style={stylesDeal.Cate_Campaign} key={index}>
                     <View style={stylesDeal.Cate_CampaignBoxImage}>

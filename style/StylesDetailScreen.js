@@ -190,6 +190,9 @@ export default StyleSheet.create({
         height: 80,
         width: 80,
         marginLeft: 10,
+        borderColor: '#ECECEC',
+        borderWidth: 1,
+        borderRadius:5,
     },
     Reviews_Image_Box: {
         height: 100,
@@ -325,7 +328,7 @@ export default StyleSheet.create({
         height: 80, width: 80,
         borderWidth: 1,
         borderRadius: 8,
-        padding:5,  
+        padding: 5,
     },
     Selector_BottomSheet_itemCount: {
         width: 50, height: 40,

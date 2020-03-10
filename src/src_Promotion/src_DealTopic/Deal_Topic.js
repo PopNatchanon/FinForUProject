@@ -112,6 +112,12 @@ export default class Deal_Topic extends Component {
                         </ScrollView>
                     </View>
                 )
+            case 5:
+                return (
+                    <View style={[stylesMain.SafeAreaView, stylesMain.ItemCenter]}>
+                        <Not_Internet navigation={navigation} />
+                    </View>
+                )
         }
     }
     render() {
@@ -228,6 +234,40 @@ export class Deal_ProductToday extends Component {
                         </View>
                     </View>
                 </View>
+            </View>
+        );
+    }
+}
+
+///----------------------------------------------------------------------------------------------->>>>
+export class Not_Internet extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props
+        value == 'goBack' ?
+            navigation.goBack() :
+            navigation.navigate(value, value2)
+    }
+
+    render() {
+        return (
+            <View style={stylesMain.ItemCenter}>
+                <FastImage style={{ height: 200, width: 200 }}
+                    source={{
+                        uri: ip + '/MySQL/uploads/icon_5/wifi-connected-png-8.png',
+                    }}
+                />
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { width: 300, textAlign: 'center', color: '#969BA0' }]}> WHOOPS! ดูเหมือนว่าจะมีปัญหาในการเชื่อมต่อเซิร์ฟเวอร์ ลองพยายามตรวจสอบ
+                การเชื่อมต่ออินเตอร์เน็ตแล้วลองใหม่อีกครั้ง </Text>
+                <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'goBack')}>
+                    <View style={[stylesMain.ItemCenter, { padding: 10, backgroundColor: '#0A55A6', borderRadius: 5, marginTop: 10 }]}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>อัปโหลดอีกครั้ง</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
         );
     }

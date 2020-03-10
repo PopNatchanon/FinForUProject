@@ -41,8 +41,8 @@ export default class DetailScreen extends React.Component {
   getDataAsync = async () => {
     const currentUser = await AsyncStorage.getItem('@MyKey')
     this.setState({ currentUser: JSON.parse(currentUser) })
-    console.log('Main|currentUser')
-    console.log(currentUser)
+    ////console.log('Main|currentUser')
+    ////console.log(currentUser)
   }
   componentDidMount() {
     this.getDataAsync()
@@ -79,8 +79,8 @@ export default class DetailScreen extends React.Component {
     var dataBody = {
       id_product: id_product
     };
-    console.log('DetailScreen|typeSelect')
-    console.log(BuyProduct)
+    ////console.log('DetailScreen|typeSelect')
+    ////console.log(BuyProduct)
     return (
       <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
         {
@@ -117,8 +117,11 @@ export default class DetailScreen extends React.Component {
           }
           <Detail_Data dataService={dataService} navigation={navigation} />
           <Store dataService={dataService} navigation={navigation} />
-          <Conpon dataService={dataService} currentUser={currentUser} />
-          <Selector dataService={dataService} BuyProduct={BuyProduct} />
+          {
+            currentUser && dataService.product_data &&
+            <Conpon dataService={dataService.product_data} currentUser={currentUser} />
+          }
+          <Selector dataService={dataService} BuyProduct={BuyProduct} sendProduct={this.BuyProduct.bind(this)} />
           <Detail_Category dataService={dataService} />
           <Detail dataService={dataService} />
           <Reviews />
@@ -281,8 +284,8 @@ export class Detail_Data extends React.Component {
   //   )
   //   if (dataServiceArray3 != null && arrayCountC != 0 && arrayCountA == arrayCountB + 1 && arrayCountC != arrayCountD + 1) {
   //     for (arrayCountD; arrayCountC > arrayCountD; arrayCountD++) {
-  //       console.log('dataServiceArray3[' + arrayCountD + ']')
-  //       console.log(dataServiceArray3[arrayCountD])
+  //       ////console.log('dataServiceArray3[' + arrayCountD + ']')
+  //       ////console.log(dataServiceArray3[arrayCountD])
   //       var uri = finip + '/product/get_product_amount'
   //       var dataBody = {
   //         id_product: dataServiceArray3[arrayCountD].id_product,
@@ -301,7 +304,7 @@ export class Detail_Data extends React.Component {
   //         .then((response) => response.json())
   //         .then((responseJson) => {
   //           if (dataServiceArray3[arrayCountD].ps_id != null && responseJson.ps_id == dataServiceArray3[arrayCountD].ps_id) {
-  //             console.log('responseJson:' + arrayCountD)
+  //             ////console.log('responseJson:' + arrayCountD)
   //             dataServiceArray3[arrayCountD].amount_data = responseJson.amount_data
   //             dataServiceArray3[arrayCountD].price_data = responseJson.price_data
   //           }
@@ -423,8 +426,8 @@ export class Detail_Data extends React.Component {
   }
   render() {
     // const { dataServiceArray2 } = this.state
-    // console.log('dataServiceArray2')
-    // console.log(dataServiceArray2)
+    // ////console.log('dataServiceArray2')
+    // ////console.log(dataServiceArray2)
     return (
       // this.SetData(),
       // this.SetData2(),
@@ -532,45 +535,65 @@ export class Conpon extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      dataService2: [],
+      activeDate: true,
     };
   }
+  get_id_promotion = (value) => {
+    this.setState({ activeDate: true })
+  }
   get ConponSheetBody() {
+    const { dataService2 } = this.state
+    const { currentUser } = this.props
     return (
+      dataService2.store_coupon_m &&
       <>
         <View style={{ flex: 1, paddingHorizontal: 15 }}>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { textAlign: 'center' }]}>รับคูปอง</Text>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ส่วนลดร้านค้า</Text>
           <ScrollView>
-            <Coupon_Detail_BottomSheet />
-            <Coupon_Detail_BottomSheet />
-            <Coupon_Detail_BottomSheet />
-            <Coupon_Detail_BottomSheet />
+            {
+              dataService2.store_coupon_m &&
+              dataService2.store_coupon_m.map((item) => {
+                return < Coupon_Detail_BottomSheet dataService={item} currentUser={currentUser}
+                  get_id_promotion={this.get_id_promotion.bind(this)} />
+              })
+            }
           </ScrollView>
         </View>
       </>
     )
   }
+  ConponSheetButtom = () => {
+    this.setState({ activeDate: true })
+    this.ConponSheet.open();
+  }
+  getData = (dataService2) => {
+    this.setState({ dataService2, activeDate: false })
+  }
   render() {
-    const { currentUser, dataService } = this.props
-    console.log('currentUser')
-    console.log(currentUser)
-    console.log('dataService')
-    console.log(dataService)
-    var uri = finip + '/coupon/get_store_coupon';
-    // var dataBody = {
-    //   id_customer: 'storedata',
-    //   id_product: id_item
-    // };
+    const { activeDate, } = this.state
+    const { currentUser, dataService, } = this.props
+    var uri
+    var dataBody
+    dataService && currentUser &&
+      dataService.map((item) => (
+        uri = finip + '/coupon/get_store_coupon',
+        dataBody = {
+          id_customer: currentUser.id_customer,
+          id_product: item.id_product
+        }
+      ))
     return (
       <>
-        {/* {
-          id_item !== undefined &&
+        {
+          currentUser && activeDate &&
           <GetServices
             uriPointer={uri}
             dataBody={dataBody}
-            getDataSource={this.getData.bind(this)}
+            getDataSource={(console.log('setGetServices'), this.getData.bind(this))}
           />
-        } */}
+        }
         <BottomSheet
           ref={ref => {
             this.ConponSheet = ref;
@@ -589,7 +612,7 @@ export class Conpon extends React.Component {
           {this.ConponSheetBody}
         </BottomSheet>
         <View style={stylesDetail.Coupon}>
-          <TouchableOpacity activeOpacity={1} onPress={() => { this.ConponSheet.open(); }}>
+          <TouchableOpacity activeOpacity={1} onPress={this.ConponSheetButtom.bind(this)}>
             <View style={[stylesDetail.Coupon_Box, stylesMain.ItemCenterVertical]}>
               <Text style={[stylesDetail.Coupon_Text, stylesFont.FontSize5, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical]}>
                 คูปอง </Text>
@@ -622,9 +645,9 @@ export class Selector extends React.Component {
   }
   shouldComponentUpdate = (nextProps, nextState) => {
     const { itemCount, selectedIndex } = this.state
-    const { dataService, BuyProduct } = this.props
+    const { dataService, BuyProduct, sendProduct } = this.props
     if (itemCount !== nextState.itemCount || selectedIndex !== nextState.selectedIndex || dataService !== nextProps.dataService ||
-      BuyProduct !== nextProps.BuyProduct) {
+      BuyProduct !== nextProps.BuyProduct || sendProduct !== nextProps.sendProduct) {
       return true
     }
     return false
@@ -656,10 +679,10 @@ export class Selector extends React.Component {
     var items = []
     dataService.detail_product &&
       dataService.detail_product.map((item) => {
-        console.log(item)
+        ////console.log(item)
         items.push({ name: item.detail_1 })
       })
-    console.log(items)
+    ////console.log(items)
     return dataService.product_data &&
       dataService.product_data.map((item, index) => {
         var dataMySQL = [finip, item.image_full_path, item.image].join('/');
@@ -699,7 +722,9 @@ export class Selector extends React.Component {
               <View style={{ flexDirection: 'row', width: '90%', }}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>จำนวน</Text>
                 <TouchableOpacity onPress={this.setStateItemCount.bind(this, itemCount - 1)}>
-                  <View style={[stylesMain.ItemCenter, stylesDetail.Selector_BottomSheet_itemCount, { borderTopLeftRadius: 5, borderBottomLeftRadius: 5, }]}>
+                  <View style={[stylesMain.ItemCenter, stylesDetail.Selector_BottomSheet_itemCount, {
+                    borderTopLeftRadius: 5, borderBottomLeftRadius: 5,
+                  }]}>
                     <Text style={[stylesMain.ItemCenterVertical]}>
                       -</Text>
                   </View>
@@ -712,17 +737,21 @@ export class Selector extends React.Component {
                   </TextInput>
                 </View>
                 <TouchableOpacity onPress={this.setStateItemCount.bind(this, itemCount + 1)}>
-                  <View style={[stylesMain.ItemCenter, stylesDetail.Selector_BottomSheet_itemCount, { borderTopRightRadius: 5, borderBottomRightRadius: 5, }]}>
+                  <View style={[stylesMain.ItemCenter, stylesDetail.Selector_BottomSheet_itemCount, {
+                    borderTopRightRadius: 5, borderBottomRightRadius: 5,
+                  }]}>
                     <Text style={[stylesMain.ItemCenterVertical]}>
                       +</Text>
                   </View>
                 </TouchableOpacity>
               </View>
-              <View style={stylesDetail.Selector_BottomSheet_BoxButtom}>
+              <View style={[stylesDetail.Selector_BottomSheet_BoxButtom, { justifyContent: BuyProduct != 'null' ? 'center' : 'space-between' }]}>
                 {
-                  (BuyProduct == 'addcart' || BuyProduct == null) &&
-                  < TouchableOpacity >
-                    <View style={[stylesDetail.Buy_bar_Iconshop, stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: BuyProduct ? 320 : 160 }]}>
+                  (BuyProduct == 'addcart' || BuyProduct == 'null') &&
+                  < TouchableOpacity>
+                    <View style={[stylesDetail.Buy_bar_Iconshop, stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
+                      width: BuyProduct == 'addcart' ? 320 : 160
+                    }]}>
                       <IconAntDesign name='shoppingcart' size={25} />
                       <Text style={[stylesFont.FontFamilyText, stylesFont.FontCenter, { marginLeft: 10 }]}>
                         เพิ่มลงรถเข็น</Text>
@@ -730,9 +759,11 @@ export class Selector extends React.Component {
                   </TouchableOpacity>
                 }
                 {
-                  (BuyProduct == 'gocart' || BuyProduct == null) &&
+                  (BuyProduct == 'gocart' || BuyProduct == 'null') &&
                   <TouchableOpacity>
-                    <View style={[stylesDetail.Buy_bar_IconBuy, stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: BuyProduct ? 320 : 160 }]}>
+                    <View style={[stylesDetail.Buy_bar_IconBuy, stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
+                      width: BuyProduct == 'gocart' ? 320 : 160
+                    }]}>
                       <Text style={[stylesDetail.Buy_bar_IconBuytext, stylesFont.FontFamilyText, stylesFont.FontCenter]}>
                         ซื้อเลย</Text>
                     </View>
@@ -743,6 +774,10 @@ export class Selector extends React.Component {
           </View >
         )
       })
+  }
+  sendProduct = (typeSelect) => {
+    const { sendProduct } = this.props
+    sendProduct(typeSelect)
   }
   render() {
     const { dataService, BuyProduct } = this.props
@@ -769,12 +804,14 @@ export class Selector extends React.Component {
         {
           dataService.detail_product && dataService.detail_product.length > 1 &&
           <View style={stylesDetail.Coupon}>
-            <TouchableOpacity activeOpacity={1} onPress={() => { this.SelectorSheet.open(); }}>
+            <TouchableOpacity activeOpacity={1} onPress={this.sendProduct.bind(this, 'null')}>
               <View style={[stylesDetail.Coupon_Box, stylesMain.ItemCenterVertical]}>
                 <Text style={[stylesDetail.Coupon_Text, stylesFont.FontSize5, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical]}>
                   ตัวเลือก </Text>
                 <View style={stylesMain.FlexRow}>
-                  <Text style={[stylesDetail.Coupon_Text, stylesFont.FontSize6, stylesFont.FontFamilyText, stylesMain.ItemCenterVertical]}>
+                  <Text style={[
+                    stylesDetail.Coupon_Text, stylesFont.FontSize6, stylesFont.FontFamilyText, stylesMain.ItemCenterVertical
+                  ]}>
                     ตัวอย่างเช่น สี ขนาด</Text>
                   <IconEntypo style={stylesDetail.Coupon_Icon} name='chevron-right' size={30} color='#0A55A6' />
                 </View>
@@ -877,8 +914,8 @@ export class Detail extends React.Component {
   get id_store() {
     const { showMoreButton, activeText } = this.state
     const { dataService } = this.props
-    console.log('activeText')
-    console.log(activeText)
+    ////console.log('activeText')
+    ////console.log(activeText)
     return dataService.product_data &&
       dataService.product_data.map((item, index) => {
         return (
@@ -1401,20 +1438,59 @@ export class Coupon_Detail_BottomSheet extends React.Component {
     this.state = {
     };
   }
+  saveTicket = (id_promotion) => {
+    console.log(id_promotion)
+    this.setState({ id_promotion })
+  }
+  getData = (dataService2) => {
+    const { get_id_promotion, } = this.props
+    console.log(dataService2.Status)
+    if (dataService2.Status == 'Add Coupon Completed !') {
+      get_id_promotion(dataService2.Status)
+    }
+  }
   render() {
+    const { id_promotion } = this.state
+    const { currentUser, dataService, } = this.props
+    var uri
+    var dataBody
+    currentUser && id_promotion && (
+      uri = finip + '/coupon/save_coupon_shop',
+      dataBody = {
+        id_customer: currentUser.id_customer,
+        id_promotion_shop: id_promotion
+      }
+    )
+    console.log('uri')
+    console.log('dataBody')
+    console.log(dataService)
     return (
-      <View style={{ width: '100%', height: 100, borderWidth: 1, backgroundColor: '#C0DBF9', flexDirection: 'row', justifyContent: 'space-between', padding: 15, borderRadius: 5, marginVertical: 10 }}>
+      <View style={{
+        width: '100%', height: 100, borderWidth: 1,
+        backgroundColor: dataService.ticket_picked == 'ticket_picked' ? '#A9A9A9' : '#C0DBF9',
+        flexDirection: 'row', justifyContent: 'space-between', padding: 15, borderRadius: 5, marginVertical: 10,
+        opacity: dataService.ticket_picked == 'ticket_picked' ? 0.6 : 1,
+      }}>
+        {
+          dataBody && id_promotion &&
+          <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
+        }
         <View>
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>฿1,000</Text>
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ซื้อขั้นต่ำ ฿10,000</Text>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>{dataService.name}</Text>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>{dataService.detail}</Text>
         </View>
         <View style={{ justifyContent: 'space-between' }}>
           <View style={{ backgroundColor: '#C4C4C4' }}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>2020.02.22-2020.03.01</Text>
           </View>
-          <TouchableOpacity>
-            <View style={[stylesMain.ItemCenter, { backgroundColor: '#0A55A6', paddingHorizontal: 10, borderRadius: 5 }]}>
-              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>รับคูปอง</Text>
+          <TouchableOpacity activeOpacity={dataService.ticket_picked == 'ticket_picked' ? 1 : 0.2}
+            onPress={dataService.ticket_picked == 'ticket_picked' ? null : this.saveTicket.bind(this, dataService.id_promotion)}>
+            <View style={[stylesMain.ItemCenter, {
+              backgroundColor: dataService.ticket_picked == 'ticket_picked' ? '#A9A9A9' : '#0A55A6', paddingHorizontal: 10,
+              borderRadius: 5
+            }]}>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>
+                {dataService.ticket_picked == 'ticket_picked' ? 'เก็บคูปองแล้ว' : 'เก็บคูปอง'}</Text>
             </View>
           </TouchableOpacity>
         </View>

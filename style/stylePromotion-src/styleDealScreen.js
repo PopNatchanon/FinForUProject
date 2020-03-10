@@ -278,7 +278,7 @@ export default StyleSheet.create({
     Store_Sale: {
         height: 230,
         width: '100%',
-        marginTop: 10,
+        marginTop: 20,
         alignItems: 'center',
         marginBottom: 10,
     },
@@ -317,8 +317,7 @@ export default StyleSheet.create({
     },
     ///--------------------------------Installment_payScreen-----------------------------------------///
     Head_BoxImage: {
-        height: 150,
-        width: '100%',
+        height: 120,
         marginTop: 10,
     },
     Head_Image: {
@@ -370,8 +369,8 @@ export default StyleSheet.create({
     },
     New_year_New: {
         backgroundColor: '#FFFFFF',
-        marginTop: 20,
-        height: 450,
+        marginTop:20,
+        paddingBottom:10
     },
     New_year_NewBoxText_Head: {
         backgroundColor: '#000000',

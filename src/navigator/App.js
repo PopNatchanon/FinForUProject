@@ -22,6 +22,8 @@ import CategoryScreen from '../CategoryScreen';
 import Same_StoreScreen from '../Same_StoreScreen';
 import SecondScreen from '../SecondScreen';
 import SearchScreen from '../SearchScreen'
+// src_Detail
+import Reviews_score from '../src-Detail/Reviews_score';
 
 // src_Bell
 import Detail_Pro from '../src_Bell/Detail_Pro';
@@ -61,6 +63,7 @@ import The_BestFinScreen from '../src_Promotion/The_BestFinScreen';
 import Installment_payScreen from '../src_Promotion/Installment_payScreen';
 import Detail_Campaign from '../src_Promotion/Detail_Campaign';
 
+import Test_Chat from '../Test_Chat';
 ///----------------------------------------------------------------------------------------------->>>>
 
 const PathScreen = createStackNavigator({
@@ -199,6 +202,15 @@ const PathScreen = createStackNavigator({
   },
   CategoryScreen: {
     screen: CategoryScreen,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
+
+  // src_Detail
+  Reviews_score: {
+    screen: Reviews_score,
     navigationOptions: () => ({
       tabBarVisible: false,
       header: null,
@@ -411,12 +423,18 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
+  Test_Chat: {
+    screen: Test_Chat,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
 },
   {
     initialRouteName: 'MainScreen',
-    // initialRouteName: 'ExclusiveScreen',
-    // initialRouteName: 'StoreMeScreen',
-    // initialRouteName: 'DealScreen',
+    // initialRouteName: 'Reviews_score',
+    // initialRouteName: 'ProfileScreen',
     // initialRouteName: 'CancelScreen',
   }
 );

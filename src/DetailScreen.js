@@ -41,8 +41,8 @@ export default class DetailScreen extends React.Component {
   getDataAsync = async () => {
     const currentUser = await AsyncStorage.getItem('@MyKey')
     this.setState({ currentUser: JSON.parse(currentUser) })
-    ////console.log('Main|currentUser')
-    ////console.log(currentUser)
+    //console.log('Main|currentUser')
+    //console.log(currentUser)
   }
   componentDidMount() {
     this.getDataAsync()
@@ -124,7 +124,10 @@ export default class DetailScreen extends React.Component {
           <Selector dataService={dataService} BuyProduct={BuyProduct} sendProduct={this.BuyProduct.bind(this)} />
           <Detail_Category dataService={dataService} />
           <Detail dataService={dataService} />
-          <Reviews />
+          {
+            dataService.product_data &&
+            <Reviews dataService={dataService.product_data} currentUser={currentUser} navigation={navigation} />
+          }
           <BannerBar />
           <Same_Store dataService={dataService} navigation={navigation} />
           <Similar_Product dataService={dataService} navigation={navigation} />
@@ -266,6 +269,8 @@ export class Detail_Data extends React.Component {
       id_product
     } = this.state
     const { dataService } = this.props;
+    //console.log('dataServiceArray')
+    //console.log(dataServiceArray)
     if (
       dataServiceArray !== nextState.dataServiceArray || countItem !== nextState.countItem || RunTime !== nextState.RunTime ||
       dataService !== nextProps.dataService || id_product !== nextState.id_product || arrayCountA !== nextState.arrayCountA ||
@@ -426,8 +431,8 @@ export class Detail_Data extends React.Component {
   }
   render() {
     // const { dataServiceArray2 } = this.state
-    // ////console.log('dataServiceArray2')
-    // ////console.log(dataServiceArray2)
+    //console.log('dataServiceArray2')
+    //console.log(dataServiceArray2)
     return (
       // this.SetData(),
       // this.SetData2(),
@@ -866,14 +871,6 @@ export class Detail_Category extends React.Component {
             <View style={[stylesMain.BottomSpace, stylesMain.FlexRow]}>
               <View style={{ width: '25%' }}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10 }]}>
-                  จำนวนสินค้า</Text>
-              </View>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                {item.amount_product}</Text>
-            </View>
-            <View style={[stylesMain.BottomSpace, stylesMain.FlexRow]}>
-              <View style={{ width: '25%' }}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10 }]}>
                   ส่งจาก</Text>
               </View>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
@@ -914,8 +911,8 @@ export class Detail extends React.Component {
   get id_store() {
     const { showMoreButton, activeText } = this.state
     const { dataService } = this.props
-    ////console.log('activeText')
-    ////console.log(activeText)
+    //console.log('activeText')
+    //console.log(activeText)
     return dataService.product_data &&
       dataService.product_data.map((item, index) => {
         return (
@@ -961,38 +958,124 @@ export class Reviews extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      dataService2: []
     };
   }
+  navigationNavigateScreen = (value, value2) => {
+    const { navigation } = this.props
+    value == 'goBack' ?
+      navigation.goBack() :
+      navigation.navigate(value, value2)
+  }
+  getData = (dataService2) => {
+    console.log('getData|dataService2')
+    console.log(dataService2)
+    this.setState({ dataService2 })
+  }
+  customerReview(review) {
+    return review &&
+      review.map((item, index) => {
+        if (index < 5) {
+          var img_rate = item.img_rate.split(";")
+          console.log('img_rate')
+          console.log(img_rate)
+          let imagereview = []
+          img_rate.map((item2, index2) => {
+            var path = finip + '/' + item.path_rate + '/' + item2
+            imagereview.push(<FastImage
+              key={index2}
+              style={stylesDetail.Reviews_Image}
+              source={{ uri: path }}
+            />)
+          })
+          return <View style={stylesDetail.Comment_R} key={index}>
+            <FastImage
+              style={stylesDetail.Comment_R_Image}
+              source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
+            />
+            <View style={stylesDetail.Comment_R_Text}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                {item.name ? item.name : 'ไม่ระบุตัวตน'}</Text>
+              <View style={stylesDetail.Comment_R_Iconstar}>
+                {
+                  this.starReview(item.rating, 15)
+                }
+              </View>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                {item.detail}</Text>
+              <View style={[stylesDetail.Comment_Image_A, stylesMain.BottomSpace]}>
+                {imagereview}
+              </View>
+              <Text style={[stylesDetail.Comment_text_day, stylesFont.FontFamilyText, stylesFont.FontSize8, stylesMain.BottomSpace]}>
+                16-11-2019 15:56</Text>
+            </View>
+          </View>
+        }
+      })
+  }
+  starReview(star, starSize) {
+    let starBox = []
+    for (var n = 0; n < 5; n++) {
+      if (star > n) {
+        starBox.push(<IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={starSize ? starSize : 20} color='#FFAC33' />)
+      } else {
+        starBox.push(<IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={starSize ? starSize : 20} color='#E9E9E9' />)
+      }
+    }
+    return starBox
+  }
   render() {
+    const { dataService2 } = this.state
+    const { dataService, currentUser } = this.props
+    var uri = finip + '/product/product_review_mobile'
+    var dataBody
+    dataService && (
+      dataBody = {
+        id_product: dataService[0].id_product,
+        id_store: dataService[0].id_store,
+        id_customer: currentUser.id_customer,
+      }
+    )
+    console.log('dataService')
+    console.log(dataService)
+    console.log('dataBody')
+    console.log(dataBody)
+    console.log('dataService2')
+    console.log(dataService2)
     return (
       <View style={stylesMain.FrameBackground}>
+        {
+          dataService && dataBody &&
+          <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
+        }
         <View style={stylesMain.FrameBackgroundTextBox}>
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
-            คะแนนสินค้า</Text>
-          <View style={stylesMain.FlexRow}>
+            คะแนนร้านค้า</Text>
+          <TouchableOpacity style={stylesMain.FlexRow} onPress={this.navigationNavigateScreen.bind(this, 'Reviews_score')}>
             <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize6, { marginRight: 0 }]}>
               ดูทั้งหมด</Text>
             <IconFeather style={stylesDetail.Score_iconB} name='edit' size={20} color='#0A55A6' />
-          </View>
+          </TouchableOpacity>
         </View>
-        <View style={stylesDetail.Price_Text_IconBox}>
-          <View style={stylesDetail.Price_Text_IconBoxStar}>
-            <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
-            <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
-            <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
-            <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
-            <IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={20} color='#FFAC33' />
-            <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-              5/5</Text>
-            <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-              ( 10 รีวิว)</Text>
+        {
+          dataService2 &&
+          <View style={stylesDetail.Price_Text_IconBox}>
+            <View style={stylesDetail.Price_Text_IconBoxStar}>
+              {
+                this.starReview(dataService2.rating_total)
+              }
+              <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                {dataService2.rating_total}/5</Text>
+              <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                ( {dataService2.review ? dataService2.review.length : '0'} รีวิว)</Text>
+            </View>
           </View>
-        </View>
+        }
         <View style={stylesDetail.Reviews_Box}>
-          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
-            ภาพจากผู้ซื้อ</Text>
+          {/* <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
+            ภาพจากผู้ซื้อ</Text> */}
           <View>
-            <ScrollView horizontal>
+            {/* <ScrollView horizontal>
               <View style={stylesDetail.Reviews_Image_Box}>
                 <FastImage
                   style={stylesDetail.Reviews_Image}
@@ -1019,84 +1102,11 @@ export class Reviews extends React.Component {
                   source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
                 />
               </View>
-            </ScrollView>
-            <View style={stylesDetail.Comment_R}>
-              <FastImage
-                style={stylesDetail.Comment_R_Image}
-                source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
-              />
-              <View style={stylesDetail.Comment_R_Text}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-                  p********n</Text>
-                <View style={stylesDetail.Comment_R_Iconstar}>
-                  <IconFontAwesome name='star' size={15} color='#FFAC33' />
-                  <IconFontAwesome name='star' size={15} color='#FFAC33' />
-                  <IconFontAwesome name='star' size={15} color='#FFAC33' />
-                  <IconFontAwesome name='star' size={15} color='#FFAC33' />
-                  <IconFontAwesome name='star' size={15} color='#E9E9E9' />
-                </View>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.BottomSpace]}>
-                  สั่งซื้อซ้ำเป็นรอบที่ 2 ติดใจโรงแรมสะอาดราคาไม่แพง โลเคชั่นดี</Text>
-                <Text style={[stylesDetail.Comment_text_day, stylesFont.FontFamilyText, stylesFont.FontSize8, stylesMain.BottomSpace]}>
-                  16-11-2019 15:56 | กรอบแว่นขนาด 50 cm</Text>
-              </View>
-            </View>
-            <View style={stylesDetail.Comment_R}>
-              <FastImage
-                style={stylesDetail.Comment_R_Image}
-                source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
-              />
-              <View style={stylesDetail.Comment_R_Text}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-                  p********n</Text>
-                <View style={stylesDetail.Comment_R_Iconstar}>
-                  <IconFontAwesome name='star' size={15} color='#FFAC33' />
-                  <IconFontAwesome name='star' size={15} color='#FFAC33' />
-                  <IconFontAwesome name='star' size={15} color='#FFAC33' />
-                  <IconFontAwesome name='star' size={15} color='#FFAC33' />
-                  <IconFontAwesome name='star' size={15} color='#E9E9E9' />
-                </View>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                  สั่งซื้อซ้ำเป็นรอบที่ 2 ติดใจโรงแรมสะอาดราคาไม่แพง โลเคชั่นดี</Text>
-                <View style={[stylesDetail.Comment_Image_A, stylesMain.BottomSpace]}>
-                  <FastImage
-                    style={stylesDetail.Reviews_Image}
-                    source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
-                  />
-                  <FastImage
-                    style={stylesDetail.Reviews_Image}
-                    source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
-                  />
-                  <FastImage
-                    style={stylesDetail.Reviews_Image}
-                    source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
-                  />
-                </View>
-                <Text style={[stylesDetail.Comment_text_day, stylesFont.FontFamilyText, stylesFont.FontSize8, stylesMain.BottomSpace]}>
-                  16-11-2019 15:56 | กรอบแว่นขนาด 50 cm</Text>
-              </View>
-            </View>
-            <View style={stylesDetail.Comment_R}>
-              <FastImage
-                style={stylesDetail.Comment_R_Image}
-                source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
-              />
-              <View style={stylesDetail.Comment_R_Text}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-                  p********n</Text>
-                <View style={stylesDetail.Comment_R_Iconstar}>
-                  <IconFontAwesome name='star' size={15} color='#FFAC33' />
-                  <IconFontAwesome name='star' size={15} color='#FFAC33' />
-                  <IconFontAwesome name='star' size={15} color='#FFAC33' />
-                  <IconFontAwesome name='star' size={15} color='#E9E9E9' />
-                  <IconFontAwesome name='star' size={15} color='#E9E9E9' />
-                </View>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.BottomSpace]}>
-                  สั่งซื้อซ้ำเป็นรอบที่ 2 ติดใจโรงแรมสะอาดราคาไม่แพง โลเคชั่นดี</Text>
-                <Text style={[stylesDetail.Comment_text_day, stylesFont.FontFamilyText, stylesFont.FontSize8, stylesMain.BottomSpace]}>
-                  16-11-2019 15:56 | กรอบแว่นขนาด 50 cm</Text>
-              </View>
-            </View>
+            </ScrollView> */}
+            {
+              dataService2 &&
+              this.customerReview(dataService2.review)
+            }
           </View>
         </View>
       </View>

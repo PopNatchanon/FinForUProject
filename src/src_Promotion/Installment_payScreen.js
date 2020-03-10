@@ -54,9 +54,11 @@ export class Head_Image extends Component {
         <View style={stylesPromotionDeal.Head_BoxImage}>
           <FastImage style={stylesPromotionDeal.Head_Image}
             source={{
-              uri: ip + '/MySQL/uploads/slide/lazada-ผ่อน-0-10-เดือน.jpg',
+              uri: ip + '/MySQL/uploads/slide/banner_payment.jpg',
             }}
+            resizeMode={'cover'}
           />
+          
         </View>
         <View style={stylesPromotionDeal.Head_BoxText}>
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>

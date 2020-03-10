@@ -23,7 +23,7 @@ export default class Detail_Pro extends Component {
                 return (
                     <View>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='รายละเอียดโปรโมชัน' />
-                        <Detail_Promotion />
+                        <Detail_Promotion navigation={this.props.navigation} />
                     </View>
                 )
             case 1:
@@ -231,3 +231,6 @@ export class Detail_Button extends Component {
         );
     }
 }
+///----------------------------------------------------------------------------------------------->>>
+
+

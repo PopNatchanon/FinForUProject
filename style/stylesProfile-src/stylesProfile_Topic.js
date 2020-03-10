@@ -322,13 +322,10 @@ export default StyleSheet.create({
         flexDirection: 'row',
     },
     Order_Button: {
-        padding: 10,
-        height: 30,
+        padding: 5,
         borderRadius: 5,
-        marginLeft: 10,
+        marginLeft: 5,
         flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
     },
     Order_Product: {
         height: 120,

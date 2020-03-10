@@ -980,9 +980,9 @@ export class Reviews extends React.Component {
     let starBox = []
     for (var n = 0; n < 5; n++) {
       if (star > n) {
-        starBox.push(<IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={starSize ? starSize : 20} color='#FFAC33' />)
+        starBox.push(<IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={starSize ? starSize : 20} color='#FFAC33' />)
       } else {
-        starBox.push(<IconFontAwesome style={stylesDetail.Price_IconStar} name='star' size={starSize ? starSize : 20} color='#E9E9E9' />)
+        starBox.push(<IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={starSize ? starSize : 20} color='#E9E9E9' />)
       }
     }
     return starBox
@@ -1030,13 +1030,13 @@ export class Reviews extends React.Component {
               <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                 {dataService2.rating_total}/5</Text>
               <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-                ( 10 รีวิว)</Text>
+                ( {dataService2.review ? dataService2.review.length : '0'} รีวิว)</Text>
             </View>
           </View>
         }
         <View style={stylesDetail.Reviews_Box}>
-          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
-            ภาพจากผู้ซื้อ</Text>
+          {/* <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
+            ภาพจากผู้ซื้อ</Text> */}
           <View>
             {/* <ScrollView horizontal>
               <View style={stylesDetail.Reviews_Image_Box}>

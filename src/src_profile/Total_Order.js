@@ -55,38 +55,41 @@ export class Button_bar extends Component {
                 return (
                     <View>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, marginTop: 10, }]}>รายการคำสั่งซื้อ</Text>
-                        <Order_Payment navigation={this.props.navigation} />
-                        <Order />
-                        <Order_Get navigation={this.props.navigation} />
+                        <From_Order_Box navigation={this.props.navigation} payment_order cancel_order />
+                        <From_Order_Box navigation={this.props.navigation} detail_order />
+                        <From_Order_Box navigation={this.props.navigation} detail_order shipping_order />
+                        <From_Order_Box navigation={this.props.navigation} Review_order return_order detail_order />
+
                     </View>
                 )
             case 1:
                 return (
                     <View>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, marginTop: 10, }]}>ที่ต้องชำระ</Text>
-                        <Order_Payment navigation={this.props.navigation} />
-                        <Order_Payment navigation={this.props.navigation} />
+                        <From_Order_Box navigation={this.props.navigation} payment_order cancel_order />
+                        <From_Order_Box navigation={this.props.navigation} payment_order cancel_order />
                     </View>
                 )
             case 2:
                 return (
                     <View>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, marginTop: 10, }]}>เตรียมจัดส่ง</Text>
-                        <Order_Sending navigation={this.props.navigation} />
+                        <From_Order_Box navigation={this.props.navigation} detail_order />
                     </View>
                 )
             case 3:
                 return (
                     <View>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, marginTop: 10, }]}> ที่ต้องได้รับ </Text>
-                        <Order_Get navigation={this.props.navigation} />
+                        <From_Order_Box navigation={this.props.navigation} detail_order shipping_order />
                     </View>
                 )
             case 4:
                 return (
                     <View>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, marginTop: 10, }]}> สำเร็จแล้ว </Text>
-                        <Order_Already navigation={this.props.navigation} />
+                        <From_Order_Box navigation={this.props.navigation} Review_order return_order detail_order />
+                        <From_Order_Box navigation={this.props.navigation} buy_again_order return_order />
                     </View>
                 )
         }
@@ -127,95 +130,53 @@ export class Button_bar extends Component {
         );
     }
 }
-///----------------------------------------------------------------------------------------------->>>> Order
-export class Order extends Component {
+
+///----------------------------------------------------------------------------------------------->>>> From_Order_Box
+export class From_Order_Box extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
     render() {
-        return (
-            <View style={stylesMain.FrameBackground}>
-                <View style={stylesProfileTopic.Order_BoxStore}>
-                    <View style={stylesProfileTopic.Order_StorePro}></View>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5, }]}>PPoo</Text>
-                    <View style={stylesProfileTopic.Order_Box_Button}>
-                        <TouchableOpacity>
-                            <View style={[stylesProfileTopic.Order_Button, { backgroundColor: '#0A55A6' }]}>
-                                <IconAntDesign RightItem name="wechat" size={25} color='#FFFFFF' />
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>แชทเลย</Text>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1 }]}>
-                                <Icons RightItem name="store" size={20} />
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูร้านค้า</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-                <View style={stylesProfileTopic.Order_Product}>
-                    <View style={stylesMain.FlexRow}>
-                        <View style={stylesProfileTopic.Order_Product_Pro}>
-                        </View>
-                        <View style={{ marginTop: 10 }}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A2A2A2' }]}>ตัวเลือกสินค้า:สีแดง</Text>
-                            <Text>x 1</Text>
-                        </View>
-                    </View>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#0A55A6', marginTop: 10, }]}>฿10,000.00</Text>
-                </View>
-                <View style={stylesProfileTopic.Order_Box_price}>
-                    <View style={stylesProfileTopic.Order_Box_priceText}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยอดคำสั่งซื้อทั้งหมด</Text>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, color: '#0A55A6' }]}>฿ 10,000.00</Text>
-                    </View>
-                    <View style={[stylesProfileTopic.Order_Box_priceText, { marginTop: 5, }]}>
-                        <TouchableOpacity>
-                            <View style={[stylesProfileTopic.Order_Button, { backgroundColor: '#0A55A6' }]}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ซื้ออีกครั้ง</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </View>
-        );
-    }
-}
-///----------------------------------------------------------------------------------------------->>>> Order_Payment
-export class Order_Payment extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    render() {
+        const { payment_order, cancel_order, detail_order, shipping_order, Review_order, return_order, buy_again_order, } = this.props
         return (
             <View>
                 <View style={stylesMain.FrameBackground}>
-                    <View style={stylesProfileTopic.Order_BoxStore}>
-                        <FastImage style={stylesProfileTopic.Order_StorePro}
-                            source={{
-                                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
-                            }}
-                        />
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5, }]}>PPoo</Text>
-                        <View style={stylesProfileTopic.Order_Box_Button}>
-                            <TouchableOpacity>
-                                <View style={[stylesProfileTopic.Order_Button, { backgroundColor: '#0A55A6' }]}>
-                                    <IconAntDesign RightItem name="wechat" size={25} color='#FFFFFF' />
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>แชทเลย</Text>
-                                </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity>
-                                <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1 }]}>
-                                    <Icons RightItem name="store" size={20} />
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูร้านค้า</Text>
-                                </View>
-                            </TouchableOpacity>
+                    <View style={[stylesProfileTopic.Order_BoxStore, { justifyContent: 'space-between' }]}>
+                        <View style={stylesMain.FlexRow}>
+                            <FastImage style={stylesProfileTopic.Order_StorePro}
+                                source={{
+                                    uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
+                                }}
+                            />
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5, }]}>PPoo</Text>
+                            <View style={stylesProfileTopic.Order_Box_Button}>
+                                <TouchableOpacity>
+                                    <View style={[stylesProfileTopic.Order_Button, { backgroundColor: '#0A55A6' }]}>
+                                        <IconAntDesign RightItem name="wechat" size={25} color='#FFFFFF' />
+                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#FFFFFF' }]}>แชทเลย</Text>
+                                    </View>
+                                </TouchableOpacity>
+                                <TouchableOpacity>
+                                    <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1 }]}>
+                                        <Icons RightItem name="store" size={20} />
+                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>ดูร้านค้า</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
                         </View>
+                        {
+                            shipping_order &&
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#20BDA1', marginTop: 10, }]}>กำลังจัดส่ง</Text>
+                        }{
+                            Review_order &&
+                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 7 })}>                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#20BDA1', marginTop: 10, }]}>
+                                    <IconFeather name='edit' size={15} />
+                                    เขียนรีวิว
+                                </Text>
+                            </TouchableOpacity>
+                        }
                     </View>
                     <View style={stylesProfileTopic.Order_Product}>
                         <View style={stylesMain.FlexRow}>
@@ -240,234 +201,46 @@ export class Order_Payment extends Component {
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, color: '#0A55A6' }]}>฿ 10,000.00</Text>
                         </View>
                         <View style={[stylesProfileTopic.Order_Box_priceText, { marginTop: 5, }]}>
-                            <TouchableOpacity>
-                                <View style={[stylesProfileTopic.Order_Button, { backgroundColor: '#0A55A6' }]}>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ดำเนินการชำระเงิน</Text>
-                                </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate('CancelScreen', { selectedIndex: 1 })}>
-                                <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยกเลิกสินค้า</Text>
-                                </View>
-                            </TouchableOpacity>
+                            {
+                                payment_order &&
+                                <TouchableOpacity>
+                                    <View style={[stylesProfileTopic.Order_Button, { backgroundColor: '#0A55A6' }]}>
+                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ดำเนินการชำระเงิน</Text>
+                                    </View>
+                                </TouchableOpacity>
+
+                            }{
+                                cancel_order &&
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate('CancelScreen', { selectedIndex: 1 })}>
+                                    <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
+                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยกเลิกสินค้า</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            }
+                            {
+                                return_order &&
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate('Return_products', { selectedIndex: 1 })}>
+                                    <View style={{ borderBottomColor: '#0A55A6', borderBottomWidth: 1, height: 20, }}>
+                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>ส่งคำร้องคืนสินค้า</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            }
+                            {
+                                detail_order &&
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate('Order_Detail')}>
+                                    <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
+                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            }{
+                                buy_again_order &&
+                                <TouchableOpacity>
+                                    <View style={[stylesProfileTopic.Order_Button, { backgroundColor: '#0A55A6' }]}>
+                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ซื้ออีกครั้ง</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            }
                         </View>
-                    </View>
-                </View>
-            </View>
-        );
-    }
-}
-///----------------------------------------------------------------------------------------------->>>> Order_Sending
-export class Order_Sending extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    render() {
-        return (
-            <View style={stylesMain.FrameBackground}>
-                <View style={[stylesProfileTopic.Order_BoxStore, { justifyContent: 'space-between' }]}>
-                    <View style={stylesMain.FlexRow}>
-                        <FastImage style={stylesProfileTopic.Order_StorePro}
-                            source={{
-                                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
-                            }}
-                        />
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5, }]}>PPoo</Text>
-                        <View style={stylesProfileTopic.Order_Box_Button}>
-                            <TouchableOpacity>
-                                <View style={[stylesProfileTopic.Order_Button, { backgroundColor: '#0A55A6' }]}>
-                                    <IconAntDesign RightItem name="wechat" size={25} color='#FFFFFF' />
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>แชทเลย</Text>
-                                </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity>
-                                <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1 }]}>
-                                    <Icons RightItem name="store" size={20} />
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูร้านค้า</Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </View>
-                <View style={stylesProfileTopic.Order_Product}>
-                    <View style={stylesMain.FlexRow}>
-                        <View style={stylesProfileTopic.Order_Product_Pro}>
-                            <FastImage style={stylesMain.BoxProduct1Image}
-                                source={{
-                                    uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
-                                }}
-                            />
-                        </View>
-                        <View style={{ marginTop: 10 }}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A2A2A2' }]}>ตัวเลือกสินค้า:สีแดง</Text>
-                            <Text>x 1</Text>
-                        </View>
-                    </View>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#0A55A6', marginTop: 10, }]}>฿10,000.00</Text>
-                </View>
-                <View style={stylesProfileTopic.Order_Box_price}>
-                    <View style={stylesProfileTopic.Order_Box_priceText}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยอดคำสั่งซื้อทั้งหมด</Text>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, color: '#0A55A6' }]}>
-                            ฿ 10,000.00</Text>
-                    </View>
-                    <View style={[stylesProfileTopic.Order_Box_priceText, { marginTop: 5, }]}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Order_Detail')}>
-                            <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </View>
-        );
-    }
-}
-///----------------------------------------------------------------------------------------------->>>> Order_Get
-export class Order_Get extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    render() {
-        return (
-            <View style={stylesMain.FrameBackground}>
-                <View style={[stylesProfileTopic.Order_BoxStore, { justifyContent: 'space-between' }]}>
-                    <View style={stylesMain.FlexRow}>
-                        <FastImage style={stylesProfileTopic.Order_StorePro}
-                            source={{
-                                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
-                            }}
-                        />
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5, }]}>PPoo</Text>
-                        <View style={stylesProfileTopic.Order_Box_Button}>
-                            <TouchableOpacity>
-                                <View style={[stylesProfileTopic.Order_Button, { backgroundColor: '#0A55A6' }]}>
-                                    <IconAntDesign RightItem name="wechat" size={25} color='#FFFFFF' />
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>แชทเลย</Text>
-                                </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity>
-                                <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1 }]}>
-                                    <Icons RightItem name="store" size={20} />
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>ดูร้านค้า</Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#20BDA1', marginTop: 10, }]}>กำลังจัดส่ง</Text>
-                </View>
-                <View style={stylesProfileTopic.Order_Product}>
-                    <View style={stylesMain.FlexRow}>
-                        <View style={stylesProfileTopic.Order_Product_Pro}>
-                            <FastImage style={stylesMain.BoxProduct1Image}
-                                source={{
-                                    uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
-                                }}
-                            />
-                        </View>
-                        <View style={{ marginTop: 10 }}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A2A2A2' }]}>ตัวเลือกสินค้า:สีแดง</Text>
-                            <Text>x 1</Text>
-                        </View>
-                    </View>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#0A55A6', marginTop: 10, }]}>฿10,000.00</Text>
-                </View>
-                <View style={stylesProfileTopic.Order_Box_price}>
-                    <View style={stylesProfileTopic.Order_Box_priceText}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยอดคำสั่งซื้อทั้งหมด</Text>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, color: '#0A55A6' }]}>
-                            ฿ 10,000.00</Text>
-                    </View>
-                    <View style={[stylesProfileTopic.Order_Box_priceText, { marginTop: 5, }]}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Order_Detail')}>
-                            <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </View>
-        );
-    }
-}
-///----------------------------------------------------------------------------------------------->>>> Order_Already
-export class Order_Already extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    render() {
-        return (
-            <View style={stylesMain.FrameBackground}>
-                <View style={[stylesProfileTopic.Order_BoxStore, { justifyContent: 'space-between' }]}>
-                    <View style={stylesMain.FlexRow}>
-                        <FastImage style={stylesProfileTopic.Order_StorePro}
-                            source={{
-                                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
-                            }}
-                        />
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5, }]}>PPoo</Text>
-                        <View style={stylesProfileTopic.Order_Box_Button}>
-                            <TouchableOpacity>
-                                <View style={[stylesProfileTopic.Order_Button, { backgroundColor: '#0A55A6' }]}>
-                                    <IconAntDesign RightItem name="wechat" size={25} color='#FFFFFF' />
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>แชทเลย</Text>
-                                </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity>
-                                <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1 }]}>
-                                    <Icons RightItem name="store" size={20} />
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูร้านค้า</Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#20BDA1', marginTop: 10, }]}>
-                        <IconFeather name='edit' size={20} />
-                        เขียนรีวิว
-                    </Text>
-                </View>
-                <View style={stylesProfileTopic.Order_Product}>
-                    <View style={stylesMain.FlexRow}>
-                        <View style={stylesProfileTopic.Order_Product_Pro}>
-                            <FastImage style={stylesMain.BoxProduct1Image}
-                                source={{
-                                    uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
-                                }}
-                            />
-                        </View>
-                        <View style={{ marginTop: 10 }}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A2A2A2' }]}>ตัวเลือกสินค้า:สีแดง</Text>
-                            <Text>x 1</Text>
-                        </View>
-                    </View>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#0A55A6', marginTop: 10, }]}>฿10,000.00</Text>
-                </View>
-                <View style={stylesProfileTopic.Order_Box_price}>
-                    <View style={stylesProfileTopic.Order_Box_priceText}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยอดคำสั่งซื้อทั้งหมด</Text>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, color: '#0A55A6' }]}>
-                            ฿ 10,000.00</Text>
-                    </View>
-                    <View style={[stylesProfileTopic.Order_Box_priceText, { marginTop: 5, }]}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Return_products', { selectedIndex: 1 })}>
-                            <View style={{ borderBottomColor: '#0A55A6', borderBottomWidth: 1, height: 20, }}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>ส่งคำร้องคืนสินค้า</Text>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Order_Detail')}>
-                            <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
-                            </View>
-                        </TouchableOpacity>
                     </View>
                 </View>
             </View>

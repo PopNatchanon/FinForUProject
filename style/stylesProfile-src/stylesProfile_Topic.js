@@ -214,15 +214,6 @@ export default StyleSheet.create({
         height: 150,
         width: '100%'
     },
-    Review_From_UpImage: {
-        height: 50,
-        width: 150,
-        borderColor: '#CACACA',
-        borderWidth: 1, flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 5,
-    },
     Review_From_Buttonshare: {
         margin: 10,
         borderRadius: 5,

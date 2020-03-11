@@ -181,12 +181,9 @@ export class TabBar extends React.Component {
     // fontColor='#fff'
     />*/
     setSelectTab = (pathlist, PassSetValue) => {
-        this._isMounted = true;
         const { sendData } = this.props
-        if (this._isMounted) {
-            this.setState({ pathlist, PassSetValue })
-            sendData(pathlist)
-        }
+        this.setState({ pathlist, PassSetValue })
+        sendData(pathlist)
     }
     get tab() {
         const {
@@ -198,7 +195,7 @@ export class TabBar extends React.Component {
         const countItem = item.length;
         PassSetValue < 1 &&
             SetValue &&
-            this.setSelectTab.bind(SetValue, PassSetValue + 1)
+            this.setSelectTab(SetValue, PassSetValue + 1)
         return item.map((item, index) => {
             return (
                 <TouchableOpacity key={index} activeOpacity={
@@ -430,24 +427,24 @@ export class GetServices extends React.Component {
         }
         return false
     }
-       getDataSource = async () => {
-            const { dataBody, uriPointer, getDataSource } = this.props
-            fetch(uriPointer, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(dataBody),
+    getDataSource = async () => {
+        const { dataBody, uriPointer, getDataSource } = this.props
+        fetch(uriPointer, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(dataBody),
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                getDataSource(responseJson);
             })
-                .then((response) => response.json())
-                .then((responseJson) => {
-                    getDataSource(responseJson);
-                })
-                .catch((error) => {
-                    console.error(error);
-                })
-        }
+            .catch((error) => {
+                console.error(error);
+            })
+    }
     componentDidMount() {
         this.getDataSource()
     }

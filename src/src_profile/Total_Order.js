@@ -42,15 +42,16 @@ export class Button_bar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedIndex: 0,
         };
-        this.updateIndex = this.updateIndex.bind(this)
     }
-    updateIndex(selectedIndex) {
+    updateIndex = (selectedIndex) => {
+        // console.log('updateIndex|selectedIndex')
+        // console.log(selectedIndex)
         this.setState({ selectedIndex })
     }
     PathList() {
-        switch (this.state.selectedIndex) {
+        var { selectedIndex } = this.state
+        switch (selectedIndex) {
             case 0:
                 return (
                     <View>
@@ -95,7 +96,13 @@ export class Button_bar extends Component {
         }
     }
     render() {
-        const { SetselectedIndex } = this.props
+        var { selectedIndex } = this.state
+        selectedIndex == null && (
+            selectedIndex = this.props.navigation.getParam('selectedIndex'),
+            this.updateIndex(selectedIndex)
+        )
+        // console.log('selectedIndex')
+        // console.log(selectedIndex)
         const item = [{
             name: 'ทั้งหมด'
         }, {
@@ -111,16 +118,19 @@ export class Button_bar extends Component {
             <View style={stylesMain.SafeAreaView}>
                 <View style={stylesProfileTopic.Button_bar}>
                     <ScrollView horizontal>
-                        <TabBar
-                            sendData={this.updateIndex}
-                            item={item}
-                            // noLimit
-                            SetValue={SetselectedIndex}
-                            // widthBox={98}
-                            activeColor={'#fff'}
-                            activeFontColor={'#0A55A6'}
-                            type='tag'
-                        />
+                        {
+                            selectedIndex &&
+                            <TabBar
+                                sendData={this.updateIndex.bind(this)}
+                                item={item}
+                                // noLimit
+                                SetValue={selectedIndex}
+                                // widthBox={98}
+                                activeColor={'#fff'}
+                                activeFontColor={'#0A55A6'}
+                                type='tag'
+                            />
+                        }
                     </ScrollView>
                 </View>
                 <ScrollView>
@@ -171,7 +181,8 @@ export class From_Order_Box extends Component {
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#20BDA1', marginTop: 10, }]}>กำลังจัดส่ง</Text>
                         }{
                             Review_order &&
-                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 7 })}>                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#20BDA1', marginTop: 10, }]}>
+                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 7 })}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#20BDA1', marginTop: 10, }]}>
                                     <IconFeather name='edit' size={15} />
                                     เขียนรีวิว
                                 </Text>
@@ -208,7 +219,6 @@ export class From_Order_Box extends Component {
                                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ดำเนินการชำระเงิน</Text>
                                     </View>
                                 </TouchableOpacity>
-
                             }{
                                 cancel_order &&
                                 <TouchableOpacity onPress={() => this.props.navigation.navigate('CancelScreen', { selectedIndex: 1 })}>
@@ -216,16 +226,14 @@ export class From_Order_Box extends Component {
                                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยกเลิกสินค้า</Text>
                                     </View>
                                 </TouchableOpacity>
-                            }
-                            {
+                            }{
                                 return_order &&
                                 <TouchableOpacity onPress={() => this.props.navigation.navigate('Return_products', { selectedIndex: 1 })}>
                                     <View style={{ borderBottomColor: '#0A55A6', borderBottomWidth: 1, height: 20, }}>
                                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>ส่งคำร้องคืนสินค้า</Text>
                                     </View>
                                 </TouchableOpacity>
-                            }
-                            {
+                            }{
                                 detail_order &&
                                 <TouchableOpacity onPress={() => this.props.navigation.navigate('Order_Detail')}>
                                     <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>

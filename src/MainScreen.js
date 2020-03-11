@@ -253,20 +253,20 @@ export class AppBar extends React.Component {
                     searchBar ?
                         <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'goBack')}>
                             <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical]}>
-                                <FastImage
+                                {/* <FastImage
                                     style={[stylesMain.LOGO, stylesMain.ItemCenterVertical]}
                                     source={require('../images/sj.png')}
                                     resizeMode={FastImage.resizeMode.stretch}
-                                />
+                                /> */}
                                 <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
                                     width:
                                         rightBar == 'storebar' ?
                                             leftBar == 'backarrow' ?
-                                                width - 200 :
-                                                width - 170 :
+                                                width - 140 :
+                                                width - 120 :
                                             rightBar == 'chat' ?
-                                                width - 200 :
-                                                width - 170,
+                                                width - 140 :
+                                                width - 120,
                                 }]}>
                                     <TextInput
                                         style={[
@@ -285,20 +285,20 @@ export class AppBar extends React.Component {
                         </TouchableOpacity> :
                         <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'SearchScreen', { modeStore: false })}>
                             <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical]}>
-                                <FastImage
+                                {/* <FastImage
                                     style={[stylesMain.LOGO, stylesMain.ItemCenterVertical]}
                                     source={require('../images/sj.png')}
                                     resizeMode={FastImage.resizeMode.stretch}
-                                />
+                                /> */}
                                 <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
                                     width:
                                         rightBar == 'storebar' ?
                                             leftBar == 'backarrow' ?
-                                                width - 200 :
-                                                width - 170 :
+                                                width - 140 :
+                                                width - 120 :
                                             rightBar == 'chat' ?
-                                                width - 200 :
-                                                width - 170,
+                                                width - 140 :
+                                                width - 120,
                                 }]}>
                                     <Text style={[
                                         stylesFont.FontFamilyText, stylesFont.FontSize5, stylesFont.FontCenter,

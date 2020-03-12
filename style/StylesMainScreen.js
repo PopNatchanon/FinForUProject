@@ -101,7 +101,7 @@ export default StyleSheet.create({
     color: '#0A55A6',
   },
   BoxProduct1ImagePriceThrough: {
-    color: '#C4C4C4',
+    color: '#fb3449',
     textDecorationLine: 'line-through',
   },
   ///------------///

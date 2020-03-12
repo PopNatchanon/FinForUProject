@@ -230,7 +230,6 @@ class Chat_Cutomer extends React.Component {
         )
     }
     render() {
-        //console.log(this.state.messages)
         return (
             <View style={{ height: '97%', width: '100%', backgroundColor: '#FFFFFF' }}>
                 <GiftedChat

@@ -212,7 +212,6 @@ export class Edit_Profile extends Component {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        //console.log(responseJson)
       })
       .catch((error) => {
         console.error(error);
@@ -220,7 +219,6 @@ export class Edit_Profile extends Component {
   }
   NameSheetBody() {
     const { Name } = this.state
-    //console.log(Name)
     return (
       <>
         <View style={stylesProfileTopic.Edit_Profile}>
@@ -366,8 +364,6 @@ export class Edit_Profile extends Component {
   setCurrentUser = () => {
     const { currentUser } = this.state
     currentUser.map((item) => {
-      //console.log('setCurrentUser:Map')
-      //console.log(item)
       var checked
       var checked2
       if (item.gender == 'male') {
@@ -382,8 +378,6 @@ export class Edit_Profile extends Component {
   }
   render() {
     const { currentUser, Name } = this.state
-    //console.log('render:currentUser')
-    //console.log(currentUser)
     currentUser != null && Name == null &&
       this.setCurrentUser()
     return (

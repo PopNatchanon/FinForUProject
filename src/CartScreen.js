@@ -4,6 +4,7 @@ import {
     Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
+import AsyncStorage from '@react-native-community/async-storage'
 import { CheckBox } from 'react-native-elements';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
@@ -31,12 +32,20 @@ export default class CartScreen extends React.Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { itemCount, itemData } = this.state
+        const { itemCount, itemData, currentUser } = this.state
         const { navigation } = this.props
-        if (itemCount !== nextState.itemCount || itemData !== nextState.itemData || navigation !== nextProps.navigation) {
+        if (itemCount !== nextState.itemCount || itemData !== nextState.itemData || currentUser !== nextState.currentUser ||
+            navigation !== nextProps.navigation) {
             return true
         }
         return false
+    }
+    componentDidMount() {
+        this.getDataAsync()
+    }
+    getDataAsync = async () => {
+        const currentUser = await AsyncStorage.getItem('@MyKey')
+        this.setState({ currentUser: JSON.parse(currentUser) })
     }
     getText(itemCount) {
         this.setState({ itemCount })
@@ -44,15 +53,38 @@ export default class CartScreen extends React.Component {
     getData(itemData) {
         this.setState({ itemData })
     }
+    getDataCart = (cart_ajax) => {
+        this.setState({ cart_ajax })
+    }
     render() {
+        const { currentUser, cart_ajax } = this.state
+        var dataBody
+        var uri
+        currentUser && (
+            dataBody = {
+                id_customer: currentUser.id_customer
+            },
+            uri = finip + '/product/cart_ajax'
+        )
+        cart_ajax && (
+            ('cart_ajax.list_cart'),
+            (cart_ajax.list_cart)
+        )
         const { itemCount, itemData } = this.state
         const { navigation } = this.props;
         return (
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
+                {
+                    currentUser && dataBody &&
+                    <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getDataCart.bind(this)} />
+                }
                 <AppBar1 navigation={navigation} titleHead='รถเข็น' chatBar backArrow />
                 <ScrollView>
-                    <Product_Cart itemData={itemData} sendText={this.getText.bind(this)} />
-                    {/* <Product_Like /> */}
+                    {
+                        // cart_ajax.list_cart &&
+                        // <Product_Cart dataService={cart_ajax.list_cart} itemData={itemData} sendText={this.getText.bind(this)} />
+                    }
+                    <Product_Like />
                     <PopularProduct navigation={navigation} headText={'คุณอาจชอบสิ่งนี้'} />
                 </ScrollView>
                 <Buy_bar sendData={this.getData.bind(this)} navigation={navigation} itemCount={itemCount} />
@@ -76,12 +108,11 @@ export class Product_Cart extends React.Component {
         return false
     }
     render() {
-        const { itemData, sendText } = this.props
-        const storecount = 1
+        const { itemData, sendText, dataService } = this.props
         return (
             <View>
                 {
-                    storecount > 0 ?
+                    dataService.length > 0 ?
                         <CartProduct itemData={itemData} sendData={sendText} /> :
                         <View style={stylesCart.Product_Cart}>
                             <View style={[stylesMain.ItemCenter, { height: 200, width: '100%' }]}>
@@ -107,10 +138,6 @@ export class CartProduct extends React.Component {
             ItemArray: [],
             HeadCount: 0,
         };
-        this.getData = this.getData.bind(this)
-    }
-    getData = (dataService) => {
-        this.setState({ dataService })
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { HeadCount, ItemArray, ItemHead, dataService } = this.state
@@ -220,53 +247,36 @@ export class CartProduct extends React.Component {
         const { ItemHead, ItemArray, HeadCount } = this.state
         return this.state.dataService && (
             this.state.dataService.map((item, index) => {
-                if (ItemHead[index] == null) {
-                    if (ItemHead.length == 0) {
-                        ItemHead[0] = { id_store: item.id_store, checked: true }
-                        this.setState({ ItemHead, HeadCount: HeadCount + 1 })
-                    } else {
-                        for (var m = 0; m < ItemHead.length; m++) {
-                            if (ItemHead[m].id_store != item.id_store) {
-                                ItemHead[m] = { id_store: item.id_store, checked: true }
-                                this.setState({ ItemHead, HeadCount: HeadCount + 1 })
-                            }
-                        }
-                    }
-                }
-                for (var m = 0; m < ItemHead.length && index < HeadCount; m++) {
-                    if (ItemHead[m].id_store == item.id_store) {
-                        return (
-                            <View style={{ marginBottom: 10, backgroundColor: '#fff' }} key={index}>
-                                <View style={{ flexDirection: 'row', borderColor: '#ECECEC', borderWidth: 1 }}>
-                                    <CheckBox
-                                        containerStyle={[stylesMain.ItemCenterVertical, { backgroundColor: null, borderWidth: null, }]}
-                                        textStyle={14}
-                                        fontFamily={'SukhumvitSet-Text'}
-                                        checked={ItemHead[m].checked}
-                                        onPress={() => {
-                                            ItemHead[m].checked ?
-                                                ItemHead[m].checked = false :
-                                                ItemHead[m].checked = true
-                                            this.ChangeCheckMain(ItemHead)
-                                            this.setState({ ItemHead })
-                                        }}
-                                    />
-                                    <View style={[stylesMain.ItemCenterVertical, {
-                                        width: 30, height: 30, borderRadius: 20, backgroundColor: '#cecece'
-                                    }]}>
-                                    </View>
-                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize5, {
-                                        marginLeft: 16,
-                                    }]}>
-                                        PPpp</Text>
-                                </View>
-                                <View>
-                                    {this.productItem(ItemHead[m].id_store)}
-                                </View>
+                return (
+                    <View style={{ marginBottom: 10, backgroundColor: '#fff' }} key={index}>
+                        <View style={{ flexDirection: 'row', borderColor: '#ECECEC', borderWidth: 1 }}>
+                            <CheckBox
+                                containerStyle={[stylesMain.ItemCenterVertical, { backgroundColor: null, borderWidth: null, }]}
+                                textStyle={14}
+                                fontFamily={'SukhumvitSet-Text'}
+                                checked={ItemHead[m].checked}
+                                onPress={() => {
+                                    ItemHead[m].checked ?
+                                        ItemHead[m].checked = false :
+                                        ItemHead[m].checked = true
+                                    this.ChangeCheckMain(ItemHead)
+                                    this.setState({ ItemHead })
+                                }}
+                            />
+                            <View style={[stylesMain.ItemCenterVertical, {
+                                width: 30, height: 30, borderRadius: 20, backgroundColor: '#cecece'
+                            }]}>
                             </View>
-                        )
-                    }
-                }
+                            <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize5, {
+                                marginLeft: 16,
+                            }]}>
+                                PPpp</Text>
+                        </View>
+                        <View>
+                            {this.productItem(ItemHead[m].id_store)}
+                        </View>
+                    </View>
+                )
             })
         )
     }
@@ -321,10 +331,7 @@ export class CartProduct extends React.Component {
         })
     }
     setStateIHID = (ItemHead, itemData) => {
-        this._isMounted = true;
-        if (this._isMounted) {
-            this.setState({ ItemHead, itemData })
-        }
+        this.setState({ ItemHead, itemData })
     }
     checkBox = () => {
         const { ItemHead, ItemArray } = this.state
@@ -339,14 +346,9 @@ export class CartProduct extends React.Component {
         }
     }
     render() {
-        var dataBody = {
-            type: 'sale'
-        };
-        var uri = ip + '/mysql/DataServiceMain.php'
         this.checkBox
         return (
             <>
-                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
                 {this.storeItem()}
             </>
         )

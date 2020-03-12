@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation'
+// Main
 import MainScreen from '../MainScreen';
 import StoreScreen from '../StoreScreen';
 import DetailScreen from '../DetailScreen';
@@ -24,10 +25,8 @@ import SecondScreen from '../SecondScreen';
 import SearchScreen from '../SearchScreen'
 // src_Detail
 import Reviews_score from '../src-Detail/Reviews_score';
-
 // src_Bell
 import Detail_Pro from '../src_Bell/Detail_Pro';
-
 // src_profile
 import Profile_Topic from '../src_profile/Profile_Topic';
 import SettingScreen from '../src_profile/SettingScreen';
@@ -36,7 +35,6 @@ import Return_products from '../src_profile/Return_products';
 import Total_Order from '../src_profile/Total_Order';
 import Order_Detail from '../src_profile/Order_Detail';
 import Setting_Topic from '../src_profile/src_Setting/Setting_Topic';
-
 // src_storeMe
 import StoreMeScreen from '../src_storeMe/StoreMeScreen';
 import StoreMe_Topic from '../src_storeMe/StoreMe_Topic';
@@ -47,13 +45,10 @@ import StoreMe_Up_Product from '../src_storeMe/StoreMe_Up_Product';
 import StoreMe_Return from '../src_storeMe/StoreMe_Return';
 import StoreMe_Detail_Order from '../src_storeMe/StoreMe_Detail_Order';
 import Setting_TopicStore from '../src_storeMe/src_SettingStore/Setting_TopicStore';
-
-
 // src-Cart
 import Customer_account from '../src-Cart/Customer_account';
 import Customer_Order from '../src-Cart/Customer_Order';
 import Customer_Complete_Order from '../src-Cart/Customer_Complete_Order';
-
 // src_Promotion
 import Deal_Topic from '../src_Promotion/src_DealTopic/Deal_Topic';
 import DealScreen from '../src_Promotion/DealScreen';
@@ -62,10 +57,9 @@ import CampaignScreen from '../src_Promotion/CampaignScreen';
 import The_BestFinScreen from '../src_Promotion/The_BestFinScreen';
 import Installment_payScreen from '../src_Promotion/Installment_payScreen';
 import Detail_Campaign from '../src_Promotion/Detail_Campaign';
-
+//
 import Test_Chat from '../Test_Chat';
 ///----------------------------------------------------------------------------------------------->>>>
-
 const PathScreen = createStackNavigator({
   MainScreen: {
     screen: MainScreen,

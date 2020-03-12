@@ -91,7 +91,6 @@ export class Login extends Component {
   }
   navigationNavigateScreen = (value, value2) => {
     const { navigation } = this.props
-    //console.log(value)
     navigation.goBack()
     navigation.replace(value, value2)
   }

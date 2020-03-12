@@ -66,58 +66,125 @@ export class Toolbar extends React.Component {
         return (
             <View style={stylesMain.Toolbar}>
                 <TouchableOpacity activeOpacity={1}
-                    onPress={routeSelcet != 'MainScreen' ? this.navigationNavigateScreen.bind(this, 'MainScreen') : null}>
+                    onPress={
+                        routeSelcet != 'MainScreen' ?
+                            this.navigationNavigateScreen.bind(this, 'MainScreen') :
+                            null}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                        <IconAntDesign name="home" size={25} color={routeSelcet == 'MainScreen' ? '#0A55A6' : '#111'} />
+                        <IconAntDesign name="home" size={25}
+                            color={
+                                routeSelcet == 'MainScreen' ?
+                                    '#0A55A6' :
+                                    '#111'} />
                         <Text style={{
-                            fontSize: 13, fontFamily: 'SukhumvitSet-Text', color: routeSelcet == 'MainScreen' ? '#0A55A6' : '#111'
+                            fontSize: 13, fontFamily: 'SukhumvitSet-Text',
+                            color:
+                                routeSelcet == 'MainScreen' ?
+                                    '#0A55A6' :
+                                    '#111'
                         }}>Home</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity activeOpacity={1}
-                    onPress={routeSelcet != 'FeedScreen' ? this.navigationNavigateScreen.bind(this, 'FeedScreen') : null}>
+                    onPress={
+                        routeSelcet != 'FeedScreen' ?
+                            this.navigationNavigateScreen.bind(this, 'FeedScreen') :
+                            null}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                        <IconAntDesign name="tagso" size={25} color={routeSelcet == 'FeedScreen' ? '#0A55A6' : '#111'} />
+                        <IconAntDesign name="tagso" size={25}
+                            color={
+                                routeSelcet == 'FeedScreen' ?
+                                    '#0A55A6' :
+                                    '#111'} />
                         <Text style={{
-                            fontSize: 13, fontFamily: 'SukhumvitSet-Text', color: routeSelcet == 'FeedScreen' ? '#0A55A6' : '#111'
+                            fontSize: 13, fontFamily: 'SukhumvitSet-Text',
+                            color:
+                                routeSelcet == 'FeedScreen' ?
+                                    '#0A55A6' :
+                                    '#111'
                         }}> Feed</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity activeOpacity={1}
-                    onPress={routeSelcet != 'NewsScreen' ? this.navigationNavigateScreen.bind(this, 'NewsScreen') : null}>
+                    onPress={
+                        routeSelcet != 'NewsScreen' ?
+                            this.navigationNavigateScreen.bind(this, 'NewsScreen') :
+                            null}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                        <IconAntDesign name="notification" size={25} color={routeSelcet == 'NewsScreen' ? '#0A55A6' : '#111'} />
+                        <IconAntDesign name="notification" size={25}
+                            color={
+                                routeSelcet == 'NewsScreen' ?
+                                    '#0A55A6' :
+                                    '#111'} />
                         <Text style={{
-                            fontSize: 13, fontFamily: 'SukhumvitSet-Text', color: routeSelcet == 'NewsScreen' ? '#0A55A6' : '#111'
+                            fontSize: 13, fontFamily: 'SukhumvitSet-Text',
+                            color:
+                                routeSelcet == 'NewsScreen' ?
+                                    '#0A55A6' :
+                                    '#111'
                         }}>News</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity activeOpacity={1}
-                    onPress={routeSelcet != 'BellScreen' ? this.navigationNavigateScreen.bind(this, 'BellScreen') : null}>
+                    onPress={
+                        routeSelcet != 'BellScreen' ?
+                            this.navigationNavigateScreen.bind(this, 'BellScreen') :
+                            null}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                        <IconAntDesign name="bells" size={25} color={routeSelcet == 'BellScreen' ? '#0A55A6' : '#111'} />
+                        <IconAntDesign name="bells" size={25}
+                            color={
+                                routeSelcet == 'BellScreen' ?
+                                    '#0A55A6' :
+                                    '#111'
+                            } />
                         <Text style={{
-                            fontSize: 13, fontFamily: 'SukhumvitSet-Text', color: routeSelcet == 'BellScreen' ? '#0A55A6' : '#111'
+                            fontSize: 13, fontFamily: 'SukhumvitSet-Text',
+                            color:
+                                routeSelcet == 'BellScreen' ?
+                                    '#0A55A6' :
+                                    '#111'
                         }}>เตือน</Text>
                     </View>
                 </TouchableOpacity>
                 {
                     currentUser == null ?
                         <TouchableOpacity activeOpacity={1}
-                            onPress={routeSelcet != 'LoginScreen' ? this.navigationNavigateScreen.bind(this, 'LoginScreen') : null}>
+                            onPress={
+                                routeSelcet != 'LoginScreen' ?
+                                    this.navigationNavigateScreen.bind(this, 'LoginScreen') :
+                                    null}>
                             <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                                <IconAntDesign name="user" size={25} color={routeSelcet == 'LoginScreen' ? '#0A55A6' : '#111'} />
+                                <IconAntDesign name="user" size={25} color={
+                                    routeSelcet == 'LoginScreen' ?
+                                        '#0A55A6' :
+                                        '#111'
+                                } />
                                 <Text style={{
-                                    fontSize: 13, fontFamily: 'SukhumvitSet-Text', color: routeSelcet == 'LoginScreen' ? '#0A55A6' : '#111'
+                                    fontSize: 13, fontFamily: 'SukhumvitSet-Text',
+                                    color:
+                                        routeSelcet == 'LoginScreen' ?
+                                            '#0A55A6' :
+                                            '#111'
                                 }}>ฉัน</Text>
                             </View>
                         </TouchableOpacity> :
                         <TouchableOpacity activeOpacity={1}
-                            onPress={routeSelcet != 'ProfileScreen' ? this.navigationNavigateScreen.bind(this, 'ProfileScreen') : null}>
+                            onPress={
+                                routeSelcet != 'ProfileScreen' ?
+                                    this.navigationNavigateScreen.bind(this, 'ProfileScreen') :
+                                    null
+                            }>
                             <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                                <IconAntDesign name="user" size={25} color={routeSelcet == 'ProfileScreen' ? '#0A55A6' : '#111'} />
+                                <IconAntDesign name="user" size={25} color={
+                                    routeSelcet == 'ProfileScreen' ?
+                                        '#0A55A6' :
+                                        '#111'} />
                                 <Text numberOfLines={1} style={{
-                                    fontSize: 13, fontFamily: 'SukhumvitSet-Text', color: routeSelcet == 'ProfileScreen' ? '#0A55A6' : '#111'
+                                    fontSize: 13, fontFamily: 'SukhumvitSet-Text',
+                                    color:
+                                        routeSelcet == 'ProfileScreen' ?
+                                            '#0A55A6' :
+                                            '#111'
                                 }}>{u_name}</Text>
                             </View>
                         </TouchableOpacity>
@@ -137,9 +204,23 @@ export class TabBar extends React.Component {
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { currentUser, PassSetValue, pathlist } = this.state
-        const { activeColor, fontColor, item, noSpace, sendData, setVertical, spaceColor, widthBox, activeWidth, type, radiusBox, activeFontColor, inactiveFontColor, inactiveColor, inactiveBoxColor, direction, alignBox, noLimit, limitBox, SetValue, fontSizeStyle, numberBox, NoSelectTab, tagBottom, numberOfLines, tagBottomColor,
+        const {
+            activeColor, fontColor, item, noSpace, sendData, setVertical, spaceColor, widthBox, activeWidth, type, radiusBox,
+            activeFontColor, inactiveFontColor, inactiveColor, inactiveBoxColor, direction, alignBox, noLimit, limitBox, SetValue,
+            fontSizeStyle, numberBox, NoSelectTab, tagBottom, numberOfLines, tagBottomColor,
         } = this.props
-        if (currentUser !== nextState.currentUser || PassSetValue !== nextState.PassSetValue || pathlist !== nextState.pathlist || activeColor !== nextProps.activeColor || fontColor !== nextProps.fontColor || item !== nextProps.item || noSpace !== nextProps.noSpace || sendData !== nextProps.sendData || setVertical !== nextProps.setVertical || spaceColor !== nextProps.spaceColor || widthBox !== nextProps.widthBox || activeWidth !== nextProps.activeWidth || type !== nextProps.type || radiusBox !== nextProps.radiusBox || activeFontColor !== nextProps.activeFontColor || inactiveFontColor !== nextProps.inactiveFontColor || inactiveColor !== nextProps.inactiveColor || inactiveBoxColor !== nextProps.inactiveBoxColor || direction !== nextProps.direction || alignBox !== nextProps.alignBox || noLimit !== nextProps.noLimit || limitBox !== nextProps.limitBox || SetValue !== nextProps.SetValue || fontSizeStyle !== nextProps.fontSizeStyle || numberBox !== nextProps.numberBox || NoSelectTab !== nextProps.NoSelectTab || tagBottom !== nextProps.tagBottom || numberOfLines !== nextProps.numberOfLines || tagBottomColor !== nextProps.tagBottomColor) {
+        if (
+            currentUser !== nextState.currentUser || PassSetValue !== nextState.PassSetValue || pathlist !== nextState.pathlist ||
+            activeColor !== nextProps.activeColor || fontColor !== nextProps.fontColor || item !== nextProps.item ||
+            noSpace !== nextProps.noSpace || sendData !== nextProps.sendData || setVertical !== nextProps.setVertical ||
+            spaceColor !== nextProps.spaceColor || widthBox !== nextProps.widthBox || activeWidth !== nextProps.activeWidth ||
+            type !== nextProps.type || radiusBox !== nextProps.radiusBox || activeFontColor !== nextProps.activeFontColor ||
+            inactiveFontColor !== nextProps.inactiveFontColor || inactiveColor !== nextProps.inactiveColor ||
+            inactiveBoxColor !== nextProps.inactiveBoxColor || direction !== nextProps.direction || alignBox !== nextProps.alignBox ||
+            noLimit !== nextProps.noLimit || limitBox !== nextProps.limitBox || SetValue !== nextProps.SetValue ||
+            fontSizeStyle !== nextProps.fontSizeStyle || numberBox !== nextProps.numberBox || NoSelectTab !== nextProps.NoSelectTab ||
+            tagBottom !== nextProps.tagBottom || numberOfLines !== nextProps.numberOfLines || tagBottomColor !== nextProps.tagBottomColor
+        ) {
             return true
         }
         return false
@@ -181,12 +262,9 @@ export class TabBar extends React.Component {
     // fontColor='#fff'
     />*/
     setSelectTab = (pathlist, PassSetValue) => {
-        this._isMounted = true;
         const { sendData } = this.props
-        if (this._isMounted) {
-            this.setState({ pathlist, PassSetValue })
-            sendData(pathlist)
-        }
+        this.setState({ pathlist, PassSetValue })
+        sendData(pathlist)
     }
     get tab() {
         const {
@@ -196,9 +274,8 @@ export class TabBar extends React.Component {
         } = this.props;
         const { PassSetValue, pathlist } = this.state
         const countItem = item.length;
-        PassSetValue < 1 &&
-            SetValue &&
-            this.setSelectTab.bind(SetValue, PassSetValue + 1)
+        PassSetValue < 1 && SetValue &&
+            this.setSelectTab(SetValue, PassSetValue + 1)
         return item.map((item, index) => {
             return (
                 <TouchableOpacity key={index} activeOpacity={
@@ -234,16 +311,40 @@ export class TabBar extends React.Component {
                                                     limitBox ?
                                                         limitBox * (1 / countItem) :
                                                         width * (1 / countItem),
-                                    borderLeftWidth: type == 'tag' ? index == 0 ? null : 0.5 : null,
-                                    borderRightWidth: type == 'tag' ? index == countItem - 1 ? null : 0.5 : null,
+                                    borderLeftWidth:
+                                        type == 'tag' ?
+                                            index == 0 ?
+                                                null :
+                                                0.5 :
+                                            null,
+                                    borderRightWidth:
+                                        type == 'tag' ?
+                                            index == countItem - 1 ?
+                                                null :
+                                                0.5 :
+                                            null,
                                     alignContent: 'center',
                                     alignItems: 'center',
-                                    borderBottomColor: type == 'box' ?
-                                        null :
-                                        activeColor ? activeColor : '#0A55A6',
-                                    borderBottomWidth: type == 'tag' ? null : type == 'box' ? null : 4,
-                                    paddingLeft: numberBox ? width * (1 / 60) : null,
-                                    paddingVertical: setVertical ? setVertical : null
+                                    borderBottomColor:
+                                        type == 'box' ?
+                                            null :
+                                            activeColor ?
+                                                activeColor :
+                                                '#0A55A6',
+                                    borderBottomWidth:
+                                        type == 'tag' ?
+                                            null :
+                                            type == 'box' ?
+                                                null :
+                                                4,
+                                    paddingLeft:
+                                        numberBox ?
+                                            width * (1 / 60) :
+                                            null,
+                                    paddingVertical:
+                                        setVertical ?
+                                            setVertical :
+                                            null
                                 }]}>
                                 <View style={[
                                     stylesMain.ItemCenterVertical,
@@ -260,22 +361,48 @@ export class TabBar extends React.Component {
                                                             width * (1 / (countItem * 1.2)) :
                                                         width * (1 / (countItem * 1.2)),
                                             padding: 6,
-                                            borderLeftWidth: noSpace ? 0.5 : null,
-                                            borderRightWidth: noSpace ? 0.5 : null,
+                                            borderLeftWidth:
+                                                noSpace ?
+                                                    0.5 :
+                                                    null,
+                                            borderRightWidth:
+                                                noSpace ?
+                                                    0.5 :
+                                                    null,
                                             borderWidth: 1,
-                                            borderColor: activeColor ? activeColor : '#0A55A6',
-                                            backgroundColor: activeColor ? activeColor : '#0A55A6',
+                                            borderColor:
+                                                activeColor ?
+                                                    activeColor :
+                                                    '#0A55A6',
+                                            backgroundColor:
+                                                activeColor ?
+                                                    activeColor :
+                                                    '#0A55A6',
                                             alignContent: 'center',
                                             alignItems: 'center',
-                                            borderRadius: radiusBox ? radiusBox : 0,
+                                            borderRadius:
+                                                radiusBox ?
+                                                    radiusBox :
+                                                    0,
                                         } :
                                         null
                                 ]}>
                                     <Text numberOfLines={numberOfLines} style={[stylesFont.FontFamilySemiBold, {
-                                        fontSize: fontSizeStyle ? fontSizeStyle : 16,
+                                        fontSize:
+                                            fontSizeStyle ?
+                                                fontSizeStyle :
+                                                16,
                                         color: type == 'box' ?
-                                            activeFontColor ? activeFontColor : fontColor ? fontColor : 'white' :
-                                            activeFontColor ? activeFontColor : fontColor ? fontColor : 'black'
+                                            activeFontColor ?
+                                                activeFontColor :
+                                                fontColor ?
+                                                    fontColor :
+                                                    'white' :
+                                            activeFontColor ?
+                                                activeFontColor :
+                                                fontColor ?
+                                                    fontColor :
+                                                    'black'
                                     }]}>
                                         {item.name}
                                     </Text>
@@ -298,15 +425,39 @@ export class TabBar extends React.Component {
                                                     limitBox ?
                                                         limitBox * (1 / countItem) :
                                                         width * (1 / countItem),
-                                    borderLeftWidth: type == 'tag' ? index == 0 ? null : 0.5 : null,
-                                    borderRightWidth: type == 'tag' ? index == countItem - 1 ? null : 0.5 : null,
-                                    borderBottomColor: type == 'box' ?
-                                        null :
-                                        spaceColor ? spaceColor : '#fff',
-                                    borderBottomWidth: type == 'tag' ? null : type == 'box' ? null : 4,
+                                    borderLeftWidth:
+                                        type == 'tag' ?
+                                            index == 0 ?
+                                                null :
+                                                0.5 :
+                                            null,
+                                    borderRightWidth:
+                                        type == 'tag' ?
+                                            index == countItem - 1 ?
+                                                null :
+                                                0.5 :
+                                            null,
+                                    borderBottomColor:
+                                        type == 'box' ?
+                                            null :
+                                            spaceColor ?
+                                                spaceColor :
+                                                '#fff',
+                                    borderBottomWidth:
+                                        type == 'tag' ?
+                                            null :
+                                            type == 'box' ?
+                                                null :
+                                                4,
                                     alignContent: 'center', alignItems: 'center',
-                                    paddingLeft: numberBox ? width * (1 / 60) : null,
-                                    paddingVertical: setVertical ? setVertical : null
+                                    paddingLeft:
+                                        numberBox ?
+                                            width * (1 / 60) :
+                                            null,
+                                    paddingVertical:
+                                        setVertical ?
+                                            setVertical :
+                                            null
                                 }]}>
                                 <View style={[
                                     stylesMain.ItemCenterVertical,
@@ -323,20 +474,43 @@ export class TabBar extends React.Component {
                                                             width * (1 / (countItem * 1.2)) :
                                                         width * (1 / (countItem * 1.2)),
                                             padding: 6,
-                                            borderLeftWidth: noSpace ? 0.5 : null,
-                                            borderRightWidth: noSpace ? 0.5 : null,
+                                            borderLeftWidth:
+                                                noSpace ?
+                                                    0.5 :
+                                                    null,
+                                            borderRightWidth:
+                                                noSpace ?
+                                                    0.5 :
+                                                    null,
                                             borderWidth: 1,
-                                            backgroundColor: inactiveBoxColor ? inactiveBoxColor : null,
-                                            borderColor: inactiveColor ? inactiveColor : 'black',
+                                            backgroundColor:
+                                                inactiveBoxColor ?
+                                                    inactiveBoxColor :
+                                                    null,
+                                            borderColor:
+                                                inactiveColor ?
+                                                    inactiveColor :
+                                                    'black',
                                             alignContent: 'center',
                                             alignItems: 'center',
-                                            borderRadius: radiusBox ? radiusBox : 0,
+                                            borderRadius:
+                                                radiusBox ?
+                                                    radiusBox :
+                                                    0,
                                         } :
                                         null
                                 ]}>
                                     <Text numberOfLines={numberOfLines} style={[stylesFont.FontFamilySemiBold, {
-                                        fontSize: fontSizeStyle ? fontSizeStyle : 16,
-                                        color: inactiveFontColor ? inactiveFontColor : fontColor ? fontColor : 'black'
+                                        fontSize:
+                                            fontSizeStyle ?
+                                                fontSizeStyle :
+                                                16,
+                                        color:
+                                            inactiveFontColor ?
+                                                inactiveFontColor :
+                                                fontColor ?
+                                                    fontColor :
+                                                    'black'
                                     }]}>
                                         {item.name}
                                     </Text>
@@ -346,8 +520,18 @@ export class TabBar extends React.Component {
                         item.subname &&
                         <View style={[stylesMain.ItemCenter, { width: '100%' }]}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, {
-                                borderBottomColor: tagBottom ? pathlist == index ? tagBottom : tagBottomColor ? tagBottomColor : '#fff' : null,
-                                borderBottomWidth: tagBottom ? 4 : null,
+                                borderBottomColor:
+                                    tagBottom ?
+                                        pathlist == index ?
+                                            tagBottom :
+                                            tagBottomColor ?
+                                                tagBottomColor :
+                                                '#fff' :
+                                        null,
+                                borderBottomWidth:
+                                    tagBottom ?
+                                        4 :
+                                        null,
                                 width: '90%', textAlign: 'center'
                             }]}>
                                 {item.subname}
@@ -367,7 +551,10 @@ export class TabBar extends React.Component {
                                                     '#0A55A6' :
                                                 '#fff' :
                                             null,
-                                    borderBottomWidth: tagBottom ? 4 : null,
+                                    borderBottomWidth:
+                                        tagBottom ?
+                                            4 :
+                                            null,
                                     width: '90%', textAlign: 'center'
                                 }]}></View>
                             </View>
@@ -391,9 +578,18 @@ export class TabBar extends React.Component {
                         stylesMain.ItemCenterVertical,
                         type == 'box' ?
                             {
-                                borderLeftWidth: noSpace ? 0.5 : null,
-                                borderRightWidth: noSpace ? 0.5 : null,
-                                flexDirection: direction == 'column' ? 'column' : 'row',
+                                borderLeftWidth:
+                                    noSpace ?
+                                        0.5 :
+                                        null,
+                                borderRightWidth:
+                                    noSpace ?
+                                        0.5 :
+                                        null,
+                                flexDirection:
+                                    direction == 'column' ?
+                                        'column' :
+                                        'row',
                                 justifyContent:
                                     alignBox == 'center' ?
                                         'center' :
@@ -402,11 +598,30 @@ export class TabBar extends React.Component {
                                             'flex-start'
                             } :
                             {
-                                borderWidth: type == 'tag' ? null : noSpace ? null : 1,
-                                backgroundColor: spaceColor ? spaceColor : null,
-                                borderColor: type == 'tag' ? null : spaceColor ? spaceColor : '#ECECEC',
-                                flexDirection: direction == 'column' ? 'column' : 'row',
-                                width: noLimit ? null : '100%',
+                                borderWidth:
+                                    type == 'tag' ?
+                                        null :
+                                        noSpace ?
+                                            null :
+                                            1,
+                                backgroundColor:
+                                    spaceColor ?
+                                        spaceColor :
+                                        null,
+                                borderColor:
+                                    type == 'tag' ?
+                                        null :
+                                        spaceColor ?
+                                            spaceColor :
+                                            '#ECECEC',
+                                flexDirection:
+                                    direction == 'column' ?
+                                        'column' :
+                                        'row',
+                                width:
+                                    noLimit ?
+                                        null :
+                                        '100%',
                             }
                     ]}>
                         {this.tab}
@@ -416,7 +631,6 @@ export class TabBar extends React.Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> GetServices
-
 export class GetServices extends React.Component {
     constructor(props) {
         super(props);
@@ -430,24 +644,24 @@ export class GetServices extends React.Component {
         }
         return false
     }
-       getDataSource = async () => {
-            const { dataBody, uriPointer, getDataSource } = this.props
-            fetch(uriPointer, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(dataBody),
+    getDataSource = async () => {
+        const { dataBody, uriPointer, getDataSource } = this.props
+        fetch(uriPointer, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(dataBody),
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                getDataSource(responseJson);
             })
-                .then((response) => response.json())
-                .then((responseJson) => {
-                    getDataSource(responseJson);
-                })
-                .catch((error) => {
-                    console.error(error);
-                })
-        }
+            .catch((error) => {
+                console.error(error);
+            })
+    }
     componentDidMount() {
         this.getDataSource()
     }
@@ -467,26 +681,57 @@ export class GetCoupon extends React.Component {
             colorCoupon, couponText, textDetail, timeOut, useCoupon, flexRow, codeList
         } = this.props
         return (
-            <View style={[flexRow ? stylesDeal.Coupon_BOX2 : stylesDeal.Coupon_BOX, {
-                backgroundColor: codeList != 'available' ? '#C4C4C4' : null
-            }]}>
+            <View style={[
+                flexRow ?
+                    stylesDeal.Coupon_BOX2 :
+                    stylesDeal.Coupon_BOX, {
+                    backgroundColor:
+                        codeList != 'available' ?
+                            '#C4C4C4' :
+                            null
+                }]}>
                 <View style={{
-                    opacity: codeList != 'available' ? 0.4 : null,
+                    opacity:
+                        codeList != 'available' ?
+                            0.4 :
+                            null,
                     flexDirection: 'row',
-                    justifyContent: flexRow ? null : 'flex-end',
-                    marginBottom: codeList != 'available' ? -70 : null,
+                    justifyContent:
+                        flexRow ?
+                            null :
+                            'flex-end',
+                    marginBottom:
+                        codeList != 'available' ?
+                            -70 :
+                            null,
                 }}>
                     <View style={{ width: 92, height: 70, marginLeft: 8 }}>
                         <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7,]}>{textDetail}</Text>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>ใช้ได้ก่อน {timeOut ? timeOut : 'NaN'}</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>ใช้ได้ก่อน {
+                            timeOut ?
+                                timeOut :
+                                'NaN'
+                        }</Text>
                     </View>
-                    <View style={[flexRow ? stylesDeal.Coupon_BOX_A2 : stylesDeal.Coupon_BOX_A, { backgroundColor: colorCoupon ? colorCoupon : '#86CFFF', }]}>
+                    <View style={[
+                        flexRow ?
+                            stylesDeal.Coupon_BOX_A2 :
+                            stylesDeal.Coupon_BOX_A, {
+                            backgroundColor:
+                                colorCoupon ?
+                                    colorCoupon :
+                                    '#86CFFF',
+                        }]}>
                         <View style={stylesDeal.Coupon_BOX_B}>
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>{couponText}</Text>
                         </View>
                         <TouchableOpacity>
                             <View style={stylesDeal.Coupon_BOX_Text}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>{useCoupon ? 'ใช้โค้ด' : 'เก็บ'}</Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>{
+                                    useCoupon ?
+                                        'ใช้โค้ด' :
+                                        'เก็บ'
+                                }</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -523,7 +768,12 @@ export class ProductBox extends React.Component {
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { dataService, dispriceSize, typeip, mode, nameSize, postpath, prepath, priceSize, navigation, pointerUrl, pointerid_store } = this.props
-        if (dataService !== nextProps.dataService || dispriceSize !== nextProps.dispriceSize || typeip !== nextProps.typeip || mode !== nextProps.mode || nameSize !== nextProps.nameSize || postpath !== nextProps.postpath || prepath !== nextProps.prepath || priceSize !== nextProps.priceSize || navigation !== nextProps.navigation || pointerUrl !== nextProps.pointerUrl || pointerid_store !== nextProps.pointerid_store) {
+        if (
+            dataService !== nextProps.dataService || dispriceSize !== nextProps.dispriceSize || typeip !== nextProps.typeip ||
+            mode !== nextProps.mode || nameSize !== nextProps.nameSize || postpath !== nextProps.postpath ||
+            prepath !== nextProps.prepath || priceSize !== nextProps.priceSize || navigation !== nextProps.navigation ||
+            pointerUrl !== nextProps.pointerUrl || pointerid_store !== nextProps.pointerid_store
+        ) {
             return true
         }
         return false
@@ -533,7 +783,9 @@ export class ProductBox extends React.Component {
         navigation.push(value, value2)
     }
     get ProductBoxRender() {
-        const { dataService, dispriceSize, typeip, mode, nameSize, postpath, prepath, priceSize, pointerUrl, pointerid_store } = this.props
+        const {
+            dataService, dispriceSize, typeip, mode, nameSize, postpath, prepath, priceSize, pointerUrl, pointerid_store
+        } = this.props
         return dataService.map((item, index) => {
             var throughsale = Number(item.full_price) + (item.full_price * 0.5)
             var discount = 55
@@ -635,7 +887,8 @@ export class ProductBox extends React.Component {
                                         }
                                     />
                                     <View style={[stylesMain.Box_On_sale, { borderRadius: 10 }]}>
-                                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, { color: '#FFFFFF' }]}>{'-' + discount + '%'}</Text>
+                                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, { color: '#FFFFFF' }]}>
+                                            {'-' + discount + '%'}</Text>
                                     </View>
                                 </View>
                                 <NumberFormat
@@ -675,7 +928,11 @@ export class FeedBox extends React.Component {
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { dataService, Follow, Header, typeip, postpath, prepath, navigation, } = this.props
-        if (dataService !== nextProps.dataService || Follow !== nextProps.Follow || Header !== nextProps.Header || typeip !== nextProps.typeip || postpath !== nextProps.postpath || prepath !== nextProps.prepath || navigation !== nextProps.navigation) {
+        if (
+            dataService !== nextProps.dataService || Follow !== nextProps.Follow || Header !== nextProps.Header ||
+            typeip !== nextProps.typeip || postpath !== nextProps.postpath || prepath !== nextProps.prepath ||
+            navigation !== nextProps.navigation
+        ) {
             return true
         }
         return false
@@ -719,7 +976,9 @@ export class FeedBox extends React.Component {
                     {
                         Header &&
                         <View style={stylesMain.BoxProduct4PlusHeader}>
-                            <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: item.p_id_store })}>
+                            <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', {
+                                id_item: item.p_id_store
+                            })}>
                                 <View style={stylesMain.FlexRow}>
                                     <FastImage
                                         style={stylesMain.BoxProduct4PlusImage}

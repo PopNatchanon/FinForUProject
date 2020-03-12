@@ -121,7 +121,8 @@ export default class DetailScreen extends React.Component {
             currentUser && dataService.product_data &&
             <Conpon dataService={dataService.product_data} currentUser={currentUser} />
           }
-          <Selector dataService={dataService} BuyProduct={BuyProduct} sendProduct={this.BuyProduct.bind(this)} />
+          <Selector dataService={dataService} BuyProduct={BuyProduct} currentUser={currentUser} sendProduct={this.BuyProduct.bind(this)}
+          />
           <Detail_Category dataService={dataService} />
           <Detail dataService={dataService} />
           {
@@ -544,6 +545,17 @@ export class Conpon extends React.Component {
       activeDate: true,
     };
   }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { activeDate, dataService2 } = this.state
+    const { currentUser, dataService, } = this.props
+    if (
+      activeDate !== nextState.activeDate || dataService2 !== nextState.dataService2 || currentUser !== nextState.currentUser ||
+      dataService !== nextProps.dataService
+    ) {
+      return true
+    }
+    return false
+  }
   get_id_promotion = (value) => {
     this.setState({ activeDate: true })
   }
@@ -559,9 +571,9 @@ export class Conpon extends React.Component {
           <ScrollView>
             {
               dataService2.store_coupon_m &&
-              dataService2.store_coupon_m.map((item) => {
-                return < Coupon_Detail_BottomSheet dataService={item} currentUser={currentUser}
-                  get_id_promotion={this.get_id_promotion.bind(this)} />
+              dataService2.store_coupon_m.map((item, index) => {
+                return <Coupon_Detail_BottomSheet dataService={item} currentUser={currentUser}
+                  get_id_promotion={this.get_id_promotion.bind(this)} key={index} />
               })
             }
           </ScrollView>
@@ -596,7 +608,7 @@ export class Conpon extends React.Component {
           <GetServices
             uriPointer={uri}
             dataBody={dataBody}
-            getDataSource={(console.log('setGetServices'), this.getData.bind(this))}
+            getDataSource={this.getData.bind(this)}
           />
         }
         <BottomSheet
@@ -646,53 +658,123 @@ export class Selector extends React.Component {
     this.state = {
       itemCount: 1,
       selectedIndex: 0,
+      selectedIndex2: 0,
+      activeSelect: true,
+      activeSelect2: false,
+      activeSelect3: false,
     };
   }
   shouldComponentUpdate = (nextProps, nextState) => {
-    const { itemCount, selectedIndex } = this.state
-    const { dataService, BuyProduct, sendProduct } = this.props
-    if (itemCount !== nextState.itemCount || selectedIndex !== nextState.selectedIndex || dataService !== nextProps.dataService ||
-      BuyProduct !== nextProps.BuyProduct || sendProduct !== nextProps.sendProduct) {
+    const {
+      itemCount, selectedIndex, selectedIndex2, dataService2, sendDataCart, activeSelect, activeSelect2, activeSelect3
+    } = this.state
+    const { dataService, BuyProduct, sendProduct, currentUser } = this.props
+    if (
+      itemCount !== nextState.itemCount || selectedIndex !== nextState.selectedIndex || selectedIndex2 !== nextState.selectedIndex2 ||
+      dataService2 !== nextState.dataService2 || sendDataCart !== nextState.sendDataCart || activeSelect !== nextState.activeSelect ||
+      activeSelect2 !== nextState.activeSelect2 || activeSelect3 !== nextState.activeSelect3 || dataService !== nextProps.dataService ||
+      BuyProduct !== nextProps.BuyProduct || sendProduct !== nextProps.sendProduct || currentUser !== nextProps.currentUser
+    ) {
       return true
     }
     return false
   }
   updateIndex = (selectedIndex) => {
-    this.setState({ selectedIndex })
+    this.setState({ selectedIndex, activeSelect: true })
+  }
+  updateIndex2 = (selectedIndex2) => {
+    this.setState({ selectedIndex2 })
   }
   setStateItemCount = (value) => {
     this.setState({ itemCount: value * 1 })
   }
-  dataItem(item) {
-    return (
-      <View style={[stylesMain.FlexRow, { width: '100%', flexWrap: 'wrap', alignItems: 'center' }]}>
-        <TabBar
-          sendData={this.updateIndex.bind(this)}
-          item={item}
-          type='box'
-          noLimit
-          numberBox
-          radiusBox={4}
-        />
-      </View>
-    )
+  getData = (dataService2) => {
+    this.setState({ dataService2, activeSelect: false, activeSelect2: true })
+  }
+  getData2 = (dataService3) => {
+    console.log('dataService3')
+    console.log(dataService3)
+    // this.setState({ activeSelect2: false })
+  }
+  getData3 = (dataService3) => {
+    // this.setState({ activeSelect2: false })
+  }
+  sendDataCart = (BuyProduct, sendDataCart) => {
+    this.setState({ sendDataCart, activeSelect3: true })
   }
   get SelectorSheetBody() {
-    // this.SetItem()
-    const { dataService, BuyProduct } = this.props
-    const { itemCount } = this.state
+    const { itemCount, selectedIndex, selectedIndex2, dataService2, activeSelect, activeSelect2, sendDataCart } = this.state
+    const { dataService, BuyProduct, currentUser } = this.props
     var items = []
     dataService.detail_product &&
       dataService.detail_product.map((item) => {
-        ////console.log(item)
-        items.push({ name: item.detail_1 })
+        console.log('dataService|map')
+        console.log(item)
+        items.push({ name: item.detail_1, price: item.price })
       })
-    ////console.log(items)
+    var items2 = []
+    dataService2 &&
+      dataService2.data_size.map((item) => {
+        console.log('dataService2|map')
+        console.log(item)
+        items2.push({ name: item.detail_2, amount: item.amount, price: item.price })
+      })
     return dataService.product_data &&
       dataService.product_data.map((item, index) => {
+        var uri
+        var dataBody
+        item && items && (
+          uri = finip + '/product/get_value_size',
+          dataBody = {
+            id_product: item.id_product,
+            detail_color: items[selectedIndex].name
+          }
+        )
+        console.log('dataService2')
+        console.log(dataService2)
+        console.log('activeSelect2')
+        console.log(activeSelect2)
+        var uri2
+        var dataBody2
+        dataService2 && activeSelect2 == true && (
+          uri2 = finip + '/product/get_product_amount',
+          dataBody2 = {
+            detail_color: items[selectedIndex].name,
+            val_size: items2[selectedIndex2].name,
+            product_id: item.id_product,
+          }
+        )
+        console.log('uri2')
+        console.log(uri2)
+        console.log('dataBody2')
+        console.log(dataBody2)
         var dataMySQL = [finip, item.image_full_path, item.image].join('/');
         return (
           <View style={{ flex: 1, paddingHorizontal: 15 }} key={index}>
+            {
+              activeSelect == true &&
+              <GetServices
+                uriPointer={uri}
+                dataBody={dataBody}
+                getDataSource={this.getData.bind(this)}
+              />
+            }
+            {
+              dataService2 && activeSelect2 == true && dataBody2 &&
+              <GetServices
+                uriPointer={uri2}
+                dataBody={dataBody2}
+                getDataSource={this.getData2.bind(this)}
+              />
+            }
+            {/* {
+              sendDataCart && activeSelect3 == true &&
+              <GetServices
+                uriPointer={uri}
+                dataBody={sendDataCart}
+                getDataSource={this.getData3.bind(this)}
+              />
+            } */}
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { textAlign: 'center' }]}>ตัวเลือก</Text>
             <ScrollView>
               <View style={{ flexDirection: 'row' }}>
@@ -704,24 +786,52 @@ export class Selector extends React.Component {
                     style={stylesMain.BoxProduct1Image}
                   />
                 </View>
-                <View style={{ width: '70%', marginLeft: 10 }}>
-                  <NumberFormat
-                    value={item.full_price}
-                    displayType={'text'}
-                    thousandSeparator={true}
-                    prefix={'฿'}
-                    renderText={
-                      value =>
-                        <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
-                          {value}</Text>}
-                  />
-                  <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>{item.name}</Text>
-                </View>
+                {
+                  dataService2 &&
+                  <View style={{ width: '70%', marginLeft: 10 }}>
+                    <NumberFormat
+                      value={items2[selectedIndex2].price}
+                      displayType={'text'}
+                      thousandSeparator={true}
+                      prefix={'฿'}
+                      renderText={
+                        value =>
+                          <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
+                            {value}</Text>}
+                    />
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>{item.name}</Text>
+                  </View>
+                }
               </View>
               <View style={{ padding: 10 }}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>สี</Text>
-                {this.dataItem(items)}
+                <View style={[stylesMain.FlexRow, { width: '100%', flexWrap: 'wrap', alignItems: 'center' }]}>
+                  <TabBar
+                    sendData={this.updateIndex.bind(this)}
+                    item={items}
+                    type='box'
+                    noLimit
+                    numberBox
+                    radiusBox={4}
+                  />
+                </View>
               </View>
+              {
+                items2 &&
+                <View style={{ padding: 10 }}>
+                  <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ขนาด</Text>
+                  <View style={[stylesMain.FlexRow, { width: '100%', flexWrap: 'wrap', alignItems: 'center' }]}>
+                    <TabBar
+                      sendData={this.updateIndex2.bind(this)}
+                      item={items2}
+                      type='box'
+                      noLimit
+                      numberBox
+                      radiusBox={4}
+                    />
+                  </View>
+                </View>
+              }
             </ScrollView>
             <View style={{ alignItems: 'center' }}>
               <View style={{ flexDirection: 'row', width: '90%', }}>
@@ -752,8 +862,15 @@ export class Selector extends React.Component {
               </View>
               <View style={[stylesDetail.Selector_BottomSheet_BoxButtom, { justifyContent: BuyProduct != 'null' ? 'center' : 'space-between' }]}>
                 {
-                  (BuyProduct == 'addcart' || BuyProduct == 'null') &&
-                  < TouchableOpacity>
+                  (BuyProduct == 'addcart' || BuyProduct == 'null') && dataService2 &&
+                  <TouchableOpacity onPress={null
+                    // this.sendDataCart.bind(this, 
+                    //   'addcart', {
+                    //   id_product: item.id_product, amount: itemCount, color_value: items[selectedIndex].name,
+                    //   size_value: items2[selectedIndex2].name, feature_product: dataService.feature_product,
+                    //   id_customer: currentUser.id_customer
+                    // })
+                  }>
                     <View style={[stylesDetail.Buy_bar_Iconshop, stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
                       width: BuyProduct == 'addcart' ? 320 : 160
                     }]}>
@@ -764,8 +881,14 @@ export class Selector extends React.Component {
                   </TouchableOpacity>
                 }
                 {
-                  (BuyProduct == 'gocart' || BuyProduct == 'null') &&
-                  <TouchableOpacity>
+                  (BuyProduct == 'gocart' || BuyProduct == 'null') && dataService2 &&
+                  <TouchableOpacity onPress={null
+                    // this.sendDataCart.bind(this, 'gocart', {
+                    //   id_product: item.id_product, amount: itemCount, color_value: items[selectedIndex].name,
+                    //   size_value: items2[selectedIndex2].name, feature_product: dataService.feature_product,
+                    //   id_customer: currentUser.id_customer
+                    // })
+                  }>
                     <View style={[stylesDetail.Buy_bar_IconBuy, stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
                       width: BuyProduct == 'gocart' ? 320 : 160
                     }]}>
@@ -961,6 +1084,17 @@ export class Reviews extends React.Component {
       dataService2: []
     };
   }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { dataService2 } = this.state
+    const { navigation, dataService, currentUser } = this.props
+    if (
+      dataService2 !== nextState.dataService2 || navigation !== nextProps.navigation || dataService !== nextProps.dataService ||
+      currentUser !== nextProps.currentUser
+    ) {
+      return true
+    }
+    return false
+  }
   navigationNavigateScreen = (value, value2) => {
     const { navigation } = this.props
     value == 'goBack' ?
@@ -968,8 +1102,8 @@ export class Reviews extends React.Component {
       navigation.navigate(value, value2)
   }
   getData = (dataService2) => {
-    console.log('getData|dataService2')
-    console.log(dataService2)
+    //console.log('getData|dataService2')
+    //console.log(dataService2)
     this.setState({ dataService2 })
   }
   customerReview(review) {
@@ -977,8 +1111,8 @@ export class Reviews extends React.Component {
       review.map((item, index) => {
         if (index < 5) {
           var img_rate = item.img_rate.split(";")
-          console.log('img_rate')
-          console.log(img_rate)
+          //console.log('img_rate')
+          //console.log(img_rate)
           let imagereview = []
           img_rate.map((item2, index2) => {
             var path = finip + '/' + item.path_rate + '/' + item2
@@ -1036,12 +1170,12 @@ export class Reviews extends React.Component {
         id_customer: currentUser.id_customer,
       }
     )
-    console.log('dataService')
-    console.log(dataService)
-    console.log('dataBody')
-    console.log(dataBody)
-    console.log('dataService2')
-    console.log(dataService2)
+    //console.log('dataService')
+    //console.log(dataService)
+    //console.log('dataBody')
+    //console.log(dataBody)
+    //console.log('dataService2')
+    //console.log(dataService2)
     return (
       <View style={stylesMain.FrameBackground}>
         {
@@ -1203,7 +1337,6 @@ export class Similar_Product extends React.Component {
     this.state = {
       dataService2: [],
     };
-    this.getData = this.getData.bind(this)
   }
   shouldComponentUpdate = (nextProps, nextState) => {
     const { dataService2 } = this.state
@@ -1241,7 +1374,7 @@ export class Similar_Product extends React.Component {
       <View style={stylesMain.FrameBackground}>
         {
           dataBody !== undefined &&
-          <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+          <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
         }
         <View style={stylesMain.FrameBackgroundTextBox}>
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
@@ -1270,7 +1403,6 @@ export class Might_like extends React.Component {
     this.state = {
       dataService2: [],
     };
-    this.getData = this.getData.bind(this)
   }
   shouldComponentUpdate = (nextProps, nextState) => {
     const { dataService2 } = this.state
@@ -1308,7 +1440,7 @@ export class Might_like extends React.Component {
       <View style={stylesMain.FrameBackground}>
         {
           dataBody !== undefined &&
-          <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+          <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
         }
         <View style={stylesMain.FrameBackgroundTextBox}>
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
@@ -1448,13 +1580,24 @@ export class Coupon_Detail_BottomSheet extends React.Component {
     this.state = {
     };
   }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { id_promotion } = this.state
+    const { currentUser, dataService, get_id_promotion } = this.props
+    if (
+      id_promotion !== nextState.id_promotion || currentUser !== nextProps.currentUser || dataService !== nextProps.dataService ||
+      get_id_promotion !== nextProps.get_id_promotion
+    ) {
+      return true
+    }
+    return false
+  }
   saveTicket = (id_promotion) => {
-    console.log(id_promotion)
+    //console.log(id_promotion)
     this.setState({ id_promotion })
   }
   getData = (dataService2) => {
     const { get_id_promotion, } = this.props
-    console.log(dataService2.Status)
+    //console.log(dataService2.Status)
     if (dataService2.Status == 'Add Coupon Completed !') {
       get_id_promotion(dataService2.Status)
     }
@@ -1471,9 +1614,9 @@ export class Coupon_Detail_BottomSheet extends React.Component {
         id_promotion_shop: id_promotion
       }
     )
-    console.log('uri')
-    console.log('dataBody')
-    console.log(dataService)
+    //console.log('uri')
+    //console.log('dataBody')
+    //console.log(dataService)
     return (
       <View style={{
         width: '100%', height: 100, borderWidth: 1,
@@ -1508,4 +1651,3 @@ export class Coupon_Detail_BottomSheet extends React.Component {
     );
   }
 }
-

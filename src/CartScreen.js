@@ -46,8 +46,6 @@ export default class CartScreen extends React.Component {
     getDataAsync = async () => {
         const currentUser = await AsyncStorage.getItem('@MyKey')
         this.setState({ currentUser: JSON.parse(currentUser) })
-        //console.log('Main|currentUser')
-        //console.log(currentUser)
     }
     getText(itemCount) {
         this.setState({ itemCount })

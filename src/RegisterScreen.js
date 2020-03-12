@@ -152,8 +152,6 @@ export class Login extends Component {
   }
   getDataDay = (itemValue) => {
     const { date } = this.state
-    //console.log('setDataDay')
-    //console.log(itemValue)
     if (itemValue != null) {
       const item = String(itemValue)
       this.setState({ date: new Date(date).setMonth(item) })
@@ -163,8 +161,6 @@ export class Login extends Component {
       }
       this.setState({ DataDay: box })
     }
-    //console.log('getDataDay')
-    //console.log(date)
   }
   DataYear() {
     const { DataYear } = this.state
@@ -211,7 +207,6 @@ export class Login extends Component {
     user.birth_mon = new Date(date).getMonth() + 1;
     user.birth_year = new Date(date).getFullYear();
     this.setState({ user });
-    //console.log(user)
     fetch(finip + '/auth/register_customer', {
       method: 'POST',
       headers: {

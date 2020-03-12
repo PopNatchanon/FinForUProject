@@ -230,7 +230,6 @@ class Chat_Cutomer extends React.Component {
         )
     }
     render() {
-        //console.log(this.state.messages)
         return (
             <View style={{ height: '97%', width: '100%', backgroundColor: '#FFFFFF' }}>
                 <GiftedChat
@@ -835,9 +834,6 @@ export class Review_From extends React.Component {
             includeBase64: true
         };
         ImagePicker.openPicker(options).then(response => {
-            // //console.log('Response = ', response);
-            // You can also display the image using data:
-            // const source = { uri: 'data:image/jpeg;base64,' + response.data };
             avatarSource[index] = response
             this.setState({ avatarSource })
         });
@@ -863,12 +859,10 @@ export class Review_From extends React.Component {
             })
                 .then(response => response.json())
                 .then(response => {
-                    //console.log("upload succes", response);
                     alert("Upload success!");
                     this.setState({ avatarSource: null });
                 })
                 .catch(error => {
-                    //console.log("upload error", error);
                     alert("Upload failed!");
                 })
         )

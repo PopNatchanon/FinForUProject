@@ -41,8 +41,6 @@ export default class DetailScreen extends React.Component {
   getDataAsync = async () => {
     const currentUser = await AsyncStorage.getItem('@MyKey')
     this.setState({ currentUser: JSON.parse(currentUser) })
-    //console.log('Main|currentUser')
-    //console.log(currentUser)
   }
   componentDidMount() {
     this.getDataAsync()
@@ -79,8 +77,6 @@ export default class DetailScreen extends React.Component {
     var dataBody = {
       id_product: id_product
     };
-    ////console.log('DetailScreen|typeSelect')
-    ////console.log(BuyProduct)
     return (
       <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
         {
@@ -270,8 +266,6 @@ export class Detail_Data extends React.Component {
       id_product
     } = this.state
     const { dataService } = this.props;
-    //console.log('dataServiceArray')
-    //console.log(dataServiceArray)
     if (
       dataServiceArray !== nextState.dataServiceArray || countItem !== nextState.countItem || RunTime !== nextState.RunTime ||
       dataService !== nextProps.dataService || id_product !== nextState.id_product || arrayCountA !== nextState.arrayCountA ||
@@ -290,8 +284,6 @@ export class Detail_Data extends React.Component {
   //   )
   //   if (dataServiceArray3 != null && arrayCountC != 0 && arrayCountA == arrayCountB + 1 && arrayCountC != arrayCountD + 1) {
   //     for (arrayCountD; arrayCountC > arrayCountD; arrayCountD++) {
-  //       ////console.log('dataServiceArray3[' + arrayCountD + ']')
-  //       ////console.log(dataServiceArray3[arrayCountD])
   //       var uri = finip + '/product/get_product_amount'
   //       var dataBody = {
   //         id_product: dataServiceArray3[arrayCountD].id_product,
@@ -310,7 +302,6 @@ export class Detail_Data extends React.Component {
   //         .then((response) => response.json())
   //         .then((responseJson) => {
   //           if (dataServiceArray3[arrayCountD].ps_id != null && responseJson.ps_id == dataServiceArray3[arrayCountD].ps_id) {
-  //             ////console.log('responseJson:' + arrayCountD)
   //             dataServiceArray3[arrayCountD].amount_data = responseJson.amount_data
   //             dataServiceArray3[arrayCountD].price_data = responseJson.price_data
   //           }
@@ -432,8 +423,6 @@ export class Detail_Data extends React.Component {
   }
   render() {
     // const { dataServiceArray2 } = this.state
-    //console.log('dataServiceArray2')
-    //console.log(dataServiceArray2)
     return (
       // this.SetData(),
       // this.SetData2(),
@@ -666,12 +655,12 @@ export class Selector extends React.Component {
   }
   shouldComponentUpdate = (nextProps, nextState) => {
     const {
-      itemCount, selectedIndex, selectedIndex2, dataService2, sendDataCart, activeSelect, activeSelect2, activeSelect3
+      itemCount, selectedIndex, selectedIndex2, dataService2, dataService3, sendDataCart, activeSelect, activeSelect2, activeSelect3
     } = this.state
     const { dataService, BuyProduct, sendProduct, currentUser } = this.props
     if (
       itemCount !== nextState.itemCount || selectedIndex !== nextState.selectedIndex || selectedIndex2 !== nextState.selectedIndex2 ||
-      dataService2 !== nextState.dataService2 || sendDataCart !== nextState.sendDataCart || activeSelect !== nextState.activeSelect ||
+      dataService2 !== nextState.dataService2 || dataService3 !== nextState.dataService3 || sendDataCart !== nextState.sendDataCart || activeSelect !== nextState.activeSelect ||
       activeSelect2 !== nextState.activeSelect2 || activeSelect3 !== nextState.activeSelect3 || dataService !== nextProps.dataService ||
       BuyProduct !== nextProps.BuyProduct || sendProduct !== nextProps.sendProduct || currentUser !== nextProps.currentUser
     ) {
@@ -683,7 +672,7 @@ export class Selector extends React.Component {
     this.setState({ selectedIndex, activeSelect: true })
   }
   updateIndex2 = (selectedIndex2) => {
-    this.setState({ selectedIndex2 })
+    this.setState({ selectedIndex2, activeSelect2: true })
   }
   setStateItemCount = (value) => {
     this.setState({ itemCount: value * 1 })
@@ -692,9 +681,7 @@ export class Selector extends React.Component {
     this.setState({ dataService2, activeSelect: false, activeSelect2: true })
   }
   getData2 = (dataService3) => {
-    console.log('dataService3')
-    console.log(dataService3)
-    // this.setState({ activeSelect2: false })
+    this.setState({ dataService3, activeSelect2: false, itemCount: dataService3.amount_data < 1 ? 0 : 1 })
   }
   getData3 = (dataService3) => {
     // this.setState({ activeSelect2: false })
@@ -703,20 +690,18 @@ export class Selector extends React.Component {
     this.setState({ sendDataCart, activeSelect3: true })
   }
   get SelectorSheetBody() {
-    const { itemCount, selectedIndex, selectedIndex2, dataService2, activeSelect, activeSelect2, sendDataCart } = this.state
+    const {
+      itemCount, selectedIndex, selectedIndex2, dataService2, dataService3, activeSelect, activeSelect2, sendDataCart
+    } = this.state
     const { dataService, BuyProduct, currentUser } = this.props
     var items = []
     dataService.detail_product &&
       dataService.detail_product.map((item) => {
-        console.log('dataService|map')
-        console.log(item)
         items.push({ name: item.detail_1, price: item.price })
       })
     var items2 = []
     dataService2 &&
       dataService2.data_size.map((item) => {
-        console.log('dataService2|map')
-        console.log(item)
         items2.push({ name: item.detail_2, amount: item.amount, price: item.price })
       })
     return dataService.product_data &&
@@ -730,10 +715,20 @@ export class Selector extends React.Component {
             detail_color: items[selectedIndex].name
           }
         )
-        console.log('dataService2')
-        console.log(dataService2)
-        console.log('activeSelect2')
-        console.log(activeSelect2)
+        var sale_price
+        var full_price
+        var amount_product
+        var dis_price
+        dataService2 && dataService3 && activeSelect2 == false && (
+          console.log('dataService2'),
+          console.log(items2[selectedIndex2]),
+          console.log('dataService3'),
+          console.log(dataService3),
+          sale_price = dataService3.price_data,
+          full_price = items2[selectedIndex2].price,
+          amount_product = dataService3.amount_data,
+          dis_price = dataService3.dis_price
+        )
         var uri2
         var dataBody2
         dataService2 && activeSelect2 == true && (
@@ -741,13 +736,9 @@ export class Selector extends React.Component {
           dataBody2 = {
             detail_color: items[selectedIndex].name,
             val_size: items2[selectedIndex2].name,
-            product_id: item.id_product,
+            id_product: item.id_product,
           }
         )
-        console.log('uri2')
-        console.log(uri2)
-        console.log('dataBody2')
-        console.log(dataBody2)
         var dataMySQL = [finip, item.image_full_path, item.image].join('/');
         return (
           <View style={{ flex: 1, paddingHorizontal: 15 }} key={index}>
@@ -760,7 +751,7 @@ export class Selector extends React.Component {
               />
             }
             {
-              dataService2 && activeSelect2 == true && dataBody2 &&
+              dataService2 && activeSelect2 == true &&
               <GetServices
                 uriPointer={uri2}
                 dataBody={dataBody2}
@@ -787,19 +778,60 @@ export class Selector extends React.Component {
                   />
                 </View>
                 {
-                  dataService2 &&
+                  dataService2 && dataService3 &&
                   <View style={{ width: '70%', marginLeft: 10 }}>
+                    <View style={stylesMain.FlexRow}>
+                      <NumberFormat
+                        value={sale_price}
+                        displayType={'text'}
+                        thousandSeparator={true}
+                        prefix={'฿'}
+                        renderText={
+                          value =>
+                            <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize2]}>
+                              {value}</Text>
+                        }
+                      />
+                      <NumberFormat
+                        value={dis_price}
+                        displayType={'text'}
+                        thousandSeparator={false}
+                        suffix={'%'}
+                        renderText={
+                          value =>
+                            <View style={[stylesMain.ItemCenter, {
+                              height: 20, backgroundColor: '#fb3449',  marginTop: 5, marginLeft: 5, width: 50, borderRadius: 20
+                            }]}>
+                              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, stylesMain.ItemCenterVertical, {
+                                color: '#FFFFFF'
+                              }]}>
+                                {value}</Text>
+                            </View>
+                        }
+                      />
+                    </View>
                     <NumberFormat
-                      value={items2[selectedIndex2].price}
+                      value={full_price}
                       displayType={'text'}
                       thousandSeparator={true}
                       prefix={'฿'}
                       renderText={
                         value =>
-                          <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
-                            {value}</Text>}
+                          <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize4,
+                          stylesMain.BoxProduct1ImagePriceThrough, { marginTop: 0, }]}>
+                            {value}</Text>
+                      }
                     />
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>{item.name}</Text>
+                    <NumberFormat
+                      value={amount_product}
+                      displayType={'text'}
+                      thousandSeparator={false}
+                      renderText={
+                        value =>
+                          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
+                            คลัง {value}</Text>
+                      }
+                    />
                   </View>
                 }
               </View>
@@ -836,12 +868,24 @@ export class Selector extends React.Component {
             <View style={{ alignItems: 'center' }}>
               <View style={{ flexDirection: 'row', width: '90%', }}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>จำนวน</Text>
-                <TouchableOpacity onPress={this.setStateItemCount.bind(this, itemCount - 1)}>
+                <TouchableOpacity activeOpacity={1} onPress={
+                  itemCount > 1 ?
+                    this.setStateItemCount.bind(this, itemCount - 1) :
+                    null
+                }>
                   <View style={[stylesMain.ItemCenter, stylesDetail.Selector_BottomSheet_itemCount, {
                     borderTopLeftRadius: 5, borderBottomLeftRadius: 5,
                   }]}>
-                    <Text style={[stylesMain.ItemCenterVertical]}>
-                      -</Text>
+                    {
+                      dataService3 &&
+                      <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, {
+                        color:
+                          itemCount > 1 ?
+                            '#111' :
+                            '#CECECE'
+                      }]}>
+                        -</Text>
+                    }
                   </View>
                 </TouchableOpacity>
                 <View style={[stylesMain.ItemCenter, stylesFont.FontFamilyText, stylesDetail.Selector_BottomSheet_itemCount_TextInput]}>
@@ -851,14 +895,26 @@ export class Selector extends React.Component {
                     {itemCount}
                   </TextInput>
                 </View>
-                <TouchableOpacity onPress={this.setStateItemCount.bind(this, itemCount + 1)}>
-                  <View style={[stylesMain.ItemCenter, stylesDetail.Selector_BottomSheet_itemCount, {
-                    borderTopRightRadius: 5, borderBottomRightRadius: 5,
-                  }]}>
-                    <Text style={[stylesMain.ItemCenterVertical]}>
-                      +</Text>
-                  </View>
-                </TouchableOpacity>
+                {
+                  dataService3 &&
+                  <TouchableOpacity activeOpacity={1} onPress={
+                    itemCount < dataService3.amount_data ?
+                      this.setStateItemCount.bind(this, itemCount + 1) :
+                      null
+                  }>
+                    <View style={[stylesMain.ItemCenter, stylesDetail.Selector_BottomSheet_itemCount, {
+                      borderTopRightRadius: 5, borderBottomRightRadius: 5,
+                    }]}>
+                      < Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, {
+                        color:
+                          itemCount < dataService3.amount_data ?
+                            '#111' :
+                            '#CECECE'
+                      }]}>
+                        +</Text>
+                    </View>
+                  </TouchableOpacity>
+                }
               </View>
               <View style={[stylesDetail.Selector_BottomSheet_BoxButtom, { justifyContent: BuyProduct != 'null' ? 'center' : 'space-between' }]}>
                 {
@@ -989,7 +1045,7 @@ export class Detail_Category extends React.Component {
                   ยี่ห้อ</Text>
               </View>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                {item.brand_product}</Text>
+                {item.brand_product ? item.brand_product : 'No Brand'}</Text>
             </View>
             <View style={[stylesMain.BottomSpace, stylesMain.FlexRow]}>
               <View style={{ width: '25%' }}>
@@ -1034,8 +1090,6 @@ export class Detail extends React.Component {
   get id_store() {
     const { showMoreButton, activeText } = this.state
     const { dataService } = this.props
-    //console.log('activeText')
-    //console.log(activeText)
     return dataService.product_data &&
       dataService.product_data.map((item, index) => {
         return (
@@ -1102,8 +1156,6 @@ export class Reviews extends React.Component {
       navigation.navigate(value, value2)
   }
   getData = (dataService2) => {
-    //console.log('getData|dataService2')
-    //console.log(dataService2)
     this.setState({ dataService2 })
   }
   customerReview(review) {
@@ -1111,8 +1163,6 @@ export class Reviews extends React.Component {
       review.map((item, index) => {
         if (index < 5) {
           var img_rate = item.img_rate.split(";")
-          //console.log('img_rate')
-          //console.log(img_rate)
           let imagereview = []
           img_rate.map((item2, index2) => {
             var path = finip + '/' + item.path_rate + '/' + item2
@@ -1170,12 +1220,6 @@ export class Reviews extends React.Component {
         id_customer: currentUser.id_customer,
       }
     )
-    //console.log('dataService')
-    //console.log(dataService)
-    //console.log('dataBody')
-    //console.log(dataBody)
-    //console.log('dataService2')
-    //console.log(dataService2)
     return (
       <View style={stylesMain.FrameBackground}>
         {
@@ -1592,12 +1636,10 @@ export class Coupon_Detail_BottomSheet extends React.Component {
     return false
   }
   saveTicket = (id_promotion) => {
-    //console.log(id_promotion)
     this.setState({ id_promotion })
   }
   getData = (dataService2) => {
     const { get_id_promotion, } = this.props
-    //console.log(dataService2.Status)
     if (dataService2.Status == 'Add Coupon Completed !') {
       get_id_promotion(dataService2.Status)
     }
@@ -1614,9 +1656,6 @@ export class Coupon_Detail_BottomSheet extends React.Component {
         id_promotion_shop: id_promotion
       }
     )
-    //console.log('uri')
-    //console.log('dataBody')
-    //console.log(dataService)
     return (
       <View style={{
         width: '100%', height: 100, borderWidth: 1,

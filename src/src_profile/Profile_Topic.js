@@ -31,7 +31,7 @@ export default class Profile_Topic extends React.Component {
         super(props);
         this.state = {
             text: '',
-            selectedIndex: 7,
+            // selectedIndex: 7,
         };
     }
     PathList() {
@@ -514,6 +514,13 @@ export class Review_me extends React.Component {
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#8F8F8F' }]}>
                                 สั่งซื้อวันที่ 12 ธ.ค.2019 </Text>
                         </View>
+                        <View style={{ flexDirection: 'row', width: 120, justifyContent: 'space-between' }}>
+                            <IconFontAwesome name='star' size={20} color='#FFAC33' />
+                            <IconFontAwesome name='star' size={20} color='#FFAC33' />
+                            <IconFontAwesome name='star' size={20} color='#FFAC33' />
+                            <IconFontAwesome name='star' size={20} color='#FFAC33' />
+                            <IconFontAwesome name='star' size={20} color='#FFAC33' />
+                        </View>
                         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', {
                             selectedIndex: 7
                         })}>
@@ -825,8 +832,32 @@ export class Review_From extends React.Component {
         super(props);
         this.state = {
             checked2: true,
+            checked4: true,
             avatarSource: [],
+            starmain: 0
         };
+    }
+    selectStar = (starmain) => {
+        this.setState({ starmain })
+    }
+    starReview(star) {
+        let starBox = []
+        for (var n = 0; n < 5; n++) {
+            if (star > n) {
+                starBox.push(
+                    <TouchableOpacity activeOpacity={1} key={n} onPress={this.selectStar.bind(this, n + 1)}>
+                        <IconFontAwesome name='star' size={40} color='#FFAC33' />
+                    </TouchableOpacity>
+                )
+            } else {
+                starBox.push(
+                    <TouchableOpacity key={n} activeOpacity={1} onPress={this.selectStar.bind(this, n + 1)}>
+                        <IconFontAwesome name='star' size={40} color='#E9E9E9' />
+                    </TouchableOpacity>
+                )
+            }
+        }
+        return starBox
     }
     UploadImageSingle = (index) => {
         const { avatarSource } = this.state
@@ -845,30 +876,12 @@ export class Review_From extends React.Component {
             includeBase64: true
         };
         ImagePicker.openPicker(options).then(response => {
-            response.map((item, index) => index + avatarSource.length <= 7 && avatarSource.push(item))
+            response.map((item, index) => index + avatarSource.length <= 3 && avatarSource.push(item))
             this.setState({ avatarSource })
         });
     }
-    UploadImageData = () => {
-        const { avatarSource } = this.state
-        var uri = [ip, 'sql/uploadimage/updateimage.php'].join('/')
-        avatarSource && (
-            fetch(uri, {
-                method: "POST",
-                body: avatarSource
-            })
-                .then(response => response.json())
-                .then(response => {
-                    alert("Upload success!");
-                    this.setState({ avatarSource: null });
-                })
-                .catch(error => {
-                    alert("Upload failed!");
-                })
-        )
-    }
     render() {
-        const { avatarSource } = this.state
+        const { avatarSource, starmain } = this.state
         return (
             <View style={stylesMain.SafeAreaView}>
                 <View style={stylesProfileTopic.Review_From}>
@@ -888,11 +901,7 @@ export class Review_From extends React.Component {
                         </View>
                     </View>
                     <View style={stylesProfileTopic.Review_From_Star_Box}>
-                        <IconFontAwesome name='star' size={35} color='#FFAC33' />
-                        <IconFontAwesome name='star' size={35} color='#FFAC33' />
-                        <IconFontAwesome name='star' size={35} color='#FFAC33' />
-                        <IconFontAwesome name='star' size={35} color='#FFAC33' />
-                        <IconFontAwesome name='star' size={35} color='#FFAC33' />
+                        {this.starReview(starmain)}
                     </View>
                     <View style={stylesProfileTopic.Review_From_TextInput}>
                         <TextInput
@@ -908,73 +917,63 @@ export class Review_From extends React.Component {
                     <View style={{ width: '100%', }}>
                         <View style={{ flexDirection: 'row', }}>
                             <CheckBox
-                                checked={this.state.checked}
-                                onPress={() => this.setState({ checked: !this.state.checked, checked2: !this.state.checked2 })}
+                                checked={this.state.checked1}
+                                onPress={() => this.setState({ checked1: !this.state.checked1, checked2: !this.state.checked2 })}
                             />
                             <Text style={[
                                 stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#EAEAEA', marginTop: 15, marginLeft: -10 }]}>
                                 ไม่ระบุตัวตน</Text>
                         </View>
-                        <View style={stylesMain.FrameBackground}>
-                            <ScrollView horizontal>
-                                {
-                                    avatarSource ? [
-                                        avatarSource.map((item, index) => {
-                                            return (
-                                                <TouchableOpacity onPress={() => this.UploadImageSingle(index)} key={index}>
-                                                    <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>
-                                                        <FastImage
-                                                            source={{ uri: item.path }}
-                                                            style={[stylesMain.ItemCenterVertical, stylesMain.BoxProduct1Image]}
-                                                        />
-                                                    </View>
-                                                </TouchableOpacity>
-                                            )
-                                        }),
-                                        avatarSource.length < 7 &&
-                                        <TouchableOpacity onPress={this.UploadImageMultiple} key={'upload'}>
-                                            <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>
-                                                <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
-                                                    <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
-                                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
+                        <View style={{ flexDirection: 'row', borderWidth: 1, padding: 10, borderColor: '#EAEAEA' }}>
+                            {
+                                avatarSource ? [
+                                    avatarSource.map((item, index) => {
+                                        return (
+                                            <TouchableOpacity onPress={() => this.UploadImageSingle(index)} key={index}>
+                                                <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                                                    <FastImage
+                                                        source={{ uri: item.path }}
+                                                        style={[stylesMain.ItemCenterVertical, stylesMain.BoxProduct1Image]}
+                                                    />
                                                 </View>
+                                            </TouchableOpacity>
+                                        )
+                                    }),
+                                    avatarSource.length < 3 &&
+                                    <TouchableOpacity onPress={this.UploadImageMultiple} key={'upload'}>
+                                        <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                                            <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
+                                                <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
+                                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
                                             </View>
-                                        </TouchableOpacity>
-                                    ] :
-                                        <TouchableOpacity onPress={this.UploadImageMultiple}>
-                                            <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>
-                                                <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
-                                                    <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
-                                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
-                                                </View>
+                                        </View>
+                                    </TouchableOpacity>
+                                ] :
+                                    <TouchableOpacity onPress={this.UploadImageMultiple}>
+                                        <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                                            <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
+                                                <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
+                                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
                                             </View>
-                                        </TouchableOpacity>
-                                }
-                            </ScrollView>
+                                        </View>
+                                    </TouchableOpacity>
+                            }
                         </View>
-                        {/* <View style={{ marginTop: 10, alignItems: 'flex-end' }}>
-                            <TouchableOpacity>
-                                <View style={stylesProfileTopic.Review_From_UpImage}>
-                                    <IconAntDesign RightItem name='camerao' size={35} color='#CACACA' />
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#CACACA' }]}>
-                                        อัพโหลดรูปภาพ(0/3)</Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View> */}
                     </View>
-                </View>
-                <View style={{ flex: 1, justifyContent: 'flex-end', }}>
-                    <View style={stylesMain.FlexRow}>
+                    <View style={[stylesMain.FlexRow,{marginLeft:-10}]}>
                         <CheckBox
-                            checked={this.state.checked1}
-                            onPress={() => this.setState({ checked1: !this.state.checked1, checked2: !this.state.checked2 })}
+                            checked={this.state.checked3}
+                            onPress={() => this.setState({ checked3: !this.state.checked3, checked4: !this.state.checked4 })}
                         />
-                        <View style={[stylesMain.FlexRow, { marginTop: 15, }]}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>ข้าพเจ้ายอมรับและทราบข้อตกลงตาม </Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#36B680' }]}>
+                        <View style={[stylesMain.FlexRow, { marginTop: 20, marginLeft:-15}]}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                ข้าพเจ้ายอมรับและทราบข้อตกลงตาม </Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#36B680' }]}>
                                 นโยบายความเป็นส่วนตัวของ FIN</Text>
                         </View>
                     </View>
+                </View>
+                <View>
                     <View style={{ alignItems: 'center', width: '100%' }}>
                         <TouchableOpacity style={stylesProfileTopic.Review_From_Buttonshare}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>แชร์รีวิว</Text>

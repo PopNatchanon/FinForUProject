@@ -212,7 +212,7 @@ export default class StoreScreen extends Component {
                     {this.ViewSide(selectedIndex, s_item)}
                 </ScrollView>
                 <ExitAppModule navigation={navigation} />
-            </View >
+            </View>
         );
     }
 }

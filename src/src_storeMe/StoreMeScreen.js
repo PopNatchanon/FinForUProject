@@ -11,6 +11,7 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconsFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import IconsFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 ///----------------------------------------------------------------------------------------------->>>> styleStoreMe
@@ -110,7 +111,6 @@ export class Menubar extends Component {
         )
     }
 }
-
 ///--------------------------------------------------------------------------///
 export class MenubarSub extends Component {
     constructor(props) {
@@ -209,6 +209,28 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Topic', { selectedIndex: 8 })} >
+                        <View style={stylesProfile.ListMenuList}>
+                            <View style={stylesProfile.ListMenuListSub}>
+                                <IconsFontAwesome RightItem name="bank" size={30} color='#5CCFA8' style={stylesProfile.ListMenuListSubIcon} />
+                                <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                                    รายได้ของฉัน
+                            </Text>
+                            </View>
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Topic', { selectedIndex: 9 })} >
+                        <View style={stylesProfile.ListMenuList}>
+                            <View style={stylesProfile.ListMenuListSub}>
+                                <IconsFontAwesome5 RightItem name="money-bill" size={30} color='#154FC6' style={stylesProfile.ListMenuListSubIcon} />
+                                <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                                    ถอนเงิน
+                            </Text>
+                            </View>
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
+                        </View>
+                    </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Topic', { selectedIndex: 0 })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
@@ -242,17 +264,6 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 5 })} >
-                        <View style={stylesProfile.ListMenuList}>
-                            <View style={stylesProfile.ListMenuListSub}>
-                                <IconFeather RightItem name="help-circle" size={35} color='#00A3FF' style={stylesProfile.ListMenuListSubIcon} />
-                                <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                                    ช่วยเหลือ
-                            </Text>
-                            </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
-                        </View>
-                    </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Return', { selectedIndex: 2 })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
@@ -264,6 +275,18 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 5 })} >
+                        <View style={stylesProfile.ListMenuList}>
+                            <View style={stylesProfile.ListMenuListSub}>
+                                <IconFeather RightItem name="help-circle" size={35} color='#00A3FF' style={stylesProfile.ListMenuListSubIcon} />
+                                <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                                    ช่วยเหลือ
+                            </Text>
+                            </View>
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
+                        </View>
+                    </TouchableOpacity>
+                 
                 </View>
             </View>
         )
@@ -306,30 +329,30 @@ export class StoreMe_Product_Box extends Component {
     render() {
         return (
             <TouchableOpacity style={{ width: '30%', borderColor: '#ECECEC', borderWidth: 1, padding: 10 }}>
-                    <View style={{ alignItems: 'center', height: 100 }}>
-                        <FastImage
-                            style={stylesMain.BoxProduct1Image}
-                            source={{
-                                uri: ip + '/MySQL/uploads/products/2019-10-09-1570615168.png',
-                            }}
-                        />
+                <View style={{ alignItems: 'center', height: 100 }}>
+                    <FastImage
+                        style={stylesMain.BoxProduct1Image}
+                        source={{
+                            uri: ip + '/MySQL/uploads/products/2019-10-09-1570615168.png',
+                        }}
+                    />
+                </View>
+                <View style={{ marginTop: 10 }}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ห้องพัก Deluxe Pool Villa</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>฿10,000</Text>
+                </View>
+                <View style={[stylesMain.FlexRow, { justifyContent: 'space-between' }]}>
+                    <View style={stylesMain.FlexRow}>
+                        <IconsFontAwesome5 name='heart' size={10} color='#949494' />
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#949494' }]}>300</Text>
+                        <IconFeather name='eye' size={10} color='#949494' />
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#949494' }]}>300</Text>
                     </View>
-                    <View style={{ marginTop: 10 }}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ห้องพัก Deluxe Pool Villa</Text>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>฿10,000</Text>
+                    <View style={stylesMain.FlexRow}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#949494' }]}>ขายแล้ว</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#949494' }]}>0</Text>
                     </View>
-                    <View style={[stylesMain.FlexRow, { justifyContent: 'space-between' }]}>
-                        <View style={stylesMain.FlexRow}>
-                            <IconsFontAwesome5 name='heart' size={10} color='#949494' />
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#949494' }]}>300</Text>
-                            <IconFeather name='eye' size={10} color='#949494' />
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#949494' }]}>300</Text>
-                        </View>
-                        <View style={stylesMain.FlexRow}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#949494' }]}>ขายแล้ว</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#949494' }]}>0</Text>
-                        </View>
-                    </View>
+                </View>
             </TouchableOpacity>
         );
     }

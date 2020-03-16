@@ -20,6 +20,7 @@ import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 import stylesProfile from '../../style/StylesProfileScreen';
+import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 import stylesStoreMe from '../../style/stylestoreMe-src/styleStoreMeScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 ///----------------------------------------------------------------------------------------------->>>> Ip.
@@ -95,14 +96,14 @@ export default class StoreMe_Topic extends Component {
                         <View style={{ backgroundColor: '#FFFFFF' }}>
                             <View style={{ flexDirection: 'row', padding: 5, borderColor: '#EAEAEA', borderWidth: 1 }}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { margin: 10 }]}> เลือกสินค้า </Text>
-                                <View style={{ flexDirection: 'row', width: '65%', paddingLeft: 10, borderColor: '#EAEAEA', borderRadius: 5, borderWidth: 1,}}>
+                                <View style={{ flexDirection: 'row', width: '65%', paddingLeft: 10, borderColor: '#EAEAEA', borderRadius: 5, borderWidth: 1, }}>
                                     <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { width: '90%' }]}
                                         placeholder=""
                                         value={this.state.text}
                                         onChangeText={(text) => this.setState({ text })}>
                                     </TextInput>
                                     <TouchableOpacity>
-                                        <IconAntDesign RightItem name="search1" size={20} style={{marginVertical:10}} />
+                                        <IconAntDesign RightItem name="search1" size={20} style={{ marginVertical: 10 }} />
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -110,6 +111,61 @@ export default class StoreMe_Topic extends Component {
                         <StoreMe_Fin_Campaign_Product />
                         <StoreMe_Fin_Campaign_Product />
                         <StoreMe_Fin_Campaign_ProductSelect />
+                    </SafeAreaView>
+                )
+            case 8:
+                return (
+                    <SafeAreaView style={stylesMain.SafeAreaView}>
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='รายได้ของฉัน' />
+                        <My_income />
+                    </SafeAreaView>
+                )
+            case 9:
+                return (
+                    <SafeAreaView style={stylesMain.SafeAreaView}>
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ถอนเงิน' />
+                        <Withdraw_money navigation={this.props.navigation} />
+                    </SafeAreaView>
+                )
+            case 10:
+                return (
+                    <SafeAreaView style={stylesMain.SafeAreaView}>
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ถอนเงิน' />
+                        <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, , { margin: 5 }]}>รหัสผ่าน</Text>
+                            <View style={{ width: '100%', borderColor: '#EAEAEA', borderRadius: 5, borderWidth: 1, height: 50 }}>
+                                <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}
+                                    placeholder=""
+                                    maxLength={10}
+                                    value={this.state.text}
+                                    onChangeText={(text) => this.setState({ text })}>
+                                </TextInput>
+                            </View>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, , { color: '#FF0000' }]}>*ระบบจะส่งรหัสยืนยันตัวตนไปที่อีเมล</Text>
+                        </View>
+                        <View style={{ justifyContent: 'flex-end', flex: 1, alignItems: 'center' }}>
+                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('StoreMe_Topic', { selectedIndex: 11 })}
+                                style={[stylesMain.ItemCenter, { width: '80%', height: 50, backgroundColor: '#0A55A6', borderRadius: 5, marginVertical: 10 }]}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, , { color: '#FFFFFF' }]}>เข้าสู่ระบบ</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </SafeAreaView>
+                )
+            case 11:
+                return (
+                    <SafeAreaView style={stylesMain.SafeAreaView}>
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ถอนเงิน' />
+                        <Confirm_Bank />
+                    </SafeAreaView>
+                )
+            case 12:
+                return (
+                    <SafeAreaView style={stylesMain.SafeAreaView}>
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ประวัติการถอนเงิน' />
+                        <Withdrawal_history />
+                        <Withdrawal_history />
+                        <Withdrawal_history />
+                        <Withdrawal_history />
                     </SafeAreaView>
                 )
         }
@@ -230,8 +286,8 @@ export class StoreMe_Score extends Component {
                         </View>
                     </View>
                 </View>
-                <View style={[stylesMain.FrameBackground,{padding:10}]}>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>ความคิดเห็น</Text></View>
+                <View style={[stylesMain.FrameBackground, { padding: 10 }]}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>ความคิดเห็น</Text></View>
                 <StoreMe_Comment navigation={this.props.navigation} Comment_Reply />
                 <StoreMe_Comment navigation={this.props.navigation} Comment_Reply />
                 <StoreMe_Comment navigation={this.props.navigation} Comment_Reply />
@@ -258,16 +314,16 @@ export class StoreMe_Comment extends Component {
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { margin: 10, }]}>PPoo</Text>
                     </View>
                 </View>
-                <View style={[stylesMain.FlexRow, {borderColor: '#EAEAEA', borderBottomWidth: 1, padding:5,}]}>
+                <View style={[stylesMain.FlexRow, { borderColor: '#EAEAEA', borderBottomWidth: 1, padding: 5, }]}>
                     <View style={stylesMain.FlexRow}>
-                        <View style={{ height: 80, width: 80,}}>
+                        <View style={{ height: 80, width: 80, }}>
                             <FastImage style={stylesMain.BoxProduct1Image}
                                 source={{
                                     uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
                                 }}
                             />
                         </View>
-                        <View style={{ padding: 5, width:'55%'}}>
+                        <View style={{ padding: 5, width: '55%' }}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#A2A2A2' }]}>ตัวเลือกสินค้า:สีแดง</Text>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>เหตุผลยกเลิกสินค้า :เนื่องจากเปลี่ยนใจ</Text>
@@ -275,7 +331,7 @@ export class StoreMe_Comment extends Component {
                     </View>
                     {Comment_Reply
                         ?
-                        <TouchableOpacity style={[stylesMain.FlexRow, { alignItems: 'flex-end'}]} onPress={() => this.props.navigation.push('StoreMe_Topic', { selectedIndex: 5 })}>
+                        <TouchableOpacity style={[stylesMain.FlexRow, { alignItems: 'flex-end' }]} onPress={() => this.props.navigation.push('StoreMe_Topic', { selectedIndex: 5 })}>
                             <IconFeather name='edit' size={15} color='#20BDA1' />
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#20BDA1' }]} > เขียนตอบกลับ</Text>
                         </TouchableOpacity> : null
@@ -299,7 +355,6 @@ export class StoreMe_Comment_Reply extends Component {
         this.state = {
         };
     }
-
     render() {
         return (
             <View>
@@ -330,7 +385,6 @@ export class StoreMe_Comment_Reply extends Component {
         );
     }
 }
-
 ///----------------------------------------------------------------------------------------------->>>>
 
 export class StoreMe_Advertisement_Packet extends Component {
@@ -516,13 +570,13 @@ export class StoreMe_Fin_Campaign_Product extends Component {
 
     render() {
         return (
-            <View style={{ backgroundColor: '#FFFFFF' ,width:'100%' }}>
+            <View style={{ backgroundColor: '#FFFFFF', width: '100%' }}>
                 <View style={{ flexDirection: 'row', padding: 10, borderColor: '#EAEAEA', borderWidth: 1 }}>
                     <CheckBox
                         checked={this.state.checked}
                         onPress={() => this.setState({ checked: !this.state.checked, checked2: !this.state.checked2 })}
                     />
-                    <View style={{ height: 80, width: 80, borderColor: '#EAEAEA', borderWidth: 1 ,padding:5}}>
+                    <View style={{ height: 80, width: 80, borderColor: '#EAEAEA', borderWidth: 1, padding: 5 }}>
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
@@ -578,6 +632,250 @@ export class StoreMe_Fin_Campaign_ProductSelect extends Component {
                     </TouchableOpacity>
                 </View>
             </View>
+        );
+    }
+}
+
+///----------------------------------------------------------------------------------------------->>>>
+export class My_income extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+    updateIndex = (selectedIndex) => {
+        this.setState({ selectedIndex })
+    }
+    dataItem(items1) {
+        return (
+            <View style={[stylesMain.FlexRow, { width: '100%', justifyContent: 'center', backgroundColor: '#FFFFFF', height: 30 }]}>
+                <TabBar
+                    sendData={this.updateIndex.bind(this)}
+                    item={items1}
+                    // noLimit
+                    numberBox
+                    radiusBox={4}
+                />
+            </View>
+        )
+    }
+    render() {
+        const items1 = [{
+            name: 'ยังไม่สำเร็จ'
+        }, {
+            name: 'สำเร็จแล้ว'
+        },]
+        return (
+            <>
+                <View style={{ width: '100%', marginTop: 5 }}>
+                    {this.dataItem(items1)}
+                </View>
+                <ScrollView>
+                    <View style={[stylesMain.ItemCenter, { backgroundColor: '#FFFFFF', marginTop: 5, paddingTop: 10 }]}>
+                        <View style={[stylesMain.ItemCenter, { height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 5, borderRadius: 75 }]}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: '#0A55A6' }]}>฿100,000</Text>
+                        </View>
+                    </View>
+                    <View style={[stylesMain.FrameBackground, { marginTop: -50 }]}>
+                        <Product_income />
+                        <Product_income />
+                        <Product_income />
+                        <Product_income />
+                        <Product_income />
+                        <Product_income />
+                    </View>
+                </ScrollView>
+            </>
+        );
+    }
+}
+///----------------------------------------------------------------------------------------------->>>>
+
+export class Product_income extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
+    render() {
+        return (
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10, borderColor: '#ECECEC', borderWidth: 1 }}>
+                <View style={stylesMain.FlexRow}>
+                    <View style={stylesProfileTopic.Order_Product_Pro}>
+                        <FastImage style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
+                            }}
+                        />
+                    </View>
+                    <View>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>หมายเลขคำสั่งซื้อ : 2223994239012</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A2A2A2' }]}>ตัวเลือกสินค้า:สีแดง</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>เหตุผลยกเลิกสินค้า :เนื่องจากเปลี่ยนใจ</Text>
+                        <Text>x 1</Text>
+                    </View>
+                </View>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#0A55A6' }]}>฿10,000.00</Text>
+            </View>
+        );
+    }
+}
+
+///----------------------------------------------------------------------------------------------->>>>
+
+export class Withdraw_money extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+    render() {
+        return (
+            <View style={{ backgroundColor: '#FFFFFF', marginTop: 5 }}>
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('StoreMe_Topic', { selectedIndex: 12 })}>
+                    <View style={stylesProfile.ListMenuList}>
+                        <View style={stylesProfile.ListMenuListSub}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,{margin:10}]}>
+                                ประวัติการถอนเงิน
+                            </Text>
+                        </View>
+                        <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('StoreMe_Topic', { selectedIndex: 10 })}>
+                    <View style={stylesProfile.ListMenuList}>
+                        <View style={stylesProfile.ListMenuListSub}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,{margin:10}]}>
+                                ถอนเงิน
+                            </Text>
+                        </View>
+                        <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
+                    </View>
+                </TouchableOpacity>
+            </View>
+        );
+    }
+}
+///----------------------------------------------------------------------------------------------->>>>
+
+export class Confirm_Bank extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            money: ''
+        };
+    }
+    render() {
+        return (
+            <>
+                <View>
+                    <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, , { margin: 5 }]}>การยืนยันตัวตน</Text>
+                        <View style={{ width: '100%', borderColor: '#EAEAEA', borderRadius: 5, borderWidth: 1, height: 50 }}>
+                            <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}
+                                placeholder=""
+                                maxLength={10}
+                                value={this.state.text}
+                                onChangeText={(text) => this.setState({ text })}>
+                            </TextInput>
+                        </View>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, , { color: '#FF0000' }]}>*รหัสยืนยันตัวตนจากอีเมลของท่าน</Text>
+                    </View>
+                </View>
+                <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10, paddingBottom: 10 }]}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, , { margin: 5 }]}>ถอนเงินไปที่</Text>
+                    <View style={stylesMain.FlexRow}>
+                        <FastImage
+                            style={{ height: 100, width: 100, borderWidth: 3 }}
+                            source={{
+                                uri: ip + '/MySQL/uploads/message/BBL-LOGO.jpg',
+                            }}
+                        />
+                        <View style={{ margin: 10 }}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4,]}>ธนาคารกรุงเทพ</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4,]}>* *** *** *232</Text>
+                        </View>
+                    </View>
+                </View>
+                <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, , { margin: 5 }]}>จำนวนเงินที่ทำการถอน</Text>
+                    <View style={{ width: '100%', borderColor: '#EAEAEA', borderRadius: 5, borderWidth: 1, height: 50, flexDirection: 'row', alignItems: 'center' }}>
+                        <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '90%' }]}
+                            placeholder=""
+                            maxLength={50}
+                            value={this.state.money}
+                            onChangeText={(money) => this.setState({ money })}>
+                        </TextInput>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4,]}>THB</Text>
+                    </View>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,]}>ระยะเวลาดำเนินการ : 3-5 วันทำการ</Text>
+                </View>
+                <View style={{ justifyContent: 'flex-end', flex: 1, alignItems: 'center' }}>
+                    <TouchableOpacity //activeOpacity={1} onPress={() => this.props.navigation.push('StoreMe_Topic', { selectedIndex: 11 })}
+                        style={[stylesMain.ItemCenter, { width: '80%', height: 50, backgroundColor: '#0A55A6', borderRadius: 5, marginVertical: 10 }]}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, , { color: '#FFFFFF' }]}>ยืนยันการถอนเงิน</Text>
+                    </TouchableOpacity>
+                </View>
+            </>
+        );
+    }
+}
+///----------------------------------------------------------------------------------------------->>>>
+export class Withdrawal_history extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            activeBox: false,
+        };
+    }
+    activeBox = () => {
+        const { activeBox } = this.state
+        this.setState({ activeBox: !activeBox })
+    }
+    render() {
+        const { activeBox } = this.state
+        return (
+            <>
+                <TouchableOpacity onPress={this.activeBox.bind(this)}>
+                    <View style={{ backgroundColor: '#FFFFFF' }}>
+                        <View style={[stylesMain.FlexRow, stylesMain.FrameBackground, { justifyContent: 'space-around' }]}>
+                            <View>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,{color:'#B7B7B7'}]}>ถอนเงิน</Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>123124284349</Text>
+                            </View>
+                            <View>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2,]}>1,000,000 THB</Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'right' ,color:'#B7B7B7'}]}>กรุงไทย
+                            <IconEntypo name={activeBox == true ? 'chevron-up' : 'chevron-down'} size={20} color='#0A55A6' />
+                                </Text>
+                            </View>
+                        </View>
+                    </View>
+                </TouchableOpacity>
+                {
+                    activeBox == true &&
+                    <View style={[stylesMain.ItemCenter, { backgroundColor: '#FFFFFF', padding: 10 }]}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>20/02/2020</Text>
+                        <FastImage
+                            style={{ height: 100, width: 100, borderWidth: 3 }}
+                            source={{
+                                uri: ip + '/MySQL/uploads/message/BBL-LOGO.jpg',
+                            }}
+                        />
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>ธนาคารกรุงเทพ</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>* *** *** *232</Text>
+                        <View style={[stylesMain.ItemCenter, { borderColor: '#C4C4C4', borderWidth: 2, borderRadius: 5, paddingHorizontal: 30 }]}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>สถานะ</Text>
+                            <View style={[stylesMain.ItemCenter, { backgroundColor: '#2CD583', borderRadius: 30, padding: 5 }]}>
+                                <IconEntypo name='check' size={35} color='#FFFFFF' />
+                            </View>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>อนุมัติเสร็จสิ้น</Text>
+                        </View>
+                    </View>
+                }
+            </>
         );
     }
 }

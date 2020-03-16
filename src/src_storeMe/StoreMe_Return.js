@@ -21,6 +21,7 @@ import stylesStoreMe from '../../style/stylestoreMe-src/styleStoreMeScreen';
 import { ip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 import { AppBar1 } from '../../src/MainScreen';
+import { Order_Me_Box } from './StoreMe_Totel_Order';
 
 export default class StoreMe_Return extends Component {
   PathList() {
@@ -32,10 +33,11 @@ export default class StoreMe_Return extends Component {
             <AppBar1 backArrow navigation={this.props.navigation} titleHead='คืนสินค้า/คืนเงิน' />
             <ScrollView>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10 }]}>คืนสินค้า/คืนเงิน</Text>
-              <StoreMe_Product_Before navigation={this.props.navigation} />
-              <StoreMe_Product_Before navigation={this.props.navigation} />
-              <StoreMe_Product_Before navigation={this.props.navigation} />
-              <StoreMe_Product_Before navigation={this.props.navigation} />
+              <Order_Me_Box navigation={this.props.navigation} Cause_cancel detail_order_cancel Contact_buyer />
+              <Order_Me_Box navigation={this.props.navigation} Cause_cancel detail_order_cancel Contact_buyer />
+              <Order_Me_Box navigation={this.props.navigation} Cause_cancel detail_order_cancel Contact_buyer />
+              <Order_Me_Box navigation={this.props.navigation} Cause_cancel detail_order_cancel Contact_buyer />
+              <Order_Me_Box navigation={this.props.navigation} Cause_cancel detail_order_cancel Contact_buyer />
             </ScrollView>
           </View>
         )
@@ -54,12 +56,12 @@ export default class StoreMe_Return extends Component {
             <AppBar1 backArrow navigation={this.props.navigation} titleHead='คลังสินค้า' />
             <ScrollView>
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { margin: 5, }]}>รายการสินค้า</Text>
-              <Treasury_store_Product navigation={this.props.navigation}/>
-              <Treasury_store_Product navigation={this.props.navigation}/>
-              <Treasury_store_Product navigation={this.props.navigation}/>
-              <Treasury_store_Product navigation={this.props.navigation}/>
-              <Treasury_store_Product navigation={this.props.navigation}/>
-              <Treasury_store_Product navigation={this.props.navigation}/>
+              <Treasury_store_Product navigation={this.props.navigation} />
+              <Treasury_store_Product navigation={this.props.navigation} />
+              <Treasury_store_Product navigation={this.props.navigation} />
+              <Treasury_store_Product navigation={this.props.navigation} />
+              <Treasury_store_Product navigation={this.props.navigation} />
+              <Treasury_store_Product navigation={this.props.navigation} />
             </ScrollView>
           </View>
         )
@@ -68,10 +70,11 @@ export default class StoreMe_Return extends Component {
           <View style={stylesMain.SafeAreaView}>
             <AppBar1 backArrow navigation={this.props.navigation} titleHead='ยกเลิกสินค้า' />
             <ScrollView>
-              <StoreMe_Product_Before navigation={this.props.navigation} Cancel='ถูกยกเลิก' />
-              <StoreMe_Product_Before navigation={this.props.navigation} Cancel='ถูกยกเลิก' />
-              <StoreMe_Product_Before navigation={this.props.navigation} Cancel='ถูกยกเลิก' />
-              <StoreMe_Product_Before navigation={this.props.navigation} Cancel='ถูกยกเลิก' />
+            <Order_Me_Box navigation={this.props.navigation} cancel_order Cause_cancel detail_order_cancel Contact_buyer />
+            <Order_Me_Box navigation={this.props.navigation} cancel_order Cause_cancel detail_order_cancel Contact_buyer />
+            <Order_Me_Box navigation={this.props.navigation} cancel_order Cause_cancel detail_order_cancel Contact_buyer />
+            <Order_Me_Box navigation={this.props.navigation} cancel_order Cause_cancel detail_order_cancel Contact_buyer />
+            <Order_Me_Box navigation={this.props.navigation} cancel_order Cause_cancel detail_order_cancel Contact_buyer />
             </ScrollView>
           </View>
         )
@@ -86,77 +89,8 @@ export default class StoreMe_Return extends Component {
     );
   }
 }
-///--------------------------------------------------------------------------///
 
-export class StoreMe_Product_Before extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-
-  render() {
-    const { Cancel } = this.props;
-
-    return (
-      <View style={stylesMain.SafeAreaView}>
-        <View style={stylesMain.FrameBackground}>
-          <View style={stylesStoreMe.StoreMe_Product_Before}>
-            <View style={stylesMain.FlexRow}>
-              <FastImage style={stylesProfileTopic.Order_StorePro}
-                source={{
-                  uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
-                }}
-              />
-              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { margin: 10, }]}>PPoo</Text>
-            </View>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { margin: 10, color: '#0A55A6' }]}> {Cancel ? Cancel : ''}</Text>
-          </View>
-          <View style={stylesProfileTopic.Order_Product}>
-            <View style={stylesMain.FlexRow}>
-              <View style={stylesProfileTopic.Order_Product_Pro}>
-                <FastImage style={stylesMain.BoxProduct1Image}
-                  source={{
-                    uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
-                  }}
-                />
-              </View>
-              <View>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>หมายเลขคำสั่งซื้อ : 2223994239012</Text>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A2A2A2' }]}>ตัวเลือกสินค้า:สีแดง</Text>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>เหตุผลยกเลิกสินค้า :เนื่องจากเปลี่ยนใจ</Text>
-                <Text>x 1</Text>
-              </View>
-            </View>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#0A55A6' }]}>฿10,000.00</Text>
-          </View>
-          <View style={stylesStoreMe.StoreMe_Product_BeforeBoxFooter}>
-            <View style={stylesProfileTopic.Order_Box_price}>
-              <View style={stylesProfileTopic.Order_Box_priceText}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยอดคำสั่งซื้อทั้งหมด</Text>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, color: '#0A55A6' }]}>฿ 10,000.00</Text>
-              </View>
-              <View style={[stylesProfileTopic.Order_Box_priceText, { marginTop: 5, }]}>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('StoreMe_Return', { selectedIndex: 1 })}>
-                  <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <View style={[stylesProfileTopic.Order_Button, { backgroundColor: '#0A55A6' }]}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ติดต่อผู้ซื้อ</Text>
-                  </View>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-        </View>
-      </View>
-    );
-  }
-}
-///--------------------------------------------------------------------------///
+///--------------------------------------------------------------------------/// รายละเอียดการยกเลิก
 
 export class StoreMe_Return_Detail extends Component {
   constructor(props) {
@@ -263,7 +197,7 @@ export class StoreMe_Return_Detail extends Component {
     );
   }
 }
-///--------------------------------------------------------------------------///
+///--------------------------------------------------------------------------/// คลัง
 
 export class Treasury_store_Product extends Component {
   constructor(props) {
@@ -337,14 +271,14 @@ export class Treasury_store_Product extends Component {
           headerIconComponent={this._renderHeader}
           show={this.state.show}
           title="คุณต้องการลบสินค้าชิ้นนี้หรือไม่"
-          titleStyle={[stylesFont.FontFamilyBold,stylesFont.FontSize2]}
+          titleStyle={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}
           subtitle="Name Product"
           subtitleStyle={stylesFont.FontFamilyText}
           onRequestClose={() => null}
         >
-          <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around',}]}>
-            <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding:10 ,paddingHorizontal:40}}>ยกเลิก</SCLAlertButton>
-            <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding:10 ,paddingHorizontal:40}}>ยืนยัน</SCLAlertButton>
+          <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around', }]}>
+            <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยกเลิก</SCLAlertButton>
+            <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยืนยัน</SCLAlertButton>
           </View>
         </SCLAlert>
       </View>

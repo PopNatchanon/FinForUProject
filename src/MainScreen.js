@@ -118,6 +118,7 @@ export default class MainScreen extends React.Component {
                         <BannerBar_TWO />
                         <Exclusive navigation={navigation} loadData={dataService.exclusive} />
                         <NewStore navigation={navigation} loadData={dataService.dont_miss} />
+                        <Fin_Mall navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />
                         <Highlight navigation={navigation} loadData={dataService.hi_week} />
                         <PromotionPopular navigation={navigation} loadData={dataService.recommend_store} />
                         <Popular_store navigation={navigation} loadData={dataService.store_good} />
@@ -128,6 +129,11 @@ export default class MainScreen extends React.Component {
                         <BannerBar_ONE />
                         <Product_for_you navigation={navigation} loadData={dataService.for_you} />
                         <CategoryProduct navigation={navigation} />
+                        <Fin_SuperMarket navigation={navigation} loadData={{
+                            product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
+                            list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3,
+                            mobile_bar: dataService.mobile_bar, mobile_slide: dataService.mobile_slide,
+                        }} />
                         <Second_product navigation={navigation} loadData={{
                             product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
                             list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3,
@@ -279,20 +285,20 @@ export class AppBar extends React.Component {
                     searchBar ?
                         <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'goBack')}>
                             <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical]}>
-                                <FastImage
+                                {/* <FastImage
                                     style={[stylesMain.LOGO, stylesMain.ItemCenterVertical]}
                                     source={require('../images/sj.png')}
                                     resizeMode={FastImage.resizeMode.stretch}
-                                />
+                                /> */}
                                 <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
                                     width:
                                         rightBar == 'storebar' ?
                                             leftBar == 'backarrow' ?
-                                                width - 200 :
-                                                width - 170 :
+                                                width - 140 :
+                                                width - 120 :
                                             rightBar == 'chat' ?
-                                                width - 200 :
-                                                width - 170,
+                                                width - 140 :
+                                                width - 120,
                                 }]}>
                                     <TextInput
                                         style={[
@@ -312,20 +318,20 @@ export class AppBar extends React.Component {
                         <TouchableOpacity activeOpacity={1} onPress={
                             this.navigationNavigateScreen.bind(this, 'SearchScreen', { modeStore: false })}>
                             <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical]}>
-                                <FastImage
+                                {/* <FastImage
                                     style={[stylesMain.LOGO, stylesMain.ItemCenterVertical]}
                                     source={require('../images/sj.png')}
                                     resizeMode={FastImage.resizeMode.stretch}
-                                />
+                                /> */}
                                 <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
                                     width:
                                         rightBar == 'storebar' ?
                                             leftBar == 'backarrow' ?
-                                                width - 200 :
-                                                width - 170 :
+                                                width - 140 :
+                                                width - 120 :
                                             rightBar == 'chat' ?
-                                                width - 200 :
-                                                width - 170,
+                                                width - 140 :
+                                                width - 120,
                                 }]}>
                                     <Text style={[
                                         stylesFont.FontFamilyText, stylesFont.FontSize5, stylesFont.FontCenter,
@@ -1365,73 +1371,66 @@ export class PromotionPopular extends React.Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Confidential_PRO
-export class Confidential_PRO extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            dataService: [],
-            activeDataService: true,
-        };
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService, activeDataService } = this.state
-        const { navigation } = this.props
-        if (
-            dataService !== nextState.dataService || activeDataService !== nextState.activeDataService ||
-            navigation !== nextProps.navigation
-        ) {
-            return true
-        }
-        return false
-    }
-    getData = (dataService) => {
-        this.setState({ dataService, activeDataService: false })
-    }
-    get dataConfidential_PRO() {
-        const { dataService } = this.state
-        dataService.map((item, index) => {
-            var dataMySQL = ip + '/' + 'mysql' + '/' + item.image_path + '/' + item.image;
-            return (
-                <View style={stylesMain.BoxStore2Box} key={index}>
-                    <FastImage
-                        source={{
-                            uri: dataMySQL,
-                            width: 160,
-                            height: 60,
-                        }}
-                        style={stylesMain.BoxStore2Image}
-                        resizeMode={FastImage.resizeMode.stretch}
-                    />
-                </View>
-            )
-        })
-    }
-    render() {
-        var uri = ip + '/MySQL/DataServiceMain.php';
-        var dataBody = {
-            type: 'Confidential_PRO'
-        };
-        return (
-            <View style={[stylesMain.FrameBackground2]}>
-                {
-                    activeDataService == true &&
-                    <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
-                }
-                <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={stylesMain.FrameBackgroundTextStart}>
-                        ลายแทงร้านค้าแนะนำ</Text>
-                    <Text style={stylesMain.FrameBackgroundTextEnd}>
-                        ดูทั้งหมด</Text>
-                </View>
-                <ScrollView horizontal>
-                    <View style={stylesMain.Confidential_A}>
-                        {this.dataConfidential_PRO}
-                    </View>
-                </ScrollView>
-            </View>
-        );
-    }
-}
+// export class Confidential_PRO extends React.Component {
+//     constructor(props) {
+//         super(props);
+//         this.state = {
+//             dataService: [],
+//         };
+//     }
+//     shouldComponentUpdate = (nextProps, nextState) => {
+//         const { dataService } = this.state
+//         const { navigation } = this.props
+//         if (dataService !== nextState.dataService || navigation !== nextProps.navigation) {
+//             return true
+//         }
+//         return false
+//     }
+//     getData = (dataService) => {
+//         this.setState({ dataService })
+//     }
+//     get dataConfidential_PRO() {
+//         const { dataService } = this.state
+//         dataService.map((item, index) => {
+//             var dataMySQL = ip + '/' + 'mysql' + '/' + item.image_path + '/' + item.image;
+//             return (
+//                 <View style={stylesMain.BoxStore2Box} key={index}>
+//                     <FastImage
+//                         source={{
+//                             uri: dataMySQL,
+//                             width: 160,
+//                             height: 60,
+//                         }}
+//                         style={stylesMain.BoxStore2Image}
+//                         resizeMode={FastImage.resizeMode.stretch}
+//                     />
+//                 </View>
+//             )
+//         })
+//     }
+//     render() {
+//         var uri = ip + '/MySQL/DataServiceMain.php';
+//         var dataBody = {
+//             type: 'Confidential_PRO'
+//         };
+//         return (
+//             <View style={[stylesMain.FrameBackground2]}>
+//                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
+//                 <View style={stylesMain.FrameBackgroundTextBox}>
+//                     <Text style={stylesMain.FrameBackgroundTextStart}>
+//                         ลายแทงร้านค้าแนะนำ</Text>
+//                     <Text style={stylesMain.FrameBackgroundTextEnd}>
+//                         ดูทั้งหมด</Text>
+//                 </View>
+//                 <ScrollView horizontal>
+//                     <View style={stylesMain.Confidential_A}>
+//                         {this.dataConfidential_PRO}
+//                     </View>
+//                 </ScrollView>
+//             </View>
+//         );
+//     }
+// }
 ///----------------------------------------------------------------------------------------------->>>> Product_for_you
 export class Product_for_you extends React.Component {
     constructor(props) {
@@ -1525,6 +1524,97 @@ export class Highlight extends React.Component {
                         />
                     }
                 </ScrollView>
+            </View>
+        );
+    }
+}
+///----------------------------------------------------------------------------------------------->>>>
+export class Fin_Mall extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { navigation, loadData } = this.props
+        if (loadData !== nextProps.loadData || navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
+    productCate = (type) => {
+        return type.map((item, index) => {
+            if (index < 2) {
+                var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
+                return (
+                    <View style={[stylesMain.Popular_Box_D, { width: 70, height: 70 }]} key={index}>
+                        <FastImage
+                            style={[stylesMain.Popular_image_Box, { width: 70, height: 70 }]}
+                            source={{
+                                uri: dataMySQL,
+                            }}
+                            resizeMode={FastImage.resizeMode.contain}
+                        />
+                        <View style={{ padding: 3 }}>
+                            <Text numberOfLines={1} style={[stylesFont.FontSize8, stylesFont.FontFamilyText]}>{item.name}</Text>
+                            <NumberFormat
+                                value={item.full_price}
+                                displayType={'text'}
+                                thousandSeparator={true}
+                                prefix={'฿'}
+                                renderText={value =>
+                                    <Text style={[
+                                        stylesMain.BoxProduct1ImagePrice,
+                                        stylesFont.FontSize8,
+                                        stylesFont.FontFamilyBold,
+
+                                    ]}>
+                                        {value}</Text>
+                                }
+                            />
+                        </View>
+                    </View>
+                )
+            }
+        })
+    }
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props;
+        navigation.navigate(value, value2)
+    }
+    render() {
+        const { loadData } = this.props
+        return (
+            <View style={stylesMain.FrameBackground2}>
+                <View style={stylesMain.FrameBackgroundTextBox}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>FIN Mall</Text>
+                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'FinMallScreen')}>
+                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
+                            ดูทั้งหมด</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginVertical: 10 }}>
+                    <View style={[stylesMain.ItemCenter, { width: '53%', backgroundColor: '#EDEDED', height: 130, padding: 10 }]}>
+                        <FastImage
+                            style={[stylesMain.BoxProduct1Image, { width: 120, height: 120 }]}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Unicorn/013.png',
+                            }}
+                        />
+                    </View>
+                    <View style={[stylesMain.ItemCenter, { width: '43%', backgroundColor: '#EDEDED' }]}>
+                        {
+                            loadData.product_hit &&
+                            <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'FinMallScreen')}>
+                                <View style={{ paddingTop: 10, height: 130 }}>
+                                    <View style={stylesMain.FlexRow}>
+                                        {this.productCate(loadData.product_hit)}
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+                        }
+                    </View>
+                </View>
             </View>
         );
     }
@@ -2193,6 +2283,191 @@ export class Second_product extends React.Component {
                                 pagination={PaginationLight}
                             />
                         }
+                    </View>
+                </ScrollView>
+            </View>
+        )
+    }
+    render() {
+        return (
+            <View style={stylesMain.FrameBackground2}>
+                {
+                    this.Second_Storeheader
+                }
+                {
+                    this.Second_Storebody
+                }
+                {
+                    this.Second_Storefooter
+                }
+            </View>
+        )
+    }
+}
+///----------------------------------------------------------------------------------------------->>>> Second_product
+export class Fin_SuperMarket extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            activeSlide: 0,
+        };
+    }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { activeSlide } = this.state
+        const { loadData, navigation } = this.props
+        if (activeSlide !== nextState.activeSlide || loadData !== nextProps.loadData || navigation !== nextProps.navigation) {
+            return true
+        }
+        return false
+    }
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props
+        navigation.navigate(value, value2)
+    }
+    renderItem1 = (item) => {
+        return item.map((item, index) => {
+            var dataMySQL = finip + '/' + item.image_path + '/' + item.image
+            return (
+                <View key={index} style={{ width: width * 0.64, height: 196 }}>
+                    <FastImage
+                        source={{
+                            uri: dataMySQL,
+                            width: width * 0.64,
+                            height: 196,
+                        }}
+                        style={stylesMain.bigSlideImage}
+                        resizeMode={FastImage.resizeMode.cover}
+                    >
+                    </FastImage>
+                </View>
+            );
+        })
+    }
+    renderItem2 = (item) => {
+        return item.map((item, index) => {
+            var dataMySQL = finip + '/' + item.image_path + '/' + item.image
+            return (
+                <View key={index} style={{ width: width * 0.32, height: 130 }}>
+                    <FastImage
+                        source={{
+                            uri: dataMySQL,
+                            width: width * 0.32,
+                            height: 130,
+                        }}
+                        style={stylesMain.litleSlideImage}
+                        resizeMode={FastImage.resizeMode.stretch}
+                    >
+                    </FastImage>
+                </View>
+            );
+        })
+    }
+    get Second_Storeheader() {
+        const { loadData, navigation, Header_Second } = this.props
+        var url
+        loadData.mobile_bar &&
+            loadData.mobile_bar.map((item) => { (url = finip + '/' + item.image_path + '/' + item.image) })
+        return (
+            <View style={[stylesMain.FrameBackground2, { marginTop: 0, backgroundColor: loadData.bg_m, borderBottomWidth: null }]}>
+                <View>
+                    {
+                        Header_Second ?
+                            <View style={[stylesDeal.BoxText_T, { backgroundColor: '#E43333', marginLeft: -3, }]}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>มือสองลดราคา</Text>
+                            </View> :
+                            <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'SecondScreen', { selectedIndex: 0 })}>
+                                <FastImage
+                                    style={[stylesMain.CategoryProductImageHead, { marginTop: 0 }]}
+                                    source={{ uri: url }}
+                                    resizeMode={FastImage.resizeMode.cover}
+                                />
+                            </TouchableOpacity>
+                    }
+                    <ScrollView horizontal>
+                        <View style={[stylesMain.ProductForYouFlexBox, { height: 370 }]}>
+                            {
+                                loadData.product_second &&
+                                <ProductBox dataService={loadData.product_second} navigation={navigation} typeip='fin' mode='row3col1'
+                                    pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
+                                />
+                            }
+                        </View>
+                    </ScrollView>
+                </View>
+            </View>
+        )
+    }
+    get Second_Storebody() {
+        const { loadData, Header_Second } = this.props
+        return (
+            <View style={stylesMain.Second_StoreFin}>
+                <View style={stylesMain.Second_StoreFin_BoxHead}>
+                    {
+                        Header_Second ?
+                            <View style={[stylesDeal.BoxText_T, { backgroundColor: '#95D370', marginLeft: -3, }]}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ร้านมือสองลดราคา</Text>
+                            </View> :
+                            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
+                                MarketShop By FIN </Text>
+                    }
+                    <View>
+                        <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'SecondScreen', { selectedIndex: 1 })}>
+                            <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                ดูทั้งหมด</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                <View>
+                    <View style={stylesMain.Second_StoreFin_Image}>
+                        {
+                            loadData.list_store2_1 &&
+                            < View style={stylesMain.Second_StoreFin_ImageA}>
+                                <View>
+                                    {this.renderItem1(loadData.list_store2_1)}
+                                </View>
+                                {this.pagination}
+                            </View>
+                        }
+                        {
+                            loadData.list_store2_2 &&
+                            <View>
+                                <View style={stylesMain.Second_StoreFin_ImageB}>
+                                    <View style={stylesMain.Second_StoreFin_ImageB_T}>
+                                        {this.renderItem2([loadData.list_store2_2[0]])}
+                                    </View>
+                                    <View style={[stylesMain.Second_StoreFin_ImageB_T]}>
+                                        {this.renderItem2([loadData.list_store2_2[1]])}
+                                    </View>
+                                </View>
+                            </View>
+                        }
+                    </View>
+                </View>
+            </View>
+        )
+    }
+    get getFooter() {
+        const { loadData } = this.props
+        return loadData.mobile_slide &&
+            loadData.mobile_slide.map((item, index) => {
+                var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
+                return (
+                    <View style={stylesMain.Second_Storefooter_image} key={index}>
+                        <FastImage
+                            style={[stylesMain.BoxProduct1Image, { borderRadius: 5 },]}
+                            source={{ uri: dataMySQL }}
+                            resizeMode={FastImage.resizeMode.stretch}
+                        />
+                    </View>
+                )
+            })
+    }
+    get Second_Storefooter() {
+        return (
+            <View style={stylesMain.Second_Storefooter}>
+                <ScrollView horizontal>
+                    <View style={stylesMain.FlexRow}>
+                        {this.getFooter}
                     </View>
                 </ScrollView>
             </View>

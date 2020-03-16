@@ -612,7 +612,7 @@ export default StyleSheet.create({
   CategoryProductImageHead: {
     marginTop: 5,
     width,
-    height: 60,
+    height: 65,
   },
   CategoryProductImage: {
     width: 100,

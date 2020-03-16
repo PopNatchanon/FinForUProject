@@ -434,9 +434,9 @@ const PathScreen = createStackNavigator({
   },
 },
   {
-    initialRouteName: 'MainScreen',
+    // initialRouteName: 'MainScreen',
     // initialRouteName: 'SecondScreen',
-    // initialRouteName: 'ProfileScreen',
+    initialRouteName: 'ProfileScreen',
     // initialRouteName: 'StoreMeScreen',
   }
 );

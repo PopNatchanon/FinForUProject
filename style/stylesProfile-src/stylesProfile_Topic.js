@@ -113,13 +113,11 @@ export default StyleSheet.create({
     },
     Might_like_Store: {
         marginTop: 10,
-        height: 'auto',
         width: '100%',
         backgroundColor: '#FFFF'
     },
     Might_like_Store_Box: {
         marginBottom: 10,
-        height: 'auto',
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
@@ -127,15 +125,13 @@ export default StyleSheet.create({
     Might_like_Store_BoxP: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        borderColor: '#ECECEC',
-        borderWidth: 1,
-        width: 430,
+       
     },
     Might_like_Store_BoxPro: {
         width: 95,
         borderColor: '#ECECEC',
         borderWidth: 1,
-        margin: 10,
+        margin: 5,
         justifyContent: 'center',
         alignItems: 'center',
     },

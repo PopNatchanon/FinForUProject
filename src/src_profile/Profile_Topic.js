@@ -364,9 +364,9 @@ export class Follow_store_Box extends React.Component {
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>@asusthailand</Text>
                         </View>
                     </View>
-                    <View style={stylesProfileTopic.Follow_store_Button}>
+                    <TouchableOpacity style={stylesProfileTopic.Follow_store_Button}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>กำลังติดตาม</Text>
-                    </View>
+                    </TouchableOpacity>
                 </View>
                 <View style={stylesProfileTopic.Follow_store_Box}>
                     <View style={{ flexDirection: 'row', }}>
@@ -380,9 +380,9 @@ export class Follow_store_Box extends React.Component {
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>@mlife</Text>
                         </View>
                     </View>
-                    <View style={stylesProfileTopic.Follow_store_Button}>
+                    <TouchableOpacity style={stylesProfileTopic.Follow_store_Button}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>กำลังติดตาม</Text>
-                    </View>
+                    </TouchableOpacity>
                 </View>
                 <View style={stylesProfileTopic.Follow_store_Box}>
                     <View style={{ flexDirection: 'row', }}>
@@ -396,9 +396,9 @@ export class Follow_store_Box extends React.Component {
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>@digilife_thai</Text>
                         </View>
                     </View>
-                    <View style={stylesProfileTopic.Follow_store_Button}>
+                    <TouchableOpacity style={stylesProfileTopic.Follow_store_Button}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>กำลังติดตาม</Text>
-                    </View>
+                    </TouchableOpacity>
                 </View>
             </View>
         );
@@ -433,45 +433,56 @@ export class Might_like_Store extends React.Component {
                             </View>
                         </TouchableOpacity>
                     </View>
-                    <View style={stylesProfileTopic.Might_like_Store_Box}>
-                        <View style={stylesProfileTopic.Might_like_Store_BoxP}>
-                            <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
-                                <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage}
-                                    source={{
-                                        uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
-                                    }}
-                                />
-                                <Text style={{ fontSize: 9, }}>ห้องพัก Deluxe Pool Villa</Text>
-                                <Text style={{ fontSize: 9, color: '#0A55A6' }}>฿3,xxx</Text>
-                            </View>
-                            <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
-                                <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage}
-                                    source={{
-                                        uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
-                                    }}
-                                />
-                                <Text style={{ fontSize: 9, }}>ห้องพัก Deluxe Pool Villa</Text>
-                                <Text style={{ fontSize: 9, color: '#0A55A6' }}>฿3,xxx</Text>
-                            </View>
-                            <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
-                                <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage}
-                                    source={{
-                                        uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
-                                    }}
-                                />
-                                <Text style={{ fontSize: 9, }}>ห้องพัก Deluxe Pool Villa</Text>
-                                <Text style={{ fontSize: 9, color: '#0A55A6' }}>฿3,xxx</Text>
-                            </View>
-                            <TouchableOpacity style={stylesProfileTopic.Might_like_Store_BoxPro}>
-                                <View>
-                                    <View style={stylesProfileTopic.Might_like_Store_Total}>
-                                        <IconEntypo name='chevron-right' size={35} />
-                                    </View>
-                                    <Text style={stylesFont.FontFamilyBold}>ดูทั้งหมด</Text>
+                    <ScrollView horizontal>
+                        <View style={stylesProfileTopic.Might_like_Store_Box}>
+                            <View style={stylesProfileTopic.Might_like_Store_BoxP}>
+                                <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
+                                    <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage}
+                                        source={{
+                                            uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
+                                        }}
+                                    />
+                                    <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize7]}>ห้องพัก Deluxe Pool Villa</Text>
+                                    <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize7,{color: '#0A55A6',borderColor:'#ECECEC',borderWidth:1,borderRadius:5}]}>฿3,xxx</Text>
                                 </View>
-                            </TouchableOpacity>
+                                <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
+                                    <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage}
+                                        source={{
+                                            uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
+                                        }}
+                                    />
+                                    <Text style={{ fontSize: 9, }}>ห้องพัก Deluxe Pool Villa</Text>
+                                    <Text style={{ fontSize: 9, color: '#0A55A6' }}>฿3,xxx</Text>
+                                </View>
+                                <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
+                                    <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage}
+                                        source={{
+                                            uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
+                                        }}
+                                    />
+                                    <Text style={{ fontSize: 9, }}>ห้องพัก Deluxe Pool Villa</Text>
+                                    <Text style={{ fontSize: 9, color: '#0A55A6' }}>฿3,xxx</Text>
+                                </View>
+                                <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
+                                    <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage}
+                                        source={{
+                                            uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
+                                        }}
+                                    />
+                                    <Text style={{ fontSize: 9, }}>ห้องพัก Deluxe Pool Villa</Text>
+                                    <Text style={{ fontSize: 9, color: '#0A55A6' }}>฿3,xxx</Text>
+                                </View>
+                                <TouchableOpacity style={stylesProfileTopic.Might_like_Store_BoxPro}>
+                                    <View>
+                                        <View style={stylesProfileTopic.Might_like_Store_Total}>
+                                            <IconEntypo name='chevron-right' size={35} />
+                                        </View>
+                                        <Text style={stylesFont.FontFamilyBold}>ดูทั้งหมด</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
                         </View>
-                    </View>
+                    </ScrollView>
                 </View>
             </View>
         );
@@ -960,12 +971,12 @@ export class Review_From extends React.Component {
                             }
                         </View>
                     </View>
-                    <View style={[stylesMain.FlexRow,{marginLeft:-10}]}>
+                    <View style={[stylesMain.FlexRow, { marginLeft: -10 }]}>
                         <CheckBox
                             checked={this.state.checked3}
                             onPress={() => this.setState({ checked3: !this.state.checked3, checked4: !this.state.checked4 })}
                         />
-                        <View style={[stylesMain.FlexRow, { marginTop: 20, marginLeft:-15}]}>
+                        <View style={[stylesMain.FlexRow, { marginTop: 20, marginLeft: -15 }]}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                                 ข้าพเจ้ายอมรับและทราบข้อตกลงตาม </Text>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#36B680' }]}>

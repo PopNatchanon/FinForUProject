@@ -18,7 +18,7 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from './MainScreen';
-import { GetServices } from './tools/Tools';
+import { GetServices, LoadingScreen } from './tools/Tools';
 import { PopularProduct } from './StoreScreen'
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from './navigator/IpConfig';
@@ -75,6 +75,11 @@ export default class CartScreen extends React.Component {
         var uri2 = finip + '/cart/auto_save_ajax'
         return (
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
+                {/* {
+                    activeRefresh == true || activeSave == true &&
+                    <LoadingScreen />
+
+                } */}
                 {
                     currentUser && dataBody && activeRefresh == true &&
                     <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
@@ -93,7 +98,10 @@ export default class CartScreen extends React.Component {
                     {/* <Product_Like /> */}
                     <PopularProduct navigation={navigation} headText={'คุณอาจชอบสิ่งนี้'} />
                 </ScrollView>
-                <Buy_bar navigation={navigation} dataService2={dataService2} />
+                {
+                    dataService2 &&
+                    <Buy_bar navigation={navigation} dataService2={dataService2} />
+                }
                 <ExitAppModule navigation={navigation} />
             </SafeAreaView>
         );
@@ -108,27 +116,33 @@ export class Product_Cart extends React.Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { ItemArray, ItemHead, activecart } = this.state
+        const { ItemArray, activecart } = this.state
         const { itemData, sendData, dataService, ArrayItem } = this.props
         if (
-            ItemArray !== nextState.ItemArray || ItemHead !== nextState.ItemHead || activecart !== nextState.activecart ||
-            itemData !== nextProps.itemData || sendData !== nextProps.sendData || dataService !== nextProps.dataService ||
-            ArrayItem !== nextProps.ArrayItem
+            ItemArray !== nextState.ItemArray || activecart !== nextState.activecart || itemData !== nextProps.itemData ||
+            sendData !== nextProps.sendData || dataService !== nextProps.dataService || ArrayItem !== nextProps.ArrayItem
         ) {
             return true
         }
         return false
     }
-    setStateItemHead = (checked) => {
-        const { ItemHead } = this.state
-        ItemHead.checked = checked
-        this.setState({ ItemHead })
-    }
     setStateItemArrayChecked = (checked, id_cartdetail, index) => {
         const { ItemArray } = this.state
+        const { ArrayItem, dataService, currentUser } = this.props
         ItemArray[index].checked = checked
-        this.setState({ ItemArray })
-        this.setStateItemArrayitemCount(ItemArray[index].itemCount, id_cartdetail, index)
+        var id = []
+        for (var n = 0; n < dataService.length; n++) {
+            if (ItemArray[n].checked == true) {
+                id.push(dataService[n].id_cartdetail)
+            }
+        }
+        ArrayItem({
+            amount: ItemArray[index].itemCount,
+            list_order: id.join(','),
+            id_cartdetail: id_cartdetail,
+            id_customer: currentUser.id_customer
+        })
+        this.setState({ ItemArray, activecart: true })
     }
     setStateItemArrayitemCount = (itemCount, id_cartdetail, index) => {
         const { ItemArray } = this.state
@@ -140,18 +154,11 @@ export class Product_Cart extends React.Component {
                 id.push(dataService[n].id_cartdetail)
             }
         }
-        console.log('id')
-        console.log(id)
-        console.log('ItemArray[index].itemCount')
-        console.log(ItemArray[index].itemCount)
-        console.log('id_cartdetail')
-        console.log(id_cartdetail)
-        console.log(id.join(','))
         itemCount > 0 && (
             ItemArray[index].itemCount = itemCount,
             ArrayItem({
                 amount: itemCount,
-                list_order: id,
+                list_order: id.join(','),
                 id_cartdetail: id_cartdetail,
                 id_customer: currentUser.id_customer
             })
@@ -349,6 +356,16 @@ export class Buy_bar extends React.Component {
             checked: true,
         };
     }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { checked } = this.state
+        const { dataService2, navigation } = this.props
+        if (
+            checked !== nextState.checked || dataService2 !== nextProps.dataService2 || navigation !== nextProps.navigation
+        ) {
+            return true
+        }
+        return false
+    }
     StateBox = () => {
         var { checked } = this.state
         checked = !checked
@@ -400,7 +417,6 @@ export class Buy_bar extends React.Component {
                     <View style={[stylesCart.Bar_Buy_price, { marginLeft: -20 }]}>
                         <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                             รวมทั้งหมด</Text>
-                        {/*data <Text> ฿10,000</Text> */}
                         <NumberFormat
                             value={dataService2 && dataService2.now_total}
                             displayType={'text'}

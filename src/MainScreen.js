@@ -159,7 +159,9 @@ export class ExitAppModule extends React.Component {
         // console.log(nextProps)
         // console.log('nextState')
         // console.log(nextState)
-        if (backClickCount !== nextState.backClickCount || navigation !== nextProps.navigation) {
+        if (
+            backClickCount !== nextState.backClickCount || navigation !== nextProps.navigation
+        ) {
             return true
         }
         return false
@@ -235,12 +237,15 @@ export class AppBar extends React.Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { text } = this.state
-        const { navigation, currentUser } = this.props
-        if (text !== nextState.text || navigation !== nextProps.navigation || currentUser !== nextProps.currentUser) {
+        const { text, currentUser } = this.state
+        const { navigation } = this.props
+        if (text !== nextState.text || currentUser !== nextState.currentUser || navigation !== nextProps.navigation) {
             return true
         }
         return false
+    }
+    componentDidMount() {
+        this.getDataAsync()
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
@@ -255,9 +260,13 @@ export class AppBar extends React.Component {
     setText = (text) => {
         this.setState({ text })
     }
+    getDataAsync = async () => {
+        const currentUser = await AsyncStorage.getItem('@MyKey')
+        this.setState({ currentUser: JSON.parse(currentUser) })
+    }
     render() {
-        const { text } = this.state
-        const { ABDColor, ABGColor, AIColor, leftBar, rightBar, searchBar, SearchText, currentUser } = this.props
+        const { text, currentUser } = this.state
+        const { ABDColor, ABGColor, AIColor, leftBar, rightBar, searchBar, SearchText } = this.props
         const AIconEntypo = Animatable.createAnimatableComponent(IconEntypo)
         const AIconFeather = Animatable.createAnimatableComponent(IconFeather)
         const AIconFontAwesome5 = Animatable.createAnimatableComponent(IconFontAwesome5)
@@ -400,16 +409,21 @@ export class AppBar1 extends React.Component {
         this.state = {
         };
     }
+    componentDidMount() {
+        this.getDataAsync()
+    }
     shouldComponentUpdate = (nextProps, nextState) => {
+        const { currentUser, } = this.state
         const {
             navigation, titleHead, backArrow, backArrowColor, chatBar, colorBar, menuBar, storeBar, searchBar, settingBar, saveBar,
-            currentUser,
+
         } = this.props;
         if (
-            navigation !== nextProps.navigation || titleHead !== nextProps.titleHead || backArrow !== nextProps.backArrow ||
-            backArrowColor !== nextProps.backArrowColor || chatBar !== nextProps.chatBar || colorBar !== nextProps.colorBar ||
-            menuBar !== nextProps.menuBar || storeBar !== nextProps.storeBar || searchBar !== nextProps.searchBar ||
-            settingBar !== nextProps.settingBar || saveBar !== nextProps.saveBar || currentUser !== nextProps.currentUser
+
+            currentUser !== nextProps.currentUser || navigation !== nextProps.navigation || titleHead !== nextProps.titleHead ||
+            backArrow !== nextProps.backArrow || backArrowColor !== nextProps.backArrowColor || chatBar !== nextProps.chatBar ||
+            colorBar !== nextProps.colorBar || menuBar !== nextProps.menuBar || storeBar !== nextProps.storeBar ||
+            searchBar !== nextProps.searchBar || settingBar !== nextProps.settingBar || saveBar !== nextProps.saveBar
         ) {
             return true
         }
@@ -428,9 +442,14 @@ export class AppBar1 extends React.Component {
     setText = (text) => {
         this.setState({ text })
     }
+    getDataAsync = async () => {
+        const currentUser = await AsyncStorage.getItem('@MyKey')
+        this.setState({ currentUser: JSON.parse(currentUser) })
+    }
     render() {
+        const { currentUser, } = this.state
         const {
-            titleHead, backArrow, backArrowColor, chatBar, colorBar, menuBar, storeBar, searchBar, settingBar, saveBar, currentUser,
+            titleHead, backArrow, backArrowColor, chatBar, colorBar, menuBar, storeBar, searchBar, settingBar, saveBar,
         } = this.props;
         return (
             <View style={colorBar ? colorBar : menuBar ? stylesStore.AppbarMenu : stylesStore.Appbar}>

@@ -806,7 +806,6 @@ export class ProductBox extends React.Component {
         } = this.props
         return dataService.map((item, index) => {
             var throughsale = Number(item.full_price) + (item.full_price * 0.5)
-            var discount = 55
             var url
             { typeip == 'ip' ? url = ip : url = finip }
             var dataMySQL = typeip == 'ip' ?
@@ -897,7 +896,7 @@ export class ProductBox extends React.Component {
                             ]}>
                                 <View style={[stylesMain.FlexRow, { paddingVertical: 2 }]}>
                                     <NumberFormat
-                                        value={item.full_price}
+                                        value={item.price_discount ? item.price_discount : item.price}
                                         displayType={'text'}
                                         thousandSeparator={true}
                                         prefix={'฿'}
@@ -911,26 +910,32 @@ export class ProductBox extends React.Component {
                                                 {value}</Text>
                                         }
                                     />
-                                    <View style={[stylesMain.Box_On_sale, { borderRadius: 10 }]}>
-                                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, { color: '#FFFFFF' }]}>
-                                            {'-' + discount + '%'}</Text>
-                                    </View>
-                                </View>
-                                <NumberFormat
-                                    value={throughsale}
-                                    displayType={'text'}
-                                    thousandSeparator={true}
-                                    prefix={'฿'}
-                                    renderText={value =>
-                                        <Text style={[
-                                            stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontFamilyText, {
-                                                marginTop: -4,
-                                                fontSize: dispriceSize ? dispriceSize : 14
-                                            }
-                                        ]}>
-                                            {value}</Text>
+                                    {
+                                        item.discount &&
+                                        <View style={[stylesMain.Box_On_sale, { borderRadius: 10 }]}>
+                                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, { color: '#FFFFFF' }]}>
+                                                {'-' + item.discount}</Text>
+                                        </View>
                                     }
-                                />
+                                </View>
+                                {
+                                    item.price_discount &&
+                                    <NumberFormat
+                                        value={item.price}
+                                        displayType={'text'}
+                                        thousandSeparator={true}
+                                        prefix={'฿'}
+                                        renderText={value =>
+                                            <Text style={[
+                                                stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontFamilyText, {
+                                                    marginTop: -4,
+                                                    fontSize: dispriceSize ? dispriceSize : 14
+                                                }
+                                            ]}>
+                                                {value}</Text>
+                                        }
+                                    />
+                                }
                             </View>
                         </View>
                     </View>

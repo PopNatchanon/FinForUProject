@@ -250,9 +250,12 @@ export class Not_Internet extends Component {
         const { navigation } = this.props
         value == 'goBack' ?
             navigation.goBack() :
-            navigation.navigate(value, value2)
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.navigate(value, value2)
     }
-
     render() {
         return (
             <View style={stylesMain.ItemCenter}>

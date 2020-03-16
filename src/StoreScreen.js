@@ -230,7 +230,13 @@ export class StoreHead extends Component {
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
-        navigation.navigate(value, value2)
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.navigate(value, value2)
     }
     get getDetailStore() {
         const { item } = this.props;

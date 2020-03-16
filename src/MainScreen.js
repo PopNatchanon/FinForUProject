@@ -1,15 +1,20 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React from 'react';
 import {
-    Animated, BackHandler, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
+    Animated, BackHandler, Dimensions, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage'
 import * as Animatable from 'react-native-animatable';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
+import Carousel, {
+    Pagination, // dark-colored pagination component
+    PaginationLight // light-colored pagination component
+} from 'react-native-x-carousel';
+// import Carousel, { Pagination } from 'react-native-snap-carousel';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import SplashScreen from 'react-native-splash-screen'
+// import Swiper from 'react-native-swiper';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -34,8 +39,10 @@ export default class MainScreen extends React.Component {
         super(props);
         this.state = {
             dataService: [],
+            activeDataService: true,
             LoadingStart: 0,
             LoadingEnd: 0,
+            activeExit: true,
         };
     }
     getDataAsync = async () => {
@@ -43,9 +50,12 @@ export default class MainScreen extends React.Component {
         this.setState({ currentUser: JSON.parse(currentUser) })
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService, currentUser } = this.state
+        const { dataService, currentUser, activeDataService } = this.state
         const { navigation } = this.props
-        if (dataService !== nextState.dataService || currentUser !== nextState.currentUser || navigation !== nextProps.navigation) {
+        if (
+            dataService !== nextState.dataService || currentUser !== nextState.currentUser ||
+            activeDataService !== nextState.activeDataService || navigation !== nextProps.navigation
+        ) {
             return true
         }
         return false
@@ -55,20 +65,23 @@ export default class MainScreen extends React.Component {
         setTimeout(() => {
             SplashScreen.hide();
         }, 1000);
+        this.intervalID = setInterval(
+            () => this.tick(),
+            1000
+        );
     }
-    LoadingStart = () => {
-        const { LoadingStart } = this.state
-        this.setState({ LoadingStart: LoadingStart + 1 })
+    tick() {
+        const { activeExit } = this.state
+        this.setState({ activeExit: !activeExit });
     }
-    LoadingEnd = () => {
-        const { LoadingStart } = this.state
-        this.setState({ LoadingEnd: LoadingStart + 1 })
+    componentWillUnmount() {
+        clearInterval(this.intervalID);
     }
     getData = (dataService) => {
-        this.setState({ dataService })
+        this.setState({ dataService, activeDataService: false })
     }
     render() {
-        const { dataService, currentUser } = this.state
+        const { dataService, currentUser, activeDataService } = this.state
         const { navigation } = this.props
         const browerProps = navigation.getParam('browerProps')
         var uri = finip + '/home/publish_mobile'
@@ -88,8 +101,11 @@ export default class MainScreen extends React.Component {
                         // null :
                         // < LoadingScreen />
                     }
-                    <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} />
-                    <AppBar navigation={navigation} />
+                    {
+                        activeDataService == true &&
+                        <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} />
+                    }
+                    <AppBar navigation={navigation} currentUser={currentUser} />
                     <ScrollView>
                         {/* <TouchableOpacity onPress={() => navigation.push('MainScreen', { browerProps: 'https://www.finforu.com/' })}>
                             <View style={{ width }}><Text>Enter</Text></View>
@@ -138,6 +154,10 @@ export class ExitAppModule extends React.Component {
     shouldComponentUpdate = (nextProps, nextState) => {
         const { backClickCount } = this.state
         const { navigation } = this.props
+        // console.log('nextProps')
+        // console.log(nextProps)
+        // console.log('nextState')
+        // console.log(nextState)
         if (backClickCount !== nextState.backClickCount || navigation !== nextProps.navigation) {
             return true
         }
@@ -185,13 +205,15 @@ export class ExitAppModule extends React.Component {
         const { backClickCount } = this.state
         const { navigation } = this.props
         var routeProps = navigation.dangerouslyGetParent().state.routes.length
-        return routeProps == 1 ? ([
+        console.log('routeProps')
+        console.log(navigation.dangerouslyGetParent().state.routes.length)
+        return routeProps == 1 ? (
             backClickCount == 1 ? BackHandler.exitApp() : this._spring(),
             true
-        ]) : ([
-            navigation.pop(),
-            true
-        ])
+        ) : (
+                navigation.pop(),
+                true
+            )
     };
     render() {
         return (
@@ -213,8 +235,8 @@ export class AppBar extends React.Component {
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { text } = this.state
-        const { navigation } = this.props
-        if (text !== nextState.text || navigation !== nextProps.navigation) {
+        const { navigation, currentUser } = this.props
+        if (text !== nextState.text || navigation !== nextProps.navigation || currentUser !== nextProps.currentUser) {
             return true
         }
         return false
@@ -223,14 +245,18 @@ export class AppBar extends React.Component {
         const { navigation } = this.props
         value == 'goBack' ?
             navigation.goBack() :
-            navigation.navigate(value, value2)
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.navigate(value, value2)
     }
     setText = (text) => {
         this.setState({ text })
     }
     render() {
         const { text } = this.state
-        const { ABDColor, ABGColor, AIColor, leftBar, rightBar, searchBar, SearchText } = this.props
+        const { ABDColor, ABGColor, AIColor, leftBar, rightBar, searchBar, SearchText, currentUser } = this.props
         const AIconEntypo = Animatable.createAnimatableComponent(IconEntypo)
         const AIconFeather = Animatable.createAnimatableComponent(IconFeather)
         const AIconFontAwesome5 = Animatable.createAnimatableComponent(IconFontAwesome5)
@@ -283,7 +309,8 @@ export class AppBar extends React.Component {
                                 />
                             </View>
                         </TouchableOpacity> :
-                        <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'SearchScreen', { modeStore: false })}>
+                        <TouchableOpacity activeOpacity={1} onPress={
+                            this.navigationNavigateScreen.bind(this, 'SearchScreen', { modeStore: false })}>
                             <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical]}>
                                 <FastImage
                                     style={[stylesMain.LOGO, stylesMain.ItemCenterVertical]}
@@ -304,7 +331,11 @@ export class AppBar extends React.Component {
                                         stylesFont.FontFamilyText, stylesFont.FontSize5, stylesFont.FontCenter,
                                         stylesMain.ItemCenterVertical
                                     ]}>
-                                        {SearchText ? SearchText : 'ค้นหาสินค้า/ร้านค้า'}</Text>
+                                        {
+                                            SearchText ?
+                                                SearchText :
+                                                'ค้นหาสินค้า/ร้านค้า'
+                                        }</Text>
                                 </View>
                                 <IconAntDesign name="search1" size={20} style={[stylesMain.ItemCenterVertical, {
                                     marginRight: 4
@@ -328,11 +359,17 @@ export class AppBar extends React.Component {
                             {leftBar == 'backarrow' ?
                                 rightBar == 'chat' &&
                                 <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
-                                    onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 })}>
+                                    onPress={
+                                        currentUser ?
+                                            this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 }) :
+                                            this.navigationNavigateScreen.bind(this, 'LoginScreen')}>
                                     <IconAntDesign name="message1" size={25} />
                                 </TouchableOpacity> :
                                 <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
-                                    onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 })}>
+                                    onPress={
+                                        currentUser ?
+                                            this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 }) :
+                                            this.navigationNavigateScreen.bind(this, 'LoginScreen')}>
                                     <IconAntDesign name="message1" size={25} />
                                 </TouchableOpacity>
                             }
@@ -343,7 +380,10 @@ export class AppBar extends React.Component {
                                             40 :
                                             50 :
                                         40
-                            }]} onPress={this.navigationNavigateScreen.bind(this, 'CartScreen')}>
+                            }]} onPress={
+                                currentUser ?
+                                    this.navigationNavigateScreen.bind(this, 'CartScreen') :
+                                    this.navigationNavigateScreen.bind(this, 'LoginScreen')}>
                                 <IconAntDesign name="shoppingcart" size={25} />
                             </TouchableOpacity>
                         </View>
@@ -360,8 +400,16 @@ export class AppBar1 extends React.Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation } = this.props
-        if (navigation !== nextProps.navigation) {
+        const {
+            navigation, titleHead, backArrow, backArrowColor, chatBar, colorBar, menuBar, storeBar, searchBar, settingBar, saveBar,
+            currentUser,
+        } = this.props;
+        if (
+            navigation !== nextProps.navigation || titleHead !== nextProps.titleHead || backArrow !== nextProps.backArrow ||
+            backArrowColor !== nextProps.backArrowColor || chatBar !== nextProps.chatBar || colorBar !== nextProps.colorBar ||
+            menuBar !== nextProps.menuBar || storeBar !== nextProps.storeBar || searchBar !== nextProps.searchBar ||
+            settingBar !== nextProps.settingBar || saveBar !== nextProps.saveBar || currentUser !== nextProps.currentUser
+        ) {
             return true
         }
         return false
@@ -370,14 +418,18 @@ export class AppBar1 extends React.Component {
         const { navigation } = this.props
         value == 'goBack' ?
             navigation.goBack() :
-            navigation.navigate(value, value2)
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.navigate(value, value2)
     }
     setText = (text) => {
         this.setState({ text })
     }
     render() {
         const {
-            titleHead, backArrow, backArrowColor, chatBar, colorBar, menuBar, storeBar, searchBar, settingBar, saveBar,
+            titleHead, backArrow, backArrowColor, chatBar, colorBar, menuBar, storeBar, searchBar, settingBar, saveBar, currentUser,
         } = this.props;
         return (
             <View style={colorBar ? colorBar : menuBar ? stylesStore.AppbarMenu : stylesStore.Appbar}>
@@ -421,7 +473,11 @@ export class AppBar1 extends React.Component {
                     }{
                         chatBar &&
                         <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
-                            onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 })}
+                            onPress={
+                                currentUser ?
+                                    this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 }) :
+                                    this.navigationNavigateScreen.bind(this, 'LoginScreen')
+                            }
                         >
                             <IconAntDesign RightItem name="message1" size={25} style={[
                                 stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
@@ -457,85 +513,6 @@ export class AppBar1 extends React.Component {
         );
     }
 }
-///----------------------------------------------------------------------------------------------->>>> NewSlide
-// const styles = StyleSheet.create({
-//     wrapper: {},
-//     slide1: {
-//       flex: 1,
-//       justifyContent: 'center',
-//       alignItems: 'center',
-//       backgroundColor: '#9DD6EB'
-//     },
-//     slide2: {
-//       flex: 1,
-//       justifyContent: 'center',
-//       alignItems: 'center',
-//       backgroundColor: '#97CAE5'
-//     },
-//     slide3: {
-//       flex: 1,
-//       justifyContent: 'center',
-//       alignItems: 'center',
-//       backgroundColor: '#92BBD9'
-//     },
-//     text: {
-//       color: '#fff',
-//       fontSize: 30,
-//       fontWeight: 'bold'
-//     }
-//   })
-// export class NewSlide extends React.Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             dataService: [],
-//             activeSlide: 0,
-//         };
-//         this.getData = this.getData.bind(this)
-//     }
-//     getData(dataService) {
-//         this.setState({ dataService })
-//     }
-//     _renderItem = ({ item, index }) => {
-//         var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
-//         return (
-//             <View style={stylesMain.child} key={index}>
-//                 <FastImage
-//                     source={{
-//                         uri: dataMySQL,
-//                     }}
-//                     style={stylesMain.childSlide}
-//                     resizeMode={FastImage.resizeMode.stretch}
-//                     onLoadStart={() => this.props.LoadingStart()}
-//                     onLoadEnd={() => this.props.LoadingEnd()}
-//                 />
-//             </View>
-//         );
-//     }
-//     render() {
-//         const { activeSlide, dataService } = this.state
-//         var dataBody = {
-//             slide: 'banner'
-//         };
-//         var uri = finip + '/home/home_mobile'
-//         return (
-//             <View>
-//                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
-//                 <Swiper>
-//                     <View style={styles.slide1}>
-//                         <Text style={styles.text}>Hello Swiper</Text>
-//                     </View>
-//                     <View style={styles.slide2}>
-//                         <Text style={styles.text}>Beautiful</Text>
-//                     </View>
-//                     <View style={styles.slide3}>
-//                         <Text style={styles.text}>And simple</Text>
-//                     </View>
-//                 </Swiper>
-//             </View >
-//         );
-//     }
-// }
 ///----------------------------------------------------------------------------------------------->>>> Slide
 export class Slide extends React.Component {
     constructor(props) {
@@ -543,25 +520,41 @@ export class Slide extends React.Component {
         this.state = {
             dataService: [],
             activeSlide: 0,
+            activeDataService: true,
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService, activeSlide } = this.state
-        if (dataService !== nextState.dataService || activeSlide !== nextState.activeSlide) {
+        const { dataService, activeSlide, activeDataService } = this.state
+        if (
+            dataService !== nextState.dataService || activeSlide !== nextState.activeSlide ||
+            activeDataService !== nextState.activeDataService
+        ) {
             return true
         }
         return false
     }
+    componentDidMount() {
+        this.intervalID = setInterval(
+            () => this.tick(),
+            1000
+        );
+    }
+    tick() {
+
+    }
+    componentWillUnmount() {
+        clearInterval(this.intervalID);
+    }
     getData = (dataService) => {
-        this.setState({ dataService })
+        this.setState({ dataService, activeDataService: false })
     }
     getActiveSlide = (activeSlide) => {
         this.setState({ activeSlide })
     }
-    _renderItem = ({ item, index }) => {
+    _renderItem = item => {
         var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
         return (
-            <View style={stylesMain.child} key={index}>
+            <View style={stylesMain.child} key={item.image}>
                 <FastImage
                     source={{
                         uri: dataMySQL,
@@ -574,44 +567,55 @@ export class Slide extends React.Component {
             </View>
         );
     }
-    get pagination() {
-        const { dataService, activeSlide } = this.state;
-        return (
-            <View style={{ marginTop: -60, marginBottom: -15 }}>
-                <Pagination
-                    dotsLength={dataService.length}
-                    activeDotIndex={activeSlide}
-                    dotStyle={{
-                        width: 15,
-                        height: 15,
-                        borderRadius: 30,
-                        backgroundColor: 'rgba(0, 0, 0, 0)',
-                        borderColor: 'rgba(255, 255, 255, 0.92)',
-                        borderWidth: 2,
-                    }}
-                    inactiveDotStyle={{
-                        width: 15,
-                        height: 5,
-                        borderRadius: 5,
-                        backgroundColor: 'rgba(255, 255, 255, 0.92)',
-                    }}
-                    carouselRef={this.activeSlide}
-                    tappableDots={!!this.activeSlide}
-                    inactiveDotScale={0.6}
-                />
-            </View>
-        );
-    }
+    // get pagination() {
+    //     const { dataService, activeSlide } = this.state;
+    //     return (
+    //         <View style={{ marginTop: -60, marginBottom: -15 }}>
+    //             <Pagination
+    //                 dotsLength={dataService.length}
+    //                 activeDotIndex={activeSlide}
+    //                 dotStyle={{
+    //                     width: 15,
+    //                     height: 15,
+    //                     borderRadius: 30,
+    //                     backgroundColor: 'rgba(0, 0, 0, 0)',
+    //                     borderColor: 'rgba(255, 255, 255, 0.92)',
+    //                     borderWidth: 2,
+    //                 }}
+    //                 inactiveDotStyle={{
+    //                     width: 15,
+    //                     height: 5,
+    //                     borderRadius: 5,
+    //                     backgroundColor: 'rgba(255, 255, 255, 0.92)',
+    //                 }}
+    //                 carouselRef={this.activeSlide}
+    //                 tappableDots={!!this.activeSlide}
+    //                 inactiveDotScale={0.6}
+    //             />
+    //         </View>
+    //     );
+    // }
     render() {
-        const { dataService } = this.state
+        const { dataService, activeDataService } = this.state
         var dataBody = {
             slide: 'banner'
         };
         var uri = finip + '/home/home_mobile'
         return (
             <View>
-                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
+                {
+                    activeDataService == true &&
+                    <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
+                }
                 <Carousel
+                    renderItem={this._renderItem}
+                    data={dataService}
+                    loop
+                    autoplay
+                    autoplayInterval={3000}
+                    pagination={PaginationLight}
+                />
+                {/* <Carousel
                     ref={c => this.activeSlide = c}
                     data={dataService}
                     renderItem={this._renderItem.bind(this)}
@@ -628,7 +632,7 @@ export class Slide extends React.Component {
                     maxToRenderPerBatch={1}
                     useScrollView={true}
                 />
-                {this.pagination}
+                {this.pagination} */}
                 {/* <View style={{ flexDirection: 'row', width: '100%', marginTop: -100, marginBottom: 50, justifyContent: 'space-between' }}>
                     {
                         activeSlide == 0 ?
@@ -655,22 +659,32 @@ export class Category extends React.Component {
         super(props);
         this.state = {
             dataService: [],
+            activeDataService: true,
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService } = this.state
+        const { dataService, activeDataService } = this.state
         const { navigation } = this.props
-        if (dataService !== nextState.dataService || navigation !== nextProps.navigation) {
+        if (
+            dataService !== nextState.dataService || activeDataService !== nextState.activeDataService ||
+            navigation !== nextProps.navigation
+        ) {
             return true
         }
         return false
     }
     getData = (dataService) => {
-        this.setState({ dataService })
+        this.setState({ dataService, activeDataService: false })
     }
-    navigationNavigateScreen = (value) => {
+    navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
-        navigation.navigate(value)
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.navigate(value, value2)
     }
     get dataCategory() {
         const { dataService } = this.state
@@ -681,14 +695,12 @@ export class Category extends React.Component {
                     <FastImage
                         source={{
                             uri: dataMySQL,
-                            height: 60,
-                            width: 60,
                         }}
                         style={stylesMain.Category_box}
                         resizeMode={FastImage.resizeMode.cover}
                     />
                     <View style={{ height: 20 }}>
-                        <Text numberOfLines={2} style={[stylesFont.FontFamilyText, stylesFont.FontSize7, stylesFont.FontCenter]}>
+                        <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize8, stylesFont.FontCenter]}>
                             {item.name}</Text>
                     </View>
                 </View>
@@ -696,10 +708,14 @@ export class Category extends React.Component {
         })
     }
     render() {
+        const { activeDataService } = this.state
         var uri = finip + '/home/category_mobile'
         return (
             <View style={stylesMain.FrameBackground2}>
-                <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} />
+                {
+                    activeDataService == true &&
+                    <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} />
+                }
                 <ScrollView horizontal>
                     <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'CategoryScreen')}>
                         <View style={stylesMain.category_A}>
@@ -725,9 +741,15 @@ export class Button_Bar extends React.Component {
         }
         return false
     }
-    navigationNavigateScreen = (value) => {
+    navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
-        navigation.navigate(value)
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.navigate(value, value2)
     }
     render() {
         return (
@@ -813,9 +835,15 @@ export class Recommend_Brand extends React.Component {
         }
         return false
     }
-    navigationNavigateScreen = (value) => {
+    navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
-        navigation.navigate(value)
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.navigate(value, value2)
     }
     get recommendBrand() {
         const { loadData } = this.props
@@ -873,9 +901,15 @@ export class Popular_store extends React.Component {
         }
         return false
     }
-    navigationNavigateScreen = (value) => {
-        const { navigation } = this.props;
-        navigation.navigate(value)
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.navigate(value, value2)
     }
     get PopularStoreItem() {
         const { loadData } = this.props;
@@ -963,8 +997,14 @@ export class Popular_product extends React.Component {
         })
     }
     navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props;
-        navigation.navigate(value, value2)
+        const { navigation } = this.props
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.navigate(value, value2)
     }
     render() {
         const { loadData } = this.props
@@ -1123,33 +1163,96 @@ export class FlashSale extends React.Component {
         super(props);
         this.state = {
             dataService: [],
+            activeDataService: true,
+            endTime: new Date(),
+            curTime: new Date(),
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService } = this.state
+        const { curTime, dataService, endTime, activeDataService } = this.state
         const { navigation } = this.props
-        if (dataService !== nextState.dataService || navigation !== nextProps.navigation) {
+        if (
+            curTime !== nextState.curTime || dataService !== nextState.dataService || endTime !== nextState.endTime ||
+            activeDataService !== nextState.activeDataService || navigation !== nextProps.navigation
+        ) {
             return true
         }
         return false
     }
     getData = (dataService) => {
-        this.setState({ dataService })
+        this.setState({ dataService, activeDataService: false })
     }
-    navigationNavigateScreen = (value) => {
+    navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
-        navigation.navigate(value)
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.navigate(value, value2)
+    }
+    componentDidMount() {
+        this.setState({ endTime: new Date('2020-03-17T05:00:00.000Z') })
+        this.intervalID = setInterval(
+            () => this.tick(),
+            1000
+        );
+    }
+    tick() {
+        this.setState({
+            curTime: new Date()
+        });
+    }
+    componentWillUnmount() {
+        clearInterval(this.intervalID);
     }
     render() {
-        const { dataService } = this.state
+        const { curTime, dataService, endTime, activeDataService } = this.state
         const { navigation } = this.props
         var uri = ip + '/mysql/DataServiceMain.php';
         var dataBody = {
             type: 'sale'
         };
+        var Hours = 0
+        var Minutes = 0
+        var Seconds = 0
+        // console.log('curTime')
+        // console.log(new Date(curTime).getDate() + ' ' + new Date(curTime).getHours() + ':' + new Date(curTime).getMinutes() + ':' +
+        //     new Date(curTime).getSeconds())
+        // console.log('endTime')
+        // console.log(new Date(endTime).getDate() + ' ' + new Date(endTime).getHours() + ':' + new Date(endTime).getMinutes() + ':' +
+        //     new Date(endTime).getSeconds())
+        // console.log('show')
+        // console.log(Number(new Date(endTime).getDate()) - Number(new Date(curTime).getDate()))
+        // console.log((Number(new Date(endTime).getDate()) - Number(new Date(curTime).getDate())) * 24)
+        // console.log(Number(new Date(endTime).getHours()) - Number(new Date(curTime).getHours()))
+        // console.log(Number(new Date(endTime).getMinutes()) - Number(new Date(curTime).getMinutes()))
+        // console.log(Number(new Date(endTime).getSeconds()) - Number(new Date(curTime).getSeconds()))
+        endTime && (
+            Hours = Number(new Date(endTime).getHours()) - Number(new Date(curTime).getHours()),
+            (Number(new Date(endTime).getDate()) - Number(new Date(curTime).getDate())) > 0 && (
+                Hours = Hours + ((Number(new Date(endTime).getDate()) - Number(new Date(curTime).getDate())) * 24)
+            ),
+            Minutes = Number(new Date(endTime).getMinutes()) - Number(new Date(curTime).getMinutes()),
+            Seconds = Number(new Date(endTime).getSeconds()) - Number(new Date(curTime).getSeconds()),
+            Hours > 0 && Minutes < 0 && (
+                Hours = Hours - 1,
+                Minutes = 60 + Minutes
+            ),
+            Minutes > 0 && Seconds < 0 && (
+                Minutes = Minutes - 1,
+                Seconds = 60 + Seconds
+            )
+        )
+        // console.log('Process')
+        // console.log(Hours + ':' + Minutes + ':' + Seconds)
         return (
             <View style={stylesMain.FrameBackground2}>
-                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
+                {
+                    activeDataService == true &&
+                    <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
+                }
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <View style={[stylesMain.FlexRow, { marginTop: 5, }]}>
                         <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBoldBold, stylesFont.FontSize3, { color: '#dc3545' }]}>
@@ -1161,15 +1264,15 @@ export class FlashSale extends React.Component {
                             </View>
                             <View style={stylesMain.Time_FlashSale_TimeBox}>
                                 <Text style={[stylesMain.Time_FlashSale_TimeText, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
-                                    01</Text>
+                                    {Hours < 10 ? Hours <= 0 ? '00' : '0' + Hours : Hours}</Text>
                             </View>
                             <View style={stylesMain.Time_FlashSale_TimeBox}>
                                 <Text style={[stylesMain.Time_FlashSale_TimeText, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
-                                    45</Text>
+                                    {Minutes < 10 ? Minutes <= 0 ? '00' : '0' + Minutes : Minutes}</Text>
                             </View>
                             <View style={stylesMain.Time_FlashSale_TimeBox}>
                                 <Text style={[stylesMain.Time_FlashSale_TimeText, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
-                                    40</Text>
+                                    {Seconds < 10 ? Seconds <= 0 ? '00' : '0' + Seconds : Seconds}</Text>
                             </View>
                         </View>
                     </View>
@@ -1203,9 +1306,15 @@ export class PromotionPopular extends React.Component {
         }
         return false
     }
-    navigationNavigateScreen = (value) => {
+    navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
-        navigation.navigate(value)
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.navigate(value, value2)
     }
     get dataPromotionPopular() {
         const { loadData } = this.props
@@ -1261,18 +1370,22 @@ export class Confidential_PRO extends React.Component {
         super(props);
         this.state = {
             dataService: [],
+            activeDataService: true,
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService } = this.state
+        const { dataService, activeDataService } = this.state
         const { navigation } = this.props
-        if (dataService !== nextState.dataService || navigation !== nextProps.navigation) {
+        if (
+            dataService !== nextState.dataService || activeDataService !== nextState.activeDataService ||
+            navigation !== nextProps.navigation
+        ) {
             return true
         }
         return false
     }
     getData = (dataService) => {
-        this.setState({ dataService })
+        this.setState({ dataService, activeDataService: false })
     }
     get dataConfidential_PRO() {
         const { dataService } = this.state
@@ -1300,7 +1413,10 @@ export class Confidential_PRO extends React.Component {
         };
         return (
             <View style={[stylesMain.FrameBackground2]}>
-                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
+                {
+                    activeDataService == true &&
+                    <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
+                }
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={stylesMain.FrameBackgroundTextStart}>
                         ลายแทงร้านค้าแนะนำ</Text>
@@ -1330,9 +1446,15 @@ export class Product_for_you extends React.Component {
         }
         return false
     }
-    navigationNavigateScreen = (value) => {
+    navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
-        navigation.navigate(value)
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.navigate(value, value2)
     }
     render() {
         const { loadData, navigation } = this.props
@@ -1373,9 +1495,15 @@ export class Highlight extends React.Component {
         }
         return false
     }
-    navigationNavigateScreen = (value) => {
+    navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
-        navigation.navigate(value)
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.navigate(value, value2)
     }
     render() {
         const { loadData, navigation } = this.props
@@ -1417,7 +1545,13 @@ export class NewStore extends React.Component {
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
-        navigation.navigate(value, value2)
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.navigate(value, value2)
     }
     get dataNewStore() {
         const { loadData } = this.props
@@ -1466,9 +1600,15 @@ export class Exclusive extends React.Component {
         }
         return false
     }
-    navigationNavigateScreen = (value) => {
+    navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
-        navigation.navigate(value)
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.navigate(value, value2)
     }
     render() {
         const { loadData, navigation } = this.props
@@ -1501,65 +1641,80 @@ export class CategoryProduct extends React.Component {
         super(props);
         this.state = {
             dataService: [],
+            activeDataService: true,
         }
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService } = this.state
+        const { dataService, activeDataService } = this.state
         const { navigation } = this.props
-        if (dataService !== nextState.dataService || navigation !== nextProps.navigation) {
+        if (
+            dataService !== nextState.dataService || activeDataService !== nextState.activeDataService ||
+            navigation !== nextProps.navigation
+        ) {
             return true
         }
         return false
     }
     getData = (dataService) => {
-        this.setState({ dataService })
+        this.setState({ dataService, activeDataService: false })
     }
-    navigationNavigateScreen = (value) => {
+    navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
-        navigation.navigate(value)
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.navigate(value, value2)
     }
     get dataCategory() {
         const { dataService } = this.state
         const { NoStoreReCom, navigation } = this.props
-        return dataService.map((item, index) => {
-            var dataMySQL = finip + '/' + item.mobile_head;
-            return (
-                <View style={[stylesMain.FrameBackground2, { marginTop: 10, backgroundColor: item.bg_m }]} key={index}>
-                    <View>
-                        <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'CategoryScreen')}>
-                            <FastImage
-                                source={{
-                                    uri: dataMySQL,
-                                }}
-                                style={[stylesMain.CategoryProductImageHead]}
-                                resizeMode={FastImage.resizeMode.cover}
-                            />
-                        </TouchableOpacity>
-                        <CategoryProductSubProduct navigation={navigation} id_type={item.id_type} />
-                    </View>
-                    {
-                        NoStoreReCom ?
-                            <View style={{ marginBottom: 10, }}>
-                                <View style={{ marginTop: 10, }}>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 8, color: '#fff' }]}>
-                                        ร้านนี้ผ่อนได้ </Text>
+        return dataService &&
+            dataService.map((item, index) => {
+                var dataMySQL = finip + '/' + item.mobile_head;
+                return (
+                    <View style={[stylesMain.FrameBackground2, { marginTop: 10, backgroundColor: item.bg_m }]} key={index}>
+                        <View>
+                            <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'CategoryScreen')}>
+                                <FastImage
+                                    source={{
+                                        uri: dataMySQL,
+                                    }}
+                                    style={[stylesMain.CategoryProductImageHead]}
+                                    resizeMode={FastImage.resizeMode.cover}
+                                />
+                            </TouchableOpacity>
+                            <CategoryProductSubProduct navigation={navigation} id_type={item.id_type} />
+                        </View>
+                        {
+                            NoStoreReCom ?
+                                <View style={{ marginBottom: 10, }}>
+                                    <View style={{ marginTop: 10, }}>
+                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 8, color: '#fff' }]}>
+                                            ร้านนี้ผ่อนได้ </Text>
+                                    </View>
+                                    <CategoryProductSubStore navigation={navigation} id_type={item.id_type} />
+                                </View> :
+                                <View style={{ marginBottom: 0, }}>
+                                    <CategoryProductSubPromotion navigation={navigation} id_type={item.id_type} />
+                                    <CategoryProductSubStore navigation={navigation} id_type={item.id_type} />
                                 </View>
-                                <CategoryProductSubStore navigation={navigation} id_type={item.id_type} />
-                            </View> :
-                            <View style={{ marginBottom: 0, }}>
-                                <CategoryProductSubPromotion navigation={navigation} id_type={item.id_type} />
-                                <CategoryProductSubStore navigation={navigation} id_type={item.id_type} />
-                            </View>
-                    }
-                </View>
-            );
-        })
+                        }
+                    </View>
+                );
+            })
     }
     render() {
+        const { activeDataService } = this.state
         var uri = finip + '/home/category_mobile';
         return (
             <View>
-                <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} />
+                {
+                    activeDataService == true &&
+                    <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} />
+                }
                 {this.dataCategory}
             </View>
         )
@@ -1571,29 +1726,35 @@ export class CategoryProductSubProduct extends React.Component {
         super(props);
         this.state = {
             dataService: [],
+            activeDataService: true,
         }
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService } = this.state
+        const { dataService, activeDataService } = this.state
         const { id_type, navigation } = this.props
-        if (dataService !== nextState.dataService || id_type !== nextProps.id_type || navigation !== nextProps.navigation) {
+        if (dataService !== nextState.dataService || activeDataService !== nextState.activeDataService || id_type !== nextProps.id_type
+            || navigation !== nextProps.navigation
+        ) {
             return true
         }
         return false
     }
     getData = (dataService) => {
-        this.setState({ dataService })
+        this.setState({ dataService, activeDataService: false })
     }
     render() {
+        const { dataService, activeDataService } = this.state
         const { id_type, navigation } = this.props
-        const { dataService } = this.state
         var uri = finip + '/home/product_mobile';
         var dataBody = {
             id_type: id_type
         };
         return (
             <ScrollView horizontal>
-                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
+                {
+                    activeDataService == true &&
+                    <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
+                }
                 <View style={[stylesMain.ProductForYouFlexBox, stylesMain.BoxProductWarpBox]}>
                     {
                         dataService &&
@@ -1612,29 +1773,47 @@ export class CategoryProductSubStore extends React.Component {
         super(props);
         this.state = {
             dataService: [],
+            activeDataService: true,
         }
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { activeSlide, dataService } = this.state
+        const { activeSlide, dataService, activeDataService } = this.state
         const { id_type, navigation } = this.props
-        if (activeSlide !== nextState.activeSlide || dataService !== nextState.dataService || id_type !== nextProps.id_type ||
-            navigation !== nextProps.navigation) {
+        if (
+            activeSlide !== nextState.activeSlide || dataService !== nextState.dataService ||
+            activeDataService !== nextState.activeDataService || id_type !== nextProps.id_type || navigation !== nextProps.navigation
+        ) {
             return true
         }
         return false
     }
     getData = (dataService) => {
-        this.setState({ dataService })
+        this.setState({ dataService, activeDataService: false })
     }
-    _renderItem = ({ item, index }) => {
-        var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
+    _renderItem = (item, index) => {
+        var dataMySQL = finip + '/' + item.item.image_path + '/' + item.item.image;
+        var dataMySQL2
+        item.item2 && (
+            dataMySQL2 = finip + '/' + item.item2.image_path + '/' + item.item2.image
+        )
         return (
-            <TouchableOpacity activeOpacity={1} key={index}
+            <TouchableOpacity activeOpacity={1} key={index} style={stylesMain.FlexRow}
             >
-                <View style={stylesMain.CategoryProductStoreBox}>
+                <View style={[stylesMain.CategoryProductStoreBox]}>
                     <FastImage
                         source={{
                             uri: dataMySQL,
+                            width: '98%',
+                            height: 90,
+                        }}
+                        style={stylesMain.CategoryProductStoreImage}
+                        resizeMode={FastImage.resizeMode.cover}
+                    />
+                </View>
+                <View style={[stylesMain.CategoryProductStoreBox]}>
+                    <FastImage
+                        source={{
+                            uri: dataMySQL2,
                             width: '98%',
                             height: 90,
                         }}
@@ -1649,38 +1828,58 @@ export class CategoryProductSubStore extends React.Component {
         this.setState({ activeSlide: index })
     }
     render() {
-        const { dataService } = this.state
+        const { dataService, activeDataService } = this.state
         const { id_type } = this.props
         var uri = finip + '/home/publish_cate_mobile';
         var dataBody = {
             promotion: 'shop',
             id_type: id_type,
         };
+        var item = []
+        if (dataService.banner)
+            for (var n = 0; n < dataService.banner.length; n += 2) {
+                item.push({
+                    item: dataService.banner[n],
+                    item2: dataService.banner[n + 1]
+                })
+            }
         return (
             <>
-                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
                 {
-                    dataService.banner &&
-                    <Carousel
-                        ref={c => this.activeSlide = c}
-                        data={dataService.banner}
-                        renderItem={this._renderItem}
-                        sliderWidth={width}
-                        itemWidth={width * 0.49}
-                        sliderHeight={90}
-                        itemHeight={85}
-                        onSnapToItem={this.setActiveSlide.bind(this)}
-                        activeSlideAlignment={'start'}
-                        inactiveSlideScale={1}
-                        inactiveSlideOpacity={1}
-                        removeClippedSubviews={true}
-                        initialNumToRender={dataService.banner.length}
-                        maxToRenderPerBatch={1}
-                        useScrollView={true}
-                        autoplay
-                        autoplayDelay={3000}
-                        loop
-                    />
+                    activeDataService == true &&
+                    <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
+                }
+                {
+                    dataService.banner && (
+                        <Carousel
+                            renderItem={this._renderItem}
+                            data={item}
+                            loop
+                            autoplay
+                            autoplayInterval={3000}
+                            pagination={PaginationLight}
+                        />
+                    )
+                    // <Carousel
+                    //     ref={c => this.activeSlide = c}
+                    //     data={dataService.banner}
+                    //     renderItem={this._renderItem}
+                    //     sliderWidth={width}
+                    //     itemWidth={width * 0.49}
+                    //     sliderHeight={90}
+                    //     itemHeight={85}
+                    //     onSnapToItem={this.setActiveSlide.bind(this)}
+                    //     activeSlideAlignment={'start'}
+                    //     inactiveSlideScale={1}
+                    //     inactiveSlideOpacity={1}
+                    //     removeClippedSubviews={true}
+                    //     initialNumToRender={dataService.banner.length}
+                    //     maxToRenderPerBatch={1}
+                    //     useScrollView={true}
+                    //     autoplay
+                    //     autoplayDelay={3000}
+                    //     loop
+                    // />
                 }
             </>
         );
@@ -1692,19 +1891,25 @@ export class CategoryProductSubPromotion extends React.Component {
         super(props);
         this.state = {
             dataService: [],
+            activeDataService: true,
             dataService2: [],
+            activeDataService2: true,
         }
     }
     getData = (dataService) => {
-        this.setState({ dataService })
+        this.setState({ dataService, activeDataService: false })
     }
     getData2 = (dataService2) => {
-        this.setState({ dataService2 })
+        this.setState({ dataService2, activeDataService2: false })
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService, dataService2 } = this.state
+        const { dataService, dataService2, activeDataService, activeDataService2 } = this.state
         const { id_type, navigation } = this.props
-        if (dataService !== nextState.dataService || dataService2 !== nextState.dataService2 || id_type !== nextProps.id_type || navigation !== nextProps.navigation) {
+        if (
+            dataService !== nextState.dataService || dataService2 !== nextState.dataService2 ||
+            activeDataService !== nextState.activeDataService || activeDataService2 !== nextState.activeDataService2 ||
+            id_type !== nextProps.id_type || navigation !== nextProps.navigation
+        ) {
             return true
         }
         return false
@@ -1748,7 +1953,7 @@ export class CategoryProductSubPromotion extends React.Component {
             })
     }
     render() {
-        const { dataService, dataService2 } = this.state
+        const { dataService, dataService2, activeDataService, activeDataService2 } = this.state
         const { id_type } = this.props
         var uri = finip + '/home/publish_cate_mobile';
         var dataBody = {
@@ -1762,8 +1967,14 @@ export class CategoryProductSubPromotion extends React.Component {
         return (
             <>
                 <View style={[stylesMain.FlexRow, { width: '100%' }]}>
-                    <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
-                    <GetServices uriPointer={uri} dataBody={dataBody2} getDataSource={this.getData2.bind(this)} />
+                    {
+                        activeDataService == true &&
+                        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
+                    }
+                    {
+                        activeDataService2 == true &&
+                        <GetServices uriPointer={uri} dataBody={dataBody2} getDataSource={this.getData2.bind(this)} />
+                    }
                     {
                         dataService.banner && dataService2.banner && ([
                             this.dataCategoryProductSubPromotion,
@@ -1793,7 +2004,13 @@ export class Second_product extends React.Component {
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
-        navigation.navigate(value, value2)
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.navigate(value, value2)
     }
     renderItem1 = (item) => {
         return item.map((item, index) => {
@@ -1917,28 +2134,65 @@ export class Second_product extends React.Component {
             </View>
         )
     }
-    get getFooter() {
-        const { loadData } = this.props
-        return loadData.mobile_slide &&
-            loadData.mobile_slide.map((item, index) => {
-                var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
-                return (
-                    <View style={stylesMain.Second_Storefooter_image} key={index}>
-                        <FastImage
-                            style={[stylesMain.BoxProduct1Image, { borderRadius: 5 },]}
-                            source={{ uri: dataMySQL }}
-                            resizeMode={FastImage.resizeMode.stretch}
-                        />
-                    </View>
-                )
-            })
+    _renderFooter = (item, index) => {
+        var dataMySQL = finip + '/' + item.item.image_path + '/' + item.item.image;
+        var dataMySQL2
+        item.item2 && (
+            dataMySQL2 = finip + '/' + item.item2.image_path + '/' + item.item2.image
+        )
+        return (
+            <TouchableOpacity activeOpacity={1} key={index} style={stylesMain.FlexRow}
+            >
+                <View style={[stylesMain.CategoryProductStoreBox]}>
+                    <FastImage
+                        source={{
+                            uri: dataMySQL,
+                            width: '98%',
+                            height: 90,
+                        }}
+                        style={stylesMain.CategoryProductStoreImage}
+                        resizeMode={FastImage.resizeMode.cover}
+                    />
+                </View>
+                <View style={[stylesMain.CategoryProductStoreBox]}>
+                    <FastImage
+                        source={{
+                            uri: dataMySQL2,
+                            width: '98%',
+                            height: 90,
+                        }}
+                        style={stylesMain.CategoryProductStoreImage}
+                        resizeMode={FastImage.resizeMode.cover}
+                    />
+                </View>
+            </TouchableOpacity>
+        );
     }
     get Second_Storefooter() {
+        const { loadData } = this.props
+        var item = []
+        if (loadData.mobile_slide)
+            for (var n = 0; n < loadData.mobile_slide.length; n += 2) {
+                item.push({
+                    item: loadData.mobile_slide[n],
+                    item2: loadData.mobile_slide[n + 1]
+                })
+            }
         return (
             <View style={stylesMain.Second_Storefooter}>
                 <ScrollView horizontal>
                     <View style={stylesMain.FlexRow}>
-                        {this.getFooter}
+                        {
+                            loadData.mobile_slide &&
+                            <Carousel
+                                renderItem={this._renderFooter}
+                                data={item}
+                                loop
+                                autoplay
+                                autoplayInterval={3000}
+                                pagination={PaginationLight}
+                            />
+                        }
                     </View>
                 </ScrollView>
             </View>

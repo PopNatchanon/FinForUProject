@@ -15,7 +15,7 @@ import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, Slide, BannerBar_TWO, TodayProduct, ExitAppModule, } from './MainScreen';
 import { Button_Bar, SlideTab, PricesSlide, } from './ExclusiveScreen';
-import { GetServices, ProductBox, } from './tools/Tools';
+import { GetServices, ProductBox, SlideTab2, } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -36,14 +36,14 @@ export default class CategoryScreen extends React.Component {
         return false
     }
     getData = (dataService) => {
-            this.setState({ dataService })
+        this.setState({ dataService })
     }
     setSlider = (sliderVisible) => {
-            this.setState({ sliderVisible })
+        this.setState({ sliderVisible })
     }
     setStateSliderVisible = () => {
         const { sliderVisible } = this.state
-            this.setState({ sliderVisible: !sliderVisible })
+        this.setState({ sliderVisible: !sliderVisible })
     }
     render() {
         const { dataService, sliderVisible } = this.state
@@ -114,35 +114,43 @@ export default class CategoryScreen extends React.Component {
 ///----------------------------------------------------------------------------------------------->>>> SlideTabGet
 export class SlideTabGet extends React.Component {
     render() {
-        const item = [{
-            name: 'กระเป๋าสะพายข้าง'
+        const data = [{
+            title: 'หมวดหมู่',
+            subtitle: [{
+                name: 'กระเป๋าสะพายข้าง'
+            }, {
+                name: 'กระเป๋าสะพายหลัง'
+            }, {
+                name: 'กระเป๋าสตางค์'
+            }, {
+                name: 'กระเป๋าใส่นามบัตร'
+            }, {
+                name: 'กระเป๋าใส่เหรียญ'
+            }, {
+                name: 'กระเป๋าถือ'
+            }, {
+                name: 'อื่นๆ'
+            }]
         }, {
-            name: 'กระเป๋าสะพายหลัง'
-        }, {
-            name: 'กระเป๋าสตางค์'
-        }, {
-            name: 'กระเป๋าใส่นามบัตร'
-        }, {
-            name: 'กระเป๋าใส่เหรียญ'
-        }, {
-            name: 'กระเป๋าถือ'
-        }, {
-            name: 'อื่นๆ'
-        }]
-        const item2 = [{
-            name: 'BP world'
-        }, {
-            name: 'Tokyo boy'
-        }, {
-            name: 'JJ'
-        }, {
-            name: 'ETONWEAG'
+            title: 'แบรนด์',
+            subtitle: [{
+                name: 'BP world'
+            }, {
+                name: 'Tokyo boy'
+            }, {
+                name: 'JJ'
+            }, {
+                name: 'ETONWEAG'
+            }]
         }]
         return (
             <View>
                 <View style={{ width: '100%' }}>
-                    <SlideTab Title='หมวดหมู่' item={item} />
-                    <SlideTab Title='แบรนด์' item={item2} />
+                    {
+                        data.map((item, index) => {
+                            return <SlideTab2 item={item} key={index} />
+                        })
+                    }
                     <PricesSlide />
                 </View>
             </View>
@@ -166,11 +174,17 @@ export class Recommend_Store extends React.Component {
         return false
     }
     getData = (dataService) => {
-            this.setState({ dataService })
+        this.setState({ dataService })
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
-        navigation.navigate(value, value2)
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.navigate(value, value2)
     }
     get dataPromotionPopular() {
         const { dataService } = this.state
@@ -231,7 +245,7 @@ export class Product_Brand extends React.Component {
         return false
     }
     getData = (dataService) => {
-            this.setState({ dataService })
+        this.setState({ dataService })
     }
     render() {
         const { dataService } = this.state

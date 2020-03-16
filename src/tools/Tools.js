@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React from 'react';
 import {
-    ActivityIndicator, Animated, Dimensions, Modal, Text, TouchableOpacity, View,
+    ActivityIndicator, Animated, Dimensions, Modal, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
@@ -13,6 +13,7 @@ import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
+import stylesDetail from '../../style/StylesDetailScreen'
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 import stylesStore from '../../style/StylesStoreScreen';
@@ -44,9 +45,15 @@ export class Toolbar extends React.Component {
     componentDidMount() {
         this.getDataasync()
     }
-    navigationNavigateScreen = (value) => {
+    navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
-        navigation.replace(value)
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.replace(value, value2)
     }
     render() {
         const { currentUser } = this.state;
@@ -767,12 +774,13 @@ export class ProductBox extends React.Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
+        const { ImageStore } = this.state
         const { dataService, dispriceSize, typeip, mode, nameSize, postpath, prepath, priceSize, navigation, pointerUrl, pointerid_store } = this.props
         if (
-            dataService !== nextProps.dataService || dispriceSize !== nextProps.dispriceSize || typeip !== nextProps.typeip ||
-            mode !== nextProps.mode || nameSize !== nextProps.nameSize || postpath !== nextProps.postpath ||
-            prepath !== nextProps.prepath || priceSize !== nextProps.priceSize || navigation !== nextProps.navigation ||
-            pointerUrl !== nextProps.pointerUrl || pointerid_store !== nextProps.pointerid_store
+            ImageStore !== nextState.ImageStore || dataService !== nextProps.dataService || dispriceSize !== nextProps.dispriceSize ||
+            typeip !== nextProps.typeip || mode !== nextProps.mode || nameSize !== nextProps.nameSize ||
+            postpath !== nextProps.postpath || prepath !== nextProps.prepath || priceSize !== nextProps.priceSize ||
+            navigation !== nextProps.navigation || pointerUrl !== nextProps.pointerUrl || pointerid_store !== nextProps.pointerid_store
         ) {
             return true
         }
@@ -780,9 +788,19 @@ export class ProductBox extends React.Component {
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
-        navigation.push(value, value2)
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.navigate(value, value2)
+    }
+    LoadingStore = (ImageStore) => {
+        this.setState({ ImageStore })
     }
     get ProductBoxRender() {
+        const { ImageStore } = this.state
         const {
             dataService, dispriceSize, typeip, mode, nameSize, postpath, prepath, priceSize, pointerUrl, pointerid_store
         } = this.props
@@ -835,6 +853,11 @@ export class ProductBox extends React.Component {
                                             stylesMain.BoxProduct1ImageofLines2 :
                                             stylesMain.BoxProduct1ImageofLines
                         }>
+                            {
+                                ImageStore == 'false' &&
+                                <Text style={[stylesMain.BoxProduct5Image, { textAlign: 'center', textAlignVertical: 'center' }]}>
+                                    Loading Image...</Text>
+                            }
                             <FastImage
                                 source={{
                                     uri: dataMySQL,
@@ -846,6 +869,8 @@ export class ProductBox extends React.Component {
                                             stylesMain.BoxProduct2Image :
                                             stylesMain.BoxProduct1Image
                                 }
+                                onError={this.LoadingStore.bind(this, false)}
+                                onLoad={this.LoadingStore.bind(this, true)}
                                 resizeMode={FastImage.resizeMode.contain}
                             />
                         </View>
@@ -938,8 +963,14 @@ export class FeedBox extends React.Component {
         return false
     }
     navigationNavigateScreen = (value, value2) => {
-        const { navigation, } = this.props
-        navigation.push(value, value2)
+        const { navigation } = this.props
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.navigate(value, value2)
     }
     get FeedBoxRender() {
         const { dataService, Follow, Header, typeip, postpath, prepath } = this.props
@@ -1103,6 +1134,104 @@ export class BrowerScreen extends React.Component {
                     }}
                     style={{ flex: 1 }}
                 />
+            </View>
+        )
+    }
+}
+///----------------------------------------------------------------------------------------------->>>> SlideTab
+export class SlideTab2 extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            activeText: false,
+            selectedIndex: null,
+        }
+    }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { dataService, selectedIndex, activeText } = this.state
+        const { navigation, item } = this.props
+        if (
+            dataService !== nextState.dataService || selectedIndex !== nextState.selectedIndex || activeText !== nextState.activeText ||
+            navigation !== nextProps.navigation || item !== nextProps.item
+        ) {
+            return true
+        }
+        return false
+    }
+    updateIndex = (selectedIndex) => {
+        this.setState({ selectedIndex })
+    }
+    dataItem(item) {
+        const { selectedIndex } = this.state
+        return (
+            <View style={[stylesMain.FlexRow, { width: '100%', flexWrap: 'wrap' }]}>
+                <TabBar
+                    sendData={this.updateIndex.bind(this)}
+                    SetValue={selectedIndex != null ? selectedIndex : -1}
+                    item={item}
+                    type='box'
+                    noLimit
+                    numberBox
+                    NoSelectTab
+                    radiusBox={4}
+                />
+            </View>
+        )
+    }
+    setStateActiveText = (activeText) => {
+        this.setState({ activeText })
+    }
+    get dataContainer() {
+        const { activeText } = this.state
+        const { item } = this.props
+        console.log(Math.ceil(item.subtitle.length / 2))
+        return (
+            <View>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesMain.ItemCenterVertical, { marginLeft: 8, marginTop: 8, }]}>
+                    {item.title}</Text>
+                <View style={stylesMain.SafeAreaViewNB}>
+                    <View style={{ width: '100%' }}>
+                        <View style={{ width: '100%', height: activeText == true ? 85 + ((Math.ceil(item.subtitle.length / 2) - 1) * 35) : 85 + (35 * 1) }}>
+                            {
+                                activeText == true ?
+                                    this.dataItem(item.subtitle) :
+                                    <ScrollView scrollEnabled={false}>
+                                        {this.dataItem(item.subtitle)}
+                                    </ScrollView>
+                            }
+                            {item.subtitle.length > 4 ?
+                                <TouchableOpacity onPress={this.setStateActiveText.bind(this, !activeText)}>
+                                    <View style={[stylesDetail.Detail_Box, stylesMain.ItemCenter, {
+                                        borderTopWidth: null,
+                                    }]}>
+                                        <Text style={[stylesDetail.Detail_Text_A, stylesMain.ItemCenterVertical, { fontFamily: 'SukhumvitSet-Text', }]}>
+                                            {
+                                                activeText == true ?
+                                                    'ย่อ' :
+                                                    'ดูเพิ่มเติม'
+                                            }</Text>
+                                        <IconEntypo name={activeText == true ? 'chevron-up' : 'chevron-down'} size={25} color='#0A55A6' />
+                                    </View>
+                                </TouchableOpacity> :
+                                null
+                            }
+                            <View style={[stylesMain.ItemCenter, { width: '100%' }]}>
+                                <View style={{
+                                    width: '80%', backgroundColor: '#fff', marginTop: 8, borderBottomColor: '#DCDCDC', borderBottomWidth: 3,
+                                }}></View>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+            </View>
+        )
+    }
+    render() {
+        const { activeText } = this.state
+        const { item } = this.props
+        return (
+            <View>
+                {this.dataContainer}
             </View>
         )
     }

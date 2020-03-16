@@ -16,7 +16,7 @@ import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, AppBar1, BannerBar_ONE, TodayProduct, ExitAppModule, } from './MainScreen';
 import { Button_Bar, PricesSlide, SlideTab, } from './ExclusiveScreen';
-import { GetServices, ProductBox, } from './tools/Tools';
+import { GetServices, ProductBox, SlideTab2, } from './tools/Tools';
 import { Slide, } from './src_Promotion/DealScreen';
 import { Store_Detail, } from './Recommend_Store';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -178,7 +178,13 @@ export class Second_Store extends Component {
   }
   navigationNavigateScreen = (value, value2) => {
     const { navigation } = this.props
-    navigation.navigate(value, value2)
+    value == 'goBack' ?
+      navigation.goBack() :
+      value == 'LoginScreen' ? (
+        navigation.popToTop(),
+        navigation.replace(value, value2)
+      ) :
+        navigation.navigate(value, value2)
   }
   render() {
     return (
@@ -278,35 +284,43 @@ export class Second_Product_Brand extends Component {
 ///----------------------------------------------------------------------------------------------->>>> SlideTabGet
 export class SlideTabGet extends Component {
   render() {
-    const item = [{
-      name: 'กระเป๋าสะพายข้าง'
+    const data = [{
+      title: 'หมวดหมู่',
+      subtitle: [{
+        name: 'กระเป๋าสะพายข้าง'
+      }, {
+        name: 'กระเป๋าสะพายหลัง'
+      }, {
+        name: 'กระเป๋าสตางค์'
+      }, {
+        name: 'กระเป๋าใส่นามบัตร'
+      }, {
+        name: 'กระเป๋าใส่เหรียญ'
+      }, {
+        name: 'กระเป๋าถือ'
+      }, {
+        name: 'อื่นๆ'
+      }]
     }, {
-      name: 'กระเป๋าสะพายหลัง'
-    }, {
-      name: 'กระเป๋าสตางค์'
-    }, {
-      name: 'กระเป๋าใส่นามบัตร'
-    }, {
-      name: 'กระเป๋าใส่เหรียญ'
-    }, {
-      name: 'กระเป๋าถือ'
-    }, {
-      name: 'อื่นๆ'
-    }]
-    const item2 = [{
-      name: 'BP world'
-    }, {
-      name: 'Tokyo boy'
-    }, {
-      name: 'JJ'
-    }, {
-      name: 'ETONWEAG'
+      title: 'แบรนด์',
+      subtitle: [{
+        name: 'BP world'
+      }, {
+        name: 'Tokyo boy'
+      }, {
+        name: 'JJ'
+      }, {
+        name: 'ETONWEAG'
+      }]
     }]
     return (
       <View>
         <View style={{ width: '100%' }}>
-          <SlideTab Title='หมวดหมู่' item={item} />
-          <SlideTab Title='แบรนด์' item={item2} />
+          {
+            data.map((item, index) => {
+              return <SlideTab2 item={item} key={index} />
+            })
+          }
           <PricesSlide />
         </View>
       </View>

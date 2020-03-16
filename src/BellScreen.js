@@ -74,7 +74,13 @@ export class Popular_store extends React.Component {
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
-        navigation.navigate(value, value2)
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.navigate(value, value2)
     }
     get dataNewStore() {
         const { dataService } = this.state
@@ -131,7 +137,13 @@ export class Pro_for_U extends React.Component {
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
-        navigation.navigate(value, value2)
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.navigate(value, value2)
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation } = this.props
@@ -210,7 +222,13 @@ export class Update_buy extends React.Component {
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
-        navigation.navigate(value, value2)
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.navigate(value, value2)
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation } = this.props

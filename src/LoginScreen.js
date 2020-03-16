@@ -91,8 +91,13 @@ export class Login extends Component {
   }
   navigationNavigateScreen = (value, value2) => {
     const { navigation } = this.props
-    navigation.goBack()
-    navigation.replace(value, value2)
+    value == 'goBack' ?
+      navigation.goBack() :
+      value == 'LoginScreen' ? (
+        navigation.popToTop(),
+        navigation.replace(value, value2)
+      ) :
+        navigation.navigate(value, value2)
   }
   getData = async () => {
     const { user } = this.state;
@@ -238,7 +243,13 @@ export class Register extends Component {
   }
   navigationNavigateScreen = (value, value2) => {
     const { navigation } = this.props
-    navigation.navigate(value, value2)
+    value == 'goBack' ?
+      navigation.goBack() :
+      value == 'LoginScreen' ? (
+        navigation.popToTop(),
+        navigation.replace(value, value2)
+      ) :
+        navigation.navigate(value, value2)
   }
   render() {
     return (

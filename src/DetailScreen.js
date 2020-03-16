@@ -117,7 +117,8 @@ export default class DetailScreen extends React.Component {
             currentUser && dataService.product_data &&
             <Conpon dataService={dataService.product_data} currentUser={currentUser} />
           }
-          <Selector dataService={dataService} BuyProduct={BuyProduct} currentUser={currentUser} sendProduct={this.BuyProduct.bind(this)}
+          <Selector dataService={dataService} BuyProduct={BuyProduct} currentUser={currentUser} navigation={navigation}
+            sendProduct={this.BuyProduct.bind(this)}
           />
           <Detail_Category dataService={dataService} />
           <Detail dataService={dataService} />
@@ -132,7 +133,7 @@ export default class DetailScreen extends React.Component {
         </ScrollView>
         {
           dataService.product_data &&
-          <Buy_bar navigation={navigation} dataService={dataService} BuyProduct={this.BuyProduct.bind(this)} />
+          <Buy_bar navigation={navigation} currentUser={currentUser} dataService={dataService} BuyProduct={this.BuyProduct.bind(this)} />
         }
         <ExitAppModule navigation={navigation} />
       </SafeAreaView>
@@ -450,7 +451,13 @@ export class Store extends React.Component {
   }
   navigationNavigateScreen = (value, value2) => {
     const { navigation } = this.props
-    navigation.navigate(value, value2)
+    value == 'goBack' ?
+      navigation.goBack() :
+      value == 'LoginScreen' ? (
+        navigation.popToTop(),
+        navigation.replace(value, value2)
+      ) :
+        navigation.navigate(value, value2)
   }
   get id_store() {
     const { ImageStore } = this.state
@@ -467,7 +474,6 @@ export class Store extends React.Component {
                     source={{
                       uri: dataMySQL,
                     }}
-
                     onError={this.LoadingStore.bind(this, false)}
                     onLoad={this.LoadingStore.bind(this, true)}
                     style={[stylesDetail.Store_Image, { marginLeft: 10, backgroundColor: ImageStore == true ? 'transparent' : '#959595' }]} />
@@ -655,14 +661,16 @@ export class Selector extends React.Component {
   }
   shouldComponentUpdate = (nextProps, nextState) => {
     const {
-      itemCount, selectedIndex, selectedIndex2, dataService2, dataService3, sendDataCart, activeSelect, activeSelect2, activeSelect3
+      itemCount, selectedIndex, selectedIndex2, dataService2, dataService3, sendDataCart, activeSelect, activeSelect2, activeSelect3,
+      BuyProduct2
     } = this.state
-    const { dataService, BuyProduct, sendProduct, currentUser } = this.props
+    const { dataService, BuyProduct, sendProduct, currentUser, navigation } = this.props
     if (
       itemCount !== nextState.itemCount || selectedIndex !== nextState.selectedIndex || selectedIndex2 !== nextState.selectedIndex2 ||
-      dataService2 !== nextState.dataService2 || dataService3 !== nextState.dataService3 || sendDataCart !== nextState.sendDataCart || activeSelect !== nextState.activeSelect ||
-      activeSelect2 !== nextState.activeSelect2 || activeSelect3 !== nextState.activeSelect3 || dataService !== nextProps.dataService ||
-      BuyProduct !== nextProps.BuyProduct || sendProduct !== nextProps.sendProduct || currentUser !== nextProps.currentUser
+      dataService2 !== nextState.dataService2 || dataService3 !== nextState.dataService3 || sendDataCart !== nextState.sendDataCart ||
+      activeSelect !== nextState.activeSelect || activeSelect2 !== nextState.activeSelect2 || activeSelect3 !== nextState.activeSelect3
+      || BuyProduct2 !== nextState.BuyProduct2 || dataService !== nextProps.dataService || BuyProduct !== nextProps.BuyProduct ||
+      sendProduct !== nextProps.sendProduct || currentUser !== nextProps.currentUser || navigation !== nextProps.navigation
     ) {
       return true
     }
@@ -684,14 +692,33 @@ export class Selector extends React.Component {
     this.setState({ dataService3, activeSelect2: false, itemCount: dataService3.amount_data < 1 ? 0 : 1 })
   }
   getData3 = (dataService3) => {
-    // this.setState({ activeSelect2: false })
+    const { BuyProduct2 } = this.state
+    const { navigation } = this.props
+    console.log('dataService3')
+    console.log(dataService3)
+    this.SelectorSheet.close();
+    dataService3.Message == 'Complete' && BuyProduct2 == 'gocart' &&
+      navigation.push('CartScreen')
+    this.setState({ activeSelect3: false })
+  }
+  navigationNavigateScreen = (value, value2) => {
+    const { navigation } = this.props
+    value == 'goBack' ?
+      navigation.goBack() :
+      value == 'LoginScreen' ? (
+        navigation.popToTop(),
+        navigation.replace(value, value2)
+      ) :
+        navigation.navigate(value, value2)
   }
   sendDataCart = (BuyProduct, sendDataCart) => {
-    this.setState({ sendDataCart, activeSelect3: true })
+    console.log('sendDataCart')
+    console.log(sendDataCart)
+    this.setState({ sendDataCart, activeSelect3: true, BuyProduct2: BuyProduct })
   }
   get SelectorSheetBody() {
     const {
-      itemCount, selectedIndex, selectedIndex2, dataService2, dataService3, activeSelect, activeSelect2, sendDataCart
+      itemCount, selectedIndex, selectedIndex2, dataService2, dataService3, activeSelect, activeSelect2, activeSelect3, sendDataCart
     } = this.state
     const { dataService, BuyProduct, currentUser } = this.props
     var items = []
@@ -720,10 +747,6 @@ export class Selector extends React.Component {
         var amount_product
         var dis_price
         dataService2 && dataService3 && activeSelect2 == false && (
-          console.log('dataService2'),
-          console.log(items2[selectedIndex2]),
-          console.log('dataService3'),
-          console.log(dataService3),
           sale_price = dataService3.price_data,
           full_price = items2[selectedIndex2].price,
           amount_product = dataService3.amount_data,
@@ -739,6 +762,11 @@ export class Selector extends React.Component {
             id_product: item.id_product,
           }
         )
+        var uri3 = finip + '/product/add_to_cart'
+        console.log('uri3')
+        console.log(uri3)
+        console.log('sendDataCart')
+        console.log(sendDataCart)
         var dataMySQL = [finip, item.image_full_path, item.image].join('/');
         return (
           <View style={{ flex: 1, paddingHorizontal: 15 }} key={index}>
@@ -758,14 +786,14 @@ export class Selector extends React.Component {
                 getDataSource={this.getData2.bind(this)}
               />
             }
-            {/* {
+            {
               sendDataCart && activeSelect3 == true &&
               <GetServices
-                uriPointer={uri}
+                uriPointer={uri3}
                 dataBody={sendDataCart}
                 getDataSource={this.getData3.bind(this)}
               />
-            } */}
+            }
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { textAlign: 'center' }]}>ตัวเลือก</Text>
             <ScrollView>
               <View style={{ flexDirection: 'row' }}>
@@ -800,7 +828,7 @@ export class Selector extends React.Component {
                         renderText={
                           value =>
                             <View style={[stylesMain.ItemCenter, {
-                              height: 20, backgroundColor: '#fb3449',  marginTop: 5, marginLeft: 5, width: 50, borderRadius: 20
+                              height: 20, backgroundColor: '#fb3449', marginTop: 5, marginLeft: 5, width: 50, borderRadius: 20
                             }]}>
                               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, stylesMain.ItemCenterVertical, {
                                 color: '#FFFFFF'
@@ -918,14 +946,14 @@ export class Selector extends React.Component {
               </View>
               <View style={[stylesDetail.Selector_BottomSheet_BoxButtom, { justifyContent: BuyProduct != 'null' ? 'center' : 'space-between' }]}>
                 {
-                  (BuyProduct == 'addcart' || BuyProduct == 'null') && dataService2 &&
-                  <TouchableOpacity onPress={null
-                    // this.sendDataCart.bind(this, 
-                    //   'addcart', {
-                    //   id_product: item.id_product, amount: itemCount, color_value: items[selectedIndex].name,
-                    //   size_value: items2[selectedIndex2].name, feature_product: dataService.feature_product,
-                    //   id_customer: currentUser.id_customer
-                    // })
+                  (BuyProduct == 'addcart' || BuyProduct == 'null') && currentUser && dataService2 &&
+                  <TouchableOpacity onPress={
+                    this.sendDataCart.bind(this,
+                      'addcart', {
+                      id_product: item.id_product, amount: itemCount, color_value: items[selectedIndex].name,
+                      size_value: items2[selectedIndex2].name, feature_product: dataService.feature_product,
+                      id_customer: currentUser.id_customer, buy_now: "cart"
+                    })
                   }>
                     <View style={[stylesDetail.Buy_bar_Iconshop, stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
                       width: BuyProduct == 'addcart' ? 320 : 160
@@ -937,13 +965,13 @@ export class Selector extends React.Component {
                   </TouchableOpacity>
                 }
                 {
-                  (BuyProduct == 'gocart' || BuyProduct == 'null') && dataService2 &&
-                  <TouchableOpacity onPress={null
-                    // this.sendDataCart.bind(this, 'gocart', {
-                    //   id_product: item.id_product, amount: itemCount, color_value: items[selectedIndex].name,
-                    //   size_value: items2[selectedIndex2].name, feature_product: dataService.feature_product,
-                    //   id_customer: currentUser.id_customer
-                    // })
+                  (BuyProduct == 'gocart' || BuyProduct == 'null') && currentUser && dataService2 &&
+                  <TouchableOpacity onPress={
+                    this.sendDataCart.bind(this, 'gocart', {
+                      id_product: item.id_product, amount: itemCount, color_value: items[selectedIndex].name,
+                      size_value: items2[selectedIndex2].name, feature_product: dataService.feature_product,
+                      id_customer: currentUser.id_customer, buy_now: "cart"
+                    })
                   }>
                     <View style={[stylesDetail.Buy_bar_IconBuy, stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
                       width: BuyProduct == 'gocart' ? 320 : 160
@@ -964,7 +992,7 @@ export class Selector extends React.Component {
     sendProduct(typeSelect)
   }
   render() {
-    const { dataService, BuyProduct } = this.props
+    const { dataService, BuyProduct, currentUser } = this.props
     dataService.detail_product && BuyProduct &&
       this.SelectorSheet.open()
     return (
@@ -988,7 +1016,11 @@ export class Selector extends React.Component {
         {
           dataService.detail_product && dataService.detail_product.length > 1 &&
           <View style={stylesDetail.Coupon}>
-            <TouchableOpacity activeOpacity={1} onPress={this.sendProduct.bind(this, 'null')}>
+            <TouchableOpacity activeOpacity={1} onPress={
+              currentUser ?
+                this.sendProduct.bind(this, 'null') :
+                this.navigationNavigateScreen.bind(this, 'LoginScreen')
+            }>
               <View style={[stylesDetail.Coupon_Box, stylesMain.ItemCenterVertical]}>
                 <Text style={[stylesDetail.Coupon_Text, stylesFont.FontSize5, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical]}>
                   ตัวเลือก </Text>
@@ -1153,7 +1185,11 @@ export class Reviews extends React.Component {
     const { navigation } = this.props
     value == 'goBack' ?
       navigation.goBack() :
-      navigation.navigate(value, value2)
+      value == 'LoginScreen' ? (
+        navigation.popToTop(),
+        navigation.replace(value, value2)
+      ) :
+        navigation.navigate(value, value2)
   }
   getData = (dataService2) => {
     this.setState({ dataService2 })
@@ -1213,7 +1249,7 @@ export class Reviews extends React.Component {
     const { dataService, currentUser } = this.props
     var uri = finip + '/product/product_review_mobile'
     var dataBody
-    dataService && (
+    currentUser && dataService && (
       dataBody = {
         id_product: dataService[0].id_product,
         id_store: dataService[0].id_store,
@@ -1329,7 +1365,13 @@ export class Same_Store extends React.Component {
   }
   navigationNavigateScreen = (value, value2) => {
     const { navigation } = this.props
-    navigation.navigate(value, value2)
+    value == 'goBack' ?
+      navigation.goBack() :
+      value == 'LoginScreen' ? (
+        navigation.popToTop(),
+        navigation.replace(value, value2)
+      ) :
+        navigation.navigate(value, value2)
   }
   render() {
     const { dataService2 } = this.state
@@ -1395,7 +1437,13 @@ export class Similar_Product extends React.Component {
   }
   navigationNavigateScreen = (value, value2) => {
     const { navigation } = this.props
-    navigation.navigate(value, value2)
+    value == 'goBack' ?
+      navigation.goBack() :
+      value == 'LoginScreen' ? (
+        navigation.popToTop(),
+        navigation.replace(value, value2)
+      ) :
+        navigation.navigate(value, value2)
   }
   render() {
     const { dataService2 } = this.state
@@ -1461,7 +1509,13 @@ export class Might_like extends React.Component {
   }
   navigationNavigateScreen = (value, value2) => {
     const { navigation } = this.props
-    navigation.navigate(value, value2)
+    value == 'goBack' ?
+      navigation.goBack() :
+      value == 'LoginScreen' ? (
+        navigation.popToTop(),
+        navigation.replace(value, value2)
+      ) :
+        navigation.navigate(value, value2)
   }
   render() {
     const { dataService2 } = this.state
@@ -1514,28 +1568,42 @@ export class Buy_bar extends React.Component {
     };
   }
   shouldComponentUpdate = (nextProps, nextState) => {
-    const { dataService, navigation, BuyProduct } = this.props
-    if (dataService !== nextProps.dataService || navigation !== nextProps.navigation || BuyProduct !== nextProps.BuyProduct) {
+    const { dataService, navigation, BuyProduct, currentUser } = this.props
+    if (
+      dataService !== nextProps.dataService || navigation !== nextProps.navigation || BuyProduct !== nextProps.BuyProduct ||
+      currentUser !== nextProps.currentUser
+    ) {
       return true
     }
     return false
   }
   navigationNavigateScreen = (value, value2) => {
     const { navigation } = this.props
-    navigation.navigate(value, value2)
+    value == 'goBack' ?
+      navigation.goBack() :
+      value == 'LoginScreen' ? (
+        navigation.popToTop(),
+        navigation.replace(value, value2)
+      ) :
+        navigation.navigate(value, value2)
   }
   BuyProduct = (typeSelect) => {
     const { BuyProduct } = this.props
     BuyProduct(typeSelect)
   }
   get dataServices() {
-    const { dataService } = this.props
+    const { dataService, currentUser } = this.props
     return dataService.product_data &&
       dataService.product_data.map((item, index) => {
         return (
           < View style={stylesDetail.Buy_bar} key={index}>
             < View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical]} >
-              <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 })}>
+              <TouchableOpacity activeOpacity={1} onPress={
+                currentUser ?
+                  this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 }) :
+                  this.navigationNavigateScreen.bind(this, 'LoginScreen')
+
+              }>
                 <IconAntDesign name='message1' size={22} style={[stylesMain.ItemCenterVertical]} />
                 <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesMain.ItemCenterVertical]}>
                   แชท</Text>
@@ -1549,14 +1617,22 @@ export class Buy_bar extends React.Component {
                   ร้านค้า</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={this.BuyProduct.bind(this, 'addcart')}>
+            <TouchableOpacity onPress={
+              currentUser ?
+                this.BuyProduct.bind(this, 'addcart') :
+                this.navigationNavigateScreen.bind(this, 'LoginScreen')
+            }>
               <View style={[stylesDetail.Buy_bar_Iconshop, stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
                 <IconAntDesign name='shoppingcart' size={25} />
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontCenter, { marginLeft: 10 }]}>
                   เพิ่มลงรถเข็น</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={this.BuyProduct.bind(this, 'gocart')}>
+            <TouchableOpacity onPress={
+              currentUser ?
+                this.BuyProduct.bind(this, 'gocart') :
+                this.navigationNavigateScreen.bind(this, 'LoginScreen')
+            }>
               <View style={[stylesDetail.Buy_bar_IconBuy, stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
                 <Text style={[stylesDetail.Buy_bar_IconBuytext, stylesFont.FontFamilyText, stylesFont.FontCenter]}>
                   ซื้อเลย</Text>
@@ -1622,21 +1698,22 @@ export class Coupon_Detail_BottomSheet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeId_promotion: true
     };
   }
   shouldComponentUpdate = (nextProps, nextState) => {
-    const { id_promotion } = this.state
+    const { id_promotion, activeId_promotion } = this.state
     const { currentUser, dataService, get_id_promotion } = this.props
     if (
-      id_promotion !== nextState.id_promotion || currentUser !== nextProps.currentUser || dataService !== nextProps.dataService ||
-      get_id_promotion !== nextProps.get_id_promotion
+      id_promotion !== nextState.id_promotion || activeId_promotion !== nextState.activeId_promotion ||
+      currentUser !== nextProps.currentUser || dataService !== nextProps.dataService || get_id_promotion !== nextProps.get_id_promotion
     ) {
       return true
     }
     return false
   }
   saveTicket = (id_promotion) => {
-    this.setState({ id_promotion })
+    this.setState({ id_promotion, activeId_promotion: false })
   }
   getData = (dataService2) => {
     const { get_id_promotion, } = this.props
@@ -1645,7 +1722,7 @@ export class Coupon_Detail_BottomSheet extends React.Component {
     }
   }
   render() {
-    const { id_promotion } = this.state
+    const { id_promotion, activeId_promotion } = this.state
     const { currentUser, dataService, } = this.props
     var uri
     var dataBody
@@ -1664,7 +1741,7 @@ export class Coupon_Detail_BottomSheet extends React.Component {
         opacity: dataService.ticket_picked == 'ticket_picked' ? 0.6 : 1,
       }}>
         {
-          dataBody && id_promotion &&
+          dataBody && id_promotion && activeId_promotion == true &&
           <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
         }
         <View>

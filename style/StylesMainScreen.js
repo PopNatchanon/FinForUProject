@@ -507,7 +507,6 @@ export default StyleSheet.create({
   },
   ///------------------------------------------------------------------------------------------///
   child: {
-    marginTop: 10,
     height: 150,
     width,
   },
@@ -520,14 +519,15 @@ export default StyleSheet.create({
     width: 72,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 5,
+    padding: 2,
   },
   category_A: {
     flexDirection: 'column',
     flexWrap: 'wrap',
-    height: 202,
-    paddingBottom: 8,
-    paddingTop: 8,
+    height: 190,
+    paddingBottom: 6,
+    paddingTop: 4,
+    justifyContent: 'space-between',
   },
   Category_image: {
     height: 40,
@@ -569,26 +569,26 @@ export default StyleSheet.create({
   ///------------------------------------------------------------------------------------------///
   Popular_Box_B: {
     width: 175,
-    height:140,
+    height: 140,
     flexDirection: 'column',
     marginLeft: 5,
-    marginVertical:5,
-    backgroundColor:'#EDEDED',
-    paddingHorizontal:2,
+    marginVertical: 5,
+    backgroundColor: '#EDEDED',
+    paddingHorizontal: 2,
   },
   Popular_Box_D: {
-    marginHorizontal:3,
-    marginTop:5,
+    marginHorizontal: 3,
+    marginTop: 5,
     height: 80,
     width: 80,
   },
   Popular_image_Box: {
     height: 80,
     width: 80,
-    backgroundColor:'#FFFFFF',
+    backgroundColor: '#FFFFFF',
     borderColor: '#EAEAEA',
     borderWidth: 1,
-    borderRadius:5,
+    borderRadius: 5,
   },
   PopularText_A: {
     backgroundColor: '#0A55A6',
@@ -621,7 +621,7 @@ export default StyleSheet.create({
     margin: 5,
   },
   CategoryProductStoreBox: {
-    width: '98%',
+    width: width * 0.48,
     height: 90,
     marginLeft: 5,
   },

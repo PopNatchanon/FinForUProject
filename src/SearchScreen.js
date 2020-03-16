@@ -156,7 +156,13 @@ export class HeadBox extends Component {
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
-        navigation.push(value, value2)
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.navigate(value, value2)
     }
     render() {
         const { SearchText, otherOption } = this.props
@@ -201,7 +207,13 @@ export class StoreCard extends Component {
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
-        navigation.navigate(value, value2)
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.navigate(value, value2)
     }
     render() {
         var dataMySQL = [ip, 'mysql/uploads/slide/NewStore/luxury_shop2.jpg'].join('/');

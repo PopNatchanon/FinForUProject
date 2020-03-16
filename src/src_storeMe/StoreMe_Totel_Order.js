@@ -18,7 +18,6 @@ import { TabBar } from '../tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-
 export default class StoreMe_Totel_Order extends Component {
     constructor(props) {
         super(props);
@@ -37,7 +36,6 @@ export default class StoreMe_Totel_Order extends Component {
 }
 
 ///------------------------------------------------------------------------------///
-
 export class Button_bar extends Component {
     constructor(props) {
         super(props);
@@ -127,7 +125,6 @@ export class Button_bar extends Component {
         );
     }
 }
-
 ///------------------------------------------------------------------------------///
 export class Order_Me_Box extends Component {
     constructor(props) {
@@ -135,9 +132,10 @@ export class Order_Me_Box extends Component {
         this.state = {
         };
     }
-
     render() {
-        const { payment_order, Contact_buyer, detail_order, up_number, edit_number, reviews_order, end_order, cancel_order, detail_order_review, detail_order_cancel, Cause_cancel, } = this.props
+        const { payment_order, Contact_buyer, detail_order, up_number, edit_number, reviews_order,
+             end_order, cancel_order, detail_order_review, detail_order_cancel, Cause_cancel, 
+            } = this.props
         return (
             <View >
                 <View style={stylesMain.FrameBackground}>
@@ -175,9 +173,7 @@ export class Order_Me_Box extends Component {
                         }{
                             cancel_order &&
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { margin: 10, color: '#20BDA1' }]}>ถูกยกเลิก</Text>
-
                         }
-
                     </View>
                     <View style={{ height: 130, flexDirection: 'row', justifyContent: 'space-between', padding: 10, }}>
                         <View style={stylesMain.FlexRow}>
@@ -195,7 +191,6 @@ export class Order_Me_Box extends Component {
                                 {
                                     Cause_cancel &&
                                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>เหตุผลยกเลิกสินค้า :เนื่องจากเปลี่ยนใจ</Text>
-
                                 }
                                 <Text>x 1</Text>
                             </View>

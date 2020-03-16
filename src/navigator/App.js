@@ -22,7 +22,8 @@ import Popular_productScreen from '../Popular_productScreen';
 import CategoryScreen from '../CategoryScreen';
 import Same_StoreScreen from '../Same_StoreScreen';
 import SecondScreen from '../SecondScreen';
-import SearchScreen from '../SearchScreen'
+import SearchScreen from '../SearchScreen';
+import FinMallScreen from '../FinMallScreen';
 // src_Detail
 import Reviews_score from '../src-Detail/Reviews_score';
 // src_Bell
@@ -196,6 +197,13 @@ const PathScreen = createStackNavigator({
   },
   CategoryScreen: {
     screen: CategoryScreen,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
+  FinMallScreen: {
+    screen: FinMallScreen,
     navigationOptions: () => ({
       tabBarVisible: false,
       header: null,
@@ -432,6 +440,5 @@ const PathScreen = createStackNavigator({
     // initialRouteName: 'StoreMeScreen',
   }
 );
-
 const AppNavigator = createAppContainer(PathScreen);
 export default AppNavigator;

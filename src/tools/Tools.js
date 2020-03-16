@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React from 'react';
 import {
-    ActivityIndicator, Animated, Dimensions, Modal, Text, TouchableOpacity, View,
+    ActivityIndicator, Animated, Dimensions, Modal, Text, TouchableOpacity, View, Share,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
@@ -926,6 +926,7 @@ export class FeedBox extends React.Component {
         this.state = {
         };
     }
+
     shouldComponentUpdate = (nextProps, nextState) => {
         const { dataService, Follow, Header, typeip, postpath, prepath, navigation, } = this.props
         if (
@@ -936,6 +937,26 @@ export class FeedBox extends React.Component {
             return true
         }
         return false
+    }
+    onShare = async () => {
+        try {
+            const result = await Share.share({
+                message: 'หลายคนคงจะเคยอยากรู้ วิธีดูเพชรแท้ ว่าจริงๆแล้วเพชรแท้ดูยังไง?\n' + finip,
+
+            });
+
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    // shared with activity type of result.activityType
+                } else {
+                    // shared
+                }
+            } else if (result.action === Share.dismissedAction) {
+                // dismissed
+            }
+        } catch (error) {
+            alert(error.message);
+        }
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation, } = this.props
@@ -1039,11 +1060,11 @@ export class FeedBox extends React.Component {
                                 <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesStore.SukhumvitSetText]}>
                                     แสดงความคิดเห็น</Text>
                             </View>
-                            <View style={stylesMain.BoxProduct4ComBoxIcon}>
-                                <IconFontAwesome5 name='share-square' size={20} />
+                            <TouchableOpacity style={stylesMain.BoxProduct4ComBoxIcon} onPress={this.onShare}>
+                                <IconFontAwesome5 name='share-square' size={20}  />
                                 <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesStore.SukhumvitSetText]}>
                                     แชร์</Text>
-                            </View>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>

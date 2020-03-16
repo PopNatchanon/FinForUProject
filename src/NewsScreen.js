@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-    Dimensions, SafeAreaView, ScrollView, Text, View,
+    Dimensions, SafeAreaView, ScrollView, Text, View, Share, TouchableOpacity,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
@@ -166,6 +166,26 @@ export class Blog extends Component {
         }
         return false
     }
+    onShare = async () => {
+        try {
+            const result = await Share.share({
+                message:'หลายคนคงจะเคยอยากรู้ วิธีดูเพชรแท้ ว่าจริงๆแล้วเพชรแท้ดูยังไง?\n' + finip,
+
+            });
+
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    // shared with activity type of result.activityType
+                } else {
+                    // shared
+                }
+            } else if (result.action === Share.dismissedAction) {
+                // dismissed
+            }
+        } catch (error) {
+            alert(error.message);
+        }
+    }
     render() {
         return (
             <View style={stylesStore.header_News}>
@@ -180,7 +200,9 @@ export class Blog extends Component {
                         <View>
                             <View style={stylesStore.header_icon_Box}>
                                 <IconEntypo style={stylesStore.header_icon} name='eye' size={25} />
-                                <IconEntypo style={stylesStore.header_icon} name='share' size={25} />
+                                <TouchableOpacity onPress={this.onShare} >
+                                    <IconEntypo style={stylesStore.header_icon} name='share' size={25} />
+                                </TouchableOpacity>
                             </View>
                         </View>
                     </View>
@@ -229,3 +251,6 @@ export class Blog extends Component {
         )
     }
 }
+
+///----------------------------------------------------------------------------------------------->>>>
+

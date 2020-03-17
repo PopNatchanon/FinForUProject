@@ -59,7 +59,8 @@ import The_BestFinScreen from '../src_Promotion/The_BestFinScreen';
 import Installment_payScreen from '../src_Promotion/Installment_payScreen';
 import Detail_Campaign from '../src_Promotion/Detail_Campaign';
 //
-import Test_Chat from '../Test_Chat';
+import Chat from '../Test_Chat/Chat';
+import Home from '../Test_Chat/Home';
 ///----------------------------------------------------------------------------------------------->>>>
 const PathScreen = createStackNavigator({
   MainScreen: {
@@ -425,8 +426,15 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
-  Test_Chat: {
-    screen: Test_Chat,
+  Chat: {
+    screen: Chat,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
+  Home: {
+    screen: Home,
     navigationOptions: () => ({
       tabBarVisible: false,
       header: null,
@@ -435,8 +443,8 @@ const PathScreen = createStackNavigator({
 },
   {
     // initialRouteName: 'MainScreen',
-    // initialRouteName: 'SecondScreen',
-    initialRouteName: 'ProfileScreen',
+    initialRouteName: 'Chat',
+    // initialRouteName: 'ProfileScreen',
     // initialRouteName: 'StoreMeScreen',
   }
 );

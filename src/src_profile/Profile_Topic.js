@@ -82,9 +82,7 @@ export default class Profile_Topic extends React.Component {
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
                         <AppbarChat navigation={this.props.navigation} Title='Supreme Store' />
-                        <View>
-                            <Chat_Cutomer />
-                        </View>
+                        <Chat_Cutomer />
                     </SafeAreaView>
                 )
             case 7:
@@ -231,7 +229,7 @@ class Chat_Cutomer extends React.Component {
     }
     render() {
         return (
-            <View style={{ height: '97%', width: '100%', backgroundColor: '#FFFFFF' }}>
+            <View style={{flex:1,backgroundColor:'#FFFFFF',}}>
                 <GiftedChat
                     messages={this.state.messages}
                     onSend={messages => this.onSend(messages)}
@@ -333,6 +331,8 @@ export class Follow_storeScreen extends React.Component {
         return (
             <ScrollView>
                 <Follow_store_Box />
+                <Follow_store_Box />
+                <Follow_store_Box />
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 10, marginLeft: 10, }]}>ร้านค้าที่คุณอาจชอบ</Text>
                 <Might_like_Store />
                 <Might_like_Store />
@@ -347,11 +347,13 @@ export class Follow_store_Box extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            Button_Follow_Before: true,
         };
     }
     render() {
+        const { Button_Follow_Before } = this.state
         return (
-            <View>
+            <>
                 <View style={stylesProfileTopic.Follow_store_Box}>
                     <View style={{ flexDirection: 'row', }}>
                         <FastImage style={stylesProfileTopic.Follow_store_Box_image}
@@ -364,43 +366,11 @@ export class Follow_store_Box extends React.Component {
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>@asusthailand</Text>
                         </View>
                     </View>
-                    <TouchableOpacity style={stylesProfileTopic.Follow_store_Button}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>กำลังติดตาม</Text>
+                    <TouchableOpacity style={stylesProfileTopic.Follow_store_Button} onPress={() => this.setState({ Button_Follow_Before: !Button_Follow_Before })}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>{Button_Follow_Before == true ? 'กำลังติดตาม' : 'ติดตาม'}</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={stylesProfileTopic.Follow_store_Box}>
-                    <View style={{ flexDirection: 'row', }}>
-                        <FastImage style={stylesProfileTopic.Follow_store_Box_image}
-                            source={{
-                                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
-                            }}
-                        />
-                        <View style={stylesProfileTopic.Follow_store_Box_text}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>Mlife</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>@mlife</Text>
-                        </View>
-                    </View>
-                    <TouchableOpacity style={stylesProfileTopic.Follow_store_Button}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>กำลังติดตาม</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={stylesProfileTopic.Follow_store_Box}>
-                    <View style={{ flexDirection: 'row', }}>
-                        <FastImage style={stylesProfileTopic.Follow_store_Box_image}
-                            source={{
-                                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
-                            }}
-                        />
-                        <View style={stylesProfileTopic.Follow_store_Box_text}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>Digilife</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>@digilife_thai</Text>
-                        </View>
-                    </View>
-                    <TouchableOpacity style={stylesProfileTopic.Follow_store_Button}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>กำลังติดตาม</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
+            </>
         );
     }
 }
@@ -409,9 +379,11 @@ export class Might_like_Store extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            Button_Follow_After: true,
         };
     }
     render() {
+        const { Button_Follow_After } = this.state
         return (
             <View>
                 <View style={stylesProfileTopic.Might_like_Store}>
@@ -427,9 +399,9 @@ export class Might_like_Store extends React.Component {
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>81% คะแนนร้านค้า</Text>
                             </View>
                         </View>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.setState({ Button_Follow_After: !Button_Follow_After })}>
                             <View style={stylesProfileTopic.Follow_store_Button}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>ติดตาม</Text>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>{Button_Follow_After == true ? 'ติดตาม' : 'กำลังติดตาม'}</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -442,8 +414,8 @@ export class Might_like_Store extends React.Component {
                                             uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
                                         }}
                                     />
-                                    <Text style={[stylesFont.FontFamilyText,stylesFont.FontSize7]}>ห้องพัก Deluxe Pool Villa</Text>
-                                    <Text style={[stylesFont.FontFamilyBold,stylesFont.FontSize7,{color: '#0A55A6',borderColor:'#ECECEC',borderWidth:1,borderRadius:5}]}>฿3,xxx</Text>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { paddingHorizontal: 5 }]}>ห้องพัก Deluxe Pool Villa</Text>
+                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6', borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, paddingHorizontal: 10, marginBottom: 5 }]}>฿3,xxx</Text>
                                 </View>
                                 <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
                                     <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage}
@@ -451,8 +423,8 @@ export class Might_like_Store extends React.Component {
                                             uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
                                         }}
                                     />
-                                    <Text style={{ fontSize: 9, }}>ห้องพัก Deluxe Pool Villa</Text>
-                                    <Text style={{ fontSize: 9, color: '#0A55A6' }}>฿3,xxx</Text>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { paddingHorizontal: 5 }]}>ห้องพัก Deluxe Pool Villa</Text>
+                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6', borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, paddingHorizontal: 10, marginBottom: 5 }]}>฿3,xxx</Text>
                                 </View>
                                 <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
                                     <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage}
@@ -460,8 +432,8 @@ export class Might_like_Store extends React.Component {
                                             uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
                                         }}
                                     />
-                                    <Text style={{ fontSize: 9, }}>ห้องพัก Deluxe Pool Villa</Text>
-                                    <Text style={{ fontSize: 9, color: '#0A55A6' }}>฿3,xxx</Text>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { paddingHorizontal: 5 }]}>ห้องพัก Deluxe Pool Villa</Text>
+                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6', borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, paddingHorizontal: 10, marginBottom: 5 }]}>฿3,xxx</Text>
                                 </View>
                                 <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
                                     <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage}
@@ -469,8 +441,8 @@ export class Might_like_Store extends React.Component {
                                             uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
                                         }}
                                     />
-                                    <Text style={{ fontSize: 9, }}>ห้องพัก Deluxe Pool Villa</Text>
-                                    <Text style={{ fontSize: 9, color: '#0A55A6' }}>฿3,xxx</Text>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { paddingHorizontal: 5 }]}>ห้องพัก Deluxe Pool Villa</Text>
+                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6', borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, paddingHorizontal: 10, marginBottom: 5 }]}>฿3,xxx</Text>
                                 </View>
                                 <TouchableOpacity style={stylesProfileTopic.Might_like_Store_BoxPro}>
                                     <View>
@@ -483,6 +455,7 @@ export class Might_like_Store extends React.Component {
                             </View>
                         </View>
                     </ScrollView>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'right', margin: 10, color: '#7E7979' }]}>1,000 สินค้า</Text>
                 </View>
             </View>
         );

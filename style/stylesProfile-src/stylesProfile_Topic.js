@@ -6,7 +6,9 @@ export default StyleSheet.create({
         height: 50,
         flexDirection: 'row',
         width: '100%',
-        backgroundColor: '#FFFFFF'
+        backgroundColor: '#FFFFFF',
+        borderColor: '#ECECEC',
+        borderWidth: 1,
     },
     Chat_Tag: {
         backgroundColor: '#FFFFFF',
@@ -117,7 +119,6 @@ export default StyleSheet.create({
         backgroundColor: '#FFFF'
     },
     Might_like_Store_Box: {
-        marginBottom: 10,
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
@@ -125,7 +126,6 @@ export default StyleSheet.create({
     Might_like_Store_BoxP: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-       
     },
     Might_like_Store_BoxPro: {
         width: 95,
@@ -298,7 +298,7 @@ export default StyleSheet.create({
         paddingVertical: 5,
     },
     Order_StorePro: {
-        margin:5,
+        margin: 5,
         height: 40,
         width: 40,
         backgroundColor: '#A2A2A2',
@@ -437,7 +437,7 @@ export default StyleSheet.create({
         backgroundColor: '#0A55A6',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius:5,
+        borderRadius: 5,
     },
     ///-----------------------------------Setting_Topic-----------------------------------///
     Edit_Profile: {

@@ -17,13 +17,152 @@ import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, TodayProduct, ExitAppModule, } from './MainScreen';
 import { Slide, } from './src_Promotion/DealScreen';
-import { GetServices, TabBar, } from './tools/Tools';
+import { GetServices, TabBar, ProductBox, } from './tools/Tools';
 import { Button_Bar, PricesSlide, SlideTab, } from './ExclusiveScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, } from './navigator/IpConfig';
+import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 
+
 export default class FinMallScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sliderVisible: false,
+      dataService: [],
+    };
+  }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { navigation, loadData } = this.props
+    if (loadData !== nextProps.loadData || navigation !== nextProps.navigation) {
+      return true
+    }
+    return false
+  }
+  setSlider = (sliderVisible) => {
+    this.setState({ sliderVisible })
+  }
+  getData = (dataService) => {
+    this.setState({ dataService })
+  }
+  navigationNavigateScreen = (value, value2) => {
+    const { navigation } = this.props
+    value == 'goBack' ?
+      navigation.goBack() :
+      value == 'LoginScreen' ? (
+        navigation.popToTop(),
+        navigation.replace(value, value2)
+      ) :
+        navigation.navigate(value, value2)
+  }
+  PathList() {
+    var uri = finip + '/home/category_mobile';
+    const { navigation } = this.props
+    const selectedIndex = this.props.navigation.getParam('selectedIndex')
+    switch (selectedIndex) {
+      case 0:
+        return (
+          <SafeAreaView style={stylesMain.SafeAreaView}>
+            <AppBar1 backArrow navigation={this.props.navigation} titleHead='FIN Mall' />
+            <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} />
+            <FinMall navigation={navigation} />
+          </SafeAreaView>
+        )
+      case 1:
+        return (
+          <SafeAreaView style={stylesMain.SafeAreaView}>
+            <AppBar1 backArrow navigation={this.props.navigation} titleHead='FIN Mall VIP' />
+            <FIN_Mall_VIP navigation={navigation} />
+          </SafeAreaView>
+        )
+    }
+  }
+  render() {
+    return (
+      <View style={stylesMain.SafeAreaView}>
+        {this.PathList()}
+      </View>
+    );
+  }
+}
+///----------------------------------------------------------------------------------------------->>>>
+export class FinMall extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
+  render() {
+    const navigation = this.props
+    return (
+      <View>
+        <Slide />
+        <FinMall_Product navigation={navigation} />
+      </View>
+    );
+  }
+}
+///----------------------------------------------------------------------------------------------->>>>
+export class FinMall_Product extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
+  navigationNavigateScreen = (value, value2) => {
+    const { navigation } = this.props
+    value == 'goBack' ?
+      navigation.goBack() :
+      value == 'LoginScreen' ? (
+        navigation.popToTop(),
+        navigation.replace(value, value2)
+      ) :
+        navigation.navigate(value, value2)
+  }
+  render() {
+    const { loadData, navigation } = this.props
+    return (
+      <View style={stylesMain.FrameBackground2}>
+        <View style={stylesMain.FrameBackgroundTextBox}>
+          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
+            Fin Mall</Text>
+          <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'FinMallScreen', { selectedIndex: 1 })}>
+            <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
+              ดูทั้งหมด</Text>
+          </TouchableOpacity>
+        </View>
+        <ScrollView horizontal>
+          {
+            loadData &&
+            <ProductBox dataService={loadData} navigation={navigation} typeip='fin' mode='row3col1'
+              pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
+            />
+          }
+        </ScrollView>
+      </View>
+    );
+  }
+}
+///----------------------------------------------------------------------------------------------->>>>
+export class FIN_Supermarket extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
+
+  render() {
+    return (
+      <View>
+        <Text> FIN Supermarket </Text>
+      </View>
+    );
+  }
+}
+
+
+///----------------------------------------------------------------------------------------------->>>>
+export class FIN_Mall_VIP extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -55,7 +194,6 @@ export default class FinMallScreen extends Component {
     return (
       <SafeAreaView>
         <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
-        <AppBar1 backArrow navigation={navigation} titleHead='FIN Mall' />
         <ScrollView stickyHeaderIndices={[2]}>
           <Slide />
           <View style={{ marginBottom: 10 }}></View>

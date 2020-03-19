@@ -7,10 +7,13 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import { WebView } from 'react-native-webview';
 export const { width, height } = Dimensions.get('window');
+import ModalDropdown from 'react-native-modal-dropdown';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
 import stylesDetail from '../../style/StylesDetailScreen'
@@ -954,12 +957,15 @@ export class FeedBox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            activeFeed: false
         };
     }
 
     shouldComponentUpdate = (nextProps, nextState) => {
+        const { Button_Follow_After, activeFeed, } = this.state
         const { dataService, Follow, Header, typeip, postpath, prepath, navigation, } = this.props
         if (
+            Button_Follow_After !== nextState.Button_Follow_After || activeFeed !== nextState.activeFeed ||
             dataService !== nextProps.dataService || Follow !== nextProps.Follow || Header !== nextProps.Header ||
             typeip !== nextProps.typeip || postpath !== nextProps.postpath || prepath !== nextProps.prepath ||
             navigation !== nextProps.navigation
@@ -968,11 +974,23 @@ export class FeedBox extends React.Component {
         }
         return false
     }
+    componentDidMount() {
+        this.intervalID = setInterval(
+            () => this.tick(),
+            1000
+        );
+    }
+    tick() {
+        const { activeFeed } = this.state
+        this.setState({ activeFeed: false });
+    }
+    componentWillUnmount() {
+        clearInterval(this.intervalID);
+    }
     onShare = async () => {
         try {
             const result = await Share.share({
                 message: 'หลายคนคงจะเคยอยากรู้ วิธีดูเพชรแท้ ว่าจริงๆแล้วเพชรแท้ดูยังไง?\n' + finip,
-
             });
 
             if (result.action === Share.sharedAction) {
@@ -998,8 +1016,31 @@ export class FeedBox extends React.Component {
             ) :
                 navigation.navigate(value, value2)
     }
+    setStateButton = (length) => {
+        // console.log(length)
+        var Button_Follow_After = []
+        for (var n = 0; n < length; n++) {
+            Button_Follow_After[n] = { check: true, like: false }
+        }
+        this.setState({ Button_Follow_After, activeFeed: true, })
+    }
+    setStateButton_Follow_After = (index) => {
+        const { Button_Follow_After, } = this.state
+        Button_Follow_After[index].check = !Button_Follow_After[index].check
+        // console.log(Button_Follow_After)
+        this.setState({ Button_Follow_After, activeFeed: true })
+    }
+    setStateButton_Like_heart = (index) => {
+        const { Button_Follow_After, } = this.state
+        Button_Follow_After[index].like = !Button_Follow_After[index].like
+        this.setState({ Button_Follow_After, activeFeed: true })
+    }
     get FeedBoxRender() {
-        const { dataService, Follow, Header, typeip, postpath, prepath } = this.props
+        const { Button_Follow_After, } = this.state
+        const { dataService, Follow, Header, typeip, postpath, prepath, } = this.props
+        Button_Follow_After == null && dataService.length > 0 && (
+            this.setStateButton(dataService.length)
+        )
         return dataService.map((item, index) => {
             var url
             { typeip == 'ip' ? url = ip : url = finip }
@@ -1050,16 +1091,24 @@ export class FeedBox extends React.Component {
                                 </View>
                             </TouchableOpacity>
                             <View style={stylesMain.BoxProduct4PlusButtonBox}>
-                                {Follow ?
-                                    null :
-                                    <View style={stylesMain.BoxProduct4PlusButtonFollow}>
-                                        <Text style={[
-                                            stylesMain.BoxProduct4PlusButtonFollowText, stylesFont.FontFamilyText, stylesFont.FontSize6
-                                        ]}>
-                                            ติดตาม</Text>
-                                    </View>
+                                {
+                                    Follow ?
+                                        null :
+                                        <TouchableOpacity onPress={this.setStateButton_Follow_After.bind(this, index)}>
+                                            <View style={stylesMain.BoxProduct4PlusButtonFollow}>
+                                                <Text style={[
+                                                    stylesMain.BoxProduct4PlusButtonFollowText, stylesFont.FontFamilyText, stylesFont.FontSize6
+                                                ]}>
+                                                    {Button_Follow_After[index].check == true ? 'ติดตาม' : 'กำลังติดตาม'}</Text>
+                                            </View>
+                                        </TouchableOpacity>
                                 }
-                                <IconEntypo name='dots-three-vertical' size={25} />
+                                <ModalDropdown
+                                    options={['รายงานความไม่เหมาะสม']}
+                                    dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}
+                                    dropdownStyle={{ paddingHorizontal: 10, height: 44, borderRadius: 5 }}>
+                                    <IconEntypo name='dots-three-vertical' size={25} />
+                                </ModalDropdown>
                             </View>
                         </View>
                     }
@@ -1074,31 +1123,36 @@ export class FeedBox extends React.Component {
                             />
                         </View>
                         <View style={stylesMain.BoxProduct4ComBox}>
-                            <Text style={[stylesMain.BoxProduct4ComBoxDetail, stylesStore.SukhumvitSetText]}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                                 {item.detail}</Text>
-                            <Text style={[stylesMain.BoxProduct4ComBoxTag, stylesStore.SukhumvitSetText]}>
+                            <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
                                 ที่สุดสำหรับคุณ</Text>
-                            <View style={{ flexDirection: 'row' }}>
-                                <Text style={[stylesMain.BoxProduct4ComBoxText, stylesStore.SukhumvitSetText]}>
+                            <View style={stylesMain.FlexRow}>
+                                <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: '#9F9C9C' }]}>
                                     200 การเข้าชม</Text>
-                                <Text style={[stylesMain.BoxProduct4ComBoxText, stylesStore.SukhumvitSetText]}>
+                                <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: '#9F9C9C' }]}>
                                     เมื่อ 3 วันที่ผ่านมา</Text>
                             </View>
                         </View>
                         <View style={stylesMain.BoxProduct4ComBox2}>
-                            <View style={stylesMain.BoxProduct4ComBoxIcon}>
-                                <IconFontAwesome5 name='heart' size={20} />
-                                <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesStore.SukhumvitSetText]}>
+                            <TouchableOpacity activeOpacity={1} onPress={this.setStateButton_Like_heart.bind(this, index)} style={stylesMain.BoxProduct4ComBoxIcon}>
+                                {
+                                    Button_Follow_After &&
+                                    <IconFontAwesome name={Button_Follow_After[index].like == true ? 'heart' : 'heart-o'} size={20} style={{ color: Button_Follow_After[index].like == true ? '#ff0066' : '#111111' }} />
+                                }
+                                <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     ถูกใจ</Text>
-                            </View>
-                            <View style={stylesMain.BoxProduct4ComBoxIcon}>
-                                <IconFontAwesome5 name='comment-dots' size={20} />
-                                <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesStore.SukhumvitSetText]}>
-                                    แสดงความคิดเห็น</Text>
-                            </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Detail_Pro', { selectedIndex: 3 })}>
+                                <View style={stylesMain.BoxProduct4ComBoxIcon}>
+                                    <IconFontAwesome5 name='comment-dots' size={20} />
+                                    <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                                        แสดงความคิดเห็น</Text>
+                                </View>
+                            </TouchableOpacity>
                             <TouchableOpacity style={stylesMain.BoxProduct4ComBoxIcon} onPress={this.onShare}>
                                 <IconFontAwesome5 name='share-square' size={20} />
-                                <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesStore.SukhumvitSetText]}>
+                                <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     แชร์</Text>
                             </TouchableOpacity>
                         </View>

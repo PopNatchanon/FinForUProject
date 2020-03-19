@@ -180,33 +180,181 @@ export class ChatScreen extends React.Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Chat_Box
+// class Chat_Cutomer extends React.Component {
+//     state = {
+//         messages: [],
+//     }
+
+//     componentDidMount() {
+//         this.setState({
+//             messages: [
+//                 {
+//                     _id: 1,
+//                     text: 'Hello developer',
+//                     createdAt: new Date(),
+//                     image: 'https://cdn.pixabay.com/photo/2013/07/21/13/00/rose-165819_960_720.jpg',
+//                     user: {
+//                         _id: 2,
+//                         name: 'React Native',
+//                         avatar: 'https://placeimg.com/140/140/any',
+//                     },
+//                 },
+//             ],
+//         })
+//     }
+
+//     onSend(messages = []) {
+//         this.setState(previousState => ({
+//             messages: GiftedChat.append(previousState.messages, messages),
+//         }))
+//     }
+//     renderBubble = props => {
+//         return (
+//             <Bubble
+//                 {...props}
+//                 wrapperStyle={{
+//                     left: {
+//                         backgroundColor: '#f0f0f0',
+//                     },
+//                 }}
+//             />
+//         )
+//     }
+//     renderMessageImage = props => {
+//         return (
+//             <FastImage
+//                 {...props}
+//             />
+//         )
+//     }
+//     render() {
+//         return (
+//             <View style={{flex:1,backgroundColor:'#FFFFFF',}}>
+//                 <GiftedChat
+//                     messages={this.state.messages}
+//                     onSend={messages => this.onSend(messages)}
+//                     user={{
+//                         _id: 1,
+//                     }}
+//                 />
+{/* <GiftedChat
+                    messages={this.state.messages}
+                    onSend={messages => this.onSend(messages)}
+                    loadEarlier={this.state.loadEarlier}
+                    onLoadEarlier={this.onLoadEarlier}
+                    isLoadingEarlier={this.state.isLoadingEarlier}
+                    parsePatterns={this.parsePatterns}
+                    imageProps={this.imageProps}
+                    user={{_id: 1,}}
+                    scrollToBottom
+                    isCustomViewBottom
+                    showUserAvatar 
+                    showAvatarForEveryMessage 
+                    onQuickReply={this.onQuickReply}
+                    renderAccessory={this.renderAccessory}
+                    renderMessageVideo={this.renderMessageVideo}
+                    renderActions={this.renderCustomActions}
+                    renderBubble={this.renderBubble}//This is what you must add in the code
+                    renderSystemMessage={this.renderSystemMessage}
+                    renderCustomView={this.renderCustomView}
+                    renderMessageImage={this.renderMessageImage}
+                    quickReplyStyle={{ borderRadius: 2 }}
+                    renderQuickReplySend={this.renderQuickReplySend}
+                    timeTextStyle={{ left: { color: 'red' }, right: { color: 'yellow' } }} 
+                /> */}
+//             </View>
+//         )
+//     }
+// }
 class Chat_Cutomer extends React.Component {
     state = {
         messages: [],
     }
-
-    componentDidMount() {
-        this.setState({
-            messages: [
-                {
-                    _id: 1,
-                    text: 'Hello developer',
-                    createdAt: new Date(),
-                    image: 'https://cdn.pixabay.com/photo/2013/07/21/13/00/rose-165819_960_720.jpg',
-                    user: {
-                        _id: 2,
-                        name: 'React Native',
-                        avatar: 'https://placeimg.com/140/140/any',
-                    },
-                },
-            ],
-        })
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { messages } = this.state
+        if (
+            messages !== nextState.messages
+        ) {
+            return true
+        }
+        return false
     }
-
+    componentDidMount() {
+        this.intervalID = setInterval(() =>
+            this.tick(),
+            1000
+        );
+    }
+    componentWillUnmount() {
+        clearInterval(this.intervalID);
+    }
+    tick() {
+        var user = {
+            type: 'message',
+            user_id: 9,
+            msg_to: 10
+        }
+        var messages = []
+        fetch('http://192.168.0.132/mysql/chatpoint.php', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user),
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                console.log('responseJson')
+                console.log(responseJson)
+                responseJson.map((item) => {
+                    console.log('item')
+                    console.log(item)
+                    messages.push(
+                        {
+                            _id: item.id,
+                            text: item.message,
+                            createdAt: item.timestamp,
+                            user: {
+                                _id: item.msg_from,
+                                name: item.name,
+                                avatar: 'https://placeimg.com/140/140/any',
+                            },
+                        },
+                    )
+                })
+                console.log('messages')
+                console.log(messages)
+                this.setState({ messages })
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+    }
     onSend(messages = []) {
-        this.setState(previousState => ({
-            messages: GiftedChat.append(previousState.messages, messages),
-        }))
+        var user = {
+            type: 'sendmessage',
+            msg_to: 10,
+            messages: messages[0].text,
+            user_id: messages[0].user._id,
+        }
+        console.log(user)
+        fetch('http://192.168.0.132/mysql/chatpoint.php', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user),
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                console.log('responseJson')
+                console.log(responseJson)
+            })
+            .catch((error) => {
+                console.error(error);
+            })
     }
     renderBubble = props => {
         return (
@@ -229,12 +377,12 @@ class Chat_Cutomer extends React.Component {
     }
     render() {
         return (
-            <View style={{flex:1,backgroundColor:'#FFFFFF',}}>
+            <View style={{ height: '96%', width: '100%', backgroundColor: '#FFFFFF' }}>
                 <GiftedChat
                     messages={this.state.messages}
                     onSend={messages => this.onSend(messages)}
                     user={{
-                        _id: 1,
+                        _id: '9',
                     }}
                 />
                 {/* <GiftedChat
@@ -266,7 +414,6 @@ class Chat_Cutomer extends React.Component {
         )
     }
 }
-
 
 
 ///----------------------------------------------------------------------------------------------->>>> Chat_Box

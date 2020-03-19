@@ -225,7 +225,7 @@ export class Account extends Component {
                         options={provinces}
                         style={stylesMain.ItemCenterVertical}
                         textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
-                        dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, {}]}
+                        dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
                         renderButtonText={(index) => { this.setState({ province: index }), this.getDataAmphoe(index) }}
                     >
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>

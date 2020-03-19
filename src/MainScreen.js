@@ -1121,9 +1121,7 @@ export class BannerBar_ONE extends React.Component {
                 <FastImage
                     style={stylesMain.Banner_Bar_image}
                     source={{
-                        uri: ip + '/MySQL/uploads/slide/Banner_type/shoes_BannerBar.jpg',
-                        width,
-                        height: 70,
+                        uri: ip + '/MySQL/uploads/Banner_New/banner 1920-220สำอาง.jpg',
                     }}
                     resizeMode={FastImage.resizeMode.stretch}
                 />
@@ -1144,9 +1142,7 @@ export class BannerBar_TWO extends React.Component {
                 <FastImage
                     style={stylesMain.Banner_Bar_image}
                     source={{
-                        uri: ip + '/MySQL/uploads/slide/Banner_type/GlassesBannerBar.jpg',
-                        width,
-                        height: 70,
+                        uri: ip + '/MySQL/uploads/Banner_New/banner 1920-220เพชร3.jpg',
                     }}
                     resizeMode={FastImage.resizeMode.stretch}
                 />
@@ -1167,9 +1163,7 @@ export class BannerBar_THREE extends React.Component {
                 <FastImage
                     style={stylesMain.Banner_Bar_image}
                     source={{
-                        uri: ip + '/MySQL/uploads/slide/banner_sale.jpg',
-                        width,
-                        height: 70,
+                        uri: ip + '/MySQL/uploads/Banner_New/banner 1920-220แม่2.jpg',
                     }}
                     resizeMode={FastImage.resizeMode.stretch}
                 />
@@ -1549,7 +1543,7 @@ export class Fin_Mall extends React.Component {
         this.state = {
         };
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
+    shouldComponentUpdate = (nextProps) => {
         const { navigation, loadData } = this.props
         if (loadData !== nextProps.loadData || navigation !== nextProps.navigation) {
             return true
@@ -1561,9 +1555,9 @@ export class Fin_Mall extends React.Component {
             if (index < 2) {
                 var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
                 return (
-                    <View style={[stylesMain.Popular_Box_D, { width: 70, height: 70 }]} key={index}>
+                    <View style={[stylesMain.Popular_Box_D]} key={index}>
                         <FastImage
-                            style={[stylesMain.Popular_image_Box, { width: 70, height: 70 }]}
+                            style={[stylesMain.Popular_image_Box]}
                             source={{
                                 uri: dataMySQL,
                             }}
@@ -1599,37 +1593,132 @@ export class Fin_Mall extends React.Component {
     render() {
         const { loadData } = this.props
         return (
-            <View style={stylesMain.FrameBackground2}>
-                <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>FIN Mall</Text>
-                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'FinMallScreen')}>
-                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
-                            ดูทั้งหมด</Text>
-                    </TouchableOpacity>
+            <>
+                <View style={stylesMain.FrameBackground2}>
+                    <View style={stylesMain.FrameBackgroundTextBox}>
+                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>FIN Mall</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 5 }}>
+                        <TouchableOpacity style={{ backgroundColor: '#9BB7D6', width: '32%', }}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { textAlign: 'center', color: '#063B76' }]}>
+                                Global Items</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{ backgroundColor: '#AAC48A', width: '32%', }}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { textAlign: 'center', color: '#427007' }]}>
+                                ของใช้ประจำวัน</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{ backgroundColor: '#D6B59B', width: '32%', }}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { textAlign: 'center', color: '#783907' }]}>
+                                Skincare</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', }}>
+                        <View style={[stylesMain.ItemCenter, stylesMain.Popular_Box_B, { width: '48%', marginLeft: 0, }]}>
+                            {
+                                loadData.product_hit &&
+                                <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'FinMallScreen', { selectedIndex: 0 })}>
+                                    <View style={{ paddingTop: 10, height: 130 }}>
+                                        <View style={stylesMain.FlexRow}>
+                                            {this.productCate(loadData.product_hit)}
+                                        </View>
+                                    </View>
+                                </TouchableOpacity>
+                            }
+                        </View>
+                        <View style={[stylesMain.ItemCenter, stylesMain.Popular_Box_B, { width: '48%', marginLeft: 0, }]}>
+                            {
+                                loadData.product_hit &&
+                                <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'FinMallScreen', { selectedIndex: 0 })}>
+                                    <View style={{ paddingTop: 10, height: 130 }}>
+                                        <View style={stylesMain.FlexRow}>
+                                            {this.productCate(loadData.product_hit)}
+                                        </View>
+                                    </View>
+                                </TouchableOpacity>
+                            }
+                        </View>
+                    </View>
                 </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginVertical: 10 }}>
-                    <View style={[stylesMain.ItemCenter, { width: '53%', backgroundColor: '#EDEDED', height: 130, padding: 10 }]}>
+                <FastImage
+                    style={stylesMain.Banner_Bar_image}
+                    source={{
+                        uri: ip + '/MySQL/uploads/Banner_New/banner 1920-220นาฬิกา.jpg',
+                    }}
+                    resizeMode={FastImage.resizeMode.stretch}
+                />
+                <View style={{ width: '100%', height: 100, flexDirection: 'row', justifyContent: 'space-between', padding: 5 }}>
+                    <View style={{ width: '49%', backgroundColor: '#FFFFFF' }}>
                         <FastImage
-                            style={[stylesMain.BoxProduct1Image, { width: 120, height: 120 }]}
+                            style={stylesMain.BoxProduct1Image}
                             source={{
-                                uri: ip + '/MySQL/uploads/Unicorn/013.png',
+                                uri: ip + '/MySQL/uploads/Image_FinMall/logo-maxvalu.png',
                             }}
+                            resizeMode={FastImage.resizeMode.stretch}
                         />
                     </View>
-                    <View style={[stylesMain.ItemCenter, { width: '43%', backgroundColor: '#EDEDED' }]}>
-                        {
-                            loadData.product_hit &&
-                            <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'FinMallScreen')}>
-                                <View style={{ paddingTop: 10, height: 130 }}>
-                                    <View style={stylesMain.FlexRow}>
-                                        {this.productCate(loadData.product_hit)}
-                                    </View>
-                                </View>
-                            </TouchableOpacity>
-                        }
+                    <View style={{ width: '49%', backgroundColor: '#FFFFFF' }}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Image_FinMall/logo-foodland.png',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch}
+                        />
                     </View>
                 </View>
-            </View>
+                <FastImage
+                    style={stylesMain.Banner_Bar_image}
+                    source={{
+                        uri: ip + '/MySQL/uploads/Banner_New/banner 1920-220แว่นตา.jpg',
+                    }}
+                    resizeMode={FastImage.resizeMode.stretch}
+                />
+                <View style={{ widthd: '100%', height: 100, flexDirection: 'row', justifyContent: 'space-between', padding: 5 }}>
+                    <View style={{ width: '24%', backgroundColor: '#FFFFFF' }}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Image_FinMall/unnamed.jpg',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch}
+                        />
+                    </View>
+                    <View style={{ width: '24%', backgroundColor: '#FFFFFF' }}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Image_FinMall/691cfaa03632731caa1bcc8030b60e8f.jpg',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch}
+                        />
+                    </View>
+                    <View style={{ width: '24%', backgroundColor: '#FFFFFF' }}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Image_FinMall/39be279f8290ec3d1e2072dc1d2df99a.jpg',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch}
+                        />
+                    </View>
+                    <View style={{ width: '24%', backgroundColor: '#FFFFFF' }}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Image_FinMall/zvj8th.jpg',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch}
+                        />
+                    </View>
+                </View>
+                <FastImage
+                    style={stylesMain.Banner_Bar_image}
+                    source={{
+                        uri: ip + '/MySQL/uploads/Banner_New/banner 1920-220เพชร2.jpg',
+                    }}
+                    resizeMode={FastImage.resizeMode.stretch}
+                />
+            </>
         );
     }
 }

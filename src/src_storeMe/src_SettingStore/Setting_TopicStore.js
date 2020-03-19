@@ -561,7 +561,7 @@ export class Up_Code_Number extends Component {
                     subtitle="tnt1237174823403268 "
                     subtitleStyle={stylesFont.FontFamilyText}
                     onRequestClose={() => null}
-                >
+               >
                     <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
                         <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยกเลิก</SCLAlertButton>
                         <SCLAlertButton theme="success" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยืนยัน</SCLAlertButton>

@@ -1,41 +1,43 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component } from 'react';
+import React from 'react';
 import {
-    Animated, Dimensions, ImageBackground, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
+    Animated, Dimensions, ImageBackground, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import * as Animatable from 'react-native-animatable';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
-export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
+import Carousel, { PaginationLight, } from 'react-native-x-carousel';
+export const { width, height, } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar, ExitAppModule } from './MainScreen';
-import { FeedBox, GetCoupon, GetServices, ProductBox, TabBar } from './tools/Tools';
+import { AppBar, ExitAppModule, } from './MainScreen';
+import { FeedBox, GetCoupon, GetServices, ProductBox, TabBar, } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from './navigator/IpConfig';
+import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class StoreScreen extends Component {
+export default class StoreScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             dataService: [],
-            activeSlide: 0,
             selectedIndex: 0,
             selectedIndex2: 0,
             scrollY: new Animated.Value(0)
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService, selectedIndex, selectedIndex2, scrollY } = this.state
-        const { navigation } = this.props;
+        const { navigation, } = this.props;
+        const { dataService, selectedIndex, selectedIndex2, scrollY, } = this.state
         if (
+            ////>nextProps
+            navigation !== nextProps.navigation ||
+            ////>nextState
             dataService !== nextState.dataService || selectedIndex !== nextState.selectedIndex ||
-            selectedIndex2 !== nextState.selectedIndex2 || scrollY !== nextState.scrollY || navigation !== nextProps.navigation
+            selectedIndex2 !== nextState.selectedIndex2 || scrollY !== nextState.scrollY
         ) {
             return true
         }
@@ -51,8 +53,8 @@ export default class StoreScreen extends Component {
         this.setState({ dataService })
     }
     ViewSide(selectedIndex, item) {
-        const { selectedIndex2 } = this.state
-        const { navigation } = this.props;
+        const { navigation, } = this.props;
+        const { selectedIndex2, } = this.state
         switch (selectedIndex) {
             case 0:
                 return ([
@@ -105,8 +107,8 @@ export default class StoreScreen extends Component {
         }
     }
     render() {
-        const { dataService, selectedIndex, scrollY } = this.state
-        const { navigation } = this.props
+        const { navigation, } = this.props
+        const { dataService, scrollY, selectedIndex, } = this.state
         const id_item = navigation.getParam('id_item')
         var uri = ip + '/mysql/DataServiceStore.php';
         var dataBody = {
@@ -116,7 +118,7 @@ export default class StoreScreen extends Component {
         const maxheight = 70
         var s_item = dataService.map((item) => {
             return ({
-                id_store: item.id_store, name: item.name, image: item.image, image_path: item.image_path
+                id_store: item.id_store, name: item.name, image: item.image, image_path: item.image_path,
             })
         })
         const AnimatedHeadopacity = scrollY.interpolate({
@@ -157,8 +159,7 @@ export default class StoreScreen extends Component {
                     <GetServices
                         uriPointer={uri}
                         dataBody={dataBody}
-                        getDataSource={this.getData.bind(this)}
-                    />
+                        getDataSource={this.getData.bind(this)} />
                 }
                 <Animatable.View style={{
                     position: 'absolute',
@@ -171,8 +172,7 @@ export default class StoreScreen extends Component {
                     <View style={[stylesStore.StoreHead]}>
                         <ImageBackground
                             source={require('../icon/bgprofile.jpg')}
-                            style={stylesStore.StoreHeadImage}
-                        />
+                            style={stylesStore.StoreHeadImage} />
                     </View>
                 </Animatable.View>
                 <Animatable.View style={{ height: 50 }}>
@@ -183,8 +183,7 @@ export default class StoreScreen extends Component {
                         right: 0,
                     }}>
                         <AppBar leftBar='backarrow' rightBar='storebar' navigation={navigation}
-                            ABGColor={AnimatedHeadbg} ABDColor={AnimatedHeadbd} AIColor={AnimatedHeadi}
-                        />
+                            ABGColor={AnimatedHeadbg} ABDColor={AnimatedHeadbd} AIColor={AnimatedHeadi} />
                     </View>
                 </Animatable.View>
                 <ScrollView
@@ -194,8 +193,7 @@ export default class StoreScreen extends Component {
                         Animated.event([{
                             nativeEvent: { contentOffset: { y: scrollY } }
                         }])
-                    }
-                >
+                    } >
                     <Animatable.View style={{
                         marginTop: -50,
                         opacity: AnimatedHeadopacity,
@@ -217,13 +215,18 @@ export default class StoreScreen extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> StoreHead
-export class StoreHead extends Component {
+export class StoreHead extends React.Component {
     constructor(props) {
         super(props);
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { item } = this.props;
-        if (item !== nextProps.item) {
+        const { item, navigation } = this.props;
+        if (
+            ////>nextProps
+            item !== nextProps.item ||
+            ////>nextState
+            navigation !== nextProps.navigation
+        ) {
             return true
         }
         return false
@@ -252,8 +255,7 @@ export class StoreHead extends Component {
                                         uri: dataMySQL,
                                     }}
                                     style={stylesStore.StoreHeadFace}
-                                    resizeMode={FastImage.resizeMode.cover}
-                                />
+                                    resizeMode={FastImage.resizeMode.cover} />
                             </View>
                             <View>
                                 <Text style={[stylesStore.StoreHeadText, stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
@@ -288,7 +290,7 @@ export class StoreHead extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> StoreHeadDetails
-export class StoreHeadDetails extends Component {
+export class StoreHeadDetails extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -296,9 +298,14 @@ export class StoreHeadDetails extends Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService } = this.state;
         const { item } = this.props;
-        if (dataService !== nextState.dataService || item !== nextProps.item) {
+        const { dataService } = this.state;
+        if (
+            ////>nextProps
+            item !== nextProps.item ||
+            ////>nextState
+            dataService !== nextState.dataService
+        ) {
             return true
         }
         return false
@@ -321,8 +328,7 @@ export class StoreHeadDetails extends Component {
                         <GetServices
                             uriPointer={uri}
                             dataBody={dataBody}
-                            getDataSource={this.getData.bind(this)}
-                        />
+                            getDataSource={this.getData.bind(this)} />
                     }
                     <View>
                         <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
@@ -367,7 +373,7 @@ export class StoreHeadDetails extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Menubar
-export class Menubar extends Component {
+export class Menubar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -375,7 +381,11 @@ export class Menubar extends Component {
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { getSelectedIndex } = this.props;
-        if (getSelectedIndex !== nextProps.getSelectedIndex) {
+        if (
+            ////>nextProps
+            getSelectedIndex !== nextProps.getSelectedIndex
+            ////>nextState
+        ) {
             return true
         }
         return false
@@ -401,26 +411,30 @@ export class Menubar extends Component {
                         // activeColor='red'
                         radiusBox={4}
                         overScrollMode={'never'}
-                        type='box'
-                    />
+                        type='box' />
                 </View>
             </View>
         )
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Banner
-export class Banner extends Component {
+export class Banner extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataService: [],
             activeSlide: 0,
+            dataService: [],
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService, activeSlide } = this.state;
-        const { item } = this.props;
-        if (dataService !== nextState.dataService || activeSlide !== nextState.activeSlide || item !== nextProps.item) {
+        const { item, } = this.props;
+        const { activeSlide, dataService, } = this.state;
+        if (
+            ////>nextProps
+            item !== nextProps.item ||
+            ////>nextState
+            activeSlide !== nextState.activeSlide || dataService !== nextState.dataService
+        ) {
             return true
         }
         return false
@@ -431,75 +445,35 @@ export class Banner extends Component {
     getData2 = (activeSlide) => {
         this.setState({ activeSlide })
     }
-    _renderItem = ({ item, index }) => {
+    _renderItem = item => {
         var dataMySQL = ip + '/mysql/uploads/slide/bannerstore/' + item.image
         return (
-            <View style={stylesStore.BannerBox} key={index}>
+            <View style={stylesStore.BannerBox} key={item.image}>
                 <FastImage
                     source={{
                         uri: dataMySQL,
                     }}
-                    style={stylesStore.BannerSlide}
-                />
-            </View>
-        );
-    }
-    get pagination() {
-        const { dataService, activeSlide } = this.state;
-        return (
-            <View style={stylesStore.SlideBox}>
-                <Pagination
-                    dotsLength={dataService.length}
-                    activeDotIndex={activeSlide}
-                    // containerStyle={{ backgroundColor: 'rgba(120, 120, 120, 0.1)' }}
-                    dotStyle={{
-                        width: 15,
-                        height: 15,
-                        borderRadius: 30,
-                        backgroundColor: 'rgba(0, 0, 0, 0)',
-                        borderColor: 'rgba(255, 255, 255, 0.92)',
-                        borderWidth: 2,
-                    }}
-                    inactiveDotStyle={{
-                        width: 15,
-                        height: 5,
-                        borderRadius: 5,
-                        backgroundColor: 'rgba(255, 255, 255, 0.92)',
-                    }}
-                    carouselRef={this.activeSlide}
-                    tappableDots={!!this.activeSlide}
-                    // inactiveDotOpacity={0.6}
-                    inactiveDotScale={0.6}
-                />
+                    style={stylesStore.BannerSlide} />
             </View>
         );
     }
     get getDetail() {
-        const { dataService } = this.state;
         const { item } = this.props;
-        const slideWidth = width * 0.9522;
-        const slideHeight = height * 0.5;
+        const { dataService } = this.state;
         const slideDelay = 3000;
         return item.map((item, index) => {
             var uri = 'https://finforyou.com/' + item.name;
             return (
                 <View key={index}>
-                    <View style={stylesStore.Banner}>
+                    <View style={[stylesStore.Banner, { borderLeftWidth: 0, paddingLeft: 0 }]}>
                         <View>
                             <Carousel
-                                ref={c => this.activeSlide = c}
-                                data={dataService}
                                 renderItem={this._renderItem}
-                                sliderWidth={slideWidth}
-                                itemWidth={slideWidth}
-                                sliderHeight={slideHeight}
-                                loop={true}
-                                autoplay={true}
-                                autoplayDelay={slideDelay}
+                                data={dataService}
+                                loop
+                                autoplay
                                 autoplayInterval={slideDelay}
-                                onSnapToItem={this.getData2.bind(this)}
-                            />
-                            {this.pagination}
+                                pagination={PaginationLight} />
                         </View>
                         <View>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
@@ -524,15 +498,14 @@ export class Banner extends Component {
                 <GetServices
                     uriPointer={uri}
                     dataBody={dataBody}
-                    getDataSource={this.getData.bind(this)}
-                />
+                    getDataSource={this.getData.bind(this)} />
                 {this.getDetail}
             </View>
         )
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> TicketLine
-export class TicketLine extends Component {
+export class TicketLine extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -549,8 +522,7 @@ export class TicketLine extends Component {
                         // colorCoupon='#86CFFF'
                         timeOut={'31-01-2020'}
                         couponText={'10%'}
-                        textDetail={'รับเงินคืน 10% Coins'}
-                    />
+                        textDetail={'รับเงินคืน 10% Coins'} />
                     <GetCoupon
                         flexRow
                         useCoupon
@@ -558,8 +530,7 @@ export class TicketLine extends Component {
                         // colorCoupon='#86CFFF'
                         timeOut={'31-01-2020'}
                         couponText={'10%'}
-                        textDetail={'รับเงินคืน 10% Coins'}
-                    />
+                        textDetail={'รับเงินคืน 10% Coins'} />
                     <GetCoupon
                         flexRow
                         useCoupon
@@ -567,8 +538,7 @@ export class TicketLine extends Component {
                         // colorCoupon='#86CFFF'
                         timeOut={'31-01-2020'}
                         couponText={'10%'}
-                        textDetail={'รับเงินคืน 10% Coins'}
-                    />
+                        textDetail={'รับเงินคืน 10% Coins'} />
                 </ScrollView>
             </View>
         )
@@ -580,7 +550,7 @@ export class TicketLine extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> DealTop
-export class DealTop extends Component {
+export class DealTop extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -588,8 +558,14 @@ export class DealTop extends Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
+        const { navigation } = this.props
         const { dataService } = this.state;
-        if (dataService !== nextState.dataService) {
+        if (
+            ////>nextProps
+            navigation !== nextProps.navigation ||
+            ////>nextState
+            dataService !== nextState.dataService
+        ) {
             return true
         }
         return false
@@ -598,8 +574,8 @@ export class DealTop extends Component {
         this.setState({ dataService })
     }
     render() {
-        const { dataService } = this.state
         const { navigation } = this.props
+        const { dataService } = this.state
         var uri = ip + '/mysql/DataServiceStore.php';
         var dataBody = {
             type: 'sale'
@@ -609,8 +585,7 @@ export class DealTop extends Component {
                 <GetServices
                     uriPointer={uri}
                     dataBody={dataBody}
-                    getDataSource={this.getData.bind(this)}
-                />
+                    getDataSource={this.getData.bind(this)} />
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
                         ดีลเด็ด</Text>
@@ -628,8 +603,7 @@ export class DealTop extends Component {
                             pointerid_store
                             nameSize={14}
                             priceSize={15}
-                            dispriceSize={15}
-                        />
+                            dispriceSize={15} />
                     }
                 </ScrollView>
             </View>
@@ -637,7 +611,7 @@ export class DealTop extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> NewProduct
-export class NewProduct extends Component {
+export class NewProduct extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -645,8 +619,14 @@ export class NewProduct extends Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
+        const { navigation } = this.props
         const { dataService } = this.state;
-        if (dataService !== nextState.dataService) {
+        if (
+            ////>nextProps
+            navigation !== nextProps.navigation ||
+            ////>nextState
+            dataService !== nextState.dataService
+        ) {
             return true
         }
         return false
@@ -655,8 +635,8 @@ export class NewProduct extends Component {
         this.setState({ dataService })
     }
     render() {
-        const { dataService } = this.state
         const { navigation } = this.props
+        const { dataService } = this.state
         var uri = ip + '/mysql/DataServiceStore.php';
         var dataBody = {
             type: 'newproduct'
@@ -666,8 +646,7 @@ export class NewProduct extends Component {
                 <GetServices
                     uriPointer={uri}
                     dataBody={dataBody}
-                    getDataSource={this.getData.bind(this)}
-                />
+                    getDataSource={this.getData.bind(this)} />
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
                         สินค้ามาใหม่</Text>
@@ -685,8 +664,7 @@ export class NewProduct extends Component {
                             pointerid_store
                             nameSize={14}
                             priceSize={15}
-                            dispriceSize={15}
-                        />
+                            dispriceSize={15} />
                     }
                 </ScrollView>
             </View>
@@ -694,7 +672,7 @@ export class NewProduct extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> PopularProduct
-export class PopularProduct extends Component {
+export class PopularProduct extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -702,11 +680,13 @@ export class PopularProduct extends Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService } = this.state
         const { headText, navigation, noHeadText } = this.props;
+        const { dataService } = this.state
         if (
-            dataService !== nextState.dataService || headText !== nextProps.headText || navigation !== nextProps.navigation ||
-            noHeadText !== nextProps.noHeadText
+            ////>nextProps
+            headText !== nextProps.headText || navigation !== nextProps.navigation || noHeadText !== nextProps.noHeadText ||
+            ////>nextState
+            dataService !== nextState.dataService
         ) {
             return true
         }
@@ -716,8 +696,8 @@ export class PopularProduct extends Component {
         this.setState({ dataService })
     }
     render() {
-        const { dataService } = this.state
         const { headText, navigation, noHeadText } = this.props;
+        const { dataService } = this.state
         var uri = ip + '/mysql/DataServiceStore.php';
         var dataBody = {
             type: 'todayproduct'
@@ -727,8 +707,7 @@ export class PopularProduct extends Component {
                 <GetServices
                     uriPointer={uri}
                     dataBody={dataBody}
-                    getDataSource={this.getData.bind(this)}
-                />
+                    getDataSource={this.getData.bind(this)} />
                 {
                     noHeadText ?
                         null :
@@ -752,8 +731,7 @@ export class PopularProduct extends Component {
                             pointerid_store
                             nameSize={14}
                             priceSize={15}
-                            dispriceSize={15}
-                        />
+                            dispriceSize={15} />
                     }
                 </View>
             </View>
@@ -761,18 +739,21 @@ export class PopularProduct extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> PopularProduct
-export class SubMenu extends Component {
+export class SubMenu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         }
     }
     shouldComponentUpdate = (nextProps, nextState) => {
+        const { getSelectedIndex2, headText, navigation, noHeadText, } = this.props;
         const { dataService } = this.state
-        const { headText, navigation, noHeadText, getSelectedIndex2 } = this.props;
         if (
-            dataService !== nextState.dataService || headText !== nextProps.headText || navigation !== nextProps.navigation ||
-            noHeadText !== nextProps.noHeadText || getSelectedIndex2 !== nextProps.getSelectedIndex2
+            ////>nextProps
+            getSelectedIndex2 !== nextProps.getSelectedIndex2 || headText !== nextProps.headText || navigation !== nextProps.navigation ||
+            noHeadText !== nextProps.noHeadText ||
+            ////>nextState
+            dataService !== nextState.dataService
         ) {
             return true
         }
@@ -801,15 +782,14 @@ export class SubMenu extends Component {
                         // widthBox={98}
                         activeColor={'#fff'}
                         activeFontColor={'#0A55A6'}
-                        type='tag'
-                    />
+                        type='tag' />
                 </View>
             </View>
         )
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> PopularProduct
-export class ShowProduct extends Component {
+export class ShowProduct extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -817,9 +797,14 @@ export class ShowProduct extends Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService } = this.state
         const { navigation } = this.props;
-        if (dataService !== nextState.dataService || navigation !== nextProps.navigation) {
+        const { dataService } = this.state
+        if (
+            ////>nextProps
+            navigation !== nextProps.navigation ||
+            ////>nextState
+            dataService !== nextState.dataService
+        ) {
             return true
         }
         return false
@@ -828,8 +813,8 @@ export class ShowProduct extends Component {
         this.setState({ dataService })
     }
     render() {
-        const { dataService } = this.state
         const { navigation } = this.props;
+        const { dataService } = this.state
         var uri = ip + '/mysql/DataServiceStore.php';
         var dataBody = {
             type: 'todayproduct'
@@ -839,8 +824,7 @@ export class ShowProduct extends Component {
                 <GetServices
                     uriPointer={uri}
                     dataBody={dataBody}
-                    getDataSource={this.getData.bind(this)}
-                />
+                    getDataSource={this.getData.bind(this)} />
                 <View style={stylesMain.BoxProductWarp}>
                     {
                         dataService &&
@@ -854,8 +838,7 @@ export class ShowProduct extends Component {
                             pointerid_store
                             nameSize={14}
                             priceSize={15}
-                            dispriceSize={15}
-                        />
+                            dispriceSize={15} />
                     }
                 </View>
             </View>
@@ -863,7 +846,7 @@ export class ShowProduct extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> PopularProduct
-export class BoxProduct4 extends Component {
+export class BoxProduct4 extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -874,16 +857,21 @@ export class BoxProduct4 extends Component {
         this.setState({ dataService })
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService } = this.state
         const { navigation } = this.props;
-        if (dataService !== nextState.dataService || navigation !== nextProps.navigation) {
+        const { dataService } = this.state
+        if (
+            ////>nextProps
+            navigation !== nextProps.navigation ||
+            ////>nextState
+            dataService !== nextState.dataService
+        ) {
             return true
         }
         return false
     }
     render() {
-        const { dataService } = this.state
         const { navigation } = this.props
+        const { dataService } = this.state
         var uri = ip + '/mysql/DataServiceStore.php';
         var dataBody = {
             type: 'storefeed'
@@ -893,8 +881,7 @@ export class BoxProduct4 extends Component {
                 <GetServices
                     uriPointer={uri}
                     dataBody={dataBody}
-                    getDataSource={this.getData.bind(this)}
-                />
+                    getDataSource={this.getData.bind(this)} />
                 <View style={stylesMain.BoxProductWarp}>
                     {
                         dataService &&
@@ -902,8 +889,7 @@ export class BoxProduct4 extends Component {
                             dataService={dataService}
                             navigation={navigation}
                             typeip='ip'
-                            prepath='mysql'
-                        />
+                            prepath='mysql' />
                     }
                 </View>
             </View>

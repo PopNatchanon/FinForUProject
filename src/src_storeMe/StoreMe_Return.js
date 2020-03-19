@@ -228,7 +228,7 @@ export class Treasury_store_Product extends Component {
                 <IconFontAwesome name='trash-o' size={20} color='#6B87CF' />
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#6B87CF' }]}>ลบ</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreMe_Up_Product')} style={stylesMain.FlexRow} >
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreMe_Up_Product')} style={stylesMain.FlexRow}>
                 <IconFeather name='edit' size={20} color='#6B87CF' />
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#6B87CF' }]}>แก้ไข</Text>
               </TouchableOpacity>
@@ -275,7 +275,7 @@ export class Treasury_store_Product extends Component {
           subtitle="Name Product"
           subtitleStyle={stylesFont.FontFamilyText}
           onRequestClose={() => null}
-        >
+      >
           <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around', }]}>
             <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยกเลิก</SCLAlertButton>
             <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยืนยัน</SCLAlertButton>

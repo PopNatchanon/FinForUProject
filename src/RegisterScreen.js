@@ -1,5 +1,5 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
@@ -9,9 +9,10 @@ import { CheckBox } from 'react-native-elements';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import { Form, TextValidator } from 'react-native-validator-form';
-import { Picker } from "native-base";
+import ModalDropdown from 'react-native-modal-dropdown';
 import RadioButtonRN from 'radio-buttons-react-native';
 ///----------------------------------------------------------------------------------------------->>>> Icon
+import IconAntDesign from 'react-native-vector-icons/AntDesign';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../style/stylesFont';
 import stylesLogin from '../style/stylesLoginScreen';
@@ -19,9 +20,9 @@ import stylesMain from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { ExitAppModule } from './MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from './navigator/IpConfig';
+import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class Register_OTPScreen extends Component {
+export default class Register_OTPScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,7 +30,11 @@ export default class Register_OTPScreen extends Component {
   }
   shouldComponentUpdate = (nextProps, nextState) => {
     const { navigation } = this.props
-    if (navigation !== nextProps.navigation) {
+    if (
+      ////>nextProps
+      navigation !== nextProps.navigation
+      ////>nextState
+    ) {
       return true
     }
     return false
@@ -49,7 +54,7 @@ export default class Register_OTPScreen extends Component {
   }
 }
 ///----------------------------------------------------------------------------------------------->>>> Logo
-export class Logo extends Component {
+export class Logo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -61,34 +66,35 @@ export class Logo extends Component {
         <FastImage
           style={stylesLogin.Logo}
           source={require('../images/sj.png')}
-          resizeMethod='resize'
-        />
+          resizeMethod='resize' />
       </View>
     );
   }
 }
 ///----------------------------------------------------------------------------------------------->>>> Login
-export class Login extends Component {
+export class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {},
+      activeNow: 0,
       date: new Date(),
-      show: false,
-      DataYear: [],
       DataMo: [],
       DataDay: [],
-      activeNow: 0,
+      DataYear: [],
       item1: false,
+      show: false,
+      user: {},
     };
   }
   shouldComponentUpdate = (nextProps, nextState) => {
-    const { user, date, show, DataYear, DataMo, DataDay, activeNow, item1 } = this.state
-    const { navigation } = this.props
+    const { navigation, } = this.props
+    const { activeNow, date, DataDay, DataMo, DataYear, item1, show, user, } = this.state
     if (
-      user !== nextState.user || date !== nextState.date || show !== nextState.show || DataYear !== nextState.DataYear ||
-      DataMo !== nextState.DataMo || DataDay !== nextState.DataDay || activeNow !== nextState.activeNow ||
-      navigation !== nextProps.navigation
+      ////>nextProps
+      navigation !== nextProps.navigation ||
+      ////>nextState
+      activeNow !== nextState.activeNow || date !== nextState.date || DataDay !== nextState.DataDay || DataMo !== nextState.DataMo ||
+      DataYear !== nextState.DataYear || item1 !== nextState.item1 || show !== nextState.show || user !== nextState.user
     ) {
       return true
     }
@@ -151,9 +157,14 @@ export class Login extends Component {
     }
   }
   getDataDay = (itemValue) => {
+    var months_thai = [
+      "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
+      "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+    ];
+    var value = months_thai.lastIndexOf(itemValue)
     const { date } = this.state
-    if (itemValue != null) {
-      const item = String(itemValue)
+    if (value != null) {
+      const item = String(value)
       this.setState({ date: new Date(date).setMonth(item) })
       var box = [];
       for (min = 1; min <= 31; min = min + 1) {
@@ -167,7 +178,7 @@ export class Login extends Component {
     return (
       DataYear.map((item) => {
         return (
-          <Picker.Item label={item} value={item} key={item} />
+          item
         )
       })
     )
@@ -185,7 +196,7 @@ export class Login extends Component {
     return (
       DataMo.map((item) => {
         return (
-          <Picker.Item label={months_thai[item]} value={item} key={item} />
+          months_thai[item]
         )
       })
     )
@@ -195,14 +206,14 @@ export class Login extends Component {
     return (
       DataDay.map((item) => {
         return (
-          <Picker.Item label={item} value={item} key={item} />
+          item
         )
       })
     )
   }
   getData = () => {
-    const { user, date, } = this.state;
-    const { navigation } = this.props
+    const { navigation, } = this.props
+    const { date, user, } = this.state;
     user.birth_date = new Date(date).getDate();
     user.birth_mon = new Date(date).getMonth() + 1;
     user.birth_year = new Date(date).getFullYear();
@@ -303,16 +314,19 @@ export class Login extends Component {
     this.setState({ item1: !item1 })
   }
   get FormBody() {
-    const { activeNow, item1 } = this.state
+    const { activeNow, date, item1, user, } = this.state
     activeNow < 2 &&
       this.setState({ activeNow: activeNow + 1, date: new Date('2000') })
-    const { user, date, } = this.state;
     let DataDay = this.DataDay()
     let DataMo = this.DataMo()
     let DataYear = this.DataYear()
     var day = new Date(date).getDate()
     var month = new Date(date).getMonth();
     var year = new Date(date).getFullYear();
+    var months_thai = [
+      "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
+      "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+    ];
     const data = [
       {
         label: 'ชาย',
@@ -326,8 +340,7 @@ export class Login extends Component {
     return (
       <Form
         ref="form"
-        onSubmit={this.getData.bind(this)}
-      >
+        onSubmit={this.getData.bind(this)}>
         <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
           อีเมล</Text>
         <TextValidator
@@ -351,8 +364,7 @@ export class Login extends Component {
             },
             underlineValidColor: 'gray',
             underlineInvalidColor: 'red'
-          }}
-        />
+          }} />
         {/* <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
           รหัสยืนยันผ่านอีเมล</Text>
         <TextValidator
@@ -374,8 +386,7 @@ export class Login extends Component {
             },
             underlineValidColor: 'gray',
             underlineInvalidColor: 'red'
-          }}
-        />
+          }} />
         <View style={stylesLogin.Countdownstyle}>
           <Text style={[stylesLogin.CountdownstyleSubmit, stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
             ส่ง</Text>
@@ -402,8 +413,7 @@ export class Login extends Component {
             },
             underlineValidColor: 'gray',
             underlineInvalidColor: 'red'
-          }}
-        />
+          }} />
         <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
           รหัสผ่าน</Text>
         <TextValidator
@@ -427,8 +437,7 @@ export class Login extends Component {
             },
             underlineValidColor: 'gray',
             underlineInvalidColor: 'red'
-          }}
-        />
+          }} />
         <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
           ยืนยันรหัสผ่าน</Text>
         <TextValidator
@@ -452,8 +461,7 @@ export class Login extends Component {
             },
             underlineValidColor: 'gray',
             underlineInvalidColor: 'red'
-          }}
-        />
+          }} />
         <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
           หมายเลขโทรศัพท์</Text>
         <TextValidator
@@ -476,36 +484,53 @@ export class Login extends Component {
             },
             underlineValidColor: 'gray',
             underlineInvalidColor: 'red'
-          }}
-        />
+          }} />
         <View style={[stylesLogin.DateBox, stylesMain.ItemCenter]}>
           <View style={stylesMain.FlexRow}>
             <View style={[stylesLogin.DateBoxBody, { width: 70, }]}>
-              <Picker
-                selectedValue={String(day)}
-                style={{ height: '100%', width: '100%' }}
-                itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize7, { backgroundColor: '#fff' }]}
-                onValueChange={this.getDataDaySet.bind(this)}>
-                {DataDay}
-              </Picker>
+              <ModalDropdown
+                options={DataDay}
+                style={[stylesMain.ItemCenterVertical]}
+                dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { width: 70, textAlign: 'center' }]}
+                renderButtonText={this.getDataDaySet.bind(this)}>
+                <View style={[stylesMain.ItemCenter, { flexDirection: 'row', width: 70 }]}>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, {
+                    width: 70, textAlign: 'center', marginLeft: -10, marginRight: -10
+                  }]}>
+                    {day}</Text>
+                  <IconAntDesign name='caretdown' style={[stylesMain.ItemCenterVertical]} />
+                </View>
+              </ModalDropdown>
             </View>
             <View style={[stylesLogin.DateBoxBody, { width: 120, }]}>
-              <Picker
-                selectedValue={String(month)}
-                style={{ height: '100%', width: '100%' }}
-                itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize7, { backgroundColor: '#fff' }]}
-                onValueChange={this.getDataDay.bind(this)}>
-                {DataMo}
-              </Picker>
+              <ModalDropdown
+                options={DataMo}
+                style={[stylesMain.ItemCenterVertical]}
+                dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { width: 120, textAlign: 'center' }]}
+                renderButtonText={this.getDataDay.bind(this)}>
+                <View style={[stylesMain.ItemCenter, { flexDirection: 'row', width: 120 }]}>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, {
+                    width: 120, textAlign: 'center', marginLeft: -10, marginRight: -10
+                  }]}>
+                    {months_thai[month]}</Text>
+                  <IconAntDesign name='caretdown' style={[stylesMain.ItemCenterVertical]} />
+                </View>
+              </ModalDropdown>
             </View>
             <View style={stylesLogin.DateBoxBody}>
-              <Picker
-                selectedValue={String(year)}
-                style={{ height: '100%', width: '100%' }}
-                itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize7, { backgroundColor: '#fff' }]}
-                onValueChange={this.getDataMo.bind(this)}>
-                {DataYear}
-              </Picker>
+              <ModalDropdown
+                options={DataYear}
+                style={[stylesMain.ItemCenterVertical]}
+                dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { width: 80, textAlign: 'center' }]}
+                renderButtonText={this.getDataMo.bind(this)}>
+                <View style={[stylesMain.ItemCenter, { flexDirection: 'row', width: 80 }]}>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, {
+                    width: 80, textAlign: 'center', marginLeft: -10, marginRight: -10
+                  }]}>
+                    {year}</Text>
+                  <IconAntDesign name='caretdown' style={[stylesMain.ItemCenterVertical]} />
+                </View>
+              </ModalDropdown>
             </View>
           </View>
         </View>
@@ -528,29 +553,41 @@ export class Login extends Component {
               }]}
               activeColor='#111'
               circleSize={15}
-              selectedBtn={this.GenderInput.bind(this)}
-            />
+              selectedBtn={this.GenderInput.bind(this)} />
           </View>
         </View>
         <View style={stylesLogin.RegisterScreen_CheckBox}>
           <CheckBox
             checked={item1}
-            onPress={this.setStateItem1.bind(this)}
-          />
+            onPress={this.setStateItem1.bind(this)}/>
           <View style={stylesLogin.RegisterScreen_Check_Box}>
             <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText]}>
               ฉันยอมรับเงื่อนไขของ FIN ข้อตกลงการใช้งาน และยินยอมดำเนินการกับข้อมูลส่วนตัวตามที่ระบุใน นโยบายส่วนตัว</Text>
           </View>
         </View>
         <View style={stylesLogin.Login_Box_Text_C}>
-          <TouchableOpacity activeOpacity={item1 == true ? 0.2 : 1} onPress={item1 == true ? this.handleSubmit.bind(this) : null}>
-            <View style={[stylesLogin.Login_Box_Text_B, { backgroundColor: item1 == true ? '#0A55A6' : '#ECECEC' }]}>
+          <TouchableOpacity activeOpacity={
+            item1 == true ?
+              0.2 :
+              1
+          }
+            onPress={
+              item1 == true ?
+                this.handleSubmit.bind(this) :
+                null
+            }>
+            <View style={[stylesLogin.Login_Box_Text_B, {
+              backgroundColor:
+                item1 == true ?
+                  '#0A55A6' :
+                  '#ECECEC'
+            }]}>
               <Text style={[stylesLogin.Login__Text, stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical]}>
                 สมัครสมาชิก</Text>
             </View>
           </TouchableOpacity>
         </View>
-      </Form >
+      </Form>
     )
   }
   render() {
@@ -564,7 +601,7 @@ export class Login extends Component {
   }
 }
 ///----------------------------------------------------------------------------------------------->>>> Register
-export class Register extends Component {
+export class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -573,7 +610,11 @@ export class Register extends Component {
   }
   shouldComponentUpdate = (nextProps, nextState) => {
     const { item1 } = this.state
-    if (item1 !== nextState.item1) {
+    if (
+      ////>nextProps
+      ////>nextState
+      item1 !== nextState.item1
+    ) {
       return true
     }
     return false
@@ -597,8 +638,7 @@ export class Register extends Component {
             checkedColor='#95F29F'
             uncheckedIcon='toggle-off'
             checked={item1}
-            onPress={this.setStateItem1.bind(this)}
-          />
+            onPress={this.setStateItem1.bind(this)} />
         </View>
         <View>
           <Text style={[stylesFont.FontCenter, stylesFont.FontSize5, stylesFont.FontFamilyText, { margin: 10 }]}>
@@ -607,12 +647,10 @@ export class Register extends Component {
         <View style={stylesLogin.Register_Box_Button}>
           <FastImage
             style={stylesLogin.Register_Box_image}
-            source={require('../icon/face_icon.png')}
-          />
+            source={require('../icon/face_icon.png')} />
           <FastImage
             style={stylesLogin.Register_Box_image}
-            source={require('../icon/googla_icon.png')}
-          />
+            source={require('../icon/googla_icon.png')} />
         </View>
       </View>
     );

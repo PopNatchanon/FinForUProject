@@ -333,7 +333,7 @@ export class StoreMe_Comment extends Component {
                         ?
                         <TouchableOpacity style={[stylesMain.FlexRow, { alignItems: 'flex-end' }]} onPress={() => this.props.navigation.push('StoreMe_Topic', { selectedIndex: 5 })}>
                             <IconFeather name='edit' size={15} color='#20BDA1' />
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#20BDA1' }]} > เขียนตอบกลับ</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#20BDA1' }]}> เขียนตอบกลับ</Text>
                         </TouchableOpacity> : null
                     }
 

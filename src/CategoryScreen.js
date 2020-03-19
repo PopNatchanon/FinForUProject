@@ -5,16 +5,13 @@ import {
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import FastImage from 'react-native-fast-image';
-import NumberFormat from 'react-number-format';
-import SlidingView from 'rn-sliding-view';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesMain from '../style/StylesMainScreen';
 import stylesFont from '../style/stylesFont';
-import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar, Slide, BannerBar_TWO, TodayProduct, ExitAppModule, } from './MainScreen';
-import { Button_Bar, SlideTab, PricesSlide, } from './ExclusiveScreen';
+import { AppBar, BannerBar_TWO, ExitAppModule, Slide, TodayProduct, } from './MainScreen';
+import { Button_Bar, } from './ExclusiveScreen';
 import { GetServices, ProductBox, SlideTab2, } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from './navigator/IpConfig';
@@ -28,9 +25,14 @@ export default class CategoryScreen extends React.Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService, sliderVisible } = this.state
         const { navigation } = this.props
-        if (dataService !== nextState.dataService || sliderVisible !== nextState.sliderVisible || navigation !== nextProps.navigation) {
+        const { dataService, sliderVisible } = this.state
+        if (
+            ////>nextProps
+            navigation !== nextProps.navigation ||
+            ////>nextState
+            dataService !== nextState.dataService || sliderVisible !== nextState.sliderVisible
+        ) {
             return true
         }
         return false
@@ -41,10 +43,6 @@ export default class CategoryScreen extends React.Component {
     setSlider = (sliderVisible) => {
         this.setState({ sliderVisible })
     }
-    setStateSliderVisible = () => {
-        const { sliderVisible } = this.state
-        this.setState({ sliderVisible: !sliderVisible })
-    }
     render() {
         const { dataService, sliderVisible } = this.state
         const { navigation } = this.props
@@ -52,68 +50,6 @@ export default class CategoryScreen extends React.Component {
         var dataBody = {
             type: 'todayproduct'
         };
-        return (
-            <SafeAreaView style={[stylesMain.SafeAreaView]}>
-                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
-                <AppBar leftBar='backarrow' navigation={navigation} />
-                <ScrollView stickyHeaderIndices={[5]}>
-                    <Slide />
-                    <Recommend_Store navigation={navigation} />
-                    <Product_Brand navigation={navigation} />
-                    <BannerBar_TWO />
-                    <View style={{ marginBottom: 10 }}></View>
-                    <Button_Bar setSliderVisible={this.setSlider.bind(this)} getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
-                    {
-                        dataService &&
-                        <TodayProduct noTitle navigation={navigation} loadData={dataService} typeip prepath='mysql' />
-                    }
-                </ScrollView>
-                <SlidingView
-                    disableDrag
-                    componentVisible={sliderVisible}
-                    containerStyle={{
-                        backgroundColor: null,
-                        justifyContent: 'center',
-                        alignContent: 'stretch',
-                        width: '100%'
-                    }}
-                    position="right"
-                    changeVisibilityCallback={this.setStateSliderVisible.bind(this)}
-                >
-                    <View style={stylesMain.FlexRow}>
-                        <TouchableOpacity
-                            activeOpacity={1}
-                            onPress={this.setStateSliderVisible.bind(this)}
-                        >
-                            <View style={stylesTopic.BackgroundLeft}></View>
-                        </TouchableOpacity>
-                        <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNB]}>
-                            <View>
-                                <ScrollView>
-                                    <SlideTabGet />
-                                </ScrollView>
-                                <View style={[stylesMain.FlexRow, { height: 70 }]}>
-                                    <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
-                                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
-                                            รีเซ็ต</Text>
-                                    </View>
-                                    <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset, { backgroundColor: '#0A55A6' }]}>
-                                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#fff' }]}>
-                                            เสร็จสิ้น</Text>
-                                    </View>
-                                </View>
-                            </View>
-                        </View>
-                    </View>
-                </SlidingView>
-                <ExitAppModule navigation={navigation} />
-            </SafeAreaView>
-        );
-    }
-}
-///----------------------------------------------------------------------------------------------->>>> SlideTabGet
-export class SlideTabGet extends React.Component {
-    render() {
         const data = [{
             title: 'หมวดหมู่',
             subtitle: [{
@@ -144,17 +80,25 @@ export class SlideTabGet extends React.Component {
             }]
         }]
         return (
-            <View>
-                <View style={{ width: '100%' }}>
+            <SafeAreaView style={[stylesMain.SafeAreaView]}>
+                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
+                <AppBar leftBar='backarrow' navigation={navigation} />
+                <ScrollView stickyHeaderIndices={[5]}>
+                    <Slide />
+                    <Recommend_Store navigation={navigation} />
+                    <Product_Brand navigation={navigation} />
+                    <BannerBar_TWO />
+                    <View style={{ marginBottom: 10 }}></View>
+                    <Button_Bar setSliderVisible={this.setSlider.bind(this)} />
                     {
-                        data.map((item, index) => {
-                            return <SlideTab2 item={item} key={index} />
-                        })
+                        dataService &&
+                        <TodayProduct noTitle navigation={navigation} loadData={dataService} typeip prepath='mysql' />
                     }
-                    <PricesSlide />
-                </View>
-            </View>
-        )
+                </ScrollView>
+                <ExitAppModule navigation={navigation} />
+                <SlideTab2 data={data} sliderVisible={sliderVisible} setStateSliderVisible={this.setSlider.bind(this)} />
+            </SafeAreaView>
+        );
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Recommend_Store
@@ -166,9 +110,14 @@ export class Recommend_Store extends React.Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService } = this.state
         const { navigation } = this.props
-        if (dataService !== nextState.dataService || navigation !== nextProps.navigation) {
+        const { dataService } = this.state
+        if (
+            ////>nextProps
+            navigation !== nextProps.navigation ||
+            ////>nextState
+            dataService !== nextState.dataService
+        ) {
             return true
         }
         return false
@@ -198,8 +147,7 @@ export class Recommend_Store extends React.Component {
                                 uri: dataMySQL,
                             }}
                             style={stylesMain.BoxStore1Image}
-                            resizeMode={FastImage.resizeMode.stretch}
-                        />
+                            resizeMode={FastImage.resizeMode.stretch} />
                     </View>
                 </TouchableOpacity>
             )
@@ -237,9 +185,14 @@ export class Product_Brand extends React.Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService } = this.state
         const { navigation } = this.props
-        if (dataService !== nextState.dataService || navigation !== nextProps.navigation) {
+        const { dataService } = this.state
+        if (
+            ////>nextProps
+            navigation !== nextProps.navigation ||
+            ////>nextState
+            dataService !== nextState.dataService
+        ) {
             return true
         }
         return false
@@ -248,8 +201,8 @@ export class Product_Brand extends React.Component {
         this.setState({ dataService })
     }
     render() {
-        const { dataService } = this.state
         const { navigation } = this.props
+        const { dataService } = this.state
         var uri = ip + '/mysql/DataServiceMain.php';
         var dataBody = {
             type: 'todayproduct'
@@ -266,8 +219,7 @@ export class Product_Brand extends React.Component {
                     {
                         dataService &&
                         <ProductBox dataService={dataService} navigation={navigation} typeip='ip' mode='row3col1' prepath='mysql'
-                            pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                        />
+                            pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} />
                     }
                 </ScrollView>
             </View>

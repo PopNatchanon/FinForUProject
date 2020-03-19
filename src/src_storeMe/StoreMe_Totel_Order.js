@@ -137,7 +137,7 @@ export class Order_Me_Box extends Component {
              end_order, cancel_order, detail_order_review, detail_order_cancel, Cause_cancel, 
             } = this.props
         return (
-            <View >
+            <View>
                 <View style={stylesMain.FrameBackground}>
                     <View style={{ height: 50, width: '100%', flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 10, borderColor: '#EAEAEA', borderBottomWidth: 1, }}>
                         <View style={stylesMain.FlexRow}>
@@ -153,7 +153,7 @@ export class Order_Me_Box extends Component {
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { margin: 10, color: '#20BDA1' }]}>ยังไม่ชำระ</Text>
                         }{
                             up_number &&
-                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Setting_TopicStore', { selectedIndex: 10 })} >
+                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Setting_TopicStore', { selectedIndex: 10 })}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { margin: 10, color: '#06BBBB' }]}>เพิ่มเลขพัสดุ</Text>
                             </TouchableOpacity>
                         }{

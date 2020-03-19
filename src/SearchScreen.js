@@ -1,26 +1,24 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component } from 'react';
+import React from 'react';
 import {
     Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
-import SlidingView from 'rn-sliding-view';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconEntypo from 'react-native-vector-icons/Entypo';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
-import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar, BannerBar_THREE, TodayProduct, ExitAppModule } from './MainScreen';
-import { Button_Bar, SlideTab, PricesSlide } from './ExclusiveScreen';
-import { GetServices } from './tools/Tools'
+import { AppBar, BannerBar_THREE, ExitAppModule, TodayProduct, } from './MainScreen';
+import { Button_Bar, } from './ExclusiveScreen';
+import { GetServices, } from './tools/Tools'
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from './navigator/IpConfig';
+import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class SearchScreen extends Component {
+export default class SearchScreen extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -30,11 +28,13 @@ export default class SearchScreen extends Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService, sliderVisible, modeStore } = this.state;
         const { navigation } = this.props;
+        const { dataService, modeStore, sliderVisible, } = this.state;
         if (
-            dataService !== nextState.dataService || sliderVisible !== nextState.sliderVisible || modeStore !== nextState.modeStore ||
-            navigation !== nextProps.navigation
+            ////>nextProps
+            navigation !== nextProps.navigation ||
+            ////>nextState
+            dataService !== nextState.dataService || modeStore !== nextState.modeStore || sliderVisible !== nextState.sliderVisible
         ) {
             return true
         }
@@ -52,13 +52,42 @@ export default class SearchScreen extends Component {
         this.setState({ modeStore })
     }
     render() {
-        const { dataService, sliderVisible, modeStore } = this.state;
         const { navigation } = this.props;
+        const { dataService, modeStore, sliderVisible, } = this.state;
         var uri = ip + '/mysql/DataServiceMain.php';
         var dataBody = {
             type: 'todayproduct'
         };
         const SearchText = 'Louis';
+        const data = [{
+            title: 'หมวดหมู่',
+            subtitle: [{
+                name: 'กระเป๋าสะพายข้าง'
+            }, {
+                name: 'กระเป๋าสะพายหลัง'
+            }, {
+                name: 'กระเป๋าสตางค์'
+            }, {
+                name: 'กระเป๋าใส่นามบัตร'
+            }, {
+                name: 'กระเป๋าใส่เหรียญ'
+            }, {
+                name: 'กระเป๋าถือ'
+            }, {
+                name: 'อื่นๆ'
+            }]
+        }, {
+            title: 'แบรนด์',
+            subtitle: [{
+                name: 'BP world'
+            }, {
+                name: 'Tokyo boy'
+            }, {
+                name: 'JJ'
+            }, {
+                name: 'ETONWEAG'
+            }]
+        }]
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
@@ -91,65 +120,24 @@ export default class SearchScreen extends Component {
                             </ScrollView>
                         )
                 }
-                <SlidingView
-                    disableDrag
-                    componentVisible={sliderVisible}
-                    containerStyle={{
-                        backgroundColor: null,
-                        justifyContent: 'center',
-                        alignContent: 'stretch',
-                        width: '100%'
-                    }}
-                    position="right"
-                    changeVisibilityCallback={this.setSlider.bind(this, !sliderVisible)}
-                >
-                    <View style={stylesMain.FlexRow}>
-                        <TouchableOpacity
-                            activeOpacity={1}
-                            onPress={this.setSlider.bind(this, !sliderVisible)}
-                        >
-                            <View style={stylesTopic.BackgroundLeft}></View>
-                        </TouchableOpacity>
-                        <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNB]}>
-                            <View>
-                                <ScrollView>
-                                    <SlideTabGet />
-                                </ScrollView>
-                                <View style={[stylesMain.FlexRow, { height: 70 }]}>
-                                    <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
-                                        <Text style={[
-                                            stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, {
-                                                color: '#0A55A6'
-                                            }
-                                        ]}>
-                                            รีเซ็ต</Text>
-                                    </View>
-                                    <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset, { backgroundColor: '#0A55A6' }]}>
-                                        <Text style={[
-                                            stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, {
-                                                color: '#fff'
-                                            }
-                                        ]}>
-                                            เสร็จสิ้น</Text>
-                                    </View>
-                                </View>
-                            </View>
-                        </View>
-                    </View>
-                </SlidingView>
+                <SlideTab2 data={data} sliderVisible={sliderVisible} setStateSliderVisible={this.setSlider.bind(this)} />
                 <ExitAppModule navigation={navigation} />
             </SafeAreaView>
         );
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> HeadBox
-export class HeadBox extends Component {
+export class HeadBox extends React.Component {
     constructor(props) {
         super(props)
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { SearchText, otherOption, navigation } = this.props
-        if (SearchText !== nextProps.SearchText || otherOption !== nextProps.otherOption || navigation !== nextProps.navigation) {
+        const { navigation, otherOption, SearchText, } = this.props
+        if (
+            ////>nextProps
+            navigation !== nextProps.navigation || otherOption !== nextProps.otherOption || SearchText !== nextProps.SearchText
+            ////>nextState
+        ) {
             return true
         }
         return false
@@ -165,7 +153,7 @@ export class HeadBox extends Component {
                 navigation.navigate(value, value2)
     }
     render() {
-        const { SearchText, otherOption } = this.props
+        const { otherOption, SearchText, } = this.props
         return (
             <View>
                 <View style={[stylesMain.FrameBackgroundTextBox]}>
@@ -194,13 +182,17 @@ export class HeadBox extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> StoreCard
-export class StoreCard extends Component {
+export class StoreCard extends React.Component {
     constructor(props) {
         super(props)
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation } = this.props
-        if (navigation !== nextProps.navigation) {
+        if (
+            ////>nextProps
+            navigation !== nextProps.navigation
+            ////>nextState
+        ) {
             return true
         }
         return false
@@ -220,15 +212,15 @@ export class StoreCard extends Component {
         return (
             <View style={stylesMain.BoxStore5Box}>
                 <TouchableOpacity style={stylesMain.FlexRow}
-                    onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: 24 })}
-                >
-                    <View style={[stylesMain.BoxStore5Image, stylesMain.ItemCenterVertical, { width: 45, height: 45, marginRight: 10, }]}>
+                    onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: 24 })}>
+                    <View style={[stylesMain.BoxStore5Image, stylesMain.ItemCenterVertical, {
+                        width: 45, height: 45, marginRight: 10,
+                    }]}>
                         <FastImage
                             source={{
                                 uri: dataMySQL,
                             }}
-                            style={[stylesMain.BoxStore5Image]}
-                        />
+                            style={[stylesMain.BoxStore5Image]} />
                     </View>
                     <View>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
@@ -250,52 +242,13 @@ export class StoreCard extends Component {
                         </View>
                         <View style={[{ width: 70, height: 25, backgroundColor: '#0A55A6', borderRadius: 6, marginHorizontal: 2 }]}>
                             <TouchableOpacity style={[stylesMain.ItemCenter, { width: '100%', height: '100%' }]}
-                                onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 })}
-                            >
+                                onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 })}>
                                 <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize7, { color: '#fff' }]}>
                                     พูดคุย</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                 </TouchableOpacity>
-            </View>
-        )
-    }
-}
-///----------------------------------------------------------------------------------------------->>>> SlideTabGet
-export class SlideTabGet extends Component {
-    render() {
-        const item = [{
-            name: 'กระเป๋าสะพายข้าง'
-        }, {
-            name: 'กระเป๋าสะพายหลัง'
-        }, {
-            name: 'กระเป๋าสตางค์'
-        }, {
-            name: 'กระเป๋าใส่นามบัตร'
-        }, {
-            name: 'กระเป๋าใส่เหรียญ'
-        }, {
-            name: 'กระเป๋าถือ'
-        }, {
-            name: 'อื่นๆ'
-        }]
-        const item2 = [{
-            name: 'BP world'
-        }, {
-            name: 'Tokyo boy'
-        }, {
-            name: 'JJ'
-        }, {
-            name: 'ETONWEAG'
-        }]
-        return (
-            <View>
-                <View style={{ width: '100%' }}>
-                    <SlideTab Title='หมวดหมู่' item={item} />
-                    <SlideTab Title='แบรนด์' item={item2} />
-                    <PricesSlide />
-                </View>
             </View>
         )
     }

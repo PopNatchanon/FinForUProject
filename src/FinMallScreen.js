@@ -1,29 +1,21 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component } from 'react';
+import React from 'react';
 import {
-  Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
+  Dimensions, SafeAreaView, ScrollView, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
-import SlidingView from 'rn-sliding-view';
 ///----------------------------------------------------------------------------------------------->>>> Icon
-import IconEntypo from 'react-native-vector-icons/Entypo';
-import IconFeather from 'react-native-vector-icons/Feather';
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesDetail from "../style/StylesDetailScreen";
-import stylesFont from '../style/stylesFont';
-import stylesMain from '../style/StylesMainScreen';
-import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, TodayProduct, ExitAppModule, } from './MainScreen';
+import { Button_Bar, } from './ExclusiveScreen';
+import { GetServices, TabBar, SlideTab2, } from './tools/Tools';
 import { Slide, } from './src_Promotion/DealScreen';
-import { GetServices, TabBar, } from './tools/Tools';
-import { Button_Bar, PricesSlide, SlideTab, } from './ExclusiveScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-
-export default class FinMallScreen extends Component {
+export default class FinMallScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,9 +24,14 @@ export default class FinMallScreen extends Component {
     };
   }
   shouldComponentUpdate = (nextProps, nextState) => {
-    const { dataService, sliderVisible } = this.state
     const { navigation } = this.props
-    if (dataService !== nextState.dataService || sliderVisible !== nextState.sliderVisible || navigation !== nextProps.navigation) {
+    const { dataService, sliderVisible } = this.state
+    if (
+      ////>nextProps
+      navigation !== nextProps.navigation ||
+      ////>nextState
+      dataService !== nextState.dataService || sliderVisible !== nextState.sliderVisible
+    ) {
       return true
     }
     return false
@@ -46,12 +43,41 @@ export default class FinMallScreen extends Component {
     this.setState({ dataService })
   }
   render() {
-    const { dataService, sliderVisible } = this.state
     const { navigation } = this.props
+    const { dataService, sliderVisible } = this.state
     var uri = ip + '/mysql/DataServiceMain.php';
     var dataBody = {
       type: 'todayproduct'
     };
+    const data = [{
+      title: 'หมวดหมู่',
+      subtitle: [{
+        name: 'กระเป๋าสะพายข้าง'
+      }, {
+        name: 'กระเป๋าสะพายหลัง'
+      }, {
+        name: 'กระเป๋าสตางค์'
+      }, {
+        name: 'กระเป๋าใส่นามบัตร'
+      }, {
+        name: 'กระเป๋าใส่เหรียญ'
+      }, {
+        name: 'กระเป๋าถือ'
+      }, {
+        name: 'อื่นๆ'
+      }]
+    }, {
+      title: 'แบรนด์',
+      subtitle: [{
+        name: 'BP world'
+      }, {
+        name: 'Tokyo boy'
+      }, {
+        name: 'JJ'
+      }, {
+        name: 'ETONWEAG'
+      }]
+    }]
     return (
       <SafeAreaView>
         <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
@@ -61,89 +87,13 @@ export default class FinMallScreen extends Component {
           <View style={{ marginBottom: 10 }}></View>
           <Button_Bar setSliderVisible={this.setSlider} getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
           {
-            dataService ?
-              <TodayProduct noTitle navigation={navigation} loadData={dataService} typeip prepath='mysql' /> :
-              null
+            dataService &&
+            <TodayProduct noTitle navigation={navigation} loadData={dataService} typeip prepath='mysql' />
           }
         </ScrollView>
-        <SlidingView
-          disableDrag
-          componentVisible={sliderVisible}
-          containerStyle={{
-            backgroundColor: null,
-            justifyContent: 'center',
-            alignContent: 'stretch',
-            width: '100%'
-          }}
-          position="right"
-          changeVisibilityCallback={() => this.setState({ sliderVisible: !sliderVisible })}
-        >
-          <View style={stylesMain.FlexRow}>
-            <TouchableOpacity
-              activeOpacity={1}
-              onPress={() => this.setState({ sliderVisible: !sliderVisible })}
-            >
-              <View style={stylesTopic.BackgroundLeft}></View>
-            </TouchableOpacity>
-            <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNB]}>
-              <View>
-                <ScrollView>
-                  <SlideTabGet />
-                </ScrollView>
-                <View style={[stylesMain.FlexRow, { height: 70 }]}>
-                  <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
-                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
-                      รีเซ็ต</Text>
-                  </View>
-                  <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset, { backgroundColor: '#0A55A6' }]}>
-                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#fff' }]}>
-                      เสร็จสิ้น</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-        </SlidingView>
+        <SlideTab2 data={data} sliderVisible={sliderVisible} setStateSliderVisible={this.setSlider.bind(this)} />
         <ExitAppModule navigation={navigation} />
       </SafeAreaView>
     );
-  }
-}
-///----------------------------------------------------------------------------------------------->>>>
-export class SlideTabGet extends Component {
-  render() {
-    const item = [{
-      name: 'กระเป๋าสะพายข้าง'
-    }, {
-      name: 'กระเป๋าสะพายหลัง'
-    }, {
-      name: 'กระเป๋าสตางค์'
-    }, {
-      name: 'กระเป๋าใส่นามบัตร'
-    }, {
-      name: 'กระเป๋าใส่เหรียญ'
-    }, {
-      name: 'กระเป๋าถือ'
-    }, {
-      name: 'อื่นๆ'
-    }]
-    const item2 = [{
-      name: 'BP world'
-    }, {
-      name: 'Tokyo boy'
-    }, {
-      name: 'JJ'
-    }, {
-      name: 'ETONWEAG'
-    }]
-    return (
-      <View>
-        <View style={{ width: '100%' }}>
-          <SlideTab Title='หมวดหมู่' item={item} />
-          <SlideTab Title='แบรนด์' item={item2} />
-          <PricesSlide />
-        </View>
-      </View>
-    )
   }
 }

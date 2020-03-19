@@ -395,7 +395,7 @@ export class Edit_Profile extends Component {
               alignItems: "center",
             }
           }}
-        >
+       >
           {this.NameSheetBody()}
         </BottomSheet>
         {/* เพศ */}
@@ -411,7 +411,7 @@ export class Edit_Profile extends Component {
               alignItems: "center",
             }
           }}
-        >
+       >
           {this.SexSheetBody()}
         </BottomSheet>
         {/* วันเกิด */}
@@ -427,7 +427,7 @@ export class Edit_Profile extends Component {
               alignItems: "center",
             }
           }}
-        >
+       >
           {this.BirthdaySheetBody()}
         </BottomSheet>
         {/* เบอร์โทรศัพท์ */}
@@ -443,7 +443,7 @@ export class Edit_Profile extends Component {
               alignItems: "center",
             }
           }}
-        >
+       >
           {this.Phone_numberSheetBody()}
         </BottomSheet>
         <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขโปรไฟล์' />
@@ -634,7 +634,7 @@ export class Edit_Chat extends Component {
   }
   render() {
     return (
-      <SafeAreaView >
+      <SafeAreaView>
         <AppBar1 backArrow navigation={this.props.navigation} titleHead='ตั้งค่าการแชท' />
         <View style={stylesProfileTopic.BoxTopic}>
           <View style={{ margin: 10 }}>
@@ -663,9 +663,9 @@ export class Edit_Bell extends Component {
   }
   render() {
     return (
-      <SafeAreaView >
+      <SafeAreaView>
         <AppBar1 backArrow navigation={this.props.navigation} titleHead='ตั้งค่าการแจ้งเตือน' />
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 5 })} >
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 5 })}>
           <View style={stylesProfileTopic.BoxTopic}>
             <View style={stylesMain.FlexRow}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -699,7 +699,7 @@ export class Language_Screen extends Component {
   }
   render() {
     return (
-      <SafeAreaView >
+      <SafeAreaView>
         <AppBar1 backArrow navigation={this.props.navigation} titleHead='ภาษา' />
         <View style={stylesProfileTopic.BoxTopic}>
           <View style={stylesMain.FlexRow}>

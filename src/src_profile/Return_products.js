@@ -267,7 +267,7 @@ export class Return_Alert extends Component {
           subtitle="กรุณารอการตรวจสอบจากร้านค้า"
           subtitleStyle={stylesFont.FontFamilyText}
           onRequestClose={() => null}
-        >
+       >
           <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
             <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยกเลิก</SCLAlertButton>
             <SCLAlertButton theme="success" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยืนยัน</SCLAlertButton>

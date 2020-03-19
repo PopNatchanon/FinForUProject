@@ -1,11 +1,10 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component } from 'react';
+import React from 'react';
 import {
     SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> import
 import FastImage from 'react-native-fast-image';
-import NumberFormat from 'react-number-format';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 ///----------------------------------------------------------------------------------------------->>>> styles
@@ -16,9 +15,9 @@ import stylesTopic from '../style/styleTopic';
 import { AppBar, ExitAppModule } from './MainScreen';
 import { GetServices, ProductBox } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> ip
-import { ip, finip } from './navigator/IpConfig';
+import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class Recommend_Store extends Component {
+export default class Recommend_Store extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -26,7 +25,11 @@ export default class Recommend_Store extends Component {
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation } = this.props
-        if (navigation !== nextProps.navigation) {
+        if (
+            ////>nextProps
+            navigation !== nextProps.navigation
+            ////>nextState
+        ) {
             return true
         }
         return false
@@ -49,7 +52,7 @@ export default class Recommend_Store extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Header
-export class Header extends Component {
+export class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -60,8 +63,7 @@ export class Header extends Component {
             <View style={stylesTopic.Header}>
                 <FastImage
                     source={{ uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg', }}
-                    style={stylesTopic.Header_ImageBackground}
-                />
+                    style={stylesTopic.Header_ImageBackground} />
                 <Text style={[stylesTopic.Header_Text, stylesFont.FontFamilyBold]}>
                     รองเท้าสวยๆ แบรนด์ดัง สุดชิค!!
                 </Text>
@@ -69,17 +71,18 @@ export class Header extends Component {
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, stylesTopic.Header_DetailText, {
                         textAlign: 'center',
                     }]}>10 ร้านรองเท้าหลากสไตล์ ใส่ไปไหนก็พร้อมหมด</Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesTopic.Header_DetailText]}>       ถ้าพูดถึงหนึ่งในแอคเซสเซอรี่ประจำกายของผู้หญิง หนึ่งในท็อปลิสต์เบอร์ต้น คงจะหนีไม่พ้นรองเท้าเป็นแน่
-                    สาวคนไหนอยากปรับลุคเปลี่ยนแนว แค่เปลี่ยนรองเท้าก็ปรับลุคได้เป็นปลิดทิ้ง วันนี้คลีโอขอรวบรวมร้านรองเท้าดีไซน์เลิศ ราคาสบายกระเป๋าจากอินสตาแกรมมาเป็นไอเดียให้สาวๆ
-                    เลือกซื้อกัน ช้อปง่ายๆ แค่คลิกกดสั่งออนไลน์ ก็ได้รองเท้าเก๋ๆ ใส่ไปเที่ยววันหยุด หรือจะใส่ไปทำงานก็เวิร์คสุด เรียกได้ว่าซื้อคู่เดียว ใส่ได้ยันจันทร์ถึงอาทิตย์ขึ้นแท่นเป็นไอเท็มมัลติฟังก์ชั่นไปแล้วจ้า
-                     รับรองเลยว่ามีหลากสไตล์เอาใจสาวนักช้อปแน่นอน!</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesTopic.Header_DetailText]}>       ถ้าพูดถึงหนึ่งใน
+                    แอคเซสเซอรี่ประจำกายของผู้หญิง หนึ่งในท็อปลิสต์เบอร์ต้น คงจะหนีไม่พ้นรองเท้าเป็นแน่ สาวคนไหนอยากปรับลุคเปลี่ยนแนว แค่เปลี่ยนรองเท้าก็ปรับลุค
+                    ได้เป็นปลิดทิ้ง วันนี้คลีโอขอรวบรวมร้านรองเท้าดีไซน์เลิศ ราคาสบายกระเป๋าจากอินสตาแกรมมาเป็นไอเดียให้สาวๆ เลือกซื้อกัน ช้อปง่ายๆ แค่คลิกกดสั่ง
+                    ออนไลน์ ก็ได้รองเท้าเก๋ๆ ใส่ไปเที่ยววันหยุด หรือจะใส่ไปทำงานก็เวิร์คสุด เรียกได้ว่าซื้อคู่เดียว ใส่ได้ยันจันทร์ถึงอาทิตย์ขึ้นแท่นเป็นไอเท็มมัลติฟังก์ชั่นไป
+                    แล้วจ้า รับรองเลยว่ามีหลากสไตล์เอาใจสาวนักช้อปแน่นอน!</Text>
                 </View>
             </View>
         );
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Store_Detail
-export class Store_Detail extends Component {
+export class Store_Detail extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -87,9 +90,14 @@ export class Store_Detail extends Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService } = this.state
         const { navigation } = this.props
-        if (dataService !== nextState.dataService || navigation !== nextProps.navigation) {
+        const { dataService } = this.state
+        if (
+            ////>nextProps
+            navigation !== nextProps.navigation ||
+            ////>nextState
+            dataService !== nextState.dataService
+        ) {
             return true
         }
         return false
@@ -108,8 +116,8 @@ export class Store_Detail extends Component {
         this.setState({ dataService })
     }
     render() {
-        const { dataService } = this.state
         const { navigation } = this.props
+        const { dataService } = this.state
         var uri = ip + '/mysql/DataServiceMain.php';
         var dataBody = {
             type: 'product'
@@ -120,15 +128,13 @@ export class Store_Detail extends Component {
                 <View>
                     <FastImage
                         style={stylesTopic.Store_Image}
-                        source={require('../icon/bgprofile.jpg')}
-                    />
+                        source={require('../icon/bgprofile.jpg')} />
                     <View style={stylesTopic.Store_Box}>
                         <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: 23 })}>
                             <View style={stylesTopic.Store_Pro}>
                                 <FastImage
                                     style={{ height: '100%', width: '100%' }}
-                                    source={{ uri: ip + '/mysql/uploads/icon_brand/brand5.png' }}
-                                />
+                                    source={{ uri: ip + '/mysql/uploads/icon_brand/brand5.png' }} />
                             </View>
                         </TouchableOpacity>
                         <View style={{ margin: 10, }}>
@@ -158,8 +164,7 @@ export class Store_Detail extends Component {
                                     </View>
                                     <TouchableOpacity
                                         onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: 23 })}
-                                        style={[stylesTopic.Store_Button, { backgroundColor: '#0A55A6', marginLeft: 8, }]}
-                                    >
+                                        style={[stylesTopic.Store_Button, { backgroundColor: '#0A55A6', marginLeft: 8, }]}>
                                         <Text style={[stylesFont.FontFamilyText, { textAlign: 'center', color: '#FFFFFF' }]}>
                                             เข้าดูร้านค้า</Text>
                                     </TouchableOpacity>
@@ -175,9 +180,9 @@ export class Store_Detail extends Component {
                     </View>
                     <View style={{ backgroundColor: '#BABABA', height: 3, width: '80%', marginLeft: 50, }}></View>
                     <View style={stylesTopic.Store_Detail}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>      รองเท้าสไตล์หวานแหววเอาใจคุณหนู กับรองเท้าหุ้มส้นประดับมุก รองเท้าทรง sandle
-                        รัดส้นเตี้ยหัวแหลมเพิ่มลุคเฟมินีนสุดๆ ไหนจะรองเท้าส้นสูงพร้อมออกงานก็มีหมด สาวๆ คนไหนอยากจะใส่รองเท้าชิวๆ ในวันสบายๆ หรือ อยากได้ลุคกึ่งทางการไปทำงานได้ ต้องร้านนี้เลยจ้า
-                        จะเอาสีขาวออฟไวท์ เมทัลลิค หรือโทนพาสเทลก็มีหมด</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>      รองเท้าสไตล์หวานแหววเอาใจคุณหนู กับ
+                        รองเท้าหุ้มส้นประดับมุก รองเท้าทรง sandle รัดส้นเตี้ยหัวแหลมเพิ่มลุคเฟมินีนสุดๆ ไหนจะรองเท้าส้นสูงพร้อมออกงานก็มีหมด สาวๆ คนไหนอยากจะ
+                        ใส่รองเท้าชิวๆ ในวันสบายๆ หรือ อยากได้ลุคกึ่งทางการไปทำงานได้ ต้องร้านนี้เลยจ้า จะเอาสีขาวออฟไวท์ เมทัลลิค หรือโทนพาสเทลก็มีหมด</Text>
                     </View>
                     <View>
                         <View style={stylesTopic.Store_BoxText_Product}>
@@ -198,8 +203,7 @@ export class Store_Detail extends Component {
                                         pointerid_store
                                         nameSize={14}
                                         priceSize={15}
-                                        dispriceSize={15}
-                                    />
+                                        dispriceSize={15} />
                                 }
                             </ScrollView>
                         </View>

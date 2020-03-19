@@ -93,19 +93,19 @@ export class StoreMe_Setting_Topic extends Component {
                 <View style={[stylesStoreMe.StoreMe_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>การตั้งค่า</Text>
                 </View>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 2 })} >
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 2 })}>
                     <View style={stylesStoreMe.StoreMe_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ตั้งค่าการแชท</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 3 })} >
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 3 })}>
                     <View style={stylesStoreMe.StoreMe_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ตั้งค่าการแจ้งเตือน</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 4 })} >
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 4 })}>
                     <View style={stylesStoreMe.StoreMe_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ภาษา</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
@@ -114,7 +114,7 @@ export class StoreMe_Setting_Topic extends Component {
                 <View style={[stylesStoreMe.StoreMe_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>ช่วยเหลือ</Text>
                 </View>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 5 })} >
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 5 })}>
                     <View style={stylesStoreMe.StoreMe_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ศูนย์ช่วยเหลือ</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
@@ -130,10 +130,10 @@ export class StoreMe_Setting_Topic extends Component {
                 </View>
 
                 <View style={{ alignItems: 'center' }}>
-                    <View style={stylesProfileTopic.Button_Logout} >
+                    <View style={stylesProfileTopic.Button_Logout}>
                         <TouchableOpacity style={{ marginTop: 10 }} onPress={this.handleOpen}>
                             <View style={stylesProfileTopic.Button_LogoutBox}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]} >ออกจากระบบ</Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ออกจากระบบ</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -148,7 +148,7 @@ export class StoreMe_Setting_Topic extends Component {
                     subtitle="คุณต้องการออกจากระบบหรือไม่?"
                     subtitleStyle={stylesFont.FontFamilyText}
                     onRequestClose={() => null}
-                >
+               >
                     <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
                         <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ width: 150, }}>ไม่</SCLAlertButton>
                         <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={this.logoutPress} containerStyle={{ width: 150, }}>ใช่</SCLAlertButton>

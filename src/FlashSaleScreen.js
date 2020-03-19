@@ -1,5 +1,5 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component } from 'react';
+import React from 'react';
 import {
     Animated, Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View
 } from 'react-native';
@@ -16,21 +16,34 @@ import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from './MainScreen';
+import { GetServices, TabBar, } from './tools/Tools';
 import { Slide } from './src_Promotion/DealScreen';
-import { TabBar, GetServices } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class FlashSaleScreen extends Component {
+export default class FlashSaleScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             scrollY: new Animated.Value(0)
         };
     }
-    render() {
-        const { scrollY } = this.state
+    shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation } = this.props
+        const { scrollY } = this.state
+        if (
+            ////>nextProps
+            navigation !== nextProps.navigation ||
+            ////>nextState
+            scrollY !== nextState.scrollY
+        ) {
+            return true
+        }
+        return false
+    }
+    render() {
+        const { navigation } = this.props
+        const { scrollY } = this.state
         const marginTopFlashsale = scrollY.interpolate({
             inputRange: [145, 155],
             outputRange: [10, 0],
@@ -72,7 +85,7 @@ export default class FlashSaleScreen extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Time_FlashSale
-export class Time_FlashSale extends Component {
+export class Time_FlashSale extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -82,9 +95,14 @@ export class Time_FlashSale extends Component {
         }
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService } = this.state
         const { marginTopFlashsale, marginTopTime } = this.props
-        if (dataService !== nextState.dataService || marginTopFlashsale !== nextProps.marginTopFlashsale || marginTopTime !== nextProps.marginTopTime) {
+        const { dataService } = this.state
+        if (
+            ////>nextProps
+            marginTopFlashsale !== nextProps.marginTopFlashsale || marginTopTime !== nextProps.marginTopTime ||
+            ////>nextState
+            dataService !== nextState.dataService
+        ) {
             return true
         }
         return false
@@ -99,8 +117,8 @@ export class Time_FlashSale extends Component {
         this.setState({ selectedIndex2 })
     }
     render() {
-        const { dataService } = this.state
         const { marginTopFlashsale, marginTopTime } = this.props
+        const { dataService } = this.state
         var uri = finip + '/home/category_mobile';
         const item = [{
             name: '12:00',
@@ -139,8 +157,7 @@ export class Time_FlashSale extends Component {
                     activeColor={'#fff'}
                     type='tag'
                     tagBottom={'#0A55A6'}
-                    noMarginIop
-                />
+                    noMarginIop />
             </Animatable.View>,
             <View style={stylesTopic.FlashSale_Tag}>
                 <ScrollView horizontal>
@@ -151,15 +168,14 @@ export class Time_FlashSale extends Component {
                         numberOfLines={1}
                         radiusBox={4}
                         noLimit
-                        type='box'
-                    />
+                        type='box' />
                 </ScrollView>
             </View>
         ]);
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> FlashSale_Product
-export class FlashSale_Product extends Component {
+export class FlashSale_Product extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -167,7 +183,11 @@ export class FlashSale_Product extends Component {
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation } = this.props;
-        if (navigation !== nextProps.navigation) {
+        if (
+            ////>nextProps
+            navigation !== nextProps.navigation
+            ////>nextState
+        ) {
             return true
         }
         return false
@@ -192,8 +212,7 @@ export class FlashSale_Product extends Component {
                                 style={stylesTopic.Image}
                                 source={{
                                     uri: ip + '/MySQL/uploads/products/2019-10-10-1570690991.png'
-                                }}
-                            />
+                                }} />
                         </View>
                     </TouchableOpacity>
                     <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'space-between' }}>
@@ -216,4 +235,3 @@ export class FlashSale_Product extends Component {
         );
     }
 }
-

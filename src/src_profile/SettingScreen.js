@@ -138,7 +138,7 @@ export class ListMenu extends Component {
                             </Text>
                     </View>
                 </View>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 5 })} >
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 5 })}>
                     <View style={stylesProfileTopic.BoxTopic}>
                         <View style={stylesProfile.ListMenuListSub}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -148,7 +148,7 @@ export class ListMenu extends Component {
                         <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1} onPress={null/*() => this.props.navigation.navigate()*/} >
+                <TouchableOpacity activeOpacity={1} onPress={null/*() => this.props.navigation.navigate()*/}>
                     <View style={stylesProfileTopic.BoxTopic}>
                         <View style={stylesProfile.ListMenuListSub}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -169,10 +169,10 @@ export class ListMenu extends Component {
                     </View>
                 </TouchableOpacity>
                 <View style={{ alignItems: 'center' }}>
-                    <View style={stylesProfileTopic.Button_Logout} >
+                    <View style={stylesProfileTopic.Button_Logout}>
                         <TouchableOpacity style={{ marginTop: 10 }} onPress={this.handleOpen}>
                             <View style={stylesProfileTopic.Button_LogoutBox}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]} >ออกจากระบบ</Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ออกจากระบบ</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -187,7 +187,7 @@ export class ListMenu extends Component {
                     subtitle="คุณต้องการออกจากระบบหรือไม่?"
                     subtitleStyle={stylesFont.FontFamilyText}
                     onRequestClose={() => null}
-                >
+               >
                     <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
                         <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ width: 150, }}>ไม่</SCLAlertButton>
                         <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={this.logoutPress} containerStyle={{ width: 150, }}>ใช่</SCLAlertButton>

@@ -492,7 +492,7 @@ export class StoreMe_Up_ProductDetail extends Component {
               borderTopRightRadius: 10,
             }
           }}
-        >
+       >
           {this.Brand_NameSheetBody()}
         </BottomSheet>
         {/* ราคาสินค้า */}
@@ -510,7 +510,7 @@ export class StoreMe_Up_ProductDetail extends Component {
               borderTopRightRadius: 10,
             }
           }}
-        >
+       >
           {this.PriceSheetBody()}
         </BottomSheet>
         {/* จำนวนที่มีสินค้าอยู่ในคลัง */}
@@ -528,7 +528,7 @@ export class StoreMe_Up_ProductDetail extends Component {
               borderTopRightRadius: 10,
             }
           }}
-        >
+       >
           {this.TotalrSheetBody()}
         </BottomSheet>
         {/* ตัวเลือกสินค้า */}
@@ -546,7 +546,7 @@ export class StoreMe_Up_ProductDetail extends Component {
               borderTopRightRadius: 10,
             }
           }}
-        >
+       >
           {this.SelectSheetBody()}
         </BottomSheet>
         {/* สภาพสินค้า */}
@@ -564,7 +564,7 @@ export class StoreMe_Up_ProductDetail extends Component {
               borderTopRightRadius: 10,
             }
           }}
-        >
+       >
           {this.LookSheetBody()}
         </BottomSheet>
         {/* น้ำหนัก */}
@@ -582,7 +582,7 @@ export class StoreMe_Up_ProductDetail extends Component {
               borderTopRightRadius: 10,
             }
           }}
-        >
+       >
           {this.WeightSheetBody()}
         </BottomSheet>
         {/* ขนาดพัสดุ */}
@@ -600,7 +600,7 @@ export class StoreMe_Up_ProductDetail extends Component {
               borderTopRightRadius: 10,
             }
           }}
-        >
+       >
           {this.SizeSheetBody()}
         </BottomSheet>
         <View style={stylesStoreMe.StoreMe_Up_ProductDetail}>

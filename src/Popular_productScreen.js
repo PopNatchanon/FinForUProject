@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component } from 'react';
+import React from 'react';
 import {
-    Dimensions, SafeAreaView, ScrollView, View, TouchableOpacity, Text,
+    Dimensions, SafeAreaView, ScrollView, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
@@ -10,18 +10,30 @@ export const { width, height } = Dimensions.get('window');
 import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, TodayProduct, ExitAppModule } from './MainScreen';
+import { AppBar1, ExitAppModule, TodayProduct, } from './MainScreen';
 import { Slide } from './src_Promotion/DealScreen';
 import { TabBar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class Popular_productScreen extends Component {
+export default class Popular_productScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             id_item: null,
         };
-        this.getData = this.getData.bind(this)
+    }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { navigation } = this.props
+        const { id_item } = this.state
+        if (
+            ////>nextProps
+            navigation !== nextProps.navigation ||
+            ////>nextState
+            id_item !== nextState.id_item
+        ) {
+            return true
+        }
+        return false
     }
     getData(id_item) {
         this.setState({ id_item })
@@ -35,9 +47,8 @@ export default class Popular_productScreen extends Component {
         dataArray[1] = loadData.best_price
         dataArray[2] = loadData.best_sale
         dataArray[3] = loadData.best_cool
-        id_item == null ?
-            this.setState({ id_item: navigation.getParam('id_item') }) :
-            null
+        id_item == null &&
+            this.setState({ id_item: navigation.getParam('id_item') })
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
                 <AppBar1 backArrow navigation={navigation} titleHead='สินค้ายอดนิยม' />
@@ -49,7 +60,7 @@ export default class Popular_productScreen extends Component {
                         >
                             <Slide />
                             <View style={{ marginBottom: 10 }}></View>
-                            <Button_Bar id_item={id_item} getData={this.getData} />
+                            <Button_Bar id_item={id_item} getData={this.getData.bind(this)} />
                             <TodayProduct loadData={dataArray[id_item]} navigation={navigation} noTitle />
                         </ScrollView> :
                         <ScrollView>
@@ -62,17 +73,26 @@ export default class Popular_productScreen extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Button_Bar
-export class Button_Bar extends Component {
+export class Button_Bar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedIndex: 0,
         };
-        this.updateIndex = this.updateIndex.bind(this)
+    }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { getData, id_item, } = this.props
+        if (
+            ////>nextProps
+            getData !== nextProps.getData || id_item !== nextProps.id_item
+            ////>nextState
+        ) {
+            return true
+        }
+        return false
     }
     updateIndex(selectedIndex) {
-        this.setState({ selectedIndex })
-        this.props.getData(selectedIndex)
+        const { getData } = this.props
+        getData(selectedIndex)
     }
     render() {
         const { id_item } = this.props
@@ -88,13 +108,16 @@ export class Button_Bar extends Component {
         return (
             <View style={stylesTopic.FlashSale_Tag}>
                 <TabBar
-                    sendData={this.updateIndex}
+                    sendData={this.updateIndex.bind(this)}
                     item={item}
-                    SetValue={id_item ? id_item : null}
+                    SetValue={
+                        id_item ?
+                            id_item :
+                            null
+                    }
                     activeColor={'#0A55A6'}
                     activeFontColor={'#0A55A6'}
-                    type='tag'
-                />
+                    type='tag' />
             </View>
         );
     }

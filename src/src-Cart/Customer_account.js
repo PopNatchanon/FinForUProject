@@ -227,7 +227,7 @@ export class Account extends Component {
                         textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
                         dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, {}]}
                         renderButtonText={(index) => { this.setState({ province: index }), this.getDataAmphoe(index) }}
-                    >
+                   >
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                             {province}</Text>
                     </ModalDropdown>
@@ -240,7 +240,7 @@ export class Account extends Component {
                         textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
                         dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, {}]}
                         renderButtonText={(index) => this.getDataTumbol(index)}
-                    >
+                   >
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                             {amphoe}</Text>
                     </ModalDropdown>
@@ -253,7 +253,7 @@ export class Account extends Component {
                         textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
                         dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, {}]}
                         renderButtonText={(index) => this.setState({ tumbol: index })}
-                    >
+                   >
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                             {tumbol}</Text>
                     </ModalDropdown>

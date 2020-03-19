@@ -1,27 +1,21 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React from 'react';
 import {
-    Animated, BackHandler, Dimensions, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View,
+    Animated, BackHandler, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage'
 import * as Animatable from 'react-native-animatable';
-import Carousel, {
-    Pagination, // dark-colored pagination component
-    PaginationLight // light-colored pagination component
-} from 'react-native-x-carousel';
-// import Carousel, { Pagination } from 'react-native-snap-carousel';
+import Carousel, { PaginationLight } from 'react-native-x-carousel';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import SplashScreen from 'react-native-splash-screen'
-// import Swiper from 'react-native-swiper';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
-import IconIonicons from 'react-native-vector-icons/Ionicons';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesDeal from '../style/stylePromotion-src/styleDealScreen';
@@ -40,8 +34,7 @@ export default class MainScreen extends React.Component {
         this.state = {
             dataService: [],
             activeDataService: true,
-            LoadingStart: 0,
-            LoadingEnd: 0,
+            IsLoading: 0,
             activeExit: true,
         };
     }
@@ -50,11 +43,14 @@ export default class MainScreen extends React.Component {
         this.setState({ currentUser: JSON.parse(currentUser) })
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService, currentUser, activeDataService } = this.state
         const { navigation } = this.props
+        const { activeDataService, currentUser, dataService, IsLoading } = this.state
         if (
-            dataService !== nextState.dataService || currentUser !== nextState.currentUser ||
-            activeDataService !== nextState.activeDataService || navigation !== nextProps.navigation
+            ////>nextProps
+            navigation !== nextProps.navigation ||
+            ////>nextState
+            activeDataService !== nextState.activeDataService || currentUser !== nextState.currentUser ||
+            dataService !== nextState.dataService || IsLoading !== nextState.IsLoading
         ) {
             return true
         }
@@ -65,52 +61,47 @@ export default class MainScreen extends React.Component {
         setTimeout(() => {
             SplashScreen.hide();
         }, 1000);
-        this.intervalID = setInterval(
-            () => this.tick(),
-            1000
-        );
-    }
-    tick() {
-        const { activeExit } = this.state
-        this.setState({ activeExit: !activeExit });
-    }
-    componentWillUnmount() {
-        clearInterval(this.intervalID);
     }
     getData = (dataService) => {
         this.setState({ dataService, activeDataService: false })
     }
+    LoadingProcess = () => {
+        const { IsLoading } = this.state
+        this.setState({ IsLoading: IsLoading + 1 })
+    }
     render() {
-        const { dataService, currentUser, activeDataService } = this.state
         const { navigation } = this.props
+        const { activeDataService, currentUser, dataService, IsLoading } = this.state
         const browerProps = navigation.getParam('browerProps')
         var uri = finip + '/home/publish_mobile'
+        console.log('IsLoading')
+        console.log(IsLoading)
         return browerProps ?
             ([
-                <View style={{ height: 50, width }}>
+                <View style={{ height: 50, width }} key={'AppBar1'}>
                     <View style={stylesMain.ItemCenterVertical}>
                         <AppBar1 backArrow colorBar='#fff' backArrowColor='#111111' navigation={navigation} />
                     </View>
                 </View>,
-                <BrowerScreen url={browerProps} />
+                <BrowerScreen url={browerProps} key={'BrowerScreen'} />
             ]) :
             (
                 <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                     {
-                        // LoadingEnd == LoadingStart ?
-                        // null :
-                        // < LoadingScreen />
-                    }
-                    {
+                        IsLoading < 0 &&
+                        <LoadingScreen key={'LoadingScreen'} />,
                         activeDataService == true &&
-                        <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} />
+                        <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} key={'activeDataService'} />
                     }
                     <AppBar navigation={navigation} currentUser={currentUser} />
                     <ScrollView>
-                        {/* <TouchableOpacity onPress={() => navigation.push('MainScreen', { browerProps: 'https://www.finforu.com/' })}>
-                            <View style={{ width }}><Text>Enter</Text></View>
-                        </TouchableOpacity> */}
-                        <Slide />
+                        {
+                            /* <TouchableOpacity 
+                             onPress={() => navigation.push('MainScreen', { browerProps: 'https://www.finforu.com/' })}>
+                                <View style={{ width }}><Text>Enter</Text></View>
+                            </TouchableOpacity> */
+                        }
+                        <Slide loading={this.LoadingProcess.bind(this)} />
                         <Category navigation={navigation} />
                         <Button_Bar navigation={navigation} />
                         <FlashSale navigation={navigation} />
@@ -157,20 +148,6 @@ export class ExitAppModule extends React.Component {
         };
         this.springValue = new Animated.Value(0);
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { backClickCount } = this.state
-        const { navigation } = this.props
-        // console.log('nextProps')
-        // console.log(nextProps)
-        // console.log('nextState')
-        // console.log(nextState)
-        if (
-            backClickCount !== nextState.backClickCount || navigation !== nextProps.navigation
-        ) {
-            return true
-        }
-        return false
-    }
     componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton.bind(this));
     }
@@ -213,8 +190,8 @@ export class ExitAppModule extends React.Component {
         const { backClickCount } = this.state
         const { navigation } = this.props
         var routeProps = navigation.dangerouslyGetParent().state.routes.length
-        console.log('routeProps')
-        console.log(navigation.dangerouslyGetParent().state.routes.length)
+        // console.log('routeProps')
+        // console.log(navigation.dangerouslyGetParent().state.routes[routeProps].routeName)
         return routeProps == 1 ? (
             backClickCount == 1 ? BackHandler.exitApp() : this._spring(),
             true
@@ -222,7 +199,7 @@ export class ExitAppModule extends React.Component {
                 navigation.pop(),
                 true
             )
-    };
+    }
     render() {
         return (
             <Animatable.View style={[stylesMain.animatedView, { opacity: this.springValue, transform: [{ translateY: -.08 * height }] }]}>
@@ -242,9 +219,16 @@ export class AppBar extends React.Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { text, currentUser } = this.state
-        const { navigation } = this.props
-        if (text !== nextState.text || currentUser !== nextState.currentUser || navigation !== nextProps.navigation) {
+        const { ABDColor, ABGColor, AIColor, rightBar, leftBar, navigation, searchBar, SearchText } = this.props
+        const { currentUser, text, } = this.state
+        if (
+            ////>nextProps
+            ABDColor !== nextProps.ABDColor || ABGColor !== nextProps.ABGColor || AIColor !== nextProps.AIColor ||
+            rightBar !== nextProps.rightBar || leftBar !== nextProps.leftBar || navigation !== nextProps.navigation ||
+            searchBar !== nextProps.searchBar || SearchText !== nextProps.SearchText ||
+            ////>nextState
+            currentUser !== nextState.currentUser || text !== nextState.text
+        ) {
             return true
         }
         return false
@@ -280,25 +264,25 @@ export class AppBar extends React.Component {
                 backgroundColor: ABGColor ? ABGColor : '#fff',
                 borderColor: ABDColor ? ABDColor : '#ECECEC'
             }]}>
-                {
+                {[
                     leftBar == 'backarrow' &&
-                    <View>
+                    <View key={'backarrow'}>
                         <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30 }]}
                             activeOpacity={1}
                             onPress={this.navigationNavigateScreen.bind(this, 'goBack')}>
                             <AIconEntypo name="chevron-left" size={30} style={{ color: AIColor ? AIColor : '#111' }} />
                         </TouchableOpacity>
-                    </View>
-                }
-                {
+                    </View>,
                     searchBar ?
-                        <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'goBack')}>
+                        <TouchableOpacity key={'searchBar'} activeOpacity={1}
+                            onPress={this.navigationNavigateScreen.bind(this, 'goBack')}>
                             <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical]}>
-                                {/* <FastImage
-                                    style={[stylesMain.LOGO, stylesMain.ItemCenterVertical]}
-                                    source={require('../images/sj.png')}
-                                    resizeMode={FastImage.resizeMode.stretch}
-                                /> */}
+                                {
+                                    /* <FastImage
+                                        style={[stylesMain.LOGO, stylesMain.ItemCenterVertical]}
+                                        source={require('../images/sj.png')}
+                                        resizeMode={FastImage.resizeMode.stretch} /> */
+                                }
                                 <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
                                     width:
                                         rightBar == 'storebar' ?
@@ -316,22 +300,21 @@ export class AppBar extends React.Component {
                                         placeholder="ค้นหาสินค้า/ร้านค้า"
                                         value={text}
                                         maxLength={30}
-                                        onChangeText={this.setText}
-                                    />
+                                        onChangeText={this.setText} />
                                 </View>
                                 <IconAntDesign name="search1" size={20}
-                                    style={[stylesMain.ItemCenterVertical, { marginRight: 4 }]}
-                                />
+                                    style={[stylesMain.ItemCenterVertical, { marginRight: 4 }]} />
                             </View>
                         </TouchableOpacity> :
-                        <TouchableOpacity activeOpacity={1} onPress={
+                        <TouchableOpacity key={'searchBar'} activeOpacity={1} onPress={
                             this.navigationNavigateScreen.bind(this, 'SearchScreen', { modeStore: false })}>
                             <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical]}>
-                                {/* <FastImage
-                                    style={[stylesMain.LOGO, stylesMain.ItemCenterVertical]}
-                                    source={require('../images/sj.png')}
-                                    resizeMode={FastImage.resizeMode.stretch}
-                                /> */}
+                                {
+                                    /* <FastImage
+                                        style={[stylesMain.LOGO, stylesMain.ItemCenterVertical]}
+                                        source={require('../images/sj.png')}
+                                        resizeMode={FastImage.resizeMode.stretch} /> */
+                                }
                                 <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
                                     width:
                                         rightBar == 'storebar' ?
@@ -356,11 +339,9 @@ export class AppBar extends React.Component {
                                     marginRight: 4
                                 }]} />
                             </View>
-                        </TouchableOpacity>
-                }
-                {
+                        </TouchableOpacity>,
                     rightBar == 'storebar' ?
-                        <View style={[stylesMain.ItemCenter, stylesMain.FlexRow]}>
+                        <View key={'storebar'} style={[stylesMain.ItemCenter, stylesMain.FlexRow]}>
                             <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 40 }]}
                                 onPress={null/*() => navigation.navigate('CartScreen')*/}>
                                 <AIconFeather name="filter" size={25} style={{ color: AIColor ? AIColor : '#111' }} />
@@ -370,23 +351,24 @@ export class AppBar extends React.Component {
                                 <AIconFontAwesome5 name="ellipsis-h" size={25} style={{ color: AIColor ? AIColor : '#111' }} />
                             </TouchableOpacity>
                         </View> :
-                        <View style={[stylesMain.FlexRow, stylesMain.ItemCenterVertical]}>
-                            {leftBar == 'backarrow' ?
-                                rightBar == 'chat' &&
-                                <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
-                                    onPress={
-                                        currentUser ?
-                                            this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 }) :
-                                            this.navigationNavigateScreen.bind(this, 'LoginScreen')}>
-                                    <IconAntDesign name="message1" size={25} />
-                                </TouchableOpacity> :
-                                <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
-                                    onPress={
-                                        currentUser ?
-                                            this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 }) :
-                                            this.navigationNavigateScreen.bind(this, 'LoginScreen')}>
-                                    <IconAntDesign name="message1" size={25} />
-                                </TouchableOpacity>
+                        <View key={'storebar'} style={[stylesMain.FlexRow, stylesMain.ItemCenterVertical]}>
+                            {
+                                leftBar == 'backarrow' ?
+                                    rightBar == 'chat' &&
+                                    <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
+                                        onPress={
+                                            currentUser ?
+                                                this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 }) :
+                                                this.navigationNavigateScreen.bind(this, 'LoginScreen')}>
+                                        <IconAntDesign name="message1" size={25} />
+                                    </TouchableOpacity> :
+                                    <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
+                                        onPress={
+                                            currentUser ?
+                                                this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 }) :
+                                                this.navigationNavigateScreen.bind(this, 'LoginScreen')}>
+                                        <IconAntDesign name="message1" size={25} />
+                                    </TouchableOpacity>
                             }
                             <TouchableOpacity style={[stylesMain.ItemCenter, {
                                 width:
@@ -402,7 +384,7 @@ export class AppBar extends React.Component {
                                 <IconAntDesign name="shoppingcart" size={25} />
                             </TouchableOpacity>
                         </View>
-                }
+                ]}
             </Animatable.View>
         );
     }
@@ -418,17 +400,18 @@ export class AppBar1 extends React.Component {
         this.getDataAsync()
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { currentUser, } = this.state
         const {
-            navigation, titleHead, backArrow, backArrowColor, chatBar, colorBar, menuBar, storeBar, searchBar, settingBar, saveBar,
-
+            backArrow, backArrowColor, chatBar, colorBar, menuBar, navigation, saveBar, searchBar, settingBar, storeBar, titleHead,
         } = this.props;
+        const { currentUser, } = this.state
         if (
-
-            currentUser !== nextProps.currentUser || navigation !== nextProps.navigation || titleHead !== nextProps.titleHead ||
+            ////>nextProps
             backArrow !== nextProps.backArrow || backArrowColor !== nextProps.backArrowColor || chatBar !== nextProps.chatBar ||
-            colorBar !== nextProps.colorBar || menuBar !== nextProps.menuBar || storeBar !== nextProps.storeBar ||
-            searchBar !== nextProps.searchBar || settingBar !== nextProps.settingBar || saveBar !== nextProps.saveBar
+            colorBar !== nextProps.colorBar || menuBar !== nextProps.menuBar || navigation !== nextProps.navigation ||
+            saveBar !== nextProps.saveBar || searchBar !== nextProps.searchBar || settingBar !== nextProps.settingBar ||
+            storeBar !== nextProps.storeBar || titleHead !== nextProps.titleHead ||
+            ////>nextState
+            currentUser !== nextState.currentUser
         ) {
             return true
         }
@@ -454,17 +437,21 @@ export class AppBar1 extends React.Component {
     render() {
         const { currentUser, } = this.state
         const {
-            titleHead, backArrow, backArrowColor, chatBar, colorBar, menuBar, storeBar, searchBar, settingBar, saveBar,
+            backArrow, backArrowColor, chatBar, colorBar, menuBar, saveBar, searchBar, settingBar, storeBar, titleHead,
         } = this.props;
         return (
-            <View style={colorBar ? colorBar : menuBar ? stylesStore.AppbarMenu : stylesStore.Appbar}>
+            <View style={
+                colorBar ?
+                    colorBar :
+                    menuBar ?
+                        stylesStore.AppbarMenu :
+                        stylesStore.Appbar}>
                 <View style={stylesMain.FlexRow}>
                     {
                         backArrow &&
                         <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30 }]}
                             activeOpacity={1}
-                            onPress={this.navigationNavigateScreen.bind(this, 'goBack')}
-                        >
+                            onPress={this.navigationNavigateScreen.bind(this, 'goBack')}>
                             <IconEntypo style={[stylesStore.Icon_appbar, {
                                 color: backArrowColor ? backArrowColor : '#ffffff'
                             }]} name="chevron-left" size={30} />
@@ -476,63 +463,66 @@ export class AppBar1 extends React.Component {
                         {titleHead && titleHead}</Text>
                 </View>
                 <View style={stylesMain.FlexRow}>
-                    {
+                    {[
                         searchBar &&
-                        <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
-                            onPress={this.navigationNavigateScreen.bind(this, 'SearchScreen', { modeStore: false })}
-                        >
+                        <TouchableOpacity
+                            key={'searchBar'}
+                            style={[stylesMain.ItemCenter, { width: 40 }]}
+                            onPress={this.navigationNavigateScreen.bind(this, 'SearchScreen', { modeStore: false })}>
                             <IconAntDesign RightItem name="search1" size={25} style={[
                                 stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
                                     marginRight: 8
                                 }]} />
-                        </TouchableOpacity>
-                    }{
+                        </TouchableOpacity>,
                         settingBar &&
-                        <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
+                        <TouchableOpacity
+                            key={'settingBar'}
+                            style={[stylesMain.ItemCenter, { width: 40 }]}
                             onPress={this.navigationNavigateScreen.bind(this, 'StoreMe_Setting')}>
                             <IconMaterialCommunityIcons name="settings-outline" size={25} style={[
                                 stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
                                     marginRight: 8
                                 }]} />
-                        </TouchableOpacity>
-                    }{
+                        </TouchableOpacity>,
                         chatBar &&
-                        <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
+                        <TouchableOpacity
+                            key={'chatBar'}
+                            style={[stylesMain.ItemCenter, { width: 40 }]}
                             onPress={
                                 currentUser ?
                                     this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 }) :
                                     this.navigationNavigateScreen.bind(this, 'LoginScreen')
-                            }
-                        >
+                            }>
                             <IconAntDesign RightItem name="message1" size={25} style={[
                                 stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
                                     marginRight: 8
                                 }]} />
-                        </TouchableOpacity>
-                    }{
+                        </TouchableOpacity>,
                         storeBar &&
-                        <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
-                            onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 3 })}
-                        >
+                        <TouchableOpacity
+                            key={'storeBar'}
+                            style={[stylesMain.ItemCenter, { width: 40 }]}
+                            onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 3 })}>
                             <IconFontAwesome5 RightItem name="store" size={20} style={[
                                 stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
                                     marginRight: 8
                                 }]} />
-                        </TouchableOpacity>
-                    }{
+                        </TouchableOpacity>,
                         saveBar &&
-                        <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
+                        <TouchableOpacity
+                            key={'saveBar'}
+                            style={[stylesMain.ItemCenter, { width: 40 }]}
                         // onPress={() => ()}
                         >
                             <Text style={[
                                 stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize4, {
                                     width: 50,
                                     marginRight: 8,
-                                }]} >
+                                }]}>
                                 บันทึก
                                         </Text>
                         </TouchableOpacity>
-                    }
+                    ]}
                 </View>
             </View>
         );
@@ -543,35 +533,27 @@ export class Slide extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataService: [],
-            activeSlide: 0,
             activeDataService: true,
+            activeSlide: 0,
+            dataService: [],
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService, activeSlide, activeDataService } = this.state
+        const { loading } = this.props
+        const { activeDataService, activeSlide, dataService, } = this.state
         if (
-            dataService !== nextState.dataService || activeSlide !== nextState.activeSlide ||
-            activeDataService !== nextState.activeDataService
+            ////>nextProps 
+            loading !== nextProps.loading ||
+            ////>nextState
+            activeDataService !== nextState.activeDataService || activeSlide !== nextState.activeSlide ||
+            dataService !== nextState.dataService
         ) {
             return true
         }
         return false
     }
-    componentDidMount() {
-        this.intervalID = setInterval(
-            () => this.tick(),
-            1000
-        );
-    }
-    tick() {
-
-    }
-    componentWillUnmount() {
-        clearInterval(this.intervalID);
-    }
     getData = (dataService) => {
-        this.setState({ dataService, activeDataService: false })
+        this.setState({ activeDataService: false, dataService, })
     }
     getActiveSlide = (activeSlide) => {
         this.setState({ activeSlide })
@@ -587,41 +569,13 @@ export class Slide extends React.Component {
                         height: height * 0.5,
                     }}
                     style={stylesMain.childSlide}
-                    resizeMode={FastImage.resizeMode.stretch}
-                />
+                    resizeMode={FastImage.resizeMode.stretch} />
             </View>
         );
     }
-    // get pagination() {
-    //     const { dataService, activeSlide } = this.state;
-    //     return (
-    //         <View style={{ marginTop: -60, marginBottom: -15 }}>
-    //             <Pagination
-    //                 dotsLength={dataService.length}
-    //                 activeDotIndex={activeSlide}
-    //                 dotStyle={{
-    //                     width: 15,
-    //                     height: 15,
-    //                     borderRadius: 30,
-    //                     backgroundColor: 'rgba(0, 0, 0, 0)',
-    //                     borderColor: 'rgba(255, 255, 255, 0.92)',
-    //                     borderWidth: 2,
-    //                 }}
-    //                 inactiveDotStyle={{
-    //                     width: 15,
-    //                     height: 5,
-    //                     borderRadius: 5,
-    //                     backgroundColor: 'rgba(255, 255, 255, 0.92)',
-    //                 }}
-    //                 carouselRef={this.activeSlide}
-    //                 tappableDots={!!this.activeSlide}
-    //                 inactiveDotScale={0.6}
-    //             />
-    //         </View>
-    //     );
-    // }
     render() {
-        const { dataService, activeDataService } = this.state
+        const { loading } = this.props
+        const { activeDataService, dataService, } = this.state
         var dataBody = {
             slide: 'banner'
         };
@@ -638,8 +592,7 @@ export class Slide extends React.Component {
                     loop
                     autoplay
                     autoplayInterval={3000}
-                    pagination={PaginationLight}
-                />
+                    pagination={PaginationLight} />
                 {/* <Carousel
                     ref={c => this.activeSlide = c}
                     data={dataService}
@@ -655,8 +608,7 @@ export class Slide extends React.Component {
                     removeClippedSubviews={true}
                     initialNumToRender={dataService.length}
                     maxToRenderPerBatch={1}
-                    useScrollView={true}
-                />
+                    useScrollView={true} />
                 {this.pagination} */}
                 {/* <View style={{ flexDirection: 'row', width: '100%', marginTop: -100, marginBottom: 50, justifyContent: 'space-between' }}>
                     {
@@ -688,11 +640,13 @@ export class Category extends React.Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService, activeDataService } = this.state
         const { navigation } = this.props
+        const { activeDataService, dataService, } = this.state
         if (
-            dataService !== nextState.dataService || activeDataService !== nextState.activeDataService ||
-            navigation !== nextProps.navigation
+            ////>nextProps
+            navigation !== nextProps.navigation ||
+            ////>nextState
+            activeDataService !== nextState.activeDataService || dataService !== nextState.dataService
         ) {
             return true
         }
@@ -722,8 +676,7 @@ export class Category extends React.Component {
                             uri: dataMySQL,
                         }}
                         style={stylesMain.Category_box}
-                        resizeMode={FastImage.resizeMode.cover}
-                    />
+                        resizeMode={FastImage.resizeMode.cover} />
                     <View style={{ height: 20 }}>
                         <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize8, stylesFont.FontCenter]}>
                             {item.name}</Text>
@@ -761,7 +714,11 @@ export class Button_Bar extends React.Component {
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation } = this.props
-        if (navigation !== nextProps.navigation) {
+        if (
+            ////>nextProps
+            navigation !== nextProps.navigation
+            ////>nextState
+        ) {
             return true
         }
         return false
@@ -787,8 +744,7 @@ export class Button_Bar extends React.Component {
                                 source={{
                                     uri: ip + '/MySQL/uploads/icon_5/06.jpg',
                                 }}
-                                resizeMode={FastImage.resizeMode.stretch}
-                            />
+                                resizeMode={FastImage.resizeMode.stretch} />
                         </View>
                         <Text style={[stylesFont.FontCenter, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                             ดีลสุดพิเศษ</Text>
@@ -799,8 +755,7 @@ export class Button_Bar extends React.Component {
                                 source={{
                                     uri: ip + '/MySQL/uploads/icon_5/07.jpg',
                                 }}
-                                resizeMode={FastImage.resizeMode.stretch}
-                            />
+                                resizeMode={FastImage.resizeMode.stretch} />
                             <Text style={[stylesFont.FontCenter, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                                 FinCoin</Text>
                         </View>
@@ -811,8 +766,7 @@ export class Button_Bar extends React.Component {
                                 source={{
                                     uri: ip + '/MySQL/uploads/icon_5/08.jpg',
                                 }}
-                                resizeMode={FastImage.resizeMode.stretch}
-                            />
+                                resizeMode={FastImage.resizeMode.stretch} />
                             <Text style={[stylesFont.FontCenter, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                                 แคมเปญ</Text>
                         </View>
@@ -823,8 +777,7 @@ export class Button_Bar extends React.Component {
                                 source={{
                                     uri: ip + '/MySQL/uploads/icon_5/09.jpg',
                                 }}
-                                resizeMode={FastImage.resizeMode.stretch}
-                            />
+                                resizeMode={FastImage.resizeMode.stretch} />
                             <Text style={[stylesFont.FontCenter, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                                 สุดคุ้มสุดฟิน</Text>
                         </View>
@@ -835,8 +788,7 @@ export class Button_Bar extends React.Component {
                                 source={{
                                     uri: ip + '/MySQL/uploads/icon_5/010.jpg',
                                 }}
-                                resizeMode={FastImage.resizeMode.stretch}
-                            />
+                                resizeMode={FastImage.resizeMode.stretch} />
                         </View>
                         <Text style={[stylesFont.FontCenter, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                             ผ่อนชำระ 0%</Text>
@@ -854,8 +806,12 @@ export class Recommend_Brand extends React.Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation, loadData } = this.props
-        if (loadData !== nextProps.loadData || navigation !== nextProps.navigation) {
+        const { loadData, navigation, } = this.props
+        if (
+            ////>nextProps
+            loadData !== nextProps.loadData || navigation !== nextProps.navigation
+            ////>nextState
+        ) {
             return true
         }
         return false
@@ -876,7 +832,8 @@ export class Recommend_Brand extends React.Component {
             loadData.map((item, index) => {
                 var dataMySQL = finip + '/' + item.image_path + '/' + item.image
                 return (
-                    <TouchableOpacity activeOpacity={1} key={index} onPress={this.navigationNavigateScreen.bind(this, 'Recommend_Brand')}>
+                    <TouchableOpacity activeOpacity={1} key={index}
+                        onPress={this.navigationNavigateScreen.bind(this, 'Recommend_Brand')}>
                         <View style={stylesMain.Brand_image_Box}>
                             <FastImage
                                 style={[stylesMain.Brand_image_RCM, stylesMain.ItemCenterVertical]}
@@ -885,8 +842,7 @@ export class Recommend_Brand extends React.Component {
                                     height: 28,
                                     width: 117,
                                 }}
-                                resizeMode={FastImage.resizeMode.cover}
-                            />
+                                resizeMode={FastImage.resizeMode.cover} />
                         </View>
                     </TouchableOpacity>
                 )
@@ -920,8 +876,12 @@ export class Popular_store extends React.Component {
         }
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation, loadData } = this.props
-        if (loadData !== nextProps.loadData || navigation !== nextProps.navigation) {
+        const { loadData, navigation, } = this.props
+        if (
+            ////>nextProps
+            loadData !== nextProps.loadData || navigation !== nextProps.navigation
+            ////>nextState
+        ) {
             return true
         }
         return false
@@ -951,8 +911,7 @@ export class Popular_store extends React.Component {
                                     width: (width * 1 / 2) - 9,
                                     height: 100,
                                 }}
-                                resizeMode={FastImage.resizeMode.stretch}
-                            />
+                                resizeMode={FastImage.resizeMode.stretch} />
                         </View>
                     </TouchableOpacity>
                 )
@@ -980,8 +939,12 @@ export class Popular_product extends React.Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation, loadData } = this.props
-        if (loadData !== nextProps.loadData || navigation !== nextProps.navigation) {
+        const { loadData, navigation, } = this.props
+        if (
+            ////>nextProps
+            loadData !== nextProps.loadData || navigation !== nextProps.navigation
+            ////>nextState
+        ) {
             return true
         }
         return false
@@ -997,8 +960,7 @@ export class Popular_product extends React.Component {
                             uri: dataMySQL,
 
                         }}
-                        resizeMode={FastImage.resizeMode.contain}
-                    />
+                        resizeMode={FastImage.resizeMode.contain} />
                     <View style={{ padding: 3 }}>
                         <Text numberOfLines={1} style={[stylesFont.FontSize8, stylesFont.FontFamilyText]}>{item.name}</Text>
                         <NumberFormat
@@ -1014,8 +976,7 @@ export class Popular_product extends React.Component {
 
                                 ]}>
                                     {value}</Text>
-                            }
-                        />
+                            } />
                     </View>
                 </View>
             )
@@ -1039,65 +1000,83 @@ export class Popular_product extends React.Component {
                     <View style={stylesMain.FrameBackgroundTextBox}>
                         <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                             สินค้ายอดนิยม</Text>
-                        <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Popular_productScreen', { id_item: 0, loadData: loadData })}>
+                        <TouchableOpacity
+                            activeOpacity={1}
+                            onPress={this.navigationNavigateScreen.bind(this,
+                                'Popular_productScreen', { id_item: 0, loadData: loadData })}>
                             <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                                 ดูทั้งหมด</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={stylesMain.FlexRow}>
                         <ScrollView horizontal>
-                            {
+                            {[
                                 loadData.product_hit &&
-                                <TouchableOpacity activeOpacity={1}
-                                    onPress={this.navigationNavigateScreen.bind(this, 'Popular_productScreen', { id_item: 0, loadData: loadData })}>
+                                <TouchableOpacity
+                                    key={'product_hit'}
+                                    activeOpacity={1}
+                                    onPress={this.navigationNavigateScreen.bind(this,
+                                        'Popular_productScreen', { id_item: 0, loadData: loadData })}>
                                     <View style={stylesMain.Popular_Box_B}>
                                         <View style={stylesMain.PopularText_A}>
-                                            <Text style={[{ marginLeft: 8, color: '#fff' }, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
+                                            <Text style={[
+                                                {
+                                                    marginLeft: 8, color: '#fff'
+                                                }, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
                                                 สินค้าสุดฮิต</Text>
                                         </View>
                                         <View style={stylesMain.FlexRow}>
                                             {this.productCate(loadData.product_hit)}
                                         </View>
                                     </View>
-                                </TouchableOpacity>
-                            }
-                            {
+                                </TouchableOpacity>,
                                 loadData.best_price &&
-                                <TouchableOpacity activeOpacity={1}
-                                    onPress={this.navigationNavigateScreen.bind(this, 'Popular_productScreen', { id_item: 1, loadData: loadData })}>
+                                <TouchableOpacity
+                                    key={'best_price'}
+                                    activeOpacity={1}
+                                    onPress={this.navigationNavigateScreen.bind(this,
+                                        'Popular_productScreen', { id_item: 1, loadData: loadData })}>
                                     <View style={stylesMain.Popular_Box_B}>
                                         <View style={stylesMain.PopularText_A}>
-                                            <Text style={[{ marginLeft: 8, color: '#fff' }, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
+                                            <Text style={[{
+                                                marginLeft: 8, color: '#fff'
+                                            }, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                                                 สินค้าราคาโดน</Text>
                                         </View>
                                         <View style={stylesMain.FlexRow}>
                                             {this.productCate(loadData.best_price)}
                                         </View>
                                     </View>
-                                </TouchableOpacity>
-                            }
-                            {
+                                </TouchableOpacity>,
                                 loadData.best_sale &&
-                                <TouchableOpacity activeOpacity={1}
-                                    onPress={this.navigationNavigateScreen.bind(this, 'Popular_productScreen', { id_item: 2, loadData: loadData })}>
+                                <TouchableOpacity
+                                    key={'best_sale'}
+                                    activeOpacity={1}
+                                    onPress={this.navigationNavigateScreen.bind(this,
+                                        'Popular_productScreen', { id_item: 2, loadData: loadData })}>
                                     <View style={stylesMain.Popular_Box_B}>
                                         <View style={stylesMain.PopularText_A}>
-                                            <Text style={[{ marginLeft: 8, color: '#fff' }, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
+                                            <Text style={[{
+                                                marginLeft: 8, color: '#fff'
+                                            }, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                                                 สินค้าขายดี</Text>
                                         </View>
                                         <View style={stylesMain.FlexRow}>
                                             {this.productCate(loadData.best_sale)}
                                         </View>
                                     </View>
-                                </TouchableOpacity>
-                            }
-                            {
+                                </TouchableOpacity>,
                                 loadData.best_cool &&
-                                <TouchableOpacity activeOpacity={1}
-                                    onPress={this.navigationNavigateScreen.bind(this, 'Popular_productScreen', { id_item: 3, loadData: loadData })} >
+                                <TouchableOpacity
+                                    key={'best_cool'}
+                                    activeOpacity={1}
+                                    onPress={this.navigationNavigateScreen.bind(this,
+                                        'Popular_productScreen', { id_item: 3, loadData: loadData })}>
                                     <View style={stylesMain.Popular_Box_B}>
                                         <View style={stylesMain.PopularText_A}>
-                                            <Text style={[{ marginLeft: 8, color: '#fff' }, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
+                                            <Text style={[{
+                                                marginLeft: 8, color: '#fff'
+                                            }, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                                                 สินค้าสุดคูล</Text>
                                         </View>
                                         <View style={stylesMain.FlexRow}>
@@ -1105,7 +1084,7 @@ export class Popular_product extends React.Component {
                                         </View>
                                     </View>
                                 </TouchableOpacity>
-                            }
+                            ]}
                         </ScrollView>
                     </View>
                 </View>
@@ -1130,8 +1109,7 @@ export class BannerBar_ONE extends React.Component {
                         width,
                         height: 70,
                     }}
-                    resizeMode={FastImage.resizeMode.stretch}
-                />
+                    resizeMode={FastImage.resizeMode.stretch} />
             </View>
         );
     }
@@ -1153,8 +1131,7 @@ export class BannerBar_TWO extends React.Component {
                         width,
                         height: 70,
                     }}
-                    resizeMode={FastImage.resizeMode.stretch}
-                />
+                    resizeMode={FastImage.resizeMode.stretch} />
             </View>
         );
     }
@@ -1176,8 +1153,7 @@ export class BannerBar_THREE extends React.Component {
                         width,
                         height: 70,
                     }}
-                    resizeMode={FastImage.resizeMode.stretch}
-                />
+                    resizeMode={FastImage.resizeMode.stretch} />
             </View>
         );
     }
@@ -1187,25 +1163,28 @@ export class FlashSale extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataService: [],
             activeDataService: true,
+            dataService: [],
             endTime: new Date(),
             curTime: new Date(),
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { curTime, dataService, endTime, activeDataService } = this.state
         const { navigation } = this.props
+        const { activeDataService, curTime, dataService, endTime, } = this.state
         if (
-            curTime !== nextState.curTime || dataService !== nextState.dataService || endTime !== nextState.endTime ||
-            activeDataService !== nextState.activeDataService || navigation !== nextProps.navigation
+            ////>nextProps
+            navigation !== nextProps.navigation ||
+            ////>nextState
+            activeDataService !== nextState.activeDataService || curTime !== nextState.curTime ||
+            dataService !== nextState.dataService || endTime !== nextState.endTime
         ) {
             return true
         }
         return false
     }
     getData = (dataService) => {
-        this.setState({ dataService, activeDataService: false })
+        this.setState({ activeDataService: false, dataService, })
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
@@ -1218,7 +1197,7 @@ export class FlashSale extends React.Component {
                 navigation.navigate(value, value2)
     }
     componentDidMount() {
-        this.setState({ endTime: new Date('2020-03-17T05:00:00.000Z') })
+        this.setState({ endTime: new Date('2020-03-18T05:00:00.000Z') })
         this.intervalID = setInterval(
             () => this.tick(),
             1000
@@ -1233,29 +1212,18 @@ export class FlashSale extends React.Component {
         clearInterval(this.intervalID);
     }
     render() {
-        const { curTime, dataService, endTime, activeDataService } = this.state
         const { navigation } = this.props
+        const { activeDataService, curTime, dataService, endTime, } = this.state
         var uri = ip + '/mysql/DataServiceMain.php';
         var dataBody = {
             type: 'sale'
         };
+        var test = 12
         var Hours = 0
         var Minutes = 0
         var Seconds = 0
-        // console.log('curTime')
-        // console.log(new Date(curTime).getDate() + ' ' + new Date(curTime).getHours() + ':' + new Date(curTime).getMinutes() + ':' +
-        //     new Date(curTime).getSeconds())
-        // console.log('endTime')
-        // console.log(new Date(endTime).getDate() + ' ' + new Date(endTime).getHours() + ':' + new Date(endTime).getMinutes() + ':' +
-        //     new Date(endTime).getSeconds())
-        // console.log('show')
-        // console.log(Number(new Date(endTime).getDate()) - Number(new Date(curTime).getDate()))
-        // console.log((Number(new Date(endTime).getDate()) - Number(new Date(curTime).getDate())) * 24)
-        // console.log(Number(new Date(endTime).getHours()) - Number(new Date(curTime).getHours()))
-        // console.log(Number(new Date(endTime).getMinutes()) - Number(new Date(curTime).getMinutes()))
-        // console.log(Number(new Date(endTime).getSeconds()) - Number(new Date(curTime).getSeconds()))
         endTime && (
-            Hours = Number(new Date(endTime).getHours()) - Number(new Date(curTime).getHours()),
+            Hours = test + Number(new Date(endTime).getHours()) - Number(new Date(curTime).getHours()),
             (Number(new Date(endTime).getDate()) - Number(new Date(curTime).getDate())) > 0 && (
                 Hours = Hours + ((Number(new Date(endTime).getDate()) - Number(new Date(curTime).getDate())) * 24)
             ),
@@ -1270,8 +1238,6 @@ export class FlashSale extends React.Component {
                 Seconds = 60 + Seconds
             )
         )
-        // console.log('Process')
-        // console.log(Hours + ':' + Minutes + ':' + Seconds)
         return (
             <View style={stylesMain.FrameBackground2}>
                 {
@@ -1325,8 +1291,12 @@ export class PromotionPopular extends React.Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation, loadData } = this.props
-        if (loadData !== nextProps.loadData || navigation !== nextProps.navigation) {
+        const { loadData, navigation, } = this.props
+        if (
+            ////>nextProps
+            loadData !== nextProps.loadData || navigation !== nextProps.navigation
+            ////>nextState
+        ) {
             return true
         }
         return false
@@ -1356,8 +1326,7 @@ export class PromotionPopular extends React.Component {
                                     height: 80,
                                 }}
                                 style={[stylesMain.BoxStore2Image2]}
-                                resizeMode={FastImage.resizeMode.stretch}
-                            />
+                                resizeMode={FastImage.resizeMode.stretch} />
                             <View style={{
                                 height: 20, paddingHorizontal: 4, padding: 1, backgroundColor: '#0A55A6', borderBottomLeftRadius: 8, borderBottomRightRadius: 8
                             }}>
@@ -1421,8 +1390,7 @@ export class PromotionPopular extends React.Component {
 //                             height: 60,
 //                         }}
 //                         style={stylesMain.BoxStore2Image}
-//                         resizeMode={FastImage.resizeMode.stretch}
-//                     />
+//                         resizeMode={FastImage.resizeMode.stretch} />
 //                 </View>
 //             )
 //         })
@@ -1458,8 +1426,12 @@ export class Product_for_you extends React.Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation, loadData } = this.props
-        if (loadData !== nextProps.loadData || navigation !== nextProps.navigation) {
+        const { loadData, navigation } = this.props
+        if (
+            ////>nextProps
+            loadData !== nextProps.loadData || navigation !== nextProps.navigation
+            ////>nextState
+        ) {
             return true
         }
         return false
@@ -1508,7 +1480,11 @@ export class Highlight extends React.Component {
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation, loadData } = this.props
-        if (loadData !== nextProps.loadData || navigation !== nextProps.navigation) {
+        if (
+            ////>nextProps
+            loadData !== nextProps.loadData || navigation !== nextProps.navigation
+            ////>nextState
+        ) {
             return true
         }
         return false
@@ -1539,8 +1515,7 @@ export class Highlight extends React.Component {
                     {
                         loadData &&
                         <ProductBox dataService={loadData} navigation={navigation} typeip='fin' mode='row3col1'
-                            pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                        />
+                            pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} />
                     }
                 </ScrollView>
             </View>
@@ -1556,7 +1531,11 @@ export class Fin_Mall extends React.Component {
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation, loadData } = this.props
-        if (loadData !== nextProps.loadData || navigation !== nextProps.navigation) {
+        if (
+            ////>nextProps
+            loadData !== nextProps.loadData || navigation !== nextProps.navigation
+            ////>nextState
+        ) {
             return true
         }
         return false
@@ -1572,8 +1551,7 @@ export class Fin_Mall extends React.Component {
                             source={{
                                 uri: dataMySQL,
                             }}
-                            resizeMode={FastImage.resizeMode.contain}
-                        />
+                            resizeMode={FastImage.resizeMode.contain} />
                         <View style={{ padding: 3 }}>
                             <Text numberOfLines={1} style={[stylesFont.FontSize8, stylesFont.FontFamilyText]}>{item.name}</Text>
                             <NumberFormat
@@ -1589,8 +1567,7 @@ export class Fin_Mall extends React.Component {
 
                                     ]}>
                                         {value}</Text>
-                                }
-                            />
+                                } />
                         </View>
                     </View>
                 )
@@ -1618,8 +1595,7 @@ export class Fin_Mall extends React.Component {
                             style={[stylesMain.BoxProduct1Image, { width: 120, height: 120 }]}
                             source={{
                                 uri: ip + '/MySQL/uploads/Unicorn/013.png',
-                            }}
-                        />
+                            }} />
                     </View>
                     <View style={[stylesMain.ItemCenter, { width: '43%', backgroundColor: '#EDEDED' }]}>
                         {
@@ -1647,7 +1623,11 @@ export class NewStore extends React.Component {
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation, loadData } = this.props
-        if (loadData !== nextProps.loadData || navigation !== nextProps.navigation) {
+        if (
+            ////>nextProps
+            loadData !== nextProps.loadData || navigation !== nextProps.navigation
+            ////>nextState
+        ) {
             return true
         }
         return false
@@ -1676,8 +1656,7 @@ export class NewStore extends React.Component {
                                     uri: dataMySQL,
                                 }}
                                 style={stylesMain.BoxStore1Image}
-                                resizeMode={FastImage.resizeMode.stretch}
-                            />
+                                resizeMode={FastImage.resizeMode.stretch} />
                         </View>
                     </TouchableOpacity>
                 )
@@ -1703,8 +1682,12 @@ export class Exclusive extends React.Component {
         super(props);
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation, loadData } = this.props
-        if (loadData !== nextProps.loadData || navigation !== nextProps.navigation) {
+        const { loadData, navigation } = this.props
+        if (
+            ////>nextProps
+            loadData !== nextProps.loadData || navigation !== nextProps.navigation
+            ////>nextState
+        ) {
             return true
         }
         return false
@@ -1736,8 +1719,7 @@ export class Exclusive extends React.Component {
                     {
                         loadData &&
                         <ProductBox dataService={loadData} navigation={navigation} typeip='fin' mode='row3col1'
-                            pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                        />
+                            pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} />
                     }
                 </ScrollView>
             </View>
@@ -1749,16 +1731,18 @@ export class CategoryProduct extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataService: [],
             activeDataService: true,
+            dataService: [],
         }
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService, activeDataService } = this.state
-        const { navigation } = this.props
+        const { navigation, NoStoreReCom, } = this.props
+        const { activeDataService, dataService, } = this.state
         if (
-            dataService !== nextState.dataService || activeDataService !== nextState.activeDataService ||
-            navigation !== nextProps.navigation
+            ////>nextProps
+            navigation !== nextProps.navigation || NoStoreReCom !== nextProps.NoStoreReCom ||
+            ////>nextState
+            activeDataService !== nextState.activeDataService || dataService !== nextState.dataService
         ) {
             return true
         }
@@ -1778,8 +1762,8 @@ export class CategoryProduct extends React.Component {
                 navigation.navigate(value, value2)
     }
     get dataCategory() {
+        const { navigation, NoStoreReCom, } = this.props
         const { dataService } = this.state
-        const { NoStoreReCom, navigation } = this.props
         return dataService &&
             dataService.map((item, index) => {
                 var dataMySQL = finip + '/' + item.mobile_head;
@@ -1792,8 +1776,7 @@ export class CategoryProduct extends React.Component {
                                         uri: dataMySQL,
                                     }}
                                     style={[stylesMain.CategoryProductImageHead]}
-                                    resizeMode={FastImage.resizeMode.cover}
-                                />
+                                    resizeMode={FastImage.resizeMode.cover} />
                             </TouchableOpacity>
                             <CategoryProductSubProduct navigation={navigation} id_type={item.id_type} />
                         </View>
@@ -1801,7 +1784,9 @@ export class CategoryProduct extends React.Component {
                             NoStoreReCom ?
                                 <View style={{ marginBottom: 10, }}>
                                     <View style={{ marginTop: 10, }}>
-                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 8, color: '#fff' }]}>
+                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
+                                            marginLeft: 8, color: '#fff'
+                                        }]}>
                                             ร้านนี้ผ่อนได้ </Text>
                                     </View>
                                     <CategoryProductSubStore navigation={navigation} id_type={item.id_type} />
@@ -1820,11 +1805,11 @@ export class CategoryProduct extends React.Component {
         var uri = finip + '/home/category_mobile';
         return (
             <View>
-                {
+                {[
                     activeDataService == true &&
-                    <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} />
-                }
-                {this.dataCategory}
+                    <GetServices key={'activeDataService'} uriPointer={uri} getDataSource={this.getData.bind(this)} />,
+                    this.dataCategory
+                ]}
             </View>
         )
     }
@@ -1834,15 +1819,18 @@ export class CategoryProductSubProduct extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataService: [],
             activeDataService: true,
+            dataService: [],
         }
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService, activeDataService } = this.state
         const { id_type, navigation } = this.props
-        if (dataService !== nextState.dataService || activeDataService !== nextState.activeDataService || id_type !== nextProps.id_type
-            || navigation !== nextProps.navigation
+        const { activeDataService, dataService, } = this.state
+        if (
+            ////>nextProps
+            id_type !== nextProps.id_type || navigation !== nextProps.navigation ||
+            ////>nextState
+            activeDataService !== nextState.activeDataService || dataService !== nextState.dataService
         ) {
             return true
         }
@@ -1852,8 +1840,8 @@ export class CategoryProductSubProduct extends React.Component {
         this.setState({ dataService, activeDataService: false })
     }
     render() {
-        const { dataService, activeDataService } = this.state
         const { id_type, navigation } = this.props
+        const { activeDataService, dataService, } = this.state
         var uri = finip + '/home/product_mobile';
         var dataBody = {
             id_type: id_type
@@ -1868,8 +1856,7 @@ export class CategoryProductSubProduct extends React.Component {
                     {
                         dataService &&
                         <ProductBox dataService={dataService} navigation={navigation} typeip='fin' mode='row3col2'
-                            pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                        />
+                            pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} />
                     }
                 </View>
             </ScrollView>
@@ -1881,16 +1868,19 @@ export class CategoryProductSubStore extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataService: [],
             activeDataService: true,
+            dataService: [],
         }
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { activeSlide, dataService, activeDataService } = this.state
         const { id_type, navigation } = this.props
+        const { activeDataService, activeSlide, dataService, } = this.state
         if (
-            activeSlide !== nextState.activeSlide || dataService !== nextState.dataService ||
-            activeDataService !== nextState.activeDataService || id_type !== nextProps.id_type || navigation !== nextProps.navigation
+            ////>nextProps
+            id_type !== nextProps.id_type || navigation !== nextProps.navigation ||
+            ////>nextState
+            activeSlide !== nextState.activeSlide || activeDataService !== nextState.activeDataService ||
+            dataService !== nextState.dataService
         ) {
             return true
         }
@@ -1916,8 +1906,7 @@ export class CategoryProductSubStore extends React.Component {
                             height: 90,
                         }}
                         style={stylesMain.CategoryProductStoreImage}
-                        resizeMode={FastImage.resizeMode.cover}
-                    />
+                        resizeMode={FastImage.resizeMode.cover} />
                 </View>
                 <View style={[stylesMain.CategoryProductStoreBox]}>
                     <FastImage
@@ -1927,8 +1916,7 @@ export class CategoryProductSubStore extends React.Component {
                             height: 90,
                         }}
                         style={stylesMain.CategoryProductStoreImage}
-                        resizeMode={FastImage.resizeMode.cover}
-                    />
+                        resizeMode={FastImage.resizeMode.cover} />
                 </View>
             </TouchableOpacity>
         );
@@ -1937,8 +1925,8 @@ export class CategoryProductSubStore extends React.Component {
         this.setState({ activeSlide: index })
     }
     render() {
-        const { dataService, activeDataService } = this.state
         const { id_type } = this.props
+        const { dataService, activeDataService } = this.state
         var uri = finip + '/home/publish_cate_mobile';
         var dataBody = {
             promotion: 'shop',
@@ -1954,20 +1942,18 @@ export class CategoryProductSubStore extends React.Component {
             }
         return (
             <>
-                {
+                {[
                     activeDataService == true &&
-                    <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
-                }
-                {
+                    <GetServices key={'activeDataService'} uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />,
                     dataService.banner && (
                         <Carousel
+                            key={'banner'}
                             renderItem={this._renderItem}
                             data={item}
                             loop
                             autoplay
                             autoplayInterval={3000}
-                            pagination={PaginationLight}
-                        />
+                            pagination={PaginationLight} />
                     )
                     // <Carousel
                     //     ref={c => this.activeSlide = c}
@@ -1989,7 +1975,7 @@ export class CategoryProductSubStore extends React.Component {
                     //     autoplayDelay={3000}
                     //     loop
                     // />
-                }
+                ]}
             </>
         );
     }
@@ -1999,29 +1985,31 @@ export class CategoryProductSubPromotion extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataService: [],
             activeDataService: true,
-            dataService2: [],
             activeDataService2: true,
+            dataService: [],
+            dataService2: [],
         }
+    }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { id_type, navigation } = this.props
+        const { activeDataService, activeDataService2, dataService, dataService2, } = this.state
+        if (
+            ////>nextProps
+            id_type !== nextProps.id_type || navigation !== nextProps.navigation ||
+            ////>nextProps
+            activeDataService !== nextState.activeDataService || activeDataService2 !== nextState.activeDataService2 ||
+            dataService !== nextState.dataService || dataService2 !== nextState.dataService2
+        ) {
+            return true
+        }
+        return false
     }
     getData = (dataService) => {
         this.setState({ dataService, activeDataService: false })
     }
     getData2 = (dataService2) => {
         this.setState({ dataService2, activeDataService2: false })
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService, dataService2, activeDataService, activeDataService2 } = this.state
-        const { id_type, navigation } = this.props
-        if (
-            dataService !== nextState.dataService || dataService2 !== nextState.dataService2 ||
-            activeDataService !== nextState.activeDataService || activeDataService2 !== nextState.activeDataService2 ||
-            id_type !== nextProps.id_type || navigation !== nextProps.navigation
-        ) {
-            return true
-        }
-        return false
     }
     get dataCategoryProductSubPromotion() {
         const { dataService } = this.state
@@ -2036,8 +2024,7 @@ export class CategoryProductSubPromotion extends React.Component {
                                 width: width * 0.55,
                                 height: 105,
                             }}
-                            style={[stylesMain.BoxProduct1Image, { borderRadius: 6, }]}
-                        />
+                            style={[stylesMain.BoxProduct1Image, { borderRadius: 6, }]} />
                     </View>
                 );
             })
@@ -2055,15 +2042,14 @@ export class CategoryProductSubPromotion extends React.Component {
                                 width: width * 0.40,
                                 height: 105,
                             }}
-                            style={[stylesMain.BoxProduct1Image, { borderRadius: 6, }]}
-                        />
+                            style={[stylesMain.BoxProduct1Image, { borderRadius: 6, }]} />
                     </View>
                 );
             })
     }
     render() {
-        const { dataService, dataService2, activeDataService, activeDataService2 } = this.state
         const { id_type } = this.props
+        const { activeDataService, activeDataService2, dataService, dataService2, } = this.state
         var uri = finip + '/home/publish_cate_mobile';
         var dataBody = {
             promotion: 'promotions_1',
@@ -2076,20 +2062,18 @@ export class CategoryProductSubPromotion extends React.Component {
         return (
             <>
                 <View style={[stylesMain.FlexRow, { width: '100%' }]}>
-                    {
+                    {[
                         activeDataService == true &&
-                        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
-                    }
-                    {
+                        <GetServices key={'activeDataService'} uriPointer={uri} dataBody={dataBody}
+                            getDataSource={this.getData.bind(this)} />,
                         activeDataService2 == true &&
-                        <GetServices uriPointer={uri} dataBody={dataBody2} getDataSource={this.getData2.bind(this)} />
-                    }
-                    {
+                        <GetServices key={'activeDataService2'} uriPointer={uri} dataBody={dataBody2}
+                            getDataSource={this.getData2.bind(this)} />,
                         dataService.banner && dataService2.banner && ([
                             this.dataCategoryProductSubPromotion,
                             this.dataCategoryProductSubPromotion2
                         ])
-                    }
+                    ]}
                 </View>
             </>
         );
@@ -2104,9 +2088,14 @@ export class Second_product extends React.Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
+        const { Header_Second, loadData, navigation, } = this.props
         const { activeSlide } = this.state
-        const { loadData, navigation } = this.props
-        if (activeSlide !== nextState.activeSlide || loadData !== nextProps.loadData || navigation !== nextProps.navigation) {
+        if (
+            ////>nextProps
+            Header_Second !== nextProps.Header_Second || loadData !== nextProps.loadData || navigation !== nextProps.navigation ||
+            ////>nextState
+            activeSlide !== nextState.activeSlide
+        ) {
             return true
         }
         return false
@@ -2133,8 +2122,7 @@ export class Second_product extends React.Component {
                             height: 196,
                         }}
                         style={stylesMain.bigSlideImage}
-                        resizeMode={FastImage.resizeMode.cover}
-                    >
+                        resizeMode={FastImage.resizeMode.cover}>
                     </FastImage>
                 </View>
             );
@@ -2152,32 +2140,34 @@ export class Second_product extends React.Component {
                             height: 130,
                         }}
                         style={stylesMain.litleSlideImage}
-                        resizeMode={FastImage.resizeMode.stretch}
-                    >
+                        resizeMode={FastImage.resizeMode.stretch}>
                     </FastImage>
                 </View>
             );
         })
     }
     get Second_Storeheader() {
-        const { loadData, navigation, Header_Second } = this.props
+        const { Header_Second, loadData, navigation, } = this.props
         var url
         loadData.mobile_bar &&
             loadData.mobile_bar.map((item) => { (url = finip + '/' + item.image_path + '/' + item.image) })
         return (
-            <View style={[stylesMain.FrameBackground2, { marginTop: 0, backgroundColor: loadData.bg_m, borderBottomWidth: null }]}>
+            <View key={'mobile_bar'} style={[stylesMain.FrameBackground2, {
+                marginTop: 0, backgroundColor: loadData.bg_m, borderBottomWidth: null
+            }]}>
                 <View>
                     {
                         Header_Second ?
                             <View style={[stylesDeal.BoxText_T, { backgroundColor: '#E43333', marginLeft: -3, }]}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>มือสองลดราคา</Text>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>
+                                    มือสองลดราคา</Text>
                             </View> :
-                            <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'SecondScreen', { selectedIndex: 0 })}>
+                            <TouchableOpacity activeOpacity={1}
+                                onPress={this.navigationNavigateScreen.bind(this, 'SecondScreen', { selectedIndex: 0 })}>
                                 <FastImage
                                     style={[stylesMain.CategoryProductImageHead, { marginTop: 0 }]}
                                     source={{ uri: url }}
-                                    resizeMode={FastImage.resizeMode.cover}
-                                />
+                                    resizeMode={FastImage.resizeMode.cover} />
                             </TouchableOpacity>
                     }
                     <ScrollView horizontal>
@@ -2185,8 +2175,7 @@ export class Second_product extends React.Component {
                             {
                                 loadData.product_second &&
                                 <ProductBox dataService={loadData.product_second} navigation={navigation} typeip='fin' mode='row3col1'
-                                    pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                                />
+                                    pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} />
                             }
                         </View>
                     </ScrollView>
@@ -2195,20 +2184,22 @@ export class Second_product extends React.Component {
         )
     }
     get Second_Storebody() {
-        const { loadData, Header_Second } = this.props
+        const { Header_Second, loadData, } = this.props
         return (
-            <View style={stylesMain.Second_StoreFin}>
+            <View key={'Header_Second'} style={stylesMain.Second_StoreFin}>
                 <View style={stylesMain.Second_StoreFin_BoxHead}>
                     {
                         Header_Second ?
                             <View style={[stylesDeal.BoxText_T, { backgroundColor: '#95D370', marginLeft: -3, }]}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ร้านมือสองลดราคา</Text>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>
+                                    ร้านมือสองลดราคา</Text>
                             </View> :
                             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                                 ร้านค้ามือสองแนะนำโดย FIN </Text>
                     }
                     <View>
-                        <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'SecondScreen', { selectedIndex: 1 })}>
+                        <TouchableOpacity activeOpacity={1}
+                            onPress={this.navigationNavigateScreen.bind(this, 'SecondScreen', { selectedIndex: 1 })}>
                             <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                                 ดูทั้งหมด</Text>
                         </TouchableOpacity>
@@ -2216,18 +2207,16 @@ export class Second_product extends React.Component {
                 </View>
                 <View>
                     <View style={stylesMain.Second_StoreFin_Image}>
-                        {
+                        {[
                             loadData.list_store2_1 &&
-                            < View style={stylesMain.Second_StoreFin_ImageA}>
+                            <View key={'list_store2_1'} style={stylesMain.Second_StoreFin_ImageA}>
                                 <View>
                                     {this.renderItem1(loadData.list_store2_1)}
                                 </View>
                                 {this.pagination}
-                            </View>
-                        }
-                        {
+                            </View>,
                             loadData.list_store2_2 &&
-                            <View>
+                            <View key={'list_store2_2'}>
                                 <View style={stylesMain.Second_StoreFin_ImageB}>
                                     <View style={stylesMain.Second_StoreFin_ImageB_T}>
                                         {this.renderItem2([loadData.list_store2_2[0]])}
@@ -2237,7 +2226,7 @@ export class Second_product extends React.Component {
                                     </View>
                                 </View>
                             </View>
-                        }
+                        ]}
                     </View>
                 </View>
             </View>
@@ -2260,8 +2249,7 @@ export class Second_product extends React.Component {
                             height: 90,
                         }}
                         style={stylesMain.CategoryProductStoreImage}
-                        resizeMode={FastImage.resizeMode.cover}
-                    />
+                        resizeMode={FastImage.resizeMode.cover} />
                 </View>
                 <View style={[stylesMain.CategoryProductStoreBox]}>
                     <FastImage
@@ -2271,8 +2259,7 @@ export class Second_product extends React.Component {
                             height: 90,
                         }}
                         style={stylesMain.CategoryProductStoreImage}
-                        resizeMode={FastImage.resizeMode.cover}
-                    />
+                        resizeMode={FastImage.resizeMode.cover} />
                 </View>
             </TouchableOpacity>
         );
@@ -2288,7 +2275,7 @@ export class Second_product extends React.Component {
                 })
             }
         return (
-            <View style={stylesMain.Second_Storefooter}>
+            <View key={'mobile_slide'} style={stylesMain.Second_Storefooter}>
                 <ScrollView horizontal>
                     <View style={stylesMain.FlexRow}>
                         {
@@ -2299,8 +2286,7 @@ export class Second_product extends React.Component {
                                 loop
                                 autoplay
                                 autoplayInterval={3000}
-                                pagination={PaginationLight}
-                            />
+                                pagination={PaginationLight} />
                         }
                     </View>
                 </ScrollView>
@@ -2310,15 +2296,11 @@ export class Second_product extends React.Component {
     render() {
         return (
             <View style={stylesMain.FrameBackground2}>
-                {
-                    this.Second_Storeheader
-                }
-                {
-                    this.Second_Storebody
-                }
-                {
+                {[
+                    this.Second_Storeheader,
+                    this.Second_Storebody,
                     this.Second_Storefooter
-                }
+                ]}
             </View>
         )
     }
@@ -2332,9 +2314,14 @@ export class Fin_SuperMarket extends React.Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
+        const { Header_Second, loadData, navigation, } = this.props
         const { activeSlide } = this.state
-        const { loadData, navigation } = this.props
-        if (activeSlide !== nextState.activeSlide || loadData !== nextProps.loadData || navigation !== nextProps.navigation) {
+        if (
+            ////>nextProps
+            Header_Second !== nextProps.Header_Second || loadData !== nextProps.loadData || navigation !== nextProps.navigation ||
+            ////>nextState
+            activeSlide !== nextState.activeSlide
+        ) {
             return true
         }
         return false
@@ -2355,8 +2342,7 @@ export class Fin_SuperMarket extends React.Component {
                             height: 196,
                         }}
                         style={stylesMain.bigSlideImage}
-                        resizeMode={FastImage.resizeMode.cover}
-                    >
+                        resizeMode={FastImage.resizeMode.cover}>
                     </FastImage>
                 </View>
             );
@@ -2374,32 +2360,34 @@ export class Fin_SuperMarket extends React.Component {
                             height: 130,
                         }}
                         style={stylesMain.litleSlideImage}
-                        resizeMode={FastImage.resizeMode.stretch}
-                    >
+                        resizeMode={FastImage.resizeMode.stretch}>
                     </FastImage>
                 </View>
             );
         })
     }
     get Second_Storeheader() {
-        const { loadData, navigation, Header_Second } = this.props
+        const { Header_Second, loadData, navigation, } = this.props
         var url
         loadData.mobile_bar &&
             loadData.mobile_bar.map((item) => { (url = finip + '/' + item.image_path + '/' + item.image) })
         return (
-            <View style={[stylesMain.FrameBackground2, { marginTop: 0, backgroundColor: loadData.bg_m, borderBottomWidth: null }]}>
+            <View key={'loadData'} style={[stylesMain.FrameBackground2, {
+                marginTop: 0, backgroundColor: loadData.bg_m, borderBottomWidth: null
+            }]}>
                 <View>
                     {
                         Header_Second ?
                             <View style={[stylesDeal.BoxText_T, { backgroundColor: '#E43333', marginLeft: -3, }]}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>มือสองลดราคา</Text>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>
+                                    มือสองลดราคา</Text>
                             </View> :
-                            <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'SecondScreen', { selectedIndex: 0 })}>
+                            <TouchableOpacity activeOpacity={1}
+                                onPress={this.navigationNavigateScreen.bind(this, 'SecondScreen', { selectedIndex: 0 })}>
                                 <FastImage
                                     style={[stylesMain.CategoryProductImageHead, { marginTop: 0 }]}
                                     source={{ uri: url }}
-                                    resizeMode={FastImage.resizeMode.cover}
-                                />
+                                    resizeMode={FastImage.resizeMode.cover} />
                             </TouchableOpacity>
                     }
                     <ScrollView horizontal>
@@ -2407,8 +2395,7 @@ export class Fin_SuperMarket extends React.Component {
                             {
                                 loadData.product_second &&
                                 <ProductBox dataService={loadData.product_second} navigation={navigation} typeip='fin' mode='row3col1'
-                                    pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                                />
+                                    pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} />
                             }
                         </View>
                     </ScrollView>
@@ -2417,20 +2404,22 @@ export class Fin_SuperMarket extends React.Component {
         )
     }
     get Second_Storebody() {
-        const { loadData, Header_Second } = this.props
+        const { Header_Second, loadData, } = this.props
         return (
-            <View style={stylesMain.Second_StoreFin}>
+            <View key={'MarketShop'} style={stylesMain.Second_StoreFin}>
                 <View style={stylesMain.Second_StoreFin_BoxHead}>
                     {
                         Header_Second ?
                             <View style={[stylesDeal.BoxText_T, { backgroundColor: '#95D370', marginLeft: -3, }]}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ร้านมือสองลดราคา</Text>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>
+                                    ร้านมือสองลดราคา</Text>
                             </View> :
                             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                                 MarketShop By FIN </Text>
                     }
                     <View>
-                        <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'SecondScreen', { selectedIndex: 1 })}>
+                        <TouchableOpacity activeOpacity={1}
+                            onPress={this.navigationNavigateScreen.bind(this, 'SecondScreen', { selectedIndex: 1 })}>
                             <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                                 ดูทั้งหมด</Text>
                         </TouchableOpacity>
@@ -2438,18 +2427,16 @@ export class Fin_SuperMarket extends React.Component {
                 </View>
                 <View>
                     <View style={stylesMain.Second_StoreFin_Image}>
-                        {
+                        {[
                             loadData.list_store2_1 &&
-                            < View style={stylesMain.Second_StoreFin_ImageA}>
+                            <View key={'lo2_1'} style={stylesMain.Second_StoreFin_ImageA}>
                                 <View>
                                     {this.renderItem1(loadData.list_store2_1)}
                                 </View>
                                 {this.pagination}
-                            </View>
-                        }
-                        {
+                            </View>,
                             loadData.list_store2_2 &&
-                            <View>
+                            <View key={'lo2_2'}>
                                 <View style={stylesMain.Second_StoreFin_ImageB}>
                                     <View style={stylesMain.Second_StoreFin_ImageB_T}>
                                         {this.renderItem2([loadData.list_store2_2[0]])}
@@ -2459,7 +2446,7 @@ export class Fin_SuperMarket extends React.Component {
                                     </View>
                                 </View>
                             </View>
-                        }
+                        ]}
                     </View>
                 </View>
             </View>
@@ -2475,15 +2462,14 @@ export class Fin_SuperMarket extends React.Component {
                         <FastImage
                             style={[stylesMain.BoxProduct1Image, { borderRadius: 5 },]}
                             source={{ uri: dataMySQL }}
-                            resizeMode={FastImage.resizeMode.stretch}
-                        />
+                            resizeMode={FastImage.resizeMode.stretch} />
                     </View>
                 )
             })
     }
     get Second_Storefooter() {
         return (
-            <View style={stylesMain.Second_Storefooter}>
+            <View key={'getFooter'} style={stylesMain.Second_Storefooter}>
                 <ScrollView horizontal>
                     <View style={stylesMain.FlexRow}>
                         {this.getFooter}
@@ -2495,15 +2481,11 @@ export class Fin_SuperMarket extends React.Component {
     render() {
         return (
             <View style={stylesMain.FrameBackground2}>
-                {
-                    this.Second_Storeheader
-                }
-                {
-                    this.Second_Storebody
-                }
-                {
+                {[
+                    this.Second_Storeheader,
+                    this.Second_Storebody,
                     this.Second_Storefooter
-                }
+                ]}
             </View>
         )
     }
@@ -2516,14 +2498,19 @@ export class TodayProduct extends React.Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { loadData, navigation, noTitle, prepath, typeip } = this.props
-        if (loadData !== nextProps.loadData || navigation !== nextProps.navigation || noTitle !== nextProps.noTitle || prepath !== nextProps.prepath || typeip !== nextProps.typeip) {
+        const { loadData, navigation, noTitle, prepath, typeip, } = this.props
+        if (
+            ////>nextProps
+            loadData !== nextProps.loadData || navigation !== nextProps.navigation || noTitle !== nextProps.noTitle ||
+            prepath !== nextProps.prepath || typeip !== nextProps.typeip
+            ////>nextState
+        ) {
             return true
         }
         return false
     }
     render() {
-        const { loadData, navigation, noTitle, prepath, typeip } = this.props
+        const { loadData, navigation, noTitle, prepath, typeip, } = this.props
         return (
             <View style={[stylesMain.BoxProduct2, { backgroundColor: 'transparent' }]}>
                 {
@@ -2535,10 +2522,15 @@ export class TodayProduct extends React.Component {
                 <View style={stylesMain.BoxProduct2BoxProduct}>
                     {
                         loadData &&
-                        <ProductBox dataService={loadData} navigation={navigation} typeip={typeip ? 'ip' : 'fin'} mode='row3colall'
-                            pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                            prepath={prepath && prepath}
-                        />
+                        <ProductBox dataService={loadData} navigation={navigation} typeip={
+                            typeip ?
+                                'ip' :
+                                'fin'
+                        } mode='row3colall' pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
+                            prepath={
+                                prepath &&
+                                prepath
+                            } />
                     }
                 </View>
             </View>

@@ -238,7 +238,7 @@ export class Option_payment extends Component {
                             alignItems: "center"
                         }
                     }}
-                >
+               >
                     <View style={{ alignItems: 'center', height: 'auto', }}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { marginBottom: 10 }]}>เลือกวิธีการชำระเงิน</Text>
                         <View style={stylesCustomerOrder.Payment_Box}>

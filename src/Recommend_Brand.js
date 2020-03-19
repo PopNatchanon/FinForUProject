@@ -1,12 +1,11 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component } from 'react';
+import React from 'react';
 import {
     Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
-import NumberFormat from 'react-number-format';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../style/stylesFont';
@@ -14,11 +13,11 @@ import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from './MainScreen';
-import { GetServices, ProductBox, } from './tools/Tools';
+import { ProductBox, } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from './navigator/IpConfig';
+import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class Recommend_Brand extends Component {
+export default class Recommend_Brand extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -26,7 +25,11 @@ export default class Recommend_Brand extends Component {
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation } = this.props
-        if (navigation !== nextProps.navigation) {
+        if (
+            ////>nextProps
+            navigation !== nextProps.navigation
+            ////>nextState
+        ) {
             return true
         }
         return false
@@ -48,7 +51,7 @@ export default class Recommend_Brand extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Recommend_Brand_Store
-export class Recommend_Brand_Store extends Component {
+export class Recommend_Brand_Store extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -56,7 +59,11 @@ export class Recommend_Brand_Store extends Component {
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation } = this.props
-        if (navigation !== nextProps.navigation) {
+        if (
+            ////>nextProps
+            navigation !== nextProps.navigation
+            ////>nextState
+        ) {
             return true
         }
         return false
@@ -88,8 +95,7 @@ export class Recommend_Brand_Store extends Component {
                 <FastImage
                     source={require('../icon/bgprofile.jpg')}
                     style={stylesTopic.Brand_ImageBackground}
-                    resizeMode={FastImage.resizeMode.stretch}
-                />
+                    resizeMode={FastImage.resizeMode.stretch} />
                 <View style={stylesTopic.Recommend_Brand_StoreBoxPro}>
                     <View style={stylesTopic.Recommend_Brand_Pro}>
                         <FastImage
@@ -97,8 +103,7 @@ export class Recommend_Brand_Store extends Component {
                             source={{
                                 uri: ip + '/MySQL/uploads/icon_brand/brand9.png',
                             }}
-                            resizeMode={FastImage.resizeMode.contain}
-                        />
+                            resizeMode={FastImage.resizeMode.contain} />
                     </View>
                     <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: 23 })}>
                         <View style={[stylesTopic.Recommend_Brand_ProButton]}>
@@ -111,8 +116,7 @@ export class Recommend_Brand_Store extends Component {
                         dataService &&
                         <ProductBox dataService={dataService} navigation={navigation} typeip={'ip'}
                             pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                            prepath='mysql'
-                        />
+                            prepath='mysql' />
                     }
                 </View>
             </View>

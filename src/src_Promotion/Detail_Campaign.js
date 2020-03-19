@@ -244,7 +244,7 @@ export class New_year_NewB extends Component {
                     <View>
                         <View style={stylesDeal.New_year_NewBoxText_Head}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}
-                            >ปีใหม่แล้วไปลองของใหม่ดิ</Text>
+                           >ปีใหม่แล้วไปลองของใหม่ดิ</Text>
                             <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Detail_Campaign', {
                                 selectedIndex: 1
                             })}>

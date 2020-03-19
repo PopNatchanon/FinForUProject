@@ -1,5 +1,5 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Dimensions, SafeAreaView, ScrollView, View,
 } from 'react-native';
@@ -7,7 +7,6 @@ import {
 export const { width, height } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
@@ -16,7 +15,7 @@ import { FeedBox, GetServices, TabBar, Toolbar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class FeedScreen extends Component {
+export default class FeedScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,9 +23,14 @@ export default class FeedScreen extends Component {
     };
   }
   shouldComponentUpdate = (nextProps, nextState) => {
-    const { selectedIndex } = this.state
     const { navigation } = this.props
-    if (selectedIndex !== nextState.selectedIndex || navigation !== nextProps.navigation) {
+    const { selectedIndex } = this.state
+    if (
+      ////>nextProps
+      navigation !== nextProps.navigation ||
+      ////>nextState
+      selectedIndex !== nextState.selectedIndex
+    ) {
       return true
     }
     return false
@@ -35,8 +39,8 @@ export default class FeedScreen extends Component {
     this.setState({ selectedIndex });
   }
   render() {
-    const { selectedIndex } = this.state
     const { navigation } = this.props
+    const { selectedIndex } = this.state
     return (
       <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
         <AppBar1 titleHead='ฟีด' storeBar menuBar navigation={navigation} />
@@ -51,11 +55,22 @@ export default class FeedScreen extends Component {
   }
 }
 ///----------------------------------------------------------------------------------------------->>>> MenuBar
-export class MenuBar extends Component {
+export class MenuBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
     }
+  }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { sendText } = this.props
+    if (
+      ////>nextProps
+      sendText !== nextProps.sendText
+      ////>nextState
+    ) {
+      return true
+    }
+    return false
   }
   getData = (val) => {
     const { sendText } = this.props
@@ -78,27 +93,30 @@ export class MenuBar extends Component {
             widthBox={100}
             spaceColor='#0A55A6'
             activeColor='#fff'
-            fontColor='#fff'
-          />
+            fontColor='#fff' />
         </View>
       </View>
     );
   }
 }
 ///----------------------------------------------------------------------------------------------->>>> Button_Bar
-export class Button_Bar extends Component {
+export class Button_Bar extends React.Component {
   constructor(props) {
     super(props);
   }
   shouldComponentUpdate = (nextProps, nextState) => {
-    const { selectedIndex, navigation } = this.props
-    if (selectedIndex !== nextProps.selectedIndex || navigation !== nextProps.navigation) {
+    const { navigation, selectedIndex, } = this.props;
+    if (
+      ////>nextProps
+      navigation !== nextProps.navigation || selectedIndex !== nextProps.selectedIndex
+      ////>nextState
+    ) {
       return true
     }
     return false
   }
   get ViewSide() {
-    const { selectedIndex, navigation } = this.props;
+    const { navigation, selectedIndex, } = this.props;
     switch (selectedIndex) {
       case 0:
         return (
@@ -124,7 +142,7 @@ export class Button_Bar extends Component {
   }
 }
 ///----------------------------------------------------------------------------------------------->>>> Highlights
-export class Highlights extends Component {
+export class Highlights extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -132,9 +150,14 @@ export class Highlights extends Component {
     };
   }
   shouldComponentUpdate = (nextProps, nextState) => {
-    const { dataService } = this.state
     const { Follow, navigation } = this.props
-    if (dataService !== nextState.dataService || Follow !== nextProps.Follow || navigation !== nextProps.navigation) {
+    const { dataService } = this.state
+    if (
+      ////>nextProps
+      Follow !== nextProps.Follow || navigation !== nextProps.navigation ||
+      ////>nextState
+      dataService !== nextState.dataService
+    ) {
       return true
     }
     return false
@@ -143,8 +166,8 @@ export class Highlights extends Component {
     this.setState({ dataService })
   }
   render() {
-    const { dataService } = this.state
     const { Follow, navigation } = this.props
+    const { dataService } = this.state
     var uri = ip + '/mysql/DataService_Detail.php';
     var dataBody = {
       type: 'Feed'
@@ -154,11 +177,13 @@ export class Highlights extends Component {
         <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
         <View style={stylesStore.StoreFeedBoxProduct}>
           {
-            dataService ?
-              <FeedBox dataService={dataService} navigation={navigation} typeip='ip' prepath='mysql'
-                Follow={Follow ? Follow : null} Header
-              /> :
-              null
+            dataService &&
+            <FeedBox dataService={dataService} navigation={navigation} typeip='ip' prepath='mysql'
+              Follow={
+                Follow ?
+                  Follow :
+                  null
+              } Header />
           }
         </View>
       </View>

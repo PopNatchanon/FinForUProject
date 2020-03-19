@@ -1,13 +1,13 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
-export const { width, height } = Dimensions.get('window');
+export const { width, height, } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
-import { Form, TextValidator } from 'react-native-validator-form';
+import { Form, TextValidator, } from 'react-native-validator-form';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconFeather from 'react-native-vector-icons/Feather';
 ///----------------------------------------------------------------------------------------------->>>> Styles
@@ -15,16 +15,27 @@ import stylesFont from '../style/stylesFont';
 import stylesLogin from '../style/stylesLoginScreen';
 import stylesMain from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { ExitAppModule } from './MainScreen'
-import { GetServices, Toolbar } from './tools/Tools';
+import { ExitAppModule, } from './MainScreen'
+import { Toolbar, } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from './navigator/IpConfig';
+import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class LoginScreen extends Component {
+export default class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
     };
+  }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { navigation } = this.props
+    if (
+      ////>nextProps
+      navigation !== nextProps.navigation
+      ////>nextState
+    ) {
+      return true
+    }
+    return false
   }
   shouldComponentUpdate = (nextProps, nextState) => {
     const { navigation } = this.props
@@ -49,7 +60,7 @@ export default class LoginScreen extends Component {
   }
 }
 ///----------------------------------------------------------------------------------------------->>>> Logo
-export class Logo extends Component {
+export class Logo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -60,20 +71,32 @@ export class Logo extends Component {
       <View style={stylesLogin.Logo_Box}>
         <FastImage
           style={stylesLogin.Logo}
-          source={require('../images/sj.png')}
-        />
+          source={require('../images/sj.png')} />
       </View>
     );
   }
 }
 ///----------------------------------------------------------------------------------------------->>>> Login
-export class Login extends Component {
+export class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       user: {},
       eye: true,
     }
+  }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { navigation } = this.props
+    const { eye, user, } = this.state;
+    if (
+      ////>nextProps
+      navigation !== nextProps.navigation ||
+      ////>nextProps
+      eye !== nextState.eye || user !== nextState.user
+    ) {
+      return true
+    }
+    return false
   }
   storeData = async (item) => {
     try {
@@ -152,14 +175,13 @@ export class Login extends Component {
     this.setState({ eye })
   }
   render() {
-    const { user, eye } = this.state;
+    const { eye, user, } = this.state;
     return (
       <View style={stylesLogin.Login_Box}>
         <View style={stylesLogin.Login_BoxA}>
           <Form
             ref="form"
-            onSubmit={() => this.getData()}
-          >
+            onSubmit={() => this.getData()}>
             <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
               อีเมล</Text>
             <TextValidator
@@ -184,8 +206,7 @@ export class Login extends Component {
                 },
                 underlineValidColor: 'gray',
                 underlineInvalidColor: 'red'
-              }}
-            />
+              }} />
             <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
               รหัสผ่าน</Text>
             <TextValidator
@@ -208,8 +229,7 @@ export class Login extends Component {
                 },
                 underlineValidColor: 'gray',
                 underlineInvalidColor: 'red'
-              }}
-            />
+              }} />
             <TouchableOpacity style={stylesLogin.eyestyle}
               onPress={this.setStateEye.bind(this, !eye)}>
               <View>
@@ -223,23 +243,35 @@ export class Login extends Component {
             <View style={[stylesMain.ItemCenter]}>
               <TouchableOpacity onPress={this.handleSubmit.bind(this)}>
                 <View style={[stylesLogin.Login_Box_Text_B, stylesMain.ItemCenter]}>
-                  <Text style={[stylesLogin.Login__Text, stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical]}
-                  >เข้าสู่ระบบ</Text>
+                  <Text style={[
+                    stylesLogin.Login__Text, stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical
+                  ]}>เข้าสู่ระบบ</Text>
                 </View>
               </TouchableOpacity>
             </View>
           </Form>
         </View>
-      </View >
+      </View>
     );
   }
 }
 ///----------------------------------------------------------------------------------------------->>>> Register
-export class Register extends Component {
+export class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
     };
+  }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { navigation } = this.props
+    if (
+      ////>nextProps
+      navigation !== nextProps.navigation
+      ////>nextState
+    ) {
+      return true
+    }
+    return false
   }
   navigationNavigateScreen = (value, value2) => {
     const { navigation } = this.props
@@ -267,12 +299,10 @@ export class Register extends Component {
           <View style={stylesLogin.Register_Box_Button}>
             <FastImage
               style={stylesLogin.Register_Box_image}
-              source={require('../icon/face_icon.png')}
-            />
+              source={require('../icon/face_icon.png')} />
             <FastImage
               style={stylesLogin.Register_Box_image}
-              source={require('../icon/googla_icon.png')}
-            />
+              source={require('../icon/googla_icon.png')} />
           </View>
         </View>
       </View>

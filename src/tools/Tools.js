@@ -1,12 +1,13 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React from 'react';
 import {
-    ActivityIndicator, Animated, Dimensions, Modal, ScrollView, Text, TouchableOpacity, View, Share,
+    ActivityIndicator, Dimensions, Modal, ScrollView, Text, TextInput, TouchableOpacity, View, Share,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
-import { WebView } from 'react-native-webview';
 export const { width, height } = Dimensions.get('window');
+import { WebView } from 'react-native-webview';
+import SlidingView from 'rn-sliding-view';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -17,11 +18,12 @@ import stylesDetail from '../../style/StylesDetailScreen'
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 import stylesStore from '../../style/StylesStoreScreen';
+import stylesTopic from '../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '../navigator/IpConfig';
+import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Toolbar
 export class Toolbar extends React.Component {
     constructor(props) {
@@ -31,9 +33,14 @@ export class Toolbar extends React.Component {
         }
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { currentUser } = this.state
         const { navigation } = this.props
-        if (currentUser !== nextState.currentUser || navigation !== nextProps.navigation) {
+        const { currentUser } = this.state
+        if (
+            ////>nextProps
+            navigation !== nextProps.navigation ||
+            ////>nextState
+            currentUser !== nextState.currentUser
+        ) {
             return true
         }
         return false
@@ -210,23 +217,26 @@ export class TabBar extends React.Component {
         }
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { currentUser, PassSetValue, pathlist } = this.state
         const {
-            activeColor, fontColor, item, noSpace, sendData, setVertical, spaceColor, widthBox, activeWidth, type, radiusBox,
-            activeFontColor, inactiveFontColor, inactiveColor, inactiveBoxColor, direction, alignBox, noLimit, limitBox, SetValue,
-            fontSizeStyle, numberBox, NoSelectTab, tagBottom, numberOfLines, tagBottomColor,
+            activeColor, activeFontColor, activeWidth, alignBox, direction, fontColor, fontSizeStyle, inactiveBoxColor, inactiveColor,
+            inactiveFontColor, item, limitBox, noLimit, NoSelectTab, noSpace, numberBox, numberOfLines, radiusBox, sendData, SetValue,
+            setVertical, spaceColor, tagBottom, tagBottomColor, type, widthBox,
         } = this.props
+        const { currentUser, PassSetValue, pathlist } = this.state
         if (
-            currentUser !== nextState.currentUser || PassSetValue !== nextState.PassSetValue || pathlist !== nextState.pathlist ||
-            activeColor !== nextProps.activeColor || fontColor !== nextProps.fontColor || item !== nextProps.item ||
-            noSpace !== nextProps.noSpace || sendData !== nextProps.sendData || setVertical !== nextProps.setVertical ||
-            spaceColor !== nextProps.spaceColor || widthBox !== nextProps.widthBox || activeWidth !== nextProps.activeWidth ||
-            type !== nextProps.type || radiusBox !== nextProps.radiusBox || activeFontColor !== nextProps.activeFontColor ||
-            inactiveFontColor !== nextProps.inactiveFontColor || inactiveColor !== nextProps.inactiveColor ||
-            inactiveBoxColor !== nextProps.inactiveBoxColor || direction !== nextProps.direction || alignBox !== nextProps.alignBox ||
-            noLimit !== nextProps.noLimit || limitBox !== nextProps.limitBox || SetValue !== nextProps.SetValue ||
-            fontSizeStyle !== nextProps.fontSizeStyle || numberBox !== nextProps.numberBox || NoSelectTab !== nextProps.NoSelectTab ||
-            tagBottom !== nextProps.tagBottom || numberOfLines !== nextProps.numberOfLines || tagBottomColor !== nextProps.tagBottomColor
+            ////>nextProps
+            activeColor !== nextProps.activeColor || activeFontColor !== nextProps.activeFontColor ||
+            activeWidth !== nextProps.activeWidth || alignBox !== nextProps.alignBox || direction !== nextProps.direction ||
+            fontColor !== nextProps.fontColor || fontSizeStyle !== nextProps.fontSizeStyle ||
+            inactiveBoxColor !== nextProps.inactiveBoxColor || inactiveColor !== nextProps.inactiveColor ||
+            inactiveFontColor !== nextProps.inactiveFontColor || item !== nextProps.item || limitBox !== nextProps.limitBox ||
+            noLimit !== nextProps.noLimit || NoSelectTab !== nextProps.NoSelectTab || noSpace !== nextProps.noSpace ||
+            numberBox !== nextProps.numberBox || numberOfLines !== nextProps.numberOfLines || radiusBox !== nextProps.radiusBox ||
+            sendData !== nextProps.sendData || SetValue !== nextProps.SetValue || setVertical !== nextProps.setVertical ||
+            spaceColor !== nextProps.spaceColor || tagBottom !== nextProps.tagBottom || tagBottomColor !== nextProps.tagBottomColor ||
+            type !== nextProps.type || widthBox !== nextProps.widthBox ||
+            ////>nextState
+            currentUser !== nextState.currentUser || PassSetValue !== nextState.PassSetValue || pathlist !== nextState.pathlist
         ) {
             return true
         }
@@ -266,8 +276,7 @@ export class TabBar extends React.Component {
     // /////|color| กำหนดสีพื้นหลังสำหรับไม่มีbox
     // spaceColor='#fff'
     // /////|color| กำหนดสีตัวอักษรทั้งหมด
-    // fontColor='#fff'
-    />*/
+    // fontColor='#fff' />*/
     setSelectTab = (pathlist, PassSetValue) => {
         const { sendData } = this.props
         this.setState({ pathlist, PassSetValue })
@@ -275,10 +284,10 @@ export class TabBar extends React.Component {
     }
     get tab() {
         const {
-            item, activeColor, activeWidth, type, radiusBox, activeFontColor, inactiveFontColor, inactiveColor, inactiveBoxColor,
-            noSpace, direction, alignBox, widthBox, spaceColor, fontColor, noLimit, limitBox, SetValue, fontSizeStyle, numberBox,
-            NoSelectTab, tagBottom, numberOfLines, setVertical, tagBottomColor,
-        } = this.props;
+            activeColor, activeFontColor, fontColor, fontSizeStyle, inactiveBoxColor, inactiveColor, inactiveFontColor, item, limitBox,
+            noLimit, NoSelectTab, noSpace, numberBox, numberOfLines, radiusBox, SetValue, setVertical, spaceColor, tagBottom,
+            tagBottomColor, type, widthBox,
+        } = this.props
         const { PassSetValue, pathlist } = this.state
         const countItem = item.length;
         PassSetValue < 1 && SetValue &&
@@ -572,9 +581,8 @@ export class TabBar extends React.Component {
     }
     render() {
         const {
-            item, activeColor, activeWidth, type, radiusBox, activeFontColor, inactiveFontColor, inactiveColor, inactiveBoxColor,
-            noSpace, direction, alignBox, widthBox, spaceColor, fontColor, noLimit, numberBox,
-        } = this.props;
+            alignBox, direction, noLimit, noSpace, numberBox, spaceColor, type,
+        } = this.props
         return (
             numberBox ?
                 (
@@ -646,7 +654,11 @@ export class GetServices extends React.Component {
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { dataBody, getDataSource, uriPointer } = this.props
-        if (dataBody !== nextProps.dataBody || getDataSource !== nextProps.getDataSource || uriPointer !== nextProps.uriPointer) {
+        if (
+            ////>nextProps
+            dataBody !== nextProps.dataBody || getDataSource !== nextProps.getDataSource || uriPointer !== nextProps.uriPointer
+            ////>nextState
+        ) {
             return true
         }
         return false
@@ -683,9 +695,24 @@ export class GetCoupon extends React.Component {
         this.state = {
         };
     }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const {
+            codeList, colorCoupon, couponText, flexRow, textDetail, timeOut, useCoupon,
+        } = this.props
+        if (
+            ////>nextProps
+            codeList !== nextProps.codeList || colorCoupon !== nextProps.colorCoupon || couponText !== nextProps.couponText ||
+            flexRow !== nextProps.flexRow || textDetail !== nextProps.textDetail || timeOut !== nextProps.timeOut ||
+            useCoupon !== nextProps.useCoupon
+            ////>nextState
+        ) {
+            return true
+        }
+        return false
+    }
     get setCoupon() {
         const {
-            colorCoupon, couponText, textDetail, timeOut, useCoupon, flexRow, codeList
+            codeList, colorCoupon, couponText, flexRow, textDetail, timeOut, useCoupon,
         } = this.props
         return (
             <View style={[
@@ -774,13 +801,19 @@ export class ProductBox extends React.Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
+        const {
+            dataService, dispriceSize, mode, nameSize, navigation, pointerUrl, pointerid_store, postpath, prepath, priceSize, typeip,
+        } = this.props
         const { ImageStore } = this.state
-        const { dataService, dispriceSize, typeip, mode, nameSize, postpath, prepath, priceSize, navigation, pointerUrl, pointerid_store } = this.props
         if (
-            ImageStore !== nextState.ImageStore || dataService !== nextProps.dataService || dispriceSize !== nextProps.dispriceSize ||
-            typeip !== nextProps.typeip || mode !== nextProps.mode || nameSize !== nextProps.nameSize ||
-            postpath !== nextProps.postpath || prepath !== nextProps.prepath || priceSize !== nextProps.priceSize ||
-            navigation !== nextProps.navigation || pointerUrl !== nextProps.pointerUrl || pointerid_store !== nextProps.pointerid_store
+            ////>nextProps
+            dataService !== nextProps.dataService || dispriceSize !== nextProps.dispriceSize || mode !== nextProps.mode ||
+            nameSize !== nextProps.nameSize || navigation !== nextProps.navigation || pointerUrl !== nextProps.pointerUrl ||
+            pointerid_store !== nextProps.pointerid_store || postpath !== nextProps.postpath || prepath !== nextProps.prepath ||
+            priceSize !== nextProps.priceSize || typeip !== nextProps.typeip ||
+            ////>nextState
+            ImageStore !== nextState.ImageStore
+
         ) {
             return true
         }
@@ -800,10 +833,10 @@ export class ProductBox extends React.Component {
         this.setState({ ImageStore })
     }
     get ProductBoxRender() {
-        const { ImageStore } = this.state
         const {
-            dataService, dispriceSize, typeip, mode, nameSize, postpath, prepath, priceSize, pointerUrl, pointerid_store
+            dataService, dispriceSize, mode, nameSize, pointerUrl, pointerid_store, postpath, prepath, priceSize, typeip,
         } = this.props
+        const { ImageStore } = this.state
         return dataService.map((item, index) => {
             var throughsale = Number(item.full_price) + (item.full_price * 0.5)
             var url
@@ -870,8 +903,7 @@ export class ProductBox extends React.Component {
                                 }
                                 onError={this.LoadingStore.bind(this, false)}
                                 onLoad={this.LoadingStore.bind(this, true)}
-                                resizeMode={FastImage.resizeMode.contain}
-                            />
+                                resizeMode={FastImage.resizeMode.contain} />
                         </View>
                         <View style={{
                             height:
@@ -908,8 +940,7 @@ export class ProductBox extends React.Component {
                                                 }
                                             ]}>
                                                 {value}</Text>
-                                        }
-                                    />
+                                        } />
                                     {
                                         item.discount &&
                                         <View style={[stylesMain.Box_On_sale, { borderRadius: 10 }]}>
@@ -933,8 +964,7 @@ export class ProductBox extends React.Component {
                                                 }
                                             ]}>
                                                 {value}</Text>
-                                        }
-                                    />
+                                        } />
                                 }
                             </View>
                         </View>
@@ -956,13 +986,14 @@ export class FeedBox extends React.Component {
         this.state = {
         };
     }
-
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService, Follow, Header, typeip, postpath, prepath, navigation, } = this.props
+        const { dataService, Follow, Header, navigation, postpath, prepath, typeip, } = this.props
         if (
+            ////>nextProps
             dataService !== nextProps.dataService || Follow !== nextProps.Follow || Header !== nextProps.Header ||
-            typeip !== nextProps.typeip || postpath !== nextProps.postpath || prepath !== nextProps.prepath ||
-            navigation !== nextProps.navigation
+            navigation !== nextProps.navigation || postpath !== nextProps.postpath || prepath !== nextProps.prepath ||
+            typeip !== nextProps.typeip
+            ////>nextState
         ) {
             return true
         }
@@ -972,9 +1003,7 @@ export class FeedBox extends React.Component {
         try {
             const result = await Share.share({
                 message: 'หลายคนคงจะเคยอยากรู้ วิธีดูเพชรแท้ ว่าจริงๆแล้วเพชรแท้ดูยังไง?\n' + finip,
-
             });
-
             if (result.action === Share.sharedAction) {
                 if (result.activityType) {
                     // shared with activity type of result.activityType
@@ -1041,8 +1070,7 @@ export class FeedBox extends React.Component {
                                         style={stylesMain.BoxProduct4PlusImage}
                                         source={{
                                             uri: dataMySQL_s,
-                                        }}
-                                    />
+                                        }} />
                                     <Text style={[
                                         stylesMain.BoxProduct4PlusImageText, stylesFont.FontFamilyBold, stylesFont.FontSize5
                                     ]}>
@@ -1070,8 +1098,7 @@ export class FeedBox extends React.Component {
                                     uri: dataMySQL_p,
                                 }}
                                 style={stylesMain.BoxProduct4Image}
-                                resizeMode={FastImage.resizeMode.contain}
-                            />
+                                resizeMode={FastImage.resizeMode.contain} />
                         </View>
                         <View style={stylesMain.BoxProduct4ComBox}>
                             <Text style={[stylesMain.BoxProduct4ComBoxDetail, stylesStore.SukhumvitSetText]}>
@@ -1121,15 +1148,27 @@ export class LoadingScreen extends React.Component {
             modalVisible: true,
         };
     }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { modalVisible } = this.state
+        if (
+            ////>nextProps
+            ////>nextState
+            modalVisible !== nextState.modalVisible
+        ) {
+            return true
+        }
+        return false
+    }
     setModalVisible = (visible) => {
         this.setState({ modalVisible: visible });
     }
     render() {
+        const { modalVisible } = this.state
         return (
             <Modal
                 animationType="fade"
                 transparent={true}
-                visible={this.state.modalVisible}
+                visible={modalVisible}
                 onRequestClose={this.setModalVisible.bind(this, !this.state.modalVisible)}>
                 <View style={[stylesMain.ItemCenter, { height, width }]}>
                     <View style={{ height, width, backgroundColor: '#555555', opacity: 0.5, position: 'absolute' }}></View>
@@ -1150,6 +1189,17 @@ export class BrowerScreen extends React.Component {
         }
         return false
     }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { url } = this.props
+        if (
+            ////>nextProps
+            url !== nextProps.url
+            ////>nextState
+        ) {
+            return true
+        }
+        return false
+    }
     render() {
         const { url } = this.props
         return (
@@ -1158,13 +1208,12 @@ export class BrowerScreen extends React.Component {
                     source={{
                         uri: url
                     }}
-                    style={{ flex: 1 }}
-                />
+                    style={{ flex: 1 }} />
             </View>
         )
     }
 }
-///----------------------------------------------------------------------------------------------->>>> SlideTab
+///----------------------------------------------------------------------------------------------->>>> SlideTab2
 export class SlideTab2 extends React.Component {
     constructor(props) {
         super(props);
@@ -1174,11 +1223,14 @@ export class SlideTab2 extends React.Component {
         }
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService, selectedIndex, activeText } = this.state
-        const { navigation, item } = this.props
+        const { data, navigation, setStateSliderVisible, sliderVisible, } = this.props
+        const { activeText, dataService, selectedIndex, } = this.state
         if (
-            dataService !== nextState.dataService || selectedIndex !== nextState.selectedIndex || activeText !== nextState.activeText ||
-            navigation !== nextProps.navigation || item !== nextProps.item
+            ////>nextProps
+            data !== nextProps.data || navigation !== nextProps.navigation || setStateSliderVisible !== nextProps.setStateSliderVisible ||
+            sliderVisible !== nextProps.sliderVisible ||
+            ////>nextState
+            activeText !== nextState.activeText || dataService !== nextState.dataService || selectedIndex !== nextState.selectedIndex
         ) {
             return true
         }
@@ -1199,25 +1251,127 @@ export class SlideTab2 extends React.Component {
                     noLimit
                     numberBox
                     NoSelectTab
-                    radiusBox={4}
-                />
+                    radiusBox={4} />
             </View>
         )
     }
     setStateActiveText = (activeText) => {
         this.setState({ activeText })
     }
-    get dataContainer() {
+    setStateSliderVisible = () => {
+        const { setStateSliderVisible } = this.props
+        setStateSliderVisible(false)
+    }
+    render() {
+        const { data, sliderVisible } = this.props
+        return (
+            <SlidingView
+                disableDrag
+                componentVisible={sliderVisible}
+                containerStyle={{
+                    backgroundColor: null,
+                    justifyContent: 'center',
+                    alignContent: 'stretch',
+                    width: '100%'
+                }}
+                position="right"
+                changeVisibilityCallback={this.setStateSliderVisible.bind(this)}
+            >
+                <View style={stylesMain.FlexRow}>
+                    <TouchableOpacity
+                        activeOpacity={1}
+                        onPress={this.setStateSliderVisible.bind(this)}
+                    >
+                        <View style={stylesTopic.BackgroundLeft}></View>
+                    </TouchableOpacity>
+                    <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNB]}>
+                        <View>
+                            <ScrollView>
+                                {
+                                    data.map((item, index) => {
+                                        return <SlideTab item={item} key={index} />
+                                    })
+                                }
+                                <PricesSlide />
+                            </ScrollView>
+                            <View style={[stylesMain.FlexRow, { height: 70 }]}>
+                                <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
+                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
+                                        รีเซ็ต</Text>
+                                </View>
+                                <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset, { backgroundColor: '#0A55A6' }]}>
+                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#fff' }]}>
+                                        เสร็จสิ้น</Text>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+            </SlidingView>
+        )
+    }
+}
+///----------------------------------------------------------------------------------------------->>>> SlideTab
+export class SlideTab extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            activeText: false,
+            selectedIndex: null,
+        }
+    }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { item, navigation, } = this.props
+        const { activeText, selectedIndex, } = this.state
+        if (
+            ////>nextProps
+            item !== nextProps.item || navigation !== nextProps.navigation ||
+            ////>nextState
+            activeText !== nextState.activeText || selectedIndex !== nextState.selectedIndex
+        ) {
+            return true
+        }
+        return false
+    }
+    updateIndex = (selectedIndex) => {
+        this.setState({ selectedIndex })
+    }
+    dataItem(item) {
+        const { selectedIndex } = this.state
+        return (
+            <View style={[stylesMain.FlexRow, { width: '100%', flexWrap: 'wrap' }]}>
+                <TabBar
+                    sendData={this.updateIndex.bind(this)}
+                    SetValue={selectedIndex != null ? selectedIndex : -1}
+                    item={item}
+                    type='box'
+                    noLimit
+                    numberBox
+                    NoSelectTab
+                    radiusBox={4} />
+            </View>
+        )
+    }
+    setStateActiveText = (activeText) => {
+        this.setState({ activeText })
+    }
+    dataContainer(item) {
         const { activeText } = this.state
-        const { item } = this.props
-        console.log(Math.ceil(item.subtitle.length / 2))
         return (
             <View>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesMain.ItemCenterVertical, { marginLeft: 8, marginTop: 8, }]}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesMain.ItemCenterVertical, {
+                    marginLeft: 8, marginTop: 8,
+                }]}>
                     {item.title}</Text>
                 <View style={stylesMain.SafeAreaViewNB}>
                     <View style={{ width: '100%' }}>
-                        <View style={{ width: '100%', height: activeText == true ? 85 + ((Math.ceil(item.subtitle.length / 2) - 1) * 35) : 85 + (35 * 1) }}>
+                        <View style={{
+                            width: '100%',
+                            height:
+                                activeText == true ?
+                                    85 + ((Math.ceil(item.subtitle.length / 2) - 1) * 35) :
+                                    85 + (35 * 1)
+                        }}>
                             {
                                 activeText == true ?
                                     this.dataItem(item.subtitle) :
@@ -1225,12 +1379,16 @@ export class SlideTab2 extends React.Component {
                                         {this.dataItem(item.subtitle)}
                                     </ScrollView>
                             }
-                            {item.subtitle.length > 4 ?
-                                <TouchableOpacity onPress={this.setStateActiveText.bind(this, !activeText)}>
+                            {item.subtitle.length > 4 &&
+                                <TouchableOpacity
+                                    onPress={this.setStateActiveText.bind(this, !activeText)}
+                                >
                                     <View style={[stylesDetail.Detail_Box, stylesMain.ItemCenter, {
                                         borderTopWidth: null,
                                     }]}>
-                                        <Text style={[stylesDetail.Detail_Text_A, stylesMain.ItemCenterVertical, { fontFamily: 'SukhumvitSet-Text', }]}>
+                                        <Text style={[stylesDetail.Detail_Text_A, stylesMain.ItemCenterVertical, {
+                                            fontFamily: 'SukhumvitSet-Text',
+                                        }]}>
                                             {
                                                 activeText == true ?
                                                     'ย่อ' :
@@ -1238,12 +1396,12 @@ export class SlideTab2 extends React.Component {
                                             }</Text>
                                         <IconEntypo name={activeText == true ? 'chevron-up' : 'chevron-down'} size={25} color='#0A55A6' />
                                     </View>
-                                </TouchableOpacity> :
-                                null
+                                </TouchableOpacity>
                             }
                             <View style={[stylesMain.ItemCenter, { width: '100%' }]}>
                                 <View style={{
-                                    width: '80%', backgroundColor: '#fff', marginTop: 8, borderBottomColor: '#DCDCDC', borderBottomWidth: 3,
+                                    width: '80%', backgroundColor: '#fff', marginTop: 8, borderBottomColor: '#DCDCDC',
+                                    borderBottomWidth: 3,
                                 }}></View>
                             </View>
                         </View>
@@ -1253,11 +1411,34 @@ export class SlideTab2 extends React.Component {
         )
     }
     render() {
-        const { activeText } = this.state
         const { item } = this.props
         return (
+            this.dataContainer(item)
+        )
+    }
+}
+///----------------------------------------------------------------------------------------------->>>> PricesSlide
+export class PricesSlide extends React.Component {
+    render() {
+        return (
             <View>
-                {this.dataContainer}
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesMain.ItemCenterVertical, {
+                    marginLeft: 8, marginTop: 8,
+                }]}>
+                    ราคา</Text>
+                <View style={stylesMain.SafeAreaViewNB}>
+                    <View style={{ width: '100%' }}>
+                        <View style={[stylesMain.ItemCenter, stylesMain.FlexRow, { width: '100%', height: 80 }]}>
+                            <TextInput placeholder='ต่ำสุด' style={[
+                                stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesFont.FontSize6,
+                                stylesTopic.maxMinValue]} />
+                            <Text style={[stylesMain.ItemCenterVertical, { fontSize: 28, marginHorizontal: 8 }]}>-</Text>
+                            <TextInput placeholder='สูงสุด' style={[
+                                stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesFont.FontSize6,
+                                stylesTopic.maxMinValue]} />
+                        </View>
+                    </View>
+                </View>
             </View>
         )
     }

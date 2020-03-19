@@ -1,5 +1,5 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component } from 'react';
+import React from 'react';
 import {
     Dimensions, SafeAreaView, ScrollView, Text, View,
 } from 'react-native';
@@ -11,12 +11,12 @@ import stylesFont from '../style/stylesFont';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, TodayProduct, ExitAppModule } from './MainScreen';
 import { Button_Bar } from '../src/HighlightScreen';
-import { Slide } from './src_Promotion/DealScreen';
 import { GetServices } from './tools/Tools';
+import { Slide } from './src_Promotion/DealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from './navigator/IpConfig';
+import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class Same_StoreScreen extends Component {
+export default class Same_StoreScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -24,9 +24,14 @@ export default class Same_StoreScreen extends Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { Title, dataService } = this.props
         const { navigation } = this.props
-        if (Title !== nextState.Title || dataService !== nextState.dataService || navigation !== nextProps.navigation) {
+        const { Title, dataService } = this.state
+        if (
+            ////>nextProps
+            navigation !== nextProps.navigation ||
+            ////>nextState
+            Title !== nextState.Title || dataService !== nextState.dataService
+        ) {
             return true
         }
         return false
@@ -35,8 +40,8 @@ export default class Same_StoreScreen extends Component {
         this.setState({ dataService })
     }
     render() {
-        const { dataService } = this.state
         const { navigation } = this.props
+        const { dataService } = this.state
         const type_product = navigation.getParam('type_product')
         const id_type = navigation.getParam('id_type')
         const id_store = navigation.getParam('id_store')
@@ -73,14 +78,12 @@ export default class Same_StoreScreen extends Component {
                 <ScrollView stickyHeaderIndices={[type_product == 'youlike' ? 2 : null]}>
                     <Slide />
                     <Header Title={title} />
-                    {
+                    {[
                         type_product == 'youlike' &&
-                        <Button_Bar />
-                    }
-                    {
+                        <Button_Bar key={'Button_Bar'} />,
                         dataService &&
-                        <TodayProduct noTitle navigation={navigation} loadData={dataService} />
-                    }
+                        <TodayProduct key={type_product} noTitle navigation={navigation} loadData={dataService} />
+                    ]}
                 </ScrollView>
                 <ExitAppModule navigation={navigation} />
             </SafeAreaView>
@@ -88,7 +91,7 @@ export default class Same_StoreScreen extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Header
-export class Header extends Component {
+export class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -96,7 +99,11 @@ export class Header extends Component {
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { Title } = this.props
-        if (Title !== nextProps.Title) {
+        if (
+            ////>nextProps
+            Title !== nextProps.Title
+            ////>nextState
+        ) {
             return true
         }
         return false

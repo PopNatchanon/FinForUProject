@@ -7,7 +7,7 @@ import {
 import { CheckBox } from 'react-native-elements';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
-import { GiftedChat, Bubble } from 'react-native-gifted-chat';
+import { GiftedChat, Bubble, Send } from 'react-native-gifted-chat';
 import ImagePicker from 'react-native-image-crop-picker';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
@@ -149,7 +149,7 @@ export class AppbarChat extends React.Component {
     render() {
         const { Title } = this.props
         return (
-            <View style={stylesProfileTopic.AppbarChat} >
+            <View style={stylesProfileTopic.AppbarChat}>
                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
                     <IconEntypo name='chevron-left' size={35} color='#0A55A6' style={stylesMain.ItemCenterVertical} />
                 </TouchableOpacity>
@@ -171,10 +171,10 @@ export class ChatScreen extends React.Component {
     render() {
         return (
             <ScrollView>
-                <TouchableOpacity onPress={() => this.props.navigation.push('Profile_Topic', { selectedIndex: 6 })} >
+                <TouchableOpacity onPress={() => this.props.navigation.push('Profile_Topic', { selectedIndex: 6 })}>
                     <Chat_Tag />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.push('Profile_Topic', { selectedIndex: 6 })} >
+                <TouchableOpacity onPress={() => this.props.navigation.push('Profile_Topic', { selectedIndex: 6 })}>
                     <Chat_Tag />
                 </TouchableOpacity>
             </ScrollView>
@@ -185,30 +185,120 @@ export class ChatScreen extends React.Component {
 class Chat_Cutomer extends React.Component {
     state = {
         messages: [],
+        countmessage: 0,
     }
-
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { messages } = this.state
+        if (
+            messages !== nextState.messages
+        ) {
+            return true
+        }
+        return false
+    }
     componentDidMount() {
-        this.setState({
-            messages: [
-                {
-                    _id: 1,
-                    text: 'Hello developer',
-                    createdAt: new Date(),
-                    image: 'https://cdn.pixabay.com/photo/2013/07/21/13/00/rose-165819_960_720.jpg',
-                    user: {
-                        _id: 2,
-                        name: 'React Native',
-                        avatar: 'https://placeimg.com/140/140/any',
-                    },
-                },
-            ],
-        })
+        this.intervalID = setInterval(() =>
+            this.tick(),
+            1000
+        );
     }
+    componentWillUnmount() {
+        clearInterval(this.intervalID);
+    }
+    tick() {
+        var user = {
+            type: 'message',
+            user_id: 10,
+            msg_to: 9
+        }
+        fetch('http://192.168.0.132/mysql/chatpoint.php', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user),
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                if (responseJson.length> 0) {
+                    var text
+                    var test = false
+                    var messages = []
+                    for (text = 0; text < responseJson.length; text++) {
+                        const { countmessage } = this.state
+                        if (countmessage == 0) {
+                            messages.push(
+                                {
+                                    _id: responseJson[text].id,
+                                    text: responseJson[text].message,
+                                    createdAt: responseJson[text].timestamp,
+                                    user: {
+                                        _id: responseJson[text].msg_from,
+                                        avatar: 'https://placeimg.com/140/140/any',
+                                    },
+                                },
+                            )
+                        } else if (text < responseJson.length - countmessage) {
+                            messages.push(
+                                {
+                                    _id: responseJson[text].id,
+                                    text: responseJson[text].message,
+                                    createdAt: responseJson[text].timestamp,
+                                    user: {
+                                        _id: responseJson[text].msg_from,
+                                        avatar: 'https://placeimg.com/140/140/any',
+                                    },
+                                },
+                            )
+                        }
+                    }
+                    this.setState(previousState => ({
+                        messages: GiftedChat.append(previousState.messages, messages),
+                        countmessage: responseJson.length,
+                    }))
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+    }
+    renderSend = props => {
+        return (
+            <Send
+                {...props}
+           >
+                <View style={{ marginRight: 10, marginBottom: 5 }}>
+                    <IconFeather name='send' size={30} color='#0A55A6' />
+                </View>
+            </Send>
+        );
+    }
+    renderMessageText = props => {
 
+    }
     onSend(messages = []) {
-        this.setState(previousState => ({
-            messages: GiftedChat.append(previousState.messages, messages),
-        }))
+        var user = {
+            type: 'sendmessage',
+            msg_to: 9,
+            messages: messages[0].text,
+            user_id: messages[0].user._id,
+        }
+        console.log(user)
+        fetch('http://192.168.0.132/mysql/chatpoint.php', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user),
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+            })
+            .catch((error) => {
+                console.error(error);
+            })
     }
     renderBubble = props => {
         return (
@@ -234,9 +324,11 @@ class Chat_Cutomer extends React.Component {
             <View style={{ height: '97%', width: '100%', backgroundColor: '#FFFFFF' }}>
                 <GiftedChat
                     messages={this.state.messages}
+                    renderSend={this.renderSend}
+                    textStyle={stylesFont.FontFamilyText, stylesFont.FontSize6}
                     onSend={messages => this.onSend(messages)}
                     user={{
-                        _id: 1,
+                        _id: '10',
                     }}
                 />
                 {/* <GiftedChat
@@ -268,9 +360,6 @@ class Chat_Cutomer extends React.Component {
         )
     }
 }
-
-
-
 ///----------------------------------------------------------------------------------------------->>>> Chat_Box
 export class Chat_Tag extends React.Component {
     constructor(props) {
@@ -843,7 +932,7 @@ export class Review_From extends React.Component {
     starReview(star) {
         let starBox = []
         for (var n = 0; n < 5; n++) {
-            if (star > n) {
+            if (star> n) {
                 starBox.push(
                     <TouchableOpacity activeOpacity={1} key={n} onPress={this.selectStar.bind(this, n + 1)}>
                         <IconFontAwesome name='star' size={40} color='#FFAC33' />
@@ -960,12 +1049,12 @@ export class Review_From extends React.Component {
                             }
                         </View>
                     </View>
-                    <View style={[stylesMain.FlexRow,{marginLeft:-10}]}>
+                    <View style={[stylesMain.FlexRow, { marginLeft: -10 }]}>
                         <CheckBox
                             checked={this.state.checked3}
                             onPress={() => this.setState({ checked3: !this.state.checked3, checked4: !this.state.checked4 })}
                         />
-                        <View style={[stylesMain.FlexRow, { marginTop: 20, marginLeft:-15}]}>
+                        <View style={[stylesMain.FlexRow, { marginTop: 20, marginLeft: -15 }]}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                                 ข้าพเจ้ายอมรับและทราบข้อตกลงตาม </Text>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#36B680' }]}>

@@ -98,7 +98,7 @@ export class Menubar extends Component {
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,]}> การขายของฉัน </Text>
                     </View>
                     <View style={stylesMain.FlexRow}>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Totel_Order', { selectedIndex: 0 })} >
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Totel_Order', { selectedIndex: 0 })}>
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#BABABA' }]}>
                                 ดูประวัติการขาย
                             </Text>
@@ -175,7 +175,7 @@ export class ListMenu extends Component {
         return (
             <View>
                 <View style={stylesProfile.ListMenu}>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Up_Product')} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Up_Product')}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconAntDesign RightItem name="plussquareo" size={35} color='#0A55A6' style={stylesProfile.ListMenuListSubIcon} />
@@ -187,7 +187,7 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Totel_Order', { selectedIndex: 0 })} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Totel_Order', { selectedIndex: 0 })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconMaterialIcons RightItem name="access-time" color='#D0B216' size={35} style={stylesProfile.ListMenuListSubIcon} />
@@ -198,7 +198,7 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Totel_Order', { selectedIndex: 2 })} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Totel_Order', { selectedIndex: 2 })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconMaterialCommunityIcons name="car-estate" size={35} color='#9E9E9E' style={stylesProfile.ListMenuListSubIcon} />
@@ -209,7 +209,7 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Topic', { selectedIndex: 8 })} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Topic', { selectedIndex: 8 })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconsFontAwesome RightItem name="bank" size={30} color='#5CCFA8' style={stylesProfile.ListMenuListSubIcon} />
@@ -220,7 +220,7 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Topic', { selectedIndex: 9 })} >
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('StoreMe_Topic', { selectedIndex: 9 })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconsFontAwesome5 RightItem name="money-bill" size={30} color='#154FC6' style={stylesProfile.ListMenuListSubIcon} />
@@ -275,7 +275,7 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 5 })} >
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 5 })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconFeather RightItem name="help-circle" size={35} color='#00A3FF' style={stylesProfile.ListMenuListSubIcon} />

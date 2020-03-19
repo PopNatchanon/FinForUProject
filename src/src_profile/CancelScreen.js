@@ -82,7 +82,7 @@ export class CancelScreen_From extends Component {
   }
   render() {
     return (
-      <SafeAreaView >
+      <SafeAreaView>
         <ScrollView>
           <Cancel_Product />
           <Cancel_Detail />
@@ -201,7 +201,7 @@ export class Cancel_Alert extends Component {
           subtitle="กรุณารอการตรวจสอบจากร้านค้า"
           subtitleStyle={stylesFont.FontFamilyText}
           onRequestClose={() => null}
-        >
+       >
           <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
             <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยกเลิก</SCLAlertButton>
             <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยืนยัน</SCLAlertButton>

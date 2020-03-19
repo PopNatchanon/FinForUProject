@@ -1,5 +1,5 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component } from 'react';
+import React from 'react';
 import {
     Dimensions, SafeAreaView, ScrollView, ImageBackground, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
@@ -7,7 +7,6 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
-import NumberFormat from 'react-number-format';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -15,7 +14,6 @@ import IconFeather from 'react-native-vector-icons/Feather';
 import IconFontisto from 'react-native-vector-icons/Fontisto';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
@@ -24,10 +22,9 @@ import stylesProfile from '../style/StylesProfileScreen'
 import { ExitAppModule } from './MainScreen';
 import { GetCoupon, TabBar, Toolbar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from './navigator/IpConfig';
+import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class StoreScreen extends Component {
-    _isMounted = false;
+export default class StoreScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -35,37 +32,35 @@ export default class StoreScreen extends Component {
         }
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { currentUser } = this.state;
         const { navigation } = this.props
-        if (currentUser !== nextState.currentUser || navigation !== nextProps.navigation) {
+        const { currentUser } = this.state;
+        if (
+            ////>nextProps
+            navigation !== nextProps.navigation ||
+            ////>nextState
+            currentUser !== nextState.currentUser
+        ) {
             return true
         }
         return false
     }
     getDataAsync = async () => {
-        this._isMounted = true;
         const currentUser = await AsyncStorage.getItem('@MyKey')
-        if (this._isMounted) {
-            this.setState({ currentUser: JSON.parse(currentUser) })
-        }
-    }
-    componentWillUnmount() {
-        this._isMounted = false;
+        this.setState({ currentUser: JSON.parse(currentUser) })
     }
     componentDidMount() {
         this.getDataAsync()
     }
     render() {
-        const { currentUser } = this.state;
         const { navigation } = this.props
+        const { currentUser } = this.state;
         return (
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                 <ScrollView>
                     <View>
                         {
-                            currentUser ?
-                                <Headbar navigation={navigation} currentUser={currentUser} /> :
-                                null
+                            currentUser &&
+                            <Headbar navigation={navigation} currentUser={currentUser} />
                         }
                         <Menubar navigation={navigation} />
                         <Listbar navigation={navigation} />
@@ -78,13 +73,17 @@ export default class StoreScreen extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Headbar
-export class Headbar extends Component {
+export class Headbar extends React.Component {
     constructor(props) {
         super(props)
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { currentUser, statusOnline, navigation } = this.props
-        if (currentUser !== nextProps.currentUser || statusOnline !== nextProps.statusOnline || navigation !== nextProps.navigation) {
+        const { currentUser, navigation, statusOnline, } = this.props
+        if (
+            ////>nextProps
+            currentUser !== nextProps.currentUser || navigation !== nextProps.navigation || statusOnline !== nextProps.statusOnline
+            ////>nextState
+        ) {
             return true
         }
         return false
@@ -109,17 +108,19 @@ export class Headbar extends Component {
                     <View style={{ backgroundColor: '#4a4a4a', }}>
                         <ImageBackground
                             source={require('../icon/bgprofile.jpg')}
-                            style={stylesProfile.HeadbarImage}
-                        />
+                            style={stylesProfile.HeadbarImage} />
                     </View>
                 </TouchableOpacity>
                 <View style={stylesProfile.HeadbarA}>
                     <View style={stylesProfile.HeadbarBox1}>
                         <View style={stylesMain.FlexRow}>
                             <View>
-                                <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'StoreMeScreen')}>
+                                <TouchableOpacity activeOpacity={1}
+                                    onPress={this.navigationNavigateScreen.bind(this, 'StoreMeScreen')}>
                                     <View style={stylesProfile.HeadbarBox1Sub}>
-                                        <Text style={[stylesProfile.HeadbarBox1SubText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                                        <Text style={[
+                                            stylesProfile.HeadbarBox1SubText, stylesFont.FontFamilyText, stylesFont.FontSize6
+                                        ]}>
                                             เริ่มค้าขาย</Text>
                                     </View>
                                 </TouchableOpacity>
@@ -133,7 +134,10 @@ export class Headbar extends Component {
                                 <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>
                                     {currentUser.name}</Text>
                                 <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, {
-                                    color: statusOnline ? '#BEBDBD' : '#43e855',
+                                    color:
+                                        statusOnline ?
+                                            '#BEBDBD' :
+                                            '#43e855',
                                 }]}>
                                     <View style={{ height: 8, width: 8, borderRadius: 4, backgroundColor: '#43e855' }}>
                                     </View> Active อยู่</Text>
@@ -144,8 +148,7 @@ export class Headbar extends Component {
                         <View style={{ flexDirection: 'row', padding: 8 }}>
                             <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'SettingScreen')}>
                                 <IconMaterialCommunityIcons RightItem name="settings-outline" style={{ marginRight: 6 }}
-                                    size={25} color='#FFFFFF'
-                                />
+                                    size={25} color='#FFFFFF' />
                             </TouchableOpacity>
                             <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'CartScreen')}>
                                 <IconFeather RightItem name="shopping-cart" size={25} color='#FFFFFF' />
@@ -158,13 +161,17 @@ export class Headbar extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Menubar
-export class Menubar extends Component {
+export class Menubar extends React.Component {
     constructor(props) {
         super(props)
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation } = this.props
-        if (navigation !== nextProps.navigation) {
+        if (
+            ////>nextProps
+            navigation !== nextProps.navigation
+            ////>nextState
+        ) {
             return true
         }
         return false
@@ -194,7 +201,8 @@ export class Menubar extends Component {
                         <TouchableOpacity activeOpacity={0.9}
                             onPress={this.navigationNavigateScreen.bind(this, 'Total_Order', { selectedIndex: 0 })}>
                             <Text style={[
-                                stylesProfile.MenubarText2, stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize6
+                                stylesProfile.MenubarText2, stylesMain.ItemCenterVertical, stylesFont.FontFamilyText,
+                                stylesFont.FontSize6
                             ]}>
                                 รายการการสั่งซื้อทั้งหมด <IconEntypo name='chevron-right' size={20} />
                             </Text>
@@ -207,13 +215,17 @@ export class Menubar extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> MenubarSub
-export class MenubarSub extends Component {
+export class MenubarSub extends React.Component {
     constructor(props) {
         super(props)
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation } = this.props
-        if (navigation !== nextProps.navigation) {
+        if (
+            ////>nextProps
+            navigation !== nextProps.navigation
+            ////>nextState
+        ) {
             return true
         }
         return false
@@ -237,8 +249,7 @@ export class MenubarSub extends Component {
                         <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <FastImage
                                 source={require('../icon/two-money-cards.png')}
-                                style={stylesProfile.MenubarSubLine1Image}
-                            />
+                                style={stylesProfile.MenubarSubLine1Image} />
                             <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                 รอจ่ายเงิน</Text>
                         </View>
@@ -248,8 +259,7 @@ export class MenubarSub extends Component {
                         <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <FastImage
                                 source={require('../icon/month-calendar.png')}
-                                style={stylesProfile.MenubarSubLine1Image}
-                            />
+                                style={stylesProfile.MenubarSubLine1Image} />
                             <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                 เตรียมจัดส่ง</Text>
                         </View>
@@ -259,8 +269,7 @@ export class MenubarSub extends Component {
                         <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <FastImage
                                 source={require('../icon/truck-facing-right.png')}
-                                style={stylesProfile.MenubarSubLine1Image}
-                            />
+                                style={stylesProfile.MenubarSubLine1Image} />
                             <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                 ดำเนินการส่ง</Text>
                         </View>
@@ -270,8 +279,7 @@ export class MenubarSub extends Component {
                         <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <FastImage
                                 source={require('../icon/rating.png')}
-                                style={stylesProfile.MenubarSubLine1Image}
-                            />
+                                style={stylesProfile.MenubarSubLine1Image} />
                             <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                 รีวิวสินค้า</Text>
                         </View>
@@ -282,8 +290,7 @@ export class MenubarSub extends Component {
                         <View style={[stylesProfile.MenubarSubLine2Box, stylesMain.ItemCenter, stylesMain.FlexRow]}>
                             <FastImage
                                 source={require('../icon/repeat.png')}
-                                style={stylesProfile.MenubarSubLine2BoxImage}
-                            />
+                                style={stylesProfile.MenubarSubLine2BoxImage} />
                             <Text style={[stylesProfile.MenubarSubLine2BoxName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                 คืนสินค้า/คืนเงิน</Text>
                         </View>
@@ -292,8 +299,7 @@ export class MenubarSub extends Component {
                         <View style={[stylesProfile.MenubarSubLine2Box, stylesMain.ItemCenter, stylesMain.FlexRow]}>
                             <FastImage
                                 source={require('../icon/box.png')}
-                                style={stylesProfile.MenubarSubLine2BoxImage}
-                            />
+                                style={stylesProfile.MenubarSubLine2BoxImage} />
                             <Text style={[stylesProfile.MenubarSubLine2BoxName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                 ยกเลิกสินค้า</Text>
                         </View>
@@ -304,7 +310,7 @@ export class MenubarSub extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Listbar
-export class Listbar extends Component {
+export class Listbar extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -312,16 +318,21 @@ export class Listbar extends Component {
         }
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { pathlist } = this.state
         const { navigation } = this.props
-        if (pathlist !== nextState.pathlist || navigation !== nextProps.navigation) {
+        const { pathlist } = this.state
+        if (
+            ////>nextProps
+            navigation !== nextProps.navigation ||
+            ////>nextState
+            pathlist !== nextState.pathlist
+        ) {
             return true
         }
         return false
     }
     get PathList() {
-        const { pathlist } = this.state
         const { navigation } = this.props
+        const { pathlist } = this.state
         switch (pathlist) {
             case 0:
                 return (
@@ -389,8 +400,7 @@ export class Listbar extends Component {
                             <View style={[stylesMain.ItemCenter, stylesProfile.ListbarMainRadius, { backgroundColor: '#fadf2d' }]}>
                                 <FastImage
                                     source={require('../icon/bitcoin2.png')}
-                                    style={stylesProfile.ListbarBoxImage}
-                                />
+                                    style={stylesProfile.ListbarBoxImage} />
                             </View>
                             <Text style={[
                                 stylesProfile.ListbarBoxText, stylesFont.FontFamilyText, stylesFont.FontSize6, stylesFont.FontCenter
@@ -407,13 +417,17 @@ export class Listbar extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> ListMenu
-export class ListMenu extends Component {
+export class ListMenu extends React.Component {
     constructor(props) {
         super(props);
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation } = this.props
-        if (navigation !== nextProps.navigation) {
+        if (
+            ////>nextProps
+            navigation !== nextProps.navigation
+            ////>nextState
+        ) {
             return true
         }
         return false
@@ -467,8 +481,7 @@ export class ListMenu extends Component {
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconAntDesign RightItem name="heart" size={35} color='#D74024' style={
-                                    stylesProfile.ListMenuListSubIcon}
-                                />
+                                    stylesProfile.ListMenuListSubIcon} />
                                 <Text style={[
                                     stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6,
                                     stylesFont.FontCenter
@@ -529,7 +542,7 @@ export class ListMenu extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> ViewCode
-export class ViewCode extends Component {
+export class ViewCode extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -537,9 +550,14 @@ export class ViewCode extends Component {
         }
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { pathlist } = this.state
         const { navigation } = this.props
-        if (pathlist !== nextState.pathlist || navigation !== nextProps.navigation) {
+        const { pathlist } = this.state
+        if (
+            ////>nextProps
+            navigation !== nextProps.navigation ||
+            ////>nextState
+            pathlist !== nextState.pathlist
+        ) {
             return true
         }
         return false
@@ -582,8 +600,7 @@ export class ViewCode extends Component {
                     <TabBar
                         sendData={this.getData.bind(this)}
                         item={item}
-                        setVertical={4}
-                    />
+                        setVertical={4} />
                 </View>
                 <View>
                     {this.PathList}
@@ -593,7 +610,7 @@ export class ViewCode extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> MyCode
-export class MyCode extends Component {
+export class MyCode extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -601,9 +618,14 @@ export class MyCode extends Component {
         }
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { text } = this.state
         const { codeList } = this.props
-        if (text !== nextState.text || codeList !== nextProps.codeList) {
+        const { text } = this.state
+        if (
+            ////>nextProps
+            codeList !== nextProps.codeList ||
+            ////>nextState
+            text !== nextState.text
+        ) {
             return true
         }
         return false
@@ -612,8 +634,8 @@ export class MyCode extends Component {
         this.setState({ text })
     }
     render() {
-        const { text } = this.state
         const { codeList } = this.props
+        const { text } = this.state
         return (
             codeList == 'available' ?
                 <View>
@@ -627,8 +649,7 @@ export class MyCode extends Component {
                                     width={'90%'}
                                     placeholderTextColor={'white'}
                                     style={[stylesProfile.ViewCodeInputCode, stylesFont.FontSize6]}
-                                    onChangeText={this.setStateText.bind(this)}
-                                ></TextInput>
+                                    onChangeText={this.setStateText.bind(this)} />
                             </View>
                             <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
                                 <View style={[stylesProfile.ViewCodeTextCode]}>
@@ -646,8 +667,7 @@ export class MyCode extends Component {
                         <View style={stylesProfile.FinMinssionBox}>
                             <View style={[stylesMain.FlexRow, stylesProfile.FinMinssionBoxPlan1]}>
                                 <FastImage
-                                    style={stylesProfile.FinMinssionBoxPlan1Image}
-                                />
+                                    style={stylesProfile.FinMinssionBoxPlan1Image} />
                                 <View style={{ marginLeft: 16 }}>
                                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>
                                         ติดตาม ร้าน Ppooo</Text>
@@ -665,8 +685,7 @@ export class MyCode extends Component {
                             </View>
                             <View style={[stylesMain.FlexRow, stylesProfile.FinMinssionBoxPlan1]}>
                                 <FastImage
-                                    style={stylesProfile.FinMinssionBoxPlan1Image}
-                                />
+                                    style={stylesProfile.FinMinssionBoxPlan1Image} />
                                 <View style={{ marginLeft: 16 }}>
                                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>
                                         ติดตาม ร้าน Ppooo</Text>
@@ -684,8 +703,7 @@ export class MyCode extends Component {
                             </View>
                             <View style={[stylesMain.FlexRow, stylesProfile.FinMinssionBoxPlan1]}>
                                 <FastImage
-                                    style={stylesProfile.FinMinssionBoxPlan1Image}
-                                />
+                                    style={stylesProfile.FinMinssionBoxPlan1Image} />
                                 <View style={{ marginLeft: 16 }}>
                                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>
                                         ติดตาม ร้าน Ppooo</Text>
@@ -716,8 +734,7 @@ export class MyCode extends Component {
                                 colorCoupon='#86CFFF'
                                 timeOut={'14-02-2020'}
                                 couponText={'10%'}
-                                textDetail={'รับเงินคืน 10% Coins'}
-                            />
+                                textDetail={'รับเงินคืน 10% Coins'} />
                             <GetCoupon
                                 flexRow
                                 useCoupon
@@ -725,8 +742,7 @@ export class MyCode extends Component {
                                 colorCoupon='#E43333'
                                 timeOut={'1-03-2020'}
                                 couponText={'25%'}
-                                textDetail={'รับเงินคืน 25% Coins'}
-                            />
+                                textDetail={'รับเงินคืน 25% Coins'} />
                             <GetCoupon
                                 flexRow
                                 useCoupon
@@ -734,8 +750,7 @@ export class MyCode extends Component {
                                 colorCoupon='#E43333'
                                 timeOut={'28-02-2020'}
                                 couponText={'50%'}
-                                textDetail={'รับเงินคืน 50% Coins'}
-                            />
+                                textDetail={'รับเงินคืน 50% Coins'} />
                             <GetCoupon
                                 flexRow
                                 useCoupon
@@ -743,8 +758,7 @@ export class MyCode extends Component {
                                 colorCoupon='#86CFFF'
                                 timeOut={'14-02-2020'}
                                 couponText={'10%'}
-                                textDetail={'รับเงินคืน 10% Coins'}
-                            />
+                                textDetail={'รับเงินคืน 10% Coins'} />
                         </View>
                     </View>
                 </View> :
@@ -757,8 +771,7 @@ export class MyCode extends Component {
                             colorCoupon='#86CFFF'
                             timeOut={'14-02-2020'}
                             couponText={'10%'}
-                            textDetail={'รับเงินคืน 10% Coins'}
-                        />
+                            textDetail={'รับเงินคืน 10% Coins'} />
                         <GetCoupon
                             flexRow
                             useCoupon
@@ -766,8 +779,7 @@ export class MyCode extends Component {
                             colorCoupon='#E43333'
                             timeOut={'1-03-2020'}
                             couponText={'25%'}
-                            textDetail={'รับเงินคืน 25% Coins'}
-                        />
+                            textDetail={'รับเงินคืน 25% Coins'} />
                         <GetCoupon
                             flexRow
                             useCoupon
@@ -775,8 +787,7 @@ export class MyCode extends Component {
                             colorCoupon='#E43333'
                             timeOut={'28-02-2020'}
                             couponText={'50%'}
-                            textDetail={'รับเงินคืน 50% Coins'}
-                        />
+                            textDetail={'รับเงินคืน 50% Coins'} />
                         <GetCoupon
                             flexRow
                             useCoupon
@@ -784,8 +795,7 @@ export class MyCode extends Component {
                             colorCoupon='#86CFFF'
                             timeOut={'14-02-2020'}
                             couponText={'10%'}
-                            textDetail={'รับเงินคืน 10% Coins'}
-                        />
+                            textDetail={'รับเงินคืน 10% Coins'} />
                     </View> :
                     <View style={[stylesMain.BoxProduct2BoxProduct, { backgroundColor: '#fff', paddingTop: 2 }]}>
                         <GetCoupon
@@ -795,8 +805,7 @@ export class MyCode extends Component {
                             colorCoupon='#86CFFF'
                             timeOut={'14-02-2020'}
                             couponText={'10%'}
-                            textDetail={'รับเงินคืน 10% Coins'}
-                        />
+                            textDetail={'รับเงินคืน 10% Coins'} />
                         <GetCoupon
                             flexRow
                             useCoupon
@@ -804,8 +813,7 @@ export class MyCode extends Component {
                             colorCoupon='#E43333'
                             timeOut={'1-03-2020'}
                             couponText={'25%'}
-                            textDetail={'รับเงินคืน 25% Coins'}
-                        />
+                            textDetail={'รับเงินคืน 25% Coins'} />
                         <GetCoupon
                             flexRow
                             useCoupon
@@ -813,8 +821,7 @@ export class MyCode extends Component {
                             colorCoupon='#E43333'
                             timeOut={'28-02-2020'}
                             couponText={'50%'}
-                            textDetail={'รับเงินคืน 50% Coins'}
-                        />
+                            textDetail={'รับเงินคืน 50% Coins'} />
                         <GetCoupon
                             flexRow
                             useCoupon
@@ -822,10 +829,8 @@ export class MyCode extends Component {
                             colorCoupon='#86CFFF'
                             timeOut={'14-02-2020'}
                             couponText={'10%'}
-                            textDetail={'รับเงินคืน 10% Coins'}
-                        />
+                            textDetail={'รับเงินคืน 10% Coins'} />
                     </View>
         )
     }
 }
-///----------------------------------------------------------------------------------------------->>>> CoinCollect

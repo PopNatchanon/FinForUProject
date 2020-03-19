@@ -1,5 +1,5 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Dimensions, SafeAreaView, ScrollView, View,
 } from 'react-native';
@@ -16,7 +16,7 @@ import { GetServices, TabBar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class HighlightScreen extends Component {
+export default class HighlightScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,7 +24,11 @@ export default class HighlightScreen extends Component {
   }
   shouldComponentUpdate = (nextProps, nextState) => {
     const { navigation } = this.props
-    if (navigation !== nextProps.navigation) {
+    if (
+      ////>nextProps
+      navigation !== nextProps.navigation
+      ////>nextState
+    ) {
       return true
     }
     return false
@@ -51,7 +55,7 @@ export default class HighlightScreen extends Component {
   }
 }
 ///----------------------------------------------------------------------------------------------->>>> Main
-export class Button_Bar extends Component {
+export class Button_Bar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -61,7 +65,11 @@ export class Button_Bar extends Component {
   }
   shouldComponentUpdate = (nextProps, nextState) => {
     const { dataService, selectedIndex } = this.state
-    if (dataService !== nextState.dataService || selectedIndex !== nextState.selectedIndex) {
+    if (
+      ////>nextProps
+      dataService !== nextState.dataService || selectedIndex !== nextState.selectedIndex
+      ////>nextState
+    ) {
       return true
     }
     return false
@@ -93,8 +101,7 @@ export class Button_Bar extends Component {
             activeFontColor={'#111'}
             tagBottomColor={'#0A55A6'}
             tagBottom
-            type='tag'
-          />
+            type='tag' />
         </ScrollView>
       </View>
     );

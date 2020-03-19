@@ -1,66 +1,57 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component } from 'react';
+import React from 'react';
 import {
     Dimensions, SafeAreaView, ScrollView, Text, View, Share, TouchableOpacity,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
-import AsyncStorage from '@react-native-community/async-storage';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
-import NumberFormat from 'react-number-format';
 ///----------------------------------------------------------------------------------------------->>>> Icon
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
-import IconFeather from 'react-native-vector-icons/Feather';
-import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from './MainScreen';
-import { GetServices, TabBar, Toolbar } from './tools/Tools';
+import { TabBar, Toolbar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from './navigator/IpConfig';
+import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class NewsScreen extends Component {
-    _isMounted = false;
+export default class NewsScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             selectedIndex: 0
         };
-        this.getData = this.getData.bind(this)
-    }
-    componentWillUnmount() {
-        this._isMounted = false;
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { selectedIndex } = this.state
         const { navigation } = this.props
-        if (selectedIndex !== nextState.selectedIndex || navigation !== nextProps.navigation) {
+        const { selectedIndex } = this.state
+        if (
+            ////>nextProps
+            navigation !== nextProps.navigation ||
+            ////>nextState
+            selectedIndex !== nextState.selectedIndex
+        ) {
             return true
         }
         return false
     }
-    getData = (val) => {
-        this._isMounted = true;
-        if (this._isMounted) {
-            this.setState({
-                selectedIndex: val
-            });
-        }
+    getData = (selectedIndex) => {
+        this.setState({ selectedIndex });
     }
     render() {
-        const { selectedIndex } = this.state
         const { navigation } = this.props
+        const { selectedIndex } = this.state
         var titleValue
-        selectedIndex == 0 ? titleValue = 'NEWS' : titleValue = 'BLOG'
+        selectedIndex == 0 ?
+            titleValue = 'NEWS' :
+            titleValue = 'BLOG'
         return (
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                 <AppBar1 titleHead={titleValue} menuBar />
-                <MenuBar sendText={this.getData} />
+                <MenuBar getData={this.getData.bind(this)} />
                 <ScrollView>
                     <Button_Bar selectedIndex={selectedIndex} />
                 </ScrollView>
@@ -71,22 +62,26 @@ export default class NewsScreen extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> MenuBar
-export class MenuBar extends Component {
+export class MenuBar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         }
-        this.getData = this.getData.bind(this)
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { sendText } = this.props
-        if (sendText !== nextProps.sendText) {
+        const { getData } = this.props
+        if (
+            ////>nextProps
+            getData !== nextProps.getData
+            ////>nextState
+        ) {
             return true
         }
         return false
     }
     getData = (val) => {
-        this.props.sendText(val);
+        const { getData } = this.props
+        getData(val);
     }
     render() {
         const item = [{
@@ -98,22 +93,21 @@ export class MenuBar extends Component {
             <View>
                 <View>
                     <TabBar
-                        sendData={this.getData}
+                        sendData={this.getData.bind(this)}
                         item={item}
                         noSpace
                         setVertical={2}
                         widthBox={100}
                         spaceColor='#0A55A6'
                         activeColor='#fff'
-                        fontColor='#fff'
-                    />
+                        fontColor='#fff' />
                 </View>
             </View>
         )
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Button_Bar
-export class Button_Bar extends Component {
+export class Button_Bar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -121,7 +115,11 @@ export class Button_Bar extends Component {
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { selectedIndex } = this.props
-        if (selectedIndex !== nextProps.selectedIndex) {
+        if (
+            ////>nextProps
+            selectedIndex !== nextProps.selectedIndex
+            ////>nextState
+        ) {
             return true
         }
         return false
@@ -153,7 +151,7 @@ export class Button_Bar extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Blog
-export class Blog extends Component {
+export class Blog extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -161,7 +159,11 @@ export class Blog extends Component {
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { Body } = this.props
-        if (Body !== nextProps.Body) {
+        if (
+            ////>nextProps
+            Body !== nextProps.Body
+            ////>nextState
+        ) {
             return true
         }
         return false
@@ -169,10 +171,8 @@ export class Blog extends Component {
     onShare = async () => {
         try {
             const result = await Share.share({
-                message:'หลายคนคงจะเคยอยากรู้ วิธีดูเพชรแท้ ว่าจริงๆแล้วเพชรแท้ดูยังไง?\n' + finip,
-
+                message: 'หลายคนคงจะเคยอยากรู้ วิธีดูเพชรแท้ ว่าจริงๆแล้วเพชรแท้ดูยังไง?\n' + finip,
             });
-
             if (result.action === Share.sharedAction) {
                 if (result.activityType) {
                     // shared with activity type of result.activityType
@@ -192,15 +192,14 @@ export class Blog extends Component {
                 <View style={stylesStore.header_Box}>
                     <FastImage
                         style={stylesStore.header_image}
-                        source={{ uri: ip + '/MySQL/uploads/page_News/page_J_News.jpg' }}
-                    />
+                        source={{ uri: ip + '/MySQL/uploads/page_News/page_J_News.jpg' }} />
                     <View style={{ flexDirection: 'row', width: '100%' }}>
                         <Text numberOfLines={2} style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { width: '80%' }]}>
                             หลายคนคงจะเคยอยากรู้ วิธีดูเพชรแท้ ว่าจริงๆแล้วเพชรแท้ดูยังไง?</Text>
                         <View>
                             <View style={stylesStore.header_icon_Box}>
                                 <IconEntypo style={stylesStore.header_icon} name='eye' size={25} />
-                                <TouchableOpacity onPress={this.onShare} >
+                                <TouchableOpacity onPress={this.onShare}>
                                     <IconEntypo style={stylesStore.header_icon} name='share' size={25} />
                                 </TouchableOpacity>
                             </View>
@@ -251,6 +250,3 @@ export class Blog extends Component {
         )
     }
 }
-
-///----------------------------------------------------------------------------------------------->>>>
-

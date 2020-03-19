@@ -90,7 +90,7 @@ export class StoreMe_SettingImage extends Component {
                         }
                     </View>
                     <View style={stylesStoreMe.StoreMe_SettingImageEdit_BG}>
-                        <TouchableOpacity onPress={this.UploadImageBackground} >
+                        <TouchableOpacity onPress={this.UploadImageBackground}>
                             <View style={stylesMain.FlexRow}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { textAlign: 'right', color: '#FFFFFF' }]}>แตะเพื่อเปลี่ยน</Text>
                                 <IconFeather name='camera' size={20} color='#FFFFFF' style={{ marginHorizontal: 10, }} />
@@ -111,7 +111,7 @@ export class StoreMe_SettingImage extends Component {
                         }
                     </View>
                     <View style={stylesStoreMe.StoreMe_SettingImageIconBox}>
-                        <TouchableOpacity onPress={this.UploadImageProfile} >
+                        <TouchableOpacity onPress={this.UploadImageProfile}>
                             <View style={stylesStoreMe.StoreMe_SettingImageIconBox_Camara}>
                                 <IconFeather name='camera' size={17} />
                             </View>
@@ -314,7 +314,7 @@ export class StoreMe_SettingButton extends Component {
                             alignItems: "center",
                         }
                     }}
-                >
+              >
                     {this.Phone_numberSheetBody()}
                 </BottomSheet>
                 <TouchableOpacity onPress={() => { this.Phone_numberSheet.open(); }}>

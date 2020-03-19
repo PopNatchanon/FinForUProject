@@ -45,8 +45,6 @@ export class Button_bar extends Component {
         };
     }
     updateIndex = (selectedIndex) => {
-        // console.log('updateIndex|selectedIndex')
-        // console.log(selectedIndex)
         this.setState({ selectedIndex })
     }
     PathList() {
@@ -101,8 +99,6 @@ export class Button_bar extends Component {
             selectedIndex = this.props.navigation.getParam('selectedIndex'),
             this.updateIndex(selectedIndex)
         )
-        // console.log('selectedIndex')
-        // console.log(selectedIndex)
         const item = [{
             name: 'ทั้งหมด'
         }, {

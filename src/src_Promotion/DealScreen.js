@@ -567,7 +567,7 @@ export class ProDed_Store extends Component {
           <View style={[stylesDeal.BoxText_T, { backgroundColor: '#F1F193', marginLeft: -3 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 3, marginLeft: 8 }]}>ร้านนี้มีดีล</Text>
           </View>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Deal_Topic', { selectedIndex: 4 })} >
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Deal_Topic', { selectedIndex: 4 })}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndW]}>ดูทั้งหมด</Text>
           </TouchableOpacity>
         </View>

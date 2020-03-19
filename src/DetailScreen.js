@@ -1,17 +1,17 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React from 'react';
 import {
-  Animated, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, Modal, Image
+  Animated, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, Modal,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage'
 import * as Animatable from 'react-native-animatable';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
+import BottomSheet from "react-native-raw-bottom-sheet";
+import Carousel from 'react-native-snap-carousel';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
 import SmartGallery from "react-native-smart-gallery";
-import BottomSheet from "react-native-raw-bottom-sheet";
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -25,9 +25,9 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, ExitAppModule } from './MainScreen';
-import { GetServices, ProductBox, GetCoupon, TabBar } from './tools/Tools';
+import { GetServices, ProductBox, TabBar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from './navigator/IpConfig';
+import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class DetailScreen extends React.Component {
   constructor(props) {
@@ -46,12 +46,15 @@ export default class DetailScreen extends React.Component {
     this.getDataAsync()
   }
   shouldComponentUpdate = (nextProps, nextState) => {
-    const { activeSlide, dataService, scrollY, setActive, setShowItemImage, showItemImage, BuyProduct } = this.state
     const { navigation } = this.props
+    const { activeSlide, BuyProduct, currentUser, dataService, scrollY, setActive, setShowItemImage, showItemImage, } = this.state
     if (
-      dataService !== nextState.dataService || activeSlide !== nextState.activeSlide || setShowItemImage !== nextState.setShowItemImage
-      || scrollY !== nextState.scrollY || setActive !== nextState.setActive || showItemImage !== nextState.showItemImage ||
-      BuyProduct !== nextState.BuyProduct || navigation !== nextProps.navigation
+      ////>nextProps
+      navigation !== nextProps.navigation ||
+      ////>nextProps
+      activeSlide !== nextState.activeSlide || BuyProduct !== nextState.BuyProduct || currentUser !== nextState.currentUser ||
+      dataService !== nextState.dataService || scrollY !== nextState.scrollY || setActive !== nextState.setActive ||
+      setShowItemImage !== nextState.setShowItemImage || showItemImage !== nextState.showItemImage
     ) {
       return true
     }
@@ -70,7 +73,6 @@ export default class DetailScreen extends React.Component {
     this.setState({ BuyProduct })
   }
   render() {
-    const { dataService, showItemImage, setShowItemImage, setActive, scrollY, currentUser, BuyProduct } = this.state
     const { navigation } = this.props
     var id_product = navigation.getParam('id_item')
     var uri = finip + '/product/product_deatil_mobile';
@@ -92,8 +94,7 @@ export default class DetailScreen extends React.Component {
             right: 0,
             overflow: 'hidden',
           }}>
-            <AppBar leftBar='backarrow' navigation={navigation}
-            />
+            <AppBar leftBar='backarrow' navigation={navigation} />
           </View>
         </Animatable.View>
         <ScrollView
@@ -118,8 +119,7 @@ export default class DetailScreen extends React.Component {
             <Conpon dataService={dataService.product_data} currentUser={currentUser} />
           }
           <Selector dataService={dataService} BuyProduct={BuyProduct} currentUser={currentUser} navigation={navigation}
-            sendProduct={this.BuyProduct.bind(this)}
-          />
+            sendProduct={this.BuyProduct.bind(this)} />
           <Detail_Category dataService={dataService} />
           <Detail dataService={dataService} />
           {
@@ -151,12 +151,14 @@ export class Detail_Image extends React.Component {
     };
   }
   shouldComponentUpdate = (nextProps, nextState) => {
-    const { activeSlide, imageLength, imageLengthActive } = this.state
-    const { setShowImage, navigation, dataService, setActive, showImage } = this.props
+    const { dataService, navigation, setActive, setShowImage, showImage, } = this.props
+    const { activeSlide, imageLength, imageLengthActive, } = this.state
     if (
-      activeSlide !== nextState.activeSlide || imageLength !== nextState.imageLength || setShowImage !== nextProps.setShowImage ||
-      imageLengthActive !== nextState.imageLengthActive || navigation !== nextProps.navigation || dataService !== nextProps.dataService
-      || setActive !== nextProps.setActive || showImage !== nextProps.showImage
+      ////>nextProps
+      dataService !== nextProps.dataService || navigation !== nextProps.navigation || setActive !== nextProps.setActive ||
+      setShowImage !== nextProps.setShowImage || showImage !== nextProps.showImage ||
+      ////>nextState
+      activeSlide !== nextState.activeSlide || imageLength !== nextState.imageLength || imageLengthActive !== nextState.imageLengthActive
     ) {
       return true
     }
@@ -188,7 +190,7 @@ export class Detail_Image extends React.Component {
   _renderItem = ({ item, index }) => {
     var dataMySQL = [finip, item.image_full_path, item.image].join('/');
     return (
-      <TouchableOpacity activeOpacity={1} onPress={this.sendShowImage.bind(this)} >
+      <TouchableOpacity activeOpacity={1} onPress={this.sendShowImage.bind(this)}>
         <View style={{ width: width * 1, height: width * 1, /*backgroundColor: '#d9d9d9'*/ }}>
           <FastImage
             source={{
@@ -196,8 +198,7 @@ export class Detail_Image extends React.Component {
             }}
             style={[stylesMain.BoxProduct1Image, { opacity: 0.9 }]}
             key={index}
-            resizeMode={FastImage.resizeMode.contain}
-          />
+            resizeMode={FastImage.resizeMode.contain} />
         </View>
       </TouchableOpacity>
     );
@@ -206,8 +207,8 @@ export class Detail_Image extends React.Component {
     this.setState({ activeSlide: index })
   }
   get id_product() {
-    const { activeSlide, imageLength, } = this.state;
     const { dataService, setActive, setShowImage } = this.props;
+    const { activeSlide, imageLength, } = this.state;
     return dataService.map((item, index) => {
       let dataMySQL
       item.gallery_image ?
@@ -227,8 +228,7 @@ export class Detail_Image extends React.Component {
               itemWidth={width * 1}
               sliderHeight={width * 1}
               // loop={true}
-              onSnapToItem={this.setStateActiveSlide.bind(this)}
-            />
+              onSnapToItem={this.setStateActiveSlide.bind(this)} />
             <View style={{ flex: 1, }}>
               <View style={[stylesMain.ItemCenter, stylesDetail.ImageSlide]}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
@@ -262,16 +262,19 @@ export class Detail_Data extends React.Component {
     };
   }
   shouldComponentUpdate = (nextProps, nextState) => {
-    const {
-      dataServiceArray, countItem, RunTime, dataServiceArray2, dataServiceArray3, arrayCountA, arrayCountB, arrayCountC, arrayCountD,
-      id_product
-    } = this.state
     const { dataService } = this.props;
+    const {
+      arrayCountA, arrayCountB, arrayCountC, arrayCountD, countItem, dataServiceArray, dataServiceArray2, dataServiceArray3,
+      id_product, RunTime,
+    } = this.state
     if (
-      dataServiceArray !== nextState.dataServiceArray || countItem !== nextState.countItem || RunTime !== nextState.RunTime ||
-      dataService !== nextProps.dataService || id_product !== nextState.id_product || arrayCountA !== nextState.arrayCountA ||
-      arrayCountB !== nextState.arrayCountB || arrayCountC !== nextState.arrayCountC || arrayCountD !== nextState.arrayCountD ||
-      dataServiceArray2 !== nextState.dataServiceArray2 || dataServiceArray3 !== nextState.dataServiceArray3
+      ////>nextProps
+      dataService !== nextProps.dataService ||
+      ////>nextState
+      arrayCountA !== nextState.arrayCountA || arrayCountB !== nextState.arrayCountB || arrayCountC !== nextState.arrayCountC ||
+      arrayCountD !== nextState.arrayCountD || countItem !== nextState.countItem || dataServiceArray !== nextState.dataServiceArray ||
+      dataServiceArray2 !== nextState.dataServiceArray2 || dataServiceArray3 !== nextState.dataServiceArray3 ||
+      id_product !== nextState.id_product || RunTime !== nextState.RunTime
     ) {
       return true
     }
@@ -284,7 +287,7 @@ export class Detail_Data extends React.Component {
   //     this.setState({ arrayCountC: dataServiceArray3.length })
   //   )
   //   if (dataServiceArray3 != null && arrayCountC != 0 && arrayCountA == arrayCountB + 1 && arrayCountC != arrayCountD + 1) {
-  //     for (arrayCountD; arrayCountC > arrayCountD; arrayCountD++) {
+  //     for (arrayCountD; arrayCountC> arrayCountD; arrayCountD++) {
   //       var uri = finip + '/product/get_product_amount'
   //       var dataBody = {
   //         id_product: dataServiceArray3[arrayCountD].id_product,
@@ -329,7 +332,7 @@ export class Detail_Data extends React.Component {
   //   if (detail_product != null && arrayCountA != 0 && arrayCountA != arrayCountB + 1) {
   //     var n = 0
   //     var p = 0
-  //     for (arrayCountB; arrayCountA > arrayCountB; arrayCountB++) {
+  //     for (arrayCountB; arrayCountA> arrayCountB; arrayCountB++) {
   //       var uri = finip + '/product/get_value_size'
   //       var dataBody = {
   //         id_product: id_product,
@@ -348,7 +351,7 @@ export class Detail_Data extends React.Component {
   //         .then((response) => response.json())
   //         .then((responseJson) => {
   //           var o = 0
-  //           for (var m = n; responseJson.data_size.length + n > m; m++) {
+  //           for (var m = n; responseJson.data_size.length + n> m; m++) {
   //             dataServiceArray3[m] = responseJson.data_size[o]
   //             dataServiceArray3[m].detail_1 = detail_product[p].detail_1
   //             dataServiceArray3[m].id_product = id_product
@@ -381,8 +384,7 @@ export class Detail_Data extends React.Component {
                     renderText={
                       value =>
                         <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
-                          {value}</Text>}
-                  />
+                          {value}</Text>} />
                   <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
                     {item.full_price ? null : ' - '}</Text>
                   <NumberFormat
@@ -393,8 +395,7 @@ export class Detail_Data extends React.Component {
                     renderText={
                       value =>
                         <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
-                          {value}</Text>}
-                  />
+                          {value}</Text>} />
                   <View style={[stylesMain.Box_On_sale, { borderRadius: 20 }]}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>-55%</Text>
                   </View>
@@ -439,9 +440,14 @@ export class Store extends React.Component {
     }
   }
   shouldComponentUpdate = (nextProps, nextState) => {
-    const { ImageStore } = this.state
     const { dataService, navigation } = this.props
-    if (ImageStore !== nextState.ImageStore || dataService !== nextProps.dataService || navigation !== nextProps.navigation) {
+    const { ImageStore } = this.state
+    if (
+      ////>nextProps
+      dataService !== nextProps.dataService || navigation !== nextProps.navigation ||
+      ////>nextState
+      ImageStore !== nextState.ImageStore
+    ) {
       return true
     }
     return false
@@ -460,8 +466,8 @@ export class Store extends React.Component {
         navigation.navigate(value, value2)
   }
   get id_store() {
-    const { ImageStore } = this.state
     const { dataService } = this.props
+    const { ImageStore } = this.state
     return dataService.product_data &&
       dataService.product_data.map((item, index) => {
         var dataMySQL = [finip, item.store_path, item.store_img].join('/');
@@ -541,11 +547,13 @@ export class Conpon extends React.Component {
     };
   }
   shouldComponentUpdate = (nextProps, nextState) => {
-    const { activeDate, dataService2 } = this.state
     const { currentUser, dataService, } = this.props
+    const { activeDate, dataService2 } = this.state
     if (
-      activeDate !== nextState.activeDate || dataService2 !== nextState.dataService2 || currentUser !== nextState.currentUser ||
-      dataService !== nextProps.dataService
+      ////>nextProps
+      currentUser !== nextState.currentUser || dataService !== nextProps.dataService ||
+      ////>nextState
+      activeDate !== nextState.activeDate || dataService2 !== nextState.dataService2
     ) {
       return true
     }
@@ -603,8 +611,7 @@ export class Conpon extends React.Component {
           <GetServices
             uriPointer={uri}
             dataBody={dataBody}
-            getDataSource={this.getData.bind(this)}
-          />
+            getDataSource={this.getData.bind(this)} />
         }
         <BottomSheet
           ref={ref => {
@@ -651,26 +658,29 @@ export class Selector extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      itemCount: 1,
-      selectedIndex: 0,
-      selectedIndex2: 0,
       activeSelect: true,
       activeSelect2: false,
       activeSelect3: false,
+      itemCount: 1,
+      selectedIndex: 0,
+      selectedIndex2: 0,
     };
   }
   shouldComponentUpdate = (nextProps, nextState) => {
+    const { BuyProduct, currentUser, dataService, navigation, sendProduct, } = this.props
     const {
-      itemCount, selectedIndex, selectedIndex2, dataService2, dataService3, sendDataCart, activeSelect, activeSelect2, activeSelect3,
-      BuyProduct2
+      activeSelect, activeSelect2, activeSelect3, BuyProduct2, dataService2, dataService3, itemCount, selectedIndex, selectedIndex2,
+      sendDataCart,
     } = this.state
-    const { dataService, BuyProduct, sendProduct, currentUser, navigation } = this.props
     if (
+      ////>nextProps
+      BuyProduct !== nextProps.BuyProduct || currentUser !== nextProps.currentUser || dataService !== nextProps.dataService ||
+      navigation !== nextProps.navigation || sendProduct !== nextProps.sendProduct ||
+      ////>nextState
+      activeSelect !== nextState.activeSelect || activeSelect2 !== nextState.activeSelect2 || activeSelect3 !== nextState.activeSelect3 ||
+      BuyProduct2 !== nextState.BuyProduct2 || dataService2 !== nextState.dataService2 || dataService3 !== nextState.dataService3 ||
       itemCount !== nextState.itemCount || selectedIndex !== nextState.selectedIndex || selectedIndex2 !== nextState.selectedIndex2 ||
-      dataService2 !== nextState.dataService2 || dataService3 !== nextState.dataService3 || sendDataCart !== nextState.sendDataCart ||
-      activeSelect !== nextState.activeSelect || activeSelect2 !== nextState.activeSelect2 || activeSelect3 !== nextState.activeSelect3
-      || BuyProduct2 !== nextState.BuyProduct2 || dataService !== nextProps.dataService || BuyProduct !== nextProps.BuyProduct ||
-      sendProduct !== nextProps.sendProduct || currentUser !== nextProps.currentUser || navigation !== nextProps.navigation
+      sendDataCart !== nextState.sendDataCart
     ) {
       return true
     }
@@ -694,8 +704,6 @@ export class Selector extends React.Component {
   getData3 = (dataService3) => {
     const { BuyProduct2 } = this.state
     const { navigation } = this.props
-    console.log('dataService3')
-    console.log(dataService3)
     this.SelectorSheet.close();
     dataService3.Message == 'Complete' && BuyProduct2 == 'gocart' &&
       navigation.push('CartScreen')
@@ -712,15 +720,13 @@ export class Selector extends React.Component {
         navigation.navigate(value, value2)
   }
   sendDataCart = (BuyProduct, sendDataCart) => {
-    console.log('sendDataCart')
-    console.log(sendDataCart)
     this.setState({ sendDataCart, activeSelect3: true, BuyProduct2: BuyProduct })
   }
   get SelectorSheetBody() {
+    const { BuyProduct, currentUser, dataService, } = this.props
     const {
-      itemCount, selectedIndex, selectedIndex2, dataService2, dataService3, activeSelect, activeSelect2, activeSelect3, sendDataCart
+      activeSelect, activeSelect2, activeSelect3, dataService2, dataService3, itemCount, selectedIndex, selectedIndex2, sendDataCart,
     } = this.state
-    const { dataService, BuyProduct, currentUser } = this.props
     var items = []
     dataService.detail_product &&
       dataService.detail_product.map((item) => {
@@ -763,10 +769,6 @@ export class Selector extends React.Component {
           }
         )
         var uri3 = finip + '/product/add_to_cart'
-        console.log('uri3')
-        console.log(uri3)
-        console.log('sendDataCart')
-        console.log(sendDataCart)
         var dataMySQL = [finip, item.image_full_path, item.image].join('/');
         return (
           <View style={{ flex: 1, paddingHorizontal: 15 }} key={index}>
@@ -775,24 +777,21 @@ export class Selector extends React.Component {
               <GetServices
                 uriPointer={uri}
                 dataBody={dataBody}
-                getDataSource={this.getData.bind(this)}
-              />
+                getDataSource={this.getData.bind(this)} />
             }
             {
               dataService2 && activeSelect2 == true &&
               <GetServices
                 uriPointer={uri2}
                 dataBody={dataBody2}
-                getDataSource={this.getData2.bind(this)}
-              />
+                getDataSource={this.getData2.bind(this)} />
             }
             {
               sendDataCart && activeSelect3 == true &&
               <GetServices
                 uriPointer={uri3}
                 dataBody={sendDataCart}
-                getDataSource={this.getData3.bind(this)}
-              />
+                getDataSource={this.getData3.bind(this)} />
             }
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { textAlign: 'center' }]}>ตัวเลือก</Text>
             <ScrollView>
@@ -802,8 +801,7 @@ export class Selector extends React.Component {
                     source={{
                       uri: dataMySQL,
                     }}
-                    style={stylesMain.BoxProduct1Image}
-                  />
+                    style={stylesMain.BoxProduct1Image} />
                 </View>
                 {
                   dataService2 && dataService3 &&
@@ -818,8 +816,7 @@ export class Selector extends React.Component {
                           value =>
                             <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize2]}>
                               {value}</Text>
-                        }
-                      />
+                        } />
                       <NumberFormat
                         value={dis_price}
                         displayType={'text'}
@@ -835,8 +832,7 @@ export class Selector extends React.Component {
                               }]}>
                                 {value}</Text>
                             </View>
-                        }
-                      />
+                        } />
                     </View>
                     <NumberFormat
                       value={full_price}
@@ -848,8 +844,7 @@ export class Selector extends React.Component {
                           <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize4,
                           stylesMain.BoxProduct1ImagePriceThrough, { marginTop: 0, }]}>
                             {value}</Text>
-                      }
-                    />
+                      } />
                     <NumberFormat
                       value={amount_product}
                       displayType={'text'}
@@ -858,8 +853,7 @@ export class Selector extends React.Component {
                         value =>
                           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
                             คลัง {value}</Text>
-                      }
-                    />
+                      } />
                   </View>
                 }
               </View>
@@ -872,8 +866,7 @@ export class Selector extends React.Component {
                     type='box'
                     noLimit
                     numberBox
-                    radiusBox={4}
-                  />
+                    radiusBox={4} />
                 </View>
               </View>
               {
@@ -887,8 +880,7 @@ export class Selector extends React.Component {
                       type='box'
                       noLimit
                       numberBox
-                      radiusBox={4}
-                    />
+                      radiusBox={4} />
                   </View>
                 </View>
               }
@@ -983,7 +975,7 @@ export class Selector extends React.Component {
                 }
               </View>
             </View>
-          </View >
+          </View>
         )
       })
   }
@@ -992,7 +984,7 @@ export class Selector extends React.Component {
     sendProduct(typeSelect)
   }
   render() {
-    const { dataService, BuyProduct, currentUser } = this.props
+    const { BuyProduct, currentUser, dataService, } = this.props
     dataService.detail_product && BuyProduct &&
       this.SelectorSheet.open()
     return (
@@ -1048,7 +1040,11 @@ export class Detail_Category extends React.Component {
   }
   shouldComponentUpdate = (nextProps, nextState) => {
     const { dataService } = this.props
-    if (dataService !== nextProps.dataService) {
+    if (
+      ////>nextProps
+      dataService !== nextProps.dataService
+      ////>nextState
+    ) {
       return true
     }
     return false
@@ -1106,9 +1102,14 @@ export class Detail extends React.Component {
     };
   }
   shouldComponentUpdate = (nextProps, nextState) => {
-    const { showMoreButton, activeText } = this.state
     const { dataService } = this.props
-    if (showMoreButton !== nextState.showMoreButton || activeText !== nextState.activeText || dataService !== nextProps.dataService) {
+    const { activeText, showMoreButton, } = this.state
+    if (
+      ////>nextProps
+      dataService !== nextProps.dataService ||
+      ////>nextState
+      activeText !== nextState.activeText || showMoreButton !== nextState.showMoreButton
+    ) {
       return true
     }
     return false
@@ -1120,8 +1121,8 @@ export class Detail extends React.Component {
     this.setState({ activeText })
   }
   get id_store() {
-    const { showMoreButton, activeText } = this.state
     const { dataService } = this.props
+    const { activeText, showMoreButton, } = this.state
     return dataService.product_data &&
       dataService.product_data.map((item, index) => {
         return (
@@ -1172,10 +1173,13 @@ export class Reviews extends React.Component {
   }
   shouldComponentUpdate = (nextProps, nextState) => {
     const { dataService2 } = this.state
-    const { navigation, dataService, currentUser } = this.props
+    const { currentUser, dataService, navigation, } = this.props
     if (
-      dataService2 !== nextState.dataService2 || navigation !== nextProps.navigation || dataService !== nextProps.dataService ||
-      currentUser !== nextProps.currentUser
+      ////>nextProps
+      dataService2 !== nextState.dataService2 ||
+      ////>nextState
+      currentUser !== nextProps.currentUser || dataService !== nextProps.dataService ||
+      navigation !== nextProps.navigation
     ) {
       return true
     }
@@ -1205,14 +1209,12 @@ export class Reviews extends React.Component {
             imagereview.push(<FastImage
               key={index2}
               style={stylesDetail.Reviews_Image}
-              source={{ uri: path }}
-            />)
+              source={{ uri: path }} />)
           })
           return <View style={stylesDetail.Comment_R} key={index}>
             <FastImage
               style={stylesDetail.Comment_R_Image}
-              source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
-            />
+              source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }} />
             <View style={stylesDetail.Comment_R_Text}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                 {item.name ? item.name : 'ไม่ระบุตัวตน'}</Text>
@@ -1245,8 +1247,8 @@ export class Reviews extends React.Component {
     return starBox
   }
   render() {
-    const { dataService2 } = this.state
     const { dataService, currentUser } = this.props
+    const { dataService2 } = this.state
     var uri = finip + '/product/product_review_mobile'
     var dataBody
     currentUser && dataService && (
@@ -1293,28 +1295,22 @@ export class Reviews extends React.Component {
               <View style={stylesDetail.Reviews_Image_Box}>
                 <FastImage
                   style={stylesDetail.Reviews_Image}
-                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
-                />
+                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }} />
                 <FastImage
                   style={stylesDetail.Reviews_Image}
-                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
-                />
+                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }} />
                 <FastImage
                   style={stylesDetail.Reviews_Image}
-                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
-                />
+                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }} />
                 <FastImage
                   style={stylesDetail.Reviews_Image}
-                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
-                />
+                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }} />
                 <FastImage
                   style={stylesDetail.Reviews_Image}
-                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
-                />
+                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }} />
                 <FastImage
                   style={stylesDetail.Reviews_Image}
-                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }}
-                />
+                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }} />
               </View>
             </ScrollView> */}
             {
@@ -1338,8 +1334,7 @@ export class BannerBar extends React.Component {
     return (<View style={stylesDetail.Banner_Bar}>
       <FastImage
         style={stylesDetail.Banner_Bar_image}
-        source={{ uri: ip + '/MySQL/uploads/slide/Banner_type/watch_BannerBar.jpg' }}
-      />
+        source={{ uri: ip + '/MySQL/uploads/slide/Banner_type/watch_BannerBar.jpg' }} />
     </View>
     );
   }
@@ -1355,7 +1350,12 @@ export class Same_Store extends React.Component {
   shouldComponentUpdate = (nextProps, nextState) => {
     const { dataService2 } = this.state
     const { dataService, navigation } = this.props
-    if (dataService2 !== nextState.dataService2 || dataService !== nextProps.dataService || navigation !== nextProps.navigation) {
+    if (
+      ////>nextProps
+      dataService !== nextProps.dataService || navigation !== nextProps.navigation ||
+      ////>nextState
+      dataService2 !== nextState.dataService2
+    ) {
       return true
     }
     return false
@@ -1408,8 +1408,7 @@ export class Same_Store extends React.Component {
           {
             dataService2 &&
             <ProductBox dataService={dataService2} navigation={navigation} typeip='fin' mode='row3col1' pointerUrl='DetailScreen'
-              pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-            />
+              pointerid_store nameSize={14} priceSize={15} dispriceSize={15} />
           }
         </ScrollView>
       </View>
@@ -1425,9 +1424,14 @@ export class Similar_Product extends React.Component {
     };
   }
   shouldComponentUpdate = (nextProps, nextState) => {
-    const { dataService2 } = this.state
     const { dataService, navigation } = this.props
-    if (dataService2 !== nextState.dataService2 || dataService !== nextProps.dataService || navigation !== nextProps.navigation) {
+    const { dataService2 } = this.state
+    if (
+      ////>nextProps
+      dataService !== nextProps.dataService || navigation !== nextProps.navigation ||
+      ////>nextState
+      dataService2 !== nextState.dataService2
+    ) {
       return true
     }
     return false
@@ -1446,8 +1450,8 @@ export class Similar_Product extends React.Component {
         navigation.navigate(value, value2)
   }
   render() {
-    const { dataService2 } = this.state
     const { dataService, navigation } = this.props
+    const { dataService2 } = this.state
     var uri = finip + '/product/product_other_mobile';
     var dataBody
     var id_type
@@ -1480,8 +1484,7 @@ export class Similar_Product extends React.Component {
           {
             dataService2 &&
             <ProductBox dataService={dataService2} navigation={navigation} typeip='fin' mode='row3col1' pointerUrl='DetailScreen'
-              pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-            />
+              pointerid_store nameSize={14} priceSize={15} dispriceSize={15} />
           }
         </ScrollView>
       </View>
@@ -1497,9 +1500,14 @@ export class Might_like extends React.Component {
     };
   }
   shouldComponentUpdate = (nextProps, nextState) => {
-    const { dataService2 } = this.state
     const { dataService, navigation } = this.props
-    if (dataService2 !== nextState.dataService2 || dataService !== nextProps.dataService || navigation !== nextProps.navigation) {
+    const { dataService2 } = this.state
+    if (
+      ////>nextProps
+      dataService !== nextProps.dataService || navigation !== nextProps.navigation ||
+      ////>nextState
+      dataService2 !== nextState.dataService2
+    ) {
       return true
     }
     return false
@@ -1518,8 +1526,8 @@ export class Might_like extends React.Component {
         navigation.navigate(value, value2)
   }
   render() {
-    const { dataService2 } = this.state
     const { dataService, navigation } = this.props
+    const { dataService2 } = this.state
     var uri = finip + '/product/product_other_mobile';
     var dataBody
     var id_type
@@ -1552,8 +1560,7 @@ export class Might_like extends React.Component {
           {
             dataService2 &&
             <ProductBox dataService={dataService2} navigation={navigation} typeip='fin' mode='row2colall' pointerUrl='DetailScreen'
-              pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-            />
+              pointerid_store nameSize={14} priceSize={15} dispriceSize={15} />
           }
         </View>
       </View>
@@ -1568,10 +1575,12 @@ export class Buy_bar extends React.Component {
     };
   }
   shouldComponentUpdate = (nextProps, nextState) => {
-    const { dataService, navigation, BuyProduct, currentUser } = this.props
+    const { BuyProduct, currentUser, dataService, navigation, } = this.props
     if (
-      dataService !== nextProps.dataService || navigation !== nextProps.navigation || BuyProduct !== nextProps.BuyProduct ||
-      currentUser !== nextProps.currentUser
+      ////>nextProps
+      BuyProduct !== nextProps.BuyProduct || currentUser !== nextProps.currentUser || dataService !== nextProps.dataService ||
+      navigation !== nextProps.navigation
+      ////>nextState
     ) {
       return true
     }
@@ -1597,7 +1606,7 @@ export class Buy_bar extends React.Component {
       dataService.product_data.map((item, index) => {
         return (
           < View style={stylesDetail.Buy_bar} key={index}>
-            < View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical]} >
+            < View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
               <TouchableOpacity activeOpacity={1} onPress={
                 currentUser ?
                   this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 }) :
@@ -1608,7 +1617,7 @@ export class Buy_bar extends React.Component {
                 <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesMain.ItemCenterVertical]}>
                   แชท</Text>
               </TouchableOpacity>
-            </View >
+            </View>
             <Text style={{ fontSize: 30 }}>|</Text>
             <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: item.id_store })}>
               <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
@@ -1638,7 +1647,7 @@ export class Buy_bar extends React.Component {
                   ซื้อเลย</Text>
               </View>
             </TouchableOpacity>
-          </View >
+          </View>
         )
       })
   }
@@ -1657,7 +1666,12 @@ export class Show_Image extends React.Component {
   }
   shouldComponentUpdate = (nextProps, nextState) => {
     const { dataService, navigation, setShowItemImage, showImage } = this.props
-    if (dataService !== nextProps.dataService || navigation !== nextProps.navigation || setShowItemImage !== nextProps.setShowItemImage || showImage !== nextProps.showImage) {
+    if (
+      ////>nextProps
+      dataService !== nextProps.dataService || navigation !== nextProps.navigation || setShowItemImage !== nextProps.setShowItemImage ||
+      showImage !== nextProps.showImage
+      ////>nextState
+    ) {
       return true
     }
     return false
@@ -1682,12 +1696,10 @@ export class Show_Image extends React.Component {
         visible={true}
         onRequestClose={() => {
           showImage(false);
-        }}
-      >
+        }}>
         <View style={[{ height, width }]}>
-          {/* <SmartGallery
-            images={dataMySQL}
-          /> */}
+          <SmartGallery
+            images={dataMySQL} />
         </View>
       </Modal>
     );
@@ -1702,11 +1714,14 @@ export class Coupon_Detail_BottomSheet extends React.Component {
     };
   }
   shouldComponentUpdate = (nextProps, nextState) => {
-    const { id_promotion, activeId_promotion } = this.state
     const { currentUser, dataService, get_id_promotion } = this.props
+    const { id_promotion, activeId_promotion } = this.state
     if (
-      id_promotion !== nextState.id_promotion || activeId_promotion !== nextState.activeId_promotion ||
-      currentUser !== nextProps.currentUser || dataService !== nextProps.dataService || get_id_promotion !== nextProps.get_id_promotion
+      ////>nextProps
+      currentUser !== nextProps.currentUser || dataService !== nextProps.dataService ||
+      get_id_promotion !== nextProps.get_id_promotion ||
+      ////>nextState
+      id_promotion !== nextState.id_promotion || activeId_promotion !== nextState.activeId_promotion
     ) {
       return true
     }
@@ -1722,8 +1737,8 @@ export class Coupon_Detail_BottomSheet extends React.Component {
     }
   }
   render() {
+    const { currentUser, dataService, get_id_promotion } = this.props
     const { id_promotion, activeId_promotion } = this.state
-    const { currentUser, dataService, } = this.props
     var uri
     var dataBody
     currentUser && id_promotion && (

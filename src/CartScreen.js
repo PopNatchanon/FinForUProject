@@ -18,28 +18,30 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from './MainScreen';
-import { GetServices, LoadingScreen } from './tools/Tools';
+import { GetServices } from './tools/Tools';
 import { PopularProduct } from './StoreScreen'
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from './navigator/IpConfig';
+import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class CartScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            itemCount: [],
-            itemData: [],
             activeRefresh: true,
             activeSave: false,
+            itemCount: [],
+            itemData: [],
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService, dataService2, currentUser, activeSave, activeRefresh, ArrayItem } = this.state
         const { navigation } = this.props
+        const { activeSave, activeRefresh, ArrayItem, currentUser, dataService, dataService2, } = this.state
         if (
-            dataService !== nextState.dataService || dataService2 !== nextState.dataService2 || currentUser !== nextState.currentUser ||
+            ////>nextProps
+            navigation !== nextProps.navigation ||
+            ////>nextState
             activeSave !== nextState.activeSave || activeRefresh !== nextState.activeRefresh || ArrayItem !== nextState.ArrayItem ||
-            navigation !== nextProps.navigation
+            currentUser !== nextState.currentUser || dataService !== nextState.dataService || dataService2 !== nextState.dataService2
         ) {
             return true
         }
@@ -53,17 +55,17 @@ export default class CartScreen extends React.Component {
         this.setState({ currentUser: JSON.parse(currentUser) })
     }
     getData = (dataService) => {
-        this.setState({ dataService, activeRefresh: false })
+        this.setState({ activeRefresh: false, dataService, })
     }
     getData2 = (dataService2) => {
-        this.setState({ dataService2, activeRefresh: true, activeSave: false })
+        this.setState({ activeRefresh: true, activeSave: false, dataService2, })
     }
     ArrayItem = (ArrayItem) => {
-        this.setState({ ArrayItem, activeSave: true })
+        this.setState({ activeSave: true, ArrayItem, })
     }
     render() {
-        const { activeRefresh, currentUser, dataService, dataService2, activeSave, ArrayItem, } = this.state
         const { navigation } = this.props;
+        const { activeSave, activeRefresh, ArrayItem, currentUser, dataService, dataService2, } = this.state
         var uri
         var dataBody
         currentUser && (
@@ -82,11 +84,9 @@ export default class CartScreen extends React.Component {
                 } */}
                 {
                     currentUser && dataBody && activeRefresh == true &&
-                    <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
-                }
-                {
+                    <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} key={'cart_ajax'} />,
                     ArrayItem && activeSave == true &&
-                    <GetServices uriPointer={uri2} dataBody={ArrayItem} getDataSource={this.getData2.bind(this)} />
+                    <GetServices uriPointer={uri2} dataBody={ArrayItem} getDataSource={this.getData2.bind(this)} key={'auto_save_ajax'} />
                 }
                 <AppBar1 navigation={navigation} titleHead='รถเข็น' chatBar backArrow />
                 <ScrollView>
@@ -116,11 +116,15 @@ export class Product_Cart extends React.Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { ItemArray, activecart } = this.state
-        const { itemData, sendData, dataService, ArrayItem } = this.props
+        const { ArrayItem, currentUser, dataService, dataService2, itemData, sendData, } = this.props
+        const { activecart, ItemArray, } = this.state
         if (
-            ItemArray !== nextState.ItemArray || activecart !== nextState.activecart || itemData !== nextProps.itemData ||
-            sendData !== nextProps.sendData || dataService !== nextProps.dataService || ArrayItem !== nextProps.ArrayItem
+            ////>nextProps
+            ArrayItem !== nextProps.ArrayItem || currentUser !== nextProps.currentUser || dataService !== nextProps.dataService ||
+            dataService2 !== nextProps.dataService2 || itemData !== nextProps.itemData || sendData !== nextProps.sendData ||
+            ////>nextState
+            activecart !== nextState.activecart || ItemArray !== nextState.ItemArray
+
         ) {
             return true
         }
@@ -128,7 +132,7 @@ export class Product_Cart extends React.Component {
     }
     setStateItemArrayChecked = (checked, id_cartdetail, index) => {
         const { ItemArray } = this.state
-        const { ArrayItem, dataService, currentUser } = this.props
+        const { ArrayItem, currentUser, dataService, } = this.props
         ItemArray[index].checked = checked
         var id = []
         for (var n = 0; n < dataService.length; n++) {
@@ -142,13 +146,12 @@ export class Product_Cart extends React.Component {
             id_cartdetail: id_cartdetail,
             id_customer: currentUser.id_customer
         })
-        this.setState({ ItemArray, activecart: true })
+        this.setState({ activecart: true, ItemArray, })
     }
     setStateItemArrayitemCount = (itemCount, id_cartdetail, index) => {
         const { ItemArray } = this.state
-        const { ArrayItem, dataService, currentUser } = this.props
+        const { ArrayItem, currentUser, dataService, } = this.props
         var id = []
-        console.log(itemCount)
         for (var n = 0; n < dataService.length; n++) {
             if (ItemArray[n].checked == true) {
                 id.push(dataService[n].id_cartdetail)
@@ -177,7 +180,7 @@ export class Product_Cart extends React.Component {
         }
     }
     render() {
-        const { ItemArray, activecart } = this.state
+        const { activecart, ItemArray, } = this.state
         const { dataService, dataService2 } = this.props
         dataService && ItemArray == null &&
             this.checkItem(dataService.length)
@@ -185,23 +188,22 @@ export class Product_Cart extends React.Component {
             <View>
                 {
                     dataService.length > 0 ? (
-                        ItemArray ?
-                            dataService.map((item, index) => {
-                                var dataMySQL = finip + '/' + item.image_cart
-                                dataService2 == null && activecart == true &&
-                                    this.setStateItemArrayitemCount(ItemArray[index].itemCount, item.id_cartdetail, index)
-                                return (
-                                    <View style={{ backgroundColor: '#fff' }} key={index} >
-                                        {/* <View style={{ marginBottom: 10, backgroundColor: '#fff' }} key={index}> */}
-                                        {/* <View style={{ flexDirection: 'row', borderColor: '#ECECEC', borderWidth: 1 }}>
+                        ItemArray &&
+                        dataService.map((item, index) => {
+                            var dataMySQL = finip + '/' + item.image_cart
+                            dataService2 == null && activecart == true &&
+                                this.setStateItemArrayitemCount(ItemArray[index].itemCount, item.id_cartdetail, index)
+                            return (
+                                <View style={{ backgroundColor: '#fff' }} key={index}>
+                                    {/* <View style={{ marginBottom: 10, backgroundColor: '#fff' }} key={index}> */}
+                                    {/* <View style={{ flexDirection: 'row', borderColor: '#ECECEC', borderWidth: 1 }}>
                                         <CheckBox
                                             containerStyle={[stylesMain.ItemCenterVertical, { backgroundColor: null, borderWidth: null, }]}
                                             textStyle={14}
                                             fontFamily={'SukhumvitSet-Text'}
                                             checked={ItemHead.checked}
-                                            onPress={this.setStateItemHead.bind(this, !ItemHead.checked)}
-                                        />
-                                        <View style={[stylesMain.ItemCenterVertical, {
+                                            onPress={this.setStateItemHead.bind(this, !ItemHead.checked)} />
+                                            <View style={[stylesMain.ItemCenterVertical, {
                                             width: 30, height: 30, borderRadius: 20, backgroundColor: '#cecece'
                                         }]}>
                                         </View>
@@ -210,114 +212,111 @@ export class Product_Cart extends React.Component {
                                         }]}>
                                             PPpp</Text>
                                     </View> */}
-                                        <View style={{ flex: 1, flexDirection: 'row' }}>
-                                            <CheckBox
-                                                containerStyle={[
-                                                    stylesMain.ItemCenterVertical, {
-                                                        backgroundColor: null, borderWidth: null,
-                                                    }]}
-                                                textStyle={14}
-                                                fontFamily={'SukhumvitSet-Text'}
-                                                checked={ItemArray[index].checked}
-                                                onPress={this.setStateItemArrayChecked.bind(this,
-                                                    !ItemArray[index].checked,
-                                                    item.id_cartdetail,
-                                                    index)}
-                                            />
-                                            <View style={{
-                                                backgroundColor: '#fffffe', width: 140, height: 140, marginVertical: 6,
-                                                borderColor: '#ECECEC',
-                                                borderWidth: 1
-                                            }}>
-                                                <FastImage
-                                                    style={[stylesMain.BoxProduct2Image, { flex: 1 }]}
-                                                    source={{
-                                                        uri: dataMySQL,
-                                                    }}
-                                                    resizeMode={FastImage.resizeMode.contain}
-                                                />
-                                            </View>
-                                            <View style={[stylesMain.ItemCenterVertical, { marginLeft: 25 }]}>
-                                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-                                                    {item.product}</Text>
-                                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                                    {item.color_detail + ' ' + item.size_detail}</Text>
-                                                {/* <NumberFormat
-                                                    value={item.price}
-                                                    displayType={'text'}
-                                                    thousandSeparator={true}
-                                                    prefix={'฿'}
-                                                    renderText={value =>
-                                                        <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
-                                                            {value}</Text>
-                                                    }
-                                                /> */}
-                                                <NumberFormat
-                                                    value={item.price}
-                                                    displayType={'text'}
-                                                    thousandSeparator={true}
-                                                    prefix={'฿'}
-                                                    renderText={value =>
-                                                        <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyBold, {
-                                                            color: '#0A55A6'
-                                                        }]}>
-                                                            {value}</Text>
-                                                    }
-                                                />
-                                                <View style={{ flexDirection: 'row' }}>
-                                                    <TouchableOpacity activeOpacity={1}
-                                                        onPress={
-                                                            this.setStateItemArrayitemCount.bind(this,
-                                                                ItemArray[index].itemCount - 1,
-                                                                item.id_cartdetail,
-                                                                index
-                                                            )}>
-                                                        <View style={[stylesMain.ItemCenter, {
-                                                            width: 30, height: 25, borderColor: '#ECECEC', borderRightWidth: 0,
-                                                            borderWidth: 1
-                                                        }]}>
-                                                            <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, {
-                                                                color:
-                                                                    ItemArray[index].itemCount > 1 ?
-                                                                        '#111' :
-                                                                        '#CECECE'
-                                                            }]}>
-                                                                -</Text>
-                                                        </View>
-                                                    </TouchableOpacity>
-                                                    <View style={[stylesMain.ItemCenter, stylesFont.FontFamilyText, {
-                                                        width: 50, height: 25, borderColor: '#ECECEC', borderWidth: 1
+                                    <View style={{ flex: 1, flexDirection: 'row' }}>
+                                        <CheckBox
+                                            containerStyle={[
+                                                stylesMain.ItemCenterVertical, {
+                                                    backgroundColor: null, borderWidth: null,
+                                                }]}
+                                            textStyle={14}
+                                            fontFamily={'SukhumvitSet-Text'}
+                                            checked={ItemArray[index].checked}
+                                            onPress={this.setStateItemArrayChecked.bind(this,
+                                                !ItemArray[index].checked,
+                                                item.id_cartdetail,
+                                                index)} />
+                                        <View style={{
+                                            backgroundColor: '#fffffe', width: 140, height: 140, marginVertical: 6,
+                                            borderColor: '#ECECEC',
+                                            borderWidth: 1
+                                        }}>
+                                            <FastImage
+                                                style={[stylesMain.BoxProduct2Image, { flex: 1 }]}
+                                                source={{
+                                                    uri: dataMySQL,
+                                                }}
+                                                resizeMode={FastImage.resizeMode.contain} />
+                                        </View>
+                                        <View style={[stylesMain.ItemCenterVertical, { marginLeft: 25 }]}>
+                                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                                                {item.product}</Text>
+                                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                                {item.color_detail + ' ' + item.size_detail}</Text>
+                                            {
+                                                /* <NumberFormat
+                                                        value={item.price}
+                                                        displayType={'text'}
+                                                        thousandSeparator={true}
+                                                        prefix={'฿'}
+                                                        renderText={value =>
+                                                            <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
+                                                                {value}</Text>
+                                                        } /> */
+                                            }
+                                            <NumberFormat
+                                                value={item.price}
+                                                displayType={'text'}
+                                                thousandSeparator={true}
+                                                prefix={'฿'}
+                                                renderText={value =>
+                                                    <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyBold, {
+                                                        color: '#0A55A6'
                                                     }]}>
-                                                        <Text style={[stylesMain.ItemCenterVertical]}>
-                                                            {ItemArray[index].itemCount}</Text>
-                                                    </View>
-                                                    <TouchableOpacity activeOpacity={1}
-                                                        onPress={
-                                                            this.setStateItemArrayitemCount.bind(this,
-                                                                ItemArray[index].itemCount + 1,
-                                                                item.id_cartdetail,
-                                                                index)}>
-                                                        <View style={[stylesMain.ItemCenter, {
-                                                            width: 30, height: 25, borderColor: '#ECECEC', borderLeftWidth: 0,
-                                                            borderWidth: 1
+                                                        {value}</Text>
+                                                } />
+                                            <View style={{ flexDirection: 'row' }}>
+                                                <TouchableOpacity activeOpacity={1}
+                                                    onPress={
+                                                        this.setStateItemArrayitemCount.bind(this,
+                                                            ItemArray[index].itemCount - 1,
+                                                            item.id_cartdetail,
+                                                            index
+                                                        )}>
+                                                    <View style={[stylesMain.ItemCenter, {
+                                                        width: 30, height: 25, borderColor: '#ECECEC', borderRightWidth: 0,
+                                                        borderWidth: 1
+                                                    }]}>
+                                                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, {
+                                                            color:
+                                                                ItemArray[index].itemCount > 1 ?
+                                                                    '#111' :
+                                                                    '#CECECE'
                                                         }]}>
-                                                            <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, {
-                                                                color:
-                                                                    ItemArray[index].itemCount < 10 ?
-                                                                        '#111' :
-                                                                        '#CECECE'
-                                                            }]}>
-                                                                +</Text>
-                                                        </View>
-                                                    </TouchableOpacity>
+                                                            -</Text>
+                                                    </View>
+                                                </TouchableOpacity>
+                                                <View style={[stylesMain.ItemCenter, stylesFont.FontFamilyText, {
+                                                    width: 50, height: 25, borderColor: '#ECECEC', borderWidth: 1
+                                                }]}>
+                                                    <Text style={[stylesMain.ItemCenterVertical]}>
+                                                        {ItemArray[index].itemCount}</Text>
                                                 </View>
+                                                <TouchableOpacity activeOpacity={1}
+                                                    onPress={
+                                                        this.setStateItemArrayitemCount.bind(this,
+                                                            ItemArray[index].itemCount + 1,
+                                                            item.id_cartdetail,
+                                                            index)}>
+                                                    <View style={[stylesMain.ItemCenter, {
+                                                        width: 30, height: 25, borderColor: '#ECECEC', borderLeftWidth: 0,
+                                                        borderWidth: 1
+                                                    }]}>
+                                                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, {
+                                                            color:
+                                                                ItemArray[index].itemCount < 10 ?
+                                                                    '#111' :
+                                                                    '#CECECE'
+                                                        }]}>
+                                                            +</Text>
+                                                    </View>
+                                                </TouchableOpacity>
                                             </View>
                                         </View>
-                                        {/* </View> */}
                                     </View>
-                                )
-                            }) :
-                            null
+                                    {/* </View> */}
+                                </View>
+                            )
+                        })
                     ) :
                         <View style={stylesCart.Product_Cart}>
                             <View style={[stylesMain.ItemCenter, { height: 200, width: '100%' }]}>
@@ -357,10 +356,13 @@ export class Buy_bar extends React.Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { checked } = this.state
         const { dataService2, navigation } = this.props
+        const { checked } = this.state
         if (
-            checked !== nextState.checked || dataService2 !== nextProps.dataService2 || navigation !== nextProps.navigation
+            ////>nextProps
+            dataService2 !== nextProps.dataService2 || navigation !== nextProps.navigation ||
+            ////>nextState
+            checked !== nextState.checked
         ) {
             return true
         }
@@ -411,8 +413,7 @@ export class Buy_bar extends React.Component {
                             textStyle={14}
                             fontFamily={'SukhumvitSet-Text'}
                             checked={this.state.checked}
-                            onPress={this.StateBox}
-                        />
+                            onPress={this.StateBox} />
                     </View>
                     <View style={[stylesCart.Bar_Buy_price, { marginLeft: -20 }]}>
                         <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
@@ -427,8 +428,7 @@ export class Buy_bar extends React.Component {
                                     marginLeft: 4, color: '#0A55A6'
                                 }]}>
                                     {value}</Text>
-                            }
-                        />
+                            } />
                     </View>
                     <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Customer_Order')}>
                         <View style={stylesCart.BOX_Buy}>

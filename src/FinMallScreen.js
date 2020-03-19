@@ -77,7 +77,7 @@ export default class FinMallScreen extends React.Component {
   }
 }
 ///----------------------------------------------------------------------------------------------->>>>
-export class FinMall extends Component {
+export class FinMall extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -94,7 +94,7 @@ export class FinMall extends Component {
   }
 }
 ///----------------------------------------------------------------------------------------------->>>>
-export class FinMall_Product extends Component {
+export class FinMall_Product extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -135,7 +135,7 @@ export class FinMall_Product extends Component {
   }
 }
 ///----------------------------------------------------------------------------------------------->>>>
-export class FIN_Supermarket extends Component {
+export class FIN_Supermarket extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -153,7 +153,7 @@ export class FIN_Supermarket extends Component {
 
 
 ///----------------------------------------------------------------------------------------------->>>>
-export class FIN_Mall_VIP extends Component {
+export class FIN_Mall_VIP extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -162,7 +162,6 @@ export class FIN_Mall_VIP extends Component {
     };
   }
   shouldComponentUpdate = (nextProps, nextState) => {
-    const { dataService, sliderVisible } = this.state
     const { navigation } = this.props
     const { dataService, sliderVisible } = this.state
     if (

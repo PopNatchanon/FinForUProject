@@ -192,6 +192,7 @@ export default StyleSheet.create({
     paddingVertical: 4
   },
   BoxProduct4ComBox: {
+    marginLeft: 10,
     padding: 8,
     flex: 1,
     borderTopColor: '#ECECEC',
@@ -204,18 +205,6 @@ export default StyleSheet.create({
     borderTopWidth: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
-  },
-  BoxProduct4ComBoxDetail: {
-    fontSize: 12,
-    marginLeft: 8,
-  },
-  BoxProduct4ComBoxTag: {
-    color: '#0A55A6',
-    marginLeft: 8,
-  },
-  BoxProduct4ComBoxText: {
-    color: '#969BA0',
-    marginLeft: 8,
   },
   BoxProduct4ComBoxIcon: {
     flexDirection: 'row',
@@ -612,7 +601,7 @@ export default StyleSheet.create({
   CategoryProductImageHead: {
     marginTop: 5,
     width,
-    height: 60,
+    height: 65,
   },
   CategoryProductImage: {
     width: 100,
@@ -639,8 +628,8 @@ export default StyleSheet.create({
     marginTop: 10,
   },
   Banner_Bar_image: {
-    width,
-    height: 70,
+    width:'100%',
+    height: 55,
   },
   Product_for_you: {
     height: 370,

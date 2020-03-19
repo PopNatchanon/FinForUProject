@@ -82,9 +82,7 @@ export default class Profile_Topic extends React.Component {
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
                         <AppbarChat navigation={this.props.navigation} Title='Supreme Store' />
-                        <View>
-                            <Chat_Cutomer />
-                        </View>
+                        <Chat_Cutomer />
                     </SafeAreaView>
                 )
             case 7:
@@ -182,10 +180,105 @@ export class ChatScreen extends React.Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Chat_Box
+// class Chat_Cutomer extends React.Component {
+//     state = {
+//         messages: [],
+//     }
+
+//     componentDidMount() {
+//         this.setState({
+//             messages: [
+//                 {
+//                     _id: 1,
+//                     text: 'Hello developer',
+//                     createdAt: new Date(),
+//                     image: 'https://cdn.pixabay.com/photo/2013/07/21/13/00/rose-165819_960_720.jpg',
+//                     user: {
+//                         _id: 2,
+//                         name: 'React Native',
+//                         avatar: 'https://placeimg.com/140/140/any',
+//                     },
+//                 },
+//             ],
+//         })
+//     }
+
+//     onSend(messages = []) {
+//         this.setState(previousState => ({
+//             messages: GiftedChat.append(previousState.messages, messages),
+//         }))
+//     }
+//     renderBubble = props => {
+//         return (
+//             <Bubble
+//                 {...props}
+//                 wrapperStyle={{
+//                     left: {
+//                         backgroundColor: '#f0f0f0',
+//                     },
+//                 }}
+//             />
+//         )
+//     }
+//     renderMessageImage = props => {
+//         return (
+//             <FastImage
+//                 {...props}
+//             />
+//         )
+//     }
+//     render() {
+//         return (
+//             <View style={{flex:1,backgroundColor:'#FFFFFF',}}>
+//                 <GiftedChat
+//                     messages={this.state.messages}
+//                     onSend={messages => this.onSend(messages)}
+//                     user={{
+//                         _id: 1,
+//                     }}
+//                 />
+{/* <GiftedChat
+                    messages={this.state.messages}
+                    onSend={messages => this.onSend(messages)}
+                    loadEarlier={this.state.loadEarlier}
+                    onLoadEarlier={this.onLoadEarlier}
+                    isLoadingEarlier={this.state.isLoadingEarlier}
+                    parsePatterns={this.parsePatterns}
+                    imageProps={this.imageProps}
+                    user={{_id: 1,}}
+                    scrollToBottom
+                    isCustomViewBottom
+                    showUserAvatar 
+                    showAvatarForEveryMessage 
+                    onQuickReply={this.onQuickReply}
+                    renderAccessory={this.renderAccessory}
+                    renderMessageVideo={this.renderMessageVideo}
+                    renderActions={this.renderCustomActions}
+                    renderBubble={this.renderBubble}//This is what you must add in the code
+                    renderSystemMessage={this.renderSystemMessage}
+                    renderCustomView={this.renderCustomView}
+                    renderMessageImage={this.renderMessageImage}
+                    quickReplyStyle={{ borderRadius: 2 }}
+                    renderQuickReplySend={this.renderQuickReplySend}
+                    timeTextStyle={{ left: { color: 'red' }, right: { color: 'yellow' } }} 
+                /> */}
+//             </View>
+//         )
+//     }
+// }
 class Chat_Cutomer extends React.Component {
     state = {
         messages: [],
         countmessage: 0,
+    }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { messages } = this.state
+        if (
+            messages !== nextState.messages
+        ) {
+            return true
+        }
+        return false
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { messages } = this.state
@@ -208,9 +301,10 @@ class Chat_Cutomer extends React.Component {
     tick() {
         var user = {
             type: 'message',
-            user_id: 10,
-            msg_to: 9
+            user_id: 9,
+            msg_to: 10
         }
+        var messages = []
         fetch('http://192.168.0.132/mysql/chatpoint.php', {
             method: 'POST',
             headers: {
@@ -221,66 +315,36 @@ class Chat_Cutomer extends React.Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                if (responseJson.length> 0) {
-                    var text
-                    var test = false
-                    var messages = []
-                    for (text = 0; text < responseJson.length; text++) {
-                        const { countmessage } = this.state
-                        if (countmessage == 0) {
-                            messages.push(
-                                {
-                                    _id: responseJson[text].id,
-                                    text: responseJson[text].message,
-                                    createdAt: responseJson[text].timestamp,
-                                    user: {
-                                        _id: responseJson[text].msg_from,
-                                        avatar: 'https://placeimg.com/140/140/any',
-                                    },
-                                },
-                            )
-                        } else if (text < responseJson.length - countmessage) {
-                            messages.push(
-                                {
-                                    _id: responseJson[text].id,
-                                    text: responseJson[text].message,
-                                    createdAt: responseJson[text].timestamp,
-                                    user: {
-                                        _id: responseJson[text].msg_from,
-                                        avatar: 'https://placeimg.com/140/140/any',
-                                    },
-                                },
-                            )
-                        }
-                    }
-                    this.setState(previousState => ({
-                        messages: GiftedChat.append(previousState.messages, messages),
-                        countmessage: responseJson.length,
-                    }))
-                }
+                console.log('responseJson')
+                console.log(responseJson)
+                responseJson.map((item) => {
+                    console.log('item')
+                    console.log(item)
+                    messages.push(
+                        {
+                            _id: item.id,
+                            text: item.message,
+                            createdAt: item.timestamp,
+                            user: {
+                                _id: item.msg_from,
+                                name: item.name,
+                                avatar: 'https://placeimg.com/140/140/any',
+                            },
+                        },
+                    )
+                })
+                console.log('messages')
+                console.log(messages)
+                this.setState({ messages })
             })
             .catch((error) => {
                 console.error(error);
             })
     }
-    renderSend = props => {
-        return (
-            <Send
-                {...props}
-           >
-                <View style={{ marginRight: 10, marginBottom: 5 }}>
-                    <IconFeather name='send' size={30} color='#0A55A6' />
-                </View>
-            </Send>
-        );
-    }
-    renderMessageText = props => {
-
-    }
     onSend(messages = []) {
         var user = {
             type: 'sendmessage',
-            msg_to: 9,
+            msg_to: 10,
             messages: messages[0].text,
             user_id: messages[0].user._id,
         }
@@ -295,6 +359,8 @@ class Chat_Cutomer extends React.Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
+                console.log('responseJson')
+                console.log(responseJson)
             })
             .catch((error) => {
                 console.error(error);
@@ -321,7 +387,7 @@ class Chat_Cutomer extends React.Component {
     }
     render() {
         return (
-            <View style={{ height: '97%', width: '100%', backgroundColor: '#FFFFFF' }}>
+            <View style={{ height: '96%', width: '100%', backgroundColor: '#FFFFFF' }}>
                 <GiftedChat
                     messages={this.state.messages}
                     renderSend={this.renderSend}
@@ -422,6 +488,8 @@ export class Follow_storeScreen extends React.Component {
         return (
             <ScrollView>
                 <Follow_store_Box />
+                <Follow_store_Box />
+                <Follow_store_Box />
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 10, marginLeft: 10, }]}>ร้านค้าที่คุณอาจชอบ</Text>
                 <Might_like_Store />
                 <Might_like_Store />
@@ -436,11 +504,13 @@ export class Follow_store_Box extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            Button_Follow_Before: true,
         };
     }
     render() {
+        const { Button_Follow_Before } = this.state
         return (
-            <View>
+            <>
                 <View style={stylesProfileTopic.Follow_store_Box}>
                     <View style={{ flexDirection: 'row', }}>
                         <FastImage style={stylesProfileTopic.Follow_store_Box_image}
@@ -453,43 +523,11 @@ export class Follow_store_Box extends React.Component {
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>@asusthailand</Text>
                         </View>
                     </View>
-                    <View style={stylesProfileTopic.Follow_store_Button}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>กำลังติดตาม</Text>
-                    </View>
+                    <TouchableOpacity style={stylesProfileTopic.Follow_store_Button} onPress={() => this.setState({ Button_Follow_Before: !Button_Follow_Before })}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>{Button_Follow_Before == true ? 'กำลังติดตาม' : 'ติดตาม'}</Text>
+                    </TouchableOpacity>
                 </View>
-                <View style={stylesProfileTopic.Follow_store_Box}>
-                    <View style={{ flexDirection: 'row', }}>
-                        <FastImage style={stylesProfileTopic.Follow_store_Box_image}
-                            source={{
-                                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
-                            }}
-                        />
-                        <View style={stylesProfileTopic.Follow_store_Box_text}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>Mlife</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>@mlife</Text>
-                        </View>
-                    </View>
-                    <View style={stylesProfileTopic.Follow_store_Button}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>กำลังติดตาม</Text>
-                    </View>
-                </View>
-                <View style={stylesProfileTopic.Follow_store_Box}>
-                    <View style={{ flexDirection: 'row', }}>
-                        <FastImage style={stylesProfileTopic.Follow_store_Box_image}
-                            source={{
-                                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
-                            }}
-                        />
-                        <View style={stylesProfileTopic.Follow_store_Box_text}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>Digilife</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>@digilife_thai</Text>
-                        </View>
-                    </View>
-                    <View style={stylesProfileTopic.Follow_store_Button}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>กำลังติดตาม</Text>
-                    </View>
-                </View>
-            </View>
+            </>
         );
     }
 }
@@ -498,9 +536,11 @@ export class Might_like_Store extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            Button_Follow_After: true,
         };
     }
     render() {
+        const { Button_Follow_After } = this.state
         return (
             <View>
                 <View style={stylesProfileTopic.Might_like_Store}>
@@ -516,51 +556,63 @@ export class Might_like_Store extends React.Component {
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>81% คะแนนร้านค้า</Text>
                             </View>
                         </View>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.setState({ Button_Follow_After: !Button_Follow_After })}>
                             <View style={stylesProfileTopic.Follow_store_Button}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>ติดตาม</Text>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>{Button_Follow_After == true ? 'ติดตาม' : 'กำลังติดตาม'}</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
-                    <View style={stylesProfileTopic.Might_like_Store_Box}>
-                        <View style={stylesProfileTopic.Might_like_Store_BoxP}>
-                            <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
-                                <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage}
-                                    source={{
-                                        uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
-                                    }}
-                                />
-                                <Text style={{ fontSize: 9, }}>ห้องพัก Deluxe Pool Villa</Text>
-                                <Text style={{ fontSize: 9, color: '#0A55A6' }}>฿3,xxx</Text>
-                            </View>
-                            <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
-                                <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage}
-                                    source={{
-                                        uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
-                                    }}
-                                />
-                                <Text style={{ fontSize: 9, }}>ห้องพัก Deluxe Pool Villa</Text>
-                                <Text style={{ fontSize: 9, color: '#0A55A6' }}>฿3,xxx</Text>
-                            </View>
-                            <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
-                                <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage}
-                                    source={{
-                                        uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
-                                    }}
-                                />
-                                <Text style={{ fontSize: 9, }}>ห้องพัก Deluxe Pool Villa</Text>
-                                <Text style={{ fontSize: 9, color: '#0A55A6' }}>฿3,xxx</Text>
-                            </View>
-                            <TouchableOpacity style={stylesProfileTopic.Might_like_Store_BoxPro}>
-                                <View>
-                                    <View style={stylesProfileTopic.Might_like_Store_Total}>
-                                        <IconEntypo name='chevron-right' size={35} />
-                                    </View>
-                                    <Text style={stylesFont.FontFamilyBold}>ดูทั้งหมด</Text>
+                    <ScrollView horizontal>
+                        <View style={stylesProfileTopic.Might_like_Store_Box}>
+                            <View style={stylesProfileTopic.Might_like_Store_BoxP}>
+                                <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
+                                    <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage}
+                                        source={{
+                                            uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
+                                        }}
+                                    />
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { paddingHorizontal: 5 }]}>ห้องพัก Deluxe Pool Villa</Text>
+                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6', borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, paddingHorizontal: 10, marginBottom: 5 }]}>฿3,xxx</Text>
                                 </View>
-                            </TouchableOpacity>
+                                <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
+                                    <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage}
+                                        source={{
+                                            uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
+                                        }}
+                                    />
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { paddingHorizontal: 5 }]}>ห้องพัก Deluxe Pool Villa</Text>
+                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6', borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, paddingHorizontal: 10, marginBottom: 5 }]}>฿3,xxx</Text>
+                                </View>
+                                <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
+                                    <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage}
+                                        source={{
+                                            uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
+                                        }}
+                                    />
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { paddingHorizontal: 5 }]}>ห้องพัก Deluxe Pool Villa</Text>
+                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6', borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, paddingHorizontal: 10, marginBottom: 5 }]}>฿3,xxx</Text>
+                                </View>
+                                <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
+                                    <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage}
+                                        source={{
+                                            uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
+                                        }}
+                                    />
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { paddingHorizontal: 5 }]}>ห้องพัก Deluxe Pool Villa</Text>
+                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6', borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, paddingHorizontal: 10, marginBottom: 5 }]}>฿3,xxx</Text>
+                                </View>
+                                <TouchableOpacity style={stylesProfileTopic.Might_like_Store_BoxPro}>
+                                    <View>
+                                        <View style={stylesProfileTopic.Might_like_Store_Total}>
+                                            <IconEntypo name='chevron-right' size={35} />
+                                        </View>
+                                        <Text style={stylesFont.FontFamilyBold}>ดูทั้งหมด</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
                         </View>
-                    </View>
+                    </ScrollView>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'right', margin: 10, color: '#7E7979' }]}>1,000 สินค้า</Text>
                 </View>
             </View>
         );

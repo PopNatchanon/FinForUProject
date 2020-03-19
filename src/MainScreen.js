@@ -120,11 +120,6 @@ export default class MainScreen extends React.Component {
                         <BannerBar_ONE />
                         <Product_for_you navigation={navigation} loadData={dataService.for_you} />
                         <CategoryProduct navigation={navigation} />
-                        <Fin_SuperMarket navigation={navigation} loadData={{
-                            product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
-                            list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3,
-                            mobile_bar: dataService.mobile_bar, mobile_slide: dataService.mobile_slide,
-                        }} />
                         <Second_product navigation={navigation} loadData={{
                             product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
                             list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3,
@@ -1105,9 +1100,7 @@ export class BannerBar_ONE extends React.Component {
                 <FastImage
                     style={stylesMain.Banner_Bar_image}
                     source={{
-                        uri: ip + '/MySQL/uploads/slide/Banner_type/shoes_BannerBar.jpg',
-                        width,
-                        height: 70,
+                        uri: ip + '/MySQL/uploads/Banner_New/banner 1920-220สำอาง.jpg',
                     }}
                     resizeMode={FastImage.resizeMode.stretch} />
             </View>
@@ -1127,9 +1120,7 @@ export class BannerBar_TWO extends React.Component {
                 <FastImage
                     style={stylesMain.Banner_Bar_image}
                     source={{
-                        uri: ip + '/MySQL/uploads/slide/Banner_type/GlassesBannerBar.jpg',
-                        width,
-                        height: 70,
+                        uri: ip + '/MySQL/uploads/Banner_New/banner 1920-220เพชร3.jpg',
                     }}
                     resizeMode={FastImage.resizeMode.stretch} />
             </View>
@@ -1149,9 +1140,7 @@ export class BannerBar_THREE extends React.Component {
                 <FastImage
                     style={stylesMain.Banner_Bar_image}
                     source={{
-                        uri: ip + '/MySQL/uploads/slide/banner_sale.jpg',
-                        width,
-                        height: 70,
+                        uri: ip + '/MySQL/uploads/Banner_New/banner 1920-220แม่2.jpg',
                     }}
                     resizeMode={FastImage.resizeMode.stretch} />
             </View>
@@ -1529,7 +1518,7 @@ export class Fin_Mall extends React.Component {
         this.state = {
         };
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
+    shouldComponentUpdate = (nextProps) => {
         const { navigation, loadData } = this.props
         if (
             ////>nextProps
@@ -1545,9 +1534,9 @@ export class Fin_Mall extends React.Component {
             if (index < 2) {
                 var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
                 return (
-                    <View style={[stylesMain.Popular_Box_D, { width: 70, height: 70 }]} key={index}>
+                    <View style={[stylesMain.Popular_Box_D]} key={index}>
                         <FastImage
-                            style={[stylesMain.Popular_image_Box, { width: 70, height: 70 }]}
+                            style={[stylesMain.Popular_image_Box]}
                             source={{
                                 uri: dataMySQL,
                             }}
@@ -1581,36 +1570,132 @@ export class Fin_Mall extends React.Component {
     render() {
         const { loadData } = this.props
         return (
-            <View style={stylesMain.FrameBackground2}>
-                <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>FIN Mall</Text>
-                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'FinMallScreen')}>
-                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
-                            ดูทั้งหมด</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginVertical: 10 }}>
-                    <View style={[stylesMain.ItemCenter, { width: '53%', backgroundColor: '#EDEDED', height: 130, padding: 10 }]}>
-                        <FastImage
-                            style={[stylesMain.BoxProduct1Image, { width: 120, height: 120 }]}
-                            source={{
-                                uri: ip + '/MySQL/uploads/Unicorn/013.png',
-                            }} />
+            <>
+                <View style={stylesMain.FrameBackground2}>
+                    <View style={stylesMain.FrameBackgroundTextBox}>
+                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>FIN Mall</Text>
                     </View>
-                    <View style={[stylesMain.ItemCenter, { width: '43%', backgroundColor: '#EDEDED' }]}>
-                        {
-                            loadData.product_hit &&
-                            <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'FinMallScreen')}>
-                                <View style={{ paddingTop: 10, height: 130 }}>
-                                    <View style={stylesMain.FlexRow}>
-                                        {this.productCate(loadData.product_hit)}
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 5 }}>
+                        <TouchableOpacity style={{ backgroundColor: '#9BB7D6', width: '32%', }}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { textAlign: 'center', color: '#063B76' }]}>
+                                Global Items</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{ backgroundColor: '#AAC48A', width: '32%', }}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { textAlign: 'center', color: '#427007' }]}>
+                                ของใช้ประจำวัน</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{ backgroundColor: '#D6B59B', width: '32%', }}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { textAlign: 'center', color: '#783907' }]}>
+                                Skincare</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', }}>
+                        <View style={[stylesMain.ItemCenter, stylesMain.Popular_Box_B, { width: '48%', marginLeft: 0, }]}>
+                            {
+                                loadData.product_hit &&
+                                <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'FinMallScreen', { selectedIndex: 0 })}>
+                                    <View style={{ paddingTop: 10, height: 130 }}>
+                                        <View style={stylesMain.FlexRow}>
+                                            {this.productCate(loadData.product_hit)}
+                                        </View>
                                     </View>
-                                </View>
-                            </TouchableOpacity>
-                        }
+                                </TouchableOpacity>
+                            }
+                        </View>
+                        <View style={[stylesMain.ItemCenter, stylesMain.Popular_Box_B, { width: '48%', marginLeft: 0, }]}>
+                            {
+                                loadData.product_hit &&
+                                <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'FinMallScreen', { selectedIndex: 0 })}>
+                                    <View style={{ paddingTop: 10, height: 130 }}>
+                                        <View style={stylesMain.FlexRow}>
+                                            {this.productCate(loadData.product_hit)}
+                                        </View>
+                                    </View>
+                                </TouchableOpacity>
+                            }
+                        </View>
                     </View>
                 </View>
-            </View>
+                <FastImage
+                    style={stylesMain.Banner_Bar_image}
+                    source={{
+                        uri: ip + '/MySQL/uploads/Banner_New/banner 1920-220นาฬิกา.jpg',
+                    }}
+                    resizeMode={FastImage.resizeMode.stretch}
+                />
+                <View style={{ width: '100%', height: 100, flexDirection: 'row', justifyContent: 'space-between', padding: 5 }}>
+                    <View style={{ width: '49%', backgroundColor: '#FFFFFF' }}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Image_FinMall/logo-maxvalu.png',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch}
+                        />
+                    </View>
+                    <View style={{ width: '49%', backgroundColor: '#FFFFFF' }}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Image_FinMall/logo-foodland.png',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch}
+                        />
+                    </View>
+                </View>
+                <FastImage
+                    style={stylesMain.Banner_Bar_image}
+                    source={{
+                        uri: ip + '/MySQL/uploads/Banner_New/banner 1920-220แว่นตา.jpg',
+                    }}
+                    resizeMode={FastImage.resizeMode.stretch}
+                />
+                <View style={{ widthd: '100%', height: 100, flexDirection: 'row', justifyContent: 'space-between', padding: 5 }}>
+                    <View style={{ width: '24%', backgroundColor: '#FFFFFF' }}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Image_FinMall/unnamed.jpg',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch}
+                        />
+                    </View>
+                    <View style={{ width: '24%', backgroundColor: '#FFFFFF' }}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Image_FinMall/691cfaa03632731caa1bcc8030b60e8f.jpg',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch}
+                        />
+                    </View>
+                    <View style={{ width: '24%', backgroundColor: '#FFFFFF' }}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Image_FinMall/39be279f8290ec3d1e2072dc1d2df99a.jpg',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch}
+                        />
+                    </View>
+                    <View style={{ width: '24%', backgroundColor: '#FFFFFF' }}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Image_FinMall/zvj8th.jpg',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch}
+                        />
+                    </View>
+                </View>
+                <FastImage
+                    style={stylesMain.Banner_Bar_image}
+                    source={{
+                        uri: ip + '/MySQL/uploads/Banner_New/banner 1920-220เพชร2.jpg',
+                    }}
+                    resizeMode={FastImage.resizeMode.stretch}
+                />
+            </>
         );
     }
 }
@@ -2288,191 +2373,6 @@ export class Second_product extends React.Component {
                                 autoplayInterval={3000}
                                 pagination={PaginationLight} />
                         }
-                    </View>
-                </ScrollView>
-            </View>
-        )
-    }
-    render() {
-        return (
-            <View style={stylesMain.FrameBackground2}>
-                {[
-                    this.Second_Storeheader,
-                    this.Second_Storebody,
-                    this.Second_Storefooter
-                ]}
-            </View>
-        )
-    }
-}
-///----------------------------------------------------------------------------------------------->>>> Second_product
-export class Fin_SuperMarket extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            activeSlide: 0,
-        };
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { Header_Second, loadData, navigation, } = this.props
-        const { activeSlide } = this.state
-        if (
-            ////>nextProps
-            Header_Second !== nextProps.Header_Second || loadData !== nextProps.loadData || navigation !== nextProps.navigation ||
-            ////>nextState
-            activeSlide !== nextState.activeSlide
-        ) {
-            return true
-        }
-        return false
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        navigation.navigate(value, value2)
-    }
-    renderItem1 = (item) => {
-        return item.map((item, index) => {
-            var dataMySQL = finip + '/' + item.image_path + '/' + item.image
-            return (
-                <View key={index} style={{ width: width * 0.64, height: 196 }}>
-                    <FastImage
-                        source={{
-                            uri: dataMySQL,
-                            width: width * 0.64,
-                            height: 196,
-                        }}
-                        style={stylesMain.bigSlideImage}
-                        resizeMode={FastImage.resizeMode.cover}>
-                    </FastImage>
-                </View>
-            );
-        })
-    }
-    renderItem2 = (item) => {
-        return item.map((item, index) => {
-            var dataMySQL = finip + '/' + item.image_path + '/' + item.image
-            return (
-                <View key={index} style={{ width: width * 0.32, height: 130 }}>
-                    <FastImage
-                        source={{
-                            uri: dataMySQL,
-                            width: width * 0.32,
-                            height: 130,
-                        }}
-                        style={stylesMain.litleSlideImage}
-                        resizeMode={FastImage.resizeMode.stretch}>
-                    </FastImage>
-                </View>
-            );
-        })
-    }
-    get Second_Storeheader() {
-        const { Header_Second, loadData, navigation, } = this.props
-        var url
-        loadData.mobile_bar &&
-            loadData.mobile_bar.map((item) => { (url = finip + '/' + item.image_path + '/' + item.image) })
-        return (
-            <View key={'loadData'} style={[stylesMain.FrameBackground2, {
-                marginTop: 0, backgroundColor: loadData.bg_m, borderBottomWidth: null
-            }]}>
-                <View>
-                    {
-                        Header_Second ?
-                            <View style={[stylesDeal.BoxText_T, { backgroundColor: '#E43333', marginLeft: -3, }]}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>
-                                    มือสองลดราคา</Text>
-                            </View> :
-                            <TouchableOpacity activeOpacity={1}
-                                onPress={this.navigationNavigateScreen.bind(this, 'SecondScreen', { selectedIndex: 0 })}>
-                                <FastImage
-                                    style={[stylesMain.CategoryProductImageHead, { marginTop: 0 }]}
-                                    source={{ uri: url }}
-                                    resizeMode={FastImage.resizeMode.cover} />
-                            </TouchableOpacity>
-                    }
-                    <ScrollView horizontal>
-                        <View style={[stylesMain.ProductForYouFlexBox, { height: 370 }]}>
-                            {
-                                loadData.product_second &&
-                                <ProductBox dataService={loadData.product_second} navigation={navigation} typeip='fin' mode='row3col1'
-                                    pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} />
-                            }
-                        </View>
-                    </ScrollView>
-                </View>
-            </View>
-        )
-    }
-    get Second_Storebody() {
-        const { Header_Second, loadData, } = this.props
-        return (
-            <View key={'MarketShop'} style={stylesMain.Second_StoreFin}>
-                <View style={stylesMain.Second_StoreFin_BoxHead}>
-                    {
-                        Header_Second ?
-                            <View style={[stylesDeal.BoxText_T, { backgroundColor: '#95D370', marginLeft: -3, }]}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>
-                                    ร้านมือสองลดราคา</Text>
-                            </View> :
-                            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
-                                MarketShop By FIN </Text>
-                    }
-                    <View>
-                        <TouchableOpacity activeOpacity={1}
-                            onPress={this.navigationNavigateScreen.bind(this, 'SecondScreen', { selectedIndex: 1 })}>
-                            <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                ดูทั้งหมด</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-                <View>
-                    <View style={stylesMain.Second_StoreFin_Image}>
-                        {[
-                            loadData.list_store2_1 &&
-                            <View key={'lo2_1'} style={stylesMain.Second_StoreFin_ImageA}>
-                                <View>
-                                    {this.renderItem1(loadData.list_store2_1)}
-                                </View>
-                                {this.pagination}
-                            </View>,
-                            loadData.list_store2_2 &&
-                            <View key={'lo2_2'}>
-                                <View style={stylesMain.Second_StoreFin_ImageB}>
-                                    <View style={stylesMain.Second_StoreFin_ImageB_T}>
-                                        {this.renderItem2([loadData.list_store2_2[0]])}
-                                    </View>
-                                    <View style={[stylesMain.Second_StoreFin_ImageB_T]}>
-                                        {this.renderItem2([loadData.list_store2_2[1]])}
-                                    </View>
-                                </View>
-                            </View>
-                        ]}
-                    </View>
-                </View>
-            </View>
-        )
-    }
-    get getFooter() {
-        const { loadData } = this.props
-        return loadData.mobile_slide &&
-            loadData.mobile_slide.map((item, index) => {
-                var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
-                return (
-                    <View style={stylesMain.Second_Storefooter_image} key={index}>
-                        <FastImage
-                            style={[stylesMain.BoxProduct1Image, { borderRadius: 5 },]}
-                            source={{ uri: dataMySQL }}
-                            resizeMode={FastImage.resizeMode.stretch} />
-                    </View>
-                )
-            })
-    }
-    get Second_Storefooter() {
-        return (
-            <View key={'getFooter'} style={stylesMain.Second_Storefooter}>
-                <ScrollView horizontal>
-                    <View style={stylesMain.FlexRow}>
-                        {this.getFooter}
                     </View>
                 </ScrollView>
             </View>

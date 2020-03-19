@@ -39,7 +39,7 @@ export default class BellScreen extends React.Component {
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                 <AppBar1 titleHead='การแจ้งเตือน' />
                 <ScrollView>
-                    <Popular_store />
+                    <Popular_store navigation={navigation} />
                     <Pro_for_U navigation={navigation} />
                     <Update_buy navigation={navigation} />
                 </ScrollView>

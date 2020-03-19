@@ -189,8 +189,8 @@ export class ListMenu extends Component {
                     onRequestClose={() => null}
                >
                     <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
-                        <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ width: 150, }}>ไม่</SCLAlertButton>
-                        <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={this.logoutPress} containerStyle={{ width: 150, }}>ใช่</SCLAlertButton>
+                        <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose}  containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ไม่</SCLAlertButton>
+                        <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={this.logoutPress}  containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ใช่</SCLAlertButton>
                     </View>
                 </SCLAlert>
             </View>

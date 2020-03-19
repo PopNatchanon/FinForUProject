@@ -44,6 +44,13 @@ export default class Detail_Pro extends Component {
                         <Detail_Product_Check />
                     </View>
                 )
+            case 3:
+                return (
+                    <View>
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='คอมเมนท์' chatBar />
+                        <Feed_comment />
+                    </View>
+                )
         }
     }
     render() {
@@ -84,8 +91,8 @@ export class Detail_Promotion extends Component {
                     </Text>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                         3.ยกเว้นยอดใช้จ่ายในเชิงธุรกิจ, ยอดใช้จ่ายจากการ ซื้อกองทุนรวม, ยอดการชำระค่าสาธารณูปโภค,
-                         และค่าบริการอื่นๆจากการหักบัญชีอัตโนมัติผ่าน บัตรเครดิตกรุงศรี เฟิร์สช้อยส์ วีซ่า แพลทินัม,
-                         ยอดใช้จ่ายที่เกิดจากวงเงินชั่วคราว, และยอดใช้จ่ายที่ผิดวัตถุประสงค์และผิดกฏหมายบัตรเครดิต
+                        และค่าบริการอื่นๆจากการหักบัญชีอัตโนมัติผ่าน บัตรเครดิตกรุงศรี เฟิร์สช้อยส์ วีซ่า แพลทินัม,
+                        ยอดใช้จ่ายที่เกิดจากวงเงินชั่วคราว, และยอดใช้จ่ายที่ผิดวัตถุประสงค์และผิดกฏหมายบัตรเครดิต
                      </Text>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                         4.โดยยอดใช้จ่าย ดังกล่าวจะไม่ได้รับคะแนนสะสมกรุงศรี เฟิร์สช้อยส์ รีวอร์ด
@@ -98,7 +105,7 @@ export class Detail_Promotion extends Component {
                     </Text>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                         7.บริษัทฯ ขอสงวนสิทธิ์ในการพิจารณาเปลี่ยนยอดซื้อสินค้าแบบปกติเป็นแบ่งจ่ายรายเดือนตาม หลักเกณฑ์ของบริษัทฯ
-                            หากพบว่าประวัติของสมาชิกบัตร ไม่ตรงตามหลักเกณฑของบริษัทฯ
+                        หากพบว่าประวัติของสมาชิกบัตร ไม่ตรงตามหลักเกณฑของบริษัทฯ
                     </Text>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                         8.บริษัทฯขอสงวนสิทธิ์ในการเปลี่ยนแปลง แก้ไข และยกเลิกรายการส่งเสริมการตลาด รวมถึง เงื่อนไขต่างๆโดยไม่ต้องแจ้งให้ทราบล่วงหน้า
@@ -232,5 +239,25 @@ export class Detail_Button extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>
+export class Feed_comment extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
+    render() {
+        return (
+            <View style={[stylesMain.FlexRow, { padding: 10 }]}>
+                <View style={{ height: 50, width: 50, backgroundColor: '#9F9C9C' ,borderRadius:25}}></View>
+                <View>
+                    <Text> NAME - COMMENT </Text>
+                    <Text>1 ชั่วโมงที่แล้ว</Text>
+                </View>
+
+            </View>
+        );
+    }
+}
 
 

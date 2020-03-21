@@ -111,7 +111,7 @@ export class Button_bar extends Component {
             name: 'สำเร็จแล้ว'
         }]
         return (
-            <View style={stylesMain.SafeAreaView}>
+            <>
                 <View style={stylesProfileTopic.Button_bar}>
                     <ScrollView horizontal>
                         {
@@ -132,7 +132,7 @@ export class Button_bar extends Component {
                 <ScrollView>
                     {this.PathList()}
                 </ScrollView>
-            </View>
+            </>
         );
     }
 }

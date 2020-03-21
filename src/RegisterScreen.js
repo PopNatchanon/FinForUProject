@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React from 'react';
 import {
-  Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,ImageBackground,
+  Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View, ImageBackground,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
@@ -653,12 +653,16 @@ export class Register extends React.Component {
             สมัครสมาชิกด้วยช่องทางอื่น</Text>
         </View>
         <View style={stylesLogin.Register_Box_Button}>
-          <FastImage
-            style={stylesLogin.Register_Box_image}
-            source={require('../icon/face_icon.png')} />
-          <FastImage
-            style={stylesLogin.Register_Box_image}
-            source={require('../icon/googla_icon.png')} />
+          <TouchableOpacity>
+            <FastImage
+              style={stylesLogin.Register_Box_image}
+              source={require('../icon/face_icon.png')} />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <FastImage
+              style={stylesLogin.Register_Box_image}
+              source={require('../icon/googla_icon.png')} />
+          </TouchableOpacity>
         </View>
       </View>
     );

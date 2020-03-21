@@ -18,7 +18,7 @@ import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, TodayProduct, ExitAppModule, Recommend_Brand, } from './MainScreen';
 import { Slide, } from './src_Promotion/DealScreen';
-import { GetServices, TabBar, ProductBox, } from './tools/Tools';
+import { GetServices, TabBar, ProductBox, SlideTab2, } from './tools/Tools';
 import { Button_Bar, PricesSlide, SlideTab, } from './ExclusiveScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from './navigator/IpConfig';
@@ -55,7 +55,6 @@ export default class FinMallScreen extends React.Component {
         navigation.navigate(value, value2)
   }
   PathList() {
-    var uri = finip + '/home/category_mobile';
     const { navigation } = this.props
     const selectedIndex = this.props.navigation.getParam('selectedIndex')
     switch (selectedIndex) {
@@ -63,7 +62,6 @@ export default class FinMallScreen extends React.Component {
         return (
           <SafeAreaView style={stylesMain.SafeAreaView}>
             <AppBar1 backArrow navigation={this.props.navigation} titleHead='FIN Mall' />
-            <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} />
             <FinMall navigation={navigation} />
           </SafeAreaView>
         )
@@ -102,14 +100,15 @@ export class FinMall extends React.Component {
         navigation.navigate(value, value2)
   }
   render() {
-    const navigation = this.props
+    const { navigation } = this.props
     return (
       <ScrollView>
         <Slide />
         <FinMall_Product navigation={navigation} />
         <FIN_Supermarket />
         <Brand_Supermarket />
-        <Recommend_Brand navigation={navigation}  />
+        <Recommend_Brand navigation={navigation} />
+        <Product_Shop />
       </ScrollView>
     );
   }
@@ -318,6 +317,49 @@ export class Brand_Supermarket extends React.Component {
     );
   }
 }
+///----------------------------------------------------------------------------------------------->>>>
+export class Product_Shop extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sliderVisible: false,
+      dataService: [],
+    };
+  }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { dataService, sliderVisible } = this.state
+    const { navigation } = this.props
+    if (dataService !== nextState.dataService || sliderVisible !== nextState.sliderVisible || navigation !== nextProps.navigation) {
+      return true
+    }
+    return false
+  }
+  setSlider = (sliderVisible) => {
+    this.setState({ sliderVisible })
+  }
+  getData = (dataService) => {
+    this.setState({ dataService })
+  }
+  render() {
+    const { dataService } = this.state
+    const { navigation } = this.props
+    var uri = ip + '/mysql/DataServiceMain.php';
+    var dataBody = {
+      type: 'todayproduct'
+    };
+    return (
+      <View>
+        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>สินค้าที่คุณควรช้อป!!!</Text>
+        {
+          dataService ?
+            <TodayProduct noTitle navigation={navigation} loadData={dataService} typeip prepath='mysql' /> :
+            null
+        }
+      </View>
+    );
+  }
+}
 
 ///----------------------------------------------------------------------------------------------->>>>
 export class FIN_Mall_VIP extends React.Component {
@@ -349,6 +391,35 @@ export class FIN_Mall_VIP extends React.Component {
     var dataBody = {
       type: 'todayproduct'
     };
+    const data = [{
+      title: 'หมวดหมู่',
+      subtitle: [{
+        name: 'กระเป๋าสะพายข้าง'
+      }, {
+        name: 'กระเป๋าสะพายหลัง'
+      }, {
+        name: 'กระเป๋าสตางค์'
+      }, {
+        name: 'กระเป๋าใส่นามบัตร'
+      }, {
+        name: 'กระเป๋าใส่เหรียญ'
+      }, {
+        name: 'กระเป๋าถือ'
+      }, {
+        name: 'อื่นๆ'
+      }]
+    }, {
+      title: 'แบรนด์',
+      subtitle: [{
+        name: 'BP world'
+      }, {
+        name: 'Tokyo boy'
+      }, {
+        name: 'JJ'
+      }, {
+        name: 'ETONWEAG'
+      }]
+    }]
     return (
       <SafeAreaView>
         <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
@@ -362,84 +433,9 @@ export class FIN_Mall_VIP extends React.Component {
               null
           }
         </ScrollView>
-        <SlidingView
-          disableDrag
-          componentVisible={sliderVisible}
-          containerStyle={{
-            backgroundColor: null,
-            justifyContent: 'center',
-            alignContent: 'stretch',
-            width: '100%'
-          }}
-          position="right"
-          changeVisibilityCallback={() => this.setState({ sliderVisible: !sliderVisible })}
-        >
-          <View style={stylesMain.FlexRow}>
-            <TouchableOpacity
-              activeOpacity={1}
-              onPress={() => this.setState({ sliderVisible: !sliderVisible })}
-            >
-              <View style={stylesTopic.BackgroundLeft}></View>
-            </TouchableOpacity>
-            <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNB]}>
-              <View>
-                <ScrollView>
-                  <SlideTabGet />
-                </ScrollView>
-                <View style={[stylesMain.FlexRow, { height: 70 }]}>
-                  <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
-                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
-                      รีเซ็ต</Text>
-                  </View>
-                  <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset, { backgroundColor: '#0A55A6' }]}>
-                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#fff' }]}>
-                      เสร็จสิ้น</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-        </SlidingView>
+        <SlideTab2 data={data} sliderVisible={sliderVisible} setStateSliderVisible={this.setSlider.bind(this)} />
         <ExitAppModule navigation={navigation} />
       </SafeAreaView>
     );
-  }
-}
-///----------------------------------------------------------------------------------------------->>>>
-export class SlideTabGet extends React.Component {
-  render() {
-    const item = [{
-      name: 'กระเป๋าสะพายข้าง'
-    }, {
-      name: 'กระเป๋าสะพายหลัง'
-    }, {
-      name: 'กระเป๋าสตางค์'
-    }, {
-      name: 'กระเป๋าใส่นามบัตร'
-    }, {
-      name: 'กระเป๋าใส่เหรียญ'
-    }, {
-      name: 'กระเป๋าถือ'
-    }, {
-      name: 'อื่นๆ'
-    }]
-    const item2 = [{
-      name: 'BP world'
-    }, {
-      name: 'Tokyo boy'
-    }, {
-      name: 'JJ'
-    }, {
-      name: 'ETONWEAG'
-    }]
-    return (
-      <View>
-        <View style={{ width: '100%' }}>
-          <SlideTab Title='หมวดหมู่' item={item} />
-          <SlideTab Title='แบรนด์' item={item2} />
-          <PricesSlide />
-        </View>
-      </View>
-    )
   }
 }

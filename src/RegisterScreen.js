@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React from 'react';
 import {
-  Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
+  Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,ImageBackground,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
@@ -62,11 +62,19 @@ export class Logo extends React.Component {
   }
   render() {
     return (
-      <View style={stylesLogin.Logo_Box}>
-        <FastImage
-          style={stylesLogin.Logo}
-          source={require('../images/sj.png')}
-          resizeMethod='resize' />
+      <View>
+        <ImageBackground
+          style={stylesLogin.Logo_Box}
+          source={{
+            uri: ip + '/MySQL/uploads/icon_5/11111-10.jpg',
+          }}
+          resizeMode={FastImage.resizeMode.stretch}
+        >
+          <FastImage
+            style={stylesLogin.Logo}
+            source={require('../icon/unicorn-fin-logoaaaa.png')}
+            resizeMode={FastImage.resizeMode.contain} />
+        </ImageBackground>
       </View>
     );
   }
@@ -559,7 +567,7 @@ export class Login extends React.Component {
         <View style={stylesLogin.RegisterScreen_CheckBox}>
           <CheckBox
             checked={item1}
-            onPress={this.setStateItem1.bind(this)}/>
+            onPress={this.setStateItem1.bind(this)} />
           <View style={stylesLogin.RegisterScreen_Check_Box}>
             <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText]}>
               ฉันยอมรับเงื่อนไขของ FIN ข้อตกลงการใช้งาน และยินยอมดำเนินการกับข้อมูลส่วนตัวตามที่ระบุใน นโยบายส่วนตัว</Text>

@@ -16,24 +16,24 @@ export default StyleSheet.create({
         paddingTop: 5,
     },
     Logo_Box: {
-        width,
         alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: 50,
+        paddingTop: 20,
+        width,
+        height: 'auto',
     },
     Logo: {
-        height: 80,
-        width: 200,
+        height: 180,
+        width: 280,
     },
     ///--------------------------------------------------------------------------///
     Login_Box: {
         width,
-        marginTop: 40,
+        marginTop: 20,
         justifyContent: 'center',
         alignItems: 'center',
     },
     Login_BoxA: {
-        height: 300,
+        height: 250,
         width: 300,
         backgroundColor: '#F3F3F3',
         borderRadius: 10,
@@ -92,7 +92,7 @@ export default StyleSheet.create({
         color: '#0A55A6',
     },
     Register_Box_Button: {
-        marginTop: 10,
+        marginTop: 5,
         width: 300,
         flexDirection: 'row',
         justifyContent: 'center',

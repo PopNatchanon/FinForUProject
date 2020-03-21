@@ -95,12 +95,10 @@ export default class MainScreen extends React.Component {
                     }
                     <AppBar navigation={navigation} currentUser={currentUser} />
                     <ScrollView>
-                        {
-                            /* <TouchableOpacity 
-                             onPress={() => navigation.push('MainScreen', { browerProps: 'https://www.finforu.com/' })}>
-                                <View style={{ width }}><Text>Enter</Text></View>
-                            </TouchableOpacity> */
-                        }
+                        {/* <TouchableOpacity
+                            onPress={() => navigation.push('MainScreen', { browerProps: 'https://www.finforu.com/' })}>
+                            <View style={{ width }}><Text>Enter</Text></View>
+                        </TouchableOpacity> */}
                         <Slide loading={this.LoadingProcess.bind(this)} />
                         <Category navigation={navigation} />
                         <Button_Bar navigation={navigation} />
@@ -1102,7 +1100,7 @@ export class BannerBar_ONE extends React.Component {
                     source={{
                         uri: ip + '/MySQL/uploads/Banner_New/banner 1920-220สำอาง.jpg',
                     }}
-                    resizeMode={FastImage.resizeMode.stretch} />
+                    resizeMode={FastImage.resizeMode.contain} />
             </View>
         );
     }
@@ -1122,7 +1120,7 @@ export class BannerBar_TWO extends React.Component {
                     source={{
                         uri: ip + '/MySQL/uploads/Banner_New/banner 1920-220เพชร3.jpg',
                     }}
-                    resizeMode={FastImage.resizeMode.stretch} />
+                    resizeMode={FastImage.resizeMode.contain} />
             </View>
         );
     }
@@ -1142,7 +1140,7 @@ export class BannerBar_THREE extends React.Component {
                     source={{
                         uri: ip + '/MySQL/uploads/Banner_New/banner 1920-220แม่2.jpg',
                     }}
-                    resizeMode={FastImage.resizeMode.stretch} />
+                    resizeMode={FastImage.resizeMode.contain} />
             </View>
         );
     }
@@ -1347,66 +1345,6 @@ export class PromotionPopular extends React.Component {
         );
     }
 }
-///----------------------------------------------------------------------------------------------->>>> Confidential_PRO
-// export class Confidential_PRO extends React.Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             dataService: [],
-//         };
-//     }
-//     shouldComponentUpdate = (nextProps, nextState) => {
-//         const { dataService } = this.state
-//         const { navigation } = this.props
-//         if (dataService !== nextState.dataService || navigation !== nextProps.navigation) {
-//             return true
-//         }
-//         return false
-//     }
-//     getData = (dataService) => {
-//         this.setState({ dataService })
-//     }
-//     get dataConfidential_PRO() {
-//         const { dataService } = this.state
-//         dataService.map((item, index) => {
-//             var dataMySQL = ip + '/' + 'mysql' + '/' + item.image_path + '/' + item.image;
-//             return (
-//                 <View style={stylesMain.BoxStore2Box} key={index}>
-//                     <FastImage
-//                         source={{
-//                             uri: dataMySQL,
-//                             width: 160,
-//                             height: 60,
-//                         }}
-//                         style={stylesMain.BoxStore2Image}
-//                         resizeMode={FastImage.resizeMode.stretch} />
-//                 </View>
-//             )
-//         })
-//     }
-//     render() {
-//         var uri = ip + '/MySQL/DataServiceMain.php';
-//         var dataBody = {
-//             type: 'Confidential_PRO'
-//         };
-//         return (
-//             <View style={[stylesMain.FrameBackground2]}>
-//                 <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
-//                 <View style={stylesMain.FrameBackgroundTextBox}>
-//                     <Text style={stylesMain.FrameBackgroundTextStart}>
-//                         ลายแทงร้านค้าแนะนำ</Text>
-//                     <Text style={stylesMain.FrameBackgroundTextEnd}>
-//                         ดูทั้งหมด</Text>
-//                 </View>
-//                 <ScrollView horizontal>
-//                     <View style={stylesMain.Confidential_A}>
-//                         {this.dataConfidential_PRO}
-//                     </View>
-//                 </ScrollView>
-//             </View>
-//         );
-//     }
-// }
 ///----------------------------------------------------------------------------------------------->>>> Product_for_you
 export class Product_for_you extends React.Component {
     constructor(props) {
@@ -1621,10 +1559,10 @@ export class Fin_Mall extends React.Component {
                     source={{
                         uri: ip + '/MySQL/uploads/Banner_New/banner 1920-220นาฬิกา.jpg',
                     }}
-                    resizeMode={FastImage.resizeMode.stretch}
+                    resizeMode={FastImage.resizeMode.contain}
                 />
                 <View style={{ width: '100%', height: 100, flexDirection: 'row', justifyContent: 'space-between', padding: 5 }}>
-                    <View style={{ width: '49%', backgroundColor: '#FFFFFF' }}>
+                    <TouchableOpacity style={{ width: '49%', backgroundColor: '#FFFFFF' }} activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'FinMallScreen', { selectedIndex: 0 })}>
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
@@ -1632,7 +1570,7 @@ export class Fin_Mall extends React.Component {
                             }}
                             resizeMode={FastImage.resizeMode.stretch}
                         />
-                    </View>
+                    </TouchableOpacity>
                     <View style={{ width: '49%', backgroundColor: '#FFFFFF' }}>
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
@@ -1648,7 +1586,7 @@ export class Fin_Mall extends React.Component {
                     source={{
                         uri: ip + '/MySQL/uploads/Banner_New/banner 1920-220แว่นตา.jpg',
                     }}
-                    resizeMode={FastImage.resizeMode.stretch}
+                    resizeMode={FastImage.resizeMode.contain}
                 />
                 <View style={{ widthd: '100%', height: 100, flexDirection: 'row', justifyContent: 'space-between', padding: 5 }}>
                     <View style={{ width: '24%', backgroundColor: '#FFFFFF' }}>
@@ -1693,7 +1631,7 @@ export class Fin_Mall extends React.Component {
                     source={{
                         uri: ip + '/MySQL/uploads/Banner_New/banner 1920-220เพชร2.jpg',
                     }}
-                    resizeMode={FastImage.resizeMode.stretch}
+                    resizeMode={FastImage.resizeMode.contain}
                 />
             </>
         );

@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React from 'react';
 import {
-  Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
+  Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View, ImageBackground,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
@@ -68,10 +68,21 @@ export class Logo extends React.Component {
   }
   render() {
     return (
-      <View style={stylesLogin.Logo_Box}>
-        <FastImage
-          style={stylesLogin.Logo}
-          source={require('../images/sj.png')} />
+      <View >
+        <ImageBackground
+          style={stylesLogin.Logo_Box}
+          source={{
+            uri: ip + '/MySQL/uploads/icon_5/sign-in-bg02.jpg',
+          }}
+          resizeMode={FastImage.resizeMode.stretch}
+        >
+          <FastImage
+            style={stylesLogin.Logo}
+            source={require('../icon/sign-in-logo.png')}
+            resizeMode={FastImage.resizeMode.contain}
+
+          />
+        </ImageBackground>
       </View>
     );
   }
@@ -288,7 +299,7 @@ export class Register extends React.Component {
       <View style={stylesLogin.Register_Box}>
         <View style={stylesLogin.Register_Box_A}>
           <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'RegisterScreen')}>
-            <View><Text style={[stylesLogin.Register_Box_TextA, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+            <View><Text style={[stylesLogin.Register_Box_TextA, stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
               สร้างบัญชี</Text>
             </View>
           </TouchableOpacity>
@@ -297,12 +308,16 @@ export class Register extends React.Component {
               เข้าสู่ระบบด้วยช่องทางอื่น</Text>
           </View>
           <View style={stylesLogin.Register_Box_Button}>
-            <FastImage
-              style={stylesLogin.Register_Box_image}
-              source={require('../icon/face_icon.png')} />
-            <FastImage
-              style={stylesLogin.Register_Box_image}
-              source={require('../icon/googla_icon.png')} />
+            <TouchableOpacity>
+              <FastImage
+                style={stylesLogin.Register_Box_image}
+                source={require('../icon/face_icon.png')} />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <FastImage
+                style={stylesLogin.Register_Box_image}
+                source={require('../icon/googla_icon.png')} />
+            </TouchableOpacity>
           </View>
         </View>
       </View>

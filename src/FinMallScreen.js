@@ -1,17 +1,25 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React from 'react';
+import React, { Component } from 'react';
 import {
-  Dimensions, SafeAreaView, ScrollView, View,
+  Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
+import SlidingView from 'rn-sliding-view';
+import FastImage from 'react-native-fast-image';
 ///----------------------------------------------------------------------------------------------->>>> Icon
+import IconEntypo from 'react-native-vector-icons/Entypo';
+import IconFeather from 'react-native-vector-icons/Feather';
 ///----------------------------------------------------------------------------------------------->>>> Styles
+import stylesDeal from '../style/stylePromotion-src/styleDealScreen';
+import stylesFont from '../style/stylesFont';
+import stylesMain from '../style/StylesMainScreen';
+import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, TodayProduct, ExitAppModule, } from './MainScreen';
-import { Button_Bar, } from './ExclusiveScreen';
-import { GetServices, TabBar, ProductBox, SlideTab2, } from './tools/Tools';
+import { AppBar1, TodayProduct, ExitAppModule, Recommend_Brand, } from './MainScreen';
 import { Slide, } from './src_Promotion/DealScreen';
+import { GetServices, TabBar, ProductBox, } from './tools/Tools';
+import { Button_Bar, PricesSlide, SlideTab, } from './ExclusiveScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -83,13 +91,26 @@ export class FinMall extends React.Component {
     this.state = {
     };
   }
+  navigationNavigateScreen = (value, value2) => {
+    const { navigation } = this.props
+    value == 'goBack' ?
+      navigation.goBack() :
+      value == 'LoginScreen' ? (
+        navigation.popToTop(),
+        navigation.replace(value, value2)
+      ) :
+        navigation.navigate(value, value2)
+  }
   render() {
     const navigation = this.props
     return (
-      <View>
+      <ScrollView>
         <Slide />
         <FinMall_Product navigation={navigation} />
-      </View>
+        <FIN_Supermarket />
+        <Brand_Supermarket />
+        <Recommend_Brand navigation={navigation}  />
+      </ScrollView>
     );
   }
 }
@@ -98,7 +119,24 @@ export class FinMall_Product extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      dataService: [],
     };
+  }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { navigation } = this.props
+    const { dataService } = this.state
+    if (
+      ////>nextProps
+      navigation !== nextProps.navigation ||
+      ////>nextState
+      dataService !== nextState.dataService
+    ) {
+      return true
+    }
+    return false
+  }
+  getData = (dataService) => {
+    this.setState({ dataService })
   }
   navigationNavigateScreen = (value, value2) => {
     const { navigation } = this.props
@@ -111,12 +149,18 @@ export class FinMall_Product extends React.Component {
         navigation.navigate(value, value2)
   }
   render() {
-    const { loadData, navigation } = this.props
-    return (
-      <View style={stylesMain.FrameBackground2}>
+    const { navigation } = this.props
+    const { dataService } = this.state
+    var uri = ip + '/mysql/DataServiceMain.php';
+    var dataBody = {
+      type: 'todayproduct'
+    }; return (
+      <View style={stylesMain.FrameBackground}>
+        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
         <View style={stylesMain.FrameBackgroundTextBox}>
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
-            Fin Mall</Text>
+            Fin Mall
+          </Text>
           <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'FinMallScreen', { selectedIndex: 1 })}>
             <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
               ดูทั้งหมด</Text>
@@ -124,10 +168,9 @@ export class FinMall_Product extends React.Component {
         </View>
         <ScrollView horizontal>
           {
-            loadData &&
-            <ProductBox dataService={loadData} navigation={navigation} typeip='fin' mode='row3col1'
-              pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-            />
+            dataService &&
+            <ProductBox dataService={dataService} navigation={navigation} typeip='ip' mode='row3col1' prepath='mysql'
+              pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} />
           }
         </ScrollView>
       </View>
@@ -139,18 +182,142 @@ export class FIN_Supermarket extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      dataService: [],
+    };
+    this.getData = this.getData.bind(this)
+  }
+  getData(dataService) {
+    this.setState({ dataService })
+  }
+  render() {
+    const { dataService } = this.state
+    const { navigation } = this.props
+    var uri = ip + '/mysql/DataServiceMain.php';
+    var dataBody = {
+      type: 'todayproduct'
+    };
+    return (
+      <View>
+        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+        <View style={stylesMain.FrameBackground}>
+          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
+            FIN_Supermarket </Text>
+          <View>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 5 }}>
+              <TouchableOpacity style={{ backgroundColor: '#9BB7D6', width: '32%', }}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { textAlign: 'center', color: '#063B76' }]}>
+                  Global Items</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={{ backgroundColor: '#AAC48A', width: '32%', }}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { textAlign: 'center', color: '#427007' }]}>
+                  ของใช้ประจำวัน</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={{ backgroundColor: '#D6B59B', width: '32%', }}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { textAlign: 'center', color: '#783907' }]}>
+                  Skincare</Text>
+              </TouchableOpacity>
+            </View>
+            <ScrollView horizontal>
+              <View style={[stylesMain.ProductForYouFlexBox, { height: 370 }]}>
+                {
+                  dataService ?
+                    <ProductBox dataService={dataService} navigation={navigation} typeip='ip' mode='row3col2' prepath='mysql'
+                      pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
+                    /> :
+                    null
+                }
+              </View>
+            </ScrollView>
+          </View>
+        </View>
+      </View>
+    );
+  }
+}
+///----------------------------------------------------------------------------------------------->>>>
+export class Brand_Supermarket extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
     };
   }
 
   render() {
     return (
-      <View>
-        <Text> FIN Supermarket </Text>
-      </View>
+      <>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-around', width: '100%', height: 100, marginTop: 10 }}>
+          <View style={{ width: '23%', }}>
+            <FastImage
+              style={stylesMain.BoxProduct1Image}
+              source={{
+                uri: ip + '/MySQL/uploads/Image_FinMall/Donki.jpg',
+              }}
+              resizeMode={FastImage.resizeMode.stretch}
+            />
+          </View>
+          <View style={{ width: '23%', }}>
+            <FastImage
+              style={stylesMain.BoxProduct1Image}
+              source={{
+                uri: ip + '/MySQL/uploads/Image_FinMall/Prime-Supermarket.jpg',
+              }}
+              resizeMode={FastImage.resizeMode.stretch}
+            />
+          </View>
+          <View style={{ width: '48%', backgroundColor: '#FFFFFF' }}>
+            <FastImage
+              style={stylesMain.BoxProduct1Image}
+              source={{
+                uri: ip + '/MySQL/uploads/Image_FinMall/logo-maxvalu.png',
+              }}
+              resizeMode={FastImage.resizeMode.stretch}
+            />
+          </View>
+        </View>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-around', width: '100%', height: 100, marginTop: 10 }}>
+          <View style={{ width: '48%', backgroundColor: '#FFFFFF' }}>
+            <FastImage
+              style={stylesMain.BoxProduct1Image}
+              source={{
+                uri: ip + '/MySQL/uploads/Image_FinMall/logo-foodland.png',
+              }}
+              resizeMode={FastImage.resizeMode.stretch}
+            />
+          </View>
+          <View style={{ width: '23%', backgroundColor: '#FFFFFF' }}>
+            <FastImage
+              style={stylesMain.BoxProduct1Image}
+              source={{
+                uri: ip + '/MySQL/uploads/Image_FinMall/Donki.jpg',
+              }}
+              resizeMode={FastImage.resizeMode.stretch}
+            />
+          </View>
+          <View style={{ width: '23%', backgroundColor: '#FFFFFF' }}>
+            <FastImage
+              style={stylesMain.BoxProduct1Image}
+              source={{
+                uri: ip + '/MySQL/uploads/Image_FinMall/download.png',
+              }}
+              resizeMode={FastImage.resizeMode.stretch}
+            />
+          </View>
+        </View>
+        <View style={stylesMain.FrameBackground}>
+          <View style={{ height: 150, width: '100%' }}>
+            <FastImage
+              style={stylesMain.BoxProduct1Image}
+              source={{
+                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop6.jpg',
+              }}
+              resizeMode={FastImage.resizeMode.stretch}
+            />
+          </View>
+        </View>
+      </>
     );
   }
 }
-
 
 ///----------------------------------------------------------------------------------------------->>>>
 export class FIN_Mall_VIP extends React.Component {
@@ -162,14 +329,9 @@ export class FIN_Mall_VIP extends React.Component {
     };
   }
   shouldComponentUpdate = (nextProps, nextState) => {
-    const { navigation } = this.props
     const { dataService, sliderVisible } = this.state
-    if (
-      ////>nextProps
-      navigation !== nextProps.navigation ||
-      ////>nextState
-      dataService !== nextState.dataService || sliderVisible !== nextState.sliderVisible
-    ) {
+    const { navigation } = this.props
+    if (dataService !== nextState.dataService || sliderVisible !== nextState.sliderVisible || navigation !== nextProps.navigation) {
       return true
     }
     return false
@@ -181,41 +343,12 @@ export class FIN_Mall_VIP extends React.Component {
     this.setState({ dataService })
   }
   render() {
-    const { navigation } = this.props
     const { dataService, sliderVisible } = this.state
+    const { navigation } = this.props
     var uri = ip + '/mysql/DataServiceMain.php';
     var dataBody = {
       type: 'todayproduct'
     };
-    const data = [{
-      title: 'หมวดหมู่',
-      subtitle: [{
-        name: 'กระเป๋าสะพายข้าง'
-      }, {
-        name: 'กระเป๋าสะพายหลัง'
-      }, {
-        name: 'กระเป๋าสตางค์'
-      }, {
-        name: 'กระเป๋าใส่นามบัตร'
-      }, {
-        name: 'กระเป๋าใส่เหรียญ'
-      }, {
-        name: 'กระเป๋าถือ'
-      }, {
-        name: 'อื่นๆ'
-      }]
-    }, {
-      title: 'แบรนด์',
-      subtitle: [{
-        name: 'BP world'
-      }, {
-        name: 'Tokyo boy'
-      }, {
-        name: 'JJ'
-      }, {
-        name: 'ETONWEAG'
-      }]
-    }]
     return (
       <SafeAreaView>
         <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
@@ -224,13 +357,89 @@ export class FIN_Mall_VIP extends React.Component {
           <View style={{ marginBottom: 10 }}></View>
           <Button_Bar setSliderVisible={this.setSlider} getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
           {
-            dataService &&
-            <TodayProduct noTitle navigation={navigation} loadData={dataService} typeip prepath='mysql' />
+            dataService ?
+              <TodayProduct noTitle navigation={navigation} loadData={dataService} typeip prepath='mysql' /> :
+              null
           }
         </ScrollView>
-        <SlideTab2 data={data} sliderVisible={sliderVisible} setStateSliderVisible={this.setSlider.bind(this)} />
+        <SlidingView
+          disableDrag
+          componentVisible={sliderVisible}
+          containerStyle={{
+            backgroundColor: null,
+            justifyContent: 'center',
+            alignContent: 'stretch',
+            width: '100%'
+          }}
+          position="right"
+          changeVisibilityCallback={() => this.setState({ sliderVisible: !sliderVisible })}
+        >
+          <View style={stylesMain.FlexRow}>
+            <TouchableOpacity
+              activeOpacity={1}
+              onPress={() => this.setState({ sliderVisible: !sliderVisible })}
+            >
+              <View style={stylesTopic.BackgroundLeft}></View>
+            </TouchableOpacity>
+            <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNB]}>
+              <View>
+                <ScrollView>
+                  <SlideTabGet />
+                </ScrollView>
+                <View style={[stylesMain.FlexRow, { height: 70 }]}>
+                  <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
+                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
+                      รีเซ็ต</Text>
+                  </View>
+                  <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset, { backgroundColor: '#0A55A6' }]}>
+                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#fff' }]}>
+                      เสร็จสิ้น</Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </SlidingView>
         <ExitAppModule navigation={navigation} />
       </SafeAreaView>
     );
+  }
+}
+///----------------------------------------------------------------------------------------------->>>>
+export class SlideTabGet extends React.Component {
+  render() {
+    const item = [{
+      name: 'กระเป๋าสะพายข้าง'
+    }, {
+      name: 'กระเป๋าสะพายหลัง'
+    }, {
+      name: 'กระเป๋าสตางค์'
+    }, {
+      name: 'กระเป๋าใส่นามบัตร'
+    }, {
+      name: 'กระเป๋าใส่เหรียญ'
+    }, {
+      name: 'กระเป๋าถือ'
+    }, {
+      name: 'อื่นๆ'
+    }]
+    const item2 = [{
+      name: 'BP world'
+    }, {
+      name: 'Tokyo boy'
+    }, {
+      name: 'JJ'
+    }, {
+      name: 'ETONWEAG'
+    }]
+    return (
+      <View>
+        <View style={{ width: '100%' }}>
+          <SlideTab Title='หมวดหมู่' item={item} />
+          <SlideTab Title='แบรนด์' item={item2} />
+          <PricesSlide />
+        </View>
+      </View>
+    )
   }
 }

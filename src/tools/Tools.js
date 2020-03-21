@@ -856,7 +856,10 @@ export class ProductBox extends React.Component {
         } = this.props
         const { ImageStore } = this.state
         return dataService.map((item, index) => {
-            var throughsale = Number(item.full_price) + (item.full_price * 0.5)
+            var discount
+            item.discount && (
+                discount = item.discount.replace("%", "")
+            )
             var url
             { typeip == 'ip' ? url = ip : url = finip }
             var dataMySQL = typeip == 'ip' ?
@@ -959,11 +962,20 @@ export class ProductBox extends React.Component {
                                                 {value}</Text>
                                         } />
                                     {
-                                        item.discount &&
-                                        <View style={[stylesMain.Box_On_sale, { borderRadius: 10 }]}>
-                                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, { color: '#FFFFFF' }]}>
-                                                {'-' + item.discount}</Text>
-                                        </View>
+                                        discount > 0 &&
+                                        <NumberFormat
+                                            value={item.discount && item.discount}
+                                            displayType={'text'}
+                                            thousandSeparator={true}
+                                            suffix={'%'}
+                                            renderText={
+                                                value =>
+                                                    value &&
+                                                    <View style={[stylesMain.Box_On_sale, { borderRadius: 10 }]}>
+                                                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, { color: '#FFFFFF' }]}>
+                                                            {'-' + value}</Text>
+                                                    </View>
+                                            } />
                                     }
                                 </View>
                                 {

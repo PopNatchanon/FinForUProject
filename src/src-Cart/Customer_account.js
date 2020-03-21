@@ -208,7 +208,7 @@ export class Account extends Component {
                         placeholder="โปรดระบุ"
                         maxLength={30}
                         value={this.state.name}
-                        onChangeText={(name) => this.setState({ name })}></TextInput>
+                        onChangeText={(name) => this.setState({ name })} />
                 </View>
                 <View style={styles.Account_Box}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>หมายเลขโทรศัพท์</Text>
@@ -217,7 +217,7 @@ export class Account extends Component {
                         placeholder="โปรดระบุ"
                         maxLength={10}
                         value={this.state.phone}
-                        onChangeText={(phone) => this.setState({ phone })}></TextInput>
+                        onChangeText={(phone) => this.setState({ phone })} />
                 </View>
                 <View style={styles.Account_Box}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>จังหวัด</Text>
@@ -226,8 +226,7 @@ export class Account extends Component {
                         style={stylesMain.ItemCenterVertical}
                         textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
                         dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
-                        renderButtonText={(index) => { this.setState({ province: index }), this.getDataAmphoe(index) }}
-                   >
+                        renderButtonText={(index) => { this.setState({ province: index }), this.getDataAmphoe(index) }}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                             {province}</Text>
                     </ModalDropdown>
@@ -239,8 +238,7 @@ export class Account extends Component {
                         style={stylesMain.ItemCenterVertical}
                         textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
                         dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, {}]}
-                        renderButtonText={(index) => this.getDataTumbol(index)}
-                   >
+                        renderButtonText={(index) => this.getDataTumbol(index)} >
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                             {amphoe}</Text>
                     </ModalDropdown>
@@ -252,8 +250,7 @@ export class Account extends Component {
                         style={stylesMain.ItemCenterVertical}
                         textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
                         dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, {}]}
-                        renderButtonText={(index) => this.setState({ tumbol: index })}
-                   >
+                        renderButtonText={(index) => this.setState({ tumbol: index })} >
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                             {tumbol}</Text>
                     </ModalDropdown>
@@ -264,8 +261,7 @@ export class Account extends Component {
                         style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { height: 40 }]}
                         editable={false}
                         placeholder="รหัสไปรษณีย์"
-                        value={this.state.zipcode}
-                    />
+                        value={this.state.zipcode} />
                 </View>
                 <View style={[styles.Account_Box, { height: 100 }]}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>รายละเอียดที่อยู่</Text>
@@ -274,7 +270,7 @@ export class Account extends Component {
                         editable
                         placeholder="โปรดระบุรายละเอียดบ้านเลขที่, ตึก, ชื่อถนน และ อื่นๆที่จำเป็น"
                         value={this.state.text}
-                        onChangeText={(text) => this.setState({ text })}></TextInput>
+                        onChangeText={(text) => this.setState({ text })} />
                 </View>
             </View>
         );
@@ -287,7 +283,25 @@ export class Account_main extends Component {
         this.state = {
         };
     }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { item1, item2 } = this.state
+        if (
+            ////>nextProps
+            ////>nextState
+            item1 !== nextState.item1 || item2 !== nextState.item2
+        ) {
+            return true
+        }
+        return false
+    }
+    setStateItem1 = (item1) => {
+        this.setState({ item1 })
+    }
+    setStateItem2 = (item2) => {
+        this.setState({ item2 })
+    }
     render() {
+        const { item1, item2 } = this.state
         return (
             <View>
                 <View style={[styles.Account_Box]}>
@@ -297,8 +311,8 @@ export class Account_main extends Component {
                         checkedIcon='toggle-on'
                         checkedColor='#95F29F'
                         uncheckedIcon='toggle-off'
-                        checked={this.state.item1}
-                        onPress={() => this.setState({ item1: !this.state.item1 })}
+                        checked={item1}
+                        onPress={this.setStateItem1(!item1)}
                     />
                 </View>
                 <View style={styles.Account_Box}>
@@ -308,8 +322,8 @@ export class Account_main extends Component {
                         checkedIcon='toggle-on'
                         checkedColor='#95F29F'
                         uncheckedIcon='toggle-off'
-                        checked={this.state.item2}
-                        onPress={() => this.setState({ item2: !this.state.item2 })}
+                        checked={item2}
+                        onPress={this.setStateItem2(!item2)}
                     />
                 </View>
             </View>

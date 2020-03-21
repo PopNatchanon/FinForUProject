@@ -1,5 +1,5 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component } from 'react';
+import React from 'react';
 import {
     Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
@@ -13,59 +13,72 @@ import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '.././navigator/IpConfig';
+import { finip, ip, } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class Detail_Pro extends Component {
-    PathList() {
-        const selectedIndex = this.props.navigation.getParam('selectedIndex')
+export default class Detail_Pro extends React.Component {
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { navigation } = this.props
+        if (
+            ////>nextProps
+            navigation !== nextProps.navigation
+            ////>nextState
+        ) {
+            return true
+        }
+        return false
+    }
+    get PathList() {
+        const { navigation } = this.props
+        const selectedIndex = navigation.getParam('selectedIndex')
         switch (selectedIndex) {
             case 0:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='รายละเอียดโปรโมชัน' />
-                        <Detail_Promotion navigation={this.props.navigation} />
+                        <AppBar1 backArrow navigation={navigation} titleHead='รายละเอียดโปรโมชัน' />
+                        <Detail_Promotion navigation={navigation} />
                     </View>
                 )
             case 1:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='รายละเอียดคำสั่งซื้อ' />
+                        <AppBar1 backArrow navigation={navigation} titleHead='รายละเอียดคำสั่งซื้อ' />
                         <ScrollView>
                             <Detail_Order />
                             <Detail_Product />
                         </ScrollView>
-                        <Detail_Button navigation={this.props.navigation} />
+                        <Detail_Button navigation={navigation} />
                     </View>
                 )
             case 2:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='รายละเอียดคำสั่งซื้อ' />
+                        <AppBar1 backArrow navigation={navigation} titleHead='รายละเอียดคำสั่งซื้อ' />
                         <Detail_Product_Check />
                     </View>
                 )
             case 3:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='คอมเมนท์' chatBar />
+                        <AppBar1 backArrow navigation={navigation} titleHead='คอมเมนท์' chatBar />
                         <Feed_comment />
                     </View>
                 )
         }
     }
     render() {
+        const { navigation } = this.props
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
                 <View>
-                    {this.PathList()}
+                    {this.PathList}
                 </View>
-                <ExitAppModule navigation={this.props.navigation} />
+                <ExitAppModule navigation={navigation} />
             </SafeAreaView>
         );
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Detail_Promotion
-export class Detail_Promotion extends Component {
+export class Detail_Promotion extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -83,16 +96,16 @@ export class Detail_Promotion extends Component {
                 </View>
                 <View style={{ padding: 10, backgroundColor: '#FFFFFF' }}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                        1.ยอดใช้จ่ายขั้นต่ำ 1,000 บาทขึ้นไป/ เซลล์สลิป(ผ่านวงเงินบัตรเครดิต)
-                        และรวมยอดใช้จ่ายเปลี่ยนเป็นยอดแบ่งชำระเริ่มต้น 3,000 บาทขึ้นไป
+                        1.ยอดใช้จ่ายขั้นต่ำ 1,000 บาทขึ้นไป/ เซลล์สลิป(ผ่านวงเงินบัตรเครดิต) และ
+                        รวมยอดใช้จ่ายเปลี่ยนเป็นยอดแบ่งชำระเริ่มต้น 3,000 บาทขึ้นไป
                     </Text>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                         2.เป็นยอดใช้จ่ายที่เกิดขึ้นก่อนวันสรุปยอดบัญชี 3 วันทำการเดือนนั้นๆ
                     </Text>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                        3.ยกเว้นยอดใช้จ่ายในเชิงธุรกิจ, ยอดใช้จ่ายจากการ ซื้อกองทุนรวม, ยอดการชำระค่าสาธารณูปโภค,
-                        และค่าบริการอื่นๆจากการหักบัญชีอัตโนมัติผ่าน บัตรเครดิตกรุงศรี เฟิร์สช้อยส์ วีซ่า แพลทินัม,
-                        ยอดใช้จ่ายที่เกิดจากวงเงินชั่วคราว, และยอดใช้จ่ายที่ผิดวัตถุประสงค์และผิดกฏหมายบัตรเครดิต
+                        3.ยกเว้นยอดใช้จ่ายในเชิงธุรกิจ, ยอดใช้จ่ายจากการ ซื้อกองทุนรวม, ยอดการชำระค่าสาธารณูปโภค, และ
+                        ค่าบริการอื่นๆจากการหักบัญชีอัตโนมัติผ่าน บัตรเครดิตกรุงศรี เฟิร์สช้อยส์ วีซ่า แพลทินัม, ยอดใช้จ่าย
+                        ที่เกิดจากวงเงินชั่วคราว, และยอดใช้จ่ายที่ผิดวัตถุประสงค์และผิดกฏหมายบัตรเครดิต
                      </Text>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                         4.โดยยอดใช้จ่าย ดังกล่าวจะไม่ได้รับคะแนนสะสมกรุงศรี เฟิร์สช้อยส์ รีวอร์ด
@@ -104,8 +117,8 @@ export class Detail_Promotion extends Component {
                         6.กรณีที่ท่านคืนสินค้าหรือบริการที่ร้านค้า กรุณาแจ้งทางบริษัทเพื่อทำการปิดรายการเงินผ่อนด้วยหลังจากท่านติดต่อแจ้งกับร้านค้าเรียบร้อยแล้ว
                     </Text>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                        7.บริษัทฯ ขอสงวนสิทธิ์ในการพิจารณาเปลี่ยนยอดซื้อสินค้าแบบปกติเป็นแบ่งจ่ายรายเดือนตาม หลักเกณฑ์ของบริษัทฯ
-                        หากพบว่าประวัติของสมาชิกบัตร ไม่ตรงตามหลักเกณฑของบริษัทฯ
+                        7.บริษัทฯ ขอสงวนสิทธิ์ในการพิจารณาเปลี่ยนยอดซื้อสินค้าแบบปกติเป็นแบ่งจ่ายรายเดือนตาม หลักเกณฑ์ของบริษัทฯ หาก
+                        พบว่าประวัติของสมาชิกบัตร ไม่ตรงตามหลักเกณฑของบริษัทฯ
                     </Text>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                         8.บริษัทฯขอสงวนสิทธิ์ในการเปลี่ยนแปลง แก้ไข และยกเลิกรายการส่งเสริมการตลาด รวมถึง เงื่อนไขต่างๆโดยไม่ต้องแจ้งให้ทราบล่วงหน้า
@@ -116,7 +129,7 @@ export class Detail_Promotion extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Detail_Order
-export class Detail_Order extends Component {
+export class Detail_Order extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -141,7 +154,11 @@ export class Detail_Order extends Component {
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>ยอดรวม</Text>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>฿5,000.00</Text>
                     </View>
-                    <View style={[stylesMain.FlexRow, { padding: 10, justifyContent: 'space-between', marginTop: 5, borderTopColor: '#EAEAEA', borderTopWidth: 1, }]}>
+                    <View style={[
+                        stylesMain.FlexRow, {
+                            padding: 10, justifyContent: 'space-between', marginTop: 5, borderTopColor: '#EAEAEA', borderTopWidth: 1,
+                        }
+                    ]}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยอดรวมทั้งสิ้น</Text>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#0A55A6' }]}>฿5,000.00</Text>
                     </View>
@@ -151,7 +168,7 @@ export class Detail_Order extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Detail_Product
-export class Detail_Product extends Component {
+export class Detail_Product extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -190,7 +207,7 @@ export class Detail_Product extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Detail_Product_Check
-export class Detail_Product_Check extends Component {
+export class Detail_Product_Check extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -220,15 +237,36 @@ export class Detail_Product_Check extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Detail_Button
-export class Detail_Button extends Component {
+export class Detail_Button extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { navigation, } = this.props
+        if (
+            ////>nextProps
+            navigation !== nextProps.navigation
+            ////>nextState
+        ) {
+            return true
+        }
+        return false
+    }
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.navigate(value, value2)
+    }
     render() {
         return (
-            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Detail_Pro', { selectedIndex: 2 })}>
+            <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Detail_Pro', { selectedIndex: 2 })}>
                 <View style={{
                     width: '100%', backgroundColor: '#0A55A6', height: 50, alignItems: 'center', justifyContent: 'center', marginTop: 10
                 }}>
@@ -239,22 +277,20 @@ export class Detail_Button extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>
-export class Feed_comment extends Component {
+export class Feed_comment extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
         return (
             <View style={[stylesMain.FlexRow, { padding: 10 }]}>
-                <View style={{ height: 50, width: 50, backgroundColor: '#9F9C9C' ,borderRadius:25}}></View>
+                <View style={{ height: 50, width: 50, backgroundColor: '#9F9C9C', borderRadius: 25 }}></View>
                 <View>
                     <Text> NAME - COMMENT </Text>
                     <Text>1 ชั่วโมงที่แล้ว</Text>
                 </View>
-
             </View>
         );
     }

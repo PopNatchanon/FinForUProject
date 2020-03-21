@@ -193,7 +193,7 @@ export default class StoreScreen extends React.Component {
                         Animated.event([{
                             nativeEvent: { contentOffset: { y: scrollY } }
                         }])
-                    } >
+                    }>
                     <Animatable.View style={{
                         marginTop: -50,
                         opacity: AnimatedHeadopacity,

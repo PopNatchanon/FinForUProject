@@ -23,7 +23,7 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { BrowerScreen, GetServices, ProductBox, Toolbar, LoadingScreen, } from './tools/Tools';
+import { BrowerScreen, GetServices, LoadingScreen, ProductBox, Toolbar, } from './tools/Tools';
 import NumberFormat from 'react-number-format';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from './navigator/IpConfig';
@@ -44,7 +44,7 @@ export default class MainScreen extends React.Component {
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation } = this.props
-        const { activeDataService, currentUser, dataService, IsLoading } = this.state
+        const { activeDataService, currentUser, dataService, IsLoading, } = this.state
         if (
             ////>nextProps
             navigation !== nextProps.navigation ||
@@ -74,8 +74,6 @@ export default class MainScreen extends React.Component {
         const { activeDataService, currentUser, dataService, IsLoading } = this.state
         const browerProps = navigation.getParam('browerProps')
         var uri = finip + '/home/publish_mobile'
-        console.log('IsLoading')
-        console.log(IsLoading)
         return browerProps ?
             ([
                 <View style={{ height: 50, width }} key={'AppBar1'}>
@@ -185,8 +183,6 @@ export class ExitAppModule extends React.Component {
         const { backClickCount } = this.state
         const { navigation } = this.props
         var routeProps = navigation.dangerouslyGetParent().state.routes.length
-        // console.log('routeProps')
-        // console.log(navigation.dangerouslyGetParent().state.routes[routeProps].routeName)
         return routeProps == 1 ? (
             backClickCount == 1 ? BackHandler.exitApp() : this._spring(),
             true
@@ -506,9 +502,7 @@ export class AppBar1 extends React.Component {
                         saveBar &&
                         <TouchableOpacity
                             key={'saveBar'}
-                            style={[stylesMain.ItemCenter, { width: 40 }]}
-                        // onPress={() => ()}
-                        >
+                            style={[stylesMain.ItemCenter, { width: 40 }]}>
                             <Text style={[
                                 stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize4, {
                                     width: 50,
@@ -560,11 +554,9 @@ export class Slide extends React.Component {
                 <FastImage
                     source={{
                         uri: dataMySQL,
-                        width: width * 1,
-                        height: height * 0.5,
                     }}
                     style={stylesMain.childSlide}
-                    resizeMode={FastImage.resizeMode.stretch} />
+                    resizeMode={FastImage.resizeMode.contain} />
             </View>
         );
     }
@@ -588,7 +580,8 @@ export class Slide extends React.Component {
                     autoplay
                     autoplayInterval={3000}
                     pagination={PaginationLight} />
-                {/* <Carousel
+                {/* 
+                <Carousel
                     ref={c => this.activeSlide = c}
                     data={dataService}
                     renderItem={this._renderItem.bind(this)}
@@ -604,8 +597,8 @@ export class Slide extends React.Component {
                     initialNumToRender={dataService.length}
                     maxToRenderPerBatch={1}
                     useScrollView={true} />
-                {this.pagination} */}
-                {/* <View style={{ flexDirection: 'row', width: '100%', marginTop: -100, marginBottom: 50, justifyContent: 'space-between' }}>
+                {this.pagination} 
+                 <View style={{ flexDirection: 'row', width: '100%', marginTop: -100, marginBottom: 50, justifyContent: 'space-between' }}>
                     {
                         activeSlide == 0 ?
                             <IconIonicons name='ios-arrow-back' size={30} style={{ color: 'transparent', backgroundColor: 'transparent', }} /> :
@@ -620,7 +613,8 @@ export class Slide extends React.Component {
                                 <IconIonicons name='ios-arrow-forward' size={30} style={{ color: '#0A55A6', backgroundColor: '#FFFFFF', height: 40, width: 40, borderRadius: 30, borderWidth: 2, borderColor: '#E4E4E4', textAlign: 'center', textAlignVertical: 'center', }} />
                             </TouchableOpacity>
                     }
-                </View> */}
+                </View> */
+                }
             </View>
         );
     }
@@ -630,8 +624,8 @@ export class Category extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataService: [],
             activeDataService: true,
+            dataService: [],
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
@@ -648,7 +642,7 @@ export class Category extends React.Component {
         return false
     }
     getData = (dataService) => {
-        this.setState({ dataService, activeDataService: false })
+        this.setState({ activeDataService: false, dataService, })
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
@@ -662,23 +656,24 @@ export class Category extends React.Component {
     }
     get dataCategory() {
         const { dataService } = this.state
-        return dataService.map((item, index) => {
-            var dataMySQL = finip + '/' + item.image_path + '/' + 'menu' + '/' + item.image_head;
-            return (
-                <View style={stylesMain.Category} key={index}>
-                    <FastImage
-                        source={{
-                            uri: dataMySQL,
-                        }}
-                        style={stylesMain.Category_box}
-                        resizeMode={FastImage.resizeMode.cover} />
-                    <View style={{ height: 20 }}>
-                        <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize8, stylesFont.FontCenter]}>
-                            {item.name}</Text>
+        return dataService &&
+            dataService.map((item, index) => {
+                var dataMySQL = finip + '/' + item.image_path + '/' + 'menu' + '/' + item.image_head;
+                return (
+                    <View style={stylesMain.Category} key={index}>
+                        <FastImage
+                            source={{
+                                uri: dataMySQL,
+                            }}
+                            style={stylesMain.Category_box}
+                            resizeMode={FastImage.resizeMode.cover} />
+                        <View style={{ height: 20 }}>
+                            <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize8, stylesFont.FontCenter]}>
+                                {item.name}</Text>
+                        </View>
                     </View>
-                </View>
-            )
-        })
+                )
+            })
     }
     render() {
         const { activeDataService } = this.state
@@ -1981,8 +1976,7 @@ export class CategoryProductSubStore extends React.Component {
             dataMySQL2 = finip + '/' + item.item2.image_path + '/' + item.item2.image
         )
         return (
-            <TouchableOpacity activeOpacity={1} key={index} style={stylesMain.FlexRow}
-            >
+            <TouchableOpacity activeOpacity={1} key={index} style={stylesMain.FlexRow}>
                 <View style={[stylesMain.CategoryProductStoreBox]}>
                     <FastImage
                         source={{
@@ -2324,8 +2318,7 @@ export class Second_product extends React.Component {
             dataMySQL2 = finip + '/' + item.item2.image_path + '/' + item.item2.image
         )
         return (
-            <TouchableOpacity activeOpacity={1} key={index} style={stylesMain.FlexRow}
-            >
+            <TouchableOpacity activeOpacity={1} key={index} style={stylesMain.FlexRow}>
                 <View style={[stylesMain.CategoryProductStoreBox]}>
                     <FastImage
                         source={{

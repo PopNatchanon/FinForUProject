@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-  Dimensions, Picker, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
+  Dimensions, Picker, SafeAreaView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
@@ -21,7 +21,7 @@ import stylesLogin from '../../../style/stylesLoginScreen';
 import { AppBar1, ExitAppModule } from '../../MainScreen';
 import { StoreMe_SettingImage } from '../../src_storeMe/StoreMe_Profile_Edit';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '../../navigator/IpConfig';
+import { finip, ip, } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class Setting_Topic extends Component {
   constructor(props) {
@@ -29,6 +29,19 @@ export default class Setting_Topic extends Component {
     this.state = {
       currentUser: {},
     }
+  }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { navigation, } = this.props
+    const { currentUser } = this.state
+    if (
+      ////>nextProps
+      navigation !== nextProps.navigation ||
+      ////>nextState
+      currentUser !== nextState.currentUser
+    ) {
+      return true
+    }
+    return false
   }
   componentDidMount() {
     this.getDataAsync()
@@ -38,64 +51,66 @@ export default class Setting_Topic extends Component {
     this.setState({ currentUser: JSON.parse(currentUser) })
   }
   PathList() {
+    const { navigation, } = this.props
     const { currentUser } = this.state
-    const selectedIndex = this.props.navigation.getParam('selectedIndex')
+    const selectedIndex = navigation.getParam('selectedIndex')
     switch (selectedIndex) {
       case 0:
         return (
           <View>
-            <Edit_Profile navigation={this.props.navigation} currentUser={currentUser} />
+            <Edit_Profile navigation={navigation} currentUser={currentUser} />
           </View>
         )
       case 1:
         return (
           <View>
-            <Edit_Address navigation={this.props.navigation} />
+            <Edit_Address navigation={navigation} />
           </View>
         )
       case 2:
         return (
           <View>
-            <Edit_Chat navigation={this.props.navigation} />
+            <Edit_Chat navigation={navigation} />
           </View>
         )
       case 3:
         return (
           <View>
-            <Edit_Bell navigation={this.props.navigation} />
+            <Edit_Bell navigation={navigation} />
           </View>
         )
       case 4:
         return (
           <View>
-            <Language_Screen navigation={this.props.navigation} />
+            <Language_Screen navigation={navigation} />
           </View>
         )
       case 5:
         return (
           <View>
-            <Edit_Setting_Bell navigation={this.props.navigation} />
+            <Edit_Setting_Bell navigation={navigation} />
           </View>
         )
       case 6:
         return (
           <View>
-            <Edit_Setting_Email navigation={this.props.navigation} />
+            <Edit_Setting_Email navigation={navigation} />
           </View>
         )
       case 7:
         return (
           <View>
-            <Edit_Pass navigation={this.props.navigation} />
+            <Edit_Pass navigation={navigation} />
           </View>
         )
     }
   }
   render() {
+    const { navigation, } = this.props
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
         {this.PathList()}
-        <ExitAppModule navigation={this.props.navigation} />
+        <ExitAppModule navigation={navigation} />
       </SafeAreaView>
     );
   }
@@ -105,13 +120,13 @@ export class Edit_Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      checked: true,
-      date: new Date(),
-      DataYear: [],
-      DataMo: [],
-      DataDay: [],
       activeNow: 0,
+      checked: true,
       currentUser: [],
+      date: new Date(),
+      DataDay: [],
+      DataMo: [],
+      DataYear: [],
     };
   }
   componentDidMount() {
@@ -394,8 +409,7 @@ export class Edit_Profile extends Component {
               paddingTop: 20,
               alignItems: "center",
             }
-          }}
-       >
+          }}>
           {this.NameSheetBody()}
         </BottomSheet>
         {/* เพศ */}
@@ -410,8 +424,7 @@ export class Edit_Profile extends Component {
               paddingTop: 20,
               alignItems: "center",
             }
-          }}
-       >
+          }}>
           {this.SexSheetBody()}
         </BottomSheet>
         {/* วันเกิด */}
@@ -426,8 +439,7 @@ export class Edit_Profile extends Component {
               paddingTop: 20,
               alignItems: "center",
             }
-          }}
-       >
+          }}>
           {this.BirthdaySheetBody()}
         </BottomSheet>
         {/* เบอร์โทรศัพท์ */}
@@ -442,8 +454,7 @@ export class Edit_Profile extends Component {
               paddingTop: 20,
               alignItems: "center",
             }
-          }}
-       >
+          }}>
           {this.Phone_numberSheetBody()}
         </BottomSheet>
         <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขโปรไฟล์' />
@@ -517,10 +528,34 @@ export class Edit_Pass extends Component {
     this.state = {
     };
   }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { navigation, } = this.props
+    const { Pass1, Pass2, Pass3, } = this.props
+    if (
+      ////>nextProps
+      navigation !== nextProps.navigation ||
+      ////>nextState
+      Pass1 !== nextState.Pass1 || Pass2 !== nextState.Pass2 || Pass3 !== nextState.Pass3
+    ) {
+      return true
+    }
+    return false
+  }
+  setStatePass1 = (Pass1) => {
+    this.setState({ Pass1 })
+  }
+  setStatePass2 = (Pass2) => {
+    this.setState({ Pass2 })
+  }
+  setStatePass3 = (Pass3) => {
+    this.setState({ Pass3 })
+  }
   render() {
+    const { navigation, } = this.props
+    const { Pass1, Pass2, Pass3, } = this.props
     return (
       <View>
-        <AppBar1 backArrow navigation={this.props.navigation} titleHead='เปลี่ยนรหัสผ่าน' />
+        <AppBar1 backArrow navigation={navigation} titleHead='เปลี่ยนรหัสผ่าน' />
         <View style={stylesProfileTopic.Edit_Pass}>
           <View style={{ width: '80%' }}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>รหัสผ่านปัจจุบัน</Text>
@@ -529,21 +564,21 @@ export class Edit_Pass extends Component {
                 fontSize={15}
                 placeholder=""
                 maxLength={50}
-                value={this.state.Pass1}
-                onChangeText={(Pass1) => this.setState({ Pass1 })} />
+                value={Pass1}
+                onChangeText={this.setStatePass1.bind(this, Pass1)} />
               <IconFeather RightItem name='eye-off' size={20} style={{ marginTop: 5, }} />
             </View>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 10 }]}>กรุณาระบุรหัสผ่านใหม่ด่านล่าง</Text>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#BFBFBF', marginLeft: 10, }]}>ประกอบไปด้วยตัวเลขและตัวอักษร อย่างน้อย 6 อักษร</Text>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#BFBFBF', marginLeft: 10, }]}>
+              ประกอบไปด้วยตัวเลขและตัวอักษร อย่างน้อย 6 อักษร</Text>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 10, }]}>รหัสผ่านใหม่</Text>
             <View style={stylesProfileTopic.Edit_Pass_TextInput}>
               <TextInput
                 fontSize={15}
                 placeholder=""
                 maxLength={50}
-                value={this.state.Pass2}
-                onChangeText={(Pass2) => this.setState({ Pass2 })}
-              />
+                value={Pass2}
+                onChangeText={this.setStatePass2.bind(this, Pass2)} />
               <IconFeather RightItem name='eye-off' size={20} style={{ marginTop: 5, }} />
             </View>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 10, }]}>พิมพ์รหัสผ่านใหม่อีกครั้ง</Text>
@@ -552,9 +587,8 @@ export class Edit_Pass extends Component {
                 fontSize={15}
                 placeholder=""
                 maxLength={50}
-                value={this.state.Pass3}
-                onChangeText={(Pass3) => this.setState({ Pass3 })}
-              />
+                value={Pass3}
+                onChangeText={this.setStatePass3.bind(this, Pass3)} />
               <IconFeather RightItem name='eye-off' size={20} style={{ marginTop: 5, }} />
             </View>
           </View>
@@ -577,14 +611,36 @@ export class Edit_Address extends Component {
     this.state = {
     };
   }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { navigation, } = this.props
+    if (
+      ////>nextProps
+      navigation !== nextProps.navigation
+      ////>nextState
+    ) {
+      return true
+    }
+    return false
+  }
+  navigationNavigateScreen = (value, value2) => {
+    const { navigation } = this.props
+    value == 'goBack' ?
+      navigation.goBack() :
+      value == 'LoginScreen' ? (
+        navigation.popToTop(),
+        navigation.replace(value, value2)
+      ) :
+        navigation.navigate(value, value2)
+  }
   render() {
+    const { navigation } = this.props
     return (
       <SafeAreaView>
-        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ที่อยู่ของฉัน' />
+        <AppBar1 backArrow navigation={navigation} titleHead='ที่อยู่ของฉัน' />
         <Address_Customar MainAddress />
         <Address_Customar />
         <View style={{ alignItems: 'center', justifyContent: 'flex-end', height: 475 }}>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Customer_account')}>
+          <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Customer_account')}>
             <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>เพิ่มที่อยู่</Text>
             </View>
@@ -600,6 +656,17 @@ export class Address_Customar extends Component {
     super(props);
     this.state = {
     };
+  }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { MainAddress } = this.props
+    if (
+      ////>nextProps
+      MainAddress !== nextProps.MainAddress
+      ////>nextState
+    ) {
+      return true
+    }
+    return false
   }
   render() {
     const { MainAddress } = this.props
@@ -632,23 +699,41 @@ export class Edit_Chat extends Component {
     this.state = {
     };
   }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { navigation, } = this.props
+    const { item1, } = this.state
+    if (
+      ////>nextProps
+      navigation !== nextProps.navigation ||
+      ////>nextState
+      item1 !== nextState.item1
+    ) {
+      return true
+    }
+    return false
+  }
+  setStateItem1 = (item1) => {
+    this.setState({ item1 })
+  }
   render() {
+    const { navigation, } = this.props
+    const { item1, } = this.state
     return (
       <SafeAreaView>
-        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ตั้งค่าการแชท' />
+        <AppBar1 backArrow navigation={navigation} titleHead='ตั้งค่าการแชท' />
         <View style={stylesProfileTopic.BoxTopic}>
           <View style={{ margin: 10 }}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>อนุญาตให้ทำการแชทจากหน้าโปรไฟล์</Text>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#CECECE' }]}> เปิดใช้งานเพื่ออนุญาตให้ผู้ใช้สามารถพูดคุยผ่านหน้าโปรไฟล์ได้</Text>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#CECECE' }]}>
+              เปิดใช้งานเพื่ออนุญาตให้ผู้ใช้สามารถพูดคุยผ่านหน้าโปรไฟล์ได้</Text>
           </View>
           <CheckBox
             size={25}
             checkedIcon='toggle-on'
             checkedColor='#95F29F'
             uncheckedIcon='toggle-off'
-            checked={this.state.item1}
-            onPress={() => this.setState({ item1: !this.state.item1 })}
-          />
+            checked={item1}
+            onPress={this.setStateItem1.bind(this, !item1)} />
         </View>
       </SafeAreaView>
     );
@@ -661,11 +746,33 @@ export class Edit_Bell extends Component {
     this.state = {
     };
   }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { navigation, } = this.props
+    if (
+      ////>nextProps
+      navigation !== nextProps.navigation
+      ////>nextState
+    ) {
+      return true
+    }
+    return false
+  }
+  navigationNavigateScreen = (value, value2) => {
+    const { navigation } = this.props
+    value == 'goBack' ?
+      navigation.goBack() :
+      value == 'LoginScreen' ? (
+        navigation.popToTop(),
+        navigation.replace(value, value2)
+      ) :
+        navigation.navigate(value, value2)
+  }
   render() {
+    const { navigation, } = this.props
     return (
       <SafeAreaView>
-        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ตั้งค่าการแจ้งเตือน' />
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 5 })}>
+        <AppBar1 backArrow navigation={navigation} titleHead='ตั้งค่าการแจ้งเตือน' />
+        <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Setting_Topic', { selectedIndex: 5 })}>
           <View style={stylesProfileTopic.BoxTopic}>
             <View style={stylesMain.FlexRow}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -675,7 +782,7 @@ export class Edit_Bell extends Component {
             <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting_Topic', { selectedIndex: 6 })}>
+        <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Setting_Topic', { selectedIndex: 6 })}>
           <View style={stylesProfileTopic.BoxTopic}>
             <View style={stylesMain.FlexRow}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -697,16 +804,33 @@ export class Language_Screen extends Component {
       checked2: true,
     };
   }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { navigation, } = this.props
+    const { checked, checked2 } = this.state
+    if (
+      ////>nextProps
+      navigation !== nextProps.navigation ||
+      ////>nextState
+      checked !== nextState.checked || checked2 !== nextState.checked2
+    ) {
+      return true
+    }
+    return false
+  }
+  setStateChecked = (checked, checked2) => {
+    this.setState({ checked, checked2 })
+  }
   render() {
+    const { navigation, } = this.props
+    const { checked, checked2 } = this.state
     return (
       <SafeAreaView>
-        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ภาษา' />
+        <AppBar1 backArrow navigation={navigation} titleHead='ภาษา' />
         <View style={stylesProfileTopic.BoxTopic}>
           <View style={stylesMain.FlexRow}>
             <CheckBox
-              checked={this.state.checked}
-              onPress={() => this.setState({ checked: !this.state.checked, checked2: !this.state.checked2 })}
-            />
+              checked={checked}
+              onPress={this.setStateChecked.bind(this, true, false)} />
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10, }]}>
               English
                </Text>
@@ -715,9 +839,8 @@ export class Language_Screen extends Component {
         <View style={stylesProfileTopic.BoxTopic}>
           <View style={stylesMain.FlexRow}>
             <CheckBox
-              checked={this.state.checked2}
-              onPress={() => this.setState({ checked2: !this.state.checked2, checked: !this.state.checked })}
-            />
+              checked={checked2}
+              onPress={this.setStateChecked.bind(this, false, true)} />
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10, }]}>
               ไทย
             </Text>
@@ -741,10 +864,37 @@ export class Edit_Setting_Bell extends Component {
     this.state = {
     };
   }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { navigation, } = this.props
+    const { item1, item2, item3, item4 } = this.state
+    if (
+      ////>nextProps
+      navigation !== nextProps.navigation ||
+      ////>nextState
+      item1 !== nextState.item1 || item2 !== nextState.item2 || item3 !== nextState.item3 || item4 !== nextState.item4
+    ) {
+      return true
+    }
+    return false
+  }
+  setStateItem1 = (item1) => {
+    this.setState({ item1 })
+  }
+  setStateItem2 = (item2) => {
+    this.setState({ item2 })
+  }
+  setStateItem3 = (item3) => {
+    this.setState({ item3 })
+  }
+  setStateItem4 = (item4) => {
+    this.setState({ item4 })
+  }
   render() {
+    const { navigation, } = this.props
+    const { item1, item2, item3, item4 } = this.state
     return (
       <SafeAreaView>
-        <AppBar1 backArrow navigation={this.props.navigation} titleHead='การแจ้งเตือน' />
+        <AppBar1 backArrow navigation={navigation} titleHead='การแจ้งเตือน' />
         <View style={stylesProfileTopic.BoxTopic}>
           <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -756,9 +906,8 @@ export class Edit_Setting_Bell extends Component {
             checkedIcon='toggle-on'
             checkedColor='#95F29F'
             uncheckedIcon='toggle-off'
-            checked={this.state.item1}
-            onPress={() => this.setState({ item1: !this.state.item1 })}
-          />
+            checked={item1}
+            onPress={this.setStateItem1.bind(this, !item1)} />
         </View>
         <View style={stylesProfileTopic.BoxTopic}>
           <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
@@ -771,9 +920,8 @@ export class Edit_Setting_Bell extends Component {
             checkedIcon='toggle-on'
             checkedColor='#95F29F'
             uncheckedIcon='toggle-off'
-            checked={this.state.item2}
-            onPress={() => this.setState({ item2: !this.state.item2 })}
-          />
+            checked={item2}
+            onPress={this.setStateItem2.bind(this, !item2)} />
         </View>
         <View style={stylesProfileTopic.BoxTopic}>
           <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
@@ -786,9 +934,8 @@ export class Edit_Setting_Bell extends Component {
             checkedIcon='toggle-on'
             checkedColor='#95F29F'
             uncheckedIcon='toggle-off'
-            checked={this.state.item3}
-            onPress={() => this.setState({ item3: !this.state.item3 })}
-          />
+            checked={item3}
+            onPress={this.setStateItem3.bind(this, !item3)} />
         </View>
         <View style={stylesProfileTopic.BoxTopic}>
           <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
@@ -801,9 +948,8 @@ export class Edit_Setting_Bell extends Component {
             checkedIcon='toggle-on'
             checkedColor='#95F29F'
             uncheckedIcon='toggle-off'
-            checked={this.state.item4}
-            onPress={() => this.setState({ item4: !this.state.item4 })}
-          />
+            checked={item4}
+            onPress={this.setStateItem4.bind(this, !item4)} />
         </View>
       </SafeAreaView>
     );
@@ -816,10 +962,34 @@ export class Edit_Setting_Email extends Component {
     this.state = {
     };
   }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    const { navigation, } = this.props
+    const { item1, item2, item3 } = this.state
+    if (
+      ////>nextProps
+      navigation !== nextProps.navigation ||
+      ////>nextState
+      item1 !== nextState.item1 || item2 !== nextState.item2 || item3 !== nextState.item3
+    ) {
+      return true
+    }
+    return false
+  }
+  setStateItem1 = (item1) => {
+    this.setState({ item1 })
+  }
+  setStateItem2 = (item2) => {
+    this.setState({ item2 })
+  }
+  setStateItem3 = (item3) => {
+    this.setState({ item3 })
+  }
   render() {
+    const { navigation, } = this.props
+    const { item1, item2, item3 } = this.state
     return (
       <SafeAreaView>
-        <AppBar1 backArrow navigation={this.props.navigation} titleHead='การแจ้งเตือนทางE-mail' />
+        <AppBar1 backArrow navigation={navigation} titleHead='การแจ้งเตือนทางE-mail' />
         <View style={stylesProfileTopic.BoxTopic}>
           <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -831,9 +1001,8 @@ export class Edit_Setting_Email extends Component {
             checkedIcon='toggle-on'
             checkedColor='#95F29F'
             uncheckedIcon='toggle-off'
-            checked={this.state.item1}
-            onPress={() => this.setState({ item1: !this.state.item1 })}
-          />
+            checked={item1}
+            onPress={this.setStateItem1.bind(this, !item1)} />
         </View>
         <View style={stylesProfileTopic.BoxTopic}>
           <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
@@ -846,9 +1015,8 @@ export class Edit_Setting_Email extends Component {
             checkedIcon='toggle-on'
             checkedColor='#95F29F'
             uncheckedIcon='toggle-off'
-            checked={this.state.item2}
-            onPress={() => this.setState({ item2: !this.state.item2 })}
-          />
+            checked={item2}
+            onPress={this.setStateItem2.bind(this, !item2)} />
         </View>
         <View style={stylesProfileTopic.BoxTopic}>
           <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
@@ -861,9 +1029,8 @@ export class Edit_Setting_Email extends Component {
             checkedIcon='toggle-on'
             checkedColor='#95F29F'
             uncheckedIcon='toggle-off'
-            checked={this.state.item3}
-            onPress={() => this.setState({ item3: !this.state.item3 })}
-          />
+            checked={item3}
+            onPress={this.setStateItem3.bind(this, !item3)} />
         </View>
       </SafeAreaView>
     );

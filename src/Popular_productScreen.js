@@ -56,8 +56,7 @@ export default class Popular_productScreen extends React.Component {
                     id_item != null ?
                         <ScrollView
                             stickyHeaderIndices={[2]}
-                            ref={view => this._scrollView = view}
-                        >
+                            ref={view => this._scrollView = view}>
                             <Slide />
                             <View style={{ marginBottom: 10 }}></View>
                             <Button_Bar id_item={id_item} getData={this.getData.bind(this)} />

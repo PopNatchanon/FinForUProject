@@ -496,12 +496,12 @@ export default StyleSheet.create({
   },
   ///------------------------------------------------------------------------------------------///
   child: {
-    height: 150,
     width,
+    height: height * 0.215,
   },
   childSlide: {
     width,
-    height: 150,
+    height: height * 0.215,
   },
   ///------------------------------------------------------------------------------------------///
   Category: {
@@ -628,7 +628,7 @@ export default StyleSheet.create({
     marginTop: 10,
   },
   Banner_Bar_image: {
-    width:'100%',
+    width: '100%',
     height: 55,
   },
   Product_for_you: {

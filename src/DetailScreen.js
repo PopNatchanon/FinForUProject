@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 import * as Animatable from 'react-native-animatable';
 import BottomSheet from "react-native-raw-bottom-sheet";
 import Carousel from 'react-native-snap-carousel';
+import CookieManager from '@react-native-community/cookies';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
@@ -74,6 +75,7 @@ export default class DetailScreen extends React.Component {
   }
   render() {
     const { navigation } = this.props
+    const { currentUser, BuyProduct, dataService, scrollY, setActive } = this.state
     var id_product = navigation.getParam('id_item')
     var uri = finip + '/product/product_deatil_mobile';
     var dataBody = {
@@ -81,11 +83,11 @@ export default class DetailScreen extends React.Component {
     };
     return (
       <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
-        {
+        {/* {
           showItemImage == true &&
           <Show_Image showImage={this.showImage.bind(this)} setShowItemImage={setShowItemImage} />
-        }
-        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
+        } */}
+        <GetServices uriPointer={uri} dataBody={dataBody} showConsole={'Main'} getDataSource={this.getData.bind(this)} />
         <Animatable.View style={{ height: 50, }}>
           <View style={{
             position: 'relative',
@@ -97,42 +99,44 @@ export default class DetailScreen extends React.Component {
             <AppBar leftBar='backarrow' navigation={navigation} />
           </View>
         </Animatable.View>
-        <ScrollView
-          scrollEventThrottle={16}
-          onScroll={
-            Animated.event([{
-              nativeEvent: { contentOffset: { y: scrollY } }
-            }])
-          }
-          style={{ height: '100%' }}
-        >
-          {/* <View style={{ marginTop: -50 }}></View> */}
-          {
-            dataService.product_data &&
-            <Detail_Image dataService={dataService.product_data} navigation={navigation} showImage={this.showImage.bind(this)}
-              setShowImage={this.setShowImage.bind(this)} setActive={setActive} />
-          }
-          <Detail_Data dataService={dataService} navigation={navigation} />
-          <Store dataService={dataService} navigation={navigation} />
-          {
-            currentUser && dataService.product_data &&
-            <Conpon dataService={dataService.product_data} currentUser={currentUser} />
-          }
-          <Selector dataService={dataService} BuyProduct={BuyProduct} currentUser={currentUser} navigation={navigation}
-            sendProduct={this.BuyProduct.bind(this)} />
-          <Detail_Category dataService={dataService} />
-          <Detail dataService={dataService} />
-          {
-            dataService.product_data &&
-            <Reviews dataService={dataService.product_data} currentUser={currentUser} navigation={navigation} />
-          }
-          <BannerBar />
-          <Same_Store dataService={dataService} navigation={navigation} />
-          <Similar_Product dataService={dataService} navigation={navigation} />
-          <Might_like dataService={dataService} navigation={navigation} />
-        </ScrollView>
         {
-          dataService.product_data &&
+          dataService &&
+          <ScrollView
+            scrollEventThrottle={16}
+            onScroll={
+              Animated.event([{
+                nativeEvent: { contentOffset: { y: scrollY } }
+              }])
+            }
+            style={{ height: '100%' }}>
+            {/* <View style={{ marginTop: -50 }}></View> */}
+            {
+              dataService.product_data &&
+              <Detail_Image dataService={dataService.product_data} navigation={navigation} showImage={this.showImage.bind(this)}
+                setShowImage={this.setShowImage.bind(this)} setActive={setActive} />
+            }
+            <Detail_Data dataService={dataService} navigation={navigation} />
+            <Store dataService={dataService} navigation={navigation} />
+            {
+              currentUser && dataService.product_data &&
+              <Conpon dataService={dataService.product_data} currentUser={currentUser} />
+            }
+            <Selector dataService={dataService} BuyProduct={BuyProduct} currentUser={currentUser} navigation={navigation}
+              sendProduct={this.BuyProduct.bind(this)} />
+            <Detail_Category dataService={dataService} />
+            <Detail dataService={dataService} />
+            {
+              dataService.product_data &&
+              <Reviews dataService={dataService.product_data} currentUser={currentUser} navigation={navigation} />
+            }
+            <BannerBar />
+            <Same_Store dataService={dataService} navigation={navigation} />
+            <Similar_Product dataService={dataService} navigation={navigation} />
+            <Might_like dataService={dataService} navigation={navigation} />
+          </ScrollView>
+        }
+        {
+          dataService && dataService.product_data &&
           <Buy_bar navigation={navigation} currentUser={currentUser} dataService={dataService} BuyProduct={this.BuyProduct.bind(this)} />
         }
         <ExitAppModule navigation={navigation} />
@@ -610,6 +614,7 @@ export class Conpon extends React.Component {
           currentUser && activeDate &&
           <GetServices
             uriPointer={uri}
+            showConsole={'Conpon'}
             dataBody={dataBody}
             getDataSource={this.getData.bind(this)} />
         }
@@ -626,8 +631,7 @@ export class Conpon extends React.Component {
               borderTopLeftRadius: 10,
               borderTopRightRadius: 10,
             }
-          }}
-        >
+          }}>
           {this.ConponSheetBody}
         </BottomSheet>
         <View style={stylesDetail.Coupon}>
@@ -983,6 +987,10 @@ export class Selector extends React.Component {
     const { sendProduct } = this.props
     sendProduct(typeSelect)
   }
+  closeTap = () => {
+    const { sendProduct } = this.props
+    sendProduct(null)
+  }
   render() {
     const { BuyProduct, currentUser, dataService, } = this.props
     dataService.detail_product && BuyProduct &&
@@ -995,14 +1003,14 @@ export class Selector extends React.Component {
           }}
           height={height * 0.5}
           duration={250}
+          onClose={this.closeTap.bind(this)}
           customStyles={{
             container: {
               borderTopLeftRadius: 10,
               borderTopRightRadius: 10,
               paddingTop: 10,
             }
-          }}
-        >
+          }}>
           {this.SelectorSheetBody}
         </BottomSheet>
         {
@@ -1715,30 +1723,39 @@ export class Coupon_Detail_BottomSheet extends React.Component {
   }
   shouldComponentUpdate = (nextProps, nextState) => {
     const { currentUser, dataService, get_id_promotion } = this.props
-    const { id_promotion, activeId_promotion } = this.state
+    const { activeId_promotion, id_promotion, keycokie, } = this.state
     if (
       ////>nextProps
       currentUser !== nextProps.currentUser || dataService !== nextProps.dataService ||
       get_id_promotion !== nextProps.get_id_promotion ||
       ////>nextState
-      id_promotion !== nextState.id_promotion || activeId_promotion !== nextState.activeId_promotion
+      activeId_promotion !== nextState.activeId_promotion || id_promotion !== nextState.id_promotion || keycokie !== nextState.keycokie
     ) {
       return true
     }
     return false
   }
+  componentDidMount() {
+    CookieManager.get(finip + '/auth/login_customer')
+      .then((res) => {
+        // console.log('CookieManager.get =>', res); // => 'user_session=abcdefg; path=/;'  
+        var keycokie = res.token
+        this.setState({ keycokie })
+      });
+  }
   saveTicket = (id_promotion) => {
-    this.setState({ id_promotion, activeId_promotion: false })
+    this.setState({ id_promotion, activeId_promotion: true })
   }
   getData = (dataService2) => {
     const { get_id_promotion, } = this.props
     if (dataService2.Status == 'Add Coupon Completed !') {
       get_id_promotion(dataService2.Status)
+      this.setState({ activeId_promotion: false })
     }
   }
   render() {
-    const { currentUser, dataService, get_id_promotion } = this.props
-    const { id_promotion, activeId_promotion } = this.state
+    const { currentUser, dataService, } = this.props
+    const { activeId_promotion, id_promotion, keycokie, } = this.state
     var uri
     var dataBody
     currentUser && id_promotion && (
@@ -1748,6 +1765,12 @@ export class Coupon_Detail_BottomSheet extends React.Component {
         id_promotion_shop: id_promotion
       }
     )
+    console.log('dataBody')
+    console.log(dataBody)
+    console.log('id_promotion')
+    console.log(id_promotion)
+    console.log('activeId_promotion')
+    console.log(activeId_promotion)
     return (
       <View style={{
         width: '100%', height: 100, borderWidth: 1,
@@ -1757,7 +1780,8 @@ export class Coupon_Detail_BottomSheet extends React.Component {
       }}>
         {
           dataBody && id_promotion && activeId_promotion == true &&
-          <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
+          <GetServices uriPointer={uri} dataBody={dataBody} Authorization={keycokie} showConsole={'save_coupon_shop'}
+            getDataSource={this.getData.bind(this)} />
         }
         <View>
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>{dataService.name}</Text>

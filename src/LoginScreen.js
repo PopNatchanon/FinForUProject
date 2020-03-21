@@ -6,6 +6,7 @@ import {
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
 export const { width, height, } = Dimensions.get('window');
+import CookieManager from '@react-native-community/cookies';
 import FastImage from 'react-native-fast-image';
 import { Form, TextValidator, } from 'react-native-validator-form';
 ///----------------------------------------------------------------------------------------------->>>> Icon
@@ -96,19 +97,19 @@ export class Login extends React.Component {
       eye: true,
     }
   }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { navigation } = this.props
-    const { eye, user, } = this.state;
-    if (
-      ////>nextProps
-      navigation !== nextProps.navigation ||
-      ////>nextProps
-      eye !== nextState.eye || user !== nextState.user
-    ) {
-      return true
-    }
-    return false
-  }
+  // shouldComponentUpdate = (nextProps, nextState) => {
+  //   const { navigation } = this.props
+  //   const { eye, user, } = this.state;
+  //   if (
+  //     ////>nextProps
+  //     navigation !== nextProps.navigation ||
+  //     ////>nextProps
+  //     eye !== nextState.eye || user !== nextState.user
+  //   ) {
+  //     return true
+  //   }
+  //   return false
+  // }
   storeData = async (item) => {
     try {
       await AsyncStorage.setItem('@MyKey', JSON.stringify(item))
@@ -146,20 +147,15 @@ export class Login extends React.Component {
       .then((response) => response.json())
       .then((responseJson) => {
         var userser = {};
-        responseJson.map((item) => {
-          userser.id_customer = item.id_customer
-          userser.name = item.name
-          userser.email = item.email
-          userser.telphone = item.telphone
-          userser.image = item.image
-          userser.image_path = item.image_path
-          userser.gender = item.gender
-          userser.date_of_birth = item.date_of_birth
-          userser.address = item.address
-        })
+        CookieManager.get(finip + '/auth/login_customer')
+          .then((res) => {
+            console.log('CookieManager.get =>', res); // => 'user_session=abcdefg; path=/;'
+          });
+        console.log('login')
+        console.log(responseJson.data)
         this.clearAll()
-        this.storeData(userser)
-        if (userser != null) {
+        this.storeData(responseJson.data)
+        if (responseJson.data != null) {
           this.navigationNavigateScreen('MainScreen');
         } else {
           this.navigationNavigateScreen('MainScreen');
@@ -172,12 +168,12 @@ export class Login extends React.Component {
   handleSubmit = () => {
     this.refs.form.submit();
   }
-  EmailInput(event) {
+  EmailInput = (event) => {
     const { user } = this.state;
     user.email = event;
     this.setState({ user });
   }
-  PassInput(event) {
+  PassInput = (event) => {
     const { user } = this.state;
     user.password = event;
     this.setState({ user });
@@ -192,7 +188,7 @@ export class Login extends React.Component {
         <View style={stylesLogin.Login_BoxA}>
           <Form
             ref="form"
-            onSubmit={() => this.getData()}>
+            onSubmit={this.getData.bind(this)}>
             <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
               อีเมล</Text>
             <TextValidator
@@ -224,6 +220,8 @@ export class Login extends React.Component {
               name="pass"
               label="text"
               type="text"
+              validators={['required']}
+              errorMessages={['กรุณารหัสผ่าน']}
               value={user.password}
               // maxLength={6}
               secureTextEntry={eye}
@@ -236,7 +234,8 @@ export class Login extends React.Component {
                   position: 'absolute'
                 },
                 text: {
-                  color: 'red'
+                  color: 'red',
+                  fontFamily: 'SukhumvitSet-Text',
                 },
                 underlineValidColor: 'gray',
                 underlineInvalidColor: 'red'

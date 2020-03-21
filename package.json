@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.8.1",
+    "@react-native-community/cookies": "^2.0.7",
     "native-base": "^2.13.12",
     "omise-react-native": "0.0.8",
     "radio-buttons-react-native": "^1.0.3",

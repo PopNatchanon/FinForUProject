@@ -64,8 +64,7 @@ export default class FlashSaleScreen extends React.Component {
                         Animated.event([{
                             nativeEvent: { contentOffset: { y: scrollY } }
                         }])
-                    }
-                >
+                    }>
                     <Slide />
                     <Time_FlashSale marginTopFlashsale={marginTopFlashsale} marginTopTime={marginTopTime} />
                     <FlashSale_Product navigation={navigation} />

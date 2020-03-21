@@ -6,6 +6,7 @@ import {
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage'
 import { CheckBox } from 'react-native-elements';
+import CookieManager from '@react-native-community/cookies';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
@@ -35,13 +36,14 @@ export default class CartScreen extends React.Component {
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation } = this.props
-        const { activeSave, activeRefresh, ArrayItem, currentUser, dataService, dataService2, } = this.state
+        const { activeSave, activeRefresh, ArrayItem, currentUser, dataService, dataService2, keycokie } = this.state
         if (
             ////>nextProps
             navigation !== nextProps.navigation ||
             ////>nextState
             activeSave !== nextState.activeSave || activeRefresh !== nextState.activeRefresh || ArrayItem !== nextState.ArrayItem ||
-            currentUser !== nextState.currentUser || dataService !== nextState.dataService || dataService2 !== nextState.dataService2
+            currentUser !== nextState.currentUser || dataService !== nextState.dataService || dataService2 !== nextState.dataService2 ||
+            keycokie !== nextState.keycokie
         ) {
             return true
         }
@@ -49,6 +51,12 @@ export default class CartScreen extends React.Component {
     }
     componentDidMount() {
         this.getDataAsync()
+        CookieManager.get(finip + '/auth/login_customer')
+            .then((res) => {
+                // console.log('CookieManager.get =>', res); // => 'user_session=abcdefg; path=/;'  
+                var keycokie = res.token
+                this.setState({ keycokie })
+            });
     }
     getDataAsync = async () => {
         const currentUser = await AsyncStorage.getItem('@MyKey')
@@ -65,7 +73,7 @@ export default class CartScreen extends React.Component {
     }
     render() {
         const { navigation } = this.props;
-        const { activeSave, activeRefresh, ArrayItem, currentUser, dataService, dataService2, } = this.state
+        const { activeSave, activeRefresh, ArrayItem, currentUser, dataService, dataService2, keycokie } = this.state
         var uri
         var dataBody
         currentUser && (
@@ -82,12 +90,13 @@ export default class CartScreen extends React.Component {
                     <LoadingScreen />
 
                 } */}
-                {
+                {[
                     currentUser && dataBody && activeRefresh == true &&
                     <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} key={'cart_ajax'} />,
                     ArrayItem && activeSave == true &&
-                    <GetServices uriPointer={uri2} dataBody={ArrayItem} getDataSource={this.getData2.bind(this)} key={'auto_save_ajax'} />
-                }
+                    <GetServices uriPointer={uri2} dataBody={ArrayItem} Authorization={keycokie} getDataSource={this.getData2.bind(this)}
+                        key={'auto_save_ajax'} />
+                ]}
                 <AppBar1 navigation={navigation} titleHead='รถเข็น' chatBar backArrow />
                 <ScrollView>
                     {

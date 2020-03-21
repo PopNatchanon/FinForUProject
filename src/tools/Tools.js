@@ -656,10 +656,11 @@ export class GetServices extends React.Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataBody, getDataSource, uriPointer } = this.props
+        const { Authorization, dataBody, getDataSource, showConsole, uriPointer } = this.props
         if (
             ////>nextProps
-            dataBody !== nextProps.dataBody || getDataSource !== nextProps.getDataSource || uriPointer !== nextProps.uriPointer
+            Authorization !== nextProps.Authorization || dataBody !== nextProps.dataBody || getDataSource !== nextProps.getDataSource ||
+            showConsole !== nextProps.showConsole || uriPointer !== nextProps.uriPointer
             ////>nextState
         ) {
             return true
@@ -667,17 +668,31 @@ export class GetServices extends React.Component {
         return false
     }
     getDataSource = async () => {
-        const { dataBody, uriPointer, getDataSource } = this.props
+        const { Authorization, dataBody, uriPointer, getDataSource, showConsole } = this.props
+        showConsole && (
+            console.log(showConsole),
+            console.log('Authorization'),
+            console.log(Authorization),
+            console.log('dataBody'),
+            console.log(dataBody),
+            console.log('uriPointer'),
+            console.log(uriPointer)
+        )
         fetch(uriPointer, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
+                'Authorization': Authorization
             },
             body: JSON.stringify(dataBody),
         })
             .then((response) => response.json())
             .then((responseJson) => {
+                showConsole && (
+                    console.log('responseJson'),
+                    console.log(responseJson)
+                )
                 getDataSource(responseJson);
             })
             .catch((error) => {
@@ -688,7 +703,7 @@ export class GetServices extends React.Component {
         this.getDataSource()
     }
     render() {
-        return null
+        return <></>
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> GetCoupon
@@ -859,8 +874,7 @@ export class ProductBox extends React.Component {
                 <TouchableOpacity
                     activeOpacity={1}
                     key={index}
-                    onPress={this.navigationNavigateScreen.bind(this, pointerUrl, pointerid_store ? { id_item: item.id_product } : null)}
-                >
+                    onPress={this.navigationNavigateScreen.bind(this, pointerUrl, pointerid_store ? { id_item: item.id_product } : null)}>
                     <View style={[
                         mode == 'row4col1' ?
                             stylesMain.BoxProduct5Box :
@@ -1330,13 +1344,11 @@ export class SlideTab2 extends React.Component {
                     width: '100%'
                 }}
                 position="right"
-                changeVisibilityCallback={this.setStateSliderVisible.bind(this)}
-            >
+                changeVisibilityCallback={this.setStateSliderVisible.bind(this)}>
                 <View style={stylesMain.FlexRow}>
                     <TouchableOpacity
                         activeOpacity={1}
-                        onPress={this.setStateSliderVisible.bind(this)}
-                    >
+                        onPress={this.setStateSliderVisible.bind(this)}>
                         <View style={stylesTopic.BackgroundLeft}></View>
                     </TouchableOpacity>
                     <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNB]}>
@@ -1436,8 +1448,7 @@ export class SlideTab extends React.Component {
                             }
                             {item.subtitle.length > 4 &&
                                 <TouchableOpacity
-                                    onPress={this.setStateActiveText.bind(this, !activeText)}
-                                >
+                                    onPress={this.setStateActiveText.bind(this, !activeText)}>
                                     <View style={[stylesDetail.Detail_Box, stylesMain.ItemCenter, {
                                         borderTopWidth: null,
                                     }]}>

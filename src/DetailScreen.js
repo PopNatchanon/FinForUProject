@@ -255,123 +255,22 @@ export class Detail_Data extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      arrayCountA: 0,
-      arrayCountB: 0,
-      arrayCountC: 0,
-      arrayCountD: 0,
-      dataServiceArray: { maxvalue: 0, minvalue: 0, maxfullvalue: 0, minfullvalue: 0 },
-      dataServiceArray2: [],
-      dataServiceArray3: [],
-      RunTime: false,
+      
     };
   }
   shouldComponentUpdate = (nextProps, nextState) => {
     const { dataService } = this.props;
-    const {
-      arrayCountA, arrayCountB, arrayCountC, arrayCountD, countItem, dataServiceArray, dataServiceArray2, dataServiceArray3,
-      id_product, RunTime,
-    } = this.state
+    const { } = this.state
     if (
       ////>nextProps
-      dataService !== nextProps.dataService ||
+      dataService !== nextProps.dataService
       ////>nextState
-      arrayCountA !== nextState.arrayCountA || arrayCountB !== nextState.arrayCountB || arrayCountC !== nextState.arrayCountC ||
-      arrayCountD !== nextState.arrayCountD || countItem !== nextState.countItem || dataServiceArray !== nextState.dataServiceArray ||
-      dataServiceArray2 !== nextState.dataServiceArray2 || dataServiceArray3 !== nextState.dataServiceArray3 ||
-      id_product !== nextState.id_product || RunTime !== nextState.RunTime
     ) {
       return true
     }
     return false
   }
-  // SetData2 = () => {
-  //   const { arrayCountA, arrayCountB, arrayCountC, dataServiceArray3 } = this.state;
-  //   var { arrayCountD, dataServiceArray } = this.state;
-  //   dataServiceArray3 && arrayCountC == 0 && (
-  //     this.setState({ arrayCountC: dataServiceArray3.length })
-  //   )
-  //   if (dataServiceArray3 != null && arrayCountC != 0 && arrayCountA == arrayCountB + 1 && arrayCountC != arrayCountD + 1) {
-  //     for (arrayCountD; arrayCountC> arrayCountD; arrayCountD++) {
-  //       var uri = finip + '/product/get_product_amount'
-  //       var dataBody = {
-  //         id_product: dataServiceArray3[arrayCountD].id_product,
-  //         detail_color: dataServiceArray3[arrayCountD].detail_1,
-  //         val_size: dataServiceArray3[arrayCountD].detail_2,
-  //       }
-  //       this.setState({ arrayCountD })
-  //       fetch(uri, {
-  //         method: 'POST',
-  //         headers: {
-  //           'Accept': 'application/json',
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: JSON.stringify(dataBody),
-  //       })
-  //         .then((response) => response.json())
-  //         .then((responseJson) => {
-  //           if (dataServiceArray3[arrayCountD].ps_id != null && responseJson.ps_id == dataServiceArray3[arrayCountD].ps_id) {
-  //             dataServiceArray3[arrayCountD].amount_data = responseJson.amount_data
-  //             dataServiceArray3[arrayCountD].price_data = responseJson.price_data
-  //           }
-  //           this.setState({ dataServiceArray3 })
-  //         })
-  //         .catch((error) => {
-  //           console.error(error);
-  //         })
-  //     }
-  //   }
-  // }
-  // SetData = () => {
-  //   const { arrayCountA, } = this.state;
-  //   var { arrayCountB, dataServiceArray2, dataServiceArray3 } = this.state;
-  //   const { dataService } = this.props;
-  //   var detail_product = dataService.detail_product
-  //   var id_product
-  //   dataService.product_data && (
-  //     dataService.product_data.map((item) => { id_product = item.id_product })
-  //   )
-  //   detail_product && arrayCountA == 0 && (
-  //     this.setState({ arrayCountA: detail_product.length })
-  //   )
-  //   if (detail_product != null && arrayCountA != 0 && arrayCountA != arrayCountB + 1) {
-  //     var n = 0
-  //     var p = 0
-  //     for (arrayCountB; arrayCountA> arrayCountB; arrayCountB++) {
-  //       var uri = finip + '/product/get_value_size'
-  //       var dataBody = {
-  //         id_product: id_product,
-  //         detail_color: detail_product[arrayCountB].detail_1,
-  //       }
-  //       dataServiceArray2[arrayCountB] = detail_product[arrayCountB]
-  //       this.setState({ arrayCountB, dataServiceArray2 })
-  //       fetch(uri, {
-  //         method: 'POST',
-  //         headers: {
-  //           'Accept': 'application/json',
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: JSON.stringify(dataBody),
-  //       })
-  //         .then((response) => response.json())
-  //         .then((responseJson) => {
-  //           var o = 0
-  //           for (var m = n; responseJson.data_size.length + n> m; m++) {
-  //             dataServiceArray3[m] = responseJson.data_size[o]
-  //             dataServiceArray3[m].detail_1 = detail_product[p].detail_1
-  //             dataServiceArray3[m].id_product = id_product
-  //             o++
-  //           }
-  //           n = responseJson.data_size.length
-  //           p++
-  //           this.setState({ dataServiceArray3, arrayCountC: dataServiceArray3.length })
-  //         })
-  //         .catch((error) => {
-  //           console.error(error);
-  //         })
-  //     }
-  //   }
-  // }
-  get id_product() {
+  get body() {
     const { dataService } = this.props
     return dataService.product_data &&
       dataService.product_data.map((item, index) => {
@@ -428,11 +327,8 @@ export class Detail_Data extends React.Component {
       })
   }
   render() {
-    // const { dataServiceArray2 } = this.state
     return (
-      // this.SetData(),
-      // this.SetData2(),
-      <View>{this.id_product}</View>
+      <View>{this.body}</View>
     )
   }
 }
@@ -612,11 +508,7 @@ export class Conpon extends React.Component {
       <>
         {
           currentUser && activeDate &&
-          <GetServices
-            uriPointer={uri}
-            showConsole={'Conpon'}
-            dataBody={dataBody}
-            getDataSource={this.getData.bind(this)} />
+          <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
         }
         <BottomSheet
           ref={ref => {
@@ -758,7 +650,10 @@ export class Selector extends React.Component {
         var dis_price
         dataService2 && dataService3 && activeSelect2 == false && (
           sale_price = dataService3.price_data,
-          full_price = items2[selectedIndex2].price,
+          sale_price = sale_price.replace(",", ""),
+          sale_price != items2[selectedIndex2].price && (
+            full_price = items2[selectedIndex2].price
+          ),
           amount_product = dataService3.amount_data,
           dis_price = dataService3.dis_price
         )
@@ -805,7 +700,8 @@ export class Selector extends React.Component {
                     source={{
                       uri: dataMySQL,
                     }}
-                    style={stylesMain.BoxProduct1Image} />
+                    style={stylesMain.BoxProduct1Image}
+                    resizeMode={FastImage.resizeMode.contain} />
                 </View>
                 {
                   dataService2 && dataService3 &&
@@ -822,12 +718,13 @@ export class Selector extends React.Component {
                               {value}</Text>
                         } />
                       <NumberFormat
-                        value={dis_price}
+                        value={dis_price && dis_price}
                         displayType={'text'}
                         thousandSeparator={false}
                         suffix={'%'}
                         renderText={
                           value =>
+                            value &&
                             <View style={[stylesMain.ItemCenter, {
                               height: 20, backgroundColor: '#fb3449', marginTop: 5, marginLeft: 5, width: 50, borderRadius: 20
                             }]}>
@@ -845,6 +742,7 @@ export class Selector extends React.Component {
                       prefix={'฿'}
                       renderText={
                         value =>
+                          value &&
                           <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize4,
                           stylesMain.BoxProduct1ImagePriceThrough, { marginTop: 0, }]}>
                             {value}</Text>
@@ -1014,7 +912,7 @@ export class Selector extends React.Component {
           {this.SelectorSheetBody}
         </BottomSheet>
         {
-          dataService.detail_product && dataService.detail_product.length > 1 &&
+          dataService.detail_product && dataService.detail_product.length > 0 &&
           <View style={stylesDetail.Coupon}>
             <TouchableOpacity activeOpacity={1} onPress={
               currentUser ?
@@ -1780,8 +1678,7 @@ export class Coupon_Detail_BottomSheet extends React.Component {
       }}>
         {
           dataBody && id_promotion && activeId_promotion == true &&
-          <GetServices uriPointer={uri} dataBody={dataBody} Authorization={keycokie} showConsole={'save_coupon_shop'}
-            getDataSource={this.getData.bind(this)} />
+          <GetServices uriPointer={uri} dataBody={dataBody} Authorization={keycokie} getDataSource={this.getData.bind(this)} />
         }
         <View>
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>{dataService.name}</Text>

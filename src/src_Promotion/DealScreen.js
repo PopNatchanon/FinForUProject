@@ -274,7 +274,7 @@ export class Deal_Today extends Component {
           <View style={[stylesDeal.BoxText_T, { backgroundColor: '#D5CD5B', marginLeft: -3 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ดีลเด็ดประจำวัน</Text>
           </View>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Deal_Topic', { selectedIndex: 0 })}>
+          <TouchableOpacity onPress={() => this.props.navigation.push('Deal_Topic', { selectedIndex: 0 })}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndW]}>ดูทั้งหมด</Text>
           </TouchableOpacity>
         </View>
@@ -335,7 +335,7 @@ export class Deal_Exclusive extends Component {
           <View style={[stylesDeal.BoxText_T, { backgroundColor: '#6170F8', marginLeft: -3 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ดีลสุด Exclusive</Text>
           </View>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Deal_Topic', { selectedIndex: 1 })}>
+          <TouchableOpacity onPress={() => this.props.navigation.push('Deal_Topic', { selectedIndex: 1 })}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndW]}>ดูทั้งหมด</Text>
           </TouchableOpacity>
         </View>
@@ -497,7 +497,7 @@ export class Second_Store extends Component {
           <View style={[stylesDeal.BoxText_T, { backgroundColor: '#95D370', marginLeft: -3 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ร้านมือสองลดราคา</Text>
           </View>
-          <TouchableOpacity onPress={() => navigation.navigate('Deal_Topic', { selectedIndex: 2 })}>
+          <TouchableOpacity onPress={() => navigation.push('Deal_Topic', { selectedIndex: 2 })}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB]}>ดูทั้งหมด</Text>
           </TouchableOpacity>
         </View>
@@ -506,7 +506,7 @@ export class Second_Store extends Component {
           <View style={[stylesDeal.BoxText_T, { backgroundColor: '#E43333', marginLeft: -3 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>มือสองลดราคา</Text>
           </View>
-          <TouchableOpacity onPress={() => navigation.navigate('Deal_Topic', { selectedIndex: 3 })}>
+          <TouchableOpacity onPress={() => navigation.push('Deal_Topic', { selectedIndex: 3 })}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB]}>ดูทั้งหมด</Text>
           </TouchableOpacity>
         </View>
@@ -567,7 +567,7 @@ export class ProDed_Store extends Component {
           <View style={[stylesDeal.BoxText_T, { backgroundColor: '#F1F193', marginLeft: -3 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 3, marginLeft: 8 }]}>ร้านนี้มีดีล</Text>
           </View>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Deal_Topic', { selectedIndex: 4 })}>
+          <TouchableOpacity onPress={() => this.props.navigation.push('Deal_Topic', { selectedIndex: 4 })}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndW]}>ดูทั้งหมด</Text>
           </TouchableOpacity>
         </View>

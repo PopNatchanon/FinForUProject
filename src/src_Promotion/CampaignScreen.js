@@ -137,7 +137,7 @@ export class CampaignBody extends Component {
                 <IconEntypo name='share' size={20} color='#0A55A6' />
               </View>
               <TouchableOpacity activeOpacity={1} onPress={() =>
-                this.props.navigation.navigate('Detail_Campaign', { selectedIndex: 0 })}>
+                this.props.navigation.push('Detail_Campaign', { selectedIndex: 0 })}>
                 <View style={[ststylePromotionDeal.CampaignBody_Button, stylesMain.ItemCenterVertical]}>
                   <Text style={[stylesFont.FontFamilyBold, ststylePromotionDeal.CampaignBody_ButtonText, stylesMain.ItemCenterVertical]}>รายละเอียด</Text>
                 </View>

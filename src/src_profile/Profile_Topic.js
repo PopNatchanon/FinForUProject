@@ -662,7 +662,7 @@ export class Review_me extends React.Component {
                             <IconFontAwesome name='star' size={20} color='#FFAC33' />
                             <IconFontAwesome name='star' size={20} color='#FFAC33' />
                         </View>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', {
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Profile_Topic', {
                             selectedIndex: 7
                         })}>
                             <View style={stylesProfileTopic.Review_me_Box_head}>

@@ -656,11 +656,11 @@ export class GetServices extends React.Component {
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { Authorization, dataBody, getDataSource, showConsole, uriPointer } = this.props
+        const { Authorization, dataBody, getDataSource, noSendError, showConsole, uriPointer } = this.props
         if (
             ////>nextProps
             Authorization !== nextProps.Authorization || dataBody !== nextProps.dataBody || getDataSource !== nextProps.getDataSource ||
-            showConsole !== nextProps.showConsole || uriPointer !== nextProps.uriPointer
+            noSendError !== nextProps.noSendError || showConsole !== nextProps.showConsole || uriPointer !== nextProps.uriPointer
             ////>nextState
         ) {
             return true
@@ -668,7 +668,7 @@ export class GetServices extends React.Component {
         return false
     }
     getDataSource = async () => {
-        const { Authorization, dataBody, uriPointer, getDataSource, showConsole } = this.props
+        const { Authorization, dataBody, uriPointer, getDataSource, noSendError, showConsole, } = this.props
         showConsole && (
             console.log(showConsole),
             console.log('Authorization'),
@@ -696,7 +696,7 @@ export class GetServices extends React.Component {
                 getDataSource(responseJson);
             })
             .catch((error) => {
-                console.error(error);
+                // console.error(error)
             })
     }
     componentDidMount() {
@@ -845,7 +845,7 @@ export class ProductBox extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     LoadingStore = (ImageStore) => {
         this.setState({ ImageStore })
@@ -972,7 +972,8 @@ export class ProductBox extends React.Component {
                                                 value =>
                                                     value &&
                                                     <View style={[stylesMain.Box_On_sale, { borderRadius: 10 }]}>
-                                                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, { color: '#FFFFFF' }]}>
+                                                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, {
+                                                             color: '#FFFFFF' }]}>
                                                             {'-' + value}</Text>
                                                     </View>
                                             } />
@@ -1070,7 +1071,7 @@ export class FeedBox extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     setStateButton = (length) => {
         // console.log(length)
@@ -1152,7 +1153,8 @@ export class FeedBox extends React.Component {
                                         <TouchableOpacity onPress={this.setStateButton_Follow_After.bind(this, index)}>
                                             <View style={stylesMain.BoxProduct4PlusButtonFollow}>
                                                 <Text style={[
-                                                    stylesMain.BoxProduct4PlusButtonFollowText, stylesFont.FontFamilyText, stylesFont.FontSize6
+                                                    stylesMain.BoxProduct4PlusButtonFollowText, stylesFont.FontFamilyText, 
+                                                    stylesFont.FontSize6
                                                 ]}>
                                                     {Button_Follow_After[index].check == true ? 'ติดตาม' : 'กำลังติดตาม'}</Text>
                                             </View>
@@ -1189,15 +1191,19 @@ export class FeedBox extends React.Component {
                             </View>
                         </View>
                         <View style={stylesMain.BoxProduct4ComBox2}>
-                            <TouchableOpacity activeOpacity={1} onPress={this.setStateButton_Like_heart.bind(this, index)} style={stylesMain.BoxProduct4ComBoxIcon}>
+                            <TouchableOpacity activeOpacity={1} onPress={this.setStateButton_Like_heart.bind(this, index)} style={
+                                stylesMain.BoxProduct4ComBoxIcon}>
                                 {
                                     Button_Follow_After &&
-                                    <IconFontAwesome name={Button_Follow_After[index].like == true ? 'heart' : 'heart-o'} size={20} style={{ color: Button_Follow_After[index].like == true ? '#ff0066' : '#111111' }} />
+                                    <IconFontAwesome name={Button_Follow_After[index].like == true ? 'heart' : 'heart-o'} size={20} style={{
+                                         color: Button_Follow_After[index].like == true ? '#ff0066' : '#111111' }} />
                                 }
                                 <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     ถูกใจ</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Detail_Pro', { selectedIndex: 3 })}>
+                            <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Detail_Pro', {
+                                selectedIndex: 3
+                            })}>
                                 <View style={stylesMain.BoxProduct4ComBoxIcon}>
                                     <IconFontAwesome5 name='comment-dots' size={20} />
                                     <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
@@ -1375,11 +1381,15 @@ export class SlideTab2 extends React.Component {
                             </ScrollView>
                             <View style={[stylesMain.FlexRow, { height: 70 }]}>
                                 <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
-                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
+                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, {
+                                        color: '#0A55A6'
+                                    }]}>
                                         รีเซ็ต</Text>
                                 </View>
                                 <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset, { backgroundColor: '#0A55A6' }]}>
-                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#fff' }]}>
+                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, {
+                                        color: '#fff'
+                                    }]}>
                                         เสร็จสิ้น</Text>
                                 </View>
                             </View>

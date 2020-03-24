@@ -14,7 +14,7 @@ import stylesMain from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, BannerBar_THREE, ExitAppModule, TodayProduct, } from './MainScreen';
 import { Button_Bar, } from './ExclusiveScreen';
-import { GetServices, } from './tools/Tools'
+import { GetServices, SlideTab2, } from './tools/Tools'
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -150,7 +150,7 @@ export class HeadBox extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     render() {
         const { otherOption, SearchText, } = this.props
@@ -205,7 +205,7 @@ export class StoreCard extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     render() {
         var dataMySQL = [ip, 'mysql/uploads/slide/NewStore/luxury_shop2.jpg'].join('/');

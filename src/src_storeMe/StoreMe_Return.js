@@ -228,7 +228,7 @@ export class Treasury_store_Product extends Component {
                 <IconFontAwesome name='trash-o' size={20} color='#6B87CF' />
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#6B87CF' }]}>ลบ</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreMe_Up_Product')} style={stylesMain.FlexRow}>
+              <TouchableOpacity onPress={() => this.props.navigation.push('StoreMe_Up_Product')} style={stylesMain.FlexRow}>
                 <IconFeather name='edit' size={20} color='#6B87CF' />
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#6B87CF' }]}>แก้ไข</Text>
               </TouchableOpacity>

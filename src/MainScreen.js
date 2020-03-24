@@ -233,7 +233,7 @@ export class AppBar extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     setText = (text) => {
         this.setState({ text })
@@ -332,11 +332,11 @@ export class AppBar extends React.Component {
                     rightBar == 'storebar' ?
                         <View key={'storebar'} style={[stylesMain.ItemCenter, stylesMain.FlexRow]}>
                             <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 40 }]}
-                                onPress={null/*() => navigation.navigate('CartScreen')*/}>
+                                onPress={null/*() => navigation.push('CartScreen')*/}>
                                 <AIconFeather name="filter" size={25} style={{ color: AIColor ? AIColor : '#111' }} />
                             </TouchableOpacity>
                             <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 40 }]}
-                                onPress={null/*() => navigation.navigate('CartScreen')*/}>
+                                onPress={null/*() => navigation.push('CartScreen')*/}>
                                 <AIconFontAwesome5 name="ellipsis-h" size={25} style={{ color: AIColor ? AIColor : '#111' }} />
                             </TouchableOpacity>
                         </View> :
@@ -414,7 +414,7 @@ export class AppBar1 extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     setText = (text) => {
         this.setState({ text })
@@ -650,7 +650,7 @@ export class Category extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     get dataCategory() {
         const { dataService } = this.state
@@ -719,7 +719,7 @@ export class Button_Bar extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     render() {
         return (
@@ -812,7 +812,7 @@ export class Recommend_Brand extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     get recommendBrand() {
         const { loadData } = this.props
@@ -882,7 +882,7 @@ export class Popular_store extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     get PopularStoreItem() {
         const { loadData } = this.props;
@@ -978,7 +978,7 @@ export class Popular_product extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     render() {
         const { loadData } = this.props
@@ -1176,7 +1176,7 @@ export class FlashSale extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     componentDidMount() {
         this.setState({ endTime: new Date('2020-03-18T05:00:00.000Z') })
@@ -1291,7 +1291,7 @@ export class PromotionPopular extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     get dataPromotionPopular() {
         const { loadData } = this.props
@@ -1366,7 +1366,7 @@ export class Product_for_you extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     render() {
         const { loadData, navigation } = this.props
@@ -1419,7 +1419,7 @@ export class Highlight extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     render() {
         const { loadData, navigation } = this.props
@@ -1471,7 +1471,7 @@ export class NewStore extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     get dataNewStore() {
         const { loadData } = this.props
@@ -1531,7 +1531,7 @@ export class Exclusive extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     render() {
         const { loadData, navigation } = this.props
@@ -1590,7 +1590,7 @@ export class CategoryProduct extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     get dataCategory() {
         const { navigation, NoStoreReCom, } = this.props
@@ -1938,7 +1938,7 @@ export class Second_product extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     renderItem1 = (item) => {
         return item.map((item, index) => {

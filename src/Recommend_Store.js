@@ -110,7 +110,7 @@ export class Store_Detail extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     getData = (dataService) => {
         this.setState({ dataService })

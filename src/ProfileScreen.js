@@ -96,7 +96,7 @@ export class Headbar extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     render() {
         const { currentUser, statusOnline } = this.props
@@ -184,7 +184,7 @@ export class Menubar extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     render() {
         const { navigation } = this.props
@@ -237,7 +237,7 @@ export class MenubarSub extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     render() {
         return (
@@ -351,7 +351,7 @@ export class Listbar extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     setStatePathList = (pathlist) => {
         this.setState({ pathlist })
@@ -439,7 +439,7 @@ export class ListMenu extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     render() {
         return (

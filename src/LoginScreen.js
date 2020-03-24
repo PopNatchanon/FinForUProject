@@ -132,7 +132,7 @@ export class Login extends React.Component {
         navigation.popToTop(),
         navigation.replace(value, value2)
       ) :
-        navigation.navigate(value, value2)
+        navigation.push(value, value2)
   }
   getData = async () => {
     const { user } = this.state;
@@ -291,7 +291,7 @@ export class Register extends React.Component {
         navigation.popToTop(),
         navigation.replace(value, value2)
       ) :
-        navigation.navigate(value, value2)
+        navigation.push(value, value2)
   }
   render() {
     return (

@@ -202,7 +202,8 @@ export class Menubar extends React.Component {
                             onPress={this.navigationNavigateScreen.bind(this, 'Total_Order', { selectedIndex: 0 })}>
                             <Text style={[
                                 stylesProfile.MenubarText2, stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize6
-                            ]}>รายการการสั่งซื้อทั้งหมด <IconEntypo name='chevron-right' size={20} />
+                            ]}>รายการการสั่งซื้อทั้งหมด
+                            <IconEntypo name='chevron-right' size={20} />
                             </Text>
                         </TouchableOpacity>
                     </View>

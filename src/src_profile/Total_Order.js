@@ -177,7 +177,7 @@ export class From_Order_Box extends Component {
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#20BDA1', marginTop: 10, }]}>กำลังจัดส่ง</Text>
                         }{
                             Review_order &&
-                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Profile_Topic', { selectedIndex: 7 })}>
+                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Profile_Topic', { selectedIndex: 7 })}>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#20BDA1', marginTop: 10, }]}>
                                     <IconFeather name='edit' size={15} />
                                     เขียนรีวิว
@@ -217,21 +217,21 @@ export class From_Order_Box extends Component {
                                 </TouchableOpacity>
                             }{
                                 cancel_order &&
-                                <TouchableOpacity onPress={() => this.props.navigation.navigate('CancelScreen', { selectedIndex: 1 })}>
+                                <TouchableOpacity onPress={() => this.props.navigation.push('CancelScreen', { selectedIndex: 1 })}>
                                     <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
                                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยกเลิกสินค้า</Text>
                                     </View>
                                 </TouchableOpacity>
                             }{
                                 return_order &&
-                                <TouchableOpacity onPress={() => this.props.navigation.navigate('Return_products', { selectedIndex: 1 })}>
+                                <TouchableOpacity onPress={() => this.props.navigation.push('Return_products', { selectedIndex: 1 })}>
                                     <View style={{ borderBottomColor: '#0A55A6', borderBottomWidth: 1, height: 20, }}>
                                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>ส่งคำร้องคืนสินค้า</Text>
                                     </View>
                                 </TouchableOpacity>
                             }{
                                 detail_order &&
-                                <TouchableOpacity onPress={() => this.props.navigation.navigate('Order_Detail')}>
+                                <TouchableOpacity onPress={() => this.props.navigation.push('Order_Detail')}>
                                     <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
                                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
                                     </View>

@@ -92,7 +92,7 @@ export default class CartScreen extends React.Component {
                 } */}
                 {[
                     currentUser && dataBody && activeRefresh == true &&
-                    <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} key={'cart_ajax'} />,
+                    <GetServices uriPointer={uri} dataBody={dataBody} showConsole={'cart_ajax'} getDataSource={this.getData.bind(this)} key={'cart_ajax'} />,
                     ArrayItem && activeSave == true &&
                     <GetServices uriPointer={uri2} dataBody={ArrayItem} Authorization={keycokie} getDataSource={this.getData2.bind(this)}
                         key={'auto_save_ajax'} />
@@ -390,7 +390,7 @@ export class Buy_bar extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     render() {
         const { dataService2 } = this.props;

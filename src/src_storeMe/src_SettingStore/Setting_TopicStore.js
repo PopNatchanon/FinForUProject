@@ -490,7 +490,7 @@ export class Setting_Address_Store extends Component {
                 <Address_Customar MainAddress />
                 <Address_Customar />
                 <View style={{ alignItems: 'center', justifyContent: 'flex-end', height: 475 }}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Customer_account')}>
+                    <TouchableOpacity onPress={() => this.props.navigation.push('Customer_account')}>
                         <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { color: '#FFFFFF' }]}>เพิ่มที่อยู่</Text>
                         </View>

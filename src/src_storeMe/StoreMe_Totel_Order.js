@@ -153,13 +153,13 @@ export class Order_Me_Box extends Component {
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { margin: 10, color: '#20BDA1' }]}>ยังไม่ชำระ</Text>
                         }{
                             up_number &&
-                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Setting_TopicStore', { selectedIndex: 10 })}>
+                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 10 })}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { margin: 10, color: '#06BBBB' }]}>เพิ่มเลขพัสดุ</Text>
                             </TouchableOpacity>
                         }{
                             edit_number &&
                             <View style={stylesMain.FlexRow}>
-                                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Setting_TopicStore', { selectedIndex: 11 })}>
+                                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 11 })}>
                                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { margin: 10, color: '#06BBBB' }]}>Edit</Text>
                                 </TouchableOpacity>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { margin: 10, color: '#D6D6D6' }]}>tnt1237174823403268</Text>
@@ -206,21 +206,21 @@ export class Order_Me_Box extends Component {
                             <View style={[stylesProfileTopic.Order_Box_priceText, { marginTop: 5, }]}>
                                 {
                                     detail_order &&
-                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreMe_Detail_Order', { selectedIndex: 0 })}>
+                                    <TouchableOpacity onPress={() => this.props.navigation.push('StoreMe_Detail_Order', { selectedIndex: 0 })}>
                                         <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
                                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
                                         </View>
                                     </TouchableOpacity>
                                 }{
                                     detail_order_review &&
-                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreMe_Detail_Order', { selectedIndex: 1 })}>
+                                    <TouchableOpacity onPress={() => this.props.navigation.push('StoreMe_Detail_Order', { selectedIndex: 1 })}>
                                         <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
                                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
                                         </View>
                                     </TouchableOpacity>
                                 }{
                                     detail_order_cancel &&
-                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('StoreMe_Return', { selectedIndex: 1 })}>
+                                    <TouchableOpacity onPress={() => this.props.navigation.push('StoreMe_Return', { selectedIndex: 1 })}>
                                         <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
                                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
                                         </View>

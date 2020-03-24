@@ -1,12 +1,17 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
+import { Container, Header, Content, Form, Item, Input, Label, Button, Text } from 'native-base';
 import {
-    Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
+    Alert, Dimensions, SafeAreaView, ScrollView, StyleSheet,
+    // Text,
+    TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import BottomSheet from "react-native-raw-bottom-sheet";
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
+import Omise from 'omise-react-native';
+Omise.config('pkey_test_5ifbd6uqmxyoddk5u9w', '2019-05-29');
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -55,7 +60,7 @@ export class Appbar_New_account extends Component {
     render() {
         return (
             <View style={stylesCustomerOrder.Appbar_New_account}>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Customer_account')}>
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Customer_account')}>
                     <View style={{ flexDirection: 'row', }}>
                         <IconAntDesign style={{ marginLeft: 10, }} name='mail' size={30} />
                         <Text style={{ marginLeft: 10, fontSize: 15, marginTop: 5, }}>ที่อยู่ใหม่</Text>
@@ -238,7 +243,7 @@ export class Option_payment extends Component {
                             alignItems: "center"
                         }
                     }}
-               >
+                >
                     <View style={{ alignItems: 'center', height: 'auto', }}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { marginBottom: 10 }]}>เลือกวิธีการชำระเงิน</Text>
                         <View style={stylesCustomerOrder.Payment_Box}>
@@ -361,7 +366,7 @@ export class Bar_payment extends Component {
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>รวมการสั่งซื้อ</Text>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#0A55A6' }]}>฿90,000</Text>
                 </View>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Customer_Complete_Order')}>
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Customer_Complete_Order')}>
                     <View style={{ width: 300, height: 50, backgroundColor: '#0A55A6', justifyContent: 'center', alignItems: 'center', }}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>สั่งซื้อสินค้า</Text>
                     </View>
@@ -370,3 +375,123 @@ export class Bar_payment extends Component {
         );
     }
 }
+///----------------------------------------------------------------------------------------------->>>> Bar_payment
+type States = {
+    number: string,
+    name: string,
+    expiration_month: string,
+    expiration_year: string,
+    security_code: string
+};
+type Props = {};
+export class App extends Component<Props, States> {
+
+    state = {
+        number: "",
+        name: "",
+        expiration_month: "",
+        expiration_year: "",
+        security_code: ""
+    };
+
+    async _createToken() {
+        try {
+            const {
+                number,
+                name,
+                expiration_month,
+                expiration_year,
+                security_code
+            } = this.state;
+
+            const data = await Omise.createToken({
+                'card': {
+                    'name': name,
+                    'number': number,
+                    'expiration_month': Number(expiration_month),
+                    'expiration_year': Number(expiration_year),
+                    'security_code': Number(security_code)
+                }
+            });
+
+            ////console.log("data", data);
+
+            Alert.alert("Token", "token = " + data.id);
+
+
+        } catch (err) {
+            let error = "";
+            ////console.log("err instanceof Promise", err instanceof Promise);
+            if (err instanceof Promise) {
+                error = await err;
+                error = error.message;
+            } else {
+                error = err.message;
+            }
+            ////console.log("error", error);
+            Alert.alert("Error", error);
+        } finally {
+            this.setState({
+                number: "",
+                name: "",
+                expiration_month: "",
+                expiration_year: "",
+                security_code: ""
+            });
+        }
+    }
+    render() {
+        const {
+            number,
+            name,
+            expiration_month,
+            expiration_year,
+            security_code
+        } = this.state;
+
+        return (
+            <Container>
+                <Header />
+                <Content>
+                    <Form>
+                        <Item inlineLabel>
+                            <Label style={styles.label}>Card number</Label>
+                            <Input defaultValue={number} onChangeText={(number) => this.setState({ number })} />
+                        </Item>
+                        <Item inlineLabel>
+                            <Label style={styles.label}>Name on card</Label>
+                            <Input defaultValue={name} onChangeText={(name) => this.setState({ name })} />
+                        </Item>
+                        <Item inlineLabel>
+                            <Label style={styles.label}>Expiry date</Label>
+                            <Input placeholder="MM" maxLength={2}
+                                defaultValue={expiration_month}
+                                onChangeText={(expiration_month) => this.setState({ expiration_month })} />
+                            <Text>/</Text>
+                            <Input placeholder="YY" maxLength={4}
+                                defaultValue={expiration_year}
+                                onChangeText={(expiration_year) => this.setState({ expiration_year })} />
+                        </Item>
+                        <Item inlineLabel last>
+                            <Label style={styles.label}>Security code</Label>
+                            <Input maxLength={3} secureTextEntry
+                                defaultValue={security_code}
+                                onChangeText={(security_code) => this.setState({ security_code })}
+                            />
+                        </Item>
+                        <Button full onPress={this._createToken.bind(this)}>
+                            <Text>Create a token</Text>
+                        </Button>
+                    </Form>
+
+                </Content>
+            </Container>
+        );
+    }
+}
+
+const styles = StyleSheet.create({
+    label: {
+        width: 130
+    }
+});

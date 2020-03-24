@@ -630,7 +630,7 @@ export class Edit_Address extends Component {
         navigation.popToTop(),
         navigation.replace(value, value2)
       ) :
-        navigation.navigate(value, value2)
+        navigation.push(value, value2)
   }
   render() {
     const { navigation } = this.props
@@ -765,7 +765,7 @@ export class Edit_Bell extends Component {
         navigation.popToTop(),
         navigation.replace(value, value2)
       ) :
-        navigation.navigate(value, value2)
+        navigation.push(value, value2)
   }
   render() {
     const { navigation, } = this.props

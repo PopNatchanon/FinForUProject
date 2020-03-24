@@ -199,7 +199,7 @@ export class FlashSale_Product extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     render() {
         return (

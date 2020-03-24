@@ -81,7 +81,7 @@ export class Popular_store extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     get dataNewStore() {
         const { dataService } = this.state
@@ -156,7 +156,7 @@ export class Pro_for_U extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     render() {
         return (
@@ -245,7 +245,7 @@ export class Update_buy extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.navigate(value, value2)
+                navigation.push(value, value2)
     }
     render() {
         return (

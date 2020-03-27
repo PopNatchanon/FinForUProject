@@ -63,6 +63,7 @@ export default class Detail_Pro extends React.Component {
                         <Feed_comment />
                     </View>
                 )
+           
         }
     }
     render() {
@@ -285,7 +286,7 @@ export class Feed_comment extends React.Component {
     }
     render() {
         return (
-            <View style={[stylesMain.FlexRow, { padding: 10 ,backgroundColor:'#FFFFFF'}]}>
+            <View style={[stylesMain.FlexRow, { padding: 10, backgroundColor: '#FFFFFF' }]}>
                 <View style={{ height: 50, width: 50, backgroundColor: '#9F9C9C', borderRadius: 25 }}></View>
                 <View style={{}}>
                     <Text styles={stylesFont.FontFamilyText}> NAME - COMMENT </Text>
@@ -295,5 +296,3 @@ export class Feed_comment extends React.Component {
         );
     }
 }
-
-

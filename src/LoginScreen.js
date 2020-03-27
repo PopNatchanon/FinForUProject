@@ -48,7 +48,7 @@ export default class LoginScreen extends React.Component {
   render() {
     const { navigation } = this.props
     return (
-      <SafeAreaView style={[stylesMain.SafeAreaView]}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#071727' }}>
         <ScrollView>
           <Logo />
           <Login navigation={navigation} />
@@ -69,7 +69,7 @@ export class Logo extends React.Component {
   }
   render() {
     return (
-      <View >
+      <>
         <ImageBackground
           style={stylesLogin.Logo_Box}
           source={{
@@ -81,10 +81,9 @@ export class Logo extends React.Component {
             style={stylesLogin.Logo}
             source={require('../icon/sign-in-logo.png')}
             resizeMode={FastImage.resizeMode.contain}
-
           />
         </ImageBackground>
-      </View>
+      </>
     );
   }
 }
@@ -151,8 +150,8 @@ export class Login extends React.Component {
           .then((res) => {
             console.log('CookieManager.get =>', res); // => 'user_session=abcdefg; path=/;'
           });
-        console.log('login')
-        console.log(responseJson.data)
+        // console.log('login')
+        // console.log(responseJson.data)
         this.clearAll()
         this.storeData(responseJson.data)
         if (responseJson.data != null) {
@@ -185,6 +184,7 @@ export class Login extends React.Component {
     const { eye, user, } = this.state;
     return (
       <View style={stylesLogin.Login_Box}>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: '#FFFFFF', margin: 5 }]}>เข้าสู่ระบบ</Text>
         <View style={stylesLogin.Login_BoxA}>
           <Form
             ref="form"
@@ -254,7 +254,7 @@ export class Login extends React.Component {
               <TouchableOpacity onPress={this.handleSubmit.bind(this)}>
                 <View style={[stylesLogin.Login_Box_Text_B, stylesMain.ItemCenter]}>
                   <Text style={[
-                    stylesLogin.Login__Text, stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical
+                    stylesLogin.Login__Text, stylesFont.FontFamilyText, stylesFont.FontSize4, stylesMain.ItemCenterVertical
                   ]}>เข้าสู่ระบบ</Text>
                 </View>
               </TouchableOpacity>
@@ -297,25 +297,31 @@ export class Register extends React.Component {
     return (
       <View style={stylesLogin.Register_Box}>
         <View style={stylesLogin.Register_Box_A}>
-          <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'RegisterScreen')}>
-            <View><Text style={[stylesLogin.Register_Box_TextA, stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
-              สร้างบัญชี</Text>
-            </View>
-          </TouchableOpacity>
+          <View style={{ alignItems: 'flex-end' }}>
+            <TouchableOpacity style={{ width: 120, }} onPress={this.navigationNavigateScreen.bind(this, 'RegisterScreen')}>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { marginTop: 10, color: '#f5df89', }]}>
+                สมัครสมาชิกใหม่
+              </Text>
+            </TouchableOpacity>
+          </View>
           <View>
-            <Text style={[stylesFont.FontCenter, stylesFont.FontSize5, stylesFont.FontFamilyText, { margin: 10 }]}>
+            <Text style={[stylesFont.FontCenter, stylesFont.FontSize4, stylesFont.FontFamilyText, { margin: 10, color: '#FFFFFF' }]}>
               เข้าสู่ระบบด้วยช่องทางอื่น</Text>
           </View>
           <View style={stylesLogin.Register_Box_Button}>
             <TouchableOpacity>
               <FastImage
                 style={stylesLogin.Register_Box_image}
-                source={require('../icon/face_icon.png')} />
+                source={require('../icon/face_icon.png')}
+                resizeMode={FastImage.resizeMode.contain}
+              />
             </TouchableOpacity>
             <TouchableOpacity>
               <FastImage
                 style={stylesLogin.Register_Box_image}
-                source={require('../icon/googla_icon.png')} />
+                source={require('../icon/googla_icon.png')}
+                resizeMode={FastImage.resizeMode.contain}
+              />
             </TouchableOpacity>
           </View>
         </View>

@@ -9,6 +9,7 @@ import FastImage from 'react-native-fast-image';
 import Carousel, { PaginationLight, } from 'react-native-x-carousel';
 export const { width, height, } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
+import IconEntypo from 'react-native-vector-icons/Entypo';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
@@ -313,6 +314,16 @@ export class StoreHeadDetails extends React.Component {
     getData = (dataService) => {
         this.setState({ dataService })
     }
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.push(value, value2)
+    }
     get getDetailStore() {
         const { item } = this.props;
         return item.map((item, index) => {
@@ -322,13 +333,10 @@ export class StoreHeadDetails extends React.Component {
                 id: item.id_store
             };
             return (
-                <View style={[stylesStore.StoreHeadDetails, { paddingTop: 0, marginBottom: 10, }]} key={index}>
+                <View style={[stylesStore.StoreHeadDetails, { paddingTop: 0, marginBottom: 10, justifyContent: 'space-between' }]} key={index}>
                     {
                         item !== undefined &&
-                        <GetServices
-                            uriPointer={uri}
-                            dataBody={dataBody}
-                            getDataSource={this.getData.bind(this)} />
+                        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
                     }
                     <View>
                         <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
@@ -362,6 +370,10 @@ export class StoreHeadDetails extends React.Component {
                                 ( ภายในไม่กี่ชั่วโมง )</Text>
                         </View>
                     </View>
+                    <TouchableOpacity activeOpacity={1}
+                        onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', { selectedIndex: 6 })}>
+                        <IconEntypo name='chevron-right' size={25} color='#0A55A6' />
+                    </TouchableOpacity>
                 </View>
             );
         })
@@ -869,6 +881,16 @@ export class BoxProduct4 extends React.Component {
         }
         return false
     }
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.push(value, value2)
+    }
     render() {
         const { navigation } = this.props
         const { dataService } = this.state
@@ -878,6 +900,10 @@ export class BoxProduct4 extends React.Component {
         };
         return (
             <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, { marginTop: 0, marginBottom: 10 }]}>
+                <TouchableOpacity activeOpacity={1}
+                    onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', { selectedIndex: 7 })}>
+                    <View style={{ height: 100, width: 100, backgroundColor: 'red' }}></View>
+                </TouchableOpacity>
                 <GetServices
                     uriPointer={uri}
                     dataBody={dataBody}

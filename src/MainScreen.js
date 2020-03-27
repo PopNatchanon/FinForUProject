@@ -105,23 +105,24 @@ export default class MainScreen extends React.Component {
                         <BannerBar_TWO />
                         <Exclusive navigation={navigation} loadData={dataService.exclusive} />
                         <NewStore navigation={navigation} loadData={dataService.dont_miss} />
+                        <Fin_Mall navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />
+                        <BannerBar_ONE />
                         <Highlight navigation={navigation} loadData={dataService.hi_week} />
                         <PromotionPopular navigation={navigation} loadData={dataService.recommend_store} />
-                        <Popular_store navigation={navigation} loadData={dataService.store_good} />
+                        {/* <Popular_store navigation={navigation} loadData={dataService.store_good} />
                         <Popular_product navigation={navigation} loadData={{
                             product_hit: dataService.product_hit, best_price: dataService.best_price,
                             best_sale: dataService.best_sale, best_cool: dataService.best_cool
                         }} />
-                        <BannerBar_ONE />
                         <Product_for_you navigation={navigation} loadData={dataService.for_you} />
-                        {/* <CategoryProduct navigation={navigation} /> */}
-                        {/* <Second_product navigation={navigation} loadData={{
+                        <CategoryProduct navigation={navigation} /> */}
+                        <Second_product navigation={navigation} loadData={{
                             product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
                             list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3,
                             mobile_bar: dataService.mobile_bar, mobile_slide: dataService.mobile_slide,
-                        }} /> */}
+                        }} />
+                        <BannerBar_THREE />
                         <FIN_Supermarket navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />
-                        {/* <BannerBar_THREE /> */}
                         <TodayProduct navigation={navigation} loadData={dataService.for_you2} />
                     </ScrollView>
                     <Toolbar navigation={navigation} />
@@ -1224,7 +1225,9 @@ export class FlashSale extends React.Component {
             <View style={stylesMain.FrameBackground2}>
                 {
                     activeDataService == true &&
-                    <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
+                    <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)}
+                        showConsole={'flash'}
+                    />
                 }
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <View style={[stylesMain.FlexRow, { marginTop: 5, }]}>
@@ -2135,18 +2138,104 @@ export class Second_product extends React.Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>>
+export class Fin_Mall extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+    productCate = (type) => {
+        return type.map((item, index) => {
+            var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
+            return (
+                <View style={stylesMain.Popular_Box_D} key={index}>
+                    <FastImage
+                        style={stylesMain.Popular_image_Box}
+                        source={{
+                            uri: dataMySQL,
+
+                        }}
+                        resizeMode={FastImage.resizeMode.contain} />
+                    <View style={{ padding: 3 }}>
+                        <Text numberOfLines={1} style={[stylesFont.FontSize8, stylesFont.FontFamilyText]}>{item.name}</Text>
+                        <NumberFormat
+                            value={item.full_price}
+                            displayType={'text'}
+                            thousandSeparator={true}
+                            prefix={'฿'}
+                            renderText={value =>
+                                <Text style={[
+                                    stylesMain.BoxProduct1ImagePrice,
+                                    stylesFont.FontSize8,
+                                    stylesFont.FontFamilyBold,
+
+                                ]}>
+                                    {value}</Text>
+                            } />
+                    </View>
+                </View>
+            )
+        })
+    }
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.push(value, value2)
+    }
+    render() {
+        const { loadData } = this.props
+        return (
+            <View style={stylesMain.FrameBackground2}>
+                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>Fin Mall </Text>
+                <View style={[stylesMain.FlexRow, { justifyContent: 'space-around', height: 125, marginBottom: 10 }]}>
+                    <View style={[stylesMain.ItemCenter, { width: '39%', borderColor: '#EDEDED', borderWidth: 1 }]}>
+                        <FastImage
+                            style={{ width: 100, height: 100 }}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Unicorn/03.png',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch}
+                        />
+                    </View>
+                    <View style={{ width: '57.5%', backgroundColor: '#EDEDED' }}>
+                        {
+                            loadData.product_hit &&
+                            <TouchableOpacity
+                                key={'product_hit'}
+                                activeOpacity={1}
+                                onPress={this.navigationNavigateScreen.bind(this, 'FinMallScreen', { selectedIndex: 1 })}>
+                                <View style={stylesMain.FlexRow}>
+                                    {this.productCate(loadData.product_hit)}
+                                </View>
+                            </TouchableOpacity>
+                        }
+                    </View>
+                </View>
+            </View>
+        );
+    }
+}
+
+///----------------------------------------------------------------------------------------------->>>> FIN_Supermarket
 export class FIN_Supermarket extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
+
     shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation, loadData } = this.props
         if (
             ////>nextProps
-            loadData !== nextProps.loadData || navigation !== nextProps.navigation
+            loadData !== nextProps.loadData || navigation !== nextProps.navigation ||
             ////>nextState
+            selectedIndex !== nextState.selectedIndex
         ) {
             return true
         }
@@ -2165,131 +2254,186 @@ export class FIN_Supermarket extends React.Component {
     render() {
         const { loadData, navigation } = this.props
         const { product_hit } = loadData
-        const item = [{
-            name: 'Global Items'
-        }, {
-            name: 'ของใช้ประจำวัน'
-        }, {
-            name: 'Skincare'
-        }]
         return (
             <View style={stylesMain.FrameBackground2}>
-                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>FIN Supermarket</Text>
-                <TabBar
-                    item={item}
-                    radiusBox={4}
-                    overScrollMode={'never'}
-                    type='box' />
-                <View style={{ width: '100%', height: 150, backgroundColor: '#0A55A6', marginTop: -3 }}>
+                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>FIN_Supermarket  </Text>
+                <Slide />
+                <View style={{ width: '100%', backgroundColor: '#0A55A6', paddingVertical: 10 }}>
                     <ScrollView horizontal>
                         {
                             product_hit &&
                             <ProductBox dataService={product_hit} navigation={navigation} typeip='fin' mode='row3col1'
-                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} />
+                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} widthBox={98} />
                         }
                     </ScrollView>
                 </View>
-                <View style={[stylesMain.FlexRow, { height: 180, padding: 5, justifyContent: 'space-between' }]}>
-                    <View style={{ width: '49%', backgroundColor: '#E0B23A' }}></View>
-                    <View style={{ width: '49%', justifyContent: 'space-between' }}>
-                        <View style={{ height: '49%', borderColor: '#EAEAEA', borderWidth: 1 }}>
-                            <FastImage
-                                style={stylesMain.BoxProduct1Image}
-                                source={{
-                                    uri: ip + '/MySQL/uploads/Image_FinMall/logo-maxvalu.png',
-                                }}
-                                resizeMode={FastImage.resizeMode.stretch}
-                            />
+                <View style={[stylesMain.FlexRow, { height: 150, padding: 5, justifyContent: 'space-between', marginTop: 10 }]}>
+                    <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'FinMallScreen', { selectedIndex: 0 })}
+                        style={{ width: '59%',  }}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Image_FinMall/market_banner01.jpg',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch} />
+                    </TouchableOpacity>
+                    <View style={{ width: '39%', justifyContent: 'space-between' }}>
+                        <View style={{ height: '49%', borderColor: '#EAEAEA', borderWidth: 1, backgroundColor: '#E0B23A' }}>
                         </View>
-                        <View style={{ height: '49%', borderColor: '#EAEAEA', borderWidth: 1 }}>
-                            <FastImage
-                                style={stylesMain.BoxProduct1Image}
-                                source={{
-                                    uri: ip + '/MySQL/uploads/Image_FinMall/logo-foodland.png',
-                                }}
-                                resizeMode={FastImage.resizeMode.stretch} />
+                        <View style={{ height: '49%', borderColor: '#EAEAEA', borderWidth: 1, backgroundColor: '#E0B23A' }}>
                         </View>
+                    </View>
+                </View>
+                <View style={{ width: '100%', flexDirection: 'row', height: 100, justifyContent: 'space-around' }}>
+                    <View style={{ borderColor: '#EAEAEA', borderWidth: 1, width: '49%' }}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Image_FinMall/logo-foodland.png',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch} />
+                    </View>
+                    <View style={{ borderColor: '#EAEAEA', borderWidth: 1, width: '49%' }}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Image_FinMall/logo-maxvalu.png',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch} />
                     </View>
                 </View>
                 <FastImage
                     style={stylesMain.Banner_Bar_image}
                     source={{
-                        uri: ip + '/MySQL/uploads/Banner_New/banner 1920-220นาฬิกา.jpg',
+                        uri: ip + '/MySQL/uploads/Image_FinMall/market_banner06.jpg',
                     }}
                     resizeMode={FastImage.resizeMode.contain}
                 />
-                <View>
-                    <View style={stylesMain.FrameBackgroundTextBox}>
-                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
-                            แบรนด์แนะนำ</Text>
-                        <TouchableOpacity>
-                            <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
-                                ดูทั้งหมด</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <ScrollView horizontal>
-                        <View style={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, width: 120, padding: 5, borderRadius: 5, marginLeft: 5 }]}>
-                            <FastImage
-                                style={{ height: 50, width: 100 }}
-                                source={{
-                                    uri: ip + '/MySQL/uploads/Image_FinMall/looks.jpg',
-                                }}
-                                resizeMode={FastImage.resizeMode.stretch} />
-                            <View style={[stylesMain.ItemCenter]}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>LOOKS</Text>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]} numberOfLines={1}>สุดยอดแห่งบิวตี้ไอเท็มและสินค้าเพื่อสุขภาพ</Text>
-                            </View>
-                        </View>
-                        <View style={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, width: 120, padding: 5, borderRadius: 5, marginLeft: 5 }]}>
-                            <FastImage
-                                style={{ height: 50, width: 100 }}
-                                source={{
-                                    uri: ip + '/MySQL/uploads/Image_FinMall/shopbybrand_betagro.jpg',
-                                }}
-                                resizeMode={FastImage.resizeMode.stretch} />
-                            <View style={[stylesMain.ItemCenter]}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>LOOKS</Text>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]} numberOfLines={1}>สุดยอดแห่งบิวตี้ไอเท็มและสินค้าเพื่อสุขภาพ</Text>
-                            </View>
-                        </View>
-                        <View style={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, width: 120, padding: 5, borderRadius: 5, marginLeft: 5 }]}>
-                            <FastImage
-                                style={{ height: 50, width: 100 }}
-                                source={{
-                                    uri: ip + '/MySQL/uploads/Image_FinMall/shopbybrand_ownbrand.jpg',
-                                }}
-                                resizeMode={FastImage.resizeMode.stretch} />
-                            <View style={[stylesMain.ItemCenter]}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>LOOKS</Text>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]} numberOfLines={1}>สุดยอดแห่งบิวตี้ไอเท็มและสินค้าเพื่อสุขภาพ</Text>
-                            </View>
-                        </View>
-                        <View style={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, width: 120, padding: 5, borderRadius: 5, marginLeft: 5 }]}>
-                            <FastImage
-                                style={{ height: 50, width: 100 }}
-                                source={{
-                                    uri: ip + '/MySQL/uploads/Image_FinMall/Final_OLE_Tops_Online_-Logo_1.jpg',
-                                }}
-                                resizeMode={FastImage.resizeMode.stretch} />
-                            <View style={[stylesMain.ItemCenter]}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>LOOKS</Text>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]} numberOfLines={1}>สุดยอดแห่งบิวตี้ไอเท็มและสินค้าเพื่อสุขภาพ</Text>
-                            </View>
-                        </View>
-
-                    </ScrollView>
+                <View style={stylesMain.FrameBackgroundTextBox}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
+                        แบรนด์แนะนำ</Text>
+                    <TouchableOpacity>
+                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
+                            ดูทั้งหมด</Text>
+                    </TouchableOpacity>
                 </View>
-                <FastImage
-                    style={stylesMain.Banner_Bar_image}
-                    source={{
-                        uri: ip + '/MySQL/uploads/Banner_New/banner 1920-220แว่นตา.jpg',
-                    }}
-                    resizeMode={FastImage.resizeMode.contain}
-                />
+                <ScrollView horizontal >
+                    <View style={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, width: 110, padding: 5, borderRadius: 5, marginLeft: 5 }]}>
+                        <FastImage
+                            style={{ height: 50, width: 100 }}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand01.jpg',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch} />
+                        <View style={[stylesMain.ItemCenter]}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>LOOKS</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]} numberOfLines={1}>สุดยอดแห่งบิวตี้ไอเท็มและสินค้าเพื่อสุขภาพ</Text>
+                        </View>
+                    </View>
+                    <View style={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, width: 110, padding: 5, borderRadius: 5, marginLeft: 5 }]}>
+                        <FastImage
+                            style={{ height: 50, width: 100 }}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand02.jpg',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch} />
+                        <View style={[stylesMain.ItemCenter]}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>Betagro</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]} numberOfLines={1}>เบทาโกร</Text>
+                        </View>
+                    </View>
+                    <View style={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, width: 110, padding: 5, borderRadius: 5, marginLeft: 5 }]}>
+                        <FastImage
+                            style={{ height: 50, width: 100 }}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand03.jpg',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch} />
+                        <View style={[stylesMain.ItemCenter]}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>Exclusive Brands</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]} numberOfLines={1}>สินค้าคุณภาพ คุ้มค่า คุ้มราคา</Text>
+                        </View>
+                    </View>
+                    <View style={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, width: 110, padding: 5, borderRadius: 5, marginLeft: 5 }]}>
+                        <FastImage
+                            style={{ height: 50, width: 100 }}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand04.jpg',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch} />
+                        <View style={[stylesMain.ItemCenter]}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>Ole</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]} numberOfLines={1}>หวานสดใสหอมติดผิว</Text>
+                        </View>
+                    </View>
+                    <View style={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, width: 110, padding: 5, borderRadius: 5, marginLeft: 5 }]}>
+                        <FastImage
+                            style={{ height: 50, width: 100 }}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand04.jpg',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch} />
+                        <View style={[stylesMain.ItemCenter]}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>Ole</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]} numberOfLines={1}>หวานสดใสหอมติดผิว</Text>
+                        </View>
+                    </View>
+                </ScrollView>
+                <ScrollView horizontal >
+                    <View style={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, width: 110, height: 50, borderRadius: 5, marginLeft: 5 }]}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand02.jpg',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch} />
+                    </View>
+                    <View style={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, width: 110, height: 50, borderRadius: 5, marginLeft: 5 }]}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand03.jpg',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch} />
+                    </View>
+                    <View style={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, width: 110, height: 50, borderRadius: 5, marginLeft: 5 }]}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand04.jpg',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch} />
+                    </View>
+                    <View style={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, width: 110, height: 50, borderRadius: 5, marginLeft: 5 }]}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand05.jpg',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch} />
+                    </View>
+                    <View style={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, width: 110, height: 50, borderRadius: 5, marginLeft: 5 }]}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand06.jpg',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch} />
+                    </View>
+                    <View style={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, width: 110, height: 50, borderRadius: 5, marginLeft: 5 }]}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand07.jpg',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch} />
+                    </View>
+                </ScrollView>
             </View>
         );
     }
 }
+
 
 ///----------------------------------------------------------------------------------------------->>>> TodayProduct
 export class TodayProduct extends React.Component {

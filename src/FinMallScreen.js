@@ -22,6 +22,7 @@ import { GetServices, TabBar, ProductBox, SlideTab2, } from './tools/Tools';
 import { Button_Bar, PricesSlide, SlideTab, } from './ExclusiveScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from './navigator/IpConfig';
+import { Might_like_Store } from './src_profile/Profile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class FinMallScreen extends React.Component {
   constructor(props) {
@@ -61,15 +62,21 @@ export default class FinMallScreen extends React.Component {
       case 0:
         return (
           <SafeAreaView style={stylesMain.SafeAreaView}>
-            <AppBar1 backArrow navigation={this.props.navigation} titleHead='FIN Mall' />
-            <FinMall navigation={navigation} />
+            <AppBar1 backArrow navigation={this.props.navigation} titleHead='FIN Supermarket' />
+            <ScrollView>
+              <Slide />
+              <FIN_Supermarket navigation={navigation} />
+              <Brand_Supermarket />
+              <Follow_Supermarket />
+              <Product_Shop />
+            </ScrollView>
           </SafeAreaView>
         )
       case 1:
         return (
           <SafeAreaView style={stylesMain.SafeAreaView}>
-            <AppBar1 backArrow navigation={this.props.navigation} titleHead='FIN Mall VIP' />
-            <FIN_Mall_VIP navigation={navigation} />
+            <AppBar1 backArrow navigation={this.props.navigation} titleHead='FIN Mall' />
+            <FIN_Mall navigation={navigation} />
           </SafeAreaView>
         )
     }
@@ -79,37 +86,6 @@ export default class FinMallScreen extends React.Component {
       <View style={stylesMain.SafeAreaView}>
         {this.PathList()}
       </View>
-    );
-  }
-}
-///----------------------------------------------------------------------------------------------->>>>
-export class FinMall extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-  navigationNavigateScreen = (value, value2) => {
-    const { navigation } = this.props
-    value == 'goBack' ?
-      navigation.goBack() :
-      value == 'LoginScreen' ? (
-        navigation.popToTop(),
-        navigation.replace(value, value2)
-      ) :
-        navigation.navigate(value, value2)
-  }
-  render() {
-    const { navigation } = this.props
-    return (
-      <ScrollView>
-        <Slide />
-        <FinMall_Product navigation={navigation} />
-        <FIN_Supermarket />
-        <Brand_Supermarket />
-        <Recommend_Brand navigation={navigation} />
-        <Product_Shop />
-      </ScrollView>
     );
   }
 }
@@ -191,6 +167,13 @@ export class FIN_Supermarket extends React.Component {
   render() {
     const { dataService } = this.state
     const { navigation } = this.props
+    const item = [{
+      name: 'Global Items'
+    }, {
+      name: 'ของใช้ประจำวัน'
+    }, {
+      name: 'Skincare'
+    }]
     var uri = ip + '/mysql/DataServiceMain.php';
     var dataBody = {
       type: 'todayproduct'
@@ -198,11 +181,16 @@ export class FIN_Supermarket extends React.Component {
     return (
       <View>
         <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
-        <View style={stylesMain.FrameBackground}>
-          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
-            FIN_Supermarket </Text>
-          <View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 5 }}>
+        <View style={[stylesMain.FrameBackground2]}>
+          <TabBar
+            // sendData={this.getData.bind(this)}
+            item={item}
+            radiusBox={4}
+            widthBox={97}
+            inactiveColor='#0A55A6'
+            overScrollMode={'never'}
+            type='box' />
+          {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 5 }}>
               <TouchableOpacity style={{ backgroundColor: '#9BB7D6', width: '32%', }}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { textAlign: 'center', color: '#063B76' }]}>
                   Global Items</Text>
@@ -215,19 +203,18 @@ export class FIN_Supermarket extends React.Component {
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { textAlign: 'center', color: '#783907' }]}>
                   Skincare</Text>
               </TouchableOpacity>
+            </View> */}
+          <ScrollView horizontal>
+            <View style={[stylesMain.ProductForYouFlexBox, { height: 375, backgroundColor: '#0A55A6', paddingTop: 10, }]}>
+              {
+                dataService ?
+                  <ProductBox dataService={dataService} navigation={navigation} typeip='ip' mode='row3col2' prepath='mysql'
+                    pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
+                  /> :
+                  null
+              }
             </View>
-            <ScrollView horizontal>
-              <View style={[stylesMain.ProductForYouFlexBox, { height: 370 }]}>
-                {
-                  dataService ?
-                    <ProductBox dataService={dataService} navigation={navigation} typeip='ip' mode='row3col2' prepath='mysql'
-                      pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                    /> :
-                    null
-                }
-              </View>
-            </ScrollView>
-          </View>
+          </ScrollView>
         </View>
       </View>
     );
@@ -240,25 +227,15 @@ export class Brand_Supermarket extends React.Component {
     this.state = {
     };
   }
-
   render() {
     return (
       <>
         <View style={{ flexDirection: 'row', justifyContent: 'space-around', width: '100%', height: 100, marginTop: 10 }}>
-          <View style={{ width: '23%', }}>
+          <View style={{ width: '48%', backgroundColor: '#FFFFFF' }}>
             <FastImage
               style={stylesMain.BoxProduct1Image}
               source={{
-                uri: ip + '/MySQL/uploads/Image_FinMall/Donki.jpg',
-              }}
-              resizeMode={FastImage.resizeMode.stretch}
-            />
-          </View>
-          <View style={{ width: '23%', }}>
-            <FastImage
-              style={stylesMain.BoxProduct1Image}
-              source={{
-                uri: ip + '/MySQL/uploads/Image_FinMall/Prime-Supermarket.jpg',
+                uri: ip + '/MySQL/uploads/Image_FinMall/logo-foodland.png',
               }}
               resizeMode={FastImage.resizeMode.stretch}
             />
@@ -273,37 +250,15 @@ export class Brand_Supermarket extends React.Component {
             />
           </View>
         </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around', width: '100%', height: 100, marginTop: 10 }}>
-          <View style={{ width: '48%', backgroundColor: '#FFFFFF' }}>
-            <FastImage
-              style={stylesMain.BoxProduct1Image}
-              source={{
-                uri: ip + '/MySQL/uploads/Image_FinMall/logo-foodland.png',
-              }}
-              resizeMode={FastImage.resizeMode.stretch}
-            />
-          </View>
-          <View style={{ width: '23%', backgroundColor: '#FFFFFF' }}>
-            <FastImage
-              style={stylesMain.BoxProduct1Image}
-              source={{
-                uri: ip + '/MySQL/uploads/Image_FinMall/Donki.jpg',
-              }}
-              resizeMode={FastImage.resizeMode.stretch}
-            />
-          </View>
-          <View style={{ width: '23%', backgroundColor: '#FFFFFF' }}>
-            <FastImage
-              style={stylesMain.BoxProduct1Image}
-              source={{
-                uri: ip + '/MySQL/uploads/Image_FinMall/download.png',
-              }}
-              resizeMode={FastImage.resizeMode.stretch}
-            />
-          </View>
+        <View style={{ height: 100, width: '100%', justifyContent: 'space-around',flexDirection:'row' ,flexWrap:'wrap'}}>
+          <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1 ,marginVertical:5}}></View>
+          <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1 ,marginVertical:5}}></View>
+          <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1 ,marginVertical:5}}></View>
+          <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1 ,marginVertical:5}}></View>
+          <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1 ,marginVertical:5}}></View>
+          <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1 ,marginVertical:5}}></View>
         </View>
-        <View style={stylesMain.FrameBackground}>
-          <View style={{ height: 150, width: '100%' }}>
+          <View style={{ height: 150, width: '100%' ,marginVertical:20}}>
             <FastImage
               style={stylesMain.BoxProduct1Image}
               source={{
@@ -312,11 +267,49 @@ export class Brand_Supermarket extends React.Component {
               resizeMode={FastImage.resizeMode.stretch}
             />
           </View>
+      </>
+    );
+  }
+}
+///----------------------------------------------------------------------------------------------->>>>
+export class Follow_Supermarket extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
+
+  render() {
+    const item2 = [{
+      name: 'ทั้งหมด'
+    }, {
+      name: 'อาหารสำเร็จรูป'
+    }, {
+      name: 'เครื่องดื่ม'
+    }, {
+      name: 'สังฆภัณฑ์และ..'
+    }]
+    return (
+      <>
+        <View style={{ backgroundColor: '#FFFFFF' }}>
+          <TabBar
+            // sendData={this.getData.bind(this)}
+            item={item2}
+            radiusBox={4}
+            widthBox={97}
+            inactiveColor='#0A55A6'
+            overScrollMode={'never'}
+            type='box' />
+        </View>
+        <View>
+          <Might_like_Store />
+          <Might_like_Store />
         </View>
       </>
     );
   }
 }
+
 ///----------------------------------------------------------------------------------------------->>>>
 export class Product_Shop extends React.Component {
   constructor(props) {
@@ -362,7 +355,7 @@ export class Product_Shop extends React.Component {
 }
 
 ///----------------------------------------------------------------------------------------------->>>>
-export class FIN_Mall_VIP extends React.Component {
+export class FIN_Mall extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

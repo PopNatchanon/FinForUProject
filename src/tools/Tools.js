@@ -613,7 +613,7 @@ export class TabBar extends React.Component {
                                         'center' :
                                         alignBox == 'right' ?
                                             'flex-end' :
-                                            'flex-start'
+                                            'flex-start',
                             } :
                             {
                                 borderWidth:
@@ -696,7 +696,7 @@ export class GetServices extends React.Component {
                 getDataSource(responseJson);
             })
             .catch((error) => {
-                // console.error(error)
+                //  console.error(error)
             })
     }
     componentDidMount() {
@@ -973,7 +973,8 @@ export class ProductBox extends React.Component {
                                                     value &&
                                                     <View style={[stylesMain.Box_On_sale, { borderRadius: 10 }]}>
                                                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, {
-                                                             color: '#FFFFFF' }]}>
+                                                            color: '#FFFFFF'
+                                                        }]}>
                                                             {'-' + value}</Text>
                                                     </View>
                                             } />
@@ -1153,7 +1154,7 @@ export class FeedBox extends React.Component {
                                         <TouchableOpacity onPress={this.setStateButton_Follow_After.bind(this, index)}>
                                             <View style={stylesMain.BoxProduct4PlusButtonFollow}>
                                                 <Text style={[
-                                                    stylesMain.BoxProduct4PlusButtonFollowText, stylesFont.FontFamilyText, 
+                                                    stylesMain.BoxProduct4PlusButtonFollowText, stylesFont.FontFamilyText,
                                                     stylesFont.FontSize6
                                                 ]}>
                                                     {Button_Follow_After[index].check == true ? 'ติดตาม' : 'กำลังติดตาม'}</Text>
@@ -1196,7 +1197,8 @@ export class FeedBox extends React.Component {
                                 {
                                     Button_Follow_After &&
                                     <IconFontAwesome name={Button_Follow_After[index].like == true ? 'heart' : 'heart-o'} size={20} style={{
-                                         color: Button_Follow_After[index].like == true ? '#ff0066' : '#111111' }} />
+                                        color: Button_Follow_After[index].like == true ? '#ff0066' : '#111111'
+                                    }} />
                                 }
                                 <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     ถูกใจ</Text>

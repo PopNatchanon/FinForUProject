@@ -2267,9 +2267,9 @@ export class FIN_Supermarket extends React.Component {
                         }
                     </ScrollView>
                 </View>
-                <View style={[stylesMain.FlexRow, { height: 150, padding: 5, justifyContent: 'space-between', marginTop: 10 }]}>
+                <View style={[stylesMain.FlexRow, { height: 196, padding: 5, justifyContent: 'space-between', marginTop: 10 }]}>
                     <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'FinMallScreen', { selectedIndex: 0 })}
-                        style={{ width: '59%',  }}>
+                        style={{ width: width * 0.64,  }}>
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
@@ -2277,10 +2277,22 @@ export class FIN_Supermarket extends React.Component {
                             }}
                             resizeMode={FastImage.resizeMode.stretch} />
                     </TouchableOpacity>
-                    <View style={{ width: '39%', justifyContent: 'space-between' }}>
-                        <View style={{ height: '49%', borderColor: '#EAEAEA', borderWidth: 1, backgroundColor: '#E0B23A' }}>
+                    <View style={{ width: width * 0.32,  justifyContent: 'space-between' }}>
+                        <View style={{ height: '49%', borderColor: '#EAEAEA', borderWidth: 1, }}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Image_FinMall/supermarket-04.jpg',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch} />
                         </View>
-                        <View style={{ height: '49%', borderColor: '#EAEAEA', borderWidth: 1, backgroundColor: '#E0B23A' }}>
+                        <View style={{ height: '49%', borderColor: '#EAEAEA', borderWidth: 1, }}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Image_FinMall/supermarket-04.jpg',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch} />
                         </View>
                     </View>
                 </View>

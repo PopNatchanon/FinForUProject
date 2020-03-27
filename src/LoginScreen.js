@@ -148,10 +148,7 @@ export class Login extends React.Component {
         var userser = {};
         CookieManager.get(finip + '/auth/login_customer')
           .then((res) => {
-            console.log('CookieManager.get =>', res); // => 'user_session=abcdefg; path=/;'
           });
-        // console.log('login')
-        // console.log(responseJson.data)
         this.clearAll()
         this.storeData(responseJson.data)
         if (responseJson.data != null) {

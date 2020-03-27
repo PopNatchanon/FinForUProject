@@ -413,22 +413,15 @@ export class App extends Component<Props, States> {
                     'security_code': Number(security_code)
                 }
             });
-
-            ////console.log("data", data);
-
             Alert.alert("Token", "token = " + data.id);
-
-
         } catch (err) {
             let error = "";
-            ////console.log("err instanceof Promise", err instanceof Promise);
             if (err instanceof Promise) {
                 error = await err;
                 error = error.message;
             } else {
                 error = err.message;
             }
-            ////console.log("error", error);
             Alert.alert("Error", error);
         } finally {
             this.setState({

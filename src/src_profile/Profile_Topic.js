@@ -315,11 +315,7 @@ class Chat_Cutomer extends React.Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log('responseJson')
-                console.log(responseJson)
                 responseJson.map((item) => {
-                    console.log('item')
-                    console.log(item)
                     messages.push(
                         {
                             _id: item.id,
@@ -333,8 +329,6 @@ class Chat_Cutomer extends React.Component {
                         },
                     )
                 })
-                console.log('messages')
-                console.log(messages)
                 this.setState({ messages })
             })
             .catch((error) => {
@@ -348,7 +342,6 @@ class Chat_Cutomer extends React.Component {
             messages: messages[0].text,
             user_id: messages[0].user._id,
         }
-        console.log(user)
         fetch('http://192.168.0.132/mysql/chatpoint.php', {
             method: 'POST',
             headers: {
@@ -359,8 +352,6 @@ class Chat_Cutomer extends React.Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log('responseJson')
-                console.log(responseJson)
             })
             .catch((error) => {
                 console.error(error);

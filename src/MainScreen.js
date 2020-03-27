@@ -391,15 +391,18 @@ export class AppBar1 extends React.Component {
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const {
-            backArrow, backArrowColor, chatBar, colorBar, menuBar, navigation, saveBar, searchBar, settingBar, storeBar, titleHead,
+            backArrow, backArrowColor, ButtomDeleteAll, chatBar, colorBar, deleteBar, menuBar, navigation, propsFunction, saveBar, searchBar, settingBar, storeBar,
+            titleHead,
         } = this.props;
         const { currentUser, } = this.state
         if (
             ////>nextProps
-            backArrow !== nextProps.backArrow || backArrowColor !== nextProps.backArrowColor || chatBar !== nextProps.chatBar ||
-            colorBar !== nextProps.colorBar || menuBar !== nextProps.menuBar || navigation !== nextProps.navigation ||
-            saveBar !== nextProps.saveBar || searchBar !== nextProps.searchBar || settingBar !== nextProps.settingBar ||
-            storeBar !== nextProps.storeBar || titleHead !== nextProps.titleHead ||
+            backArrow !== nextProps.backArrow || backArrowColor !== nextProps.backArrowColor ||
+            ButtomDeleteAll !== nextProps.ButtomDeleteAll || chatBar !== nextProps.chatBar || colorBar !== nextProps.colorBar ||
+            deleteBar !== nextProps.deleteBar || menuBar !== nextProps.menuBar || navigation !== nextProps.navigation ||
+            propsFunction !== nextProps.propsFunction || saveBar !== nextProps.saveBar || searchBar !== nextProps.searchBar ||
+            settingBar !== nextProps.settingBar || storeBar !== nextProps.storeBar ||
+            titleHead !== nextProps.titleHead ||
             ////>nextState
             currentUser !== nextState.currentUser
         ) {
@@ -424,10 +427,15 @@ export class AppBar1 extends React.Component {
         const currentUser = await AsyncStorage.getItem('@MyKey')
         this.setState({ currentUser: JSON.parse(currentUser) })
     }
+    deleteFunction = () => {
+        const { propsFunction } = this.props
+        propsFunction()
+    }
     render() {
         const { currentUser, } = this.state
         const {
-            backArrow, backArrowColor, chatBar, colorBar, menuBar, saveBar, searchBar, settingBar, storeBar, titleHead,
+            backArrow, backArrowColor, ButtomDeleteAll, chatBar, colorBar, deleteBar, menuBar, saveBar, searchBar, settingBar, storeBar,
+            titleHead,
         } = this.props;
         return (
             <View style={
@@ -501,14 +509,29 @@ export class AppBar1 extends React.Component {
                         saveBar &&
                         <TouchableOpacity
                             key={'saveBar'}
-                            style={[stylesMain.ItemCenter, { width: 40 }]}>
+                            style={[stylesMain.ItemCenter, { width: 60 }]}>
                             <Text style={[
                                 stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize4, {
-                                    width: 50,
+                                    width: 60,
                                     marginRight: 8,
                                 }]}>
                                 บันทึก
                                         </Text>
+                        </TouchableOpacity>,
+                        deleteBar &&
+                        <TouchableOpacity
+                            key={'deleteBar'}
+                            onPress={this.deleteFunction.bind(this)}
+                            style={[stylesMain.ItemCenter, { width: 60 }]}>
+                            <Text style={[
+                                stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize4, {
+                                    width: 60,
+                                    textAlign: 'center'
+                                }]}>
+                                {
+                                    ButtomDeleteAll == true ? 'เสร็จสิ้น' : 'ลบ'
+                                }
+                            </Text>
                         </TouchableOpacity>
                     ]}
                 </View>
@@ -1538,6 +1561,10 @@ export class Exclusive extends React.Component {
     }
     render() {
         const { loadData, navigation } = this.props
+        {
+            console.log('--------------------------------------dataServicesdsadsaffdgfs'),
+            console.log(loadData)
+        }
         return (
             <View style={stylesMain.FrameBackground2}>
                 <View style={stylesMain.FrameBackgroundTextBox}>

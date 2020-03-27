@@ -696,7 +696,7 @@ export class GetServices extends React.Component {
                 getDataSource(responseJson);
             })
             .catch((error) => {
-                //  console.error(error)
+                 console.error(error)
             })
     }
     componentDidMount() {
@@ -820,7 +820,8 @@ export class ProductBox extends React.Component {
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const {
-            dataService, dispriceSize, mode, nameSize, navigation, pointerUrl, pointerid_store, postpath, prepath, priceSize, typeip,
+            dataService, dispriceSize, mode, nameSize, navigation, pointerUrl, pointerid_store, postpath, prepath, priceSize, radiusBox,
+            typeip,
         } = this.props
         const { ImageStore } = this.state
         if (
@@ -828,7 +829,7 @@ export class ProductBox extends React.Component {
             dataService !== nextProps.dataService || dispriceSize !== nextProps.dispriceSize || mode !== nextProps.mode ||
             nameSize !== nextProps.nameSize || navigation !== nextProps.navigation || pointerUrl !== nextProps.pointerUrl ||
             pointerid_store !== nextProps.pointerid_store || postpath !== nextProps.postpath || prepath !== nextProps.prepath ||
-            priceSize !== nextProps.priceSize || typeip !== nextProps.typeip ||
+            priceSize !== nextProps.priceSize || radiusBox !== nextProps.radiusBox || typeip !== nextProps.typeip ||
             ////>nextState
             ImageStore !== nextState.ImageStore
 
@@ -852,7 +853,7 @@ export class ProductBox extends React.Component {
     }
     get ProductBoxRender() {
         const {
-            dataService, dispriceSize, mode, nameSize, pointerUrl, pointerid_store, postpath, prepath, priceSize, typeip,
+            dataService, dispriceSize, mode, nameSize, pointerUrl, pointerid_store, postpath, prepath, priceSize, radiusBox, typeip,
         } = this.props
         const { ImageStore } = this.state
         return dataService.map((item, index) => {
@@ -892,7 +893,10 @@ export class ProductBox extends React.Component {
                                             mode == '5item' ?
                                                 stylesDeal.Deal_Exclusive_Box :
                                                 stylesMain.BoxProduct1Box,
-                        { marginBottom: mode == 'row3col2_2' ? 4 : null }
+                        {
+                            marginBottom: mode == 'row3col2_2' ? 4 : null,
+                            borderRadius: radiusBox ? radiusBox : 0
+                        }
                     ]}>
                         <View style={
                             mode == 'row4col1' ?
@@ -914,13 +918,17 @@ export class ProductBox extends React.Component {
                                 source={{
                                     uri: dataMySQL,
                                 }}
-                                style={
+                                style={[
                                     mode == 'row4col1' ?
                                         stylesMain.BoxProduct5Image :
                                         mode == 'row3colall' || mode == '5item' ?
                                             stylesMain.BoxProduct2Image :
-                                            stylesMain.BoxProduct1Image
-                                }
+                                            stylesMain.BoxProduct1Image,
+                                    {
+                                        borderTopLeftRadius: radiusBox ? radiusBox : 0,
+                                        borderTopRightRadius: radiusBox ? radiusBox : 0
+                                    }
+                                ]}
                                 onError={this.LoadingStore.bind(this, false)}
                                 onLoad={this.LoadingStore.bind(this, true)}
                                 resizeMode={FastImage.resizeMode.contain} />
@@ -948,7 +956,7 @@ export class ProductBox extends React.Component {
                             ]}>
                                 <View style={[stylesMain.FlexRow, { paddingVertical: 2 }]}>
                                     <NumberFormat
-                                        value={item.price_discount ? item.price_discount : item.price}
+                                        value={item.price_discount ? item.price_discount : item.full_price ? item.full_price : item.price}
                                         displayType={'text'}
                                         thousandSeparator={true}
                                         prefix={'฿'}
@@ -1075,7 +1083,6 @@ export class FeedBox extends React.Component {
                 navigation.push(value, value2)
     }
     setStateButton = (length) => {
-        // console.log(length)
         var Button_Follow_After = []
         for (var n = 0; n < length; n++) {
             Button_Follow_After[n] = { check: true, like: false }
@@ -1085,7 +1092,6 @@ export class FeedBox extends React.Component {
     setStateButton_Follow_After = (index) => {
         const { Button_Follow_After, } = this.state
         Button_Follow_After[index].check = !Button_Follow_After[index].check
-        // console.log(Button_Follow_After)
         this.setState({ Button_Follow_After, activeFeed: true })
     }
     setStateButton_Like_heart = (index) => {

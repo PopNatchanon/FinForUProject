@@ -47,8 +47,8 @@ export class ListMenu extends Component {
         }
     }
     logoutPress = async () => {
-        this.handleClose()
         try {
+            this.handleClose()
             await AsyncStorage.clear()
             RNRestart.Restart();
         } catch (e) {
@@ -169,13 +169,13 @@ export class ListMenu extends Component {
                     </View>
                 </TouchableOpacity>
                 <View style={{ alignItems: 'center' }}>
-                    <View style={stylesProfileTopic.Button_Logout}>
-                        <TouchableOpacity style={{ marginTop: 10 }} onPress={this.handleOpen}>
+                    <TouchableOpacity style={{ marginTop: 10 }} onPress={this.handleOpen.bind(this)}>
+                        <View style={stylesProfileTopic.Button_Logout}>
                             <View style={stylesProfileTopic.Button_LogoutBox}>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ออกจากระบบ</Text>
                             </View>
-                        </TouchableOpacity>
-                    </View>
+                        </View>
+                    </TouchableOpacity>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginTop: 5 }]}>FIN Shopping V 1.0.01</Text>
                 </View>
                 <SCLAlert
@@ -187,10 +187,10 @@ export class ListMenu extends Component {
                     subtitle="คุณต้องการออกจากระบบหรือไม่?"
                     subtitleStyle={stylesFont.FontFamilyText}
                     onRequestClose={() => null}
-               >
+                >
                     <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
-                        <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose}  containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ไม่</SCLAlertButton>
-                        <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={this.logoutPress}  containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ใช่</SCLAlertButton>
+                        <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ไม่</SCLAlertButton>
+                        <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={this.logoutPress} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ใช่</SCLAlertButton>
                     </View>
                 </SCLAlert>
             </View>

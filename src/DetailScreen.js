@@ -47,7 +47,6 @@ export default class DetailScreen extends React.Component {
     this.getDataAsync()
     CookieManager.get(finip + '/auth/login_customer')
       .then((res) => {
-        // console.log('CookieManager.get =>', res); // => 'user_session=abcdefg; path=/;'  
         var keycokie = res.token
         this.setState({ keycokie })
       });
@@ -808,7 +807,7 @@ export class Selector extends React.Component {
               sendDataCart && activeSelect3 == true &&
               <GetServices
                 uriPointer={uri3}
-                showConsole={'add_to_cart'}
+                // showConsole={'add_to_cart'}
                 Authorization={keycokie}
                 dataBody={sendDataCart}
                 getDataSource={this.getData3.bind(this)} />
@@ -1784,7 +1783,6 @@ export class Coupon_Detail_BottomSheet extends React.Component {
   componentDidMount() {
     CookieManager.get(finip + '/auth/login_customer')
       .then((res) => {
-        // console.log('CookieManager.get =>', res); // => 'user_session=abcdefg; path=/;'  
         var keycokie = res.token
         this.setState({ keycokie })
       });
@@ -1811,12 +1809,6 @@ export class Coupon_Detail_BottomSheet extends React.Component {
         id_promotion_shop: id_promotion
       }
     )
-    console.log('dataBody')
-    console.log(dataBody)
-    console.log('id_promotion')
-    console.log(id_promotion)
-    console.log('activeId_promotion')
-    console.log(activeId_promotion)
     return (
       <View style={{
         width: '100%', height: 100, borderWidth: 1,

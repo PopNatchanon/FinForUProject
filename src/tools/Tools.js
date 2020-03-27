@@ -696,7 +696,7 @@ export class GetServices extends React.Component {
                 getDataSource(responseJson);
             })
             .catch((error) => {
-                // console.error(error)
+                console.error(error)
             })
     }
     componentDidMount() {
@@ -948,7 +948,7 @@ export class ProductBox extends React.Component {
                             ]}>
                                 <View style={[stylesMain.FlexRow, { paddingVertical: 2 }]}>
                                     <NumberFormat
-                                        value={item.price_discount ? item.price_discount : item.price}
+                                        value={item.price_discount ? item.price_discount : item.full_price ? item.full_price : item.price}
                                         displayType={'text'}
                                         thousandSeparator={true}
                                         prefix={'฿'}
@@ -973,7 +973,8 @@ export class ProductBox extends React.Component {
                                                     value &&
                                                     <View style={[stylesMain.Box_On_sale, { borderRadius: 10 }]}>
                                                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, {
-                                                             color: '#FFFFFF' }]}>
+                                                            color: '#FFFFFF'
+                                                        }]}>
                                                             {'-' + value}</Text>
                                                     </View>
                                             } />
@@ -1074,7 +1075,6 @@ export class FeedBox extends React.Component {
                 navigation.push(value, value2)
     }
     setStateButton = (length) => {
-        // console.log(length)
         var Button_Follow_After = []
         for (var n = 0; n < length; n++) {
             Button_Follow_After[n] = { check: true, like: false }
@@ -1084,7 +1084,6 @@ export class FeedBox extends React.Component {
     setStateButton_Follow_After = (index) => {
         const { Button_Follow_After, } = this.state
         Button_Follow_After[index].check = !Button_Follow_After[index].check
-        // console.log(Button_Follow_After)
         this.setState({ Button_Follow_After, activeFeed: true })
     }
     setStateButton_Like_heart = (index) => {
@@ -1153,7 +1152,7 @@ export class FeedBox extends React.Component {
                                         <TouchableOpacity onPress={this.setStateButton_Follow_After.bind(this, index)}>
                                             <View style={stylesMain.BoxProduct4PlusButtonFollow}>
                                                 <Text style={[
-                                                    stylesMain.BoxProduct4PlusButtonFollowText, stylesFont.FontFamilyText, 
+                                                    stylesMain.BoxProduct4PlusButtonFollowText, stylesFont.FontFamilyText,
                                                     stylesFont.FontSize6
                                                 ]}>
                                                     {Button_Follow_After[index].check == true ? 'ติดตาม' : 'กำลังติดตาม'}</Text>
@@ -1196,7 +1195,8 @@ export class FeedBox extends React.Component {
                                 {
                                     Button_Follow_After &&
                                     <IconFontAwesome name={Button_Follow_After[index].like == true ? 'heart' : 'heart-o'} size={20} style={{
-                                         color: Button_Follow_After[index].like == true ? '#ff0066' : '#111111' }} />
+                                        color: Button_Follow_After[index].like == true ? '#ff0066' : '#111111'
+                                    }} />
                                 }
                                 <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     ถูกใจ</Text>

@@ -427,7 +427,6 @@ export default StyleSheet.create({
     },
     Button_Logout: {
         width: '100%',
-        height: 50,
         alignContent: 'center',
         alignItems: 'center'
     },

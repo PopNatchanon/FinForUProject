@@ -56,6 +56,7 @@ export class ListMenu extends Component {
         }
     }
     handleOpen = () => {
+        // console.log('show')
         this.setState({ show: true })
     }
     handleClose = () => {
@@ -68,7 +69,7 @@ export class ListMenu extends Component {
     }
     render() {
         return (
-            <View>
+            <>
                 <View style={stylesProfile.ListMenuList}>
                     <View style={stylesMain.FlexRow}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -148,7 +149,7 @@ export class ListMenu extends Component {
                         <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1} onPress={null/*() => this.props.navigation.push()*/}>
+                <TouchableOpacity activeOpacity={1} onPress={() => console.log('กฎและข้อบังคับ')}>
                     <View style={stylesProfileTopic.BoxTopic}>
                         <View style={stylesProfile.ListMenuListSub}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -158,7 +159,7 @@ export class ListMenu extends Component {
                         <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1} onPress={null/*() => this.props.navigation.push()*/}>
+                <TouchableOpacity activeOpacity={1} onPress={() => console.log('ให้คะแนนเราสิ')}>
                     <View style={stylesProfileTopic.BoxTopic}>
                         <View style={stylesProfile.ListMenuListSub}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -168,14 +169,24 @@ export class ListMenu extends Component {
                         <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <View style={{ alignItems: 'center' }}>
-                    <TouchableOpacity style={{ marginTop: 10 }} onPress={this.handleOpen.bind(this)}>
-                        <View style={stylesProfileTopic.Button_Logout}>
-                            <View style={stylesProfileTopic.Button_LogoutBox}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ออกจากระบบ</Text>
-                            </View>
+                <TouchableOpacity activeOpacity={1} onPress={() => console.log('Dead Zone')}>
+                    <View style={[stylesProfileTopic.BoxTopic, { backgroundColor: 'transparent' }]}>
+                        <View style={stylesProfile.ListMenuListSub}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
+                                {' '}
+                            </Text>
                         </View>
-                    </TouchableOpacity>
+                        <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='transparent' />
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={this.handleOpen}>
+                    <View style={stylesProfileTopic.Button_Logout}>
+                        <View style={stylesProfileTopic.Button_LogoutBox}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ออกจากระบบ</Text>
+                        </View>
+                    </View>
+                </TouchableOpacity>
+                <View style={{ alignItems: 'center', marginTop: 10 }}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginTop: 5 }]}>FIN Shopping V 1.0.01</Text>
                 </View>
                 <SCLAlert
@@ -189,11 +200,13 @@ export class ListMenu extends Component {
                     onRequestClose={() => null}
                 >
                     <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
-                        <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ไม่</SCLAlertButton>
-                        <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={this.logoutPress} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ใช่</SCLAlertButton>
+                        <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose}
+                            containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ไม่</SCLAlertButton>
+                        <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={this.logoutPress}
+                            containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ใช่</SCLAlertButton>
                     </View>
                 </SCLAlert>
-            </View>
+            </>
         )
     }
 }

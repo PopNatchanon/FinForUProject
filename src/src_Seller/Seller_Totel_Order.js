@@ -18,7 +18,7 @@ import { TabBar } from '../tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class StoreMe_Totel_Order extends Component {
+export default class Seller_Totel_Order extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -206,21 +206,21 @@ export class Order_Me_Box extends Component {
                             <View style={[stylesProfileTopic.Order_Box_priceText, { marginTop: 5, }]}>
                                 {
                                     detail_order &&
-                                    <TouchableOpacity onPress={() => this.props.navigation.push('StoreMe_Detail_Order', { selectedIndex: 0 })}>
+                                    <TouchableOpacity onPress={() => this.props.navigation.push('Seller_Detail_Order', { selectedIndex: 0 })}>
                                         <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
                                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
                                         </View>
                                     </TouchableOpacity>
                                 }{
                                     detail_order_review &&
-                                    <TouchableOpacity onPress={() => this.props.navigation.push('StoreMe_Detail_Order', { selectedIndex: 1 })}>
+                                    <TouchableOpacity onPress={() => this.props.navigation.push('Seller_Detail_Order', { selectedIndex: 1 })}>
                                         <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
                                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
                                         </View>
                                     </TouchableOpacity>
                                 }{
                                     detail_order_cancel &&
-                                    <TouchableOpacity onPress={() => this.props.navigation.push('StoreMe_Return', { selectedIndex: 1 })}>
+                                    <TouchableOpacity onPress={() => this.props.navigation.push('Seller_Return', { selectedIndex: 1 })}>
                                         <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
                                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
                                         </View>

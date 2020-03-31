@@ -8,8 +8,10 @@ import * as Animatable from 'react-native-animatable';
 import FastImage from 'react-native-fast-image';
 import Carousel, { PaginationLight, } from 'react-native-x-carousel';
 export const { width, height, } = Dimensions.get('window');
+import ActionButton from 'react-native-action-button';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconEntypo from 'react-native-vector-icons/Entypo';
+import Icon from 'react-native-vector-icons/Ionicons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
@@ -74,7 +76,7 @@ export default class StoreScreen extends React.Component {
             case 2:
                 return ([
                     <Banner navigation={navigation} item={item} key={'Banner'} />,
-                    <BoxProduct4 navigation={navigation} key={'BoxProduct4'} />
+                    <BoxProduct4 navigation={navigation} key={'BoxProduct4'} />,
                 ]);
             default:
         }
@@ -920,5 +922,33 @@ export class BoxProduct4 extends React.Component {
                 </View>
             </View>
         )
+    }
+}
+///----------------------------------------------------------------------------------------------->>>>
+export class Test_Button extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.push(value, value2)
+    }
+    render() {
+        return (
+            <ActionButton buttonColor='RGBA(231,76,60,1)'>
+                <ActionButton.Item buttonColor='#0A55A6' title="New Post"
+                    onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', { selectedIndex: 7 })}>
+                    <Icon name="md-create" size={20} color='#FFFFFF' />
+                </ActionButton.Item>
+            </ActionButton>
+        );
     }
 }

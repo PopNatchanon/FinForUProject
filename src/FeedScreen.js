@@ -80,7 +80,7 @@ export class MenuBar extends React.Component {
     const item = [{
       name: 'กำลังติดตาม'
     }, {
-      name: 'ไฮไลต์'
+      name: 'ไฮไลท์'
     }]
     return (
       <View>

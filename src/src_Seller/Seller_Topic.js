@@ -16,12 +16,12 @@ import IconFeather from 'react-native-vector-icons/Feather';
 import IconsFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
-///----------------------------------------------------------------------------------------------->>>> styleStoreMe
+///----------------------------------------------------------------------------------------------->>>> styleSeller
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 import stylesProfile from '../../style/StylesProfileScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
-import stylesStoreMe from '../../style/stylestoreMe-src/styleStoreMeScreen';
+import stylesSeller from '../../style/styleSeller-src/styleSellerScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 ///----------------------------------------------------------------------------------------------->>>> Ip.
 import { ip } from '.././navigator/IpConfig';
@@ -29,7 +29,7 @@ import { ip } from '.././navigator/IpConfig';
 import { AppBar1 } from '../MainScreen';
 import { TabBar } from '../tools/Tools';
 
-export default class StoreMe_Topic extends Component {
+export default class Seller_Topic extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -42,14 +42,14 @@ export default class StoreMe_Topic extends Component {
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='จัดการโฆษณา' />
-                        <StoreMe_Advertisement backArrow navigation={this.props.navigation} />
+                        <Seller_Advertisement backArrow navigation={this.props.navigation} />
                     </SafeAreaView>
                 )
             case 1:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='สถิติร้านร้านค้า' />
-                        <StoreMe_Statistics />
+                        <Seller_Statistics />
                     </SafeAreaView>
                 )
             case 2:
@@ -57,7 +57,7 @@ export default class StoreMe_Topic extends Component {
                     <SafeAreaView style={stylesMain.SafeAreaView}>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='คะแนนของฉัน' />
                         <ScrollView>
-                            <StoreMe_Score navigation={this.props.navigation} />
+                            <Seller_Score navigation={this.props.navigation} />
                         </ScrollView>
                     </SafeAreaView>
                 )
@@ -65,28 +65,28 @@ export default class StoreMe_Topic extends Component {
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='แพคเกจปัจจุบันที่ใช้อยู่' />
-                        <StoreMe_Advertisement_Packet backArrow navigation={this.props.navigation} />
+                        <Seller_Advertisement_Packet backArrow navigation={this.props.navigation} />
                     </SafeAreaView>
                 )
             case 4:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='จัดการโฆษณา' />
-                        <StoreMe_Advertisement_PacketBuy navigation={this.props.navigation} />
+                        <Seller_Advertisement_PacketBuy navigation={this.props.navigation} />
                     </SafeAreaView>
                 )
             case 5:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='ตอบกลับความคิดเห็น' />
-                        <StoreMe_Comment_Reply />
+                        <Seller_Comment_Reply />
                     </SafeAreaView>
                 )
             case 6:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='FIN แคมเปญ' />
-                        <StoreMe_Fin_Campaign navigation={this.props.navigation} />
+                        <Seller_Fin_Campaign navigation={this.props.navigation} />
                     </SafeAreaView>
                 )
             case 7:
@@ -108,9 +108,9 @@ export default class StoreMe_Topic extends Component {
                                 </View>
                             </View>
                         </View>
-                        <StoreMe_Fin_Campaign_Product />
-                        <StoreMe_Fin_Campaign_Product />
-                        <StoreMe_Fin_Campaign_ProductSelect />
+                        <Seller_Fin_Campaign_Product />
+                        <Seller_Fin_Campaign_Product />
+                        <Seller_Fin_Campaign_ProductSelect />
                     </SafeAreaView>
                 )
             case 8:
@@ -144,7 +144,7 @@ export default class StoreMe_Topic extends Component {
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, , { color: '#FF0000' }]}>*ระบบจะส่งรหัสยืนยันตัวตนไปที่อีเมล</Text>
                         </View>
                         <View style={{ justifyContent: 'flex-end', flex: 1, alignItems: 'center' }}>
-                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('StoreMe_Topic', { selectedIndex: 11 })}
+                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Seller_Topic', { selectedIndex: 11 })}
                                 style={[stylesMain.ItemCenter, { width: '80%', height: 50, backgroundColor: '#0A55A6', borderRadius: 5, marginVertical: 10 }]}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, , { color: '#FFFFFF' }]}>เข้าสู่ระบบ</Text>
                             </TouchableOpacity>
@@ -180,7 +180,7 @@ export default class StoreMe_Topic extends Component {
 }
 ///----------------------------------------------------------------------------------------------->>>>
 
-export class StoreMe_Advertisement extends Component {
+export class Seller_Advertisement extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -190,14 +190,14 @@ export class StoreMe_Advertisement extends Component {
     render() {
         return (
             <View>
-                <TouchableOpacity onPress={() => this.props.navigation.push('StoreMe_Topic', { selectedIndex: 3 })}>
-                    <View style={stylesStoreMe.StoreMe_Setting_BoxTopic}>
+                <TouchableOpacity onPress={() => this.props.navigation.push('Seller_Topic', { selectedIndex: 3 })}>
+                    <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>แพคเกจปัจจุบันที่ใช้อยู่</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.push('StoreMe_Topic', { selectedIndex: 6 })}>
-                    <View style={stylesStoreMe.StoreMe_Setting_BoxTopic}>
+                <TouchableOpacity onPress={() => this.props.navigation.push('Seller_Topic', { selectedIndex: 6 })}>
+                    <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>FIN แคมเปญ</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
@@ -208,7 +208,7 @@ export class StoreMe_Advertisement extends Component {
 }
 ///----------------------------------------------------------------------------------------------->>>>
 
-export class StoreMe_Statistics extends Component {
+export class Seller_Statistics extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -218,41 +218,41 @@ export class StoreMe_Statistics extends Component {
     render() {
         return (
             <View>
-                <View style={[stylesStoreMe.StoreMe_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
+                <View style={[stylesSeller.Seller_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
                     <View style={stylesMain.FlexRow}>
                         <IconEntypo name='bar-graph' size={25} />
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>อัตราคำสั่งซื้อ</Text>
                     </View>
                 </View>
-                <View style={stylesStoreMe.StoreMe_Setting_BoxTopic}>
+                <View style={stylesSeller.Seller_Setting_BoxTopic}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>อัตราคำสั่งซื้อที่สำเร็จ</Text>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesMain.StoreMe_Statistics]}>0% ≥ 4.6</Text>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesMain.Seller_Statistics]}>0% ≥ 4.6</Text>
                 </View>
-                <View style={stylesStoreMe.StoreMe_Setting_BoxTopic}>
+                <View style={stylesSeller.Seller_Setting_BoxTopic}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>อัตราการยกเลิกสินค้า</Text>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesMain.StoreMe_Statistics]}>0% ≤ 10%</Text>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesMain.Seller_Statistics]}>0% ≤ 10%</Text>
                 </View>
-                <View style={stylesStoreMe.StoreMe_Setting_BoxTopic}>
+                <View style={stylesSeller.Seller_Setting_BoxTopic}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>อัตราการคืนสินค้า/คืนเงิน</Text>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesMain.StoreMe_Statistics]}>0% ≤ 10%</Text>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesMain.Seller_Statistics]}>0% ≤ 10%</Text>
                 </View>
-                <View style={[stylesStoreMe.StoreMe_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
+                <View style={[stylesSeller.Seller_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
                     <View style={stylesMain.FlexRow}>
                         <IconEntypo name='emoji-happy' size={25} />
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>ความพึงพอใจของลูกค้า</Text>
                     </View>
                 </View>
-                <View style={stylesStoreMe.StoreMe_Setting_BoxTopic}>
+                <View style={stylesSeller.Seller_Setting_BoxTopic}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>อัตราความคิดเห็นโดยรวม</Text>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesMain.StoreMe_Statistics]}>5 ≤ 10%</Text>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesMain.Seller_Statistics]}>5 ≤ 10%</Text>
                 </View>
-                <View style={stylesStoreMe.StoreMe_Setting_BoxTopic}>
+                <View style={stylesSeller.Seller_Setting_BoxTopic}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>อัตราการตอบกลับ</Text>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesMain.StoreMe_Statistics]}>57.00 % ≥ 75%</Text>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesMain.Seller_Statistics]}>57.00 % ≥ 75%</Text>
                 </View>
-                <View style={stylesStoreMe.StoreMe_Setting_BoxTopic}>
+                <View style={stylesSeller.Seller_Setting_BoxTopic}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>เวลาในการตอบกลับ</Text>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesMain.StoreMe_Statistics]}>ภายใน 1 วัน ≤ 1วัน</Text>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesMain.Seller_Statistics]}>ภายใน 1 วัน ≤ 1วัน</Text>
                 </View>
             </View>
         );
@@ -261,7 +261,7 @@ export class StoreMe_Statistics extends Component {
 
 ///----------------------------------------------------------------------------------------------->>>>
 
-export class StoreMe_Score extends Component {
+export class Seller_Score extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -288,16 +288,16 @@ export class StoreMe_Score extends Component {
                 </View>
                 <View style={[stylesMain.FrameBackground, { padding: 10 }]}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>ความคิดเห็น</Text></View>
-                <StoreMe_Comment navigation={this.props.navigation} Comment_Reply />
-                <StoreMe_Comment navigation={this.props.navigation} Comment_Reply />
-                <StoreMe_Comment navigation={this.props.navigation} Comment_Reply />
+                <Seller_Comment navigation={this.props.navigation} Comment_Reply />
+                <Seller_Comment navigation={this.props.navigation} Comment_Reply />
+                <Seller_Comment navigation={this.props.navigation} Comment_Reply />
             </View>
         );
     }
 }
 ///----------------------------------------------------------------------------------------------->>>>
 
-export class StoreMe_Comment extends Component {
+export class Seller_Comment extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -331,7 +331,7 @@ export class StoreMe_Comment extends Component {
                     </View>
                     {Comment_Reply
                         ?
-                        <TouchableOpacity style={[stylesMain.FlexRow, { alignItems: 'flex-end' }]} onPress={() => this.props.navigation.push('StoreMe_Topic', { selectedIndex: 5 })}>
+                        <TouchableOpacity style={[stylesMain.FlexRow, { alignItems: 'flex-end' }]} onPress={() => this.props.navigation.push('Seller_Topic', { selectedIndex: 5 })}>
                             <IconFeather name='edit' size={15} color='#20BDA1' />
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#20BDA1' }]}> เขียนตอบกลับ</Text>
                         </TouchableOpacity> : null
@@ -349,7 +349,7 @@ export class StoreMe_Comment extends Component {
 }
 ///----------------------------------------------------------------------------------------------->>>>
 
-export class StoreMe_Comment_Reply extends Component {
+export class Seller_Comment_Reply extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -358,7 +358,7 @@ export class StoreMe_Comment_Reply extends Component {
     render() {
         return (
             <View>
-                <StoreMe_Comment />
+                <Seller_Comment />
                 <View style={stylesMain.FrameBackground}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { margin: 5 }]}>เขียนการตอบกลับ</Text>
                     <View style={stylesMain.ItemCenter}>
@@ -387,7 +387,7 @@ export class StoreMe_Comment_Reply extends Component {
 }
 ///----------------------------------------------------------------------------------------------->>>>
 
-export class StoreMe_Advertisement_Packet extends Component {
+export class Seller_Advertisement_Packet extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -399,19 +399,19 @@ export class StoreMe_Advertisement_Packet extends Component {
             <View style={stylesMain.FrameBackground}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { margin: 10 }]}>ชื่อแพคเกจ </Text>
                 <View style={stylesMain.ItemCenter}>
-                    <View style={stylesStoreMe.StoreMe_AdvertisementPacketBox}>
+                    <View style={stylesSeller.Seller_AdvertisementPacketBox}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>แพคเกจโฆษณา ขนาด S</Text>
                     </View>
                 </View>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { margin: 10 }]}>รายละเอียด</Text>
                 <View style={stylesMain.ItemCenter}>
-                    <View style={stylesStoreMe.StoreMe_AdvertisementPacketBox}>
+                    <View style={stylesSeller.Seller_AdvertisementPacketBox}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>ระยะเวลาของแพคเกจ 30 วัน </Text>
                     </View>
                 </View>
                 <View style={{ width: '100%', alignItems: 'flex-end' }}>
-                    <TouchableOpacity onPress={() => this.props.navigation.push('StoreMe_Topic', { selectedIndex: 4 })}>
-                        <View style={[stylesStoreMe.StoreMe_Return_Button, { margin: 10 }]}>
+                    <TouchableOpacity onPress={() => this.props.navigation.push('Seller_Topic', { selectedIndex: 4 })}>
+                        <View style={[stylesSeller.Seller_Return_Button, { margin: 10 }]}>
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>ซื้อแพคเกจ</Text>
                         </View>
                     </TouchableOpacity>
@@ -422,7 +422,7 @@ export class StoreMe_Advertisement_Packet extends Component {
 }
 ///----------------------------------------------------------------------------------------------->>>>
 
-export class StoreMe_Advertisement_PacketBuy extends Component {
+export class Seller_Advertisement_PacketBuy extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -441,7 +441,7 @@ export class StoreMe_Advertisement_PacketBuy extends Component {
                 <View style={{ padding: 10 }}>
                     <View>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginVertical: 5 }]}>ชื่อผู้ติดต่อ*</Text>
-                        <View style={stylesStoreMe.StoreMe_Advertisement_PacketTextInput}>
+                        <View style={stylesSeller.Seller_Advertisement_PacketTextInput}>
                             <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { width: '100%', padding: 10 }]}
                                 placeholder=""
                                 value={this.state.Name}
@@ -451,7 +451,7 @@ export class StoreMe_Advertisement_PacketBuy extends Component {
                     </View>
                     <View>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginVertical: 5 }]}>หมายเลขโทรศัพท์*</Text>
-                        <View style={stylesStoreMe.StoreMe_Advertisement_PacketTextInput}>
+                        <View style={stylesSeller.Seller_Advertisement_PacketTextInput}>
                             <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { width: '100%', padding: 10 }]}
                                 placeholder=""
                                 value={this.state.Tel}
@@ -461,7 +461,7 @@ export class StoreMe_Advertisement_PacketBuy extends Component {
                     </View>
                     <View>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginVertical: 5 }]}>อีเมล*</Text>
-                        <View style={stylesStoreMe.StoreMe_Advertisement_PacketTextInput}>
+                        <View style={stylesSeller.Seller_Advertisement_PacketTextInput}>
                             <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { width: '100%', padding: 10 }]}
                                 placeholder=""
                                 value={this.state.Mail}
@@ -471,7 +471,7 @@ export class StoreMe_Advertisement_PacketBuy extends Component {
                     </View>
                     <View>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginVertical: 5 }]}>LINE ID</Text>
-                        <View style={stylesStoreMe.StoreMe_Advertisement_PacketTextInput}>
+                        <View style={stylesSeller.Seller_Advertisement_PacketTextInput}>
                             <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { width: '100%', padding: 10 }]}
                                 placeholder=""
                                 value={this.state.Line}
@@ -501,7 +501,7 @@ export class StoreMe_Advertisement_PacketBuy extends Component {
 }
 ///----------------------------------------------------------------------------------------------->>>>
 
-export class StoreMe_Fin_Campaign extends Component {
+export class Seller_Fin_Campaign extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -545,7 +545,7 @@ export class StoreMe_Fin_Campaign extends Component {
                             คอลเลคชั่นราคาต่ำกว่า 199 บาท ! (วันที่่ 5 - 11 มี.ค.) " เลย
                     </Text>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>การเข้าร่วมโปรโมชั่นจะสิ้นสุดภายใน3 วัน 1 ชั่วโมง</Text>
-                        <TouchableOpacity style={{ alignItems: 'flex-end', marginTop: 10 }} onPress={() => this.props.navigation.push('StoreMe_Topic', { selectedIndex: 7 })}>
+                        <TouchableOpacity style={{ alignItems: 'flex-end', marginTop: 10 }} onPress={() => this.props.navigation.push('Seller_Topic', { selectedIndex: 7 })}>
                             <View style={[stylesMain.ItemCenter, { backgroundColor: '#7ED0E8', width: 130, borderRadius: 5, height: 30 }]}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FFFFFF' }]}>เข้าร่วมโปรโมชั่น ตอนนี้!</Text>
                             </View>
@@ -559,7 +559,7 @@ export class StoreMe_Fin_Campaign extends Component {
 
 ///----------------------------------------------------------------------------------------------->>>>
 
-export class StoreMe_Fin_Campaign_Product extends Component {
+export class Seller_Fin_Campaign_Product extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -601,7 +601,7 @@ export class StoreMe_Fin_Campaign_Product extends Component {
 }
 ///----------------------------------------------------------------------------------------------->>>>
 
-export class StoreMe_Fin_Campaign_ProductSelect extends Component {
+export class Seller_Fin_Campaign_ProductSelect extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -734,7 +734,7 @@ export class Withdraw_money extends Component {
     render() {
         return (
             <View style={{ backgroundColor: '#FFFFFF', marginTop: 5 }}>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('StoreMe_Topic', { selectedIndex: 12 })}>
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Seller_Topic', { selectedIndex: 12 })}>
                     <View style={stylesProfile.ListMenuList}>
                         <View style={stylesProfile.ListMenuListSub}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,{margin:10}]}>
@@ -744,7 +744,7 @@ export class Withdraw_money extends Component {
                         <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('StoreMe_Topic', { selectedIndex: 10 })}>
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Seller_Topic', { selectedIndex: 10 })}>
                     <View style={stylesProfile.ListMenuList}>
                         <View style={stylesProfile.ListMenuListSub}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,{margin:10}]}>
@@ -813,7 +813,7 @@ export class Confirm_Bank extends Component {
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,]}>ระยะเวลาดำเนินการ : 3-5 วันทำการ</Text>
                 </View>
                 <View style={{ justifyContent: 'flex-end', flex: 1, alignItems: 'center' }}>
-                    <TouchableOpacity //activeOpacity={1} onPress={() => this.props.navigation.push('StoreMe_Topic', { selectedIndex: 11 })}
+                    <TouchableOpacity //activeOpacity={1} onPress={() => this.props.navigation.push('Seller_Topic', { selectedIndex: 11 })}
                         style={[stylesMain.ItemCenter, { width: '80%', height: 50, backgroundColor: '#0A55A6', borderRadius: 5, marginVertical: 10 }]}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, , { color: '#FFFFFF' }]}>ยืนยันการถอนเงิน</Text>
                     </TouchableOpacity>

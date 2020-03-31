@@ -595,7 +595,7 @@ export class ProDed_New_Store extends Component {
         </View>
         <View style={stylesDeal.ProDed_New_Store}>
           <View style={stylesDeal.ProDed_New_Store_Box}>
-            <View style={stylesDeal.ProDed_New_Store_Boximage}>
+            <View style={stylesDeal.ProDed_New_Store_Boximage}>สินค้าของฉัน
               <FastImage style={{ height: 60, width: 60, }}
                 source={{
                   uri: ip + '/MySQL/uploads/icon_brand/brand1.png',

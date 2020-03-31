@@ -11,19 +11,19 @@ import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert'
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
-///----------------------------------------------------------------------------------------------->>>> styleStoreMe
+///----------------------------------------------------------------------------------------------->>>> styleSeller
 import stylesMain from '../../style/StylesMainScreen';
 import stylesFont from '../../style/stylesFont';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
-import stylesStoreMe from '../../style/stylestoreMe-src/styleStoreMeScreen';
+import stylesSeller from '../../style/styleSeller-src/styleSellerScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 ///----------------------------------------------------------------------------------------------->>>> Ip.
 import { ip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 import { AppBar1 } from '../../src/MainScreen';
-import { Order_Me_Box } from './StoreMe_Totel_Order';
+import { Order_Me_Box } from './Seller_Totel_Order';
 
-export default class StoreMe_Return extends Component {
+export default class Seller_Return extends Component {
   PathList() {
     const selectedIndex = this.props.navigation.getParam('selectedIndex')
     switch (selectedIndex) {
@@ -46,7 +46,7 @@ export default class StoreMe_Return extends Component {
           <View style={stylesMain.SafeAreaView}>
             <AppBar1 backArrow navigation={this.props.navigation} titleHead='รายละเอียด' />
             <ScrollView>
-              <StoreMe_Return_Detail />
+              <Seller_Return_Detail />
             </ScrollView>
           </View>
         )
@@ -92,7 +92,7 @@ export default class StoreMe_Return extends Component {
 
 ///--------------------------------------------------------------------------/// รายละเอียดการยกเลิก
 
-export class StoreMe_Return_Detail extends Component {
+export class Seller_Return_Detail extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -107,7 +107,7 @@ export class StoreMe_Return_Detail extends Component {
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, }]}>เนื่องสินค้าชำรุด</Text>
         </View>
         <View style={stylesMain.FrameBackground}>
-          <View style={stylesStoreMe.StoreMe_Product_Before}>
+          <View style={stylesSeller.Seller_Product_Before}>
             <View style={stylesMain.FlexRow}>
               <FastImage style={stylesProfileTopic.Order_StorePro}
                 source={{
@@ -138,8 +138,8 @@ export class StoreMe_Return_Detail extends Component {
           </View>
           <View style={{ padding: 10 }}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { margin: 5 }]}>ข้อมูลการยกเลิก</Text>
-            <View style={stylesStoreMe.StoreMe_Return_DetailBox}>
-              <View style={stylesStoreMe.StoreMe_Return_DetailBoxA}>
+            <View style={stylesSeller.Seller_Return_DetailBox}>
+              <View style={stylesSeller.Seller_Return_DetailBoxA}>
                 <FastImage
                   style={stylesMain.BoxProduct1Image}
                   source={{
@@ -147,26 +147,26 @@ export class StoreMe_Return_Detail extends Component {
                   }}
                 />
               </View>
-              <View style={stylesStoreMe.StoreMe_Return_DetailBoxB}>
-                <View style={stylesStoreMe.StoreMe_Return_DetailBoxB_Image}>
+              <View style={stylesSeller.Seller_Return_DetailBoxB}>
+                <View style={stylesSeller.Seller_Return_DetailBoxB_Image}>
                   <FastImage
-                    style={stylesStoreMe.StoreMe_Return_DetailB_Image}
+                    style={stylesSeller.Seller_Return_DetailB_Image}
                     source={{
                       uri: ip + '/MySQL/uploads/products/2019-03-16-1552756517.jpg',
                     }}
                   />
                 </View>
-                <View style={stylesStoreMe.StoreMe_Return_DetailBoxB_Image}>
+                <View style={stylesSeller.Seller_Return_DetailBoxB_Image}>
                   <FastImage
-                    style={stylesStoreMe.StoreMe_Return_DetailB_Image}
+                    style={stylesSeller.Seller_Return_DetailB_Image}
                     source={{
                       uri: ip + '/MySQL/uploads/products/2019-03-16-1552756517.jpg',
                     }}
                   />
                 </View>
-                <View style={stylesStoreMe.StoreMe_Return_DetailBoxB_Image}>
+                <View style={stylesSeller.Seller_Return_DetailBoxB_Image}>
                   <FastImage
-                    style={stylesStoreMe.StoreMe_Return_DetailB_Image}
+                    style={stylesSeller.Seller_Return_DetailB_Image}
                     source={{
                       uri: ip + '/MySQL/uploads/products/2019-03-16-1552756517.jpg',
                     }}
@@ -187,7 +187,7 @@ export class StoreMe_Return_Detail extends Component {
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginTop: 15 }]}>ตรวจสอบแล้ว</Text>
             </View>
             <TouchableOpacity>
-              <View style={stylesStoreMe.StoreMe_Return_Button}>
+              <View style={stylesSeller.Seller_Return_Button}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ยืนยัน</Text>
               </View>
             </TouchableOpacity>
@@ -223,12 +223,12 @@ export class Treasury_store_Product extends Component {
         <View style={stylesMain.FrameBackground}>
           <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', paddingHorizontal: 10 }]}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
-            <View style={[stylesMain.FlexRow, stylesStoreMe.Treasury_store_Text]}>
+            <View style={[stylesMain.FlexRow, stylesSeller.Treasury_store_Text]}>
               <TouchableOpacity onPress={this.handleOpen} style={stylesMain.FlexRow}>
                 <IconFontAwesome name='trash-o' size={20} color='#6B87CF' />
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#6B87CF' }]}>ลบ</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => this.props.navigation.push('StoreMe_Up_Product')} style={stylesMain.FlexRow}>
+              <TouchableOpacity onPress={() => this.props.navigation.push('Seller_Up_Product')} style={stylesMain.FlexRow}>
                 <IconFeather name='edit' size={20} color='#6B87CF' />
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#6B87CF' }]}>แก้ไข</Text>
               </TouchableOpacity>

@@ -42,7 +42,7 @@ export default class Register_OTPScreen extends React.Component {
   render() {
     const { navigation } = this.props
     return (
-      <SafeAreaView style={{backgroundColor: '#071727'}}>
+      <SafeAreaView style={stylesMain.SafeAreaView}>
         <ScrollView>
           <Logo />
           <Login navigation={navigation} />

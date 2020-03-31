@@ -116,7 +116,7 @@ export class Headbar extends React.Component {
                         <View style={stylesMain.FlexRow}>
                             <View>
                                 <TouchableOpacity activeOpacity={1}
-                                    onPress={this.navigationNavigateScreen.bind(this, 'StoreMeScreen')}>
+                                    onPress={this.navigationNavigateScreen.bind(this, 'SellerScreen')}>
                                     <View style={stylesProfile.HeadbarBox1Sub}>
                                         <Text style={[
                                             stylesProfile.HeadbarBox1SubText, stylesFont.FontFamilyText, stylesFont.FontSize6

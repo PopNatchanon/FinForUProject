@@ -48,7 +48,7 @@ export default class LoginScreen extends React.Component {
   render() {
     const { navigation } = this.props
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: '#071727' }}>
+      <SafeAreaView style={{ backgroundColor: '#071727', flex: 1 }}>
         <ScrollView>
           <Logo />
           <Login navigation={navigation} />

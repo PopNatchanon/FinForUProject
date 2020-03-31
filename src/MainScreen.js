@@ -109,13 +109,13 @@ export default class MainScreen extends React.Component {
                         <BannerBar_ONE />
                         <Highlight navigation={navigation} loadData={dataService.hi_week} />
                         <PromotionPopular navigation={navigation} loadData={dataService.recommend_store} />
-                        {/* <Popular_store navigation={navigation} loadData={dataService.store_good} />
+                        <Popular_store navigation={navigation} loadData={dataService.store_good} />
                         <Popular_product navigation={navigation} loadData={{
                             product_hit: dataService.product_hit, best_price: dataService.best_price,
                             best_sale: dataService.best_sale, best_cool: dataService.best_cool
                         }} />
                         <Product_for_you navigation={navigation} loadData={dataService.for_you} />
-                        <CategoryProduct navigation={navigation} /> */}
+                        <CategoryProduct navigation={navigation} />
                         <Second_product navigation={navigation} loadData={{
                             product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
                             list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3,
@@ -476,7 +476,7 @@ export class AppBar1 extends React.Component {
                         <TouchableOpacity
                             key={'settingBar'}
                             style={[stylesMain.ItemCenter, { width: 40 }]}
-                            onPress={this.navigationNavigateScreen.bind(this, 'StoreMe_Setting')}>
+                            onPress={this.navigationNavigateScreen.bind(this, 'Seller_Setting')}>
                             <IconMaterialCommunityIcons name="settings-outline" size={25} style={[
                                 stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
                                     marginRight: 8
@@ -1563,7 +1563,7 @@ export class Exclusive extends React.Component {
         const { loadData, navigation } = this.props
         {
             console.log('--------------------------------------dataServicesdsadsaffdgfs'),
-            console.log(loadData)
+                console.log(loadData)
         }
         return (
             <View style={stylesMain.FrameBackground2}>
@@ -2230,17 +2230,19 @@ export class Fin_Mall extends React.Component {
                         />
                     </View>
                     <View style={{ width: '57.5%', backgroundColor: '#EDEDED' }}>
-                        {
-                            loadData.product_hit &&
-                            <TouchableOpacity
-                                key={'product_hit'}
-                                activeOpacity={1}
-                                onPress={this.navigationNavigateScreen.bind(this, 'FinMallScreen', { selectedIndex: 1 })}>
-                                <View style={stylesMain.FlexRow}>
-                                    {this.productCate(loadData.product_hit)}
-                                </View>
-                            </TouchableOpacity>
-                        }
+                        <ScrollView horizontal>
+                            {
+                                loadData.product_hit &&
+                                <TouchableOpacity
+                                    key={'product_hit'}
+                                    activeOpacity={1}
+                                    onPress={this.navigationNavigateScreen.bind(this, 'FinMallScreen', { selectedIndex: 1 })}>
+                                    <View style={stylesMain.FlexRow}>
+                                        {this.productCate(loadData.product_hit)}
+                                    </View>
+                                </TouchableOpacity>
+                            }
+                        </ScrollView>
                     </View>
                 </View>
             </View>
@@ -2283,20 +2285,20 @@ export class FIN_Supermarket extends React.Component {
         const { product_hit } = loadData
         return (
             <View style={stylesMain.FrameBackground2}>
-                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>FIN_Supermarket  </Text>
+                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>FIN Supermarket  </Text>
                 <Slide />
                 <View style={{ width: '100%', backgroundColor: '#0A55A6', paddingVertical: 10 }}>
                     <ScrollView horizontal>
                         {
                             product_hit &&
                             <ProductBox dataService={product_hit} navigation={navigation} typeip='fin' mode='row3col1'
-                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} widthBox={98} />
+                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} widthBox={98} radiusBox={5} />
                         }
                     </ScrollView>
-                </View>
-                <View style={[stylesMain.FlexRow, { height: 196, padding: 5, justifyContent: 'space-between', marginTop: 10 }]}>
+                </View> 
+                <View style={[stylesMain.FlexRow, { height: 170, padding: 5, justifyContent: 'space-between', marginTop: 10 }]}>
                     <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'FinMallScreen', { selectedIndex: 0 })}
-                        style={{ width: width * 0.64,  }}>
+                        style={{ width: width * 0.64, }}>
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
@@ -2304,22 +2306,22 @@ export class FIN_Supermarket extends React.Component {
                             }}
                             resizeMode={FastImage.resizeMode.stretch} />
                     </TouchableOpacity>
-                    <View style={{ width: width * 0.32,  justifyContent: 'space-between' }}>
+                    <View style={{ width: width * 0.32, justifyContent: 'space-between' }}>
                         <View style={{ height: '49%', borderColor: '#EAEAEA', borderWidth: 1, }}>
-                        <FastImage
-                            style={stylesMain.BoxProduct1Image}
-                            source={{
-                                uri: ip + '/MySQL/uploads/Image_FinMall/supermarket-04.jpg',
-                            }}
-                            resizeMode={FastImage.resizeMode.stretch} />
+                            <FastImage
+                                style={stylesMain.BoxProduct1Image}
+                                source={{
+                                    uri: ip + '/MySQL/uploads/Image_FinMall/supermarket-04.jpg',
+                                }}
+                                resizeMode={FastImage.resizeMode.stretch} />
                         </View>
                         <View style={{ height: '49%', borderColor: '#EAEAEA', borderWidth: 1, }}>
-                        <FastImage
-                            style={stylesMain.BoxProduct1Image}
-                            source={{
-                                uri: ip + '/MySQL/uploads/Image_FinMall/supermarket-04.jpg',
-                            }}
-                            resizeMode={FastImage.resizeMode.stretch} />
+                            <FastImage
+                                style={stylesMain.BoxProduct1Image}
+                                source={{
+                                    uri: ip + '/MySQL/uploads/Image_FinMall/supermarket-04.jpg',
+                                }}
+                                resizeMode={FastImage.resizeMode.stretch} />
                         </View>
                     </View>
                 </View>

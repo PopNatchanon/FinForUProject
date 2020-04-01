@@ -8,7 +8,10 @@ import * as Animatable from 'react-native-animatable';
 import FastImage from 'react-native-fast-image';
 import Carousel, { PaginationLight, } from 'react-native-x-carousel';
 export const { width, height, } = Dimensions.get('window');
+import ActionButton from 'react-native-action-button';
 ///----------------------------------------------------------------------------------------------->>>> Icon
+import IconEntypo from 'react-native-vector-icons/Entypo';
+import Icon from 'react-native-vector-icons/Ionicons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
@@ -73,7 +76,7 @@ export default class StoreScreen extends React.Component {
             case 2:
                 return ([
                     <Banner navigation={navigation} item={item} key={'Banner'} />,
-                    <BoxProduct4 navigation={navigation} key={'BoxProduct4'} />
+                    <BoxProduct4 navigation={navigation} key={'BoxProduct4'} />,
                 ]);
             default:
         }
@@ -313,6 +316,16 @@ export class StoreHeadDetails extends React.Component {
     getData = (dataService) => {
         this.setState({ dataService })
     }
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.push(value, value2)
+    }
     get getDetailStore() {
         const { item } = this.props;
         return item.map((item, index) => {
@@ -322,13 +335,10 @@ export class StoreHeadDetails extends React.Component {
                 id: item.id_store
             };
             return (
-                <View style={[stylesStore.StoreHeadDetails, { paddingTop: 0, marginBottom: 10, }]} key={index}>
+                <View style={[stylesStore.StoreHeadDetails, { paddingTop: 0, marginBottom: 10, justifyContent: 'space-between' }]} key={index}>
                     {
                         item !== undefined &&
-                        <GetServices
-                            uriPointer={uri}
-                            dataBody={dataBody}
-                            getDataSource={this.getData.bind(this)} />
+                        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
                     }
                     <View>
                         <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
@@ -362,6 +372,10 @@ export class StoreHeadDetails extends React.Component {
                                 ( ภายในไม่กี่ชั่วโมง )</Text>
                         </View>
                     </View>
+                    <TouchableOpacity activeOpacity={1}
+                        onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', { selectedIndex: 6 })}>
+                        <IconEntypo name='chevron-right' size={25} color='#0A55A6' />
+                    </TouchableOpacity>
                 </View>
             );
         })
@@ -869,6 +883,16 @@ export class BoxProduct4 extends React.Component {
         }
         return false
     }
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.push(value, value2)
+    }
     render() {
         const { navigation } = this.props
         const { dataService } = this.state
@@ -878,6 +902,10 @@ export class BoxProduct4 extends React.Component {
         };
         return (
             <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, { marginTop: 0, marginBottom: 10 }]}>
+                <TouchableOpacity activeOpacity={1}
+                    onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', { selectedIndex: 7 })}>
+                    <View style={{ height: 100, width: 100, backgroundColor: 'red' }}></View>
+                </TouchableOpacity>
                 <GetServices
                     uriPointer={uri}
                     dataBody={dataBody}
@@ -894,5 +922,33 @@ export class BoxProduct4 extends React.Component {
                 </View>
             </View>
         )
+    }
+}
+///----------------------------------------------------------------------------------------------->>>>
+export class Test_Button extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.push(value, value2)
+    }
+    render() {
+        return (
+            <ActionButton buttonColor='RGBA(231,76,60,1)'>
+                <ActionButton.Item buttonColor='#0A55A6' title="New Post"
+                    onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', { selectedIndex: 7 })}>
+                    <Icon name="md-create" size={20} color='#FFFFFF' />
+                </ActionButton.Item>
+            </ActionButton>
+        );
     }
 }

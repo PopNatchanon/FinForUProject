@@ -14,19 +14,19 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-///----------------------------------------------------------------------------------------------->>>> stylesStoreMe
+///----------------------------------------------------------------------------------------------->>>> stylesSeller
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 import stylesProfile from '../../style/StylesProfileScreen';
-import stylesStoreMe from '../../style/stylestoreMe-src/styleStoreMeScreen';
+import stylesSeller from '../../style/styleSeller-src/styleSellerScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 ///----------------------------------------------------------------------------------------------->>>> Ip
 ///----------------------------------------------------------------------------------------------->>>> Main
 import { AppBar1 } from '../MainScreen';
 
 
-export default class StoreMe_Profile_Edit extends Component {
+export default class Seller_Profile_Edit extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -38,10 +38,10 @@ export default class StoreMe_Profile_Edit extends Component {
             <SafeAreaView style={stylesMain.SafeAreaView}>
                 <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขรายละเอียดร้านค้า' saveBar />
                 <ScrollView>
-                    <StoreMe_SettingImage />
-                    <StoreMe_Up_Image />
-                    <StoreMe_Detail />
-                    <StoreMe_SettingButton />
+                    <Seller_SettingImage />
+                    <Seller_Up_Image />
+                    <Seller_Detail />
+                    <Seller_SettingButton />
                 </ScrollView>
             </SafeAreaView>
         );
@@ -51,7 +51,7 @@ export default class StoreMe_Profile_Edit extends Component {
 ///------------------------------------------------------------------------------///
 
 
-export class StoreMe_SettingImage extends Component {
+export class Seller_SettingImage extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -89,7 +89,7 @@ export class StoreMe_SettingImage extends Component {
                                 null
                         }
                     </View>
-                    <View style={stylesStoreMe.StoreMe_SettingImageEdit_BG}>
+                    <View style={stylesSeller.Seller_SettingImageEdit_BG}>
                         <TouchableOpacity onPress={this.UploadImageBackground}>
                             <View style={stylesMain.FlexRow}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { textAlign: 'right', color: '#FFFFFF' }]}>แตะเพื่อเปลี่ยน</Text>
@@ -99,7 +99,7 @@ export class StoreMe_SettingImage extends Component {
                     </View>
                 </View>
                 <View style={{ paddingLeft: 20, }}>
-                    <View style={[stylesStoreMe.StoreMe_SettingImage, stylesMain.ItemCenter]}>
+                    <View style={[stylesSeller.Seller_SettingImage, stylesMain.ItemCenter]}>
                         {
                             avatarSource3 ?
                                 <FastImage
@@ -110,9 +110,9 @@ export class StoreMe_SettingImage extends Component {
                                 <IconFontAwesome5 name="user-alt" size={50} color='#1a3263' />
                         }
                     </View>
-                    <View style={stylesStoreMe.StoreMe_SettingImageIconBox}>
+                    <View style={stylesSeller.Seller_SettingImageIconBox}>
                         <TouchableOpacity onPress={this.UploadImageProfile}>
-                            <View style={stylesStoreMe.StoreMe_SettingImageIconBox_Camara}>
+                            <View style={stylesSeller.Seller_SettingImageIconBox_Camara}>
                                 <IconFeather name='camera' size={17} />
                             </View>
                         </TouchableOpacity>
@@ -124,7 +124,7 @@ export class StoreMe_SettingImage extends Component {
 }
 
 ///------------------------------------------------------------------------------///
-export class StoreMe_Up_Image extends Component {
+export class Seller_Up_Image extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -176,7 +176,7 @@ export class StoreMe_Up_Image extends Component {
             <View style={stylesMain.FrameBackground}>
                 <View style={[stylesMain.FrameBackground, stylesMain.ItemCenter, { paddingVertical: 5, marginTop: 15 }]}>
                     <TextInput
-                        style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesStoreMe.StoreMe_Detail_TextInput, { height: 50 }]}
+                        style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesSeller.Seller_Detail_TextInput, { height: 50 }]}
                         placeholder=" ชื่อร้าน"
                         maxLength={40}
                         value={this.state.name}
@@ -230,7 +230,7 @@ export class StoreMe_Up_Image extends Component {
 }
 ///------------------------------------------------------------------------------///
 
-export class StoreMe_Detail extends Component {
+export class Seller_Detail extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -244,14 +244,14 @@ export class StoreMe_Detail extends Component {
 
                 {/* <View style={[stylesMain.FrameBackground, { paddingVertical: 5, marginTop: 5 }]}>
                     <TouchableOpacity>
-                        <View style={stylesStoreMe.StoreMe_Detail_BoxUp_Image}>
+                        <View style={stylesSeller.Seller_Detail_BoxUp_Image}>
                             <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ</Text>
                         </View>
                     </TouchableOpacity>
                 </View> */}
                 <View style={[stylesMain.FrameBackground, stylesMain.ItemCenter, { paddingVertical: 5, marginTop: 5 }]}>
-                    <View style={[stylesStoreMe.StoreMe_Detail_TextInput, { height: 130 }]}>
+                    <View style={[stylesSeller.Seller_Detail_TextInput, { height: 130 }]}>
                         <TextInput
                             style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}
                             placeholder="รายละเอียด"
@@ -270,7 +270,7 @@ export class StoreMe_Detail extends Component {
 
 ///------------------------------------------------------------------------------///
 
-export class StoreMe_SettingButton extends Component {
+export class Seller_SettingButton extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -318,16 +318,16 @@ export class StoreMe_SettingButton extends Component {
                     {this.Phone_numberSheetBody()}
                 </BottomSheet>
                 <TouchableOpacity onPress={() => { this.Phone_numberSheet.open(); }}>
-                    <View style={stylesStoreMe.StoreMe_Up_ProductDetail}>
+                    <View style={stylesSeller.Seller_Up_ProductDetail}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โทรศัพท์</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <View style={stylesStoreMe.StoreMe_Up_ProductDetail}>
+                <View style={stylesSeller.Seller_Up_ProductDetail}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เพจ Facebook</Text>
                     <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                 </View>
-                <View style={stylesStoreMe.StoreMe_Up_ProductDetail}>
+                <View style={stylesSeller.Seller_Up_ProductDetail}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เผยแพร่สินค้า</Text>
                     <CheckBox
                         size={30}

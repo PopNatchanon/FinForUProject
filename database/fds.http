@@ -1,0 +1,5 @@
+POST http://192.168.0.131/mysql/DataServiceMain.php HTTP/1.1
+content-type: application/json; charset=utf-8
+# Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjExNTU3OSIsIm5hbWUiOiJKb2huIExlbm5vbm4iLCJlbWFpbCI6ImsuY2hhaXBhcGhhdDRAZ21haWwuY29tIiwidGltZSI6MTU4NDk1NjE3Mn0.d9FTkt7wWb0bZD5yeDGve4QUkyLadWZriuTmPVWnwZk
+
+{"type": "sale"}

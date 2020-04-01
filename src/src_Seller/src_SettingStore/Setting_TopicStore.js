@@ -13,11 +13,11 @@ import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert'
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
-///----------------------------------------------------------------------------------------------->>>> styleStoreMe
+///----------------------------------------------------------------------------------------------->>>> styleSeller
 import stylesMain from '../../../style/StylesMainScreen';
 import stylesFont from '../../../style/stylesFont';
 import stylesLogin from '../../../style/stylesLoginScreen';
-import stylesStoreMe from '../../../style/stylestoreMe-src/styleStoreMeScreen';
+import stylesSeller from '../../../style/styleSeller-src/styleSellerScreen';
 import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 ///----------------------------------------------------------------------------------------------->>>> Ip.
@@ -133,50 +133,50 @@ export class Notification extends Component {
     render() {
         return (
             <View>
-                <View style={[stylesStoreMe.StoreMe_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
+                <View style={[stylesSeller.Seller_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>แก้ไขบัญชีธนาคาร</Text>
                 </View>
                 <TouchableOpacity onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 1 })}>
-                    <View style={stylesStoreMe.StoreMe_Setting_BoxTopic}>
+                    <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>บัญชีธนาคาร</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <View style={[stylesStoreMe.StoreMe_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
+                <View style={[stylesSeller.Seller_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>แก้ไขเอกสารจดแจ้ง</Text>
                 </View>
                 <TouchableOpacity onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 2 })}>
-                    <View style={stylesStoreMe.StoreMe_Setting_BoxTopic}>
+                    <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>หนังสือจดทะเบียนบริษัท จากกรมพัฒนาธุรกิจการค้า</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 3 })}>
-                    <View style={stylesStoreMe.StoreMe_Setting_BoxTopic}>
+                    <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>สำเนาบัตรประชาชน/พาสปอร์ตของกรรมการผู้มีอำนาจลงนาม</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 4 })}>
-                    <View style={stylesStoreMe.StoreMe_Setting_BoxTopic}>
+                    <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ใบทะเบียนภาษีมูลค่าเพิ่ม</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 5 })}>
-                    <View style={stylesStoreMe.StoreMe_Setting_BoxTopic}>
+                    <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ใบจดทะเบียนเครื่องหมายการค้า</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 6 })}>
-                    <View style={stylesStoreMe.StoreMe_Setting_BoxTopic}>
+                    <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>หนังสือรับรองการเป็นตัวแทนจำหน่าย (ไม่จำเป็นต้องระบุ)</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 7 })}>
-                    <View style={stylesStoreMe.StoreMe_Setting_BoxTopic}>
+                    <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>สำเนาบัญชีธนาคารของผู้ขาย</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
@@ -199,7 +199,7 @@ export class Edit_Bank extends Component {
             <View>
                 <View style={{ padding: 10 }}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>ชื่อธนาคาร</Text>
-                    <View style={stylesStoreMe.Edit_Box}>
+                    <View style={stylesSeller.Edit_Box}>
                         <Picker
                             selectedValue={this.state.language}
                             style={[stylesFont.FontFamilyText, { width: '100%' }]}
@@ -217,7 +217,7 @@ export class Edit_Bank extends Component {
                         </Picker>
                     </View>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>หมายเลขบัญชีธนาคาร</Text>
-                    <View style={stylesStoreMe.Edit_Box}>
+                    <View style={stylesSeller.Edit_Box}>
                         <TextInput
                             style={stylesFont.FontFamilyText}
                             fontSize={15}
@@ -229,7 +229,7 @@ export class Edit_Bank extends Component {
                             onChangeText={(NumberBank) => this.setState({ NumberBank })}></TextInput>
                     </View>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>ชื่อบัญชีธนาคาร</Text>
-                    <View style={stylesStoreMe.Edit_Box}>
+                    <View style={stylesSeller.Edit_Box}>
                         <TextInput
                             style={stylesFont.FontFamilyText}
                             fontSize={15}
@@ -526,7 +526,7 @@ export class Up_Code_Number extends Component {
             <View style={stylesMain.FrameBackground}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { margin: 10 }]}>กรอกเลขพัสดุ</Text>
                 <View style={{ alignItems: 'center' }}>
-                    <View style={stylesStoreMe.Up_Code_Number_BoxTextInput}>
+                    <View style={stylesSeller.Up_Code_Number_BoxTextInput}>
                         <TextInput
                             style={stylesFont.FontFamilyText}
                             fontSize={15}
@@ -539,14 +539,14 @@ export class Up_Code_Number extends Component {
                         </TextInput>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FF0000' }]}>*กรุณาตรวจเลขพัสดุ </Text>
                     </View>
-                    <View style={[stylesStoreMe.BottomSheet_Botton, { paddingTop: 15 }]}>
+                    <View style={[stylesSeller.BottomSheet_Botton, { paddingTop: 15 }]}>
                         <TouchableOpacity>
-                            <View style={stylesStoreMe.BottomSheet_Botton_cancel}>
+                            <View style={stylesSeller.BottomSheet_Botton_cancel}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ยกเลิก</Text>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={this.handleOpen}>
-                            <View style={stylesStoreMe.BottomSheet_Botton_OK}>
+                            <View style={stylesSeller.BottomSheet_Botton_OK}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตกลง</Text>
                             </View>
                         </TouchableOpacity>

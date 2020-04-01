@@ -17,7 +17,7 @@ import { AppBar1 } from '../MainScreen';
 import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 
-export default class StoreMe_Detail_Order extends Component {
+export default class Seller_Detail_Order extends Component {
     constructor(props) {
         super(props);
         this.state = {         
@@ -44,7 +44,7 @@ export default class StoreMe_Detail_Order extends Component {
                         <ScrollView>
                             <Detail />
                             <Order_Sending />
-                            <StoreMe_Detail_Reviews />
+                            <Seller_Detail_Reviews />
                         </ScrollView>
                     </SafeAreaView>
                 )
@@ -158,7 +158,7 @@ export class Order_Sending extends Component {
 }
 ///----------------------------------------------------------------------------------------------->>>>
 
-export class StoreMe_Detail_Reviews extends Component {
+export class Seller_Detail_Reviews extends Component {
     constructor(props) {
         super(props);
         this.state = {

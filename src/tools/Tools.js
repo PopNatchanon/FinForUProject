@@ -613,7 +613,7 @@ export class TabBar extends React.Component {
                                         'center' :
                                         alignBox == 'right' ?
                                             'flex-end' :
-                                            'flex-start'
+                                            'flex-start',
                             } :
                             {
                                 borderWidth:
@@ -696,7 +696,7 @@ export class GetServices extends React.Component {
                 getDataSource(responseJson);
             })
             .catch((error) => {
-                console.error(error)
+                 console.error(error)
             })
     }
     componentDidMount() {

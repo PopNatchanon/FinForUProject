@@ -42,12 +42,13 @@ export class Button_bar extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            selectedIndex: 0,
         };
     }
     updateIndex = (selectedIndex) => {
         this.setState({ selectedIndex })
     }
-    PathList() {
+    get PathList() {
         var { selectedIndex } = this.state
         switch (selectedIndex) {
             case 0:
@@ -58,7 +59,6 @@ export class Button_bar extends Component {
                         <From_Order_Box navigation={this.props.navigation} detail_order />
                         <From_Order_Box navigation={this.props.navigation} detail_order shipping_order />
                         <From_Order_Box navigation={this.props.navigation} Review_order return_order detail_order />
-
                     </View>
                 )
             case 1:
@@ -94,11 +94,7 @@ export class Button_bar extends Component {
         }
     }
     render() {
-        var { selectedIndex } = this.state
-        selectedIndex == null && (
-            selectedIndex = this.props.navigation.getParam('selectedIndex'),
-            this.updateIndex(selectedIndex)
-        )
+        const { SetselectedIndex } = this.props
         const item = [{
             name: 'ทั้งหมด'
         }, {
@@ -111,26 +107,23 @@ export class Button_bar extends Component {
             name: 'สำเร็จแล้ว'
         }]
         return (
-            <View style={stylesMain.SafeAreaView}>
+            <View>
                 <View style={stylesProfileTopic.Button_bar}>
                     <ScrollView horizontal>
-                        {
-                            selectedIndex &&
-                            <TabBar
-                                sendData={this.updateIndex.bind(this)}
-                                item={item}
-                                // noLimit
-                                SetValue={selectedIndex}
-                                // widthBox={98}
-                                activeColor={'#fff'}
-                                activeFontColor={'#0A55A6'}
-                                type='tag'
-                            />
-                        }
+                        <TabBar
+                            sendData={this.updateIndex.bind(this)}
+                            item={item}
+                            // noLimit
+                            SetValue={SetselectedIndex}
+                            // widthBox={98}
+                            activeColor={'#fff'}
+                            activeFontColor={'#0A55A6'}
+                            type='tag'
+                        />
                     </ScrollView>
                 </View>
                 <ScrollView>
-                    {this.PathList()}
+                    {this.PathList}
                 </ScrollView>
             </View>
         );

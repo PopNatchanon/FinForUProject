@@ -19,7 +19,7 @@ import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_T
 import stylesLogin from '../../../style/stylesLoginScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from '../../MainScreen';
-import { StoreMe_SettingImage } from '../../src_storeMe/StoreMe_Profile_Edit';
+import { Seller_SettingImage } from '../../src_Seller/Seller_Profile_Edit';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -458,7 +458,7 @@ export class Edit_Profile extends Component {
           {this.Phone_numberSheetBody()}
         </BottomSheet>
         <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขโปรไฟล์' />
-        <StoreMe_SettingImage />
+        <Seller_SettingImage />
         <View style={{ marginTop: 20, }}>
           <TouchableOpacity onPress={() => { this.NameSheet.open(); }}>
             <View style={stylesProfileTopic.BoxTopic}>

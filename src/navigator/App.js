@@ -36,16 +36,16 @@ import Return_products from '../src_profile/Return_products';
 import Total_Order from '../src_profile/Total_Order';
 import Order_Detail from '../src_profile/Order_Detail';
 import Setting_Topic from '../src_profile/src_Setting/Setting_Topic';
-// src_storeMe
-import StoreMeScreen from '../src_storeMe/StoreMeScreen';
-import StoreMe_Topic from '../src_storeMe/StoreMe_Topic';
-import StoreMe_Totel_Order from '../src_storeMe/StoreMe_Totel_Order';
-import StoreMe_Setting from '../src_storeMe/StoreMe_Setting';
-import StoreMe_Profile_Edit from '../src_storeMe/StoreMe_Profile_Edit';
-import StoreMe_Up_Product from '../src_storeMe/StoreMe_Up_Product';
-import StoreMe_Return from '../src_storeMe/StoreMe_Return';
-import StoreMe_Detail_Order from '../src_storeMe/StoreMe_Detail_Order';
-import Setting_TopicStore from '../src_storeMe/src_SettingStore/Setting_TopicStore';
+// src_Seller
+import SellerScreen from '../src_Seller/SellerScreen';
+import Seller_Topic from '../src_Seller/Seller_Topic';
+import Seller_Totel_Order from '../src_Seller/Seller_Totel_Order';
+import Seller_Setting from '../src_Seller/Seller_Setting';
+import Seller_Profile_Edit from '../src_Seller/Seller_Profile_Edit';
+import Seller_Up_Product from '../src_Seller/Seller_Up_Product';
+import Seller_Return from '../src_Seller/Seller_Return';
+import Seller_Detail_Order from '../src_Seller/Seller_Detail_Order';
+import Setting_TopicStore from '../src_Seller/src_SettingStore/Setting_TopicStore';
 // src-Cart
 import Customer_account from '../src-Cart/Customer_account';
 import Customer_Order from '../src-Cart/Customer_Order';
@@ -259,51 +259,51 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
-  // src_storeMe
-  StoreMeScreen: {
-    screen: StoreMeScreen,
+  // src_Seller
+  SellerScreen: {
+    screen: SellerScreen,
     navigationOptions: () => ({
       tabBarVisible: false,
       header: null,
     })
   },
-  StoreMe_Totel_Order: {
-    screen: StoreMe_Totel_Order,
+  Seller_Totel_Order: {
+    screen: Seller_Totel_Order,
     navigationOptions: () => ({
       tabBarVisible: false,
       header: null,
     })
   },
-  StoreMe_Topic: {
-    screen: StoreMe_Topic,
+  Seller_Topic: {
+    screen: Seller_Topic,
     navigationOptions: () => ({
       tabBarVisible: false,
       header: null,
     })
   },
-  StoreMe_Setting: {
-    screen: StoreMe_Setting,
+  Seller_Setting: {
+    screen: Seller_Setting,
     navigationOptions: () => ({
       tabBarVisible: false,
       header: null,
     })
   },
-  StoreMe_Profile_Edit: {
-    screen: StoreMe_Profile_Edit,
+  Seller_Profile_Edit: {
+    screen: Seller_Profile_Edit,
     navigationOptions: () => ({
       tabBarVisible: false,
       header: null,
     })
   },
-  StoreMe_Up_Product: {
-    screen: StoreMe_Up_Product,
+  Seller_Up_Product: {
+    screen: Seller_Up_Product,
     navigationOptions: () => ({
       tabBarVisible: false,
       header: null,
     })
   },
-  StoreMe_Return: {
-    screen: StoreMe_Return,
+  Seller_Return: {
+    screen: Seller_Return,
     navigationOptions: () => ({
       tabBarVisible: false,
       header: null,
@@ -316,8 +316,8 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
-  StoreMe_Detail_Order: {
-    screen: StoreMe_Detail_Order,
+  Seller_Detail_Order: {
+    screen: Seller_Detail_Order,
     navigationOptions: () => ({
       tabBarVisible: false,
       header: null,
@@ -427,7 +427,7 @@ const PathScreen = createStackNavigator({
   {
     initialRouteName: 'MainScreen',
     // initialRouteName: 'ProfileScreen',
-    // initialRouteName: 'FeedScreen',
+    // initialRouteName: 'StoreScreen',
   }
 );
 const AppNavigator = createAppContainer(PathScreen);

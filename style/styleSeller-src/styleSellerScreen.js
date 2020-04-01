@@ -6,7 +6,7 @@ export default StyleSheet.create({
 
     ///----------------------------Setting_TopicStore-------------------------------///
 
-    StoreMe_Setting_BoxTopic: {
+    Seller_Setting_BoxTopic: {
         backgroundColor: '#FFFFFF',
         marginTop: 5,
         padding: 5,
@@ -16,18 +16,18 @@ export default StyleSheet.create({
     Text: {
         fontSize: 18,
     },
-    StoreMe_Up_Image: {
+    Seller_Up_Image: {
         width: '100%',
         height: 180,
         backgroundColor: '#FFFF',
     },
-    StoreMe_Up_ImageA: {
+    Seller_Up_ImageA: {
         marginLeft: 10,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
     },
-    StoreMe_Up_Image_Box: {
+    Seller_Up_Image_Box: {
         justifyContent: 'center',
         alignItems: 'center',
         marginLeft: 10,
@@ -36,7 +36,7 @@ export default StyleSheet.create({
         borderColor: '#0A55A6',
         borderWidth: 1,
     },
-    StoreMe_Up_ProductDetail: {
+    Seller_Up_ProductDetail: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: '100%',
@@ -197,8 +197,8 @@ export default StyleSheet.create({
         borderWidth: 1, borderRadius: 5,
     },
 
-    ///----------------------------StoreMe_Profile_Edit-------------------------------///
-    StoreMe_SettingImage: {
+    ///----------------------------Seller_Profile_Edit-------------------------------///
+    Seller_SettingImage: {
         height: 100, width: 100,
         backgroundColor: '#FFFFFF',
         borderColor:'#FFFFFF',
@@ -206,11 +206,11 @@ export default StyleSheet.create({
         borderRadius: 50,
         marginTop: -130,
     },
-    StoreMe_SettingImageIconBox: {
+    Seller_SettingImageIconBox: {
         height: 30, width: 110,
         marginTop: -50,
     },
-    StoreMe_SettingImageIconBox_Camara: {
+    Seller_SettingImageIconBox_Camara: {
         height: 30, width: 30,
         backgroundColor: '#C4C4C4',
         alignSelf: 'flex-end',
@@ -220,28 +220,28 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    StoreMe_SettingBoxText_Edit: {
+    Seller_SettingBoxText_Edit: {
         backgroundColor: '#222222',
         height: 30,
         width: 100,
         opacity: 0.1,
     },
-    StoreMe_SettingImageEdit_BG: {
+    Seller_SettingImageEdit_BG: {
         width: '100%', height: 40,
         flexDirection: 'row-reverse',
         marginTop: -50,
     },
-    StoreMe_SettingImageEdit_Text: {
+    Seller_SettingImageEdit_Text: {
         textAlign: 'right',
         fontSize: 16,
         marginRight: 10, color: '#FFFFFF'
     },
-    StoreMe_Detail_TextInput: {
+    Seller_Detail_TextInput: {
         borderColor: '#ECECEC',
         borderWidth: 1,
         width: '95%'
     },
-    StoreMe_Detail_BoxUp_Image: {
+    Seller_Detail_BoxUp_Image: {
         marginTop: 10,
         justifyContent: 'center',
         alignItems: 'center',
@@ -252,43 +252,43 @@ export default StyleSheet.create({
         borderWidth: 1,
     },
 
-    ///----------------------------StoreMe_Return-------------------------------///
+    ///----------------------------Seller_Return-------------------------------///
 
-    StoreMe_Product_Before: {
+    Seller_Product_Before: {
         height: 50, width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: 10,
         borderColor: '#EAEAEA', borderBottomWidth: 1,
     },
-    StoreMe_Product_BeforeBoxFooter: {
+    Seller_Product_BeforeBoxFooter: {
         borderColor: '#EAEAEA',
         borderTopWidth: 1, alignItems: 'flex-end',
         justifyContent: 'center', padding: 10,
         height: 80
     },
-    StoreMe_Return_DetailBox: {
+    Seller_Return_DetailBox: {
         width: '100%',
         padding: 10,
         flexDirection: 'row',
         height: 300,
         justifyContent: 'space-between'
     },
-    StoreMe_Return_DetailBoxA: {
+    Seller_Return_DetailBoxA: {
         width: '65%', height: '100%'
     },
-    StoreMe_Return_DetailBoxB: {
+    Seller_Return_DetailBoxB: {
         height: '100%', width: '30%',
         justifyContent: 'space-between'
     },
-    StoreMe_Return_DetailBoxB_Image: {
+    Seller_Return_DetailBoxB_Image: {
         width: '100%', height: '30%',
     },
-    StoreMe_Return_DetailB_Image: {
+    Seller_Return_DetailB_Image: {
         height: '100%', width: '100%',
         borderColor: '#C8C8C8', borderRadius: 5, borderWidth: 1,
     },
-    StoreMe_Return_Button: {
+    Seller_Return_Button: {
         height: 30, width: 100,
         backgroundColor: '#0A55A6',
         justifyContent: 'center',
@@ -304,21 +304,21 @@ export default StyleSheet.create({
         width: 100, justifyContent: 'space-between'
     },
 
-    ///----------------------------StoreMe_Topic-------------------------------///
-    StoreMe_AdvertisementPacketBox: {
+    ///----------------------------Seller_Topic-------------------------------///
+    Seller_AdvertisementPacketBox: {
         borderColor: '#EAEAEA', borderWidth: 1,
         width: '90%', height: 50,
         justifyContent: 'center',
         paddingLeft: 10
     },
     //   ------------------>
-    StoreMe_Advertisement_PacketTextInput: {
+    Seller_Advertisement_PacketTextInput: {
         flexDirection: 'row',
         width: '100%', borderColor: '#EAEAEA',
         borderRadius: 5, borderWidth: 1, 
     },
     //   ------------------>
-    StoreMe_Statistics: {
+    Seller_Statistics: {
         borderBottomColor: '#000000',
         borderBottomWidth: 1,
         height: 20,

@@ -116,7 +116,7 @@ export class Headbar extends React.Component {
                         <View style={stylesMain.FlexRow}>
                             <View>
                                 <TouchableOpacity activeOpacity={1}
-                                    onPress={this.navigationNavigateScreen.bind(this, 'StoreMeScreen')}>
+                                    onPress={this.navigationNavigateScreen.bind(this, 'SellerScreen')}>
                                     <View style={stylesProfile.HeadbarBox1Sub}>
                                         <Text style={[
                                             stylesProfile.HeadbarBox1SubText, stylesFont.FontFamilyText, stylesFont.FontSize6
@@ -201,10 +201,9 @@ export class Menubar extends React.Component {
                         <TouchableOpacity activeOpacity={0.9}
                             onPress={this.navigationNavigateScreen.bind(this, 'Total_Order', { selectedIndex: 0 })}>
                             <Text style={[
-                                stylesProfile.MenubarText2, stylesMain.ItemCenterVertical, stylesFont.FontFamilyText,
-                                stylesFont.FontSize6
-                            ]}>
-                                รายการการสั่งซื้อทั้งหมด <IconEntypo name='chevron-right' size={20} />
+                                stylesProfile.MenubarText2, stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize6
+                            ]}>รายการการสั่งซื้อทั้งหมด
+                            <IconEntypo name='chevron-right' size={20} />
                             </Text>
                         </TouchableOpacity>
                     </View>

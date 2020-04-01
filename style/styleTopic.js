@@ -261,4 +261,14 @@ export default StyleSheet.create({
         borderWidth: 1,
     },
     ///----------------------------------------------------------------------------///
+    Box_Brand: {
+        justifyContent:'center',
+        alignItems:'center',
+        backgroundColor: '#FFFFFF',
+        height: 50,
+        width: '30%',
+        borderColor: '#EAEAEA',
+        borderWidth: 1,
+        marginVertical: 5
+    }
 })

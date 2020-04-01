@@ -16,26 +16,26 @@ export default StyleSheet.create({
         paddingTop: 5,
     },
     Logo_Box: {
-        width,
         alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: 50,
+        paddingTop: 20,
+        width,
+        height: 'auto',
     },
     Logo: {
-        height: 80,
-        width: 200,
+        height: 180,
+        width: 280,
     },
     ///--------------------------------------------------------------------------///
     Login_Box: {
         width,
-        marginTop: 40,
+        marginTop: 20,
         justifyContent: 'center',
         alignItems: 'center',
     },
     Login_BoxA: {
-        height: 300,
-        width: 300,
-        backgroundColor: '#F3F3F3',
+        height: 250,
+        width: '80%',
+        backgroundColor: '#FFFFFF',
         borderRadius: 10,
         paddingTop: 20,
         paddingRight: 10,
@@ -58,18 +58,10 @@ export default StyleSheet.create({
         textAlign: 'right',
         color: '#0A55A6',
     },
-    Login_Box_Text_C: {
-        width: 300,
-        marginBottom: 15,
-        marginTop: 15,
-        justifyContent: 'center',
-        alignItems: 'center',
-        // backgroundColor: 'black',
-    },
     Login_Box_Text_B: {
-        width: 120,
+        paddingHorizontal: 50,
         height: 40,
-        backgroundColor: '#0A55A6',
+        backgroundColor: '#17a2b8',
         borderRadius: 10,
     },
     Login__Text: {
@@ -80,29 +72,21 @@ export default StyleSheet.create({
     Register_Box: {
         justifyContent: 'center',
         alignItems: 'center',
-        // flex: 1,
     },
     Register_Box_A: {
-        // height: 250,
-        width: 300,
-        // backgroundColor:'black',
-    },
-    Register_Box_TextA: {
-        textAlign: 'right',
-        color: '#0A55A6',
+        width: '80%',
     },
     Register_Box_Button: {
-        marginTop: 10,
-        width: 300,
+        marginTop: 5,
+        marginBottom:20,
         flexDirection: 'row',
         justifyContent: 'center',
     },
     Register_Box_image: {
         marginLeft: 10,
         height: 40,
-        width: 120,
-        borderRadius: 5,
-        resizeMode: 'stretch',
+        width: 130,
+        resizeMode: 'cover',
     },
     ///--------------------------------------------------------------------------///
     Register_OTP_Box_A: {
@@ -126,7 +110,7 @@ export default StyleSheet.create({
     },
     RegisterScreen_Box_Login: {
         // height: 350,
-        width: 300,
+        width: '80%',
         backgroundColor: '#F3F3F3',
         borderRadius: 10,
         paddingTop: 20,
@@ -166,7 +150,6 @@ export default StyleSheet.create({
     },
     eyestyle: {
         marginTop: -48,
-        backgroundColor: '#F3F3F3',
         paddingBottom: 2,
         padding: 10,
         marginLeft: '86%',

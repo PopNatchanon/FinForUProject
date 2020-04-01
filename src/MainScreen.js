@@ -7,6 +7,7 @@ import {
 import AsyncStorage from '@react-native-community/async-storage'
 import * as Animatable from 'react-native-animatable';
 import Carousel, { PaginationLight } from 'react-native-x-carousel';
+import CookieManager from '@react-native-community/cookies';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import SplashScreen from 'react-native-splash-screen'
@@ -38,8 +39,35 @@ export default class MainScreen extends React.Component {
             activeExit: true,
         };
     }
+    setStateLogin = (autoLogin) => {
+        fetch(finip + '/auth/login_customer', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: autoLogin,
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                console.log('responseJson')
+                console.log(responseJson)
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+    }
     getDataAsync = async () => {
         const currentUser = await AsyncStorage.getItem('@MyKey')
+        const autoLogin = await AsyncStorage.getItem('@MyLongin')
+        CookieManager.get(finip + '/auth/login_customer')
+            .then((res) => {
+                var keycokie = res.token
+                console.log('token')
+                console.log(keycokie)
+                keycokie === undefined && autoLogin !== undefined &&
+                    this.setStateLogin(autoLogin)
+            });
         this.setState({ currentUser: JSON.parse(currentUser) })
     }
     shouldComponentUpdate = (nextProps, nextState) => {
@@ -1807,10 +1835,6 @@ export class Exclusive extends React.Component {
     }
     render() {
         const { loadData, navigation } = this.props
-        {
-            console.log('--------------------------------------dataServicesdsadsaffdgfs'),
-            console.log(loadData)
-        }
         return (
             <View style={stylesMain.FrameBackground2}>
                 <View style={stylesMain.FrameBackgroundTextBox}>

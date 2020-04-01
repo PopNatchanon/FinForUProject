@@ -2,7 +2,7 @@
 import React from 'react';
 import {
     Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
-    StyleSheet, TouchableHighlight,
+    StyleSheet, TouchableHighlight, TextInput,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage'
@@ -124,7 +124,7 @@ export default class CartScreen extends React.Component {
                 {[
                     currentUser && dataBody && activeRefresh == true &&
                     <GetServices uriPointer={uri} dataBody={dataBody}
-                        showConsole={'cart_ajax'}
+                        // showConsole={'cart_ajax'}
                         getDataSource={this.getData.bind(this)} key={'cart_ajax'} />,
                     ArrayItem && activeSave == true &&
                     <GetServices uriPointer={uri2} dataBody={ArrayItem} Authorization={keycokie} getDataSource={this.getData2.bind(this)}
@@ -132,7 +132,7 @@ export default class CartScreen extends React.Component {
                         key={'auto_save_ajax'} />,
                     ArrayItem2 && activeDelete == true &&
                     <GetServices uriPointer={uri3} dataBody={ArrayItem2} Authorization={keycokie} getDataSource={this.getData3.bind(this)}
-                        showConsole={'delete_cart'}
+                        // showConsole={'delete_cart'}
                         key={'delete_cart'} />
                 ]}
                 <AppBar1 navigation={navigation} titleHead='รถเข็น' deleteBar={dataService && dataService.cart_list.length > 0 ? true : false}
@@ -151,7 +151,7 @@ export default class CartScreen extends React.Component {
                     dataService && dataService.cart_list.length > 0 && dataService2 &&
                     <Buy_bar navigation={navigation} dataService2={dataService2} checkedAll={checkedAll} list_order={ArrayItem.list_order}
                         getCheckedAll={this.getCheckedAll.bind(this)} ButtomDeleteAll={ButtomDeleteAll} currentUser={currentUser}
-                        DeleteAction={this.ArrayItem2.bind(this)} />
+                        DeleteAction={this.ArrayItem2.bind(this)} keycokie={keycokie} />
                 }
                 <ExitAppModule navigation={navigation} />
             </SafeAreaView>
@@ -484,8 +484,8 @@ export class Product_Cart extends React.Component {
             }
             this.setState({ HeadArray: arrayItem, activecart: true, dataService2: [], })
         }
-        console.log('dataService')
-        console.log(dataService)
+        // console.log('dataService')
+        // console.log(dataService)
         // checkedAll && checkedAll.activeSave2 == true &&
         //     this.setStateAll(checkedAll.checkedAll)
         return (
@@ -711,15 +711,20 @@ export class Buy_bar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            Coupon: true,
+            dataService: [],
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { checkedAll, dataService2, DeleteAction, getCheckedAll, list_order, navigation } = this.props
+        const { checkedAll, dataService2, DeleteAction, keycokie, getCheckedAll, list_order, navigation } = this.props
+        const { Coupon, dataService, } = this.state;
         if (
             ////>nextProps
-            checkedAll !== nextProps.checkedAll || dataService2 !== nextProps.dataService2 || DeleteAction !== nextProps.DeleteAction ||
-            getCheckedAll !== nextProps.getCheckedAll || list_order !== nextProps.list_order || navigation !== nextProps.navigation
+            checkedAll !== nextProps.checkedAll || dataService2 !== nextProps.dataService2 ||
+            DeleteAction !== nextProps.DeleteAction || keycokie !== nextProps.keycokie || getCheckedAll !== nextProps.getCheckedAll ||
+            list_order !== nextProps.list_order || navigation !== nextProps.navigation ||
             ////>nextState
+            Coupon !== nextState.Coupon || dataService !== nextState.dataService
         ) {
             return true
         }
@@ -736,6 +741,9 @@ export class Buy_bar extends React.Component {
             list_order
         })
     }
+    getData = (dataService) => {
+        this.setState({ dataService, Coupon: false })
+    }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
         value == 'goBack' ?
@@ -746,17 +754,40 @@ export class Buy_bar extends React.Component {
             ) :
                 navigation.push(value, value2)
     }
+    check_coupon = () => {
+        console.log('check_coupon')
+    }
     render() {
-        const { ButtomDeleteAll, checkedAll, dataService2 } = this.props;
+        const { ButtomDeleteAll, checkedAll, currentUser, dataService2, keycokie, list_order, } = this.props;
+        const { Coupon, } = this.state;
+        var uri = finip + '/cart/check_coupon';
+        var dataBody = {
+            id_customer: currentUser.id_customer,
+            list_order
+        };
         return (
             <View style={stylesCart.Bar}>
-                {
+                {[
+                    Coupon == true &&
+                    <GetServices uriPointer={uri}
+                        key={'check_coupon'}
+                        showConsole={'check_coupon'}
+                        Authorization={keycokie}
+                        dataBody={dataBody} getDataSource={this.getData.bind(this)} />,
                     ButtomDeleteAll == false &&
-                    <View style={stylesCart.Bar_Code}>
+                    <View style={stylesCart.Bar_Code} key={'Bar_Code'}>
                         <IconFoundation name='burst' size={30} style={stylesMain.ItemCenterVertical} />
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical]}>
                             โค้ดส่วนลด</Text>
-                        <View style={[stylesCart.Bar_Code_Box, stylesMain.ItemCenterVertical]}></View>
+                        <View style={{ flexDirection: 'row', }}>
+                            <TextInput
+                                style={[stylesCart.Bar_Code_Box, stylesMain.ItemCenterVertical, stylesFont.FontFamilyText,]}
+                                scrollEnabled={false} />
+                            <TouchableOpacity style={[stylesMain.ItemCenterVertical, { marginLeft: -25, }]}
+                                onPress={this.check_coupon.bind(this)}>
+                                <IconFontAwesome name='caret-down' size={20} style={{ textAlignVertical: 'center', }} />
+                            </TouchableOpacity>
+                        </View>
                         <View style={[stylesCart.Bar_Code_Box_Text, stylesMain.ItemCenterVertical]}>
                             <Text style={[
                                 stylesCart.Bar_Code_Text, stylesFont.FontSize6, stylesFont.FontFamilyText, stylesMain.ItemCenterVertical
@@ -764,7 +795,7 @@ export class Buy_bar extends React.Component {
                                 ใช้โค้ด</Text>
                         </View>
                     </View>
-                }
+                ]}
                 <View style={stylesCart.Bar_Buy}>
                     <View>
                         <CheckBox

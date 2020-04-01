@@ -44,7 +44,7 @@ export default StyleSheet.create({
         width,
     },
     Bar_Code: {
-        height: 40,
+        height: 50,
         backgroundColor: '#FFFFFF',
         borderColor: '#ECECEC',
         borderWidth: 1,
@@ -53,10 +53,9 @@ export default StyleSheet.create({
     },
     Bar_Code_Box: {
         width: 200,
-        height: 30,
+        height: 40,
         borderColor: '#ECECEC',
         borderWidth: 1,
-        paddingTop: 5,
     },
     Bar_Code_Box_Text: {
         width: 60,

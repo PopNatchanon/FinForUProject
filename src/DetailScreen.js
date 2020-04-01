@@ -86,7 +86,9 @@ export default class DetailScreen extends React.Component {
   }
   render() {
     const { navigation } = this.props
-    const { currentUser, BuyProduct, dataService, getStarReview, keycokie, scrollY, setActive } = this.state
+    const {
+      currentUser, BuyProduct, dataService, getStarReview, keycokie, scrollY, setActive, setShowItemImage, showItemImage
+    } = this.state
     var id_product = navigation.getParam('id_item')
     var uri = finip + '/product/product_detail_mobile';
     var dataBody = {
@@ -94,10 +96,10 @@ export default class DetailScreen extends React.Component {
     };
     return (
       <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
-        {/* {
+        {
           showItemImage == true &&
           <Show_Image showImage={this.showImage.bind(this)} setShowItemImage={setShowItemImage} />
-        } */}
+        }
         <GetServices uriPointer={uri}
           // showConsole={'product_detail_mobile'} 
           dataBody={dataBody} getDataSource={this.getData.bind(this)} />
@@ -272,19 +274,21 @@ export class Detail_Data extends React.Component {
     this.state = {
       activeLike: false,
       activeService2: true,
-      dataService2: []
+      dataService2: [],
     };
   }
   shouldComponentUpdate = (nextProps, nextState) => {
     const { currentUser, dataService, getStarReview, id_product, keycokie } = this.props;
-    const { activeLike, activeService2, dataService2 } = this.state
+    const { activeLike, activeService2, dataService2, newDataService } = this.state
     if (
       ////>nextProps
       currentUser !== nextProps.currentUser || dataService !== nextProps.dataService || getStarReview !== nextProps.getStarReview ||
       id_product !== nextProps.id_product || keycokie !== nextProps.keycokie ||
       ////>nextState
-      activeLike !== nextState.activeLike || activeService2 !== nextState.activeService2 || dataService2 !== nextState.dataService2
+      activeLike !== nextState.activeLike || activeService2 !== nextState.activeService2 || dataService2 !== nextState.dataService2 ||
+      newDataService !== nextState.newDataService
     ) {
+
       return true
     }
     return false
@@ -320,7 +324,37 @@ export class Detail_Data extends React.Component {
   }
   get body() {
     const { dataService, getStarReview } = this.props
-    const { dataService2 } = this.state
+    const { dataService2, newDataService } = this.state
+    var dataBody
+    if (dataService.detail_product !== undefined && newDataService === undefined) {
+      var newData = []
+      for (var n = 0; n < dataService.detail_product.length; n++) {
+        dataBody = {
+          id_product: dataService.product_data[0].id_product,
+          detail_color: dataService.detail_product[n].detail_1
+        }
+        fetch(finip + '/product/get_value_size', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(dataBody),
+        })
+          .then((response) => response.json())
+          .then((responseJson) => {
+            for (var m = 0; m < responseJson.data_size.length; m++) {
+              newData.push(responseJson.data_size[m])
+            }
+          })
+          .catch((error) => {
+            console.error(error)
+          })
+      }
+      this.setState({ newDataService: newData })
+    }
+    console.log('---------------------------------->newDataService<----------------------------------')
+    console.log(newDataService)
     return dataService.product_data &&
       dataService.product_data.map((item, index) => {
         return (
@@ -360,10 +394,9 @@ export class Detail_Data extends React.Component {
                   {
                     dataService2 &&
                     <TouchableOpacity onPress={this.setStateLike.bind(this)}>
-                      <IconFontAwesome style={stylesDetail.Price_Icon} name={dataService2.message == 'like' ? 'heart' : 'heart-o'}
-                        size={20} style={{
-                          color: dataService2.message == 'like' ? '#ff0066' : '#111111'
-                        }} />
+                      <IconFontAwesome style={[stylesDetail.Price_Icon, {
+                        color: dataService2.message == 'like' ? '#ff0066' : '#111111'
+                      }]} name={dataService2.message == 'like' ? 'heart' : 'heart-o'} size={20} />
                     </TouchableOpacity>
                   }
                   <IconEntypo style={stylesDetail.Price_Icon} name='share' size={20} />
@@ -1737,11 +1770,13 @@ export class Show_Image extends React.Component {
         var items = { uri: [finip, item.image_full_path, item.image].join('/') }
         dataMySQL.push(items)
       })
+    console.log('dataMySQL|setShowItemImage')
+    console.log(dataMySQL)
     return dataMySQL
   }
   render() {
     const { showImage } = this.props
-    var dataMySQL = this.setShowItemImage.bind(this)
+    var dataMySQL = this.setShowItemImage()
     return (
       <Modal
         animationType='fade'

@@ -106,6 +106,13 @@ export class Login extends React.Component {
       // saving error
     }
   }
+  storeLogin = async (item) => {
+    try {
+      await AsyncStorage.setItem('@MyLongin', JSON.stringify(item))
+    } catch (e) {
+      // saving error
+    }
+  }
   clearAll = async () => {
     try {
       await AsyncStorage.clear()
@@ -135,13 +142,11 @@ export class Login extends React.Component {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        var userser = {};
-        CookieManager.get(finip + '/auth/login_customer')
-          .then((res) => {
-          });
         this.clearAll()
         this.storeData(responseJson.data)
         if (responseJson.data != null) {
+          var userser = { email: user.email, password: user.password }
+          this.storeLogin(userser)
           this.navigationNavigateScreen('MainScreen');
         } else {
           this.navigationNavigateScreen('MainScreen');

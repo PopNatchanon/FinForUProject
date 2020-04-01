@@ -133,7 +133,7 @@ export class Second_Product extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         <GetServices
-          uriPointer={uri}
+          uriPointer={uri}  
           dataBody={dataBody}
           getDataSource={this.getData.bind(this)} />
         <ScrollView stickyHeaderIndices={[5]}>

@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React from 'react';
 import {
-    Animated, BackHandler, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
+    Animated, BackHandler, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, Button,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage'
@@ -9,7 +9,10 @@ import * as Animatable from 'react-native-animatable';
 import Carousel, { PaginationLight } from 'react-native-x-carousel';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
-import SplashScreen from 'react-native-splash-screen'
+import SplashScreen from 'react-native-splash-screen';
+import SlidingView from 'rn-sliding-view';
+import BottomSheet from "react-native-raw-bottom-sheet";
+import ActionButton from 'react-native-action-button';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -22,6 +25,7 @@ import stylesDeal from '../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
+import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { BrowerScreen, GetServices, LoadingScreen, ProductBox, Toolbar, TabBar, } from './tools/Tools';
 import NumberFormat from 'react-number-format';
@@ -125,6 +129,7 @@ export default class MainScreen extends React.Component {
                         <FIN_Supermarket navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />
                         <TodayProduct navigation={navigation} loadData={dataService.for_you2} />
                     </ScrollView>
+                    <Botton_PopUp_FIN />
                     <Toolbar navigation={navigation} />
                     <ExitAppModule navigation={navigation} />
                 </SafeAreaView>
@@ -2295,7 +2300,7 @@ export class FIN_Supermarket extends React.Component {
                                 pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} widthBox={98} radiusBox={5} />
                         }
                     </ScrollView>
-                </View> 
+                </View>
                 <View style={[stylesMain.FlexRow, { height: 170, padding: 5, justifyContent: 'space-between', marginTop: 10 }]}>
                     <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'FinMallScreen', { selectedIndex: 0 })}
                         style={{ width: width * 0.64, }}>
@@ -2521,5 +2526,56 @@ export class TodayProduct extends React.Component {
                 </View>
             </View>
         )
+    }
+}
+///----------------------------------------------------------------------------------------------->>>>
+export class Botton_PopUp_FIN extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            activeSliding: false,
+
+        };
+    }
+    toggleComponentVisibility = () =>
+        this.setState({ activeSliding: !this.state.activeSliding });
+
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.push(value, value2)
+    }
+    render() {
+        const { activeSliding } = this.state
+        console.log(activeSliding)
+        return (
+            <>
+                <View style={{ alignItems: 'flex-end' }}>
+                    <TouchableOpacity onPress={() => this.toggleComponentVisibility()}>
+                        <FastImage
+                            style={{ height: 60, width: 60 }}
+                            source={require('../icon/FIN_Chat-01.png')}
+                            resizeMode={FastImage.resizeMode.contain} />
+                    </TouchableOpacity>
+                </View>
+                <SlidingView
+                    disableDrag
+                    componentVisible={activeSliding}
+                    containerStyle={{
+                        backgroundColor: null,
+                        justifyContent: 'center',
+                        alignContent: 'stretch',
+                        width: '100%'
+                    }}
+                    position="right">
+                    <View style={{ backgroundColor: 'red', width, height }}></View>
+                </SlidingView>
+            </>
+        );
     }
 }

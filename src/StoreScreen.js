@@ -32,6 +32,16 @@ export default class StoreScreen extends React.Component {
             scrollY: new Animated.Value(0)
         };
     }
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.push(value, value2)
+    }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { navigation, } = this.props;
         const { dataService, selectedIndex, selectedIndex2, scrollY, } = this.state
@@ -212,6 +222,17 @@ export default class StoreScreen extends React.Component {
                     <Menubar navigation={navigation} item={s_item} getSelectedIndex={this.getSelectedIndex.bind(this)} />
                     {this.ViewSide(selectedIndex, s_item)}
                 </ScrollView>
+                {
+                    selectedIndex == 2 &&
+                    <>
+                        <ActionButton buttonColor="#0A55A6" size={50}>
+                            <ActionButton.Item buttonColor='#dc3545' title="เขียนโพสต์"
+                                onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', { selectedIndex: 7 })}>
+                                <Icon name="md-create" color='#FFFFFF' size={25} />
+                            </ActionButton.Item>
+                        </ActionButton>
+                    </>
+                }
                 <ExitAppModule navigation={navigation} />
             </View>
         );
@@ -902,10 +923,6 @@ export class BoxProduct4 extends React.Component {
         };
         return (
             <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, { marginTop: 0, marginBottom: 10 }]}>
-                <TouchableOpacity activeOpacity={1}
-                    onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', { selectedIndex: 7 })}>
-                    <View style={{ height: 100, width: 100, backgroundColor: 'red' }}></View>
-                </TouchableOpacity>
                 <GetServices
                     uriPointer={uri}
                     dataBody={dataBody}
@@ -925,30 +942,3 @@ export class BoxProduct4 extends React.Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>>
-export class Test_Button extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
-    render() {
-        return (
-            <ActionButton buttonColor='RGBA(231,76,60,1)'>
-                <ActionButton.Item buttonColor='#0A55A6' title="New Post"
-                    onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', { selectedIndex: 7 })}>
-                    <Icon name="md-create" size={20} color='#FFFFFF' />
-                </ActionButton.Item>
-            </ActionButton>
-        );
-    }
-}

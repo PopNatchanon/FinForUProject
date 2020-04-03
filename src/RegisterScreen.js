@@ -42,7 +42,7 @@ export default class Register_OTPScreen extends React.Component {
   render() {
     const { navigation } = this.props
     return (
-      <SafeAreaView style={stylesMain.SafeAreaView}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#071727' }}>
         <ScrollView>
           <Logo />
           <Login navigation={navigation} />
@@ -573,7 +573,7 @@ export class Login extends React.Component {
               ฉันยอมรับเงื่อนไขของ FIN ข้อตกลงการใช้งาน และยินยอมดำเนินการกับข้อมูลส่วนตัวตามที่ระบุใน นโยบายส่วนตัว</Text>
           </View>
         </View>
-        <View style={stylesLogin.Login_Box_Text_C}>
+        <View style={[stylesMain.ItemCenter, { marginBottom: 10 }]}>
           <TouchableOpacity activeOpacity={
             item1 == true ?
               0.2 :
@@ -601,6 +601,7 @@ export class Login extends React.Component {
   render() {
     return (
       <View style={stylesLogin.Login_Box}>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: '#FFFFFF', margin: 5 }]}>สมัครสมาชิก</Text>
         <View style={stylesLogin.RegisterScreen_Box_Login}>
           {this.FormBody}
         </View>
@@ -637,7 +638,7 @@ export class Register extends React.Component {
       <View style={[stylesMain.ItemCenter, { marginBottom: 10 }]}>
         <View style={[stylesMain.FlexRow, { marginTop: 10, }]}>
           <View style={{ height: 50, width: 250, marginTop: 20, marginLeft: 20, }}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#FFFFFF' }]}>
               ฉันต้องการรับข้อเสนอและโปรโมชันสุดพิเศษจาก FIN</Text>
           </View>
           <CheckBox
@@ -649,8 +650,8 @@ export class Register extends React.Component {
             onPress={this.setStateItem1.bind(this)} />
         </View>
         <View>
-          <Text style={[stylesFont.FontCenter, stylesFont.FontSize5, stylesFont.FontFamilyText, { margin: 10 }]}>
-            สมัครสมาชิกด้วยช่องทางอื่น</Text>
+          <Text style={[stylesFont.FontCenter, stylesFont.FontSize5, stylesFont.FontFamilyText, { margin: 10, color: '#FFFFFF' }]}>
+            ---------- สมัครสมาชิกด้วยช่องทางอื่น ----------</Text>
         </View>
         <View style={stylesLogin.Register_Box_Button}>
           <TouchableOpacity>

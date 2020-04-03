@@ -79,7 +79,7 @@ export class Logo extends React.Component {
         >
           <FastImage
             style={stylesLogin.Logo}
-            source={require('../icon/sign-in-logo.png')}
+            source={require('../images/add_cart_fin.png')}
             resizeMode={FastImage.resizeMode.contain}
           />
         </ImageBackground>

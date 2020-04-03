@@ -1,20 +1,24 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React from 'react';
 import {
-    Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
+    Animated, Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
     StyleSheet, TouchableHighlight, TextInput,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
+import * as Animatable from 'react-native-animatable';
 import AsyncStorage from '@react-native-community/async-storage'
+import BottomSheet from "react-native-raw-bottom-sheet";
 import { CheckBox } from 'react-native-elements';
 import CookieManager from '@react-native-community/cookies';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
+import ModalDropdown from 'react-native-modal-dropdown';
 import NumberFormat from 'react-number-format';
 import { SwipeListView } from '@nvthai/react-native-swipe-list-view';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
+import IconFontisto from 'react-native-vector-icons/Fontisto';
 import IconFoundation from 'react-native-vector-icons/Foundation';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesCart from '../style/stylesCartScreen';
@@ -711,24 +715,91 @@ export class Buy_bar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            create_bill: false,
+            check_coupon: false,
+            check_coupon2: false,
             Coupon: true,
             dataService: [],
+            errorService3: false,
+            otherCoupon: false,
+            Service3: false,
         };
+        this.springValue = new Animated.Value(0);
+        this.transformValue = new Animated.Value(100)
+    }
+    _spring = () => {
+        this.setState({ errorService3: true }, () => {
+            Animated.sequence([
+                Animated.timing(
+                    this.transformValue,
+                    {
+                        toValue: -.08 * height,
+                        friction: 5,
+                        duration: 300,
+                        useNativeDriver: true,
+                    }
+                ),
+                Animated.timing(
+                    this.springValue,
+                    {
+                        toValue: 1,
+                        duration: 300,
+                        useNativeDriver: true,
+                    }
+                ),
+                Animated.timing(
+                    this.springValue,
+                    {
+                        toValue: 1,
+                        duration: 700,
+                        useNativeDriver: true,
+                    }
+                ),
+                Animated.timing(
+                    this.springValue,
+                    {
+                        toValue: 0,
+                        duration: 300,
+                        useNativeDriver: true,
+                    }
+                ),
+                Animated.timing(
+                    this.transformValue,
+                    {
+                        toValue: 100,
+                        duration: 300,
+                        useNativeDriver: true,
+                    }
+                ),
+            ]).start(() => {
+                this.setState({ errorService3: false });
+            });
+        });
     }
     shouldComponentUpdate = (nextProps, nextState) => {
         const { checkedAll, dataService2, DeleteAction, keycokie, getCheckedAll, list_order, navigation } = this.props
-        const { Coupon, dataService, } = this.state;
+        const {
+            create_bill, check_coupon, check_coupon2, Coupon, dataBody2, dataBody3, dataBody4, dataService, dataService3, dataService4,
+            dataService5, errorService3, otherCoupon, Service3, text,
+        } = this.state;
         if (
             ////>nextProps
             checkedAll !== nextProps.checkedAll || dataService2 !== nextProps.dataService2 ||
             DeleteAction !== nextProps.DeleteAction || keycokie !== nextProps.keycokie || getCheckedAll !== nextProps.getCheckedAll ||
             list_order !== nextProps.list_order || navigation !== nextProps.navigation ||
             ////>nextState
-            Coupon !== nextState.Coupon || dataService !== nextState.dataService
+            create_bill !== nextState.create_bill || check_coupon !== nextState.check_coupon || check_coupon2 !== nextState.check_coupon2 ||
+            Coupon !== nextState.Coupon || dataBody2 !== nextState.dataBody2 || dataBody3 !== nextState.dataBody3 ||
+            dataBody4 !== nextState.dataBody4 || dataService !== nextState.dataService || dataService3 !== nextState.dataService3 ||
+            dataService4 !== nextState.dataService4 || dataService5 != nextState.dataService5 || errorService3 !== nextState.errorService3 ||
+            otherCoupon !== nextState.otherCoupon || Service3 !== nextState.Service3 || text !== nextState.text
         ) {
             return true
         }
         return false
+    }
+    componentDidMount() {
+        this.setStateCancel()
     }
     StateBox = () => {
         const { checkedAll, getCheckedAll, } = this.props
@@ -744,6 +815,59 @@ export class Buy_bar extends React.Component {
     getData = (dataService) => {
         this.setState({ dataService, Coupon: false })
     }
+    getData2 = (dataService3) => {
+        const { currentUser, list_order, } = this.props;
+        const { text, } = this.state;
+        console.log('dataService3')
+        console.log(dataService3)
+        var dataBody3 = {
+            id_customer: currentUser.id_customer,
+            list_order,
+            use_coupon: '',
+            other_coupon: text,
+        }
+        var dataBody4 = {
+            id_customer: currentUser.id_customer,
+            id_cartdetail: list_order,
+            use_coupon: '',
+            other_coupon: text,
+            buy_now: "cart"
+        }
+        dataService3.coupon_message !== 'เงื่อนไขส่วนลดไม่ถูกต้อง' ?
+            this.setState({ dataBody3, dataBody4, dataService3, otherCoupon: false, Service3: true, check_coupon: true }) :
+            this.setState({ errorService3: true, otherCoupon: false, text: '' })
+    }
+    setStateCoupon2 = (dataService4) => {
+        const { currentUser, list_order, } = this.props;
+        console.log('dataService4')
+        console.log(dataService4)
+        var dataBody3 = {
+            id_customer: currentUser.id_customer,
+            list_order,
+            use_coupon: dataService4.id_coupon,
+            other_coupon: '',
+        }
+        var dataBody4 = {
+            id_customer: currentUser.id_customer,
+            id_cartdetail: list_order,
+            use_coupon: dataService4.id_coupon,
+            other_coupon: '',
+            buy_now: "cart"
+        }
+        this.setState({ dataBody3, dataBody4, dataService4, check_coupon: true })
+        this.ConponSheet.close();
+    }
+    getData3 = (dataService5) => {
+        const { check_coupon2, } = this.state;
+        console.log('dataService5')
+        console.log(dataService5)
+        this.setState({ dataService5, check_coupon: false, Service3: check_coupon2 == true ? false : true, check_coupon2: false })
+    }
+    getData4 = (dataService6) => {
+        console.log('dataService6')
+        console.log(dataService6)
+        this.navigationNavigateScreen('Customer_Order', { no_invoice: dataService6.no_invoice })
+    }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
         value == 'goBack' ?
@@ -754,19 +878,95 @@ export class Buy_bar extends React.Component {
             ) :
                 navigation.push(value, value2)
     }
-    check_coupon = () => {
-        console.log('check_coupon')
+    setStateText = (text) => {
+        this.setState({ text })
+    }
+    setStateCancel = () => {
+        const { currentUser, list_order, } = this.props;
+        var dataBody3 = {
+            id_customer: currentUser.id_customer,
+            list_order,
+            use_coupon: '',
+            other_coupon: '',
+        }
+        var dataBody4 = {
+            id_customer: currentUser.id_customer,
+            id_cartdetail: list_order,
+            use_coupon: '',
+            other_coupon: '',
+            buy_now: "cart"
+        }
+        this.setState({
+            dataBody3, dataBody4, dataService3: [], dataService4: [], dataService5: [], Service3: false, text: '', check_coupon: true,
+            check_coupon2: true
+        })
+    }
+    setStateCoupon = () => {
+        const { currentUser, list_order, } = this.props;
+        const { text, } = this.state;
+        var dataBody2 = {
+            id_customer: currentUser.id_customer,
+            list_order,
+            my_coupon: text,
+        };
+        console.log(dataBody2)
+        text !== undefined &&
+            this.setState({ otherCoupon: true, dataBody2 })
+    }
+    get ConponSheetBody() {
+        const { dataService } = this.state
+        return (
+            dataService && dataService.coupon_data && dataService.coupon_data.length > 0 &&
+            <>
+                <View style={{ flex: 1, paddingHorizontal: 15 }}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { textAlign: 'center' }]}>ส่วนลด</Text>
+                    <ScrollView>
+                        {
+                            dataService && dataService.coupon_data && dataService.coupon_data.length > 0 ?
+                                dataService.coupon_data.map((item, index) => {
+                                    return <Coupon_Detail_BottomSheet dataService={item} key={index}
+                                        getDataSource={this.setStateCoupon2.bind(this)} />
+                                }) :
+                                null
+                        }
+                    </ScrollView>
+                </View>
+            </>
+        )
+    }
+    ConponSheetButtom = () => {
+        this.ConponSheet.open();
+    }
+    setStateBill = () => {
+        this.setState({ create_bill: true })
     }
     render() {
         const { ButtomDeleteAll, checkedAll, currentUser, dataService2, keycokie, list_order, } = this.props;
-        const { Coupon, } = this.state;
+        const {
+            create_bill, check_coupon, Coupon, dataBody2, dataBody3, dataBody4, dataService3, dataService4, dataService5, errorService3,
+            otherCoupon,
+            Service3,
+            text,
+        } = this.state;
         var uri = finip + '/cart/check_coupon';
         var dataBody = {
             id_customer: currentUser.id_customer,
             list_order
         };
-        return (
-            <View style={stylesCart.Bar}>
+        var uri2 = finip + '/coupon/get_other_coupon';
+        var uri3 = finip + '/cart/track_data';
+        var uri4 = finip + '/bill/create_bill';
+        errorService3 === true &&
+            this._spring()
+        return ([
+            <Animatable.View key={'Animatable'} style={[stylesMain.animatedView, {
+                opacity: this.springValue, transform: [{ translateY: this.transformValue }]
+            }]}>
+                <View style={[stylesMain.animatedViewSub, { position: 'absolute' }]}>
+                    <Text style={[stylesMain.exitTitleText, stylesFont.FontFamilyText, { color: 'red' }]}>เงื่อนไขส่วนลดไม่ถูกต้อง</Text>
+                </View>
+            </Animatable.View>,
+            <View style={stylesCart.Bar} key={'CartBar'}>
                 {[
                     Coupon == true &&
                     <GetServices uriPointer={uri}
@@ -774,26 +974,84 @@ export class Buy_bar extends React.Component {
                         showConsole={'check_coupon'}
                         Authorization={keycokie}
                         dataBody={dataBody} getDataSource={this.getData.bind(this)} />,
+                    otherCoupon == true &&
+                    <GetServices uriPointer={uri2}
+                        key={'get_other_coupon'}
+                        showConsole={'get_other_coupon'}
+                        Authorization={keycokie}
+                        dataBody={dataBody2} getDataSource={this.getData2.bind(this)} />,
+                    check_coupon == true &&
+                    <GetServices uriPointer={uri3}
+                        key={'track_data'}
+                        showConsole={'track_data'}
+                        Authorization={keycokie}
+                        dataBody={dataBody3} getDataSource={this.getData3.bind(this)} />,
+                    create_bill == true &&
+                    <GetServices uriPointer={uri4}
+                        key={'create_bill'}
+                        showConsole={'create_bill'}
+                        Authorization={keycokie}
+                        dataBody={dataBody4} getDataSource={this.getData4.bind(this)} />,
                     ButtomDeleteAll == false &&
                     <View style={stylesCart.Bar_Code} key={'Bar_Code'}>
-                        <IconFoundation name='burst' size={30} style={stylesMain.ItemCenterVertical} />
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical]}>
+                        <IconFoundation name='burst' size={30} style={[stylesMain.ItemCenterVertical, { left: 5, width: '8%' }]} />
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical, {
+                            left: '8%', width: '16%'
+                        }]}>
                             โค้ดส่วนลด</Text>
-                        <View style={{ flexDirection: 'row', }}>
-                            <TextInput
-                                style={[stylesCart.Bar_Code_Box, stylesMain.ItemCenterVertical, stylesFont.FontFamilyText,]}
-                                scrollEnabled={false} />
-                            <TouchableOpacity style={[stylesMain.ItemCenterVertical, { marginLeft: -25, }]}
-                                onPress={this.check_coupon.bind(this)}>
-                                <IconFontAwesome name='caret-down' size={20} style={{ textAlignVertical: 'center', }} />
-                            </TouchableOpacity>
-                        </View>
-                        <View style={[stylesCart.Bar_Code_Box_Text, stylesMain.ItemCenterVertical]}>
-                            <Text style={[
-                                stylesCart.Bar_Code_Text, stylesFont.FontSize6, stylesFont.FontFamilyText, stylesMain.ItemCenterVertical
-                            ]}>
-                                ใช้โค้ด</Text>
-                        </View>
+                        {
+                            Service3 == true ?
+                                <View style={{ flexDirection: 'row' }}>
+                                    <Text style={[stylesCart.Bar_Code_Box, stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, {
+                                        borderWidth: 0, textAlignVertical: 'center'
+                                    }]}>
+                                        {dataService4 ? dataService4.name : dataService3.coupon_message}
+                                    </Text>
+                                </View> :
+                                <View style={{ flexDirection: 'row' }}>
+                                    <TextInput
+                                        style={[stylesCart.Bar_Code_Box, stylesMain.ItemCenterVertical, stylesFont.FontFamilyText,]}
+                                        onChangeText={this.setStateText.bind(this)} value={text} />
+                                    <BottomSheet
+                                        ref={ref => {
+                                            this.ConponSheet = ref;
+                                        }}
+                                        height={height * 0.5}
+                                        duration={250}
+                                        customStyles={{
+                                            container: {
+                                                paddingTop: 10,
+                                                alignItems: "center",
+                                                borderTopLeftRadius: 10,
+                                                borderTopRightRadius: 10,
+                                            }
+                                        }}>
+                                        {this.ConponSheetBody}
+                                    </BottomSheet>
+                                    <TouchableOpacity onPress={this.ConponSheetButtom.bind(this)} style={{ marginLeft: -35 }}>
+                                        <IconFontAwesome name='caret-down' size={20} style={{
+                                            textAlign: 'center', textAlignVertical: 'center', width: 40, height: '100%'
+                                        }} />
+                                    </TouchableOpacity>
+                                </View>
+                        }
+                        {
+                            Service3 == true ?
+                                <TouchableOpacity onPress={this.setStateCancel.bind(this)} style={{ width: 100, marginLeft: 0 }}>
+                                    <IconFontisto name='close-a' size={20} style={[stylesMain.ItemCenterVertical, {
+                                        color: 'red', marginLeft: 5
+                                    }]} />
+                                </TouchableOpacity> :
+                                <TouchableOpacity onPress={this.setStateCoupon.bind(this)} style={{ width: 100, marginLeft: 0 }}>
+                                    <View style={[stylesCart.Bar_Code_Box_Text, stylesMain.ItemCenterVertical, { marginLeft: 5 }]}>
+                                        <Text style={[
+                                            stylesCart.Bar_Code_Text, stylesFont.FontSize6, stylesFont.FontFamilyText,
+                                            stylesMain.ItemCenterVertical
+                                        ]}>
+                                            ใช้โค้ด</Text>
+                                    </View>
+                                </TouchableOpacity>
+                        }
                     </View>
                 ]}
                 <View style={stylesCart.Bar_Buy}>
@@ -812,7 +1070,7 @@ export class Buy_bar extends React.Component {
                             <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                 รวมทั้งหมด</Text>
                             <NumberFormat
-                                value={dataService2 && dataService2.now_total}
+                                value={dataService5 ? dataService5.now_total : dataService2 && dataService2.now_total}
                                 displayType={'text'}
                                 thousandSeparator={true}
                                 prefix={'฿'}
@@ -827,12 +1085,69 @@ export class Buy_bar extends React.Component {
                     <TouchableOpacity activeOpacity={1} onPress={
                         ButtomDeleteAll == true ?
                             this.DeleteAction.bind(this) :
-                            this.navigationNavigateScreen.bind(this, 'Customer_Order')}>
+                            this.setStateBill.bind(this)}>
                         <View style={stylesCart.BOX_Buy}>
                             <Text style={[
                                 stylesCart.BOX_Buy_Text, stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical
                             ]}>
                                 {ButtomDeleteAll == true ? 'ลบ' : 'ชำระเงิน'}</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+            </View >
+        ]);
+    }
+}
+
+///----------------------------------------------------------------------------------------------->>>>
+export class Coupon_Detail_BottomSheet extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        const { dataService, getDataSource } = this.props
+        if (
+            ////>nextProps
+            dataService !== nextProps.dataService || getDataSource !== nextProps.getDataSource
+            ////>nextState
+        ) {
+            return true
+        }
+        return false
+    }
+    saveTicket = (dataService) => {
+        const { getDataSource, } = this.props
+        getDataSource(dataService)
+    }
+    render() {
+        const { dataService, } = this.props
+        console.log(dataService)
+        return (
+            <View style={{
+                width: '100%', height: 100, borderWidth: 1,
+                backgroundColor: dataService.ticket_picked == 'ticket_picked' ? '#A9A9A9' : '#C0DBF9',
+                flexDirection: 'row', justifyContent: 'space-between', padding: 15, borderRadius: 5, marginVertical: 10,
+                opacity: dataService.ticket_picked == 'ticket_picked' ? 0.6 : 1,
+            }}>
+                <View style={{ width: '60%' }}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>{dataService.name}</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>{dataService.detail}</Text>
+                </View>
+                <View style={{ justifyContent: 'space-between' }}>
+                    <View style={{ backgroundColor: '#C4C4C4' }}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { paddingHorizontal: 2 }]}>
+                            2020.02.22-2020.03.01</Text>
+                    </View>
+                    <TouchableOpacity
+                        onPress={this.saveTicket.bind(this, dataService)}>
+                        <View style={[stylesMain.ItemCenter, {
+                            backgroundColor: '#0A55A6', paddingHorizontal: 10,
+                            borderRadius: 5
+                        }]}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>
+                                {'ใช้คูปอง'}</Text>
                         </View>
                     </TouchableOpacity>
                 </View>

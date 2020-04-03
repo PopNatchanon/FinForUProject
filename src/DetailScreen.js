@@ -1858,7 +1858,7 @@ export class Coupon_Detail_BottomSheet extends React.Component {
             Authorization={keycokie}
             getDataSource={this.getData.bind(this)} />
         }
-        <View>
+        <View style={{ width: '60%' }}>
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>{dataService.name}</Text>
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>{dataService.detail}</Text>
         </View>

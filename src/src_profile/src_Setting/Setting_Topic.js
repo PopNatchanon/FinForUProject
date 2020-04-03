@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-  Dimensions, Picker, SafeAreaView, Text, TextInput, TouchableOpacity, View,
+  Dimensions, Picker, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
@@ -63,15 +63,11 @@ export default class Setting_Topic extends Component {
         )
       case 1:
         return (
-          <View>
-            <Edit_Address navigation={navigation} />
-          </View>
+          <Edit_Address navigation={navigation} />
         )
       case 2:
         return (
-          <View>
-            <Edit_Chat navigation={navigation} />
-          </View>
+          <Edit_Chat navigation={navigation} />
         )
       case 3:
         return (
@@ -108,7 +104,7 @@ export default class Setting_Topic extends Component {
   render() {
     const { navigation, } = this.props
     return (
-      <SafeAreaView style={stylesMain.SafeAreaView}>
+      <SafeAreaView style={[stylesMain.SafeAreaView]}>
         {this.PathList()}
         <ExitAppModule navigation={navigation} />
       </SafeAreaView>
@@ -634,19 +630,26 @@ export class Edit_Address extends Component {
   }
   render() {
     const { navigation } = this.props
+    const dataService = navigation.getParam('dataService')
+    const type = navigation.getParam('type')
     return (
-      <SafeAreaView>
+      <View style={{ flex: 1, height: '100%' }}>
         <AppBar1 backArrow navigation={navigation} titleHead='ที่อยู่ของฉัน' />
-        <Address_Customar MainAddress />
-        <Address_Customar />
-        <View style={{ alignItems: 'center', justifyContent: 'flex-end', height: 475 }}>
+        <ScrollView style={{ height: 1000 }}>
+          {
+            dataService.map((value, index) => {
+              return <Address_Customar dataService={value} index={index} navigation={navigation} type={type} />
+            })
+          }
+        </ScrollView>
+        <View style={{ alignItems: 'center', justifyContent: 'flex-end' }}>
           <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Customer_account')}>
             <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>เพิ่มที่อยู่</Text>
             </View>
           </TouchableOpacity>
         </View>
-      </SafeAreaView>
+      </View>
     );
   }
 }
@@ -668,27 +671,37 @@ export class Address_Customar extends Component {
     }
     return false
   }
+  returnValue = (value) => {
+    const { navigation } = this.props
+    navigation.state.params.updateData(value);
+    navigation.goBack();
+
+  }
   render() {
-    const { MainAddress } = this.props
+    const { dataService, index, type } = this.props
+    console.log('dataService')
+    console.log(dataService)
     return (
-      <View style={stylesProfileTopic.Address_Customar}>
-        <View style={stylesProfileTopic.Address_Customar_Box}>
-          <View style={stylesMain.FlexRow}>
-            <IconEvilIcons name='location' size={30} color='#0A55A6' />
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ที่อยู่ในการจัดส่ง</Text>
-          </View>
-          {
-            MainAddress ?
-              null :
+      <TouchableOpacity key={index} onPress={type == 'select' ? this.returnValue.bind(this, dataService.id_address) : null}>
+        <View style={stylesProfileTopic.Address_Customar}>
+          <View style={stylesProfileTopic.Address_Customar_Box}>
+            <View style={stylesMain.FlexRow}>
+              <IconEvilIcons name='location' size={30} color='#0A55A6' />
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ที่อยู่ในการจัดส่ง</Text>
+            </View>
+            {
+              dataService.main_address == 1 &&
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#0A55A6' }]}>[ค่าเริ่มต้น]</Text>
-          }
+            }
+          </View>
+          <View style={{ marginLeft: 50, marginBottom: 10, }}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { paddingLeft: 8 }]}>
+              {dataService.customer_name} | {dataService.telephone_number}</Text>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { paddingLeft: 8, width: '90%', }]}>
+              {dataService.address}</Text>
+          </View>
         </View>
-        <View style={{ marginLeft: 50, marginBottom: 10, }}>
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>Tester ABC | 099-9999999</Text>
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>99 Sukhumvit, Bangkok, 10110</Text>
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>PPooy@hotmail.co.th</Text>
-        </View>
-      </View>
+      </TouchableOpacity>
     );
   }
 }
@@ -719,7 +732,7 @@ export class Edit_Chat extends Component {
     const { navigation, } = this.props
     const { item1, } = this.state
     return (
-      <SafeAreaView>
+      <>
         <AppBar1 backArrow navigation={navigation} titleHead='ตั้งค่าการแชท' />
         <View style={stylesProfileTopic.BoxTopic}>
           <View style={{ margin: 10 }}>
@@ -735,7 +748,7 @@ export class Edit_Chat extends Component {
             checked={item1}
             onPress={this.setStateItem1.bind(this, !item1)} />
         </View>
-      </SafeAreaView>
+      </>
     );
   }
 }

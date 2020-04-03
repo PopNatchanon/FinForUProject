@@ -130,15 +130,14 @@ export class Seller_Setting_Topic extends Component {
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ให้คะแนนเราสิ</Text>
                     <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                 </View>
-
-                <View style={{ alignItems: 'center' }}>
-                    <TouchableOpacity style={{ marginTop: 10 }} onPress={this.handleOpen}>
-                        <View style={stylesProfileTopic.Button_Logout}>
-                            <View style={stylesProfileTopic.Button_LogoutBox}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ออกจากระบบ</Text>
-                            </View>
+                <TouchableOpacity onPress={this.handleOpen} style={{ marginTop: 10 }}>
+                    <View style={stylesProfileTopic.Button_Logout}>
+                        <View style={stylesProfileTopic.Button_LogoutBox}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ออกจากระบบ</Text>
                         </View>
-                    </TouchableOpacity>
+                    </View>
+                </TouchableOpacity>
+                <View style={{ alignItems: 'center', marginTop: 10 }}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginTop: 5 }]}>FIN Shopping V 1.0.01</Text>
                 </View>
                 <SCLAlert

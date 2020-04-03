@@ -49,7 +49,6 @@ export default StyleSheet.create({
         borderColor: '#ECECEC',
         borderWidth: 1,
         flexDirection: 'row',
-        justifyContent: 'space-around',
     },
     Bar_Code_Box: {
         width: 200,

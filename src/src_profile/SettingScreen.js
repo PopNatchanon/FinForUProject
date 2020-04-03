@@ -169,17 +169,7 @@ export class ListMenu extends Component {
                         <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1} onPress={() => console.log('Dead Zone')}>
-                    <View style={[stylesProfileTopic.BoxTopic, { backgroundColor: 'transparent' }]}>
-                        <View style={stylesProfile.ListMenuListSub}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
-                                {' '}
-                            </Text>
-                        </View>
-                        <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='transparent' />
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={this.handleOpen}>
+                <TouchableOpacity onPress={this.handleOpen} style={{ marginTop: 10 }}>
                     <View style={stylesProfileTopic.Button_Logout}>
                         <View style={stylesProfileTopic.Button_LogoutBox}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ออกจากระบบ</Text>

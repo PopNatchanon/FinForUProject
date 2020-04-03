@@ -454,11 +454,9 @@ export default StyleSheet.create({
     Edit_Profile_Button_Save: {
         height: 40,
         backgroundColor: '#0A55A6',
-        width: 350,
-        borderRadius: 5,
+        width,
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: 10,
     },
     Edit_Pass: {
         width: '100%',

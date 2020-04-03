@@ -167,6 +167,7 @@ export class ExitAppModule extends React.Component {
             backClickCount: 0,
         };
         this.springValue = new Animated.Value(0);
+        this.transformValue = new Animated.Value(100)
     }
     componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton.bind(this));
@@ -177,6 +178,15 @@ export class ExitAppModule extends React.Component {
     _spring = () => {
         this.setState({ backClickCount: 1 }, () => {
             Animated.sequence([
+                Animated.timing(
+                    this.transformValue,
+                    {
+                        toValue: -.08 * height,
+                        friction: 5,
+                        duration: 300,
+                        useNativeDriver: true,
+                    }
+                ),
                 Animated.timing(
                     this.springValue,
                     {
@@ -201,6 +211,14 @@ export class ExitAppModule extends React.Component {
                         useNativeDriver: true,
                     }
                 ),
+                Animated.timing(
+                    this.transformValue,
+                    {
+                        toValue: 100,
+                        duration: 300,
+                        useNativeDriver: true,
+                    }
+                ),
             ]).start(() => {
                 this.setState({ backClickCount: 0 });
             });
@@ -220,7 +238,7 @@ export class ExitAppModule extends React.Component {
     }
     render() {
         return (
-            <Animatable.View style={[stylesMain.animatedView, { opacity: this.springValue, transform: [{ translateY: -.08 * height }] }]}>
+            <Animatable.View style={[stylesMain.animatedView, { opacity: this.springValue, transform: [{ translateY: this.transformValue }] }]}>
                 <View style={stylesMain.animatedViewSub}>
                     <Text style={[stylesMain.exitTitleText, stylesFont.FontFamilyText]}>กดอีกครั้งเพื่อออก</Text>
                 </View>
@@ -1231,7 +1249,7 @@ export class FlashSale extends React.Component {
                 navigation.push(value, value2)
     }
     componentDidMount() {
-        this.setState({ endTime: new Date('2020-03-18T05:00:00.000Z') })
+        this.setState({ endTime: new Date().setHours(17, 0, 0) })
         this.intervalID = setInterval(
             () => this.tick(),
             1000
@@ -1252,12 +1270,11 @@ export class FlashSale extends React.Component {
         var dataBody = {
             type: 'sale'
         };
-        var test = 12
         var Hours = 0
         var Minutes = 0
         var Seconds = 0
         endTime && (
-            Hours = test + Number(new Date(endTime).getHours()) - Number(new Date(curTime).getHours()),
+            Hours = Number(new Date(endTime).getHours()) - Number(new Date(curTime).getHours()),
             (Number(new Date(endTime).getDate()) - Number(new Date(curTime).getDate())) > 0 && (
                 Hours = Hours + ((Number(new Date(endTime).getDate()) - Number(new Date(curTime).getDate())) * 24)
             ),

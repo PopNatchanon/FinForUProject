@@ -15,7 +15,7 @@ export default StyleSheet.create({
     },
     Account: {
         width: '100%',
-        height: 100,
+        // height: 100,
         backgroundColor: '#FFF',
         marginTop: 10,
         padding: 10,
@@ -32,8 +32,7 @@ export default StyleSheet.create({
     },
     Order_Head: {
         width: '100%',
-        height: 60,
-        padding: 5,
+        height: 50,
         borderColor: '#E9E9E9',
         borderWidth: 1,
         flexDirection: 'row',
@@ -42,7 +41,7 @@ export default StyleSheet.create({
         height: 40,
         width: 40,
         borderRadius: 30,
-        marginRight: 10,
+        marginLeft: 4,
     },
     Order_product: {
         borderColor: '#E9E9E9',
@@ -57,9 +56,8 @@ export default StyleSheet.create({
         marginRight: 10,
         height: 100,
         width: 100,
-        borderColor:'#ECECEC',
-        borderWidth:1,
-        padding:10
+        borderColor: '#ECECEC',
+        borderWidth: 1,
     },
     Order_product_Boxprice: {
         height: 100,

@@ -7,9 +7,12 @@ import {
     TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
+import AsyncStorage from '@react-native-community/async-storage'
 import BottomSheet from "react-native-raw-bottom-sheet";
 export const { width, height } = Dimensions.get('window');
+import CookieManager from '@react-native-community/cookies';
 import FastImage from 'react-native-fast-image';
+import NumberFormat from 'react-number-format';
 import Omise from 'omise-react-native';
 Omise.config('pkey_test_5ifbd6uqmxyoddk5u9w', '2019-05-29');
 ///----------------------------------------------------------------------------------------------->>>> Icon
@@ -23,6 +26,7 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from '../MainScreen';
+import { GetServices } from '../tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -30,43 +34,79 @@ export default class Customer_Order extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            activeIdAddress: false,
+            activeReset: true,
         };
     }
+    componentDidMount() {
+        this.getDataAsync()
+        CookieManager.get(finip + '/auth/login_customer')
+            .then((res) => {
+                var keycokie = res.token
+                this.setState({ keycokie })
+            });
+    }
+    getDataAsync = async () => {
+        const currentUser = await AsyncStorage.getItem('@MyKey')
+        this.setState({ currentUser: JSON.parse(currentUser) })
+    }
+    getData = (dataService) => {
+        this.setState({ dataService, activeReset: false })
+    }
+    getData2 = (id_address) => {
+        const { navigation } = this.props
+        const { currentUser, dataBody2, dataService, keycokie } = this.state
+        var no_invoice = navigation.getParam('no_invoice')
+        this.setState({
+            dataBody2: {
+                id_customer: currentUser && currentUser.id_customer,
+                id_address,
+                no_invoice: no_invoice ? no_invoice : 'FINV2520200402092923',
+            }, activeIdAddress: true
+        })
+    }
+    getData3 = (dataService2) => {
+        this.setState({ dataService2, activeIdAddress: false, activeReset: true })
+    }
     render() {
+        const { navigation } = this.props
+        const { activeReset, activeIdAddress, currentUser, dataBody2, dataService, keycokie } = this.state
+        var no_invoice = navigation.getParam('no_invoice')
+        var uri = finip + '/bill/bill_list';
+        var dataBody = {
+            id_customer: currentUser && currentUser.id_customer,
+            no_invoice: no_invoice ? no_invoice : 'FINV2520200402092923',
+        };
+        var uri2 = finip + '/bill/update_bill_address';
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                <AppBar1 backArrow titleHead='สั่งซื้อสินค้า' navigation={this.props.navigation} />
+                {[
+                    currentUser && keycokie && currentUser.id_customer && activeReset == true &&
+                    <GetServices uriPointer={uri} dataBody={dataBody} Authorization={keycokie}
+                        // showConsole={'bill_list'}
+                        getDataSource={this.getData.bind(this)} key={'bill_list'} />,
+                    activeIdAddress == true &&
+                    <GetServices uriPointer={uri2} dataBody={dataBody2} Authorization={keycokie}
+                        showConsole={'update_bill_address'}
+                        getDataSource={this.getData3.bind(this)} key={'update_bill_address'} />
+                ]}
+                <AppBar1 backArrow titleHead='สั่งซื้อสินค้า' navigation={navigation} />
                 <ScrollView>
-                    {/* <OmiseAPI /> */}
-                    <Account />
-                    <Order />
-                    <Order />
-                    <Order />
-                    <Option_payment navigation={this.props.navigation} />
+                    {[
+                        dataService &&
+                        <Account dataService={dataService} getData={this.getData2.bind(this)} navigation={navigation} key={'Account'} />,
+                        dataService &&
+                        dataService.list_cart.map((value, index) => { return <Order dataService={value} key={index} /> }),
+                        dataService &&
+                        <Option_payment dataService={dataService} navigation={navigation} key={'Option_payment'} />
+                    ]}
                 </ScrollView>
-                <Bar_payment navigation={this.props.navigation} />
-                <ExitAppModule navigation={this.props.navigation} />
+                {
+                    dataService &&
+                    <Bar_payment dataService={dataService} navigation={navigation} />
+                }
+                <ExitAppModule navigation={navigation} />
             </SafeAreaView>
-        );
-    }
-}
-///----------------------------------------------------------------------------------------------->>>> Main
-export class Appbar_New_account extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    render() {
-        return (
-            <View style={stylesCustomerOrder.Appbar_New_account}>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Customer_account')}>
-                    <View style={{ flexDirection: 'row', }}>
-                        <IconAntDesign style={{ marginLeft: 10, }} name='mail' size={30} />
-                        <Text style={{ marginLeft: 10, fontSize: 15, marginTop: 5, }}>ที่อยู่ใหม่</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
         );
     }
 }
@@ -77,19 +117,42 @@ export class Account extends Component {
         this.state = {
         };
     }
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.push(value, value2)
+    }
+    getData = (dataSelect) => {
+        const { getData } = this.props
+        getData(dataSelect)
+    }
     render() {
+        const { dataService, navigation } = this.props
+        var data
+        dataService.bill_data.map((value) => { return data = value })
         return (
             <View style={stylesCustomerOrder.Account}>
                 <View style={stylesCustomerOrder.Account_Box}>
-                    <View style={{ flexDirection: 'row', }}>
-                        <IconEvilIcons style={{ marginLeft: 10, }} name='location' size={30} />
-                        <View style={{ marginLeft: 10, }}>
+                    <View style={{ flexDirection: 'row', flex: 1, }}>
+                        <IconEvilIcons name='location' size={30} />
+                        <View style={{ marginLeft: 10, flex: 1, }}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ที่อยู่ในการจัดส่ง</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>Tester ABC | 099-9999999</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>99 Sukhumvit, Bangkok, 10110</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { paddingLeft: 8 }]}>
+                                {data.customer_name} | {data.telephone_number}</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { paddingLeft: 8, width: '100%', }]}>
+                                {data.address}</Text>
                         </View>
                     </View>
-                    <IconEntypo name='chevron-right' size={35} />
+                    <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Setting_Topic', {
+                        selectedIndex: 1, dataService: dataService.list_address, type: 'select', updateData: this.getData.bind(this)
+                    })}>
+                        <IconEntypo name='chevron-right' size={35} style={stylesMain.ItemCenterVertical} />
+                    </TouchableOpacity>
                 </View>
             </View>
         );
@@ -103,41 +166,68 @@ export class Order extends Component {
         };
     }
     render() {
+        const { dataService } = this.props
+        const dataMySQL = finip + '/' + dataService.image_path + '/' + dataService.image_product
+        console.log('dataService')
+        console.log(dataService)
         return (
             <View>
                 <View style={stylesCustomerOrder.Order}>
                     <View style={stylesCustomerOrder.Order_Head}>
                         <FastImage
-                            style={stylesCustomerOrder.Order_Head_store}
+                            style={[stylesCustomerOrder.Order_Head_store, stylesMain.ItemCenterVertical]}
                             source={{
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
                             }}
                         />
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { marginTop: 10 }]}>PPoo</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, stylesMain.ItemCenterVertical, {
+                            marginLeft: 10
+                        }]}>{dataService.store_name}</Text>
                     </View>
                     <View style={stylesCustomerOrder.Order_product}>
                         <View style={stylesCustomerOrder.Order_product_Box}>
                             <FastImage style={{ height: '100%', width: '100%', }}
                                 source={{
-                                    uri: ip + '/MySQL/uploads/products/2019-10-10-1570677650.png',
+                                    uri: dataMySQL,
                                 }}
+                                resizeMode={FastImage.resizeMode.contain}
                             />
                         </View>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ห้องพัก Deluxe Pool Villa </Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>{dataService.product} </Text>
                         <View style={stylesCustomerOrder.Order_product_Boxprice}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>x 3</Text>
-                            <View style={{ flexDirection: 'row', }}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#C4C4C4' }]}>฿20,000</Text>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10, color: '#0A55A6' }]}>฿10,000</Text></View>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { textAlign: 'right' }]}>
+                                x {dataService.quantity}</Text>
+                            <NumberFormat
+                                value={dataService.price}
+                                displayType={'text'}
+                                thousandSeparator={true}
+                                prefix={'฿'}
+                                renderText={value =>
+                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, {
+                                        marginLeft: 10, color: '#0A55A6', textAlign: 'right',
+                                    }]}>
+                                        {value}</Text>
+                                } />
+                            {/* <View style={{ flexDirection: 'row', textAlign: 'right', }}>
+                            </View> */}
                         </View>
                     </View>
                     <View style={stylesCustomerOrder.Order_product_BoxText}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>Short Note</Text>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#C4C4C4' }]}>สามารถฝากข้อความถึงผู้ขายได้</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#C4C4C4' }]}>
+                            สามารถฝากข้อความถึงผู้ขายได้</Text>
                     </View>
                     <View style={stylesCustomerOrder.Order_product_BoxText}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>รวมการสั่งซื้อ (1 สินค้า)</Text>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#0A55A6' }]}>฿30,000</Text>
+                        <NumberFormat
+                            value={dataService.p_total}
+                            displayType={'text'}
+                            thousandSeparator={true}
+                            prefix={'฿'}
+                            renderText={value =>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#0A55A6' }]}>
+                                    {value}</Text>
+                            } />
                     </View>
                 </View>
             </View>
@@ -167,7 +257,9 @@ export class Option_payment extends Component {
                         paddingLeft: 50,
                         paddingTop: 10,
                     }}>
-                        <View style={[stylesCustomerOrder.Payment_Box_Text, { width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1, }]}>
+                        <View style={[stylesCustomerOrder.Payment_Box_Text, {
+                            width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1,
+                        }]}>
                             <IconAntDesign name='plussquareo' size={15} />
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10 }]}>เพิ่มบัตรเครดิต </Text>
                         </View>
@@ -182,15 +274,21 @@ export class Option_payment extends Component {
                         paddingLeft: 50,
                         paddingTop: 10,
                     }}>
-                        <View style={[stylesCustomerOrder.Payment_Box_Text, { width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1, }]}>
+                        <View style={[stylesCustomerOrder.Payment_Box_Text, {
+                            width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1,
+                        }]}>
                             <IconAntDesign name='plussquareo' size={15} />
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10 }]}>เพิ่มบัตรเครดิต</Text>
                         </View>
-                        <View style={[stylesCustomerOrder.Payment_Box_Text, { width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1, marginTop: 10 }]}>
+                        <View style={[stylesCustomerOrder.Payment_Box_Text, {
+                            width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1, marginTop: 10
+                        }]}>
                             <IconAntDesign name='plussquareo' size={15} />
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10 }]}>เพิ่มบัตรเครดิต </Text>
                         </View>
-                        <View style={[stylesCustomerOrder.Payment_Box_Text, { width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1, marginTop: 10 }]}>
+                        <View style={[stylesCustomerOrder.Payment_Box_Text, {
+                            width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1, marginTop: 10
+                        }]}>
                             <IconAntDesign name='plussquareo' size={15} />
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10 }]}>เพิ่มบัตรเครดิต </Text>
                         </View>
@@ -205,7 +303,9 @@ export class Option_payment extends Component {
                         paddingLeft: 50,
                         paddingTop: 10,
                     }}>
-                        <View style={[stylesCustomerOrder.Payment_Box_Text, { width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1, }]}>
+                        <View style={[stylesCustomerOrder.Payment_Box_Text, {
+                            width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1,
+                        }]}>
                             <IconAntDesign name='plussquareo' size={15} />
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10 }]}>เพิ่มบัตรเครดิต </Text>
                         </View>
@@ -220,7 +320,9 @@ export class Option_payment extends Component {
                         paddingLeft: 50,
                         paddingTop: 10,
                     }}>
-                        <View style={[stylesCustomerOrder.Payment_Box_Text, { width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1, }]}>
+                        <View style={[stylesCustomerOrder.Payment_Box_Text, {
+                            width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1,
+                        }]}>
                             <IconAntDesign name='plussquareo' size={15} />
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10 }]}>เพิ่มบัตรเครดิต </Text>
                         </View>
@@ -229,6 +331,7 @@ export class Option_payment extends Component {
         }
     }
     render() {
+        const { dataService } = this.props
         return (
             <View>
                 <BottomSheet
@@ -267,7 +370,9 @@ export class Option_payment extends Component {
                         <View style={stylesCustomerOrder.Payment_Box}>
                             <View style={stylesCustomerOrder.Payment_Box_Text}>
                                 <IconFontAwesome5 name='mobile-alt' size={20} />
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10 }]}>   IBanking / Mobile Banking </Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
+                                    marginLeft: 10
+                                }]}>   IBanking / Mobile Banking </Text>
                             </View>
                             <TouchableOpacity activeOpacity={0.9} onPress={() => {
                                 this.state.path1 != 2 ?
@@ -285,7 +390,9 @@ export class Option_payment extends Component {
                         <View style={stylesCustomerOrder.Payment_Box}>
                             <View style={stylesCustomerOrder.Payment_Box_Text}>
                                 <IconFontAwesome5 name='cc-mastercard' size={20} />
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10 }]}>ผ่อนชำระผ่านบัตรเครดิต </Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
+                                    marginLeft: 10
+                                }]}>ผ่อนชำระผ่านบัตรเครดิต </Text>
                             </View>
                             <TouchableOpacity activeOpacity={0.9} onPress={() => {
                                 this.state.path1 != 3 ?
@@ -303,7 +410,9 @@ export class Option_payment extends Component {
                         <View style={stylesCustomerOrder.Payment_Box}>
                             <View style={stylesCustomerOrder.Payment_Box_Text}>
                                 <IconAntDesign name='user' size={20} />
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10 }]}>ติดต่อชำระโดยตรงผ่าน FIN </Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
+                                    marginLeft: 10
+                                }]}>ติดต่อชำระโดยตรงผ่าน FIN </Text>
                             </View>
                             <TouchableOpacity activeOpacity={0.9} onPress={() => {
                                 this.state.path1 != 4 ?
@@ -337,8 +446,16 @@ export class Option_payment extends Component {
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>ค่าจัดส่ง</Text>
                     </View>
                     <View>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#0A55A6' }]}>฿90,000</Text>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#0A55A6' }]}>Free</Text>
+                        <NumberFormat
+                            value={dataService.bill_data[0].total}
+                            displayType={'text'}
+                            thousandSeparator={true}
+                            prefix={'฿'}
+                            renderText={value =>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#0A55A6' }]}>
+                                    {value}</Text>
+                            } />
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#0A55A6', textAlign: 'right' }]}>Free</Text>
                     </View>
                 </View>
                 <View style={stylesCustomerOrder.Option_payment}>
@@ -360,13 +477,22 @@ export class Bar_payment extends Component {
         };
     }
     render() {
+        const { dataService, navigation } = this.props
         return (
             <View style={{ width: '100%', height: 50, backgroundColor: '#FFF', flexDirection: 'row', justifyContent: 'space-between', }}>
-                <View style={{ margin: 5, justifyContent: 'flex-end', alignItems: 'flex-end', width: 150, }}>
+                <View style={{ width: 150, justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>รวมการสั่งซื้อ</Text>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#0A55A6' }]}>฿90,000</Text>
+                    <NumberFormat
+                        value={dataService.bill_data[0].total}
+                        displayType={'text'}
+                        thousandSeparator={true}
+                        prefix={'฿'}
+                        renderText={value =>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#0A55A6' }]}>
+                                {value}</Text>
+                        } />
                 </View>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Customer_Complete_Order')}>
+                <TouchableOpacity activeOpacity={1} onPress={() => navigation.push('Customer_Complete_Order')}>
                     <View style={{ width: 300, height: 50, backgroundColor: '#0A55A6', justifyContent: 'center', alignItems: 'center', }}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>สั่งซื้อสินค้า</Text>
                     </View>

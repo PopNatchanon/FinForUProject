@@ -6,11 +6,9 @@ export default StyleSheet.create({
         height: 50,
         backgroundColor: '#0A55A6',
         flexDirection: 'row',
-        justifyContent: 'flex-end',
-        alignItems: 'center',
     },
     Account_Box: {
-        height:50,
+        height: 50,
         flexDirection: 'row',
         justifyContent: 'space-between',
         backgroundColor: '#FFF',

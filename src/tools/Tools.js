@@ -6,8 +6,10 @@ import {
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
 export const { width, height } = Dimensions.get('window');
+import FastImage from 'react-native-fast-image';
 import { WebView } from 'react-native-webview';
 import ModalDropdown from 'react-native-modal-dropdown';
+import NumberFormat from 'react-number-format';
 import SlidingView from 'rn-sliding-view';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
@@ -23,8 +25,6 @@ import stylesMain from '../../style/StylesMainScreen';
 import stylesStore from '../../style/StylesStoreScreen';
 import stylesTopic from '../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import FastImage from 'react-native-fast-image';
-import NumberFormat from 'react-number-format';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Toolbar
@@ -696,7 +696,7 @@ export class GetServices extends React.Component {
                 getDataSource(responseJson);
             })
             .catch((error) => {
-                 console.error(error)
+                console.error(error)
             })
     }
     componentDidMount() {

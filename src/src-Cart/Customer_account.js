@@ -7,6 +7,7 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import { CheckBox } from 'react-native-elements';
 export const { width, height } = Dimensions.get('window');
+import CookieManager from '@react-native-community/cookies';
 import ModalDropdown from 'react-native-modal-dropdown';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
@@ -16,6 +17,7 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { ExitAppModule } from '../MainScreen';
+import { GetServices } from '../tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -24,6 +26,7 @@ export default class Customer_account extends Component {
         super(props);
         this.state = {
             activeSave: false,
+            activeSave2: false,
             currentUser: {},
             dataBody: {},
         };
@@ -34,9 +37,15 @@ export default class Customer_account extends Component {
     }
     componentDidMount() {
         this.getDataasync()
+        CookieManager.get(finip + '/auth/login_customer')
+            .then((res) => {
+                var keycokie = res.token
+                this.setState({ keycokie })
+            });
     }
     getData = (value) => {
         const { currentUser, dataBody } = this.state
+        dataBody.device = "mobile_device"
         currentUser.id_customer && (
             dataBody.id_customer = currentUser.id_customer
         )
@@ -72,14 +81,38 @@ export default class Customer_account extends Component {
     getData2 = () => {
         this.setState({ activeSave: true })
     }
-    render() {
+    getData3 = (dataService) => {
         const { dataBody } = this.state
+        if (dataBody.main == 'yes') {
+            this.setState({ activeSave: false, activeSave2: true, dataService })
+        } else {
+            this.setState({ activeSave: false, dataService })
+            this.getData4('none')
+        }
+    }
+    getData4 = (dataService2) => {
+        const { navigation } = this.props
+        this.setState({ activeSave2: false, dataService2 })
+        navigation.state.params.updateData2(dataService2);
+        navigation.goBack()
+    }
+    render() {
+        const { activeSave, activeSave2, dataBody, keycokie } = this.state
+        var uri = finip + '/profile/insert_address';
+        var uri2 = finip + '/profile/add_address';
         return (
             <SafeAreaView style={{ backgroundColor: '#E9E9E9', flex: 1, }}>
-                {
-                    activeSave == true &&
-                    <View />
-                }
+                {[
+                    activeSave == true && keycokie &&
+                    <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData3.bind(this)} Authorization={keycokie}
+                        showConsole={'flash'}
+                    />,
+                    activeSave2 == true && keycokie &&
+                    <GetServices uriPointer={uri2} dataBody={{ address: "--" }} getDataSource={this.getData4.bind(this)}
+                        Authorization={keycokie}
+                        showConsole={'flash2'}
+                    />
+                ]}
                 <Appbar navigation={this.props.navigation} />
                 <ScrollView>
                     <Account currentUser={this.state.currentUser} getData={this.getData.bind(this)} />

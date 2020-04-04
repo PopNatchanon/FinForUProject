@@ -668,7 +668,7 @@ export class GetServices extends React.Component {
         return false
     }
     getDataSource = async () => {
-        const { Authorization, dataBody, uriPointer, getDataSource, noSendError, showConsole, } = this.props
+        const { Authorization, dataBody, uriPointer, getDataSource, nojson, noSendError, showConsole, } = this.props
         showConsole && (
             console.log(showConsole),
             console.log('Authorization'),
@@ -687,7 +687,7 @@ export class GetServices extends React.Component {
             },
             body: JSON.stringify(dataBody),
         })
-            .then((response) => response.json())
+            .then((response) => nojson ? response.text() : response.json())
             .then((responseJson) => {
                 showConsole && (
                     console.log('responseJson'),

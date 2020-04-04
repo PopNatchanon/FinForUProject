@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import BottomSheet from "react-native-raw-bottom-sheet";
 import { CheckBox } from 'react-native-elements';
 export const { width, height } = Dimensions.get('window');
+import CookieManager from '@react-native-community/cookies';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconEvilIcons from 'react-native-vector-icons/EvilIcons';
@@ -19,6 +20,7 @@ import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_T
 import stylesLogin from '../../../style/stylesLoginScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from '../../MainScreen';
+import { GetServices } from '../../tools/Tools';
 import { Seller_SettingImage } from '../../src_Seller/Seller_Profile_Edit';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../navigator/IpConfig';
@@ -63,7 +65,7 @@ export default class Setting_Topic extends Component {
         )
       case 1:
         return (
-          <Edit_Address navigation={navigation} />
+          <Edit_Address navigation={navigation} currentUser={currentUser} />
         )
       case 2:
         return (
@@ -605,18 +607,28 @@ export class Edit_Address extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeReset: true,
     };
   }
   shouldComponentUpdate = (nextProps, nextState) => {
-    const { navigation, } = this.props
+    const { currentUser, navigation } = this.props
+    const { activeReset, dataService, keycokie } = this.state
     if (
       ////>nextProps
-      navigation !== nextProps.navigation
+      currentUser !== nextProps.currentUser || navigation !== nextProps.navigation ||
       ////>nextState
+      activeReset !== nextState.activeReset || dataService !== nextState.dataService || keycokie !== nextState.keycokie
     ) {
       return true
     }
     return false
+  }
+  componentDidMount() {
+    CookieManager.get(finip + '/auth/login_customer')
+      .then((res) => {
+        var keycokie = res.token
+        this.setState({ keycokie })
+      });
   }
   navigationNavigateScreen = (value, value2) => {
     const { navigation } = this.props
@@ -628,22 +640,42 @@ export class Edit_Address extends Component {
       ) :
         navigation.push(value, value2)
   }
+  getData = (dataService) => {
+    this.setState({ dataService, activeReset: false })
+  }
+  getData2 = (dataService2) => {
+    this.setState({ dataService2, activeReset: true })
+  }
   render() {
-    const { navigation } = this.props
-    const dataService = navigation.getParam('dataService')
+    const { currentUser, navigation } = this.props
+    const { activeReset, dataService, keycokie } = this.state
+    const no_invoice = navigation.getParam('no_invoice')
     const type = navigation.getParam('type')
+    var uri = finip + '/bill/bill_list';
+    var dataBody = {
+      id_customer: currentUser && currentUser.id_customer,
+      no_invoice: no_invoice,
+    };
+
     return (
       <View style={{ flex: 1, height: '100%' }}>
+        {
+          currentUser && keycokie && currentUser.id_customer && activeReset == true &&
+          <GetServices uriPointer={uri} dataBody={dataBody} Authorization={keycokie}
+            showConsole={'zzz'}
+            getDataSource={this.getData.bind(this)} key={'zzz'} />
+        }
         <AppBar1 backArrow navigation={navigation} titleHead='ที่อยู่ของฉัน' />
         <ScrollView style={{ height: 1000 }}>
           {
-            dataService.map((value, index) => {
+            dataService && dataService.list_address && activeReset == false &&
+            dataService.list_address.map((value, index) => {
               return <Address_Customar dataService={value} index={index} navigation={navigation} type={type} />
             })
           }
         </ScrollView>
         <View style={{ alignItems: 'center', justifyContent: 'flex-end' }}>
-          <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Customer_account')}>
+          <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Customer_account', { updateData2: this.getData2.bind(this), })}>
             <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>เพิ่มที่อยู่</Text>
             </View>

@@ -49,11 +49,9 @@ export default StyleSheet.create({
         flexDirection: 'row',
         height: 130,
         width: '100%',
-        padding: 10,
-        justifyContent: 'space-around',
+        padding: 8,
     },
     Order_product_Box: {
-        marginRight: 10,
         height: 100,
         width: 100,
         borderColor: '#ECECEC',

@@ -4,16 +4,17 @@ import {
     Animated, BackHandler, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, Button,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
+import ActionButton from 'react-native-action-button';
 import AsyncStorage from '@react-native-community/async-storage'
 import * as Animatable from 'react-native-animatable';
+import BottomSheet from "react-native-raw-bottom-sheet";
 import Carousel, { PaginationLight } from 'react-native-x-carousel';
 import CookieManager from '@react-native-community/cookies';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
+import { Notifications } from 'react-native-notifications';
 import SplashScreen from 'react-native-splash-screen';
 import SlidingView from 'rn-sliding-view';
-import BottomSheet from "react-native-raw-bottom-sheet";
-import ActionButton from 'react-native-action-button';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -124,6 +125,7 @@ export default class MainScreen extends React.Component {
                         <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} key={'activeDataService'} />
                     }
                     <AppBar navigation={navigation} currentUser={currentUser} />
+                    <MyComponent />
                     <ScrollView>
                         {/* <TouchableOpacity
                             onPress={() => navigation.push('MainScreen', { browerProps: 'https://www.finforu.com/' })}>
@@ -469,7 +471,9 @@ export class AppBar1 extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.push(value, value2)
+                value == 'popToTop' ?
+                    navigation.popToTop() :
+                    navigation.push(value, value2)
     }
     setText = (text) => {
         this.setState({ text })
@@ -485,8 +489,8 @@ export class AppBar1 extends React.Component {
     render() {
         const { currentUser, } = this.state
         const {
-            backArrow, backArrowColor, ButtomDeleteAll, chatBar, colorBar, deleteBar, menuBar, saveBar, searchBar, settingBar, storeBar,
-            titleHead,
+            backArrow, backArrowColor, ButtomDeleteAll, chatBar, colorBar, deleteBar, goToTop, menuBar, saveBar, searchBar, settingBar,
+            storeBar, titleHead,
         } = this.props;
         return (
             <View style={
@@ -500,7 +504,11 @@ export class AppBar1 extends React.Component {
                         backArrow &&
                         <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30 }]}
                             activeOpacity={1}
-                            onPress={this.navigationNavigateScreen.bind(this, 'goBack')}>
+                            onPress={
+                                goToTop ?
+                                    this.navigationNavigateScreen.bind(this, 'popToTop') :
+                                    this.navigationNavigateScreen.bind(this, 'goBack')
+                            }>
                             <IconEntypo style={[stylesStore.Icon_appbar, {
                                 color: backArrowColor ? backArrowColor : '#ffffff'
                             }]} name="chevron-left" size={30} />
@@ -2596,7 +2604,7 @@ export class Botton_PopUp_FIN extends React.Component {
         console.log(activeSliding)
         return (
             <>
-                <View style={{ bottom: '30%', left: width - 60, marginTop:-60  }}>
+                <View style={{ bottom: '30%', left: width - 60, marginTop: -60 }}>
                     {/* <View style={{ left: width - 60, transform: [{ translateY: -.09 * height }] }}> */}
                     <TouchableOpacity onPress={this.toggleComponentVisibility}>
                         <FastImage
@@ -2631,5 +2639,21 @@ export class Botton_PopUp_FIN extends React.Component {
                 </SlidingView>
             </>
         );
+    }
+}
+class MyComponent extends Component {
+    constructor(props) {
+        super(props);
+        Notifications.registerRemoteNotifications();
+
+        Notifications.events().registerNotificationReceivedForeground((notification: Notification, completion) => {
+            console.log(`Notification received in foreground: ${notification.title} : ${notification.body}`);
+            completion({ alert: false, sound: false, badge: false });
+        });
+
+        Notifications.events().registerNotificationOpened((notification: Notification, completion) => {
+            console.log(`Notification opened: ${notification.payload}`);
+            completion();
+        });
     }
 }

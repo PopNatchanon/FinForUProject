@@ -56,12 +56,13 @@ export default class Customer_Order extends Component {
     getData2 = (id_address) => {
         const { navigation } = this.props
         const { currentUser, dataBody2, dataService, keycokie } = this.state
-        var no_invoice = navigation.getParam('no_invoice')
+        var no_invoice = navigation.getParam('no_invoice');
+        // var no_invoice = 'FINV4320200404124752'
         this.setState({
             dataBody2: {
                 id_customer: currentUser && currentUser.id_customer,
                 id_address,
-                no_invoice: no_invoice ? no_invoice : 'FINV5920200403170538',
+                no_invoice,
             }, activeIdAddress: true
         })
     }
@@ -71,17 +72,18 @@ export default class Customer_Order extends Component {
     render() {
         const { navigation } = this.props
         const { activeReset, activeIdAddress, currentUser, dataBody2, dataService, keycokie } = this.state
-        var no_invoice = navigation.getParam('no_invoice')
+        var no_invoice = navigation.getParam('no_invoice');
+        // var no_invoice = 'FINV4320200404124752'
         var uri = finip + '/bill/bill_list';
         var dataBody = {
             id_customer: currentUser && currentUser.id_customer,
-            no_invoice: no_invoice ? no_invoice : 'FINV5920200403170538',
+            no_invoice,
         };
         var uri2 = finip + '/bill/update_bill_address';
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
                 {[
-                    currentUser && keycokie && currentUser.id_customer && activeReset == true &&
+                    activeReset == true && currentUser && currentUser.id_customer && keycokie && no_invoice &&
                     <GetServices uriPointer={uri} dataBody={dataBody} Authorization={keycokie}
                         // showConsole={'bill_list'}
                         getDataSource={this.getData.bind(this)} key={'bill_list'} />,
@@ -103,7 +105,8 @@ export default class Customer_Order extends Component {
                 </ScrollView>
                 {
                     dataService &&
-                    <Bar_payment currentUser={currentUser} dataService={dataService} navigation={navigation} no_invoice={no_invoice} />
+                    <Bar_payment currentUser={currentUser} dataService={dataService} navigation={navigation}
+                        no_invoice={no_invoice} />
                 }
                 <ExitAppModule navigation={navigation} />
             </SafeAreaView>
@@ -177,12 +180,12 @@ export class Order extends Component {
             <View>
                 <View style={stylesCustomerOrder.Order}>
                     <View style={stylesCustomerOrder.Order_Head}>
-                        <FastImage
+                        {/* <FastImage
                             style={[stylesCustomerOrder.Order_Head_store, stylesMain.ItemCenterVertical]}
                             source={{
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
                             }}
-                        />
+                        /> */}
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, stylesMain.ItemCenterVertical, {
                             marginLeft: 10
                         }]}>{dataService.store_name}</Text>
@@ -500,16 +503,20 @@ export class Bar_payment extends Component {
         const { currentUser, dataService, navigation, no_invoice } = this.props
         const { modalVisible } = this.state
         return (
-            <View style={{ width: '100%', height: 50, backgroundColor: '#FFF', flexDirection: 'row', justifyContent: 'space-between', }}>
+            <View style={{
+                width: '100%', height: 50, backgroundColor: '#FFF', flexDirection: 'row', justifyContent: 'space-between',
+                borderTopColor: '#ECECEC', borderTopWidth: 1
+            }}>
                 <Modal
                     animationType="fade"
                     transparent={true}
                     visible={modalVisible}
                     onRequestClose={this.setModalVisible.bind(this, !modalVisible)}>
-                    <OmiseBox currentUser={currentUser} navigation={navigation} no_invoice={no_invoice} total={dataService.bill_data[0].total}
+                    <OmiseBox currentUser={currentUser} dataService={dataService} getData={this.setModalVisible.bind(this)}
+                        navigation={navigation} no_invoice={no_invoice} total={dataService.bill_data[0].total}
                     />
                 </Modal>
-                <View style={{ width: 150, justifyContent: 'center', alignItems: 'center' }}>
+                <View style={{ width: 200, justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>รวมการสั่งซื้อ</Text>
                     <NumberFormat
                         value={dataService.bill_data[0].total}
@@ -517,12 +524,14 @@ export class Bar_payment extends Component {
                         thousandSeparator={true}
                         prefix={'฿'}
                         renderText={value =>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#0A55A6' }]}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, {
+                                color: '#0A55A6',
+                            }]}>
                                 {value}</Text>
                         } />
                 </View>
                 <TouchableOpacity activeOpacity={1} onPress={this.setModalVisible.bind(this, !modalVisible)}>
-                    <View style={{ width: 300, height: 50, backgroundColor: '#0A55A6', justifyContent: 'center', alignItems: 'center', }}>
+                    <View style={{ width: 150, height: 50, backgroundColor: '#0A55A6', justifyContent: 'center', alignItems: 'center', }}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>ชำระเงิน</Text>
                     </View>
                 </TouchableOpacity>
@@ -565,7 +574,7 @@ export class OmiseBox extends Component {
             });
             dataBody = {
                 id_customer: currentUser.id_customer,
-                no_invoice: "FINV5920200403170538",
+                no_invoice,
                 omiseToken: data.id,
                 device: "mobile_device",
             }
@@ -590,8 +599,34 @@ export class OmiseBox extends Component {
             });
         }
     }
-    getData = (dataService) => {
-        console.log(dataService)
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.push(value, value2)
+    }
+    getData = (dataService2) => {
+        const { dataService, getData, no_invoice } = this.props
+        var data = dataService2.split('"')
+        data.map((value) => {
+            var item = value.split(':')
+            item.map((value2) => {
+                var item2 = value2.split('}')
+                item2.map((value3) => {
+                    if (value3 == 'true') {
+                        getData(false)
+                        this.navigationNavigateScreen('Customer_Complete_Order', { dataService })
+                    }
+                    if (value3 == 'false') {
+
+                    }
+                })
+            })
+        })
     }
     render() {
         const { total } = this.props
@@ -620,6 +655,23 @@ export class OmiseBox extends Component {
                             height: 'auto', width: width * 0.85, backgroundColor: '#ECECEC', borderRadius: 8,
                         }]}>
                             <View>
+                                <View style={{ flexDirection: 'row', margin: 8 }}>
+                                    <View style={{ width: 50, height: 50 }}>
+                                        <FastImage
+                                            style={[stylesMain.BoxProduct2Image, { flex: 1 }]}
+                                            source={require('../../images/payment.png')}
+                                            resizeMode={FastImage.resizeMode.contain} />
+                                    </View>
+                                    <View style={{ marginLeft: 16 }}>
+                                        <Label style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}>http://mmnie.live/</Label>
+                                        <Label style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#3C414D' }]}>
+                                            Secured by Omise</Label>
+                                    </View>
+                                </View>
+                                <Label style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, {
+                                    margin: 14, marginTop: 0, marginBottom: 4
+                                }]}>
+                                    Credit / Debit</Label>
                                 <Item style={{ width: width * 0.83 }}>
                                     <Label style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { width: 100 }]}>Card number</Label>
                                     <Input defaultValue={number} style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}
@@ -632,12 +684,12 @@ export class OmiseBox extends Component {
                                 </Item>
                                 <Item style={{ width: width * 0.83 }}>
                                     <Label style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { width: 100 }]}>Expiry date</Label>
-                                    <Input placeholder="MM" maxLength={2}
+                                    <Input placeholder="MM" maxLength={2} keyboardType='phone-pad'
                                         style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}
                                         defaultValue={expiration_month}
                                         onChangeText={(expiration_month) => this.setState({ expiration_month })} />
                                     <Text>/</Text>
-                                    <Input placeholder="YYYY" maxLength={4}
+                                    <Input placeholder="YY" maxLength={2} keyboardType='phone-pad'
                                         style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}
                                         defaultValue={expiration_year}
                                         onChangeText={(expiration_year) => this.setState({ expiration_year })} />

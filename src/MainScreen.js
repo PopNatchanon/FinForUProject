@@ -2596,10 +2596,11 @@ export class Botton_PopUp_FIN extends React.Component {
         console.log(activeSliding)
         return (
             <>
-                <View style={{ alignItems: 'flex-end' }}>
-                    <TouchableOpacity onPress={() => this.toggleComponentVisibility()}>
+                <View style={{ bottom: '30%', left: width - 60, marginTop:-60  }}>
+                    {/* <View style={{ left: width - 60, transform: [{ translateY: -.09 * height }] }}> */}
+                    <TouchableOpacity onPress={this.toggleComponentVisibility}>
                         <FastImage
-                            style={{ height: 60, width: 60 }}
+                            style={{ height: 60, width: 60, }}
                             source={require('../icon/FIN_Chat-01.png')}
                             resizeMode={FastImage.resizeMode.contain} />
                     </TouchableOpacity>
@@ -2609,12 +2610,24 @@ export class Botton_PopUp_FIN extends React.Component {
                     componentVisible={activeSliding}
                     containerStyle={{
                         backgroundColor: null,
-                        justifyContent: 'center',
-                        alignContent: 'stretch',
-                        width: '100%'
+                        width: '100%',
+                        top: '50%'
                     }}
                     position="right">
-                    <View style={{ backgroundColor: 'red', width, height }}></View>
+                    <TouchableOpacity onPress={this.toggleComponentVisibility}>
+                        <View style={{ backgroundColor: 'transparent', height: 150, }}>
+                            <FastImage
+                                style={stylesMain.BoxProduct1Image}
+                                source={require('../images/0044-03.png')}
+                                resizeMode={FastImage.resizeMode.contain}
+                            >
+                                <View style={{ marginTop: 50, marginLeft: '20%' }}>
+                                    <Text style={[stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>สวัสดีครับ</Text>
+                                    <Text style={[stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>ต้องการให้น้องฟินช่วยด้านใดดีครับ</Text>
+                                </View>
+                            </FastImage>
+                        </View>
+                    </TouchableOpacity>
                 </SlidingView>
             </>
         );

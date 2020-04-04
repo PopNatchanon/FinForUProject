@@ -15,7 +15,7 @@ import ststylePromotionDeal from '../../style/stylePromotion-src/styleDealScreen
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, } from '../MainScreen';
 import { Button_Bar, Slide, } from './DealScreen';
-import { TabBar, } from '../tools/Tools';
+import { TabBar, GetServices, } from '../tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -115,9 +115,25 @@ export class Campaign_tag extends Component {
 }
 ///----------------------------------------------------------------------------------------------->>>> CampaignBody
 export class CampaignBody extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+    }
+  }
+  getData = (Campaign) => {
+    this.setState({ Campaign })
+  }
   render() {
+    const { Campaign } = this.state
+    console.log('Campaign')
+    console.log(Campaign)
+    var uri = ip + '/mysql/DataServiceMain.php'
+    var dataBody = {
+      type: 'Campaign'
+    }
     return (
       <View style={{ alignItems: 'center' }}>
+        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
         <View style={ststylePromotionDeal.CampaignBody}>
           <View style={ststylePromotionDeal.CampaignBody_BoxImage}>
             <FastImage

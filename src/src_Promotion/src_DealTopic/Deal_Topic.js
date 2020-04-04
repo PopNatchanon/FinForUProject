@@ -139,10 +139,12 @@ export default class Deal_Topic extends Component {
                 )
             case 7:
                 return (
-                    <View>
+                    <>
                         <AppBar1 backArrow navigation={navigation} titleHead='โพสต์ใหม่' />
-                        <Post_New navigation={navigation} />
-                    </View>
+                        <ScrollView>
+                            <Post_New navigation={navigation} />
+                        </ScrollView>
+                    </>
                 )
             case 8:
                 return (
@@ -482,7 +484,10 @@ export class Post_New extends React.Component {
     }
     UploadImagePostFeed = () => {
         const options = {
-            includeBase64: true
+            width: 400,
+            height: 400,
+            includeBase64: true,
+            cropping: true
         };
         ImagePicker.openPicker(options).then(response => {
             this.setState({ avatarSource: response })
@@ -491,72 +496,69 @@ export class Post_New extends React.Component {
     render() {
         const { avatarSource } = this.state
         return (
-            <ScrollView>
-                <View>
-                    {/* หมวดหมู่สินค้า */}
-                    <BottomSheet
-                        ref={ref => {
-                            this.FramestickerSheet = ref;
-                        }}
-                        height={320}
-                        duration={250}
-                        customStyles={{
-                            container: {
-                                padding: 10,
-                                borderTopLeftRadius: 10,
-                                borderTopRightRadius: 10,
-                            }
-                        }}>
-                        {this.Framesticker()}
-                    </BottomSheet>
-                    <View style={{ backgroundColor: '#FFFFFF' }}>
-                        <View>
-                            <View style={[stylesMain.FlexRow, { borderColor: '#ECECEC', borderBottomWidth: 1, }]}>
-                                <View style={stylesProfileTopic.Order_StorePro}></View>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { marginTop: 10 }]}> popoo </Text>
-                            </View>
-                            <View style={{ paddingHorizontal: 10 }}>
-                                <TextInput
-                                    style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}
-                                    placeholder="เขียนบางอย่างสิ...."
-                                    multiline
-                                    editable
-                                    // maxLength={5000}
-                                    value={this.state.Detail}
-                                    onChangeText={(Detail) => this.setState({ Detail })}>
-                                </TextInput>
-                            </View>
-                            <View>
-                                {
-                                    avatarSource ?
-                                        <FastImage
-                                            source={{ uri: avatarSource.path }}
-                                            style={{ width: '100%', height: 350, backgroundColor: '#FFFFFF' }}
-                                        /> :
-                                        null
-                                }
-                            </View>
-                        </View>
-                        <View>
-                            <TouchableOpacity style={[stylesMain.FlexRow, { borderColor: '#ECECEC', borderBottomWidth: 1, padding: 10 }]}
-                                onPress={this.UploadImagePostFeed}>
-                                <IconFontAwesome name='image' size={25} color='#43A047' style={{ marginRight: 10, }} />
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>รูปภาพ</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={[stylesMain.FlexRow, { borderColor: '#ECECEC', borderBottomWidth: 1, padding: 10 }]}
-                                activeOpacity={1} onPress={() => this.props.navigation.push('Deal_Topic', { selectedIndex: 8 })}>
-                                <IconAntDesign name='tago' size={25} style={{ marginRight: 10, }} />
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>แท็กสินค้า</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={[stylesMain.FlexRow, { borderColor: '#ECECEC', borderBottomWidth: 1, padding: 10 }]}
-                                activeOpacity={1} onPress={() => { this.FramestickerSheet.open(); }}>
-                                <IconMaterialCommunityIcons name='sticker-emoji' size={25} color='#FFAC33' style={{ marginRight: 10 }} />
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>กรอบ/สติ๊กเกอร์</Text>
-                            </TouchableOpacity>
-                        </View>
+            <>
+                {/* หมวดหมู่สินค้า */}
+                <BottomSheet
+                    ref={ref => {
+                        this.FramestickerSheet = ref;
+                    }}
+                    height={320}
+                    duration={250}
+                    customStyles={{
+                        container: {
+                            padding: 10,
+                            borderTopLeftRadius: 10,
+                            borderTopRightRadius: 10,
+                        }
+                    }}>
+                    {this.Framesticker()}
+                </BottomSheet>
+                <View style={{ backgroundColor: '#FFFFFF' }}>
+                    <View style={[stylesMain.FlexRow, { borderColor: '#ECECEC', borderBottomWidth: 1, }]}>
+                        <View style={stylesProfileTopic.Order_StorePro}></View>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { marginTop: 10 }]}> popoo </Text>
                     </View>
+                    <View style={{ paddingHorizontal: 10 }}>
+                        <TextInput
+                            style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}
+                            placeholder="เขียนบางอย่างสิ...."
+                            multiline
+                            editable
+                            // maxLength={5000}
+                            value={this.state.Detail}
+                            onChangeText={(Detail) => this.setState({ Detail })}>
+                        </TextInput>
+                    </View>
+                    <View>
+                        {
+                            avatarSource ?
+                                <View style={{ padding: 10, alignItems: 'center' }}>
+                                    <FastImage
+                                        source={{ uri: avatarSource.path }}
+                                        style={{ width: 400, height: 400, backgroundColor: '#FFFFFF' }}
+
+                                    />
+                                </View> :
+                                null
+                        }
+                    </View>
+                    <TouchableOpacity style={[stylesMain.FlexRow, { borderColor: '#ECECEC', borderBottomWidth: 1, padding: 10 }]}
+                        onPress={this.UploadImagePostFeed}>
+                        <IconFontAwesome name='image' size={25} color='#43A047' style={{ marginRight: 10, }} />
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>รูปภาพ</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[stylesMain.FlexRow, { borderColor: '#ECECEC', borderBottomWidth: 1, padding: 10 }]}
+                        activeOpacity={1} onPress={() => this.props.navigation.push('Deal_Topic', { selectedIndex: 8 })}>
+                        <IconAntDesign name='tago' size={25} style={{ marginRight: 10, }} />
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>แท็กสินค้า</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[stylesMain.FlexRow, { borderColor: '#ECECEC', borderBottomWidth: 1, padding: 10 }]}
+                        activeOpacity={1} onPress={() => { this.FramestickerSheet.open(); }}>
+                        <IconMaterialCommunityIcons name='sticker-emoji' size={25} color='#FFAC33' style={{ marginRight: 10 }} />
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>กรอบ/สติ๊กเกอร์</Text>
+                    </TouchableOpacity>
                 </View>
-            </ScrollView>
+            </>
         );
     }
 }

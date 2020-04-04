@@ -225,11 +225,8 @@ export default class StoreScreen extends React.Component {
                 {
                     selectedIndex == 2 &&
                     <>
-                        <ActionButton buttonColor="#0A55A6" size={50}>
-                            <ActionButton.Item buttonColor='#dc3545' title="เขียนโพสต์"
-                                onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', { selectedIndex: 7 })}>
-                                <Icon name="md-create" color='#FFFFFF' size={25} />
-                            </ActionButton.Item>
+                        <ActionButton buttonColor="#0A55A6" size={50}
+                         onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', { selectedIndex: 7 })}>
                         </ActionButton>
                     </>
                 }

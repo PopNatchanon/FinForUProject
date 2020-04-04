@@ -118,29 +118,25 @@ export class CampaignBody extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      dataService: [],
     }
+    this.getData = this.getData.bind(this)
   }
-  getData = (Campaign) => {
-    this.setState({ Campaign })
+  getData(dataService) {
+    this.setState({ dataService })
   }
-  render() {
-    const { Campaign } = this.state
-    console.log('Campaign')
-    console.log(Campaign)
-    var uri = ip + '/mysql/DataServiceMain.php'
-    var dataBody = {
-      type: 'Campaign'
-    }
-    return (
-      <View style={{ alignItems: 'center' }}>
-        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
+  dataNewCampaign() {
+    const { dataService } = this.state
+    return dataService.map((item, index) => {
+      var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
+      return (
         <View style={ststylePromotionDeal.CampaignBody}>
-          <View style={ststylePromotionDeal.CampaignBody_BoxImage}>
+          <View style={[ststylePromotionDeal.CampaignBody_BoxImage,{padding:5}]} key={index}>
             <FastImage
               source={{
-                uri: ip + '/MySQL/uploads/slide/Banner_type/shoes_BannerBar.jpg',
+                uri: dataMySQL,
               }}
-              style={ststylePromotionDeal.CampaignBody_Image}
+              style={stylesMain.BoxProduct1Image}
             />
           </View>
           <View style={[ststylePromotionDeal.CampaignBody_Box]}>
@@ -150,7 +146,7 @@ export class CampaignBody extends Component {
             </View>
             <View style={[ststylePromotionDeal.CampaignBody_Icon_Button, stylesMain.ItemCenterVertical]}>
               <View style={[ststylePromotionDeal.CampaignBody_Icon, stylesMain.ItemCenterVertical]}>
-                <IconEntypo name='share' size={20} color='#0A55A6' />
+                <IconEntypo name='share' size={20} color='#FFFFFF' />
               </View>
               <TouchableOpacity activeOpacity={1} onPress={() =>
                 this.props.navigation.push('Detail_Campaign', { selectedIndex: 0 })}>
@@ -159,6 +155,23 @@ export class CampaignBody extends Component {
                 </View>
               </TouchableOpacity>
             </View>
+          </View>
+        </View>
+      )
+    })
+  }
+  render() {
+    var uri = ip + '/mysql/DataServiceMain.php';
+    var dataBody = {
+      type: 'Campaign'
+    };
+
+    return (
+      <View style={stylesMain.FrameBackground}>
+        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+        <View style={{ alignItems: 'center' }}>
+          <View>
+            {this.dataNewCampaign()}
           </View>
         </View>
       </View>

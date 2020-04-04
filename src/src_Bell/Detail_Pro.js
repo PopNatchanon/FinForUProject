@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React from 'react';
 import {
-    Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
+    Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View, 
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
@@ -56,13 +56,6 @@ export default class Detail_Pro extends React.Component {
                         <Detail_Product_Check />
                     </View>
                 )
-            case 3:
-                return (
-                    <View>
-                        <AppBar1 backArrow navigation={navigation} titleHead='คอมเมนท์' chatBar />
-                        <Feed_comment />
-                    </View>
-                )
            
         }
     }
@@ -70,9 +63,7 @@ export default class Detail_Pro extends React.Component {
         const { navigation } = this.props
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                <View>
-                    {this.PathList}
-                </View>
+                {this.PathList}
                 <ExitAppModule navigation={navigation} />
             </SafeAreaView>
         );
@@ -277,22 +268,5 @@ export class Detail_Button extends React.Component {
         );
     }
 }
-///----------------------------------------------------------------------------------------------->>>
-export class Feed_comment extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    render() {
-        return (
-            <View style={[stylesMain.FlexRow, { padding: 10, backgroundColor: '#FFFFFF' }]}>
-                <View style={{ height: 50, width: 50, backgroundColor: '#9F9C9C', borderRadius: 25 }}></View>
-                <View style={{}}>
-                    <Text styles={stylesFont.FontFamilyText}> NAME - COMMENT </Text>
-                    <Text>1 ชั่วโมงที่แล้ว</Text>
-                </View>
-            </View>
-        );
-    }
-}
+
+

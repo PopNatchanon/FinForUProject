@@ -243,8 +243,7 @@ export default StyleSheet.create({
     CampaignBody_Icon: {
         justifyContent: 'center',
         alignItems: 'center',
-        borderColor: '#0A55A6',
-        borderWidth: 1,
+        backgroundColor:'#f0b912',
         height: 30,
         width: 30,
         marginTop: 3,

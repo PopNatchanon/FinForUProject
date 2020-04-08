@@ -48,7 +48,7 @@ export default class DealScreen extends Component {
           <Deal_Today navigation={this.props.navigation} />
           <Deal_Exclusive navigation={this.props.navigation} />
           <ProDed_Store navigation={this.props.navigation} />
-          <ProDed_New_Store />
+          {/* <ProDed_New_Store /> */}
           <Second_product navigation={this.props.navigation} loadData={{
             product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
             list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3,
@@ -161,50 +161,45 @@ export class Button_Bar extends Component {
           <View style={stylesDeal.Button_Bar_Box}>
             <FastImage style={stylesDeal.Button_Bar_BoxICON}
               source={{
-                uri: ip + '/MySQL/uploads/icon_5/06.jpg',
+                uri: ip + '/MySQL/uploads/icon_Deal/Done/010.png',
               }}
             />
-            <Text style={[stylesDeal.Button_Bar_BoxText, stylesFont.FontFamilyText]}>ดีลสุดพิเศษ</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('CoinScreen')}>
           <View style={stylesDeal.Button_Bar_Box}>
             <FastImage style={stylesDeal.Button_Bar_BoxICON}
               source={{
-                uri: ip + '/MySQL/uploads/icon_5/07.jpg',
+                uri: ip + '/MySQL/uploads/icon_Deal/Done/009.png',
               }}
             />
-            <Text style={[stylesDeal.Button_Bar_BoxText, stylesFont.FontFamilyText]}>FinCoin</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('CampaignScreen')}>
           <View style={stylesDeal.Button_Bar_Box}>
             <FastImage style={stylesDeal.Button_Bar_BoxICON}
               source={{
-                uri: ip + '/MySQL/uploads/icon_5/08.jpg',
+                uri: ip + '/MySQL/uploads/icon_Deal/Done/008.png',
               }}
             />
-            <Text style={[stylesDeal.Button_Bar_BoxText, stylesFont.FontFamilyText]}>แคมเปญ</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('The_BestFinScreen')}>
           <View style={stylesDeal.Button_Bar_Box}>
             <FastImage style={stylesDeal.Button_Bar_BoxICON}
               source={{
-                uri: ip + '/MySQL/uploads/icon_5/09.jpg',
+                uri: ip + '/MySQL/uploads/icon_Deal/Done/007.png',
               }}
             />
-            <Text style={[stylesDeal.Button_Bar_BoxText, stylesFont.FontFamilyText]}>สุดคุ้มสุดฟิน</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('Installment_payScreen')}>
           <View style={stylesDeal.Button_Bar_Box}>
             <FastImage style={stylesDeal.Button_Bar_BoxICON}
               source={{
-                uri: ip + '/MySQL/uploads/icon_5/010.jpg',
+                uri: ip + '/MySQL/uploads/icon_Deal/Done/006.png',
               }}
             />
-            <Text style={[stylesDeal.Button_Bar_BoxText, stylesFont.FontFamilyText]}>ผ่อนชำระ 0%</Text>
           </View>
         </TouchableOpacity>
       </View>

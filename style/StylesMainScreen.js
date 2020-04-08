@@ -644,14 +644,14 @@ export default StyleSheet.create({
     width: 70,
     alignItems: 'center',
     alignContent: 'center',
-    height: 60,
+    height: 70,
     paddingVertical: 10,
     paddingHorizontal: 4
   },
   Button_Bar_icon: {
-    height: 50,
-    width: 50,
-    borderRadius: 50,
+    height: 60,
+    width: 60,
+    // borderRadius: 10,
     borderColor: '#FFFFFF',
     borderWidth: 2,
     resizeMode: 'stretch',

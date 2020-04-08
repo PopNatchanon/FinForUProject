@@ -543,7 +543,7 @@ export class Store extends React.Component {
                   <Text style={[stylesDetail.Store_Bar_int, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
                     90%</Text>
                   <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                    อัตตราการตอบกลับแชท</Text>
+                    อัตราการตอบกลับแชท</Text>
                 </View>
               </View>
             </View>

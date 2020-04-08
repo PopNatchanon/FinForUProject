@@ -131,7 +131,7 @@ export class CampaignBody extends Component {
       var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
       return (
         <View style={ststylePromotionDeal.CampaignBody}>
-          <View style={[ststylePromotionDeal.CampaignBody_BoxImage,{padding:5}]} key={index}>
+          <View style={[ststylePromotionDeal.CampaignBody_BoxImage, { padding: 5 }]} key={index}>
             <FastImage
               source={{
                 uri: dataMySQL,
@@ -141,7 +141,7 @@ export class CampaignBody extends Component {
           </View>
           <View style={[ststylePromotionDeal.CampaignBody_Box]}>
             <View style={ststylePromotionDeal.CampaignBody_BoxText}>
-              <Text numberOfLines={2} style={stylesFont.FontFamilyBold}>ส่วนลด 10% สำหรับร้าน เพชร </Text>
+              <Text numberOfLines={2} style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>{item.detail} </Text>
               <Text numberOfLines={1} style={stylesFont.FontFamilyText}>วันหมดอายุ 03-02-2020</Text>
             </View>
             <View style={[ststylePromotionDeal.CampaignBody_Icon_Button, stylesMain.ItemCenterVertical]}>

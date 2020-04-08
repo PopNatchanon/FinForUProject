@@ -40,10 +40,10 @@ export default StyleSheet.create({
         alignContent: 'center',
     },
     Button_Bar_BoxICON: {
-        height: 40,
-        width: 40,
+        height: 50,
+        width: 50,
         backgroundColor: '#C4C4C4',
-        borderRadius: 40,
+        borderRadius: 10,
     },
     Button_Bar_BoxText: {
         textAlign: 'center',

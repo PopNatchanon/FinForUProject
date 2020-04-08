@@ -665,6 +665,7 @@ export class Feed_comment extends React.Component {
                                 </View>
                                 <Text rkType='primary3 mediumLine'>{Notification.comment}</Text>
                                 <View style={[stylesMain.FlexRow, { justifyContent: 'flex-end', width: '50%' }]}>
+                                
                                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>ถูกใจ</Text>
                                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,{marginLeft:10}]}>ตอบกลับ</Text>
                                 </View>

@@ -43,7 +43,7 @@ export default StyleSheet.create({
         height: 50,
         width: 50,
         backgroundColor: '#C4C4C4',
-        borderRadius: 10,
+        borderRadius: 7,
     },
     Button_Bar_BoxText: {
         textAlign: 'center',

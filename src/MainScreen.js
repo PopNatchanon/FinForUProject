@@ -798,7 +798,7 @@ export class Button_Bar extends React.Component {
     }
     render() {
         return (
-            <View>
+            <View >
                 <View style={stylesMain.FrameBackground3}></View>
                 <ScrollView horizontal>
                     <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'DealScreen')}>

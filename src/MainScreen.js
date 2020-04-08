@@ -55,8 +55,8 @@ export default class MainScreen extends React.Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log('responseJson')
-                console.log(responseJson)
+                // console.log('responseJson')
+                // console.log(responseJson)
             })
             .catch((error) => {
                 console.error(error);
@@ -68,8 +68,8 @@ export default class MainScreen extends React.Component {
         CookieManager.get(finip + '/auth/login_customer')
             .then((res) => {
                 var keycokie = res.token
-                console.log('token')
-                console.log(keycokie)
+                // console.log('token')
+                // console.log(keycokie)
                 keycokie === undefined && autoLogin !== undefined &&
                     this.setStateLogin(autoLogin)
             });
@@ -122,10 +122,11 @@ export default class MainScreen extends React.Component {
                         IsLoading < 0 &&
                         <LoadingScreen key={'LoadingScreen'} />,
                         activeDataService == true &&
-                        <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} key={'activeDataService'} />
+                        <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} key={'activeDataService'}
+                        // showConsole={'Main'}
+                        />
                     }
                     <AppBar navigation={navigation} currentUser={currentUser} />
-                    <MyComponent />
                     <ScrollView>
                         {/* <TouchableOpacity
                             onPress={() => navigation.push('MainScreen', { browerProps: 'https://www.finforu.com/' })}>
@@ -1307,12 +1308,14 @@ export class FlashSale extends React.Component {
                 {
                     activeDataService == true &&
                     <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)}
-                        showConsole={'flash'}
+                    // showConsole={'flash'}
                     />
                 }
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <View style={[stylesMain.FlexRow, { marginTop: 5, }]}>
-                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBoldBold, stylesFont.FontSize3, { color: '#dc3545' }]}>
+                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBoldBold, stylesFont.FontSize3, {
+                            color: '#dc3545'
+                        }]}>
                             FLASH SALE</Text>
                         <View style={[stylesMain.FlexRow, { marginTop: 4 }]}>
                             <View style={{ flexDirection: 'row', marginLeft: 10 }}>
@@ -2586,9 +2589,15 @@ export class Botton_PopUp_FIN extends React.Component {
 
         };
     }
-    toggleComponentVisibility = () =>
-        this.setState({ activeSliding: !this.state.activeSliding });
-
+    toggleComponentVisibility = (activeSliding) => {
+        activeSliding == true &&
+            Notifications.postLocalNotification({
+                // title: "Hot Sale!",
+                body: "สวัสดีครับ\nต้องการให้น้องฟินช่วยด้านใดดีครับ",
+                extra: "data"
+            });
+        this.setState({ activeSliding });
+    }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
         value == 'goBack' ?
@@ -2601,12 +2610,12 @@ export class Botton_PopUp_FIN extends React.Component {
     }
     render() {
         const { activeSliding } = this.state
-        console.log(activeSliding)
+        // console.log(activeSliding)
         return (
             <>
                 <View style={{ bottom: '30%', left: width - 60, marginTop: -60 }}>
                     {/* <View style={{ left: width - 60, transform: [{ translateY: -.09 * height }] }}> */}
-                    <TouchableOpacity onPress={this.toggleComponentVisibility}>
+                    <TouchableOpacity onPress={this.toggleComponentVisibility.bind(this, !activeSliding)}>
                         <FastImage
                             style={{ height: 60, width: 60, }}
                             source={require('../icon/FIN_Chat-01.png')}
@@ -2622,7 +2631,7 @@ export class Botton_PopUp_FIN extends React.Component {
                         top: '50%'
                     }}
                     position="right">
-                    <TouchableOpacity onPress={this.toggleComponentVisibility}>
+                    <TouchableOpacity onPress={this.toggleComponentVisibility.bind(this, !activeSliding)}>
                         <View style={{ backgroundColor: 'transparent', height: 150, }}>
                             <FastImage
                                 style={stylesMain.BoxProduct1Image}
@@ -2639,21 +2648,5 @@ export class Botton_PopUp_FIN extends React.Component {
                 </SlidingView>
             </>
         );
-    }
-}
-class MyComponent extends Component {
-    constructor(props) {
-        super(props);
-        Notifications.registerRemoteNotifications();
-
-        Notifications.events().registerNotificationReceivedForeground((notification: Notification, completion) => {
-            console.log(`Notification received in foreground: ${notification.title} : ${notification.body}`);
-            completion({ alert: false, sound: false, badge: false });
-        });
-
-        Notifications.events().registerNotificationOpened((notification: Notification, completion) => {
-            console.log(`Notification opened: ${notification.payload}`);
-            completion();
-        });
     }
 }

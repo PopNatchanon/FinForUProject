@@ -619,7 +619,7 @@ export class OmiseBox extends Component {
                 item2.map((value3) => {
                     if (value3 == 'true') {
                         getData(false)
-                        this.navigationNavigateScreen('Customer_Complete_Order', { dataService })
+                        this.navigationNavigateScreen('Customer_Complete_Order', { no_invoice })
                     }
                     if (value3 == 'false') {
 

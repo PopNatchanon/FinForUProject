@@ -43,17 +43,17 @@ export default class DealScreen extends Component {
         <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} />
         <AppBar1 titleHead={'ดีลสุดคุ้ม'} backArrow searchBar chatBar navigation={this.props.navigation} />
         <ScrollView>
-          <Slide navigation={this.props.navigation}/>
+          <Slide navigation={this.props.navigation} />
           <Deal_Calendar />
           <Deal_Today navigation={this.props.navigation} />
           <Deal_Exclusive navigation={this.props.navigation} />
           <ProDed_Store navigation={this.props.navigation} />
-          <ProDed_New_Store />
+          {/* <ProDed_New_Store /> */}
           <Second_product navigation={this.props.navigation} loadData={{
             product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
             list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3,
             mobile_bar: dataService.mobile_bar, mobile_slide: dataService.mobile_slide,
-          }} Header_Second/>
+          }} Header_Second />
           {/* <Second_Store navigation={this.props.navigation} /> */}
           <Shop_Deal_ForU navigation={this.props.navigation} />
         </ScrollView>

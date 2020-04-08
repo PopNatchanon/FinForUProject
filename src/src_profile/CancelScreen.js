@@ -27,7 +27,7 @@ export default class CancelScreen extends Component {
   }
   PathList() {
     // const selectedIndex = this.props.navigation.getParam('selectedIndex')
-    const selectedIndex = 1
+    const selectedIndex = 0
     switch (selectedIndex) {
       case 0:
         return (

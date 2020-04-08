@@ -192,7 +192,7 @@ export class Login extends React.Component {
             ref="form"
             onSubmit={this.getData.bind(this)}>
             <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
-              อีเมล</Text>
+                อีเมล</Text>
             <TextValidator
               name="email"
               label="text"
@@ -217,7 +217,7 @@ export class Login extends React.Component {
                 underlineInvalidColor: 'red'
               }} />
             <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
-              รหัสผ่าน</Text>
+                รหัสผ่าน</Text>
             <TextValidator
               name="pass"
               label="text"

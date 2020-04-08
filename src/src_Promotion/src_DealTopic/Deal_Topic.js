@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-    Dimensions, SafeAreaView, ScrollView, Text, View, TouchableOpacity,
+    Dimensions, SafeAreaView, ScrollView, Text, View, TouchableOpacity, FlatList, Image,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
@@ -159,6 +159,14 @@ export default class Deal_Topic extends Component {
                             }
                         </ScrollView>
                     </View>
+
+                )
+            case 9:
+                return (
+                    <>
+                        <AppBar1 backArrow navigation={navigation} titleHead='คอมเมนท์' chatBar />
+                        <Feed_comment />
+                    </>
                 )
         }
     }
@@ -605,6 +613,66 @@ export class Select_TagProduct extends React.Component {
                     tagBottom
                 />
             </View>
+        );
+    }
+}
+///----------------------------------------------------------------------------------------------->>>
+export class Feed_comment extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: [
+                { id: 1, image: "https://bootdey.com/img/Content/avatar/avatar1.png", name: "Frank Odalthh", comment: "สอบถามขนาดสินค้าหน่อยครับ" },
+                { id: 2, image: "https://bootdey.com/img/Content/avatar/avatar6.png", name: "John DoeLink", comment: "สั่งของไปยังไม่ได้ของเลยครับ" },
+                { id: 3, image: "https://bootdey.com/img/Content/avatar/avatar7.png", name: "March SoulLaComa", comment: "ยังมีสินค้าอยู่ไหมคะ" },
+                { id: 4, image: "https://bootdey.com/img/Content/avatar/avatar2.png", name: "Finn DoRemiFaso", comment: "สินค้ามีปัญหาเปลี่ยนได้ทางไหนครับ" },
+                { id: 5, image: "https://bootdey.com/img/Content/avatar/avatar3.png", name: "Maria More More", comment: "สินค้าราคาเท่าไหรครับ" },
+                { id: 6, image: "https://bootdey.com/img/Content/avatar/avatar4.png", name: "Clark June Boom!", comment: "ส่งของวันไหนครับ" },
+                { id: 7, image: "https://bootdey.com/img/Content/avatar/avatar5.png", name: "The googler", comment: "ยังไม่ได้สินค้าเลยครับ" },
+                { id: 8, image: "https://bootdey.com/img/Content/avatar/avatar6.png", name: "DoRemiFaso", comment: "ยังไม่ได้สินค้าเลยครับ" },
+                { id: 9, image: "https://bootdey.com/img/Content/avatar/avatar1.png", name: "The googler", comment: "ยังไม่ได้สินค้าเลยครับ" },
+                { id: 10, image: "https://bootdey.com/img/Content/avatar/avatar7.png", name: "Maria More More", comment: "ยังไม่ได้สินค้าเลยครับ" },
+            ]
+        }
+    }
+    
+    render() {
+        return (
+            <FlatList
+                style={stylesTopic.root}
+                data={this.state.data}
+                extraData={this.state}
+                ItemSeparatorComponent={() => {
+                    return (
+                        <View style={stylesTopic.separator} />
+                    )
+                }}
+                keyExtractor={(item) => {
+                    return item.id;
+                }}
+                renderItem={(item) => {
+                    const Notification = item.item;
+                    return (
+                        <View style={stylesTopic.container}>
+                            {/* กดรูปโปร */}
+                            <TouchableOpacity onPress={() => { }}>
+                                <Image style={stylesTopic.image} source={{ uri: Notification.image }} />
+                            </TouchableOpacity>
+                            <View style={stylesTopic.content}>
+                                <View style={stylesTopic.contentHeader}>
+                                    <Text style={stylesTopic.name}>{Notification.name}</Text>
+                                    <Text style={stylesTopic.time}> 9:58 am</Text>
+                                </View>
+                                <Text rkType='primary3 mediumLine'>{Notification.comment}</Text>
+                                <View style={[stylesMain.FlexRow, { justifyContent: 'flex-end', width: '50%' }]}>
+                                
+                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>ถูกใจ</Text>
+                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,{marginLeft:10}]}>ตอบกลับ</Text>
+                                </View>
+                            </View>
+                        </View>
+                    );
+                }} />
         );
     }
 }

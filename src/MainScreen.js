@@ -814,56 +814,46 @@ export class Button_Bar extends React.Component {
                         <View style={stylesMain.Button_Bar_Box}>
                             <FastImage style={stylesMain.Button_Bar_icon}
                                 source={{
-                                    uri: ip + '/MySQL/uploads/icon_5/06.jpg',
+                                    uri: ip + '/MySQL/uploads/icon_Deal/Done/010.png',
                                 }}
                                 resizeMode={FastImage.resizeMode.stretch} />
-                        </View>
-                        <Text style={[stylesFont.FontCenter, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                            ดีลสุดพิเศษ</Text>
+                        </View>                        
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'CoinScreen')}>
                         <View style={stylesMain.Button_Bar_Box}>
                             <FastImage style={stylesMain.Button_Bar_icon}
                                 source={{
-                                    uri: ip + '/MySQL/uploads/icon_5/07.jpg',
+                                    uri: ip + '/MySQL/uploads/icon_Deal/Done/009.png',
                                 }}
-                                resizeMode={FastImage.resizeMode.stretch} />
-                            <Text style={[stylesFont.FontCenter, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                FinCoin</Text>
+                                resizeMode={FastImage.resizeMode.stretch} />                    
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'CampaignScreen')}>
                         <View style={stylesMain.Button_Bar_Box}>
                             <FastImage style={stylesMain.Button_Bar_icon}
                                 source={{
-                                    uri: ip + '/MySQL/uploads/icon_5/08.jpg',
+                                    uri: ip + '/MySQL/uploads/icon_Deal/Done/008.png',
                                 }}
-                                resizeMode={FastImage.resizeMode.stretch} />
-                            <Text style={[stylesFont.FontCenter, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                แคมเปญ</Text>
+                                resizeMode={FastImage.resizeMode.stretch} />                    
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'The_BestFinScreen')}>
                         <View style={stylesMain.Button_Bar_Box}>
                             <FastImage style={stylesMain.Button_Bar_icon}
                                 source={{
-                                    uri: ip + '/MySQL/uploads/icon_5/09.jpg',
+                                    uri: ip + '/MySQL/uploads/icon_Deal/Done/007.png',
                                 }}
-                                resizeMode={FastImage.resizeMode.stretch} />
-                            <Text style={[stylesFont.FontCenter, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                สุดคุ้มสุดฟิน</Text>
+                                resizeMode={FastImage.resizeMode.stretch} />                     
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Installment_payScreen')}>
                         <View style={stylesMain.Button_Bar_Box}>
                             <FastImage style={stylesMain.Button_Bar_icon}
                                 source={{
-                                    uri: ip + '/MySQL/uploads/icon_5/010.jpg',
+                                    uri: ip + '/MySQL/uploads/icon_Deal/Done/006.png',
                                 }}
                                 resizeMode={FastImage.resizeMode.stretch} />
                         </View>
-                        <Text style={[stylesFont.FontCenter, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                            ผ่อนชำระ 0%</Text>
                     </TouchableOpacity>
                 </ScrollView>
             </View>

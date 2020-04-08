@@ -40,10 +40,10 @@ export default StyleSheet.create({
         alignContent: 'center',
     },
     Button_Bar_BoxICON: {
-        height: 40,
-        width: 40,
+        height: 50,
+        width: 50,
         backgroundColor: '#C4C4C4',
-        borderRadius: 40,
+        borderRadius: 10,
     },
     Button_Bar_BoxText: {
         textAlign: 'center',
@@ -243,8 +243,7 @@ export default StyleSheet.create({
     CampaignBody_Icon: {
         justifyContent: 'center',
         alignItems: 'center',
-        borderColor: '#0A55A6',
-        borderWidth: 1,
+        backgroundColor:'#f0b912',
         height: 30,
         width: 30,
         marginTop: 3,

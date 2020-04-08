@@ -291,21 +291,18 @@ export default StyleSheet.create({
         backgroundColor: '#FFFFFF',
     },
     Order_BoxStore: {
-        paddingHorizontal: 10,
         borderColor: '#EAEAEA',
         borderBottomWidth: 1,
         flexDirection: 'row',
         paddingVertical: 5,
     },
     Order_StorePro: {
-        margin: 5,
         height: 40,
         width: 40,
         backgroundColor: '#A2A2A2',
         borderRadius: 20,
     },
     Order_Box_Button: {
-        marginTop: 5,
         flexDirection: 'row',
     },
     Order_Button: {
@@ -316,6 +313,7 @@ export default StyleSheet.create({
     },
     Order_Product: {
         height: 120,
+        width,
         flexDirection: 'row',
         justifyContent: 'space-between',
         padding: 10,

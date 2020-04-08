@@ -731,5 +731,5 @@ export default StyleSheet.create({
     backgroundColor: '#fb3449',
     paddingHorizontal: 5,
     marginLeft: 5
-  }
+  },
 });

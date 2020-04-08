@@ -5,7 +5,7 @@
 <!--        android:drawable="@color/splashscreen_bg"/>-->
 
     <item
-        android:drawable="@mipmap/splash_icon"
+        android:drawable="@mipmap/icon_publish_s"
         android:gravity="center" />
 
 </layer-list>

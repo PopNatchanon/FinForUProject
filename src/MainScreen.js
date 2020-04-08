@@ -4,16 +4,17 @@ import {
     Animated, BackHandler, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, Button,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
+import ActionButton from 'react-native-action-button';
 import AsyncStorage from '@react-native-community/async-storage'
 import * as Animatable from 'react-native-animatable';
+import BottomSheet from "react-native-raw-bottom-sheet";
 import Carousel, { PaginationLight } from 'react-native-x-carousel';
 import CookieManager from '@react-native-community/cookies';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
+import { Notifications } from 'react-native-notifications';
 import SplashScreen from 'react-native-splash-screen';
 import SlidingView from 'rn-sliding-view';
-import BottomSheet from "react-native-raw-bottom-sheet";
-import ActionButton from 'react-native-action-button';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -54,8 +55,8 @@ export default class MainScreen extends React.Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log('responseJson')
-                console.log(responseJson)
+                // console.log('responseJson')
+                // console.log(responseJson)
             })
             .catch((error) => {
                 console.error(error);
@@ -67,8 +68,8 @@ export default class MainScreen extends React.Component {
         CookieManager.get(finip + '/auth/login_customer')
             .then((res) => {
                 var keycokie = res.token
-                console.log('token')
-                console.log(keycokie)
+                // console.log('token')
+                // console.log(keycokie)
                 keycokie === undefined && autoLogin !== undefined &&
                     this.setStateLogin(autoLogin)
             });
@@ -121,7 +122,9 @@ export default class MainScreen extends React.Component {
                         IsLoading < 0 &&
                         <LoadingScreen key={'LoadingScreen'} />,
                         activeDataService == true &&
-                        <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} key={'activeDataService'} />
+                        <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} key={'activeDataService'}
+                        // showConsole={'Main'}
+                        />
                     }
                     <AppBar navigation={navigation} currentUser={currentUser} />
                     <ScrollView>
@@ -469,7 +472,9 @@ export class AppBar1 extends React.Component {
                 navigation.popToTop(),
                 navigation.replace(value, value2)
             ) :
-                navigation.push(value, value2)
+                value == 'popToTop' ?
+                    navigation.popToTop() :
+                    navigation.push(value, value2)
     }
     setText = (text) => {
         this.setState({ text })
@@ -485,8 +490,8 @@ export class AppBar1 extends React.Component {
     render() {
         const { currentUser, } = this.state
         const {
-            backArrow, backArrowColor, ButtomDeleteAll, chatBar, colorBar, deleteBar, menuBar, saveBar, searchBar, settingBar, storeBar,
-            titleHead,
+            backArrow, backArrowColor, ButtomDeleteAll, chatBar, colorBar, deleteBar, goToTop, menuBar, saveBar, searchBar, settingBar,
+            storeBar, titleHead,
         } = this.props;
         return (
             <View style={
@@ -500,7 +505,11 @@ export class AppBar1 extends React.Component {
                         backArrow &&
                         <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30 }]}
                             activeOpacity={1}
-                            onPress={this.navigationNavigateScreen.bind(this, 'goBack')}>
+                            onPress={
+                                goToTop ?
+                                    this.navigationNavigateScreen.bind(this, 'popToTop') :
+                                    this.navigationNavigateScreen.bind(this, 'goBack')
+                            }>
                             <IconEntypo style={[stylesStore.Icon_appbar, {
                                 color: backArrowColor ? backArrowColor : '#ffffff'
                             }]} name="chevron-left" size={30} />
@@ -1289,12 +1298,14 @@ export class FlashSale extends React.Component {
                 {
                     activeDataService == true &&
                     <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)}
-                        showConsole={'flash'}
+                    // showConsole={'flash'}
                     />
                 }
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <View style={[stylesMain.FlexRow, { marginTop: 5, }]}>
-                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBoldBold, stylesFont.FontSize3, { color: '#dc3545' }]}>
+                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBoldBold, stylesFont.FontSize3, {
+                            color: '#dc3545'
+                        }]}>
                             FLASH SALE</Text>
                         <View style={[stylesMain.FlexRow, { marginTop: 4 }]}>
                             <View style={{ flexDirection: 'row', marginLeft: 10 }}>
@@ -2568,9 +2579,15 @@ export class Botton_PopUp_FIN extends React.Component {
 
         };
     }
-    toggleComponentVisibility = () =>
-        this.setState({ activeSliding: !this.state.activeSliding });
-
+    toggleComponentVisibility = (activeSliding) => {
+        activeSliding == true &&
+            Notifications.postLocalNotification({
+                // title: "Hot Sale!",
+                body: "สวัสดีครับ\nต้องการให้น้องฟินช่วยด้านใดดีครับ",
+                extra: "data"
+            });
+        this.setState({ activeSliding });
+    }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
         value == 'goBack' ?
@@ -2583,12 +2600,12 @@ export class Botton_PopUp_FIN extends React.Component {
     }
     render() {
         const { activeSliding } = this.state
-        console.log(activeSliding)
+        // console.log(activeSliding)
         return (
             <>
-                <View style={{ bottom: '30%', left: width - 60, marginTop:-60  }}>
+                <View style={{ bottom: '30%', left: width - 60, marginTop: -60 }}>
                     {/* <View style={{ left: width - 60, transform: [{ translateY: -.09 * height }] }}> */}
-                    <TouchableOpacity onPress={this.toggleComponentVisibility}>
+                    <TouchableOpacity onPress={this.toggleComponentVisibility.bind(this, !activeSliding)}>
                         <FastImage
                             style={{ height: 60, width: 60, }}
                             source={require('../icon/FIN_Chat-01.png')}
@@ -2604,7 +2621,7 @@ export class Botton_PopUp_FIN extends React.Component {
                         top: '50%'
                     }}
                     position="right">
-                    <TouchableOpacity onPress={this.toggleComponentVisibility}>
+                    <TouchableOpacity onPress={this.toggleComponentVisibility.bind(this, !activeSliding)}>
                         <View style={{ backgroundColor: 'transparent', height: 150, }}>
                             <FastImage
                                 style={stylesMain.BoxProduct1Image}

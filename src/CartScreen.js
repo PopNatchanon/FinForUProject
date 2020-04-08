@@ -323,8 +323,8 @@ export class Product_Cart extends React.Component {
                             }}
                             resizeMode={FastImage.resizeMode.contain} />
                     </View>
-                    <View style={[stylesMain.ItemCenterVertical, { marginLeft: 25 }]}>
-                        <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: width * 0.5 }]}>
+                    <View style={[stylesMain.ItemCenterVertical, { marginLeft: 20 }]}>
+                        <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: width * 0.38 }]}>
                             {data.item.product_name}</Text>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                             {data.item.detail_1 + ' ' + data.item.detail_2}</Text>
@@ -1086,7 +1086,7 @@ export class Buy_bar extends React.Component {
                         ButtomDeleteAll == true ?
                             this.DeleteAction.bind(this) :
                             this.setStateBill.bind(this)}>
-                        <View style={stylesCart.BOX_Buy}>
+                        <View style={[stylesCart.BOX_Buy, stylesMain.ItemCenterVertical]}>
                             <Text style={[
                                 stylesCart.BOX_Buy_Text, stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical
                             ]}>

@@ -4,8 +4,11 @@ import {
     Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
+import AsyncStorage from '@react-native-community/async-storage'
+import CookieManager from '@react-native-community/cookies';
 import FastImage from 'react-native-fast-image';
 export const { width, height } = Dimensions.get('window');
+import NumberFormat from 'react-number-format';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconFeather from 'react-native-vector-icons/Feather';
@@ -16,7 +19,7 @@ import stylesMain from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from '../MainScreen';
-import { TabBar } from '../tools/Tools';
+import { TabBar, GetServices, LoadingScreen } from '../tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -24,15 +27,38 @@ export default class Total_Order extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            IsLoading: true,
         };
     }
+    getDataAsync = async () => {
+        const currentUser = await AsyncStorage.getItem('@MyKey')
+        this.setState({ currentUser: JSON.parse(currentUser) })
+    }
+    componentDidMount() {
+        this.getDataAsync()
+        CookieManager.get(finip + '/auth/login_customer')
+            .then((res) => {
+                var keycokie = res.token
+                this.setState({ keycokie })
+            });
+    }
+    IsLoading = (IsLoading) => {
+        this.setState({ IsLoading })
+    }
     render() {
-        const selectedIndex = this.props.navigation.getParam('selectedIndex')
+        const { navigation } = this.props
+        const { currentUser, IsLoading, keycokie, } = this.state
+        const selectedIndex = navigation.getParam('selectedIndex')
         return (
             <SafeAreaView style={[stylesMain.SafeAreaView, { height: 'auto' }]}>
-                <AppBar1 backArrow navigation={this.props.navigation} titleHead='การสั่งซื้อของฉัน' />
-                <Button_bar navigation={this.props.navigation} SetselectedIndex={selectedIndex} />
-                <ExitAppModule navigation={this.props.navigation} />
+                {
+                    IsLoading == true &&
+                    <LoadingScreen />
+                }
+                <AppBar1 backArrow navigation={navigation} titleHead='การสั่งซื้อของฉัน' />
+                <Button_bar currentUser={currentUser} keycokie={keycokie} navigation={navigation} setLoading={this.IsLoading.bind(this)}
+                    SetselectedIndex={selectedIndex} />
+                <ExitAppModule navigation={navigation} />
             </SafeAreaView>
         );
     }
@@ -42,54 +68,167 @@ export class Button_bar extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            activeSelectedIndex: true,
             selectedIndex: 0,
         };
     }
+    getData = (dataService) => {
+        const { setLoading } = this.props
+        this.setState({ activeSelectedIndex: false, dataService })
+        setLoading(false)
+    }
     updateIndex = (selectedIndex) => {
-        this.setState({ selectedIndex })
+        const { setLoading } = this.props
+        this.setState({ selectedIndex, activeSelectedIndex: true, })
+        setLoading(true)
     }
     get PathList() {
-        var { selectedIndex } = this.state
+        const { currentUser, keycokie, navigation, } = this.props
+        const { activeSelectedIndex, dataService, selectedIndex, } = this.state
+        console.log('selectedIndex')
+        console.log(selectedIndex)
+        var uri = finip + '/purchase_data/view_purchase';
+        var dataBody = {
+            id_customer: currentUser && currentUser.id_customer,
+            type_purchase:
+                selectedIndex == 0 ? "all" :
+                    selectedIndex == 1 ? 'wait' :
+                        selectedIndex == 2 ? 'paid' :
+                            selectedIndex == 3 ? 'accepted' :
+                                selectedIndex == 4 ? 'cancel' :
+                                    'all',
+            device: "mobile_device",
+        };
         switch (selectedIndex) {
             case 0:
                 return (
-                    <View>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, marginTop: 10, }]}>รายการคำสั่งซื้อ</Text>
-                        <From_Order_Box navigation={this.props.navigation} payment_order cancel_order />
-                        <From_Order_Box navigation={this.props.navigation} detail_order />
-                        <From_Order_Box navigation={this.props.navigation} detail_order shipping_order />
-                        <From_Order_Box navigation={this.props.navigation} Review_order return_order detail_order />
-                    </View>
+                    <>
+                        {[
+                            activeSelectedIndex == true && currentUser && keycokie && selectedIndex == 0 &&
+                            <GetServices uriPointer={uri} Authorization={keycokie} key={'view_purchase'}
+                                showConsole={'view_purchase'}
+                                dataBody={dataBody} getDataSource={this.getData.bind(this)} />,
+                            activeSelectedIndex == false && selectedIndex == 0 && ([
+                                <Text key={'all'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
+                                    marginLeft: 10, marginTop: 10,
+                                }]}>
+                                    รายการคำสั่งซื้อ</Text>,
+                                dataService && dataService.purchase.length > 0 ?
+                                    dataService.purchase.map((value, index) => {
+                                        return <From_Order_Box dataService={value} key={index} navigation={navigation} />
+                                    }) :
+                                    <View style={[stylesProfileTopic.products_pro, { height: height * 0.5 }]}>
+                                        <IconFeather name='edit' size={50} color='#A2A2A2' />
+                                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>
+                                            ยังไม่มีคำสั่งซื้อ</Text>
+                                    </View>
+                            ])
+                        ]}
+                    </>
                 )
             case 1:
                 return (
-                    <View>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, marginTop: 10, }]}>ที่ต้องชำระ</Text>
-                        <From_Order_Box navigation={this.props.navigation} payment_order cancel_order />
-                        <From_Order_Box navigation={this.props.navigation} payment_order cancel_order />
-                    </View>
+                    <>
+                        {[
+                            activeSelectedIndex == true && currentUser && keycokie && selectedIndex == 1 &&
+                            <GetServices uriPointer={uri} Authorization={keycokie} key={'view_purchase'}
+                                showConsole={'view_purchase'}
+                                dataBody={dataBody} getDataSource={this.getData.bind(this)} />,
+                            activeSelectedIndex == false && selectedIndex == 1 && ([
+                                <Text key={'wait'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
+                                    marginLeft: 10, marginTop: 10,
+                                }]}>
+                                    ที่ต้องชำระ</Text>,
+                                dataService && dataService.purchase.length > 0 ?
+                                    dataService.purchase.map((value, index) => {
+                                        return <From_Order_Box dataService={value} key={index} navigation={navigation} />
+                                    }) :
+                                    <View style={[stylesProfileTopic.products_pro, { height: height * 0.5 }]}>
+                                        <IconFeather name='edit' size={50} color='#A2A2A2' />
+                                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>
+                                            ยังไม่มีคำสั่งซื้อ</Text>
+                                    </View>
+                            ])
+                        ]}
+                    </>
                 )
             case 2:
                 return (
-                    <View>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, marginTop: 10, }]}>เตรียมจัดส่ง</Text>
-                        <From_Order_Box navigation={this.props.navigation} detail_order />
-                    </View>
+                    <>
+                        {[
+                            activeSelectedIndex == true && currentUser && keycokie && selectedIndex == 2 &&
+                            <GetServices uriPointer={uri} Authorization={keycokie} key={'view_purchase'}
+                                showConsole={'view_purchase'}
+                                dataBody={dataBody} getDataSource={this.getData.bind(this)} />,
+                            activeSelectedIndex == false && selectedIndex == 2 && ([
+                                <Text key={'paid'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
+                                    marginLeft: 10, marginTop: 10,
+                                }]}>
+                                    ที่ต้องได้รับ</Text>,
+                                dataService && dataService.purchase.length > 0 ?
+                                    dataService.purchase.map((value, index) => {
+                                        return <From_Order_Box dataService={value} key={index} navigation={navigation} />
+                                    }) :
+                                    <View style={[stylesProfileTopic.products_pro, { height: height * 0.5 }]}>
+                                        <IconFeather name='edit' size={50} color='#A2A2A2' />
+                                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>
+                                            ยังไม่มีคำสั่งซื้อ</Text>
+                                    </View>
+                            ])
+                        ]}
+                    </>
                 )
             case 3:
                 return (
-                    <View>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, marginTop: 10, }]}> ที่ต้องได้รับ </Text>
-                        <From_Order_Box navigation={this.props.navigation} detail_order shipping_order />
-                    </View>
+                    <>
+                        {[
+                            activeSelectedIndex == true && currentUser && keycokie && selectedIndex == 3 &&
+                            <GetServices uriPointer={uri} Authorization={keycokie} key={'view_purchase'}
+                                showConsole={'view_purchase'}
+                                dataBody={dataBody} getDataSource={this.getData.bind(this)} />,
+                            activeSelectedIndex == false && selectedIndex == 3 && ([
+                                <Text key={'accepted'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
+                                    marginLeft: 10, marginTop: 10,
+                                }]}>
+                                    สำเร็จแล้ว</Text>,
+                                dataService && dataService.purchase.length > 0 ?
+                                    dataService.purchase.map((value, index) => {
+                                        return <From_Order_Box dataService={value} key={index} navigation={navigation} />
+                                    }) :
+                                    <View style={[stylesProfileTopic.products_pro, { height: height * 0.5 }]}>
+                                        <IconFeather name='edit' size={50} color='#A2A2A2' />
+                                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>
+                                            ยังไม่มีคำสั่งซื้อ</Text>
+                                    </View>
+                            ])
+                        ]}
+                    </>
                 )
             case 4:
                 return (
-                    <View>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, marginTop: 10, }]}> สำเร็จแล้ว </Text>
-                        <From_Order_Box navigation={this.props.navigation} Review_order return_order detail_order />
-                        <From_Order_Box navigation={this.props.navigation} buy_again_order return_order />
-                    </View>
+                    <>
+                        {[
+                            activeSelectedIndex == true && currentUser && keycokie && selectedIndex == 4 &&
+                            <GetServices uriPointer={uri} Authorization={keycokie} key={'view_purchase'}
+                                showConsole={'view_purchase'}
+                                dataBody={dataBody} getDataSource={this.getData.bind(this)} />,
+                            activeSelectedIndex == false && selectedIndex == 4 && ([
+                                <Text key={'cancel'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
+                                    marginLeft: 10, marginTop: 10,
+                                }]}>
+                                    ยกเลิกสินค้า</Text>,
+                                dataService && dataService.purchase.length > 0 ?
+                                    dataService.purchase.map((value, index) => {
+                                        return <From_Order_Box dataService={value} key={index} navigation={navigation} />
+                                    }) :
+                                    <View style={[stylesProfileTopic.products_pro, { height: height * 0.5 }]}>
+                                        <IconFeather name='edit' size={50} color='#A2A2A2' />
+                                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>
+                                            ยังไม่มีคำสั่งซื้อ</Text>
+                                    </View>
+                            ])
+                        ]}
+                    </>
                 )
         }
     }
@@ -100,14 +239,14 @@ export class Button_bar extends Component {
         }, {
             name: 'ที่ต้องชำระ'
         }, {
-            name: 'เตรียมจัดส่ง'
-        }, {
             name: 'ที่ต้องได้รับ'
         }, {
             name: 'สำเร็จแล้ว'
+        }, {
+            name: 'ยกเลิก'
         }]
         return (
-            <View>
+            <>
                 <View style={stylesProfileTopic.Button_bar}>
                     <ScrollView horizontal>
                         <TabBar
@@ -125,7 +264,7 @@ export class Button_bar extends Component {
                 <ScrollView>
                     {this.PathList}
                 </ScrollView>
-            </View>
+            </>
         );
     }
 }
@@ -137,110 +276,167 @@ export class From_Order_Box extends Component {
         this.state = {
         };
     }
-    render() {
-        const { payment_order, cancel_order, detail_order, shipping_order, Review_order, return_order, buy_again_order, } = this.props
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.push(value, value2)
+    }
+    render() { // 3 // Review_order return_order detail_order // buy_again_order return_order
+        const { dataService, } = this.props
+        const { Review_order, return_order, buy_again_order, } = this.props
+        console.log(dataService)
+        const uri_image_store = finip + '/' + dataService.store_path + '/' + dataService.store_image
+        const uri_image_product = finip + '/' + dataService.path_product + '/' + dataService.image_product
         return (
             <View>
                 <View style={stylesMain.FrameBackground}>
                     <View style={[stylesProfileTopic.Order_BoxStore, { justifyContent: 'space-between' }]}>
                         <View style={stylesMain.FlexRow}>
-                            <FastImage style={stylesProfileTopic.Order_StorePro}
+                            <FastImage style={[stylesProfileTopic.Order_StorePro, stylesMain.ItemCenterVertical,]}
                                 source={{
-                                    uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
+                                    uri: uri_image_store,
                                 }}
-                            />
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5, }]}>PPoo</Text>
+                                resizeMode={FastImage.resizeMode.contain} />
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesMain.ItemCenterVertical, {
+                                marginLeft: 5
+                            }]}>
+                                {dataService.name}</Text>
                             <View style={stylesProfileTopic.Order_Box_Button}>
                                 <TouchableOpacity>
-                                    <View style={[stylesProfileTopic.Order_Button, { backgroundColor: '#0A55A6' }]}>
-                                        <IconAntDesign RightItem name="wechat" size={25} color='#FFFFFF' />
-                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#FFFFFF' }]}>แชทเลย</Text>
+                                    <View style={[stylesProfileTopic.Order_Button, stylesMain.ItemCenterVertical, {
+                                        borderWidth: 1, borderColor: '#0A55A6', backgroundColor: '#0A55A6'
+                                    }]}>
+                                        <IconAntDesign RightItem name="wechat" size={20} color='#FFFFFF' />
+                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, {
+                                            color: '#FFFFFF', marginHorizontal: 6,
+                                        }]}>
+                                            แชทเลย</Text>
                                     </View>
                                 </TouchableOpacity>
                                 <TouchableOpacity>
-                                    <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1 }]}>
-                                        <Icons RightItem name="store" size={20} />
-                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>ดูร้านค้า</Text>
+                                    <View style={[stylesProfileTopic.Order_Button, stylesMain.ItemCenterVertical, { borderWidth: 1 }]}>
+                                        <Icons RightItem name="store" size={16} />
+                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginHorizontal: 6, }]}>
+                                            ดูร้านค้า</Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>
                         </View>
-                        {
-                            shipping_order &&
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#20BDA1', marginTop: 10, }]}>กำลังจัดส่ง</Text>
-                        }{
-                            Review_order &&
-                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Profile_Topic', { selectedIndex: 7 })}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#20BDA1', marginTop: 10, }]}>
+                        {[
+                            dataService.status_purchase == 'paid' &&
+                            <Text key={'shipping_order'} style={[stylesFont.FontFamilyText, stylesFont.FontSize6, {
+                                color: '#20BDA1', marginLeft: 4, marginTop: 10, width: width * 0.2, textAlign: 'center',
+                            }]}>
+                                {'อยู่ในระหว่างการจัดส่ง'}</Text>,
+                            dataService.status_purchase == 'accepted' &&
+                            <TouchableOpacity key={'Review_order'} activeOpacity={1}
+                                onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 7 })}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical,
+                                { color: '#20BDA1', paddingRight: 6 }]}>
                                     <IconFeather name='edit' size={15} />
                                     เขียนรีวิว
                                 </Text>
                             </TouchableOpacity>
-                        }
+                        ]}
                     </View>
                     <View style={stylesProfileTopic.Order_Product}>
                         <View style={stylesMain.FlexRow}>
                             <View style={stylesProfileTopic.Order_Product_Pro}>
                                 <FastImage style={stylesMain.BoxProduct1Image}
                                     source={{
-                                        uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
+                                        uri: uri_image_product,
                                     }}
-                                />
+                                    resizeMode={FastImage.resizeMode.contain} />
                             </View>
-                            <View style={{ marginTop: 10 }}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A2A2A2' }]}>ตัวเลือกสินค้า:สีแดง</Text>
-                                <Text>x 1</Text>
+                            <View style={{ marginTop: 10, width: width * 0.5 }}>
+                                <Text numberOfLines={2} style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                                    {dataService.product_name}</Text>
+                                <Text numberOfLines={2} style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A2A2A2' }]}>
+                                    {dataService.detail_1 + ' ' + dataService.detail_2}</Text>
+                                <NumberFormat
+                                    value={dataService.quantity}
+                                    displayType={'text'}
+                                    thousandSeparator={true}
+                                    prefix={''}
+                                    renderText={value =>
+                                        <Text>x {value}</Text>
+                                    } />
                             </View>
                         </View>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#0A55A6', marginTop: 10, }]}>฿10,000.00</Text>
+                        <NumberFormat
+                            value={dataService.price}
+                            displayType={'text'}
+                            thousandSeparator={true}
+                            prefix={'฿'}
+                            renderText={value =>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#0A55A6', marginTop: 10, }]}>
+                                    {value}</Text>
+                            } />
                     </View>
                     <View style={stylesProfileTopic.Order_Box_price}>
                         <View style={stylesProfileTopic.Order_Box_priceText}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยอดคำสั่งซื้อทั้งหมด</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, color: '#0A55A6' }]}>฿ 10,000.00</Text>
+                            <NumberFormat
+                                value={dataService.price_total}
+                                displayType={'text'}
+                                thousandSeparator={true}
+                                prefix={'฿'}
+                                renderText={value =>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, color: '#0A55A6' }]}>
+                                        {value}</Text>
+                                } />
                         </View>
                         <View style={[stylesProfileTopic.Order_Box_priceText, { marginTop: 5, }]}>
-                            {
-                                payment_order &&
-                                <TouchableOpacity>
-                                    <View style={[stylesProfileTopic.Order_Button, { backgroundColor: '#0A55A6' }]}>
-                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ดำเนินการชำระเงิน</Text>
+                            {[
+                                dataService.status_purchase == 'wait' &&
+                                <TouchableOpacity key={'payment_order'} onPress={this.navigationNavigateScreen.bind(this, 'Customer_Order',
+                                    { no_invoice: dataService.invoice_no })}>
+                                    <View style={[stylesProfileTopic.Order_Button, {
+                                        borderWidth: 1, borderColor: '#0A55A6', backgroundColor: '#0A55A6'
+                                    }]}>
+                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>
+                                            ดำเนินการชำระเงิน</Text>
                                     </View>
-                                </TouchableOpacity>
-                            }{
-                                cancel_order &&
-                                <TouchableOpacity onPress={() => this.props.navigation.push('CancelScreen', { selectedIndex: 1 })}>
+                                </TouchableOpacity>,
+                                dataService.status_purchase == 'wait' &&
+                                <TouchableOpacity key={'cancel_order'} onPress={this.navigationNavigateScreen.bind(this, 'CancelScreen', {
+                                    selectedIndex: 1
+                                })}>
                                     <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
                                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยกเลิกสินค้า</Text>
                                     </View>
-                                </TouchableOpacity>
-                            }{
-                                return_order &&
-                                <TouchableOpacity onPress={() => this.props.navigation.push('Return_products', { selectedIndex: 1 })}>
+                                </TouchableOpacity>,
+                                dataService.status_purchase == 'accepted' &&
+                                <TouchableOpacity key={'return_order'} onPress={this.navigationNavigateScreen.bind(this, 'Return_products', {
+                                    selectedIndex: 1
+                                })}>
                                     <View style={{ borderBottomColor: '#0A55A6', borderBottomWidth: 1, height: 20, }}>
-                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>ส่งคำร้องคืนสินค้า</Text>
+                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>
+                                            ส่งคำร้องคืนสินค้า</Text>
                                     </View>
-                                </TouchableOpacity>
-                            }{
-                                detail_order &&
-                                <TouchableOpacity onPress={() => this.props.navigation.push('Order_Detail')}>
+                                </TouchableOpacity>,
+                                dataService.status_purchase == 'paid' || dataService.status_purchase == 'accepted' &&
+                                <TouchableOpacity key={'detail_order'} onPress={this.navigationNavigateScreen.bind(this, 'Order_Detail')}>
                                     <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
                                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
                                     </View>
-                                </TouchableOpacity>
-                            }{
-                                buy_again_order &&
-                                <TouchableOpacity>
+                                </TouchableOpacity>,
+                                dataService.status_purchase == 'cancel' &&
+                                <TouchableOpacity key={'buy_again_order'} >
                                     <View style={[stylesProfileTopic.Order_Button, { backgroundColor: '#0A55A6' }]}>
                                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ซื้ออีกครั้ง</Text>
                                     </View>
                                 </TouchableOpacity>
-                            }
+                            ]}
                         </View>
                     </View>
                 </View>
-            </View>
+            </View >
         );
     }
 }

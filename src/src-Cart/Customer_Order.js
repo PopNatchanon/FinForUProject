@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Container, Header, Content, Form, Item, Input, Label, Button, Text } from 'native-base';
 import {
-    Alert, Dimensions, SafeAreaView, ScrollView, StyleSheet,
+    Alert, Dimensions, Modal, SafeAreaView, ScrollView, StyleSheet,
     // Text,
     TouchableOpacity, View,
 } from 'react-native';
@@ -56,12 +56,13 @@ export default class Customer_Order extends Component {
     getData2 = (id_address) => {
         const { navigation } = this.props
         const { currentUser, dataBody2, dataService, keycokie } = this.state
-        var no_invoice = navigation.getParam('no_invoice')
+        var no_invoice = navigation.getParam('no_invoice');
+        // var no_invoice = 'FINV4320200404124752'
         this.setState({
             dataBody2: {
                 id_customer: currentUser && currentUser.id_customer,
                 id_address,
-                no_invoice: no_invoice ? no_invoice : 'FINV2520200402092923',
+                no_invoice,
             }, activeIdAddress: true
         })
     }
@@ -71,17 +72,18 @@ export default class Customer_Order extends Component {
     render() {
         const { navigation } = this.props
         const { activeReset, activeIdAddress, currentUser, dataBody2, dataService, keycokie } = this.state
-        var no_invoice = navigation.getParam('no_invoice')
+        var no_invoice = navigation.getParam('no_invoice');
+        // var no_invoice = 'FINV4320200404124752'
         var uri = finip + '/bill/bill_list';
         var dataBody = {
             id_customer: currentUser && currentUser.id_customer,
-            no_invoice: no_invoice ? no_invoice : 'FINV2520200402092923',
+            no_invoice,
         };
         var uri2 = finip + '/bill/update_bill_address';
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
                 {[
-                    currentUser && keycokie && currentUser.id_customer && activeReset == true &&
+                    activeReset == true && currentUser && currentUser.id_customer && keycokie && no_invoice &&
                     <GetServices uriPointer={uri} dataBody={dataBody} Authorization={keycokie}
                         // showConsole={'bill_list'}
                         getDataSource={this.getData.bind(this)} key={'bill_list'} />,
@@ -103,7 +105,8 @@ export default class Customer_Order extends Component {
                 </ScrollView>
                 {
                     dataService &&
-                    <Bar_payment dataService={dataService} navigation={navigation} />
+                    <Bar_payment currentUser={currentUser} dataService={dataService} navigation={navigation}
+                        no_invoice={no_invoice} />
                 }
                 <ExitAppModule navigation={navigation} />
             </SafeAreaView>
@@ -135,6 +138,8 @@ export class Account extends Component {
         const { dataService, navigation } = this.props
         var data
         dataService.bill_data.map((value) => { return data = value })
+        console.log('data')
+        console.log(data)
         return (
             <View style={stylesCustomerOrder.Account}>
                 <View style={stylesCustomerOrder.Account_Box}>
@@ -149,7 +154,8 @@ export class Account extends Component {
                         </View>
                     </View>
                     <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Setting_Topic', {
-                        selectedIndex: 1, dataService: dataService.list_address, type: 'select', updateData: this.getData.bind(this)
+                        selectedIndex: 1, type: 'select', updateData: this.getData.bind(this),
+                        no_invoice: data.no_invoice
                     })}>
                         <IconEntypo name='chevron-right' size={35} style={stylesMain.ItemCenterVertical} />
                     </TouchableOpacity>
@@ -174,17 +180,17 @@ export class Order extends Component {
             <View>
                 <View style={stylesCustomerOrder.Order}>
                     <View style={stylesCustomerOrder.Order_Head}>
-                        <FastImage
+                        {/* <FastImage
                             style={[stylesCustomerOrder.Order_Head_store, stylesMain.ItemCenterVertical]}
                             source={{
                                 uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
                             }}
-                        />
+                        /> */}
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, stylesMain.ItemCenterVertical, {
                             marginLeft: 10
                         }]}>{dataService.store_name}</Text>
                     </View>
-                    <View style={stylesCustomerOrder.Order_product}>
+                    <View style={[stylesCustomerOrder.Order_product]}>
                         <View style={stylesCustomerOrder.Order_product_Box}>
                             <FastImage style={{ height: '100%', width: '100%', }}
                                 source={{
@@ -193,8 +199,9 @@ export class Order extends Component {
                                 resizeMode={FastImage.resizeMode.contain}
                             />
                         </View>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>{dataService.product} </Text>
-                        <View style={stylesCustomerOrder.Order_product_Boxprice}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 4, width: '70%' }]}>
+                            {dataService.product} </Text>
+                        <View style={[stylesCustomerOrder.Order_product_Boxprice, { marginLeft: -100 }]}>
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { textAlign: 'right' }]}>
                                 x {dataService.quantity}</Text>
                             <NumberFormat
@@ -239,6 +246,7 @@ export class Option_payment extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            modalVisible: false,
             path1: 0,
         };
     }
@@ -330,11 +338,15 @@ export class Option_payment extends Component {
                 )
         }
     }
+    setModalVisible = (modalVisible) => {
+        this.setState({ modalVisible })
+    }
     render() {
         const { dataService } = this.props
+        const { modalVisible } = this.state
         return (
             <View>
-                <BottomSheet
+                {/* <BottomSheet
                     ref={ref => {
                         this.Payment = ref;
                     }}
@@ -428,18 +440,25 @@ export class Option_payment extends Component {
                                 null
                         }
                     </View>
-                </BottomSheet>
+                </BottomSheet> */}
+                {/* <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={this.setModalVisible.bind(this, !modalVisible)}>
+                    <OmiseBox />
+                </Modal>
                 <View style={stylesCustomerOrder.Option_payment}>
                     <View style={{ flexDirection: 'row', }}>
                         <IconFontAwesome5 name='money-bill' size={20} />
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}> ตัวเลือกการชำระเงิน </Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}> ตัวเลือกการชำระเงิน </Text> 
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}> การชำระเงิน </Text>
                     </View>
-                    <TouchableOpacity onPress={() => {
-                        this.Payment.open();
-                    }}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}> เลือกวิธีการชำระเงิน</Text>
+                    <TouchableOpacity onPress={this.setModalVisible.bind(this, !modalVisible)}>
+                        {/* <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}> เลือกวิธีการชำระเงิน</Text> 
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}> ชำระเงิน</Text>
                     </TouchableOpacity>
-                </View>
+                </View>*/}
                 <View style={stylesCustomerOrder.Option_payment_Boxprice}>
                     <View style={{ marginLeft: 25, }}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>รวมค่าสินค้า</Text>
@@ -474,13 +493,30 @@ export class Bar_payment extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            modalVisible: false,
         };
     }
+    setModalVisible = (modalVisible) => {
+        this.setState({ modalVisible })//'Customer_Complete_Order'
+    }
     render() {
-        const { dataService, navigation } = this.props
+        const { currentUser, dataService, navigation, no_invoice } = this.props
+        const { modalVisible } = this.state
         return (
-            <View style={{ width: '100%', height: 50, backgroundColor: '#FFF', flexDirection: 'row', justifyContent: 'space-between', }}>
-                <View style={{ width: 150, justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{
+                width: '100%', height: 50, backgroundColor: '#FFF', flexDirection: 'row', justifyContent: 'space-between',
+                borderTopColor: '#ECECEC', borderTopWidth: 1
+            }}>
+                <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={this.setModalVisible.bind(this, !modalVisible)}>
+                    <OmiseBox currentUser={currentUser} dataService={dataService} getData={this.setModalVisible.bind(this)}
+                        navigation={navigation} no_invoice={no_invoice} total={dataService.bill_data[0].total}
+                    />
+                </Modal>
+                <View style={{ width: 200, justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>รวมการสั่งซื้อ</Text>
                     <NumberFormat
                         value={dataService.bill_data[0].total}
@@ -488,13 +524,15 @@ export class Bar_payment extends Component {
                         thousandSeparator={true}
                         prefix={'฿'}
                         renderText={value =>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#0A55A6' }]}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, {
+                                color: '#0A55A6',
+                            }]}>
                                 {value}</Text>
                         } />
                 </View>
-                <TouchableOpacity activeOpacity={1} onPress={() => navigation.push('Customer_Complete_Order')}>
-                    <View style={{ width: 300, height: 50, backgroundColor: '#0A55A6', justifyContent: 'center', alignItems: 'center', }}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>สั่งซื้อสินค้า</Text>
+                <TouchableOpacity activeOpacity={1} onPress={this.setModalVisible.bind(this, !modalVisible)}>
+                    <View style={{ width: 150, height: 50, backgroundColor: '#0A55A6', justifyContent: 'center', alignItems: 'center', }}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>ชำระเงิน</Text>
                     </View>
                 </TouchableOpacity>
             </View>
@@ -502,25 +540,21 @@ export class Bar_payment extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Bar_payment
-type States = {
-    number: string,
-    name: string,
-    expiration_month: string,
-    expiration_year: string,
-    security_code: string
-};
-type Props = {};
-export class App extends Component<Props, States> {
-
-    state = {
-        number: "",
-        name: "",
-        expiration_month: "",
-        expiration_year: "",
-        security_code: ""
-    };
-
+export class OmiseBox extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            number: "",
+            name: "",
+            expiration_month: "",
+            expiration_year: "",
+            security_code: "",
+            activePayment: false,
+        };
+    }
     async _createToken() {
+        const { currentUser, navigation, no_invoice } = this.props
+        var dataBody
         try {
             const {
                 number,
@@ -529,7 +563,6 @@ export class App extends Component<Props, States> {
                 expiration_year,
                 security_code
             } = this.state;
-
             const data = await Omise.createToken({
                 'card': {
                     'name': name,
@@ -539,7 +572,12 @@ export class App extends Component<Props, States> {
                     'security_code': Number(security_code)
                 }
             });
-            Alert.alert("Token", "token = " + data.id);
+            dataBody = {
+                id_customer: currentUser.id_customer,
+                no_invoice,
+                omiseToken: data.id,
+                device: "mobile_device",
+            }
         } catch (err) {
             let error = "";
             if (err instanceof Promise) {
@@ -555,62 +593,132 @@ export class App extends Component<Props, States> {
                 name: "",
                 expiration_month: "",
                 expiration_year: "",
-                security_code: ""
+                security_code: "",
+                dataBody,
+                activePayment: true,
             });
         }
     }
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.push(value, value2)
+    }
+    getData = (dataService2) => {
+        const { dataService, getData, no_invoice } = this.props
+        var data = dataService2.split('"')
+        data.map((value) => {
+            var item = value.split(':')
+            item.map((value2) => {
+                var item2 = value2.split('}')
+                item2.map((value3) => {
+                    if (value3 == 'true') {
+                        getData(false)
+                        this.navigationNavigateScreen('Customer_Complete_Order', { no_invoice })
+                    }
+                    if (value3 == 'false') {
+
+                    }
+                })
+            })
+        })
+    }
     render() {
+        const { total } = this.props
         const {
             number,
             name,
             expiration_month,
             expiration_year,
-            security_code
+            security_code,
+            dataBody,
+            activePayment,
         } = this.state;
-
+        console.log(dataBody)
+        var uri = finip + '/e15de57976dca/pay976dca'
         return (
-            <Container>
-                <Header />
+            <View style={[stylesMain.ItemCenter, { height, width }]}>
+                {
+                    activePayment == true &&
+                    <GetServices uriPointer={uri} dataBody={dataBody} showConsole={'pay976dca'} nojson
+                        getDataSource={this.getData.bind(this)} key={'pay976dca'} />
+                }
+                <View style={{ height, width, backgroundColor: '#555555', opacity: 0.5, position: 'absolute' }}></View>
                 <Content>
-                    <Form>
-                        <Item inlineLabel>
-                            <Label style={styles.label}>Card number</Label>
-                            <Input defaultValue={number} onChangeText={(number) => this.setState({ number })} />
-                        </Item>
-                        <Item inlineLabel>
-                            <Label style={styles.label}>Name on card</Label>
-                            <Input defaultValue={name} onChangeText={(name) => this.setState({ name })} />
-                        </Item>
-                        <Item inlineLabel>
-                            <Label style={styles.label}>Expiry date</Label>
-                            <Input placeholder="MM" maxLength={2}
-                                defaultValue={expiration_month}
-                                onChangeText={(expiration_month) => this.setState({ expiration_month })} />
-                            <Text>/</Text>
-                            <Input placeholder="YY" maxLength={4}
-                                defaultValue={expiration_year}
-                                onChangeText={(expiration_year) => this.setState({ expiration_year })} />
-                        </Item>
-                        <Item inlineLabel last>
-                            <Label style={styles.label}>Security code</Label>
-                            <Input maxLength={3} secureTextEntry
-                                defaultValue={security_code}
-                                onChangeText={(security_code) => this.setState({ security_code })}
-                            />
-                        </Item>
-                        <Button full onPress={this._createToken.bind(this)}>
-                            <Text>Create a token</Text>
-                        </Button>
+                    <Form style={stylesMain.ItemCenterVertical, { height }}>
+                        <View style={[stylesMain.ItemCenterVertical, {
+                            height: 'auto', width: width * 0.85, backgroundColor: '#ECECEC', borderRadius: 8,
+                        }]}>
+                            <View>
+                                <View style={{ flexDirection: 'row', margin: 8 }}>
+                                    <View style={{ width: 50, height: 50 }}>
+                                        <FastImage
+                                            style={[stylesMain.BoxProduct2Image, { flex: 1 }]}
+                                            source={require('../../images/payment.png')}
+                                            resizeMode={FastImage.resizeMode.contain} />
+                                    </View>
+                                    <View style={{ marginLeft: 16 }}>
+                                        <Label style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}>http://mmnie.live/</Label>
+                                        <Label style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#3C414D' }]}>
+                                            Secured by Omise</Label>
+                                    </View>
+                                </View>
+                                <Label style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, {
+                                    margin: 14, marginTop: 0, marginBottom: 4
+                                }]}>
+                                    Credit / Debit</Label>
+                                <Item style={{ width: width * 0.83 }}>
+                                    <Label style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { width: 100 }]}>Card number</Label>
+                                    <Input defaultValue={number} style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}
+                                        keyboardType='phone-pad' maxLength={16} onChangeText={(number) => this.setState({ number })} />
+                                </Item>
+                                <Item style={{ width: width * 0.83 }}>
+                                    <Label style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { width: 100 }]}>Name on card</Label>
+                                    <Input defaultValue={name} style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}
+                                        onChangeText={(name) => this.setState({ name })} />
+                                </Item>
+                                <Item style={{ width: width * 0.83 }}>
+                                    <Label style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { width: 100 }]}>Expiry date</Label>
+                                    <Input placeholder="MM" maxLength={2} keyboardType='phone-pad'
+                                        style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}
+                                        defaultValue={expiration_month}
+                                        onChangeText={(expiration_month) => this.setState({ expiration_month })} />
+                                    <Text>/</Text>
+                                    <Input placeholder="YY" maxLength={2} keyboardType='phone-pad'
+                                        style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}
+                                        defaultValue={expiration_year}
+                                        onChangeText={(expiration_year) => this.setState({ expiration_year })} />
+                                </Item>
+                                <Item last style={{ width: width * 0.83 }}>
+                                    <Label style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { width: 100 }]}>Security code</Label>
+                                    <Input maxLength={3} secureTextEntry
+                                        style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}
+                                        defaultValue={security_code}
+                                        onChangeText={(security_code) => this.setState({ security_code })}
+                                    />
+                                </Item>
+                            </View>
+                            <Button full onPress={this._createToken.bind(this)} style={{
+                                borderBottomLeftRadius: 8, borderBottomRightRadius: 8, backgroundColor: '#0A55A6'
+                            }}>
+                                <NumberFormat
+                                    value={total}
+                                    displayType={'text'}
+                                    thousandSeparator={true}
+                                    prefix={''}
+                                    renderText={value =>
+                                        <Text>ตกลงชำระค่าสินค้า {value} บาท</Text>
+                                    } />
+                            </Button>
+                        </View>
                     </Form>
-
                 </Content>
-            </Container>
+            </View >
         );
     }
 }
-
-const styles = StyleSheet.create({
-    label: {
-        width: 130
-    }
-});

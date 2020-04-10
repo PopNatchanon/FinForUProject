@@ -276,8 +276,12 @@ export class From_Order_Box extends Component {
         this.state = {
         };
     }
-    navigationNavigateScreen = (value, value2) => {
+    navigationNavigateScreen = (value, value2, value3) => {
         const { navigation } = this.props
+        value3 && (
+            console.log(value3.consolename),
+            console.log(value3.consolelog)
+        )
         value == 'goBack' ?
             navigation.goBack() :
             value == 'LoginScreen' ? (
@@ -288,14 +292,13 @@ export class From_Order_Box extends Component {
     }
     render() { // 3 // Review_order return_order detail_order // buy_again_order return_order
         const { dataService, } = this.props
-        const { Review_order, return_order, buy_again_order, } = this.props
         console.log(dataService)
         const uri_image_store = finip + '/' + dataService.store_path + '/' + dataService.store_image
         const uri_image_product = finip + '/' + dataService.path_product + '/' + dataService.image_product
         return (
             <View>
                 <View style={stylesMain.FrameBackground}>
-                    <View style={[stylesProfileTopic.Order_BoxStore, { justifyContent: 'space-between' }]}>
+                    <View style={[stylesProfileTopic.Order_BoxStore]}>
                         <View style={stylesMain.FlexRow}>
                             <FastImage style={[stylesProfileTopic.Order_StorePro, stylesMain.ItemCenterVertical,]}
                                 source={{
@@ -328,18 +331,45 @@ export class From_Order_Box extends Component {
                             </View>
                         </View>
                         {[
-                            dataService.status_purchase == 'paid' &&
-                            <Text key={'shipping_order'} style={[stylesFont.FontFamilyText, stylesFont.FontSize6, {
-                                color: '#20BDA1', marginLeft: 4, marginTop: 10, width: width * 0.2, textAlign: 'center',
-                            }]}>
-                                {'อยู่ในระหว่างการจัดส่ง'}</Text>,
+                            dataService.status_purchase == 'wait' &&
+                            <TouchableOpacity key={'Review_order'} activeOpacity={1}
+                                onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 7 })}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical, {
+                                    color: '#111', width: width * 0.3, textAlign: 'center',
+                                }]}>
+                                    รอชำระ
+                                </Text>
+                            </TouchableOpacity>,
+                            dataService.status_purchase == 'paid' && (
+                                dataService.tracking_number == null ?
+                                    <Text key={'shipping_order'} style={[stylesFont.FontFamilyText, stylesFont.FontSize6,
+                                    stylesMain.ItemCenterVertical, {
+                                        color: '#111', width: width * 0.3, textAlign: 'center',
+                                    }]}>
+                                        {'เตรียมจัดส่ง'}</Text> :
+                                    <Text key={'shipping_order'} style={[stylesFont.FontFamilyText, stylesFont.FontSize6,
+                                    stylesMain.ItemCenterVertical, {
+                                        color: '#111', width: width * 0.3, textAlign: 'center',
+                                    }]}>
+                                        {'กำลังจัดส่ง\n'}<Text style={{ color: '#111' }}>[{dataService.tracking_number}]</Text></Text>
+                            ),
                             dataService.status_purchase == 'accepted' &&
                             <TouchableOpacity key={'Review_order'} activeOpacity={1}
                                 onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 7 })}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical,
-                                { color: '#20BDA1', paddingRight: 6 }]}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical, {
+                                    color: '#20BDA1', width: width * 0.3, textAlign: 'center',
+                                }]}>
                                     <IconFeather name='edit' size={15} />
                                     เขียนรีวิว
+                                </Text>
+                            </TouchableOpacity>,
+                            dataService.status_purchase == 'cancel' &&
+                            <TouchableOpacity key={'Review_order'} activeOpacity={1}
+                                onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 7 })}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical, {
+                                    color: '#111', width: width * 0.3, textAlign: 'center',
+                                }]}>
+                                    ยกเลิก
                                 </Text>
                             </TouchableOpacity>
                         ]}
@@ -420,8 +450,15 @@ export class From_Order_Box extends Component {
                                             ส่งคำร้องคืนสินค้า</Text>
                                     </View>
                                 </TouchableOpacity>,
-                                dataService.status_purchase == 'paid' || dataService.status_purchase == 'accepted' &&
-                                <TouchableOpacity key={'detail_order'} onPress={this.navigationNavigateScreen.bind(this, 'Order_Detail')}>
+                                (dataService.status_purchase == 'paid' || dataService.status_purchase == 'accepted') &&
+                                <TouchableOpacity key={'detail_order'}
+                                    onPress={
+                                        this.navigationNavigateScreen.bind(this, 'Order_Detail',
+                                            {
+                                                id_cartdetail: dataService.id_cartdetail, insert_date: dataService.insert_date,
+                                                no_invoice: dataService.invoice_no
+                                            },
+                                            { consolename: 'detail_order', consolelog: dataService })}>
                                     <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
                                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
                                     </View>

@@ -393,13 +393,13 @@ export default StyleSheet.create({
   },
   FrameBackground3: {
     width,
-    height: height * 0.07,
+    height: height * 0.06,
     borderColor: '#ECECEC',
     backgroundColor: '#fff',
     borderBottomWidth: 1,
     borderTopWidth: 1,
     marginTop: 30,
-    marginBottom: -80,
+    marginBottom: -75,
   },
   FrameBackgroundTextBox: {
     flexDirection: 'row',

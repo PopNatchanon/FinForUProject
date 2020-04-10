@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-    Dimensions, SafeAreaView, ScrollView, Text, View,TouchableOpacity,
+    Dimensions, SafeAreaView, ScrollView, Text, View, TouchableOpacity,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
@@ -59,7 +59,9 @@ export default class CoinScreen extends Component {
                             null
                     }
                 </ScrollView>
-                <Button_Bar navigation={this.props.navigation} />
+                <View style={{ backgroundColor: '#ffffff', borderTopWidth: 1, borderColor: '#ECECEC' }}>
+                    <Button_Bar navigation={this.props.navigation} />
+                </View>
                 <ExitAppModule navigation={this.props.navigation} />
             </SafeAreaView>
         );
@@ -202,10 +204,10 @@ export class CoinPageBody extends Component {
                         </View>
                         <View style={[ststylePromotionDeal.CampaignBody_Icon_Button, stylesMain.ItemCenterVertical]}>
                             <TouchableOpacity>
-                            <View style={[stylesProfile.CoinPageBodyBoxBody2Box, stylesMain.ItemCenter]}>
-                             <Text style={[ stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#fff' }]}>
-                                  แลก 10 coin</Text>
-                          </View>
+                                <View style={[stylesProfile.CoinPageBodyBoxBody2Box, stylesMain.ItemCenter]}>
+                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#fff' }]}>
+                                        แลก 10 coin</Text>
+                                </View>
                             </TouchableOpacity>
                         </View>
                     </View>

@@ -35,7 +35,9 @@ export default class Installment_payScreen extends Component {
           <Product_Pay />
           <CategoryProduct NoStoreReCom navigation={this.props.navigation} />
         </ScrollView>
-        <Button_Bar navigation={this.props.navigation} />
+        <View style={{ backgroundColor: '#ffffff', borderTopWidth: 1, borderColor: '#ECECEC' }}>
+          <Button_Bar navigation={this.props.navigation} />
+        </View>
         <ExitAppModule navigation={this.props.navigation} />
       </SafeAreaView>
     );
@@ -58,7 +60,7 @@ export class Head_Image extends Component {
             }}
             resizeMode={'cover'}
           />
-          
+
         </View>
         <View style={stylesPromotionDeal.Head_BoxText}>
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>

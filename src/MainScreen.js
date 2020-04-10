@@ -1058,7 +1058,7 @@ export class Popular_product extends React.Component {
         const { loadData } = this.props
         return (
             <View>
-                <View style={stylesMain.FrameBackground2}>
+                <View style={[stylesMain.FrameBackground2]}>
                     <View style={stylesMain.FrameBackgroundTextBox}>
                         <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                             สินค้ายอดนิยม</Text>
@@ -1220,9 +1220,9 @@ export class FlashSale extends React.Component {
         super(props);
         this.state = {
             activeDataService: true,
+            curTime: new Date(),
             dataService: [],
             endTime: new Date(),
-            curTime: new Date(),
         };
     }
     shouldComponentUpdate = (nextProps, nextState) => {
@@ -1281,8 +1281,8 @@ export class FlashSale extends React.Component {
             ),
             Minutes = Number(new Date(endTime).getMinutes()) - Number(new Date(curTime).getMinutes()),
             Seconds = Number(new Date(endTime).getSeconds()) - Number(new Date(curTime).getSeconds()),
-            Hours <= 0 && Minutes <= 0 && Seconds <= 0 && (
-                this.setState({ activeDataService: true })
+            activeDataService == false && Hours <= 0 && Minutes <= 0 && Seconds <= 0 && (
+                this.setState({ activeDataService: true, dataService: [] })
             ),
             Hours > 0 && Minutes < 0 && (
                 Hours = Hours - 1,
@@ -1293,15 +1293,14 @@ export class FlashSale extends React.Component {
                 Seconds = 60 + Seconds
             )
         )
-        return (
-            <View style={stylesMain.FrameBackground2}>
-                {
-                    activeDataService == true &&
-                    <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)}
-                        //dataBody={dataBody}  
-                        showConsole={'FlashSale'}
-                    />
-                }
+        return ([
+            activeDataService == true &&
+            <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)}
+                //dataBody={dataBody}  
+                key={'FlashSale'} showConsole={'FlashSale'}
+            />,
+            activeDataService == false && dataService &&
+            <View key={'FlashSaleBox'} style={[stylesMain.FrameBackground2, { marginTop: 10 }]}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <View style={[stylesMain.FlexRow, { marginTop: 5, }]}>
                         <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBoldBold, stylesFont.FontSize3, {
@@ -1340,7 +1339,7 @@ export class FlashSale extends React.Component {
                     }
                 </ScrollView>
             </View>
-        );
+        ]);
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> PromotionPopular

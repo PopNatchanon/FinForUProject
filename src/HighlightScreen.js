@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
+import FastImage from 'react-native-fast-image';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesMain from '../style/StylesMainScreen';
@@ -40,7 +41,7 @@ export default class HighlightScreen extends React.Component {
         <AppBar1 backArrow navigation={navigation} titleHead='ไฮไลท์ประจำสัปดาห์' />
         <ScrollView stickyHeaderIndices={[2]}>
           <Slide />
-          <View style={{ marginBottom: 10 }}></View>
+          <Highlight_Brand />
           <Button_Bar />
           <FlashSale_Product navigation={navigation} />
           <FlashSale_Product navigation={navigation} />
@@ -102,6 +103,89 @@ export class Button_Bar extends React.Component {
             tagBottomColor={'#0A55A6'}
             tagBottom
             type='tag' />
+        </ScrollView>
+      </View>
+    );
+  }
+}
+
+///----------------------------------------------------------------------------------------------->>>>
+export class Highlight_Brand extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
+
+  render() {
+    return (
+      <View style={{marginVertical:10}}>
+        <View style={{ height: 100, width: '100%', flexDirection: 'row', justifyContent: 'space-around',}}>
+          <View style={{ width: '48%',}}>
+            <FastImage
+              style={[stylesMain.BoxProduct1Image, { borderRadius: 5 }]}
+              source={{
+                uri: ip + '/MySQL/uploads/Image_FinMall/market_banner01.jpg',
+              }}
+              resizeMode={FastImage.resizeMode.stretch}
+            />
+          </View>
+          <View style={{ width: '48%',}}>
+            <FastImage
+              style={[stylesMain.BoxProduct1Image, { borderRadius: 5 }]}
+              source={{
+                uri: ip + '/MySQL/uploads/Image_FinMall/market_banner01.jpg',
+              }}
+              resizeMode={FastImage.resizeMode.stretch}
+            />
+          </View>
+        </View>
+        <ScrollView horizontal style={{marginTop:10}}>
+          <View style={{ height: 60, width: 120, marginLeft: 5 ,borderColor:'#ECECEC',borderWidth:1}}>
+            <FastImage
+              style={[stylesMain.BoxProduct1Image, { borderRadius: 5 }]}
+              source={{
+                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand04.jpg',
+              }}
+              resizeMode={FastImage.resizeMode.stretch}
+            />
+          </View>
+          <View style={{ height: 60, width: 120, marginLeft: 5 ,borderColor:'#ECECEC',borderWidth:1}}>
+            <FastImage
+              style={[stylesMain.BoxProduct1Image, { borderRadius: 5 }]}
+              source={{
+                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand03.jpg',
+              }}
+              resizeMode={FastImage.resizeMode.stretch}
+            />
+          </View>
+          <View style={{ height: 60, width: 120, marginLeft: 5 ,borderColor:'#ECECEC',borderWidth:1}}>
+            <FastImage
+              style={[stylesMain.BoxProduct1Image, { borderRadius: 5 }]}
+              source={{
+                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand02.jpg',
+              }}
+              resizeMode={FastImage.resizeMode.stretch}
+            />
+          </View>
+          <View style={{ height: 60, width: 120, marginLeft: 5 ,borderColor:'#ECECEC',borderWidth:1}}>
+            <FastImage
+              style={[stylesMain.BoxProduct1Image, { borderRadius: 5 }]}
+              source={{
+                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand01.jpg',
+              }}
+              resizeMode={FastImage.resizeMode.stretch}
+            />
+          </View>
+          <View style={{ height: 60, width: 120, marginLeft: 5 ,borderColor:'#ECECEC',borderWidth:1}}>
+            <FastImage
+              style={[stylesMain.BoxProduct1Image, { borderRadius: 5 }]}
+              source={{
+                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand05.jpg',
+              }}
+              resizeMode={FastImage.resizeMode.stretch}
+            />
+          </View>
         </ScrollView>
       </View>
     );

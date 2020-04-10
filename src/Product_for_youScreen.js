@@ -10,7 +10,7 @@ export const { width, height } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, TodayProduct, ExitAppModule } from './MainScreen';
 import { Button_Bar, } from './ExclusiveScreen';
-import { GetServices, } from './tools/Tools';
+import { GetServices, SlideTab2 } from './tools/Tools';
 import { Slide } from './src_Promotion/DealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from './navigator/IpConfig';

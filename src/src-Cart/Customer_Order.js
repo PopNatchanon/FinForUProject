@@ -14,12 +14,14 @@ import CookieManager from '@react-native-community/cookies';
 import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
 import Omise from 'omise-react-native';
+import { CheckBox } from 'react-native-elements';
 Omise.config('pkey_test_5ifbd6uqmxyoddk5u9w', '2019-05-29');
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconEvilIcons from 'react-native-vector-icons/EvilIcons';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesCustomerOrder from '../../style/styleCart-src/styleCustomer_Order';
 import stylesFont from '../../style/stylesFont';
@@ -157,7 +159,7 @@ export class Account extends Component {
                         selectedIndex: 1, type: 'select', updateData: this.getData.bind(this),
                         no_invoice: data.no_invoice
                     })}>
-                        <IconEntypo name='chevron-right' size={35} style={stylesMain.ItemCenterVertical} />
+                        <IconEntypo name='chevron-right' size={35} color='#0A55A6' style={stylesMain.ItemCenterVertical} />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -219,11 +221,11 @@ export class Order extends Component {
                             </View> */}
                         </View>
                     </View>
-                    <View style={stylesCustomerOrder.Order_product_BoxText}>
+                    {/* <View style={stylesCustomerOrder.Order_product_BoxText}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>Short Note</Text>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#C4C4C4' }]}>
                             สามารถฝากข้อความถึงผู้ขายได้</Text>
-                    </View>
+                    </View> */}
                     <View style={stylesCustomerOrder.Order_product_BoxText}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>รวมการสั่งซื้อ (1 สินค้า)</Text>
                         <NumberFormat
@@ -249,6 +251,16 @@ export class Option_payment extends Component {
             modalVisible: false,
             path1: 0,
         };
+    }
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.push(value, value2)
     }
     Path1() {
         switch (this.state.path1) {
@@ -345,7 +357,7 @@ export class Option_payment extends Component {
         const { dataService } = this.props
         const { modalVisible } = this.state
         return (
-            <View>
+            <>
                 {/* <BottomSheet
                     ref={ref => {
                         this.Payment = ref;
@@ -478,13 +490,34 @@ export class Option_payment extends Component {
                     </View>
                 </View>
                 <View style={stylesCustomerOrder.Option_payment}>
-                    <View style={{ flexDirection: 'row', }}>
-                        <IconAntDesign name='copyright' size={20} />
+                    <View style={stylesMain.FlexRow}>
+                        <IconMaterialCommunityIcons name='coin' size={25} />
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}> FIN Coins ที่จะได้รับ</Text>
                     </View>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>4 Coins</Text>
                 </View>
-            </View>
+                <View style={stylesCustomerOrder.Option_payment}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}> ขอออกใบกำกับภาษี</Text>
+                    <View style={{ height: 20, }}>
+                        <CheckBox
+                            size={30}
+                            checkedIcon='toggle-on'
+                            checkedColor='#95F29F'
+                            uncheckedIcon='toggle-off'
+                            checked={this.state.item2}
+                            onPress={() => this.setState({ item2: !this.state.item2 })} />
+                    </View>
+                </View>
+                <View style={[stylesCustomerOrder.Option_payment, { marginBottom: 10 }]}>
+                    <View style={stylesMain.FlexRow}>
+                        <IconEntypo name='location-pin' size={25} />
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>ที่อยู่ใบกำกับภาษี</Text>
+                    </View>
+                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Customer_Tax_Invoice', { selectedIndex: 0 })}>
+                        <IconEntypo name='chevron-right' size={25} color='#0A55A6' />
+                    </TouchableOpacity>
+                </View>
+            </>
         );
     }
 }
@@ -718,7 +751,7 @@ export class OmiseBox extends Component {
                         </View>
                     </Form>
                 </Content>
-            </View >
+            </View>
         );
     }
 }

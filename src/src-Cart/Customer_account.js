@@ -489,7 +489,7 @@ export class Button_Bar extends Component {
                         }]}>บันทึก</Text>
                     </View>
                 </TouchableOpacity>
-            </View >
+            </View>
         );
     }
 }

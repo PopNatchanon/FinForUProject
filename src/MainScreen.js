@@ -817,7 +817,7 @@ export class Button_Bar extends React.Component {
                                     uri: ip + '/MySQL/uploads/icon_Deal/Done/010.png',
                                 }}
                                 resizeMode={FastImage.resizeMode.stretch} />
-                        </View>                        
+                        </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'CoinScreen')}>
                         <View style={stylesMain.Button_Bar_Box}>
@@ -825,7 +825,7 @@ export class Button_Bar extends React.Component {
                                 source={{
                                     uri: ip + '/MySQL/uploads/icon_Deal/Done/009.png',
                                 }}
-                                resizeMode={FastImage.resizeMode.stretch} />                    
+                                resizeMode={FastImage.resizeMode.stretch} />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'CampaignScreen')}>
@@ -834,7 +834,7 @@ export class Button_Bar extends React.Component {
                                 source={{
                                     uri: ip + '/MySQL/uploads/icon_Deal/Done/008.png',
                                 }}
-                                resizeMode={FastImage.resizeMode.stretch} />                    
+                                resizeMode={FastImage.resizeMode.stretch} />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'The_BestFinScreen')}>
@@ -843,7 +843,7 @@ export class Button_Bar extends React.Component {
                                 source={{
                                     uri: ip + '/MySQL/uploads/icon_Deal/Done/007.png',
                                 }}
-                                resizeMode={FastImage.resizeMode.stretch} />                     
+                                resizeMode={FastImage.resizeMode.stretch} />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Installment_payScreen')}>
@@ -1240,7 +1240,8 @@ export class FlashSale extends React.Component {
         return false
     }
     getData = (dataService) => {
-        this.setState({ activeDataService: false, dataService, })
+        var flash_end = dataService.flash_end && dataService.flash_end.split(':')
+        this.setState({ activeDataService: false, dataService, endTime: new Date().setHours(flash_end[0], flash_end[1], flash_end[2]) })
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
@@ -1253,7 +1254,6 @@ export class FlashSale extends React.Component {
                 navigation.push(value, value2)
     }
     componentDidMount() {
-        this.setState({ endTime: new Date().setHours(17, 0, 0) })
         this.intervalID = setInterval(
             () => this.tick(),
             1000
@@ -1270,10 +1270,7 @@ export class FlashSale extends React.Component {
     render() {
         const { navigation } = this.props
         const { activeDataService, curTime, dataService, endTime, } = this.state
-        var uri = ip + '/mysql/DataServiceMain.php';
-        var dataBody = {
-            type: 'sale'
-        };
+        var uri = finip + '/flashsale/flash_timer';
         var Hours = 0
         var Minutes = 0
         var Seconds = 0
@@ -1284,6 +1281,9 @@ export class FlashSale extends React.Component {
             ),
             Minutes = Number(new Date(endTime).getMinutes()) - Number(new Date(curTime).getMinutes()),
             Seconds = Number(new Date(endTime).getSeconds()) - Number(new Date(curTime).getSeconds()),
+            Hours <= 0 && Minutes <= 0 && Seconds <= 0 && (
+                this.setState({ activeDataService: true })
+            ),
             Hours > 0 && Minutes < 0 && (
                 Hours = Hours - 1,
                 Minutes = 60 + Minutes
@@ -1297,8 +1297,9 @@ export class FlashSale extends React.Component {
             <View style={stylesMain.FrameBackground2}>
                 {
                     activeDataService == true &&
-                    <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)}
-                    // showConsole={'flash'}
+                    <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)}
+                        //dataBody={dataBody}  
+                        showConsole={'FlashSale'}
                     />
                 }
                 <View style={stylesMain.FrameBackgroundTextBox}>
@@ -1333,8 +1334,8 @@ export class FlashSale extends React.Component {
                 </View>
                 <ScrollView horizontal>
                     {
-                        dataService &&
-                        <ProductBox dataService={dataService} navigation={navigation} typeip='ip' prepath='mysql' mode='row4col1'
+                        dataService && dataService.product &&
+                        <ProductBox dataService={dataService.product} navigation={navigation} mode='row4col1'
                             pointerUrl='FlashSaleScreen' pointerid_store nameSize={11} priceSize={12} dispriceSize={12} />
                     }
                 </ScrollView>

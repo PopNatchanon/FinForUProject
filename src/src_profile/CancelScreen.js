@@ -4,6 +4,8 @@ import {
   Dimensions, Picker, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
+import AsyncStorage from '@react-native-community/async-storage'
+import CookieManager from '@react-native-community/cookies';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
@@ -16,6 +18,8 @@ import stylesMain from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from '../MainScreen';
+import { From_Order_Box } from './Total_Order';
+import { GetServices, LoadingScreen, } from '../tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -23,16 +27,35 @@ export default class CancelScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      IsLoading: true,
     };
   }
+  getDataAsync = async () => {
+    const currentUser = await AsyncStorage.getItem('@MyKey')
+    this.setState({ currentUser: JSON.parse(currentUser) })
+  }
+  componentDidMount() {
+    this.getDataAsync()
+    CookieManager.get(finip + '/auth/login_customer')
+      .then((res) => {
+        var keycokie = res.token
+        this.setState({ keycokie })
+      });
+  }
+  IsLoading = (IsLoading) => {
+    this.setState({ IsLoading })
+  }
   PathList() {
+    const { navigation } = this.props
+    const { currentUser, keycokie, } = this.state
     // const selectedIndex = this.props.navigation.getParam('selectedIndex')
     const selectedIndex = 0
     switch (selectedIndex) {
       case 0:
         return (
           <View>
-            <CancelScreen_Product />
+            <CancelScreen_Product currentUser={currentUser} keycokie={keycokie} navigation={navigation}
+              setLoading={this.IsLoading.bind(this)} />
           </View>
         )
       case 1:
@@ -44,8 +67,13 @@ export default class CancelScreen extends Component {
     }
   }
   render() {
+    const { IsLoading, } = this.state
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
+        {
+          IsLoading == true &&
+          <LoadingScreen />
+        }
         <AppBar1 backArrow navigation={this.props.navigation} titleHead='ยกเลิกสินค้า' />
         <ScrollView>
           {this.PathList()}
@@ -60,16 +88,47 @@ export class CancelScreen_Product extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeSelectedIndex: true,
     };
   }
+  getData = (dataService) => {
+    const { setLoading } = this.props
+    this.setState({ activeSelectedIndex: false, dataService })
+    setLoading(false)
+  }
   render() {
+    const { currentUser, keycokie, navigation, } = this.props
+    const { activeSelectedIndex, dataService, } = this.state
+    var uri = finip + '/purchase_data/view_purchase';
+    var dataBody = {
+      id_customer: currentUser && currentUser.id_customer,
+      type_purchase: 'cancel',
+      device: "mobile_device",
+    };
     return (
-      <SafeAreaView>
-        <View style={stylesProfileTopic.products_pro}>
-          <IconFeather name='edit' size={50} color='#A2A2A2' />
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>ยังไม่มีคำสั่งซื้อ</Text>
-        </View>
-      </SafeAreaView>
+      <>
+        {[
+          activeSelectedIndex == true && currentUser && keycokie &&
+          <GetServices uriPointer={uri} Authorization={keycokie} key={'view_purchase'}
+            showConsole={'view_purchase'}
+            dataBody={dataBody} getDataSource={this.getData.bind(this)} />,
+          activeSelectedIndex == false && ([
+            <Text key={'all'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
+              marginLeft: 10, marginTop: 10,
+            }]}>
+              รายการคำสั่งซื้อ</Text>,
+            dataService && dataService.purchase.length > 0 ?
+              dataService.purchase.map((value, index) => {
+                return <From_Order_Box dataService={value} key={index} navigation={navigation} />
+              }) :
+              <View style={[stylesProfileTopic.products_pro, { height: height * 0.5 }]}>
+                <IconFeather name='edit' size={50} color='#A2A2A2' />
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>
+                  ยังไม่มีคำสั่งซื้อ</Text>
+              </View>
+          ])
+        ]}
+      </>
     );
   }
 }
@@ -201,7 +260,7 @@ export class Cancel_Alert extends Component {
           subtitle="กรุณารอการตรวจสอบจากร้านค้า"
           subtitleStyle={stylesFont.FontFamilyText}
           onRequestClose={() => null}
-       >
+        >
           <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
             <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยกเลิก</SCLAlertButton>
             <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยืนยัน</SCLAlertButton>

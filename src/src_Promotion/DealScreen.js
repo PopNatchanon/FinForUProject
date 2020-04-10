@@ -57,7 +57,9 @@ export default class DealScreen extends Component {
           {/* <Second_Store navigation={this.props.navigation} /> */}
           <Shop_Deal_ForU navigation={this.props.navigation} />
         </ScrollView>
-        <Button_Bar navigation={this.props.navigation} />
+        <View style={{ backgroundColor: '#ffffff', borderTopWidth: 1, borderColor: '#ECECEC' }}>
+          <Button_Bar navigation={this.props.navigation} />
+        </View>
         <ExitAppModule navigation={this.props.navigation} />
       </SafeAreaView>
     );
@@ -156,9 +158,9 @@ export class Button_Bar extends Component {
   }
   render() {
     return (
-      <View style={stylesDeal.Button_Bar}>
+      <View style={[stylesDeal.Button_Bar, { bottom: '7%', }]}>
         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('DealScreen')}>
-          <View style={stylesDeal.Button_Bar_Box}>
+          <View style={[stylesDeal.Button_Bar_Box]}>
             <FastImage style={stylesDeal.Button_Bar_BoxICON}
               source={{
                 uri: ip + '/MySQL/uploads/icon_Deal/Done/010.png',
@@ -167,7 +169,7 @@ export class Button_Bar extends Component {
           </View>
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('CoinScreen')}>
-          <View style={stylesDeal.Button_Bar_Box}>
+          <View style={[stylesDeal.Button_Bar_Box]}>
             <FastImage style={stylesDeal.Button_Bar_BoxICON}
               source={{
                 uri: ip + '/MySQL/uploads/icon_Deal/Done/009.png',
@@ -176,7 +178,7 @@ export class Button_Bar extends Component {
           </View>
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('CampaignScreen')}>
-          <View style={stylesDeal.Button_Bar_Box}>
+          <View style={[stylesDeal.Button_Bar_Box]}>
             <FastImage style={stylesDeal.Button_Bar_BoxICON}
               source={{
                 uri: ip + '/MySQL/uploads/icon_Deal/Done/008.png',
@@ -185,7 +187,7 @@ export class Button_Bar extends Component {
           </View>
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('The_BestFinScreen')}>
-          <View style={stylesDeal.Button_Bar_Box}>
+          <View style={[stylesDeal.Button_Bar_Box]}>
             <FastImage style={stylesDeal.Button_Bar_BoxICON}
               source={{
                 uri: ip + '/MySQL/uploads/icon_Deal/Done/007.png',
@@ -194,7 +196,7 @@ export class Button_Bar extends Component {
           </View>
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('Installment_payScreen')}>
-          <View style={stylesDeal.Button_Bar_Box}>
+          <View style={[stylesDeal.Button_Bar_Box]}>
             <FastImage style={stylesDeal.Button_Bar_BoxICON}
               source={{
                 uri: ip + '/MySQL/uploads/icon_Deal/Done/006.png',

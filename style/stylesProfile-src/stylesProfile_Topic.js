@@ -291,6 +291,7 @@ export default StyleSheet.create({
         backgroundColor: '#FFFFFF',
     },
     Order_BoxStore: {
+        width,
         borderColor: '#EAEAEA',
         borderBottomWidth: 1,
         flexDirection: 'row',
@@ -485,7 +486,7 @@ export default StyleSheet.create({
     ///-----------------------------------Order_Detail-----------------------------------///
     Order_Detail: {
         flexDirection: 'row',
-        padding: 10,
+        padding: 8,
         alignItems: 'center',
         backgroundColor: '#FFFFFF',
         marginTop: 5,
@@ -493,8 +494,6 @@ export default StyleSheet.create({
     Order_Detail_ICON: {
         height: 30,
         width: 50,
-        borderColor: '#FC8D00',
-        borderWidth: 1,
         justifyContent: 'center',
         alignItems: 'center',
     },

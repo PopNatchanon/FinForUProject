@@ -49,7 +49,9 @@ export default class The_BestFinScreen extends Component {
           }} Header_Second />
           {/* <Second_Store navigation={this.props.navigation} /> */}
         </ScrollView>
-        <Button_Bar navigation={this.props.navigation} />
+        <View style={{ backgroundColor: '#ffffff', borderTopWidth: 1, borderColor: '#ECECEC' }}>
+          <Button_Bar navigation={this.props.navigation} />
+        </View>
         <ExitAppModule navigation={this.props.navigation} />
       </SafeAreaView>
     );

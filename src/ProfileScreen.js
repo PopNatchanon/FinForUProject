@@ -264,7 +264,7 @@ export class MenubarSub extends React.Component {
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={0.9}
-                        onPress={this.navigationNavigateScreen.bind(this, 'Total_Order', { selectedIndex: 3 })}>
+                        onPress={this.navigationNavigateScreen.bind(this, 'Total_Order', { selectedIndex: 2 })}>
                         <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <FastImage
                                 source={require('../icon/truck-facing-right.png')}
@@ -274,7 +274,7 @@ export class MenubarSub extends React.Component {
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={0.9}
-                        onPress={this.navigationNavigateScreen.bind(this, 'Total_Order', { selectedIndex: 4 })}>
+                        onPress={this.navigationNavigateScreen.bind(this, 'Total_Order', { selectedIndex: 3 })}>
                         <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <FastImage
                                 source={require('../icon/rating.png')}

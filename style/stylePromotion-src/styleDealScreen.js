@@ -28,9 +28,7 @@ export default StyleSheet.create({
         margin: 10,
     },
     Button_Bar: {
-        paddingTop: 5,
-        paddingBottom: 5,
-        backgroundColor: '#FFFFFF',
+        marginBottom: -20,
         width: '100%',
         flexDirection: 'row',
     },
@@ -43,6 +41,8 @@ export default StyleSheet.create({
         height: 50,
         width: 50,
         backgroundColor: '#C4C4C4',
+        borderColor: '#ECECEC',
+        borderWidth: 1,
         borderRadius: 10,
     },
     Button_Bar_BoxText: {
@@ -243,7 +243,7 @@ export default StyleSheet.create({
     CampaignBody_Icon: {
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor:'#f0b912',
+        backgroundColor: '#f0b912',
         height: 30,
         width: 30,
         marginTop: 3,
@@ -368,8 +368,8 @@ export default StyleSheet.create({
     },
     New_year_New: {
         backgroundColor: '#FFFFFF',
-        marginTop:20,
-        paddingBottom:10
+        marginTop: 20,
+        paddingBottom: 10
     },
     New_year_NewBoxText_Head: {
         backgroundColor: '#000000',

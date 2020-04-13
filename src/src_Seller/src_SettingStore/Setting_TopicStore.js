@@ -243,6 +243,17 @@ export class Edit_Bank extends Component {
                             value={this.state.NameBank}
                             onChangeText={(NameBank) => this.setState({ NameBank })}></TextInput>
                     </View>
+                    <View>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>หน้าบัญชีธนาคาร</Text>
+                        <View style={[stylesMain.FlexRow, { height: 50, justifyContent: 'space-around', marginBottom: 10 }]}>
+                            <View style={{ width: '48%', borderColor: '#E9E9E9', borderWidth: 1, backgroundColor: '#FFFFFF', borderRadius: 5 }}></View>
+                            <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.FlexRow, { width: '48%', borderColor: '#0A55A6', borderWidth: 2, backgroundColor: '#FFFFFF', borderRadius: 5 }]}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#0A55A6' }]}>อัพโหลด</Text>
+                                <IconEntypo name='upload' size={30} style={{ color: '#0A55A6', marginLeft: 10 }} />
+                            </TouchableOpacity>
+                        </View>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8]}>สามารถอัพโหลดเอกสารได้ 1 ฉบับ ความละเอียดได้ไม่ 5 MB รองรับ .PNG .JPEG </Text>
+                    </View>
                 </View>
             </View>
 
@@ -564,7 +575,7 @@ export class Up_Code_Number extends Component {
                     subtitle="tnt1237174823403268 "
                     subtitleStyle={stylesFont.FontFamilyText}
                     onRequestClose={() => null}
-               >
+                >
                     <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
                         <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยกเลิก</SCLAlertButton>
                         <SCLAlertButton theme="success" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยืนยัน</SCLAlertButton>

@@ -148,7 +148,7 @@ export default class MainScreen extends React.Component {
                         <Popular_product navigation={navigation} loadData={{
                             product_hit: dataService.product_hit, best_price: dataService.best_price,
                             best_sale: dataService.best_sale, best_cool: dataService.best_cool
-                        }} />
+                        }} /> 
                         <Product_for_you navigation={navigation} loadData={dataService.for_you} />
                         <CategoryProduct navigation={navigation} />
                         <Second_product navigation={navigation} loadData={{
@@ -156,7 +156,7 @@ export default class MainScreen extends React.Component {
                             list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3,
                             mobile_bar: dataService.mobile_bar, mobile_slide: dataService.mobile_slide,
                         }} />
-                        <BannerBar_THREE />
+                        <BannerBar_THREE /> 
                         <FIN_Supermarket navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />
                         <TodayProduct navigation={navigation} loadData={dataService.for_you2} />
                     </ScrollView>
@@ -807,7 +807,7 @@ export class Button_Bar extends React.Component {
     }
     render() {
         return (
-            <View>
+            <View >
                 <View style={stylesMain.FrameBackground3}></View>
                 <ScrollView horizontal>
                     <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'DealScreen')}>

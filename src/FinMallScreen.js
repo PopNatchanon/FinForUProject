@@ -67,7 +67,16 @@ export default class FinMallScreen extends React.Component {
               <Slide />
               <FIN_Supermarket navigation={navigation} />
               <Brand_Supermarket />
-              <Follow_Supermarket />
+              <Product_Today_Supermarket />
+              <View style={{ height: 55, width: '100%', marginTop:10 }}>
+                <FastImage
+                  style={stylesMain.BoxProduct1Image}
+                  source={{
+                    uri: ip + '/MySQL/uploads/Image_FinMall/market_banner06.jpg',
+                  }}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+              </View>
               <Product_Shop />
             </ScrollView>
           </SafeAreaView>
@@ -250,62 +259,103 @@ export class Brand_Supermarket extends React.Component {
             />
           </View>
         </View>
-        <View style={{ height: 100, width: '100%', justifyContent: 'space-around',flexDirection:'row' ,flexWrap:'wrap'}}>
-          <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1 ,marginVertical:5}}></View>
-          <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1 ,marginVertical:5}}></View>
-          <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1 ,marginVertical:5}}></View>
-          <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1 ,marginVertical:5}}></View>
-          <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1 ,marginVertical:5}}></View>
-          <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1 ,marginVertical:5}}></View>
-        </View>
-          <View style={{ height: 150, width: '100%' ,marginVertical:20}}>
+        <View style={{ height: 100, width: '100%', justifyContent: 'space-around', flexDirection: 'row', flexWrap: 'wrap' }}>
+          <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1, marginVertical: 5 }}>
             <FastImage
               style={stylesMain.BoxProduct1Image}
               source={{
-                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop6.jpg',
+                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand02.jpg',
               }}
-              resizeMode={FastImage.resizeMode.stretch}
+              resizeMode={FastImage.resizeMode.contain}
             />
           </View>
+          <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1, marginVertical: 5 }}>
+            <FastImage
+              style={stylesMain.BoxProduct1Image}
+              source={{
+                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand03.jpg',
+              }}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          </View>
+          <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1, marginVertical: 5 }}>
+            <FastImage
+              style={stylesMain.BoxProduct1Image}
+              source={{
+                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand04.jpg',
+              }}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          </View>
+          <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1, marginVertical: 5 }}>
+            <FastImage
+              style={stylesMain.BoxProduct1Image}
+              source={{
+                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand06.jpg',
+              }}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          </View>
+          <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1, marginVertical: 5 }}>
+            <FastImage
+              style={stylesMain.BoxProduct1Image}
+              source={{
+                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand05.jpg',
+              }}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          </View>
+          <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1, marginVertical: 5 }}>
+            <FastImage
+              style={stylesMain.BoxProduct1Image}
+              source={{
+                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand01.jpg',
+              }}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          </View>
+        </View>
       </>
     );
   }
 }
 ///----------------------------------------------------------------------------------------------->>>>
-export class Follow_Supermarket extends Component {
+export class Product_Today_Supermarket extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      dataService: [],
     };
+    this.getData = this.getData.bind(this)
   }
-
+  getData(dataService) {
+    this.setState({ dataService })
+  }
   render() {
-    const item2 = [{
-      name: 'ทั้งหมด'
-    }, {
-      name: 'อาหารสำเร็จรูป'
-    }, {
-      name: 'เครื่องดื่ม'
-    }, {
-      name: 'สังฆภัณฑ์และ..'
-    }]
+    const { dataService } = this.state
+    const { navigation } = this.props
+    var uri = ip + '/mysql/DataServiceMain.php';
+    var dataBody = {
+      type: 'todayproduct'
+    };
     return (
-      <>
-        <View style={{ backgroundColor: '#FFFFFF' }}>
-          <TabBar
-            // sendData={this.getData.bind(this)}
-            item={item2}
-            radiusBox={4}
-            widthBox={97}
-            inactiveColor='#0A55A6'
-            overScrollMode={'never'}
-            type='box' />
+      <View>
+        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+        <View style={[stylesMain.FrameBackground, { marginTop: 20 }]}>
+          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>สินค้าประจำวันที่ควรช้อป!!</Text>
+          <ScrollView horizontal>
+            <View style={stylesMain.FlexRow}>
+              {
+                dataService ?
+                  <ProductBox dataService={dataService} navigation={navigation} typeip='ip' mode='row3col2' prepath='mysql'
+                    pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
+                  /> :
+                  null
+              }
+            </View>
+          </ScrollView>
         </View>
-        <View>
-          <Might_like_Store />
-          <Might_like_Store />
-        </View>
-      </>
+      </View>
     );
   }
 }

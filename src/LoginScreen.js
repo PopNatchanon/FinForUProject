@@ -192,7 +192,7 @@ export class Login extends React.Component {
             ref="form"
             onSubmit={this.getData.bind(this)}>
             <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
-                อีเมล</Text>
+              อีเมล</Text>
             <TextValidator
               name="email"
               label="text"
@@ -217,7 +217,7 @@ export class Login extends React.Component {
                 underlineInvalidColor: 'red'
               }} />
             <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
-                รหัสผ่าน</Text>
+              รหัสผ่าน</Text>
             <TextValidator
               name="pass"
               label="text"
@@ -312,18 +312,22 @@ export class Register extends React.Component {
           </View>
           <View style={stylesLogin.Register_Box_Button}>
             <TouchableOpacity>
-              <FastImage
-                style={stylesLogin.Register_Box_image}
-                source={require('../icon/face_icon.png')}
-                resizeMode={FastImage.resizeMode.contain}
-              />
+              <View style={{ marginLeft: 10, width: 140, height: 50}}>
+                <FastImage
+                  style={stylesLogin.Register_Box_image}
+                  source={require('../icon/logoutappfacebook.png')}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+              </View>
             </TouchableOpacity>
             <TouchableOpacity>
-              <FastImage
-                style={stylesLogin.Register_Box_image}
-                source={require('../icon/googla_icon.png')}
-                resizeMode={FastImage.resizeMode.contain}
-              />
+              <View style={{ marginLeft: 10, width: 140, height: 50}}>
+                <FastImage
+                  style={stylesLogin.Register_Box_image}
+                  source={require('../icon/logoutapp14.png')}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+              </View>
             </TouchableOpacity>
           </View>
         </View>

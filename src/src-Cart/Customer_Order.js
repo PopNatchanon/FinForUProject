@@ -9,6 +9,7 @@ import {
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage'
 import BottomSheet from "react-native-raw-bottom-sheet";
+import { CheckBox } from 'react-native-elements';
 export const { width, height } = Dimensions.get('window');
 import CookieManager from '@react-native-community/cookies';
 import FastImage from 'react-native-fast-image';
@@ -147,10 +148,16 @@ export class Account extends Component {
                         <IconEvilIcons name='location' size={30} />
                         <View style={{ marginLeft: 10, flex: 1, }}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ที่อยู่ในการจัดส่ง</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { paddingLeft: 8 }]}>
-                                {data.customer_name} | {data.telephone_number}</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { paddingLeft: 8, width: '100%', }]}>
-                                {data.address}</Text>
+                            {
+                                data && ([
+                                    <Text key={'customer_name'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
+                                        paddingLeft: 8
+                                    }]}>
+                                        {data.customer_name} | {data.telephone_number}</Text>,
+                                    <Text key={'address'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { paddingLeft: 8, width: '100%', }]}>
+                                        {data.address}</Text>
+                                ])
+                            }
                         </View>
                     </View>
                     <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Setting_Topic', {
@@ -248,6 +255,7 @@ export class Option_payment extends Component {
         this.state = {
             modalVisible: false,
             path1: 0,
+            item1: false,
         };
     }
     Path1() {
@@ -338,12 +346,36 @@ export class Option_payment extends Component {
                 )
         }
     }
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.push(value, value2)
+    }
     setModalVisible = (modalVisible) => {
         this.setState({ modalVisible })
     }
+    setStateItem1 = () => {
+        const { item1 } = this.state
+        this.setState({ item1: !item1 })
+    }
+    getData = () => {
+        getData = (dataSelect) => {
+            const { getData } = this.props
+            getData(dataSelect)
+        }
+    }
     render() {
         const { dataService } = this.props
-        const { modalVisible } = this.state
+        const { item1, modalVisible } = this.state
+        var data
+        dataService.bill_data.map((value) => { return data = value })
+        console.log('data')
+        console.log(data)
         return (
             <View>
                 {/* <BottomSheet
@@ -484,6 +516,51 @@ export class Option_payment extends Component {
                     </View>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>4 Coins</Text>
                 </View>
+                <View style={[stylesCustomerOrder.Option_payment, { height: 50 }]}>
+                    <View style={{ flexDirection: 'row', }}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>ขอออกใบกำกับภาษี</Text>
+                    </View>
+                    <View style={{ marginTop: -4, marginRight: -8 }}>
+                        <CheckBox
+                            size={30}
+                            checkedIcon='toggle-on'
+                            checkedColor='#95F29F'
+                            uncheckedIcon='toggle-off'
+                            checked={item1}
+                            onPress={this.setStateItem1.bind(this)} />
+                    </View>
+                </View>
+                {
+                    item1 == true &&
+                    <View style={stylesCustomerOrder.Account}>
+                        <View style={stylesCustomerOrder.Account_Box}>
+                            <View style={{ flexDirection: 'row', flex: 1, }}>
+                                <IconEvilIcons name='location' size={30} />
+                                <View style={{ marginLeft: 10, flex: 1, }}>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ที่อยู่ในใบกำกับภาษี</Text>
+                                    {
+                                        data && ([
+                                            <Text key={'customer_name'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
+                                                paddingLeft: 8
+                                            }]}>
+                                                {data.customer_name} | {data.telephone_number}</Text>,
+                                            <Text key={'address'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
+                                                paddingLeft: 8, width: '100%',
+                                            }]}>
+                                                {data.address}</Text>
+                                        ])
+                                    }
+                                </View>
+                            </View>
+                            <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Setting_Topic', {
+                                selectedIndex: 1, type: 'select', type_special: 'tax', updateData: this.getData.bind(this),
+                                no_invoice: data.no_invoice
+                            })}>
+                                <IconEntypo name='chevron-right' size={35} style={stylesMain.ItemCenterVertical} />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                }
             </View>
         );
     }

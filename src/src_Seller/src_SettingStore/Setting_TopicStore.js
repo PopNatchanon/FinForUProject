@@ -147,13 +147,15 @@ export class Notification extends Component {
                 </View>
                 <TouchableOpacity onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 2 })}>
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>หนังสือจดทะเบียนบริษัท จากกรมพัฒนาธุรกิจการค้า</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>
+                            หนังสือจดทะเบียนบริษัท จากกรมพัฒนาธุรกิจการค้า</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 3 })}>
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>สำเนาบัตรประชาชน/พาสปอร์ตของกรรมการผู้มีอำนาจลงนาม</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>
+                            สำเนาบัตรประชาชน/พาสปอร์ตของกรรมการผู้มีอำนาจลงนาม</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
@@ -171,7 +173,8 @@ export class Notification extends Component {
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 6 })}>
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>หนังสือรับรองการเป็นตัวแทนจำหน่าย (ไม่จำเป็นต้องระบุ)</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>
+                            หนังสือรับรองการเป็นตัวแทนจำหน่าย (ไม่จำเป็นต้องระบุ)</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>

@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "311500512448",
-    "firebase_url": "https://finforuprojecttest.firebaseio.com",
-    "project_id": "finforuprojecttest",
-    "storage_bucket": "finforuprojecttest.appspot.com"
+    "project_number": "208302803640",
+    "firebase_url": "https://chat-realtime-eb12a.firebaseio.com",
+    "project_id": "chat-realtime-eb12a",
+    "storage_bucket": "chat-realtime-eb12a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:311500512448:android:7ba6a55824c44538152125",
+        "mobilesdk_app_id": "1:208302803640:android:6fa2b0608c11def5c0024d",
         "android_client_info": {
           "package_name": "com.finforuproject"
         }
       },
       "oauth_client": [
         {
-          "client_id": "311500512448-fdvame46fcvt9p9bjsf7k72v0baq4qnl.apps.googleusercontent.com",
+          "client_id": "208302803640-s8ldmd6iu4q97rh03qn52ot18ag7ci4a.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBmV6U9y-i18MHC8X2JGFrOV2xi2QSLjtE"
+          "current_key": "AIzaSyCNHw-db4VKpr1eNf8Z-A74B8p5ngaJTbk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "311500512448-fdvame46fcvt9p9bjsf7k72v0baq4qnl.apps.googleusercontent.com",
+              "client_id": "208302803640-s8ldmd6iu4q97rh03qn52ot18ag7ci4a.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

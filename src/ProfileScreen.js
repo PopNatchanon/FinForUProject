@@ -14,6 +14,7 @@ import IconFeather from 'react-native-vector-icons/Feather';
 import IconFontisto from 'react-native-vector-icons/Fontisto';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
@@ -456,6 +457,20 @@ export class ListMenu extends React.Component {
                                     stylesFont.FontCenter
                                 ]}>
                                     ดูล่าสุด</Text>
+                            </View>
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1}
+                        onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 })}>
+                        <View style={stylesProfile.ListMenuList}>
+                            <View style={stylesProfile.ListMenuListSub}>
+                                <IconFontAwesome RightItem name="users" size={30} color='#7CB4F0'
+                                    style={stylesProfile.ListMenuListSubIcon} />
+                                <Text style={[
+                                    stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6,
+                                    stylesFont.FontCenter
+                                ]}>กลุ่มธุรกิจของฉัน</Text>
                             </View>
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>

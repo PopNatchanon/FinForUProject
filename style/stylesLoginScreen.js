@@ -17,7 +17,7 @@ export default StyleSheet.create({
     },
     Logo_Box: {
         alignItems: 'center',
-        paddingTop: 20,
+        paddingTop: 15,
         width,
         height: 'auto',
     },
@@ -28,7 +28,7 @@ export default StyleSheet.create({
     ///--------------------------------------------------------------------------///
     Login_Box: {
         width,
-        marginTop: 20,
+        marginTop: 10,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -47,11 +47,11 @@ export default StyleSheet.create({
         paddingLeft: 'auto',
         paddingRight: 'auto',
         width: '100%',
-        height: 40,
+        height: 30,
     },
     Login_Box_Textlabel: {
-        marginLeft: 4,
-        marginTop: 10,
+        marginLeft: 5,
+        marginTop: 5,
     },
     Login_Box_Text_L: {
         marginTop: 5,

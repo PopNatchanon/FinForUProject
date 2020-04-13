@@ -97,29 +97,31 @@ export default class Customer_account extends Component {
         navigation.goBack()
     }
     render() {
+        const { navigation } = this.props
         const { activeSave, activeSave2, dataBody, keycokie } = this.state
+        const type_special = navigation.getParam('type_special')
         var uri = finip + '/profile/insert_address';
         var uri2 = finip + '/profile/add_address';
         return (
             <SafeAreaView style={{ backgroundColor: '#E9E9E9', flex: 1, }}>
                 {[
-                    activeSave == true && keycokie &&
+                    activeSave == true && keycokie && type_special == undefined &&
                     <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData3.bind(this)} Authorization={keycokie}
-                        showConsole={'flash'}
+                    // showConsole={'flash'}
                     />,
-                    activeSave2 == true && keycokie &&
+                    activeSave2 == true && keycokie && type_special == undefined &&
                     <GetServices uriPointer={uri2} dataBody={{ address: "--" }} getDataSource={this.getData4.bind(this)}
                         Authorization={keycokie}
-                        showConsole={'flash2'}
+                    // showConsole={'flash2'}
                     />
                 ]}
-                <Appbar navigation={this.props.navigation} />
+                <Appbar navigation={navigation} />
                 <ScrollView>
-                    <Account currentUser={this.state.currentUser} getData={this.getData.bind(this)} />
+                    <Account currentUser={this.state.currentUser} getData={this.getData.bind(this)} type_special={type_special} />
                     <Account_main getData={this.getData.bind(this)} />
                 </ScrollView>
                 <Button_Bar dataBody={dataBody} getData={this.getData2.bind(this)} />
-                <ExitAppModule navigation={this.props.navigation} />
+                <ExitAppModule navigation={navigation} />
             </SafeAreaView>
         );
     }
@@ -138,7 +140,8 @@ export class Appbar extends Component {
                     <View style={[stylesMain.ItemCenter, { width: '100%', height: 50, flexDirection: 'row' }]}>
                         <View style={[stylesMain.ItemCenter, { flexDirection: 'row', marginLeft: '30%', marginRight: '30%' }]}>
                             <IconAntDesign name='mail' size={30} color='#FFFFFF' />
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF', }]}>ที่อยู่ใหม่</Text>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF', }]}>
+                                ที่อยู่ใหม่</Text>
                         </View>
                         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()} >
                             <IconAntDesign name='closecircleo' size={25} color='#FFFFFF' style={[stylesMain.ItemCenterVertical,]} />
@@ -155,11 +158,12 @@ export class Account extends Component {
         super(props);
         this.state = {
             activeData: true,
+            amphoe: 'เขต/อำเภอ',
             DataProvinces: [],
             DataAmphoes: [],
             DataTumbols: [],
             province: 'จังหวัด',
-            amphoe: 'เขต/อำเภอ',
+            tax: 'โปรดระบุ',
             tumbol: 'แขวง/ตำบล',
         };
     }
@@ -299,14 +303,60 @@ export class Account extends Component {
 
     }
     render() {
-        const { activeData, address, amphoe, lastname, name, phone, province, tumbol, zipcode } = this.state
+        const { type_special } = this.props
+        const { activeData, address, amphoe, lastname, name, phone, province, tax, tumbol, zipcode } = this.state
         let provinces = this.DataProvince()
         let amphoes = this.DataAmphoe()
         let tumbols = this.DataTumbol()
+        let taxs = ['บุคคลธรรมดา', 'นิติบุคคล', 'ชาวต่างชาติ']
         activeData == true &&
             this.getData()
         return (
             <View>
+                {[
+                    type_special == 'tax' &&
+                    <View key={'ประเภทผู้ขอออกใบกำกับภาษี'} style={styles.Account_Box}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>ประเภทผู้ขอออกใบกำกับภาษี</Text>
+                        <ModalDropdown
+                            options={taxs}
+                            style={stylesMain.ItemCenterVertical}
+                            textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
+                            dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'right' }]}
+                            renderButtonText={(index) => { this.setState({ tax: index }) }}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                                {tax}</Text>
+                        </ModalDropdown>
+                    </View>,
+                    tax !== 'โปรดระบุ' &&
+                    <View key={'หมายเลขบัตรประชาชน'} style={styles.Account_Box}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>
+                            {
+                                tax == 'บุคคลธรรมดา' ?
+                                    'หมายเลขบัตรประชาชน' :
+                                    tax == 'นิติบุคคล' ?
+                                        'หมายเลขประจำตัวผู้เสียภาษี' :
+                                        tax == 'ชาวต่างชาติ' &&
+                                        'หมายเลขพาสปอร์ต'
+                            }</Text>
+                        <TextInput
+                            style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { height: 40, width: 250, textAlign: 'right' }]}
+                            placeholder="โปรดระบุ"
+                            maxLength={28}
+                            value={name}
+                            onChangeText={(number) => this.setState({ activeData: true, number, })} />
+                    </View>,
+                    tax === 'นิติบุคคล' &&
+                    <View key={'หมายเลขบัตรประชาชน'} style={styles.Account_Box}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>
+                            สาขา</Text>
+                        <TextInput
+                            style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { height: 40, width: 250, textAlign: 'right' }]}
+                            placeholder="โปรดระบุ"
+                            maxLength={28}
+                            value={name}
+                            onChangeText={(office) => this.setState({ activeData: true, office, })} />
+                    </View>
+                ]}
                 <View style={styles.Account_Box}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>ชื่อ</Text>
                     <TextInput

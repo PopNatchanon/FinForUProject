@@ -15,9 +15,8 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule } from './MainScreen';
-import { GetServices, TabBar, } from './tools/Tools';
-import { Slide } from './src_Promotion/DealScreen';
+import { AppBar1, ExitAppModule, Slide } from './MainScreen';
+import { GetServices, TabBar, LoadingScreen, } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from './navigator/IpConfig';
 import NumberFormat from 'react-number-format';
@@ -27,14 +26,29 @@ export default class FlashSaleScreen extends React.Component {
         super(props);
         this.state = {
             activeFlashStart: true,
+            activeReData: true,
             scrollY: new Animated.Value(0)
         };
     }
+    componentDidMount() {
+        this.intervalID = setInterval(
+            () => this.tick(),
+            1000
+        );
+    }
+    tick() {
+        this.setState({
+            curTime: new Date()
+        });
+    }
+    componentWillUnmount() {
+        clearInterval(this.intervalID);
+    }
     getData = (dataService) => {
-        this.setState({ activeFlashStart: false, dataService, flash_start: dataService.flash_start })
+        this.setState({ activeFlashStart: false, activeReData: true, dataService, flash_start: dataService.flash_start })
     }
     getReData = () => {
-        this.setState({ activeFlashStart: true, dataService: [], flash_start: [] })
+        this.setState({ activeFlashStart: true, activeReData: false, dataService: [], flash_start: undefined, pkid: '' })
     }
     getUpdate = (pkid) => {
         this.setState({ activeFlashStart: true, dataService: [], pkid })
@@ -44,7 +58,7 @@ export default class FlashSaleScreen extends React.Component {
     }
     render() {
         const { navigation } = this.props
-        const { activeFlashStart, dataService, flash_start, id_type, pkid, scrollY } = this.state
+        const { activeFlashStart, activeReData, curTime, dataService, flash_start, id_type, pkid, scrollY } = this.state
         const marginTopFlashsale = scrollY.interpolate({
             inputRange: [145, 155],
             outputRange: [10, 0],
@@ -61,14 +75,29 @@ export default class FlashSaleScreen extends React.Component {
             id_category: id_type ? id_type : "",
             device: "mobile_device"
         }
+        if (flash_start) {
+            var end_period = flash_start[0].end_period.split(' ')
+            var end_period_1 = end_period[0].split('-')
+            var end_period_2 = end_period[1].split(':')
+            var endTime = new Date();
+            endTime.setFullYear(end_period_1[0], (end_period_1[1] * 1) - 1, end_period_1[2])
+            endTime.setHours(end_period_2[0])
+            endTime.setMinutes(end_period_2[1])
+            endTime.setSeconds(end_period_2[2])
+            console.log(curTime > endTime)
+            curTime > endTime &&
+                this.getReData()
+        }
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                {
+                {[
                     activeFlashStart == true &&
                     <GetServices dataBody={dataBody} getDataSource={this.getData.bind(this)}
                         showConsole='activeFlashStart'
-                        uriPointer={uri} />
-                }
+                        uriPointer={uri} />,
+                    activeFlashStart == true &&
+                    <LoadingScreen key={'LoadingScreen'} />
+                ]}
                 <AppBar1 titleHead={'FLASH SALE'} backArrow searchBar chatBar navigation={navigation} />
                 <ScrollView
                     stickyHeaderIndices={[1]}
@@ -81,8 +110,9 @@ export default class FlashSaleScreen extends React.Component {
                     <Slide />
                     {
                         dataService && ([
-                            <Time_FlashSale activeFlashStart={activeFlashStart} dataService2={flash_start}
-                                getReData={this.getReData.bind(this)} getUpdate={this.getUpdate.bind(this)}
+                            flash_start &&
+                            <Time_FlashSale activeFlashStart={activeFlashStart} activeReData={activeReData} curTime={curTime}
+                                dataService2={flash_start} getReData={this.getReData.bind(this)} getUpdate={this.getUpdate.bind(this)}
                                 getUpdate2={this.getUpdate2.bind(this)} key={'Time_FlashSale'}
                                 marginTopFlashsale={marginTopFlashsale} marginTopTime={marginTopTime} />,
                             activeFlashStart == false && (
@@ -93,7 +123,8 @@ export default class FlashSaleScreen extends React.Component {
                                     }) :
                                     <View style={[stylesMain.ItemCenter, { marginTop: 10, width, height: 100, backgroundColor: '#fff' }]}>
                                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
-                                             textAlign: 'center', textAlignVertical: 'center' }]}>ไม่มีรายการในหมวดหมู่นี้</Text>
+                                            textAlign: 'center', textAlignVertical: 'center'
+                                        }]}>ไม่มีรายการในหมวดหมู่นี้</Text>
                                     </View>
                             )
                         ])
@@ -111,26 +142,11 @@ export class Time_FlashSale extends React.Component {
         this.state = {
             activeselectedIndex: true,
             activeselectedIndex2: true,
-            curTime: new Date(),
             dataService: [],
             selectedIndex: 0,
             selectedIndex2: 0,
             endTime: new Date(),
         }
-    }
-    componentDidMount() {
-        this.intervalID = setInterval(
-            () => this.tick(),
-            1000
-        );
-    }
-    tick() {
-        this.setState({
-            curTime: new Date()
-        });
-    }
-    componentWillUnmount() {
-        clearInterval(this.intervalID);
     }
     getData(dataService) {
         this.setState({ activeselectedIndex2: false, dataService, })
@@ -148,88 +164,88 @@ export class Time_FlashSale extends React.Component {
         getUpdate2(id_type)
     }
     render() {
-        const { activeFlashStart, dataService2, getReData, marginTopFlashsale, marginTopTime } = this.props
-        const { activeselectedIndex, activeselectedIndex2, curTime, dataService, endTime, flash_item, selectedIndex, } = this.state
+        const { activeFlashStart, activeReData, curTime, dataService2, marginTopFlashsale, marginTopTime } = this.props
+        const { activeselectedIndex, activeselectedIndex2, dataService, endTime, flash_item, selectedIndex, } = this.state
         var uri = finip + '/home/category_mobile';
-        const item = []
+        var item = []
         var item2 = [{
             name: 'ทั้งหมด'
         }]
         dataService.map((value) => {
             return item2.push({ name: value.name })
         })
-        dataService2.map((value, index) => {
-            var start_period = value.start_period.split(' ')
-            var start_period_1 = start_period[0].split('-')
-            var start_period_2 = start_period[1].split(':')
-            var end_period = value.end_period.split(' ')
-            var end_period_1 = end_period[0].split('-')
-            var end_period_2 = end_period[1].split(':')
-            var today = new Date();
-            var someday = new Date();
-            var endday = new Date();
-            someday.setFullYear(start_period_1[0], (start_period_1[1] * 1) - 1, start_period_1[2])
-            someday.setHours(start_period_2[0])
-            someday.setMinutes(start_period_2[1])
-            someday.setSeconds(start_period_2[2])
-            activeselectedIndex == true && index == selectedIndex && (
-                value.flash_item == 'now' ?
-                    (
-                        endday.setFullYear(end_period_1[0], (end_period_1[1] * 1) - 1, end_period_1[2]),
-                        endday.setHours(end_period_2[0]),
-                        endday.setMinutes(end_period_2[1]),
-                        endday.setSeconds(end_period_2[2]),
-                        this.setState({ activeselectedIndex: false, endTime: endday, flash_item: 'now' })
-                    ) :
-                    (
-                        endday.setFullYear(start_period_1[0], (start_period_1[1] * 1) - 1, start_period_1[2]),
-                        endday.setHours(start_period_2[0]),
-                        endday.setMinutes(start_period_2[1]),
-                        endday.setSeconds(start_period_2[2]),
-                        this.setState({ activeselectedIndex: false, endTime: endday, flash_item: 'future' })
-                    )
-            )
-            return item.push({ name: value.time_show, subname: value.flash_item == 'now' ? 'กำลังดำเนินการอยู่' : 'เร็วๆนี้' })
-        })
         var Hours = 0
         var Minutes = 0
         var Seconds = 0
-        endTime && (
+        endTime && ([
             Hours = Number(new Date(endTime).getHours()) - Number(new Date(curTime).getHours()),
             (Number(new Date(endTime).getDate()) - Number(new Date(curTime).getDate())) > 0 && (
                 Hours = Hours + ((Number(new Date(endTime).getDate()) - Number(new Date(curTime).getDate())) * 24)
             ),
             Minutes = Number(new Date(endTime).getMinutes()) - Number(new Date(curTime).getMinutes()),
             Seconds = Number(new Date(endTime).getSeconds()) - Number(new Date(curTime).getSeconds()),
-            activeFlashStart == false && Hours <= 0 && Minutes <= 0 && Seconds <= 0 && (
-                getReData(true)
-            ),
-            Hours > 0 && Minutes < 0 && (
+            Hours > 0 && (Minutes < 0 || Seconds < 0) && ([
                 Hours = Hours - 1,
                 Minutes = 60 + Minutes
-            ),
-            Minutes > 0 && Seconds < 0 && (
+            ]),
+            Minutes > 0 && Seconds < 0 && ([
                 Minutes = Minutes - 1,
                 Seconds = 60 + Seconds
-            )
-        )
+            ])
+        ])
+        console.log('Hours : Minutes : Seconds');
+        console.log(Hours + ':' + Minutes + ':' + Seconds);
+        dataService2 &&
+            dataService2.map((value, index) => {
+                var start_period = value.start_period.split(' ')
+                var start_period_1 = start_period[0].split('-')
+                var start_period_2 = start_period[1].split(':')
+                var end_period = value.end_period.split(' ')
+                var end_period_1 = end_period[0].split('-')
+                var end_period_2 = end_period[1].split(':')
+                var endday = new Date();
+                activeselectedIndex == true && index == selectedIndex && (
+                    value.flash_item == 'now' ?
+                        (
+                            endday.setFullYear(end_period_1[0], (end_period_1[1] * 1) - 1, end_period_1[2]),
+                            endday.setHours(end_period_2[0]),
+                            endday.setMinutes(end_period_2[1]),
+                            endday.setSeconds(end_period_2[2]),
+                            this.setState({ activeselectedIndex: false, endTime: endday, flash_item: 'now' })
+                        ) :
+                        (
+                            endday.setFullYear(start_period_1[0], (start_period_1[1] * 1) - 1, start_period_1[2]),
+                            endday.setHours(start_period_2[0]),
+                            endday.setMinutes(start_period_2[1]),
+                            endday.setSeconds(start_period_2[2]),
+                            this.setState({ activeselectedIndex: false, endTime: endday, flash_item: 'future' })
+                        )
+                )
+                return item.push({ name: value.time_show, subname: value.flash_item == 'now' ? 'กำลังดำเนินการอยู่' : 'เร็วๆนี้' })
+            })
         return ([
             <Animatable.View elevation={1} style={[stylesMain.FrameBackground, stylesMain.FlexRow, {
-                marginTop: marginTopFlashsale, marginBottom: marginTopTime,
+                marginTop: marginTopFlashsale, marginBottom: marginTopTime, paddingBottom: 0, height: 40,
             }]}>
                 {
                     activeselectedIndex2 == true &&
                     <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} />
                 }
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>FLASH SALE</Text>
-                <IconMaterialIcons name='access-time' size={25} style={{ marginLeft: 10, }} />
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 3 }]}>{flash_item == 'now' ? 'จบใน' : 'เริ่มใน'}</Text>
-                <View style={stylesMain.Time_FlashSale_TimeBox}><Text style={stylesMain.Time_FlashSale_TimeText}>
-                    {Hours < 10 ? Hours <= 0 ? '00' : '0' + Hours : Hours}</Text></View>
-                <View style={stylesMain.Time_FlashSale_TimeBox}><Text style={stylesMain.Time_FlashSale_TimeText}>
-                    {Minutes < 10 ? Minutes <= 0 ? '00' : '0' + Minutes : Minutes}</Text></View>
-                <View style={stylesMain.Time_FlashSale_TimeBox}><Text style={stylesMain.Time_FlashSale_TimeText}>
-                    {Seconds < 10 ? Seconds <= 0 ? '00' : '0' + Seconds : Seconds}</Text></View>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { textAlignVertical: 'center' }]}>FLASH SALE</Text>
+                <IconMaterialIcons name='access-time' size={25} style={[stylesMain.ItemCenterVertical, { marginLeft: 10, }]} />
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical, {
+                    margin: 3, textAlignVertical: 'center',
+                }]}>
+                    {flash_item == 'now' ? 'จบใน' : 'เริ่มใน'}</Text>
+                <View style={[stylesMain.Time_FlashSale_TimeBox, stylesMain.ItemCenterVertical,]}>
+                    <Text style={stylesMain.Time_FlashSale_TimeText}>
+                        {Hours < 10 ? Hours <= 0 ? '00' : '0' + Hours : Hours}</Text></View>
+                <View style={[stylesMain.Time_FlashSale_TimeBox, stylesMain.ItemCenterVertical,]}>
+                    <Text style={stylesMain.Time_FlashSale_TimeText}>
+                        {Minutes < 10 ? Minutes <= 0 ? '00' : '0' + Minutes : Minutes}</Text></View>
+                <View style={[stylesMain.Time_FlashSale_TimeBox, stylesMain.ItemCenterVertical,]}>
+                    <Text style={stylesMain.Time_FlashSale_TimeText}>
+                        {Seconds < 10 ? Seconds <= 0 ? '00' : '0' + Seconds : Seconds}</Text></View>
             </Animatable.View>,
             <Animatable.View style={[stylesTopic.FlashSale_Tag, { paddingBottom: 0 }]}>
                 <TabBar

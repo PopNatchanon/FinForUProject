@@ -742,18 +742,20 @@ export class Category extends React.Component {
             dataService.map((item, index) => {
                 var dataMySQL = finip + '/' + item.image_path + '/' + 'menu' + '/' + item.image_head;
                 return (
-                    <View style={stylesMain.Category} key={index}>
-                        <FastImage
-                            source={{
-                                uri: dataMySQL,
-                            }}
-                            style={stylesMain.Category_box}
-                            resizeMode={FastImage.resizeMode.cover} />
-                        <View style={{ height: 20 }}>
-                            <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize8, stylesFont.FontCenter]}>
-                                {item.name}</Text>
+                    <TouchableOpacity activeOpacity={1} key={index} onPress={this.navigationNavigateScreen.bind(this, 'CategoryScreen')}>
+                        <View style={stylesMain.Category}>
+                            <FastImage
+                                source={{
+                                    uri: dataMySQL,
+                                }}
+                                style={stylesMain.Category_box}
+                                resizeMode={FastImage.resizeMode.cover} />
+                            <View style={{ height: 20 }}>
+                                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize8, stylesFont.FontCenter]}>
+                                    {item.name}</Text>
+                            </View>
                         </View>
-                    </View>
+                    </TouchableOpacity>
                 )
             })
     }
@@ -767,11 +769,9 @@ export class Category extends React.Component {
                     <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} />
                 }
                 <ScrollView horizontal>
-                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'CategoryScreen')}>
-                        <View style={stylesMain.category_A}>
-                            {this.dataCategory}
-                        </View>
-                    </TouchableOpacity>
+                    <View style={stylesMain.category_A}>
+                        {this.dataCategory}
+                    </View>
                 </ScrollView>
             </View>
         );
@@ -1274,7 +1274,7 @@ export class FlashSale extends React.Component {
         var Hours = 0
         var Minutes = 0
         var Seconds = 0
-        endTime && (
+        endTime && ([
             Hours = Number(new Date(endTime).getHours()) - Number(new Date(curTime).getHours()),
             (Number(new Date(endTime).getDate()) - Number(new Date(curTime).getDate())) > 0 && (
                 Hours = Hours + ((Number(new Date(endTime).getDate()) - Number(new Date(curTime).getDate())) * 24)
@@ -1284,15 +1284,15 @@ export class FlashSale extends React.Component {
             activeDataService == false && Hours <= 0 && Minutes <= 0 && Seconds <= 0 && (
                 this.setState({ activeDataService: true, dataService: [] })
             ),
-            Hours > 0 && Minutes < 0 && (
+            Hours > 0 && (Minutes < 0 || Seconds < 0) && ([
                 Hours = Hours - 1,
                 Minutes = 60 + Minutes
-            ),
-            Minutes > 0 && Seconds < 0 && (
+            ]),
+            Minutes > 0 && Seconds < 0 && ([
                 Minutes = Minutes - 1,
                 Seconds = 60 + Seconds
-            )
-        )
+            ])
+        ])
         return ([
             activeDataService == true &&
             <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)}
@@ -1762,7 +1762,7 @@ export class CategoryProductSubProduct extends React.Component {
                 }
                 <View style={[stylesMain.ProductForYouFlexBox, stylesMain.BoxProductWarpBox]}>
                     {
-                        dataService &&
+                        dataService && dataService.length > 0 &&
                         <ProductBox dataService={dataService} navigation={navigation} typeip='fin' mode='row3col2'
                             pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} />
                     }

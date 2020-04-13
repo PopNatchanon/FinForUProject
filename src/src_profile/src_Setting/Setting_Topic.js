@@ -651,6 +651,7 @@ export class Edit_Address extends Component {
     const { activeReset, dataService, keycokie } = this.state
     const no_invoice = navigation.getParam('no_invoice')
     const type = navigation.getParam('type')
+    const type_special = navigation.getParam('type_special')
     var uri = finip + '/bill/bill_list';
     var dataBody = {
       id_customer: currentUser && currentUser.id_customer,
@@ -665,17 +666,19 @@ export class Edit_Address extends Component {
             showConsole={'zzz'}
             getDataSource={this.getData.bind(this)} key={'zzz'} />
         }
-        <AppBar1 backArrow navigation={navigation} titleHead='ที่อยู่ของฉัน' />
+        <AppBar1 backArrow navigation={navigation} titleHead={type_special == 'tax' ? 'ที่อยู่ในใบกำกับภาษี' : 'ที่อยู่ของฉัน'} />
         <ScrollView style={{ height: 1000 }}>
           {
             dataService && dataService.list_address && activeReset == false &&
             dataService.list_address.map((value, index) => {
-              return <Address_Customar dataService={value} index={index} navigation={navigation} type={type} />
+              return <Address_Customar dataService={value} index={index} key={index} navigation={navigation} type={type} />
             })
           }
         </ScrollView>
         <View style={{ alignItems: 'center', justifyContent: 'flex-end' }}>
-          <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Customer_account', { updateData2: this.getData2.bind(this), })}>
+          <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Customer_account', {
+            type_special, updateData2: this.getData2.bind(this),
+          })}>
             <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>เพิ่มที่อยู่</Text>
             </View>

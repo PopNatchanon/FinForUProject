@@ -429,6 +429,7 @@ export default StyleSheet.create({
   Time_FlashSale_TimeText: {
     color: '#FFFFFF',
     textAlign: 'center',
+    textAlignVertical: 'center',
   },
   ///------------///
   FlexRow: {

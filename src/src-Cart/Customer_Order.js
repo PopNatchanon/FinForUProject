@@ -15,7 +15,6 @@ import CookieManager from '@react-native-community/cookies';
 import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
 import Omise from 'omise-react-native';
-import { CheckBox } from 'react-native-elements';
 Omise.config('pkey_test_5ifbd6uqmxyoddk5u9w', '2019-05-29');
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';

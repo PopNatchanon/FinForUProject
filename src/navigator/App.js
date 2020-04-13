@@ -50,7 +50,6 @@ import Setting_TopicStore from '../src_Seller/src_SettingStore/Setting_TopicStor
 import Customer_account from '../src-Cart/Customer_account';
 import Customer_Order from '../src-Cart/Customer_Order';
 import Customer_Complete_Order from '../src-Cart/Customer_Complete_Order';
-import Customer_Tax_Invoice from '../src-Cart/Customer_Tax_Invoice';
 // src_Promotion
 import Deal_Topic from '../src_Promotion/src_DealTopic/Deal_Topic';
 import DealScreen from '../src_Promotion/DealScreen';
@@ -341,13 +340,6 @@ const PathScreen = createStackNavigator({
   },
   Customer_Complete_Order: {
     screen: Customer_Complete_Order,
-    navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
-    })
-  },
-  Customer_Tax_Invoice: {
-    screen: Customer_Tax_Invoice,
     navigationOptions: () => ({
       tabBarVisible: false,
       header: null,

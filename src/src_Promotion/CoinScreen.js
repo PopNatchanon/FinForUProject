@@ -7,6 +7,7 @@ import {
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
+import BottomSheet from "react-native-raw-bottom-sheet";
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconEntypo from 'react-native-vector-icons/Entypo';
 ///----------------------------------------------------------------------------------------------->>>> Styles
@@ -183,35 +184,91 @@ export class CoinPageBody extends Component {
     getData(dataService) {
         this.setState({ dataService })
     }
+    DetailCoin() {
+        return (
+            <View>
+                <ScrollView>
+                    <View style={{ width: '100%', height: 150 }}>
+                        <FastImage
+                            style={[stylesMain.BoxProduct1Image, { borderRadius: 5 }]}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Campaign/Voucher-02.jpg',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch}
+                        />
+                    </View>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                        1.ยอดใช้จ่ายขั้นต่ำ 1,000 บาทขึ้นไป/ เซลล์สลิป(ผ่านวงเงินบัตรเครดิต)
+                        และรวมยอดใช้จ่ายเปลี่ยนเป็นยอดแบ่งชำระเริ่มต้น 3,000 บาทขึ้นไป
+                        2.เป็นยอดใช้จ่ายที่เกิดขึ้นก่อนวันสรุปยอดบัญชี 3 วันทำการเดือนนั้นๆ
+                        3.ยกเว้นยอดใช้จ่ายในเชิงธุรกิจ, ยอดใช้จ่ายจากการ ซื้อกองทุนรวม,
+                        ยอดการชำระค่าสาธารณูปโภค, และค่าบริการอื่นๆจากการหักบัญชีอัตโนมัติผ่าน
+                        บัตรเครดิตกรุงศรี เฟิร์สช้อยส์ วีซ่า แพลทินัม,ยอดใช้จ่ายที่เกิดจากวงเงินชั่วคราว,
+                        และยอดใช้จ่ายที่ผิดวัตถุประสงค์และผิดกฏหมายบัตรเครดิต
+                        4.โดยยอดใช้จ่าย ดังกล่าวจะไม่ได้รับคะแนนสะสมกรุงศรี เฟิร์สช้อยส์ รีวอร์ด
+                        5.ทางบริษัทฯ ขอสงวนสิทธิ์ไม่รับการยกเลิก เปลี่ยนแปลง หรือแก้ไข
+                        หากบริษัทฯได้ดำเนินการตามคำขอนี้แล้วทุกกรณี
+                        6.กรณีที่ท่านคืนสินค้าหรือบริการที่ร้านค้า กรุณาแจ้งทางบริษัทเพื่อทำการปิดรายการเงินผ่อนด้วยหลังจากท่านติดต่อแจ้งกับร้านค้าเรียบร้อยแล้ว
+                        7.บริษัทฯ ขอสงวนสิทธิ์ในการพิจารณาเปลี่ยนยอดซื้อสินค้าแบบปกติเป็นแบ่งจ่ายรายเดือนตาม หลักเกณฑ์ของบริษัทฯ หากพบว่าประวัติของสมาชิกบัตร ไม่ตรงตามหลักเกณฑของบริษัทฯ
+                        8.บริษัทฯขอสงวนสิทธิ์ในการเปลี่ยนแปลง แก้ไข และยกเลิกรายการส่งเสริมการตลาด รวมถึง เงื่อนไขต่างๆโดยไม่ต้องแจ้งให้ทราบล่วงหน้า
+                </Text>
+                    <View style={[stylesMain.FlexRow, { justifyContent: 'center', marginTop: 10 }]}>
+                        <View style={{ paddingHorizontal: 25, borderColor: '#0A55A6', borderWidth: 1, borderRadius: 5, paddingVertical: 10 }}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>ยกเลิก</Text></View>
+                        <View style={{ borderColor: '#0A55A6', borderWidth: 1, marginLeft: 10, backgroundColor: '#0A55A6', borderRadius: 5, paddingHorizontal: 20, paddingVertical: 10 }}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>แลกCoin</Text></View>
+                    </View>
+                </ScrollView>
+            </View>
+
+        )
+    }
     dataNewCampaign() {
         const { dataService } = this.state
         return dataService.map((item, index) => {
             var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
             return (
-                <View style={ststylePromotionDeal.CampaignBody}>
-                    <View style={[ststylePromotionDeal.CampaignBody_BoxImage, { padding: 5 }]} key={index}>
-                        <FastImage
-                            source={{
-                                uri: dataMySQL,
-                            }}
-                            style={stylesMain.BoxProduct1Image}
-                        />
-                    </View>
-                    <View style={[ststylePromotionDeal.CampaignBody_Box]}>
-                        <View style={ststylePromotionDeal.CampaignBody_BoxText}>
-                            <Text numberOfLines={2} style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>{item.detail} </Text>
-                            <Text numberOfLines={1} style={stylesFont.FontFamilyText}>วันหมดอายุ 03-02-2020</Text>
+                <>
+                    <BottomSheet
+                        ref={ref => {
+                            this.DetailCoinSheet = ref;
+                        }}
+                        height={500}
+                        duration={250}
+                        customStyles={{
+                            container: {
+                                padding: 10,
+                                borderTopLeftRadius: 10,
+                                borderTopRightRadius: 10,
+                            }
+                        }}>
+                        {this.DetailCoin()}
+                    </BottomSheet>
+                    <View style={ststylePromotionDeal.CampaignBody}>
+                        <View style={[ststylePromotionDeal.CampaignBody_BoxImage, { padding: 5 }]} key={index}>
+                            <FastImage
+                                source={{
+                                    uri: dataMySQL,
+                                }}
+                                style={stylesMain.BoxProduct1Image}
+                            />
                         </View>
-                        <View style={[ststylePromotionDeal.CampaignBody_Icon_Button, stylesMain.ItemCenterVertical]}>
-                            <TouchableOpacity>
-                                <View style={[stylesProfile.CoinPageBodyBoxBody2Box, stylesMain.ItemCenter]}>
-                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#fff' }]}>
-                                        แลก 10 coin</Text>
-                                </View>
-                            </TouchableOpacity>
+                        <View style={[ststylePromotionDeal.CampaignBody_Box]}>
+                            <View style={ststylePromotionDeal.CampaignBody_BoxText}>
+                                <Text numberOfLines={2} style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>{item.detail} </Text>
+                                <Text numberOfLines={1} style={stylesFont.FontFamilyText}>วันหมดอายุ 03-02-2020</Text>
+                            </View>
+                            <View style={[ststylePromotionDeal.CampaignBody_Icon_Button, stylesMain.ItemCenterVertical]}>
+                                <TouchableOpacity activeOpacity={1} onPress={() => { this.DetailCoinSheet.open(); }}>
+                                    <View style={[stylesProfile.CoinPageBodyBoxBody2Box, stylesMain.ItemCenter]}>
+                                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#fff' }]}>
+                                            แลก 10 coin</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
-                </View>
+                </>
             )
         })
     }

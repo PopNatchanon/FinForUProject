@@ -1,14 +1,17 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React from 'react';
 import {
-  Dimensions, SafeAreaView, ScrollView, View,
+  Dimensions, SafeAreaView, ScrollView, View, TouchableOpacity, Text,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 ///----------------------------------------------------------------------------------------------->>>> Icon
+import IconAntDesign from 'react-native-vector-icons/AntDesign';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesMain from '../style/StylesMainScreen';
+import stylesTopic from '../style/styleTopic';
+import stylesFont from '../style/stylesFont';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from './MainScreen';
 import { FlashSale_Product } from './FlashSaleScreen';
@@ -16,6 +19,7 @@ import { Slide } from './src_Promotion/DealScreen';
 import { GetServices, TabBar } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from './navigator/IpConfig';
+import NumberFormat from 'react-number-format';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class HighlightScreen extends React.Component {
   constructor(props) {
@@ -43,12 +47,7 @@ export default class HighlightScreen extends React.Component {
           <Slide />
           <Highlight_Brand />
           <Button_Bar />
-          <FlashSale_Product navigation={navigation} />
-          <FlashSale_Product navigation={navigation} />
-          <FlashSale_Product navigation={navigation} />
-          <FlashSale_Product navigation={navigation} />
-          <FlashSale_Product navigation={navigation} />
-          <FlashSale_Product navigation={navigation} />
+          <Highlight_Product />
         </ScrollView>
         <ExitAppModule navigation={navigation} />
       </SafeAreaView>
@@ -108,7 +107,80 @@ export class Button_Bar extends React.Component {
     );
   }
 }
-
+///----------------------------------------------------------------------------------------------->>>>
+export class Highlight_Product extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      dataService: [],
+    }
+    this.getData = this.getData.bind(this)
+  }
+  getData(dataService) {
+    this.setState({ dataService })
+  }
+  dataNewHighlight() {
+    const { dataService } = this.state
+    return dataService.map((item, index) => {
+      var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
+      return (
+        <>
+            <View style={[stylesMain.FlexRow,stylesMain.FrameBackground]}>
+              <View style={[stylesTopic.FlashSale_ProductBox_Image,{margin:5}]}>
+                <FastImage
+                  source={{
+                    uri: dataMySQL,
+                  }}
+                  style={stylesMain.BoxProduct1Image}
+                />
+              </View>
+                <View style={{width:'50%'}}>
+                  <Text numberOfLines={4} style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10 }]}>
+                    {item.name}</Text>
+                  <NumberFormat
+                    value={item.full_price}
+                    displayType={'text'}
+                    thousandSeparator={true}
+                    prefix={'฿'}
+                    renderText={value =>
+                      <Text style={[
+                        stylesMain.BoxProduct1ImagePrice,
+                        stylesFont.FontFamilyBoldBold, {
+                          fontSize: 14, marginLeft: 10,
+                        }
+                      ]}>
+                        {value}</Text>
+                    } />
+                </View>
+             <View style={{ width: '20%', justifyContent: 'flex-end' }}>
+              <TouchableOpacity>
+                <View style={[stylesTopic.FlashSale_ProductBox_Icon]}>
+                  <IconAntDesign RightItem name="shoppingcart" size={30} color='#FFFFFF' />
+                </View>
+              </TouchableOpacity>
+            </View>
+            </View>
+        </>
+      )
+    })
+  }
+  render() {
+    var uri = ip + '/mysql/DataServiceMain.php';
+    var dataBody = {
+      type: 'sale'
+    };
+    return (
+      <View>
+        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
+        <View style={{ alignItems: 'center' }}>
+          <View>
+            {this.dataNewHighlight()}
+          </View>
+        </View>
+      </View>
+    )
+  }
+}
 ///----------------------------------------------------------------------------------------------->>>>
 export class Highlight_Brand extends React.Component {
   constructor(props) {
@@ -119,9 +191,9 @@ export class Highlight_Brand extends React.Component {
 
   render() {
     return (
-      <View style={{marginVertical:10}}>
-        <View style={{ height: 100, width: '100%', flexDirection: 'row', justifyContent: 'space-around',}}>
-          <View style={{ width: '48%',}}>
+      <View style={{ marginVertical: 10 }}>
+        <View style={{ height: 100, width: '100%', flexDirection: 'row', justifyContent: 'space-around', }}>
+          <View style={{ width: '48%', }}>
             <FastImage
               style={[stylesMain.BoxProduct1Image, { borderRadius: 5 }]}
               source={{
@@ -130,7 +202,7 @@ export class Highlight_Brand extends React.Component {
               resizeMode={FastImage.resizeMode.stretch}
             />
           </View>
-          <View style={{ width: '48%',}}>
+          <View style={{ width: '48%', }}>
             <FastImage
               style={[stylesMain.BoxProduct1Image, { borderRadius: 5 }]}
               source={{
@@ -140,8 +212,8 @@ export class Highlight_Brand extends React.Component {
             />
           </View>
         </View>
-        <ScrollView horizontal style={{marginTop:10}}>
-          <View style={{ height: 60, width: 120, marginLeft: 5 ,borderColor:'#ECECEC',borderWidth:1}}>
+        <ScrollView horizontal style={{ marginTop: 10 }}>
+          <View style={{ height: 60, width: 120, marginLeft: 5, borderColor: '#ECECEC', borderWidth: 1 }}>
             <FastImage
               style={[stylesMain.BoxProduct1Image, { borderRadius: 5 }]}
               source={{
@@ -150,7 +222,7 @@ export class Highlight_Brand extends React.Component {
               resizeMode={FastImage.resizeMode.stretch}
             />
           </View>
-          <View style={{ height: 60, width: 120, marginLeft: 5 ,borderColor:'#ECECEC',borderWidth:1}}>
+          <View style={{ height: 60, width: 120, marginLeft: 5, borderColor: '#ECECEC', borderWidth: 1 }}>
             <FastImage
               style={[stylesMain.BoxProduct1Image, { borderRadius: 5 }]}
               source={{
@@ -159,7 +231,7 @@ export class Highlight_Brand extends React.Component {
               resizeMode={FastImage.resizeMode.stretch}
             />
           </View>
-          <View style={{ height: 60, width: 120, marginLeft: 5 ,borderColor:'#ECECEC',borderWidth:1}}>
+          <View style={{ height: 60, width: 120, marginLeft: 5, borderColor: '#ECECEC', borderWidth: 1 }}>
             <FastImage
               style={[stylesMain.BoxProduct1Image, { borderRadius: 5 }]}
               source={{
@@ -168,7 +240,7 @@ export class Highlight_Brand extends React.Component {
               resizeMode={FastImage.resizeMode.stretch}
             />
           </View>
-          <View style={{ height: 60, width: 120, marginLeft: 5 ,borderColor:'#ECECEC',borderWidth:1}}>
+          <View style={{ height: 60, width: 120, marginLeft: 5, borderColor: '#ECECEC', borderWidth: 1 }}>
             <FastImage
               style={[stylesMain.BoxProduct1Image, { borderRadius: 5 }]}
               source={{
@@ -177,7 +249,7 @@ export class Highlight_Brand extends React.Component {
               resizeMode={FastImage.resizeMode.stretch}
             />
           </View>
-          <View style={{ height: 60, width: 120, marginLeft: 5 ,borderColor:'#ECECEC',borderWidth:1}}>
+          <View style={{ height: 60, width: 120, marginLeft: 5, borderColor: '#ECECEC', borderWidth: 1 }}>
             <FastImage
               style={[stylesMain.BoxProduct1Image, { borderRadius: 5 }]}
               source={{

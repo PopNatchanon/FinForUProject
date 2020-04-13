@@ -83,10 +83,8 @@ export default StyleSheet.create({
         justifyContent: 'center',
     },
     Register_Box_image: {
-        marginLeft: 10,
-        height: 40,
-        width: 130,
-        resizeMode: 'cover',
+        height: '100%',
+        width: '100%',
     },
     ///--------------------------------------------------------------------------///
     Register_OTP_Box_A: {

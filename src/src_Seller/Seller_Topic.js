@@ -168,6 +168,7 @@ export default class Seller_Topic extends Component {
                         <Withdrawal_history />
                     </SafeAreaView>
                 )
+
         }
     }
     render() {
@@ -737,7 +738,7 @@ export class Withdraw_money extends Component {
                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Seller_Topic', { selectedIndex: 12 })}>
                     <View style={stylesProfile.ListMenuList}>
                         <View style={stylesProfile.ListMenuListSub}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,{margin:10}]}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10 }]}>
                                 ประวัติการถอนเงิน
                             </Text>
                         </View>
@@ -747,8 +748,18 @@ export class Withdraw_money extends Component {
                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Seller_Topic', { selectedIndex: 10 })}>
                     <View style={stylesProfile.ListMenuList}>
                         <View style={stylesProfile.ListMenuListSub}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,{margin:10}]}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10 }]}>
                                 ถอนเงิน
+                            </Text>
+                        </View>
+                        <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 1 })}>
+                    <View style={stylesProfile.ListMenuList}>
+                        <View style={stylesProfile.ListMenuListSub}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10 }]}>
+                                เพิ่มบัญชี
                             </Text>
                         </View>
                         <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
@@ -842,12 +853,12 @@ export class Withdrawal_history extends Component {
                     <View style={{ backgroundColor: '#FFFFFF' }}>
                         <View style={[stylesMain.FlexRow, stylesMain.FrameBackground, { justifyContent: 'space-around' }]}>
                             <View>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,{color:'#B7B7B7'}]}>ถอนเงิน</Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#B7B7B7' }]}>ถอนเงิน</Text>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>123124284349</Text>
                             </View>
                             <View>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2,]}>1,000,000 THB</Text>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'right' ,color:'#B7B7B7'}]}>กรุงไทย
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'right', color: '#B7B7B7' }]}>กรุงไทย
                             <IconEntypo name={activeBox == true ? 'chevron-up' : 'chevron-down'} size={20} color='#0A55A6' />
                                 </Text>
                             </View>

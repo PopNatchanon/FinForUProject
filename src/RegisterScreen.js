@@ -654,17 +654,25 @@ export class Register extends React.Component {
             ---------- สมัครสมาชิกด้วยช่องทางอื่น ----------</Text>
         </View>
         <View style={stylesLogin.Register_Box_Button}>
-          <TouchableOpacity>
-            <FastImage
-              style={stylesLogin.Register_Box_image}
-              source={require('../icon/face_icon.png')} />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <FastImage
-              style={stylesLogin.Register_Box_image}
-              source={require('../icon/googla_icon.png')} />
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity>
+              <View style={{ marginLeft: 10, width: 140, height: 50}}>
+                <FastImage
+                  style={stylesLogin.Register_Box_image}
+                  source={require('../icon/logoutappfacebook.png')}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <View style={{ marginLeft: 10, width: 140, height: 50}}>
+                <FastImage
+                  style={stylesLogin.Register_Box_image}
+                  source={require('../icon/logoutapp14.png')}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+              </View>
+            </TouchableOpacity>
+          </View>
       </View>
     );
   }

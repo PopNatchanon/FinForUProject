@@ -24,8 +24,8 @@ import stylesTopic from '../../../style/styleTopic';
 import stylesProfile from '../../../style/StylesProfileScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { Button_Bar } from '../../HighlightScreen';
-import { GetServices, GetCoupon, TabBar } from '../../tools/Tools';
-import { TodayProduct, Slide, AppBar1, ExitAppModule } from '../../MainScreen';
+import { GetServices, GetCoupon, TabBar, LoadingScreen } from '../../tools/Tools';
+import { TodayProduct, Slide, AppBar1, ExitAppModule, GetData } from '../../MainScreen';
 import { Store_Detail } from '../../Recommend_Store';
 import { ProductBox } from '../../tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -35,25 +35,41 @@ export default class Deal_Topic extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            activeGetCurrentUser: true,
+            activeGetServices: true,
             dataService: [],
         };
-        this.getData = this.getData.bind(this)
     }
-    getData(dataService) {
-        this.setState({ dataService })
+    getData = (dataService) => {
+        this.setState({ activeGetServices: false, dataService })
+    }
+    getSource(value) {
+        this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser, keycokie: value.keycokie })
     }
     PathList() {
-        const { dataService } = this.state
         const { navigation } = this.props
-        const selectedIndex = this.props.navigation.getParam('selectedIndex')
+        const { activeGetCurrentUser, activeGetServices, dataService, keycokie } = this.state
+        const selectedIndex = navigation.getParam('selectedIndex')
+        const uri = finip + '/coupon/coupon_day_mobile'
         switch (selectedIndex) {
             case 0:
                 return (
                     <View style={stylesMain.SafeAreaView}>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ดีลสุดคุ้ม' />
+                        {[
+                            (activeGetCurrentUser == true || activeGetServices == true) &&
+                            <LoadingScreen key='LoadingScreen' />,
+                            activeGetCurrentUser == false && activeGetServices == true &&
+                            activeGetServices == true &&
+                            <GetServices Authorization={keycokie} uriPointer={uri} getDataSource={this.getData.bind(this)}
+                                key='coupon_day_mobile' showConsole='coupon_day_mobile'
+                            />,
+                            activeGetCurrentUser == true &&
+                            <GetData getCokie={true} getSource={this.getSource.bind(this)} getUser={true} key='GetData' />
+                        ]}
+                        <AppBar1 backArrow navigation={navigation} titleHead='ดีลสุดคุ้ม' />
                         <ScrollView>
-                            <Deal_CuponToday navigation={this.props.navigation} />
-                            <Button_Bar navigation={this.props.navigation} />
+                            <Deal_CuponToday navigation={navigation} />
+                            <Button_Bar navigation={navigation} />
                             <Deal_ProductToday />
                             <Deal_ProductToday />
                             <Deal_ProductToday />
@@ -63,7 +79,7 @@ export default class Deal_Topic extends Component {
             case 1:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ดีลสุด Exclusive' />
+                        <AppBar1 backArrow navigation={navigation} titleHead='ดีลสุด Exclusive' />
                         <ScrollView stickyHeaderIndices={[2]}>
                             <Slide />
                             <View style={{ marginBottom: 10 }}></View>
@@ -79,7 +95,7 @@ export default class Deal_Topic extends Component {
             case 2:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ร้านค้ามือสองลดราคา' />
+                        <AppBar1 backArrow navigation={navigation} titleHead='ร้านค้ามือสองลดราคา' />
                         <ScrollView stickyHeaderIndices={[2]}>
                             <Slide />
                             <View style={{ marginBottom: 10 }}></View>
@@ -94,11 +110,11 @@ export default class Deal_Topic extends Component {
             case 3:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='สินค้ามือสองลดราคา' />
+                        <AppBar1 backArrow navigation={navigation} titleHead='สินค้ามือสองลดราคา' />
                         <ScrollView stickyHeaderIndices={[2]}>
                             <Slide />
                             <View style={{ marginBottom: 10 }}></View>
-                            <Button_Bar navigation={this.props.navigation} />
+                            <Button_Bar navigation={navigation} />
                             {
                                 dataService ?
                                     <TodayProduct noTitle navigation={navigation} loadData={dataService} typeip prepath='mysql' /> :
@@ -110,7 +126,7 @@ export default class Deal_Topic extends Component {
             case 4:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ร้านค้าที่มีดีล' />
+                        <AppBar1 backArrow navigation={navigation} titleHead='ร้านค้าที่มีดีล' />
                         <ScrollView stickyHeaderIndices={[2]}>
                             <Slide />
                             <View style={{ marginBottom: 10 }}></View>
@@ -171,13 +187,8 @@ export default class Deal_Topic extends Component {
         }
     }
     render() {
-        var uri = ip + '/mysql/DataServiceMain.php';
-        var dataBody = {
-            type: 'todayproduct'
-        };
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
                 {this.PathList()}
                 <ExitAppModule navigation={this.props.navigation} />
             </SafeAreaView>
@@ -635,7 +646,7 @@ export class Feed_comment extends React.Component {
             ]
         }
     }
-    
+
     render() {
         return (
             <FlatList
@@ -665,9 +676,9 @@ export class Feed_comment extends React.Component {
                                 </View>
                                 <Text rkType='primary3 mediumLine'>{Notification.comment}</Text>
                                 <View style={[stylesMain.FlexRow, { justifyContent: 'flex-end', width: '50%' }]}>
-                                
+
                                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>ถูกใจ</Text>
-                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,{marginLeft:10}]}>ตอบกลับ</Text>
+                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginLeft: 10 }]}>ตอบกลับ</Text>
                                 </View>
                             </View>
                         </View>

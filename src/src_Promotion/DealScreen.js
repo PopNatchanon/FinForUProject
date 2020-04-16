@@ -4,8 +4,7 @@ import {
   Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
-import AsyncStorage from '@react-native-community/async-storage';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
+import Carousel, { PaginationLight } from 'react-native-x-carousel';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
@@ -20,8 +19,8 @@ import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule, Second_product } from '../MainScreen';
-import { GetCoupon, GetServices, ProductBox, } from '../tools/Tools';
+import { AppBar1, ExitAppModule, Second_product, GetData } from '../MainScreen';
+import { GetCoupon, GetServices, ProductBox, LoadingScreen, } from '../tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -29,38 +28,61 @@ export default class DealScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataService: []
+      activeGetServices: true,
+      activeGetCurrentUser: true,
     };
   }
   getData = (dataService) => {
-    this.setState({ dataService })
+    this.setState({ activeGetServices: false, dataService })
+  }
+  getSource(value) {
+    this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser, keycokie: value.keycokie })
   }
   render() {
-    const { dataService, } = this.state
-    var uri = finip + '/home/publish_mobile'
+    const { navigation } = this.props
+    const { activeGetCurrentUser, activeGetServices, currentUser, dataService, keycokie } = this.state
+    var uri = finip + '/coupon/coupon_findeal_mobile';
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
-        <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} />
-        <AppBar1 titleHead={'ดีลสุดคุ้ม'} backArrow searchBar chatBar navigation={this.props.navigation} />
+        {[
+          (activeGetCurrentUser == true || activeGetServices == true) &&
+          <LoadingScreen key='LoadingScreen' />,
+          activeGetCurrentUser == false && activeGetServices == true &&
+          <GetServices Authorization={keycokie} uriPointer={uri} getDataSource={this.getData.bind(this)} key='GetServices'
+          // showConsole='coupon_findeal_mobile'
+          />,
+          activeGetCurrentUser == true &&
+          <GetData getCokie={true} getSource={this.getSource.bind(this)} getUser={true} key='GetData' />
+        ]}
+        <AppBar1 titleHead={'ดีลสุดคุ้ม'} backArrow searchBar chatBar navigation={navigation} />
         <ScrollView>
-          <Slide navigation={this.props.navigation} />
-          <Deal_Calendar />
-          <Deal_Today navigation={this.props.navigation} />
-          <Deal_Exclusive navigation={this.props.navigation} />
-          <ProDed_Store navigation={this.props.navigation} />
-          {/* <ProDed_New_Store /> */}
-          <Second_product navigation={this.props.navigation} loadData={{
-            product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
-            list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3,
-            mobile_bar: dataService.mobile_bar, mobile_slide: dataService.mobile_slide,
-          }} Header_Second />
-          {/* <Second_Store navigation={this.props.navigation} /> */}
-          <Shop_Deal_ForU navigation={this.props.navigation} />
+          {[
+            dataService &&
+            <Slide dataService={dataService.banner} key='Slide' navigation={navigation} />,
+            dataService &&
+            <Deal_Calendar dataService={dataService.carlendar_banner} key='Deal_Calendar' />,
+            currentUser && keycokie &&
+            <Deal_Today currentUser={currentUser} keycokie={keycokie} navigation={navigation} />,
+            dataService &&
+            <Deal_Exclusive dataService={dataService.exclusive} key='Deal_Exclusive' navigation={navigation} />,
+            dataService &&
+            <ProDed_Store dataService={dataService.store} key='ProDed_Store' navigation={navigation} />,
+            dataService &&
+            <ProDed_New_Store dataService={dataService.store} key='ProDed_New_Store' />,
+            dataService &&
+            <Second_product Header_Second key='Second_product' loadData={{
+              product_second: dataService.product_second, list_store2_1: dataService.second_1, list_store2_2: dataService.second_2,
+              mobile_bar: dataService.second_1, mobile_slide: dataService.second_3,
+            }} navigation={navigation} />,
+            /* <Second_Store navigation={navigation} /> */
+            dataService &&
+            <Shop_Deal_ForU dataService={dataService.product_foryou} key='Shop_Deal_ForU' navigation={navigation} />
+          ]}
         </ScrollView>
         <View style={{ backgroundColor: '#ffffff', borderTopWidth: 1, borderColor: '#ECECEC' }}>
-          <Button_Bar navigation={this.props.navigation} />
+          <Button_Bar navigation={navigation} />
         </View>
-        <ExitAppModule navigation={this.props.navigation} />
+        <ExitAppModule navigation={navigation} />
       </SafeAreaView>
     );
   }
@@ -71,17 +93,12 @@ export class Slide extends Component {
     super(props);
     this.state = {
       activeSlide: 0,
-      dataService: [],
     };
-    this.getData = this.getData.bind(this)
   }
-  getData(dataService) {
-    this.setState({ dataService })
-  }
-  _renderItem = ({ item, index }) => {
-    var dataMySQL = [finip, item.image_path, item.image].join('/');
+  _renderItem = item => {
+    var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
     return (
-      <View style={stylesDeal.child} key={index}>
+      <View style={stylesDeal.child} key={item.id}>
         <FastImage
           source={{
             uri: dataMySQL,
@@ -92,59 +109,20 @@ export class Slide extends Component {
       </View>
     );
   }
-  get pagination() {
-    const { dataService, activeSlide } = this.state;
-    return (
-      <View style={{ marginTop: -60, height: 70, marginBottom: -10, }}>
-        <Pagination
-          dotsLength={dataService.length}
-          activeDotIndex={activeSlide}
-          // containerStyle={{ backgroundColor: 'rgba(0, 0, 0, 0)' }}
-          dotStyle={{
-            width: 15,
-            height: 15,
-            borderRadius: 30,
-            // backgroundColor: 'rgba(0, 0, 0, 0)',
-            borderColor: 'rgba(255, 255, 255, 0.92)',
-            borderWidth: 2,
-          }}
-          inactiveDotStyle={{
-            width: 15,
-            height: 5,
-            borderRadius: 5,
-            backgroundColor: 'rgba(255, 255, 255, 0.92)',
-          }}
-          carouselRef={this.activeSlide}
-          tappableDots={!!this.activeSlide}
-          // inactiveDotOpacity={0.6}
-          inactiveDotScale={0.6}
-        />
-      </View>
-    );
-  }
   render() {
-    const { dataService } = this.state
-    var dataBody = {
-      slide: 'banner'
-    };
-    var uri = finip + '/home/home_mobile';
+    const { dataService } = this.props
     return (
       <View>
-        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
-        <Carousel
-          ref={c => this.activeSlide = c}
-          data={dataService}
-          renderItem={this._renderItem}
-          sliderWidth={width * 1}
-          itemWidth={width * 1}
-          sliderHeight={height * 0.5}
-          loop={true}
-          autoplay={true}
-          autoplayDelay={3000}
-          autoplayInterval={3000}
-          onSnapToItem={(index) => this.setState({ activeSlide: index })}
-        />
-        {this.pagination}
+        {
+          dataService &&
+          <Carousel
+            renderItem={this._renderItem}
+            data={dataService}
+            loop
+            autoplay
+            autoplayInterval={3000}
+            pagination={PaginationLight} />
+        }
       </View>
     );
   }
@@ -216,6 +194,7 @@ export class Deal_Calendar extends Component {
     };
   }
   render() {
+    const { dataService } = this.props
     return (
       <View style={{ paddingHorizontal: 2 }}>
         <View style={[stylesMain.FrameBackground, { backgroundColor: '#B5F5D1', width: '100%' }]}>
@@ -223,34 +202,18 @@ export class Deal_Calendar extends Component {
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ดีลเด็ดตามปฏิทิน</Text>
           </View>
           <View style={stylesDeal.Deal_Calendar_Box}>
-            <View style={stylesDeal.Deal_Calendar_BoxN}>
-              <FastImage style={{ height: '100%', width: '100%' }}
-                source={{
-                  uri: ip + '/MySQL/uploads/Deal_Today/ded1.jpg',
-                }}
-              />
-            </View>
-            <View style={stylesDeal.Deal_Calendar_BoxN}>
-              <FastImage style={{ height: '100%', width: '100%' }}
-                source={{
-                  uri: ip + '/MySQL/uploads/Deal_Today/ded2.jpg',
-                }}
-              />
-            </View>
-            <View style={stylesDeal.Deal_Calendar_BoxN}>
-              <FastImage style={{ height: '100%', width: '100%' }}
-                source={{
-                  uri: ip + '/MySQL/uploads/Deal_Today/ded6.jpg',
-                }}
-              />
-            </View>
-            <View style={stylesDeal.Deal_Calendar_BoxN}>
-              <FastImage style={{ height: '100%', width: '100%' }}
-                source={{
-                  uri: ip + '/MySQL/uploads/Deal_Today/ded5.jpg',
-                }}
-              />
-            </View>
+            {
+              dataService && dataService.map((value, index) => {
+                const image_carlendar = finip + '/' + value.image_path + '/' + value.image
+                return <View key={index} style={stylesDeal.Deal_Calendar_BoxN}>
+                  <FastImage style={{ height: '100%', width: '100%' }}
+                    source={{
+                      uri: image_carlendar,
+                    }}
+                  />
+                </View>
+              })
+            }
           </View>
         </View>
       </View>
@@ -262,11 +225,63 @@ export class Deal_Today extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeServices: { activeGetServices: true, activeGetServices2: true },
+      id_promotion: '',
     };
   }
+  getData = (dataService) => {
+    const { activeServices } = this.state;
+    activeServices.activeGetServices = false;
+    this.setState({ activeServices, dataService });
+  }
+  getData2 = (dataService2) => {
+    const { activeServices } = this.state;
+    activeServices.activeGetServices2 = false;
+    this.setState({ activeServices, dataService2 });
+  }
+  getCoupon = (value) => {
+    const { activeServices } = this.state;
+    const id_promotion = value.id_promotion;
+
+    value.list == 'fin' ?
+      (
+        activeServices.activeGetServices = true
+      ) : (
+        value.list == 'shop' ?
+          (
+            activeServices.activeGetServices2 = true
+          ) :
+          null
+      );
+    this.setState({ activeServices, id_promotion, })
+  }
   render() {
+    const { currentUser, keycokie } = this.props
+    const { activeServices, dataService, dataService2, id_promotion } = this.state
+    const uri = finip + '/coupon/save_coupon_fin'
+    var dataBody = {
+      id_customer: currentUser.id_customer,
+      device: 'mobile_device',
+      id_promotion,
+    }
+    const uri2 = finip + '/coupon/save_coupon_shop'
+    var dataBody2 = {
+      id_customer: currentUser.id_customer,
+      device: 'mobile_device',
+      id_promotion_shop: id_promotion,
+    }
     return (
       <View style={[stylesMain.FrameBackground, { backgroundColor: '#AF5F92', width: '100%' }]}>
+        {[
+          activeServices.activeGetServices == true && currentUser && keycokie &&
+          <GetServices Authorization={keycokie} dataBody={dataBody} uriPointer={uri} getDataSource={this.getData.bind(this)}
+            key='save_coupon_fin' showConsole='save_coupon_fin'
+          />,
+          activeServices.activeGetServices2 == true && currentUser && keycokie &&
+          <GetServices Authorization={keycokie} dataBody={dataBody2} uriPointer={uri2} getDataSource={this.getData2.bind(this)}
+            key='save_coupon_shop' showConsole='save_coupon_shop'
+          />
+        ]}
         <View style={stylesDeal.BoxText_Row}>
           <View style={[stylesDeal.BoxText_T, { backgroundColor: '#D5CD5B', marginLeft: -3 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ดีลเด็ดประจำวัน</Text>
@@ -280,9 +295,15 @@ export class Deal_Today extends Component {
             <Text style={stylesFont.FontFamilyText}> คูปองส่วนลดจาก FIN</Text>
             <ScrollView horizontal>
               <View style={stylesDeal.Deal_Today_BoxImage}>
-                <GetCoupon colorCoupon='#86CFFF' codeList='available' timeOut={'31-01-2020'} couponText={'10%'} textDetail={'รับเงินคืน 10% Coins'} />
-                <GetCoupon colorCoupon='#86CFFF' codeList='available' timeOut={'31-01-2020'} couponText={'25%'} textDetail={'รับเงินคืน 25% Coins'} />
-                <GetCoupon colorCoupon='#86CFFF' codeList='available' timeOut={'31-01-2020'} couponText={'50%'} textDetail={'รับเงินคืน 50% Coins'} />
+                {
+                  dataService && dataService.coupon.map((value, index) => {
+                    return <GetCoupon codeList={value.my_coupon == 'no' ? 'available' : ''} colorCoupon='#86CFFF' couponText={value.name}
+                      getCoupon={this.getCoupon.bind(this)} key={index} saveCoupon setDataService={{
+                        list: 'fin',
+                        id_promotion: value.id_promotion
+                      }} textDetail={value.detail} timeOut={value.end_period} />
+                  })
+                }
               </View>
             </ScrollView>
           </View>
@@ -293,9 +314,16 @@ export class Deal_Today extends Component {
               <Text style={stylesFont.FontFamilyText}> คูปองส่วนลดจากร้าน</Text>
               <ScrollView horizontal>
                 <View style={stylesDeal.Deal_Today_BoxImage}>
-                  <GetCoupon colorCoupon='#E43333' codeList='available' timeOut={'31-01-2020'} couponText={'10%'} textDetail={'รับเงินคืน 10% Coins'} />
-                  <GetCoupon colorCoupon='#E43333' codeList='available' timeOut={'31-01-2020'} couponText={'25%'} textDetail={'รับเงินคืน 25% Coins'} />
-                  <GetCoupon colorCoupon='#E43333' codeList='available' timeOut={'31-01-2020'} couponText={'50%'} textDetail={'รับเงินคืน 50% Coins'} />
+                  {
+                    dataService2 && dataService2.coupon.map((value, index) => {
+                      return <GetCoupon codeList={value.my_coupon == 'no' ? 'available' : ''} colorCoupon='#E43333' couponText={value.name}
+                        getCoupon={this.getCoupon.bind(this)} key={index} saveCoupon setDataService={{
+                          list: 'shop',
+                          id_promotion: value.id_promotion
+                        }}
+                        textDetail={value.detail} timeOut={value.end_period} />
+                    })
+                  }
                 </View>
               </ScrollView>
             </View>
@@ -312,22 +340,11 @@ export class Deal_Exclusive extends Component {
     this.state = {
       dataService: [],
     };
-    this.getData = this.getData.bind(this)
-  }
-  getData(dataService) {
-    this.setState({ dataService })
   }
   render() {
-    const { dataService } = this.state
-    const { navigation } = this.props
-    var uri = ip + '/mysql/DataService_Detail.php';
-    var dataBody = {
-      type: 'itemNumber',
-      item_Value: 5,
-    };
+    const { dataService, navigation } = this.props
     return (
       <View style={[stylesMain.FrameBackground, { backgroundColor: '#CABA5A', width: '100%' }]}>
-        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
         <View style={stylesDeal.BoxText_Row}>
           <View style={[stylesDeal.BoxText_T, { backgroundColor: '#6170F8', marginLeft: -3 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ดีลสุด Exclusive</Text>
@@ -346,9 +363,8 @@ export class Deal_Exclusive extends Component {
           </View>
           {
             dataService ?
-              <ProductBox dataService={dataService} navigation={navigation} typeip={'ip'} mode='5item'
+              <ProductBox dataService={dataService} navigation={navigation} mode='5item' numberOfItem={5}
                 pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                prepath='mysql'
               /> :
               null
           }
@@ -528,17 +544,12 @@ export class ProDed_Store extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataService: [],
     };
-    this.getData = this.getData.bind(this)
-  }
-  getData(dataService) {
-    this.setState({ dataService })
   }
   dataNewStore() {
-    const { dataService } = this.state
+    const { dataService } = this.props
     return dataService.map((item, index) => {
-      var dataMySQL = [ip + '/mysql/uploads/slide/NewStore', item.image].join('/');
+      var dataMySQL = finip + '/' + item.store_path + '/' + item.image_store;
       return (
         <View style={stylesDeal.ProDed_Store} key={index}>
           <FastImage
@@ -553,13 +564,8 @@ export class ProDed_Store extends Component {
     })
   }
   render() {
-    var uri = ip + '/mysql/DataServiceMain.php';
-    var dataBody = {
-      type: 'store'
-    };
     return (
       <View style={[stylesMain.FrameBackground, { backgroundColor: '#9887E0', width: '100%' }]}>
-        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
         <View style={stylesDeal.BoxText_Row}>
           <View style={[stylesDeal.BoxText_T, { backgroundColor: '#F1F193', marginLeft: -3 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 3, marginLeft: 8 }]}>ร้านนี้มีดีล</Text>
@@ -583,6 +589,7 @@ export class ProDed_New_Store extends Component {
     };
   }
   render() {
+    const { dataService } = this.props
     return (
       <View style={[stylesMain.FrameBackground, { backgroundColor: '#F9AFF5', width: '100%' }]}>
         <View style={stylesDeal.BoxText_Row}>
@@ -591,106 +598,28 @@ export class ProDed_New_Store extends Component {
           </View>
         </View>
         <View style={stylesDeal.ProDed_New_Store}>
-          <View style={stylesDeal.ProDed_New_Store_Box}>
-            <View style={stylesDeal.ProDed_New_Store_Boximage}>สินค้าของฉัน
-              <FastImage style={{ height: 60, width: 60, }}
-                source={{
-                  uri: ip + '/MySQL/uploads/icon_brand/brand1.png',
-                }}
-              />
-              <TouchableOpacity>
-                <View style={stylesDeal.ProDed_New_Store_Button}>
-                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
-                </View>
-              </TouchableOpacity>
+          <ScrollView horizontal>
+            <View style={[stylesDeal.ProDed_New_Store_Box, { height: 235, flexDirection: 'column', flexWrap: 'wrap', }]}>
+              {
+                dataService && dataService.map((item, index) => {
+                  var dataMySQL = finip + '/' + item.store_path + '/' + item.image_store;
+                  return <View key={index} style={stylesDeal.ProDed_New_Store_Boximage}>
+                    <FastImage
+                      source={{
+                        uri: dataMySQL,
+                      }}
+                      style={{ height: 60, width: 60, }}
+                    />
+                    <TouchableOpacity>
+                      <View style={stylesDeal.ProDed_New_Store_Button}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                })
+              }
             </View>
-            <View style={stylesDeal.ProDed_New_Store_Boximage}>
-              <FastImage style={{ height: 60, width: 60, }}
-                source={{
-                  uri: ip + '/MySQL/uploads/icon_brand/brand2.png',
-                }}
-              />
-              <TouchableOpacity>
-                <View style={stylesDeal.ProDed_New_Store_Button}>
-                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-            <View style={stylesDeal.ProDed_New_Store_Boximage}>
-              <FastImage style={{ height: 60, width: 60, }}
-                source={{
-                  uri: ip + '/MySQL/uploads/icon_brand/brand3.png',
-                }}
-              />
-              <TouchableOpacity>
-                <View style={stylesDeal.ProDed_New_Store_Button}>
-                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-            <View style={stylesDeal.ProDed_New_Store_Boximage}>
-              <FastImage style={{ height: 60, width: 60, }}
-                source={{
-                  uri: ip + '/MySQL/uploads/icon_brand/brand4.png',
-                }}
-              />
-              <TouchableOpacity>
-                <View style={stylesDeal.ProDed_New_Store_Button}>
-                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View style={stylesDeal.ProDed_New_Store_Box}>
-            <View style={stylesDeal.ProDed_New_Store_Boximage}>
-              <FastImage style={{ height: 60, width: 60, }}
-                source={{
-                  uri: ip + '/MySQL/uploads/icon_brand/brand3.png',
-                }}
-              />
-              <TouchableOpacity>
-                <View style={stylesDeal.ProDed_New_Store_Button}>
-                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-            <View style={stylesDeal.ProDed_New_Store_Boximage}>
-              <FastImage style={{ height: 60, width: 60, }}
-                source={{
-                  uri: ip + '/MySQL/uploads/icon_brand/brand9.png',
-                }}
-              />
-              <TouchableOpacity>
-                <View style={stylesDeal.ProDed_New_Store_Button}>
-                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-            <View style={stylesDeal.ProDed_New_Store_Boximage}>
-              <FastImage style={{ height: 60, width: 60, }}
-                source={{
-                  uri: ip + '/MySQL/uploads/icon_brand/brand25.png',
-                }}
-              />
-              <TouchableOpacity>
-                <View style={stylesDeal.ProDed_New_Store_Button}>
-                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-            <View style={stylesDeal.ProDed_New_Store_Boximage}>
-              <FastImage style={{ height: 60, width: 60, }}
-                source={{
-                  uri: ip + '/MySQL/uploads/icon_brand/brand5.png',
-                }}
-              />
-              <TouchableOpacity>
-                <View style={stylesDeal.ProDed_New_Store_Button}>
-                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-          </View>
+          </ScrollView>
         </View>
       </View>
     );
@@ -701,23 +630,12 @@ export class Shop_Deal_ForU extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataService: [],
     };
-    this.getData = this.getData.bind(this)
-  }
-  getData(dataService) {
-    this.setState({ dataService })
   }
   render() {
-    const { dataService } = this.state
-    const { navigation } = this.props
-    var uri = ip + '/mysql/DataServiceMain.php';
-    var dataBody = {
-      type: 'product'
-    };
+    const { dataService, navigation } = this.props
     return (
       <View style={[stylesMain.FrameBackground, { backgroundColor: '#5ACAC8', width: '100%' }]}>
-        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
         <View style={stylesDeal.BoxText_Row}>
           <View style={[stylesDeal.BoxText_T, { backgroundColor: '#CB2342', marginLeft: -3, width: 130 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ช้อปทุกดีลเฉพาะคุณ</Text>
@@ -725,12 +643,10 @@ export class Shop_Deal_ForU extends Component {
         </View>
         <View style={stylesDeal.Deal_For_you}>
           {
-            dataService ?
-              <ProductBox dataService={dataService} navigation={navigation} typeip={'ip'} mode='5item'
-                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                prepath='mysql'
-              /> :
-              null
+            dataService &&
+            <ProductBox dataService={dataService} navigation={navigation} mode='5item'
+              pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
+            />
           }
         </View>
       </View>

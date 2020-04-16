@@ -263,12 +263,12 @@ export default StyleSheet.create({
   ///------------///
   BoxStore1Box: {
     width: (width * 1 / 2) - 9,
-    height: 100,
+    height: 99,
     borderColor: '#ECECEC',
     borderWidth: 1,
     marginTop: 10,
     marginBottom: 8,
-    marginLeft: 5,
+    marginLeft: 6,
   },
   BoxStore1Box2: {
     width: width * 0.55,

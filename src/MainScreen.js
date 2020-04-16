@@ -38,62 +38,15 @@ export default class MainScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataService: [],
             activeDataService: true,
+            activeGetCurrentUser: true,
+            dataService: [],
             IsLoading: 0,
             activeExit: true,
         };
     }
-    setStateLogin = (autoLogin) => {
-        fetch(finip + '/auth/login_customer', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: autoLogin,
-        })
-            .then((response) => response.json())
-            .then((responseJson) => {
-                // console.log('responseJson')
-                // console.log(responseJson)
-            })
-            .catch((error) => {
-                console.error(error);
-            })
-    }
-    getDataAsync = async () => {
-        const currentUser = await AsyncStorage.getItem('@MyKey')
-        const autoLogin = await AsyncStorage.getItem('@MyLongin')
-        CookieManager.get(finip + '/auth/login_customer')
-            .then((res) => {
-                var keycokie = res.token
-                // console.log('token')
-                // console.log(keycokie)
-                keycokie === undefined && autoLogin !== undefined &&
-                    this.setStateLogin(autoLogin)
-            });
-        this.setState({ currentUser: JSON.parse(currentUser) })
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation } = this.props
-        const { activeDataService, currentUser, dataService, IsLoading, } = this.state
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation ||
-            ////>nextState
-            activeDataService !== nextState.activeDataService || currentUser !== nextState.currentUser ||
-            dataService !== nextState.dataService || IsLoading !== nextState.IsLoading
-        ) {
-            return true
-        }
-        return false
-    }
-    componentDidMount() {
-        this.getDataAsync()
-        setTimeout(() => {
-            SplashScreen.hide();
-        }, 1000);
+    getSource = (value) => {
+        this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser });
     }
     getData = (dataService) => {
         this.setState({ dataService, activeDataService: false })
@@ -104,7 +57,7 @@ export default class MainScreen extends React.Component {
     }
     render() {
         const { navigation } = this.props
-        const { activeDataService, currentUser, dataService, IsLoading } = this.state
+        const { activeDataService, activeGetCurrentUser, currentUser, dataService, IsLoading } = this.state
         const browerProps = navigation.getParam('browerProps')
         var uri = finip + '/home/publish_mobile'
         return browerProps ?
@@ -118,14 +71,16 @@ export default class MainScreen extends React.Component {
             ]) :
             (
                 <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
-                    {
+                    {[
                         IsLoading < 0 &&
                         <LoadingScreen key={'LoadingScreen'} />,
                         activeDataService == true &&
                         <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} key={'activeDataService'}
                         // showConsole={'Main'}
-                        />
-                    }
+                        />,
+                        activeGetCurrentUser == true &&
+                        <GetData getSource={this.getSource.bind(this)} getUser={true} key={'GetData'} />
+                    ]}
                     <AppBar navigation={navigation} currentUser={currentUser} />
                     <ScrollView>
                         {/* <TouchableOpacity
@@ -148,7 +103,7 @@ export default class MainScreen extends React.Component {
                         <Popular_product navigation={navigation} loadData={{
                             product_hit: dataService.product_hit, best_price: dataService.best_price,
                             best_sale: dataService.best_sale, best_cool: dataService.best_cool
-                        }} /> 
+                        }} />
                         <Product_for_you navigation={navigation} loadData={dataService.for_you} />
                         <CategoryProduct navigation={navigation} />
                         <Second_product navigation={navigation} loadData={{
@@ -156,7 +111,7 @@ export default class MainScreen extends React.Component {
                             list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3,
                             mobile_bar: dataService.mobile_bar, mobile_slide: dataService.mobile_slide,
                         }} />
-                        <BannerBar_THREE /> 
+                        <BannerBar_THREE />
                         <FIN_Supermarket navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />
                         <TodayProduct navigation={navigation} loadData={dataService.for_you2} />
                     </ScrollView>
@@ -165,6 +120,72 @@ export default class MainScreen extends React.Component {
                     <ExitAppModule navigation={navigation} />
                 </SafeAreaView>
             );
+    }
+}
+///----------------------------------------------------------------------------------------------->>>> GetData
+export class GetData extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        }
+    }
+    setStateLogin = (autoLogin) => {
+        fetch(finip + '/auth/login_customer', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: autoLogin,
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+    }
+    getDataAsync = async () => {
+        const { getCokie, getSource, getUser, } = this.props
+        const currentUser = await AsyncStorage.getItem('@MyKey')
+        const autoLogin = await AsyncStorage.getItem('@MyLongin')
+        var value = {}
+        CookieManager.get(finip + '/auth/login_customer')
+            .then((res) => {
+                var keycokie = res.token
+                keycokie === undefined && autoLogin !== undefined &&
+                    this.setStateLogin(autoLogin)
+                getCokie == true && (
+                    (
+                        keycokie ?
+                            (
+                                value.keycokie = keycokie
+                            ) : (
+                                value.keycokie = undefined
+                            )
+                    )
+                )
+                getUser == true &&
+                    (
+                        currentUser ?
+                            (
+                                value.currentUser = JSON.parse(currentUser)
+                            ) : (
+                                value.currentUser = undefined
+                            )
+                    );
+                (value.currentUser !== undefined || value.keycokie !== undefined) &&
+                    getSource(value);
+            })
+    }
+    componentDidMount() {
+        this.getDataAsync()
+        setTimeout(() => {
+            SplashScreen.hide();
+        }, 1000);
+    }
+    render() {
+        return <></>
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> ExitAppModule
@@ -262,24 +283,6 @@ export class AppBar extends React.Component {
             text: '',
         };
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { ABDColor, ABGColor, AIColor, rightBar, leftBar, navigation, searchBar, SearchText } = this.props
-        const { currentUser, text, } = this.state
-        if (
-            ////>nextProps
-            ABDColor !== nextProps.ABDColor || ABGColor !== nextProps.ABGColor || AIColor !== nextProps.AIColor ||
-            rightBar !== nextProps.rightBar || leftBar !== nextProps.leftBar || navigation !== nextProps.navigation ||
-            searchBar !== nextProps.searchBar || SearchText !== nextProps.SearchText ||
-            ////>nextState
-            currentUser !== nextState.currentUser || text !== nextState.text
-        ) {
-            return true
-        }
-        return false
-    }
-    componentDidMount() {
-        this.getDataAsync()
-    }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
         value == 'goBack' ?
@@ -293,13 +296,9 @@ export class AppBar extends React.Component {
     setText = (text) => {
         this.setState({ text })
     }
-    getDataAsync = async () => {
-        const currentUser = await AsyncStorage.getItem('@MyKey')
-        this.setState({ currentUser: JSON.parse(currentUser) })
-    }
     render() {
-        const { text, currentUser } = this.state
-        const { ABDColor, ABGColor, AIColor, leftBar, rightBar, searchBar, SearchText } = this.props
+        const { ABDColor, ABGColor, AIColor, currentUser, leftBar, rightBar, searchBar, SearchText } = this.props
+        const { text, } = this.state
         const AIconEntypo = Animatable.createAnimatableComponent(IconEntypo)
         const AIconFeather = Animatable.createAnimatableComponent(IconFeather)
         const AIconFontAwesome5 = Animatable.createAnimatableComponent(IconFontAwesome5)
@@ -440,30 +439,6 @@ export class AppBar1 extends React.Component {
         this.state = {
         };
     }
-    componentDidMount() {
-        this.getDataAsync()
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const {
-            backArrow, backArrowColor, ButtomDeleteAll, chatBar, colorBar, deleteBar, menuBar, navigation, propsFunction, saveBar, searchBar, settingBar, storeBar,
-            titleHead,
-        } = this.props;
-        const { currentUser, } = this.state
-        if (
-            ////>nextProps
-            backArrow !== nextProps.backArrow || backArrowColor !== nextProps.backArrowColor ||
-            ButtomDeleteAll !== nextProps.ButtomDeleteAll || chatBar !== nextProps.chatBar || colorBar !== nextProps.colorBar ||
-            deleteBar !== nextProps.deleteBar || menuBar !== nextProps.menuBar || navigation !== nextProps.navigation ||
-            propsFunction !== nextProps.propsFunction || saveBar !== nextProps.saveBar || searchBar !== nextProps.searchBar ||
-            settingBar !== nextProps.settingBar || storeBar !== nextProps.storeBar ||
-            titleHead !== nextProps.titleHead ||
-            ////>nextState
-            currentUser !== nextState.currentUser
-        ) {
-            return true
-        }
-        return false
-    }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
         value == 'goBack' ?
@@ -479,19 +454,14 @@ export class AppBar1 extends React.Component {
     setText = (text) => {
         this.setState({ text })
     }
-    getDataAsync = async () => {
-        const currentUser = await AsyncStorage.getItem('@MyKey')
-        this.setState({ currentUser: JSON.parse(currentUser) })
-    }
     deleteFunction = () => {
         const { propsFunction } = this.props
         propsFunction()
     }
     render() {
-        const { currentUser, } = this.state
         const {
-            backArrow, backArrowColor, ButtomDeleteAll, chatBar, colorBar, deleteBar, goToTop, menuBar, saveBar, searchBar, settingBar,
-            storeBar, titleHead,
+            backArrow, backArrowColor, ButtomDeleteAll, chatBar, colorBar, currentUser, deleteBar, goToTop, menuBar, saveBar, searchBar,
+            settingBar, storeBar, titleHead,
         } = this.props;
         return (
             <View style={
@@ -609,20 +579,6 @@ export class Slide extends React.Component {
             dataService: [],
         };
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { loading } = this.props
-        const { activeDataService, activeSlide, dataService, } = this.state
-        if (
-            ////>nextProps 
-            loading !== nextProps.loading ||
-            ////>nextState
-            activeDataService !== nextState.activeDataService || activeSlide !== nextState.activeSlide ||
-            dataService !== nextState.dataService
-        ) {
-            return true
-        }
-        return false
-    }
     getData = (dataService) => {
         this.setState({ activeDataService: false, dataService, })
     }
@@ -643,7 +599,7 @@ export class Slide extends React.Component {
         );
     }
     render() {
-        const { loading } = this.props
+        const { banner, loading } = this.props
         const { activeDataService, dataService, } = this.state
         var dataBody = {
             slide: 'banner'
@@ -652,12 +608,12 @@ export class Slide extends React.Component {
         return (
             <View>
                 {
-                    activeDataService == true &&
+                    activeDataService == true && banner == null,
                     <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
                 }
                 <Carousel
                     renderItem={this._renderItem}
-                    data={dataService}
+                    data={dataService ? dataService : banner}
                     loop
                     autoplay
                     autoplayInterval={3000}
@@ -710,19 +666,6 @@ export class Category extends React.Component {
             dataService: [],
         };
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation } = this.props
-        const { activeDataService, dataService, } = this.state
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation ||
-            ////>nextState
-            activeDataService !== nextState.activeDataService || dataService !== nextState.dataService
-        ) {
-            return true
-        }
-        return false
-    }
     getData = (dataService) => {
         this.setState({ activeDataService: false, dataService, })
     }
@@ -742,7 +685,8 @@ export class Category extends React.Component {
             dataService.map((item, index) => {
                 var dataMySQL = finip + '/' + item.image_path + '/' + 'menu' + '/' + item.image_head;
                 return (
-                    <TouchableOpacity activeOpacity={1} key={index} onPress={this.navigationNavigateScreen.bind(this, 'CategoryScreen')}>
+                    <TouchableOpacity activeOpacity={1} key={index} onPress={this.navigationNavigateScreen.bind(this,
+                        'CategoryScreen', { id_type: item.id_type })} style={{ width: 72, height: 80 }}>
                         <View style={stylesMain.Category}>
                             <FastImage
                                 source={{
@@ -783,17 +727,6 @@ export class Button_Bar extends React.Component {
         super(props);
         this.state = {
         };
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation } = this.props
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
@@ -867,17 +800,6 @@ export class Recommend_Brand extends React.Component {
         this.state = {
         };
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { loadData, navigation, } = this.props
-        if (
-            ////>nextProps
-            loadData !== nextProps.loadData || navigation !== nextProps.navigation
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
-    }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
         value == 'goBack' ?
@@ -937,17 +859,6 @@ export class Popular_store extends React.Component {
         this.state = {
         }
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { loadData, navigation, } = this.props
-        if (
-            ////>nextProps
-            loadData !== nextProps.loadData || navigation !== nextProps.navigation
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
-    }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
         value == 'goBack' ?
@@ -999,17 +910,6 @@ export class Popular_product extends React.Component {
         super(props);
         this.state = {
         };
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { loadData, navigation, } = this.props
-        if (
-            ////>nextProps
-            loadData !== nextProps.loadData || navigation !== nextProps.navigation
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
     }
     productCate = (type) => {
         return type.map((item, index) => {
@@ -1225,20 +1125,6 @@ export class FlashSale extends React.Component {
             endTime: new Date(),
         };
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation } = this.props
-        const { activeDataService, curTime, dataService, endTime, } = this.state
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation ||
-            ////>nextState
-            activeDataService !== nextState.activeDataService || curTime !== nextState.curTime ||
-            dataService !== nextState.dataService || endTime !== nextState.endTime
-        ) {
-            return true
-        }
-        return false
-    }
     getData = (dataService) => {
         var flash_end = dataService.flash_end && dataService.flash_end.split(':')
         this.setState({ activeDataService: false, dataService, endTime: new Date().setHours(flash_end[0], flash_end[1], flash_end[2]) })
@@ -1296,8 +1182,8 @@ export class FlashSale extends React.Component {
         return ([
             activeDataService == true &&
             <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)}
-                //dataBody={dataBody}  
-                key={'FlashSale'} showConsole={'FlashSale'}
+                //dataBody={dataBody}   showConsole={'FlashSale'}
+                key={'FlashSale'}
             />,
             activeDataService == false && dataService &&
             <View key={'FlashSaleBox'} style={[stylesMain.FrameBackground2, { marginTop: 10 }]}>
@@ -1348,17 +1234,6 @@ export class PromotionPopular extends React.Component {
         super(props);
         this.state = {
         };
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { loadData, navigation, } = this.props
-        if (
-            ////>nextProps
-            loadData !== nextProps.loadData || navigation !== nextProps.navigation
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
@@ -1424,17 +1299,6 @@ export class Product_for_you extends React.Component {
         this.state = {
         };
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { loadData, navigation } = this.props
-        if (
-            ////>nextProps
-            loadData !== nextProps.loadData || navigation !== nextProps.navigation
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
-    }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
         value == 'goBack' ?
@@ -1477,17 +1341,6 @@ export class Highlight extends React.Component {
         this.state = {
         };
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation, loadData } = this.props
-        if (
-            ////>nextProps
-            loadData !== nextProps.loadData || navigation !== nextProps.navigation
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
-    }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
         value == 'goBack' ?
@@ -1528,17 +1381,6 @@ export class NewStore extends React.Component {
         super(props);
         this.state = {
         };
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation, loadData } = this.props
-        if (
-            ////>nextProps
-            loadData !== nextProps.loadData || navigation !== nextProps.navigation
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
@@ -1589,17 +1431,6 @@ export class Exclusive extends React.Component {
     constructor(props) {
         super(props);
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { loadData, navigation } = this.props
-        if (
-            ////>nextProps
-            loadData !== nextProps.loadData || navigation !== nextProps.navigation
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
-    }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
         value == 'goBack' ?
@@ -1642,19 +1473,6 @@ export class CategoryProduct extends React.Component {
             activeDataService: true,
             dataService: [],
         }
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation, NoStoreReCom, } = this.props
-        const { activeDataService, dataService, } = this.state
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation || NoStoreReCom !== nextProps.NoStoreReCom ||
-            ////>nextState
-            activeDataService !== nextState.activeDataService || dataService !== nextState.dataService
-        ) {
-            return true
-        }
-        return false
     }
     getData = (dataService) => {
         this.setState({ dataService, activeDataService: false })
@@ -1731,19 +1549,6 @@ export class CategoryProductSubProduct extends React.Component {
             dataService: [],
         }
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { id_type, navigation } = this.props
-        const { activeDataService, dataService, } = this.state
-        if (
-            ////>nextProps
-            id_type !== nextProps.id_type || navigation !== nextProps.navigation ||
-            ////>nextState
-            activeDataService !== nextState.activeDataService || dataService !== nextState.dataService
-        ) {
-            return true
-        }
-        return false
-    }
     getData = (dataService) => {
         this.setState({ dataService, activeDataService: false })
     }
@@ -1779,20 +1584,6 @@ export class CategoryProductSubStore extends React.Component {
             activeDataService: true,
             dataService: [],
         }
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { id_type, navigation } = this.props
-        const { activeDataService, activeSlide, dataService, } = this.state
-        if (
-            ////>nextProps
-            id_type !== nextProps.id_type || navigation !== nextProps.navigation ||
-            ////>nextState
-            activeSlide !== nextState.activeSlide || activeDataService !== nextState.activeDataService ||
-            dataService !== nextState.dataService
-        ) {
-            return true
-        }
-        return false
     }
     getData = (dataService) => {
         this.setState({ dataService, activeDataService: false })
@@ -1898,20 +1689,6 @@ export class CategoryProductSubPromotion extends React.Component {
             dataService2: [],
         }
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { id_type, navigation } = this.props
-        const { activeDataService, activeDataService2, dataService, dataService2, } = this.state
-        if (
-            ////>nextProps
-            id_type !== nextProps.id_type || navigation !== nextProps.navigation ||
-            ////>nextProps
-            activeDataService !== nextState.activeDataService || activeDataService2 !== nextState.activeDataService2 ||
-            dataService !== nextState.dataService || dataService2 !== nextState.dataService2
-        ) {
-            return true
-        }
-        return false
-    }
     getData = (dataService) => {
         this.setState({ dataService, activeDataService: false })
     }
@@ -1993,19 +1770,6 @@ export class Second_product extends React.Component {
         this.state = {
             activeSlide: 0,
         };
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { Header_Second, loadData, navigation, } = this.props
-        const { activeSlide } = this.state
-        if (
-            ////>nextProps
-            Header_Second !== nextProps.Header_Second || loadData !== nextProps.loadData || navigation !== nextProps.navigation ||
-            ////>nextState
-            activeSlide !== nextState.activeSlide
-        ) {
-            return true
-        }
-        return false
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
@@ -2304,19 +2068,6 @@ export class FIN_Supermarket extends React.Component {
         this.state = {
         };
     }
-
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation, loadData } = this.props
-        if (
-            ////>nextProps
-            loadData !== nextProps.loadData || navigation !== nextProps.navigation ||
-            ////>nextState
-            selectedIndex !== nextState.selectedIndex
-        ) {
-            return true
-        }
-        return false
-    }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
         value == 'goBack' ?
@@ -2530,18 +2281,6 @@ export class TodayProduct extends React.Component {
         this.state = {
         };
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { loadData, navigation, noTitle, prepath, typeip, } = this.props
-        if (
-            ////>nextProps
-            loadData !== nextProps.loadData || navigation !== nextProps.navigation || noTitle !== nextProps.noTitle ||
-            prepath !== nextProps.prepath || typeip !== nextProps.typeip
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
-    }
     render() {
         const { loadData, navigation, noTitle, prepath, typeip, } = this.props
         return (
@@ -2561,8 +2300,9 @@ export class TodayProduct extends React.Component {
                                 'fin'
                         } mode='row3colall' pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
                             prepath={
-                                prepath &&
-                                prepath
+                                prepath ?
+                                    prepath :
+                                    null
                             } />
                     }
                 </View>

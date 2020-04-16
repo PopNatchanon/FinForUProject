@@ -25,6 +25,7 @@ import stylesMain from '../../style/StylesMainScreen';
 import stylesStore from '../../style/StylesStoreScreen';
 import stylesTopic from '../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+import { GetData } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Toolbar
@@ -32,28 +33,11 @@ export class Toolbar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentUser: {},
+            activeGetCurrentUser: true,
         }
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation } = this.props
-        const { currentUser } = this.state
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation ||
-            ////>nextState
-            currentUser !== nextState.currentUser
-        ) {
-            return true
-        }
-        return false
-    }
-    getDataasync = async () => {
-        const currentUser = await AsyncStorage.getItem('@MyKey')
-        this.setState({ currentUser: JSON.parse(currentUser) })
-    }
-    componentDidMount() {
-        this.getDataasync()
+    getSource = (value) => {
+        this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser })
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
@@ -66,7 +50,7 @@ export class Toolbar extends React.Component {
                 navigation.replace(value, value2)
     }
     render() {
-        const { currentUser } = this.state;
+        const { activeGetCurrentUser, currentUser } = this.state;
         var u_name = null;
         if (currentUser != null) {
             currentUser.name &&
@@ -82,6 +66,10 @@ export class Toolbar extends React.Component {
         })
         return (
             <View style={stylesMain.Toolbar}>
+                {
+                    activeGetCurrentUser == true &&
+                    <GetData getSource={this.getSource.bind(this)} getUser={true} />
+                }
                 <TouchableOpacity activeOpacity={1}
                     onPress={
                         routeSelcet != 'MainScreen' ?
@@ -216,37 +204,12 @@ export class TabBar extends React.Component {
         super(props);
         this.state = {
             pathlist: 0,
+            pathlist2: 0,
             PassSetValue: 0,
         }
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const {
-            activeColor, activeFontColor, activeWidth, alignBox, direction, fontColor, fontSizeStyle, inactiveBoxColor, inactiveColor,
-            inactiveFontColor, item, limitBox, noLimit, NoSelectTab, noSpace, numberBox, numberOfLines, radiusBox, sendData, SetValue,
-            setVertical, spaceColor, tagBottom, tagBottomColor, type, widthBox,
-        } = this.props
-        const { currentUser, PassSetValue, pathlist } = this.state
-        if (
-            ////>nextProps
-            activeColor !== nextProps.activeColor || activeFontColor !== nextProps.activeFontColor ||
-            activeWidth !== nextProps.activeWidth || alignBox !== nextProps.alignBox || direction !== nextProps.direction ||
-            fontColor !== nextProps.fontColor || fontSizeStyle !== nextProps.fontSizeStyle ||
-            inactiveBoxColor !== nextProps.inactiveBoxColor || inactiveColor !== nextProps.inactiveColor ||
-            inactiveFontColor !== nextProps.inactiveFontColor || item !== nextProps.item || limitBox !== nextProps.limitBox ||
-            noLimit !== nextProps.noLimit || NoSelectTab !== nextProps.NoSelectTab || noSpace !== nextProps.noSpace ||
-            numberBox !== nextProps.numberBox || numberOfLines !== nextProps.numberOfLines || radiusBox !== nextProps.radiusBox ||
-            sendData !== nextProps.sendData || SetValue !== nextProps.SetValue || setVertical !== nextProps.setVertical ||
-            spaceColor !== nextProps.spaceColor || tagBottom !== nextProps.tagBottom || tagBottomColor !== nextProps.tagBottomColor ||
-            type !== nextProps.type || widthBox !== nextProps.widthBox ||
-            ////>nextState
-            currentUser !== nextState.currentUser || PassSetValue !== nextState.PassSetValue || pathlist !== nextState.pathlist
-        ) {
-            return true
-        }
-        return false
-    }
     /*
-    // v0.9.25022020
+    // v0.0a.14.04.2020
     // <TabBar
     // /////ส่งออกมาจากTabBarและส่งค่าที่คลิกไปยังฟังก์ชันgetData
     // sendData={this.getData}
@@ -280,10 +243,18 @@ export class TabBar extends React.Component {
     // spaceColor='#fff'
     // /////|color| กำหนดสีตัวอักษรทั้งหมด
     // fontColor='#fff' />*/
-    setSelectTab = (pathlist, PassSetValue) => {
-        const { sendData } = this.props
-        this.setState({ pathlist, PassSetValue })
-        sendData(pathlist)
+    setSelectTab = (selectedIndex, PassSetValue, list) => {
+        const { item, sendData } = this.props
+        var { pathlist2 } = this.state
+        list ? ([
+            list == 'swap' && pathlist2 < item[selectedIndex].actionList.length - 1 ?
+                pathlist2++ :
+                pathlist2 = 0,
+            this.setState({ pathlist2 }),
+            sendData({ selectedIndex, actionReturn: item[selectedIndex].actionReturn[pathlist2] })
+        ]) :
+            sendData({ selectedIndex, })
+        this.setState({ pathlist: selectedIndex, PassSetValue })
     }
     get tab() {
         const {
@@ -291,10 +262,10 @@ export class TabBar extends React.Component {
             noLimit, NoSelectTab, noSpace, numberBox, numberOfLines, radiusBox, SetValue, setVertical, spaceColor, tagBottom,
             tagBottomColor, type, widthBox,
         } = this.props
-        const { PassSetValue, pathlist } = this.state
+        const { PassSetValue, pathlist, pathlist2 } = this.state
         const countItem = item.length;
-        PassSetValue < 1 && SetValue &&
-            this.setSelectTab(SetValue, PassSetValue + 1)
+        SetValue && SetValue != pathlist &&
+            this.setSelectTab(SetValue)
         return item.map((item, index) => {
             return (
                 <TouchableOpacity key={index} activeOpacity={
@@ -306,7 +277,11 @@ export class TabBar extends React.Component {
                         pathlist == index ?
                             this.setSelectTab.bind(this, -1) :
                             this.setSelectTab.bind(this, index) :
-                        this.setSelectTab.bind(this, index)
+                        item.actionItem && pathlist == index ?
+                            this.setSelectTab.bind(this, index, undefined, 'swap') :
+                            item.actionItem ?
+                                this.setSelectTab.bind(this, index, undefined, 'set') :
+                                this.setSelectTab.bind(this, index)
                 }>
                     {
                         pathlist == index ?
@@ -404,7 +379,9 @@ export class TabBar extends React.Component {
                                                     radiusBox :
                                                     0,
                                         } :
-                                        null
+                                        {
+                                            flexDirection: 'row'
+                                        }
                                 ]}>
                                     <Text numberOfLines={numberOfLines} style={[stylesFont.FontFamilySemiBold, {
                                         fontSize:
@@ -421,10 +398,14 @@ export class TabBar extends React.Component {
                                                 activeFontColor :
                                                 fontColor ?
                                                     fontColor :
-                                                    'black'
+                                                    'black',
+                                        textAlignVertical: 'center'
                                     }]}>
                                         {item.name}
                                     </Text>
+                                    {
+                                        item.actionItem && item.actionItem[item.actionList[pathlist2]]
+                                    }
                                 </View>
                             </View> :
                             <View style={[
@@ -517,7 +498,9 @@ export class TabBar extends React.Component {
                                                     radiusBox :
                                                     0,
                                         } :
-                                        null
+                                        {
+                                            flexDirection: 'row'
+                                        }
                                 ]}>
                                     <Text numberOfLines={numberOfLines} style={[stylesFont.FontFamilySemiBold, {
                                         fontSize:
@@ -529,10 +512,14 @@ export class TabBar extends React.Component {
                                                 inactiveFontColor :
                                                 fontColor ?
                                                     fontColor :
-                                                    'black'
+                                                    'black',
+                                        textAlignVertical: 'center'
                                     }]}>
                                         {item.name}
                                     </Text>
+                                    {
+                                        item.actionItem && item.actionItem[0]
+                                    }
                                 </View>
                             </View>
                     }{
@@ -655,28 +642,20 @@ export class GetServices extends React.Component {
         this.state = {
         };
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { Authorization, dataBody, getDataSource, noSendError, showConsole, uriPointer } = this.props
-        if (
-            ////>nextProps
-            Authorization !== nextProps.Authorization || dataBody !== nextProps.dataBody || getDataSource !== nextProps.getDataSource ||
-            noSendError !== nextProps.noSendError || showConsole !== nextProps.showConsole || uriPointer !== nextProps.uriPointer
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
-    }
     getDataSource = async () => {
-        const { Authorization, dataBody, uriPointer, getDataSource, nojson, noSendError, showConsole, } = this.props
+        const { Authorization, dataBody, uriPointer, getDataSource, nojson, noSendError, noStringify, showConsole, } = this.props
         showConsole && (
             console.log(showConsole),
-            console.log('Authorization'),
-            console.log(Authorization),
+            Authorization && (
+                console.log('Authorization'),
+                console.log(Authorization)
+            ),
+            console.log('uri'),
+            console.log(uriPointer),
             console.log('dataBody'),
             console.log(dataBody),
-            console.log('uriPointer'),
-            console.log(uriPointer)
+            console.log('JSONdataBody'),
+            console.log(JSON.stringify(dataBody))
         )
         fetch(uriPointer, {
             method: 'POST',
@@ -685,7 +664,7 @@ export class GetServices extends React.Component {
                 'Content-Type': 'application/json',
                 'Authorization': Authorization
             },
-            body: JSON.stringify(dataBody),
+            body: noStringify ? JSON.parse(dataBody) : JSON.stringify(dataBody),
         })
             .then((response) => nojson ? response.text() : response.json())
             .then((responseJson) => {
@@ -713,24 +692,9 @@ export class GetCoupon extends React.Component {
         this.state = {
         };
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const {
-            codeList, colorCoupon, couponText, flexRow, textDetail, timeOut, useCoupon,
-        } = this.props
-        if (
-            ////>nextProps
-            codeList !== nextProps.codeList || colorCoupon !== nextProps.colorCoupon || couponText !== nextProps.couponText ||
-            flexRow !== nextProps.flexRow || textDetail !== nextProps.textDetail || timeOut !== nextProps.timeOut ||
-            useCoupon !== nextProps.useCoupon
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
-    }
     get setCoupon() {
         const {
-            codeList, colorCoupon, couponText, flexRow, textDetail, timeOut, useCoupon,
+            codeList, colorCoupon, couponText, getCoupon, flexRow, saveCoupon, setDataService, textDetail, timeOut, useCoupon,
         } = this.props
         return (
             <View style={[
@@ -757,12 +721,12 @@ export class GetCoupon extends React.Component {
                             -70 :
                             null,
                 }}>
-                    <View style={{ width: 92, height: 70, marginLeft: 8 }}>
+                    <View style={{ width: 120, height: 68, marginLeft: 12, paddingHorizontal: 2, }}>
                         <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7,]}>{textDetail}</Text>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>ใช้ได้ก่อน {
                             timeOut ?
                                 timeOut :
-                                'NaN'
+                                ''
                         }</Text>
                     </View>
                     <View style={[
@@ -774,12 +738,14 @@ export class GetCoupon extends React.Component {
                                     colorCoupon :
                                     '#86CFFF',
                         }]}>
-                        <View style={stylesDeal.Coupon_BOX_B}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>{couponText}</Text>
+                        <View style={[stylesDeal.Coupon_BOX_B, stylesMain.ItemCenter]}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, stylesMain.ItemCenterVertical, {
+                                color: '#FFFFFF'
+                            }]}>{couponText}</Text>
                         </View>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => { getCoupon(setDataService) }}>
                             <View style={stylesDeal.Coupon_BOX_Text}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>{
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{
                                     useCoupon ?
                                         'ใช้โค้ด' :
                                         'เก็บ'
@@ -790,14 +756,16 @@ export class GetCoupon extends React.Component {
                 </View>
                 {
                     codeList != 'available' &&
-                    <View style={{ backgroundColor: '#C1C1C1', opacity: 0.7, width: 169, height: 68 }}>
+                    <View style={{ backgroundColor: '#C1C1C1', opacity: 0.7, width: 209, height: 80, marginTop: -10, borderRadius: 5, }}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical, {
                             color: '#fff', textAlign: 'center'
                         }]}>
                             {
                                 codeList == 'usedCode' ?
                                     'ใช้แล้ว' :
-                                    'หมดอายุ'
+                                    saveCoupon ?
+                                        'เก็บแล้ว' :
+                                        'หมดอายุ'
                             }
                         </Text>
                     </View>
@@ -818,26 +786,6 @@ export class ProductBox extends React.Component {
         this.state = {
         };
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const {
-            dataService, dispriceSize, mode, nameSize, navigation, pointerUrl, pointerid_store, postpath, prepath, priceSize, radiusBox,
-            typeip,
-        } = this.props
-        const { ImageStore } = this.state
-        if (
-            ////>nextProps
-            dataService !== nextProps.dataService || dispriceSize !== nextProps.dispriceSize || mode !== nextProps.mode ||
-            nameSize !== nextProps.nameSize || navigation !== nextProps.navigation || pointerUrl !== nextProps.pointerUrl ||
-            pointerid_store !== nextProps.pointerid_store || postpath !== nextProps.postpath || prepath !== nextProps.prepath ||
-            priceSize !== nextProps.priceSize || radiusBox !== nextProps.radiusBox || typeip !== nextProps.typeip ||
-            ////>nextState
-            ImageStore !== nextState.ImageStore
-
-        ) {
-            return true
-        }
-        return false
-    }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
         value == 'goBack' ?
@@ -853,163 +801,178 @@ export class ProductBox extends React.Component {
     }
     get ProductBoxRender() {
         const {
-            dataService, dispriceSize, mode, nameSize, pointerUrl, pointerid_store, postpath, prepath, priceSize, radiusBox, typeip,
+            dataService, dispriceSize, mode, nameSize, numberOfItem, onShow, pointerUrl, pointerid_store, postpath, prepath, priceSize,
+            radiusBox, typeip,
         } = this.props
+        onShow && ([console.log('ProductBoxRender'), console.log(dataService)])
         const { ImageStore } = this.state
         return dataService.map((item, index) => {
-            var discount
-            item.discount && (
-                discount = item.discount.replace("%", "")
-            )
-            var url
-            { typeip == 'ip' ? url = ip : url = finip }
-            var dataMySQL = typeip == 'ip' ?
-                [url,
-                    prepath ?
-                        postpath ?
-                            prepath + '/' + item.image_path + '/' + postpath :
-                            prepath + '/' + item.image_path :
-                        postpath ?
-                            item.image_path + '/' + postpath :
-                            item.image_path,
-                    item.image].join('/') :
-                [url, item.image_path, item.image].join('/');
-            return (
-                <TouchableOpacity
-                    activeOpacity={1}
-                    key={index}
-                    onPress={this.navigationNavigateScreen.bind(this, pointerUrl, pointerid_store ? { id_item: item.id_product } : null)}>
-                    <View style={[
-                        mode == 'row4col1' ?
-                            stylesMain.BoxProduct5Box :
-                            mode == 'row3col2' ?
-                                stylesMain.BoxProduct1Box2 :
-                                mode == 'row3col2_2' ?
-                                    stylesMain.BoxProduct4Box :
-                                    mode == 'row3colall' ?
-                                        stylesMain.BoxProduct2Box :
-                                        mode == 'row2colall' ?
-                                            stylesMain.BoxProduct3Box :
-                                            mode == '5item' ?
-                                                stylesDeal.Deal_Exclusive_Box :
-                                                stylesMain.BoxProduct1Box,
-                        {
-                            marginBottom: mode == 'row3col2_2' ? 4 : null,
-                            borderRadius: radiusBox ? radiusBox : 0
-                        }
-                    ]}>
-                        <View style={
+            onShow && ([console.log('ProductBoxRender|||map'), console.log(item)])
+            if (index < (numberOfItem ? numberOfItem : dataService.length)) {
+                var discount
+                item.discount && (
+                    discount = item.discount.replace("%", "")
+                )
+                var url
+                { typeip == 'ip' ? url = ip : url = finip }
+                var dataMySQL = typeip == 'ip' ?
+                    [url,
+                        prepath ?
+                            postpath ?
+                                prepath + '/' + item.image_path + '/' + postpath :
+                                prepath + '/' + item.image_path :
+                            postpath ?
+                                item.image_path + '/' + postpath :
+                                item.image_path,
+                        item.image_product ?
+                            item.image_product :
+                            item.image].join('/') :
+                    [url, item.image_path, item.image_product ? item.image_product : item.image].join('/');
+                return (
+                    <TouchableOpacity
+                        activeOpacity={1}
+                        key={index}
+                        onPress={this.navigationNavigateScreen.bind(this, pointerUrl, pointerid_store ? {
+                            id_item: item.id_product
+                        } : null)}>
+                        <View style={[
                             mode == 'row4col1' ?
-                                stylesMain.BoxProduct5ImageofLines :
-                                mode == 'row3colall' ?
-                                    stylesMain.BoxProduct2ImageofLines :
-                                    mode == 'row2colall' ?
-                                        stylesMain.BoxProduct3ImageofLines :
-                                        mode == '5item' ?
-                                            stylesMain.BoxProduct1ImageofLines2 :
-                                            stylesMain.BoxProduct1ImageofLines
-                        }>
+                                stylesMain.BoxProduct5Box :
+                                mode == 'row3col2' ?
+                                    stylesMain.BoxProduct1Box2 :
+                                    mode == 'row3col2_2' ?
+                                        stylesMain.BoxProduct4Box :
+                                        mode == 'row3colall' ?
+                                            stylesMain.BoxProduct2Box :
+                                            mode == 'row2colall' ?
+                                                stylesMain.BoxProduct3Box :
+                                                mode == '5item' ?
+                                                    stylesDeal.Deal_Exclusive_Box :
+                                                    stylesMain.BoxProduct1Box,
                             {
-                                ImageStore == 'false' &&
-                                <Text style={[stylesMain.BoxProduct5Image, { textAlign: 'center', textAlignVertical: 'center' }]}>
-                                    Loading Image...</Text>
+                                marginBottom: mode == 'row3col2_2' ? 4 : null,
+                                borderRadius: radiusBox ? radiusBox : 0
                             }
-                            <FastImage
-                                source={{
-                                    uri: dataMySQL,
-                                }}
-                                style={[
-                                    mode == 'row4col1' ?
-                                        stylesMain.BoxProduct5Image :
-                                        mode == 'row3colall' || mode == '5item' ?
-                                            stylesMain.BoxProduct2Image :
-                                            stylesMain.BoxProduct1Image,
-                                    {
-                                        borderTopLeftRadius: radiusBox ? radiusBox : 0,
-                                        borderTopRightRadius: radiusBox ? radiusBox : 0
-                                    }
-                                ]}
-                                onError={this.LoadingStore.bind(this, false)}
-                                onLoad={this.LoadingStore.bind(this, true)}
-                                resizeMode={FastImage.resizeMode.contain} />
-                        </View>
-                        <View style={{
-                            height:
+                        ]}>
+                            <View style={
                                 mode == 'row4col1' ?
-                                    55 :
-                                    60,
-                            paddingHorizontal: 3
-                        }}>
-                            <View style={[
-                                stylesMain.BoxProduct1NameofLines
-                            ]}>
-                                <Text numberOfLines={1} style={[
-                                    stylesFont.FontFamilySemiBold,
-                                    {
-                                        fontSize: nameSize ? nameSize : 16,
-                                    }
-                                ]}>
-                                    {item.name}</Text>
+                                    stylesMain.BoxProduct5ImageofLines :
+                                    mode == 'row3colall' ?
+                                        stylesMain.BoxProduct2ImageofLines :
+                                        mode == 'row2colall' ?
+                                            stylesMain.BoxProduct3ImageofLines :
+                                            mode == '5item' ?
+                                                stylesMain.BoxProduct1ImageofLines2 :
+                                                stylesMain.BoxProduct1ImageofLines
+                            }>
+                                {
+                                    ImageStore == 'false' &&
+                                    <Text style={[stylesMain.BoxProduct5Image, { textAlign: 'center', textAlignVertical: 'center' }]}>
+                                        Loading Image...</Text>
+                                }
+                                <FastImage
+                                    source={{
+                                        uri: dataMySQL,
+                                    }}
+                                    style={[
+                                        mode == 'row4col1' ?
+                                            stylesMain.BoxProduct5Image :
+                                            mode == 'row3colall' || mode == '5item' ?
+                                                stylesMain.BoxProduct2Image :
+                                                stylesMain.BoxProduct1Image,
+                                        {
+                                            borderTopLeftRadius: radiusBox ? radiusBox : 0,
+                                            borderTopRightRadius: radiusBox ? radiusBox : 0
+                                        }
+                                    ]}
+                                    onError={this.LoadingStore.bind(this, false)}
+                                    onLoad={this.LoadingStore.bind(this, true)}
+                                    resizeMode={FastImage.resizeMode.contain} />
                             </View>
-                            <View style={[
-                                stylesMain.BoxProduct1PriceofLines,
-                            ]}>
-                                <View style={[stylesMain.FlexRow, { paddingVertical: 2 }]}>
-                                    <NumberFormat
-                                        value={item.price_discount ? item.price_discount : item.full_price ? item.full_price : item.price}
-                                        displayType={'text'}
-                                        thousandSeparator={true}
-                                        prefix={'฿'}
-                                        renderText={value =>
-                                            <Text style={[
-                                                stylesMain.BoxProduct1ImagePrice,
-                                                stylesFont.FontFamilyBoldBold, {
-                                                    fontSize: priceSize ? priceSize : 14,
-                                                }
-                                            ]}>
-                                                {value}</Text>
-                                        } />
-                                    {
-                                        discount > 0 &&
+                            <View style={{
+                                height:
+                                    mode == 'row4col1' ?
+                                        55 :
+                                        60,
+                                paddingHorizontal: 3
+                            }}>
+                                <View style={[
+                                    stylesMain.BoxProduct1NameofLines
+                                ]}>
+                                    <Text numberOfLines={1} style={[
+                                        stylesFont.FontFamilySemiBold,
+                                        {
+                                            fontSize: nameSize ? nameSize : 16,
+                                        }
+                                    ]}>
+                                        {item.name_product ? item.name_product : item.name}</Text>
+                                </View>
+                                <View style={[
+                                    stylesMain.BoxProduct1PriceofLines,
+                                ]}>
+                                    <View style={[stylesMain.FlexRow, { paddingVertical: 2 }]}>
                                         <NumberFormat
-                                            value={item.discount && item.discount}
+                                            value={
+                                                item.price_discount ?
+                                                    item.price_discount :
+                                                    item.full_price ?
+                                                        item.full_price :
+                                                        item.price
+                                            }
                                             displayType={'text'}
                                             thousandSeparator={true}
-                                            suffix={'%'}
-                                            renderText={
-                                                value =>
-                                                    value &&
-                                                    <View style={[stylesMain.Box_On_sale, { borderRadius: 10 }]}>
-                                                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, {
-                                                            color: '#FFFFFF'
-                                                        }]}>
-                                                            {'-' + value}</Text>
-                                                    </View>
+                                            prefix={'฿'}
+                                            renderText={value =>
+                                                <Text style={[
+                                                    stylesMain.BoxProduct1ImagePrice,
+                                                    stylesFont.FontFamilyBoldBold, {
+                                                        fontSize: priceSize ? priceSize : 14,
+                                                    }
+                                                ]}>
+                                                    {value}</Text>
+                                            } />
+                                        {
+                                            discount > 0 &&
+                                            <NumberFormat
+                                                value={item.discount && item.discount}
+                                                displayType={'text'}
+                                                thousandSeparator={true}
+                                                suffix={'%'}
+                                                renderText={
+                                                    value =>
+                                                        value &&
+                                                        <View style={[stylesMain.Box_On_sale, { borderRadius: 10 }]}>
+                                                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, {
+                                                                color: '#FFFFFF'
+                                                            }]}>
+                                                                {'-' + value}</Text>
+                                                        </View>
+                                                } />
+                                        }
+                                    </View>
+                                    {
+                                        item.price_discount &&
+                                        <NumberFormat
+                                            value={item.price}
+                                            displayType={'text'}
+                                            thousandSeparator={true}
+                                            prefix={'฿'}
+                                            renderText={value =>
+                                                <Text style={[
+                                                    stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontFamilyText, {
+                                                        marginTop: -4,
+                                                        fontSize: dispriceSize ? dispriceSize : 14
+                                                    }
+                                                ]}>
+                                                    {value}</Text>
                                             } />
                                     }
                                 </View>
-                                {
-                                    item.price_discount &&
-                                    <NumberFormat
-                                        value={item.price}
-                                        displayType={'text'}
-                                        thousandSeparator={true}
-                                        prefix={'฿'}
-                                        renderText={value =>
-                                            <Text style={[
-                                                stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontFamilyText, {
-                                                    marginTop: -4,
-                                                    fontSize: dispriceSize ? dispriceSize : 14
-                                                }
-                                            ]}>
-                                                {value}</Text>
-                                        } />
-                                }
                             </View>
                         </View>
-                    </View>
-                </TouchableOpacity>
-            );
+                    </TouchableOpacity>
+                );
+            }
         })
     }
     render() {
@@ -1209,7 +1172,7 @@ export class FeedBox extends React.Component {
                                 <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     ถูกใจ</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', {selectedIndex: 9})}>
+                            <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', { selectedIndex: 9 })}>
                                 <View style={stylesMain.BoxProduct4ComBoxIcon}>
                                     <IconFontAwesome5 name='comment-dots' size={20} />
                                     <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
@@ -1311,52 +1274,22 @@ export class SlideTab2 extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeText: false,
-            selectedIndex: null,
+            filter: {},
         }
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { data, navigation, setStateSliderVisible, sliderVisible, } = this.props
-        const { activeText, dataService, selectedIndex, } = this.state
-        if (
-            ////>nextProps
-            data !== nextProps.data || navigation !== nextProps.navigation || setStateSliderVisible !== nextProps.setStateSliderVisible ||
-            sliderVisible !== nextProps.sliderVisible ||
-            ////>nextState
-            activeText !== nextState.activeText || dataService !== nextState.dataService || selectedIndex !== nextState.selectedIndex
-        ) {
-            return true
-        }
-        return false
-    }
-    updateIndex = (selectedIndex) => {
-        this.setState({ selectedIndex })
-    }
-    dataItem(item) {
-        const { selectedIndex } = this.state
-        return (
-            <View style={[stylesMain.FlexRow, { width: '100%', flexWrap: 'wrap' }]}>
-                <TabBar
-                    sendData={this.updateIndex.bind(this)}
-                    SetValue={selectedIndex != null ? selectedIndex : -1}
-                    item={item}
-                    type='box'
-                    noLimit
-                    numberBox
-                    NoSelectTab
-                    radiusBox={4} />
-            </View>
-        )
-    }
-    setStateActiveText = (activeText) => {
-        this.setState({ activeText })
     }
     setStateSliderVisible = () => {
         const { setStateSliderVisible } = this.props
         setStateSliderVisible(false)
     }
+    filterValue = (event) => {
+        const { filter } = this.state
+        filter.minvalue = event.minvalue ? event.minvalue : ''
+        filter.maxvalue = event.maxvalue ? event.maxvalue : ''
+        this.setState({ filter })
+    }
     render() {
-        const { data, sliderVisible } = this.props
+        const { data, filterValue, sliderVisible } = this.props
+        const { filter } = this.state
         return (
             <SlidingView
                 disableDrag
@@ -1379,11 +1312,11 @@ export class SlideTab2 extends React.Component {
                         <View>
                             <ScrollView>
                                 {
-                                    data.map((item, index) => {
+                                    data && data.map((item, index) => {
                                         return <SlideTab item={item} key={index} />
                                     })
                                 }
-                                <PricesSlide />
+                                <PricesSlide filterValue={this.filterValue.bind(this)} />
                             </ScrollView>
                             <View style={[stylesMain.FlexRow, { height: 70 }]}>
                                 <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
@@ -1392,12 +1325,14 @@ export class SlideTab2 extends React.Component {
                                     }]}>
                                         รีเซ็ต</Text>
                                 </View>
-                                <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset, { backgroundColor: '#0A55A6' }]}>
-                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, {
-                                        color: '#fff'
-                                    }]}>
-                                        เสร็จสิ้น</Text>
-                                </View>
+                                <TouchableOpacity onPress={() => { filterValue(filter) }}>
+                                    <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset, { backgroundColor: '#0A55A6' }]}>
+                                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, {
+                                            color: '#fff'
+                                        }]}>
+                                            เสร็จสิ้น</Text>
+                                    </View>
+                                </TouchableOpacity>
                             </View>
                         </View>
                     </View>
@@ -1411,33 +1346,24 @@ export class SlideTab extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            activeTabBar: true,
             activeText: false,
             selectedIndex: null,
         }
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { item, navigation, } = this.props
-        const { activeText, selectedIndex, } = this.state
-        if (
-            ////>nextProps
-            item !== nextProps.item || navigation !== nextProps.navigation ||
-            ////>nextState
-            activeText !== nextState.activeText || selectedIndex !== nextState.selectedIndex
-        ) {
-            return true
-        }
-        return false
+    updateIndex = (value) => {
+        this.setState({ activeTabBar: false, selectedIndex: value.selectedIndex })
     }
-    updateIndex = (selectedIndex) => {
-        this.setState({ selectedIndex })
+    setStateActiveText = (activeText) => {
+        this.setState({ activeTabBar: true, activeText })
     }
     dataItem(item) {
-        const { selectedIndex } = this.state
+        const { activeTabBar, selectedIndex } = this.state
         return (
             <View style={[stylesMain.FlexRow, { width: '100%', flexWrap: 'wrap' }]}>
                 <TabBar
                     sendData={this.updateIndex.bind(this)}
-                    SetValue={selectedIndex != null ? selectedIndex : -1}
+                    SetValue={activeTabBar == true ? selectedIndex != null ? selectedIndex : -1 : undefined}
                     item={item}
                     type='box'
                     noLimit
@@ -1446,9 +1372,6 @@ export class SlideTab extends React.Component {
                     radiusBox={4} />
             </View>
         )
-    }
-    setStateActiveText = (activeText) => {
-        this.setState({ activeText })
     }
     dataContainer(item) {
         const { activeText } = this.state
@@ -1513,6 +1436,24 @@ export class SlideTab extends React.Component {
 }
 ///----------------------------------------------------------------------------------------------->>>> PricesSlide
 export class PricesSlide extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            filter: {},
+        }
+    }
+    setStateMin = (minvalue) => {
+        const { filterValue } = this.props
+        const { filter } = this.state
+        filter.minvalue = minvalue
+        filterValue(filter)
+    }
+    setStateMax = (maxvalue) => {
+        const { filterValue } = this.props
+        const { filter } = this.state
+        filter.maxvalue = maxvalue
+        filterValue(filter)
+    }
     render() {
         return (
             <View>
@@ -1525,11 +1466,11 @@ export class PricesSlide extends React.Component {
                         <View style={[stylesMain.ItemCenter, stylesMain.FlexRow, { width: '100%', height: 80 }]}>
                             <TextInput placeholder='ต่ำสุด' style={[
                                 stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesFont.FontSize6,
-                                stylesTopic.maxMinValue]} />
+                                stylesTopic.maxMinValue]} onChangeText={this.setStateMin.bind(this)} />
                             <Text style={[stylesMain.ItemCenterVertical, { fontSize: 28, marginHorizontal: 8 }]}>-</Text>
                             <TextInput placeholder='สูงสุด' style={[
                                 stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesFont.FontSize6,
-                                stylesTopic.maxMinValue]} />
+                                stylesTopic.maxMinValue]} onChangeText={this.setStateMax.bind(this)} />
                         </View>
                     </View>
                 </View>

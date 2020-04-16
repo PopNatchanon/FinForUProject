@@ -101,7 +101,7 @@ export default class DetailScreen extends React.Component {
           <Show_Image showImage={this.showImage.bind(this)} setShowItemImage={setShowItemImage} />
         }
         <GetServices uriPointer={uri}
-          // showConsole={'product_detail_mobile'} 
+          showConsole={'product_detail_mobile'}
           dataBody={dataBody} getDataSource={this.getData.bind(this)} />
         <Animatable.View style={{ height: 50, }}>
           <View style={{
@@ -130,10 +130,8 @@ export default class DetailScreen extends React.Component {
               dataService.product_data &&
               <Detail_Image key={'Detail_Image'} dataService={dataService.product_data} navigation={navigation}
                 showImage={this.showImage.bind(this)} setShowImage={this.setShowImage.bind(this)} setActive={setActive} />,
-              currentUser &&
               <Detail_Data key={'Detail_Data'} currentUser={currentUser} dataService={dataService} getStarReview={getStarReview}
                 id_product={id_product} keycokie={keycokie} navigation={navigation} />,
-              currentUser &&
               <Store key={'Store'} currentUser={currentUser} dataService={dataService} keycokie={keycokie} navigation={navigation} />,
               currentUser && dataService.product_data &&
               <Conpon key={'Conpon'} dataService={dataService.product_data} currentUser={currentUser} />
@@ -424,7 +422,7 @@ export class Detail_Data extends React.Component {
     const { activeLike, activeService2 } = this.state
     const uri = finip + '/favorite_data/favorite_product';
     var dataBody = {
-      id_customer: currentUser.id_customer,
+      id_customer: currentUser && currentUser.id_customer,
       id_product: id_product,
       activity: activeLike == true ? 'like' : 'check'
     };
@@ -559,7 +557,7 @@ export class Store extends React.Component {
     dataService.product_data &&
       dataService.product_data.map((item, index) => id_store = item.id_store)
     var dataBody = {
-      id_customer: currentUser.id_customer,
+      id_customer: currentUser && currentUser.id_customer,
       id_store: id_store,
       follow: activeFollow == true ? 'active' : ''
     };
@@ -1330,9 +1328,9 @@ export class Reviews extends React.Component {
     var dataBody
     currentUser && dataService && (
       dataBody = {
+        id_customer: currentUser.id_customer,
         id_product: dataService[0].id_product,
         id_store: dataService[0].id_store,
-        id_customer: currentUser.id_customer,
       }
     )
     return (
@@ -1344,7 +1342,8 @@ export class Reviews extends React.Component {
         <View style={stylesMain.FrameBackgroundTextBox}>
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
             คะแนนร้านค้า</Text>
-          <TouchableOpacity style={stylesMain.FlexRow} onPress={this.navigationNavigateScreen.bind(this, 'Reviews_score')}>
+          <TouchableOpacity style={stylesMain.FlexRow} onPress={this.navigationNavigateScreen.bind(this, 'Reviews_score',
+            { id_store: dataService[0].id_store, id_product: dataService[0].id_product })}>
             <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize6, { marginRight: 0 }]}>
               ดูทั้งหมด</Text>
             <IconFeather style={stylesDetail.Score_iconB} name='edit' size={20} color='#0A55A6' />

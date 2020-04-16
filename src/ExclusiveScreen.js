@@ -7,6 +7,7 @@ import {
 export const { width, height } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconFeather from 'react-native-vector-icons/Feather';
+import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
@@ -108,20 +109,9 @@ export class Button_Bar extends React.Component {
       selectedIndex: 0,
     };
   }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { setSliderVisible } = this.props;
-    const { selectedIndex } = this.state;
-    if (
-      ////>nextProps
-      setSliderVisible !== nextProps.setSliderVisible ||
-      ////>nextState
-      selectedIndex !== nextState.selectedIndex
-    ) {
-      return true
-    }
-    return false
-  }
   updateIndex = (selectedIndex) => {
+    const { filterValue } = this.props
+    filterValue(selectedIndex)
     this.setState({ selectedIndex })
   }
   setSliderVisible = () => {
@@ -136,6 +126,13 @@ export class Button_Bar extends React.Component {
     }, {
       name: 'ล่าสุด'
     }, {
+      actionItem: [
+        <IconMaterialIcons name='unfold-more' size={15} style={[stylesMain.ItemCenterVertical, { color: '#6C6C6C', marginLeft: 2 }]} />,
+        <IconMaterialIcons name='arrow-upward' size={15} style={[stylesMain.ItemCenterVertical, { color: '#0A55A6', marginLeft: 2 }]} />,
+        <IconMaterialIcons name='arrow-downward' size={15} style={[stylesMain.ItemCenterVertical, { color: '#0A55A6', marginLeft: 2 }]} />
+      ],
+      actionList: [1, 2],
+      actionReturn: ['min', 'max'],
       name: 'ราคา'
     }]
     return (

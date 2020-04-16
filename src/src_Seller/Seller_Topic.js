@@ -755,7 +755,7 @@ export class Withdraw_money extends Component {
                         <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 1 })}>
+                {/* <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 1 })}>
                     <View style={stylesProfile.ListMenuList}>
                         <View style={stylesProfile.ListMenuListSub}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10 }]}>
@@ -764,7 +764,7 @@ export class Withdraw_money extends Component {
                         </View>
                         <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                     </View>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
         );
     }

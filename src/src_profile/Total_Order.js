@@ -335,7 +335,7 @@ export class From_Order_Box extends Component {
                             <TouchableOpacity key={'Review_order'} activeOpacity={1}
                                 onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 7 })}>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical, {
-                                    color: '#111', width: width * 0.3, textAlign: 'center',
+                                    color: '#111', width: width * 0.3, textAlign: 'center',color:'#20BDA1'
                                 }]}>
                                     รอชำระ
                                 </Text>

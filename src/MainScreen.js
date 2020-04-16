@@ -750,7 +750,7 @@ export class Category extends React.Component {
                                 }}
                                 style={stylesMain.Category_box}
                                 resizeMode={FastImage.resizeMode.cover} />
-                            <View style={{ height: 20 }}>
+                            <View style={{ height: 25 }}>
                                 <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize8, stylesFont.FontCenter]}>
                                     {item.name}</Text>
                             </View>

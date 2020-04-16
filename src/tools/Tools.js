@@ -202,7 +202,11 @@ export class Toolbar extends React.Component {
                                         routeSelcet == 'ProfileScreen' ?
                                             '#0A55A6' :
                                             '#111'
-                                }}>{u_name}</Text>
+                                }}>
+                                ฉัน
+                                {/* {u_name} */}
+                                </Text>
+                                
                             </View>
                         </TouchableOpacity>
                 }
@@ -1209,7 +1213,7 @@ export class FeedBox extends React.Component {
                                 <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     ถูกใจ</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', {selectedIndex: 9})}>
+                            <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', { selectedIndex: 9 })}>
                                 <View style={stylesMain.BoxProduct4ComBoxIcon}>
                                     <IconFontAwesome5 name='comment-dots' size={20} />
                                     <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>

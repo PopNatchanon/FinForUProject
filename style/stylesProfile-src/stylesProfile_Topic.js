@@ -298,6 +298,7 @@ export default StyleSheet.create({
         paddingVertical: 5,
     },
     Order_StorePro: {
+        marginLeft:10,
         height: 40,
         width: 40,
         backgroundColor: '#A2A2A2',

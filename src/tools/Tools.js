@@ -190,7 +190,11 @@ export class Toolbar extends React.Component {
                                         routeSelcet == 'ProfileScreen' ?
                                             '#0A55A6' :
                                             '#111'
-                                }}>{u_name}</Text>
+                                }}>
+                                ฉัน
+                                {/* {u_name} */}
+                                </Text>
+                                
                             </View>
                         </TouchableOpacity>
                 }

@@ -975,7 +975,7 @@ export class Review_From extends React.Component {
     starReview(star) {
         let starBox = []
         for (var n = 0; n < 5; n++) {
-            if (star> n) {
+            if (star > n) {
                 starBox.push(
                     <TouchableOpacity activeOpacity={1} key={n} onPress={this.selectStar.bind(this, n + 1)}>
                         <IconFontAwesome name='star' size={40} color='#FFAC33' />

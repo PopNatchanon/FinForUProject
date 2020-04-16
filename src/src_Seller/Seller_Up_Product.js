@@ -127,9 +127,9 @@ export class Seller_Up_Image extends Component {
               </TouchableOpacity>
           }
         </ScrollView>
-        <TouchableOpacity onPress={this.UploadImageData} style={stylesMain.ItemCenter}>
+        {/* <TouchableOpacity onPress={this.UploadImageData} style={stylesMain.ItemCenter}>
           <Text style={[{ width: 75, height: 40, borderWidth: 1, borderColor: '#456488', marginTop: 10, textAlign: 'center', textAlignVertical: 'center', color: '#fff', backgroundColor: '#456488' }]}>Upload</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     )
   }

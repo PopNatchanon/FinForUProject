@@ -363,7 +363,7 @@ export class Login extends React.Component {
           style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
           errorStyle={{
             container: {
-              bottom: -12,
+              bottom: -10,
               left: 4,
               position: 'absolute'
             },
@@ -373,7 +373,7 @@ export class Login extends React.Component {
             underlineValidColor: 'gray',
             underlineInvalidColor: 'red'
           }} />
-        {/* <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
+        <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
           รหัสยืนยันผ่านอีเมล</Text>
         <TextValidator
           name="pass"
@@ -398,7 +398,7 @@ export class Login extends React.Component {
         <View style={stylesLogin.Countdownstyle}>
           <Text style={[stylesLogin.CountdownstyleSubmit, stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
             ส่ง</Text>
-        </View> */}
+        </View>
         <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
           ชื่อ</Text>
         <TextValidator
@@ -422,7 +422,7 @@ export class Login extends React.Component {
             underlineValidColor: 'gray',
             underlineInvalidColor: 'red'
           }} />
-        <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
+        {/* <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
           รหัสผ่าน</Text>
         <TextValidator
           name="password"
@@ -469,7 +469,7 @@ export class Login extends React.Component {
             },
             underlineValidColor: 'gray',
             underlineInvalidColor: 'red'
-          }} />
+          }} /> */}
         <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
           หมายเลขโทรศัพท์</Text>
         <TextValidator
@@ -601,7 +601,7 @@ export class Login extends React.Component {
   render() {
     return (
       <View style={stylesLogin.Login_Box}>
-        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: '#FFFFFF', margin: 5 }]}>สมัครสมาชิก</Text>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: '#FFFFFF', }]}>สมัครสมาชิก</Text>
         <View style={stylesLogin.RegisterScreen_Box_Login}>
           {this.FormBody}
         </View>
@@ -650,7 +650,7 @@ export class Register extends React.Component {
             onPress={this.setStateItem1.bind(this)} />
         </View>
         <View>
-          <Text style={[stylesFont.FontCenter, stylesFont.FontSize5, stylesFont.FontFamilyText, { margin: 10, color: '#FFFFFF' }]}>
+          <Text style={[stylesFont.FontCenter, stylesFont.FontSize5, stylesFont.FontFamilyText, { color: '#FFFFFF' ,marginTop:-10}]}>
             ---------- สมัครสมาชิกด้วยช่องทางอื่น ----------</Text>
         </View>
         <View style={stylesLogin.Register_Box_Button}>

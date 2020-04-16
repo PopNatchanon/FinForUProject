@@ -36,6 +36,7 @@ import Return_products from '../src_profile/Return_products';
 import Total_Order from '../src_profile/Total_Order';
 import Order_Detail from '../src_profile/Order_Detail';
 import Setting_Topic from '../src_profile/src_Setting/Setting_Topic';
+import Business from '../src_profile/Business';
 // src_Seller
 import SellerScreen from '../src_Seller/SellerScreen';
 import Seller_Topic from '../src_Seller/Seller_Topic';
@@ -259,6 +260,13 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
+  Business: {
+    screen: Business,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
   // src_Seller
   SellerScreen: {
     screen: SellerScreen,
@@ -427,7 +435,7 @@ const PathScreen = createStackNavigator({
   {
     initialRouteName: 'MainScreen',
     // initialRouteName: 'Customer_Order',
-    // initialRouteName: 'SellerScreen',
+    // initialRouteName: 'ProfileScreen',
   }
 );
 const AppNavigator = createAppContainer(PathScreen);

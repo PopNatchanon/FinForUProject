@@ -39,7 +39,7 @@ export default class Setting_TopicStore extends Component {
             case 1:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขบัญชีธนาคาร' saveBar />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='เพิ่มบัญชีธนาคาร' saveBar />
                         <Edit_Bank navigation={this.props.navigation} />
                         {/* แก้ไขบัญชีธนาคาร */}
                     </View>

@@ -20,8 +20,8 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesProfile from '../style/StylesProfileScreen'
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { ExitAppModule } from './MainScreen';
-import { GetCoupon, TabBar, Toolbar } from './tools/Tools';
+import { ExitAppModule, GetData } from './MainScreen';
+import { GetCoupon, TabBar, Toolbar, GetServices, LoadingScreen } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -29,42 +29,42 @@ export default class ProfileScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentUser: {},
+            activeGetSource: true,
+            activeGetServices: true,
         }
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation } = this.props
-        const { currentUser } = this.state;
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation ||
-            ////>nextState
-            currentUser !== nextState.currentUser
-        ) {
-            return true
-        }
-        return false
+    getSource = (value) => {
+        this.setState({ activeGetSource: false, currentUser: value.currentUser, cokie: value.keycokie })
     }
-    getDataAsync = async () => {
-        const currentUser = await AsyncStorage.getItem('@MyKey')
-        this.setState({ currentUser: JSON.parse(currentUser) })
-    }
-    componentDidMount() {
-        this.getDataAsync()
+    getData = (dataSevice) => {
+        this.setState({ activeGetServices: false, dataSevice })
     }
     render() {
         const { navigation } = this.props
-        const { currentUser } = this.state;
+        const { activeGetSource, activeGetServices, currentUser, cokie, dataSevice } = this.state;
+        const uri = finip + '/profile/profile_mobile'
+        var dataBody = {
+            id_customer: currentUser ? currentUser.id_customer : '',
+        }
         return (
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
+                {[
+                    (activeGetSource == true || activeGetServices == true) &&
+                    <LoadingScreen key='LoadingScreen' />,
+                    activeGetSource == false && activeGetServices == true &&
+                    <GetServices key='GetServices' uriPointer={uri} dataBody={dataBody} Authorization={cokie}
+                        getDataSource={this.getData.bind(this)} />,
+                    activeGetSource == true &&
+                    <GetData key='GetData' getCokie={true} getUser={true} getSource={this.getSource.bind(this)} />
+                ]}
                 <ScrollView>
                     <View>
                         {
-                            currentUser &&
-                            <Headbar navigation={navigation} currentUser={currentUser} />
+                            currentUser && dataSevice &&
+                            <Headbar navigation={navigation} currentUser={currentUser} dataSevice={dataSevice} />
                         }
                         <Menubar navigation={navigation} />
-                        <Listbar navigation={navigation} />
+                        <Listbar currentUser={currentUser} cokie={cokie} navigation={navigation} />
                     </View>
                 </ScrollView>
                 <Toolbar navigation={navigation} />
@@ -78,17 +78,6 @@ export class Headbar extends React.Component {
     constructor(props) {
         super(props)
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { currentUser, navigation, statusOnline, } = this.props
-        if (
-            ////>nextProps
-            currentUser !== nextProps.currentUser || navigation !== nextProps.navigation || statusOnline !== nextProps.statusOnline
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
-    }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
         value == 'goBack' ?
@@ -100,8 +89,8 @@ export class Headbar extends React.Component {
                 navigation.push(value, value2)
     }
     render() {
-        const { currentUser, statusOnline } = this.props
-        const uri = finip + '/' + currentUser.image_path + '/' + currentUser.image
+        const { currentUser, dataSevice, statusOnline } = this.props
+        const uri = finip + '/' + dataSevice.list_profile[0].image_path + '/' + dataSevice.list_profile[0].image
         return (
             <View>
                 <TouchableOpacity activeOpacity={1}
@@ -128,12 +117,11 @@ export class Headbar extends React.Component {
                                 <FastImage
                                     source={{ uri: uri }}
                                     style={[stylesProfile.HeadbarBoxImage, stylesMain.ItemCenter]}>
-                                    {/* <IconFontAwesome5 name="user-alt" size={50} color='#1a3263' /> */}
                                 </FastImage>
                             </View>
                             <View style={{ marginLeft: 15, marginTop: '21%' }}>
                                 <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>
-                                    {currentUser.name}</Text>
+                                    {dataSevice.list_profile[0].name}</Text>
                                 <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, {
                                     color:
                                         statusOnline ?
@@ -143,7 +131,7 @@ export class Headbar extends React.Component {
                                     <View style={{ height: 8, width: 8, borderRadius: 4, backgroundColor: '#43e855' }}>
                                     </View> Active อยู่</Text>
                                 <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: '#FFFFFF' }]}>
-                                    ผู้ติดตาม 20.2 พัน | กำลังติดตาม 2</Text>
+                                    ผู้ติดตาม {dataSevice.who_follow_me} | กำลังติดตาม {dataSevice.my_follow}</Text>
                             </View>
                         </View>
                         <View style={{ flexDirection: 'row', padding: 8 }}>
@@ -261,7 +249,7 @@ export class MenubarSub extends React.Component {
                                 source={require('../icon/month-calendar.png')}
                                 style={stylesProfile.MenubarSubLine1Image} />
                             <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                               ที่ต้องได้รับ</Text>
+                                ที่ต้องได้รับ</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={0.9}
@@ -317,21 +305,8 @@ export class Listbar extends React.Component {
             pathlist: 0,
         }
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation } = this.props
-        const { pathlist } = this.state
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation ||
-            ////>nextState
-            pathlist !== nextState.pathlist
-        ) {
-            return true
-        }
-        return false
-    }
     get PathList() {
-        const { navigation } = this.props
+        const { currentUser, cokie, navigation } = this.props
         const { pathlist } = this.state
         switch (pathlist) {
             case 0:
@@ -340,7 +315,7 @@ export class Listbar extends React.Component {
                 )
             case 2:
                 return (
-                    <ViewCode navigation={navigation} />
+                    <ViewCode currentUser={currentUser} cokie={cokie} navigation={navigation} />
                 )
         }
     }
@@ -471,7 +446,7 @@ export class ListMenu extends React.Component {
                                     stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6,
                                     stylesFont.FontCenter
                                 ]}>
-                                กลุ่มธุรกิจของฉัน</Text>
+                                    กลุ่มธุรกิจของฉัน</Text>
                             </View>
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
@@ -561,41 +536,49 @@ export class ViewCode extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            activeGetServices: true,
             pathlist: 0
         }
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation } = this.props
-        const { pathlist } = this.state
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation ||
-            ////>nextState
-            pathlist !== nextState.pathlist
-        ) {
-            return true
-        }
-        return false
+    getData = (dataSevice) => {
+        this.setState({ activeGetServices: false, dataSevice });
+    }
+    getPath = (value) => {
+        this.setState({ activeGetServices: true, pathlist: value.selectedIndex });
     }
     get PathList() {
-        const { pathlist } = this.state
+        const { currentUser, cokie } = this.props
+        const { activeGetServices, dataSevice, pathlist } = this.state
+        const uri = finip + '/profile/coupon_shop'
+        const uri2 = finip + '/profile/coupon_used'
+        const uri3 = finip + '/profile/coupon_timeout'
+        var dataBody = {
+            id_customer: currentUser ? currentUser.id_customer : '',
+            device: "mobile_device",
+        }
         switch (pathlist) {
             case 0:
-                return (
-                    <MyCode codeList={'available'} />
-                )
+                return ([
+                    activeGetServices == true &&
+                    <GetServices key='GetServices' uriPointer={uri} dataBody={dataBody} Authorization={cokie}
+                        getDataSource={this.getData.bind(this)} showConsole='coupon_shop' />,
+                    <MyCode key='MyCode' dataSevice={dataSevice} codeList={'available'} />
+                ])
             case 1:
                 return (
-                    <MyCode codeList={'usedCode'} />
+                    activeGetServices == true &&
+                    <GetServices key='GetServices' uriPointer={uri2} dataBody={dataBody} Authorization={cokie}
+                        getDataSource={this.getData.bind(this)} showConsole='coupon_shop' />,
+                    <MyCode key='MyCode' dataSevice={dataSevice} codeList={'usedCode'} />
                 )
             case 2:
                 return (
-                    <MyCode codeList={'timeOut'} />
+                    activeGetServices == true &&
+                    <GetServices key='GetServices' uriPointer={uri3} dataBody={dataBody} Authorization={cokie}
+                        getDataSource={this.getData.bind(this)} showConsole='coupon_shop' />,
+                    <MyCode key='MyCode' dataSevice={dataSevice} codeList={'timeOut'} />
                 )
         }
-    }
-    getData = (pathlist) => {
-        this.setState({ pathlist });
     }
     render() {
         const item = [{
@@ -613,7 +596,7 @@ export class ViewCode extends React.Component {
                 </View>
                 <View style={{ marginTop: 10, backgroundColor: '#fff' }}>
                     <TabBar
-                        sendData={this.getData.bind(this)}
+                        sendData={this.getPath.bind(this)}
                         item={item}
                         setVertical={4} />
                 </View>
@@ -632,24 +615,11 @@ export class MyCode extends React.Component {
             text: '',
         }
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { codeList } = this.props
-        const { text } = this.state
-        if (
-            ////>nextProps
-            codeList !== nextProps.codeList ||
-            ////>nextState
-            text !== nextState.text
-        ) {
-            return true
-        }
-        return false
-    }
     setStateText = (text) => {
         this.setState({ text })
     }
     render() {
-        const { codeList } = this.props
+        const { codeList, dataSevice } = this.props
         const { text } = this.state
         return (
             codeList == 'available' ?
@@ -680,60 +650,30 @@ export class MyCode extends React.Component {
                                 FIN Mission</Text>
                         </View>
                         <View style={stylesProfile.FinMinssionBox}>
-                            <View style={[stylesMain.FlexRow, stylesProfile.FinMinssionBoxPlan1]}>
-                                <FastImage
-                                    style={stylesProfile.FinMinssionBoxPlan1Image} />
-                                <View style={{ marginLeft: 16 }}>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>
-                                        ติดตาม ร้าน Ppooo</Text>
-                                    <View style={[stylesProfile.FinMinssionBoxPlan1Code, stylesMain.ItemCenter]}>
-                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: 'white' }]}>
-                                            โค้ดส่วนลด 80%</Text>
+                            {
+                                dataSevice && dataSevice.store.map((value, index) => {
+                                    return <View key={index} style={[stylesMain.FlexRow, stylesProfile.FinMinssionBoxPlan1]}>
+                                        <FastImage
+                                            style={stylesProfile.FinMinssionBoxPlan1Image} />
+                                        <View style={{ marginLeft: 16 }}>
+                                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>
+                                                ติดตามร้าน {value.store_name}</Text>
+                                            <View style={[stylesProfile.FinMinssionBoxPlan1Code, stylesMain.ItemCenter]}>
+                                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: 'white' }]}>
+                                                    {value.promotion_name}</Text>
+                                            </View>
+                                        </View>
+                                        <View style={stylesProfile.FinMinssionBoxPlan1Follow}>
+                                            <TouchableOpacity>
+                                                <View style={[stylesProfile.FinMinssionBoxPlan1FollowBox, stylesMain.ItemCenter,]}>
+                                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                                                        ติดตาม</Text>
+                                                </View>
+                                            </TouchableOpacity>
+                                        </View>
                                     </View>
-                                </View>
-                                <View style={stylesProfile.FinMinssionBoxPlan1Follow}>
-                                    <View style={[stylesProfile.FinMinssionBoxPlan1FollowBox, stylesMain.ItemCenter,]}>
-                                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                                            ติดตาม</Text>
-                                    </View>
-                                </View>
-                            </View>
-                            <View style={[stylesMain.FlexRow, stylesProfile.FinMinssionBoxPlan1]}>
-                                <FastImage
-                                    style={stylesProfile.FinMinssionBoxPlan1Image} />
-                                <View style={{ marginLeft: 16 }}>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>
-                                        ติดตาม ร้าน Ppooo</Text>
-                                    <View style={[stylesProfile.FinMinssionBoxPlan1Code, stylesMain.ItemCenter]}>
-                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: 'white' }]}>
-                                            โค้ดส่วนลด 80%</Text>
-                                    </View>
-                                </View>
-                                <View style={stylesProfile.FinMinssionBoxPlan1Follow}>
-                                    <View style={[stylesProfile.FinMinssionBoxPlan1FollowBox, stylesMain.ItemCenter,]}>
-                                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                                            ติดตาม</Text>
-                                    </View>
-                                </View>
-                            </View>
-                            <View style={[stylesMain.FlexRow, stylesProfile.FinMinssionBoxPlan1]}>
-                                <FastImage
-                                    style={stylesProfile.FinMinssionBoxPlan1Image} />
-                                <View style={{ marginLeft: 16 }}>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>
-                                        ติดตาม ร้าน Ppooo</Text>
-                                    <View style={[stylesProfile.FinMinssionBoxPlan1Code, stylesMain.ItemCenter]}>
-                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: 'white' }]}>
-                                            โค้ดส่วนลด 80%</Text>
-                                    </View>
-                                </View>
-                                <View style={stylesProfile.FinMinssionBoxPlan1Follow}>
-                                    <View style={[stylesProfile.FinMinssionBoxPlan1FollowBox, stylesMain.ItemCenter,]}>
-                                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                                            ติดตาม</Text>
-                                    </View>
-                                </View>
-                            </View>
+                                })
+                            }
                         </View>
                         <View style={{ marginVertical: 4, backgroundColor: '#fff', }}>
                             <View style={[stylesProfile.AllFinMinssion, stylesMain.ItemCenter]}>
@@ -741,110 +681,54 @@ export class MyCode extends React.Component {
                                     ดูภารกิจทั้งหมด</Text>
                             </View>
                         </View>
-                        <View style={[stylesMain.BoxProduct2BoxProduct, { backgroundColor: '#fff', paddingTop: 2 }]}>
-                            <GetCoupon
-                                flexRow
-                                useCoupon
-                                codeList={codeList}
-                                colorCoupon='#86CFFF'
-                                timeOut={'14-02-2020'}
-                                couponText={'10%'}
-                                textDetail={'รับเงินคืน 10% Coins'} />
-                            <GetCoupon
-                                flexRow
-                                useCoupon
-                                codeList={codeList}
-                                colorCoupon='#E43333'
-                                timeOut={'1-03-2020'}
-                                couponText={'25%'}
-                                textDetail={'รับเงินคืน 25% Coins'} />
-                            <GetCoupon
-                                flexRow
-                                useCoupon
-                                codeList={codeList}
-                                colorCoupon='#E43333'
-                                timeOut={'28-02-2020'}
-                                couponText={'50%'}
-                                textDetail={'รับเงินคืน 50% Coins'} />
-                            <GetCoupon
-                                flexRow
-                                useCoupon
-                                codeList={codeList}
-                                colorCoupon='#86CFFF'
-                                timeOut={'14-02-2020'}
-                                couponText={'10%'}
-                                textDetail={'รับเงินคืน 10% Coins'} />
+                        <View style={{ alignContent: 'center', backgroundColor: '#fff', paddingTop: 2, flexWrap: 'wrap', flexDirection: 'row',}}>
+                            {
+                                dataSevice && dataSevice.coupon.map((value, index) => {
+                                    return <GetCoupon
+                                        key={index}
+                                        flexRow
+                                        useCoupon
+                                        codeList={codeList}
+                                        colorCoupon='#86CFFF'
+                                        timeOut={value.date_end}
+                                        couponText={value.name_promotion}
+                                        textDetail={value.detail_promotion} />
+                                })
+                            }
                         </View>
                     </View>
                 </View> :
                 codeList == 'usedCode' ?
                     <View style={[stylesMain.BoxProduct2BoxProduct, { backgroundColor: '#fff', paddingTop: 2 }]}>
-                        <GetCoupon
-                            flexRow
-                            useCoupon
-                            codeList={codeList}
-                            colorCoupon='#86CFFF'
-                            timeOut={'14-02-2020'}
-                            couponText={'10%'}
-                            textDetail={'รับเงินคืน 10% Coins'} />
-                        <GetCoupon
-                            flexRow
-                            useCoupon
-                            codeList={codeList}
-                            colorCoupon='#E43333'
-                            timeOut={'1-03-2020'}
-                            couponText={'25%'}
-                            textDetail={'รับเงินคืน 25% Coins'} />
-                        <GetCoupon
-                            flexRow
-                            useCoupon
-                            codeList={codeList}
-                            colorCoupon='#E43333'
-                            timeOut={'28-02-2020'}
-                            couponText={'50%'}
-                            textDetail={'รับเงินคืน 50% Coins'} />
-                        <GetCoupon
-                            flexRow
-                            useCoupon
-                            codeList={codeList}
-                            colorCoupon='#86CFFF'
-                            timeOut={'14-02-2020'}
-                            couponText={'10%'}
-                            textDetail={'รับเงินคืน 10% Coins'} />
+                        {
+                            dataSevice && dataSevice.coupon.map((value, index) => {
+                                return <GetCoupon
+                                    key={index}
+                                    flexRow
+                                    useCoupon
+                                    codeList={codeList}
+                                    colorCoupon='#86CFFF'
+                                    timeOut={value.date_end}
+                                    couponText={value.name_promotion}
+                                    textDetail={value.detail_promotion} />
+                            })
+                        }
+
                     </View> :
                     <View style={[stylesMain.BoxProduct2BoxProduct, { backgroundColor: '#fff', paddingTop: 2 }]}>
-                        <GetCoupon
-                            flexRow
-                            useCoupon
-                            codeList={codeList}
-                            colorCoupon='#86CFFF'
-                            timeOut={'14-02-2020'}
-                            couponText={'10%'}
-                            textDetail={'รับเงินคืน 10% Coins'} />
-                        <GetCoupon
-                            flexRow
-                            useCoupon
-                            codeList={codeList}
-                            colorCoupon='#E43333'
-                            timeOut={'1-03-2020'}
-                            couponText={'25%'}
-                            textDetail={'รับเงินคืน 25% Coins'} />
-                        <GetCoupon
-                            flexRow
-                            useCoupon
-                            codeList={codeList}
-                            colorCoupon='#E43333'
-                            timeOut={'28-02-2020'}
-                            couponText={'50%'}
-                            textDetail={'รับเงินคืน 50% Coins'} />
-                        <GetCoupon
-                            flexRow
-                            useCoupon
-                            codeList={codeList}
-                            colorCoupon='#86CFFF'
-                            timeOut={'14-02-2020'}
-                            couponText={'10%'}
-                            textDetail={'รับเงินคืน 10% Coins'} />
+                        {
+                            dataSevice && dataSevice.coupon.map((value, index) => {
+                                return <GetCoupon
+                                    key={index}
+                                    flexRow
+                                    useCoupon
+                                    codeList={codeList}
+                                    colorCoupon='#86CFFF'
+                                    timeOut={value.date_end}
+                                    couponText={value.name_promotion}
+                                    textDetail={value.detail_promotion} />
+                            })
+                        }
                     </View>
         )
     }

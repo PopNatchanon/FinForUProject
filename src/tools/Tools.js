@@ -725,8 +725,9 @@ export class GetCoupon extends React.Component {
                             -70 :
                             null,
                 }}>
-                    <View style={{ width: 120, height: 68, marginLeft: 12, paddingHorizontal: 2, }}>
-                        <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7,]}>{textDetail}</Text>
+                    <View style={{ width: 100, height: 68, marginLeft: 5, paddingHorizontal: 2, }}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesMain.ItemCenterVertical]}>{couponText}</Text>
+                        <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize9,]}>{textDetail}</Text>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>ใช้ได้ก่อน {
                             timeOut ?
                                 timeOut :
@@ -742,11 +743,6 @@ export class GetCoupon extends React.Component {
                                     colorCoupon :
                                     '#86CFFF',
                         }]}>
-                        <View style={[stylesDeal.Coupon_BOX_B, stylesMain.ItemCenter]}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, stylesMain.ItemCenterVertical, {
-                                color: '#FFFFFF'
-                            }]}>{couponText}</Text>
-                        </View>
                         <TouchableOpacity onPress={() => { getCoupon(setDataService) }}>
                             <View style={stylesDeal.Coupon_BOX_Text}>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{

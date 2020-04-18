@@ -27,19 +27,6 @@ export default class ExclusiveScreen extends React.Component {
       sliderVisible: false,
     };
   }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { navigation } = this.props
-    const { dataService, sliderVisible } = this.state
-    if (
-      ////>nextProps
-      navigation !== nextProps.navigation ||
-      ////>nextState
-      dataService !== nextState.dataService || sliderVisible !== nextState.sliderVisible
-    ) {
-      return true
-    }
-    return false
-  }
   setSlider = (sliderVisible) => {
     this.setState({ sliderVisible })
   }

@@ -652,10 +652,10 @@ export default StyleSheet.create({
   Button_Bar_icon: {
     height: 60,
     width: 60,
-    // borderRadius: 10,
     borderColor: '#FFFFFF',
     borderWidth: 2,
     resizeMode: 'stretch',
+    borderRadius: 30,
   },
   ///------------------------------------------------------------------///
   Second_StoreFin: {
@@ -733,4 +733,88 @@ export default StyleSheet.create({
     paddingHorizontal: 5,
     marginLeft: 5
   },
+  ///------------------------------------------------------------------/// ส่วน finMall
+  FinMall_Box: {
+    justifyContent: 'space-around',
+    height: 125,
+    marginBottom: 10
+  },
+  FinMall_Box_Image: {
+    width: '39%',
+    borderColor: '#EDEDED',
+    borderWidth: 1
+  },
+  FinMall_Image: {
+    width: 100,
+    height: 100
+  },
+  FinMall_ScrollView: {
+    width: '57.5%',
+    backgroundColor: '#EDEDED'
+  },
+  ///------------------------------------------------------------------/// ส่วน FIN Supermarket
+  Supermarket_Product: {
+    width: '100%',
+    backgroundColor: '#0A55A6',
+    paddingVertical: 10
+  },
+  Supermarket_Store: {
+    height: 170,
+    padding: 5,
+    justifyContent: 'space-between',
+    marginTop: 10
+  },
+  Supermarket_Image: {
+    height: '49%',
+    borderColor: '#EAEAEA',
+    borderWidth: 1,
+  },
+  Supermarket_BrandBox: {
+    width: '100%',
+    flexDirection: 'row',
+    height: 100,
+    justifyContent: 'space-around'
+  },
+  Supermarket_Brand_Image: {
+    borderColor: '#EAEAEA',
+    borderWidth: 1,
+    width: '49%'
+  },
+  Supermarket_Brand_Shop: {
+    borderColor: '#ECECEC',
+    borderWidth: 1,
+    width: 110,
+    padding: 5,
+    borderRadius: 5,
+    marginLeft: 5,
+  },
+  Supermarket_Brand_Shop2: {
+    borderColor: '#ECECEC',
+    borderWidth: 1,
+    width: 110,
+    height: 50,
+    borderRadius: 5,
+    marginLeft: 5
+  },
+  ///------------------------------------------------------------------///ส่วน 
+  Botton_PopUp_FIN: {
+    bottom: '30%',
+    left: width - 60,
+    marginTop: -60
+  },
+  Botton_PopUp_Image: {
+    height: 60,
+    width: 60,
+  },
+  Botton_PopUp_Box: {
+    backgroundColor: 'transparent',
+    height: 150,
+  },
+  Botton_PopUp_Text: {
+    marginTop: 50,
+    marginLeft: '20%'
+  }
+
+
+
 });

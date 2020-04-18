@@ -191,10 +191,10 @@ export class Toolbar extends React.Component {
                                             '#0A55A6' :
                                             '#111'
                                 }}>
-                                ฉัน
+                                    ฉัน
                                 {/* {u_name} */}
                                 </Text>
-                                
+
                             </View>
                         </TouchableOpacity>
                 }
@@ -831,7 +831,11 @@ export class ProductBox extends React.Component {
                         item.image_product ?
                             item.image_product :
                             item.image].join('/') :
-                    [url, item.image_path, item.image_product ? item.image_product : item.image].join('/');
+                    [
+                        url,
+                        item.path_image_product ? item.path_image_product : item.image_path,
+                        item.image_product ? item.image_product : item.image
+                    ].join('/');
                 return (
                     <TouchableOpacity
                         activeOpacity={1}

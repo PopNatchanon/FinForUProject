@@ -63,33 +63,29 @@ export class Button_Bar extends React.Component {
       dataService: [],
     };
   }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { dataService, selectedIndex } = this.state
-    if (
-      ////>nextProps
-      dataService !== nextState.dataService || selectedIndex !== nextState.selectedIndex
-      ////>nextState
-    ) {
-      return true
-    }
-    return false
-  }
   getData(dataService) {
     this.setState({ dataService })
   }
-  updateIndex(selectedIndex) {
-    this.setState({ selectedIndex })
+  updateIndex(value) {
+    const { getUpdateIndex } = this.props
+    getUpdateIndex(value.selectedIndex)
+    this.setState({ selectedIndex: value.selectedIndex })
   }
   render() {
+    const { category } = this.props
     const { dataService } = this.state
     var uri = finip + '/home/category_mobile';
     var item2 = [{
       name: 'ทั้งหมด'
     }]
-    dataService.map((item) => { return item2.push({ name: item.name }) })
+    dataService && dataService.map((item) => { return item2.push({ name: item.name }) })
+    category && category.map((item) => { return item2.push({ name: item.name }) })
     return (
       <View style={{ width: '100%', height: 40, backgroundColor: '#FFFFFF', borderColor: '#ECECEC', borderWidth: 1, }}>
-        <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} />
+        {
+          category == undefined &&
+          <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} />
+        }
         <ScrollView horizontal>
           <TabBar
             sendData={this.updateIndex.bind(this)}
@@ -125,41 +121,41 @@ export class Highlight_Product extends React.Component {
       var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
       return (
         <>
-            <View style={[stylesMain.FlexRow,stylesMain.FrameBackground]}>
-              <View style={[stylesTopic.FlashSale_ProductBox_Image,{margin:5}]}>
-                <FastImage
-                  source={{
-                    uri: dataMySQL,
-                  }}
-                  style={stylesMain.BoxProduct1Image}
-                />
-              </View>
-                <View style={{width:'50%'}}>
-                  <Text numberOfLines={4} style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10 }]}>
-                    {item.name}</Text>
-                  <NumberFormat
-                    value={item.full_price}
-                    displayType={'text'}
-                    thousandSeparator={true}
-                    prefix={'฿'}
-                    renderText={value =>
-                      <Text style={[
-                        stylesMain.BoxProduct1ImagePrice,
-                        stylesFont.FontFamilyBoldBold, {
-                          fontSize: 14, marginLeft: 10,
-                        }
-                      ]}>
-                        {value}</Text>
-                    } />
-                </View>
-             <View style={{ width: '20%', justifyContent: 'flex-end' }}>
+          <View style={[stylesMain.FlexRow, stylesMain.FrameBackground]}>
+            <View style={[stylesTopic.FlashSale_ProductBox_Image, { margin: 5 }]}>
+              <FastImage
+                source={{
+                  uri: dataMySQL,
+                }}
+                style={stylesMain.BoxProduct1Image}
+              />
+            </View>
+            <View style={{ width: '50%' }}>
+              <Text numberOfLines={4} style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10 }]}>
+                {item.name}</Text>
+              <NumberFormat
+                value={item.full_price}
+                displayType={'text'}
+                thousandSeparator={true}
+                prefix={'฿'}
+                renderText={value =>
+                  <Text style={[
+                    stylesMain.BoxProduct1ImagePrice,
+                    stylesFont.FontFamilyBoldBold, {
+                      fontSize: 14, marginLeft: 10,
+                    }
+                  ]}>
+                    {value}</Text>
+                } />
+            </View>
+            <View style={{ width: '20%', justifyContent: 'flex-end' }}>
               <TouchableOpacity>
                 <View style={[stylesTopic.FlashSale_ProductBox_Icon]}>
                   <IconAntDesign RightItem name="shoppingcart" size={30} color='#FFFFFF' />
                 </View>
               </TouchableOpacity>
             </View>
-            </View>
+          </View>
         </>
       )
     })

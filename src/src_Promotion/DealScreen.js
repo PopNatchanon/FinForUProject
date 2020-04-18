@@ -139,47 +139,37 @@ export class Button_Bar extends Component {
       <View style={[stylesDeal.Button_Bar, { bottom: '7%', }]}>
         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('DealScreen')}>
           <View style={[stylesDeal.Button_Bar_Box]}>
-            <FastImage style={stylesDeal.Button_Bar_BoxICON}
-              source={{
-                uri: ip + '/MySQL/uploads/icon_Deal/Done/010.png',
-              }}
-            />
+            <FastImage style={stylesMain.Button_Bar_icon}
+              source={require('../../icon/Icon_Deal/01.jpg')}
+              resizeMode={FastImage.resizeMode.contain} />
           </View>
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('CoinScreen')}>
           <View style={[stylesDeal.Button_Bar_Box]}>
-            <FastImage style={stylesDeal.Button_Bar_BoxICON}
-              source={{
-                uri: ip + '/MySQL/uploads/icon_Deal/Done/009.png',
-              }}
-            />
+            <FastImage style={stylesMain.Button_Bar_icon}
+              source={require('../../icon/Icon_Deal/02.jpg')}
+              resizeMode={FastImage.resizeMode.contain} />
           </View>
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('CampaignScreen')}>
           <View style={[stylesDeal.Button_Bar_Box]}>
-            <FastImage style={stylesDeal.Button_Bar_BoxICON}
-              source={{
-                uri: ip + '/MySQL/uploads/icon_Deal/Done/008.png',
-              }}
-            />
+            <FastImage style={stylesMain.Button_Bar_icon}
+              source={require('../../icon/Icon_Deal/03.jpg')}
+              resizeMode={FastImage.resizeMode.contain} />
           </View>
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('The_BestFinScreen')}>
           <View style={[stylesDeal.Button_Bar_Box]}>
-            <FastImage style={stylesDeal.Button_Bar_BoxICON}
-              source={{
-                uri: ip + '/MySQL/uploads/icon_Deal/Done/007.png',
-              }}
-            />
+            <FastImage style={stylesMain.Button_Bar_icon}
+              source={require('../../icon/Icon_Deal/04.jpg')}
+              resizeMode={FastImage.resizeMode.contain} />
           </View>
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('Installment_payScreen')}>
           <View style={[stylesDeal.Button_Bar_Box]}>
-            <FastImage style={stylesDeal.Button_Bar_BoxICON}
-              source={{
-                uri: ip + '/MySQL/uploads/icon_Deal/Done/006.png',
-              }}
-            />
+            <FastImage style={stylesMain.Button_Bar_icon}
+              source={require('../../icon/Icon_Deal/05.jpg')}
+              resizeMode={FastImage.resizeMode.contain} />
           </View>
         </TouchableOpacity>
       </View>

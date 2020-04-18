@@ -686,8 +686,7 @@ export class Category extends React.Component {
                 var dataMySQL = finip + '/' + item.image_path + '/' + 'menu' + '/' + item.image_head;
                 return (
                     <TouchableOpacity activeOpacity={1} key={index} onPress={this.navigationNavigateScreen.bind(this,
-                        'CategoryScreen', { id_type: item.id_type })} style={{ width: 72, height: 80 }}>
-                        <View style={stylesMain.Category}>
+                        'CategoryScreen', { id_type: item.id_type })} style={stylesMain.Category}>
                             <FastImage
                                 source={{
                                     uri: dataMySQL,
@@ -698,7 +697,6 @@ export class Category extends React.Component {
                                 <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize8, stylesFont.FontCenter]}>
                                     {item.name}</Text>
                             </View>
-                        </View>
                     </TouchableOpacity>
                 )
             })
@@ -740,56 +738,46 @@ export class Button_Bar extends React.Component {
     }
     render() {
         return (
-            <View >
+            <>
                 <View style={stylesMain.FrameBackground3}></View>
                 <ScrollView horizontal>
                     <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'DealScreen')}>
                         <View style={stylesMain.Button_Bar_Box}>
                             <FastImage style={stylesMain.Button_Bar_icon}
-                                source={{
-                                    uri: ip + '/MySQL/uploads/icon_Deal/Done/010.png',
-                                }}
-                                resizeMode={FastImage.resizeMode.stretch} />
+                                source={require('../icon/Icon_Deal/01.jpg')}
+                                resizeMode={FastImage.resizeMode.contain} />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'CoinScreen')}>
                         <View style={stylesMain.Button_Bar_Box}>
                             <FastImage style={stylesMain.Button_Bar_icon}
-                                source={{
-                                    uri: ip + '/MySQL/uploads/icon_Deal/Done/009.png',
-                                }}
-                                resizeMode={FastImage.resizeMode.stretch} />
+                                source={require('../icon/Icon_Deal/02.jpg')}
+                                resizeMode={FastImage.resizeMode.contain} />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'CampaignScreen')}>
                         <View style={stylesMain.Button_Bar_Box}>
                             <FastImage style={stylesMain.Button_Bar_icon}
-                                source={{
-                                    uri: ip + '/MySQL/uploads/icon_Deal/Done/008.png',
-                                }}
-                                resizeMode={FastImage.resizeMode.stretch} />
+                                source={require('../icon/Icon_Deal/03.jpg')}
+                                resizeMode={FastImage.resizeMode.contain} />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'The_BestFinScreen')}>
                         <View style={stylesMain.Button_Bar_Box}>
                             <FastImage style={stylesMain.Button_Bar_icon}
-                                source={{
-                                    uri: ip + '/MySQL/uploads/icon_Deal/Done/007.png',
-                                }}
-                                resizeMode={FastImage.resizeMode.stretch} />
+                                source={require('../icon/Icon_Deal/04.jpg')}
+                                resizeMode={FastImage.resizeMode.contain} />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Installment_payScreen')}>
                         <View style={stylesMain.Button_Bar_Box}>
                             <FastImage style={stylesMain.Button_Bar_icon}
-                                source={{
-                                    uri: ip + '/MySQL/uploads/icon_Deal/Done/006.png',
-                                }}
-                                resizeMode={FastImage.resizeMode.stretch} />
+                                source={require('../icon/Icon_Deal/05.jpg')}
+                                resizeMode={FastImage.resizeMode.contain} />
                         </View>
                     </TouchableOpacity>
                 </ScrollView>
-            </View>
+            </>
         );
     }
 }
@@ -2030,17 +2018,17 @@ export class Fin_Mall extends React.Component {
         return (
             <View style={stylesMain.FrameBackground2}>
                 <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>Fin Mall </Text>
-                <View style={[stylesMain.FlexRow, { justifyContent: 'space-around', height: 125, marginBottom: 10 }]}>
-                    <View style={[stylesMain.ItemCenter, { width: '39%', borderColor: '#EDEDED', borderWidth: 1 }]}>
+                <View style={[stylesMain.FlexRow, stylesMain.FinMall_Box]}>
+                    <View style={[stylesMain.ItemCenter, stylesMain.FinMall_Box_Image]}>
                         <FastImage
-                            style={{ width: 100, height: 100 }}
+                            style={stylesMain.FinMall_Image}
                             source={{
                                 uri: ip + '/MySQL/uploads/Unicorn/03.png',
                             }}
-                            resizeMode={FastImage.resizeMode.stretch}
+                            resizeMode={FastImage.resizeMode.contain}
                         />
                     </View>
-                    <View style={{ width: '57.5%', backgroundColor: '#EDEDED' }}>
+                    <View style={stylesMain.FinMall_ScrollView}>
                         <ScrollView horizontal>
                             {
                                 loadData.product_hit &&
@@ -2085,7 +2073,7 @@ export class FIN_Supermarket extends React.Component {
             <View style={stylesMain.FrameBackground2}>
                 <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>FIN Supermarket  </Text>
                 <Slide />
-                <View style={{ width: '100%', backgroundColor: '#0A55A6', paddingVertical: 10 }}>
+                <View style={stylesMain.Supermarket_Product}>
                     <ScrollView horizontal>
                         {
                             product_hit &&
@@ -2094,7 +2082,7 @@ export class FIN_Supermarket extends React.Component {
                         }
                     </ScrollView>
                 </View>
-                <View style={[stylesMain.FlexRow, { height: 170, padding: 5, justifyContent: 'space-between', marginTop: 10 }]}>
+                <View style={[stylesMain.FlexRow,stylesMain.Supermarket_Store]}>
                     <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'FinMallScreen', { selectedIndex: 0 })}
                         style={{ width: width * 0.64, }}>
                         <FastImage
@@ -2105,7 +2093,7 @@ export class FIN_Supermarket extends React.Component {
                             resizeMode={FastImage.resizeMode.stretch} />
                     </TouchableOpacity>
                     <View style={{ width: width * 0.32, justifyContent: 'space-between' }}>
-                        <View style={{ height: '49%', borderColor: '#EAEAEA', borderWidth: 1, }}>
+                        <View style={stylesMain.Supermarket_Image}>
                             <FastImage
                                 style={stylesMain.BoxProduct1Image}
                                 source={{
@@ -2113,7 +2101,7 @@ export class FIN_Supermarket extends React.Component {
                                 }}
                                 resizeMode={FastImage.resizeMode.stretch} />
                         </View>
-                        <View style={{ height: '49%', borderColor: '#EAEAEA', borderWidth: 1, }}>
+                        <View style={stylesMain.Supermarket_Image}>
                             <FastImage
                                 style={stylesMain.BoxProduct1Image}
                                 source={{
@@ -2123,8 +2111,8 @@ export class FIN_Supermarket extends React.Component {
                         </View>
                     </View>
                 </View>
-                <View style={{ width: '100%', flexDirection: 'row', height: 100, justifyContent: 'space-around' }}>
-                    <View style={{ borderColor: '#EAEAEA', borderWidth: 1, width: '49%' }}>
+                <View style={stylesMain.Supermarket_BrandBox}>
+                    <View style={stylesMain.Supermarket_Brand_Image}>
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
@@ -2132,7 +2120,7 @@ export class FIN_Supermarket extends React.Component {
                             }}
                             resizeMode={FastImage.resizeMode.stretch} />
                     </View>
-                    <View style={{ borderColor: '#EAEAEA', borderWidth: 1, width: '49%' }}>
+                    <View style={stylesMain.Supermarket_Brand_Image}>
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
@@ -2157,7 +2145,7 @@ export class FIN_Supermarket extends React.Component {
                     </TouchableOpacity>
                 </View>
                 <ScrollView horizontal >
-                    <View style={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, width: 110, padding: 5, borderRadius: 5, marginLeft: 5 }]}>
+                    <View style={[stylesMain.ItemCenter,stylesMain.Supermarket_Brand_Shop]}>
                         <FastImage
                             style={{ height: 50, width: 100 }}
                             source={{
@@ -2169,7 +2157,7 @@ export class FIN_Supermarket extends React.Component {
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]} numberOfLines={1}>สุดยอดแห่งบิวตี้ไอเท็มและสินค้าเพื่อสุขภาพ</Text>
                         </View>
                     </View>
-                    <View style={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, width: 110, padding: 5, borderRadius: 5, marginLeft: 5 }]}>
+                    <View style={[stylesMain.ItemCenter,stylesMain.Supermarket_Brand_Shop]}>
                         <FastImage
                             style={{ height: 50, width: 100 }}
                             source={{
@@ -2181,7 +2169,7 @@ export class FIN_Supermarket extends React.Component {
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]} numberOfLines={1}>เบทาโกร</Text>
                         </View>
                     </View>
-                    <View style={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, width: 110, padding: 5, borderRadius: 5, marginLeft: 5 }]}>
+                    <View style={[stylesMain.ItemCenter,stylesMain.Supermarket_Brand_Shop]}>
                         <FastImage
                             style={{ height: 50, width: 100 }}
                             source={{
@@ -2193,7 +2181,7 @@ export class FIN_Supermarket extends React.Component {
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]} numberOfLines={1}>สินค้าคุณภาพ คุ้มค่า คุ้มราคา</Text>
                         </View>
                     </View>
-                    <View style={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, width: 110, padding: 5, borderRadius: 5, marginLeft: 5 }]}>
+                    <View style={[stylesMain.ItemCenter,stylesMain.Supermarket_Brand_Shop]}>
                         <FastImage
                             style={{ height: 50, width: 100 }}
                             source={{
@@ -2205,7 +2193,7 @@ export class FIN_Supermarket extends React.Component {
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]} numberOfLines={1}>หวานสดใสหอมติดผิว</Text>
                         </View>
                     </View>
-                    <View style={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, width: 110, padding: 5, borderRadius: 5, marginLeft: 5 }]}>
+                    <View style={[stylesMain.ItemCenter,stylesMain.Supermarket_Brand_Shop]}>
                         <FastImage
                             style={{ height: 50, width: 100 }}
                             source={{
@@ -2219,7 +2207,7 @@ export class FIN_Supermarket extends React.Component {
                     </View>
                 </ScrollView>
                 <ScrollView horizontal >
-                    <View style={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, width: 110, height: 50, borderRadius: 5, marginLeft: 5 }]}>
+                    <View style={[stylesMain.ItemCenter,stylesMain.Supermarket_Brand_Shop2]}>
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
@@ -2227,7 +2215,7 @@ export class FIN_Supermarket extends React.Component {
                             }}
                             resizeMode={FastImage.resizeMode.stretch} />
                     </View>
-                    <View style={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, width: 110, height: 50, borderRadius: 5, marginLeft: 5 }]}>
+                    <View style={[stylesMain.ItemCenter,stylesMain.Supermarket_Brand_Shop2]}>
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
@@ -2235,7 +2223,7 @@ export class FIN_Supermarket extends React.Component {
                             }}
                             resizeMode={FastImage.resizeMode.stretch} />
                     </View>
-                    <View style={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, width: 110, height: 50, borderRadius: 5, marginLeft: 5 }]}>
+                    <View style={[stylesMain.ItemCenter,stylesMain.Supermarket_Brand_Shop2]}>
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
@@ -2243,7 +2231,7 @@ export class FIN_Supermarket extends React.Component {
                             }}
                             resizeMode={FastImage.resizeMode.stretch} />
                     </View>
-                    <View style={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, width: 110, height: 50, borderRadius: 5, marginLeft: 5 }]}>
+                    <View style={[stylesMain.ItemCenter,stylesMain.Supermarket_Brand_Shop2]}>
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
@@ -2251,7 +2239,7 @@ export class FIN_Supermarket extends React.Component {
                             }}
                             resizeMode={FastImage.resizeMode.stretch} />
                     </View>
-                    <View style={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, width: 110, height: 50, borderRadius: 5, marginLeft: 5 }]}>
+                    <View style={[stylesMain.ItemCenter,stylesMain.Supermarket_Brand_Shop2]}>
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
@@ -2259,7 +2247,7 @@ export class FIN_Supermarket extends React.Component {
                             }}
                             resizeMode={FastImage.resizeMode.stretch} />
                     </View>
-                    <View style={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, width: 110, height: 50, borderRadius: 5, marginLeft: 5 }]}>
+                    <View style={[stylesMain.ItemCenter,stylesMain.Supermarket_Brand_Shop2]}>
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
@@ -2343,11 +2331,11 @@ export class Botton_PopUp_FIN extends React.Component {
         // console.log(activeSliding)
         return (
             <>
-                <View style={{ bottom: '30%', left: width - 60, marginTop: -60 }}>
+                <View style={stylesMain.Botton_PopUp_FIN}>
                     {/* <View style={{ left: width - 60, transform: [{ translateY: -.09 * height }] }}> */}
                     <TouchableOpacity onPress={this.toggleComponentVisibility.bind(this, !activeSliding)}>
                         <FastImage
-                            style={{ height: 60, width: 60, }}
+                            style={stylesMain.Botton_PopUp_Image}
                             source={require('../icon/FIN_Chat-01.png')}
                             resizeMode={FastImage.resizeMode.contain} />
                     </TouchableOpacity>
@@ -2362,13 +2350,12 @@ export class Botton_PopUp_FIN extends React.Component {
                     }}
                     position="right">
                     <TouchableOpacity onPress={this.toggleComponentVisibility.bind(this, !activeSliding)}>
-                        <View style={{ backgroundColor: 'transparent', height: 150, }}>
+                        <View style={stylesMain.Botton_PopUp_Box}>
                             <FastImage
                                 style={stylesMain.BoxProduct1Image}
                                 source={require('../images/0044-03.png')}
-                                resizeMode={FastImage.resizeMode.contain}
-                            >
-                                <View style={{ marginTop: 50, marginLeft: '20%' }}>
+                                resizeMode={FastImage.resizeMode.contain}>
+                                <View style={stylesMain.Botton_PopUp_Text}>
                                     <Text style={[stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>สวัสดีครับ</Text>
                                     <Text style={[stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>ต้องการให้น้องฟินช่วยด้านใดดีครับ</Text>
                                 </View>

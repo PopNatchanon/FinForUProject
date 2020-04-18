@@ -12,58 +12,58 @@ import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, TodayProduct, } from './MainScreen';
 import { Slide } from './src_Promotion/DealScreen';
-import { TabBar } from './tools/Tools';
+import { TabBar, GetServices } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
+import { finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class Popular_productScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            activeDataService: true,
             id_item: null,
         };
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation } = this.props
-        const { id_item } = this.state
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation ||
-            ////>nextState
-            id_item !== nextState.id_item
-        ) {
-            return true
-        }
-        return false
+    getData(dataService) {
+        this.setState({ dataService })
     }
-    getData(id_item) {
+    getButton_Bar(id_item) {
         this.setState({ id_item })
     }
     render() {
         const { navigation } = this.props
-        const { id_item } = this.state
+        const { activeDataService, dataService, id_item } = this.state
         var loadData = navigation.getParam('loadData')
         var dataArray = {}
         dataArray[0] = loadData.product_hit
         dataArray[1] = loadData.best_price
         dataArray[2] = loadData.best_sale
         dataArray[3] = loadData.best_cool
+        var uri = finip + '/home/home_mobile'
+        var dataBody = {
+            slide: 'banner'
+        };
         id_item == null &&
             this.setState({ id_item: navigation.getParam('id_item') })
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
+                {
+                    activeDataService == true &&
+                    <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
+                }
                 <AppBar1 backArrow navigation={navigation} titleHead='สินค้ายอดนิยม' />
                 {
                     id_item != null ?
                         <ScrollView
                             stickyHeaderIndices={[2]}
                             ref={view => this._scrollView = view}>
-                            <Slide />
+                            <Slide dataService={dataService} />
                             <View style={{ marginBottom: 10 }}></View>
-                            <Button_Bar id_item={id_item} getData={this.getData.bind(this)} />
+                            <Button_Bar id_item={id_item} getData={this.getButton_Bar.bind(this)} />
                             <TodayProduct loadData={dataArray[id_item]} navigation={navigation} noTitle />
                         </ScrollView> :
                         <ScrollView>
-                            <Slide />
+                            <Slide dataService={dataService} />
                         </ScrollView>
                 }
                 <ExitAppModule navigation={navigation} />
@@ -78,20 +78,9 @@ export class Button_Bar extends React.Component {
         this.state = {
         };
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { getData, id_item, } = this.props
-        if (
-            ////>nextProps
-            getData !== nextProps.getData || id_item !== nextProps.id_item
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
-    }
-    updateIndex(selectedIndex) {
+    updateIndex(value) {
         const { getData } = this.props
-        getData(selectedIndex)
+        getData(value.selectedIndex)
     }
     render() {
         const { id_item } = this.props

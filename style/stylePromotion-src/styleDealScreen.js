@@ -38,12 +38,11 @@ export default StyleSheet.create({
         alignContent: 'center',
     },
     Button_Bar_BoxICON: {
-        height: 50,
-        width: 50,
-        backgroundColor: '#C4C4C4',
-        borderColor: '#ECECEC',
+        height: 60,
+        width: 60,
+        borderColor: '#FFFFFF',
         borderWidth: 1,
-        borderRadius: 7,
+        borderRadius: 30,
     },
     Button_Bar_BoxText: {
         textAlign: 'center',
@@ -395,7 +394,6 @@ export default StyleSheet.create({
     Coupon_BOX: {
         marginLeft: 10,
         height: 80,
-        width: 210,
         borderColor: '#E1E1E1',
         borderWidth: 1,
         borderRadius: 5,
@@ -404,7 +402,6 @@ export default StyleSheet.create({
     Coupon_BOX2: {
         margin: 4,
         height: 80,
-        width: 210,
         borderColor: '#E1E1E1',
         borderWidth: 1,
         borderRadius: 5,
@@ -412,30 +409,24 @@ export default StyleSheet.create({
     },
     Coupon_BOX_A: {
         height: 78,
-        width: 85,
+        width: 60,
         alignItems: 'center',
+        justifyContent:'center',
         paddingTop: 5,
         borderTopRightRadius: 4,
         borderBottomRightRadius: 4,
     },
     Coupon_BOX_A2: {
         height: 78,
-        width: 83,
+        width: 60,
         alignItems: 'center',
         paddingTop: 5,
         borderTopRightRadius: 4,
         borderBottomRightRadius: 4,
     },
-    Coupon_BOX_B: {
-        height: 30,
-        width: 78,
-        padding: 2,
-        backgroundColor: '#597B91',
-        borderRadius: 5
-    },
     Coupon_BOX_Text: {
         backgroundColor: '#FFFFFF',
-        width: 65,
+        width: 50,
         borderRadius: 50,
         alignItems: 'center',
         marginTop: 5

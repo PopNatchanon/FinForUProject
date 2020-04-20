@@ -408,8 +408,8 @@ export default StyleSheet.create({
         backgroundColor: '#fff',
     },
     Coupon_BOX_A: {
-        height: 78,
-        width: 60,
+        height:80,
+        width: 50,
         alignItems: 'center',
         justifyContent:'center',
         paddingTop: 5,
@@ -417,9 +417,10 @@ export default StyleSheet.create({
         borderBottomRightRadius: 4,
     },
     Coupon_BOX_A2: {
-        height: 78,
-        width: 60,
+        height:80,
+        width: 50,
         alignItems: 'center',
+        justifyContent:'center',
         paddingTop: 5,
         borderTopRightRadius: 4,
         borderBottomRightRadius: 4,

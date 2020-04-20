@@ -681,7 +681,7 @@ export class MyCode extends React.Component {
                                     ดูภารกิจทั้งหมด</Text>
                             </View>
                         </View>
-                        <View style={{ alignContent: 'center', backgroundColor: '#fff', paddingTop: 2, flexWrap: 'wrap', flexDirection: 'row',}}>
+                        <View style={[stylesMain.BoxProduct2BoxProduct, { backgroundColor: '#fff', paddingTop: 2 }]}>
                             {
                                 dataSevice && dataSevice.coupon.map((value, index) => {
                                     return <GetCoupon
@@ -689,7 +689,7 @@ export class MyCode extends React.Component {
                                         flexRow
                                         useCoupon
                                         codeList={codeList}
-                                        colorCoupon='#86CFFF'
+                                        colorCoupon='#007bff'
                                         timeOut={value.date_end}
                                         couponText={value.name_promotion}
                                         textDetail={value.detail_promotion} />
@@ -707,7 +707,7 @@ export class MyCode extends React.Component {
                                     flexRow
                                     useCoupon
                                     codeList={codeList}
-                                    colorCoupon='#86CFFF'
+                                    colorCoupon='#007bff'
                                     timeOut={value.date_end}
                                     couponText={value.name_promotion}
                                     textDetail={value.detail_promotion} />
@@ -723,7 +723,7 @@ export class MyCode extends React.Component {
                                     flexRow
                                     useCoupon
                                     codeList={codeList}
-                                    colorCoupon='#86CFFF'
+                                    colorCoupon='#007bff'
                                     timeOut={value.date_end}
                                     couponText={value.name_promotion}
                                     textDetail={value.detail_promotion} />

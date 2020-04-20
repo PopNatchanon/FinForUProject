@@ -191,10 +191,10 @@ export class Toolbar extends React.Component {
                                             '#0A55A6' :
                                             '#111'
                                 }}>
-                                ฉัน
+                                    ฉัน
                                 {/* {u_name} */}
                                 </Text>
-                                
+
                             </View>
                         </TouchableOpacity>
                 }
@@ -725,8 +725,8 @@ export class GetCoupon extends React.Component {
                             -70 :
                             null,
                 }}>
-                    <View style={{ width: 100, height: 68, marginLeft: 5, paddingHorizontal: 2, }}>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesMain.ItemCenterVertical]}>{couponText}</Text>
+                    <View style={{ width: width * 0.31, height: 80, marginLeft: 5, paddingHorizontal: 2,justifyContent:'center'}}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7,]}>{couponText}</Text>
                         <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize9,]}>{textDetail}</Text>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>ใช้ได้ก่อน {
                             timeOut ?
@@ -734,31 +734,29 @@ export class GetCoupon extends React.Component {
                                 ''
                         }</Text>
                     </View>
-                    <View style={[
-                        flexRow ?
-                            stylesDeal.Coupon_BOX_A2 :
-                            stylesDeal.Coupon_BOX_A, {
-                            backgroundColor:
-                                colorCoupon ?
-                                    colorCoupon :
-                                    '#86CFFF',
-                        }]}>
-                        <TouchableOpacity onPress={() => { getCoupon(setDataService) }}>
-                            <View style={stylesDeal.Coupon_BOX_Text}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{
-                                    useCoupon ?
-                                        'ใช้โค้ด' :
-                                        'เก็บ'
-                                }</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
+                    <TouchableOpacity onPress={() => { getCoupon(setDataService) }}>
+                        <View style={[
+                            flexRow ?
+                                stylesDeal.Coupon_BOX_A2 :
+                                stylesDeal.Coupon_BOX_A, {
+                                backgroundColor:
+                                    colorCoupon ?
+                                        colorCoupon :
+                                        '#007bff',
+                            }]}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>{
+                                useCoupon ?
+                                    'ใช้โค้ด' :
+                                    'เก็บ'
+                            }</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
                 {
                     codeList != 'available' &&
-                    <View style={{ backgroundColor: '#C1C1C1', opacity: 0.7, width: 209, height: 80, marginTop: -10, borderRadius: 5, }}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical, {
-                            color: '#fff', textAlign: 'center'
+                    <View style={{ backgroundColor: '#C1C1C1', opacity: 0.7, width: 213, height: 80, marginTop: -10, borderRadius: 5,alignItems:'center'}}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, stylesMain.ItemCenterVertical, {
+                            color: '#FFFFFF',
                         }]}>
                             {
                                 codeList == 'usedCode' ?

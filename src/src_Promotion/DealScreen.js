@@ -232,7 +232,6 @@ export class Deal_Today extends Component {
   getCoupon = (value) => {
     const { activeServices } = this.state;
     const id_promotion = value.id_promotion;
-
     value.list == 'fin' ?
       (
         activeServices.activeGetServices = true
@@ -265,11 +264,11 @@ export class Deal_Today extends Component {
         {[
           activeServices.activeGetServices == true && currentUser && keycokie &&
           <GetServices Authorization={keycokie} dataBody={dataBody} uriPointer={uri} getDataSource={this.getData.bind(this)}
-            key='save_coupon_fin' showConsole='save_coupon_fin'
+            key='save_coupon_fin'
           />,
           activeServices.activeGetServices2 == true && currentUser && keycokie &&
           <GetServices Authorization={keycokie} dataBody={dataBody2} uriPointer={uri2} getDataSource={this.getData2.bind(this)}
-            key='save_coupon_shop' showConsole='save_coupon_shop'
+            key='save_coupon_shop'
           />
         ]}
         <View style={stylesDeal.BoxText_Row}>

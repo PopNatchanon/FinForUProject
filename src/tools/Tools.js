@@ -825,7 +825,11 @@ export class ProductBox extends React.Component {
                         item.image_product ?
                             item.image_product :
                             item.image].join('/') :
-                    [url, item.image_path, item.image_product ? item.image_product : item.image].join('/');
+                    [
+                        url,
+                        item.path_image_product ? item.path_image_product : item.image_path,
+                        item.image_product ? item.image_product : item.image_main ? item.image_main : item.image
+                    ].join('/');
                 return (
                     <TouchableOpacity
                         activeOpacity={1}

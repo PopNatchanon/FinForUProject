@@ -24,7 +24,7 @@ export default StyleSheet.create({
     HeadbarImage: {
         width,
         height: 150,
-        backgroundColor:'#1a3263',
+        backgroundColor: '#1a3263',
     },
     HeadbarA: {
         marginTop: -150,
@@ -236,6 +236,7 @@ export default StyleSheet.create({
     },
     FinMinssionBoxPlan1Code: {
         marginTop: 6,
+        marginRight: 4,
         padding: 4,
         backgroundColor: '#0A55A6',
     },

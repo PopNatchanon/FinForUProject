@@ -12,9 +12,12 @@ import Carousel, { PaginationLight } from 'react-native-x-carousel';
 import CookieManager from '@react-native-community/cookies';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
+import LinearGradient from 'react-native-linear-gradient';
 import { Notifications } from 'react-native-notifications';
+import SkeletonContent from "react-native-skeleton-content-nonexpo";
 import SplashScreen from 'react-native-splash-screen';
 import SlidingView from 'rn-sliding-view';
+import WebView from 'react-native-webview';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -39,10 +42,11 @@ export default class MainScreen extends React.Component {
         super(props);
         this.state = {
             activeDataService: true,
-            activeGetCurrentUser: true,
-            dataService: [],
-            IsLoading: 0,
             activeExit: true,
+            activeFlashSale: true,
+            activeGetCurrentUser: true,
+            activeLoading: true,
+            dataService: [],
         };
     }
     getSource = (value) => {
@@ -51,13 +55,12 @@ export default class MainScreen extends React.Component {
     getData = (dataService) => {
         this.setState({ dataService, activeDataService: false })
     }
-    LoadingProcess = () => {
-        const { IsLoading } = this.state
-        this.setState({ IsLoading: IsLoading + 1 })
+    getActiveDataService = (activeFlashSale) => {
+        this.setState({ activeFlashSale })
     }
     render() {
         const { navigation } = this.props
-        const { activeDataService, activeGetCurrentUser, currentUser, dataService, IsLoading } = this.state
+        const { activeDataService, activeFlashSale, activeGetCurrentUser, activeLoading, currentUser, dataService, } = this.state
         const browerProps = navigation.getParam('browerProps')
         var uri = finip + '/home/publish_mobile'
         return browerProps ?
@@ -72,9 +75,9 @@ export default class MainScreen extends React.Component {
             (
                 <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                     {[
-                        IsLoading < 0 &&
-                        <LoadingScreen key={'LoadingScreen'} />,
-                        activeDataService == true &&
+                        (activeGetCurrentUser == true || activeDataService == true || activeFlashSale == true) &&
+                        <LoadingScreen key='LoadingScreen' />,
+                        activeGetCurrentUser == false && activeDataService == true &&
                         <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} key={'activeDataService'}
                         // showConsole={'Main'}
                         />,
@@ -84,13 +87,33 @@ export default class MainScreen extends React.Component {
                     <AppBar navigation={navigation} currentUser={currentUser} />
                     <ScrollView>
                         {/* <TouchableOpacity
-                            onPress={() => navigation.push('MainScreen', { browerProps: 'https://www.finforu.com/' })}>
-                            <View style={{ width }}><Text>Enter</Text></View>
+                            onPress={() => navigation.push('MainScreen', { browerProps: finip })}>
+                            <View style={{ width }}><Text>Web</Text></View>
                         </TouchableOpacity> */}
-                        <Slide loading={this.LoadingProcess.bind(this)} />
+                        <View style={{ flexDirection: 'row' }}>
+                            <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={['#4c669f', '#ECECEC', '#554682']}
+                                style={{
+                                    flex: 1,
+                                    paddingLeft: 15,
+                                    paddingRight: 15,
+                                    borderRadius: 5
+                                }}>
+                                <Text style={{
+                                    fontSize: 18,
+                                    fontFamily: 'Gill Sans',
+                                    textAlign: 'center',
+                                    margin: 10,
+                                    color: '#ffffff',
+                                    backgroundColor: 'transparent',
+                                }}>
+                                    Sign in with Facebook</Text>
+                            </LinearGradient>
+                        </View>
+                        <Slide />
                         <Category navigation={navigation} />
                         <Button_Bar navigation={navigation} />
-                        <FlashSale navigation={navigation} />
+                        <FlashSale navigation={navigation} activeDataService={activeFlashSale}
+                            getActiveDataService={this.getActiveDataService.bind(this)} />
                         <Recommend_Brand navigation={navigation} loadData={dataService.brand} />
                         <BannerBar_TWO />
                         <Exclusive navigation={navigation} loadData={dataService.exclusive} />
@@ -180,9 +203,7 @@ export class GetData extends React.Component {
     }
     componentDidMount() {
         this.getDataAsync()
-        setTimeout(() => {
-            SplashScreen.hide();
-        }, 1000);
+        SplashScreen.hide();
     }
     render() {
         return <></>
@@ -608,12 +629,12 @@ export class Slide extends React.Component {
         return (
             <View>
                 {
-                    activeDataService == true && banner == null,
+                    activeDataService == true && banner == undefined &&
                     <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
                 }
                 <Carousel
                     renderItem={this._renderItem}
-                    data={dataService ? dataService : banner}
+                    data={banner ? banner : dataService}
                     loop
                     autoplay
                     autoplayInterval={3000}
@@ -687,16 +708,16 @@ export class Category extends React.Component {
                 return (
                     <TouchableOpacity activeOpacity={1} key={index} onPress={this.navigationNavigateScreen.bind(this,
                         'CategoryScreen', { id_type: item.id_type })} style={stylesMain.Category}>
-                            <FastImage
-                                source={{
-                                    uri: dataMySQL,
-                                }}
-                                style={stylesMain.Category_box}
-                                resizeMode={FastImage.resizeMode.cover} />
-                            <View style={{ height: 25 }}>
-                                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize8, stylesFont.FontCenter]}>
-                                    {item.name}</Text>
-                            </View>
+                        <FastImage
+                            source={{
+                                uri: dataMySQL,
+                            }}
+                            style={stylesMain.Category_box}
+                            resizeMode={FastImage.resizeMode.cover} />
+                        <View style={{ height: 25 }}>
+                            <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize8, stylesFont.FontCenter]}>
+                                {item.name}</Text>
+                        </View>
                     </TouchableOpacity>
                 )
             })
@@ -1107,15 +1128,16 @@ export class FlashSale extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeDataService: true,
             curTime: new Date(),
             dataService: [],
             endTime: new Date(),
         };
     }
     getData = (dataService) => {
+        const { getActiveDataService } = this.props
         var flash_end = dataService.flash_end && dataService.flash_end.split(':')
-        this.setState({ activeDataService: false, dataService, endTime: new Date().setHours(flash_end[0], flash_end[1], flash_end[2]) })
+        getActiveDataService(false)
+        this.setState({ dataService, endTime: new Date().setHours(flash_end[0], flash_end[1], flash_end[2]) })
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
@@ -1142,8 +1164,8 @@ export class FlashSale extends React.Component {
         clearInterval(this.intervalID);
     }
     render() {
-        const { navigation } = this.props
-        const { activeDataService, curTime, dataService, endTime, } = this.state
+        const { activeDataService, getActiveDataService, navigation } = this.props
+        const { curTime, dataService, endTime, } = this.state
         var uri = finip + '/flashsale/flash_timer';
         var Hours = 0
         var Minutes = 0
@@ -1155,9 +1177,10 @@ export class FlashSale extends React.Component {
             ),
             Minutes = Number(new Date(endTime).getMinutes()) - Number(new Date(curTime).getMinutes()),
             Seconds = Number(new Date(endTime).getSeconds()) - Number(new Date(curTime).getSeconds()),
-            activeDataService == false && Hours <= 0 && Minutes <= 0 && Seconds <= 0 && (
-                this.setState({ activeDataService: true, dataService: [] })
-            ),
+            activeDataService == false && Hours <= 0 && Minutes <= 0 && Seconds <= 0 && ([
+                getActiveDataService(true),
+                this.setState({ dataService: [] })
+            ]),
             Hours > 0 && (Minutes < 0 || Seconds < 0) && ([
                 Hours = Hours - 1,
                 Minutes = 60 + Minutes
@@ -2082,7 +2105,7 @@ export class FIN_Supermarket extends React.Component {
                         }
                     </ScrollView>
                 </View>
-                <View style={[stylesMain.FlexRow,stylesMain.Supermarket_Store]}>
+                <View style={[stylesMain.FlexRow, stylesMain.Supermarket_Store]}>
                     <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'FinMallScreen', { selectedIndex: 0 })}
                         style={{ width: width * 0.64, }}>
                         <FastImage
@@ -2145,7 +2168,7 @@ export class FIN_Supermarket extends React.Component {
                     </TouchableOpacity>
                 </View>
                 <ScrollView horizontal >
-                    <View style={[stylesMain.ItemCenter,stylesMain.Supermarket_Brand_Shop]}>
+                    <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop]}>
                         <FastImage
                             style={{ height: 50, width: 100 }}
                             source={{
@@ -2157,7 +2180,7 @@ export class FIN_Supermarket extends React.Component {
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]} numberOfLines={1}>สุดยอดแห่งบิวตี้ไอเท็มและสินค้าเพื่อสุขภาพ</Text>
                         </View>
                     </View>
-                    <View style={[stylesMain.ItemCenter,stylesMain.Supermarket_Brand_Shop]}>
+                    <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop]}>
                         <FastImage
                             style={{ height: 50, width: 100 }}
                             source={{
@@ -2169,7 +2192,7 @@ export class FIN_Supermarket extends React.Component {
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]} numberOfLines={1}>เบทาโกร</Text>
                         </View>
                     </View>
-                    <View style={[stylesMain.ItemCenter,stylesMain.Supermarket_Brand_Shop]}>
+                    <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop]}>
                         <FastImage
                             style={{ height: 50, width: 100 }}
                             source={{
@@ -2181,7 +2204,7 @@ export class FIN_Supermarket extends React.Component {
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]} numberOfLines={1}>สินค้าคุณภาพ คุ้มค่า คุ้มราคา</Text>
                         </View>
                     </View>
-                    <View style={[stylesMain.ItemCenter,stylesMain.Supermarket_Brand_Shop]}>
+                    <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop]}>
                         <FastImage
                             style={{ height: 50, width: 100 }}
                             source={{
@@ -2193,7 +2216,7 @@ export class FIN_Supermarket extends React.Component {
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]} numberOfLines={1}>หวานสดใสหอมติดผิว</Text>
                         </View>
                     </View>
-                    <View style={[stylesMain.ItemCenter,stylesMain.Supermarket_Brand_Shop]}>
+                    <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop]}>
                         <FastImage
                             style={{ height: 50, width: 100 }}
                             source={{
@@ -2207,7 +2230,7 @@ export class FIN_Supermarket extends React.Component {
                     </View>
                 </ScrollView>
                 <ScrollView horizontal >
-                    <View style={[stylesMain.ItemCenter,stylesMain.Supermarket_Brand_Shop2]}>
+                    <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop2]}>
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
@@ -2215,7 +2238,7 @@ export class FIN_Supermarket extends React.Component {
                             }}
                             resizeMode={FastImage.resizeMode.stretch} />
                     </View>
-                    <View style={[stylesMain.ItemCenter,stylesMain.Supermarket_Brand_Shop2]}>
+                    <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop2]}>
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
@@ -2223,7 +2246,7 @@ export class FIN_Supermarket extends React.Component {
                             }}
                             resizeMode={FastImage.resizeMode.stretch} />
                     </View>
-                    <View style={[stylesMain.ItemCenter,stylesMain.Supermarket_Brand_Shop2]}>
+                    <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop2]}>
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
@@ -2231,7 +2254,7 @@ export class FIN_Supermarket extends React.Component {
                             }}
                             resizeMode={FastImage.resizeMode.stretch} />
                     </View>
-                    <View style={[stylesMain.ItemCenter,stylesMain.Supermarket_Brand_Shop2]}>
+                    <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop2]}>
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
@@ -2239,7 +2262,7 @@ export class FIN_Supermarket extends React.Component {
                             }}
                             resizeMode={FastImage.resizeMode.stretch} />
                     </View>
-                    <View style={[stylesMain.ItemCenter,stylesMain.Supermarket_Brand_Shop2]}>
+                    <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop2]}>
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
@@ -2247,7 +2270,7 @@ export class FIN_Supermarket extends React.Component {
                             }}
                             resizeMode={FastImage.resizeMode.stretch} />
                     </View>
-                    <View style={[stylesMain.ItemCenter,stylesMain.Supermarket_Brand_Shop2]}>
+                    <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop2]}>
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
@@ -2270,7 +2293,7 @@ export class TodayProduct extends React.Component {
         };
     }
     render() {
-        const { loadData, navigation, noTitle, prepath, typeip, } = this.props
+        const { loadData, navigation, noTitle, onShow, prepath, typeip, } = this.props
         return (
             <View style={[stylesMain.BoxProduct2, { backgroundColor: 'transparent' }]}>
                 {
@@ -2282,7 +2305,7 @@ export class TodayProduct extends React.Component {
                 <View style={stylesMain.BoxProduct2BoxProduct}>
                     {
                         loadData &&
-                        <ProductBox dataService={loadData} navigation={navigation} typeip={
+                        <ProductBox dataService={loadData} navigation={navigation} onShow={onShow} typeip={
                             typeip ?
                                 'ip' :
                                 'fin'

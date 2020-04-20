@@ -562,21 +562,21 @@ export class ViewCode extends React.Component {
                     activeGetServices == true &&
                     <GetServices key='GetServices' uriPointer={uri} dataBody={dataBody} Authorization={cokie}
                         getDataSource={this.getData.bind(this)} showConsole='coupon_shop' />,
-                    <MyCode key='MyCode' dataSevice={dataSevice} codeList={'available'} />
+                    <MyCode key='MyCode' currentUser={currentUser} cokie={cokie} dataSevice={dataSevice} codeList={'available'} />
                 ])
             case 1:
                 return (
                     activeGetServices == true &&
                     <GetServices key='GetServices' uriPointer={uri2} dataBody={dataBody} Authorization={cokie}
                         getDataSource={this.getData.bind(this)} showConsole='coupon_shop' />,
-                    <MyCode key='MyCode' dataSevice={dataSevice} codeList={'usedCode'} />
+                    <MyCode key='MyCode' currentUser={currentUser} cokie={cokie} dataSevice={dataSevice} codeList={'usedCode'} />
                 )
             case 2:
                 return (
                     activeGetServices == true &&
                     <GetServices key='GetServices' uriPointer={uri3} dataBody={dataBody} Authorization={cokie}
                         getDataSource={this.getData.bind(this)} showConsole='coupon_shop' />,
-                    <MyCode key='MyCode' dataSevice={dataSevice} codeList={'timeOut'} />
+                    <MyCode key='MyCode' currentUser={currentUser} cokie={cokie} dataSevice={dataSevice} codeList={'timeOut'} />
                 )
         }
     }
@@ -612,18 +612,60 @@ export class MyCode extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            activeFollow: false,
+            data: [],
             text: '',
         }
     }
     setStateText = (text) => {
         this.setState({ text })
     }
+    followStore = (id_store, follow) => {
+        this.setState({ activeFollow: true, id_store, follow })
+    }
+    getData = (dataService) => {
+        const { data } = this.state
+        data[data.map((value2) => { return value2.id_store }).indexOf(dataService.m)].follow = dataService.output
+        this.setState({ activeFollow: false, data })
+    }
     render() {
-        const { codeList, dataSevice } = this.props
-        const { text } = this.state
+        const { codeList, dataSevice, currentUser, cokie } = this.props;
+        const { activeFollow, data, follow, id_store, text } = this.state;
+        (data[0] == undefined && dataSevice) && (
+            dataSevice.store.map((value) => {
+                return ([
+                    (data.every((value2) => { return value2.id_store != value.id_store }) == true) ?
+                        ([
+                            data.push({ id_store: value.id_store, promotion_name: [value.promotion_name], store_name: value.store_name }),
+                        ]) : ([
+                            data[data.map((value2) => { return value2.id_store }).indexOf(value.id_store)]
+                                .promotion_name.push(value.promotion_name),
+                        ]),
+                ])
+            }),
+            this.setState({ data })
+        );
+        const uri = finip + '/brand/follow_data';
+        var dataBody = {
+            id_customer: currentUser.id_customer,
+            id_store,
+            follow: follow == true ? 'active' : ''
+        };
+        activeFollow == false && data.map((value) => {
+            return value.follow === undefined && this.followStore(value.id_store, false)
+        })
+
         return (
             codeList == 'available' ?
                 <View>
+                    {[
+                        activeFollow == true &&
+                        <LoadingScreen key='LoadingScreen' />,
+                        activeFollow == true && currentUser && cokie &&
+                        <GetServices Authorization={cokie} dataBody={dataBody} uriPointer={uri} getDataSource={this.getData.bind(this)}
+                            key='follow_data' showConsole='follow_data'
+                        />
+                    ]}
                     <View style={stylesProfile.ViewCode}>
                         <View style={stylesMain.FlexRow}>
                             <View style={[stylesMain.ItemCenter, { width: '70%', }]}>
@@ -651,23 +693,45 @@ export class MyCode extends React.Component {
                         </View>
                         <View style={stylesProfile.FinMinssionBox}>
                             {
-                                dataSevice && dataSevice.store.map((value, index) => {
+                                data && data.map((value, index) => {
+                                    // value.follow === undefined && this.followStore(value.id_store, false)
                                     return <View key={index} style={[stylesMain.FlexRow, stylesProfile.FinMinssionBoxPlan1]}>
                                         <FastImage
                                             style={stylesProfile.FinMinssionBoxPlan1Image} />
                                         <View style={{ marginLeft: 16 }}>
                                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>
                                                 ติดตามร้าน {value.store_name}</Text>
-                                            <View style={[stylesProfile.FinMinssionBoxPlan1Code, stylesMain.ItemCenter]}>
-                                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: 'white' }]}>
-                                                    {value.promotion_name}</Text>
+                                            <View style={{ flexDirection: 'row' }}>
+                                                {[
+                                                    value.promotion_name.map((value2, index2) => {
+                                                        return (
+                                                            index2 < 3 && (
+                                                                <View key={index2}
+                                                                    style={[stylesProfile.FinMinssionBoxPlan1Code, stylesMain.ItemCenter]}>
+                                                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, {
+                                                                        color: 'white'
+                                                                    }]}>
+                                                                        {value2}</Text>
+                                                                </View>
+                                                            )
+                                                        )
+                                                    }),
+                                                    value.promotion_name.length > 3 &&
+                                                    <View key={'otherpromotion_name'}
+                                                        style={[stylesProfile.FinMinssionBoxPlan1Code, stylesMain.ItemCenter, { width: 30 }]}>
+                                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, {
+                                                            color: 'white'
+                                                        }]}>+{value.promotion_name.length - 3}</Text>
+                                                    </View>
+                                                ]}
                                             </View>
                                         </View>
                                         <View style={stylesProfile.FinMinssionBoxPlan1Follow}>
-                                            <TouchableOpacity>
+                                            <TouchableOpacity onPress={this.followStore.bind(this, value.id_store, true)}>
                                                 <View style={[stylesProfile.FinMinssionBoxPlan1FollowBox, stylesMain.ItemCenter,]}>
-                                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                                                        ติดตาม</Text>
+                                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText,
+                                                    stylesFont.FontSize6]}>
+                                                        {value.follow}</Text>
                                                 </View>
                                             </TouchableOpacity>
                                         </View>

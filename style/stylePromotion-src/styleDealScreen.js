@@ -228,8 +228,7 @@ export default StyleSheet.create({
         width: '100%',
         height: 60,
     },
-    CampaignBody_BoxText: {
-        padding: 4,
+    CampaignBody_BoxText: { 
         width: '64%',
     },
     CampaignBody_Icon_Button: {

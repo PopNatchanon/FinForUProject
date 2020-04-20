@@ -726,7 +726,7 @@ export class GetCoupon extends React.Component {
                             null,
                 }}>
                     <View style={{ width: 100, height: 68, marginLeft: 5, paddingHorizontal: 2, }}>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesMain.ItemCenterVertical]}>{couponText}</Text>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesMain.ItemCenterVertical]}>{couponText}</Text>
                         <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize9,]}>{textDetail}</Text>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>ใช้ได้ก่อน {
                             timeOut ?
@@ -830,7 +830,7 @@ export class ProductBox extends React.Component {
                     [
                         url,
                         item.path_image_product ? item.path_image_product : item.image_path,
-                        item.image_product ? item.image_product : item.image
+                        item.image_product ? item.image_product : item.image_main ? item.image_main : item.image
                     ].join('/');
                 return (
                     <TouchableOpacity

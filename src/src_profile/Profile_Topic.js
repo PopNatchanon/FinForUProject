@@ -21,7 +21,8 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule } from '../MainScreen';
+import { AppBar1, ExitAppModule, GetData, TodayProduct } from '../MainScreen';
+import { GetServices, LoadingScreen } from '../tools/Tools';
 import { PopularProduct } from '../StoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';
@@ -31,64 +32,98 @@ export default class Profile_Topic extends React.Component {
         super(props);
         this.state = {
             text: '',
-            // selectedIndex: 7,
+            activeGetServices: true,
+            activeGetSource: true,
         };
     }
+    getSource = (value) => {
+        this.setState({ activeGetSource: false, currentUser: value.currentUser, cokie: value.keycokie })
+    }
+    getData = (dataSevice) => {
+        this.setState({ activeGetServices: false, dataSevice })
+    }
     PathList() {
-        const selectedIndex = this.props.navigation.getParam('selectedIndex')
+        const { navigation } = this.props
+        const { activeGetServices, activeGetSource, currentUser, cokie, dataSevice } = this.state
+        const selectedIndex = navigation.getParam('selectedIndex')
+        const uri = [finip,
+            selectedIndex == 2 ?
+                '/profile/product_interest' :
+                selectedIndex == 3 ?
+                    '/profile/store_follow' :
+                    ''
+        ].join('/')
+        var dataBody = {
+            id_customer: currentUser && currentUser.id_customer
+        }
         switch (selectedIndex) {
             case 0:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ดูล่าสุด' />
-                        <LatestScreen navigation={this.props.navigation} />
+                        <AppBar1 backArrow navigation={navigation} titleHead='ดูล่าสุด' />
+                        <LatestScreen navigation={navigation} />
                     </SafeAreaView>
                 )
             case 1:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แชท' />
-                        <ChatScreen navigation={this.props.navigation} />
+                        <AppBar1 backArrow navigation={navigation} titleHead='แชท' />
+                        <ChatScreen navigation={navigation} />
                     </SafeAreaView>)
             case 2:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='สิ่งที่สนใจ' />
-                        <InterestedScreen navigation={this.props.navigation} />
+                        {
+                            activeGetSource == false && activeGetServices == true && currentUser && cokie && selectedIndex == 2 &&
+                            <GetServices key='GetServices' uriPointer={uri} dataBody={dataBody} Authorization={cokie}
+                                showConsole='product_interest'
+                                getDataSource={this.getData.bind(this)} />
+                        }
+                        <AppBar1 backArrow navigation={navigation} titleHead='สิ่งที่สนใจ' />
+                        {
+                            dataSevice &&
+                            <InterestedScreen dataSevice={dataSevice.product} navigation={navigation} />
+                        }
                     </SafeAreaView>
                 )
             case 3:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ร้านที่ติดตาม' />
-                        <Follow_storeScreen navigation={this.props.navigation} />
+                        {
+                            activeGetSource == false && activeGetServices == true && currentUser && cokie && selectedIndex == 3 &&
+                            <GetServices key='GetServices' uriPointer={uri} dataBody={dataBody} Authorization={cokie}
+                                showConsole='store_follow'
+                                getDataSource={this.getData.bind(this)} />
+                        }
+                        <AppBar1 backArrow navigation={navigation} titleHead='ร้านที่ติดตาม' />
+                        <Follow_storeScreen navigation={navigation} />
                     </SafeAreaView>
                 )
             case 4:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='รีวิวของฉัน' />
-                        <Review_meScreen navigation={this.props.navigation} />
+                        <AppBar1 backArrow navigation={navigation} titleHead='รีวิวของฉัน' />
+                        <Review_meScreen navigation={navigation} />
                     </SafeAreaView>
                 )
             case 5:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='Fin Helpcenter' />
-                        <Help_meScreen navigation={this.props.navigation} />
+                        <AppBar1 backArrow navigation={navigation} titleHead='Fin Helpcenter' />
+                        <Help_meScreen navigation={navigation} />
                     </SafeAreaView>
                 )
             case 6:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppbarChat navigation={this.props.navigation} Title='Supreme Store' />
+                        <AppbarChat navigation={navigation} Title='Supreme Store' />
                         <Chat_Cutomer />
                     </SafeAreaView>
                 )
             case 7:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='รีวิวของฉัน' />
+                        <AppBar1 backArrow navigation={navigation} titleHead='รีวิวของฉัน' />
                         <ScrollView>
                             <Review_From />
                         </ScrollView>
@@ -97,27 +132,35 @@ export default class Profile_Topic extends React.Component {
             case 8:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='Fin Helpcenter' />
+                        <AppBar1 backArrow navigation={navigation} titleHead='Fin Helpcenter' />
                         <ScrollView>
-                            <Account_Help navigation={this.props.navigation} />
+                            <Account_Help navigation={navigation} />
                         </ScrollView>
                     </SafeAreaView>
                 )
             case 9:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='Fin Helpcenter' />
-                        <Topic_DetailHelp navigation={this.props.navigation} />
+                        <AppBar1 backArrow navigation={navigation} titleHead='Fin Helpcenter' />
+                        <Topic_DetailHelp navigation={navigation} />
                     </SafeAreaView>
                 )
         }
     }
     render() {
+        const { navigation } = this.props
+        const { activeGetServices, activeGetSource, } = this.state
         return (
-            <View style={stylesMain.SafeAreaView}>
+            <>
+                {[
+                    (activeGetSource == true || activeGetServices == true) &&
+                    <LoadingScreen key='LoadingScreen' />,
+                    activeGetSource == true &&
+                    <GetData key='GetData' getCokie={true} getUser={true} getSource={this.getSource.bind(this)} />
+                ]}
                 {this.PathList()}
-                <ExitAppModule navigation={this.props.navigation} />
-            </View>
+                <ExitAppModule navigation={navigation} />
+            </>
         );
     }
 }
@@ -461,9 +504,10 @@ export class InterestedScreen extends React.Component {
         };
     }
     render() {
+        const { dataSevice, navigation } = this.props
         return (
             <ScrollView>
-                <PopularProduct navigation={this.props.navigation} noHeadText />
+                <TodayProduct loadData={dataSevice} navigation={navigation} noTitle />
             </ScrollView>
         );
     }

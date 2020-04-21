@@ -90,7 +90,7 @@ export default class MainScreen extends React.Component {
                             onPress={() => navigation.push('MainScreen', { browerProps: finip })}>
                             <View style={{ width }}><Text>Web</Text></View>
                         </TouchableOpacity> */}
-                        <View style={{ flexDirection: 'row' }}>
+                        {/* <View style={{ flexDirection: 'row' }}>
                             <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={['#4c669f', '#ECECEC', '#554682']}
                                 style={{
                                     flex: 1,
@@ -108,7 +108,7 @@ export default class MainScreen extends React.Component {
                                 }}>
                                     Sign in with Facebook</Text>
                             </LinearGradient>
-                        </View>
+                        </View> */}
                         <Slide />
                         <Category navigation={navigation} />
                         <Button_Bar navigation={navigation} />

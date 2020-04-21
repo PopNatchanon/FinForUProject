@@ -9,6 +9,7 @@ import BottomSheet from "react-native-raw-bottom-sheet";
 import { CheckBox } from 'react-native-elements';
 export const { width, height } = Dimensions.get('window');
 import CookieManager from '@react-native-community/cookies';
+import DatePicker from 'react-native-datepicker';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconEvilIcons from 'react-native-vector-icons/EvilIcons';
@@ -19,7 +20,7 @@ import stylesMain from '../../../style/StylesMainScreen';
 import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
 import stylesLogin from '../../../style/stylesLoginScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule } from '../../MainScreen';
+import { AppBar1, ExitAppModule, GetData } from '../../MainScreen';
 import { GetServices } from '../../tools/Tools';
 import { Seller_SettingImage } from '../../src_Seller/Seller_Profile_Edit';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -121,10 +122,13 @@ export class Edit_Profile extends Component {
       activeNow: 0,
       checked: true,
       currentUser: [],
-      date: new Date(),
-      DataDay: [],
-      DataMo: [],
-      DataYear: [],
+      date: "",
+      activeGetServices: true,
+      activeGetSource: true,
+      // date: new Date(),
+      // DataDay: [],
+      // DataMo: [],
+      // DataYear: [],
     };
   }
   componentDidMount() {
@@ -197,6 +201,7 @@ export class Edit_Profile extends Component {
       })
     )
   }
+
   DataDay() {
     return (
       this.state.DataDay.map((item) => {
@@ -206,14 +211,15 @@ export class Edit_Profile extends Component {
       })
     )
   }
-  SaveName = async () => {
-    const uri = finip + '/profile/update_profile_api'
+
+  SaveProfile = async () => {
+    const uri = finip + '/profile/update_profile_mobile'
     const dataBody = {
       id_customer: this.props.currentUser.id_customer,
       name: this.state.Name,
-      gender: this.props.currentUser.gender,
+      gender: this.state.checked == true ? 'male' : 'female',
       file: this.props.currentUser.image,
-      date_of_birth: this.props.currentUser.date_of_birth
+      birth_day: this.props.currentUser.birth_day
     }
     fetch(uri, {
       method: 'POST',
@@ -230,8 +236,28 @@ export class Edit_Profile extends Component {
         console.error(error);
       })
   }
+  SaveName = async () => {
+    const { InputName } = this.state
+    this.setState({ Name: InputName })
+    this.NameSheet.close()
+  }
+  SaveGender = async () => {
+    const { InputGender } = this.state
+    this.setState({ Gender: InputGender })
+    this.GenderSheet.close()
+  }
+  SaveBirth_day = async () => {
+    const { InputBirth_day } = this.state
+    this.setState({ Birth_day: InputBirth_day })
+    this.BirthdaySheet.close()
+  }
+  SavePhone = async () => {
+    const { InputPhone } = this.state
+    this.setState({ Phone: InputPhone })
+    this.Phone_numberSheet.close()
+  }
   NameSheetBody() {
-    const { Name } = this.state
+    const { InputName } = this.state
     return (
       <>
         <View style={stylesProfileTopic.Edit_Profile}>
@@ -239,10 +265,10 @@ export class Edit_Profile extends Component {
           <View style={stylesProfileTopic.Edit_Profile_Box}>
             <TextInput
               fontSize={15}
-              placeholder="ชื่อผู้ใช้"
+              placeholder="ชื่อ"
               maxLength={30}
-              value={Name}
-              onChangeText={(Name) => this.setState({ Name })}
+              value={InputName}
+              onChangeText={(InputName) => this.setState({ InputName })}
             />
           </View>
         </View>
@@ -254,7 +280,9 @@ export class Edit_Profile extends Component {
       </>
     )
   }
-  SexSheetBody() {
+  GenderSheetBody() {
+    const { InputGender } = this.state
+    console.log(this.state.InputGender)
     return (
       <>
         <View style={stylesProfileTopic.Edit_Profile}>
@@ -264,21 +292,21 @@ export class Edit_Profile extends Component {
               size={25}
               checkedIcon='dot-circle-o'
               uncheckedIcon='circle-o'
-              checked={this.state.checked}
-              onPress={() => this.setState({ checked: !this.state.checked, checked2: !this.state.checked2 })}
+              checked={InputGender}
+              onPress={() => this.setState({ InputGender: true })}
             />
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 15 }]}>ชาย</Text>
             <CheckBox
               size={25}
               checkedIcon='dot-circle-o'
               uncheckedIcon='circle-o'
-              checked={this.state.checked2}
-              onPress={() => this.setState({ checked2: !this.state.checked2, checked: !this.state.checked })}
+              checked={!InputGender}
+              onPress={() => this.setState({ InputGender: false })}
             />
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 15 }]}>หญิง</Text>
           </View>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={this.SaveGender.bind(this)}>
           <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
           </View>
@@ -287,26 +315,53 @@ export class Edit_Profile extends Component {
     )
   }
   BirthdaySheetBody() {
+    const { InputBirth_day } = this.state
     const { activeNow } = this.state
     const { currentUser } = this.state
-    currentUser.map((item) => {
-      activeNow < 2 ?
-        this.setState({ activeNow: activeNow + 1, date: item.date_of_birth }) :
-        null
-    })
-    const { date, } = this.state;
-    let DataDay = this.DataDay()
-    let DataMo = this.DataMo()
-    let DataYear = this.DataYear()
-    var day = new Date(date).getDate()
-    var month = new Date(date).getMonth();
-    var year = new Date(date).getFullYear();
+    console.log(this.state.birth_day)
+    // currentUser.map((item) => {
+    //   console.log(item.date_of_birth)
+    //   activeNow < 2 ?
+    //     this.setState({ activeNow: activeNow + 1, birth_day: item.date_of_birth }) :
+    //     null
+    // })
+    // const { date, } = this.state;
+    // let DataDay = this.DataDay()
+    // let DataMo = this.DataMo()
+    // let DataYear = this.DataYear()
+    // var day = new Date(date).getDate()
+    // var month = new Date(date).getMonth();
+    // var year = new Date(date).getFullYear();
     return (
       <>
         <View style={stylesProfileTopic.Edit_Profile}>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}> วันเกิด</Text>
           <View style={[stylesLogin.DateBox, stylesMain.ItemCenter]}>
-            <View style={stylesMain.FlexRow}>
+            <DatePicker
+              style={{ width: 300 }}
+              date={InputBirth_day}
+              mode="date"
+              placeholder="select date"
+              format="YYYY-MM-DD"
+              minDate="1920-12-01"
+              maxDate="2020-06-01"
+              confirmBtnText="Confirm"
+              cancelBtnText="Cancel"
+              customStyles={{
+                dateIcon: {
+                  position: 'absolute',
+                  left: 0,
+                  top: 4,
+                  marginLeft: 0
+                },
+                // dateInput: {
+                //   marginLeft: 36
+                // }
+                // ... You can check the source to find the other keys.
+              }}
+              onDateChange={(InputBirth_day) => { this.setState({ InputBirth_day }) }}
+            />
+            {/* <View style={stylesMain.FlexRow}>
               <View style={[stylesLogin.DateBoxBody, { width: 70, }]}>
                 <Picker
                   selectedValue={String(day)}
@@ -340,10 +395,10 @@ export class Edit_Profile extends Component {
                   {DataYear}
                 </Picker>
               </View>
-            </View>
+            </View> */}
           </View>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={this.SaveBirth_day.bind(this)}>
           <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
           </View>
@@ -361,12 +416,12 @@ export class Edit_Profile extends Component {
               fontSize={15}
               placeholder="เบอร์โทรศัพท์"
               maxLength={10}
-              value={this.state.Phone}
-              onChangeText={(Phone) => this.setState({ Phone })}
+              value={this.state.InputPhone}
+              onChangeText={(InputPhone) => this.setState({ InputPhone })}
             />
           </View>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={this.SavePhone.bind(this)}>
           <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
           </View>
@@ -375,24 +430,39 @@ export class Edit_Profile extends Component {
     )
   }
   setCurrentUser = () => {
-    const { currentUser } = this.state
-    currentUser.map((item) => {
+    const { dataSevice } = this.state
+    dataSevice && dataSevice.list_profile.map((item) => {
+      console.log(item)
       var checked
-      var checked2
       if (item.gender == 'male') {
         checked = true
-        checked2 = false
       } else {
         checked = false
-        checked2 = true
       }
-      this.setState({ Name: item.name, checked, checked2, Phone: item.telphone })
+      this.setState({
+        Name: item.name, InputName: item.name, checked,
+        Gender: checked, InputGender: checked,
+        Phone: item.telphone, InputPhone: item.telphone,
+        birth_day: item.date_of_birth, Inputbirth_day: item.date_of_birth
+      })
     })
   }
+  getSource = (value) => {
+    this.setState({ activeGetSource: false, currentUser: value.currentUser, cokie: value.keycokie })
+  }
+  getData = (dataSevice) => {
+    this.setState({ activeGetServices: false, dataSevice })
+  }
   render() {
-    const { currentUser, Name } = this.state
+    const { currentUser, Name, Phone, Gender, birth_day, activeGetSource, activeGetServices, cokie, } = this.state
+    const uri = finip + '/profile/profile_mobile'
+
+    var dataBody = {
+      id_customer: currentUser ? currentUser.id_customer : '',
+    }
     currentUser != null && Name == null &&
       this.setCurrentUser()
+    console
     return (
       <View>
         {/* ชื่อ-นามสกุล */}
@@ -400,7 +470,7 @@ export class Edit_Profile extends Component {
           ref={ref => {
             this.NameSheet = ref;
           }}
-          height={230}
+          height={150}
           duration={250}
           customStyles={{
             container: {
@@ -413,7 +483,7 @@ export class Edit_Profile extends Component {
         {/* เพศ */}
         <BottomSheet
           ref={ref => {
-            this.SexSheet = ref;
+            this.GenderSheet = ref;
           }}
           height={150}
           duration={250}
@@ -423,14 +493,14 @@ export class Edit_Profile extends Component {
               alignItems: "center",
             }
           }}>
-          {this.SexSheetBody()}
+          {this.GenderSheetBody()}
         </BottomSheet>
         {/* วันเกิด */}
         <BottomSheet
           ref={ref => {
             this.BirthdaySheet = ref;
           }}
-          height={200}
+          height={150}
           duration={250}
           customStyles={{
             container: {
@@ -445,7 +515,7 @@ export class Edit_Profile extends Component {
           ref={ref => {
             this.Phone_numberSheet = ref;
           }}
-          height={200}
+          height={150}
           duration={250}
           customStyles={{
             container: {
@@ -456,65 +526,74 @@ export class Edit_Profile extends Component {
           {this.Phone_numberSheetBody()}
         </BottomSheet>
         <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขโปรไฟล์' />
+        {[
+          activeGetSource == false && activeGetServices == true &&
+          <GetServices key='GetServices' uriPointer={uri} dataBody={dataBody} Authorization={cokie}
+            showConsole={'getDataSource'} getDataSource={this.getData.bind(this)} />,
+          activeGetSource == true &&
+          <GetData key='GetData' getCokie={true} getUser={true} getSource={this.getSource.bind(this)} />
+        ]}
         <Seller_SettingImage />
-        <View style={{ marginTop: 20, }}>
-          <TouchableOpacity onPress={() => { this.NameSheet.open(); }}>
-            <View style={stylesProfileTopic.BoxTopic}>
-              <View style={stylesMain.FlexRow}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
-                  ชื่อ-นามสกุล
+        <ScrollView>
+          <View style={{ marginTop: 20, }}>
+            <TouchableOpacity onPress={() => { (this.setState({ InputName: Name }), this.NameSheet.open()); }}>
+              <View style={stylesProfileTopic.BoxTopic}>
+                <View style={stylesMain.FlexRow}>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
+                    ชื่อ-นามสกุล
             </Text>
-              </View>
-              <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
-            </View></TouchableOpacity>
-          <TouchableOpacity onPress={() => this.props.navigation.push('Setting_Topic', { selectedIndex: 7 })}>
-            <View style={stylesProfileTopic.BoxTopic}>
-              <View style={stylesMain.FlexRow}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
-                  เปลี่ยนรหัสผ่าน
+                </View>
+                <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
+              </View></TouchableOpacity>
+            <TouchableOpacity onPress={() => this.props.navigation.push('Setting_Topic', { selectedIndex: 7 })}>
+              <View style={stylesProfileTopic.BoxTopic}>
+                <View style={stylesMain.FlexRow}>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
+                    เปลี่ยนรหัสผ่าน
             </Text>
+                </View>
+                <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
               </View>
-              <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => { this.SexSheet.open(); }}>
-            <View style={stylesProfileTopic.BoxTopic}>
-              <View style={stylesMain.FlexRow}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
-                  เพศ
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => { (this.setState({ InputGender: Gender }), this.GenderSheet.open()); }}>
+              <View style={stylesProfileTopic.BoxTopic}>
+                <View style={stylesMain.FlexRow}>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
+                    เพศ
             </Text>
+                </View>
+                <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
               </View>
-              <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => { this.BirthdaySheet.open(); }}>
-            <View style={stylesProfileTopic.BoxTopic}>
-              <View style={stylesMain.FlexRow}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
-                  วันเกิด
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => { (this.setState({ InputBirth_day: birth_day }), this.BirthdaySheet.open()); }}>
+              <View style={stylesProfileTopic.BoxTopic}>
+                <View style={stylesMain.FlexRow}>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
+                    วันเกิด
             </Text>
+                </View>
+                <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
               </View>
-              <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => { this.Phone_numberSheet.open(); }}>
-            <View style={stylesProfileTopic.BoxTopic}>
-              <View style={stylesMain.FlexRow}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
-                  โทรศัพท์
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => { (this.setState({ InputPhone: Phone }), this.Phone_numberSheet.open()); }}>
+              <View style={stylesProfileTopic.BoxTopic}>
+                <View style={stylesMain.FlexRow}>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
+                    โทรศัพท์
             </Text>
+                </View>
+                <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
               </View>
-              <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
-            </View>
-          </TouchableOpacity>
-          <View style={{ alignItems: 'center', justifyContent: 'flex-end', height: 350, }}>
-            <TouchableOpacity>
+            </TouchableOpacity>
+            <View style={{ alignItems: 'center', justifyContent: 'flex-end', }}>
+              {/* <TouchableOpacity TouchableOpacity onPress={this.SaveProfile.bind(this)}> */}
               <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึกการเปลี่ยนแปลง</Text>
               </View>
-            </TouchableOpacity>
+              {/* </TouchableOpacity> */}
+            </View>
           </View>
-        </View>
+        </ScrollView>
       </View>
     );
   }

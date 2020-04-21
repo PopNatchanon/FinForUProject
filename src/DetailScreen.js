@@ -1844,9 +1844,9 @@ export class Coupon_Detail_BottomSheet extends React.Component {
     )
     return (
       <View style={{
-        width: '100%', height: 80, borderWidth: 1,
+        width: '100%', height: 100, borderWidth: 1,
         backgroundColor: dataService.ticket_picked == 'ticket_picked' ? '#A9A9A9' : '#C0DBF9',
-        flexDirection: 'row', justifyContent: 'space-between',  borderRadius: 5, marginVertical: 5,
+        flexDirection: 'row', justifyContent: 'space-between', padding: 15, borderRadius: 5, marginVertical: 10,
         opacity: dataService.ticket_picked == 'ticket_picked' ? 0.6 : 1,
       }}>
         {
@@ -1856,17 +1856,20 @@ export class Coupon_Detail_BottomSheet extends React.Component {
             Authorization={keycokie}
             getDataSource={this.getData.bind(this)} />
         }
-        <View >
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>{dataService.name}</Text>
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>{dataService.detail}</Text>
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize9]}>2020.02.22-2020.03.01</Text>
+        <View style={{ width: '60%' }}>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>{dataService.name}</Text>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>{dataService.detail}</Text>
         </View>
         <View style={{ justifyContent: 'space-between' }}>
+          <View style={{ backgroundColor: '#C4C4C4' }}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>2020.02.22-2020.03.01</Text>
+          </View>
           <TouchableOpacity activeOpacity={dataService.ticket_picked == 'ticket_picked' ? 1 : 0.2}
             onPress={dataService.ticket_picked == 'ticket_picked' ? null : this.saveTicket.bind(this, dataService.id_promotion)}>
-            <View style={{
-              backgroundColor: dataService.ticket_picked == 'ticket_picked' ? '#A9A9A9' : '#0A55A6',
-            }}>
+            <View style={[stylesMain.ItemCenter, {
+              backgroundColor: dataService.ticket_picked == 'ticket_picked' ? '#A9A9A9' : '#0A55A6', paddingHorizontal: 10,
+              borderRadius: 5
+            }]}>
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>
                 {dataService.ticket_picked == 'ticket_picked' ? 'เก็บคูปองแล้ว' : 'เก็บคูปอง'}</Text>
             </View>

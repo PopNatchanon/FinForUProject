@@ -1285,11 +1285,18 @@ export class SlideTab2 extends React.Component {
         const { setStateSliderVisible } = this.props
         setStateSliderVisible(false)
     }
-    filterValue = (event) => {
-        const { filter } = this.state
-        filter.minvalue = event.minvalue ? event.minvalue : ''
-        filter.maxvalue = event.maxvalue ? event.maxvalue : ''
-        this.setState({ filter })
+    filterValue = (event, type) => {
+        const { filter } = this.state;
+        type == 'tab' ?
+            ([
+                filter.selectedIndex = event.selectedIndex ? event.selectedIndex : '',
+                filter.listIndex = event.listIndex != undefined ? event.listIndex : '',
+            ]) :
+            type == 'price' && ([
+                filter.minvalue = event.minvalue ? event.minvalue : '',
+                filter.maxvalue = event.maxvalue ? event.maxvalue : '',
+            ])
+        this.setState({ filter });
     }
     render() {
         const { data, filterValue, sliderVisible } = this.props
@@ -1317,7 +1324,8 @@ export class SlideTab2 extends React.Component {
                             <ScrollView>
                                 {
                                     data && data.map((item, index) => {
-                                        return <SlideTab item={item} key={index} />
+                                        return <SlideTab filterValue={this.filterValue.bind(this)} item={item} listIndex={index}
+                                            key={index} />
                                     })
                                 }
                                 <PricesSlide filterValue={this.filterValue.bind(this)} />
@@ -1352,10 +1360,16 @@ export class SlideTab extends React.Component {
         this.state = {
             activeTabBar: true,
             activeText: false,
+            filter: {},
             selectedIndex: null,
         }
     }
     updateIndex = (value) => {
+        const { filterValue, listIndex } = this.props
+        const { filter } = this.state
+        filter.selectedIndex = value.selectedIndex
+        filter.listIndex = listIndex
+        filterValue(filter, 'tab')
         this.setState({ activeTabBar: false, selectedIndex: value.selectedIndex })
     }
     setStateActiveText = (activeText) => {
@@ -1450,13 +1464,13 @@ export class PricesSlide extends React.Component {
         const { filterValue } = this.props
         const { filter } = this.state
         filter.minvalue = minvalue
-        filterValue(filter)
+        filterValue(filter, 'price')
     }
     setStateMax = (maxvalue) => {
         const { filterValue } = this.props
         const { filter } = this.state
         filter.maxvalue = maxvalue
-        filterValue(filter)
+        filterValue(filter, 'price')
     }
     render() {
         return (

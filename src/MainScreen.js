@@ -317,6 +317,11 @@ export class AppBar extends React.Component {
     setText = (text) => {
         this.setState({ text })
     }
+    setSubmit = () => {
+        const { text, } = this.state
+        text != undefined && text != ' ' &&
+            this.navigationNavigateScreen('SearchScreen', { SearchText: text })
+    }
     render() {
         const { ABDColor, ABGColor, AIColor, currentUser, leftBar, rightBar, searchBar, SearchText } = this.props
         const { text, } = this.state
@@ -364,6 +369,7 @@ export class AppBar extends React.Component {
                                         placeholder="ค้นหาสินค้า/ร้านค้า"
                                         value={text}
                                         maxLength={30}
+                                        onSubmitEditing={this.setSubmit}
                                         onChangeText={this.setText} />
                                 </View>
                                 <IconAntDesign name="search1" size={20}

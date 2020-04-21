@@ -433,9 +433,9 @@ const PathScreen = createStackNavigator({
   },
 },
   {
-    // initialRouteName: 'MainScreen',
+    initialRouteName: 'MainScreen',
     // initialRouteName: 'CoinScreen',
-    initialRouteName: 'ProfileScreen',
+    // initialRouteName: 'ProfileScreen',
   }
 );
 const AppNavigator = createAppContainer(PathScreen);

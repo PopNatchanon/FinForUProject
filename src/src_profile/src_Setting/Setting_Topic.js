@@ -60,9 +60,7 @@ export default class Setting_Topic extends Component {
     switch (selectedIndex) {
       case 0:
         return (
-          <View>
-            <Edit_Profile navigation={navigation} currentUser={currentUser} />
-          </View>
+          <Edit_Profile navigation={navigation} currentUser={currentUser} />
         )
       case 1:
         return (
@@ -98,9 +96,8 @@ export default class Setting_Topic extends Component {
         )
       case 7:
         return (
-          <View>
-            <Edit_Pass navigation={navigation} />
-          </View>
+          <Edit_Pass navigation={navigation} />
+
         )
     }
   }
@@ -464,7 +461,7 @@ export class Edit_Profile extends Component {
       this.setCurrentUser()
     console
     return (
-      <View>
+      <>
         {/* ชื่อ-นามสกุล */}
         <BottomSheet
           ref={ref => {
@@ -533,9 +530,9 @@ export class Edit_Profile extends Component {
           activeGetSource == true &&
           <GetData key='GetData' getCokie={true} getUser={true} getSource={this.getSource.bind(this)} />
         ]}
-        <Seller_SettingImage />
         <ScrollView>
-          <View style={{ marginTop: 20, }}>
+          <Seller_SettingImage />
+          <View style={{ marginTop: 20, height, }}>
             <TouchableOpacity onPress={() => { (this.setState({ InputName: Name }), this.NameSheet.open()); }}>
               <View style={stylesProfileTopic.BoxTopic}>
                 <View style={stylesMain.FlexRow}>
@@ -585,16 +582,16 @@ export class Edit_Profile extends Component {
                 <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
               </View>
             </TouchableOpacity>
-            <View style={{ alignItems: 'center', justifyContent: 'flex-end', }}>
-              {/* <TouchableOpacity TouchableOpacity onPress={this.SaveProfile.bind(this)}> */}
-              <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึกการเปลี่ยนแปลง</Text>
-              </View>
-              {/* </TouchableOpacity> */}
-            </View>
           </View>
         </ScrollView>
-      </View>
+        <View style={{ alignItems: 'center', height: 40 }}>
+          {/* <TouchableOpacity TouchableOpacity onPress={this.SaveProfile.bind(this)}> */}
+          <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึกการเปลี่ยนแปลง</Text>
+          </View>
+          {/* </TouchableOpacity> */}
+        </View>
+      </>
     );
   }
 }
@@ -631,53 +628,55 @@ export class Edit_Pass extends Component {
     const { navigation, } = this.props
     const { Pass1, Pass2, Pass3, } = this.props
     return (
-      <View>
+      <>
         <AppBar1 backArrow navigation={navigation} titleHead='เปลี่ยนรหัสผ่าน' />
-        <View style={stylesProfileTopic.Edit_Pass}>
-          <View style={{ width: '80%' }}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>รหัสผ่านปัจจุบัน</Text>
-            <View style={stylesProfileTopic.Edit_Pass_TextInput}>
-              <TextInput
-                fontSize={15}
-                placeholder=""
-                maxLength={50}
-                value={Pass1}
-                onChangeText={this.setStatePass1.bind(this, Pass1)} />
-              <IconFeather RightItem name='eye-off' size={20} style={{ marginTop: 5, }} />
-            </View>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 10 }]}>กรุณาระบุรหัสผ่านใหม่ด่านล่าง</Text>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#BFBFBF', marginLeft: 10, }]}>
-              ประกอบไปด้วยตัวเลขและตัวอักษร อย่างน้อย 6 อักษร</Text>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 10, }]}>รหัสผ่านใหม่</Text>
-            <View style={stylesProfileTopic.Edit_Pass_TextInput}>
-              <TextInput
-                fontSize={15}
-                placeholder=""
-                maxLength={50}
-                value={Pass2}
-                onChangeText={this.setStatePass2.bind(this, Pass2)} />
-              <IconFeather RightItem name='eye-off' size={20} style={{ marginTop: 5, }} />
-            </View>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 10, }]}>พิมพ์รหัสผ่านใหม่อีกครั้ง</Text>
-            <View style={stylesProfileTopic.Edit_Pass_TextInput}>
-              <TextInput
-                fontSize={15}
-                placeholder=""
-                maxLength={50}
-                value={Pass3}
-                onChangeText={this.setStatePass3.bind(this, Pass3)} />
-              <IconFeather RightItem name='eye-off' size={20} style={{ marginTop: 5, }} />
+        <ScrollView>
+          <View style={stylesProfileTopic.Edit_Pass}>
+            <View style={{ width: '80%' }}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>รหัสผ่านปัจจุบัน</Text>
+              <View style={stylesProfileTopic.Edit_Pass_TextInput}>
+                <TextInput
+                  fontSize={15}
+                  placeholder=""
+                  maxLength={50}
+                  value={Pass1}
+                  onChangeText={this.setStatePass1.bind(this, Pass1)} />
+                <IconFeather RightItem name='eye-off' size={20} style={{ marginTop: 5, }} />
+              </View>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 10 }]}>กรุณาระบุรหัสผ่านใหม่ด่านล่าง</Text>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#BFBFBF', marginLeft: 10, }]}>
+                ประกอบไปด้วยตัวเลขและตัวอักษร อย่างน้อย 6 อักษร</Text>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 10, }]}>รหัสผ่านใหม่</Text>
+              <View style={stylesProfileTopic.Edit_Pass_TextInput}>
+                <TextInput
+                  fontSize={15}
+                  placeholder=""
+                  maxLength={50}
+                  value={Pass2}
+                  onChangeText={this.setStatePass2.bind(this, Pass2)} />
+                <IconFeather RightItem name='eye-off' size={20} style={{ marginTop: 5, }} />
+              </View>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 10, }]}>พิมพ์รหัสผ่านใหม่อีกครั้ง</Text>
+              <View style={stylesProfileTopic.Edit_Pass_TextInput}>
+                <TextInput
+                  fontSize={15}
+                  placeholder=""
+                  maxLength={50}
+                  value={Pass3}
+                  onChangeText={this.setStatePass3.bind(this, Pass3)} />
+                <IconFeather RightItem name='eye-off' size={20} style={{ marginTop: 5, }} />
+              </View>
             </View>
           </View>
-        </View>
-        <View style={{ alignItems: 'center', justifyContent: 'flex-end', height: 410, }}>
+        </ScrollView>
+        <View style={{ alignItems: 'center' }}>
           <TouchableOpacity>
             <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>เปลี่ยนรหัสผ่าน</Text>
             </View>
           </TouchableOpacity>
         </View>
-      </View>
+      </>
     );
   }
 }

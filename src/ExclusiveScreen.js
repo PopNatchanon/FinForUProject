@@ -36,54 +36,59 @@ export default class ExclusiveScreen extends React.Component {
   render() {
     const { navigation } = this.props
     const { dataService, sliderVisible } = this.state
-    var uri = ip + '/mysql/DataServiceMain.php';
+    var uri = finip + '/highlight/exclusive_mobile';
     var dataBody = {
-      type: 'todayproduct'
-    };
-    const data = [{
-      title: 'หมวดหมู่',
-      subtitle: [{
-        name: 'กระเป๋าสะพายข้าง'
-      }, {
-        name: 'กระเป๋าสะพายหลัง'
-      }, {
-        name: 'กระเป๋าสตางค์'
-      }, {
-        name: 'กระเป๋าใส่นามบัตร'
-      }, {
-        name: 'กระเป๋าใส่เหรียญ'
-      }, {
-        name: 'กระเป๋าถือ'
-      }, {
-        name: 'อื่นๆ'
-      }]
+      "popular": "",
+      "lastest": "", 
+      "best_sale": "",  
+      "sort_price": "", 
+      "min_price": "",
+      "max_price": ""
+  };
+  const data = [{
+    title: 'หมวดหมู่',
+    subtitle: [{
+      name: 'กระเป๋าสะพายข้าง'
     }, {
-      title: 'แบรนด์',
-      subtitle: [{
-        name: 'BP world'
-      }, {
-        name: 'Tokyo boy'
-      }, {
-        name: 'JJ'
-      }, {
-        name: 'ETONWEAG'
-      }]
+      name: 'กระเป๋าสะพายหลัง'
+    }, {
+      name: 'กระเป๋าสตางค์'
+    }, {
+      name: 'กระเป๋าใส่นามบัตร'
+    }, {
+      name: 'กระเป๋าใส่เหรียญ'
+    }, {
+      name: 'กระเป๋าถือ'
+    }, {
+      name: 'อื่นๆ'
     }]
-    return (
-      <SafeAreaView style={stylesMain.SafeAreaView}>
-        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
-        <AppBar1 titleHead={'สินค้าสุด Exclusive'} backArrow searchBar chatBar navigation={navigation} />
-        <ScrollView stickyHeaderIndices={[2]}>
-          <Slide />
-          <View style={{ marginBottom: 10 }}></View>
-          <Button_Bar setSliderVisible={this.setSlider.bind(this)} />
-          {
-            dataService &&
-            <TodayProduct noTitle navigation={navigation} loadData={dataService} typeip prepath='mysql' />
-          }
-        </ScrollView>
-        <SlideTab2 data={data} sliderVisible={sliderVisible} setStateSliderVisible={this.setSlider.bind(this)} />
-        <ExitAppModule navigation={navigation} />
+  }, {
+    title: 'แบรนด์',
+    subtitle: [{
+      name: 'BP world'
+    }, {
+      name: 'Tokyo boy'
+    }, {
+      name: 'JJ'
+    }, {
+      name: 'ETONWEAG'
+    }]
+  }]
+  return(
+      <SafeAreaView style = { stylesMain.SafeAreaView } >
+      <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
+      <AppBar1 titleHead={'สินค้าสุด Exclusive'} backArrow searchBar chatBar navigation={navigation} />
+      <ScrollView stickyHeaderIndices={[2]}>
+        <Slide />
+        <View style={{ marginBottom: 10 }}></View>
+        <Button_Bar setSliderVisible={this.setSlider.bind(this)} />
+        {
+          dataService &&
+          <TodayProduct noTitle navigation={navigation} loadData={dataService} typeip prepath='mysql' />
+        }
+      </ScrollView>
+      <SlideTab2 data={data} sliderVisible={sliderVisible} setStateSliderVisible={this.setSlider.bind(this)} />
+      <ExitAppModule navigation={navigation} />
       </SafeAreaView>
     );
   }

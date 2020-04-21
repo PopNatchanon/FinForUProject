@@ -42,9 +42,6 @@ export default class Recommend_Store extends React.Component {
                 <ScrollView>
                     <Header />
                     <Store_Detail navigation={navigation} />
-                    <Store_Detail navigation={navigation} />
-                    <Store_Detail navigation={navigation} />
-                    <Store_Detail navigation={navigation} />
                 </ScrollView>
                 <ExitAppModule navigation={navigation} />
             </SafeAreaView>

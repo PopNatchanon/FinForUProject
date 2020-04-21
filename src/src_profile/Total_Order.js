@@ -77,10 +77,10 @@ export class Button_bar extends Component {
         this.setState({ activeSelectedIndex: false, dataService })
         setLoading(false)
     }
-    updateIndex = (selectedIndex) => {
+    updateIndex = (value) => {
         const { setLoading } = this.props
-        this.setState({ selectedIndex, activeSelectedIndex: true, })
         setLoading(true)
+        this.setState({ selectedIndex: value.selectedIndex, activeSelectedIndex: true, })
     }
     get PathList() {
         const { currentUser, keycokie, navigation, } = this.props
@@ -234,6 +234,8 @@ export class Button_bar extends Component {
     }
     render() {
         const { SetselectedIndex } = this.props
+        const { selectedIndex } = this.state
+        console.log('\n--------------------------------\nselectedIndex: ' + selectedIndex + '\n--------------------------------')
         const item = [{
             name: 'ทั้งหมด'
         }, {
@@ -253,7 +255,7 @@ export class Button_bar extends Component {
                             sendData={this.updateIndex.bind(this)}
                             item={item}
                             // noLimit
-                            SetValue={SetselectedIndex}
+                            SetValue={selectedIndex ? selectedIndex : SetselectedIndex}
                             // widthBox={98}
                             activeColor={'#fff'}
                             activeFontColor={'#0A55A6'}
@@ -335,7 +337,7 @@ export class From_Order_Box extends Component {
                             <TouchableOpacity key={'Review_order'} activeOpacity={1}
                                 onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 7 })}>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical, {
-                                    color: '#111', width: width * 0.3, textAlign: 'center',color:'#20BDA1'
+                                    color: '#111', width: width * 0.3, textAlign: 'center', color: '#20BDA1'
                                 }]}>
                                     รอชำระ
                                 </Text>

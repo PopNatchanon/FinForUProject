@@ -25,6 +25,7 @@ export default class Customer_account extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            activeGetServices: true,
             activeSave: false,
             activeSave2: false,
             currentUser: {},
@@ -44,8 +45,16 @@ export default class Customer_account extends Component {
             });
     }
     getData = (value) => {
+        const { navigation } = this.props
         const { currentUser, dataBody } = this.state
-        dataBody.device = "mobile_device"
+        const type = navigation.getParam('type')
+        const id_address = navigation.getParam('id_address')
+        dataBody.device == undefined && (
+            dataBody.device = "mobile_device"
+        )
+        type == 'edit' && dataBody.id_address == undefined && (
+            dataBody.id_address = id_address
+        )
         currentUser.id_customer && (
             dataBody.id_customer = currentUser.id_customer
         )
@@ -82,8 +91,10 @@ export default class Customer_account extends Component {
         this.setState({ activeSave: true })
     }
     getData3 = (dataService) => {
+        const { navigation } = this.props
         const { dataBody } = this.state
-        if (dataBody.main == 'yes') {
+        const type = navigation.getParam('type')
+        if (dataBody.main == 'yes' && type != 'edit') {
             this.setState({ activeSave: false, activeSave2: true, dataService })
         } else {
             this.setState({ activeSave: false, dataService })
@@ -96,29 +107,49 @@ export default class Customer_account extends Component {
         navigation.state.params.updateData2(dataService2);
         navigation.goBack()
     }
+    getData5 = (dataService3) => {
+        this.setState({ dataService3 })
+    }
     render() {
         const { navigation } = this.props
-        const { activeSave, activeSave2, dataBody, keycokie } = this.state
+        const { activeGetServices, activeSave, activeSave2, currentUser, dataBody, dataService3, keycokie } = this.state
+        const type = navigation.getParam('type')
         const type_special = navigation.getParam('type_special')
-        var uri = finip + '/profile/insert_address';
-        var uri2 = finip + '/profile/add_address';
+        const id_address = navigation.getParam('id_address')
+        var uri = [finip, type == 'edit' ? '/profile/update_address' : '/profile/insert_address'].join('/');
+        var uri2 = [finip, '/profile/add_address'].join('/');
+        var uri3 = [finip, '/profile/edit_address'].join('/');
+        var dataBody3 = {
+            id_customer: currentUser && currentUser.id_customer,
+            id_address
+        }
+        console.log('============================>render|dataBody')
+        console.log(dataBody)
         return (
             <SafeAreaView style={{ backgroundColor: '#E9E9E9', flex: 1, }}>
                 {[
                     activeSave == true && keycokie && type_special == undefined &&
                     <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData3.bind(this)} Authorization={keycokie}
-                    // showConsole={'flash'}
+                        key={'address'}
+                        showConsole='address'
                     />,
-                    activeSave2 == true && keycokie && type_special == undefined &&
+                    activeSave2 == true && keycokie && type_special == undefined && type != 'edit' &&
                     <GetServices uriPointer={uri2} dataBody={{ address: "--" }} getDataSource={this.getData4.bind(this)}
-                        Authorization={keycokie}
-                    // showConsole={'flash2'}
+                        Authorization={keycokie} key={'add_address'}
+                    />,
+                    activeGetServices == true && currentUser && currentUser.id_customer && keycokie && id_address &&
+                    type_special == undefined &&
+                    <GetServices uriPointer={uri3} dataBody={dataBody3} getDataSource={this.getData5.bind(this)}
+                        Authorization={keycokie} key={'edit_address'}
+                        showConsole='edit_address'
                     />
                 ]}
-                <Appbar navigation={navigation} />
+                <Appbar navigation={navigation} type={type} />
                 <ScrollView>
-                    <Account currentUser={this.state.currentUser} getData={this.getData.bind(this)} type_special={type_special} />
-                    <Account_main getData={this.getData.bind(this)} />
+                    <Account currentUser={this.state.currentUser} dataService={dataService3 && dataService3.list_address}
+                        getData={this.getData.bind(this)} key='Accountlist_address' type_special={type_special} />
+                    <Account_main dataService={dataService3 && dataService3.list_address} getData={this.getData.bind(this)}
+                        key='Account_main' />
                 </ScrollView>
                 <Button_Bar dataBody={dataBody} getData={this.getData2.bind(this)} />
                 <ExitAppModule navigation={navigation} />
@@ -134,6 +165,7 @@ export class Appbar extends Component {
         };
     }
     render() {
+        const { navigation, type } = this.props
         return (
             <View style={[styles.Appbar]}>
                 <View style={stylesMain.SafeAreaViewNB}>
@@ -141,9 +173,9 @@ export class Appbar extends Component {
                         <View style={[stylesMain.ItemCenter, { flexDirection: 'row', marginLeft: '30%', marginRight: '30%' }]}>
                             <IconAntDesign name='mail' size={30} color='#FFFFFF' />
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF', }]}>
-                                ที่อยู่ใหม่</Text>
+                                {type == 'edit' ? 'แก้ไขที่อยู่' : 'ที่อยู่ใหม่'}</Text>
                         </View>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()} >
+                        <TouchableOpacity activeOpacity={1} onPress={() => navigation.goBack()} >
                             <IconAntDesign name='closecircleo' size={25} color='#FFFFFF' style={[stylesMain.ItemCenterVertical,]} />
                         </TouchableOpacity>
                     </View>
@@ -158,6 +190,7 @@ export class Account extends Component {
         super(props);
         this.state = {
             activeData: true,
+            activeServices: true,
             amphoe: 'เขต/อำเภอ',
             DataProvinces: [],
             DataAmphoes: [],
@@ -303,14 +336,24 @@ export class Account extends Component {
 
     }
     render() {
-        const { type_special } = this.props
-        const { activeData, address, amphoe, lastname, name, phone, province, tax, tumbol, zipcode } = this.state
+        const { dataService, type_special } = this.props
+        const { activeServices, activeData, address, amphoe, lastname, name, phone, province, tax, tumbol, zipcode } = this.state
         let provinces = this.DataProvince()
         let amphoes = this.DataAmphoe()
         let tumbols = this.DataTumbol()
         let taxs = ['บุคคลธรรมดา', 'นิติบุคคล', 'ชาวต่างชาติ']
         activeData == true &&
             this.getData()
+        activeServices == true && dataService && dataService.map((value) => {
+            return ([
+                this.getDataAmphoe(value.province),
+                this.getDataTumbol(value.amphur),
+                this.setState({
+                    address: value.address, name: value.firstname, lastname: value.lastname, phone: value.telephone_number,
+                    tumbol: value.tumbol, zipcode: value.zip_code, activeServices: false, activeData: true,
+                })
+            ])
+        })
         return (
             <View>
                 {[
@@ -448,18 +491,8 @@ export class Account_main extends Component {
         super(props);
         this.state = {
             activeData: true,
+            activeServices: true,
         };
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { item1, item2 } = this.state
-        if (
-            ////>nextProps
-            ////>nextState
-            item1 !== nextState.item1 || item2 !== nextState.item2
-        ) {
-            return true
-        }
-        return false
     }
     setStateItem1 = (item1) => {
         this.setState({ activeData: true, item1 })
@@ -477,9 +510,16 @@ export class Account_main extends Component {
         getData({ main: mc })
     }
     render() {
-        const { activeData, item1, item2 } = this.state
+        const { dataService } = this.props
+        const { activeData, activeServices, item1, item2 } = this.state
         activeData == true &&
             this.getData(item2)
+        activeServices == true && dataService && dataService.map((value) => {
+            return ([
+                this.setStateItem2(value.main_address == 0 ? false : true),
+                this.setState({ activeServices: false })
+            ])
+        })
         return (
             <View>
                 {/* <View style={[styles.Account_Box]}>

@@ -17,6 +17,7 @@ import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
+import stylesDetail from '../../style/StylesDetailScreen'
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
@@ -46,15 +47,22 @@ export default class Profile_Topic extends React.Component {
         const { navigation } = this.props
         const { activeGetServices, activeGetSource, currentUser, cokie, dataSevice } = this.state
         const selectedIndex = navigation.getParam('selectedIndex')
+        const id_cartdetail = navigation.getParam('id_cartdetail')
         const uri = [finip,
             selectedIndex == 2 ?
                 '/profile/product_interest' :
                 selectedIndex == 3 ?
                     '/profile/store_follow' :
-                    ''
+                    (selectedIndex == 4 || selectedIndex == 7) ?
+                        '/profile/review_product' :
+                        ''
         ].join('/')
         var dataBody = {
-            id_customer: currentUser && currentUser.id_customer
+            id_customer: currentUser && currentUser.id_customer,
+        }
+        var dataBody2 = {
+            id_customer: currentUser && currentUser.id_customer,
+            id_cartdetail: selectedIndex == 7 && id_cartdetail ? id_cartdetail : '',
         }
         switch (selectedIndex) {
             case 0:
@@ -96,14 +104,26 @@ export default class Profile_Topic extends React.Component {
                                 getDataSource={this.getData.bind(this)} />
                         }
                         <AppBar1 backArrow navigation={navigation} titleHead='ร้านที่ติดตาม' />
-                        <Follow_storeScreen navigation={navigation} />
+                        {
+                            dataSevice &&
+                            <Follow_storeScreen cokie={cokie} currentUser={currentUser} dataSevice={dataSevice} navigation={navigation} />
+                        }
                     </SafeAreaView>
                 )
             case 4:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
+                        {
+                            activeGetSource == false && activeGetServices == true && currentUser && cokie && selectedIndex == 4 &&
+                            <GetServices key='GetServices' uriPointer={uri} dataBody={dataBody2} Authorization={cokie}
+                                showConsole='4|review_product'
+                                getDataSource={this.getData.bind(this)} />
+                        }
                         <AppBar1 backArrow navigation={navigation} titleHead='รีวิวของฉัน' />
-                        <Review_meScreen navigation={navigation} />
+                        {
+                            dataSevice &&
+                            <Review_meScreen dataSevice={dataSevice.my_review} navigation={navigation} />
+                        }
                     </SafeAreaView>
                 )
             case 5:
@@ -123,9 +143,19 @@ export default class Profile_Topic extends React.Component {
             case 7:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
+                        {
+                            activeGetSource == false && activeGetServices == true && currentUser && cokie && selectedIndex == 7 &&
+                            <GetServices key='GetServices' uriPointer={uri} dataBody={dataBody2} Authorization={cokie}
+                                showConsole='7|review_product'
+                                getDataSource={this.getData.bind(this)} />
+                        }
                         <AppBar1 backArrow navigation={navigation} titleHead='รีวิวของฉัน' />
                         <ScrollView>
-                            <Review_From />
+                            {
+                                dataSevice &&
+                                <Review_From cokie={cokie} currentUser={currentUser} dataSevice={dataSevice.my_review[0]}
+                                    navigation={navigation} />
+                            }
                         </ScrollView>
                     </SafeAreaView>
                 )
@@ -520,16 +550,20 @@ export class Follow_storeScreen extends React.Component {
         };
     }
     render() {
+        const { cokie, currentUser, dataSevice } = this.props
         return (
             <ScrollView>
-                <Follow_store_Box />
-                <Follow_store_Box />
-                <Follow_store_Box />
+                {
+                    dataSevice.store.map((value, index) => {
+                        return <Follow_store_Box cokie={cokie} currentUser={currentUser} dataSevice={value} key={index} />
+                    })
+                }
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 10, marginLeft: 10, }]}>ร้านค้าที่คุณอาจชอบ</Text>
-                <Might_like_Store />
-                <Might_like_Store />
-                <Might_like_Store />
-                <Might_like_Store />
+                {
+                    dataSevice.unlike_store.map((value, index) => {
+                        return <Might_like_Store cokie={cokie} currentUser={currentUser} dataSevice={value} key={index} />
+                    })
+                }
             </ScrollView>
         );
     }
@@ -542,24 +576,44 @@ export class Follow_store_Box extends React.Component {
             Button_Follow_Before: true,
         };
     }
+    getData = (value) => {
+        this.setState({ activeGetServices: false })
+    }
     render() {
-        const { Button_Follow_Before } = this.state
+        const { cokie, currentUser, dataSevice } = this.props
+        const { activeGetServices, Button_Follow_Before } = this.state
+        const image_store = [finip, dataSevice.store_path, dataSevice.image_store].join('/')
+        const uri = [finip, 'brand/follow_data'].join('/')
+        var dataBody = {
+            id_customer: currentUser && currentUser.id_customer,
+            id_store: dataSevice.id_store,
+            follow: "active",
+        }
         return (
             <>
+                {
+                    activeGetServices == true &&
+                    <GetServices key='GetServices' uriPointer={uri} dataBody={dataBody} Authorization={cokie}
+                        showConsole='product_interest'
+                        getDataSource={this.getData.bind(this)} />
+                }
                 <View style={stylesProfileTopic.Follow_store_Box}>
                     <View style={{ flexDirection: 'row', }}>
                         <FastImage style={stylesProfileTopic.Follow_store_Box_image}
                             source={{
-                                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
+                                uri: image_store,
                             }}
+                            resizeMode={FastImage.resizeMode.contain}
                         />
                         <View style={stylesProfileTopic.Follow_store_Box_text}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>Asus_Thailand</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>@asusthailand</Text>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>{dataSevice.store_name}</Text>
+                            {/* <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>@asusthailand</Text> */}
                         </View>
                     </View>
-                    <TouchableOpacity style={stylesProfileTopic.Follow_store_Button} onPress={() => this.setState({ Button_Follow_Before: !Button_Follow_Before })}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>{Button_Follow_Before == true ? 'กำลังติดตาม' : 'ติดตาม'}</Text>
+                    <TouchableOpacity style={stylesProfileTopic.Follow_store_Button}
+                        onPress={() => this.setState({ Button_Follow_Before: !Button_Follow_Before, activeGetServices: true })}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>
+                            {Button_Follow_Before == true ? 'กำลังติดตาม' : 'ติดตาม'}</Text>
                     </TouchableOpacity>
                 </View>
             </>
@@ -571,71 +625,81 @@ export class Might_like_Store extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            activeGetServices: false,
             Button_Follow_After: true,
         };
     }
+    getData = (value) => {
+        console.log('Might_like_Store')
+        console.log(value)
+        this.setState({ activeGetServices: false })
+    }
     render() {
-        const { Button_Follow_After } = this.state
+        const { cokie, currentUser, dataSevice } = this.props
+        const { activeGetServices, Button_Follow_After } = this.state
+        const image_store = [finip, dataSevice.store_path, dataSevice.image_store].join('/')
+        const uri = [finip, 'brand/follow_data'].join('/')
+        var dataBody = {
+            id_customer: currentUser && currentUser.id_customer,
+            id_store: dataSevice.id_store,
+            follow: "active",
+        }
         return (
             <View>
+                {
+                    activeGetServices == true &&
+                    <GetServices key='GetServices' uriPointer={uri} dataBody={dataBody} Authorization={cokie}
+                        showConsole='product_interest'
+                        getDataSource={this.getData.bind(this)} />
+                }
                 <View style={stylesProfileTopic.Might_like_Store}>
                     <View style={stylesProfileTopic.Follow_store_Box}>
                         <View style={{ flexDirection: 'row', }}>
                             <FastImage style={stylesProfileTopic.Follow_store_Box_image}
                                 source={{
-                                    uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
+                                    uri: image_store,
                                 }}
+                                resizeMode={FastImage.resizeMode.contain}
                             />
                             <View style={stylesProfileTopic.Follow_store_Box_text}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ppooo</Text>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>81% คะแนนร้านค้า</Text>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>{dataSevice.store_name}</Text>
+                                {/* <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>81% คะแนนร้านค้า</Text> */}
                             </View>
                         </View>
-                        <TouchableOpacity onPress={() => this.setState({ Button_Follow_After: !Button_Follow_After })}>
+                        <TouchableOpacity
+                            onPress={() => this.setState({ Button_Follow_After: !Button_Follow_After, activeGetServices: true })}>
                             <View style={stylesProfileTopic.Follow_store_Button}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>{Button_Follow_After == true ? 'ติดตาม' : 'กำลังติดตาม'}</Text>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>
+                                    {Button_Follow_After == true ? 'ติดตาม' : 'กำลังติดตาม'}</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
                     <ScrollView horizontal>
                         <View style={stylesProfileTopic.Might_like_Store_Box}>
                             <View style={stylesProfileTopic.Might_like_Store_BoxP}>
-                                <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
-                                    <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage}
-                                        source={{
-                                            uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
-                                        }}
-                                    />
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { paddingHorizontal: 5 }]}>ห้องพัก Deluxe Pool Villa</Text>
-                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6', borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, paddingHorizontal: 10, marginBottom: 5 }]}>฿3,xxx</Text>
-                                </View>
-                                <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
-                                    <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage}
-                                        source={{
-                                            uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
-                                        }}
-                                    />
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { paddingHorizontal: 5 }]}>ห้องพัก Deluxe Pool Villa</Text>
-                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6', borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, paddingHorizontal: 10, marginBottom: 5 }]}>฿3,xxx</Text>
-                                </View>
-                                <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
-                                    <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage}
-                                        source={{
-                                            uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
-                                        }}
-                                    />
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { paddingHorizontal: 5 }]}>ห้องพัก Deluxe Pool Villa</Text>
-                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6', borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, paddingHorizontal: 10, marginBottom: 5 }]}>฿3,xxx</Text>
-                                </View>
-                                <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
-                                    <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage}
-                                        source={{
-                                            uri: ip + '/MySQL/uploads/products/2019-10-29-1572320112.jpg',
-                                        }}
-                                    />
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { paddingHorizontal: 5 }]}>ห้องพัก Deluxe Pool Villa</Text>
-                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6', borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, paddingHorizontal: 10, marginBottom: 5 }]}>฿3,xxx</Text>
-                                </View>
+                                {
+                                    dataSevice.product.map((value, index) => {
+                                        const image_product = [finip, value.image_path, value.image].join('/')
+                                        return (index < 4 &&
+                                            <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
+                                                <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage}
+                                                    source={{
+                                                        uri: image_product,
+                                                    }}
+                                                    resizeMode={FastImage.resizeMode.contain}
+                                                />
+                                                <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize8, {
+                                                    paddingHorizontal: 5
+                                                }]}>
+                                                    {value.name}</Text>
+                                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, {
+                                                    color: '#0A55A6', borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5,
+                                                    paddingHorizontal: 10, marginBottom: 5
+                                                }]}>{value.full_price}</Text>
+                                            </View>
+                                        )
+                                    })
+                                }
                                 <TouchableOpacity style={stylesProfileTopic.Might_like_Store_BoxPro}>
                                     <View>
                                         <View style={stylesProfileTopic.Might_like_Store_Total}>
@@ -647,7 +711,8 @@ export class Might_like_Store extends React.Component {
                             </View>
                         </View>
                     </ScrollView>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'right', margin: 10, color: '#7E7979' }]}>1,000 สินค้า</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'right', margin: 10, color: '#7E7979' }]}>
+                        {dataSevice.product_total} สินค้า</Text>
                 </View>
             </View>
         );
@@ -661,14 +726,14 @@ export class Review_meScreen extends React.Component {
         };
     }
     render() {
+        const { dataSevice, navigation } = this.props
         return (
             <ScrollView>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginLeft: 10, }]}>ล่าสุด</Text>
-                <Review_me navigation={this.props.navigation} />
-                <Review_me navigation={this.props.navigation} />
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginLeft: 10, }]}>เก่ากว่า</Text>
-                <Review_me navigation={this.props.navigation} />
-                <Review_me navigation={this.props.navigation} />
+                {
+                    dataSevice.map((value, index) => {
+                        return <Review_me dataSevice={value} key={index} navigation={navigation} />
+                    })
+                }
             </ScrollView>
         );
     }
@@ -680,28 +745,50 @@ export class Review_me extends React.Component {
         this.state = {
         };
     }
+    starReview(star, starSize) {
+        let starBox = []
+        for (var n = 0; n < 5; n++) {
+            if (star > n) {
+                starBox.push(
+                    <IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={
+                        starSize ?
+                            starSize :
+                            20
+                    } color='#FFAC33' />
+                )
+            } else {
+                starBox.push(
+                    <IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={
+                        starSize ?
+                            starSize :
+                            20
+                    } color='#E9E9E9' />
+                )
+            }
+        }
+        return starBox
+    }
     render() {
+        const { dataSevice } = this.props
+        const image_product = [finip, dataSevice.path_product, dataSevice.image_product].join('/')
         return (
             <View>
                 <View style={stylesProfileTopic.Review_me}>
                     <View style={stylesProfileTopic.Review_me_Box}>
                         <View>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>Mlife</Text>
+                            {/* <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>Mlife</Text> */}
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#8F8F8F' }]}>
                                 สั่งซื้อวันที่ 12 ธ.ค.2019 </Text>
                         </View>
                         <View style={{ flexDirection: 'row', width: 120, justifyContent: 'space-between' }}>
-                            <IconFontAwesome name='star' size={20} color='#FFAC33' />
-                            <IconFontAwesome name='star' size={20} color='#FFAC33' />
-                            <IconFontAwesome name='star' size={20} color='#FFAC33' />
-                            <IconFontAwesome name='star' size={20} color='#FFAC33' />
-                            <IconFontAwesome name='star' size={20} color='#FFAC33' />
+                            {this.starReview(dataSevice.rating, 20)}
                         </View>
                         <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Profile_Topic', {
-                            selectedIndex: 7
+                            selectedIndex: 7, id_cartdetail: dataSevice.id_cartdetail
                         })}>
                             <View style={stylesProfileTopic.Review_me_Box_head}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>รีวิว</Text>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>
+                                    {dataSevice.id_reviews ? 'Edit' : 'รีวิว'}</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -710,12 +797,13 @@ export class Review_me extends React.Component {
                             <View style={{ flexDirection: 'row', }}>
                                 <FastImage style={stylesProfileTopic.Review_me_image}
                                     source={{
-                                        uri: ip + '/MySQL/uploads/products/2019-10-29-1572319733.jpg',
+                                        uri: image_product,
                                     }}
+                                    resizeMode={FastImage.resizeMode.contain}
                                 />
                                 <View style={{ marginLeft: 10, }}>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>กระเป๋าxxxxxxxx</Text>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>สี : น้ำตาล</Text>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{dataSevice.product_name}</Text>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{dataSevice.detail}</Text>
                                 </View>
                             </View>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>จัดส่งสินค้าแล้ว</Text>
@@ -1007,6 +1095,8 @@ export class Review_From extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            activeAuto: true,
+            activeGetServices: false,
             checked2: true,
             checked4: true,
             avatarSource: [],
@@ -1056,10 +1146,36 @@ export class Review_From extends React.Component {
             this.setState({ avatarSource })
         });
     }
+    setStatus = () => {
+        const { dataSevice } = this.props
+        this.setState({ activeAuto: false, Review: dataSevice.reviews_detail, starmain: dataSevice.rating })
+    }
+    UploadReview = () => {
+        this.setState({ activeGetServices: true, })
+    }
+    getData = (value) => {
+        this.setState({ activeGetServices: false })
+    }
     render() {
-        const { avatarSource, starmain } = this.state
+        const { cokie, currentUser, dataSevice, navigation } = this.props
+        const { activeAuto, activeGetServices, avatarSource, Review, starmain } = this.state
+        const id_cartdetail = navigation.getParam('id_cartdetail')
+        const image_product = [finip, dataSevice.path_product, dataSevice.image_product].join('/')
+        const uri = [finip, '/profile/update_review'].join('/')
+        var dataBody = {
+            id_customer: currentUser ? currentUser.id_customer : '',
+            id_cartdetail,
+            comment: Review
+        }
+        activeAuto == true && this.setStatus()
         return (
             <View style={stylesMain.SafeAreaView}>
+                {
+                    activeGetServices == true &&
+                    <GetServices key='GetServices' uriPointer={uri} dataBody={dataBody} Authorization={cokie}
+                        showConsole='product_interest'
+                        getDataSource={this.getData.bind(this)} />
+                }
                 <View style={stylesProfileTopic.Review_From}>
                     <IconIonicons name='md-key' size={30} />
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}> คุณภาพสินค้า </Text>
@@ -1068,12 +1184,12 @@ export class Review_From extends React.Component {
                     <View style={stylesProfileTopic.Review_From_image}>
                         <FastImage style={stylesProfileTopic.Review_me_image}
                             source={{
-                                uri: ip + '/MySQL/uploads/products/2019-10-29-1572319733.jpg',
+                                uri: image_product,
                             }}
                         />
                         <View style={{ marginLeft: 10, }}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>กระเป๋าxxxxxxxx</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>สี : น้ำตาล</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{dataSevice.product_name}</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{dataSevice.detail}</Text>
                         </View>
                     </View>
                     <View style={stylesProfileTopic.Review_From_Star_Box}>
@@ -1151,7 +1267,7 @@ export class Review_From extends React.Component {
                 </View>
                 <View>
                     <View style={{ alignItems: 'center', width: '100%' }}>
-                        <TouchableOpacity style={stylesProfileTopic.Review_From_Buttonshare}>
+                        <TouchableOpacity onPress={this.UploadReview.bind(this)} style={stylesProfileTopic.Review_From_Buttonshare}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>แชร์รีวิว</Text>
                         </TouchableOpacity>
                     </View>
@@ -1160,4 +1276,3 @@ export class Review_From extends React.Component {
         );
     }
 }
-

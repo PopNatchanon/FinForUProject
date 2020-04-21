@@ -309,7 +309,6 @@ export default StyleSheet.create({
         backgroundColor: '#0A55A6',
         width: 100,
         height: 30,
-        marginTop: 4,
         borderRadius: 4,
         marginRight: 4,
     },

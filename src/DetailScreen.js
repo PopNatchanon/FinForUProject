@@ -662,7 +662,6 @@ export class Conpon extends React.Component {
                 customStyles={{
                   container: {
                     paddingTop: 10,
-                    alignItems: "center",
                     borderTopLeftRadius: 10,
                     borderTopRightRadius: 10,
                   }

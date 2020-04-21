@@ -170,7 +170,7 @@ export default class SearchScreen extends React.Component {
                 <SlideTab2 data={data} filterValue={this.setStatefilterValue.bind(this)} sliderVisible={sliderVisible}
                     setStateSliderVisible={this.setSlider.bind(this)} />
                 <ExitAppModule navigation={navigation} />
-            </SafeAreaView >
+            </SafeAreaView>
         );
     }
 }

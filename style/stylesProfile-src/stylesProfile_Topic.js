@@ -180,6 +180,7 @@ export default StyleSheet.create({
     Review_me_image: {
         height: 60,
         width: 60,
+        backgroundColor: '#fff'
     },
     Review_From: {
         flexDirection: 'row',
@@ -298,7 +299,7 @@ export default StyleSheet.create({
         paddingVertical: 5,
     },
     Order_StorePro: {
-        marginLeft:10,
+        marginLeft: 10,
         height: 40,
         width: 40,
         backgroundColor: '#A2A2A2',

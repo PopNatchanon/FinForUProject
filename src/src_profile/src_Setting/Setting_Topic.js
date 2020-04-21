@@ -610,19 +610,6 @@ export class Edit_Address extends Component {
       activeReset: true,
     };
   }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { currentUser, navigation } = this.props
-    const { activeReset, dataService, keycokie } = this.state
-    if (
-      ////>nextProps
-      currentUser !== nextProps.currentUser || navigation !== nextProps.navigation ||
-      ////>nextState
-      activeReset !== nextState.activeReset || dataService !== nextState.dataService || keycokie !== nextState.keycokie
-    ) {
-      return true
-    }
-    return false
-  }
   componentDidMount() {
     CookieManager.get(finip + '/auth/login_customer')
       .then((res) => {
@@ -652,18 +639,24 @@ export class Edit_Address extends Component {
     const no_invoice = navigation.getParam('no_invoice')
     const type = navigation.getParam('type')
     const type_special = navigation.getParam('type_special')
-    var uri = finip + '/bill/bill_list';
-    var dataBody = {
-      id_customer: currentUser && currentUser.id_customer,
-      no_invoice: no_invoice,
-    };
+    var uri = [finip,
+      type == 'select' ?
+        '/bill/bill_list' :
+        'profile/my_address'
+    ].join('/');
+    var dataBody = type == 'select' ?
+      {
+        id_customer: currentUser && currentUser.id_customer,
+        no_invoice: no_invoice,
+      } : {
+        id_customer: currentUser && currentUser.id_customer,
+      };
 
     return (
       <View style={{ flex: 1, height: '100%' }}>
         {
           currentUser && keycokie && currentUser.id_customer && activeReset == true &&
           <GetServices uriPointer={uri} dataBody={dataBody} Authorization={keycokie}
-            showConsole={'zzz'}
             getDataSource={this.getData.bind(this)} key={'zzz'} />
         }
         <AppBar1 backArrow navigation={navigation} titleHead={type_special == 'tax' ? 'ที่อยู่ในใบกำกับภาษี' : 'ที่อยู่ของฉัน'} />
@@ -671,7 +664,8 @@ export class Edit_Address extends Component {
           {
             dataService && dataService.list_address && activeReset == false &&
             dataService.list_address.map((value, index) => {
-              return <Address_Customar dataService={value} index={index} key={index} navigation={navigation} type={type} />
+              return <Address_Customar dataService={value} index={index} key={index} navigation={navigation} type={type}
+                type_special={type_special} updateData2={this.getData2.bind(this)} />
             })
           }
         </ScrollView>
@@ -695,29 +689,35 @@ export class Address_Customar extends Component {
     this.state = {
     };
   }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { MainAddress } = this.props
-    if (
-      ////>nextProps
-      MainAddress !== nextProps.MainAddress
-      ////>nextState
-    ) {
-      return true
-    }
-    return false
+  getData2 = (dataService2) => {
+    const { updateData2 } = this.props
+    updateData2(dataService2)
   }
   returnValue = (value) => {
     const { navigation } = this.props
     navigation.state.params.updateData(value);
     navigation.goBack();
-
+  }
+  navigationNavigateScreen = (value, value2) => {
+    const { navigation } = this.props
+    value == 'goBack' ?
+      navigation.goBack() :
+      value == 'LoginScreen' ? (
+        navigation.popToTop(),
+        navigation.replace(value, value2)
+      ) :
+        navigation.push(value, value2)
   }
   render() {
-    const { dataService, index, type } = this.props
-    console.log('dataService')
-    console.log(dataService)
+    const { dataService, index, type, type_special } = this.props
     return (
-      <TouchableOpacity key={index} onPress={type == 'select' ? this.returnValue.bind(this, dataService.id_address) : null}>
+      <TouchableOpacity key={index} onPress={
+        type == 'select' ?
+          this.returnValue.bind(this, dataService.id_address) :
+          this.navigationNavigateScreen.bind(this, 'Customer_account', {
+            type: 'edit', type_special, id_address: dataService.id_address, updateData2: this.getData2.bind(this),
+          })
+      }>
         <View style={stylesProfileTopic.Address_Customar}>
           <View style={stylesProfileTopic.Address_Customar_Box}>
             <View style={stylesMain.FlexRow}>

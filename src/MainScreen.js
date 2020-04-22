@@ -1416,7 +1416,9 @@ export class NewStore extends React.Component {
                 var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
                 return (
                     <TouchableOpacity activeOpacity={1} key={index}
-                        onPress={this.navigationNavigateScreen.bind(this, 'Recommend_Store', { id_item: item.id_store })}>
+                        onPress={this.navigationNavigateScreen.bind(this, 'Recommend_Store', {
+                            id_slide: item.id, uri_path: 'publish_store/store_total', name_path: 'store_total'
+                        })}>
                         <View style={stylesMain.BoxStore1Box}>
                             <FastImage
                                 source={{

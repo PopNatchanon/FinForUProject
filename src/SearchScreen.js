@@ -25,6 +25,7 @@ export default class SearchScreen extends React.Component {
             activeArray: true,
             activeGetServices: true,
             activeGetCurrentUser: true,
+            actionStart: true,
             Count: 0,
             data: [],
             filterValue: { popular: 'popular' },
@@ -40,15 +41,27 @@ export default class SearchScreen extends React.Component {
     setSlider = (sliderVisible) => {
         this.setState({ sliderVisible })
     }
-    setStatefilterValue = (value) => {
-        console.log(value)
+    setStart = () => {
         const { dataServiceBU, filterValue, } = this.state;
+        filterValue.id_type = dataServiceBU.category[0].id_type
+        this.setState({
+            activeGetServices: true, filterValue, actionStart: false, id_type: filterValue.id_type
+        });
+    }
+    setStatefilterValue = (value) => {
+        const { dataServiceBU, filterValue, } = this.state;
+        console.log('setStatefilterValue')
+        console.log(value.selectedIndex)
+        console.log(value.listIndex)
         filterValue.minvalue = (value && value.minvalue ? value.minvalue : '');
         filterValue.maxvalue = (value && value.maxvalue ? value.maxvalue : '');
-        filterValue.id_type = value.selectedIndex != -1 && value.selectedIndex != '' && value.listIndex == 0 ?
+        filterValue.id_type = ((value.selectedIndex != -1 && value.selectedIndex != '') && value.listIndex == 0) ?
             dataServiceBU.category[value.selectedIndex].id_type : ''
+        console.log('setStatefilterValue')
         console.log(filterValue)
-        this.setState({ activeGetServices: true, filterValue, sliderVisible: false });
+        this.setState({
+            activeGetServices: true, filterValue, sliderVisible: false, id_type: filterValue.id_type, actionStart: false,
+        });
     }
     setStateMainfilterValue = (value) => {
         const { filterValue, } = this.state;
@@ -64,13 +77,14 @@ export default class SearchScreen extends React.Component {
         const { navigation } = this.props;
         const modeStore = navigation.getParam('modeStore');
         const SearchText = navigation.getParam('SearchText');
-        this.setState({ modeStore, SearchText })
+        const id_type = navigation.getParam('id_type');
+        this.setState({ modeStore, SearchText, id_type })
     }
     render() {
         const { navigation } = this.props;
         const {
-            activeArray, activeGetCurrentUser, activeGetServices, cokie, currentUser, data, dataService, filterValue, modeStore, SearchText,
-            sliderVisible,
+            activeArray, activeGetCurrentUser, activeGetServices, actionStart, cokie, currentUser, data, dataService, dataServiceBU,
+            filterValue, modeStore, SearchText, sliderVisible, id_type,
         } = this.state;
         var uri = [finip, '/search/search_product'].join('/');
         var dataBody = {
@@ -84,7 +98,12 @@ export default class SearchScreen extends React.Component {
             max_price: filterValue && filterValue.maxvalue ? Number(filterValue.maxvalue) : '',
             id_type: filterValue && filterValue.id_type ? filterValue.id_type : '' //<< กรณีเลือกแบบระเลียด
         };
-        if (dataService && activeArray == true) {
+        var uri2 = [finip, '/search/other_store'].join('/');
+        var dataBody2 = {
+            id_customer: currentUser && currentUser.id_customer,
+            id_type
+        };
+        if (modeStore == undefined && dataService && activeArray == true) {
             var title = 'หมวดหมู่'
             var subtitle = []
             for (var n = 0; n < dataService.category.length; n++) {
@@ -93,32 +112,42 @@ export default class SearchScreen extends React.Component {
             data.push({ title, subtitle })
             this.setState({ activeArray: false, data, dataServiceBU: dataService })
         }
+        if (actionStart == true && dataService && dataServiceBU && filterValue.id_type == undefined) {
+            this.setStart()
+        }
         return (
             <SafeAreaView style={stylesMain.SafeAreaView} >
+                {
+                    activeGetCurrentUser == true &&
+                    <GetData getCokie={true} getSource={this.getSource.bind(this)} getUser={true} key={'GetData'} />
+                }
                 <AppBar searchBar={SearchText ? undefined : true} navigation={navigation} SearchText={SearchText} leftBar='backarrow' />
                 {
                     modeStore == true ?
                         (
                             <ScrollView>
+                                {
+                                    activeGetCurrentUser == false && activeGetServices == true &&
+                                    <GetServices uriPointer={uri2} dataBody={dataBody2} getDataSource={this.getData.bind(this)}
+                                        showConsole='other_store' />
+                                }
                                 <HeadBox navigation={navigation} SearchText={SearchText} />
-                                <StoreCard navigation={navigation} />
-                                <StoreCard navigation={navigation} />
-                                <StoreCard navigation={navigation} />
-                                <StoreCard navigation={navigation} />
-                                <StoreCard navigation={navigation} />
-                                <StoreCard navigation={navigation} />
+                                {
+                                    dataService && dataService.store.map((value, index) => {
+                                        return <StoreCard cokie={cokie} currentUser={currentUser} dataService={value} key={index}
+                                            navigation={navigation} />
+                                    })
+                                }
                             </ScrollView>
                         ) :
                         SearchText ? (
                             <ScrollView>
-                                {[
+                                {
                                     activeGetCurrentUser == false && activeGetServices == true &&
                                     <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)}
-                                        showConsole='search_product' />,
-                                    activeGetCurrentUser == true &&
-                                    <GetData getCokie={true} getSource={this.getSource.bind(this)} getUser={true} key={'GetData'} />
-                                ]}
-                                <HeadBox navigation={navigation} SearchText={SearchText} otherOption />
+                                        showConsole='search_product' />
+                                }
+                                <HeadBox id_type={id_type} navigation={navigation} SearchText={SearchText} otherOption />
                                 {
                                     dataService && dataService.store.map((value, index) => {
                                         return <StoreCard cokie={cokie} currentUser={currentUser} dataService={value} key={index}
@@ -131,7 +160,7 @@ export default class SearchScreen extends React.Component {
                                         getSlider: sliderVisible, count: 0
                                     }} />
                                 {
-                                    dataService && dataService.product &&
+                                    activeGetServices == false && actionStart == false && dataService && dataService.product &&
                                     <TodayProduct noTitle navigation={navigation} loadData={dataService.product} />
                                 }
                             </ScrollView>
@@ -161,7 +190,7 @@ export class HeadBox extends React.Component {
                 navigation.push(value, value2)
     }
     render() {
-        const { otherOption, SearchText, } = this.props
+        const { otherOption, SearchText, id_type } = this.props
         return (
             <View>
                 <View style={[stylesMain.FrameBackgroundTextBox]}>
@@ -169,7 +198,9 @@ export class HeadBox extends React.Component {
                         ร้านค้าที่เกี่ยวข้องกับ <Text>"{SearchText}"</Text></Text>
                     {
                         otherOption &&
-                        <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'SearchScreen', { modeStore: true })}>
+                        <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'SearchScreen', {
+                            modeStore: true, SearchText, id_type
+                        })}>
                             <View style={[stylesMain.FlexRow, { marginRight: 4, marginTop: 8 }]}>
                                 <Text style={[
                                     stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7,

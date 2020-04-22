@@ -725,7 +725,7 @@ export class GetCoupon extends React.Component {
                             -70 :
                             null,
                 }}>
-                    <View style={{ width: width * 0.31, height: 80, marginLeft: 5, paddingHorizontal: 2,justifyContent:'center'}}>
+                    <View style={{ width: width * 0.31, height: 80, marginLeft: 5, paddingHorizontal: 2, justifyContent: 'center' }}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7,]}>{couponText}</Text>
                         <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize9,]}>{textDetail}</Text>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>ใช้ได้ก่อน {
@@ -754,7 +754,7 @@ export class GetCoupon extends React.Component {
                 </View>
                 {
                     codeList != 'available' &&
-                    <View style={{ backgroundColor: '#C1C1C1', opacity: 0.7, width: 213, height: 80, marginTop: -10, borderRadius: 5,alignItems:'center'}}>
+                    <View style={{ backgroundColor: '#C1C1C1', opacity: 0.7, width: 213, height: 80, marginTop: -10, borderRadius: 5, alignItems: 'center' }}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, stylesMain.ItemCenterVertical, {
                             color: '#FFFFFF',
                         }]}>
@@ -1359,7 +1359,7 @@ export class SlideTab extends React.Component {
             activeTabBar: true,
             activeText: false,
             filter: {},
-            selectedIndex: null,
+            selectedIndex: 0,
         }
     }
     updateIndex = (value) => {
@@ -1384,7 +1384,6 @@ export class SlideTab extends React.Component {
                     type='box'
                     noLimit
                     numberBox
-                    NoSelectTab
                     radiusBox={4} />
             </View>
         )

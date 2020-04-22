@@ -33,19 +33,6 @@ export default class Setting_Topic extends Component {
       currentUser: {},
     }
   }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { navigation, } = this.props
-    const { currentUser } = this.state
-    if (
-      ////>nextProps
-      navigation !== nextProps.navigation ||
-      ////>nextState
-      currentUser !== nextState.currentUser
-    ) {
-      return true
-    }
-    return false
-  }
   componentDidMount() {
     this.getDataAsync()
   }
@@ -97,7 +84,6 @@ export default class Setting_Topic extends Component {
       case 7:
         return (
           <Edit_Pass navigation={navigation} />
-
         )
     }
   }
@@ -198,7 +184,6 @@ export class Edit_Profile extends Component {
       })
     )
   }
-
   DataDay() {
     return (
       this.state.DataDay.map((item) => {
@@ -208,30 +193,17 @@ export class Edit_Profile extends Component {
       })
     )
   }
-
   SaveProfile = async () => {
-    const uri = finip + '/profile/update_profile_mobile'
-    const dataBody = {
+    const { Birth_day, Gender, Name, Phone } = this.state
+    const dataBody2 = {
       id_customer: this.props.currentUser.id_customer,
-      name: this.state.Name,
-      gender: this.state.checked == true ? 'male' : 'female',
-      file: this.props.currentUser.image,
-      birth_day: this.props.currentUser.birth_day
+      first_name: Name,
+      gender: Gender == true ? 'male' : 'female',
+      // file: this.props.currentUser.image,
+      birth_day: Birth_day,
+      telephone: Phone,
     }
-    fetch(uri, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(dataBody),
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
-      })
-      .catch((error) => {
-        console.error(error);
-      })
+    this.setState({ activeGetServices2: true, dataBody2 })
   }
   SaveName = async () => {
     const { InputName } = this.state
@@ -313,9 +285,8 @@ export class Edit_Profile extends Component {
   }
   BirthdaySheetBody() {
     const { InputBirth_day } = this.state
-    const { activeNow } = this.state
-    const { currentUser } = this.state
-    console.log(this.state.birth_day)
+    console.log('InputBirth_day')
+    console.log(InputBirth_day)
     // currentUser.map((item) => {
     //   console.log(item.date_of_birth)
     //   activeNow < 2 ?
@@ -339,9 +310,9 @@ export class Edit_Profile extends Component {
               date={InputBirth_day}
               mode="date"
               placeholder="select date"
-              format="YYYY-MM-DD"
-              minDate="1920-12-01"
-              maxDate="2020-06-01"
+              format="DD-MM-YYYY"
+              minDate="01-12-1920"
+              maxDate="01-06-2020"
               confirmBtnText="Confirm"
               cancelBtnText="Cancel"
               customStyles={{
@@ -436,11 +407,15 @@ export class Edit_Profile extends Component {
       } else {
         checked = false
       }
+      console.log('item.date_of_birth')
+      console.log(item.date_of_birth)
+      const bday = new Date(item.date_of_birth)
+      var dob = [bday.getDate(), (bday.getMonth() + 1), bday.getFullYear()].join('-')
       this.setState({
-        Name: item.name, InputName: item.name, checked,
+        Name: item.name, InputName: item.name,
         Gender: checked, InputGender: checked,
         Phone: item.telphone, InputPhone: item.telphone,
-        birth_day: item.date_of_birth, Inputbirth_day: item.date_of_birth
+        Birth_day: dob, Inputbirth_day: dob
       })
     })
   }
@@ -450,13 +425,20 @@ export class Edit_Profile extends Component {
   getData = (dataSevice) => {
     this.setState({ activeGetServices: false, dataSevice })
   }
+  getData2 = (dataSevice2) => {
+    const { navigation } = this.props
+    this.setState({ activeGetServices2: false, dataSevice2 })
+    navigation.goBack()
+  }
   render() {
-    const { currentUser, Name, Phone, Gender, birth_day, activeGetSource, activeGetServices, cokie, } = this.state
+    const {
+      activeGetSource, activeGetServices, activeGetServices2, Birth_day, cokie, currentUser, dataBody2, Gender, Name, Phone,
+    } = this.state
     const uri = finip + '/profile/profile_mobile'
-
     var dataBody = {
       id_customer: currentUser ? currentUser.id_customer : '',
     }
+    const uri2 = finip + '/profile/update_profile_mobile'
     currentUser != null && Name == null &&
       this.setCurrentUser()
     console
@@ -525,8 +507,12 @@ export class Edit_Profile extends Component {
         <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขโปรไฟล์' />
         {[
           activeGetSource == false && activeGetServices == true &&
-          <GetServices key='GetServices' uriPointer={uri} dataBody={dataBody} Authorization={cokie}
-            showConsole={'getDataSource'} getDataSource={this.getData.bind(this)} />,
+          <GetServices key='profile_mobile' uriPointer={uri} dataBody={dataBody} Authorization={cokie}
+            // showConsole={'profile_mobile'} 
+            getDataSource={this.getData.bind(this)} />,
+          activeGetServices2 == true &&
+          <GetServices key='update_profile_mobile' uriPointer={uri2} dataBody={dataBody2} Authorization={cokie}
+            showConsole={'update_profile_mobile'} getDataSource={this.getData2.bind(this)} />,
           activeGetSource == true &&
           <GetData key='GetData' getCokie={true} getUser={true} getSource={this.getSource.bind(this)} />
         ]}
@@ -562,7 +548,7 @@ export class Edit_Profile extends Component {
                 <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => { (this.setState({ InputBirth_day: birth_day }), this.BirthdaySheet.open()); }}>
+            <TouchableOpacity onPress={() => { (this.setState({ InputBirth_day: Birth_day }), this.BirthdaySheet.open()); }}>
               <View style={stylesProfileTopic.BoxTopic}>
                 <View style={stylesMain.FlexRow}>
                   <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -585,11 +571,11 @@ export class Edit_Profile extends Component {
           </View>
         </ScrollView>
         <View style={{ alignItems: 'center', height: 40 }}>
-          {/* <TouchableOpacity TouchableOpacity onPress={this.SaveProfile.bind(this)}> */}
-          <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึกการเปลี่ยนแปลง</Text>
-          </View>
-          {/* </TouchableOpacity> */}
+          <TouchableOpacity TouchableOpacity onPress={this.SaveProfile.bind(this)}>
+            <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึกการเปลี่ยนแปลง</Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </>
     );

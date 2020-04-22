@@ -1725,6 +1725,7 @@ export class CategoryProductSubPromotion extends React.Component {
                                 width: width * 0.55,
                                 height: 105,
                             }}
+                            resizeMode={FastImage.resizeMode.stretch} 
                             style={[stylesMain.BoxProduct1Image, { borderRadius: 6, }]} />
                     </View>
                 );
@@ -1743,6 +1744,7 @@ export class CategoryProductSubPromotion extends React.Component {
                                 width: width * 0.40,
                                 height: 105,
                             }}
+                            resizeMode={FastImage.resizeMode.stretch} 
                             style={[stylesMain.BoxProduct1Image, { borderRadius: 6, }]} />
                     </View>
                 );
@@ -2064,7 +2066,7 @@ export class Fin_Mall extends React.Component {
                                 <TouchableOpacity
                                     key={'product_hit'}
                                     activeOpacity={1}
-                                    onPress={this.navigationNavigateScreen.bind(this, 'FinMallScreen', { selectedIndex: 1 })}>
+                                    onPress={this.navigationNavigateScreen.bind(this, 'FinMallScreen')}>
                                     <View style={stylesMain.FlexRow}>
                                         {this.productCate(loadData.product_hit)}
                                     </View>
@@ -2112,7 +2114,8 @@ export class FIN_Supermarket extends React.Component {
                     </ScrollView>
                 </View>
                 <View style={[stylesMain.FlexRow, stylesMain.Supermarket_Store]}>
-                    <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'FinMallScreen', { selectedIndex: 0 })}
+                    <TouchableOpacity 
+                    onPress={this.navigationNavigateScreen.bind(this, 'FINSupermarket')}
                         style={{ width: width * 0.64, }}>
                         <FastImage
                             style={stylesMain.BoxProduct1Image}

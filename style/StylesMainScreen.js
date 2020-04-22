@@ -478,8 +478,8 @@ export default StyleSheet.create({
     resizeMode: 'stretch',
   },
   TextInput: {
-    width: 230,
-    height: 40,
+    width: '80%',
+    paddingVertical:1,
   },
   Appbar: {
     borderColor: '#ECECEC',

@@ -24,6 +24,7 @@ import Same_StoreScreen from '../Same_StoreScreen';
 import SecondScreen from '../SecondScreen';
 import SearchScreen from '../SearchScreen';
 import FinMallScreen from '../FinMallScreen';
+import FINSupermarket from '../FINSupermarket';
 // src_Detail
 import Reviews_score from '../src-Detail/Reviews_score';
 // src_Bell
@@ -208,7 +209,13 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
-
+  FINSupermarket: {
+    screen: FINSupermarket,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
   // src_Detail
   Reviews_score: {
     screen: Reviews_score,
@@ -434,7 +441,7 @@ const PathScreen = createStackNavigator({
 },
   {
     initialRouteName: 'MainScreen',
-    // initialRouteName: 'Customer_Order',
+    // initialRouteName: 'FINSupermarket',
     // initialRouteName: 'ProfileScreen',
   }
 );

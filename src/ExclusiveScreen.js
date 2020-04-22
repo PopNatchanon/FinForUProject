@@ -62,16 +62,14 @@ export default class ExclusiveScreen extends React.Component {
   }
   render() {
     const { navigation } = this.props;
-    const {
-      activeArray, activeGetCurrentUser, activeGetServices, cokie, currentUser, dataService, filterValue, modeStore, SearchText,
-      sliderVisible,
-    } = this.state;
+    const {  activeGetCurrentUser, activeGetServices, dataService, filterValue, 
+    sliderVisible, } = this.state;
     var uri = finip + '/highlight/exclusive_mobile';
     var dataBody = {
-      popular: filterValue && filterValue.popular ? filterValue.popular : '',
-      lastest: filterValue && filterValue.lastest ? filterValue.lastest : '',
-      best_sale: filterValue && filterValue.best_sale ? filterValue.best_sale : '', // << ถ้าเลือกออันส่งค่า “best_sale” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
-      sort_price: filterValue && filterValue.sort_price ? filterValue.sort_price : '', //<< เลือกราคาต่ำสุดส่ง “min” สูงสุดส่ง “max” ถ้าไม่ได้เลือกเลยส่งค่าว่าง
+      popular: filterValue && filterValue.popular ? filterValue.popular : '', // ถ้าเลือกออันส่งค่า “popular” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
+      lastest: filterValue && filterValue.lastest ? filterValue.lastest : '', //..ถ้าเลือกออันส่งค่า “lastest” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
+      best_sale: filterValue && filterValue.best_sale ? filterValue.best_sale : '', //  ถ้าเลือกออันส่งค่า “best_sale” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
+      sort_price: filterValue && filterValue.sort_price ? filterValue.sort_price : '', // เลือกราคาต่ำสุดส่ง “min” สูงสุดส่ง “max” ถ้าไม่ได้เลือกเลยส่งค่าว่าง
       min_price: filterValue && filterValue.minvalue ? Number(filterValue.minvalue) : '',
       max_price: filterValue && filterValue.maxvalue ? Number(filterValue.maxvalue) : '',
     };

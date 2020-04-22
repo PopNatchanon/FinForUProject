@@ -471,9 +471,8 @@ export default StyleSheet.create({
         width: '100%',
         borderBottomColor: '#000000',
         borderBottomWidth: 1,
-        marginTop: 10,
         flexDirection: 'row',
-        justifyContent: 'flex-end',
+        justifyContent: 'space-between',
     },
     Address_Customar: {
         width: '100%',

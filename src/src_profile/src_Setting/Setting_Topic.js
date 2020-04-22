@@ -14,6 +14,7 @@ import DatePicker from 'react-native-datepicker';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconEvilIcons from 'react-native-vector-icons/EvilIcons';
 import IconFeather from 'react-native-vector-icons/Feather';
+import IconFontisto from 'react-native-vector-icons/Fontisto';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../../../style/stylesFont';
 import stylesMain from '../../../style/StylesMainScreen';
@@ -292,7 +293,8 @@ export class Edit_Profile extends Component {
               checked={InputGender}
               onPress={() => this.setState({ InputGender: true })}
             />
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 15 }]}>ชาย</Text>
+            <IconFontisto name='male' size={20} style={{ marginTop: 15, marginLeft: -10 ,color:'#0A55A6'}} />
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 15, marginLeft: 10 }]}>ชาย</Text>
             <CheckBox
               size={25}
               checkedIcon='dot-circle-o'
@@ -300,7 +302,8 @@ export class Edit_Profile extends Component {
               checked={!InputGender}
               onPress={() => this.setState({ InputGender: false })}
             />
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 15 }]}>หญิง</Text>
+            <IconFontisto name='female' size={20} style={{ marginTop: 15, marginLeft: -10,color:'#ff1ac6' }} />
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 15, marginLeft: 10 }]}>หญิง</Text>
           </View>
         </View>
         <TouchableOpacity onPress={this.SaveGender.bind(this)}>
@@ -633,33 +636,33 @@ export class Edit_Pass extends Component {
         <ScrollView>
           <View style={stylesProfileTopic.Edit_Pass}>
             <View style={{ width: '80%' }}>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>รหัสผ่านปัจจุบัน</Text>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginTop: 5 }]}>รหัสผ่านปัจจุบัน</Text>
               <View style={stylesProfileTopic.Edit_Pass_TextInput}>
                 <TextInput
-                  fontSize={15}
+                  style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { width: '80%', height: 55 }]}
                   placeholder=""
                   maxLength={50}
                   value={Pass1}
                   onChangeText={this.setStatePass1.bind(this, Pass1)} />
                 <IconFeather RightItem name='eye-off' size={20} style={{ marginTop: 5, }} />
               </View>
-              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 10 }]}>กรุณาระบุรหัสผ่านใหม่ด่านล่าง</Text>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>กรุณาระบุรหัสผ่านใหม่ด่านล่าง</Text>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#BFBFBF', marginLeft: 10, }]}>
                 ประกอบไปด้วยตัวเลขและตัวอักษร อย่างน้อย 6 อักษร</Text>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 10, }]}>รหัสผ่านใหม่</Text>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginTop: 5, }]}>รหัสผ่านใหม่</Text>
               <View style={stylesProfileTopic.Edit_Pass_TextInput}>
                 <TextInput
-                  fontSize={15}
+                  style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { width: '80%', height: 55 }]}
                   placeholder=""
                   maxLength={50}
                   value={Pass2}
                   onChangeText={this.setStatePass2.bind(this, Pass2)} />
                 <IconFeather RightItem name='eye-off' size={20} style={{ marginTop: 5, }} />
               </View>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 10, }]}>พิมพ์รหัสผ่านใหม่อีกครั้ง</Text>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginTop: 5, }]}>พิมพ์รหัสผ่านใหม่อีกครั้ง</Text>
               <View style={stylesProfileTopic.Edit_Pass_TextInput}>
                 <TextInput
-                  fontSize={15}
+                  style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { width: '80%', height: 55 }]}
                   placeholder=""
                   maxLength={50}
                   value={Pass3}

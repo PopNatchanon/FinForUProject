@@ -226,7 +226,7 @@ export default class StoreScreen extends React.Component {
                     selectedIndex == 2 &&
                     <>
                         <ActionButton buttonColor="#0A55A6" size={50}
-                         onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', { selectedIndex: 7 })}>
+                         onPress={this.navigationNavigateScreen.bind(this, 'Post_Feed', { selectedIndex: 1 })}>
                         </ActionButton>
                     </>
                 }
@@ -391,7 +391,7 @@ export class StoreHeadDetails extends React.Component {
                         </View>
                     </View>
                     <TouchableOpacity activeOpacity={1}
-                        onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', { selectedIndex: 6 })}>
+                        onPress={this.navigationNavigateScreen.bind(this, 'Post_Feed', { selectedIndex: 0 })}>
                         <IconEntypo name='chevron-right' size={25} color='#0A55A6' />
                     </TouchableOpacity>
                 </View>
@@ -422,9 +422,9 @@ export class Menubar extends React.Component {
         }
         return false
     }
-    getData = (selectedIndex) => {
+    getData = (Value) => {
         const { getSelectedIndex } = this.props
-        getSelectedIndex(selectedIndex)
+        getSelectedIndex(Value.selectedIndex)
     }
     render() {
         const item = [{

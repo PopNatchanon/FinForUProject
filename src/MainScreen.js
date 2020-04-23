@@ -386,6 +386,7 @@ export class AppBar extends React.Component {
                                         resizeMode={FastImage.resizeMode.stretch} /> */
                                 }
                                 <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
+                                    height:30,
                                     width:
                                         rightBar == 'storebar' ?
                                             leftBar == 'backarrow' ?

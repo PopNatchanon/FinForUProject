@@ -387,7 +387,7 @@ export class Menubar extends React.Component {
     }
     getData = (selectedIndex) => {
         const { getSelectedIndex } = this.props
-        getSelectedIndex(Value.selectedIndex)
+        getSelectedIndex(selectedIndex)
     }
     render() {
         const item = [{

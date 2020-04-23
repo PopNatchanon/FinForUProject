@@ -31,28 +31,24 @@ export default class Setting_Topic extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: {},
+      activeGetSource: true,
     }
   }
-  componentDidMount() {
-    this.getDataAsync()
-  }
-  getDataAsync = async () => {
-    const currentUser = await AsyncStorage.getItem('@MyKey')
-    this.setState({ currentUser: JSON.parse(currentUser) })
+  getSource = (value) => {
+    this.setState({ activeGetSource: false, currentUser: value.currentUser, cokie: value.keycokie })
   }
   PathList() {
     const { navigation, } = this.props
-    const { currentUser } = this.state
+    const { activeGetSource, cokie, currentUser } = this.state
     const selectedIndex = navigation.getParam('selectedIndex')
     switch (selectedIndex) {
       case 0:
         return (
-          <Edit_Profile navigation={navigation} currentUser={currentUser} />
+          <Edit_Profile activeGetSource={activeGetSource} cokie={cokie} currentUser={currentUser} navigation={navigation} />
         )
       case 1:
         return (
-          <Edit_Address navigation={navigation} currentUser={currentUser} />
+          <Edit_Address activeGetSource={activeGetSource} cokie={cokie} currentUser={currentUser} navigation={navigation} />
         )
       case 2:
         return (
@@ -84,14 +80,19 @@ export default class Setting_Topic extends Component {
         )
       case 7:
         return (
-          <Edit_Pass navigation={navigation} />
+          <Edit_Pass activeGetSource={activeGetSource} cokie={cokie} currentUser={currentUser} navigation={navigation} />
         )
     }
   }
   render() {
     const { navigation, } = this.props
+    const { activeGetSource } = this.state
     return (
       <SafeAreaView style={[stylesMain.SafeAreaView]}>
+        {
+          activeGetSource == true &&
+          <GetData key='GetData' getCokie={true} getUser={true} getSource={this.getSource.bind(this)} />
+        }
         {this.PathList()}
         <ExitAppModule navigation={navigation} />
       </SafeAreaView>
@@ -108,7 +109,6 @@ export class Edit_Profile extends Component {
       currentUser: [],
       date: "",
       activeGetServices: true,
-      activeGetSource: true,
       // date: new Date(),
       // DataDay: [],
       // DataMo: [],
@@ -119,13 +119,6 @@ export class Edit_Profile extends Component {
     this.getDataYear()
     this.getDataMo(new Date())
     this.getDataDay(new Date())
-    this.getDataAsync()
-  }
-  getDataAsync = async () => {
-    var currentUser = []
-    const data = await AsyncStorage.getItem('@MyKey')
-    currentUser.push(JSON.parse(data))
-    this.setState({ currentUser })
   }
   getDataYear() {
     var dates = new Date().getFullYear();
@@ -195,9 +188,10 @@ export class Edit_Profile extends Component {
     )
   }
   SaveProfile = async () => {
+    const { currentUser } = this.props
     const { Birth_day, Gender, Name, Phone } = this.state
     const dataBody2 = {
-      id_customer: this.props.currentUser.id_customer,
+      id_customer: currentUser.id_customer,
       first_name: Name,
       gender: Gender == true ? 'male' : 'female',
       // file: this.props.currentUser.image,
@@ -265,7 +259,7 @@ export class Edit_Profile extends Component {
               checked={InputGender}
               onPress={() => this.setState({ InputGender: true })}
             />
-            <IconFontisto name='male' size={20} style={{ marginTop: 15, marginLeft: -10 ,color:'#0A55A6'}} />
+            <IconFontisto name='male' size={20} style={{ marginTop: 15, marginLeft: -10, color: '#0A55A6' }} />
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 15, marginLeft: 10 }]}>ชาย</Text>
             <CheckBox
               size={25}
@@ -274,7 +268,7 @@ export class Edit_Profile extends Component {
               checked={!InputGender}
               onPress={() => this.setState({ InputGender: false })}
             />
-            <IconFontisto name='female' size={20} style={{ marginTop: 15, marginLeft: -10,color:'#ff1ac6' }} />
+            <IconFontisto name='female' size={20} style={{ marginTop: 15, marginLeft: -10, color: '#ff1ac6' }} />
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 15, marginLeft: 10 }]}>หญิง</Text>
           </View>
         </View>
@@ -402,28 +396,26 @@ export class Edit_Profile extends Component {
   }
   setCurrentUser = () => {
     const { dataSevice } = this.state
-    dataSevice && dataSevice.list_profile.map((item) => {
-      console.log(item)
+    dataSevice && dataSevice.list_profile.map((value) => {
+      console.log(value)
       var checked
-      if (item.gender == 'male') {
+      if (value.gender == 'male') {
         checked = true
       } else {
         checked = false
       }
-      console.log('item.date_of_birth')
-      console.log(item.date_of_birth)
-      const bday = new Date(item.date_of_birth)
+      console.log('value.date_of_birth')
+      console.log(value.date_of_birth)
+      const bday = new Date(value.date_of_birth)
       var dob = [bday.getDate(), (bday.getMonth() + 1), bday.getFullYear()].join('-')
       this.setState({
-        Name: item.name, InputName: item.name,
+        Name: value.name, InputName: value.name,
         Gender: checked, InputGender: checked,
-        Phone: item.telphone, InputPhone: item.telphone,
-        Birth_day: dob, Inputbirth_day: dob
+        Phone: value.telphone, InputPhone: value.telphone,
+        Birth_day: dob, Inputbirth_day: dob,
+        image_path: value.image_path, image: value.image
       })
     })
-  }
-  getSource = (value) => {
-    this.setState({ activeGetSource: false, currentUser: value.currentUser, cokie: value.keycokie })
   }
   getData = (dataSevice) => {
     this.setState({ activeGetServices: false, dataSevice })
@@ -433,9 +425,13 @@ export class Edit_Profile extends Component {
     this.setState({ activeGetServices2: false, dataSevice2 })
     navigation.goBack()
   }
+  sendImageProfile = (value) => {
+    console.log(value)
+  }
   render() {
+    const { activeGetSource, cokie, currentUser, } = this.props
     const {
-      activeGetSource, activeGetServices, activeGetServices2, Birth_day, cokie, currentUser, dataBody2, Gender, Name, Phone,
+      activeGetServices, activeGetServices2, Birth_day, dataBody2, Gender, image, image_path, Name, Phone,
     } = this.state
     const uri = finip + '/profile/profile_mobile'
     var dataBody = {
@@ -516,11 +512,9 @@ export class Edit_Profile extends Component {
           activeGetServices2 == true &&
           <GetServices key='update_profile_mobile' uriPointer={uri2} dataBody={dataBody2} Authorization={cokie}
             showConsole={'update_profile_mobile'} getDataSource={this.getData2.bind(this)} />,
-          activeGetSource == true &&
-          <GetData key='GetData' getCokie={true} getUser={true} getSource={this.getSource.bind(this)} />
         ]}
         <ScrollView>
-          <Seller_SettingImage />
+          <Seller_SettingImage image_path={image_path} image={image} sendImageProfile={this.sendImageProfile.bind(this)} />
           <View style={{ marginTop: 20, height, }}>
             <TouchableOpacity onPress={() => { (this.setState({ InputName: Name }), this.NameSheet.open()); }}>
               <View style={stylesProfileTopic.BoxTopic}>
@@ -589,35 +583,46 @@ export class Edit_Pass extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeGetServices: false,
+      current_password: '',
+      new_password: '',
+      confirm_password: '',
     };
   }
-  shouldComponentUpdate = (nextProps, nextState) => {
+  setStateCurrent_Password = (current_password) => {
+    this.setState({ current_password })
+  }
+  setStateNew_Password = (new_password) => {
+    this.setState({ new_password })
+  }
+  setStateConfirm_Password = (confirm_password) => {
+    this.setState({ confirm_password })
+  }
+  getData = (dataSevice) => {
     const { navigation, } = this.props
-    const { Pass1, Pass2, Pass3, } = this.props
-    if (
-      ////>nextProps
-      navigation !== nextProps.navigation ||
-      ////>nextState
-      Pass1 !== nextState.Pass1 || Pass2 !== nextState.Pass2 || Pass3 !== nextState.Pass3
-    ) {
-      return true
-    }
-    return false
-  }
-  setStatePass1 = (Pass1) => {
-    this.setState({ Pass1 })
-  }
-  setStatePass2 = (Pass2) => {
-    this.setState({ Pass2 })
-  }
-  setStatePass3 = (Pass3) => {
-    this.setState({ Pass3 })
+    dataSevice.status_cahnge == 'Incomplete' && alert(dataSevice.Massage)
+    dataSevice.status_cahnge == 'Complete' && ([alert(dataSevice.Massage), navigation.goBack()])
+    this.setState({ activeGetServices: false, dataSevice })
   }
   render() {
-    const { navigation, } = this.props
-    const { Pass1, Pass2, Pass3, } = this.props
+    const { activeGetSource, cokie, currentUser, navigation, } = this.props
+    const { activeGetServices, current_password, new_password, confirm_password, } = this.state
+    const uri = finip + '/profile/change_customer_password'
+    var dataBody = {
+      id_customer: currentUser ? currentUser.id_customer : '',
+      current_password,
+      new_password,
+      confirm_password,
+    }
+    console.log(current_password != '' && new_password != '' && confirm_password != '')
     return (
       <>
+        {
+          activeGetSource == false && activeGetServices == true &&
+          <GetServices key='change_customer_password' uriPointer={uri} dataBody={dataBody} Authorization={cokie}
+            showConsole={'change_customer_password'}
+            getDataSource={this.getData.bind(this)} />
+        }
         <AppBar1 backArrow navigation={navigation} titleHead='เปลี่ยนรหัสผ่าน' />
         <ScrollView>
           <View style={stylesProfileTopic.Edit_Pass}>
@@ -626,41 +631,47 @@ export class Edit_Pass extends Component {
               <View style={stylesProfileTopic.Edit_Pass_TextInput}>
                 <TextInput
                   style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { width: '80%', height: 55 }]}
+                  secureTextEntry
                   placeholder=""
                   maxLength={50}
-                  value={Pass1}
-                  onChangeText={this.setStatePass1.bind(this, Pass1)} />
+                  value={current_password}
+                  onChangeText={this.setStateCurrent_Password.bind(this)} />
                 <IconFeather RightItem name='eye-off' size={20} style={{ marginTop: 5, }} />
               </View>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>กรุณาระบุรหัสผ่านใหม่ด่านล่าง</Text>
+              {/* <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>กรุณาระบุรหัสผ่านใหม่ด่านล่าง</Text>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#BFBFBF', marginLeft: 10, }]}>
-                ประกอบไปด้วยตัวเลขและตัวอักษร อย่างน้อย 6 อักษร</Text>
+                ประกอบไปด้วยตัวเลขและตัวอักษร อย่างน้อย 6 อักษร</Text> */}
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginTop: 5, }]}>รหัสผ่านใหม่</Text>
               <View style={stylesProfileTopic.Edit_Pass_TextInput}>
                 <TextInput
                   style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { width: '80%', height: 55 }]}
+                  secureTextEntry
                   placeholder=""
                   maxLength={50}
-                  value={Pass2}
-                  onChangeText={this.setStatePass2.bind(this, Pass2)} />
+                  value={new_password}
+                  onChangeText={this.setStateNew_Password.bind(this)} />
                 <IconFeather RightItem name='eye-off' size={20} style={{ marginTop: 5, }} />
               </View>
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginTop: 5, }]}>พิมพ์รหัสผ่านใหม่อีกครั้ง</Text>
               <View style={stylesProfileTopic.Edit_Pass_TextInput}>
                 <TextInput
                   style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { width: '80%', height: 55 }]}
+                  secureTextEntry
                   placeholder=""
                   maxLength={50}
-                  value={Pass3}
-                  onChangeText={this.setStatePass3.bind(this, Pass3)} />
+                  value={confirm_password}
+                  onChangeText={this.setStateConfirm_Password.bind(this)} />
                 <IconFeather RightItem name='eye-off' size={20} style={{ marginTop: 5, }} />
               </View>
             </View>
           </View>
         </ScrollView>
         <View style={{ alignItems: 'center' }}>
-          <TouchableOpacity>
-            <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
+          <TouchableOpacity onPress={() => { this.setState({ activeGetServices: true }) }}>
+            <View style={[stylesProfileTopic.Edit_Profile_Button_Save, {
+              backgroundColor: current_password != '' && new_password != '' && confirm_password != '' ?
+                '#0A55A6' : '#CECECE'
+            }]}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>เปลี่ยนรหัสผ่าน</Text>
             </View>
           </TouchableOpacity>

@@ -991,21 +991,6 @@ export class FeedBox extends React.Component {
             activeFeed: false
         };
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService, Follow, Header, navigation, postpath, prepath, typeip, } = this.props
-        const { activeFeed, Button_Follow_After, } = this.state
-        if (
-            ////>nextProps
-            dataService !== nextProps.dataService || Follow !== nextProps.Follow || Header !== nextProps.Header ||
-            navigation !== nextProps.navigation || postpath !== nextProps.postpath || prepath !== nextProps.prepath ||
-            typeip !== nextProps.typeip ||
-            ////>nextState
-            activeFeed !== nextState.activeFeed || Button_Follow_After !== nextState.Button_Follow_After
-        ) {
-            return true
-        }
-        return false
-    }
     componentDidMount() {
         this.intervalID = setInterval(
             () => this.tick(),

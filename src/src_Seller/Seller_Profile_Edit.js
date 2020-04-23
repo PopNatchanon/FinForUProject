@@ -24,6 +24,7 @@ import stylesSeller from '../../style/styleSeller-src/styleSellerScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 ///----------------------------------------------------------------------------------------------->>>> Main
 import { AppBar1 } from '../MainScreen';
+import { finip } from '../navigator/IpConfig';
 
 
 export default class Seller_Profile_Edit extends Component {
@@ -47,10 +48,7 @@ export default class Seller_Profile_Edit extends Component {
         );
     }
 }
-
 ///------------------------------------------------------------------------------///
-
-
 export class Seller_SettingImage extends Component {
     constructor(props) {
         super(props);
@@ -59,23 +57,29 @@ export class Seller_SettingImage extends Component {
         };
     }
     UploadImageBackground = () => {
+        const { sendImageBackground } = this.props
         const options = {
             includeBase64: true
         };
         ImagePicker.openPicker(options).then(response => {
             this.setState({ avatarSource2: response })
+            sendImageBackground(response)
         });
     }
     UploadImageProfile = () => {
+        const { sendImageProfile } = this.props
         const options = {
             includeBase64: true
         };
         ImagePicker.openPicker(options).then(response => {
             this.setState({ avatarSource3: response })
+            sendImageProfile(response)
         });
     }
     render() {
+        const { image, image_path, } = this.props
         const { avatarSource2, avatarSource3 } = this.state
+        const image_User = [finip, image_path, image].join('/')
         return (
             <View>
                 <View>
@@ -105,9 +109,13 @@ export class Seller_SettingImage extends Component {
                                 <FastImage
                                     source={{ uri: avatarSource3.path }}
                                     style={[stylesMain.ItemCenterVertical, { height: '100%', width: '100%', borderRadius: 50, }]}
-                                />
-                                :
-                                <IconFontAwesome5 name="user-alt" size={50} color='#1a3263' />
+                                /> :
+                                image_User ?
+                                    <FastImage
+                                        source={{ uri: image_User }}
+                                        style={[stylesMain.ItemCenterVertical, { height: '100%', width: '100%', borderRadius: 50, }]}
+                                    /> :
+                                    <IconFontAwesome5 name="user-alt" size={50} color='#1a3263' />
                         }
                     </View>
                     <View style={stylesSeller.Seller_SettingImageIconBox}>
@@ -314,7 +322,7 @@ export class Seller_SettingButton extends Component {
                             alignItems: "center",
                         }
                     }}
-              >
+                >
                     {this.Phone_numberSheetBody()}
                 </BottomSheet>
                 <TouchableOpacity onPress={() => { this.Phone_numberSheet.open(); }}>

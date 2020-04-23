@@ -550,18 +550,20 @@ export class Follow_storeScreen extends React.Component {
         };
     }
     render() {
-        const { cokie, currentUser, dataSevice } = this.props
+        const { cokie, currentUser, dataSevice, navigation } = this.props
         return (
             <ScrollView>
                 {
                     dataSevice.store.map((value, index) => {
-                        return <Follow_store_Box cokie={cokie} currentUser={currentUser} dataSevice={value} key={index} />
+                        return <Follow_store_Box cokie={cokie} currentUser={currentUser} dataSevice={value} key={index}
+                            navigation={navigation} />
                     })
                 }
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 10, marginLeft: 10, }]}>ร้านค้าที่คุณอาจชอบ</Text>
                 {
                     dataSevice.unlike_store.map((value, index) => {
-                        return <Might_like_Store cokie={cokie} currentUser={currentUser} dataSevice={value} key={index} />
+                        return <Might_like_Store cokie={cokie} currentUser={currentUser} dataSevice={value} key={index}
+                            navigation={navigation} />
                     })
                 }
             </ScrollView>
@@ -575,6 +577,16 @@ export class Follow_store_Box extends React.Component {
         this.state = {
             Button_Follow_Before: true,
         };
+    }
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.push(value, value2)
     }
     getData = (value) => {
         this.setState({ activeGetServices: false })
@@ -598,7 +610,8 @@ export class Follow_store_Box extends React.Component {
                         getDataSource={this.getData.bind(this)} />
                 }
                 <View style={stylesProfileTopic.Follow_store_Box}>
-                    <View style={{ flexDirection: 'row', }}>
+                    <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: dataSevice.id_store })}
+                        style={{ flexDirection: 'row', }}>
                         <FastImage style={stylesProfileTopic.Follow_store_Box_image}
                             source={{
                                 uri: image_store,
@@ -609,7 +622,7 @@ export class Follow_store_Box extends React.Component {
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>{dataSevice.store_name}</Text>
                             {/* <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>@asusthailand</Text> */}
                         </View>
-                    </View>
+                    </TouchableOpacity>
                     <TouchableOpacity style={stylesProfileTopic.Follow_store_Button}
                         onPress={() => this.setState({ Button_Follow_Before: !Button_Follow_Before, activeGetServices: true })}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>
@@ -628,6 +641,16 @@ export class Might_like_Store extends React.Component {
             activeGetServices: false,
             Button_Follow_After: true,
         };
+    }
+    navigationNavigateScreen = (value, value2) => {
+        const { navigation } = this.props
+        value == 'goBack' ?
+            navigation.goBack() :
+            value == 'LoginScreen' ? (
+                navigation.popToTop(),
+                navigation.replace(value, value2)
+            ) :
+                navigation.push(value, value2)
     }
     getData = (value) => {
         console.log('Might_like_Store')
@@ -654,7 +677,8 @@ export class Might_like_Store extends React.Component {
                 }
                 <View style={stylesProfileTopic.Might_like_Store}>
                     <View style={stylesProfileTopic.Follow_store_Box}>
-                        <View style={{ flexDirection: 'row', }}>
+                        <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: dataSevice.id_store })}
+                            style={{ flexDirection: 'row', }}>
                             <FastImage style={stylesProfileTopic.Follow_store_Box_image}
                                 source={{
                                     uri: image_store,
@@ -665,7 +689,7 @@ export class Might_like_Store extends React.Component {
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>{dataSevice.store_name}</Text>
                                 {/* <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>81% คะแนนร้านค้า</Text> */}
                             </View>
-                        </View>
+                        </TouchableOpacity>
                         <TouchableOpacity
                             onPress={() => this.setState({ Button_Follow_After: !Button_Follow_After, activeGetServices: true })}>
                             <View style={stylesProfileTopic.Follow_store_Button}>

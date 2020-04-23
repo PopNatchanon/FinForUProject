@@ -11,13 +11,13 @@ export const { width, height, } = Dimensions.get('window');
 import ActionButton from 'react-native-action-button';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconEntypo from 'react-native-vector-icons/Entypo';
-import Icon from 'react-native-vector-icons/Ionicons';
+import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar, ExitAppModule, } from './MainScreen';
+import { AppBar, ExitAppModule, GetData, } from './MainScreen';
 import { FeedBox, GetCoupon, GetServices, ProductBox, TabBar, } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from './navigator/IpConfig';
@@ -26,7 +26,10 @@ export default class StoreScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataService: [],
+            activeGetCurrentUser: true,
+            activeGetServices: true,
+            activeGetServices2: true,
+            filterValue: { popular: 'popular' },
             selectedIndex: 0,
             selectedIndex2: 0,
             scrollY: new Animated.Value(0)
@@ -42,98 +45,81 @@ export default class StoreScreen extends React.Component {
             ) :
                 navigation.push(value, value2)
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation, } = this.props;
-        const { dataService, selectedIndex, selectedIndex2, scrollY, } = this.state
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation ||
-            ////>nextState
-            dataService !== nextState.dataService || selectedIndex !== nextState.selectedIndex ||
-            selectedIndex2 !== nextState.selectedIndex2 || scrollY !== nextState.scrollY
-        ) {
-            return true
-        }
-        return false
+    getSelectedIndex = (value) => {
+        this.setState({ selectedIndex: value.selectedIndex })
     }
-    getSelectedIndex = (selectedIndex) => {
-        this.setState({ selectedIndex })
-    }
-    getSelectedIndex2 = (selectedIndex2) => {
-        this.setState({ selectedIndex2 })
+    getSelectedIndex2 = (value) => {
+        const { filterValue, } = this.state;
+        filterValue.popular = value.selectedIndex == 0 ? 'popular' : '';
+        filterValue.best_sale = value.selectedIndex == 1 ? 'best_sale' : '';
+        filterValue.lastest = value.selectedIndex == 2 ? 'lastest' : '';
+        filterValue.sort_price = value.selectedIndex == 3 ? value.actionReturn : '';
+        this.setState({ activeGetServices2: true, filterValue, selectedIndex2: value.selectedIndex })
     }
     getData = (dataService) => {
-        this.setState({ dataService })
+        this.setState({ activeGetServices: false, dataService, })
     }
-    ViewSide(selectedIndex, item) {
+    getData2 = (dataService2) => {
+        this.setState({ activeGetServices2: false, dataService2, })
+    }
+    getSource = (value) => {
+        this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser, cokie: value.keycokie })
+    }
+    ViewSide(selectedIndex, dataService) {
         const { navigation, } = this.props;
-        const { selectedIndex2, } = this.state
+        const { currentUser, cokie, dataService2, } = this.state
         switch (selectedIndex) {
             case 0:
                 return ([
-                    <Banner navigation={navigation} item={item} key={'Banner'} />,
-                    <TicketLine key={'TicketLine'} />,
-                    <DealTop navigation={navigation} key={'DealTop'} />,
-                    <NewProduct navigation={navigation} key={'NewProduct'} />,
-                    <PopularProduct navigation={navigation} key={'PopularProduct'} />
+                    <TicketLine cokie={cokie} currentUser={currentUser} navigation={navigation} key={'TicketLine'} />,
+                    <DealTop dataService={dataService && dataService[0].product_big_deal} navigation={navigation} key={'product_big_deal'}
+                        titlename='ดีลเด็ด' />,
+                    <DealTop dataService={dataService && dataService[0].product_new} navigation={navigation} key={'product_new'}
+                        titlename='สินค้ามาใหม่' />,
+                    <PopularProduct dataService={dataService && dataService[0].product_best_sale} navigation={navigation}
+                        key={'product_best_sale'} />
                 ]);
             case 1:
                 return ([
-                    <Banner navigation={navigation} item={item} key={'Banner'} />,
                     <SubMenu getSelectedIndex2={this.getSelectedIndex2.bind(this)} key={'SubMenu'} />,
-                    this.ViewSubSide(selectedIndex2)
+                    <ShowProduct dataService={dataService2 && dataService2.store_data[0].product_store} noTitle navigation={navigation} />
                 ]);
             case 2:
                 return ([
-                    <Banner navigation={navigation} item={item} key={'Banner'} />,
                     <BoxProduct4 navigation={navigation} key={'BoxProduct4'} />,
                 ]);
             default:
         }
     }
-    ViewSubSide(selectedIndex2) {
-        const { navigation } = this.props;
-        if (selectedIndex2 == 0) {
-            return (
-                <View key={'ShowProduct'}>
-                    <ShowProduct noTitle navigation={navigation} />
-                </View>
-            )
-        } else if (selectedIndex2 == 1) {
-            return (
-                <View key={'ShowProduct'}>
-                    <ShowProduct noTitle navigation={navigation} />
-                </View>
-            )
-        } else if (selectedIndex2 == 2) {
-            return (
-                <View key={'ShowProduct'}>
-                    <ShowProduct noTitle navigation={navigation} />
-                </View>
-            )
-        } else if (selectedIndex2 == 3) {
-            return (
-                <View key={'ShowProduct'}>
-                    <ShowProduct noTitle navigation={navigation} />
-                </View>
-            )
-        }
-    }
     render() {
         const { navigation, } = this.props
-        const { dataService, scrollY, selectedIndex, } = this.state
+        const { activeGetCurrentUser, activeGetServices, activeGetServices2, dataService, filterValue, scrollY, selectedIndex, } = this.state
         const id_item = navigation.getParam('id_item')
-        var uri = ip + '/mysql/DataServiceStore.php';
+        var uri = [finip, 'brand/store_home'].join('/');
         var dataBody = {
-            type: 'storedata',
-            id: Number(id_item)
-        };
+            id_store: id_item,
+            popular: '', //<< ถ้าเลือกออันส่งค่า “popular” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
+            lastest: '', //<< ถ้าเลือกออันส่งค่า “lastest” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
+            best_sale: '',  //<< ถ้าเลือกออันส่งค่า “best_sale” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
+            sort_price: '', //<< เลือกราคาต่ำสุดส่ง “min” สูงสุดส่ง “max” ถ้าไม่ได้เลือกเลยส่งค่าว่าง
+            min_price: '',
+            max_price: ''
+        }
+        var dataBody2 = {
+            id_store: id_item,
+            popular: filterValue && filterValue.popular ? filterValue.popular : '', //<< ถ้าเลือกออันส่งค่า “popular” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
+            lastest: filterValue && filterValue.lastest ? filterValue.lastest : '', //<< ถ้าเลือกออันส่งค่า “lastest” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
+            best_sale: filterValue && filterValue.best_sale ? filterValue.best_sale : '',  //<< ถ้าเลือกออันส่งค่า “best_sale” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
+            sort_price: filterValue && filterValue.sort_price ? filterValue.sort_price : '', //<< เลือกราคาต่ำสุดส่ง “min” สูงสุดส่ง “max” ถ้าไม่ได้เลือกเลยส่งค่าว่าง
+            min_price: '',
+            max_price: ''
+        }
         const maxheight = 70
-        var s_item = dataService.map((item) => {
-            return ({
-                id_store: item.id_store, name: item.name, image: item.image, image_path: item.image_path,
-            })
-        })
+        // var s_item = dataService.map((item) => {
+        //     return ({
+        //         id_store: item.id_store, name: item.name, image: item.image, image_path: item.image_path,
+        //     })
+        // })
         const AnimatedHeadopacity = scrollY.interpolate({
             inputRange: [0, maxheight],
             outputRange: [1, 0],
@@ -164,16 +150,29 @@ export default class StoreScreen extends React.Component {
             outputRange: ['#fff', '#111'],
             extrapolate: 'clamp',
         })
+        var image_header
+        dataService && dataService.store_data.map((value) => {
+            return image_header = [finip, value.image_head_path, value.image_head].join('/')
+        })
         // const wheight = maxheight * 3.5
         return (
             <View style={[stylesMain.BackgroundAreaView, { height: '100%', }]}>
-                {
-                    id_item !== undefined &&
+                {[
+                    activeGetServices == true && id_item !== undefined &&
                     <GetServices
                         uriPointer={uri}
                         dataBody={dataBody}
-                        getDataSource={this.getData.bind(this)} />
-                }
+                        // showConsole='store_home'
+                        getDataSource={this.getData.bind(this)} />,
+                    activeGetServices2 == true && id_item !== undefined &&
+                    <GetServices
+                        uriPointer={uri}
+                        dataBody={dataBody2}
+                        // showConsole='store_home'
+                        getDataSource={this.getData2.bind(this)} />,
+                    activeGetCurrentUser == true &&
+                    <GetData getCokie={true} getSource={this.getSource.bind(this)} getUser={true} key={'GetData'} />
+                ]}
                 <Animatable.View style={{
                     position: 'absolute',
                     top: 0,
@@ -184,7 +183,7 @@ export default class StoreScreen extends React.Component {
                 }}>
                     <View style={[stylesStore.StoreHead]}>
                         <ImageBackground
-                            source={require('../icon/bgprofile.jpg')}
+                            source={{ uri: image_header }}
                             style={stylesStore.StoreHeadImage} />
                     </View>
                 </Animatable.View>
@@ -211,22 +210,23 @@ export default class StoreScreen extends React.Component {
                         marginTop: -50,
                         opacity: AnimatedHeadopacity,
                     }}>
-                        <StoreHead navigation={navigation} item={s_item} />
+                        <StoreHead navigation={navigation} dataService={dataService && dataService.store_data} />
                     </Animatable.View>
                     <Animatable.View style={{
                         opacity: AnimatedDetailsopacity,
                         height: 120,
                     }}>
-                        <StoreHeadDetails navigation={navigation} item={s_item} />
+                        <StoreHeadDetails navigation={navigation} dataService={dataService && dataService.store_data} />
                     </Animatable.View>
-                    <Menubar navigation={navigation} item={s_item} getSelectedIndex={this.getSelectedIndex.bind(this)} />
-                    {this.ViewSide(selectedIndex, s_item)}
+                    <Menubar navigation={navigation} getSelectedIndex={this.getSelectedIndex.bind(this)} />
+                    <Banner navigation={navigation} dataService={dataService && dataService.store_data} key={'Banner'} />
+                    {this.ViewSide(selectedIndex, dataService && dataService.store_data)}
                 </ScrollView>
                 {
                     selectedIndex == 2 &&
                     <>
                         <ActionButton buttonColor="#0A55A6" size={50}
-                         onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', { selectedIndex: 7 })}>
+                            onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', { selectedIndex: 7 })}>
                         </ActionButton>
                     </>
                 }
@@ -239,18 +239,9 @@ export default class StoreScreen extends React.Component {
 export class StoreHead extends React.Component {
     constructor(props) {
         super(props);
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { item, navigation } = this.props;
-        if (
-            ////>nextProps
-            item !== nextProps.item ||
-            ////>nextState
-            navigation !== nextProps.navigation
-        ) {
-            return true
+        this.state = {
+            activeGetServices: true
         }
-        return false
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
@@ -263,46 +254,56 @@ export class StoreHead extends React.Component {
                 navigation.push(value, value2)
     }
     get getDetailStore() {
-        const { item } = this.props;
-        return item.map((item, index) => {
-            var dataMySQL = ip + '/mysql/uploads/slide/NewStore/' + item.image
-            return (
-                <View style={[stylesStore.StoreHead]} key={index}>
-                    <View style={stylesStore.StoreHeadBox}>
-                        <View style={stylesMain.FlexRow}>
-                            <View>
-                                <FastImage
-                                    source={{
-                                        uri: dataMySQL,
-                                    }}
-                                    style={stylesStore.StoreHeadFace}
-                                    resizeMode={FastImage.resizeMode.cover} />
+        const { dataService } = this.props;
+        return dataService ? (
+            dataService.map((value, index) => {
+                var dataMySQL = [finip, value.image_path, value.image].join('/')
+                return (
+                    <View style={[stylesStore.StoreHead]} key={index}>
+                        {/* {
+                            activeGetServices == true && id_item !== undefined &&
+                            <GetServices
+                                uriPointer={uri}
+                                dataBody={dataBody}
+                                showConsole='store_home'
+                                getDataSource={this.getData.bind(this)} />
+                        } */}
+                        <View style={stylesStore.StoreHeadBox}>
+                            <View style={stylesMain.FlexRow}>
+                                <View>
+                                    <FastImage
+                                        source={{
+                                            uri: dataMySQL,
+                                        }}
+                                        style={[stylesStore.StoreHeadFace, { backgroundColor: '#fff' }]}
+                                        resizeMode={FastImage.resizeMode.cover} />
+                                </View>
+                                <View>
+                                    <Text style={[stylesStore.StoreHeadText, stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
+                                        {value.name}</Text>
+                                    <Text style={[stylesStore.StoreHeadTextOther, stylesFont.FontFamilyText, stylesFont.FontSize8]}>
+                                        Active เมื่อ 1 ชั่วโมงที่ผ่านมา</Text>
+                                    <Text style={[stylesStore.StoreHeadTextOther2, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                        ผู้ติดตาม {value.who_follow} | กำลังติดตาม {value.follow_number}</Text>
+                                </View>
                             </View>
-                            <View>
-                                <Text style={[stylesStore.StoreHeadText, stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
-                                    {item.name}</Text>
-                                <Text style={[stylesStore.StoreHeadTextOther, stylesFont.FontFamilyText, stylesFont.FontSize8]}>
-                                    Active เมื่อ 1 ชั่วโมงที่ผ่านมา</Text>
-                                <Text style={[stylesStore.StoreHeadTextOther2, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                    ผู้ติดตาม 20.2 พัน | กำลังติดตาม 2</Text>
-                            </View>
-                        </View>
-                        <View style={stylesStore.HeadButtom}>
-                            <View style={stylesStore.StoreHeadButtom}>
-                                <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                    ติดตาม</Text>
-                            </View>
-                            <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 })}>
+                            <View style={stylesStore.HeadButtom}>
                                 <View style={stylesStore.StoreHeadButtom}>
                                     <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                        แชท</Text>
+                                        ติดตาม</Text>
                                 </View>
-                            </TouchableOpacity>
+                                <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 })}>
+                                    <View style={stylesStore.StoreHeadButtom}>
+                                        <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                            แชท</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
-                </View>
-            );
-        })
+                );
+            })
+        ) : <></>
     }
     render() {
         return (
@@ -315,24 +316,7 @@ export class StoreHeadDetails extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataService: [],
         };
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { item } = this.props;
-        const { dataService } = this.state;
-        if (
-            ////>nextProps
-            item !== nextProps.item ||
-            ////>nextState
-            dataService !== nextState.dataService
-        ) {
-            return true
-        }
-        return false
-    }
-    getData = (dataService) => {
-        this.setState({ dataService })
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
@@ -345,58 +329,48 @@ export class StoreHeadDetails extends React.Component {
                 navigation.push(value, value2)
     }
     get getDetailStore() {
-        const { item } = this.props;
-        return item.map((item, index) => {
-            var uri = ip + '/mysql/DataServiceStore.php';
-            var dataBody = {
-                type: 'storedatadetail',
-                id: item.id_store
-            };
-            return (
-                <View style={[stylesStore.StoreHeadDetails, { paddingTop: 0, marginBottom: 10, justifyContent: 'space-between' }]} key={index}>
-                    {
-                        item !== undefined &&
-                        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
-                    }
-                    <View>
-                        <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                            คะแนนร้านค้า :</Text>
-                        <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                            รายการสินค้า :</Text>
-                        <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                            ระยะเวลาในการจัดเตรียมพัสดุ :</Text>
-                        <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                            ประสิทธิภาพการแชท :</Text>
-                    </View>
-                    <View>
-                        <View style={stylesMain.FlexRow}>
-                            <Text style={[stylesStore.StoreHeadDetailsText2_1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                4.8 จาก 5</Text>
-                            <Text style={[stylesStore.StoreHeadDetailsText2_3, stylesFont.FontFamilyText, stylesFont.FontSize8]}>
-                                (46.9 พันคะแนน)</Text>
+        const { dataService } = this.props;
+        return dataService ? (
+            dataService.map((value, index) => {
+                return (
+                    <View style={[stylesStore.StoreHeadDetails, { paddingTop: 0, marginBottom: 10, justifyContent: 'space-between' }]}
+                        key={index}>
+                        <View>
+                            <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                คะแนนร้านค้า :</Text>
+                            <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                รายการสินค้า :</Text>
+                            <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                ระยะเวลาในการจัดเตรียมพัสดุ :</Text>
+                            <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                ประสิทธิภาพการแชท :</Text>
                         </View>
-                        <Text style={[stylesStore.StoreHeadDetailsText2_2, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                            150</Text>
-                        <View style={stylesMain.FlexRow}>
+                        <View>
+                            <View style={stylesMain.FlexRow}>
+                                <Text style={[stylesStore.StoreHeadDetailsText2_1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                    {value.rating != 'ยังไม่มีการรีวิว' ? (value.rating + ' จาก 5') : value.rating}</Text>
+                                <Text style={[stylesStore.StoreHeadDetailsText2_3, stylesFont.FontFamilyText, stylesFont.FontSize8]}>
+                                    ({value.rating_number})</Text>
+                            </View>
                             <Text style={[stylesStore.StoreHeadDetailsText2_2, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                เร็ว</Text>
-                            <Text style={[stylesStore.StoreHeadDetailsText2_3, stylesFont.FontFamilyText, stylesFont.FontSize8]}>
-                                ( 1-2 วัน )</Text>
+                                {value.product_amount}</Text>
+                            <View style={stylesMain.FlexRow}>
+                                <Text style={[stylesStore.StoreHeadDetailsText2_2, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                    {value.time_send}</Text>
+                            </View>
+                            <View style={stylesMain.FlexRow}>
+                                <Text style={[stylesStore.StoreHeadDetailsText2_2, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                    {value.chat_performance}</Text>
+                            </View>
                         </View>
-                        <View style={stylesMain.FlexRow}>
-                            <Text style={[stylesStore.StoreHeadDetailsText2_2, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                80 %</Text>
-                            <Text style={[stylesStore.StoreHeadDetailsText2_3, stylesFont.FontFamilyText, stylesFont.FontSize8]}>
-                                ( ภายในไม่กี่ชั่วโมง )</Text>
-                        </View>
+                        <TouchableOpacity activeOpacity={1}
+                            onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', { selectedIndex: 6 })}>
+                            <IconEntypo name='chevron-right' size={25} color='#0A55A6' />
+                        </TouchableOpacity>
                     </View>
-                    <TouchableOpacity activeOpacity={1}
-                        onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', { selectedIndex: 6 })}>
-                        <IconEntypo name='chevron-right' size={25} color='#0A55A6' />
-                    </TouchableOpacity>
-                </View>
-            );
-        })
+                );
+            })
+        ) : <></>
     }
     render() {
         return (
@@ -410,17 +384,6 @@ export class Menubar extends React.Component {
         super(props);
         this.state = {
         }
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { getSelectedIndex } = this.props;
-        if (
-            ////>nextProps
-            getSelectedIndex !== nextProps.getSelectedIndex
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
     }
     getData = (selectedIndex) => {
         const { getSelectedIndex } = this.props
@@ -458,19 +421,6 @@ export class Banner extends React.Component {
             dataService: [],
         };
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { item, } = this.props;
-        const { activeSlide, dataService, } = this.state;
-        if (
-            ////>nextProps
-            item !== nextProps.item ||
-            ////>nextState
-            activeSlide !== nextState.activeSlide || dataService !== nextState.dataService
-        ) {
-            return true
-        }
-        return false
-    }
     getData = (dataService) => {
         this.setState({ dataService })
     }
@@ -478,30 +428,30 @@ export class Banner extends React.Component {
         this.setState({ activeSlide })
     }
     _renderItem = item => {
-        var dataMySQL = ip + '/mysql/uploads/slide/bannerstore/' + item.image
         return (
-            <View style={stylesStore.BannerBox} key={item.image}>
+            <View style={stylesStore.BannerBox} key={item}>
                 <FastImage
                     source={{
-                        uri: dataMySQL,
+                        uri: item,
                     }}
                     style={stylesStore.BannerSlide} />
             </View>
         );
     }
     get getDetail() {
-        const { item } = this.props;
-        const { dataService } = this.state;
+        const { dataService } = this.props;
         const slideDelay = 3000;
-        return item.map((item, index) => {
-            var uri = 'https://finforyou.com/' + item.name;
+        return dataService && dataService.map((value, index) => {
+            // var uri = 'https://finforyou.com/' + item.name;
+            var image_banner = value.image_banner.split(';');
+            image_banner = image_banner.map((value2) => { return [finip, value.image_banner_path, value2].join('/') })
             return (
                 <View key={index}>
                     <View style={[stylesStore.Banner, { borderLeftWidth: 0, paddingLeft: 0 }]}>
                         <View>
                             <Carousel
                                 renderItem={this._renderItem}
-                                data={dataService}
+                                data={image_banner}
                                 loop
                                 autoplay
                                 autoplayInterval={slideDelay}
@@ -512,25 +462,14 @@ export class Banner extends React.Component {
                                 สวัสดีค่า ยินดีต้อนรับค่ะร้านนี้รบกวนไม่ถามเล่นๆ นะคะ หากต่อราคารบกวนไม่ต่อเว่อๆนะคะ ถ้าลดได้ลดให้ค่า</Text>
                         </View>
                     </View>
-                    <View style={stylesStore.BannerTextTail}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                            {uri}</Text>
-                    </View>
+                    {/* <View stD */}
                 </View>
             );
         })
     }
     render() {
-        var uri = ip + '/mysql/DataServiceStore.php';
-        var dataBody = {
-            type: 'slide'
-        };
         return (
             <View style={{ marginVertical: 10 }}>
-                <GetServices
-                    uriPointer={uri}
-                    dataBody={dataBody}
-                    getDataSource={this.getData.bind(this)} />
                 {this.getDetail}
             </View>
         )
@@ -541,44 +480,69 @@ export class TicketLine extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            activeGetServices: true,
+            activeGetCoupon: false,
         };
     }
+    getData = (dataService) => {
+        this.setState({ activeGetServices: false, activeGetCoupon: false, dataService })
+    }
+    setCoupon = (value) => {
+        this.setState({ activeGetCoupon: true, activeGetServices: true, id_promotion: value.id_promotion })
+    }
     get getTicketLine() {
+        const { dataService, } = this.state
         return (
-            <View style={[stylesMain.FrameBackground, { marginTop: 0 }]}>
+            <View key='getTicketLine' style={[stylesMain.FrameBackground, { marginTop: 0 }]}>
                 <ScrollView horizontal>
-                    <GetCoupon
-                        flexRow
-                        useCoupon
-                        codeList={'available'}
-                        // colorCoupon='#86CFFF'
-                        timeOut={'31-01-2020'}
-                        couponText={'10%'}
-                        textDetail={'รับเงินคืน 10% Coins'} />
-                    <GetCoupon
-                        flexRow
-                        useCoupon
-                        codeList={'available'}
-                        // colorCoupon='#86CFFF'
-                        timeOut={'31-01-2020'}
-                        couponText={'10%'}
-                        textDetail={'รับเงินคืน 10% Coins'} />
-                    <GetCoupon
-                        flexRow
-                        useCoupon
-                        codeList={'available'}
-                        // colorCoupon='#86CFFF'
-                        timeOut={'31-01-2020'}
-                        couponText={'10%'}
-                        textDetail={'รับเงินคืน 10% Coins'} />
+                    {
+                        dataService && dataService.coupon.length > 0 ? (
+                            dataService.coupon.map((value, index) => {
+                                return (
+                                    <GetCoupon
+                                        flexRow
+                                        codeList={value.my_coupon == 'no' ? 'available' : ''}
+                                        getCoupon={this.setCoupon.bind(this)}
+                                        key={index}
+                                        // colorCoupon='#86CFFF'
+                                        saveCoupon
+                                        setDataService={{
+                                            list: 'shop',
+                                            id_promotion: value.id_promotion
+                                        }}
+                                        timeOut={value.end_period}
+                                        couponText={value.name}
+                                        textDetail={value.detail} />
+                                )
+                            })
+                        ) : <></>
+                    }
                 </ScrollView>
             </View>
         )
     }
     render() {
-        return (
+        const { currentUser, cokie, navigation, } = this.props
+        const { activeGetCoupon, activeGetServices, dataService, id_promotion } = this.state
+        const id_item = navigation.getParam('id_item')
+        var uri = [finip, 'coupon/save_coupon_shop'].join('/');
+        var dataBody = {
+            id_customer: currentUser && currentUser.id_customer,
+            device: 'mobile_device',
+            id_store: id_item,
+            id_promotion_shop: activeGetCoupon ? id_promotion : '',
+        }
+        return ([
+            activeGetServices == true && cokie &&
+            <GetServices
+                Authorization={cokie}
+                uriPointer={uri}
+                dataBody={dataBody}
+                // showConsole='save_coupon_shop'
+                getDataSource={this.getData.bind(this)} />,
+            dataService &&
             this.getTicketLine
-        )
+        ])
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> DealTop
@@ -586,41 +550,15 @@ export class DealTop extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataService: [],
         };
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation } = this.props
-        const { dataService } = this.state;
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation ||
-            ////>nextState
-            dataService !== nextState.dataService
-        ) {
-            return true
-        }
-        return false
-    }
-    getData = (dataService) => {
-        this.setState({ dataService })
     }
     render() {
-        const { navigation } = this.props
-        const { dataService } = this.state
-        var uri = ip + '/mysql/DataServiceStore.php';
-        var dataBody = {
-            type: 'sale'
-        };
+        const { dataService, navigation, titlename } = this.props
         return (
             <View style={[stylesMain.FrameBackground, { backgroundColor: null }]}>
-                <GetServices
-                    uriPointer={uri}
-                    dataBody={dataBody}
-                    getDataSource={this.getData.bind(this)} />
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
-                        ดีลเด็ด</Text>
+                        {titlename}</Text>
                 </View>
                 <ScrollView horizontal>
                     {
@@ -628,69 +566,6 @@ export class DealTop extends React.Component {
                         <ProductBox
                             dataService={dataService}
                             navigation={navigation}
-                            typeip='ip'
-                            prepath='mysql'
-                            mode='row3col1'
-                            pointerUrl='DetailScreen'
-                            pointerid_store
-                            nameSize={14}
-                            priceSize={15}
-                            dispriceSize={15} />
-                    }
-                </ScrollView>
-            </View>
-        );
-    }
-}
-///----------------------------------------------------------------------------------------------->>>> NewProduct
-export class NewProduct extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            dataService: [],
-        };
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation } = this.props
-        const { dataService } = this.state;
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation ||
-            ////>nextState
-            dataService !== nextState.dataService
-        ) {
-            return true
-        }
-        return false
-    }
-    getData = (dataService) => {
-        this.setState({ dataService })
-    }
-    render() {
-        const { navigation } = this.props
-        const { dataService } = this.state
-        var uri = ip + '/mysql/DataServiceStore.php';
-        var dataBody = {
-            type: 'newproduct'
-        };
-        return (
-            <View style={[stylesMain.FrameBackground, { backgroundColor: null }]}>
-                <GetServices
-                    uriPointer={uri}
-                    dataBody={dataBody}
-                    getDataSource={this.getData.bind(this)} />
-                <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
-                        สินค้ามาใหม่</Text>
-                </View>
-                <ScrollView horizontal>
-                    {
-                        dataService &&
-                        <ProductBox
-                            dataService={dataService}
-                            navigation={navigation}
-                            typeip='ip'
-                            prepath='mysql'
                             mode='row3col1'
                             pointerUrl='DetailScreen'
                             pointerid_store
@@ -708,38 +583,12 @@ export class PopularProduct extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataService: [],
         };
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { headText, navigation, noHeadText } = this.props;
-        const { dataService } = this.state
-        if (
-            ////>nextProps
-            headText !== nextProps.headText || navigation !== nextProps.navigation || noHeadText !== nextProps.noHeadText ||
-            ////>nextState
-            dataService !== nextState.dataService
-        ) {
-            return true
-        }
-        return false
-    }
-    getData = (dataService) => {
-        this.setState({ dataService })
     }
     render() {
-        const { headText, navigation, noHeadText } = this.props;
-        const { dataService } = this.state
-        var uri = ip + '/mysql/DataServiceStore.php';
-        var dataBody = {
-            type: 'todayproduct'
-        };
+        const { dataService, headText, navigation, noHeadText } = this.props;
         return (
             <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, { borderColor: '#E9E9E9' }]}>
-                <GetServices
-                    uriPointer={uri}
-                    dataBody={dataBody}
-                    getDataSource={this.getData.bind(this)} />
                 {
                     noHeadText ?
                         null :
@@ -756,8 +605,6 @@ export class PopularProduct extends React.Component {
                         <ProductBox
                             dataService={dataService}
                             navigation={navigation}
-                            typeip='ip'
-                            prepath='mysql'
                             mode='row2colall'
                             pointerUrl='DetailScreen'
                             pointerid_store
@@ -777,20 +624,6 @@ export class SubMenu extends React.Component {
         this.state = {
         }
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { getSelectedIndex2, headText, navigation, noHeadText, } = this.props;
-        const { dataService } = this.state
-        if (
-            ////>nextProps
-            getSelectedIndex2 !== nextProps.getSelectedIndex2 || headText !== nextProps.headText || navigation !== nextProps.navigation ||
-            noHeadText !== nextProps.noHeadText ||
-            ////>nextState
-            dataService !== nextState.dataService
-        ) {
-            return true
-        }
-        return false
-    }
     updateIndex = (selectedIndex2) => {
         const { getSelectedIndex2 } = this.props
         getSelectedIndex2(selectedIndex2)
@@ -803,6 +636,13 @@ export class SubMenu extends React.Component {
         }, {
             name: 'สินค้าขายดี'
         }, {
+            actionItem: [
+                <IconMaterialIcons name='unfold-more' size={15} style={[stylesMain.ItemCenterVertical, { color: '#6C6C6C', marginLeft: 2 }]} />,
+                <IconMaterialIcons name='arrow-upward' size={15} style={[stylesMain.ItemCenterVertical, { color: '#0A55A6', marginLeft: 2 }]} />,
+                <IconMaterialIcons name='arrow-downward' size={15} style={[stylesMain.ItemCenterVertical, { color: '#0A55A6', marginLeft: 2 }]} />
+            ],
+            actionList: [1, 2],
+            actionReturn: ['min', 'max'],
             name: 'ราคา'
         }]
         return (
@@ -825,46 +665,18 @@ export class ShowProduct extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataService: [],
         };
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation } = this.props;
-        const { dataService } = this.state
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation ||
-            ////>nextState
-            dataService !== nextState.dataService
-        ) {
-            return true
-        }
-        return false
-    }
-    getData = (dataService) => {
-        this.setState({ dataService })
     }
     render() {
-        const { navigation } = this.props;
-        const { dataService } = this.state
-        var uri = ip + '/mysql/DataServiceStore.php';
-        var dataBody = {
-            type: 'todayproduct'
-        };
+        const { dataService, navigation } = this.props;
         return (
             <View style={[stylesMain.FrameBackground]}>
-                <GetServices
-                    uriPointer={uri}
-                    dataBody={dataBody}
-                    getDataSource={this.getData.bind(this)} />
                 <View style={stylesMain.BoxProductWarp}>
                     {
                         dataService &&
                         <ProductBox
                             dataService={dataService}
                             navigation={navigation}
-                            typeip='ip'
-                            prepath='mysql'
                             mode='row2colall'
                             pointerUrl='DetailScreen'
                             pointerid_store
@@ -882,24 +694,11 @@ export class BoxProduct4 extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataService: [],
+            activeGetServices: true,
         };
     }
     getData = (dataService) => {
         this.setState({ dataService })
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation } = this.props;
-        const { dataService } = this.state
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation ||
-            ////>nextState
-            dataService !== nextState.dataService
-        ) {
-            return true
-        }
-        return false
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
@@ -912,26 +711,29 @@ export class BoxProduct4 extends React.Component {
                 navigation.push(value, value2)
     }
     render() {
-        const { navigation } = this.props
-        const { dataService } = this.state
-        var uri = ip + '/mysql/DataServiceStore.php';
-        var dataBody = {
-            type: 'storefeed'
-        };
+        const { navigation } = this.props;
+        const { activeGetServices, dataService } = this.state;
+        const id_item = navigation.getParam('id_item')
+        const uri = [finip, 'brand/feed_news'].join('/');
+        const dataBody = {
+            id_store: id_item
+        }
         return (
             <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, { marginTop: 0, marginBottom: 10 }]}>
-                <GetServices
-                    uriPointer={uri}
-                    dataBody={dataBody}
-                    getDataSource={this.getData.bind(this)} />
+                {
+                    activeGetServices == true && id_item &&
+                    <GetServices
+                        uriPointer={uri}
+                        dataBody={dataBody}
+                        showConsole='feed_news'
+                        getDataSource={this.getData.bind(this)} />
+                }
                 <View style={stylesMain.BoxProductWarp}>
                     {
                         dataService &&
                         <FeedBox
-                            dataService={dataService}
-                            navigation={navigation}
-                            typeip='ip'
-                            prepath='mysql' />
+                            dataService={dataService.feed_news}
+                            navigation={navigation} />
                     }
                 </View>
             </View>

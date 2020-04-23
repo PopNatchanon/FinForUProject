@@ -34,6 +34,10 @@ export default class ProfileScreen extends React.Component {
         }
     }
     getSource = (value) => {
+        console.log('currentUser')
+        console.log(value.currentUser)
+        console.log('cokie')
+        console.log(value.keycokie)
         this.setState({ activeGetSource: false, currentUser: value.currentUser, cokie: value.keycokie })
     }
     getData = (dataSevice) => {

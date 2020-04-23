@@ -1088,9 +1088,8 @@ export class FeedBox extends React.Component {
                     {
                         Header &&
                         <View style={stylesMain.BoxProduct4PlusHeader}>
-                            <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', {
-                                id_item: item.p_id_store
-                            })}>
+                            <TouchableOpacity  onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', { selectedIndex: 10 })}>
+                             {/* onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', {id_item: item.p_id_store})} */}
                                 <View style={stylesMain.FlexRow}>
                                     <FastImage
                                         style={stylesMain.BoxProduct4PlusImage}
@@ -1167,7 +1166,7 @@ export class FeedBox extends React.Component {
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity style={stylesMain.BoxProduct4ComBoxIcon} onPress={this.onShare}>
-                                <IconFontAwesome5 name='share-square' size={20} />
+                                <IconEntypo name='share' size={20} />
                                 <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     แชร์</Text>
                             </TouchableOpacity>

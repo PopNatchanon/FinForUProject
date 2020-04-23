@@ -167,13 +167,14 @@ export default StyleSheet.create({
         width: '100%',
         backgroundColor: '#FFFFFF',
         padding: 10,
+        marginBottom:5,
     },
     Header_DetailText: {
         marginTop: 5,
     },
     Store_Image: {
         width: '100%',
-        height: 100,
+        height: 70,
         borderTopLeftRadius: 8,
         borderTopRightRadius: 8,
     },
@@ -224,9 +225,9 @@ export default StyleSheet.create({
         borderRadius: 5,
     },
     Store_BoxIcon: {
+        alignItems:'flex-end',
         height: 40,
-        width: 200,
-        flexDirection: 'row',
+        width: 125,
         marginRight: 10,
         marginTop: 10,
     },

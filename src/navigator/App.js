@@ -60,6 +60,8 @@ import CampaignScreen from '../src_Promotion/CampaignScreen';
 import The_BestFinScreen from '../src_Promotion/The_BestFinScreen';
 import Installment_payScreen from '../src_Promotion/Installment_payScreen';
 import Detail_Campaign from '../src_Promotion/Detail_Campaign';
+// src store
+import Post_Feed from '../src_Store/Post_Feed';
 ///----------------------------------------------------------------------------------------------->>>>
 const PathScreen = createStackNavigator({
   MainScreen: {
@@ -438,6 +440,15 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
+  // src_store
+  Post_Feed: {
+    screen: Post_Feed,
+    navigationOptions: () => ({
+      tabBarVisible: false,
+      header: null,
+    })
+  },
+
 },
   {
     // initialRouteName: 'MainScreen',

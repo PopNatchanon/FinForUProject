@@ -1,12 +1,13 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React from 'react';
 import {
-    SafeAreaView, ScrollView, Text, TouchableOpacity, View,
+    SafeAreaView, ScrollView, Text, TouchableOpacity, View, Share,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> import
 import FastImage from 'react-native-fast-image';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
+import IconEntypo from 'react-native-vector-icons/Entypo';
 ///----------------------------------------------------------------------------------------------->>>> styles
 import stylesDetail from '../style/StylesDetailScreen'
 import stylesFont from '../style/stylesFont';
@@ -92,7 +93,9 @@ export class Header extends React.Component {
                 return <View key={index} style={stylesTopic.Header} >
                     <FastImage
                         source={{ uri: image_header, }}
-                        style={stylesTopic.Header_ImageBackground} />
+                        style={stylesTopic.Header_ImageBackground}
+                        resizeMode={FastImage.resizeMode.stretch}
+                    />
                     <Text style={[stylesTopic.Header_Text, stylesFont.FontFamilyBold]}>
                         {/* {value.header} */}
                     </Text>
@@ -160,6 +163,24 @@ export class Store_Detail extends React.Component {
         this.setState({ activeFollow: false, activeGetServices: false, dataService2 })
         activeStore_Detail(false)
     }
+    onShare = async () => {
+        try {
+            const result = await Share.share({
+                message: 'หลายคนคงจะเคยอยากรู้ วิธีดูเพชรแท้ ว่าจริงๆแล้วเพชรแท้ดูยังไง?\n' + finip,
+            });
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    // shared with activity type of result.activityType
+                } else {
+                    // shared
+                }
+            } else if (result.action === Share.dismissedAction) {
+                // dismissed
+            }
+        } catch (error) {
+            alert(error.message);
+        }
+    }
     render() {
         const { cokie, currentUser, dataService, navigation } = this.props
         const { activeFollow, activeGetServices, dataService2 } = this.state
@@ -172,7 +193,7 @@ export class Store_Detail extends React.Component {
         const image_header = [finip, dataService.image_head_path, dataService.image_head].join('/')
         const image_store = [finip, dataService.image_path, dataService.store_image].join('/')
         return (
-            <View style={stylesMain.FrameBackground}>
+            <View style={{ backgroundColor: '#FFFFFF', width: '100%', marginVertical: 5 }}>
                 {
                     activeGetServices == true && cokie &&
                     <GetServices key={'follow_data'} uriPointer={uri} dataBody={dataBody} Authorization={cokie}
@@ -182,15 +203,19 @@ export class Store_Detail extends React.Component {
                 <View>
                     <FastImage
                         style={stylesTopic.Store_Image}
-                        source={{ uri: image_header }} />
+                        source={{ uri: image_header }}
+                        resizeMode={FastImage.resizeMode.stretch}
+                    />
                     <View style={stylesTopic.Store_Box}>
                         <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', {
                             id_item: dataService.id_store
                         })}>
-                            <View style={stylesTopic.Store_Pro}>
+                            <View style={[stylesTopic.Store_Pro, stylesMain.ItemCenter]}>
                                 <FastImage
-                                    style={{ height: '100%', width: '100%' }}
-                                    source={{ uri: image_store }} />
+                                    style={{ height: '70%', width: '70%' }}
+                                    source={{ uri: image_store }}
+                                    resizeMode={FastImage.resizeMode.contain}
+                                />
                             </View>
                         </TouchableOpacity>
                         <View style={{ margin: 10, }}>
@@ -230,10 +255,10 @@ export class Store_Detail extends React.Component {
                                     </TouchableOpacity>
                                 </View>
                                 <View style={stylesTopic.Store_BoxIcon}>
-                                    <View style={stylesTopic.Store_Icon}>
-                                        <IconFontAwesome name='share-square-o' size={20} />
+                                    <TouchableOpacity style={stylesTopic.Store_Icon} onPress={this.onShare}>
+                                    <IconEntypo  name='share' size={20} />
                                         <Text style={stylesFont.FontFamilyText}> แชร์</Text>
-                                    </View>
+                                    </TouchableOpacity>
                                 </View>
                             </View>
                         </View>

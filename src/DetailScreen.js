@@ -351,8 +351,8 @@ export class Detail_Data extends React.Component {
       }
       this.setState({ newDataService: newData })
     }
-    console.log('---------------------------------->newDataService<----------------------------------')
-    console.log(newDataService)
+    // console.log('---------------------------------->newDataService<----------------------------------')
+    // console.log(newDataService)
     return dataService.product_data &&
       dataService.product_data.map((item, index) => {
         return (

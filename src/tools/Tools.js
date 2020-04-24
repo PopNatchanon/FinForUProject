@@ -263,8 +263,8 @@ export class TabBar extends React.Component {
     get tab() {
         const {
             activeColor, activeFontColor, fontColor, fontSizeStyle, inactiveBoxColor, inactiveColor, inactiveFontColor, item, limitBox,
-            noLimit, NoSelectTab, noSpace, numberBox, numberOfLines, radiusBox, SetValue, setVertical, spaceColor, tagBottom,
-            tagBottomColor, type, widthBox,
+            noLimit, NoSelectTab, noSpace, numberBox, numberofBox, numberOfLines, radiusBox, SetValue, setHorizontal, setVertical,
+            spaceColor, tagBottom, tagBottomColor, type, widthBox,
         } = this.props
         const { PassSetValue, pathlist, pathlist2 } = this.state
         const countItem = item.length;
@@ -298,14 +298,15 @@ export class TabBar extends React.Component {
                                                 noLimit ?
                                                     numberBox ?
                                                         '100%' :
-                                                        width * (1 / 4) :
-                                                    width * (1 / countItem) :
+                                                        numberofBox ?
+                                                            width * (1 / numberofBox) :
+                                                            width * (1 / 4) : width * (1 / countItem) :
                                             noSpace ?
-                                                widthBox ?
-                                                    widthBox :
-                                                    width * (1 / countItem) :
+                                                widthBox ? widthBox : width * (1 / countItem) :
                                                 noLimit ?
-                                                    width * (1 / 4.2) :
+                                                    numberofBox ?
+                                                        width * (1 / numberofBox) :
+                                                        width * (1 / 4.2) :
                                                     limitBox ?
                                                         limitBox * (1 / countItem) :
                                                         width * (1 / countItem),
@@ -335,6 +336,7 @@ export class TabBar extends React.Component {
                                             type == 'box' ?
                                                 null :
                                                 4,
+                                    alignContent: 'center', alignItems: 'center',
                                     paddingLeft:
                                         numberBox ?
                                             width * (1 / 60) :
@@ -342,6 +344,10 @@ export class TabBar extends React.Component {
                                     paddingVertical:
                                         setVertical ?
                                             setVertical :
+                                            null,
+                                    paddingHorizontal:
+                                        setHorizontal ?
+                                            setHorizontal :
                                             null
                                 }]}>
                                 <View style={[
@@ -353,11 +359,13 @@ export class TabBar extends React.Component {
                                                     numberBox ?
                                                         width * (1 / 3) :
                                                         width * (1 / 4.2) :
-                                                    widthBox >= 0 ?
-                                                        widthBox <= 100 ?
-                                                            width * (1 / (countItem * (1 + ((100 - widthBox) / 100)))) :
-                                                            width * (1 / (countItem * 1.2)) :
-                                                        width * (1 / (countItem * 1.2)),
+                                                    numberofBox ?
+                                                        width * (1 / numberofBox) :
+                                                        widthBox >= 0 ?
+                                                            widthBox <= 100 ?
+                                                                width * (1 / (countItem * (1 + ((100 - widthBox) / 100)))) :
+                                                                width * (1 / (countItem * 1.2)) :
+                                                            width * (1 / (countItem * 1.2)),
                                             padding: 6,
                                             borderLeftWidth:
                                                 noSpace ?
@@ -408,6 +416,29 @@ export class TabBar extends React.Component {
                                         {item.name}
                                     </Text>
                                     {
+                                        item.nameline2 &&
+                                        <Text numberOfLines={numberOfLines} style={[stylesFont.FontFamilySemiBold, {
+                                            fontSize:
+                                                fontSizeStyle ?
+                                                    fontSizeStyle :
+                                                    16,
+                                            color: type == 'box' ?
+                                                activeFontColor ?
+                                                    activeFontColor :
+                                                    fontColor ?
+                                                        fontColor :
+                                                        'white' :
+                                                activeFontColor ?
+                                                    activeFontColor :
+                                                    fontColor ?
+                                                        fontColor :
+                                                        'black',
+                                            textAlignVertical: 'center'
+                                        }]}>
+                                            {item.nameline2}
+                                        </Text>
+                                    }
+                                    {
                                         item.actionItem && item.actionItem[item.actionList[pathlist2]]
                                     }
                                 </View>
@@ -421,11 +452,15 @@ export class TabBar extends React.Component {
                                                 noLimit ?
                                                     numberBox ?
                                                         '100%' :
-                                                        width * (1 / 4) : width * (1 / countItem) :
+                                                        numberofBox ?
+                                                            width * (1 / numberofBox) :
+                                                            width * (1 / 4) : width * (1 / countItem) :
                                             noSpace ?
                                                 widthBox ? widthBox : width * (1 / countItem) :
                                                 noLimit ?
-                                                    width * (1 / 4.2) :
+                                                    numberofBox ?
+                                                        width * (1 / numberofBox) :
+                                                        width * (1 / 4.2) :
                                                     limitBox ?
                                                         limitBox * (1 / countItem) :
                                                         width * (1 / countItem),
@@ -461,6 +496,10 @@ export class TabBar extends React.Component {
                                     paddingVertical:
                                         setVertical ?
                                             setVertical :
+                                            null,
+                                    paddingHorizontal:
+                                        setHorizontal ?
+                                            setHorizontal :
                                             null
                                 }]}>
                                 <View style={[
@@ -472,11 +511,13 @@ export class TabBar extends React.Component {
                                                     numberBox ?
                                                         width * (1 / 3) :
                                                         width * (1 / 4.2) :
-                                                    widthBox >= 0 ?
-                                                        widthBox <= 100 ?
-                                                            width * (1 / (countItem * (1 + ((100 - widthBox) / 100)))) :
-                                                            width * (1 / (countItem * 1.2)) :
-                                                        width * (1 / (countItem * 1.2)),
+                                                    numberofBox ?
+                                                        width * (1 / numberofBox) :
+                                                        widthBox >= 0 ?
+                                                            widthBox <= 100 ?
+                                                                width * (1 / (countItem * (1 + ((100 - widthBox) / 100)))) :
+                                                                width * (1 / (countItem * 1.2)) :
+                                                            width * (1 / (countItem * 1.2)),
                                             padding: 6,
                                             borderLeftWidth:
                                                 noSpace ?
@@ -521,6 +562,24 @@ export class TabBar extends React.Component {
                                     }]}>
                                         {item.name}
                                     </Text>
+                                    {
+                                        item.nameline2 &&
+                                        <Text numberOfLines={numberOfLines} style={[stylesFont.FontFamilySemiBold, {
+                                            fontSize:
+                                                fontSizeStyle ?
+                                                    fontSizeStyle :
+                                                    16,
+                                            color:
+                                                inactiveFontColor ?
+                                                    inactiveFontColor :
+                                                    fontColor ?
+                                                        fontColor :
+                                                        'black',
+                                            textAlignVertical: 'center'
+                                        }]}>
+                                            {item.nameline2}
+                                        </Text>
+                                    }
                                     {
                                         item.actionItem && item.actionItem[0]
                                     }
@@ -575,7 +634,7 @@ export class TabBar extends React.Component {
     }
     render() {
         const {
-            alignBox, direction, noLimit, noSpace, numberBox, spaceColor, type,
+            alignBox, direction, noLimit, noSpace, numberBox, numberofBox, spaceColor, type,
         } = this.props
         return (
             numberBox ?
@@ -605,6 +664,14 @@ export class TabBar extends React.Component {
                                         alignBox == 'right' ?
                                             'flex-end' :
                                             'flex-start',
+                                width:
+                                    noLimit ?
+                                        null :
+                                        '100%',
+                                flexWrap:
+                                    numberofBox ?
+                                        'wrap' :
+                                        'nowrap'
                             } :
                             {
                                 borderWidth:
@@ -647,7 +714,9 @@ export class GetServices extends React.Component {
         };
     }
     getDataSource = async () => {
-        const { Authorization, dataBody, uriPointer, getDataSource, nojson, noSendError, noStringify, showConsole, } = this.props
+        const {
+            FormData, Authorization, dataBody, uriPointer, getDataSource, nojson, noSendError, noStringify, showConsole,
+        } = this.props
         showConsole && (
             console.log(showConsole),
             Authorization && (
@@ -665,7 +734,7 @@ export class GetServices extends React.Component {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json',
+                'Content-Type': FormData ? 'application/x-www-form-urlencoded' : 'application/json',
                 'Authorization': Authorization
             },
             body: noStringify ? JSON.parse(dataBody) : JSON.stringify(dataBody),
@@ -1088,8 +1157,8 @@ export class FeedBox extends React.Component {
                     {
                         Header &&
                         <View style={stylesMain.BoxProduct4PlusHeader}>
-                            <TouchableOpacity  onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', { selectedIndex: 10 })}>
-                             {/* onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', {id_item: item.p_id_store})} */}
+                            <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', { selectedIndex: 10 })}>
+                                {/* onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', {id_item: item.p_id_store})} */}
                                 <View style={stylesMain.FlexRow}>
                                     <FastImage
                                         style={stylesMain.BoxProduct4PlusImage}

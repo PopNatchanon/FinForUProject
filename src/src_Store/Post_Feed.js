@@ -9,13 +9,14 @@ import FastImage from 'react-native-fast-image';
 import BottomSheet from 'react-native-raw-bottom-sheet';
 import ActionButton from 'react-native-action-button';
 import ImagePicker from 'react-native-image-crop-picker';
+import { TextInput } from 'react-native-gesture-handler';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { TextInput } from 'react-native-gesture-handler';
 ///----------------------------------------------------------------------------------------------->>>> Styles
+import stylesDetail from '../../style/StylesDetailScreen';
 import stylesMain from '../../style/StylesMainScreen';
 import stylesFont from '../../style/stylesFont';
 import stylesPromotionDeal from '../../style/stylePromotion-src/styleDealScreen';
@@ -34,38 +35,25 @@ export default class Post_Feed extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataService: [],
+            activeGetCurrentUser: true
         };
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation } = this.props
-        const { dataService, sliderVisible } = this.state
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation ||
-            ////>nextState
-            dataService !== nextState.dataService || sliderVisible !== nextState.sliderVisible
-        ) {
-            return true
-        }
-        return false
-    }
-    getData(dataService) {
-        this.setState({ dataService })
+    getSource(value) {
+        this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser, cokie: value.keycokie })
     }
     PathList() {
         const { navigation } = this.props
-        const {  dataService  } = this.state
+        const { cokie, dataService } = this.state
         const selectedIndex = navigation.getParam('selectedIndex')
         switch (selectedIndex) {
             case 0:
                 return (
-                    <View>
+                    <>
                         <AppBar1 backArrow navigation={navigation} titleHead='คะแนนประจำร้าน' />
                         <ScrollView>
-                            <Score_store />
+                            <Score_store cokie={cokie} navigation={navigation} />
                         </ScrollView>
-                    </View>
+                    </>
                 )
             case 1:
                 return (
@@ -105,8 +93,13 @@ export default class Post_Feed extends Component {
         }
     }
     render() {
+        const { activeGetCurrentUser } = this.state
         return (
-            <SafeAreaView>
+            <SafeAreaView style={{ height: '100%' }}>
+                {
+                    activeGetCurrentUser == true &&
+                    <GetData getCokie={true} getSource={this.getSource.bind(this)} getUser={true} key={'GetData'} />
+                }
                 {this.PathList()}
             </SafeAreaView>
         );
@@ -117,62 +110,142 @@ export class Score_store extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            activeGetServices: true,
+            activeGetServices2: true,
+            score: '',
         };
     }
-
+    starReview(star, starSize) {
+        let starBox = []
+        for (var n = 0; n < 5; n++) {
+            if (star > n) {
+                starBox.push(
+                    <IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={
+                        starSize ?
+                            starSize :
+                            20
+                    } color='#FFAC33' />
+                )
+            } else {
+                starBox.push(
+                    <IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={
+                        starSize ?
+                            starSize :
+                            20
+                    } color='#E9E9E9' />
+                )
+            }
+        }
+        return starBox
+    }
+    updateIndex = (value) => {
+        var score = value.selectedIndex == 0 ? '' :
+            value.selectedIndex == 1 ?
+                '5' :
+                value.selectedIndex == 2 ?
+                    '4' :
+                    value.selectedIndex == 3 ?
+                        '3' :
+                        value.selectedIndex == 4 ?
+                            '2' :
+                            value.selectedIndex == 5 ?
+                                '1' :
+                                ''
+        this.setState({ activeGetServices2: true, score, })
+    }
+    getData = (dataService) => {
+        this.setState({ activeGetServices: false, dataService, })
+    }
+    getData2 = (dataService2) => {
+        this.setState({ activeGetServices2: false, dataService2, })
+    }
     render() {
+        const { cokie, navigation } = this.props;
+        const { activeGetServices, activeGetServices2, dataService, dataService2, score } = this.state;
+        const id_store = navigation.getParam('id_store');
+        var uri = [finip, 'store/score_data'].join('/');
+        var dataBody = {
+            id_store,
+            score,
+        };
+        item = [
+            {
+                name: 'ทั้งหมด',
+                nameline2: '(' + (dataService ? (dataService.rate_1 + dataService.rate_2 + dataService.rate_3 + dataService.rate_4 +
+                    dataService.rate_5) : '0') + ')',
+            }, {
+                name: '5 ดาว',
+                nameline2: '(' + (dataService ? dataService.rate_5 : '0') + ')',
+            }, {
+                name: '4 ดาว',
+                nameline2: '(' + (dataService ? dataService.rate_4 : '0') + ')',
+            }, {
+                name: '3 ดาว',
+                nameline2: '(' + (dataService ? dataService.rate_3 : '0') + ')',
+            }, {
+                name: '2 ดาว',
+                nameline2: '(' + (dataService ? dataService.rate_2 : '0') + ')',
+            }, {
+                name: '1 ดาว',
+                nameline2: '(' + (dataService ? dataService.rate_1 : '0') + ')',
+            }
+        ]
         return (
             <>
+                {[
+                    activeGetServices == true && id_store && cokie &&
+                    <GetServices
+                        Authorization={cokie}
+                        uriPointer={uri}
+                        dataBody={dataBody}
+                        showConsole='score_data'
+                        getDataSource={this.getData.bind(this)} />,
+                    activeGetServices2 == true && id_store && cokie &&
+                    <GetServices
+                        Authorization={cokie}
+                        uriPointer={uri}
+                        dataBody={dataBody}
+                        showConsole='score_data'
+                        getDataSource={this.getData2.bind(this)} />,
+                ]}
                 <View style={{ backgroundColor: '#4C9AE2', width: '100%', }}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF', margin: 10 }]}> เรตติ้งร้าน </Text>
                     <View style={stylesMain.ItemCenter}>
                         <View style={[stylesMain.ItemCenter, { borderWidth: 1, backgroundColor: '#FFFFFF', height: 130, width: 130, borderRadius: 80, marginBottom: 10 }]}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}>4.6 คะแนน</Text>
+                            {
+                                dataService && dataService.rating_store == 'ยังไม่มีการรีวิว' ?
+                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ยังไม่มีการรีวิว</Text> :
+                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}>
+                                        {dataService && dataService.rating_store} คะแนน</Text>
+                            }
                             <View style={stylesMain.FlexRow}>
-                                <IconFontAwesome name='star' size={20} color='#FFAC33' />
-                                <IconFontAwesome name='star' size={20} color='#FFAC33' />
-                                <IconFontAwesome name='star' size={20} color='#FFAC33' />
-                                <IconFontAwesome name='star' size={20} color='#FFAC33' />
-                                <IconFontAwesome name='star' size={20} color='#FFAC33' />
+                                {this.starReview(dataService && dataService.rating_store, 20)}
                             </View>
                         </View>
                     </View>
                 </View>
-                <View style={{ height: 100, width: '100%', justifyContent: 'space-around', flexDirection: 'row', flexWrap: 'wrap', marginBottom: 10 }}>
-                    <View style={stylesTopic.Box_Brand}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>ทั้งหมด</Text>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>(12223)</Text>
-                    </View>
-                    <View style={stylesTopic.Box_Brand}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>5 ดาว</Text>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>(1223)</Text>
-                    </View>
-                    <View style={stylesTopic.Box_Brand}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>4 ดาว</Text>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>(1223)</Text>
-                    </View>
-                    <View style={stylesTopic.Box_Brand}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>3 ดาว</Text>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>(12223)</Text>
-                    </View>
-                    <View style={stylesTopic.Box_Brand}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>2 ดาว</Text>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>(1223)</Text>
-                    </View>
-                    <View style={stylesTopic.Box_Brand}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>1 ดาว</Text>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>(123)</Text>
-                    </View>
+                <View style={{ height: 120, width: '100%', flexDirection: 'row', flexWrap: 'wrap', marginBottom: 10 }}>
+                    <TabBar
+                        sendData={this.updateIndex.bind(this)}
+                        // SetValue={activeTabBar == true ? selectedIndex != null ? selectedIndex : -1 : undefined}
+                        setVertical={6}
+                        // setHorizontal={6}
+                        item={item}
+                        type='box'
+                        noLimit
+                        numberofBox={3}
+                        radiusBox={4} />
                 </View>
-                <Box_Rating comment_box />
-                <Box_Rating />
-                <Box_Rating comment_box />
-                <Box_Rating />
-                <Box_Rating comment_box />
-                <Box_Rating />
-                <Box_Rating comment_box />
-                <Box_Rating comment_box />
-                <Box_Rating />
+                {
+                    dataService2 && dataService2.data_score.length > 0 ? (
+                        dataService2.data_score.map((value, index) => {
+                            return <Box_Rating dataService={value} key={index} />
+                        })
+                    ) :
+                        <View style={[stylesMain.FrameBackground, stylesMain.ItemCenter, { width, height: '100%' }]}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4,]}>ไม่มีรีวิว</Text>
+                        </View>
+                }
             </>
         );
     }
@@ -184,32 +257,63 @@ export class Box_Rating extends React.Component {
         this.state = {
         };
     }
+    starReview(star, starSize) {
+        let starBox = []
+        for (var n = 0; n < 5; n++) {
+            if (star > n) {
+                starBox.push(
+                    <IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={
+                        starSize ?
+                            starSize :
+                            20
+                    } color='#FFAC33' />
+                )
+            } else {
+                starBox.push(
+                    <IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={
+                        starSize ?
+                            starSize :
+                            20
+                    } color='#E9E9E9' />
+                )
+            }
+        }
+        return starBox
+    }
     render() {
-        const { comment_box } = this.props
+        const { comment_box, dataService } = this.props
+        const image_customer = [finip, dataService.path_customer, dataService.img_customer].join('/')
         return (
             <View style={stylesMain.FrameBackground}>
                 <View style={[stylesMain.FlexRow, { borderColor: '#ECECEC', borderBottomWidth: 1 }]}>
-                    <View style={stylesProfileTopic.Order_StorePro}></View>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { marginTop: 10 }]}>PPoo</Text>
+                    <View style={stylesProfileTopic.Order_StorePro}>
+                        <FastImage source={{ uri: dataService.user_type == 'fin' ? image_customer : dataService.img_customer }}
+                            style={{ width: '100%', height: '100%', borderRadius: 20, }} />
+                    </View>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { marginTop: 10, marginLeft: 4, }]}>
+                        {dataService && dataService.name}</Text>
                 </View>
                 <View style={{ padding: 10 }}>
                     <View style={stylesMain.FlexRow}>
-                        <IconFontAwesome name='star' size={20} color='#FFAC33' />
-                        <IconFontAwesome name='star' size={20} color='#FFAC33' />
-                        <IconFontAwesome name='star' size={20} color='#FFAC33' />
-                        <IconFontAwesome name='star' size={20} color='#FFAC33' />
-                        <IconFontAwesome name='star' size={20} color='#FFAC33' />
+                        {this.starReview(dataService && dataService.rating, 20)}
                     </View>
-                    {
+                    {[
                         comment_box &&
                         <View style={{ backgroundColor: '#0A55A6', width: 110, margin: 10 }}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#FFFFFF', textAlign: 'center' }]}>คุ้มค้าและจัดส่งเร็วดี</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#FFFFFF', textAlign: 'center' }]}>
+                                คุ้มค้าและจัดส่งเร็วดี</Text>
+                        </View>,
+                        dataService && dataService.comment &&
+                        <View>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#111', }]}>
+                                {dataService && dataService.comment}</Text>
                         </View>
-                    }
+                    ]}
                 </View>
                 <View style={[stylesMain.FlexRow, { marginLeft: 10 }]}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>25-03-2020 09:40 </Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>สินค้า : โคมไฟตกแต่งบ้าน มีหลากหลายสี </Text>
+                    {/* <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>25-03-2020 09:40</Text>  */}
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                        สินค้า : {dataService && dataService.product} {dataService && dataService.detail} </Text>
                 </View>
             </View>
 

@@ -10,6 +10,7 @@ import { CheckBox } from 'react-native-elements';
 export const { width, height } = Dimensions.get('window');
 import CookieManager from '@react-native-community/cookies';
 import DatePicker from 'react-native-datepicker';
+import RNFetchBlob from 'rn-fetch-blob'
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconEvilIcons from 'react-native-vector-icons/EvilIcons';
@@ -188,17 +189,42 @@ export class Edit_Profile extends Component {
     )
   }
   SaveProfile = async () => {
-    const { currentUser } = this.props
-    const { Birth_day, Gender, Name, Phone } = this.state
-    const dataBody2 = {
-      id_customer: currentUser.id_customer,
-      first_name: Name,
-      gender: Gender == true ? 'male' : 'female',
-      // file: this.props.currentUser.image,
-      birth_day: Birth_day,
-      telephone: Phone,
-    }
-    this.setState({ activeGetServices2: true, dataBody2 })
+    const { cokie, currentUser } = this.props
+    const { Birth_day, Gender, Name, path, Phone } = this.state
+    var o = path.path.split('/')
+    var p = path.path.split('file://')
+    var q = o[o.length - 1].split('.')
+    const dataBody2 = [
+      { name: 'id_customer', data: currentUser.id_customer },
+      { name: 'first_name', data: Name },
+      { name: 'gender', data: Gender == true ? 'male' : 'female' },
+      { name: 'file', filename: o[o.length - 1], type: path.mime, data: RNFetchBlob.wrap(path.path) },
+      { name: 'birth_day', data: Birth_day },
+      { name: 'telephone', data: Phone }
+    ]
+    RNFetchBlob.fetch(
+      'POST',
+      'http://www.mmnie.live/profile/update_profile_mobile',
+      {
+        Authorization: cokie,
+        'Content-Type': 'multipart/form-data',
+      },
+      dataBody2
+    )
+      .uploadProgress((written, total) => {
+        console.log('uploaded', written / total)
+      })
+      // listen to download progress event
+      .progress((received, total) => {
+        console.log('progress', received / total)
+      })
+      .then((res) => {
+
+        console.log(res.text())
+
+      }).catch((err) => {
+        // ...
+      })
   }
   SaveName = async () => {
     const { InputName } = this.state
@@ -426,7 +452,7 @@ export class Edit_Profile extends Component {
     navigation.goBack()
   }
   sendImageProfile = (value) => {
-    console.log(value)
+    this.setState({ path: value })
   }
   render() {
     const { activeGetSource, cokie, currentUser, } = this.props
@@ -510,8 +536,9 @@ export class Edit_Profile extends Component {
             // showConsole={'profile_mobile'} 
             getDataSource={this.getData.bind(this)} />,
           activeGetServices2 == true &&
-          <GetServices key='update_profile_mobile' uriPointer={uri2} dataBody={dataBody2} Authorization={cokie}
-            showConsole={'update_profile_mobile'} getDataSource={this.getData2.bind(this)} />,
+          <GetServices FormData key='update_profile_mobile' uriPointer={uri2} dataBody={dataBody2} Authorization={cokie}
+            showConsole={'update_profile_mobile'}
+            nojson getDataSource={this.getData2.bind(this)} />,
         ]}
         <ScrollView>
           <Seller_SettingImage image_path={image_path} image={image} sendImageProfile={this.sendImageProfile.bind(this)} />

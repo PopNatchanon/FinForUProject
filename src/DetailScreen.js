@@ -272,24 +272,7 @@ export class Detail_Data extends React.Component {
     this.state = {
       activeLike: false,
       activeService2: true,
-      dataService2: [],
     };
-  }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { currentUser, dataService, getStarReview, id_product, keycokie } = this.props;
-    const { activeLike, activeService2, dataService2, newDataService } = this.state
-    if (
-      ////>nextProps
-      currentUser !== nextProps.currentUser || dataService !== nextProps.dataService || getStarReview !== nextProps.getStarReview ||
-      id_product !== nextProps.id_product || keycokie !== nextProps.keycokie ||
-      ////>nextState
-      activeLike !== nextState.activeLike || activeService2 !== nextState.activeService2 || dataService2 !== nextState.dataService2 ||
-      newDataService !== nextState.newDataService
-    ) {
-
-      return true
-    }
-    return false
   }
   getData = (dataService2) => {
     this.setState({ dataService2, activeLike: false, activeService2: false })

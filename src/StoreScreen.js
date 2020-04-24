@@ -329,7 +329,8 @@ export class StoreHeadDetails extends React.Component {
                 navigation.push(value, value2)
     }
     get getDetailStore() {
-        const { dataService } = this.props;
+        const { dataService, navigation } = this.props;
+        const id_item = navigation.getParam('id_item')
         return dataService ? (
             dataService.map((value, index) => {
                 return (
@@ -364,7 +365,7 @@ export class StoreHeadDetails extends React.Component {
                             </View>
                         </View>
                         <TouchableOpacity activeOpacity={1}
-                            onPress={this.navigationNavigateScreen.bind(this, 'Post_Feed', { selectedIndex: 0 })}>
+                            onPress={this.navigationNavigateScreen.bind(this, 'Post_Feed', { selectedIndex: 0, id_store: id_item })}>
                             <IconEntypo name='chevron-right' size={25} color='#0A55A6' />
                         </TouchableOpacity>
                     </View>

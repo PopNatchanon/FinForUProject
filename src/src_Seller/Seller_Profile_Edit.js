@@ -69,9 +69,13 @@ export class Seller_SettingImage extends Component {
     UploadImageProfile = () => {
         const { sendImageProfile } = this.props
         const options = {
-            includeBase64: true
+            width: 200,
+            height: 200,
+            includeBase64: true,
+            cropping: true,
         };
         ImagePicker.openPicker(options).then(response => {
+            console.log(response)
             this.setState({ avatarSource3: response })
             sendImageProfile(response)
         });
@@ -96,7 +100,8 @@ export class Seller_SettingImage extends Component {
                     <View style={stylesSeller.Seller_SettingImageEdit_BG}>
                         <TouchableOpacity onPress={this.UploadImageBackground}>
                             <View style={stylesMain.FlexRow}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { textAlign: 'right', color: '#FFFFFF' }]}>แตะเพื่อเปลี่ยน</Text>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { textAlign: 'right', color: '#FFFFFF' }]}>
+                                    แตะเพื่อเปลี่ยน</Text>
                                 <IconFeather name='camera' size={20} color='#FFFFFF' style={{ marginHorizontal: 10, }} />
                             </View>
                         </TouchableOpacity>

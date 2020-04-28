@@ -9,6 +9,7 @@ import FastImage from 'react-native-fast-image';
 import BottomSheet from "react-native-raw-bottom-sheet";
 import { CheckBox } from 'react-native-elements';
 import ImagePicker from 'react-native-image-crop-picker';
+import ModalDropdown from 'react-native-modal-dropdown';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -150,10 +151,11 @@ export class Seller_Up_ProductDetail extends Component {
       activeCategory: true,
       activeSubCategory: false,
       activeUnSubCategory: false,
-      saveTotal: 1,
       valueNumber: [{ name: 'แดง' }, { name: 'ฟ้า' }],
       valueNumber2: [{ name: '' }],
       inputNumber: 2,
+      saveLookIndex: 1,
+      saveWeight: { indexName: 0, name: 'กิโลกรัม' },
     };
   }
   getCategory = (dataCategory) => {
@@ -389,7 +391,7 @@ export class Seller_Up_ProductDetail extends Component {
   TotalrSheetOpen = () => {
     const { saveTotal } = this.state
     this.setState({
-      total: saveTotal
+      total: saveTotal > 0 ? saveTotal : 1
     })
     this.TotalrSheet.open();
   }
@@ -402,11 +404,11 @@ export class Seller_Up_ProductDetail extends Component {
   }
   ActionTotalrSheet = (value, type) => {
     var { total, totalChange } = this.state;
-    var oldTotal = total
+    var oldTotal = total > 0 ? total : 1
     type == 'minus' && total > 1 && (total = total - 1);
     type == 'plus' && (total = total + 1);
     type == undefined && (total = Number(value))
-    Number.isInteger(total) == true ? (totalChange = true) :
+    Number.isInteger(total) == true && total > 0 ? (totalChange = true) :
       (totalChange = false);
     this.setState({ oldTotal, total, totalChange });
   }
@@ -424,6 +426,7 @@ export class Seller_Up_ProductDetail extends Component {
           </TouchableOpacity>
           <TextInput
             style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}
+            maxLength={6}
             onChangeText={(value) => this.ActionTotalrSheet(value)} keyboardType={'numeric'}>
             {total}
           </TextInput>
@@ -545,31 +548,54 @@ export class Seller_Up_ProductDetail extends Component {
       </>
     )
   }
+  LookSheetOpen = () => {
+    const { saveLookIndex } = this.state
+    this.setState({
+      lookIndex: saveLookIndex
+    })
+    this.LookSheet.open();
+  }
+  SaveLookSheet = () => {
+    const { lookIndex } = this.state
+    this.setState({
+      saveLookIndex: lookIndex
+    })
+    this.LookSheet.close();
+  }
   LookSheetBody() {
+    const { lookIndex } = this.state
     return (
       <>
         <View style={stylesSeller.SelectSheet}>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>สภาพสินค้า</Text>
           <View style={stylesSeller.SizeSheet_Box}>
-            <TouchableOpacity>
-              <View style={stylesSeller.SizeSheet_Boxsize}>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ของใหม่</Text>
+            <TouchableOpacity onPress={() => { return this.setState({ lookIndex: 1 }) }}>
+              <View style={[stylesSeller.SizeSheet_Boxsize, {
+                backgroundColor: lookIndex == 1 ? '#0A55A6' : '#FFFFFF',
+                borderColor: lookIndex == 1 ? '#0A55A6' : '#CACACA',
+              }]}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: lookIndex == 1 ? '#FFFFFF' : '#111' }]}>
+                  ของใหม่</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
-              <View style={stylesSeller.SizeSheet_Boxsize}>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ของมือสอง</Text>
+            <TouchableOpacity onPress={() => { return this.setState({ lookIndex: 2 }) }}>
+              <View style={[stylesSeller.SizeSheet_Boxsize, {
+                backgroundColor: lookIndex == 2 ? '#0A55A6' : '#FFFFFF',
+                borderColor: lookIndex == 2 ? '#0A55A6' : '#CACACA',
+              }]}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: lookIndex == 2 ? '#FFFFFF' : '#111' }]}>
+                  ของมือสอง</Text>
               </View>
             </TouchableOpacity>
           </View>
         </View>
         <View style={stylesSeller.BottomSheet_Botton}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => this.LookSheet.close()}>
             <View style={stylesSeller.BottomSheet_Botton_cancel}>
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ยกเลิก</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={this.SaveLookSheet.bind(this)}>
             <View style={stylesSeller.BottomSheet_Botton_OK}>
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตกลง</Text>
             </View>
@@ -578,7 +604,34 @@ export class Seller_Up_ProductDetail extends Component {
       </>
     )
   }
+  WeightSheetOpen = () => {
+    const { saveWeight } = this.state
+    this.setState({
+      weight: saveWeight
+    })
+    this.WeightSheet.open();
+  }
+  SaveWeightSheet = () => {
+    const { weight } = this.state
+    this.setState({
+      saveWeight: weight
+    })
+    this.WeightSheet.close();
+  }
+  setStateWeightValue = (value) => {
+    const { weight } = this.state;
+    weight.name = value;
+    weight.indexName = value == 'กิโลกรัม' ? 0 : 1;
+    this.setState({ weight });
+  }
+  setStateWeightValue2 = (value) => {
+    const { weight } = this.state;
+    weight.value = value;
+    this.setState({ weight });
+  }
   WeightSheetBody() {
+    const { weight, } = this.state
+    console.log(weight)
     return (
       <>
         <View style={stylesSeller.SelectSheet}>
@@ -589,29 +642,31 @@ export class Seller_Up_ProductDetail extends Component {
                 style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '100%', height: 50, }]}
                 placeholder="น้ำหนัก"
                 maxLength={10}
-                value={this.state.Weight}
-                onChangeText={(Weight) => this.setState({ Weight })}></TextInput>
+                value={weight ? weight.value : ''}
+                onChangeText={this.setStateWeightValue2.bind(this)}>
+              </TextInput>
             </View>
-            <View style={stylesSeller.SelectSheet_TextInput}>
-              <Picker
-                selectedValue={this.state.language}
-                style={{ width: '100%' }}
-                onValueChange={(itemValue, itemIndex) =>
-                  this.setState({ language: itemValue })
-                }>
-                <Picker.Item label="กิโลกรัม" value="java" />
-                <Picker.Item label="กรัม" value="js" />
-              </Picker>
-            </View>
+            <ModalDropdown
+              options={['กิโลกรัม', 'กรัม']}
+              defaultIndex={weight && weight.indexName}
+              dropdownStyle={{ width: 160, }}
+              textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
+              dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'right' }]}
+              renderButtonText={this.setStateWeightValue.bind(this)}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesSeller.SelectSheet_TextInput, {
+                textAlign: 'center', textAlignVertical: 'center'
+              }]}>
+                {weight && weight.name}</Text>
+            </ModalDropdown>
           </View>
         </View>
         <View style={stylesSeller.BottomSheet_Botton}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => this.WeightSheet.close()}>
             <View style={stylesSeller.BottomSheet_Botton_cancel}>
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ยกเลิก</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={this.SaveWeightSheet.bind(this)}>
             <View style={stylesSeller.BottomSheet_Botton_OK}>
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตกลง</Text>
             </View>
@@ -657,8 +712,8 @@ export class Seller_Up_ProductDetail extends Component {
   }
   render() {
     const {
-      activeCategory, activeSubCategory, activeUnSubCategory, categorySelect, saveCategorySelect, saveNameBrand, savePrice,
-      saveSubCategorySelect, saveTotal, saveUnSubCategorySelect, subCategorySelect
+      activeCategory, activeSubCategory, activeUnSubCategory, categorySelect, saveCategorySelect, saveLookIndex, saveNameBrand, savePrice,
+      saveSubCategorySelect, saveTotal, saveUnSubCategorySelect, saveWeight, subCategorySelect
     } = this.state
     const { detail, name } = this.state
     var uriCategory = [finip, 'store/add_product_mobile'].join('/')
@@ -869,8 +924,10 @@ export class Seller_Up_ProductDetail extends Component {
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>หมวดสินค้า</Text>
             <View style={{ flexDirection: 'row' }}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical,]}>
-                {[saveCategorySelect && saveCategorySelect.name, saveSubCategorySelect && (' > ' + saveSubCategorySelect.name),
-                saveUnSubCategorySelect && (' > ' + saveUnSubCategorySelect.name)].join(' ')}</Text>
+                {(saveCategorySelect || saveSubCategorySelect || saveUnSubCategorySelect) ?
+                  [saveCategorySelect && saveCategorySelect.name, saveSubCategorySelect && (' > ' + saveSubCategorySelect.name),
+                  saveUnSubCategorySelect && (' > ' + saveUnSubCategorySelect.name)].join(' ') :
+                  <Text style={{ color: '#A3A3A3' }}>{'ตั้งหมวดสินค้า'}</Text>}</Text>
               <IconEntypo name='chevron-right' size={35} style={[stylesMain.ItemCenterVertical, { color: '#0A55A6' }]} />
             </View>
           </View>
@@ -881,7 +938,7 @@ export class Seller_Up_ProductDetail extends Component {
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>แบรนด์สินค้า</Text>
             <View style={{ flexDirection: 'row' }}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical,]}>
-                {saveNameBrand ? saveNameBrand : 'No Brand'}</Text>
+                {saveNameBrand ? saveNameBrand : <Text style={{ color: '#A3A3A3' }}>{'ตั้งค่าแบรนด์'}</Text>}</Text>
               <IconEntypo name='chevron-right' size={35} style={[stylesMain.ItemCenterVertical, { color: '#0A55A6' }]} />
             </View>
           </View>
@@ -892,7 +949,7 @@ export class Seller_Up_ProductDetail extends Component {
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ราคา</Text>
             <View style={{ flexDirection: 'row' }}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical,]}>
-                {savePrice ? savePrice : 'ตั้งราคา'}</Text>
+                {savePrice ? savePrice : <Text style={{ color: '#A3A3A3' }}>{'ตั้งราคา'}</Text>}</Text>
               <IconEntypo name='chevron-right' size={35} style={[stylesMain.ItemCenterVertical, { color: '#0A55A6' }]} />
             </View>
           </View>
@@ -903,7 +960,7 @@ export class Seller_Up_ProductDetail extends Component {
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>คลัง</Text>
             <View style={{ flexDirection: 'row' }}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical,]}>
-                {saveTotal ? saveTotal : 'ระบุจำนวนสินค้า'}</Text>
+                {saveTotal ? saveTotal : <Text style={{ color: '#A3A3A3' }}>{'ตั้งจำนวนสินค้า'}</Text>}</Text>
               <IconEntypo name='chevron-right' size={35} style={[stylesMain.ItemCenterVertical, { color: '#0A55A6' }]} />
             </View>
           </View>
@@ -913,7 +970,9 @@ export class Seller_Up_ProductDetail extends Component {
           <View style={stylesSeller.Seller_Up_ProductDetail}>
             <View style={stylesMain.FlexRow}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ตัวเลือกสินค้า</Text>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginLeft: 10, color: '#A3A3A3' }]}>(ไม่จำเป็นต้องระบุ)</Text>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, stylesMain.ItemCenterVertical, {
+                marginLeft: 10, color: '#A3A3A3'
+              }]}>(ไม่จำเป็นต้องระบุ)</Text>
             </View>
             <View style={stylesMain.FlexRow}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#A3A3A3', marginTop: 5 }]}>เพิ่มตัวเลือกสินค้า</Text>
@@ -922,11 +981,14 @@ export class Seller_Up_ProductDetail extends Component {
           </View>
         </TouchableOpacity>
         {/* สภาพสินค้า */}
-        <TouchableOpacity activeOpacity={1} onPress={() => { this.LookSheet.open(); }}>
+        <TouchableOpacity activeOpacity={1} onPress={this.LookSheetOpen.bind(this)}>
           <View style={stylesSeller.Seller_Up_ProductDetail}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>สภาพสินค้า</Text>
             <View style={stylesMain.FlexRow}>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#A3A3A3', marginTop: 5 }]}>ประเภทสินค้า เช่น มือสอง</Text>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginTop: 5 }]}>
+                {
+                  saveLookIndex ? saveLookIndex == 1 ? 'ของใหม่' : 'ของมือสอง' : <Text style={{ color: '#A3A3A3', }}>{'สภาพสินค้า'}</Text>
+                }</Text>
               <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
             </View>
           </View>
@@ -939,14 +1001,18 @@ export class Seller_Up_ProductDetail extends Component {
           </TouchableOpacity>
         </View>
         {/* น้ำหนัก */}
-        <TouchableOpacity activeOpacity={1} onPress={() => { this.WeightSheet.open(); }}>
+        <TouchableOpacity activeOpacity={1} onPress={this.WeightSheetOpen.bind(this)}>
           <View style={stylesSeller.Seller_Up_ProductDetail}>
             <View style={stylesMain.FlexRow}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>น้ำหนัก</Text>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginLeft: 10, color: '#A3A3A3' }]}>(ไม่จำเป็นต้องระบุ)</Text>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, stylesMain.ItemCenterVertical, {
+                marginLeft: 10, color: '#A3A3A3'
+              }]}>(ไม่จำเป็นต้องระบุ)</Text>
             </View>
             <View style={stylesMain.FlexRow}>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#A3A3A3', marginTop: 5 }]}>ระบุน้ำหนัก</Text>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical, { marginTop: 5 }]}>
+                {saveWeight.value ? [saveWeight.value, saveWeight.name].join(' ') : <Text style={{ color: '#A3A3A3', }}>
+                  {'ระบุน้ำหนัก'}</Text>}</Text>
               <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
             </View>
           </View>
@@ -956,7 +1022,9 @@ export class Seller_Up_ProductDetail extends Component {
           <View style={stylesSeller.Seller_Up_ProductDetail}>
             <View style={stylesMain.FlexRow}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ขนาดพัสดุ</Text>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginLeft: 10, color: '#A3A3A3' }]}>(ไม่จำเป็นต้องระบุ)</Text>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, stylesMain.ItemCenterVertical, {
+                marginLeft: 10, color: '#A3A3A3'
+              }]}>(ไม่จำเป็นต้องระบุ)</Text>
             </View>
             <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
           </View>

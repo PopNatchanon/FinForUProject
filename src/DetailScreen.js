@@ -34,6 +34,7 @@ export default class DetailScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeDataService: true,
       dataService: [],
       scrollY: new Animated.Value(0),
       setActive: true,
@@ -51,29 +52,11 @@ export default class DetailScreen extends React.Component {
         this.setState({ keycokie })
       });
   }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { navigation } = this.props
-    const {
-      activeSlide, BuyProduct, currentUser, dataService, getStarReview, keycokie, scrollY, setActive, setShowItemImage, showItemImage,
-    } = this.state
-    if (
-      ////>nextProps
-      navigation !== nextProps.navigation ||
-      ////>nextProps
-      activeSlide !== nextState.activeSlide || BuyProduct !== nextState.BuyProduct || currentUser !== nextState.currentUser ||
-      dataService !== nextState.dataService || getStarReview !== nextState.getStarReview || keycokie !== nextState.keycokie ||
-      scrollY !== nextState.scrollY || setActive !== nextState.setActive || setShowItemImage !== nextState.setShowItemImage ||
-      showItemImage !== nextState.showItemImage
-    ) {
-      return true
-    }
-    return false
-  }
   showImage = (showItemImage) => {
     this.setState({ showItemImage })
   }
   getData = (dataService) => {
-    this.setState({ dataService })
+    this.setState({ activeDataService: false, dataService })
   }
   getStarReview = (getStarReview) => {
     this.setState({ getStarReview })
@@ -87,7 +70,7 @@ export default class DetailScreen extends React.Component {
   render() {
     const { navigation } = this.props
     const {
-      currentUser, BuyProduct, dataService, getStarReview, keycokie, scrollY, setActive, setShowItemImage, showItemImage
+      activeDataService, currentUser, BuyProduct, dataService, getStarReview, keycokie, scrollY, setActive, setShowItemImage, showItemImage
     } = this.state
     var id_product = navigation.getParam('id_item')
     var uri = finip + '/product/product_detail_mobile';
@@ -96,13 +79,14 @@ export default class DetailScreen extends React.Component {
     };
     return (
       <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
-        {
+        {[
           showItemImage == true &&
-          <Show_Image showImage={this.showImage.bind(this)} setShowItemImage={setShowItemImage} />
-        }
-        <GetServices uriPointer={uri}
-          showConsole={'product_detail_mobile'}
-          dataBody={dataBody} getDataSource={this.getData.bind(this)} />
+          <Show_Image key='Show_Image' showImage={this.showImage.bind(this)} setShowItemImage={setShowItemImage} />,
+          activeDataService == true &&
+          <GetServices uriPointer={uri} key='GetServices'
+            // showConsole={'product_detail_mobile'}
+            dataBody={dataBody} getDataSource={this.getData.bind(this)} />
+        ]}
         <Animatable.View style={{ height: 50, }}>
           <View style={{
             position: 'relative',
@@ -566,19 +550,6 @@ export class Conpon extends React.Component {
       activeDate: true,
     };
   }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { currentUser, dataService, } = this.props
-    const { activeDate, dataService2 } = this.state
-    if (
-      ////>nextProps
-      currentUser !== nextState.currentUser || dataService !== nextProps.dataService ||
-      ////>nextState
-      activeDate !== nextState.activeDate || dataService2 !== nextState.dataService2
-    ) {
-      return true
-    }
-    return false
-  }
   get_id_promotion = () => {
     this.setState({ activeDate: true })
   }
@@ -628,9 +599,9 @@ export class Conpon extends React.Component {
     return (
       <>
         {[
-          currentUser && activeDate &&
+          currentUser && activeDate == true &&
           <GetServices uriPointer={uri}
-            // showConsole={'get_store_coupon'} 
+            // showConsole={'get_store_coupon'}
             dataBody={dataBody}
             getDataSource={this.getData.bind(this)}
             key={'get_store_coupon'} />,
@@ -1191,22 +1162,8 @@ export class Reviews extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataService2: []
+      activeDataService2: true,
     };
-  }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { dataService2 } = this.state
-    const { currentUser, dataService, getStarReview, navigation, } = this.props
-    if (
-      ////>nextProps
-      dataService2 !== nextState.dataService2 ||
-      ////>nextState
-      currentUser !== nextProps.currentUser || dataService !== nextProps.dataService || getStarReview !== nextProps.getStarReview ||
-      navigation !== nextProps.navigation
-    ) {
-      return true
-    }
-    return false
   }
   navigationNavigateScreen = (value, value2) => {
     const { navigation } = this.props
@@ -1219,10 +1176,12 @@ export class Reviews extends React.Component {
         navigation.push(value, value2)
   }
   getData = (dataService2) => {
-    this.setState({ dataService2 })
+    const { getStarReview } = this.props
+    getStarReview(dataService2.rating_total)
+    this.setState({ activeDataService2: false, dataService2 })
   }
   customerReview(review) {
-    return review &&
+    return review && review != 'ยังไม่มีการรีวิว' ?
       review.map((item, index) => {
         if (index < 5) {
           var img_rate = item.img_rate.split(";")
@@ -1258,7 +1217,7 @@ export class Reviews extends React.Component {
             </View>
           </View>
         }
-      })
+      }) : <View><Text>{review}</Text></View>
   }
   starReview(star, starSize) {
     let starBox = []
@@ -1284,8 +1243,8 @@ export class Reviews extends React.Component {
     return starBox
   }
   render() {
-    const { dataService, currentUser, getStarReview } = this.props
-    const { dataService2 } = this.state
+    const { dataService, currentUser } = this.props
+    const { activeDataService2, dataService2 } = this.state
     var uri = finip + '/product/product_review_mobile'
     var dataBody
     currentUser && dataService && (
@@ -1298,8 +1257,9 @@ export class Reviews extends React.Component {
     return (
       <View style={stylesMain.FrameBackground}>
         {
-          dataService && dataBody &&
-          <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
+          activeDataService2 == true && dataService && dataBody &&
+          <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)}
+            showConsole='product_review_mobile' />
         }
         <View style={stylesMain.FrameBackgroundTextBox}>
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
@@ -1316,10 +1276,7 @@ export class Reviews extends React.Component {
           <View style={stylesDetail.Price_Text_IconBox}>
             <View style={stylesDetail.Price_Text_IconBoxStar}>
               {
-                (
-                  getStarReview(dataService2.rating_total),
-                  this.starReview(dataService2.rating_total)
-                )
+                this.starReview(dataService2.rating_total)
               }
               <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                 {dataService2.rating_total}/5</Text>
@@ -1372,11 +1329,12 @@ export class BannerBar extends React.Component {
     };
   }
   render() {
-    return (<View style={stylesDetail.Banner_Bar}>
-      <FastImage
-        style={stylesDetail.Banner_Bar_image}
-        source={{ uri: ip + '/MySQL/uploads/slide/Banner_type/watch_BannerBar.jpg' }} />
-    </View>
+    return (
+      <View style={stylesDetail.Banner_Bar}>
+        <FastImage
+          style={stylesDetail.Banner_Bar_image}
+          source={{ uri: ip + '/MySQL/uploads/slide/Banner_type/watch_BannerBar.jpg' }} />
+      </View>
     );
   }
 }

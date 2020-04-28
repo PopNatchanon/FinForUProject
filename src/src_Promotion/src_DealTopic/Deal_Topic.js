@@ -119,10 +119,7 @@ export default class Deal_Topic extends Component {
                             <Slide />
                             <View style={{ marginBottom: 10 }}></View>
                             <Button_Bar />
-                            <Store_Detail />
-                            <Store_Detail />
-                            <Store_Detail />
-                            <Store_Detail />
+                            {/* <Store_Detail /> */}
                         </ScrollView>
                     </View>
                 )
@@ -150,10 +147,7 @@ export default class Deal_Topic extends Component {
                             <Slide />
                             <View style={{ marginBottom: 10 }}></View>
                             <Button_Bar />
-                            <Store_Detail />
-                            <Store_Detail />
-                            <Store_Detail />
-                            <Store_Detail />
+                            {/* <Store_Detail /> */}
                         </ScrollView>
                     </View>
                 )

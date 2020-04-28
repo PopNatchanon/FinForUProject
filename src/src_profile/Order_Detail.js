@@ -108,7 +108,8 @@ export class Detail extends Component {
     }
     render() {
         const { dataService } = this.props;
-        const uri_image_tracking = finip + '/' + dataService.image_path + '/' + dataService.image_name;
+        const uri_image_tracking = [finip, dataService.image_path,
+            dataService.image ? dataService.image : dataService.image_name].join('/');
         console.log(uri_image_tracking)
         return (
             <>

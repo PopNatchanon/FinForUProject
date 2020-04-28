@@ -13,9 +13,10 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 import stylesPromotionDeal from '../../style/stylePromotion-src/styleDealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule } from '../MainScreen';
-import { Button_Bar, Slide, } from './DealScreen';
+import { AppBar1, ExitAppModule, Slide, } from '../MainScreen';
+import { Button_Bar, } from './DealScreen';
 import { CategoryProduct } from '../MainScreen';
+import { GetServices, ProductBox } from '../../src/tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -25,20 +26,31 @@ export default class Installment_payScreen extends Component {
     this.state = {
     };
   }
+  getData = (dataService) => {
+    this.setState({ dataService })
+  }
   render() {
+    const { navigation } = this.props
+    const { dataService, } = this.state
+    // console.log('Installment_payScreen')
+    // console.log(dataService)
+    var uri = finip + '/coupon/installment_data'
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
-        <AppBar1 titleHead={'ผ่อน 0 % สูงสุด 10 เดือน'} backArrow searchBar chatBar navigation={this.props.navigation} />
+        <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} />
+        <AppBar1 titleHead={'ผ่อน 0 % สูงสุด 10 เดือน'} backArrow searchBar chatBar navigation={navigation} />
         <ScrollView>
-          <Slide />
+          <Slide banner={dataService && dataService.banner} />
           <Head_Image />
-          <Product_Pay />
-          <CategoryProduct NoStoreReCom navigation={this.props.navigation} />
+          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginLeft: -3, width: 140 }]}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>สินค้า 0 % 10 เดือน </Text>
+          </View>
+          <CategoryProduct_pay navigation={navigation} dataService={dataService && dataService.category} />
         </ScrollView>
         <View style={{ backgroundColor: '#ffffff', borderTopWidth: 1, borderColor: '#ECECEC' }}>
-          <Button_Bar navigation={this.props.navigation} />
+          <Button_Bar navigation={navigation} />
         </View>
-        <ExitAppModule navigation={this.props.navigation} />
+        <ExitAppModule navigation={navigation} />
       </SafeAreaView>
     );
   }
@@ -56,9 +68,9 @@ export class Head_Image extends Component {
         <View style={stylesPromotionDeal.Head_BoxImage}>
           <FastImage style={stylesPromotionDeal.Head_Image}
             source={{
-              uri: ip + '/MySQL/uploads/slide/banner_payment.jpg',
+              uri: 'http://www.mmnie.live/uploads/banner/banner_payment.jpg',
             }}
-            resizeMode={'cover'}
+            resizeMode={FastImage.resizeMode.stretch}
           />
 
         </View>
@@ -89,19 +101,66 @@ export class Head_Image extends Component {
   }
 }
 ///----------------------------------------------------------------------------------------------->>>> Product_Pay
-export class Product_Pay extends Component {
+export class CategoryProduct_pay extends Component {
   constructor(props) {
     super(props);
     this.state = {
     };
   }
+
   render() {
+    const { dataService, navigation } = this.props
+    // console.log('Installment_payScreen')
+    // console.log(dataService)
     return (
-      <View>
-        <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginLeft: -3, width: 140 }]}>
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>สินค้า 0 % 10 เดือน </Text>
-        </View>
-      </View>
+      <>
+        {/* <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'CategoryScreen')}> */}
+        {
+          dataService && dataService.map((value, index) => {
+            var mobile_head = [finip, value.mobile_head].join('/');
+            {/* console.log('value.store')
+            console.log(value.store) */}
+            return (
+              <View key={index} style={stylesMain.FrameBackground}>
+                <FastImage
+                  source={{
+                    uri: mobile_head,
+                  }}
+                  style={[stylesMain.CategoryProductImageHead]}
+                  resizeMode={FastImage.resizeMode.cover}
+                />
+                <ScrollView horizontal>
+                  <View style={[stylesMain.ProductForYouFlexBox, stylesMain.BoxProductWarpBox]}>
+                    <ProductBox dataService={value.product} navigation={navigation} mode='row3col2'
+                      pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} />
+                  </View>
+                </ScrollView>
+                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>ร้านนี้ผ่อนได้</Text>
+                <ScrollView horizontal>
+                  {
+                    value.store.map((value2, index2) => {
+                      var image_store = [finip, value2.image_path, value2.image].join('/');
+                      console.log(image_store)
+                      return (
+                        <View key={index2} style={[stylesMain.CategoryProductStoreBox,
+                        { height: 70, borderWidth: 1, padding: 2, borderColor: '#ECECEC' }]}>
+                          <FastImage
+                            source={{
+                              uri: image_store,
+                            }}
+                            style={stylesMain.CategoryProductStoreImage}
+                            resizeMode={FastImage.resizeMode.stretch} />
+                        </View>
+                      )
+                    })
+                  }
+                </ScrollView>
+              </View>
+            )
+          })
+        }
+        {/* </TouchableOpacity> */}
+      </>
     );
   }
 }

@@ -1,5 +1,5 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
@@ -24,7 +24,7 @@ import { GetCoupon, GetServices, ProductBox, LoadingScreen, } from '../tools/Too
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class DealScreen extends Component {
+export default class DealScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -88,7 +88,7 @@ export default class DealScreen extends Component {
   }
 }
 ///----------------------------------------------------------------------------------------------->>>> Slide
-export class Slide extends Component {
+export class Slide extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -128,7 +128,7 @@ export class Slide extends Component {
   }
 }
 ///----------------------------------------------------------------------------------------------->>>> Button_Bar
-export class Button_Bar extends Component {
+export class Button_Bar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -177,7 +177,7 @@ export class Button_Bar extends Component {
   }
 }
 ///----------------------------------------------------------------------------------------------->>>> Deal_Calendar
-export class Deal_Calendar extends Component {
+export class Deal_Calendar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -211,7 +211,7 @@ export class Deal_Calendar extends Component {
   }
 }
 ///----------------------------------------------------------------------------------------------->>>> Deal_Today
-export class Deal_Today extends Component {
+export class Deal_Today extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -323,7 +323,7 @@ export class Deal_Today extends Component {
   }
 }
 ///----------------------------------------------------------------------------------------------->>>> Deal_Exclusive
-export class Deal_Exclusive extends Component {
+export class Deal_Exclusive extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -363,7 +363,7 @@ export class Deal_Exclusive extends Component {
   }
 }
 ///----------------------------------------------------------------------------------------------->>>> Second_Store
-export class Second_Store extends Component {
+export class Second_Store extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -529,7 +529,7 @@ export class Second_Store extends Component {
   }
 }
 ///----------------------------------------------------------------------------------------------->>>> ProDed_Store
-export class ProDed_Store extends Component {
+export class ProDed_Store extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -571,7 +571,7 @@ export class ProDed_Store extends Component {
   }
 }
 ///----------------------------------------------------------------------------------------------->>>> ProDed_New_Store
-export class ProDed_New_Store extends Component {
+export class ProDed_New_Store extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -615,7 +615,7 @@ export class ProDed_New_Store extends Component {
   }
 }
 ///----------------------------------------------------------------------------------------------->>>> TodayProduct
-export class Shop_Deal_ForU extends Component {
+export class Shop_Deal_ForU extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -630,7 +630,7 @@ export class Shop_Deal_ForU extends Component {
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ช้อปทุกดีลเฉพาะคุณ</Text>
           </View>
         </View>
-        <View style={stylesDeal.Deal_For_you}>
+        <View style={[stylesMain.ProductForYouFlexBox, stylesMain.Product_for_you]}>
           {
             dataService &&
             <ProductBox dataService={dataService} navigation={navigation} mode='5item'

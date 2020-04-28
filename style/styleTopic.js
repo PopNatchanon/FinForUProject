@@ -49,7 +49,7 @@ export default StyleSheet.create({
     },
     ///--------------------------------Recommend_Brand-----------------------------------------///
     Brand_ImageBackground: {
-        height: 150,
+        height: 80,
         width: '100%',
     },
     Recommend_Brand_StoreBoxPro: {
@@ -58,13 +58,15 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
         paddingLeft: 20,
         paddingRight: 20,
-        marginTop: -130
+        marginTop: -80
     },
     Recommend_Brand_Pro: {
-        height: 80,
-        width: 80,
-        // backgroundColor: '#FFFFFF',
-        borderRadius: 40,
+        height: 70,
+        width: 70,
+        backgroundColor: '#FFFFFF',
+        borderWidth: 1,
+        borderRadius: 35,
+        padding: 10,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -73,21 +75,14 @@ export default StyleSheet.create({
         width: '100%',
     },
     Recommend_Brand_ProButton: {
-        height: 30,
+        height: 25,
         width: 100,
+        borderWidth: 1,
         backgroundColor: '#FFFFFF',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 8,
         marginTop: 20,
-    },
-    Recommend_Brand_Product: {
-        height: 170,
-        width: '100%',
-        marginTop: 20,
-        justifyContent: 'space-around',
-        flexDirection: 'row',
-        marginBottom: 10,
     },
     Recommend_Brand_Product_Box: {
         width: '29%',
@@ -167,7 +162,7 @@ export default StyleSheet.create({
         width: '100%',
         backgroundColor: '#FFFFFF',
         padding: 10,
-        marginBottom:5,
+        marginBottom: 5,
     },
     Header_DetailText: {
         marginTop: 5,
@@ -225,7 +220,7 @@ export default StyleSheet.create({
         borderRadius: 5,
     },
     Store_BoxIcon: {
-        alignItems:'flex-end',
+        alignItems: 'flex-end',
         height: 40,
         width: 125,
         marginRight: 10,
@@ -263,8 +258,8 @@ export default StyleSheet.create({
     },
     ///----------------------------------------------------------------------------///
     Box_Brand: {
-        justifyContent:'center',
-        alignItems:'center',
+        justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor: '#FFFFFF',
         height: 50,
         width: '30%',
@@ -274,41 +269,41 @@ export default StyleSheet.create({
     },
     root: {
         backgroundColor: "#ffffff",
-        marginTop:10,
-      },
-      container: {
+        marginTop: 10,
+    },
+    container: {
         paddingLeft: 10,
         paddingRight: 16,
         paddingVertical: 12,
         flexDirection: 'row',
         alignItems: 'flex-start'
-      },
-      content: {
+    },
+    content: {
         marginLeft: 16,
         flex: 1,
-      },
-      contentHeader: {
+    },
+    contentHeader: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginBottom: 6
-      },
-      separator: {
+    },
+    separator: {
         height: 2,
         backgroundColor: "#CCCCCC"
-      },
-      image:{
-        width:45,
-        height:45,
-        borderRadius:20,
-        marginLeft:10
-      },
-      time:{
-        fontSize:11,
-        color:"#808080",
-      },
-      name:{
-        fontSize:16,
-        fontWeight:"bold",
-      },
+    },
+    image: {
+        width: 45,
+        height: 45,
+        borderRadius: 20,
+        marginLeft: 10
+    },
+    time: {
+        fontSize: 11,
+        color: "#808080",
+    },
+    name: {
+        fontSize: 16,
+        fontWeight: "bold",
+    },
 
 })

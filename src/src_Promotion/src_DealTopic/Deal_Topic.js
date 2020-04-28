@@ -104,7 +104,7 @@ export default class Deal_Topic extends Component {
                             {[
                                 dataService2 &&
                                 <Button_Bar category={dataService2.category} key='Button_Bar' getUpdateIndex={this.getUpdateIndex.bind(this)}
-                                    navigation={this.props.navigation} />,
+                                    navigation={navigation} />,
                                 dataService2 &&
                                 <TodayProduct key='TodayProduct' noTitle navigation={navigation} loadData={dataService2.product} />
                             ]}

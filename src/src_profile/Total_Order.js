@@ -69,7 +69,6 @@ export class Button_bar extends Component {
         super(props);
         this.state = {
             activeSelectedIndex: true,
-            selectedIndex: 0,
         };
     }
     getData = (dataService) => {

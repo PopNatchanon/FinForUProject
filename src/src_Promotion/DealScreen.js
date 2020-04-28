@@ -19,7 +19,7 @@ import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule, Second_product, GetData } from '../MainScreen';
+import { AppBar1, ExitAppModule, Second_product, GetData, TodayProduct, } from '../MainScreen';
 import { GetCoupon, GetServices, ProductBox, LoadingScreen, } from '../tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';
@@ -62,7 +62,7 @@ export default class DealScreen extends React.Component {
             dataService &&
             <Deal_Calendar dataService={dataService.carlendar_banner} key='Deal_Calendar' />,
             currentUser && keycokie &&
-            <Deal_Today currentUser={currentUser} keycokie={keycokie} navigation={navigation} />,
+            <Deal_Today currentUser={currentUser} key='Deal_Today' keycokie={keycokie} navigation={navigation} />,
             dataService &&
             <Deal_Exclusive dataService={dataService.exclusive} key='Deal_Exclusive' navigation={navigation} />,
             dataService &&
@@ -186,27 +186,27 @@ export class Deal_Calendar extends React.Component {
   render() {
     const { dataService } = this.props
     return (
-      <View style={{ paddingHorizontal: 2 }}>
-        <View style={[stylesMain.FrameBackground, { backgroundColor: '#B5F5D1', width: '100%' }]}>
-          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#5094EE', marginLeft: -3, }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ดีลเด็ดตามปฏิทิน</Text>
-          </View>
+      <>
+        <View style={[stylesMain.FrameBackground,
+          // { backgroundColor: '#B5F5D1', width: '100%' }
+        ]}>
+          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ดีลเด็ดตามปฏิทิน</Text>
           <View style={stylesDeal.Deal_Calendar_Box}>
             {
               dataService && dataService.map((value, index) => {
                 const image_carlendar = finip + '/' + value.image_path + '/' + value.image
                 return <View key={index} style={stylesDeal.Deal_Calendar_BoxN}>
-                  <FastImage style={{ height: '100%', width: '100%' }}
+                  <FastImage style={stylesMain.BoxProduct1Image}
                     source={{
                       uri: image_carlendar,
                     }}
-                  />
+                    resizeMode={FastImage.resizeMode.cover} />
                 </View>
               })
             }
           </View>
         </View>
-      </View>
+      </>
     );
   }
 }
@@ -260,7 +260,9 @@ export class Deal_Today extends React.Component {
       id_promotion_shop: id_promotion,
     }
     return (
-      <View style={[stylesMain.FrameBackground, { backgroundColor: '#AF5F92', width: '100%' }]}>
+      <View style={[stylesMain.FrameBackground,
+        // { backgroundColor: '#AF5F92', }
+      ]}>
         {[
           activeServices.activeGetServices == true && currentUser && keycokie &&
           <GetServices Authorization={keycokie} dataBody={dataBody} uriPointer={uri} getDataSource={this.getData.bind(this)}
@@ -272,50 +274,44 @@ export class Deal_Today extends React.Component {
           />
         ]}
         <View style={stylesDeal.BoxText_Row}>
-          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#D5CD5B', marginLeft: -3 }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ดีลเด็ดประจำวัน</Text>
-          </View>
+          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ดีลเด็ดประจำวัน</Text>
           <TouchableOpacity onPress={() => this.props.navigation.push('Deal_Topic', { selectedIndex: 0 })}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndW]}>ดูทั้งหมด</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB]}>ดูทั้งหมด</Text>
           </TouchableOpacity>
         </View>
-        <View style={{ padding: 10, }}>
+        <View style={stylesDeal.Deal_Today_Box}>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#00adb5' }]}> คูปองส่วนลดจาก FIN</Text>
+          <ScrollView horizontal>
+            <View style={stylesDeal.Deal_Today_BoxImage}>
+              {
+                dataService && dataService.coupon.map((value, index) => {
+                  return <GetCoupon codeList={value.my_coupon == 'no' ? 'available' : ''} colorCoupon='#86CFFF' couponText={value.name}
+                    getCoupon={this.getCoupon.bind(this)} key={index} saveCoupon setDataService={{
+                      list: 'fin',
+                      id_promotion: value.id_promotion
+                    }} textDetail={value.detail} timeOut={value.end_period} />
+                })
+              }
+            </View>
+          </ScrollView>
+        </View>
+        <View>
           <View style={stylesDeal.Deal_Today_Box}>
-            <Text style={stylesFont.FontFamilyText}> คูปองส่วนลดจาก FIN</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#00adb5' }]}> คูปองส่วนลดจากร้าน</Text>
             <ScrollView horizontal>
               <View style={stylesDeal.Deal_Today_BoxImage}>
                 {
-                  dataService && dataService.coupon.map((value, index) => {
-                    return <GetCoupon codeList={value.my_coupon == 'no' ? 'available' : ''} colorCoupon='#86CFFF' couponText={value.name}
+                  dataService2 && dataService2.coupon.map((value, index) => {
+                    return <GetCoupon codeList={value.my_coupon == 'no' ? 'available' : ''} colorCoupon='#E43333' couponText={value.name}
                       getCoupon={this.getCoupon.bind(this)} key={index} saveCoupon setDataService={{
-                        list: 'fin',
+                        list: 'shop',
                         id_promotion: value.id_promotion
-                      }} textDetail={value.detail} timeOut={value.end_period} />
+                      }}
+                      textDetail={value.detail} timeOut={value.end_period} />
                   })
                 }
               </View>
             </ScrollView>
-          </View>
-        </View>
-        <View>
-          <View style={{ padding: 10, }}>
-            <View style={stylesDeal.Deal_Today_Box}>
-              <Text style={stylesFont.FontFamilyText}> คูปองส่วนลดจากร้าน</Text>
-              <ScrollView horizontal>
-                <View style={stylesDeal.Deal_Today_BoxImage}>
-                  {
-                    dataService2 && dataService2.coupon.map((value, index) => {
-                      return <GetCoupon codeList={value.my_coupon == 'no' ? 'available' : ''} colorCoupon='#E43333' couponText={value.name}
-                        getCoupon={this.getCoupon.bind(this)} key={index} saveCoupon setDataService={{
-                          list: 'shop',
-                          id_promotion: value.id_promotion
-                        }}
-                        textDetail={value.detail} timeOut={value.end_period} />
-                    })
-                  }
-                </View>
-              </ScrollView>
-            </View>
           </View>
         </View>
       </View>
@@ -333,31 +329,27 @@ export class Deal_Exclusive extends React.Component {
   render() {
     const { dataService, navigation } = this.props
     return (
-      <View style={[stylesMain.FrameBackground, { backgroundColor: '#CABA5A', width: '100%' }]}>
+      <View style={[stylesMain.FrameBackground,
+      { backgroundColor: '#CABA5A', width: '100%' }
+      ]}>
         <View style={stylesDeal.BoxText_Row}>
-          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#6170F8', marginLeft: -3 }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ดีลสุด Exclusive</Text>
-          </View>
+          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ดีลสุด Exclusive</Text>
           <TouchableOpacity onPress={() => this.props.navigation.push('Deal_Topic', { selectedIndex: 1 })}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndW]}>ดูทั้งหมด</Text>
           </TouchableOpacity>
         </View>
-        <View style={stylesDeal.Deal_Exclusive}>
-          <View style={stylesDeal.Deal_Exclusive_BoxImageIcon}>
-            <FastImage style={stylesDeal.Deal_Exclusive_Image}
-              source={{
-                uri: ip + '/MySQL/uploads/Unicorn/04.png',
-              }}
-            />
+        {/* <View style={stylesDeal.Deal_Exclusive}> */}
+        <ScrollView horizontal>
+          <View style={[stylesMain.ProductForYouFlexBox, stylesMain.Product_for_you]}>
+            {
+              dataService ?
+                <ProductBox dataService={dataService} navigation={navigation} mode='row3col2'
+                  pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
+                /> :
+                null
+            }
           </View>
-          {
-            dataService ?
-              <ProductBox dataService={dataService} navigation={navigation} mode='5item' numberOfItem={5}
-                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-              /> :
-              null
-          }
-        </View>
+        </ScrollView>
       </View>
     );
   }
@@ -426,60 +418,6 @@ export class Second_Store extends React.Component {
       </View>
     );
   }
-  sildeView() {
-    const { dataService2 } = this.state
-    return (
-      <View style={stylesDeal.Second_Store}>
-        <View style={stylesDeal.Second_Store_SlideA}>
-          <Carousel
-            ref={c => this.activeSlide = c}
-            data={dataService2}
-            renderItem={this._renderItem}
-            sliderWidth={width * 0.89}
-            itemWidth={width * 0.89}
-            sliderHeight={160}
-            loop={true}
-            autoplay={true}
-            autoplayDelay={3000}
-            autoplayInterval={3000}
-            onSnapToItem={(index) => this.setState({ activeSlide: index })}
-          />
-        </View>
-        <View style={stylesDeal.Second_Store_SlideB}>
-          <View style={stylesDeal.Second_Store_SlideB_Box}>
-            <Carousel
-              ref={c => this.activeSlide = c}
-              data={dataService2}
-              renderItem={this._renderItem}
-              sliderWidth={width * 0.43}
-              itemWidth={width * 0.43}
-              sliderHeight={120}
-              loop={true}
-              autoplay={true}
-              autoplayDelay={3000}
-              autoplayInterval={3000}
-              onSnapToItem={(index) => this.setState({ activeSlide: index })}
-            />
-          </View>
-          <View style={stylesDeal.Second_Store_SlideB_Box}>
-            <Carousel
-              ref={c => this.activeSlide = c}
-              data={dataService2}
-              renderItem={this._renderItem}
-              sliderWidth={width * 0.43}
-              itemWidth={width * 0.43}
-              sliderHeight={120}
-              loop={true}
-              autoplay={true}
-              autoplayDelay={3000}
-              autoplayInterval={3000}
-              onSnapToItem={(index) => this.setState({ activeSlide: index })}
-            />
-          </View>
-        </View>
-      </View>
-    )
-  }
   render() {
     const { dataService } = this.state
     const { navigation } = this.props
@@ -496,18 +434,14 @@ export class Second_Store extends React.Component {
         <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
         <GetServices uriPointer={uri2} dataBody={dataBody2} getDataSource={this.getData2} />
         <View style={stylesDeal.BoxText_Row}>
-          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#95D370', marginLeft: -3 }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ร้านมือสองลดราคา</Text>
-          </View>
+          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ร้านมือสองลดราคา</Text>
           <TouchableOpacity onPress={() => navigation.push('Deal_Topic', { selectedIndex: 2 })}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB]}>ดูทั้งหมด</Text>
           </TouchableOpacity>
         </View>
         {this.sildeView()}
         <View style={stylesDeal.BoxText_Row}>
-          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#E43333', marginLeft: -3 }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>มือสองลดราคา</Text>
-          </View>
+          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>มือสองลดราคา</Text>
           <TouchableOpacity onPress={() => navigation.push('Deal_Topic', { selectedIndex: 3 })}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB]}>ดูทั้งหมด</Text>
           </TouchableOpacity>
@@ -546,6 +480,7 @@ export class ProDed_Store extends React.Component {
               uri: dataMySQL,
             }}
             style={{ height: 100, width: 100, }}
+            resizeMode={FastImage.resizeMode.stretch}
           />
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}> ร้าน AVIRA ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่! </Text>
         </View>
@@ -554,11 +489,11 @@ export class ProDed_Store extends React.Component {
   }
   render() {
     return (
-      <View style={[stylesMain.FrameBackground, { backgroundColor: '#9887E0', width: '100%' }]}>
+      <View style={[stylesMain.FrameBackground,
+      { backgroundColor: '#9887E0', width: '100%' }
+      ]}>
         <View style={stylesDeal.BoxText_Row}>
-          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#F1F193', marginLeft: -3 }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 3, marginLeft: 8 }]}>ร้านนี้มีดีล</Text>
-          </View>
+          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ร้านนี้มีดีล</Text>
           <TouchableOpacity onPress={() => this.props.navigation.push('Deal_Topic', { selectedIndex: 4 })}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndW]}>ดูทั้งหมด</Text>
           </TouchableOpacity>
@@ -580,34 +515,34 @@ export class ProDed_New_Store extends React.Component {
   render() {
     const { dataService } = this.props
     return (
-      <View style={[stylesMain.FrameBackground, { backgroundColor: '#F9AFF5', width: '100%' }]}>
-        <View style={stylesDeal.BoxText_Row}>
-          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#F1F193', marginLeft: -3 }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 3, marginLeft: 8 }]}>ดีลสุดฟินร้านใหม่</Text>
-          </View>
-        </View>
-        <View style={stylesDeal.ProDed_New_Store}>
+      <View style={[stylesMain.FrameBackground,
+      { backgroundColor: '#F9AFF5', width: '100%' }
+      ]}>
+        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ดีลสุดฟินร้านใหม่</Text>
+        <View style={{ paddingLeft: 10 }}>
           <ScrollView horizontal>
-            <View style={[stylesDeal.ProDed_New_Store_Box, { height: 235, flexDirection: 'column', flexWrap: 'wrap', }]}>
-              {
-                dataService && dataService.map((item, index) => {
-                  var dataMySQL = finip + '/' + item.store_path + '/' + item.image_store;
-                  return <View key={index} style={stylesDeal.ProDed_New_Store_Boximage}>
+            {/* <View style={{ height: 220, flexDirection:'row'}}> */}
+            {
+              dataService && dataService.map((item, index) => {
+                var dataMySQL = finip + '/' + item.store_path + '/' + item.image_store;
+                return <View key={index} style={stylesDeal.ProDed_New_Store_Boximage}>
+                  <View style={{ width: 60, height: 60 }}>
                     <FastImage
                       source={{
                         uri: dataMySQL,
                       }}
-                      style={{ height: 60, width: 60, }}
+                      style={stylesMain.BoxProduct1Image}
+                      resizeMode={FastImage.resizeMode.stretch}
                     />
-                    <TouchableOpacity>
-                      <View style={stylesDeal.ProDed_New_Store_Button}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
-                      </View>
-                    </TouchableOpacity>
                   </View>
-                })
-              }
-            </View>
+                  <TouchableOpacity>
+                    <View style={stylesDeal.ProDed_New_Store_Button}>
+                      <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              })
+            }
           </ScrollView>
         </View>
       </View>
@@ -624,18 +559,14 @@ export class Shop_Deal_ForU extends React.Component {
   render() {
     const { dataService, navigation } = this.props
     return (
-      <View style={[stylesMain.FrameBackground, { backgroundColor: '#5ACAC8', width: '100%' }]}>
+      <View style={stylesMain.FrameBackground}>
         <View style={stylesDeal.BoxText_Row}>
-          <View style={[stylesDeal.BoxText_T, { backgroundColor: '#CB2342', marginLeft: -3, width: 130 }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ช้อปทุกดีลเฉพาะคุณ</Text>
-          </View>
+          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ช้อปทุกดีลเฉพาะคุณ</Text>
         </View>
-        <View style={[stylesMain.ProductForYouFlexBox, stylesMain.Product_for_you]}>
+        <View style={stylesMain.BoxProduct2BoxProduct}>
           {
             dataService &&
-            <ProductBox dataService={dataService} navigation={navigation} mode='5item'
-              pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-            />
+            <TodayProduct noTitle navigation={navigation} loadData={dataService} />
           }
         </View>
       </View>

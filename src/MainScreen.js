@@ -127,9 +127,9 @@ export default class MainScreen extends React.Component {
                             product_hit: dataService.product_hit, best_price: dataService.best_price,
                             best_sale: dataService.best_sale, best_cool: dataService.best_cool
                         }} />
-                        <Product_for_you navigation={navigation} loadData={dataService.for_you} /> */}
-                        {/* <CategoryProduct navigation={navigation} /> */}
-                        {/* <Second_product navigation={navigation} loadData={{
+                        <Product_for_you navigation={navigation} loadData={dataService.for_you} />
+                        <CategoryProduct navigation={navigation} />
+                        <Second_product navigation={navigation} loadData={{
                             product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
                             list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3,
                             mobile_bar: dataService.mobile_bar, mobile_slide: dataService.mobile_slide,
@@ -778,7 +778,8 @@ export class Button_Bar extends React.Component {
         return (
             <>
                 <View style={stylesMain.FrameBackground3}></View>
-                <ScrollView horizontal>
+                <View style={stylesMain.FlexRow}>
+                    {/* <ScrollView horizontal> */}
                     <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'DealScreen')}>
                         <View style={stylesMain.Button_Bar_Box}>
                             <FastImage style={stylesMain.Button_Bar_icon}
@@ -814,7 +815,8 @@ export class Button_Bar extends React.Component {
                                 resizeMode={FastImage.resizeMode.contain} />
                         </View>
                     </TouchableOpacity>
-                </ScrollView>
+                    {/* </ScrollView> */}
+                </View>
             </>
         );
     }
@@ -1861,8 +1863,8 @@ export class Second_product extends React.Component {
                 <View>
                     {
                         Header_Second ?
-                            <View style={[stylesDeal.BoxText_T, { backgroundColor: '#E43333', marginLeft: -3, }]}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>
+                            <View>
+                                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                                     มือสองลดราคา</Text>
                             </View> :
                             <TouchableOpacity activeOpacity={1}
@@ -1893,8 +1895,8 @@ export class Second_product extends React.Component {
                 <View style={stylesMain.Second_StoreFin_BoxHead}>
                     {
                         Header_Second ?
-                            <View style={[stylesDeal.BoxText_T, { backgroundColor: '#95D370', marginLeft: -3, }]}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>
+                            <View>
+                                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                                     ร้านมือสองลดราคา</Text>
                             </View> :
                             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>

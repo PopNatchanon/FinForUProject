@@ -42,10 +42,10 @@ export default class CoinScreen extends Component {
         const { navigation } = this.props
         const { activeGetCurrentUser, activeDataService, cokie, currentUser, dataService } = this.state
         var uri = finip + '/coupon/fin_coin_mobile';
-        console.log('activeGetCurrentUser')
-        console.log(activeGetCurrentUser)
-        console.log('activeDataService')
-        console.log(activeDataService)
+        // console.log('activeGetCurrentUser')
+        // console.log(activeGetCurrentUser)
+        // console.log('activeDataService')
+        // console.log(activeDataService)
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
                 {[
@@ -371,7 +371,7 @@ export class CoinPageBody extends Component {
                         </View>
                     </View>
                 </View>
-            </View >
+            </View>
         )
     }
 }

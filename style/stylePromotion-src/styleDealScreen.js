@@ -54,6 +54,7 @@ export default StyleSheet.create({
     Text_Head: {
         marginTop: 3,
         marginLeft: 8,
+        color: '#FFFFFF',
     },
     Text_EndB: {
         margin: 10,
@@ -70,25 +71,24 @@ export default StyleSheet.create({
     },
     Deal_Calendar_Box: {
         width: '100%',
-        padding: 10,
+        padding: 5,
         justifyContent: 'space-around',
         flexDirection: 'row',
     },
     Deal_Calendar_BoxN: {
-        width: 80,
-        height: 110,
+        width: width * 0.23,
+        height: height * 0.15,
         backgroundColor: '#FFFFFF',
         borderRadius: 5,
     },
     Deal_Today_Box: {
-        height: 110,
-        width: '100%',
         backgroundColor: '#FFFFFF',
+        borderColor:'#00adb5',
+        borderTopWidth:3,
+        padding:5,
     },
     Deal_Today_BoxImage: {
-        padding: 10,
         height: 80,
-        width: '100%',
         flexDirection: 'row',
     },
     Deal_Today_Coinimage: {
@@ -157,11 +157,11 @@ export default StyleSheet.create({
     ProDed_Store: {
         height: 160,
         width: 120,
+        borderColor:'#C4C4C4',
         backgroundColor: '#FFFFFF',
         padding: 10,
-        marginTop: 10,
+        marginVertical:10,
         marginLeft: 10,
-        marginBottom: 10,
         borderRadius: 5,
     },
     ProDed_New_Store: {
@@ -176,12 +176,11 @@ export default StyleSheet.create({
     ProDed_New_Store_Boximage: {
         backgroundColor: '#FFFFFF',
         borderRadius: 5,
-        height: 100,
         width: width * 0.2,
         marginRight: 10,
         marginBottom: 10,
         alignItems: 'center',
-        paddingTop: 10,
+        padding: 10,
     },
     ProDed_New_Store_Button: {
         backgroundColor: '#0A55A6',

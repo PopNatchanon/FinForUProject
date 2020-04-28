@@ -52,7 +52,6 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
     },
     Text_Head: {
-        color: '#FFFFFF',
         marginTop: 3,
         marginLeft: 8,
     },
@@ -132,9 +131,10 @@ export default StyleSheet.create({
     Second_Store_SlideA: {
         height: 160,
         marginTop: 10,
+        width: width * 0.89,
     },
     Second_Store_SlideB: {
-        height: 120,
+        height: 100,
         width: '90%',
         marginTop: 10,
         flexDirection: 'row',
@@ -191,20 +191,6 @@ export default StyleSheet.create({
         borderRadius: 10,
         alignItems: 'center',
     },
-    Deal_For_you: {
-        height: 'auto',
-        width: '100%',
-        justifyContent: 'space-around',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-    },
-    Deal_For_youBox: {
-        backgroundColor: '#FFFFFF',
-        borderColor: '#C4C4C4',
-        borderWidth: 1,
-        width: width * 0.3,
-        marginTop: 10,
-    },
     ///--------------------------------CampaignScreen-----------------------------------------///
     CampaignBody: {
         marginTop: 10,
@@ -228,8 +214,9 @@ export default StyleSheet.create({
         width: '100%',
         height: 60,
     },
-    CampaignBody_BoxText: { 
+    CampaignBody_BoxText: {
         width: '64%',
+        marginLeft: 10,
     },
     CampaignBody_Icon_Button: {
         flexDirection: 'row',
@@ -272,9 +259,9 @@ export default StyleSheet.create({
         marginBottom: 10,
     },
     Store_Sale: {
-        height: 230,
+        height: 180,
         width: '100%',
-        marginTop: 20,
+        marginTop: 10,
         alignItems: 'center',
         marginBottom: 10,
     },
@@ -294,6 +281,7 @@ export default StyleSheet.create({
     },
     Store_Sale_BoxA_Carousel: {
         height: '60%',
+        width: width * 0.585,
     },
     Store_Sale_BoxA_Boximage: {
         height: '38%',
@@ -302,7 +290,6 @@ export default StyleSheet.create({
     },
     Store_Sale_BoxA_image: {
         width: '49%',
-        height: '100%'
     },
     Store_Sale_BoxB_Boximage: {
         width: '37%',
@@ -328,8 +315,10 @@ export default StyleSheet.create({
     ///--------------------------------Detail_Campaign-----------------------------------------///
     Head_BoxImageDetail: {
         width: '100%',
-        height: 250,
+        height: 150,
         marginTop: 5,
+        backgroundColor: '#FFFFFF',
+        padding: 10,
     },
     Cate_Campaign: {
         height: 100,
@@ -363,32 +352,6 @@ export default StyleSheet.create({
         backgroundColor: '#FFFFFF',
         marginTop: 20,
     },
-    New_year_New: {
-        backgroundColor: '#FFFFFF',
-        marginTop: 20,
-        paddingBottom: 10
-    },
-    New_year_NewBoxText_Head: {
-        backgroundColor: '#000000',
-        height: 80,
-        width: '100%',
-        marginTop: 10,
-        padding: 10,
-    },
-    New_year_NewProduct: {
-        width: '100%',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        flexWrap: 'wrap',
-        marginTop: -20,
-    },
-    New_year_NewProduct_Box: {
-        marginTop: 10,
-        width: width * 0.3,
-        borderColor: '#ECECEC',
-        borderWidth: 1,
-        backgroundColor: '#FFFF'
-    },
     ///--------------------------------รูปแบบคูปอง-----------------------------------------///
     Coupon_BOX: {
         marginLeft: 10,
@@ -407,19 +370,19 @@ export default StyleSheet.create({
         backgroundColor: '#fff',
     },
     Coupon_BOX_A: {
-        height:80,
+        height: 80,
         width: 50,
         alignItems: 'center',
-        justifyContent:'center',
+        justifyContent: 'center',
         paddingTop: 5,
         borderTopRightRadius: 4,
         borderBottomRightRadius: 4,
     },
     Coupon_BOX_A2: {
-        height:80,
+        height: 80,
         width: 50,
         alignItems: 'center',
-        justifyContent:'center',
+        justifyContent: 'center',
         paddingTop: 5,
         borderTopRightRadius: 4,
         borderBottomRightRadius: 4,

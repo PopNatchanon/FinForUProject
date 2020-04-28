@@ -13,9 +13,9 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 import ststylePromotionDeal from '../../style/stylePromotion-src/styleDealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule, } from '../MainScreen';
-import { Button_Bar, Slide, } from './DealScreen';
-import { TabBar, GetServices, } from '../tools/Tools';
+import { AppBar1, ExitAppModule, Slide, GetData } from '../MainScreen';
+import { Button_Bar, } from './DealScreen';
+import { TabBar, GetServices, LoadingScreen, } from '../tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -23,20 +23,48 @@ export default class CampaignScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeDataService: true,
+      activeGetCurrentUser: true,
     };
   }
+  getSource = (value) => {
+    // console.log(value)
+    this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser, });
+  }
+  getData = (dataService) => {
+    this.setState({ dataService, activeDataService: false })
+  }
   render() {
+    const { navigation } = this.props
+    const { activeGetCurrentUser, activeDataService, currentUser, dataService, } = this.state
+    var uri = finip + '/campaign/campaign_data';
+    var dataBody = {
+      "id_category": ""
+    }
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
-        <AppBar1 titleHead={'แคมเปญ'} backArrow searchBar chatBar navigation={this.props.navigation} />
+        {[
+          (activeGetCurrentUser == true || activeDataService == true) &&
+          <LoadingScreen key='LoadingScreen' />,
+          activeGetCurrentUser == false && activeDataService == true &&
+          <GetServices dataBody={dataBody} uriPointer={uri} getDataSource={this.getData.bind(this)}
+            // showConsole='campaign_data'
+            key='activeDataService' />,
+          activeGetCurrentUser == true &&
+          <GetData getSource={this.getSource.bind(this)} getUser={true} key={'GetData'} />
+        ]}
+        <AppBar1 titleHead={'แคมเปญ'} backArrow searchBar chatBar navigation={navigation} />
         <ScrollView>
-          <Slide />
-          <Campaign_tag navigation={this.props.navigation} />
+          {
+            dataService &&
+            <Slide banner={dataService && dataService.banner} />
+          }
+          <Campaign_tag dataService={dataService && dataService} navigation={navigation} currentUser={currentUser} />
         </ScrollView>
         <View style={{ backgroundColor: '#ffffff', borderTopWidth: 1, borderColor: '#ECECEC' }}>
-          <Button_Bar navigation={this.props.navigation} />
+          <Button_Bar navigation={navigation} />
         </View>
-        <ExitAppModule navigation={this.props.navigation} />
+        <ExitAppModule navigation={navigation} />
       </SafeAreaView>
     );
   }
@@ -46,70 +74,49 @@ export class Campaign_tag extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      pathlist: 0
-    }
-    this.getData = this.getData.bind(this);
-  }
-  PathList() {
-    switch (this.state.pathlist) {
-      case 0:
-        return (
-          <View>
-            <CampaignBody navigation={this.props.navigation} />
-          </View>
-        )
-      case 1:
-        return (
-          <View>
-            <CampaignBody />
-          </View>
-        )
-      case 2:
-        return (
-          <View>
-            <CampaignBody />
-          </View>
-        )
-      case 3:
-        return (
-          <View>
-            <CampaignBody />
-          </View>
-        )
+      pathlist: 0,
+      activeGetServices: true,
     }
   }
-  getData(value) {
-    this.setState({
-      pathlist: value.selectedIndex
-    });
+  getcategory = (id_category) => {
+    this.setState({ activeGetServices: true, id_category });
+  }
+  getPathlist = (pathlist) => {
+    this.setState({ pathlist });
   }
   render() {
+    const { currentUser, dataService, navigation } = this.props
     const item = [{
       name: 'แคมเปญทั้งหมด'
-    }, {
-      name: 'เพชร'
-    }, {
-      name: 'กระเป๋า'
-    }, {
-      name: 'ทอง'
-    }]
-    const coin = 1000;
+    },]
+    dataService && dataService.category.map((value) => {
+      return item.push({ name: value.name })
+    })
     return (
       <View>
-        <View style={{ marginTop: 10 }}>
-          <TabBar
-            sendData={this.getData.bind(this)}
-            inactiveBoxColor={'#fff'}
-            inactiveColor={'#0A55A6'}
-            inactiveFontColor={'#0A55A6'}
-            item={item}
-            widthBox={98}
-            fontSizeStyle={12}
-            type='box'
-          />
+        <View style={{ backgroundColor: '#FFFFFF', padding: 5, marginTop: 5 }}>
+          <ScrollView horizontal>
+            <TabBar
+              sendData={this.getcategory.bind(this)}
+              inactiveBoxColor={'#fff'}
+              inactiveColor={'#0A55A6'}
+              inactiveFontColor={'#0A55A6'}
+              item={item}
+              noLimit
+              numberBox
+              numberOfLines={1}
+              widthBox={98}
+              fontSizeStyle={12}
+              type='box'
+            />
+          </ScrollView>
         </View>
         <View>
-          {this.PathList()}
+          {
+            dataService && dataService.campaign_data.map((value, index) => {
+              return <CampaignBody currentUser={currentUser} dataService={value} key={index} navigation={navigation} />
+            })
+          }
         </View>
       </View>
     )
@@ -120,63 +127,54 @@ export class CampaignBody extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      dataService: [],
+      activeGetServices: false,
     }
-    this.getData = this.getData.bind(this)
   }
-  getData(dataService) {
-    this.setState({ dataService })
-  }
-  dataNewCampaign() {
-    const { dataService } = this.state
-    return dataService.map((item, index) => {
-      var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
-      return (
-        <View style={ststylePromotionDeal.CampaignBody}>
-          <View style={[ststylePromotionDeal.CampaignBody_BoxImage, { padding: 5 }]} key={index}>
-            <FastImage
-              source={{
-                uri: dataMySQL,
-              }}
-              style={stylesMain.BoxProduct1Image}
-            />
+  get Campaign() {
+    const { dataService, } = this.props
+    // console.log('CampaignBody')
+    // console.log(dataService)
+    var dataMySQL = [finip, dataService.image_path, dataService.image].join('/');
+    return (
+      <View style={ststylePromotionDeal.CampaignBody}>
+        <View style={[ststylePromotionDeal.CampaignBody_BoxImage, { padding: 5 }]}>
+          <FastImage
+            source={{
+              uri: dataMySQL,
+            }}
+            style={stylesMain.BoxProduct1Image}
+          />
+        </View>
+        <View style={[ststylePromotionDeal.CampaignBody_Box]}>
+          <View style={ststylePromotionDeal.CampaignBody_BoxText}>
+            <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>{dataService.name} </Text>
+            <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>{dataService.description}</Text>
+            <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>วันหมดอายุ : {dataService.end}</Text>
           </View>
-          <View style={[ststylePromotionDeal.CampaignBody_Box]}>
-            <View style={ststylePromotionDeal.CampaignBody_BoxText}>
-              <Text numberOfLines={2} style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>{item.detail} </Text>
-              <Text numberOfLines={1} style={stylesFont.FontFamilyText}>วันหมดอายุ 03-02-2020</Text>
+          <View style={[ststylePromotionDeal.CampaignBody_Icon_Button, stylesMain.ItemCenterVertical]}>
+            <View style={[ststylePromotionDeal.CampaignBody_Icon, stylesMain.ItemCenterVertical]}>
+              <IconEntypo name='share' size={20} color='#FFFFFF' />
             </View>
-            <View style={[ststylePromotionDeal.CampaignBody_Icon_Button, stylesMain.ItemCenterVertical]}>
-              <View style={[ststylePromotionDeal.CampaignBody_Icon, stylesMain.ItemCenterVertical]}>
-                <IconEntypo name='share' size={20} color='#FFFFFF' />
+            <TouchableOpacity onPress={() => this.props.navigation.push('Detail_Campaign', { selectedIndex: 0, id_campaign: dataService.id_campaign })}>
+              <View style={[ststylePromotionDeal.CampaignBody_Button, stylesMain.ItemCenterVertical]}>
+                <Text style={[stylesFont.FontFamilyBold, ststylePromotionDeal.CampaignBody_ButtonText, stylesMain.ItemCenterVertical]}>รายละเอียด</Text>
               </View>
-              <TouchableOpacity activeOpacity={1} onPress={() =>
-                this.props.navigation.push('Detail_Campaign', { selectedIndex: 0 })}>
-                <View style={[ststylePromotionDeal.CampaignBody_Button, stylesMain.ItemCenterVertical]}>
-                  <Text style={[stylesFont.FontFamilyBold, ststylePromotionDeal.CampaignBody_ButtonText, stylesMain.ItemCenterVertical]}>รายละเอียด</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
-      )
-    })
+      </View>
+    )
   }
   render() {
-    var uri = ip + '/mysql/DataServiceMain.php';
-    var dataBody = {
-      type: 'Campaign'
-    };
-
     return (
       <View style={stylesMain.FrameBackground}>
-        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
         <View style={{ alignItems: 'center' }}>
           <View>
-            {this.dataNewCampaign()}
+            {this.Campaign}
           </View>
         </View>
       </View>
     )
   }
 }
+

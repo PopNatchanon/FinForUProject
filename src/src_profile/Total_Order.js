@@ -255,7 +255,7 @@ export class Button_bar extends Component {
                             sendData={this.updateIndex.bind(this)}
                             item={item}
                             // noLimit
-                            SetValue={selectedIndex ? selectedIndex : SetselectedIndex}
+                            SetValue={selectedIndex > -1 ? selectedIndex : SetselectedIndex}
                             // widthBox={98}
                             activeColor={'#fff'}
                             activeFontColor={'#0A55A6'}

@@ -131,8 +131,8 @@ export class CoinCollect extends Component {
     getVoucher = (id_promotion) => {
         this.setState({ activeGetServices: true, id_promotion });
     }
-    getPathlist = (pathlist) => {
-        this.setState({ pathlist });
+    getPathlist = (value) => {
+        this.setState({ pathlist: value.selectedIndex });
     }
     getData = (dataService) => {
         this.setState({ activeGetServices: false, dataService });

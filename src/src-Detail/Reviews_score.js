@@ -149,7 +149,7 @@ export class Reviews_Bar extends React.Component {
                 <View style={{ width: '100%', marginTop: 10 }}>
                     <View style={[stylesMain.FlexRow, { width: '100%', justifyContent: 'center' }]}>
                         <TabBar
-                            sendData={this.updateIndex}
+                            sendData={this.updateIndex.bind(this)}
                             item={items1}
                             type='box'
                             SetValue={selected.selectedIndex}
@@ -161,7 +161,7 @@ export class Reviews_Bar extends React.Component {
                 <View style={{ width: '100%', marginTop: 10 }}>
                     <View style={[stylesMain.FlexRow, { width: '100%', justifyContent: 'center' }]}>
                         <TabBar
-                            sendData={this.updateIndex2}
+                            sendData={this.updateIndex2.bind(this)}
                             item={items2}
                             type='box'
                             SetValue={selected.selectedIndex2}

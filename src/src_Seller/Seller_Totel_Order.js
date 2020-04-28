@@ -42,10 +42,9 @@ export class Button_bar extends Component {
         this.state = {
             selectedIndex: 0,
         };
-        this.updateIndex = this.updateIndex.bind(this)
     }
-    updateIndex(selectedIndex) {
-        this.setState({ selectedIndex })
+    updateIndex(value) {
+        this.setState({ selectedIndex: value.selectedIndex })
     }
     PathList() {
         switch (this.state.selectedIndex) {
@@ -93,6 +92,7 @@ export class Button_bar extends Component {
     }
     render() {
         const { SetselectedIndex } = this.props
+        const { selectedIndex } = this.state
         const item = [{
             name: 'ยังไม่ชำระ'
         }, {
@@ -109,9 +109,9 @@ export class Button_bar extends Component {
                 <View style={stylesProfileTopic.Button_bar}>
                     <ScrollView horizontal>
                         <TabBar
-                            sendData={this.updateIndex}
+                            sendData={this.updateIndex.bind(this)}
                             item={item}
-                            SetValue={SetselectedIndex}
+                            SetValue={selectedIndex > -1 ? selectedIndex : SetselectedIndex}
                             activeColor={'#fff'}
                             activeFontColor={'#0A55A6'}
                             type='tag'
@@ -134,8 +134,8 @@ export class Order_Me_Box extends Component {
     }
     render() {
         const { payment_order, Contact_buyer, detail_order, up_number, edit_number, reviews_order,
-             end_order, cancel_order, detail_order_review, detail_order_cancel, Cause_cancel, 
-            } = this.props
+            end_order, cancel_order, detail_order_review, detail_order_cancel, Cause_cancel,
+        } = this.props
         return (
             <View>
                 <View style={stylesMain.FrameBackground}>

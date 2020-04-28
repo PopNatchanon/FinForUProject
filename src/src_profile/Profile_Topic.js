@@ -50,11 +50,11 @@ export default class Profile_Topic extends React.Component {
         const id_cartdetail = navigation.getParam('id_cartdetail')
         const uri = [finip,
             selectedIndex == 2 ?
-                '/profile/product_interest' :
+                'profile/product_interest' :
                 selectedIndex == 3 ?
-                    '/profile/store_follow' :
+                    'profile/store_follow' :
                     (selectedIndex == 4 || selectedIndex == 7) ?
-                        '/profile/review_product' :
+                        'profile/review_product' :
                         ''
         ].join('/')
         var dataBody = {

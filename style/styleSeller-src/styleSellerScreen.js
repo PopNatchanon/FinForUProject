@@ -168,7 +168,7 @@ export default StyleSheet.create({
     },
     cate_Box: {
         height: 30,
-        width: 90,
+        // width: 90,
         borderColor: '#D4D4D4',
         borderWidth: 1,
         borderRadius: 8,
@@ -178,6 +178,7 @@ export default StyleSheet.create({
     cate_BoxA: {
         width: '100%',
         flexDirection: 'row',
+        flexWrap: 'wrap'
     },
     WeightSheet_Box: {
         justifyContent: 'center',
@@ -201,8 +202,8 @@ export default StyleSheet.create({
     Seller_SettingImage: {
         height: 100, width: 100,
         backgroundColor: '#FFFFFF',
-        borderColor:'#FFFFFF',
-        borderWidth:2,
+        borderColor: '#FFFFFF',
+        borderWidth: 2,
         borderRadius: 50,
         marginTop: -130,
     },
@@ -315,7 +316,7 @@ export default StyleSheet.create({
     Seller_Advertisement_PacketTextInput: {
         flexDirection: 'row',
         width: '100%', borderColor: '#EAEAEA',
-        borderRadius: 5, borderWidth: 1, 
+        borderRadius: 5, borderWidth: 1,
     },
     //   ------------------>
     Seller_Statistics: {

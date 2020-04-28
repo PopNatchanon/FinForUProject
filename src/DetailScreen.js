@@ -692,31 +692,11 @@ export class Selector extends React.Component {
       selectedIndex2: 0,
     };
   }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { BuyProduct, currentUser, dataService, keycokie, navigation, sendProduct, } = this.props
-    const {
-      activeSelect, activeSelect2, activeSelect3, BuyProduct2, dataService2, dataService3, itemCount, selectedIndex,
-      selectedIndex2, sendDataCart,
-    } = this.state
-    if (
-      ////>nextProps
-      BuyProduct !== nextProps.BuyProduct || currentUser !== nextProps.currentUser || dataService !== nextProps.dataService ||
-      keycokie !== nextProps.keycokie || navigation !== nextProps.navigation || sendProduct !== nextProps.sendProduct ||
-      ////>nextState
-      activeSelect !== nextState.activeSelect || activeSelect2 !== nextState.activeSelect2 || activeSelect3 !== nextState.activeSelect3 ||
-      BuyProduct2 !== nextState.BuyProduct2 || dataService2 !== nextState.dataService2 || dataService3 !== nextState.dataService3 ||
-      itemCount !== nextState.itemCount || selectedIndex !== nextState.selectedIndex ||
-      selectedIndex2 !== nextState.selectedIndex2 || sendDataCart !== nextState.sendDataCart
-    ) {
-      return true
-    }
-    return false
+  updateIndex = (value) => {
+    this.setState({ selectedIndex: value.selectedIndex, activeSelect: true })
   }
-  updateIndex = (selectedIndex) => {
-    this.setState({ selectedIndex, activeSelect: true })
-  }
-  updateIndex2 = (selectedIndex2) => {
-    this.setState({ selectedIndex2, activeSelect2: true })
+  updateIndex2 = (value) => {
+    this.setState({ selectedIndex2: value.selectedIndex, activeSelect2: true })
   }
   setStateItemCount = (value) => {
     this.setState({ itemCount: value * 1 })

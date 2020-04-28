@@ -452,8 +452,8 @@ const PathScreen = createStackNavigator({
 },
   {
     // initialRouteName: 'MainScreen',
-    // initialRouteName: 'FINSupermarket',
     initialRouteName: 'ProfileScreen',
+    // initialRouteName: 'FeedScreen',
   }
 );
 const AppNavigator = createAppContainer(PathScreen);

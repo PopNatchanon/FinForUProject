@@ -386,7 +386,7 @@ export class AppBar extends React.Component {
                                         resizeMode={FastImage.resizeMode.stretch} /> */
                                 }
                                 <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
-                                    height:30,
+                                    height: 30,
                                     width:
                                         rightBar == 'storebar' ?
                                             leftBar == 'backarrow' ?
@@ -488,8 +488,8 @@ export class AppBar1 extends React.Component {
     }
     render() {
         const {
-            backArrow, backArrowColor, ButtomDeleteAll, chatBar, colorBar, currentUser, deleteBar, goToTop, menuBar, saveBar, searchBar,
-            settingBar, storeBar, titleHead,
+            backArrow, backArrowColor, ButtomDeleteAll, chatBar, colorBar, currentUser, deleteBar, getActivePost, goToTop, menuBar, postBar,
+            saveBar, searchBar, settingBar, storeBar, titleHead,
         } = this.props;
         return (
             <View style={
@@ -564,6 +564,18 @@ export class AppBar1 extends React.Component {
                                     marginRight: 8
                                 }]} />
                         </TouchableOpacity>,
+                        postBar &&
+                        <TouchableOpacity
+                            key={'postBar'}
+                            style={[stylesMain.ItemCenter, { width: 60 }]}
+                            onPress={() => getActivePost(true)}>
+                            <Text style={[
+                                stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize4, {
+                                    width: 60,
+                                    marginRight: 8,
+                                }]}>
+                                โพสต์</Text>
+                        </TouchableOpacity>,
                         saveBar &&
                         <TouchableOpacity
                             key={'saveBar'}
@@ -573,8 +585,7 @@ export class AppBar1 extends React.Component {
                                     width: 60,
                                     marginRight: 8,
                                 }]}>
-                                บันทึก
-                                        </Text>
+                                บันทึก</Text>
                         </TouchableOpacity>,
                         deleteBar &&
                         <TouchableOpacity
@@ -588,8 +599,7 @@ export class AppBar1 extends React.Component {
                                 }]}>
                                 {
                                     ButtomDeleteAll == true ? 'เสร็จสิ้น' : 'ลบ'
-                                }
-                            </Text>
+                                }</Text>
                         </TouchableOpacity>
                     ]}
                 </View>
@@ -1728,7 +1738,7 @@ export class CategoryProductSubPromotion extends React.Component {
                                 width: width * 0.55,
                                 height: 105,
                             }}
-                            resizeMode={FastImage.resizeMode.stretch} 
+                            resizeMode={FastImage.resizeMode.stretch}
                             style={[stylesMain.BoxProduct1Image, { borderRadius: 6, }]} />
                     </View>
                 );
@@ -1747,7 +1757,7 @@ export class CategoryProductSubPromotion extends React.Component {
                                 width: width * 0.40,
                                 height: 105,
                             }}
-                            resizeMode={FastImage.resizeMode.stretch} 
+                            resizeMode={FastImage.resizeMode.stretch}
                             style={[stylesMain.BoxProduct1Image, { borderRadius: 6, }]} />
                     </View>
                 );
@@ -2117,8 +2127,8 @@ export class FIN_Supermarket extends React.Component {
                     </ScrollView>
                 </View>
                 <View style={[stylesMain.FlexRow, stylesMain.Supermarket_Store]}>
-                    <TouchableOpacity 
-                    onPress={this.navigationNavigateScreen.bind(this, 'FINSupermarket')}
+                    <TouchableOpacity
+                        onPress={this.navigationNavigateScreen.bind(this, 'FINSupermarket')}
                         style={{ width: width * 0.64, }}>
                         <FastImage
                             style={stylesMain.BoxProduct1Image}

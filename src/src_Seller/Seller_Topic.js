@@ -508,10 +508,9 @@ export class Seller_Fin_Campaign extends Component {
         this.state = {
             selectedIndex: 0
         };
-        this.updataIndex = this.updataIndex.bind(this)
     }
-    updataIndex(selectedIndex) {
-        this.setState({ selectedIndex })
+    updataIndex(value) {
+        this.setState({ selectedIndex: value.selectedIndex })
     }
     render() {
         const item = [{
@@ -525,7 +524,7 @@ export class Seller_Fin_Campaign extends Component {
             <View>
                 <View style={{ backgroundColor: '#fff' }}>
                     <TabBar
-                        sendData={this.updataIndex}
+                        sendData={this.updataIndex.bind(this)}
                         setVertical={4}
                         item={item}
                     />
@@ -644,8 +643,8 @@ export class My_income extends Component {
         this.state = {
         };
     }
-    updateIndex = (selectedIndex) => {
-        this.setState({ selectedIndex })
+    updateIndex = (value) => {
+        this.setState({ selectedIndex: value.selectedIndex })
     }
     dataItem(items1) {
         return (

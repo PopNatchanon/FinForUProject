@@ -62,8 +62,8 @@ export default class ExclusiveScreen extends React.Component {
   }
   render() {
     const { navigation } = this.props;
-    const {  activeGetCurrentUser, activeGetServices, dataService, filterValue, 
-    sliderVisible, } = this.state;
+    const { activeGetCurrentUser, activeGetServices, dataService, filterValue,
+      sliderVisible, } = this.state;
     var uri = finip + '/highlight/exclusive_mobile';
     var dataBody = {
       popular: filterValue && filterValue.popular ? filterValue.popular : '', // ถ้าเลือกออันส่งค่า “popular” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
@@ -141,10 +141,10 @@ export class Button_Bar extends React.Component {
       selectedIndex: 0,
     };
   }
-  updateIndex = (selectedIndex) => {
+  updateIndex = (value) => {
     const { filterValue } = this.props
-    filterValue(selectedIndex)
-    this.setState({ selectedIndex })
+    filterValue(value.selectedIndex)
+    this.setState({ selectedIndex: value.selectedIndex })
   }
   setSliderVisible = () => {
     const { setSliderVisible } = this.props;

@@ -79,9 +79,9 @@ export class MenuBar extends React.Component {
         }
         return false
     }
-    getData = (val) => {
+    getData = (value) => {
         const { getData } = this.props
-        getData(val);
+        getData(value.selectedIndex);
     }
     render() {
         const item = [{

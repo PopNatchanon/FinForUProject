@@ -10,8 +10,8 @@ export const { width, height } = Dimensions.get('window');
 import stylesMain from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule } from './MainScreen';
-import { FeedBox, GetServices, TabBar, Toolbar } from './tools/Tools';
+import { AppBar1, ExitAppModule, GetData } from './MainScreen';
+import { FeedBox, GetServices, TabBar, Toolbar, LoadingScreen } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -19,34 +19,26 @@ export default class FeedScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeSelectedIndex: true,
       selectedIndex: 0
     };
   }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { navigation } = this.props
-    const { selectedIndex } = this.state
-    if (
-      ////>nextProps
-      navigation !== nextProps.navigation ||
-      ////>nextState
-      selectedIndex !== nextState.selectedIndex
-    ) {
-      return true
-    }
-    return false
-  }
-  getData = (selectedIndex) => {
+  getSelectedIndex = (selectedIndex) => {
     this.setState({ selectedIndex });
+  }
+  getActiveSelectedIndex = (activeSelectedIndex) => {
+    this.setState({ activeSelectedIndex });
   }
   render() {
     const { navigation } = this.props
-    const { selectedIndex } = this.state
+    const { activeSelectedIndex, selectedIndex } = this.state
     return (
       <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
         <AppBar1 titleHead='ฟีด' storeBar menuBar navigation={navigation} />
-        <MenuBar sendText={this.getData.bind(this)} />
+        <MenuBar getActiveSelectedIndex={this.getActiveSelectedIndex.bind(this)} sendText={this.getSelectedIndex.bind(this)} />
         <ScrollView>
-          <Button_Bar selectedIndex={selectedIndex} navigation={navigation} />
+          <Button_Bar activeSelectedIndex={activeSelectedIndex} getActiveSelectedIndex={this.getActiveSelectedIndex.bind(this)}
+            selectedIndex={selectedIndex} navigation={navigation} />
         </ScrollView>
         <Toolbar navigation={navigation} />
         <ExitAppModule navigation={navigation} />
@@ -61,20 +53,10 @@ export class MenuBar extends React.Component {
     this.state = {
     }
   }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { sendText } = this.props
-    if (
-      ////>nextProps
-      sendText !== nextProps.sendText
-      ////>nextState
-    ) {
-      return true
-    }
-    return false
-  }
-  getData = (val) => {
-    const { sendText } = this.props
-    sendText(val);
+  getData = (value) => {
+    const { getActiveSelectedIndex, sendText } = this.props
+    sendText(value.selectedIndex);
+    getActiveSelectedIndex(true);
   }
   render() {
     const item = [{
@@ -103,40 +85,38 @@ export class MenuBar extends React.Component {
 export class Button_Bar extends React.Component {
   constructor(props) {
     super(props);
-  }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { navigation, selectedIndex, } = this.props;
-    if (
-      ////>nextProps
-      navigation !== nextProps.navigation || selectedIndex !== nextProps.selectedIndex
-      ////>nextState
-    ) {
-      return true
+    this.state = {
+      activeGetSource: true,
     }
-    return false
   }
-  get ViewSide() {
-    const { navigation, selectedIndex, } = this.props;
-    switch (selectedIndex) {
-      case 0:
-        return (
-          <SafeAreaView>
-            <Highlights Follow navigation={navigation} />
-          </SafeAreaView>
-        );
-      case 1:
-        return (
-          <SafeAreaView>
-            <Highlights navigation={navigation} />
-          </SafeAreaView>
-        );
-      default:
-    }
+  getData = (dataService) => {
+    const { getActiveSelectedIndex } = this.props
+    getActiveSelectedIndex(false);
+    this.setState({ dataService })
+  }
+  getSource = (value) => {
+    this.setState({ activeGetSource: false, currentUser: value.currentUser, cokie: value.keycokie })
   }
   render() {
+    const { activeSelectedIndex, navigation, selectedIndex } = this.props
+    const { activeGetSource, currentUser, dataService } = this.state
+    var uri = [finip,
+      selectedIndex == 0 ? 'brand/feed_store_follow' : 'brand/feed_highlight'].join('/');
+    var dataBody = {
+      id_customer: currentUser && currentUser.id_customer ? currentUser.id_customer : ''
+    }
     return (
       <View>
-        {this.ViewSide}
+        {[
+          (activeGetSource == true || activeSelectedIndex == true) &&
+          <LoadingScreen key='LoadingScreen' />,
+          activeGetSource == false && activeSelectedIndex == true &&
+          <GetServices key='feed_store_follow' uriPointer={uri} dataBody={selectedIndex == 0 ? dataBody : undefined}
+            getDataSource={this.getData.bind(this)} showConsole='feed_store_follow' />,
+          activeGetSource == true &&
+          <GetData key='GetData' getCokie={true} getUser={true} getSource={this.getSource.bind(this)} />
+        ]}
+        <Highlights dataService={dataService && dataService.feed_follow} Follow navigation={navigation} />
       </View>
     );
   }
@@ -146,39 +126,16 @@ export class Highlights extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataService: [],
     };
   }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { Follow, navigation } = this.props
-    const { dataService } = this.state
-    if (
-      ////>nextProps
-      Follow !== nextProps.Follow || navigation !== nextProps.navigation ||
-      ////>nextState
-      dataService !== nextState.dataService
-    ) {
-      return true
-    }
-    return false
-  }
-  getData = (dataService) => {
-    this.setState({ dataService })
-  }
   render() {
-    const { Follow, navigation } = this.props
-    const { dataService } = this.state
-    var uri = ip + '/mysql/DataService_Detail.php';
-    var dataBody = {
-      type: 'Feed'
-    }
+    const { dataService, Follow, navigation } = this.props
     return (
       <View style={stylesMain.FrameBackground, stylesMain.BackgroundAreaView}>
-        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
         <View style={stylesStore.StoreFeedBoxProduct}>
           {
             dataService &&
-            <FeedBox dataService={dataService} navigation={navigation} typeip='ip' prepath='mysql'
+            <FeedBox dataService={dataService} navigation={navigation}
               Follow={
                 Follow ?
                   Follow :

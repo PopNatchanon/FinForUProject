@@ -11,6 +11,7 @@ import { WebView } from 'react-native-webview';
 import ModalDropdown from 'react-native-modal-dropdown';
 import NumberFormat from 'react-number-format';
 import SlidingView from 'rn-sliding-view';
+import RNFetchBlob from 'rn-fetch-blob'
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -758,6 +759,58 @@ export class GetServices extends React.Component {
         return <></>
     }
 }
+///----------------------------------------------------------------------------------------------->>>> GetServices
+export class GetServicesBlob extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+    getDataSource = async () => {
+        const {
+            FormData, Authorization, dataBody, uriPointer, getDataSource, nojson, noSendError, noStringify, showConsole,
+        } = this.props
+        showConsole && (
+            console.log(showConsole),
+            Authorization && (
+                console.log('Authorization'),
+                console.log(Authorization)
+            ),
+            console.log('uri'),
+            console.log(uriPointer),
+            console.log('dataBody'),
+            console.log(dataBody),
+            console.log('JSONdataBody'),
+            console.log(JSON.stringify(dataBody))
+        )
+        RNFetchBlob.fetch(
+            'POST',
+            uriPointer,
+            {
+                Authorization: Authorization,
+                'Content-Type': 'multipart/form-data',
+            },
+            dataBody
+        )
+            .then((res) => {
+                showConsole && (
+                    console.log('res.data'),
+                    console.log(res.data),
+                    console.log('res.json()'),
+                    console.log(res.json())
+                )
+                getDataSource(res.json())
+            }).catch((err) => {
+                // ...
+            })
+    }
+    componentDidMount() {
+        this.getDataSource()
+    }
+    render() {
+        return <></>
+    }
+}
 ///----------------------------------------------------------------------------------------------->>>> GetCoupon
 export class GetCoupon extends React.Component {
     constructor(props) {
@@ -866,10 +919,14 @@ export class ProductBox extends React.Component {
     LoadingStore = (ImageStore) => {
         this.setState({ ImageStore })
     }
+    getDataService = (id_product, name) => {
+        const { getDataService } = this.props
+        getDataService({ id_product, name })
+    }
     get ProductBoxRender() {
         const {
-            dataService, dispriceSize, mode, nameSize, numberOfItem, onShow, pointerUrl, pointerid_store, postpath, prepath, priceSize,
-            radiusBox, typeip,
+            dataService, dispriceSize, mode, nameSize, noNavigation, numberOfItem, onShow, pointerUrl, pointerid_store, postpath, prepath,
+            priceSize, radiusBox, typeip,
         } = this.props
         onShow && ([console.log('ProductBoxRender'), console.log(dataService)])
         const { ImageStore } = this.state
@@ -903,9 +960,12 @@ export class ProductBox extends React.Component {
                     <TouchableOpacity
                         activeOpacity={1}
                         key={index}
-                        onPress={this.navigationNavigateScreen.bind(this, pointerUrl, pointerid_store ? {
-                            id_item: item.id_product
-                        } : null)}>
+                        onPress={
+                            noNavigation ?
+                                this.getDataService.bind(this, item.id_product, item.name_product ? item.name_product : item.name) :
+                                this.navigationNavigateScreen.bind(this, pointerUrl, pointerid_store ? {
+                                    id_item: item.id_product
+                                } : null)}>
                         <View style={[
                             mode == 'row4col1' ?
                                 stylesMain.BoxProduct5Box :
@@ -1061,10 +1121,10 @@ export class FeedBox extends React.Component {
         };
     }
     componentDidMount() {
-        this.intervalID = setInterval(
-            () => this.tick(),
-            1000
-        );
+        // this.intervalID = setInterval(
+        //     () => this.tick(),
+        //     1000
+        // );
     }
     tick() {
         const { activeFeed } = this.state
@@ -1118,47 +1178,38 @@ export class FeedBox extends React.Component {
         Button_Follow_After[index].like = !Button_Follow_After[index].like
         this.setState({ Button_Follow_After, activeFeed: true })
     }
+    actionOption = (selected, id_store, id_feed) => {
+        const { userOwner } = this.props
+        userOwner && (
+            selected == 0 && this.navigationNavigateScreen('Post_Feed', {
+                selectedIndex: 1, id_store, id_feed, actionPost: 'edit', getDataSource: this.getDataSource.bind(this)
+            })
+        )
+    }
+    getDataSource = (activeRef) => {
+        const { getDataSource } = this.props
+        getDataSource(activeRef)
+    }
     get FeedBoxRender() {
+        const { dataService, Follow, Header, typeip, postpath, prepath, userOwner } = this.props
         const { Button_Follow_After, } = this.state
-        const { dataService, Follow, Header, typeip, postpath, prepath, } = this.props
         Button_Follow_After == null && dataService.length > 0 && (
             this.setStateButton(dataService.length)
         )
+        const options = userOwner ? ['แก้ไข', 'ลบ'] : ['รายงานความไม่เหมาะสม']
+        console.log('dataService')
+        console.log(dataService)
         return dataService.map((item, index) => {
-            var url
-            { typeip == 'ip' ? url = ip : url = finip }
-            var dataMySQL_p
-            Header ?
-                dataMySQL_p = typeip == 'ip' ?
-                    [url,
-                        prepath ?
-                            postpath ?
-                                prepath + '/' + item.image_path + '/' + postpath :
-                                prepath + '/' + item.image_path :
-                            postpath ?
-                                item.image_path + '/' + postpath :
-                                item.image_path,
-                        item.p_image].join('/') :
-                    [url, item.image_path, item.p_image].join('/') :
-                dataMySQL_p = typeip == 'ip' ?
-                    [url,
-                        prepath ?
-                            postpath ?
-                                prepath + '/' + item.image_path + '/' + postpath :
-                                prepath + '/' + item.image_path :
-                            postpath ?
-                                item.image_path + '/' + postpath :
-                                item.image_path,
-                        item.image].join('/') :
-                    [url, item.image_path, item.image].join('/');
-            var dataMySQL_s = ip + '/' + 'mysql/uploads/slide/NewStore' + '/' + item.s_image;
+            var dataMySQL_p = [finip, item.image_path, item.image].join('/');
+            var dataMySQL_s = [finip, item.store_path, item.store_image].join('/');
             return (
                 <View style={stylesMain.BoxProduct4Box} key={index}>
                     {
                         Header &&
                         <View style={stylesMain.BoxProduct4PlusHeader}>
-                            <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', { selectedIndex: 10 })}>
-                                {/* onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', {id_item: item.p_id_store})} */}
+                            <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', {
+                                id_item: item.id_store ? item.id_store : item.p_id_store
+                            })}>
                                 <View style={stylesMain.FlexRow}>
                                     <FastImage
                                         style={stylesMain.BoxProduct4PlusImage}
@@ -1168,7 +1219,7 @@ export class FeedBox extends React.Component {
                                     <Text style={[
                                         stylesMain.BoxProduct4PlusImageText, stylesFont.FontFamilyBold, stylesFont.FontSize5
                                     ]}>
-                                        {item.s_name}</Text>
+                                        {item.store_name}</Text>
                                 </View>
                             </TouchableOpacity>
                             <View style={stylesMain.BoxProduct4PlusButtonBox}>
@@ -1186,7 +1237,8 @@ export class FeedBox extends React.Component {
                                         </TouchableOpacity>
                                 }
                                 <ModalDropdown
-                                    options={['รายงานความไม่เหมาะสม']}
+                                    options={options}
+                                    onSelect={(selected) => { this.actionOption(selected, item.id_store, item.id_feed) }}
                                     dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}
                                     dropdownStyle={{ paddingHorizontal: 10, height: 44, borderRadius: 5 }}>
                                     <IconEntypo name='dots-three-vertical' size={25} />
@@ -1196,24 +1248,26 @@ export class FeedBox extends React.Component {
                     }
                     <View>
                         <View style={[stylesMain.ItemCenter, { width: '100%' }]}>
-                            <FastImage
-                                source={{
-                                    uri: dataMySQL_p,
-                                }}
-                                style={stylesMain.BoxProduct4Image}
-                                resizeMode={FastImage.resizeMode.contain} />
+                            {
+                                <FastImage
+                                    source={{
+                                        uri: dataMySQL_p,
+                                    }}
+                                    style={stylesMain.BoxProduct4Image}
+                                    resizeMode={FastImage.resizeMode.contain} />
+                            }
                         </View>
                         <View style={stylesMain.BoxProduct4ComBox}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                                 {item.detail}</Text>
                             <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
                                 ที่สุดสำหรับคุณ</Text>
-                            <View style={stylesMain.FlexRow}>
+                            {/* <View style={stylesMain.FlexRow}>
                                 <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: '#9F9C9C' }]}>
                                     200 การเข้าชม</Text>
                                 <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: '#9F9C9C' }]}>
                                     เมื่อ 3 วันที่ผ่านมา</Text>
-                            </View>
+                            </View> */}
                         </View>
                         <View style={stylesMain.BoxProduct4ComBox2}>
                             <TouchableOpacity activeOpacity={1} onPress={this.setStateButton_Like_heart.bind(this, index)} style={
@@ -1227,7 +1281,9 @@ export class FeedBox extends React.Component {
                                 <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     ถูกใจ</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', { selectedIndex: 9 })}>
+                            <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', {
+                                selectedIndex: 9
+                            })}>
                                 <View style={stylesMain.BoxProduct4ComBoxIcon}>
                                     <IconFontAwesome5 name='comment-dots' size={20} />
                                     <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
@@ -1259,17 +1315,6 @@ export class LoadingScreen extends React.Component {
             modalVisible: true,
         };
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { modalVisible } = this.state
-        if (
-            ////>nextProps
-            ////>nextState
-            modalVisible !== nextState.modalVisible
-        ) {
-            return true
-        }
-        return false
-    }
     setModalVisible = (visible) => {
         this.setState({ modalVisible: visible });
     }
@@ -1293,24 +1338,6 @@ export class LoadingScreen extends React.Component {
 }
 ///----------------------------------------------------------------------------------------------->>>> BrowerScreen
 export class BrowerScreen extends React.Component {
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { url } = this.props
-        if (url !== nextProps.url) {
-            return true
-        }
-        return false
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { url } = this.props
-        if (
-            ////>nextProps
-            url !== nextProps.url
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
-    }
     render() {
         const { url } = this.props
         return (

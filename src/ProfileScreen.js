@@ -43,6 +43,10 @@ export default class ProfileScreen extends React.Component {
     getData = (dataSevice) => {
         this.setState({ activeGetServices: false, dataSevice })
     }
+    getDataSource = (value) => {
+        console.log(value)
+        this.setState({ activeGetServices: true })
+    }
     render() {
         const { navigation } = this.props
         const { activeGetSource, activeGetServices, currentUser, cokie, dataSevice } = this.state;
@@ -65,7 +69,8 @@ export default class ProfileScreen extends React.Component {
                     <View>
                         {
                             currentUser && dataSevice &&
-                            <Headbar navigation={navigation} currentUser={currentUser} dataSevice={dataSevice} />
+                            <Headbar navigation={navigation} currentUser={currentUser} dataSevice={dataSevice}
+                                getDataSource={this.getDataSource.bind(this)} />
                         }
                         <Menubar navigation={navigation} />
                         <Listbar currentUser={currentUser} cokie={cokie} navigation={navigation} />
@@ -92,13 +97,19 @@ export class Headbar extends React.Component {
             ) :
                 navigation.push(value, value2)
     }
+    getData = (value) => {
+        const { getDataSource } = this.props
+        getDataSource(value)
+    }
     render() {
         const { currentUser, dataSevice, statusOnline } = this.props
         const uri = finip + '/' + dataSevice.list_profile[0].image_path + '/' + dataSevice.list_profile[0].image
         return (
             <View>
                 <TouchableOpacity activeOpacity={1}
-                    onPress={this.navigationNavigateScreen.bind(this, 'Setting_Topic', { selectedIndex: 0 })}>
+                    onPress={this.navigationNavigateScreen.bind(this, 'Setting_Topic', {
+                        selectedIndex: 0, getDataSource: this.getData.bind(this)
+                    })}>
                     <View style={{ backgroundColor: '#4a4a4a', }}>
                         <ImageBackground
                             source={require('../icon/bgprofile.jpg')}

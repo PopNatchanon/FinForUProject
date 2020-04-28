@@ -78,9 +78,9 @@ export class Campaign_tag extends Component {
         )
     }
   }
-  getData(val) {
+  getData(value) {
     this.setState({
-      pathlist: val
+      pathlist: value.selectedIndex
     });
   }
   render() {
@@ -98,7 +98,7 @@ export class Campaign_tag extends Component {
       <View>
         <View style={{ marginTop: 10 }}>
           <TabBar
-            sendData={this.getData}
+            sendData={this.getData.bind(this)}
             inactiveBoxColor={'#fff'}
             inactiveColor={'#0A55A6'}
             inactiveFontColor={'#0A55A6'}

@@ -18,7 +18,7 @@ import stylesMain from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, ExitAppModule, GetData, } from './MainScreen';
-import { FeedBox, GetCoupon, GetServices, ProductBox, TabBar, } from './tools/Tools';
+import { FeedBox, GetCoupon, GetServices, ProductBox, TabBar, LoadingScreen, } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -29,6 +29,7 @@ export default class StoreScreen extends React.Component {
             activeGetCurrentUser: true,
             activeGetServices: true,
             activeGetServices2: true,
+            activeRef: true,
             filterValue: { popular: 'popular' },
             selectedIndex: 0,
             selectedIndex2: 0,
@@ -46,7 +47,7 @@ export default class StoreScreen extends React.Component {
                 navigation.push(value, value2)
     }
     getSelectedIndex = (value) => {
-        this.setState({ selectedIndex: value.selectedIndex })
+        this.setState({ selectedIndex: value.selectedIndex, activeRef: true })
     }
     getSelectedIndex2 = (value) => {
         const { filterValue, } = this.state;
@@ -65,9 +66,12 @@ export default class StoreScreen extends React.Component {
     getSource = (value) => {
         this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser, cokie: value.keycokie })
     }
+    getDataSource = (activeRef) => {
+        this.setState({ activeRef })
+    }
     ViewSide(selectedIndex, dataService) {
         const { navigation, } = this.props;
-        const { currentUser, cokie, dataService2, } = this.state
+        const { activeRef, currentUser, cokie, dataService2, } = this.state
         switch (selectedIndex) {
             case 0:
                 return ([
@@ -86,7 +90,8 @@ export default class StoreScreen extends React.Component {
                 ]);
             case 2:
                 return ([
-                    <BoxProduct4 navigation={navigation} key={'BoxProduct4'} />,
+                    <BoxProduct4 activeRef={activeRef} getDataSource={this.getDataSource.bind(this)} navigation={navigation}
+                        key={'BoxProduct4'} />,
                 ]);
             default:
         }
@@ -98,7 +103,7 @@ export default class StoreScreen extends React.Component {
         var uri = [finip, 'brand/store_home'].join('/');
         var dataBody = {
             id_store: id_item,
-            popular: '', //<< ถ้าเลือกออันส่งค่า “popular” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
+            popular: 'popular', //<< ถ้าเลือกออันส่งค่า “popular” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
             lastest: '', //<< ถ้าเลือกออันส่งค่า “lastest” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
             best_sale: '',  //<< ถ้าเลือกออันส่งค่า “best_sale” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
             sort_price: '', //<< เลือกราคาต่ำสุดส่ง “min” สูงสุดส่ง “max” ถ้าไม่ได้เลือกเลยส่งค่าว่าง
@@ -158,6 +163,8 @@ export default class StoreScreen extends React.Component {
         return (
             <View style={[stylesMain.BackgroundAreaView, { height: '100%', }]}>
                 {[
+                    (activeGetServices == true || activeGetServices2 == true || activeGetCurrentUser == true) &&
+                    <LoadingScreen key='LoadingScreen' />,
                     activeGetServices == true && id_item !== undefined &&
                     <GetServices
                         uriPointer={uri}
@@ -168,7 +175,7 @@ export default class StoreScreen extends React.Component {
                     <GetServices
                         uriPointer={uri}
                         dataBody={dataBody2}
-                        // showConsole='store_home'
+                        showConsole='store_home'
                         getDataSource={this.getData2.bind(this)} />,
                     activeGetCurrentUser == true &&
                     <GetData getCokie={true} getSource={this.getSource.bind(this)} getUser={true} key={'GetData'} />
@@ -226,7 +233,10 @@ export default class StoreScreen extends React.Component {
                     selectedIndex == 2 &&
                     <>
                         <ActionButton buttonColor="#0A55A6" size={50}
-                            onPress={this.navigationNavigateScreen.bind(this, 'Post_Feed', { selectedIndex: 1 })}>
+                            onPress={this.navigationNavigateScreen.bind(this, 'Post_Feed', {
+                                selectedIndex: 1, id_store: id_item, store_data: dataService.store_data,
+                                getDataSource: this.getDataSource.bind(this)
+                            })}>
                         </ActionButton>
                     </>
                 }
@@ -386,9 +396,9 @@ export class Menubar extends React.Component {
         this.state = {
         }
     }
-    getData = (selectedIndex) => {
+    getData = (value) => {
         const { getSelectedIndex } = this.props
-        getSelectedIndex(selectedIndex)
+        getSelectedIndex(value.selectedIndex)
     }
     render() {
         const item = [{
@@ -625,9 +635,9 @@ export class SubMenu extends React.Component {
         this.state = {
         }
     }
-    updateIndex = (selectedIndex2) => {
+    updateIndex = (value) => {
         const { getSelectedIndex2 } = this.props
-        getSelectedIndex2(selectedIndex2)
+        getSelectedIndex2(value.selectedIndex)
     }
     render() {
         const item = [{
@@ -674,16 +684,20 @@ export class ShowProduct extends React.Component {
             <View style={[stylesMain.FrameBackground]}>
                 <View style={stylesMain.BoxProductWarp}>
                     {
-                        dataService &&
-                        <ProductBox
-                            dataService={dataService}
-                            navigation={navigation}
-                            mode='row2colall'
-                            pointerUrl='DetailScreen'
-                            pointerid_store
-                            nameSize={14}
-                            priceSize={15}
-                            dispriceSize={15} />
+                        dataService && dataService.length > 0 ?
+                            <ProductBox
+                                dataService={dataService}
+                                navigation={navigation}
+                                mode='row2colall'
+                                pointerUrl='DetailScreen'
+                                pointerid_store
+                                nameSize={14}
+                                priceSize={15}
+                                dispriceSize={15} /> :
+                            <View style={[stylesMain.ItemCenter, { width, height: 300 }]}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical]}>
+                                    ไม่มีสินค้า</Text>
+                            </View>
                     }
                 </View>
             </View>
@@ -695,11 +709,7 @@ export class BoxProduct4 extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeGetServices: true,
         };
-    }
-    getData = (dataService) => {
-        this.setState({ dataService })
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
@@ -711,9 +721,18 @@ export class BoxProduct4 extends React.Component {
             ) :
                 navigation.push(value, value2)
     }
+    getData = (dataService) => {
+        const { getDataSource } = this.props
+        this.setState({ dataService })
+        getDataSource(false)
+    }
+    getDataSource = (activeRef) => {
+        const { getDataSource } = this.props
+        getDataSource(activeRef)
+    }
     render() {
-        const { navigation } = this.props;
-        const { activeGetServices, dataService } = this.state;
+        const { activeRef, navigation } = this.props;
+        const { dataService } = this.state;
         const id_item = navigation.getParam('id_item')
         const uri = [finip, 'brand/feed_news'].join('/');
         const dataBody = {
@@ -721,20 +740,32 @@ export class BoxProduct4 extends React.Component {
         }
         return (
             <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, { marginTop: 0, marginBottom: 10 }]}>
-                {
-                    activeGetServices == true && id_item &&
+                {[
+                    (activeRef == true) &&
+                    <LoadingScreen key='LoadingScreen' />,
+                    activeRef == true && id_item &&
                     <GetServices
                         uriPointer={uri}
                         dataBody={dataBody}
                         showConsole='feed_news'
                         getDataSource={this.getData.bind(this)} />
-                }
+                ]}
                 <View style={stylesMain.BoxProductWarp}>
                     {
-                        dataService &&
-                        <FeedBox
-                            dataService={dataService.feed_news}
-                            navigation={navigation} />
+                        activeRef == false && (
+                            dataService && dataService.feed_news && dataService.feed_news != 'ยังไม่มีข่าวใหม่' ?
+                                <FeedBox
+                                    Header
+                                    Follow
+                                    userOwner
+                                    getDataSource={this.getDataSource.bind(this)}
+                                    dataService={dataService.feed_news}
+                                    navigation={navigation} /> :
+                                <View style={[stylesMain.ItemCenter, { width, height: 50, backgroundColor: '#fff' }]}>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, stylesMain.ItemCenterVertical]}>
+                                        {dataService && dataService.feed_news}</Text>
+                                </View>
+                        )
                     }
                 </View>
             </View>

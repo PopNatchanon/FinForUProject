@@ -10,6 +10,7 @@ import BottomSheet from 'react-native-raw-bottom-sheet';
 import ActionButton from 'react-native-action-button';
 import ImagePicker from 'react-native-image-crop-picker';
 import { TextInput } from 'react-native-gesture-handler';
+import RNFetchBlob from 'rn-fetch-blob'
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
@@ -24,7 +25,7 @@ import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topi
 import stylesTopic from '../../style/styleTopic';
 import stylesProfile from '../../style/StylesProfileScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { GetServices, GetCoupon, TabBar, LoadingScreen } from '../tools/Tools';
+import { GetServices, GetCoupon, TabBar, LoadingScreen, GetServicesBlob } from '../tools/Tools';
 import { TodayProduct, Slide, AppBar1, ExitAppModule, GetData } from '../MainScreen';
 import { Store_Detail } from '../Recommend_Store';
 import { ProductBox } from '../tools/Tools';
@@ -35,16 +36,21 @@ export default class Post_Feed extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeGetCurrentUser: true
+            activeGetCurrentUser: true,
+            activePost: false,
         };
     }
     getSource(value) {
         this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser, cokie: value.keycokie })
     }
+    getActivePost = (activePost) => {
+        this.setState({ activePost, })
+    }
     PathList() {
         const { navigation } = this.props
-        const { cokie, dataService } = this.state
+        const { activePost, cokie, dataService } = this.state
         const selectedIndex = navigation.getParam('selectedIndex')
+        const actionPost = navigation.getParam('actionPost')
         switch (selectedIndex) {
             case 0:
                 return (
@@ -58,9 +64,10 @@ export default class Post_Feed extends Component {
             case 1:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={navigation} titleHead='โพสต์ใหม่' />
+                        <AppBar1 backArrow postBar getActivePost={this.getActivePost.bind(this)} navigation={navigation}
+                            titleHead={actionPost == 'edit' ? 'แก้ไขโพสต์' : 'โพสต์ใหม่'} />
                         <ScrollView>
-                            <Post_New navigation={navigation} />
+                            <Post_New activePost={activePost} cokie={cokie} getActivePost={this.getActivePost.bind(this)} navigation={navigation} />
                         </ScrollView>
                     </>
                 )
@@ -68,13 +75,7 @@ export default class Post_Feed extends Component {
                 return (
                     <View>
                         <AppBar1 backArrow navigation={navigation} titleHead='เลือกสินค้า' />
-                        <TagProduct />
-                        <ScrollView>
-                            {
-                                dataService &&
-                                <TodayProduct noTitle navigation={navigation} loadData={dataService.product_pro_coin} />
-                            }
-                        </ScrollView>
+                        <Select_TagProduct cokie={cokie} navigation={navigation} />
                     </View>
                 )
             case 3:
@@ -325,8 +326,51 @@ export class Post_New extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            avatarSource: [],
+            activePostView: true,
+            tagProduct: [],
         };
+    }
+    UploadImagePostFeed = () => {
+        const options = {
+            width: 400,
+            height: 400,
+            includeBase64: true,
+            cropping: true
+        };
+        ImagePicker.openPicker(options).then(response => {
+            this.setState({ avatarSource: response })
+        });
+    }
+    getData = (dataService) => {
+        const { getActivePost, navigation } = this.props
+        console.log(dataService)
+        getActivePost(false)
+        navigation.state.params.getDataSource(true);
+        navigation.goBack()
+    }
+    getData2 = (dataService2) => {
+        console.log(dataService2.feed_news)
+        var Detail
+        var image
+        var image_path
+        dataService2.feed_news.map((value) => {
+            return ([
+                Detail = value.detail,
+                image = value.image,
+                image_path = value.image_path,
+            ])
+        })
+        this.setState({ activePostView: false, Detail, image, image_path })
+    }
+    getDataService = (value) => {
+        const { tagProduct } = this.state;
+        tagProduct.push(value)
+        this.setState({ tagProduct })
+    }
+    deleteTag = (index) => {
+        const { tagProduct } = this.state;
+        tagProduct.splice(index, 1)
+        this.setState({ tagProduct })
     }
     Framesticker() {
         return (
@@ -381,21 +425,64 @@ export class Post_New extends React.Component {
             </>
         )
     }
-    UploadImagePostFeed = () => {
-        const options = {
-            width: 400,
-            height: 400,
-            includeBase64: true,
-            cropping: true
-        };
-        ImagePicker.openPicker(options).then(response => {
-            this.setState({ avatarSource: response })
-        });
-    }
     render() {
-        const { avatarSource } = this.state
+        const { activePost, cokie, navigation } = this.props;
+        const { activePostView, avatarSource, Detail, image, image_path, tagProduct } = this.state;
+        const actionPost = navigation.getParam('actionPost');
+        const id_feed = navigation.getParam('id_feed');
+        const id_store = navigation.getParam('id_store');
+        const store_data = navigation.getParam('store_data');
+        const store_data_2 = store_data && store_data[0];
+        const image_storee = store_data_2 && [finip, store_data_2.image_path, store_data_2.image].join('/');
+        const image_post = [finip, image_path, image].join('/')
+        const uri = [finip, actionPost == 'edit' ? 'brand/feed_action' : 'brand/create_feed'].join('/')
+        var o = avatarSource && avatarSource.path.split('/')
+        var tagProductBody = tagProduct && tagProduct.map((value) => { return value.id_product })
+        console.log(tagProductBody)
+        var dataBody = actionPost == 'edit' ?
+            {
+                id_store,
+                id_feed,
+                detail: Detail,
+                id_product: tagProduct ? tagProductBody.join(';') : '',
+                act: 'update'
+
+            } :
+            avatarSource ?
+                [
+                    { name: 'id_store', data: id_store },
+                    { name: 'detail', data: Detail },
+                    { name: 'id_product', data: tagProduct ? tagProductBody.join(';') : '' },
+                    { name: 'file', filename: o[o.length - 1], type: avatarSource.mime, data: RNFetchBlob.wrap(avatarSource.path) }
+                ] : [
+                    { name: 'id_store', data: id_store },
+                    { name: 'detail', data: Detail },
+                    { name: 'id_product', data: tagProduct ? tagProductBody.join(';') : '' },
+                ];
+        const uri2 = [finip, 'brand/feed_action'].join('/')
+        var dataBody2 = actionPost == 'edit' ?
+            {
+                id_store,
+                id_feed,
+                act: 'view'
+            } : {};
         return (
             <>
+                {[
+                    activePost == true && (
+                        actionPost == 'edit' ?
+                            <GetServices key='feed_action_update' uriPointer={uri} dataBody={dataBody} Authorization={cokie}
+                                showConsole={'feed_action_update'}
+                                getDataSource={this.getData.bind(this)} /> :
+                            <GetServicesBlob FormData key='create_feed' uriPointer={uri} dataBody={dataBody} Authorization={cokie}
+                                showConsole={'create_feed'}
+                                getDataSource={this.getData.bind(this)} />
+                    ),
+                    activePostView == true && actionPost == 'edit' && id_feed && id_store && cokie &&
+                    <GetServices key='feed_action_view' uriPointer={uri2} dataBody={dataBody2} Authorization={cokie}
+                        showConsole={'feed_action_view'}
+                        getDataSource={this.getData2.bind(this)} />
+                ]}
                 <BottomSheet
                     ref={ref => {
                         this.FramestickerSheet = ref;
@@ -413,8 +500,17 @@ export class Post_New extends React.Component {
                 </BottomSheet>
                 <View style={{ backgroundColor: '#FFFFFF' }}>
                     <View style={[stylesMain.FlexRow, { borderColor: '#ECECEC', borderBottomWidth: 1, }]}>
-                        <View style={stylesProfileTopic.Order_StorePro}></View>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { marginTop: 10 }]}> popoo </Text>
+                        {
+                            store_data_2 &&
+                            <View style={stylesProfileTopic.Order_StorePro}>
+                                <FastImage
+                                    source={{ uri: image_storee }}
+                                    style={{ width: '100%', height: '100%', backgroundColor: '#FFFFFF', borderRadius: 20, }}
+                                />
+                            </View>
+                        }
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { marginTop: 10 }]}>
+                            {store_data_2 && store_data_2.name}</Text>
                     </View>
                     <View style={{ paddingHorizontal: 10 }}>
                         <TextInput
@@ -423,21 +519,39 @@ export class Post_New extends React.Component {
                             multiline
                             editable
                             // maxLength={5000}
-                            value={this.state.Detail}
+                            value={Detail}
                             onChangeText={(Detail) => this.setState({ Detail })}>
                         </TextInput>
                     </View>
                     <View>
+                        <View style={{ padding: 10, alignItems: 'center' }}>
+                            <FastImage
+                                source={{ uri: avatarSource ? avatarSource.path : image ? image_post : null }}
+                                style={{ width: 400, height: 400, backgroundColor: '#FFFFFF' }}
+                            />
+                        </View>
+                    </View>
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', width, }}>
                         {
-                            avatarSource ?
-                                <View style={{ padding: 10, alignItems: 'center' }}>
-                                    <FastImage
-                                        source={{ uri: avatarSource.path }}
-                                        style={{ width: 400, height: 400, backgroundColor: '#FFFFFF' }}
-
-                                    />
-                                </View> :
-                                null
+                            tagProduct.length > 0 && tagProduct.map((value, index) => {
+                                return (
+                                    <View key={index} style={{
+                                        backgroundColor: '#066996', height: 22, borderRadius: 8, marginLeft: 6, flexDirection: 'row',
+                                        marginTop: 6,
+                                    }}>
+                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, stylesMain.ItemCenterVertical, {
+                                            color: '#fff', marginLeft: 8,
+                                        }]}>{value.name}</Text>
+                                        <TouchableOpacity onPress={this.deleteTag.bind(this, index)}
+                                            style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
+                                                marginLeft: 4, backgroundColor: '#ECECEC', height: 15, width: 15, borderRadius: 15,
+                                                marginRight: 4,
+                                            }]}>
+                                            <IconAntDesign name='close' size={10} style={[stylesMain.ItemCenterVertical, { color: 'red' }]} />
+                                        </TouchableOpacity>
+                                    </View>
+                                )
+                            })
                         }
                     </View>
                     <TouchableOpacity style={[stylesMain.FlexRow, { borderColor: '#ECECEC', borderBottomWidth: 1, padding: 10 }]}
@@ -446,7 +560,9 @@ export class Post_New extends React.Component {
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>รูปภาพ</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={[stylesMain.FlexRow, { borderColor: '#ECECEC', borderBottomWidth: 1, padding: 10 }]}
-                        activeOpacity={1} onPress={() => this.props.navigation.push('Deal_Topic', { selectedIndex: 8 })}>
+                        activeOpacity={1} onPress={() => navigation.push('Post_Feed', {
+                            selectedIndex: 2, id_store, getDataService: this.getDataService.bind(this)
+                        })}>
                         <IconAntDesign name='tago' size={25} style={{ marginRight: 10, }} />
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>แท็กสินค้า</Text>
                     </TouchableOpacity>
@@ -466,43 +582,69 @@ export class Select_TagProduct extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataService: [],
+            activeGetServices: true,
+            selectedIndex: 0,
         };
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation } = this.props
-        const { dataService, sliderVisible } = this.state
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation ||
-            ////>nextState
-            dataService !== nextState.dataService || sliderVisible !== nextState.sliderVisible
-        ) {
-            return true
-        }
-        return false
-    }
     getData(dataService) {
-        this.setState({ dataService })
+        this.setState({ activeGetServices: false, dataService })
+    }
+    sendData = (value) => {
+        this.setState({ activeGetServices: true, selectedIndex: value.selectedIndex })
+    }
+    getDataService = (value) => {
+        const { navigation } = this.props
+        navigation.state.params.getDataService(value);
+        navigation.goBack()
     }
     render() {
+        const { cokie, navigation } = this.props
+        const { activeGetServices, dataService, selectedIndex } = this.state
+        const id_store = navigation.getParam('id_store');
         const item = [{
             name: 'สินค้าของฉัน'
         }, {
             name: 'รายการโปรด'
         },]
+        const uri = [finip, 'brand/feed_tag_product'].join('/')
+        var dataBody = {
+            id_store,
+            level: selectedIndex == 0 ? 'normal' : selectedIndex == 1 ? 'favorite' : 'normal'
+        }
         return (
-            <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', height: 40 }]}>
-                <TabBar
-                    item={item}
-                    numberBox
-                    numberOfLines={1}
-                    activeColor={'#fff'}
-                    activeFontColor={'#111'}
-                    tagBottomColor={'#0A55A6'}
-                    tagBottom
-                />
-            </View>
+            <>
+                {
+                    activeGetServices == true && cokie &&
+                    <GetServices key='feed_tag_product' uriPointer={uri} dataBody={dataBody} Authorization={cokie}
+                        showConsole={'feed_tag_product'}
+                        getDataSource={this.getData.bind(this)} />
+                }
+                <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', height: 40 }]}>
+                    <TabBar
+                        item={item}
+                        numberBox
+                        numberOfLines={1}
+                        activeColor={'#fff'}
+                        activeFontColor={'#111'}
+                        tagBottomColor={'#0A55A6'}
+                        tagBottom
+                        sendData={this.sendData.bind(this)}
+                    />
+                </View>
+                <ScrollView>
+                    <View style={[stylesMain.BoxProduct2,]}>
+                        <View style={[stylesMain.BoxProduct2BoxProduct]}>
+                            {
+                                dataService &&
+                                <ProductBox dataService={dataService.product} navigation={navigation} mode='row3colall'
+                                    getDataService={this.getDataService.bind(this)} noNavigation
+                                    pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
+                                />
+                            }
+                        </View>
+                    </View>
+                </ScrollView>
+            </>
         );
     }
 }

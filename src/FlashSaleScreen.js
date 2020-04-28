@@ -151,16 +151,16 @@ export class Time_FlashSale extends React.Component {
     getData(dataService) {
         this.setState({ activeselectedIndex2: false, dataService, })
     }
-    updateIndex(selectedIndex) {
+    updateIndex(value) {
         const { dataService2, getUpdate } = this.props
-        this.setState({ activeselectedIndex: true, selectedIndex })
-        getUpdate(dataService2[selectedIndex].pkid)
+        this.setState({ activeselectedIndex: true, selectedIndex: value.selectedIndex })
+        getUpdate(dataService2[value.selectedIndex].pkid)
     }
-    updateIndex2(selectedIndex2) {
+    updateIndex2(value) {
         const { getUpdate2 } = this.props
         const { dataService } = this.state
-        this.setState({ selectedIndex2 })
-        var id_type = selectedIndex2 > 0 ? dataService[selectedIndex2 - 1].id_type : undefined
+        this.setState({ selectedIndex2: value.selectedIndex })
+        var id_type = value.selectedIndex > 0 ? dataService[value.selectedIndex - 1].id_type : undefined
         getUpdate2(id_type)
     }
     render() {

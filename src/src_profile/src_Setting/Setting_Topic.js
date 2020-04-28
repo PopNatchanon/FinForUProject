@@ -23,7 +23,7 @@ import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_T
 import stylesLogin from '../../../style/stylesLoginScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, GetData } from '../../MainScreen';
-import { GetServices } from '../../tools/Tools';
+import { GetServices, GetServicesBlob } from '../../tools/Tools';
 import { Seller_SettingImage } from '../../src_Seller/Seller_Profile_Edit';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../navigator/IpConfig';
@@ -110,6 +110,7 @@ export class Edit_Profile extends Component {
       currentUser: [],
       date: "",
       activeGetServices: true,
+      activeGetServices2: false,
       // date: new Date(),
       // DataDay: [],
       // DataMo: [],
@@ -189,7 +190,7 @@ export class Edit_Profile extends Component {
     )
   }
   SaveProfile = async () => {
-    const { cokie, currentUser } = this.props
+    const { currentUser } = this.props
     const { Birth_day, Gender, Name, path, Phone } = this.state
     var o = path.path.split('/')
     var p = path.path.split('file://')
@@ -202,29 +203,7 @@ export class Edit_Profile extends Component {
       { name: 'birth_day', data: Birth_day },
       { name: 'telephone', data: Phone }
     ]
-    RNFetchBlob.fetch(
-      'POST',
-      'http://www.mmnie.live/profile/update_profile_mobile',
-      {
-        Authorization: cokie,
-        'Content-Type': 'multipart/form-data',
-      },
-      dataBody2
-    )
-      .uploadProgress((written, total) => {
-        console.log('uploaded', written / total)
-      })
-      // listen to download progress event
-      .progress((received, total) => {
-        console.log('progress', received / total)
-      })
-      .then((res) => {
-
-        console.log(res.text())
-
-      }).catch((err) => {
-        // ...
-      })
+    this.setState({ activeGetServices2: true, dataBody2 })
   }
   SaveName = async () => {
     const { InputName } = this.state
@@ -446,9 +425,10 @@ export class Edit_Profile extends Component {
   getData = (dataSevice) => {
     this.setState({ activeGetServices: false, dataSevice })
   }
-  getData2 = (dataSevice2) => {
+  getData2 = (dataService2) => {
     const { navigation } = this.props
-    this.setState({ activeGetServices2: false, dataSevice2 })
+    this.setState({ activeGetServices2: false, dataService2 })
+    navigation.state.params.getDataSource(dataService2);
     navigation.goBack()
   }
   sendImageProfile = (value) => {
@@ -536,7 +516,7 @@ export class Edit_Profile extends Component {
             // showConsole={'profile_mobile'} 
             getDataSource={this.getData.bind(this)} />,
           activeGetServices2 == true &&
-          <GetServices FormData key='update_profile_mobile' uriPointer={uri2} dataBody={dataBody2} Authorization={cokie}
+          <GetServicesBlob FormData key='update_profile_mobile' uriPointer={uri2} dataBody={dataBody2} Authorization={cokie}
             showConsole={'update_profile_mobile'}
             nojson getDataSource={this.getData2.bind(this)} />,
         ]}

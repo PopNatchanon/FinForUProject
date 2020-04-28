@@ -75,7 +75,6 @@ export class Seller_SettingImage extends Component {
             cropping: true,
         };
         ImagePicker.openPicker(options).then(response => {
-            console.log(response)
             this.setState({ avatarSource3: response })
             sendImageProfile(response)
         });

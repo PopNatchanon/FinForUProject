@@ -192,17 +192,15 @@ export class Edit_Profile extends Component {
   SaveProfile = async () => {
     const { currentUser } = this.props
     const { Birth_day, Gender, Name, path, Phone } = this.state
-    var o = path.path.split('/')
-    var p = path.path.split('file://')
-    var q = o[o.length - 1].split('.')
-    const dataBody2 = [
-      { name: 'id_customer', data: currentUser.id_customer },
-      { name: 'first_name', data: Name },
-      { name: 'gender', data: Gender == true ? 'male' : 'female' },
-      { name: 'file', filename: o[o.length - 1], type: path.mime, data: RNFetchBlob.wrap(path.path) },
-      { name: 'birth_day', data: Birth_day },
-      { name: 'telephone', data: Phone }
-    ]
+    var o = path && path.path.split('/')
+    var dataBody2 = []
+    dataBody2.push({ name: 'id_customer', data: currentUser.id_customer })
+    dataBody2.push({ name: 'first_name', data: Name })
+    dataBody2.push({ name: 'gender', data: Gender == true ? 'male' : 'female' })
+    path && dataBody2.push({ name: 'file', filename: o[o.length - 1], type: path.mime, data: RNFetchBlob.wrap(path.path) })
+    dataBody2.push({ name: 'birth_day', data: Birth_day })
+    dataBody2.push({ name: 'telephone', data: Phone })
+    // console.log(dataBody2_p)
     this.setState({ activeGetServices2: true, dataBody2 })
   }
   SaveName = async () => {

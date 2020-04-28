@@ -46,16 +46,16 @@ export default class StoreScreen extends React.Component {
             ) :
                 navigation.push(value, value2)
     }
-    getSelectedIndex = (value) => {
-        this.setState({ selectedIndex: value.selectedIndex, activeRef: true })
+    getSelectedIndex = (selectedIndex) => {
+        this.setState({ selectedIndex, activeRef: true })
     }
-    getSelectedIndex2 = (value) => {
+    getSelectedIndex2 = (selectedIndex) => {
         const { filterValue, } = this.state;
-        filterValue.popular = value.selectedIndex == 0 ? 'popular' : '';
-        filterValue.best_sale = value.selectedIndex == 1 ? 'best_sale' : '';
-        filterValue.lastest = value.selectedIndex == 2 ? 'lastest' : '';
-        filterValue.sort_price = value.selectedIndex == 3 ? value.actionReturn : '';
-        this.setState({ activeGetServices2: true, filterValue, selectedIndex2: value.selectedIndex })
+        filterValue.popular = selectedIndex == 0 ? 'popular' : '';
+        filterValue.best_sale = selectedIndex == 1 ? 'best_sale' : '';
+        filterValue.lastest = selectedIndex == 2 ? 'lastest' : '';
+        filterValue.sort_price = selectedIndex == 3 ? value.actionReturn : '';
+        this.setState({ activeGetServices2: true, filterValue, selectedIndex2: selectedIndex })
     }
     getData = (dataService) => {
         this.setState({ activeGetServices: false, dataService, })

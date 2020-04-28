@@ -301,10 +301,7 @@ export class Secon_Store extends React.Component {
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>สินค้าที่คุณอาจชอบ</Text>
             </View>
           </View>
-          <Store_Detail />
-          <Store_Detail />
-          <Store_Detail />
-          <Store_Detail />
+          {/* <Store_Detail /> */}
         </ScrollView>
       </View>
     );

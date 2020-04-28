@@ -644,7 +644,7 @@ export class Seller_Up_ProductDetail extends Component {
                 maxLength={10}
                 value={weight ? weight.value : ''}
                 onChangeText={this.setStateWeightValue2.bind(this)}>
-              </TextInput>  
+              </TextInput>
             </View>
             <ModalDropdown
               options={['กิโลกรัม', 'กรัม']}
@@ -1032,6 +1032,7 @@ export class Seller_Up_ProductDetail extends Component {
         {/* เผยแพร่สินค้า */}
         <View style={stylesSeller.Seller_Up_ProductDetail}>
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เผยแพร่สินค้า</Text>
+          <CheckBox
             size={30}
             checkedIcon='toggle-on'
             checkedColor='#95F29F'

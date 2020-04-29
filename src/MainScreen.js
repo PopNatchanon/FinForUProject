@@ -44,13 +44,9 @@ export default class MainScreen extends React.Component {
             activeDataService: true,
             activeExit: true,
             activeFlashSale: true,
-            activeGetCurrentUser: true,
             activeLoading: true,
             dataService: [],
         };
-    }
-    getSource = (value) => {
-        this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser });
     }
     getData = (dataService) => {
         this.setState({ dataService, activeDataService: false })
@@ -60,9 +56,14 @@ export default class MainScreen extends React.Component {
     }
     render() {
         const { navigation } = this.props
-        const { activeDataService, activeFlashSale, activeGetCurrentUser, activeLoading, currentUser, dataService, } = this.state
+        const { activeDataService, activeFlashSale, currentUser, dataService, } = this.state
         const browerProps = navigation.getParam('browerProps')
         var uri = finip + '/home/publish_mobile'
+        console.log('==============================================MainScreen')
+        console.log('activeDataService')
+        console.log(activeDataService)
+        console.log('activeFlashSale')
+        console.log(activeFlashSale)
         return browerProps ?
             ([
                 <View style={{ height: 50, width }} key={'AppBar1'}>
@@ -75,16 +76,14 @@ export default class MainScreen extends React.Component {
             (
                 <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                     {[
-                        (activeGetCurrentUser == true || activeDataService == true || activeFlashSale == true) &&
+                        (activeDataService == true || activeFlashSale == true) &&
                         <LoadingScreen key='LoadingScreen' />,
-                        activeGetCurrentUser == false && activeDataService == true &&
+                        activeDataService == true &&
                         <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} key={'activeDataService'}
                         // showConsole={'Main'}
                         />,
-                        activeGetCurrentUser == true &&
-                        <GetData getSource={this.getSource.bind(this)} getUser={true} key={'GetData'} />
                     ]}
-                    <AppBar navigation={navigation} currentUser={currentUser} />
+                    <AppBar navigation={navigation} />
                     <ScrollView>
                         {/* <TouchableOpacity
                             onPress={() => navigation.push('MainScreen', { browerProps: finip })}>
@@ -123,7 +122,7 @@ export default class MainScreen extends React.Component {
                         <Highlight navigation={navigation} loadData={dataService.hi_week} />
                         <PromotionPopular navigation={navigation} loadData={dataService.recommend_store} />
                         <Popular_store navigation={navigation} loadData={dataService.store_good} />
-                        {/* <Popular_product navigation={navigation} loadData={{
+                        <Popular_product navigation={navigation} loadData={{
                             product_hit: dataService.product_hit, best_price: dataService.best_price,
                             best_sale: dataService.best_sale, best_cool: dataService.best_cool
                         }} />
@@ -133,7 +132,7 @@ export default class MainScreen extends React.Component {
                             product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
                             list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3,
                             mobile_bar: dataService.mobile_bar, mobile_slide: dataService.mobile_slide,
-                        }} /> */}
+                        }} />
                         <BannerBar_THREE />
                         <FIN_Supermarket navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />
                         <TodayProduct navigation={navigation} loadData={dataService.for_you2} />
@@ -153,30 +152,38 @@ export class GetData extends React.Component {
         }
     }
     setStateLogin = (autoLogin) => {
-        fetch(finip + '/auth/login_customer', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: autoLogin,
-        })
-            .then((response) => response.json())
-            .then((responseJson) => {
+        console.log('setStateLogin')
+        console.log(autoLogin)
+        if (autoLogin) {
+            fetch(finip + '/auth/login_customer', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: autoLogin,
             })
-            .catch((error) => {
-                console.error(error);
-            })
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    console.log('responseJson')
+                    console.log(responseJson)
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
+        }
     }
     getDataAsync = async () => {
         const { getCokie, getSource, getUser, } = this.props
         const currentUser = await AsyncStorage.getItem('@MyKey')
         const autoLogin = await AsyncStorage.getItem('@MyLongin')
+        console.log('autoLogin')
+        console.log(autoLogin)
         var value = {}
         CookieManager.get(finip + '/auth/login_customer')
             .then((res) => {
                 var keycokie = res.token
-                keycokie === undefined && autoLogin !== undefined &&
+                keycokie === undefined && autoLogin &&
                     this.setStateLogin(autoLogin)
                 getCokie == true && (
                     (
@@ -301,6 +308,7 @@ export class AppBar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            activeGetCurrentUser: true,
             text: '',
         };
     }
@@ -314,6 +322,9 @@ export class AppBar extends React.Component {
             ) :
                 navigation.push(value, value2)
     }
+    getSource = (value) => {
+        this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser });
+    }
     setText = (text) => {
         this.setState({ text })
     }
@@ -323,8 +334,8 @@ export class AppBar extends React.Component {
             this.navigationNavigateScreen('SearchScreen', { SearchText: text })
     }
     render() {
-        const { ABDColor, ABGColor, AIColor, currentUser, leftBar, rightBar, searchBar, SearchText } = this.props
-        const { text, } = this.state
+        const { ABDColor, ABGColor, AIColor, leftBar, rightBar, searchBar, SearchText } = this.props
+        const { activeGetCurrentUser, currentUser, text, } = this.state
         const AIconEntypo = Animatable.createAnimatableComponent(IconEntypo)
         const AIconFeather = Animatable.createAnimatableComponent(IconFeather)
         const AIconFontAwesome5 = Animatable.createAnimatableComponent(IconFontAwesome5)
@@ -334,6 +345,8 @@ export class AppBar extends React.Component {
                 borderColor: ABDColor ? ABDColor : '#ECECEC'
             }]}>
                 {[
+                    activeGetCurrentUser == true &&
+                    <GetData getSource={this.getSource.bind(this)} getUser={true} key={'GetData'} />,
                     leftBar == 'backarrow' &&
                     <View key={'backarrow'}>
                         <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30 }]}
@@ -608,7 +621,7 @@ export class AppBar1 extends React.Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Slide
-export class Slide extends React.Component {
+export class Slide extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -1404,7 +1417,6 @@ export class Highlight extends React.Component {
         );
     }
 }
-
 ///----------------------------------------------------------------------------------------------->>>> NewStore
 export class NewStore extends React.Component {
     constructor(props) {
@@ -1609,7 +1621,7 @@ export class CategoryProductSubProduct extends React.Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> CategoryProductSubStore
-export class CategoryProductSubStore extends React.Component {
+export class CategoryProductSubStore extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -1798,7 +1810,7 @@ export class CategoryProductSubPromotion extends React.Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Second_product
-export class Second_product extends React.Component {
+export class Second_product extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -2094,7 +2106,6 @@ export class Fin_Mall extends React.Component {
         );
     }
 }
-
 ///----------------------------------------------------------------------------------------------->>>> FIN_Supermarket
 export class FIN_Supermarket extends React.Component {
     constructor(props) {
@@ -2307,8 +2318,6 @@ export class FIN_Supermarket extends React.Component {
         );
     }
 }
-
-
 ///----------------------------------------------------------------------------------------------->>>> TodayProduct
 export class TodayProduct extends React.Component {
     constructor(props) {

@@ -86,7 +86,7 @@ export default class SearchScreen extends React.Component {
             activeArray, activeGetCurrentUser, activeGetServices, actionStart, cokie, currentUser, data, dataService, dataServiceBU,
             filterValue, modeStore, SearchText, sliderVisible, id_type,
         } = this.state;
-        var uri = [finip, '/search/search_product'].join('/');
+        var uri = [finip, 'search/search_product'].join('/');
         var dataBody = {
             id_customer: currentUser && currentUser.id_customer,
             key: SearchText, //<< ใช้ค้นหาสินค้า
@@ -98,7 +98,7 @@ export default class SearchScreen extends React.Component {
             max_price: filterValue && filterValue.maxvalue ? Number(filterValue.maxvalue) : '',
             id_type: filterValue && filterValue.id_type ? filterValue.id_type : '' //<< กรณีเลือกแบบระเลียด
         };
-        var uri2 = [finip, '/search/other_store'].join('/');
+        var uri2 = [finip, 'search/other_store'].join('/');
         var dataBody2 = {
             id_customer: currentUser && currentUser.id_customer,
             id_type

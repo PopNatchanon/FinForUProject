@@ -336,7 +336,7 @@ export class AppBar extends React.Component {
                 {[
                     leftBar == 'backarrow' &&
                     <View key={'backarrow'}>
-                        <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30 }]}
+                        <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 50, height: 50 }]}
                             activeOpacity={1}
                             onPress={this.navigationNavigateScreen.bind(this, 'goBack')}>
                             <AIconEntypo name="chevron-left" size={30} style={{ color: AIColor ? AIColor : '#111' }} />
@@ -501,7 +501,7 @@ export class AppBar1 extends React.Component {
                 <View style={stylesMain.FlexRow}>
                     {
                         backArrow &&
-                        <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30 }]}
+                        <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 50, height: 50 }]}
                             activeOpacity={1}
                             onPress={
                                 goToTop ?
@@ -779,43 +779,43 @@ export class Button_Bar extends React.Component {
             <>
                 <View style={stylesMain.FrameBackground3}></View>
                 <View style={stylesMain.FlexRow}>
-                    {/* <ScrollView horizontal> */}
-                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'DealScreen')}>
-                        <View style={stylesMain.Button_Bar_Box}>
-                            <FastImage style={stylesMain.Button_Bar_icon}
-                                source={require('../icon/Icon_Deal/01.jpg')}
-                                resizeMode={FastImage.resizeMode.contain} />
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'CoinScreen')}>
-                        <View style={stylesMain.Button_Bar_Box}>
-                            <FastImage style={stylesMain.Button_Bar_icon}
-                                source={require('../icon/Icon_Deal/02.jpg')}
-                                resizeMode={FastImage.resizeMode.contain} />
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'CampaignScreen')}>
-                        <View style={stylesMain.Button_Bar_Box}>
-                            <FastImage style={stylesMain.Button_Bar_icon}
-                                source={require('../icon/Icon_Deal/03.jpg')}
-                                resizeMode={FastImage.resizeMode.contain} />
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'The_BestFinScreen')}>
-                        <View style={stylesMain.Button_Bar_Box}>
-                            <FastImage style={stylesMain.Button_Bar_icon}
-                                source={require('../icon/Icon_Deal/04.jpg')}
-                                resizeMode={FastImage.resizeMode.contain} />
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Installment_payScreen')}>
-                        <View style={stylesMain.Button_Bar_Box}>
-                            <FastImage style={stylesMain.Button_Bar_icon}
-                                source={require('../icon/Icon_Deal/05.jpg')}
-                                resizeMode={FastImage.resizeMode.contain} />
-                        </View>
-                    </TouchableOpacity>
-                    {/* </ScrollView> */}
+                    <ScrollView horizontal>
+                        <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'DealScreen')}>
+                            <View style={stylesMain.Button_Bar_Box}>
+                                <FastImage style={stylesMain.Button_Bar_icon}
+                                    source={require('../icon/Icon_Deal/01.jpg')}
+                                    resizeMode={FastImage.resizeMode.contain} />
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'CoinScreen')}>
+                            <View style={stylesMain.Button_Bar_Box}>
+                                <FastImage style={stylesMain.Button_Bar_icon}
+                                    source={require('../icon/Icon_Deal/02.jpg')}
+                                    resizeMode={FastImage.resizeMode.contain} />
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'CampaignScreen')}>
+                            <View style={stylesMain.Button_Bar_Box}>
+                                <FastImage style={stylesMain.Button_Bar_icon}
+                                    source={require('../icon/Icon_Deal/03.jpg')}
+                                    resizeMode={FastImage.resizeMode.contain} />
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'The_BestFinScreen')}>
+                            <View style={stylesMain.Button_Bar_Box}>
+                                <FastImage style={stylesMain.Button_Bar_icon}
+                                    source={require('../icon/Icon_Deal/04.jpg')}
+                                    resizeMode={FastImage.resizeMode.contain} />
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Installment_payScreen')}>
+                            <View style={stylesMain.Button_Bar_Box}>
+                                <FastImage style={stylesMain.Button_Bar_icon}
+                                    source={require('../icon/Icon_Deal/05.jpg')}
+                                    resizeMode={FastImage.resizeMode.contain} />
+                            </View>
+                        </TouchableOpacity>
+                    </ScrollView>
                 </View>
             </>
         );

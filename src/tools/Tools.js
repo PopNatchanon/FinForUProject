@@ -876,7 +876,7 @@ export class GetCoupon extends React.Component {
                 </View>
                 {
                     codeList != 'available' &&
-                    <View style={{ backgroundColor: '#C1C1C1', opacity: 0.7, width: 213, height: 80, marginTop: -10, borderRadius: 5, alignItems: 'center' }}>
+                    <View style={{ backgroundColor: '#C1C1C1', opacity: 0.7, width: 0.31, height: 80, marginTop: -10, borderRadius: 5, alignItems: 'center' }}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, stylesMain.ItemCenterVertical, {
                             color: '#FFFFFF',
                         }]}>

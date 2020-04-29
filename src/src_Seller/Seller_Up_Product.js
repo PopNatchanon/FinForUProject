@@ -155,8 +155,19 @@ export class Seller_Up_ProductDetail extends Component {
       valueNumber2: [{ name: '' }],
       inputNumber: 2,
       saveLookIndex: 1,
-      saveWeight: { indexName: 0, name: 'กิโลกรัม' },
+      saveWeightProduct: { indexName: 0, name: 'กิโลกรัม' },
+      saveSizeProduct: { index: -1, },
+      publishProduct: true,
     };
+  }
+  LoadCategorySheet = () => {
+    const { saveCategorySelect, saveSubCategorySelect, saveDataSubCategory, saveUnSubCategorySelect, saveDataUnSubCategory } = this.state
+    this.setState({
+      categorySelect: saveCategorySelect,
+      subCategorySelect: saveSubCategorySelect, dataSubCategory: saveDataSubCategory,
+      unSubCategorySelect: saveUnSubCategorySelect, dataUnSubCategory: saveDataUnSubCategory
+    })
+    this.CategorySheet.open();
   }
   getCategory = (dataCategory) => {
     this.setState({ activeCategory: false, dataCategory })
@@ -166,15 +177,6 @@ export class Seller_Up_ProductDetail extends Component {
   }
   getUnSubCategory = (dataUnSubCategory) => {
     this.setState({ activeUnSubCategory: false, dataUnSubCategory })
-  }
-  CategorySheetOpen = () => {
-    const { saveCategorySelect, saveSubCategorySelect, saveDataSubCategory, saveUnSubCategorySelect, saveDataUnSubCategory } = this.state
-    this.setState({
-      categorySelect: saveCategorySelect,
-      subCategorySelect: saveSubCategorySelect, dataSubCategory: saveDataSubCategory,
-      unSubCategorySelect: saveUnSubCategorySelect, dataUnSubCategory: saveDataUnSubCategory
-    })
-    this.CategorySheet.open();
   }
   SaveCategorySheet = () => {
     const { categorySelect, subCategorySelect, dataSubCategory, unSubCategorySelect, dataUnSubCategory } = this.state
@@ -299,7 +301,7 @@ export class Seller_Up_ProductDetail extends Component {
       </>
     )
   }
-  Brand_NameSheetOpen = () => {
+  LoadBrand_NameSheet = () => {
     const { saveNameBrand } = this.state
     this.setState({
       nameBrand: saveNameBrand
@@ -345,7 +347,7 @@ export class Seller_Up_ProductDetail extends Component {
 
     )
   }
-  PriceSheetOpen = () => {
+  LoadPriceSheet = () => {
     const { savePrice } = this.state
     this.setState({
       price: savePrice
@@ -388,19 +390,12 @@ export class Seller_Up_ProductDetail extends Component {
       </>
     )
   }
-  TotalrSheetOpen = () => {
+  LoadTotalrSheet = () => {
     const { saveTotal } = this.state
     this.setState({
       total: saveTotal > 0 ? saveTotal : 1
     })
     this.TotalrSheet.open();
-  }
-  SaveTotalrSheet = () => {
-    const { total } = this.state
-    this.setState({
-      saveTotal: total
-    })
-    this.TotalrSheet.close();
   }
   ActionTotalrSheet = (value, type) => {
     var { total, totalChange } = this.state;
@@ -411,6 +406,13 @@ export class Seller_Up_ProductDetail extends Component {
     Number.isInteger(total) == true && total > 0 ? (totalChange = true) :
       (totalChange = false);
     this.setState({ oldTotal, total, totalChange });
+  }
+  SaveTotalrSheet = () => {
+    const { total } = this.state
+    this.setState({
+      saveTotal: total
+    })
+    this.TotalrSheet.close();
   }
   TotalrSheetBody() {
     const { oldTotal, total, totalChange } = this.state;
@@ -548,7 +550,7 @@ export class Seller_Up_ProductDetail extends Component {
       </>
     )
   }
-  LookSheetOpen = () => {
+  LoadLookSheet = () => {
     const { saveLookIndex } = this.state
     this.setState({
       lookIndex: saveLookIndex
@@ -604,34 +606,33 @@ export class Seller_Up_ProductDetail extends Component {
       </>
     )
   }
-  WeightSheetOpen = () => {
-    const { saveWeight } = this.state
+  LoadWeightSheet = () => {
+    const { saveWeightProduct } = this.state
     this.setState({
-      weight: saveWeight
+      weightProduct: saveWeightProduct
     })
     this.WeightSheet.open();
   }
+  setStateWeightValue = (value) => {
+    const { weightProduct } = this.state;
+    weightProduct.name = value;
+    weightProduct.indexName = value == 'กิโลกรัม' ? 0 : 1;
+    this.setState({ weightProduct });
+  }
+  setStateWeightValue2 = (value) => {
+    const { weightProduct } = this.state;
+    weightProduct.value = value;
+    this.setState({ weightProduct });
+  }
   SaveWeightSheet = () => {
-    const { weight } = this.state
+    const { weightProduct } = this.state
     this.setState({
-      saveWeight: weight
+      saveWeightProduct: weightProduct
     })
     this.WeightSheet.close();
   }
-  setStateWeightValue = (value) => {
-    const { weight } = this.state;
-    weight.name = value;
-    weight.indexName = value == 'กิโลกรัม' ? 0 : 1;
-    this.setState({ weight });
-  }
-  setStateWeightValue2 = (value) => {
-    const { weight } = this.state;
-    weight.value = value;
-    this.setState({ weight });
-  }
   WeightSheetBody() {
-    const { weight, } = this.state
-    console.log(weight)
+    const { weightProduct, } = this.state
     return (
       <>
         <View style={stylesSeller.SelectSheet}>
@@ -642,13 +643,13 @@ export class Seller_Up_ProductDetail extends Component {
                 style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '100%', height: 50, }]}
                 placeholder="น้ำหนัก"
                 maxLength={10}
-                value={weight ? weight.value : ''}
+                value={weightProduct ? weightProduct.value : ''}
                 onChangeText={this.setStateWeightValue2.bind(this)}>
               </TextInput>
             </View>
             <ModalDropdown
               options={['กิโลกรัม', 'กรัม']}
-              defaultIndex={weight && weight.indexName}
+              defaultIndex={weightProduct && weightProduct.indexName}
               dropdownStyle={{ width: 160, }}
               textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
               dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'right' }]}
@@ -656,7 +657,7 @@ export class Seller_Up_ProductDetail extends Component {
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesSeller.SelectSheet_TextInput, {
                 textAlign: 'center', textAlignVertical: 'center'
               }]}>
-                {weight && weight.name}</Text>
+                {weightProduct && weightProduct.name}</Text>
             </ModalDropdown>
           </View>
         </View>
@@ -675,33 +676,76 @@ export class Seller_Up_ProductDetail extends Component {
       </>
     )
   }
+  LoadSizeSheet = () => {
+    const { saveSizeProduct } = this.state
+    this.setState({
+      sizeProduct: saveSizeProduct
+    })
+    this.SizeSheet.open();
+  }
+  setStateSizeProduct = (index) => {
+    const { sizeProduct } = this.state;
+    sizeProduct.index = index;
+    sizeProduct.name = index == 0 ? 'เล็ก' : index == 1 ? 'กลาง' : index == 2 ? 'ใหญ่' : 'เล็ก'
+    sizeProduct.value = index == 0 ? 'S' : index == 1 ? 'M' : index == 2 ? 'L' : 'S'
+    this.setState({ sizeProduct })
+  }
+  SaveSizeSheet = () => {
+    const { sizeProduct } = this.state
+    this.setState({
+      saveSizeProduct: sizeProduct
+    })
+    this.SizeSheet.close();
+  }
   SizeSheetBody() {
+    const { sizeProduct } = this.state;
     return (
       <>
         <View style={stylesSeller.SelectSheet}>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>ขนาดพัสดุ</Text>
           <View style={stylesSeller.SizeSheet_Box}>
-            <TouchableOpacity>
-              <View style={stylesSeller.SizeSheet_Boxsize}><Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>เล็ก</Text>
+            <TouchableOpacity onPress={this.setStateSizeProduct.bind(this, 0)}>
+              <View style={[stylesSeller.SizeSheet_Boxsize, {
+                borderColor: sizeProduct && sizeProduct.index == 0 ? '#0A55A6' : '#CACACA',
+                backgroundColor: sizeProduct && sizeProduct.index == 0 ? '#0A55A6' : '#FFF'
+              }]}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, {
+                  color: sizeProduct && sizeProduct.index == 0 ? '#FFF' : '#111'
+                }]}>
+                  เล็ก</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
-              <View style={stylesSeller.SizeSheet_Boxsize}><Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>กลาง</Text>
+            <TouchableOpacity onPress={this.setStateSizeProduct.bind(this, 1)}>
+              <View style={[stylesSeller.SizeSheet_Boxsize, {
+                borderColor: sizeProduct && sizeProduct.index == 1 ? '#0A55A6' : '#CACACA',
+                backgroundColor: sizeProduct && sizeProduct.index == 1 ? '#0A55A6' : '#FFF'
+              }]}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, {
+                  color: sizeProduct && sizeProduct.index == 1 ? '#FFF' : '#111'
+                }]}>
+                  กลาง</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
-              <View style={stylesSeller.SizeSheet_Boxsize}><Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ใหญ่</Text>
+            <TouchableOpacity onPress={this.setStateSizeProduct.bind(this, 2)}>
+              <View style={[stylesSeller.SizeSheet_Boxsize, {
+                borderColor: sizeProduct && sizeProduct.index == 2 ? '#0A55A6' : '#CACACA',
+                backgroundColor: sizeProduct && sizeProduct.index == 2 ? '#0A55A6' : '#FFF'
+              }]}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, {
+                  color: sizeProduct && sizeProduct.index == 2 ? '#FFF' : '#111'
+                }]}>
+                  ใหญ่</Text>
               </View>
             </TouchableOpacity>
           </View>
         </View>
         <View style={stylesSeller.BottomSheet_Botton}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => this.SizeSheet.close()}>
             <View style={stylesSeller.BottomSheet_Botton_cancel}>
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ยกเลิก</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={this.SaveSizeSheet.bind(this)}>
             <View style={stylesSeller.BottomSheet_Botton_OK}>
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตกลง</Text>
             </View>
@@ -712,8 +756,9 @@ export class Seller_Up_ProductDetail extends Component {
   }
   render() {
     const {
-      activeCategory, activeSubCategory, activeUnSubCategory, categorySelect, saveCategorySelect, saveLookIndex, saveNameBrand, savePrice,
-      saveSubCategorySelect, saveTotal, saveUnSubCategorySelect, saveWeight, subCategorySelect
+      activeCategory, activeSubCategory, activeUnSubCategory, categorySelect, publishProduct, saveCategorySelect, saveLookIndex,
+      saveNameBrand, savePrice, saveSizeProduct, saveSubCategorySelect, saveTotal, saveUnSubCategorySelect, saveWeightProduct,
+      subCategorySelect
     } = this.state
     const { detail, name } = this.state
     var uriCategory = [finip, 'store/add_product_mobile'].join('/')
@@ -919,7 +964,7 @@ export class Seller_Up_ProductDetail extends Component {
         </View>
 
         {/* หมวดสินค้า */}
-        <TouchableOpacity activeOpacity={1} onPress={this.CategorySheetOpen.bind(this)}>
+        <TouchableOpacity activeOpacity={1} onPress={this.LoadCategorySheet.bind(this)}>
           <View style={stylesSeller.Seller_Up_ProductDetail}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>หมวดสินค้า</Text>
             <View style={{ flexDirection: 'row' }}>
@@ -933,7 +978,7 @@ export class Seller_Up_ProductDetail extends Component {
           </View>
         </TouchableOpacity>
         {/* แบรนด์สินค้า */}
-        <TouchableOpacity activeOpacity={1} onPress={this.Brand_NameSheetOpen.bind(this)}>
+        <TouchableOpacity activeOpacity={1} onPress={this.LoadBrand_NameSheet.bind(this)}>
           <View style={stylesSeller.Seller_Up_ProductDetail}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>แบรนด์สินค้า</Text>
             <View style={{ flexDirection: 'row' }}>
@@ -955,7 +1000,7 @@ export class Seller_Up_ProductDetail extends Component {
           </View>
         </TouchableOpacity>
         {/* คลัง */}
-        <TouchableOpacity activeOpacity={1} onPress={this.TotalrSheetOpen.bind(this)}>
+        <TouchableOpacity activeOpacity={1} onPress={this.LoadTotalrSheet.bind(this)}>
           <View style={stylesSeller.Seller_Up_ProductDetail}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>คลัง</Text>
             <View style={{ flexDirection: 'row' }}>
@@ -981,7 +1026,7 @@ export class Seller_Up_ProductDetail extends Component {
           </View>
         </TouchableOpacity>
         {/* สภาพสินค้า */}
-        <TouchableOpacity activeOpacity={1} onPress={this.LookSheetOpen.bind(this)}>
+        <TouchableOpacity activeOpacity={1} onPress={this.LoadLookSheet.bind(this)}>
           <View style={stylesSeller.Seller_Up_ProductDetail}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>สภาพสินค้า</Text>
             <View style={stylesMain.FlexRow}>
@@ -1001,7 +1046,7 @@ export class Seller_Up_ProductDetail extends Component {
           </TouchableOpacity>
         </View>
         {/* น้ำหนัก */}
-        <TouchableOpacity activeOpacity={1} onPress={this.WeightSheetOpen.bind(this)}>
+        <TouchableOpacity activeOpacity={1} onPress={this.LoadWeightSheet.bind(this)}>
           <View style={stylesSeller.Seller_Up_ProductDetail}>
             <View style={stylesMain.FlexRow}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>น้ำหนัก</Text>
@@ -1011,14 +1056,14 @@ export class Seller_Up_ProductDetail extends Component {
             </View>
             <View style={stylesMain.FlexRow}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical, { marginTop: 5 }]}>
-                {saveWeight.value ? [saveWeight.value, saveWeight.name].join(' ') : <Text style={{ color: '#A3A3A3', }}>
+                {saveWeightProduct.value ? [saveWeightProduct.value, saveWeightProduct.name].join(' ') : <Text style={{ color: '#A3A3A3', }}>
                   {'ระบุน้ำหนัก'}</Text>}</Text>
               <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
             </View>
           </View>
         </TouchableOpacity>
         {/* ขนาดพัสดุ */}
-        <TouchableOpacity activeOpacity={1} onPress={() => { this.SizeSheet.open(); }}>
+        <TouchableOpacity activeOpacity={1} onPress={this.LoadSizeSheet.bind(this)}>
           <View style={stylesSeller.Seller_Up_ProductDetail}>
             <View style={stylesMain.FlexRow}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ขนาดพัสดุ</Text>
@@ -1026,7 +1071,12 @@ export class Seller_Up_ProductDetail extends Component {
                 marginLeft: 10, color: '#A3A3A3'
               }]}>(ไม่จำเป็นต้องระบุ)</Text>
             </View>
-            <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+            <View style={stylesMain.FlexRow}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical, { marginTop: 5 }]}>
+                {saveSizeProduct.name ? saveSizeProduct.name : <Text style={{ color: '#A3A3A3', }}>
+                  {'ระบุขนาดพัสดุ'}</Text>}</Text>
+              <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+            </View>
           </View>
         </TouchableOpacity>
         {/* เผยแพร่สินค้า */}
@@ -1037,8 +1087,8 @@ export class Seller_Up_ProductDetail extends Component {
             checkedIcon='toggle-on'
             checkedColor='#95F29F'
             uncheckedIcon='toggle-off'
-            checked={this.state.item2}
-            onPress={() => this.setState({ item2: !this.state.item2 })}
+            checked={publishProduct}
+            onPress={() => this.setState({ publishProduct: !publishProduct })}
           />
         </View>
         <View style={stylesSeller.Seller_Up_ProductDetail}>

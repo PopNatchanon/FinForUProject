@@ -273,7 +273,7 @@ export class Second_Store extends Component {
         </View>
         <View style={stylesDeal.Second_Store_SlideB}>
           {
-            discount_sec_l && discount_sec_l.map((value, index) => {
+            discount_sec_m && discount_sec_m.map((value, index) => {
               return (
                 <View key={index} style={stylesDeal.Second_Store_SlideB_Box}>
                   <FastImage
@@ -286,21 +286,23 @@ export class Second_Store extends Component {
             })
           }
         </View>
-        <View style={{ height: 100, marginVertical: 10, width: '90%', flexDirection: 'row', }}>
-          {
-            discount_sec_m && discount_sec_m.map((value, index) => {
-              return (
-                <View key={index} style={{ width: '35%', height: '100%', }}>
-                  <FastImage style={stylesDeal.Store_Sale_Image}
-                    source={{
-                      uri: value,
-                    }}
-                    resizeMode={FastImage.resizeMode.stretch}
-                  />
-                </View>
-              )
-            })
-          }
+        <View style={{ marginVertical: 10, width: '90%', flexDirection: 'row', justifyContent: 'space-around' }}>
+          <ScrollView horizontal>
+            {
+              discount_sec_l && discount_sec_l.map((value, index) => {
+                return (
+                  <View key={index} style={{ width: 160, height: 80, marginLeft: 5 }}>
+                    <FastImage style={stylesDeal.Store_Sale_Image}
+                      source={{
+                        uri: value,
+                      }}
+                      resizeMode={FastImage.resizeMode.stretch}
+                    />
+                  </View>
+                )
+              })
+            }
+          </ScrollView>
         </View>
       </View>
     )

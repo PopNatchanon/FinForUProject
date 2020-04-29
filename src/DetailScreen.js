@@ -1217,7 +1217,9 @@ export class Reviews extends React.Component {
             </View>
           </View>
         }
-      }) : <View><Text>{review}</Text></View>
+      }) : <View>
+        <Text>{review}</Text>
+      </View>
   }
   starReview(star, starSize) {
     let starBox = []
@@ -1285,37 +1287,11 @@ export class Reviews extends React.Component {
             </View>
           </View>
         }
-        <View style={stylesDetail.Reviews_Box}>
-          {/* <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
-            ภาพจากผู้ซื้อ</Text> */}
-          <View>
-            {/* <ScrollView horizontal>
-              <View style={stylesDetail.Reviews_Image_Box}>
-                <FastImage
-                  style={stylesDetail.Reviews_Image}
-                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }} />
-                <FastImage
-                  style={stylesDetail.Reviews_Image}
-                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }} />
-                <FastImage
-                  style={stylesDetail.Reviews_Image}
-                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }} />
-                <FastImage
-                  style={stylesDetail.Reviews_Image}
-                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }} />
-                <FastImage
-                  style={stylesDetail.Reviews_Image}
-                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }} />
-                <FastImage
-                  style={stylesDetail.Reviews_Image}
-                  source={{ uri: ip + '/MySQL/uploads/products/2019-06-09-1560016588.jpg' }} />
-              </View>
-            </ScrollView> */}
-            {
-              dataService2 &&
-              this.customerReview(dataService2.review)
-            }
-          </View>
+        <View>
+          {
+            dataService2 &&
+            this.customerReview(dataService2.review)
+          }
         </View>
       </View>
     );

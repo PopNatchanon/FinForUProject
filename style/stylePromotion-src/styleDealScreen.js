@@ -131,10 +131,10 @@ export default StyleSheet.create({
     Second_Store_SlideA: {
         height: 160,
         marginTop: 10,
-        width: width * 0.89,
+        width: width * 0.90,
     },
     Second_Store_SlideB: {
-        height: 100,
+        height: 120,
         width: '90%',
         marginTop: 10,
         flexDirection: 'row',
@@ -142,7 +142,7 @@ export default StyleSheet.create({
     },
     Second_Store_SlideB_Box: {
         height: '100%',
-        width: '48.5%',
+        width: '49%',
     },
     Second_Store_Slide_BoxText: {
         height: '20%',

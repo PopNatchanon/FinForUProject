@@ -133,7 +133,7 @@ export default class SearchScreen extends React.Component {
                                 }
                                 <HeadBox navigation={navigation} SearchText={SearchText} />
                                 {
-                                    dataService && dataService.store.map((value, index) => {
+                                    dataService && dataService.store && dataService.store.map((value, index) => {
                                         return <StoreCard cokie={cokie} currentUser={currentUser} dataService={value} key={index}
                                             navigation={navigation} />
                                     })
@@ -149,7 +149,7 @@ export default class SearchScreen extends React.Component {
                                 }
                                 <HeadBox id_type={id_type} navigation={navigation} SearchText={SearchText} otherOption />
                                 {
-                                    dataService && dataService.store.map((value, index) => {
+                                    dataService && dataService.store && dataService.store.map((value, index) => {
                                         return <StoreCard cokie={cokie} currentUser={currentUser} dataService={value} key={index}
                                             navigation={navigation} />
                                     })

@@ -37,7 +37,7 @@ import NumberFormat from 'react-number-format';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class MainScreen extends React.Component {
+export default class MainScreen extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -76,8 +76,8 @@ export default class MainScreen extends React.Component {
             (
                 <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                     {[
-                        (activeDataService == true || activeFlashSale == true) &&
-                        <LoadingScreen key='LoadingScreen' />,
+                        // (activeDataService == true || activeFlashSale == true) &&
+                        // <LoadingScreen key='LoadingScreen' />,
                         activeDataService == true &&
                         <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} key={'activeDataService'}
                         // showConsole={'Main'}
@@ -149,6 +149,7 @@ export class GetData extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            activeLogin: true,
         }
     }
     setStateLogin = (autoLogin) => {
@@ -167,14 +168,18 @@ export class GetData extends React.Component {
                 .then((responseJson) => {
                     console.log('responseJson')
                     console.log(responseJson)
+                    this.setState({ activeLogin: true })
                 })
                 .catch((error) => {
                     console.error(error);
                 })
+        } else {
+            this.setState({ activeLogin: false })
         }
     }
     getDataAsync = async () => {
         const { getCokie, getSource, getUser, } = this.props
+        const { activeLogin } = this.state
         const currentUser = await AsyncStorage.getItem('@MyKey')
         const autoLogin = await AsyncStorage.getItem('@MyLongin')
         // console.log('autoLogin')
@@ -204,7 +209,11 @@ export class GetData extends React.Component {
                                 value.currentUser = undefined
                             )
                     );
-                (value.currentUser !== undefined || value.keycokie !== undefined) &&
+                activeLogin &&
+                    (
+                        value.activeLogin = activeLogin
+                    );
+                (activeLogin || (value.currentUser !== undefined || value.keycokie !== undefined)) &&
                     getSource(value);
             })
     }
@@ -645,14 +654,14 @@ export class Slide extends React.PureComponent {
         this.setState({ activeSlide })
     }
     _renderItem = item => {
-        var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
+        var dataMySQL = [finip, item.image_path, 'mobile', item.image].join('/');
         return (
-            <View style={stylesMain.child} key={item.image}>
+            <View style={stylesMain.child} key={item.id}>
                 <FastImage
                     source={{
                         uri: dataMySQL,
                     }}
-                    style={stylesMain.childSlide}
+                    style={stylesMain.child}
                     resizeMode={FastImage.resizeMode.contain} />
             </View>
         );
@@ -677,41 +686,6 @@ export class Slide extends React.PureComponent {
                     autoplay
                     autoplayInterval={3000}
                     pagination={PaginationLight} />
-                {/* 
-                <Carousel
-                    ref={c => this.activeSlide = c}
-                    data={dataService}
-                    renderItem={this._renderItem.bind(this)}
-                    sliderWidth={width * 1}
-                    itemWidth={width * 1}
-                    sliderHeight={height * 0.5}
-                    loop={true}
-                    autoplay={true}
-                    autoplayDelay={3000}
-                    autoplayInterval={3000}
-                    onSnapToItem={this.getActiveSlide.bind(this)}
-                    removeClippedSubviews={true}
-                    initialNumToRender={dataService.length}
-                    maxToRenderPerBatch={1}
-                    useScrollView={true} />
-                {this.pagination} 
-                 <View style={{ flexDirection: 'row', width: '100%', marginTop: -100, marginBottom: 50, justifyContent: 'space-between' }}>
-                    {
-                        activeSlide == 0 ?
-                            <IconIonicons name='ios-arrow-back' size={30} style={{ color: 'transparent', backgroundColor: 'transparent', }} /> :
-                            <TouchableOpacity onPress={() => { this.activeSlide.snapToPrev() }}>
-                                <IconIonicons name='ios-arrow-back' size={30} style={{ color: '#0A55A6', backgroundColor: '#FFFFFF', height: 40, width: 40, borderRadius: 30, borderWidth: 2, borderColor: '#E4E4E4', textAlign: 'center', textAlignVertical: 'center', }} />
-                            </TouchableOpacity>
-                    }
-                    {
-                        activeSlide == dataService.length - 1 ?
-                            <IconIonicons name='ios-arrow-forward' size={30} style={{ color: 'transparent', backgroundColor: 'transparent', }} /> :
-                            <TouchableOpacity onPress={() => { this.activeSlide.snapToPrev() }}>
-                                <IconIonicons name='ios-arrow-forward' size={30} style={{ color: '#0A55A6', backgroundColor: '#FFFFFF', height: 40, width: 40, borderRadius: 30, borderWidth: 2, borderColor: '#E4E4E4', textAlign: 'center', textAlignVertical: 'center', }} />
-                            </TouchableOpacity>
-                    }
-                </View> */
-                }
             </View>
         );
     }
@@ -1164,7 +1138,7 @@ export class BannerBar_THREE extends React.Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> FlashSale
-export class FlashSale extends React.Component {
+export class FlashSale extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -1548,7 +1522,8 @@ export class CategoryProduct extends React.Component {
                 return (
                     <View style={[stylesMain.FrameBackground2, { marginTop: 10, backgroundColor: item.bg_m }]} key={index}>
                         <View>
-                            <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'CategoryScreen')}>
+                            <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'CategoryScreen',
+                                { id_type: item.id_type })}>
                                 <FastImage
                                     source={{
                                         uri: dataMySQL,
@@ -1574,7 +1549,7 @@ export class CategoryProduct extends React.Component {
                                     <CategoryProductSubStore navigation={navigation} id_type={item.id_type} />
                                 </View>
                         }
-                    </View>
+                    </View >
                 );
             })
     }
@@ -1705,26 +1680,6 @@ export class CategoryProductSubStore extends React.PureComponent {
                             autoplayInterval={3000}
                             pagination={PaginationLight} />
                     )
-                    // <Carousel
-                    //     ref={c => this.activeSlide = c}
-                    //     data={dataService.banner}
-                    //     renderItem={this._renderItem}
-                    //     sliderWidth={width}
-                    //     itemWidth={width * 0.49}
-                    //     sliderHeight={90}
-                    //     itemHeight={85}
-                    //     onSnapToItem={this.setActiveSlide.bind(this)}
-                    //     activeSlideAlignment={'start'}
-                    //     inactiveSlideScale={1}
-                    //     inactiveSlideOpacity={1}
-                    //     removeClippedSubviews={true}
-                    //     initialNumToRender={dataService.banner.length}
-                    //     maxToRenderPerBatch={1}
-                    //     useScrollView={true}
-                    //     autoplay
-                    //     autoplayDelay={3000}
-                    //     loop
-                    // />
                 ]}
             </>
         );
@@ -2115,7 +2070,7 @@ export class Fin_Mall extends React.Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> FIN_Supermarket
-export class FIN_Supermarket extends React.Component {
+export class FIN_Supermarket extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {

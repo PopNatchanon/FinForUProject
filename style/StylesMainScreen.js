@@ -496,12 +496,14 @@ export default StyleSheet.create({
   },
   ///------------------------------------------------------------------------------------------///
   child: {
-    width: '100%',
-    height: height * 0.215,
+    width,
+    height: 'auto',
+    aspectRatio: 2.6 / 1
   },
   childSlide: {
     width,
-    height: height * 0.215,
+    height: 'auto',
+    aspectRatio: 2.6 / 1
   },
   ///------------------------------------------------------------------------------------------///
   Category: {
@@ -601,7 +603,8 @@ export default StyleSheet.create({
   CategoryProductImageHead: {
     marginTop: 5,
     width,
-    height: 65,
+    height: 'auto',
+    aspectRatio: 6 / 1 
   },
   CategoryProductImage: {
     width: 100,
@@ -630,7 +633,7 @@ export default StyleSheet.create({
   Banner_Bar_image: {
     width: width,
     height: 'auto',
-    aspectRatio: width * 8.5 / width
+    aspectRatio: 8.5 / 1
   },
   Product_for_you: {
     height: 370,

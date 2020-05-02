@@ -19,9 +19,13 @@ export default class FeedScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeGetSource: true,
       activeSelectedIndex: true,
       selectedIndex: 0
     };
+  }
+  getSource = (value) => {
+    this.setState({ activeGetSource: false, currentUser: value.currentUser, cokie: value.keycokie })
   }
   getSelectedIndex = (selectedIndex) => {
     this.setState({ selectedIndex });
@@ -31,14 +35,27 @@ export default class FeedScreen extends React.Component {
   }
   render() {
     const { navigation } = this.props
-    const { activeSelectedIndex, selectedIndex } = this.state
+    const { activeGetSource, activeSelectedIndex, currentUser, selectedIndex } = this.state
+    console.log('=============================================FeedScreen')
+    console.log('activeGetSource')
+    console.log(activeGetSource)
+    console.log('activeSelectedIndex')
+    console.log(activeSelectedIndex)
     return (
       <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
+        {
+          activeGetSource == true &&
+          <GetData key='GetData' getCokie={true} getUser={true} getSource={this.getSource.bind(this)} />
+        }
         <AppBar1 titleHead='ฟีด' storeBar menuBar navigation={navigation} />
-        <MenuBar getActiveSelectedIndex={this.getActiveSelectedIndex.bind(this)} sendText={this.getSelectedIndex.bind(this)} />
+        {
+          currentUser &&
+          <MenuBar getActiveSelectedIndex={this.getActiveSelectedIndex.bind(this)} sendText={this.getSelectedIndex.bind(this)} />
+        }
         <ScrollView>
-          <Button_Bar activeSelectedIndex={activeSelectedIndex} getActiveSelectedIndex={this.getActiveSelectedIndex.bind(this)}
-            selectedIndex={selectedIndex} navigation={navigation} />
+          <Button_Bar activeGetSource={activeGetSource} activeSelectedIndex={activeSelectedIndex} currentUser={currentUser}
+            getActiveSelectedIndex={this.getActiveSelectedIndex.bind(this)}
+            selectedIndex={currentUser ? selectedIndex : 1} navigation={navigation} />
         </ScrollView>
         <Toolbar navigation={navigation} />
         <ExitAppModule navigation={navigation} />
@@ -86,7 +103,6 @@ export class Button_Bar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeGetSource: true,
     }
   }
   getData = (dataService) => {
@@ -94,27 +110,29 @@ export class Button_Bar extends React.Component {
     getActiveSelectedIndex(false);
     this.setState({ dataService })
   }
-  getSource = (value) => {
-    this.setState({ activeGetSource: false, currentUser: value.currentUser, cokie: value.keycokie })
-  }
   render() {
-    const { activeSelectedIndex, navigation, selectedIndex } = this.props
-    const { activeGetSource, currentUser, dataService } = this.state
+    const { activeGetSource, activeSelectedIndex, currentUser, navigation, selectedIndex } = this.props
+    const { dataService } = this.state
     var uri = [finip,
       selectedIndex == 0 ? 'brand/feed_store_follow' : 'brand/feed_highlight'].join('/');
     var dataBody = {
       id_customer: currentUser && currentUser.id_customer ? currentUser.id_customer : ''
     }
+    console.log('=============================================Button_Bar')
+    console.log('activeGetSource')
+    console.log(activeGetSource)
+    console.log('activeSelectedIndex')
+    console.log(activeSelectedIndex)
+    console.log(uri)
+    console.log(dataBody)
     return (
       <View>
         {[
-          (activeGetSource == true || activeSelectedIndex == true) &&
+          ((activeGetSource == false && selectedIndex == 1) || activeSelectedIndex == true) &&
           <LoadingScreen key='LoadingScreen' />,
-          activeGetSource == false && activeSelectedIndex == true &&
+          (activeGetSource == false || selectedIndex == 1) && activeSelectedIndex == true &&
           <GetServices key='feed_store_follow' uriPointer={uri} dataBody={selectedIndex == 0 ? dataBody : undefined}
-            getDataSource={this.getData.bind(this)} showConsole='feed_store_follow' />,
-          activeGetSource == true &&
-          <GetData key='GetData' getCokie={true} getUser={true} getSource={this.getSource.bind(this)} />
+            getDataSource={this.getData.bind(this)} showConsole='feed_store_follow' />
         ]}
         <Highlights dataService={dataService && dataService.feed_follow} Follow navigation={navigation} />
       </View>

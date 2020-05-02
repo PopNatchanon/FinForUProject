@@ -479,7 +479,7 @@ export default StyleSheet.create({
   },
   TextInput: {
     width: '80%',
-    paddingVertical:1,
+    paddingVertical: 1,
   },
   Appbar: {
     borderColor: '#ECECEC',
@@ -496,7 +496,7 @@ export default StyleSheet.create({
   },
   ///------------------------------------------------------------------------------------------///
   child: {
-    width,
+    width: '100%',
     height: height * 0.215,
   },
   childSlide: {
@@ -628,8 +628,9 @@ export default StyleSheet.create({
     marginTop: 10,
   },
   Banner_Bar_image: {
-    width: '100%',
-    height: 55,
+    width: width,
+    height: 'auto',
+    aspectRatio: width * 8.5 / width
   },
   Product_for_you: {
     height: 370,

@@ -424,7 +424,7 @@ export class Menubar extends React.Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Banner
-export class Banner extends React.Component {
+export class Banner extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {

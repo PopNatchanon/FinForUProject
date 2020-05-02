@@ -25,7 +25,8 @@ export default class FeedScreen extends React.Component {
     };
   }
   getSource = (value) => {
-    this.setState({ activeGetSource: false, currentUser: value.currentUser, cokie: value.keycokie })
+    console.log(value)
+    this.setState({ activeGetSource: false, currentUser: value.currentUser, cokie: value.keycokie, activeLogin: value.activeLogin })
   }
   getSelectedIndex = (selectedIndex) => {
     this.setState({ selectedIndex });
@@ -35,7 +36,7 @@ export default class FeedScreen extends React.Component {
   }
   render() {
     const { navigation } = this.props
-    const { activeGetSource, activeSelectedIndex, currentUser, selectedIndex } = this.state
+    const { activeGetSource, activeLogin, activeSelectedIndex, currentUser, selectedIndex } = this.state
     console.log('=============================================FeedScreen')
     console.log('activeGetSource')
     console.log(activeGetSource)
@@ -45,6 +46,8 @@ export default class FeedScreen extends React.Component {
       <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
         {
           activeGetSource == true &&
+          <LoadingScreen key='LoadingScreen' />,
+          activeGetSource == true &&
           <GetData key='GetData' getCokie={true} getUser={true} getSource={this.getSource.bind(this)} />
         }
         <AppBar1 titleHead='ฟีด' storeBar menuBar navigation={navigation} />
@@ -53,9 +56,12 @@ export default class FeedScreen extends React.Component {
           <MenuBar getActiveSelectedIndex={this.getActiveSelectedIndex.bind(this)} sendText={this.getSelectedIndex.bind(this)} />
         }
         <ScrollView>
-          <Button_Bar activeGetSource={activeGetSource} activeSelectedIndex={activeSelectedIndex} currentUser={currentUser}
-            getActiveSelectedIndex={this.getActiveSelectedIndex.bind(this)}
-            selectedIndex={currentUser ? selectedIndex : 1} navigation={navigation} />
+          {
+            activeGetSource == false &&
+            <Button_Bar activeSelectedIndex={activeSelectedIndex}
+              currentUser={currentUser} getActiveSelectedIndex={this.getActiveSelectedIndex.bind(this)}
+              selectedIndex={currentUser ? selectedIndex : 1} navigation={navigation} />
+          }
         </ScrollView>
         <Toolbar navigation={navigation} />
         <ExitAppModule navigation={navigation} />
@@ -111,7 +117,7 @@ export class Button_Bar extends React.Component {
     this.setState({ dataService })
   }
   render() {
-    const { activeGetSource, activeSelectedIndex, currentUser, navigation, selectedIndex } = this.props
+    const { activeSelectedIndex, currentUser, navigation, selectedIndex } = this.props
     const { dataService } = this.state
     var uri = [finip,
       selectedIndex == 0 ? 'brand/feed_store_follow' : 'brand/feed_highlight'].join('/');
@@ -119,8 +125,6 @@ export class Button_Bar extends React.Component {
       id_customer: currentUser && currentUser.id_customer ? currentUser.id_customer : ''
     }
     console.log('=============================================Button_Bar')
-    console.log('activeGetSource')
-    console.log(activeGetSource)
     console.log('activeSelectedIndex')
     console.log(activeSelectedIndex)
     console.log(uri)
@@ -128,9 +132,9 @@ export class Button_Bar extends React.Component {
     return (
       <View>
         {[
-          ((activeGetSource == false && selectedIndex == 1) || activeSelectedIndex == true) &&
+          activeSelectedIndex == true &&
           <LoadingScreen key='LoadingScreen' />,
-          (activeGetSource == false || selectedIndex == 1) && activeSelectedIndex == true &&
+          activeSelectedIndex == true &&
           <GetServices key='feed_store_follow' uriPointer={uri} dataBody={selectedIndex == 0 ? dataBody : undefined}
             getDataSource={this.getData.bind(this)} showConsole='feed_store_follow' />
         ]}

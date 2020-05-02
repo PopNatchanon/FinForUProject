@@ -37,7 +37,7 @@ export default class Seller_Up_Product extends Component {
         <AppBar1 backArrow navigation={navigation} titleHead='เพิ่มสินค้า' saveBar />
         <ScrollView>
           <Seller_Up_Image />
-          <Seller_Up_ProductDetail />
+          <Seller_Up_ProductDetail navigation={navigation} />
         </ScrollView>
       </SafeAreaView>
     );
@@ -536,12 +536,12 @@ export class Seller_Up_ProductDetail extends Component {
           </ScrollView>
         </View>
         <View style={stylesSeller.BottomSheet_Botton}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => { this.SelectSheet.close(); }}>
             <View style={stylesSeller.BottomSheet_Botton_cancel}>
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ยกเลิก</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity activeOpacity={1} onPress={() => { [this.SelectSheet.close(), this.props.navigation.push('Seller_Topic', { selectedIndex: 13 })] }}>
             <View style={stylesSeller.BottomSheet_Botton_OK}>
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตกลง</Text>
             </View>

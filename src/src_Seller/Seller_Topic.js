@@ -40,58 +40,58 @@ export default class Seller_Topic extends Component {
         switch (selectedIndex) {
             case 0:
                 return (
-                    <SafeAreaView style={stylesMain.SafeAreaView}>
+                    <>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='จัดการโฆษณา' />
                         <Seller_Advertisement backArrow navigation={this.props.navigation} />
-                    </SafeAreaView>
+                    </>
                 )
             case 1:
                 return (
-                    <SafeAreaView style={stylesMain.SafeAreaView}>
+                    <>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='สถิติร้านร้านค้า' />
                         <Seller_Statistics />
-                    </SafeAreaView>
+                    </>
                 )
             case 2:
                 return (
-                    <SafeAreaView style={stylesMain.SafeAreaView}>
+                    <>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='คะแนนของฉัน' />
                         <ScrollView>
                             <Seller_Score navigation={this.props.navigation} />
                         </ScrollView>
-                    </SafeAreaView>
+                    </>
                 )
             case 3:
                 return (
-                    <SafeAreaView style={stylesMain.SafeAreaView}>
+                    <>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='แพคเกจปัจจุบันที่ใช้อยู่' />
                         <Seller_Advertisement_Packet backArrow navigation={this.props.navigation} />
-                    </SafeAreaView>
+                    </>
                 )
             case 4:
                 return (
-                    <SafeAreaView style={stylesMain.SafeAreaView}>
+                    <>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='จัดการโฆษณา' />
                         <Seller_Advertisement_PacketBuy navigation={this.props.navigation} />
-                    </SafeAreaView>
+                    </>
                 )
             case 5:
                 return (
-                    <SafeAreaView style={stylesMain.SafeAreaView}>
+                    <>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='ตอบกลับความคิดเห็น' />
                         <Seller_Comment_Reply />
-                    </SafeAreaView>
+                    </>
                 )
             case 6:
                 return (
-                    <SafeAreaView style={stylesMain.SafeAreaView}>
+                    <>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='FIN แคมเปญ' />
                         <Seller_Fin_Campaign navigation={this.props.navigation} />
-                    </SafeAreaView>
+                    </>
                 )
             case 7:
                 return (
-                    <SafeAreaView style={stylesMain.SafeAreaView}>
+                    <>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='FIN แคมเปญ' />
                         <View style={{ backgroundColor: '#FFFFFF' }}>
                             <View style={{ flexDirection: 'row', padding: 5, borderColor: '#EAEAEA', borderWidth: 1 }}>
@@ -111,25 +111,25 @@ export default class Seller_Topic extends Component {
                         <Seller_Fin_Campaign_Product />
                         <Seller_Fin_Campaign_Product />
                         <Seller_Fin_Campaign_ProductSelect />
-                    </SafeAreaView>
+                    </>
                 )
             case 8:
                 return (
-                    <SafeAreaView style={stylesMain.SafeAreaView}>
+                    <>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='รายได้ของฉัน' />
                         <My_income />
-                    </SafeAreaView>
+                    </>
                 )
             case 9:
                 return (
-                    <SafeAreaView style={stylesMain.SafeAreaView}>
+                    <>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='ถอนเงิน' />
                         <Withdraw_money navigation={this.props.navigation} />
-                    </SafeAreaView>
+                    </>
                 )
             case 10:
                 return (
-                    <SafeAreaView style={stylesMain.SafeAreaView}>
+                    <>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='ถอนเงิน' />
                         <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, , { margin: 5 }]}>รหัสผ่าน</Text>
@@ -149,33 +149,39 @@ export default class Seller_Topic extends Component {
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, , { color: '#FFFFFF' }]}>เข้าสู่ระบบ</Text>
                             </TouchableOpacity>
                         </View>
-                    </SafeAreaView>
+                    </>
                 )
             case 11:
                 return (
-                    <SafeAreaView style={stylesMain.SafeAreaView}>
+                    <>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='ถอนเงิน' />
                         <Confirm_Bank />
-                    </SafeAreaView>
+                    </>
                 )
             case 12:
                 return (
-                    <SafeAreaView style={stylesMain.SafeAreaView}>
+                    <>
                         <AppBar1 backArrow navigation={this.props.navigation} titleHead='ประวัติการถอนเงิน' />
                         <Withdrawal_history />
                         <Withdrawal_history />
                         <Withdrawal_history />
                         <Withdrawal_history />
-                    </SafeAreaView>
+                    </>
                 )
-
+            case 13:
+                return (
+                    <>
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='เพิ่มสินค้า' />
+                        <Up_Product_Select />
+                    </>
+                )
         }
     }
     render() {
         return (
-            <View style={stylesMain.SafeAreaView}>
+            <SafeAreaView style={stylesMain.SafeAreaView}>
                 {this.PathList()}
-            </View>
+            </SafeAreaView>
         );
     }
 }
@@ -885,6 +891,65 @@ export class Withdrawal_history extends Component {
                         </View>
                     </View>
                 }
+            </>
+        );
+    }
+}
+///----------------------------------------------------------------------------------------------->>>>
+export class Up_Product_Select extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
+    render() {
+        return (
+            <>
+                <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', paddingHorizontal: 10, backgroundColor: '#FFFFFF', marginTop: 5 }]}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>การตั้งค่าสำหรับทุกตัวเลือกสินค้า</Text>
+                    <TouchableOpacity>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,]}>แก้ไขแบบชุด</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', paddingHorizontal: 10, backgroundColor: '#FFFFFF', marginTop: 5 }]}>
+                    <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,]}>ตัวเลือกสินค้า</Text>
+                    </View>
+                    <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,]}>ราคา</Text>
+                    </View>
+                    <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,]}>คลัง</Text>
+                    </View>
+                </View>
+                <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>สี</Text>
+                </View>
+                <View style={{ backgroundColor: '#FFFFFF' }}>
+                    <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', paddingHorizontal: 10, backgroundColor: '#FFFFFF', marginTop: 5 }]}>
+                        <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ขาว</Text>
+                        </View>
+                        <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                            <View style={stylesSeller.SizeSheet_Boxsize}></View>
+                        </View>
+                        <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                            <View style={stylesSeller.SizeSheet_Boxsize}></View>
+                        </View>
+                    </View>
+                    <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', paddingHorizontal: 10, backgroundColor: '#FFFFFF', marginTop: 5 }]}>
+                        <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>แดง</Text>
+                        </View>
+                        <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                            <View style={stylesSeller.SizeSheet_Boxsize}></View>
+                        </View>
+                        <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                            <View style={stylesSeller.SizeSheet_Boxsize}></View>
+                        </View>
+                    </View>
+                </View>
             </>
         );
     }

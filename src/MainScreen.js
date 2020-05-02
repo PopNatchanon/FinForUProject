@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React from 'react';
 import {
-    Animated, BackHandler, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, Button,
+    Animated, BackHandler, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, Button, PixelRatio, StyleSheet
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import ActionButton from 'react-native-action-button';
@@ -83,8 +83,8 @@ export default class MainScreen extends React.Component {
                         // showConsole={'Main'}
                         />,
                     ]}
-                    <AppBar navigation={navigation} />
-                    <ScrollView>
+                    <AppBar navigation={navigation} style={{ flex: 5, }} />
+                    <ScrollView style={{ flex: 90, }} >
                         {/* <TouchableOpacity
                             onPress={() => navigation.push('MainScreen', { browerProps: finip })}>
                             <View style={{ width }}><Text>Web</Text></View>
@@ -138,7 +138,7 @@ export default class MainScreen extends React.Component {
                         <TodayProduct navigation={navigation} loadData={dataService.for_you2} />
                     </ScrollView>
                     <Botton_PopUp_FIN />
-                    <Toolbar navigation={navigation} />
+                    <Toolbar navigation={navigation} style={{ flex: 5, }} />
                     <ExitAppModule navigation={navigation} />
                 </SafeAreaView>
             );
@@ -177,8 +177,8 @@ export class GetData extends React.Component {
         const { getCokie, getSource, getUser, } = this.props
         const currentUser = await AsyncStorage.getItem('@MyKey')
         const autoLogin = await AsyncStorage.getItem('@MyLongin')
-        console.log('autoLogin')
-        console.log(autoLogin)
+        // console.log('autoLogin')
+        // console.log(autoLogin)
         var value = {}
         CookieManager.get(finip + '/auth/login_customer')
             .then((res) => {
@@ -478,6 +478,7 @@ export class AppBar1 extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            activeGetCurrentUser: true,
         };
     }
     navigationNavigateScreen = (value, value2) => {
@@ -492,6 +493,9 @@ export class AppBar1 extends React.Component {
                     navigation.popToTop() :
                     navigation.push(value, value2)
     }
+    getSource = (value) => {
+        this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser });
+    }
     setText = (text) => {
         this.setState({ text })
     }
@@ -501,9 +505,10 @@ export class AppBar1 extends React.Component {
     }
     render() {
         const {
-            backArrow, backArrowColor, ButtomDeleteAll, chatBar, colorBar, currentUser, deleteBar, getActivePost, goToTop, menuBar, postBar,
-            saveBar, searchBar, settingBar, storeBar, titleHead,
+            backArrow, backArrowColor, ButtomDeleteAll, chatBar, colorBar, deleteBar, getActivePost, goToTop, menuBar, postBar, saveBar,
+            searchBar, settingBar, storeBar, titleHead,
         } = this.props;
+        const { activeGetCurrentUser, currentUser, } = this.state
         return (
             <View style={
                 colorBar ?
@@ -511,6 +516,10 @@ export class AppBar1 extends React.Component {
                     menuBar ?
                         stylesStore.AppbarMenu :
                         stylesStore.Appbar}>
+                {
+                    activeGetCurrentUser == true &&
+                    <GetData getSource={this.getSource.bind(this)} getUser={true} key={'GetData'} />
+                }
                 <View style={stylesMain.FlexRow}>
                     {
                         backArrow &&
@@ -627,7 +636,6 @@ export class Slide extends React.PureComponent {
         this.state = {
             activeDataService: true,
             activeSlide: 0,
-            dataService: [],
         };
     }
     getData = (dataService) => {
@@ -650,12 +658,12 @@ export class Slide extends React.PureComponent {
         );
     }
     render() {
-        const { banner, loading } = this.props
+        const { banner } = this.props
         const { activeDataService, dataService, } = this.state
         var dataBody = {
             slide: 'banner'
         };
-        var uri = finip + '/home/home_mobile'
+        var uri = [finip, 'home/home_mobile'].join('/')
         return (
             <View>
                 {

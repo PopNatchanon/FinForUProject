@@ -88,7 +88,7 @@ export default class DealScreen extends React.Component {
   }
 }
 ///----------------------------------------------------------------------------------------------->>>> Slide
-export class Slide extends React.Component {
+export class Slide extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {

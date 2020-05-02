@@ -144,7 +144,7 @@ export default class DetailScreen extends React.Component {
   }
 }
 ///----------------------------------------------------------------------------------------------->>>> Detail_Image
-export class Detail_Image extends React.Component {
+export class Detail_Image extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -152,20 +152,6 @@ export class Detail_Image extends React.Component {
       imageLength: 1,
       imageLengthActive: 0,
     };
-  }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { dataService, navigation, setActive, setShowImage, showImage, } = this.props
-    const { activeSlide, imageLength, imageLengthActive, } = this.state
-    if (
-      ////>nextProps
-      dataService !== nextProps.dataService || navigation !== nextProps.navigation || setActive !== nextProps.setActive ||
-      setShowImage !== nextProps.setShowImage || showImage !== nextProps.showImage ||
-      ////>nextState
-      activeSlide !== nextState.activeSlide || imageLength !== nextState.imageLength || imageLengthActive !== nextState.imageLengthActive
-    ) {
-      return true
-    }
-    return false
   }
   setStateImageLength = (length) => {
     this.setState({ imageLength: length, imageLengthActive: 1 })

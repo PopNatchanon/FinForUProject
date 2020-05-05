@@ -7,7 +7,7 @@ import {
 import { CheckBox } from 'react-native-elements';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
-import { GiftedChat, Bubble, Send } from 'react-native-gifted-chat';
+// import { GiftedChat, Bubble, Send } from 'react-native-gifted-chat';
 import ImagePicker from 'react-native-image-crop-picker';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
@@ -25,7 +25,6 @@ import stylesProfile from '../../style/StylesProfileScreen'
 import { AppBar1, ExitAppModule } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';
-import reactNativeModalDropdown from 'react-native-modal-dropdown';
 ///----------------------------------------------------------------------------------------------->>>> Main
 
 export default class Business extends React.Component {

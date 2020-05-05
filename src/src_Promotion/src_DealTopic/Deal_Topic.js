@@ -24,8 +24,8 @@ import stylesTopic from '../../../style/styleTopic';
 import stylesProfile from '../../../style/StylesProfileScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { Button_Bar } from '../../HighlightScreen';
-import { GetServices, GetCoupon, TabBar, LoadingScreen } from '../../tools/Tools';
-import { TodayProduct, Slide, AppBar1, ExitAppModule, GetData } from '../../MainScreen';
+import { GetServices, GetCoupon, GetData, TabBar, LoadingScreen } from '../../tools/Tools';
+import { TodayProduct, Slide, AppBar1, ExitAppModule, } from '../../MainScreen';
 import { Store_Detail } from '../../Recommend_Store';
 import { ProductBox } from '../../tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip

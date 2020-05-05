@@ -21,10 +21,10 @@ import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topi
 import stylesProfile from '../../style/StylesProfileScreen';
 import stylesSeller from '../../style/styleSeller-src/styleSellerScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-///----------------------------------------------------------------------------------------------->>>> Ip
-///----------------------------------------------------------------------------------------------->>>> Main
 import { AppBar1 } from '../MainScreen';
+///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip } from '../navigator/IpConfig';
+///----------------------------------------------------------------------------------------------->>>> Main
 
 
 export default class Seller_Profile_Edit extends Component {

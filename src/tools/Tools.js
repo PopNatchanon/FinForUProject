@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
+import CookieManager from '@react-native-community/cookies';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import { WebView } from 'react-native-webview';
@@ -12,6 +13,7 @@ import ModalDropdown from 'react-native-modal-dropdown';
 import NumberFormat from 'react-number-format';
 import SlidingView from 'rn-sliding-view';
 import RNFetchBlob from 'rn-fetch-blob'
+import SplashScreen from 'react-native-splash-screen';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -26,7 +28,6 @@ import stylesMain from '../../style/StylesMainScreen';
 import stylesStore from '../../style/StylesStoreScreen';
 import stylesTopic from '../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { GetData } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Toolbar
@@ -707,6 +708,87 @@ export class TabBar extends React.Component {
         )
     }
 }
+///----------------------------------------------------------------------------------------------->>>> GetData
+export class GetData extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            activeLogin: true,
+        }
+    }
+    setStateLogin = (autoLogin) => {
+        // console.log('setStateLogin')
+        // console.log(autoLogin)
+        if (autoLogin) {
+            fetch(finip + '/auth/login_customer', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: autoLogin,
+            })
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    console.log('responseJson')
+                    console.log(responseJson)
+                    this.setState({ activeLogin: true })
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
+        } else {
+            this.setState({ activeLogin: false })
+        }
+    }
+    getDataAsync = async () => {
+        const { getCokie, getSource, getUser, } = this.props
+        const { activeLogin } = this.state
+        const currentUser = await AsyncStorage.getItem('@MyKey')
+        const autoLogin = await AsyncStorage.getItem('@MyLongin')
+        // console.log('autoLogin')
+        // console.log(autoLogin)
+        var value = {}
+        CookieManager.get(finip + '/auth/login_customer')
+            .then((res) => {
+                var keycokie = res.token
+                keycokie === undefined && autoLogin &&
+                    this.setStateLogin(autoLogin)
+                getCokie == true && (
+                    (
+                        keycokie ?
+                            (
+                                value.keycokie = keycokie
+                            ) : (
+                                value.keycokie = undefined
+                            )
+                    )
+                )
+                getUser == true &&
+                    (
+                        currentUser ?
+                            (
+                                value.currentUser = JSON.parse(currentUser)
+                            ) : (
+                                value.currentUser = undefined
+                            )
+                    );
+                activeLogin &&
+                    (
+                        value.activeLogin = activeLogin
+                    );
+                (activeLogin || (value.currentUser !== undefined || value.keycokie !== undefined)) &&
+                    getSource(value);
+            })
+    }
+    componentDidMount() {
+        this.getDataAsync()
+        SplashScreen.hide();
+    }
+    render() {
+        return <></>
+    }
+}
 ///----------------------------------------------------------------------------------------------->>>> GetServices
 export class GetServices extends React.Component {
     constructor(props) {
@@ -716,7 +798,7 @@ export class GetServices extends React.Component {
     }
     getDataSource = async () => {
         const {
-            FormData, Authorization, dataBody, uriPointer, getDataSource, nojson, noSendError, noStringify, showConsole,
+            Authorization, dataBody, uriPointer, getDataSource, nojson, showConsole,
         } = this.props
         showConsole && (
             console.log(showConsole),
@@ -735,10 +817,10 @@ export class GetServices extends React.Component {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': FormData ? 'application/x-www-form-urlencoded' : 'application/json',
+                'Content-Type': 'application/json',
                 'Authorization': Authorization
             },
-            body: noStringify ? JSON.parse(dataBody) : JSON.stringify(dataBody),
+            body: JSON.stringify(dataBody),
         })
             .then((response) => nojson ? response.text() : response.json())
             .then((responseJson) => {

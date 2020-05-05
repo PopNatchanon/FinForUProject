@@ -17,9 +17,9 @@ import stylesMain from '../../style/StylesMainScreen';
 import stylesProfile from '../../style/StylesProfileScreen';
 import ststylePromotionDeal from '../../style/stylePromotion-src/styleDealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, TodayProduct, ExitAppModule, GetData } from '../MainScreen';
+import { AppBar1, TodayProduct, ExitAppModule, } from '../MainScreen';
 import { Button_Bar, Slide } from './DealScreen';
-import { GetServices, ProductBox, TabBar, LoadingScreen, } from '../tools/Tools';
+import { GetData, GetServices, ProductBox, TabBar, LoadingScreen, } from '../tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main

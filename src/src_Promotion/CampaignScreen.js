@@ -13,9 +13,9 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 import ststylePromotionDeal from '../../style/stylePromotion-src/styleDealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule, Slide, GetData } from '../MainScreen';
+import { AppBar1, ExitAppModule, Slide, } from '../MainScreen';
 import { Button_Bar, } from './DealScreen';
-import { TabBar, GetServices, LoadingScreen, } from '../tools/Tools';
+import { TabBar, GetData, GetServices, LoadingScreen, } from '../tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main

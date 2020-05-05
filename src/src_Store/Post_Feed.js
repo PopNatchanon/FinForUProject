@@ -25,8 +25,8 @@ import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topi
 import stylesTopic from '../../style/styleTopic';
 import stylesProfile from '../../style/StylesProfileScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { GetServices, GetCoupon, TabBar, LoadingScreen, GetServicesBlob } from '../tools/Tools';
-import { TodayProduct, Slide, AppBar1, ExitAppModule, GetData } from '../MainScreen';
+import { GetServices, GetCoupon, TabBar, LoadingScreen, GetData, GetServicesBlob } from '../tools/Tools';
+import { TodayProduct, Slide, AppBar1, ExitAppModule, } from '../MainScreen';
 import { Store_Detail } from '../Recommend_Store';
 import { ProductBox } from '../tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip

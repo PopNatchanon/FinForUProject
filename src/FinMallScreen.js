@@ -16,9 +16,9 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, TodayProduct, ExitAppModule, Recommend_Brand, GetData } from './MainScreen';
+import { AppBar1, TodayProduct, ExitAppModule, Recommend_Brand, } from './MainScreen';
 import { Slide, } from './src_Promotion/DealScreen';
-import { GetServices, TabBar, ProductBox, SlideTab2, LoadingScreen } from './tools/Tools';
+import { GetData, GetServices, TabBar, ProductBox, SlideTab2, LoadingScreen } from './tools/Tools';
 import { Button_Bar, PricesSlide, SlideTab, } from './ExclusiveScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from './navigator/IpConfig';

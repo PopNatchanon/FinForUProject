@@ -19,8 +19,8 @@ import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule, Second_product, GetData, TodayProduct, } from '../MainScreen';
-import { GetCoupon, GetServices, ProductBox, LoadingScreen, } from '../tools/Tools';
+import { AppBar1, ExitAppModule, Second_product, TodayProduct, } from '../MainScreen';
+import { GetCoupon, GetData, GetServices, ProductBox, LoadingScreen, } from '../tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main

@@ -10,8 +10,8 @@ export const { width, height } = Dimensions.get('window');
 import stylesMain from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule, GetData } from './MainScreen';
-import { FeedBox, GetServices, TabBar, Toolbar, LoadingScreen } from './tools/Tools';
+import { AppBar1, ExitAppModule, } from './MainScreen';
+import { FeedBox, GetData, GetServices, TabBar, Toolbar, LoadingScreen } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main

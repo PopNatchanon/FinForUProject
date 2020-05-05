@@ -12,7 +12,6 @@ import { CheckBox } from 'react-native-elements';
 import CookieManager from '@react-native-community/cookies';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
-import ModalDropdown from 'react-native-modal-dropdown';
 import NumberFormat from 'react-number-format';
 import { SwipeListView } from '@nvthai/react-native-swipe-list-view';
 ///----------------------------------------------------------------------------------------------->>>> Icon

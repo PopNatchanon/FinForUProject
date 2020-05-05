@@ -20,8 +20,8 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesProfile from '../style/StylesProfileScreen'
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { ExitAppModule, GetData } from './MainScreen';
-import { GetCoupon, TabBar, Toolbar, GetServices, LoadingScreen } from './tools/Tools';
+import { ExitAppModule, } from './MainScreen';
+import { GetCoupon, GetData, TabBar, Toolbar, GetServices, LoadingScreen } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main

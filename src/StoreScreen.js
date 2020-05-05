@@ -17,8 +17,8 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar, ExitAppModule, GetData, } from './MainScreen';
-import { FeedBox, GetCoupon, GetServices, ProductBox, TabBar, LoadingScreen, } from './tools/Tools';
+import { AppBar, ExitAppModule, } from './MainScreen';
+import { FeedBox, GetCoupon, GetData, GetServices, ProductBox, TabBar, LoadingScreen, } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main

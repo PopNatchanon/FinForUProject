@@ -90,7 +90,7 @@ export class Button_bar extends Component {
                             dataService.purchase.map((value, index) => {
                                 return <Order_Me_Box dataService={value} key={index} navigation={navigation} />
                             }) :
-                            <View style={[stylesProfileTopic.products_pro, { flex: 1 }]}>
+                            <View style={[stylesProfileTopic.products_pro]}>
                                 <IconFeather name='edit' size={50} color='#000000' />
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>
                                     ยังไม่มีคำสั่งซื้อ</Text>
@@ -158,16 +158,16 @@ export class Order_Me_Box extends Component {
     }
     render() { // 3 // Review_order return_order detail_order // buy_again_order return_order
         const { dataService, } = this.props
-        const uri_image_store = finip + '/' + dataService.store_path + '/' + dataService.store_image
-        const uri_image_product = finip + '/' + dataService.path_product + '/' + dataService.image_product
+        const uri_image_Customer = finip + '/' + dataService.cus_imgpath + '/' + dataService.cus_img
+        const uri_image_product = finip + '/' + dataService.image_path + '/' + dataService.image_product
         return (
-            <View>
+            <>
                 <View style={stylesMain.FrameBackground}>
                     <View style={[stylesProfileTopic.Order_BoxStore]}>
                         <View style={stylesMain.FlexRow}>
                             <FastImage style={[stylesProfileTopic.Order_StorePro, stylesMain.ItemCenterVertical,]}
                                 source={{
-                                    uri: uri_image_store,
+                                    uri: uri_image_Customer,
                                 }}
                                 resizeMode={FastImage.resizeMode.contain} />
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesMain.ItemCenterVertical, {
@@ -176,45 +176,42 @@ export class Order_Me_Box extends Component {
                                 {dataService.customer_name}</Text>
                         </View>
                         {[
-                            dataService.status_purchase == 'wait' &&
-                            <TouchableOpacity key={'Review_order'} activeOpacity={1}
-                                onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 7 })}>
+                            dataService.purchase == 'wait' &&
+                            <TouchableOpacity key={'Review_order'} activeOpacity={1}>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical, {
                                     color: '#111', width: width * 0.3, textAlign: 'center', color: '#20BDA1'
-                                }]}>
-                                    รอชำระ
+                                }]}> รอชำระ
                                 </Text>
                             </TouchableOpacity>,
-                            dataService.status_purchase == 'paid' && (
-                                dataService.tracking_number == null ?
-                                    <Text key={'shipping_order'} style={[stylesFont.FontFamilyText, stylesFont.FontSize6,
-                                    stylesMain.ItemCenterVertical, {
-                                        color: '#111', width: width * 0.3, textAlign: 'center',
-                                    }]}>
-                                        {'เตรียมจัดส่ง'}</Text> :
-                                    <Text key={'shipping_order'} style={[stylesFont.FontFamilyText, stylesFont.FontSize6,
-                                    stylesMain.ItemCenterVertical, {
-                                        color: '#111', width: width * 0.3, textAlign: 'center',
-                                    }]}>
-                                        {'กำลังจัดส่ง\n'}<Text style={{ color: '#111' }}>[{dataService.tracking_number}]</Text></Text>
+                            dataService.purchase == 'paid_unsend' && (
+                                <Text key={'shipping_order'} style={[stylesFont.FontFamilyText, stylesFont.FontSize6,
+                                stylesMain.ItemCenterVertical, {
+                                    color: '#111', width: width * 0.3, textAlign: 'center',
+                                }]}>
+                                    เพิ่มเลขพัสดุ</Text>
                             ),
-                            dataService.status_purchase == 'accepted' &&
-                            <TouchableOpacity key={'Review_order'} activeOpacity={1}
-                                onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 7 })}>
+                            dataService.purchase == 'paid' && (
+                                <Text key={'shipping'} style={[stylesFont.FontFamilyText, stylesFont.FontSize6,
+                                stylesMain.ItemCenterVertical]}>
+                                    {dataService.tracking_number}
+                                </Text>
+                            ),
+                            dataService.purchase == 'accepted' &&
+                            <TouchableOpacity key={'Review'} activeOpacity={1}>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical, {
                                     color: '#20BDA1', width: width * 0.3, textAlign: 'center',
                                 }]}>
                                     <IconFeather name='edit' size={15} />
-                                    เขียนรีวิว
+                                    รอการรีวิว
                                 </Text>
                             </TouchableOpacity>,
-                            dataService.status_purchase == 'cancel' &&
+                            dataService.purchase == 'reviewed' &&
                             <TouchableOpacity key={'Review_order'} activeOpacity={1}
                                 onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 7 })}>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical, {
                                     color: '#111', width: width * 0.3, textAlign: 'center',
                                 }]}>
-                                    ยกเลิก
+                                    สำเร็จแล้ว
                                 </Text>
                             </TouchableOpacity>
                         ]}
@@ -229,7 +226,9 @@ export class Order_Me_Box extends Component {
                                     resizeMode={FastImage.resizeMode.contain} />
                             </View>
                             <View style={{ marginTop: 10, width: width * 0.5 }}>
-                                <Text numberOfLines={2} style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                                <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                                    {dataService.invoice_no}</Text>
+                                <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                                     {dataService.product_name}</Text>
                                 <Text numberOfLines={2} style={[stylesFont.FontFamilyText, stylesFont.FontSize7,]}>
                                     {dataService.detail_1 + ' ' + dataService.detail_2}</Text>
@@ -267,197 +266,23 @@ export class Order_Me_Box extends Component {
                                 } />
                         </View>
                         <View style={[stylesProfileTopic.Order_Box_priceText, { marginTop: 5, }]}>
-                            {[
-                                dataService.status_purchase == 'wait' &&
-                                <TouchableOpacity key={'payment_order'} onPress={this.navigationNavigateScreen.bind(this, 'Customer_Order',
-                                    { no_invoice: dataService.invoice_no })}>
-                                    <View style={[stylesProfileTopic.Order_Button, {
-                                        borderWidth: 1, borderColor: '#0A55A6', backgroundColor: '#0A55A6'
-                                    }]}>
-                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>
-                                            ดำเนินการชำระเงิน</Text>
-                                    </View>
-                                </TouchableOpacity>,
-                                dataService.status_purchase == 'wait' &&
-                                <TouchableOpacity key={'cancel_order'} onPress={this.navigationNavigateScreen.bind(this, 'CancelScreen', {
-                                    selectedIndex: 1
-                                })}>
-                                    <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
-                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยกเลิกสินค้า</Text>
-                                    </View>
-                                </TouchableOpacity>,
-                                dataService.status_purchase == 'accepted' &&
-                                <TouchableOpacity key={'return_order'} onPress={this.navigationNavigateScreen.bind(this, 'Return_products', {
-                                    selectedIndex: 1
-                                })}>
-                                    <View style={{ borderBottomColor: '#0A55A6', borderBottomWidth: 1, height: 20, }}>
-                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>
-                                            ส่งคำร้องคืนสินค้า</Text>
-                                    </View>
-                                </TouchableOpacity>,
-                                (dataService.status_purchase == 'paid' || dataService.status_purchase == 'accepted') &&
-                                <TouchableOpacity key={'detail_order'}
-                                    onPress={
-                                        this.navigationNavigateScreen.bind(this, 'Order_Detail',
-                                            {
-                                                id_cartdetail: dataService.id_cartdetail, insert_date: dataService.insert_date,
-                                                no_invoice: dataService.invoice_no
-                                            },
-                                            { consolename: 'detail_order', consolelog: dataService })}>
-                                    <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
-                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
-                                    </View>
-                                </TouchableOpacity>,
-                                dataService.status_purchase == 'cancel' &&
-                                <TouchableOpacity key={'buy_again_order'} >
-                                    <View style={[stylesProfileTopic.Order_Button, { backgroundColor: '#0A55A6' }]}>
-                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ซื้ออีกครั้ง</Text>
-                                    </View>
-                                </TouchableOpacity>
-                            ]}
+                            <TouchableOpacity onPress={() => this.props.navigation.push('Seller_Detail_Order', { selectedIndex: 0 })}>
+                                <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity >
+                                <View style={[stylesProfileTopic.Order_Button, {
+                                    borderWidth: 1, borderColor: '#0A55A6', backgroundColor: '#0A55A6'
+                                }]}>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>
+                                        ติดต่อผู้ซื้อ</Text>
+                                </View>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>
-            </View>
+            </>
         );
     }
 }
-///------------------------------------------------------------------------------///
-// export class Order_Me_Box extends Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//         };
-//     }
-//     navigationNavigateScreen = (value, value2, value3) => {
-//         const { navigation } = this.props
-//         value3 && (
-//             console.log(value3.consolename),
-//             console.log(value3.consolelog)
-//         )
-//         value == 'goBack' ?
-//             navigation.goBack() :
-//             value == 'LoginScreen' ? (
-//                 navigation.popToTop(),
-//                 navigation.replace(value, value2)
-//             ) :
-//                 navigation.push(value, value2)
-//     }
-//     render() {
-//         const { dataService, } = this.props
-//         // const { payment_order, Contact_buyer, detail_order, up_number, edit_number, reviews_order,
-//         //     end_order, cancel_order, detail_order_review, detail_order_cancel, Cause_cancel,
-//         //     } = this.props
-//         const uri_image_store = finip + '/' + dataService.store_path + '/' + dataService.store_image
-//         const uri_image_product = finip + '/' + dataService.path_product + '/' + dataService.image_product
-//         console.log('----------------Order_Me_Box---------------')
-//         console.log(dataService)
-//         return (
-//             <View>
-//                 <View style={stylesMain.FrameBackground}>
-//                     <View style={{ height: 50, width: '100%', flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 10, borderColor: '#EAEAEA', borderBottomWidth: 1, }}>
-//                         <View style={stylesMain.FlexRow}>
-//                             <FastImage style={stylesProfileTopic.Order_StorePro}
-//                                 source={{
-//                                     uri: uri_image_store,
-//                                 }}
-//                                 resizeMode={FastImage.resizeMode.contain} />
-//                             />
-//                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { margin: 10, }]}>{dataService.name}</Text>
-//                         </View>
-//                         {
-//                             dataService.status_purchase == 'wait' &&
-//                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { margin: 10, color: '#20BDA1' }]}>ยังไม่ชำระ</Text>
-//                         }{
-//                             up_number &&
-//                             <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 10 })}>
-//                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { margin: 10, color: '#06BBBB' }]}>เพิ่มเลขพัสดุ</Text>
-//                             </TouchableOpacity>
-//                         }{
-//                             edit_number &&
-//                             <View style={stylesMain.FlexRow}>
-//                                 <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 11 })}>
-//                                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { margin: 10, color: '#06BBBB' }]}>Edit</Text>
-//                                 </TouchableOpacity>
-//                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { margin: 10, color: '#D6D6D6' }]}>tnt1237174823403268</Text>
-//                             </View>
-//                         }{
-//                             reviews_order &&
-//                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { margin: 10, color: '#20BDA1' }]}>รอการรีวิว</Text>
-//                         }{
-//                             end_order &&
-//                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { margin: 10, color: '#20BDA1' }]}>สำเร็จแล้ว</Text>
-//                         }{
-//                             cancel_order &&
-//                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { margin: 10, color: '#20BDA1' }]}>ถูกยกเลิก</Text>
-//                         }
-//                     </View>
-//                     <View style={{ height: 130, flexDirection: 'row', justifyContent: 'space-between', padding: 10, }}>
-//                         <View style={stylesMain.FlexRow}>
-//                             <View style={stylesProfileTopic.Order_Product_Pro}>
-//                                 <FastImage style={stylesMain.BoxProduct1Image}
-//                                     source={{
-//                                         uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
-//                                     }}
-//                                 />
-//                             </View>
-//                             <View>
-//                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>หมายเลขคำสั่งซื้อ : 2223994239012</Text>
-//                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
-//                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A2A2A2' }]}>ตัวเลือกสินค้า:สีแดง</Text>
-//                                 {
-//                                     Cause_cancel &&
-//                                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>เหตุผลยกเลิกสินค้า :เนื่องจากเปลี่ยนใจ</Text>
-//                                 }
-//                                 <Text>x 1</Text>
-//                             </View>
-//                         </View>
-//                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#0A55A6' }]}>฿10,000.00</Text>
-//                     </View>
-//                     <View style={{ borderColor: '#EAEAEA', borderTopWidth: 1, alignItems: 'flex-end', justifyContent: 'center', padding: 10, height: 80 }}>
-//                         <View style={stylesProfileTopic.Order_Box_price}>
-//                             <View style={stylesProfileTopic.Order_Box_priceText}>
-//                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยอดคำสั่งซื้อทั้งหมด</Text>
-//                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, color: '#0A55A6' }]}>฿ 10,000.00</Text>
-//                             </View>
-//                             <View style={[stylesProfileTopic.Order_Box_priceText, { marginTop: 5, }]}>
-//                                 {
-//                                     detail_order &&
-//                                     <TouchableOpacity onPress={() => this.props.navigation.push('Seller_Detail_Order', { selectedIndex: 0 })}>
-//                                         <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
-//                                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
-//                                         </View>
-//                                     </TouchableOpacity>
-//                                 }{
-//                                     detail_order_review &&
-//                                     <TouchableOpacity onPress={() => this.props.navigation.push('Seller_Detail_Order', { selectedIndex: 1 })}>
-//                                         <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
-//                                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
-//                                         </View>
-//                                     </TouchableOpacity>
-//                                 }{
-//                                     detail_order_cancel &&
-//                                     <TouchableOpacity onPress={() => this.props.navigation.push('Seller_Return', { selectedIndex: 1 })}>
-//                                         <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
-//                                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
-//                                         </View>
-//                                     </TouchableOpacity>
-//                                 }{
-//                                     Contact_buyer &&
-//                                     <TouchableOpacity>
-//                                         <View style={[stylesProfileTopic.Order_Button, { backgroundColor: '#0A55A6' }]}>
-//                                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ติดต่อผู้ซื้อ</Text>
-//                                         </View>
-//                                     </TouchableOpacity>
-//                                 }
-//                             </View>
-//                         </View>
-//                     </View>
-//                 </View>
-//             </View>
-//         );
-//     }
-// }
-///------------------------------------------------------------------------------///
-
-

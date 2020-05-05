@@ -654,12 +654,12 @@ export class Slide extends React.PureComponent {
         this.setState({ activeSlide })
     }
     _renderItem = item => {
-        var dataMySQL = [finip, item.image_path, 'mobile', item.image].join('/');
+        var dataMySQL = [finip, item.image_path, item.image].join('/');
         return (
             <View style={stylesMain.child} key={item.id}>
                 <FastImage
                     source={{
-                        uri: dataMySQL,
+                        // uri: dataMySQL,
                     }}
                     style={stylesMain.child}
                     resizeMode={FastImage.resizeMode.contain} />
@@ -903,7 +903,7 @@ export class Popular_store extends React.Component {
                             <FastImage
                                 style={stylesMain.BoxStore1Image}
                                 source={{
-                                    uri: dataMySQL,
+                                    // uri: dataMySQL,
                                     width: (width * 1 / 2) - 9,
                                     height: 100,
                                 }}
@@ -1280,7 +1280,7 @@ export class PromotionPopular extends React.Component {
                         <View style={[stylesMain.BoxStore2Box2]}>
                             <FastImage
                                 source={{
-                                    uri: dataMySQL,
+                                    // uri: dataMySQL,
                                     width: 160,
                                     height: 80,
                                 }}
@@ -1429,7 +1429,7 @@ export class NewStore extends React.Component {
                         <View style={stylesMain.BoxStore1Box}>
                             <FastImage
                                 source={{
-                                    uri: dataMySQL,
+                                    // uri: dataMySQL,
                                 }}
                                 style={stylesMain.BoxStore1Image}
                                 resizeMode={FastImage.resizeMode.stretch} />
@@ -1526,7 +1526,7 @@ export class CategoryProduct extends React.Component {
                                 { id_type: item.id_type })}>
                                 <FastImage
                                     source={{
-                                        uri: dataMySQL,
+                                        // uri: dataMySQL,
                                     }}
                                     style={[stylesMain.CategoryProductImageHead]}
                                     resizeMode={FastImage.resizeMode.cover} />
@@ -1626,7 +1626,7 @@ export class CategoryProductSubStore extends React.PureComponent {
                 <View style={[stylesMain.CategoryProductStoreBox]}>
                     <FastImage
                         source={{
-                            uri: dataMySQL,
+                            // uri: dataMySQL,
                             width: '98%',
                             height: 90,
                         }}
@@ -1636,7 +1636,7 @@ export class CategoryProductSubStore extends React.PureComponent {
                 <View style={[stylesMain.CategoryProductStoreBox]}>
                     <FastImage
                         source={{
-                            uri: dataMySQL2,
+                            // uri: dataMySQL2,
                             width: '98%',
                             height: 90,
                         }}
@@ -1711,7 +1711,7 @@ export class CategoryProductSubPromotion extends React.Component {
                     <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, }]} key={index}>
                         <FastImage
                             source={{
-                                uri: dataMySQL,
+                                // uri: dataMySQL,
                                 width: width * 0.55,
                                 height: 105,
                             }}
@@ -1730,7 +1730,7 @@ export class CategoryProductSubPromotion extends React.Component {
                     <View style={[stylesMain.BoxStore1Box3, { borderWidth: 0, }]} key={index}>
                         <FastImage
                             source={{
-                                uri: dataMySQL,
+                                // uri: dataMySQL,
                                 width: width * 0.40,
                                 height: 105,
                             }}

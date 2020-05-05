@@ -326,6 +326,8 @@ export default StyleSheet.create({
         height: 80,
         width: 80,
         margin: 10,
+        borderColor:'#EAEAEA',
+        borderWidth:1,
     },
     Order_Box_price: {
         borderColor: '#EAEAEA',
@@ -339,12 +341,10 @@ export default StyleSheet.create({
     ///-----------------------------------Return_products-----------------------------------///
     // Return_products_pro Class
     products_pro: {
-        backgroundColor: '#FFFFFF',
         marginTop: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        height: 700,
-    },
+        height: height * 0.5,    },
     // Return_products_From Class
     Return: {
         height: 130,

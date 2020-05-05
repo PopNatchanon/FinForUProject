@@ -492,7 +492,7 @@ export class Seller_Up_ProductDetail extends Component {
                     return (
                       <View key={index} style={stylesSeller.SelectSheet_TextInput}>
                         <TextInput
-                          style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { textAlign: 'center', textAlignVertical: 'center' }]}
+                          style={[stylesFont.FontFamilyText, stylesFont.FontSize5,{width:80 ,textAlign:'center'}]}
                           placeholder="สี"
                           maxLength={10}
                           onChangeText={(value) => this.setStateValue(value, index)}>
@@ -502,7 +502,7 @@ export class Seller_Up_ProductDetail extends Component {
                   }) : <></>,
                 valueNumber.length < 20 &&
                 <TouchableOpacity onPress={this.setStateInput.bind(this)}
-                  key='addInput' style={stylesSeller.SelectSheet_TextInput}>
+                  key='addInput' style={[stylesSeller.SelectSheet_TextInput, { height: 50 }]}>
                   <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>+เพิ่ม</Text>
                 </TouchableOpacity>
               ]}
@@ -518,7 +518,7 @@ export class Seller_Up_ProductDetail extends Component {
                     return (
                       <View style={stylesSeller.SelectSheet_TextInput}>
                         <TextInput
-                          style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { textAlign: 'center', textAlignVertical: 'center' }]}
+                          style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { textAlign: 'center', textAlignVertical: 'center', }]}
                           placeholder="ขนาด"
                           maxLength={10}
                           onChangeText={(value) => this.setStateValue2(value, index)}>
@@ -528,7 +528,7 @@ export class Seller_Up_ProductDetail extends Component {
                   }) : <></>,
                 valueNumber2.length < 20 &&
                 <TouchableOpacity onPress={this.setStateInput2.bind(this)}
-                  key='addInput' style={stylesSeller.SelectSheet_TextInput}>
+                  key='addInput' style={[stylesSeller.SelectSheet_TextInput,{ height: 50 }]}>
                   <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>+เพิ่ม</Text>
                 </TouchableOpacity>
               ]}

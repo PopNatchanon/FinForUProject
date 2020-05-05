@@ -12,8 +12,8 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule, GetData } from './MainScreen';
-import { ProductBox, LoadingScreen, GetServices, } from './tools/Tools';
+import { AppBar1, ExitAppModule, } from './MainScreen';
+import { ProductBox, LoadingScreen, GetData, GetServices, } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main

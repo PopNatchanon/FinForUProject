@@ -22,8 +22,8 @@ import stylesMain from '../../../style/StylesMainScreen';
 import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
 import stylesLogin from '../../../style/stylesLoginScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule, GetData } from '../../MainScreen';
-import { GetServices, GetServicesBlob } from '../../tools/Tools';
+import { AppBar1, ExitAppModule, } from '../../MainScreen';
+import { GetData, GetServices, GetServicesBlob } from '../../tools/Tools';
 import { Seller_SettingImage } from '../../src_Seller/Seller_Profile_Edit';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../navigator/IpConfig';

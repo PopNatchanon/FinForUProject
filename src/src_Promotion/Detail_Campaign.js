@@ -13,10 +13,10 @@ import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, Slide, TodayProduct, ExitAppModule, GetData } from '../MainScreen';
+import { AppBar1, Slide, TodayProduct, ExitAppModule, } from '../MainScreen';
 import { Button_Bar } from '../HighlightScreen';
 import { Store_Sale } from './The_BestFinScreen';
-import { GetCoupon, GetServices, ProductBox } from '../tools/Tools';
+import { GetCoupon, GetData, GetServices, ProductBox } from '../tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '.././navigator/IpConfig';
 import StylesMainScreen from '../../style/StylesMainScreen';

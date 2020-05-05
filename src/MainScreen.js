@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React from 'react';
 import {
-    Animated, BackHandler, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, Button, PixelRatio, StyleSheet
+    Animated, BackHandler, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, YellowBox
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import ActionButton from 'react-native-action-button';
@@ -14,6 +14,7 @@ export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 import { Notifications } from 'react-native-notifications';
+import NumberFormat from 'react-number-format';
 import SkeletonContent from "react-native-skeleton-content-nonexpo";
 import SplashScreen from 'react-native-splash-screen';
 import SlidingView from 'rn-sliding-view';
@@ -32,8 +33,7 @@ import stylesMain from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { BrowerScreen, GetServices, LoadingScreen, ProductBox, Toolbar, TabBar, } from './tools/Tools';
-import NumberFormat from 'react-number-format';
+import { BrowerScreen, GetServices, GetData, ProductBox, Toolbar, TabBar, LoadingScreen, } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -49,180 +49,62 @@ export default class MainScreen extends React.PureComponent {
         };
     }
     getData = (dataService) => {
-        this.setState({ dataService, activeDataService: false })
+        this.setState({ dataService, activeDataService: false });
     }
     getActiveDataService = (activeFlashSale) => {
-        this.setState({ activeFlashSale })
+        this.setState({ activeFlashSale });
     }
     render() {
-        const { navigation } = this.props
-        const { activeDataService, activeFlashSale, currentUser, dataService, } = this.state
-        const browerProps = navigation.getParam('browerProps')
-        var uri = finip + '/home/publish_mobile'
-        console.log('==============================================MainScreen')
-        console.log('activeDataService')
-        console.log(activeDataService)
-        console.log('activeFlashSale')
-        console.log(activeFlashSale)
-        return browerProps ?
-            ([
-                <View style={{ height: 50, width }} key={'AppBar1'}>
-                    <View style={stylesMain.ItemCenterVertical}>
-                        <AppBar1 backArrow colorBar='#fff' backArrowColor='#111111' navigation={navigation} />
-                    </View>
-                </View>,
-                <BrowerScreen url={browerProps} key={'BrowerScreen'} />
-            ]) :
-            (
-                <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
-                    {[
-                        // (activeDataService == true || activeFlashSale == true) &&
-                        // <LoadingScreen key='LoadingScreen' />,
-                        activeDataService == true &&
-                        <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} key={'activeDataService'}
-                        // showConsole={'Main'}
-                        />,
-                    ]}
-                    <AppBar navigation={navigation} style={{ flex: 5, }} />
-                    <ScrollView style={{ flex: 90, }} >
-                        {/* <TouchableOpacity
-                            onPress={() => navigation.push('MainScreen', { browerProps: finip })}>
-                            <View style={{ width }}><Text>Web</Text></View>
-                        </TouchableOpacity> */}
-                        {/* <View style={{ flexDirection: 'row' }}>
-                            <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={['#4c669f', '#ECECEC', '#554682']}
-                                style={{
-                                    flex: 1,
-                                    paddingLeft: 15,
-                                    paddingRight: 15,
-                                    borderRadius: 5
-                                }}>
-                                <Text style={{
-                                    fontSize: 18,
-                                    fontFamily: 'Gill Sans',
-                                    textAlign: 'center',
-                                    margin: 10,
-                                    color: '#ffffff',
-                                    backgroundColor: 'transparent',
-                                }}>
-                                    Sign in with Facebook</Text>
-                            </LinearGradient>
-                        </View> */}
-                        <Slide />
-                        <Category navigation={navigation} />
-                        <Button_Bar navigation={navigation} />
-                        <FlashSale navigation={navigation} activeDataService={activeFlashSale}
-                            getActiveDataService={this.getActiveDataService.bind(this)} />
-                        <Recommend_Brand navigation={navigation} loadData={dataService.brand} />
-                        <BannerBar_TWO />
-                        <Exclusive navigation={navigation} loadData={dataService.exclusive} />
-                        <NewStore navigation={navigation} loadData={dataService.dont_miss} />
-                        <Fin_Mall navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />
-                        <BannerBar_ONE />
-                        <Highlight navigation={navigation} loadData={dataService.hi_week} />
-                        <PromotionPopular navigation={navigation} loadData={dataService.recommend_store} />
-                        <Popular_store navigation={navigation} loadData={dataService.store_good} />
-                        <Popular_product navigation={navigation} loadData={{
-                            product_hit: dataService.product_hit, best_price: dataService.best_price,
-                            best_sale: dataService.best_sale, best_cool: dataService.best_cool
-                        }} />
-                        <Product_for_you navigation={navigation} loadData={dataService.for_you} />
-                        <CategoryProduct navigation={navigation} />
-                        <Second_product navigation={navigation} loadData={{
-                            product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
-                            list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3,
-                            mobile_bar: dataService.mobile_bar, mobile_slide: dataService.mobile_slide,
-                        }} />
-                        <BannerBar_THREE />
-                        <FIN_Supermarket navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />
-                        <TodayProduct navigation={navigation} loadData={dataService.for_you2} />
-                    </ScrollView>
-                    <Botton_PopUp_FIN />
-                    <Toolbar navigation={navigation} style={{ flex: 5, }} />
-                    <ExitAppModule navigation={navigation} />
-                </SafeAreaView>
-            );
-    }
-}
-///----------------------------------------------------------------------------------------------->>>> GetData
-export class GetData extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            activeLogin: true,
-        }
-    }
-    setStateLogin = (autoLogin) => {
-        console.log('setStateLogin')
-        console.log(autoLogin)
-        if (autoLogin) {
-            fetch(finip + '/auth/login_customer', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: autoLogin,
-            })
-                .then((response) => response.json())
-                .then((responseJson) => {
-                    console.log('responseJson')
-                    console.log(responseJson)
-                    this.setState({ activeLogin: true })
-                })
-                .catch((error) => {
-                    console.error(error);
-                })
-        } else {
-            this.setState({ activeLogin: false })
-        }
-    }
-    getDataAsync = async () => {
-        const { getCokie, getSource, getUser, } = this.props
-        const { activeLogin } = this.state
-        const currentUser = await AsyncStorage.getItem('@MyKey')
-        const autoLogin = await AsyncStorage.getItem('@MyLongin')
-        // console.log('autoLogin')
-        // console.log(autoLogin)
-        var value = {}
-        CookieManager.get(finip + '/auth/login_customer')
-            .then((res) => {
-                var keycokie = res.token
-                keycokie === undefined && autoLogin &&
-                    this.setStateLogin(autoLogin)
-                getCokie == true && (
-                    (
-                        keycokie ?
-                            (
-                                value.keycokie = keycokie
-                            ) : (
-                                value.keycokie = undefined
-                            )
-                    )
-                )
-                getUser == true &&
-                    (
-                        currentUser ?
-                            (
-                                value.currentUser = JSON.parse(currentUser)
-                            ) : (
-                                value.currentUser = undefined
-                            )
-                    );
-                activeLogin &&
-                    (
-                        value.activeLogin = activeLogin
-                    );
-                (activeLogin || (value.currentUser !== undefined || value.keycokie !== undefined)) &&
-                    getSource(value);
-            })
-    }
-    componentDidMount() {
-        this.getDataAsync()
-        SplashScreen.hide();
-    }
-    render() {
-        return <></>
+        const { navigation } = this.props;
+        const { activeDataService, activeFlashSale, dataService, } = this.state;
+        const browerProps = navigation.getParam('browerProps');
+        var uri = [finip, 'home/publish_mobile'].join('/');
+        return (
+            <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
+                {[
+                    (activeDataService == true) &&
+                    <LoadingScreen key='LoadingScreen' />,
+                    activeDataService == true &&
+                    <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} key={'activeDataService'}
+                    // showConsole={'Main'}
+                    />,
+                ]}
+                <AppBar navigation={navigation} style={{ flex: 5, }} />
+                <ScrollView style={{ flex: 90, }} >
+                    <Slide />
+                    <Category navigation={navigation} />
+                    <Button_Bar navigation={navigation} />
+                    <FlashSale navigation={navigation} activeDataService={activeFlashSale}
+                        getActiveDataService={this.getActiveDataService.bind(this)} />
+                    <Recommend_Brand navigation={navigation} loadData={dataService.brand} />
+                    <BannerBar_TWO />
+                    <Exclusive navigation={navigation} loadData={dataService.exclusive} />
+                    <NewStore navigation={navigation} loadData={dataService.dont_miss} />
+                    <Fin_Mall navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />
+                    <BannerBar_ONE />
+                    <Highlight navigation={navigation} loadData={dataService.hi_week} />
+                    <PromotionPopular navigation={navigation} loadData={dataService.recommend_store} />
+                    <Popular_store navigation={navigation} loadData={dataService.store_good} />
+                    <Popular_product navigation={navigation} loadData={{
+                        product_hit: dataService.product_hit, best_price: dataService.best_price,
+                        best_sale: dataService.best_sale, best_cool: dataService.best_cool
+                    }} />
+                    <Product_for_you navigation={navigation} loadData={dataService.for_you} />
+                    <CategoryProduct navigation={navigation} />
+                    <Second_product navigation={navigation} loadData={{
+                        product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
+                        list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3,
+                        mobile_bar: dataService.mobile_bar, mobile_slide: dataService.mobile_slide,
+                    }} />
+                    <BannerBar_THREE />
+                    <FIN_Supermarket navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />
+                    <TodayProduct navigation={navigation} loadData={dataService.for_you2} />
+                </ScrollView>
+                <Botton_PopUp_FIN />
+                <Toolbar navigation={navigation} style={{ flex: 5, }} />
+                <ExitAppModule navigation={navigation} />
+            </SafeAreaView>
+        );
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> ExitAppModule
@@ -236,6 +118,7 @@ export class ExitAppModule extends React.Component {
         this.transformValue = new Animated.Value(100)
     }
     componentDidMount() {
+        YellowBox.ignoreWarnings(["Require cycle:"]);
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton.bind(this));
     }
     componentWillUnmount() {
@@ -686,6 +569,21 @@ export class Slide extends React.PureComponent {
                     autoplay
                     autoplayInterval={3000}
                     pagination={PaginationLight} />
+                {/* {
+                    dataService && dataService.map((item) => {
+                        var dataMySQL = [finip, item.image_path, 'mobile', item.image].join('/');
+                        return (
+                            <View style={stylesMain.child} key={item.id}>
+                                <FastImage
+                                    source={{
+                                        uri: dataMySQL,
+                                    }}
+                                    style={stylesMain.child}
+                                    resizeMode={FastImage.resizeMode.contain} />
+                            </View>
+                        );
+                    })
+                } */}
             </View>
         );
     }

@@ -12,9 +12,9 @@ import IconEntypo from 'react-native-vector-icons/Entypo';
 import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar, BannerBar_THREE, ExitAppModule, TodayProduct, GetData, } from './MainScreen';
+import { AppBar, BannerBar_THREE, ExitAppModule, TodayProduct, } from './MainScreen';
 import { Button_Bar, } from './ExclusiveScreen';
-import { GetServices, SlideTab2, } from './tools/Tools'
+import { GetData, GetServices, SlideTab2, } from './tools/Tools'
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main

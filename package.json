@@ -18,12 +18,13 @@
     "@nvthai/react-native-swipe-list-view": "^1.5.16",
     "@react-native-community/async-storage": "^1.8.1",
     "@react-native-community/cookies": "^2.0.7",
+    "bufferutil": "^4.0.1",
     "native-base": "^2.13.12",
     "omise-react-native": "0.0.8",
     "radio-buttons-react-native": "^1.0.3",
-    "react": "16.9.0",
+    "react": "16.11.0",
     "react-dom": "^16.13.0",
-    "react-native": "^0.61.5",
+    "react-native": "0.62.2",
     "react-native-action-button": "^2.8.5",
     "react-native-animatable": "^1.3.3",
     "react-native-datepicker": "^1.7.2",
@@ -32,11 +33,10 @@
     "react-native-elements": "^1.2.7",
     "react-native-fast-image": "^7.0.2",
     "react-native-gesture-handler": "^1.6.0",
-    "react-native-gifted-chat": "^0.13.0",
     "react-native-image-crop-picker": "^0.28.0",
     "react-native-image-picker": "^2.3.1",
     "react-native-linear-gradient": "^2.5.6",
-    "react-native-modal-dropdown": "github:sohobloo/react-native-modal-dropdown#pull/238/head",
+    "react-native-modal-dropdown": "github:sohobloo/react-native-modal-dropdown#pull/244/head",
     "react-native-notifications": "^3.1.4",
     "react-native-raw-bottom-sheet": "^2.0.6",
     "react-native-reanimated": "^1.7.0",
@@ -56,7 +56,8 @@
     "react-number-format": "^4.4.1",
     "rn-fetch-blob": "^0.12.0",
     "rn-sliding-view": "^1.1.1",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "utf-8-validate": "^5.0.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
@@ -64,11 +65,11 @@
     "@babel/preset-flow": "^7.8.3",
     "@babel/runtime": "^7.8.7",
     "@react-native-community/eslint-config": "^0.0.5",
-    "babel-jest": "^24.9.0",
+    "babel-jest": "^25.5.1",
     "eslint": "^5.16.0",
-    "jest": "^24.9.0",
-    "metro-react-native-babel-preset": "^0.56.4",
-    "react-test-renderer": "16.9.0"
+    "jest": "^25.5.4",
+    "metro-react-native-babel-preset": "^0.58.0",
+    "react-test-renderer": "16.11.0"
   },
   "jest": {
     "preset": "react-native"

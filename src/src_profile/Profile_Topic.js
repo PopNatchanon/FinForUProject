@@ -7,7 +7,7 @@ import {
 import { CheckBox } from 'react-native-elements';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
-import { GiftedChat, Bubble, Send } from 'react-native-gifted-chat';
+// import { GiftedChat, Bubble, Send } from 'react-native-gifted-chat';
 import ImagePicker from 'react-native-image-crop-picker';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
@@ -22,8 +22,8 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule, GetData, TodayProduct } from '../MainScreen';
-import { GetServices, LoadingScreen } from '../tools/Tools';
+import { AppBar1, ExitAppModule, TodayProduct } from '../MainScreen';
+import { GetData, GetServices, LoadingScreen } from '../tools/Tools';
 import { PopularProduct } from '../StoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';

@@ -14,8 +14,8 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> tools
-import { AppBar, ExitAppModule, GetData } from './MainScreen';
-import { GetServices, ProductBox, LoadingScreen } from './tools/Tools';
+import { AppBar, ExitAppModule, } from './MainScreen';
+import { GetData, GetServices, ProductBox, LoadingScreen } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> ip
 import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -256,7 +256,7 @@ export class Store_Detail extends React.Component {
                                 </View>
                                 <View style={stylesTopic.Store_BoxIcon}>
                                     <TouchableOpacity style={stylesTopic.Store_Icon} onPress={this.onShare}>
-                                    <IconEntypo  name='share' size={20} />
+                                        <IconEntypo name='share' size={20} />
                                         <Text style={stylesFont.FontFamilyText}> แชร์</Text>
                                     </TouchableOpacity>
                                 </View>

@@ -1,7 +1,8 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React from 'react';
 import {
-    Animated, BackHandler, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, YellowBox
+    Animated, BackHandler, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, YellowBox,
+    Image
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import ActionButton from 'react-native-action-button';
@@ -97,7 +98,7 @@ export default class MainScreen extends React.PureComponent {
                         mobile_bar: dataService.mobile_bar, mobile_slide: dataService.mobile_slide,
                     }} />
                     <BannerBar_THREE />
-                    <FIN_Supermarket navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />
+                    {/* <FIN_Supermarket navigation={navigation} loadData={{ product_hit: dataService.product_hit }} /> */}
                     <TodayProduct navigation={navigation} loadData={dataService.for_you2} />
                 </ScrollView>
                 <Botton_PopUp_FIN />
@@ -528,6 +529,7 @@ export class Slide extends React.PureComponent {
         this.state = {
             activeDataService: true,
             activeSlide: 0,
+            dataService: [],
         };
     }
     getData = (dataService) => {
@@ -537,25 +539,31 @@ export class Slide extends React.PureComponent {
         this.setState({ activeSlide })
     }
     _renderItem = item => {
-        var dataMySQL = [finip, item.image_path, item.image].join('/');
+        var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
+        // var dataMySQL = [finip, item.image_path, item.image].join('/');
         return (
             <View style={stylesMain.child} key={item.id}>
-                <FastImage
+                <Image
                     source={{
-                        // uri: dataMySQL,
+                        uri: dataMySQL,
                     }}
                     style={stylesMain.child}
-                    resizeMode={FastImage.resizeMode.contain} />
+                    resizeMode='contain'
+                    resizeMethod='resize' />
             </View>
         );
     }
     render() {
+        var uri = ip + '/mysql/DataServiceMain.php';
+        var dataBody = {
+            type: 'slide'
+        };
         const { banner } = this.props
         const { activeDataService, dataService, } = this.state
-        var dataBody = {
-            slide: 'banner'
-        };
-        var uri = [finip, 'home/home_mobile'].join('/')
+        // var dataBody = {
+        //     slide: 'banner'
+        // };
+        // var uri = [finip, 'home/home_mobile'].join('/')
         return (
             <View>
                 {
@@ -780,6 +788,9 @@ export class Popular_store extends React.Component {
         this.state = {
         }
     }
+    getData = (dataService) => {
+        this.setState({ dataService, activeDataService: false })
+    }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
         value == 'goBack' ?
@@ -791,17 +802,21 @@ export class Popular_store extends React.Component {
                 navigation.push(value, value2)
     }
     get PopularStoreItem() {
-        const { loadData } = this.props;
-        return loadData &&
-            loadData.map((item, index) => {
-                var dataMySQL = finip + '/' + item.image_path + '/' + item.image
+        // const { loadData } = this.props;
+        // return loadData &&
+        //     loadData.map((item, index) => {
+        //         var dataMySQL = finip + '/' + item.image_path + '/' + item.image
+        var { dataService } = this.state
+        return dataService &&
+            dataService.map((item, index) => {
+                var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
                 return (
                     <TouchableOpacity activeOpacity={1} key={index} onPress={this.navigationNavigateScreen.bind(this, 'Recommend_Store')}>
                         <View style={stylesMain.BoxStore1Box}>
                             <FastImage
                                 style={stylesMain.BoxStore1Image}
                                 source={{
-                                    // uri: dataMySQL,
+                                    uri: dataMySQL,
                                     width: (width * 1 / 2) - 9,
                                     height: 100,
                                 }}
@@ -812,8 +827,13 @@ export class Popular_store extends React.Component {
             })
     }
     render() {
+        var uri = ip + '/mysql/DataServiceMain.php';
+        var dataBody = {
+            type: 'store2'
+        };
         return (
             <View style={stylesMain.FrameBackground2}>
+                <GetServices key={'activeDataService'} uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         ร้านที่ใช่อยากให้ช้อป</Text>
@@ -988,7 +1008,7 @@ export class BannerBar_ONE extends React.Component {
                 <FastImage
                     style={stylesMain.Banner_Bar_image}
                     source={{
-                        uri: ip + '/MySQL/uploads/Banner_New/banner 1920-220สำอาง.jpg',
+                        uri: ip + '/MySQL/uploads/Resize/BannerTap/banner 1920-220เพชร3.jpg',
                     }}
                     resizeMode={FastImage.resizeMode.contain} />
             </View>
@@ -1008,7 +1028,7 @@ export class BannerBar_TWO extends React.Component {
                 <FastImage
                     style={stylesMain.Banner_Bar_image}
                     source={{
-                        uri: ip + '/MySQL/uploads/Banner_New/banner 1920-220เพชร3.jpg',
+                        uri: ip + '/MySQL/uploads/Resize/BannerTap/banner 1920-220สำอาง.jpg',
                     }}
                     resizeMode={FastImage.resizeMode.contain} />
             </View>
@@ -1028,7 +1048,7 @@ export class BannerBar_THREE extends React.Component {
                 <FastImage
                     style={stylesMain.Banner_Bar_image}
                     source={{
-                        uri: ip + '/MySQL/uploads/Banner_New/banner 1920-220แม่2.jpg',
+                        uri: ip + '/MySQL/uploads/Resize/BannerTap/banner 1920-220แม่2.jpg',
                     }}
                     resizeMode={FastImage.resizeMode.contain} />
             </View>
@@ -1158,6 +1178,9 @@ export class PromotionPopular extends React.Component {
         this.state = {
         };
     }
+    getData = (dataService) => {
+        this.setState({ dataService, activeDataService: false })
+    }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
         value == 'goBack' ?
@@ -1169,16 +1192,20 @@ export class PromotionPopular extends React.Component {
                 navigation.push(value, value2)
     }
     get dataPromotionPopular() {
-        const { loadData } = this.props
-        return loadData &&
-            loadData.map((item, index) => {
-                var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
+        // const { loadData } = this.props
+        // return loadData &&
+        //     loadData.map((item, index) => {
+        //         var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
+        var { dataService } = this.state
+        return dataService &&
+            dataService.map((item, index) => {
+                var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
                 return (
                     <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Recommend_Store')} key={index}>
                         <View style={[stylesMain.BoxStore2Box2]}>
                             <FastImage
                                 source={{
-                                    // uri: dataMySQL,
+                                    uri: dataMySQL,
                                     width: 160,
                                     height: 80,
                                 }}
@@ -1198,8 +1225,13 @@ export class PromotionPopular extends React.Component {
             })
     }
     render() {
+        var uri = ip + '/mysql/DataServiceMain.php';
+        var dataBody = {
+            type: 'Promotion'
+        };
         return (
             <View style={stylesMain.FrameBackground2}>
+                <GetServices key={'activeDataService'} uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         ลายแทงร้านค้าแนะนำ</Text>
@@ -1302,7 +1334,12 @@ export class NewStore extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            activeDataService: true,
+            dataService: [],
         };
+    }
+    getData = (dataService) => {
+        this.setState({ dataService, activeDataService: false })
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
@@ -1314,20 +1351,27 @@ export class NewStore extends React.Component {
             ) :
                 navigation.push(value, value2)
     }
+
     get dataNewStore() {
-        const { loadData } = this.props
-        return loadData &&
-            loadData.map((item, index) => {
-                var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
+        // const { loadData } = this.props
+        var { dataService } = this.state
+        // loadData && (dataService = loadData)
+        return dataService &&
+            dataService.map((item, index) => {
+                // console.log('dataNewStore')
+                // console.log(item)
+                var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
+                // var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
                 return (
                     <TouchableOpacity activeOpacity={1} key={index}
-                        onPress={this.navigationNavigateScreen.bind(this, 'Recommend_Store', {
-                            id_slide: item.id, uri_path: 'publish_store/store_total', name_path: 'store_total'
-                        })}>
+                    // onPress={this.navigationNavigateScreen.bind(this, 'Recommend_Store', {
+                    //     id_slide: item.id, uri_path: 'publish_store/store_total', name_path: 'store_total'
+                    // })}
+                    >
                         <View style={stylesMain.BoxStore1Box}>
                             <FastImage
                                 source={{
-                                    // uri: dataMySQL,
+                                    uri: dataMySQL,
                                 }}
                                 style={stylesMain.BoxStore1Image}
                                 resizeMode={FastImage.resizeMode.stretch} />
@@ -1337,8 +1381,13 @@ export class NewStore extends React.Component {
             })
     }
     render() {
+        var uri = ip + '/mysql/DataServiceMain.php';
+        var dataBody = {
+            type: 'store1'
+        };
         return (
             <View style={stylesMain.FrameBackground2}>
+                <GetServices key={'activeDataService'} uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         ร้านค้าห้ามพลาด!!่</Text>
@@ -1416,21 +1465,22 @@ export class CategoryProduct extends React.Component {
         const { dataService } = this.state
         return dataService &&
             dataService.map((item, index) => {
+                // var dataMySQL = [ip ,'mysql', item.image_path, item.image_head].join('/');
                 var dataMySQL = finip + '/' + item.mobile_head;
                 return (
                     <View style={[stylesMain.FrameBackground2, { marginTop: 10, backgroundColor: item.bg_m }]} key={index}>
-                        <View>
+                        <>
                             <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'CategoryScreen',
                                 { id_type: item.id_type })}>
                                 <FastImage
                                     source={{
-                                        // uri: dataMySQL,
+                                        uri: dataMySQL,
                                     }}
                                     style={[stylesMain.CategoryProductImageHead]}
-                                    resizeMode={FastImage.resizeMode.cover} />
+                                    resizeMode={FastImage.resizeMode.contain} />
                             </TouchableOpacity>
                             <CategoryProductSubProduct navigation={navigation} id_type={item.id_type} />
-                        </View>
+                        </>
                         {
                             NoStoreReCom ?
                                 <View style={{ marginBottom: 10, }}>
@@ -1447,12 +1497,16 @@ export class CategoryProduct extends React.Component {
                                     <CategoryProductSubStore navigation={navigation} id_type={item.id_type} />
                                 </View>
                         }
-                    </View >
+                    </View>
                 );
             })
     }
     render() {
         const { activeDataService } = this.state
+        // var uri = ip + '/mysql/DataServiceMain.php';
+        // var dataBody = {
+        //     type: 'type'
+        // };
         var uri = finip + '/home/category_mobile';
         return (
             <View>
@@ -1507,7 +1561,6 @@ export class CategoryProductSubStore extends React.PureComponent {
         super(props);
         this.state = {
             activeDataService: true,
-            dataService: [],
         }
     }
     getData = (dataService) => {
@@ -1522,24 +1575,22 @@ export class CategoryProductSubStore extends React.PureComponent {
         return (
             <TouchableOpacity activeOpacity={1} key={index} style={stylesMain.FlexRow}>
                 <View style={[stylesMain.CategoryProductStoreBox]}>
-                    <FastImage
+                    <Image
                         source={{
-                            // uri: dataMySQL,
-                            width: '98%',
-                            height: 90,
+                            uri: dataMySQL,
                         }}
                         style={stylesMain.CategoryProductStoreImage}
-                        resizeMode={FastImage.resizeMode.cover} />
+                        resizeMode='cover'
+                        resizeMethod='resize' />
                 </View>
                 <View style={[stylesMain.CategoryProductStoreBox]}>
-                    <FastImage
+                    <Image
                         source={{
-                            // uri: dataMySQL2,
-                            width: '98%',
-                            height: 90,
+                            uri: dataMySQL2,
                         }}
                         style={stylesMain.CategoryProductStoreImage}
-                        resizeMode={FastImage.resizeMode.cover} />
+                        resizeMode='cover'
+                        resizeMethod='resize' />
                 </View>
             </TouchableOpacity>
         );
@@ -1556,8 +1607,8 @@ export class CategoryProductSubStore extends React.PureComponent {
             id_type: id_type,
         };
         var item = []
-        if (dataService.banner)
-            for (var n = 0; n < dataService.banner.length; n += 2) {
+        if (dataService && dataService.banner)
+            for (var n = 0; n < 2/*dataService.banner.length*/; n += 2) {
                 item.push({
                     item: dataService.banner[n],
                     item2: dataService.banner[n + 1]
@@ -1568,7 +1619,7 @@ export class CategoryProductSubStore extends React.PureComponent {
                 {[
                     activeDataService == true &&
                     <GetServices key={'activeDataService'} uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />,
-                    dataService.banner && (
+                    dataService && dataService.banner && (
                         <Carousel
                             key={'banner'}
                             renderItem={this._renderItem}
@@ -1590,8 +1641,6 @@ export class CategoryProductSubPromotion extends React.Component {
         this.state = {
             activeDataService: true,
             activeDataService2: true,
-            dataService: [],
-            dataService2: [],
         }
     }
     getData = (dataService) => {
@@ -1600,44 +1649,46 @@ export class CategoryProductSubPromotion extends React.Component {
     getData2 = (dataService2) => {
         this.setState({ dataService2, activeDataService2: false })
     }
-    get dataCategoryProductSubPromotion() {
-        const { dataService } = this.state
-        return dataService.banner &&
-            dataService.banner.map((item, index) => {
-                var dataMySQL = finip + '/' + item.path_mobile + '/' + item.image;
-                return (
-                    <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, }]} key={index}>
-                        <FastImage
-                            source={{
-                                // uri: dataMySQL,
-                                width: width * 0.55,
-                                height: 105,
-                            }}
-                            resizeMode={FastImage.resizeMode.stretch}
-                            style={[stylesMain.BoxProduct1Image, { borderRadius: 6, }]} />
-                    </View>
-                );
-            })
+    dataCategoryProductSubPromotion(dataService, type) {
+        // const { dataService } = this.state;
+        var dataMySQL = [finip, dataService && dataService.banner[0].path_mobile,
+            dataService && dataService.banner[0].image].join('/');
+        // console.log('dataCategoryProductSubPromotion');
+        // console.log(dataMySQL);
+        return (
+            <View style={[type == 0 ? stylesMain.BoxStore1Box2 : stylesMain.BoxStore1Box3,
+            { borderWidth: 0, }]} /*key={index}*/>
+                {
+                    dataService &&
+                    <Image
+                        source={{
+                            uri: dataMySQL,
+                        }}
+                        resizeMode='cover'
+                        resizeMethod='resize'
+                        style={[stylesMain.BoxProduct1Image, { borderRadius: 6, }]} />
+                }
+            </View>
+        );
     }
-    get dataCategoryProductSubPromotion2() {
-        const { dataService2 } = this.state
-        return dataService2.banner &&
-            dataService2.banner.map((item, index) => {
-                var dataMySQL = finip + '/' + item.path_mobile + '/' + item.image;
-                return (
-                    <View style={[stylesMain.BoxStore1Box3, { borderWidth: 0, }]} key={index}>
-                        <FastImage
-                            source={{
-                                // uri: dataMySQL,
-                                width: width * 0.40,
-                                height: 105,
-                            }}
-                            resizeMode={FastImage.resizeMode.stretch}
-                            style={[stylesMain.BoxProduct1Image, { borderRadius: 6, }]} />
-                    </View>
-                );
-            })
-    }
+    // get dataCategoryProductSubPromotion2() {
+    //     const { dataService } = this.state;
+    //     var dataMySQL = [finip, dataService && dataService.banner[0].path_mobile,
+    //         dataService && dataService.banner[0].image].join('/');
+    //     return dataService && (
+    //         <View style={[stylesMain.BoxStore1Box3, { borderWidth: 0, }]} /*key={index}*/>
+    //             {
+    //                 dataService &&
+    //                 <FastImage
+    //                     source={{
+    //                         uri: dataMySQL,
+    //                     }}
+    //                     resizeMode={FastImage.resizeMode.cover}
+    //                     style={[stylesMain.BoxProduct1Image, { borderRadius: 6, }]} />
+    //             }
+    //         </View>
+    //     );
+    // }
     render() {
         const { id_type } = this.props
         const { activeDataService, activeDataService2, dataService, dataService2, } = this.state
@@ -1660,9 +1711,9 @@ export class CategoryProductSubPromotion extends React.Component {
                         activeDataService2 == true &&
                         <GetServices key={'activeDataService2'} uriPointer={uri} dataBody={dataBody2}
                             getDataSource={this.getData2.bind(this)} />,
-                        dataService.banner && dataService2.banner && ([
-                            this.dataCategoryProductSubPromotion,
-                            this.dataCategoryProductSubPromotion2
+                        dataService && dataService.banner && dataService2 && dataService2.banner && ([
+                            this.dataCategoryProductSubPromotion(dataService, 0),
+                            this.dataCategoryProductSubPromotion(dataService2, 1)
                         ])
                     ]}
                 </View>
@@ -1742,10 +1793,11 @@ export class Second_product extends React.PureComponent {
                             </View> :
                             <TouchableOpacity activeOpacity={1}
                                 onPress={this.navigationNavigateScreen.bind(this, 'SecondScreen', { selectedIndex: 0 })}>
-                                <FastImage
+                                <Image
                                     style={[stylesMain.CategoryProductImageHead, { marginTop: 0 }]}
                                     source={{ uri: url }}
-                                    resizeMode={FastImage.resizeMode.cover} />
+                                    resizeMode='cover'
+                                    resizeMethod='resize' />
                             </TouchableOpacity>
                     }
                     <ScrollView horizontal>
@@ -1819,24 +1871,26 @@ export class Second_product extends React.PureComponent {
         return (
             <TouchableOpacity activeOpacity={1} key={index} style={stylesMain.FlexRow}>
                 <View style={[stylesMain.CategoryProductStoreBox]}>
-                    <FastImage
+                    <Image
                         source={{
                             uri: dataMySQL,
                             width: '98%',
                             height: 90,
                         }}
                         style={stylesMain.CategoryProductStoreImage}
-                        resizeMode={FastImage.resizeMode.cover} />
+                        resizeMode='cover'
+                        resizeMethod='resize' />
                 </View>
                 <View style={[stylesMain.CategoryProductStoreBox]}>
-                    <FastImage
+                    <Image
                         source={{
                             uri: dataMySQL2,
                             width: '98%',
                             height: 90,
                         }}
                         style={stylesMain.CategoryProductStoreImage}
-                        resizeMode={FastImage.resizeMode.cover} />
+                        resizeMode='cover'
+                        resizeMethod='resize' />
                 </View>
             </TouchableOpacity>
         );
@@ -1939,13 +1993,13 @@ export class Fin_Mall extends React.Component {
                 <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>Fin Mall </Text>
                 <View style={[stylesMain.FlexRow, stylesMain.FinMall_Box]}>
                     <View style={[stylesMain.ItemCenter, stylesMain.FinMall_Box_Image]}>
-                        <FastImage
+                        {/* <FastImage
                             style={stylesMain.FinMall_Image}
                             source={{
                                 uri: ip + '/MySQL/uploads/Unicorn/03.png',
                             }}
                             resizeMode={FastImage.resizeMode.contain}
-                        />
+                        /> */}
                     </View>
                     <View style={stylesMain.FinMall_ScrollView}>
                         <ScrollView horizontal>
@@ -2004,29 +2058,32 @@ export class FIN_Supermarket extends React.PureComponent {
                     <TouchableOpacity
                         onPress={this.navigationNavigateScreen.bind(this, 'FINSupermarket')}
                         style={{ width: width * 0.64, }}>
-                        <FastImage
+                        <Image
                             style={stylesMain.BoxProduct1Image}
                             source={{
                                 uri: ip + '/MySQL/uploads/Image_FinMall/market_banner01.jpg',
                             }}
-                            resizeMode={FastImage.resizeMode.stretch} />
+                            resizeMode='stretch'
+                            resizeMethod='resize' />
                     </TouchableOpacity>
                     <View style={{ width: width * 0.32, justifyContent: 'space-between' }}>
                         <View style={stylesMain.Supermarket_Image}>
-                            <FastImage
+                            <Image
                                 style={stylesMain.BoxProduct1Image}
                                 source={{
                                     uri: ip + '/MySQL/uploads/Image_FinMall/supermarket-04.jpg',
                                 }}
-                                resizeMode={FastImage.resizeMode.stretch} />
+                                resizeMode='stretch'
+                                resizeMethod='resize' />
                         </View>
                         <View style={stylesMain.Supermarket_Image}>
-                            <FastImage
+                            <Image
                                 style={stylesMain.BoxProduct1Image}
                                 source={{
                                     uri: ip + '/MySQL/uploads/Image_FinMall/supermarket-04.jpg',
                                 }}
-                                resizeMode={FastImage.resizeMode.stretch} />
+                                resizeMode='stretch'
+                                resizeMethod='resize' />
                         </View>
                     </View>
                 </View>
@@ -2270,7 +2327,7 @@ export class Botton_PopUp_FIN extends React.Component {
                         <View style={stylesMain.Botton_PopUp_Box}>
                             <FastImage
                                 style={stylesMain.BoxProduct1Image}
-                                source={require('../images/0044-03.png')}
+                                // source={require('../images/0044-03.png')}
                                 resizeMode={FastImage.resizeMode.contain}>
                                 <View style={stylesMain.Botton_PopUp_Text}>
                                     <Text style={[stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>สวัสดีครับ</Text>

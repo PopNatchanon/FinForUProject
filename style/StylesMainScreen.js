@@ -271,14 +271,16 @@ export default StyleSheet.create({
     marginLeft: 6,
   },
   BoxStore1Box2: {
-    width: width * 0.55,
+    // width: width * 0.55,
+    width:'55%',
     height: 105,
     marginTop: 10,
     marginBottom: 5,
     marginHorizontal: 5,
   },
   BoxStore1Box3: {
-    width: width * 0.40,
+    // width: width * 0.40,
+    width:'40%',
     height: 105,
     marginTop: 10,
     marginLeft: 5,

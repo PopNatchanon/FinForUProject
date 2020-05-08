@@ -116,8 +116,8 @@ export class Button_bar extends Component {
                                     dataService.purchase.map((value, index) => {
                                         return <From_Order_Box dataService={value} key={index} navigation={navigation} />
                                     }) :
-                                    <View style={[stylesProfileTopic.products_pro, { height: height * 0.5 }]}>
-                                        <IconFeather name='edit' size={50} color='#A2A2A2' />
+                                    <View style={[stylesProfileTopic.products_pro]}>
+                                        <IconFeather name='edit' size={50} color='#000000' />
                                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>
                                             ยังไม่มีคำสั่งซื้อ</Text>
                                     </View>
@@ -143,7 +143,7 @@ export class Button_bar extends Component {
                                         return <From_Order_Box dataService={value} key={index} navigation={navigation} />
                                     }) :
                                     <View style={[stylesProfileTopic.products_pro, { height: height * 0.5 }]}>
-                                        <IconFeather name='edit' size={50} color='#A2A2A2' />
+                                        <IconFeather name='edit' size={50} color='#000000' />
                                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>
                                             ยังไม่มีคำสั่งซื้อ</Text>
                                     </View>
@@ -169,7 +169,7 @@ export class Button_bar extends Component {
                                         return <From_Order_Box dataService={value} key={index} navigation={navigation} />
                                     }) :
                                     <View style={[stylesProfileTopic.products_pro, { height: height * 0.5 }]}>
-                                        <IconFeather name='edit' size={50} color='#A2A2A2' />
+                                        <IconFeather name='edit' size={50} color='#000000' />
                                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>
                                             ยังไม่มีคำสั่งซื้อ</Text>
                                     </View>
@@ -195,7 +195,7 @@ export class Button_bar extends Component {
                                         return <From_Order_Box dataService={value} key={index} navigation={navigation} />
                                     }) :
                                     <View style={[stylesProfileTopic.products_pro, { height: height * 0.5 }]}>
-                                        <IconFeather name='edit' size={50} color='#A2A2A2' />
+                                        <IconFeather name='edit' size={50} color='#000000' />
                                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>
                                             ยังไม่มีคำสั่งซื้อ</Text>
                                     </View>
@@ -221,7 +221,7 @@ export class Button_bar extends Component {
                                         return <From_Order_Box dataService={value} key={index} navigation={navigation} />
                                     }) :
                                     <View style={[stylesProfileTopic.products_pro, { height: height * 0.5 }]}>
-                                        <IconFeather name='edit' size={50} color='#A2A2A2' />
+                                        <IconFeather name='edit' size={50} color='#000000' />
                                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>
                                             ยังไม่มีคำสั่งซื้อ</Text>
                                     </View>

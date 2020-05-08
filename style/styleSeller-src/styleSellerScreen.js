@@ -118,7 +118,6 @@ export default StyleSheet.create({
     SelectSheet_TextInput: {
         justifyContent: 'center',
         alignItems: 'center',
-        height: 40,
         width: 160,
         borderColor: '#D4D4D4',
         borderWidth: 1,
@@ -324,5 +323,12 @@ export default StyleSheet.create({
         borderBottomWidth: 1,
         height: 20,
         marginRight: 10
+    },
+    //   ------------------>
+    Up_product_Select: {
+        justifyContent: 'space-between',
+        paddingHorizontal: 10,
+        backgroundColor: '#FFFFFF',
+        marginTop: 5
     }
 }) 

@@ -453,7 +453,7 @@ const PathScreen = createStackNavigator({
   {
     initialRouteName: 'MainScreen',
     // initialRouteName: 'ProfileScreen',
-    // initialRouteName: 'Seller_Up_Product',
+    // initialRouteName: 'SellerScreen',
   }
 );
 const AppNavigator = createAppContainer(PathScreen);

@@ -7,7 +7,7 @@ import {
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import { CheckBox } from 'react-native-elements';
-
+import BottomSheet from "react-native-raw-bottom-sheet";
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -171,7 +171,7 @@ export default class Seller_Topic extends Component {
             case 13:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='เพิ่มสินค้า' />
+                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='เพิ่มสินค้า' saveBar />
                         <Up_Product_Select />
                     </>
                 )
@@ -903,50 +903,142 @@ export class Up_Product_Select extends Component {
         };
     }
 
+    Edit_all_Body() {
+        const { price, total } = this.state
+        return (
+            <View>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ตั้งค่าราคาและจำนวนสินค้าในคลังทุกตัวเลือก</Text>
+                <View style={stylesMain.FlexRow}>
+                    <View style={{ width: 30, marginRight: 10 ,paddingTop:15}}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ราคา</Text>
+                    </View>
+                    <View style={[stylesSeller.BottomSheet_Box,{width:250}]}>
+                        <TextInput
+                            style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}
+                            placeholder="0.00"
+                            editable
+                            onChangeText={(price) => this.setState({ price })}>{price}</TextInput>
+                    </View>
+                </View>
+                <View style={stylesMain.FlexRow}>
+                    <View style={{ width: 30, marginRight: 10 ,paddingTop:15}}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,]}>คลัง</Text>
+                    </View>
+                    <View style={[stylesSeller.BottomSheet_Box,{width:250}]}>
+                        <TextInput
+                            style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,]}
+                            placeholder="0"
+                            editable
+                            onChangeText={(total) => this.setState({ total })}>{total}</TextInput>
+                    </View>
+                </View>
+                <View style={stylesSeller.BottomSheet_Botton}>
+                    <TouchableOpacity onPress={() => { this.Edit_Body.close(); }}>
+                    <View style={stylesSeller.BottomSheet_Botton_cancel}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ยกเลิก</Text>
+                    </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                    <View style={stylesSeller.BottomSheet_Botton_OK}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตกลง</Text>
+                    </View>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        )
+    }
     render() {
         return (
             <>
-                <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', paddingHorizontal: 10, backgroundColor: '#FFFFFF', marginTop: 5 }]}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>การตั้งค่าสำหรับทุกตัวเลือกสินค้า</Text>
-                    <TouchableOpacity>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,]}>แก้ไขแบบชุด</Text>
+                <BottomSheet
+                    ref={ref => {
+                        this.Edit_Body = ref;
+                    }}
+                    height={250}
+                    duration={250}
+                    customStyles={{
+                        container: {
+                            paddingTop: 20,
+                            alignItems: "center",
+                            borderTopLeftRadius: 10,
+                            borderTopRightRadius: 10,
+                        }
+                    }}
+                >
+                    {this.Edit_all_Body()}
+                </BottomSheet>
+                <View style={[stylesMain.FlexRow, stylesSeller.Up_product_Select]}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4,]}>การตั้งค่าสำหรับทุกตัวเลือกสินค้า</Text>
+                    <TouchableOpacity activeOpacity={1} onPress={() => { this.Edit_Body.open(); }}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4,]}>แก้ไขแบบชุด</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', paddingHorizontal: 10, backgroundColor: '#FFFFFF', marginTop: 5 }]}>
+                <View style={[stylesMain.FlexRow, stylesSeller.Up_product_Select]}>
                     <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,]}>ตัวเลือกสินค้า</Text>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4,]}>ตัวเลือกสินค้า</Text>
                     </View>
                     <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,]}>ราคา</Text>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4,]}>ราคา</Text>
                     </View>
                     <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,]}>คลัง</Text>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4,]}>คลัง</Text>
                     </View>
                 </View>
-                <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>สี</Text>
-                </View>
-                <View style={{ backgroundColor: '#FFFFFF' }}>
-                    <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', paddingHorizontal: 10, backgroundColor: '#FFFFFF', marginTop: 5 }]}>
-                        <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ขาว</Text>
+                <View style={{ marginVertical: 5 }}>
+                    <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>สี</Text>
+                    </View>
+                    <View style={{ backgroundColor: '#FFFFFF' ,paddingVertical:5}}>
+                        <View style={[stylesMain.FlexRow, stylesSeller.Up_product_Select]}>
+                            <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>ขาว</Text>
+                            </View>
+                            <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                                <View style={stylesSeller.SizeSheet_Boxsize}></View>
+                            </View>
+                            <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                                <View style={stylesSeller.SizeSheet_Boxsize}></View>
+                            </View>
                         </View>
-                        <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
-                            <View style={stylesSeller.SizeSheet_Boxsize}></View>
-                        </View>
-                        <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
-                            <View style={stylesSeller.SizeSheet_Boxsize}></View>
+                        <View style={[stylesMain.FlexRow, stylesSeller.Up_product_Select]}>
+                            <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>แดง</Text>
+                            </View>
+                            <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                                <View style={stylesSeller.SizeSheet_Boxsize}></View>
+                            </View>
+                            <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                                <View style={stylesSeller.SizeSheet_Boxsize}></View>
+                            </View>
                         </View>
                     </View>
-                    <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', paddingHorizontal: 10, backgroundColor: '#FFFFFF', marginTop: 5 }]}>
-                        <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>แดง</Text>
+                </View>
+                <View style={{ marginVertical: 5 }}>
+                    <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>ขนาด</Text>
+                    </View>
+                    <View style={{ backgroundColor: '#FFFFFF' ,paddingVertical:5}}>
+                        <View style={[stylesMain.FlexRow, stylesSeller.Up_product_Select]}>
+                            <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>XL</Text>
+                            </View>
+                            <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                                <View style={stylesSeller.SizeSheet_Boxsize}></View>
+                            </View>
+                            <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                                <View style={stylesSeller.SizeSheet_Boxsize}></View>
+                            </View>
                         </View>
-                        <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
-                            <View style={stylesSeller.SizeSheet_Boxsize}></View>
-                        </View>
-                        <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
-                            <View style={stylesSeller.SizeSheet_Boxsize}></View>
+                        <View style={[stylesMain.FlexRow, stylesSeller.Up_product_Select]}>
+                            <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>L</Text>
+                            </View>
+                            <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                                <View style={stylesSeller.SizeSheet_Boxsize}></View>
+                            </View>
+                            <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                                <View style={stylesSeller.SizeSheet_Boxsize}></View>
+                            </View>
                         </View>
                     </View>
                 </View>

@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React from 'react';
 import {
-    Animated, BackHandler, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, YellowBox, SectionList,
+    Animated, BackHandler, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, YellowBox, ActivityIndicator,
     Image, FlatList
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
@@ -51,6 +51,10 @@ export default class MainScreen extends React.PureComponent {
             activeLoading: true,
             dataService: [],
         };
+        this.viewabilityConfig = {
+            waitForInteraction: true,
+            viewAreaCoveragePercentThreshold: 95
+        }
     }
     getData = (dataService) => {
         this.setState({ dataService, activeDataService: false });
@@ -97,6 +101,8 @@ export default class MainScreen extends React.PureComponent {
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                 {[
                     activeDataService == true &&
+                    <LoadingScreen key='LoadingScreen' />,
+                    activeDataService == true &&
                     <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} key={'activeDataService'}
                     // showConsole={'Main'}
                     />,
@@ -109,11 +115,7 @@ export default class MainScreen extends React.PureComponent {
                     keyExtractor={(value, index) => index}
                     // ListHeaderComponent={this.renderHeader}
                     renderItem={(value) => value.item}
-                    ListEmptyComponent={() =>
-                        <View style={[stylesMain.ItemCenter, { width, height: 360 }]}>
-                            <ActivityIndicator style={stylesMain.ItemCenterVertical} color='#1A3263' size='large' />
-                        </View>
-                    }
+                    viewabilityConfig={this.viewabilityConfig}
                 />
                 <Botton_PopUp_FIN useNativeDriver />
                 <Toolbar navigation={navigation} style={{ flex: 5, }} />
@@ -133,7 +135,7 @@ export class ExitAppModule extends React.Component {
         this.transformValue = new Animated.Value(100)
     }
     componentDidMount() {
-        YellowBox.ignoreWarnings(["Require cycle:"]);
+        YellowBox.ignoreWarnings(["Require cycle:", "*"]);
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton.bind(this));
     }
     componentWillUnmount() {
@@ -1639,8 +1641,7 @@ export class CategoryProduct extends React.Component {
             })
     }
     render() {
-        const { activeMain } = this.props
-        const { activeDataService, activeProductMobile } = this.state
+        const { activeDataService } = this.state
         // var uri = ip + '/mysql/DataServiceMain.php';
         // var dataBody = {
         //     type: 'type'
@@ -1649,8 +1650,6 @@ export class CategoryProduct extends React.Component {
         return (
             <View>
                 {[
-                    (activeMain == true || activeDataService == true || activeProductMobile == true) &&
-                    <LoadingScreen key='LoadingScreen' />,
                     activeDataService == true &&
                     <GetServices key={'activeDataService'} uriPointer={uri} getDataSource={this.getData.bind(this)} />,
                     this.dataCategory
@@ -1784,47 +1783,47 @@ export class CategoryProductSubStore extends React.PureComponent {
             promotion: 'shop',
             id_type: id_type,
         };
-        // var item = []
-        // if (dataService && dataService.banner)
-        //     for (var n = 0; n < dataService.banner.length; n += 2) {
-        //         item.push({
-        //             item: dataService.banner[n],
-        //             item2: dataService.banner[n + 1]
-        //         })
-        //     }
+        var item = []
+        if (dataService && dataService.banner)
+            for (var n = 0; n < dataService.banner.length; n += 2) {
+                item.push({
+                    item: dataService.banner[n],
+                    item2: dataService.banner[n + 1]
+                })
+            }
         return (
             <>
                 {[
                     activeDataService == true &&
                     <GetServices key={'activeDataService'} uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />,
                     dataService && dataService.banner && (
-                        // <Carousel
-                        //     key={'banner'}
-                        //     renderItem={this._renderItem}
-                        //     data={item}
-                        //     loop
-                        //     autoplay
-                        //     autoplayInterval={3000}
-                        //     pagination={PaginationLight} />
-                        <FlatList
-                            horizontal
-                            scrollEnabled={true}
-                            // initialNumToRender={6}
-                            data={dataService.banner}
-                            keyExtractor={(item, index) => index}
-                            // ListHeaderComponent={this.renderHeader}
-                            ListHeaderComponentStyle={{
-                                flexDirection: 'column'
-                            }}
-                            renderItem={(value) =>
-                                <>
-                                    {
-                                        value.item &&
-                                        <RenderSubStore item={value.item} />
-                                    }
-                                </>
-                            }
-                        />
+                        <Carousel
+                            key={'banner'}
+                            renderItem={this._renderItem}
+                            data={item}
+                            loop
+                            autoplay
+                            autoplayInterval={3000}
+                            pagination={PaginationLight} />
+                        // <FlatList
+                        //     horizontal
+                        //     scrollEnabled={true}
+                        //     // initialNumToRender={6}
+                        //     data={dataService.banner}
+                        //     keyExtractor={(item, index) => index}
+                        //     // ListHeaderComponent={this.renderHeader}
+                        //     ListHeaderComponentStyle={{
+                        //         flexDirection: 'column'
+                        //     }}
+                        //     renderItem={(value) =>
+                        //         <>
+                        //             {
+                        //                 value.item &&
+                        //                 <RenderSubStore item={value.item} />
+                        //             }
+                        //         </>
+                        //     }
+                        // />
                         // <ScrollView horizontal>
                         //     {
                         //         item.map((item, index) => {

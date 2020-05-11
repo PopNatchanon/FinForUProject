@@ -622,7 +622,6 @@ export default StyleSheet.create({
   CategoryProductStoreImage: {
     width: '100%',
     height: '100%',
-    resizeMode: 'stretch',
     borderColor: '#ECECEC',
     borderRadius: 8,
   },

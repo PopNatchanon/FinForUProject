@@ -74,9 +74,11 @@ export default class MainScreen extends React.PureComponent {
                 <ScrollView style={{ flex: 90, }} >
                     <Slide />
                     <Category navigation={navigation} />
+                    <Trend_Hit />
                     <Button_Bar navigation={navigation} />
                     <FlashSale navigation={navigation} activeDataService={activeFlashSale}
                         getActiveDataService={this.getActiveDataService.bind(this)} />
+                    <Fin_Service />
                     <Recommend_Brand navigation={navigation} loadData={dataService.brand} />
                     <BannerBar_TWO />
                     <Exclusive navigation={navigation} loadData={dataService.exclusive} />
@@ -98,7 +100,7 @@ export default class MainScreen extends React.PureComponent {
                         mobile_bar: dataService.mobile_bar, mobile_slide: dataService.mobile_slide,
                     }} />
                     <BannerBar_THREE />
-                    {/* <FIN_Supermarket navigation={navigation} loadData={{ product_hit: dataService.product_hit }} /> */}
+                    <FIN_Supermarket navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />
                     <TodayProduct navigation={navigation} loadData={dataService.for_you2} />
                 </ScrollView>
                 <Botton_PopUp_FIN />
@@ -658,6 +660,80 @@ export class Category extends React.Component {
         );
     }
 }
+///----------------------------------------------------------------------------------------------->>>> 
+export class Trend_Hit extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+    getData = (dataService) => {
+        this.setState({ activeDataService: false, dataService, })
+    }
+    get Trend_Box() {
+        var { dataService } = this.state
+        return dataService &&
+            dataService.map((item, index) => {
+                var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
+                return (
+                    <View style={{ justifyContent: 'space-between' }}>
+                        <View style={{ height: 80, borderWidth: 1 }}>
+                            <View key={index} style={{ height: 50, width: 50 }}>
+                                <FastImage
+                                    style={stylesMain.BoxStore1Image}
+                                    source={{
+                                        uri: dataMySQL,
+                                    }}
+                                    resizeMode={FastImage.resizeMode.stretch} />
+                            </View>
+                            <Text></Text>
+                        </View>
+                    </View>
+
+                )
+            })
+    }
+    render() {
+        var uri = ip + '/mysql/DataServiceMain.php';
+        var dataBody = {
+            type: 'Trend_Hit'
+        };
+        return (
+            <View style={stylesMain.FrameBackground2}>
+                <GetServices key={'activeDataService'} uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
+                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
+                    เทรนฮิต</Text>
+                <ScrollView horizontal>
+                    {this.Trend_Box}
+                </ScrollView>
+            </View>
+        );
+    }
+}
+///----------------------------------------------------------------------------------------------->>>>
+export class Fin_Service extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
+    render() {
+        return (
+            <View style={[stylesMain.FrameBackground2, { height: 80, }]}>
+                <Image
+                    style={stylesMain.BoxProduct1Image}
+                    source={{
+                        uri: ip + '/MySQL/uploads/Text/Annotation 2020-05-09 153106.png',
+                    }}
+                    resizeMode='contain'
+                    resizeMethod='resize' />
+            </View>
+        );
+    }
+}
+
+
 ///----------------------------------------------------------------------------------------------->>>> Button_Bar
 export class Button_Bar extends React.Component {
     constructor(props) {
@@ -1163,7 +1239,7 @@ export class FlashSale extends React.PureComponent {
                 <ScrollView horizontal>
                     {
                         dataService && dataService.product &&
-                        <ProductBox dataService={dataService.product} navigation={navigation} mode='row4col1'
+                        <ProductBox numberOfItem={12} dataService={dataService.product} navigation={navigation} mode='row4col1'
                             pointerUrl='FlashSaleScreen' pointerid_store nameSize={11} priceSize={12} dispriceSize={12} />
                     }
                 </ScrollView>
@@ -1280,7 +1356,7 @@ export class Product_for_you extends React.Component {
                     <View style={[stylesMain.ProductForYouFlexBox, stylesMain.Product_for_you]}>
                         {
                             loadData &&
-                            <ProductBox dataService={loadData} navigation={navigation} typeip='fin' mode='row3col2'
+                            <ProductBox numberOfItem={12} dataService={loadData} navigation={navigation} typeip='fin' mode='row3col2'
                                 pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} />
                         }
                     </View>
@@ -1321,7 +1397,7 @@ export class Highlight extends React.Component {
                 <ScrollView horizontal>
                     {
                         loadData &&
-                        <ProductBox dataService={loadData} navigation={navigation} typeip='fin' mode='row3col1'
+                        <ProductBox numberOfItem={12} dataService={loadData} navigation={navigation} typeip='fin' mode='row3col1'
                             pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} />
                     }
                 </ScrollView>
@@ -1430,7 +1506,7 @@ export class Exclusive extends React.Component {
                 <ScrollView horizontal>
                     {
                         loadData &&
-                        <ProductBox dataService={loadData} navigation={navigation} typeip='fin' mode='row3col1'
+                        <ProductBox numberOfItem={12} dataService={loadData} navigation={navigation} typeip='fin' mode='row3col1'
                             pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} />
                     }
                 </ScrollView>
@@ -1472,12 +1548,13 @@ export class CategoryProduct extends React.Component {
                         <>
                             <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'CategoryScreen',
                                 { id_type: item.id_type })}>
-                                <FastImage
+                                <Image
                                     source={{
                                         uri: dataMySQL,
                                     }}
                                     style={[stylesMain.CategoryProductImageHead]}
-                                    resizeMode={FastImage.resizeMode.contain} />
+                                    resizeMode='contain'
+                                    resizeMethod='resize' />
                             </TouchableOpacity>
                             <CategoryProductSubProduct navigation={navigation} id_type={item.id_type} />
                         </>
@@ -1547,7 +1624,7 @@ export class CategoryProductSubProduct extends React.Component {
                 <View style={[stylesMain.ProductForYouFlexBox, stylesMain.BoxProductWarpBox]}>
                     {
                         dataService && dataService.length > 0 &&
-                        <ProductBox dataService={dataService} navigation={navigation} typeip='fin' mode='row3col2'
+                        <ProductBox  /*numberOfItem={12}*/ dataService={dataService} navigation={navigation} typeip='fin' mode='row3col2'
                             pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} />
                     }
                 </View>
@@ -1608,7 +1685,7 @@ export class CategoryProductSubStore extends React.PureComponent {
         };
         var item = []
         if (dataService && dataService.banner)
-            for (var n = 0; n < 2/*dataService.banner.length*/; n += 2) {
+            for (var n = 0; n < dataService.banner.length; n += 2) {
                 item.push({
                     item: dataService.banner[n],
                     item2: dataService.banner[n + 1]
@@ -1624,10 +1701,11 @@ export class CategoryProductSubStore extends React.PureComponent {
                             key={'banner'}
                             renderItem={this._renderItem}
                             data={item}
-                            loop
-                            autoplay
-                            autoplayInterval={3000}
-                            pagination={PaginationLight} />
+                            // loop
+                            // autoplay
+                            // autoplayInterval={3000}
+                            pagination={PaginationLight}
+                        />
                     )
                 ]}
             </>
@@ -1804,7 +1882,7 @@ export class Second_product extends React.PureComponent {
                         <View style={[stylesMain.ProductForYouFlexBox, { height: 370 }]}>
                             {
                                 loadData.product_second &&
-                                <ProductBox dataService={loadData.product_second} navigation={navigation} typeip='fin' mode='row3col1'
+                                <ProductBox numberOfItem={12} dataService={loadData.product_second} navigation={navigation} typeip='fin' mode='row3col1'
                                     pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} />
                             }
                         </View>

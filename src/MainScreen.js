@@ -62,6 +62,10 @@ export default class MainScreen extends React.PureComponent {
     getActiveDataService = (activeFlashSale) => {
         this.setState({ activeFlashSale });
     }
+    onViewableItemsChanged = ({ viewableItems, changed }) => {
+        console.log("Visible items are", viewableItems);
+        console.log("Changed in this iteration", changed);
+    };
     render() {
         const { navigation } = this.props;
         const { activeDataService, activeFlashSale, activeLoading, dataService, } = this.state;
@@ -97,6 +101,7 @@ export default class MainScreen extends React.PureComponent {
             <FIN_Supermarket navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />,
             <TodayProduct navigation={navigation} loadData={dataService.for_you2} />
         ]
+        this.FlatMainScreen && console.log(this.FlatMainScreen.recordInteraction())
         return (
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                 {[
@@ -109,12 +114,14 @@ export default class MainScreen extends React.PureComponent {
                 ]}
                 <AppBar navigation={navigation} style={{ flex: 5, }} />
                 <FlatList
+                    ref={c => this.FlatMainScreen = c}
                     scrollEnabled={true}
                     initialNumToRender={6}
                     data={itemT}
-                    keyExtractor={(value, index) => index}
+                    keyExtractor={(value, index) => 'Component' + index}
                     // ListHeaderComponent={this.renderHeader}
                     renderItem={(value) => value.item}
+                    onViewableItemsChanged={this.onViewableItemsChanged}
                     viewabilityConfig={this.viewabilityConfig}
                 />
                 <Botton_PopUp_FIN useNativeDriver />
@@ -1702,7 +1709,7 @@ export class CategoryProductSubProduct extends React.Component {
                     <FlatList
                         horizontal
                         scrollEnabled={true}
-                        // initialNumToRender={6}
+                        initialNumToRender={10}
                         data={itemT}
                         keyExtractor={(item, index) => index}
                         // ListHeaderComponent={this.renderHeader}

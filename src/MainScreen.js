@@ -66,9 +66,11 @@ export default class MainScreen extends React.PureComponent {
         let itemT = [
             <Slide />,
             <Category navigation={navigation} />,
+            // <Trend_Hit/>,
             <Button_Bar navigation={navigation} />,
             <FlashSale navigation={navigation} activeDataService={activeFlashSale}
                 getActiveDataService={this.getActiveDataService.bind(this)} />,
+            <Fin_Service />,
             <Recommend_Brand navigation={navigation} loadData={dataService.brand} />,
             <BannerBar_TWO />,
             <Exclusive navigation={navigation} loadData={dataService.exclusive} />,
@@ -688,8 +690,8 @@ export class Trend_Hit extends React.Component {
             dataService.map((item, index) => {
                 var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
                 return (
-                    <View style={{ justifyContent: 'space-between' }}>
-                        <View style={{ height: 80, borderWidth: 1 }}>
+                    <View style={{width:'100%'}}>
+                        <View style={{ height: 80, width:100, borderWidth: 1,flexDirection:'row'}}>
                             <View key={index} style={{ height: 50, width: 50 }}>
                                 <FastImage
                                     style={stylesMain.BoxStore1Image}
@@ -698,7 +700,7 @@ export class Trend_Hit extends React.Component {
                                     }}
                                     resizeMode={FastImage.resizeMode.stretch} />
                             </View>
-                            <Text></Text>
+                            <Text>{item.name}</Text>
                         </View>
                     </View>
 
@@ -2256,13 +2258,13 @@ export class Fin_Mall extends React.Component {
                 <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>Fin Mall </Text>
                 <View style={[stylesMain.FlexRow, stylesMain.FinMall_Box]}>
                     <View style={[stylesMain.ItemCenter, stylesMain.FinMall_Box_Image]}>
-                        {/* <FastImage
-                            style={stylesMain.FinMall_Image}
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
                             source={{
-                                uri: ip + '/MySQL/uploads/Unicorn/03.png',
+                                uri: ip + '/MySQL/uploads/Image_FinMall/Finmall_Banner.jpg',
                             }}
-                            resizeMode={FastImage.resizeMode.contain}
-                        /> */}
+                            resizeMode={FastImage.resizeMode.cover}
+                        />
                     </View>
                     <View style={stylesMain.FinMall_ScrollView}>
                         <ScrollView horizontal>
@@ -2590,7 +2592,7 @@ export class Botton_PopUp_FIN extends React.Component {
                         <View style={stylesMain.Botton_PopUp_Box}>
                             <FastImage
                                 style={stylesMain.BoxProduct1Image}
-                                // source={require('../images/0044-03.png')}
+                                source={require('../images/0044-03.png')}
                                 resizeMode={FastImage.resizeMode.contain}>
                                 <View style={stylesMain.Botton_PopUp_Text}>
                                     <Text style={[stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>สวัสดีครับ</Text>

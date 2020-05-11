@@ -634,7 +634,7 @@ export default StyleSheet.create({
   Banner_Bar_image: {
     width: width,
     height: 'auto',
-    aspectRatio: 8.5 / 1
+    aspectRatio: 8.5 
   },
   Product_for_you: {
     height: 370,
@@ -742,7 +742,7 @@ export default StyleSheet.create({
   FinMall_Box: {
     justifyContent: 'space-around',
     height: 125,
-    marginBottom: 10
+    marginBottom: 5,
   },
   FinMall_Box_Image: {
     width: '39%',

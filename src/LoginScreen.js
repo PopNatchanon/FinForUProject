@@ -9,6 +9,7 @@ export const { width, height, } = Dimensions.get('window');
 import CookieManager from '@react-native-community/cookies';
 import FastImage from 'react-native-fast-image';
 import { Form, TextValidator, } from 'react-native-validator-form';
+import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconFeather from 'react-native-vector-icons/Feather';
 ///----------------------------------------------------------------------------------------------->>>> Styles
@@ -159,7 +160,7 @@ export class Login extends React.Component {
           this.storeLogin(userser)
           this.navigationNavigateScreen('MainScreen');
         } else {
-          this.navigationNavigateScreen('MainScreen');
+          this.setState({ errorMessage: responseJson, showErrorMessage: true })
         }
       })
       .catch((error) => {
@@ -183,7 +184,7 @@ export class Login extends React.Component {
     this.setState({ eye })
   }
   render() {
-    const { eye, user, } = this.state;
+    const { showErrorMessage, errorMessage, eye, user, } = this.state;
     return (
       <View style={stylesLogin.Login_Box}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: '#FFFFFF', margin: 5 }]}>เข้าสู่ระบบ</Text>
@@ -263,6 +264,19 @@ export class Login extends React.Component {
             </View>
           </Form>
         </View>
+        <SCLAlert
+          theme="danger"
+          show={showErrorMessage}
+          subtitle={errorMessage && errorMessage.message}
+          subtitleStyle={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}
+          titleContainerStyle={{ marginBottom: -40 }}
+          onRequestClose={() => this.setState({ showErrorMessage: false })}
+        >
+          <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
+            <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={() => this.setState({ showErrorMessage: false })}
+              containerStyle={{ padding: 10, paddingHorizontal: 40 }}>OK</SCLAlertButton>
+          </View>
+        </SCLAlert>
       </View>
     );
   }
@@ -312,7 +326,7 @@ export class Register extends React.Component {
           </View>
           <View style={stylesLogin.Register_Box_Button}>
             <TouchableOpacity>
-              <View style={{ marginLeft: 10, width: 140, height: 50}}>
+              <View style={{ marginLeft: 10, width: 140, height: 50 }}>
                 <FastImage
                   style={stylesLogin.Register_Box_image}
                   source={require('../icon/logoutappfacebook.png')}
@@ -321,7 +335,7 @@ export class Register extends React.Component {
               </View>
             </TouchableOpacity>
             <TouchableOpacity>
-              <View style={{ marginLeft: 10, width: 140, height: 50}}>
+              <View style={{ marginLeft: 10, width: 140, height: 50 }}>
                 <FastImage
                   style={stylesLogin.Register_Box_image}
                   source={require('../icon/logoutapp14.png')}

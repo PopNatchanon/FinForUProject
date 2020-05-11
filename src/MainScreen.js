@@ -36,7 +36,8 @@ import stylesStore from '../style/StylesStoreScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import {
-    BrowerScreen, GetServices, GetData, ProductBox, Toolbar, TabBar, LoadingScreen, RenderProduct, RenderHeader, RenderSubStore
+    BrowerScreen, GetServices, GetData, ProductBox, Toolbar, TabBar, LoadingScreen, RenderHeader,
+    FlatProduct
 } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from './navigator/IpConfig';
@@ -118,7 +119,7 @@ export default class MainScreen extends React.PureComponent {
                 <FlatList
                     ref={c => this.FlatMainScreen = c}
                     scrollEnabled={true}
-                    initialNumToRender={6}
+                    initialNumToRender={10}
                     data={itemT}
                     keyExtractor={(value, index) => 'Component' + index}
                     // ListHeaderComponent={this.renderHeader}
@@ -1262,8 +1263,8 @@ export class FlashSale extends React.PureComponent {
                 <ScrollView horizontal>
                     {
                         dataService && dataService.product &&
-                        <ProductBox numberOfItem={12} dataService={dataService.product} navigation={navigation} mode='row4col1'
-                            pointerUrl='FlashSaleScreen' pointerid_store nameSize={11} priceSize={12} dispriceSize={12} />
+                        <FlatProduct custumNavigation='FlashSaleScreen' navigation={navigation} dataService={dataService.product}
+                            nameFlatProduct='FlashSaleProduct' nameSize={11} priceSize={12} dispriceSize={12} />
                     }
                 </ScrollView>
             </View>
@@ -1365,14 +1366,6 @@ export class Product_for_you extends React.Component {
     }
     render() {
         const { loadData, navigation } = this.props
-        var itemT = []
-        if (loadData && loadData.length)
-            for (var n = 0; n < loadData.length; n += 2) {
-                itemT.push({
-                    item: loadData[n],
-                    item2: loadData[n + 1]
-                })
-            }
         return (
             <View style={[stylesMain.FrameBackground2]}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
@@ -1384,30 +1377,9 @@ export class Product_for_you extends React.Component {
                     </TouchableOpacity>
                 </View>
                 {
-                    loadData && loadData.length > 0 && itemT.length > 0 &&
-                    <FlatList
-                        horizontal
-                        scrollEnabled={true}
-                        // initialNumToRender={6}
-                        data={itemT}
-                        keyExtractor={(value, index) => index}
-                        // ListHeaderComponent={this.renderHeader}
-                        ListHeaderComponentStyle={{
-                            flexDirection: 'column'
-                        }}
-                        renderItem={(value) =>
-                            <View style={[stylesMain.ProductForYouFlexBox, stylesMain.BoxProductWarpBox]}>
-                                {
-                                    value.item.item &&
-                                    <RenderProduct navigation={navigation} mode='row3col2' item={value.item.item} />
-                                }
-                                {
-                                    value.item.item2 &&
-                                    <RenderProduct navigation={navigation} mode='row3col2' item={value.item.item2} />
-                                }
-                            </View>
-                        }
-                    />
+                    loadData && loadData.length > 0 &&
+                    <FlatProduct navigation={navigation} dataService={loadData} NumberOfcolumn={2}
+                        nameSize={14} priceSize={15} dispriceSize={15} />
                 }
                 {/* <ScrollView horizontal>
                     <View style={[stylesMain.ProductForYouFlexBox, stylesMain.Product_for_you]}>
@@ -1692,14 +1664,6 @@ export class CategoryProductSubProduct extends React.Component {
         var dataBody = {
             id_type: id_type
         };
-        var itemT = []
-        if (dataService && dataService.length)
-            for (var n = 0; n < dataService.length; n += 2) {
-                itemT.push({
-                    item: dataService[n],
-                    item2: dataService[n + 1]
-                })
-            }
         return (
             <>
                 {
@@ -1707,30 +1671,9 @@ export class CategoryProductSubProduct extends React.Component {
                     <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
                 }
                 {
-                    dataService && dataService.length > 0 && itemT.length > 0 &&
-                    <FlatList
-                        horizontal
-                        scrollEnabled={true}
-                        initialNumToRender={10}
-                        data={itemT}
-                        keyExtractor={(item, index) => index}
-                        // ListHeaderComponent={this.renderHeader}
-                        ListHeaderComponentStyle={{
-                            flexDirection: 'column'
-                        }}
-                        renderItem={(value) =>
-                            <View style={[stylesMain.ProductForYouFlexBox, stylesMain.BoxProductWarpBox]}>
-                                {
-                                    value.item.item &&
-                                    <RenderProduct navigation={navigation} mode='row3col2' item={value.item.item} />
-                                }
-                                {
-                                    value.item.item2 &&
-                                    <RenderProduct navigation={navigation} mode='row3col2' item={value.item.item2} />
-                                }
-                            </View>
-                        }
-                    />
+                    dataService && dataService.length > 0 &&
+                    <FlatProduct navigation={navigation} dataService={dataService} NumberOfcolumn={2}
+                        nameSize={14} priceSize={15} dispriceSize={15} />
                 }
                 {/* {
                         dataService && dataService.length > 0 &&
@@ -1814,38 +1757,6 @@ export class CategoryProductSubStore extends React.PureComponent {
                             autoplay
                             autoplayInterval={3000}
                             pagination={PaginationLight} />
-                        // <FlatList
-                        //     horizontal
-                        //     scrollEnabled={true}
-                        //     // initialNumToRender={6}
-                        //     data={dataService.banner}
-                        //     keyExtractor={(item, index) => index}
-                        //     // ListHeaderComponent={this.renderHeader}
-                        //     ListHeaderComponentStyle={{
-                        //         flexDirection: 'column'
-                        //     }}
-                        //     renderItem={(value) =>
-                        //         <>
-                        //             {
-                        //                 value.item &&
-                        //                 <RenderSubStore item={value.item} />
-                        //             }
-                        //         </>
-                        //     }
-                        // />
-                        // <ScrollView horizontal>
-                        //     {
-                        //         item.map((item, index) => {
-                        //             var dataMySQL = finip + '/' + item.item.image_path + '/' + item.item.image;
-                        //             var dataMySQL2
-                        //             item.item2 && (
-                        //                 dataMySQL2 = finip + '/' + item.item2.image_path + '/' + item.item2.image
-                        //             )
-                        //             return (
-                        //             );
-                        //         })
-                        //     }
-                        // </ScrollView>
                     )
                 ]}
             </>
@@ -1995,14 +1906,6 @@ export class Second_product extends React.PureComponent {
     }
     get Second_Storeheader() {
         const { Header_Second, loadData, navigation, } = this.props
-        var itemT = []
-        if (loadData && loadData.product_second && loadData.product_second.length)
-            for (var n = 0; n < loadData.product_second.length; n += 2) {
-                itemT.push({
-                    item: loadData.product_second[n],
-                    item2: loadData.product_second[n + 1]
-                })
-            }
         var url
         loadData.mobile_bar &&
             loadData.mobile_bar.map((item) => { (url = finip + '/' + item.image_path + '/' + item.image) })
@@ -2027,30 +1930,9 @@ export class Second_product extends React.PureComponent {
                             </TouchableOpacity>
                     }
                     {
-                        loadData.product_second && itemT &&
-                        <FlatList
-                            horizontal
-                            scrollEnabled={true}
-                            // initialNumToRender={6}
-                            data={itemT}
-                            keyExtractor={(item, index) => index}
-                            // ListHeaderComponent={this.renderHeader}
-                            ListHeaderComponentStyle={{
-                                flexDirection: 'column'
-                            }}
-                            renderItem={(value) =>
-                                <View style={[stylesMain.ProductForYouFlexBox, stylesMain.BoxProductWarpBox]}>
-                                    {
-                                        value.item.item &&
-                                        <RenderProduct navigation={navigation} mode='row3col2' item={value.item.item} />
-                                    }
-                                    {
-                                        value.item.item2 &&
-                                        <RenderProduct navigation={navigation} mode='row3col2' item={value.item.item2} />
-                                    }
-                                </View>
-                            }
-                        />
+                        loadData.product_second &&
+                        <FlatProduct navigation={navigation} dataService={loadData.product_second} NumberOfcolumn={2}
+                            nameSize={14} priceSize={15} dispriceSize={15} />
                     }
                     {/* <ScrollView horizontal>
                         <View style={[stylesMain.ProductForYouFlexBox, { height: 370 }]}>
@@ -2159,25 +2041,6 @@ export class Second_product extends React.PureComponent {
             }
         return (
             <View key={'mobile_slide'} style={stylesMain.Second_Storefooter}>
-                {/* <FlatList
-                    horizontal
-                    scrollEnabled={true}
-                    // initialNumToRender={6}
-                    data={loadData.mobile_slide}
-                    keyExtractor={(value, index) => index}
-                    // ListHeaderComponent={this.renderHeader}
-                    ListHeaderComponentStyle={{
-                        flexDirection: 'column'
-                    }}
-                    renderItem={(value) =>
-                        <>
-                            {
-                                value.item &&
-                                <RenderSubStore item={value.item} />
-                            }
-                        </>
-                    }
-                /> */}
                 <ScrollView horizontal>
                     <View style={stylesMain.FlexRow}>
                         {

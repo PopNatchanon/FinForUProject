@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React from 'react';
 import {
-    ActivityIndicator, Dimensions, Modal, ScrollView, Text, TextInput, TouchableOpacity, View, Share, Image,
+    ActivityIndicator, Dimensions, Modal, ScrollView, Text, TextInput, TouchableOpacity, View, Share, Image, FlatList,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
@@ -1198,6 +1198,47 @@ export class ProductBox extends React.Component {
         )
     }
 }
+export function FlatProduct({
+    dataService, nameFlatProduct, NumberOfcolumn, nameSize, priceSize, dispriceSize, custumNavigation, navigation
+}) {
+    var itemT = []
+    if (NumberOfcolumn == 2 && dataService && dataService.length > 0)
+        for (var n = 0; n < dataService.length; n += 2) {
+            itemT.push({
+                item: dataService[n],
+                item2: dataService[n + 1]
+            })
+        }
+    return (
+        <FlatList
+            horizontal
+            scrollEnabled={true}
+            initialNumToRender={10}
+            data={NumberOfcolumn == 2 ? itemT : dataService}
+            keyExtractor={(value, index) => (nameFlatProduct ? nameFlatProduct : 'Product') + index}
+            // ListHeaderComponent={this.renderHeader}
+            ListHeaderComponentStyle={{
+                flexDirection: 'column'
+            }}
+            renderItem={(value) =>
+                <View style={NumberOfcolumn == 2 ? stylesMain.Product_for_you : {}}>
+                    {
+                        (NumberOfcolumn == 2 ? value.item.item : value.item) &&
+                        <RenderProduct custumNavigation={custumNavigation} navigation={navigation}
+                            mode={NumberOfcolumn == 2 ? 'row3col2' : 'row4col1'}
+                            item={NumberOfcolumn == 2 ? value.item.item : value.item} nameSize={nameSize} priceSize={priceSize}
+                            dispriceSize={dispriceSize} />
+                    }
+                    {
+                        NumberOfcolumn == 2 && value.item.item2 &&
+                        <RenderProduct custumNavigation={custumNavigation} navigation={navigation} mode='row3col2'
+                            item={value.item.item2} nameSize={nameSize} priceSize={priceSize} dispriceSize={dispriceSize} />
+                    }
+                </View>
+            }
+        />
+    )
+}
 ///----------------------------------------------------------------------------------------------->>>> NavigationNavigateScreen
 export function NavigationNavigateScreen({ value, value2, navigation }) {
     value == 'goBack' ?
@@ -1209,27 +1250,9 @@ export function NavigationNavigateScreen({ value, value2, navigation }) {
             navigation.push(value, value2)
 
 }
-///----------------------------------------------------------------------------------------------->>>> RenderHeader
-export function RenderHeader({ item, navigation }) {
-    var dataMySQL = finip + '/' + item.mobile_head;
-    return (
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({
-            navigation, value: 'CategoryScreen', value2: {
-                id_type: item.id_type
-            }
-        })}>
-            <FastImage
-                source={{
-                    uri: dataMySQL,
-                }}
-                style={[stylesMain.CategoryProductImageHead]}
-                resizeMode={FastImage.resizeMode.contain} />
-        </TouchableOpacity>
-    )
-}
 ///----------------------------------------------------------------------------------------------->>>> RenderProduct
 export function RenderProduct({
-    item, dispriceSize, getDataService, mode, navigation, nameSize, noNavigation, priceSize, radiusBox, onShow,
+    custumNavigation, item, dispriceSize, getDataService, mode, navigation, nameSize, noNavigation, priceSize, radiusBox, onShow,
 }) {
     onShow && ([
         console.log('///----------------------------------------------------------------------------------------------->>>> RenderProduct'),
@@ -1248,7 +1271,7 @@ export function RenderProduct({
             noNavigation ?
                 getDataService({ id_product, name }) :
                 NavigationNavigateScreen({
-                    navigation, value: 'DetailScreen', value2: {
+                    navigation, value: custumNavigation ? custumNavigation : 'DetailScreen', value2: {
                         id_item: item.id_product
                     }
                 })}>

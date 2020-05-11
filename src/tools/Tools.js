@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React from 'react';
 import {
-    ActivityIndicator, Dimensions, Modal, ScrollView, Text, TextInput, TouchableOpacity, View, Share, Image
+    ActivityIndicator, Dimensions, Modal, ScrollView, Text, TextInput, TouchableOpacity, View, Share, Image,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
@@ -1193,6 +1193,205 @@ export class ProductBox extends React.Component {
             this.ProductBoxRender
         )
     }
+}
+///----------------------------------------------------------------------------------------------->>>> NavigationNavigateScreen
+export function NavigationNavigateScreen({ value, value2, navigation }) {
+    value == 'goBack' ?
+        navigation.goBack() :
+        value == 'LoginScreen' ? (
+            navigation.popToTop(),
+            navigation.replace(value, value2)
+        ) :
+            navigation.push(value, value2)
+
+}
+///----------------------------------------------------------------------------------------------->>>> RenderHeader
+export function RenderHeader({ item, navigation }) {
+    var dataMySQL = finip + '/' + item.mobile_head;
+    return (
+        <TouchableOpacity onPress={() => NavigationNavigateScreen({
+            navigation, value: 'CategoryScreen', value2: {
+                id_type: item.id_type
+            }
+        })}>
+            <FastImage
+                source={{
+                    uri: dataMySQL,
+                }}
+                style={[stylesMain.CategoryProductImageHead]}
+                resizeMode={FastImage.resizeMode.contain} />
+        </TouchableOpacity>
+    )
+}
+///----------------------------------------------------------------------------------------------->>>> RenderProduct
+export function RenderProduct({
+    item, dispriceSize, getDataService, mode, navigation, nameSize, noNavigation, priceSize, radiusBox, onShow,
+}) {
+    onShow && ([
+        console.log('///----------------------------------------------------------------------------------------------->>>> RenderProduct'),
+        console.log(item)
+    ])
+    var url
+    { url = finip }
+    var dataMySQL =
+        [
+            url,
+            item.path_image_product ? item.path_image_product : item.image_path,
+            item.image_product ? item.image_product : item.image_main ? item.image_main : item.image
+        ].join('/');
+    return (
+        <TouchableOpacity activeOpacity={1} onPress={() =>
+            noNavigation ?
+                getDataService({ id_product, name }) :
+                NavigationNavigateScreen({
+                    navigation, value: 'DetailScreen', value2: {
+                        id_item: item.id_product
+                    }
+                })}>
+            <View style={[
+                mode == 'row4col1' ?
+                    stylesMain.BoxProduct5Box :
+                    mode == 'row3col2' ?
+                        stylesMain.BoxProduct1Box2 :
+                        mode == 'row3col2_2' ?
+                            stylesMain.BoxProduct4Box :
+                            mode == 'row3colall' ?
+                                stylesMain.BoxProduct2Box :
+                                mode == 'row2colall' ?
+                                    stylesMain.BoxProduct3Box :
+                                    mode == '5item' ?
+                                        stylesDeal.Deal_Exclusive_Box :
+                                        stylesMain.BoxProduct1Box,
+                {
+                    marginBottom: mode == 'row3col2_2' ? 4 : null,
+                    borderRadius: radiusBox ? radiusBox : 0
+                }
+            ]}>
+                <View style={
+                    mode == 'row4col1' ?
+                        stylesMain.BoxProduct5ImageofLines :
+                        mode == 'row3colall' ?
+                            stylesMain.BoxProduct2ImageofLines :
+                            mode == 'row2colall' ?
+                                stylesMain.BoxProduct3ImageofLines :
+                                mode == '5item' ?
+                                    stylesMain.BoxProduct1ImageofLines2 :
+                                    stylesMain.BoxProduct1ImageofLines
+                }>
+                    <FastImage
+                        source={{
+                            uri: dataMySQL,
+                        }}
+                        style={[
+                            mode == 'row4col1' ?
+                                stylesMain.BoxProduct5Image :
+                                mode == 'row3colall' || mode == '5item' ?
+                                    stylesMain.BoxProduct2Image :
+                                    stylesMain.BoxProduct1Image,
+                            {
+                                borderTopLeftRadius: radiusBox ? radiusBox : 0,
+                                borderTopRightRadius: radiusBox ? radiusBox : 0
+                            }
+                        ]}
+                        resizeMode={FastImage.resizeMode.contain} />
+                </View>
+                <View style={{
+                    height: 60,
+                    paddingHorizontal: 3
+                }}>
+                    <View style={[
+                        stylesMain.BoxProduct1NameofLines
+                    ]}>
+                        <Text numberOfLines={1} style={[
+                            stylesFont.FontFamilySemiBold,
+                            {
+                                fontSize: nameSize ? nameSize : 16,
+                            }
+                        ]}>
+                            {item.name_product ? item.name_product : item.name}</Text>
+                    </View>
+                    <View style={[
+                        stylesMain.BoxProduct1PriceofLines,
+                    ]}>
+                        <View style={[stylesMain.FlexRow, { paddingVertical: 2 }]}>
+                            <NumberFormat
+                                value={
+                                    item.price_discount ?
+                                        item.price_discount :
+                                        item.full_price ?
+                                            item.full_price :
+                                            item.price
+                                }
+                                displayType={'text'}
+                                thousandSeparator={true}
+                                prefix={'฿'}
+                                renderText={value =>
+                                    <Text style={[
+                                        stylesMain.BoxProduct1ImagePrice,
+                                        stylesFont.FontFamilyBoldBold, {
+                                            fontSize: priceSize ? priceSize : 14,
+                                        }
+                                    ]}>
+                                        {value}</Text>
+                                } />
+                            {
+                                item.discount > 0 &&
+                                <NumberFormat
+                                    value={item.discount && item.discount}
+                                    displayType={'text'}
+                                    thousandSeparator={true}
+                                    suffix={'%'}
+                                    renderText={
+                                        value =>
+                                            value &&
+                                            <View style={[stylesMain.Box_On_sale, { borderRadius: 10 }]}>
+                                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, {
+                                                    color: '#FFFFFF'
+                                                }]}>
+                                                    {'-' + value}</Text>
+                                            </View>
+                                    } />
+                            }
+                        </View>
+                        {
+                            item.price_discount &&
+                            <NumberFormat
+                                value={item.price}
+                                displayType={'text'}
+                                thousandSeparator={true}
+                                prefix={'฿'}
+                                renderText={value =>
+                                    <Text style={[
+                                        stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontFamilyText, {
+                                            marginTop: -4,
+                                            fontSize: dispriceSize ? dispriceSize : 14
+                                        }
+                                    ]}>
+                                        {value}</Text>
+                                } />
+                        }
+                    </View>
+                </View>
+            </View>
+        </TouchableOpacity>
+    );
+}
+///----------------------------------------------------------------------------------------------->>>> RenderSubStore
+export function RenderSubStore({ item }) {
+    var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
+    return (
+        <TouchableOpacity activeOpacity={1} style={stylesMain.FlexRow}>
+            <View style={[stylesMain.CategoryProductStoreBox]}>
+                <Image
+                    source={{
+                        uri: dataMySQL,
+                    }}
+                    style={stylesMain.CategoryProductStoreImage}
+                    resizeMode='cover'
+                    resizeMethod='resize' />
+            </View>
+        </TouchableOpacity>
+    );
 }
 ///----------------------------------------------------------------------------------------------->>>> FeedBox
 export class FeedBox extends React.Component {

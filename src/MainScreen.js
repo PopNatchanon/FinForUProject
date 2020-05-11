@@ -1,8 +1,8 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React from 'react';
 import {
-    Animated, BackHandler, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, YellowBox,
-    Image
+    Animated, BackHandler, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, YellowBox, SectionList,
+    Image, FlatList
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import ActionButton from 'react-native-action-button';
@@ -20,6 +20,7 @@ import SkeletonContent from "react-native-skeleton-content-nonexpo";
 import SplashScreen from 'react-native-splash-screen';
 import SlidingView from 'rn-sliding-view';
 import WebView from 'react-native-webview';
+import { RecyclerListView, DataProvider, LayoutProvider } from "recyclerlistview";
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -34,7 +35,9 @@ import stylesMain from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { BrowerScreen, GetServices, GetData, ProductBox, Toolbar, TabBar, LoadingScreen, } from './tools/Tools';
+import {
+    BrowerScreen, GetServices, GetData, ProductBox, Toolbar, TabBar, LoadingScreen, RenderProduct, RenderHeader, RenderSubStore
+} from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -57,53 +60,62 @@ export default class MainScreen extends React.PureComponent {
     }
     render() {
         const { navigation } = this.props;
-        const { activeDataService, activeFlashSale, dataService, } = this.state;
+        const { activeDataService, activeFlashSale, activeLoading, dataService, } = this.state;
         const browerProps = navigation.getParam('browerProps');
         var uri = [finip, 'home/publish_mobile'].join('/');
+        let itemT = [
+            <Slide />,
+            <Category navigation={navigation} />,
+            <Button_Bar navigation={navigation} />,
+            <FlashSale navigation={navigation} activeDataService={activeFlashSale}
+                getActiveDataService={this.getActiveDataService.bind(this)} />,
+            <Recommend_Brand navigation={navigation} loadData={dataService.brand} />,
+            <BannerBar_TWO />,
+            <Exclusive navigation={navigation} loadData={dataService.exclusive} />,
+            <NewStore navigation={navigation} loadData={dataService.dont_miss} />,
+            <Fin_Mall navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />,
+            <BannerBar_ONE />,
+            <Highlight navigation={navigation} loadData={dataService.hi_week} />,
+            <PromotionPopular navigation={navigation} loadData={dataService.recommend_store} />,
+            <Popular_store navigation={navigation} loadData={dataService.store_good} />,
+            <Popular_product navigation={navigation} loadData={{
+                product_hit: dataService.product_hit, best_price: dataService.best_price,
+                best_sale: dataService.best_sale, best_cool: dataService.best_cool
+            }} />,
+            <Product_for_you navigation={navigation} loadData={dataService.for_you} />,
+            <CategoryProduct activeMain={activeDataService} navigation={navigation} />,
+            <Second_product navigation={navigation} loadData={{
+                product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
+                list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3,
+                mobile_bar: dataService.mobile_bar, mobile_slide: dataService.mobile_slide,
+            }} />,
+            <BannerBar_THREE />,
+            <FIN_Supermarket navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />,
+            <TodayProduct navigation={navigation} loadData={dataService.for_you2} />
+        ]
         return (
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                 {[
-                    (activeDataService == true) &&
-                    <LoadingScreen key='LoadingScreen' />,
                     activeDataService == true &&
                     <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} key={'activeDataService'}
                     // showConsole={'Main'}
                     />,
                 ]}
                 <AppBar navigation={navigation} style={{ flex: 5, }} />
-                <ScrollView style={{ flex: 90, }} >
-                    <Slide />
-                    <Category navigation={navigation} />
-                    <Trend_Hit />
-                    <Button_Bar navigation={navigation} />
-                    <FlashSale navigation={navigation} activeDataService={activeFlashSale}
-                        getActiveDataService={this.getActiveDataService.bind(this)} />
-                    <Fin_Service />
-                    <Recommend_Brand navigation={navigation} loadData={dataService.brand} />
-                    <BannerBar_TWO />
-                    <Exclusive navigation={navigation} loadData={dataService.exclusive} />
-                    <NewStore navigation={navigation} loadData={dataService.dont_miss} />
-                    <Fin_Mall navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />
-                    <BannerBar_ONE />
-                    <Highlight navigation={navigation} loadData={dataService.hi_week} />
-                    <PromotionPopular navigation={navigation} loadData={dataService.recommend_store} />
-                    <Popular_store navigation={navigation} loadData={dataService.store_good} />
-                    <Popular_product navigation={navigation} loadData={{
-                        product_hit: dataService.product_hit, best_price: dataService.best_price,
-                        best_sale: dataService.best_sale, best_cool: dataService.best_cool
-                    }} />
-                    <Product_for_you navigation={navigation} loadData={dataService.for_you} />
-                    <CategoryProduct navigation={navigation} />
-                    <Second_product navigation={navigation} loadData={{
-                        product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
-                        list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3,
-                        mobile_bar: dataService.mobile_bar, mobile_slide: dataService.mobile_slide,
-                    }} />
-                    <BannerBar_THREE />
-                    <FIN_Supermarket navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />
-                    <TodayProduct navigation={navigation} loadData={dataService.for_you2} />
-                </ScrollView>
-                <Botton_PopUp_FIN />
+                <FlatList
+                    scrollEnabled={true}
+                    initialNumToRender={6}
+                    data={itemT}
+                    keyExtractor={(value, index) => index}
+                    // ListHeaderComponent={this.renderHeader}
+                    renderItem={(value) => value.item}
+                    ListEmptyComponent={() =>
+                        <View style={[stylesMain.ItemCenter, { width, height: 360 }]}>
+                            <ActivityIndicator style={stylesMain.ItemCenterVertical} color='#1A3263' size='large' />
+                        </View>
+                    }
+                />
+                <Botton_PopUp_FIN useNativeDriver />
                 <Toolbar navigation={navigation} style={{ flex: 5, }} />
                 <ExitAppModule navigation={navigation} />
             </SafeAreaView>
@@ -541,8 +553,8 @@ export class Slide extends React.PureComponent {
         this.setState({ activeSlide })
     }
     _renderItem = item => {
-        var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
-        // var dataMySQL = [finip, item.image_path, item.image].join('/');
+        // var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
+        var dataMySQL = [finip, item.image_path, item.image].join('/');
         return (
             <View style={stylesMain.child} key={item.id}>
                 <Image
@@ -556,16 +568,16 @@ export class Slide extends React.PureComponent {
         );
     }
     render() {
-        var uri = ip + '/mysql/DataServiceMain.php';
-        var dataBody = {
-            type: 'slide'
-        };
+        // var uri = ip + '/mysql/DataServiceMain.php';
+        // var dataBody = {
+        //     type: 'slide'
+        // };
         const { banner } = this.props
         const { activeDataService, dataService, } = this.state
-        // var dataBody = {
-        //     slide: 'banner'
-        // };
-        // var uri = [finip, 'home/home_mobile'].join('/')
+        var dataBody = {
+            slide: 'banner'
+        };
+        var uri = [finip, 'home/home_mobile'].join('/')
         return (
             <View>
                 {
@@ -878,14 +890,14 @@ export class Popular_store extends React.Component {
                 navigation.push(value, value2)
     }
     get PopularStoreItem() {
-        // const { loadData } = this.props;
-        // return loadData &&
-        //     loadData.map((item, index) => {
-        //         var dataMySQL = finip + '/' + item.image_path + '/' + item.image
-        var { dataService } = this.state
-        return dataService &&
-            dataService.map((item, index) => {
-                var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
+        const { loadData } = this.props;
+        return loadData &&
+            loadData.map((item, index) => {
+                var dataMySQL = finip + '/' + item.image_path + '/' + item.image
+                // var { dataService } = this.state
+                // return dataService &&
+                //     dataService.map((item, index) => {
+                //         var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
                 return (
                     <TouchableOpacity activeOpacity={1} key={index} onPress={this.navigationNavigateScreen.bind(this, 'Recommend_Store')}>
                         <View style={stylesMain.BoxStore1Box}>
@@ -903,13 +915,13 @@ export class Popular_store extends React.Component {
             })
     }
     render() {
-        var uri = ip + '/mysql/DataServiceMain.php';
-        var dataBody = {
-            type: 'store2'
-        };
+        // var uri = ip + '/mysql/DataServiceMain.php';
+        // var dataBody = {
+        //     type: 'store2'
+        // };
         return (
             <View style={stylesMain.FrameBackground2}>
-                <GetServices key={'activeDataService'} uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
+                {/* <GetServices key={'activeDataService'} uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} /> */}
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         ร้านที่ใช่อยากให้ช้อป</Text>
@@ -1268,14 +1280,14 @@ export class PromotionPopular extends React.Component {
                 navigation.push(value, value2)
     }
     get dataPromotionPopular() {
-        // const { loadData } = this.props
-        // return loadData &&
-        //     loadData.map((item, index) => {
-        //         var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
-        var { dataService } = this.state
-        return dataService &&
-            dataService.map((item, index) => {
-                var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
+        const { loadData } = this.props
+        return loadData &&
+            loadData.map((item, index) => {
+                var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
+                // var { dataService } = this.state
+                // return dataService &&
+                //     dataService.map((item, index) => {
+                //         var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
                 return (
                     <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Recommend_Store')} key={index}>
                         <View style={[stylesMain.BoxStore2Box2]}>
@@ -1301,13 +1313,13 @@ export class PromotionPopular extends React.Component {
             })
     }
     render() {
-        var uri = ip + '/mysql/DataServiceMain.php';
-        var dataBody = {
-            type: 'Promotion'
-        };
+        // var uri = ip + '/mysql/DataServiceMain.php';
+        // var dataBody = {
+        //     type: 'Promotion'
+        // };
         return (
             <View style={stylesMain.FrameBackground2}>
-                <GetServices key={'activeDataService'} uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
+                {/* <GetServices key={'activeDataService'} uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} /> */}
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         ลายแทงร้านค้าแนะนำ</Text>
@@ -1342,6 +1354,14 @@ export class Product_for_you extends React.Component {
     }
     render() {
         const { loadData, navigation } = this.props
+        var itemT = []
+        if (loadData && loadData.length)
+            for (var n = 0; n < loadData.length; n += 2) {
+                itemT.push({
+                    item: loadData[n],
+                    item2: loadData[n + 1]
+                })
+            }
         return (
             <View style={[stylesMain.FrameBackground2]}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
@@ -1352,7 +1372,33 @@ export class Product_for_you extends React.Component {
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
                 </View>
-                <ScrollView horizontal>
+                {
+                    loadData && loadData.length > 0 && itemT.length > 0 &&
+                    <FlatList
+                        horizontal
+                        scrollEnabled={true}
+                        // initialNumToRender={6}
+                        data={itemT}
+                        keyExtractor={(value, index) => index}
+                        // ListHeaderComponent={this.renderHeader}
+                        ListHeaderComponentStyle={{
+                            flexDirection: 'column'
+                        }}
+                        renderItem={(value) =>
+                            <View style={[stylesMain.ProductForYouFlexBox, stylesMain.BoxProductWarpBox]}>
+                                {
+                                    value.item.item &&
+                                    <RenderProduct navigation={navigation} mode='row3col2' item={value.item.item} />
+                                }
+                                {
+                                    value.item.item2 &&
+                                    <RenderProduct navigation={navigation} mode='row3col2' item={value.item.item2} />
+                                }
+                            </View>
+                        }
+                    />
+                }
+                {/* <ScrollView horizontal>
                     <View style={[stylesMain.ProductForYouFlexBox, stylesMain.Product_for_you]}>
                         {
                             loadData &&
@@ -1360,7 +1406,7 @@ export class Product_for_you extends React.Component {
                                 pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} />
                         }
                     </View>
-                </ScrollView>
+                </ScrollView> */}
             </View>
         );
     }
@@ -1429,20 +1475,22 @@ export class NewStore extends React.Component {
     }
 
     get dataNewStore() {
-        // const { loadData } = this.props
-        var { dataService } = this.state
+        const { loadData } = this.props
+        // var { dataService } = this.state
         // loadData && (dataService = loadData)
-        return dataService &&
-            dataService.map((item, index) => {
+        return loadData &&
+            loadData.map((item, index) => {
+                // return dataService &&
+                //     dataService.map((item, index) => {
                 // console.log('dataNewStore')
                 // console.log(item)
-                var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
-                // var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
+                // var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
+                var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
                 return (
                     <TouchableOpacity activeOpacity={1} key={index}
-                    // onPress={this.navigationNavigateScreen.bind(this, 'Recommend_Store', {
-                    //     id_slide: item.id, uri_path: 'publish_store/store_total', name_path: 'store_total'
-                    // })}
+                        onPress={this.navigationNavigateScreen.bind(this, 'Recommend_Store', {
+                            id_slide: item.id, uri_path: 'publish_store/store_total', name_path: 'store_total'
+                        })}
                     >
                         <View style={stylesMain.BoxStore1Box}>
                             <FastImage
@@ -1457,13 +1505,13 @@ export class NewStore extends React.Component {
             })
     }
     render() {
-        var uri = ip + '/mysql/DataServiceMain.php';
-        var dataBody = {
-            type: 'store1'
-        };
+        // var uri = ip + '/mysql/DataServiceMain.php';
+        // var dataBody = {
+        //     type: 'store1'
+        // };
         return (
             <View style={stylesMain.FrameBackground2}>
-                <GetServices key={'activeDataService'} uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
+                {/* <GetServices key={'activeDataService'} uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} /> */}
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         ร้านค้าห้ามพลาด!!่</Text>
@@ -1520,8 +1568,12 @@ export class CategoryProduct extends React.Component {
         super(props);
         this.state = {
             activeDataService: true,
+            activeProductMobile: true,
             dataService: [],
         }
+    }
+    getActiveProductMobile = (activeProductMobile) => {
+        this.setState({ activeProductMobile })
     }
     getData = (dataService) => {
         this.setState({ dataService, activeDataService: false })
@@ -1538,25 +1590,33 @@ export class CategoryProduct extends React.Component {
     }
     get dataCategory() {
         const { navigation, NoStoreReCom, } = this.props
-        const { dataService } = this.state
+        const { activeProductMobile, dataService } = this.state
         return dataService &&
             dataService.map((item, index) => {
                 // var dataMySQL = [ip ,'mysql', item.image_path, item.image_head].join('/');
                 var dataMySQL = finip + '/' + item.mobile_head;
                 return (
-                    <View style={[stylesMain.FrameBackground2, { marginTop: 10, backgroundColor: item.bg_m }]} key={index}>
+                    <View style={[stylesMain.FrameBackground2, {
+                        marginTop: activeProductMobile == false ? 10 : 0,
+                        backgroundColor: activeProductMobile == false ? item.bg_m : 'transparent',
+                        paddingBottom: activeProductMobile == false ? 4 : 0,
+                    }]} key={index}>
                         <>
-                            <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'CategoryScreen',
-                                { id_type: item.id_type })}>
-                                <Image
-                                    source={{
-                                        uri: dataMySQL,
-                                    }}
-                                    style={[stylesMain.CategoryProductImageHead]}
-                                    resizeMode='contain'
-                                    resizeMethod='resize' />
-                            </TouchableOpacity>
-                            <CategoryProductSubProduct navigation={navigation} id_type={item.id_type} />
+                            {
+                                activeProductMobile == false &&
+                                <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'CategoryScreen',
+                                    { id_type: item.id_type })}>
+                                    <FastImage
+                                        source={{
+                                            uri: dataMySQL,
+                                        }}
+                                        style={[stylesMain.CategoryProductImageHead]}
+                                        resizeMode={FastImage.resizeMode.contain} />
+                                </TouchableOpacity>
+                            }
+                            <CategoryProductSubProduct activeProductMobile={activeProductMobile}
+                                getActiveProductMobile={this.getActiveProductMobile.bind(this)} navigation={navigation} headerData={item}
+                                id_type={item.id_type} />
                         </>
                         {
                             NoStoreReCom ?
@@ -1579,7 +1639,8 @@ export class CategoryProduct extends React.Component {
             })
     }
     render() {
-        const { activeDataService } = this.state
+        const { activeMain } = this.props
+        const { activeDataService, activeProductMobile } = this.state
         // var uri = ip + '/mysql/DataServiceMain.php';
         // var dataBody = {
         //     type: 'type'
@@ -1588,6 +1649,8 @@ export class CategoryProduct extends React.Component {
         return (
             <View>
                 {[
+                    (activeMain == true || activeDataService == true || activeProductMobile == true) &&
+                    <LoadingScreen key='LoadingScreen' />,
                     activeDataService == true &&
                     <GetServices key={'activeDataService'} uriPointer={uri} getDataSource={this.getData.bind(this)} />,
                     this.dataCategory
@@ -1606,29 +1669,67 @@ export class CategoryProductSubProduct extends React.Component {
         }
     }
     getData = (dataService) => {
+        const { getActiveProductMobile } = this.props
+        getActiveProductMobile(false)
         this.setState({ dataService, activeDataService: false })
     }
+    renderHeader = () => {
+        const { headerData, navigation } = this.props
+        return <RenderHeader navigation={navigation} item={headerData} />
+    }
     render() {
-        const { id_type, navigation } = this.props
-        const { activeDataService, dataService, } = this.state
+        const { activeProductMobile, id_type, navigation } = this.props
+        const { dataService, } = this.state
         var uri = finip + '/home/product_mobile';
         var dataBody = {
             id_type: id_type
         };
+        var itemT = []
+        if (dataService && dataService.length)
+            for (var n = 0; n < dataService.length; n += 2) {
+                itemT.push({
+                    item: dataService[n],
+                    item2: dataService[n + 1]
+                })
+            }
         return (
-            <ScrollView horizontal>
+            <>
                 {
-                    activeDataService == true &&
+                    activeProductMobile == true && id_type &&
                     <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
                 }
-                <View style={[stylesMain.ProductForYouFlexBox, stylesMain.BoxProductWarpBox]}>
-                    {
+                {
+                    dataService && dataService.length > 0 && itemT.length > 0 &&
+                    <FlatList
+                        horizontal
+                        scrollEnabled={true}
+                        // initialNumToRender={6}
+                        data={itemT}
+                        keyExtractor={(item, index) => index}
+                        // ListHeaderComponent={this.renderHeader}
+                        ListHeaderComponentStyle={{
+                            flexDirection: 'column'
+                        }}
+                        renderItem={(value) =>
+                            <View style={[stylesMain.ProductForYouFlexBox, stylesMain.BoxProductWarpBox]}>
+                                {
+                                    value.item.item &&
+                                    <RenderProduct navigation={navigation} mode='row3col2' item={value.item.item} />
+                                }
+                                {
+                                    value.item.item2 &&
+                                    <RenderProduct navigation={navigation} mode='row3col2' item={value.item.item2} />
+                                }
+                            </View>
+                        }
+                    />
+                }
+                {/* {
                         dataService && dataService.length > 0 &&
-                        <ProductBox  /*numberOfItem={12}*/ dataService={dataService} navigation={navigation} typeip='fin' mode='row3col2'
+                        <ProductBox  numberOfItem={12} dataService={dataService} navigation={navigation} typeip='fin' mode='row3col2'
                             pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} />
-                    }
-                </View>
-            </ScrollView>
+                    } */}
+            </>
         )
     }
 }
@@ -1642,6 +1743,9 @@ export class CategoryProductSubStore extends React.PureComponent {
     }
     getData = (dataService) => {
         this.setState({ dataService, activeDataService: false })
+    }
+    setActiveSlide = (index) => {
+        this.setState({ activeSlide: index })
     }
     _renderItem = (item, index) => {
         var dataMySQL = finip + '/' + item.item.image_path + '/' + item.item.image;
@@ -1672,9 +1776,6 @@ export class CategoryProductSubStore extends React.PureComponent {
             </TouchableOpacity>
         );
     }
-    setActiveSlide = (index) => {
-        this.setState({ activeSlide: index })
-    }
     render() {
         const { id_type } = this.props
         const { dataService, activeDataService } = this.state
@@ -1683,29 +1784,60 @@ export class CategoryProductSubStore extends React.PureComponent {
             promotion: 'shop',
             id_type: id_type,
         };
-        var item = []
-        if (dataService && dataService.banner)
-            for (var n = 0; n < dataService.banner.length; n += 2) {
-                item.push({
-                    item: dataService.banner[n],
-                    item2: dataService.banner[n + 1]
-                })
-            }
+        // var item = []
+        // if (dataService && dataService.banner)
+        //     for (var n = 0; n < dataService.banner.length; n += 2) {
+        //         item.push({
+        //             item: dataService.banner[n],
+        //             item2: dataService.banner[n + 1]
+        //         })
+        //     }
         return (
             <>
                 {[
                     activeDataService == true &&
                     <GetServices key={'activeDataService'} uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />,
                     dataService && dataService.banner && (
-                        <Carousel
-                            key={'banner'}
-                            renderItem={this._renderItem}
-                            data={item}
-                            // loop
-                            // autoplay
-                            // autoplayInterval={3000}
-                            pagination={PaginationLight}
+                        // <Carousel
+                        //     key={'banner'}
+                        //     renderItem={this._renderItem}
+                        //     data={item}
+                        //     loop
+                        //     autoplay
+                        //     autoplayInterval={3000}
+                        //     pagination={PaginationLight} />
+                        <FlatList
+                            horizontal
+                            scrollEnabled={true}
+                            // initialNumToRender={6}
+                            data={dataService.banner}
+                            keyExtractor={(item, index) => index}
+                            // ListHeaderComponent={this.renderHeader}
+                            ListHeaderComponentStyle={{
+                                flexDirection: 'column'
+                            }}
+                            renderItem={(value) =>
+                                <>
+                                    {
+                                        value.item &&
+                                        <RenderSubStore item={value.item} />
+                                    }
+                                </>
+                            }
                         />
+                        // <ScrollView horizontal>
+                        //     {
+                        //         item.map((item, index) => {
+                        //             var dataMySQL = finip + '/' + item.item.image_path + '/' + item.item.image;
+                        //             var dataMySQL2
+                        //             item.item2 && (
+                        //                 dataMySQL2 = finip + '/' + item.item2.image_path + '/' + item.item2.image
+                        //             )
+                        //             return (
+                        //             );
+                        //         })
+                        //     }
+                        // </ScrollView>
                     )
                 ]}
             </>
@@ -1822,15 +1954,15 @@ export class Second_product extends React.PureComponent {
             var dataMySQL = finip + '/' + item.image_path + '/' + item.image
             return (
                 <View key={index} style={{ width: width * 0.64, height: 196 }}>
-                    <FastImage
+                    <Image
                         source={{
                             uri: dataMySQL,
                             width: width * 0.64,
                             height: 196,
                         }}
                         style={stylesMain.bigSlideImage}
-                        resizeMode={FastImage.resizeMode.cover}>
-                    </FastImage>
+                        resizeMode='cover'
+                        resizeMethod='resize' />
                 </View>
             );
         })
@@ -1840,21 +1972,29 @@ export class Second_product extends React.PureComponent {
             var dataMySQL = finip + '/' + item.image_path + '/' + item.image
             return (
                 <View key={index} style={{ width: width * 0.32, height: 130 }}>
-                    <FastImage
+                    <Image
                         source={{
                             uri: dataMySQL,
                             width: width * 0.32,
                             height: 130,
                         }}
                         style={stylesMain.litleSlideImage}
-                        resizeMode={FastImage.resizeMode.stretch}>
-                    </FastImage>
+                        resizeMode='stretch'
+                        resizeMethod='resize' />
                 </View>
             );
         })
     }
     get Second_Storeheader() {
         const { Header_Second, loadData, navigation, } = this.props
+        var itemT = []
+        if (loadData && loadData.product_second && loadData.product_second.length)
+            for (var n = 0; n < loadData.product_second.length; n += 2) {
+                itemT.push({
+                    item: loadData.product_second[n],
+                    item2: loadData.product_second[n + 1]
+                })
+            }
         var url
         loadData.mobile_bar &&
             loadData.mobile_bar.map((item) => { (url = finip + '/' + item.image_path + '/' + item.image) })
@@ -1878,7 +2018,33 @@ export class Second_product extends React.PureComponent {
                                     resizeMethod='resize' />
                             </TouchableOpacity>
                     }
-                    <ScrollView horizontal>
+                    {
+                        loadData.product_second && itemT &&
+                        <FlatList
+                            horizontal
+                            scrollEnabled={true}
+                            // initialNumToRender={6}
+                            data={itemT}
+                            keyExtractor={(item, index) => index}
+                            // ListHeaderComponent={this.renderHeader}
+                            ListHeaderComponentStyle={{
+                                flexDirection: 'column'
+                            }}
+                            renderItem={(value) =>
+                                <View style={[stylesMain.ProductForYouFlexBox, stylesMain.BoxProductWarpBox]}>
+                                    {
+                                        value.item.item &&
+                                        <RenderProduct navigation={navigation} mode='row3col2' item={value.item.item} />
+                                    }
+                                    {
+                                        value.item.item2 &&
+                                        <RenderProduct navigation={navigation} mode='row3col2' item={value.item.item2} />
+                                    }
+                                </View>
+                            }
+                        />
+                    }
+                    {/* <ScrollView horizontal>
                         <View style={[stylesMain.ProductForYouFlexBox, { height: 370 }]}>
                             {
                                 loadData.product_second &&
@@ -1886,7 +2052,7 @@ export class Second_product extends React.PureComponent {
                                     pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} />
                             }
                         </View>
-                    </ScrollView>
+                    </ScrollView> */}
                 </View>
             </View>
         )
@@ -1985,6 +2151,25 @@ export class Second_product extends React.PureComponent {
             }
         return (
             <View key={'mobile_slide'} style={stylesMain.Second_Storefooter}>
+                {/* <FlatList
+                    horizontal
+                    scrollEnabled={true}
+                    // initialNumToRender={6}
+                    data={loadData.mobile_slide}
+                    keyExtractor={(value, index) => index}
+                    // ListHeaderComponent={this.renderHeader}
+                    ListHeaderComponentStyle={{
+                        flexDirection: 'column'
+                    }}
+                    renderItem={(value) =>
+                        <>
+                            {
+                                value.item &&
+                                <RenderSubStore item={value.item} />
+                            }
+                        </>
+                    }
+                /> */}
                 <ScrollView horizontal>
                     <View style={stylesMain.FlexRow}>
                         {

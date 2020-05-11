@@ -395,7 +395,7 @@ export default StyleSheet.create({
   },
   FrameBackground3: {
     width,
-    height: height * 0.06,
+    height: height * 0.07,
     borderColor: '#ECECEC',
     backgroundColor: '#fff',
     borderBottomWidth: 1,

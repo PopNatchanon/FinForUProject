@@ -1132,6 +1132,8 @@ export class ProductBox extends React.Component {
                                                         item.full_price :
                                                         item.price
                                             }
+                                            fixedDecimalScale
+                                            decimalScale={0}
                                             displayType={'text'}
                                             thousandSeparator={true}
                                             prefix={'฿'}
@@ -1167,6 +1169,8 @@ export class ProductBox extends React.Component {
                                         item.price_discount &&
                                         <NumberFormat
                                             value={item.price}
+                                            fixedDecimalScale
+                                            decimalScale={0}
                                             displayType={'text'}
                                             thousandSeparator={true}
                                             prefix={'฿'}
@@ -1322,6 +1326,8 @@ export function RenderProduct({
                                             item.full_price :
                                             item.price
                                 }
+                                fixedDecimalScale
+                                decimalScale={0}
                                 displayType={'text'}
                                 thousandSeparator={true}
                                 prefix={'฿'}
@@ -1357,6 +1363,8 @@ export function RenderProduct({
                             item.price_discount &&
                             <NumberFormat
                                 value={item.price}
+                                fixedDecimalScale
+                                decimalScale={0}
                                 displayType={'text'}
                                 thousandSeparator={true}
                                 prefix={'฿'}

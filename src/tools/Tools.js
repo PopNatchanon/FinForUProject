@@ -1198,8 +1198,26 @@ export class ProductBox extends React.Component {
         )
     }
 }
+///----------------------------------------------------------------------------------------------->>>> FlatComponent
+export function FlatComponent(props) {
+    const { component, onScroll, scrollEventThrottle } = props
+    return (
+        component &&
+        <FlatList
+            // ref={c => this.FlatMainScreen = c}
+            scrollEventThrottle={scrollEventThrottle}
+            onScroll={onScroll}
+            scrollEnabled={true}
+            initialNumToRender={10}
+            data={component}
+            keyExtractor={(value) => 'Component:' + value.nameComponent}
+            renderItem={(value) => value.item.renderComponent}
+        />
+    )
+}
+///----------------------------------------------------------------------------------------------->>>> FlatProduct
 export function FlatProduct({
-    dataService, nameFlatProduct, NumberOfcolumn, nameSize, priceSize, dispriceSize, custumNavigation, navigation
+    dataService, nameFlatProduct, NumberOfcolumn, nameSize, priceSize, dispriceSize, custumNavigation, mode, navigation, radiusBox
 }) {
     var itemT = []
     if (NumberOfcolumn == 2 && dataService && dataService.length > 0)
@@ -1224,14 +1242,13 @@ export function FlatProduct({
                 <View style={NumberOfcolumn == 2 ? stylesMain.Product_for_you : {}}>
                     {
                         (NumberOfcolumn == 2 ? value.item.item : value.item) &&
-                        <RenderProduct custumNavigation={custumNavigation} navigation={navigation}
-                            mode={NumberOfcolumn == 2 ? 'row3col2' : 'row4col1'}
+                        <RenderProduct custumNavigation={custumNavigation} navigation={navigation} mode={mode} radiusBox={radiusBox}
                             item={NumberOfcolumn == 2 ? value.item.item : value.item} nameSize={nameSize} priceSize={priceSize}
                             dispriceSize={dispriceSize} />
                     }
                     {
                         NumberOfcolumn == 2 && value.item.item2 &&
-                        <RenderProduct custumNavigation={custumNavigation} navigation={navigation} mode='row3col2'
+                        <RenderProduct custumNavigation={custumNavigation} navigation={navigation} mode={mode} radiusBox={radiusBox}
                             item={value.item.item2} nameSize={nameSize} priceSize={priceSize} dispriceSize={dispriceSize} />
                     }
                 </View>

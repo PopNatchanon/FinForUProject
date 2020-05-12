@@ -74,8 +74,9 @@ export default class MainScreen extends React.PureComponent {
         var uri = [finip, 'home/publish_mobile'].join('/');
         let itemT = [
             <Slide />,
+            <Guarantee />,
             <Category navigation={navigation} />,
-            // <Trend_Hit/>,
+            <Trend_Hit />,
             <Button_Bar navigation={navigation} />,
             <FlashSale navigation={navigation} activeDataService={activeFlashSale}
                 getActiveDataService={this.getActiveDataService.bind(this)} />,
@@ -94,7 +95,7 @@ export default class MainScreen extends React.PureComponent {
                 best_sale: dataService.best_sale, best_cool: dataService.best_cool
             }} />,
             <Product_for_you navigation={navigation} loadData={dataService.for_you} />,
-            <CategoryProduct activeMain={activeDataService} navigation={navigation} />,
+            // <CategoryProduct activeMain={activeDataService} navigation={navigation} />,
             <Second_product navigation={navigation} loadData={{
                 product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
                 list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3,
@@ -622,6 +623,24 @@ export class Slide extends React.PureComponent {
         );
     }
 }
+///----------------------------------------------------------------------------------------------->>>> Guarantee
+export class Guarantee extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
+    render() {
+        return (
+            <View style={{ flexDirection: 'row', width: '100%', height: 100 }}>
+                <View style={{ backgroundColor: 'blue', width: '60%' }}></View>
+                <View style={{ backgroundColor: 'red', width: '40%' }}></View>
+            </View>
+        );
+    }
+}
+
 ///----------------------------------------------------------------------------------------------->>>> Category
 export class Category extends React.Component {
     constructor(props) {
@@ -659,7 +678,7 @@ export class Category extends React.Component {
                             style={stylesMain.Category_box}
                             resizeMode={FastImage.resizeMode.cover} />
                         <View style={{ height: 25 }}>
-                            <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize8, stylesFont.FontCenter]}>
+                            <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize7, stylesFont.FontCenter]}>
                                 {item.name}</Text>
                         </View>
                     </TouchableOpacity>
@@ -700,20 +719,23 @@ export class Trend_Hit extends React.Component {
             dataService.map((item, index) => {
                 var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
                 return (
-                    <View style={{width:'100%'}}>
-                        <View style={{ height: 80, width:100, borderWidth: 1,flexDirection:'row'}}>
-                            <View key={index} style={{ height: 50, width: 50 }}>
-                                <FastImage
-                                    style={stylesMain.BoxStore1Image}
-                                    source={{
-                                        uri: dataMySQL,
-                                    }}
-                                    resizeMode={FastImage.resizeMode.stretch} />
-                            </View>
-                            <Text>{item.name}</Text>
+                    <View key={index} style={[stylesMain.ItemCenter, {
+                        height: 80, width: width * 0.30, borderWidth: 1,
+                        flexDirection: 'row', borderColor: '#ECECEC', borderRadius: 5,
+                    }]}>
+                        <View style={{ height: 30, width: 30 }}>
+                            <FastImage
+                                style={stylesMain.BoxStore1Image}
+                                source={{
+                                    uri: dataMySQL,
+                                }}
+                                resizeMode={FastImage.resizeMode.stretch} />
+                        </View>
+                        <View >
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>{item.name}</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#CACACA' }]}>37K products</Text>
                         </View>
                     </View>
-
                 )
             })
     }
@@ -723,14 +745,22 @@ export class Trend_Hit extends React.Component {
             type: 'Trend_Hit'
         };
         return (
-            <View style={stylesMain.FrameBackground2}>
-                <GetServices key={'activeDataService'} uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
-                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
-                    เทรนฮิต</Text>
-                <ScrollView horizontal>
-                    {this.Trend_Box}
-                </ScrollView>
-            </View>
+            <>
+                <View style={{ flexDirection: 'row', width: '100%', height: 80 }}>
+                    <View style={{ backgroundColor: 'blue', width: '50%' }}></View>
+                    <View style={{ backgroundColor: 'red', width: '50%' }}></View>
+                </View>
+                <View style={stylesMain.FrameBackground2}>
+                    <GetServices key={'activeDataService'} uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
+                    <View style={stylesMain.FrameBackgroundTextBox}>
+                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
+                        เทรนฮิต</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-around' }}>
+                        {this.Trend_Box}
+                    </View>
+                </View>
+            </>
         );
     }
 }

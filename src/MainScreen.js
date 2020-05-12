@@ -6,7 +6,6 @@ import {
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import ActionButton from 'react-native-action-button';
-import AsyncStorage from '@react-native-community/async-storage'
 import * as Animatable from 'react-native-animatable';
 import BottomSheet from "react-native-raw-bottom-sheet";
 import Carousel, { PaginationLight } from 'react-native-x-carousel';
@@ -20,7 +19,6 @@ import SkeletonContent from "react-native-skeleton-content-nonexpo";
 import SplashScreen from 'react-native-splash-screen';
 import SlidingView from 'rn-sliding-view';
 import WebView from 'react-native-webview';
-import { RecyclerListView, DataProvider, LayoutProvider } from "recyclerlistview";
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -37,7 +35,7 @@ import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import {
     BrowerScreen, GetServices, GetData, ProductBox, Toolbar, TabBar, LoadingScreen, RenderHeader,
-    FlatProduct
+    FlatProduct, FlatComponent
 } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from './navigator/IpConfig';
@@ -52,60 +50,107 @@ export default class MainScreen extends React.PureComponent {
             activeLoading: true,
             dataService: [],
         };
-        this.viewabilityConfig = {
-            waitForInteraction: true,
-            viewAreaCoveragePercentThreshold: 95
-        }
     }
     getData = (dataService) => {
         this.setState({ dataService, activeDataService: false });
     }
-    getActiveDataService = (activeFlashSale) => {
-        this.setState({ activeFlashSale });
-    }
-    onViewableItemsChanged = ({ viewableItems, changed }) => {
-        console.log("Visible items are", viewableItems);
-        console.log("Changed in this iteration", changed);
-    };
     render() {
         const { navigation } = this.props;
         const { activeDataService, activeFlashSale, activeLoading, dataService, } = this.state;
         const browerProps = navigation.getParam('browerProps');
         var uri = [finip, 'home/publish_mobile'].join('/');
         let itemT = [
-            <Slide />,
-            <Guarantee />,
-            <Category navigation={navigation} />,
-            <Trend_Hit />,
-            <Button_Bar navigation={navigation} />,
-            <FlashSale navigation={navigation} activeDataService={activeFlashSale}
-                getActiveDataService={this.getActiveDataService.bind(this)} />,
-            <Fin_Service />,
-            <Recommend_Brand navigation={navigation} loadData={dataService.brand} />,
-            <BannerBar_TWO />,
-            <Exclusive navigation={navigation} loadData={dataService.exclusive} />,
-            <NewStore navigation={navigation} loadData={dataService.dont_miss} />,
-            <Fin_Mall navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />,
-            <BannerBar_ONE />,
-            <Highlight navigation={navigation} loadData={dataService.hi_week} />,
-            <PromotionPopular navigation={navigation} loadData={dataService.recommend_store} />,
-            <Popular_store navigation={navigation} loadData={dataService.store_good} />,
-            <Popular_product navigation={navigation} loadData={{
-                product_hit: dataService.product_hit, best_price: dataService.best_price,
-                best_sale: dataService.best_sale, best_cool: dataService.best_cool
-            }} />,
-            <Product_for_you navigation={navigation} loadData={dataService.for_you} />,
-            // <CategoryProduct activeMain={activeDataService} navigation={navigation} />,
-            <Second_product navigation={navigation} loadData={{
-                product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
-                list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3,
-                mobile_bar: dataService.mobile_bar, mobile_slide: dataService.mobile_slide,
-            }} />,
-            <BannerBar_THREE />,
-            <FIN_Supermarket navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />,
-            <TodayProduct navigation={navigation} loadData={dataService.for_you2} />
+            /////--------------------------------------------->>>Start
+            {
+                nameComponent: 'Slide',
+                renderComponent: <Slide />
+            },
+            {
+                nameComponent: 'Category',
+                renderComponent: <Category navigation={navigation} />
+            },
+            {
+                nameComponent: 'Button_Bar',
+                renderComponent: <Button_Bar navigation={navigation} />
+            },
+            {
+                nameComponent: 'FlashSale',
+                renderComponent: <FlashSale navigation={navigation} activeDataService={activeFlashSale} />
+            },
+            {
+                nameComponent: 'Recommend_Brand',
+                renderComponent: <Recommend_Brand navigation={navigation} loadData={dataService.brand} />
+            },
+            {
+                nameComponent: 'BannerBar_TWO',
+                renderComponent: <BannerBar_TWO />
+            },
+            {
+                nameComponent: 'Exclusive',
+                renderComponent: <Exclusive navigation={navigation} loadData={dataService.exclusive} />
+            },
+            {
+                nameComponent: 'NewStore',
+                renderComponent: <NewStore navigation={navigation} loadData={dataService.dont_miss} />
+            },
+            {
+                nameComponent: 'Fin_Mall',
+                renderComponent: <Fin_Mall navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />
+            },
+            {
+                nameComponent: 'BannerBar_ONE',
+                renderComponent: <BannerBar_ONE />
+            },
+            {
+                nameComponent: 'Highlight',
+                renderComponent: <Highlight navigation={navigation} loadData={dataService.hi_week} />
+            },
+            {
+                nameComponent: 'PromotionPopular',
+                renderComponent: <PromotionPopular navigation={navigation} loadData={dataService.recommend_store} />
+            },
+            {
+                nameComponent: 'Popular_store',
+                renderComponent: <Popular_store navigation={navigation} loadData={dataService.store_good} />
+            },
+            {
+                nameComponent: 'Popular_product',
+                renderComponent: <Popular_product navigation={navigation} loadData={{
+                    product_hit: dataService.product_hit, best_price: dataService.best_price,
+                    best_sale: dataService.best_sale, best_cool: dataService.best_cool
+                }} />
+            },
+            {
+                nameComponent: 'Product_for_you',
+                renderComponent: <Product_for_you navigation={navigation} loadData={dataService.for_you} />
+            },
+            {
+                nameComponent: 'CategoryProduct',
+                renderComponent: <CategoryProduct activeMain={activeDataService} navigation={navigation} />
+            },
+            {
+                nameComponent: 'Second_product',
+                renderComponent: <Second_product navigation={navigation} loadData={{
+                    product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
+                    list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3,
+                    mobile_bar: dataService.mobile_bar, mobile_slide: dataService.mobile_slide,
+                }} />
+            },
+            {
+                nameComponent: 'BannerBar_THREE',
+                renderComponent: <BannerBar_THREE />
+            },
+            {
+                nameComponent: 'FIN_Supermarket',
+                renderComponent: <FIN_Supermarket navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />
+            },
+            {
+                nameComponent: 'TodayProduct',
+                renderComponent: <TodayProduct navigation={navigation} loadData={dataService.for_you2} />
+            },
+            /////--------------------------------------------->>>End
         ]
-        this.FlatMainScreen && console.log(this.FlatMainScreen.recordInteraction())
+        // this.FlatMainScreen && console.log(this.FlatMainScreen.recordInteraction())
         return (
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                 {[
@@ -117,17 +162,7 @@ export default class MainScreen extends React.PureComponent {
                     />,
                 ]}
                 <AppBar navigation={navigation} style={{ flex: 5, }} />
-                <FlatList
-                    ref={c => this.FlatMainScreen = c}
-                    scrollEnabled={true}
-                    initialNumToRender={10}
-                    data={itemT}
-                    keyExtractor={(value, index) => 'Component' + index}
-                    // ListHeaderComponent={this.renderHeader}
-                    renderItem={(value) => value.item}
-                    onViewableItemsChanged={this.onViewableItemsChanged}
-                    viewabilityConfig={this.viewabilityConfig}
-                />
+                <FlatComponent component={itemT} />
                 <Botton_PopUp_FIN useNativeDriver />
                 <Toolbar navigation={navigation} style={{ flex: 5, }} />
                 <ExitAppModule navigation={navigation} />
@@ -262,22 +297,23 @@ export class AppBar extends React.Component {
         return (
             <Animatable.View style={[stylesMain.Appbar, stylesMain.FlexRow, {
                 backgroundColor: ABGColor ? ABGColor : '#fff',
-                borderColor: ABDColor ? ABDColor : '#ECECEC'
+                borderColor: ABDColor ? ABDColor : '#ECECEC',
             }]}>
                 {[
                     activeGetCurrentUser == true &&
                     <GetData getSource={this.getSource.bind(this)} getUser={true} key={'GetData'} />,
                     leftBar == 'backarrow' &&
-                    <View key={'backarrow'}>
-                        <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 50, height: 50 }]}
+                    <View key={'backarrow'} style={{ flex: 5 }}>
+                        <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 40, height: 50 }]}
                             activeOpacity={1}
-                            onPress={this.navigationNavigateScreen.bind(this, 'goBack')}>
-                            <AIconEntypo name="chevron-left" size={30} style={{ color: AIColor ? AIColor : '#111' }} />
+                            onPress={() => this.navigationNavigateScreen('goBack')}>
+                            <AIconEntypo name="chevron-left" size={30} style={{ color: AIColor ? AIColor : '#111', }} />
                         </TouchableOpacity>
                     </View>,
                     searchBar ?
                         <TouchableOpacity key={'searchBar'} activeOpacity={1}
-                            onPress={this.navigationNavigateScreen.bind(this, 'goBack')}>
+                        // onPress={() => this.navigationNavigateScreen('goBack')}
+                        >
                             <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical]}>
                                 {
                                     /* <FastImage
@@ -310,8 +346,8 @@ export class AppBar extends React.Component {
                             </View>
                         </TouchableOpacity> :
                         <TouchableOpacity key={'searchBar'} activeOpacity={1} onPress={
-                            this.navigationNavigateScreen.bind(this, 'SearchScreen', { modeStore: false })}>
-                            <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical]}>
+                            () => this.navigationNavigateScreen(SearchText ? 'goBack' : 'SearchScreen', { modeStore: false })}>
+                            <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical, { flex: 90 }]}>
                                 {
                                     /* <FastImage
                                         style={[stylesMain.LOGO, stylesMain.ItemCenterVertical]}
@@ -345,32 +381,32 @@ export class AppBar extends React.Component {
                             </View>
                         </TouchableOpacity>,
                     rightBar == 'storebar' ?
-                        <View key={'storebar'} style={[stylesMain.ItemCenter, stylesMain.FlexRow]}>
-                            <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 40 }]}
+                        <View key={'storebar'} style={[stylesMain.ItemCenter, stylesMain.FlexRow, { flex: 10 }]}>
+                            <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 40, flex: 50 }]}
                                 onPress={null/*() => navigation.push('CartScreen')*/}>
                                 <AIconFeather name="filter" size={25} style={{ color: AIColor ? AIColor : '#111' }} />
                             </TouchableOpacity>
-                            <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 40 }]}
+                            <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 40, flex: 50 }]}
                                 onPress={null/*() => navigation.push('CartScreen')*/}>
                                 <AIconFontAwesome5 name="ellipsis-h" size={25} style={{ color: AIColor ? AIColor : '#111' }} />
                             </TouchableOpacity>
                         </View> :
-                        <View key={'storebar'} style={[stylesMain.FlexRow, stylesMain.ItemCenterVertical]}>
+                        <View key={'storebar'} style={[stylesMain.FlexRow, stylesMain.ItemCenterVertical, { flex: 10 }]}>
                             {
                                 leftBar == 'backarrow' ?
                                     rightBar == 'chat' &&
-                                    <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
+                                    <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40, flex: 50 }]}
                                         onPress={
                                             currentUser ?
-                                                this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 }) :
-                                                this.navigationNavigateScreen.bind(this, 'LoginScreen')}>
+                                                () => this.navigationNavigateScreen('Profile_Topic', { selectedIndex: 1 }) :
+                                                () => this.navigationNavigateScreen('LoginScreen')}>
                                         <IconAntDesign name="message1" size={25} />
                                     </TouchableOpacity> :
-                                    <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}
+                                    <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40, flex: 50 }]}
                                         onPress={
                                             currentUser ?
-                                                this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 }) :
-                                                this.navigationNavigateScreen.bind(this, 'LoginScreen')}>
+                                                () => this.navigationNavigateScreen('Profile_Topic', { selectedIndex: 1 }) :
+                                                () => this.navigationNavigateScreen('LoginScreen')}>
                                         <IconAntDesign name="message1" size={25} />
                                     </TouchableOpacity>
                             }
@@ -380,11 +416,12 @@ export class AppBar extends React.Component {
                                         rightBar == 'chat' ?
                                             40 :
                                             50 :
-                                        40
+                                        40,
+                                flex: 50
                             }]} onPress={
                                 currentUser ?
-                                    this.navigationNavigateScreen.bind(this, 'CartScreen') :
-                                    this.navigationNavigateScreen.bind(this, 'LoginScreen')}>
+                                    () => this.navigationNavigateScreen('CartScreen') :
+                                    () => this.navigationNavigateScreen('LoginScreen')}>
                                 <IconAntDesign name="shoppingcart" size={25} />
                             </TouchableOpacity>
                         </View>
@@ -447,8 +484,8 @@ export class AppBar1 extends React.Component {
                             activeOpacity={1}
                             onPress={
                                 goToTop ?
-                                    this.navigationNavigateScreen.bind(this, 'popToTop') :
-                                    this.navigationNavigateScreen.bind(this, 'goBack')
+                                    () => this.navigationNavigateScreen('popToTop') :
+                                    () => this.navigationNavigateScreen('goBack')
                             }>
                             <IconEntypo style={[stylesStore.Icon_appbar, {
                                 color: backArrowColor ? backArrowColor : '#ffffff'
@@ -466,7 +503,7 @@ export class AppBar1 extends React.Component {
                         <TouchableOpacity
                             key={'searchBar'}
                             style={[stylesMain.ItemCenter, { width: 40 }]}
-                            onPress={this.navigationNavigateScreen.bind(this, 'SearchScreen', { modeStore: false })}>
+                            onPress={() => this.navigationNavigateScreen('SearchScreen', { modeStore: false })}>
                             <IconAntDesign RightItem name="search1" size={25} style={[
                                 stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
                                     marginRight: 8
@@ -476,7 +513,7 @@ export class AppBar1 extends React.Component {
                         <TouchableOpacity
                             key={'settingBar'}
                             style={[stylesMain.ItemCenter, { width: 40 }]}
-                            onPress={this.navigationNavigateScreen.bind(this, 'Seller_Setting')}>
+                            onPress={() => this.navigationNavigateScreen('Seller_Setting')}>
                             <IconMaterialCommunityIcons name="settings-outline" size={25} style={[
                                 stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
                                     marginRight: 8
@@ -488,8 +525,8 @@ export class AppBar1 extends React.Component {
                             style={[stylesMain.ItemCenter, { width: 40 }]}
                             onPress={
                                 currentUser ?
-                                    this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 }) :
-                                    this.navigationNavigateScreen.bind(this, 'LoginScreen')
+                                    () => this.navigationNavigateScreen('Profile_Topic', { selectedIndex: 1 }) :
+                                    () => this.navigationNavigateScreen('LoginScreen')
                             }>
                             <IconAntDesign RightItem name="message1" size={25} style={[
                                 stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
@@ -500,7 +537,7 @@ export class AppBar1 extends React.Component {
                         <TouchableOpacity
                             key={'storeBar'}
                             style={[stylesMain.ItemCenter, { width: 40 }]}
-                            onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 3 })}>
+                            onPress={() => this.navigationNavigateScreen('Profile_Topic', { selectedIndex: 3 })}>
                             <IconFontAwesome5 RightItem name="store" size={20} style={[
                                 stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
                                     marginRight: 8
@@ -669,7 +706,7 @@ export class Category extends React.Component {
             dataService.map((item, index) => {
                 var dataMySQL = finip + '/' + item.image_path + '/' + 'menu' + '/' + item.image_head;
                 return (
-                    <TouchableOpacity activeOpacity={1} key={index} onPress={this.navigationNavigateScreen.bind(this,
+                    <TouchableOpacity activeOpacity={1} key={index} onPress={() => this.navigationNavigateScreen(
                         'CategoryScreen', { id_type: item.id_type })} style={stylesMain.Category}>
                         <FastImage
                             source={{
@@ -771,7 +808,6 @@ export class Fin_Service extends React.Component {
         this.state = {
         };
     }
-
     render() {
         return (
             <View style={[stylesMain.FrameBackground2, { height: 80, }]}>
@@ -786,8 +822,6 @@ export class Fin_Service extends React.Component {
         );
     }
 }
-
-
 ///----------------------------------------------------------------------------------------------->>>> Button_Bar
 export class Button_Bar extends React.Component {
     constructor(props) {
@@ -811,35 +845,35 @@ export class Button_Bar extends React.Component {
                 <View style={stylesMain.FrameBackground3}></View>
                 <View style={stylesMain.FlexRow}>
                     <ScrollView horizontal>
-                        <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'DealScreen')}>
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('DealScreen')}>
                             <View style={stylesMain.Button_Bar_Box}>
                                 <FastImage style={stylesMain.Button_Bar_icon}
                                     source={require('../icon/Icon_Deal/01.jpg')}
                                     resizeMode={FastImage.resizeMode.contain} />
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'CoinScreen')}>
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('CoinScreen')}>
                             <View style={stylesMain.Button_Bar_Box}>
                                 <FastImage style={stylesMain.Button_Bar_icon}
                                     source={require('../icon/Icon_Deal/02.jpg')}
                                     resizeMode={FastImage.resizeMode.contain} />
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'CampaignScreen')}>
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('CampaignScreen')}>
                             <View style={stylesMain.Button_Bar_Box}>
                                 <FastImage style={stylesMain.Button_Bar_icon}
                                     source={require('../icon/Icon_Deal/03.jpg')}
                                     resizeMode={FastImage.resizeMode.contain} />
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'The_BestFinScreen')}>
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('The_BestFinScreen')}>
                             <View style={stylesMain.Button_Bar_Box}>
                                 <FastImage style={stylesMain.Button_Bar_icon}
                                     source={require('../icon/Icon_Deal/04.jpg')}
                                     resizeMode={FastImage.resizeMode.contain} />
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Installment_payScreen')}>
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('Installment_payScreen')}>
                             <View style={stylesMain.Button_Bar_Box}>
                                 <FastImage style={stylesMain.Button_Bar_icon}
                                     source={require('../icon/Icon_Deal/05.jpg')}
@@ -876,7 +910,7 @@ export class Recommend_Brand extends React.Component {
                 var dataMySQL = finip + '/' + item.image_path + '/' + item.image
                 return (
                     <TouchableOpacity activeOpacity={1} key={index}
-                        onPress={this.navigationNavigateScreen.bind(this, 'Recommend_Brand')}>
+                        onPress={() => this.navigationNavigateScreen('Recommend_Brand')}>
                         <View style={stylesMain.Brand_image_Box}>
                             <FastImage
                                 style={[stylesMain.Brand_image_RCM, stylesMain.ItemCenterVertical]}
@@ -897,7 +931,7 @@ export class Recommend_Brand extends React.Component {
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
                         แบรนด์แนะนำ</Text>
-                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Recommend_Brand')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('Recommend_Brand')}>
                         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
@@ -941,7 +975,7 @@ export class Popular_store extends React.Component {
                 //     dataService.map((item, index) => {
                 //         var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
                 return (
-                    <TouchableOpacity activeOpacity={1} key={index} onPress={this.navigationNavigateScreen.bind(this, 'Recommend_Store')}>
+                    <TouchableOpacity activeOpacity={1} key={index} onPress={() => this.navigationNavigateScreen('Recommend_Store')}>
                         <View style={stylesMain.BoxStore1Box}>
                             <FastImage
                                 style={stylesMain.BoxStore1Image}
@@ -1035,7 +1069,7 @@ export class Popular_product extends React.Component {
                             สินค้ายอดนิยม</Text>
                         <TouchableOpacity
                             activeOpacity={1}
-                            onPress={this.navigationNavigateScreen.bind(this,
+                            onPress={() => this.navigationNavigateScreen(
                                 'Popular_productScreen', { id_item: 0, loadData: loadData })}>
                             <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                                 ดูทั้งหมด</Text>
@@ -1048,7 +1082,7 @@ export class Popular_product extends React.Component {
                                 <TouchableOpacity
                                     key={'product_hit'}
                                     activeOpacity={1}
-                                    onPress={this.navigationNavigateScreen.bind(this,
+                                    onPress={() => this.navigationNavigateScreen(
                                         'Popular_productScreen', { id_item: 0, loadData: loadData })}>
                                     <View style={stylesMain.Popular_Box_B}>
                                         <View style={stylesMain.PopularText_A}>
@@ -1067,7 +1101,7 @@ export class Popular_product extends React.Component {
                                 <TouchableOpacity
                                     key={'best_price'}
                                     activeOpacity={1}
-                                    onPress={this.navigationNavigateScreen.bind(this,
+                                    onPress={() => this.navigationNavigateScreen(
                                         'Popular_productScreen', { id_item: 1, loadData: loadData })}>
                                     <View style={stylesMain.Popular_Box_B}>
                                         <View style={stylesMain.PopularText_A}>
@@ -1085,7 +1119,7 @@ export class Popular_product extends React.Component {
                                 <TouchableOpacity
                                     key={'best_sale'}
                                     activeOpacity={1}
-                                    onPress={this.navigationNavigateScreen.bind(this,
+                                    onPress={() => this.navigationNavigateScreen(
                                         'Popular_productScreen', { id_item: 2, loadData: loadData })}>
                                     <View style={stylesMain.Popular_Box_B}>
                                         <View style={stylesMain.PopularText_A}>
@@ -1103,7 +1137,7 @@ export class Popular_product extends React.Component {
                                 <TouchableOpacity
                                     key={'best_cool'}
                                     activeOpacity={1}
-                                    onPress={this.navigationNavigateScreen.bind(this,
+                                    onPress={() => this.navigationNavigateScreen(
                                         'Popular_productScreen', { id_item: 3, loadData: loadData })}>
                                     <View style={stylesMain.Popular_Box_B}>
                                         <View style={stylesMain.PopularText_A}>
@@ -1196,9 +1230,7 @@ export class FlashSale extends React.PureComponent {
         };
     }
     getData = (dataService) => {
-        const { getActiveDataService } = this.props
         var flash_end = dataService.flash_end && dataService.flash_end.split(':')
-        getActiveDataService(false)
         this.setState({ dataService, endTime: new Date().setHours(flash_end[0], flash_end[1], flash_end[2]) })
     }
     navigationNavigateScreen = (value, value2) => {
@@ -1226,7 +1258,7 @@ export class FlashSale extends React.PureComponent {
         clearInterval(this.intervalID);
     }
     render() {
-        const { activeDataService, getActiveDataService, navigation } = this.props
+        const { activeDataService, navigation } = this.props
         const { curTime, dataService, endTime, } = this.state
         var uri = finip + '/flashsale/flash_timer';
         var Hours = 0
@@ -1239,10 +1271,9 @@ export class FlashSale extends React.PureComponent {
             ),
             Minutes = Number(new Date(endTime).getMinutes()) - Number(new Date(curTime).getMinutes()),
             Seconds = Number(new Date(endTime).getSeconds()) - Number(new Date(curTime).getSeconds()),
-            activeDataService == false && Hours <= 0 && Minutes <= 0 && Seconds <= 0 && ([
-                getActiveDataService(true),
+            activeDataService == false && Hours <= 0 && Minutes <= 0 && Seconds <= 0 && (
                 this.setState({ dataService: [] })
-            ]),
+            ),
             Hours > 0 && (Minutes < 0 || Seconds < 0) && ([
                 Hours = Hours - 1,
                 Minutes = 60 + Minutes
@@ -1261,42 +1292,42 @@ export class FlashSale extends React.PureComponent {
             activeDataService == false && dataService &&
             <View key={'FlashSaleBox'} style={[stylesMain.FrameBackground2, { marginTop: 10 }]}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
-                    <View style={[stylesMain.FlexRow, { marginTop: 5, }]}>
+                    <View style={[stylesMain.FlexRow, { marginTop: 5, flex: 70 }]}>
                         <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBoldBold, stylesFont.FontSize3, {
-                            color: '#dc3545'
+                            color: '#dc3545', flex: 34
                         }]}>
                             FLASH SALE</Text>
-                        <View style={[stylesMain.FlexRow, { marginTop: 4 }]}>
-                            <View style={{ flexDirection: 'row', marginLeft: 10 }}>
+                        <View style={[stylesMain.FlexRow, { marginTop: 4, flex: 66 }]}>
+                            <View style={{ flexDirection: 'row', flex: 30 }}>
                                 <IconFontAwesome name='clock-o' size={30} />
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>จบใน</Text>
                             </View>
-                            <View style={stylesMain.Time_FlashSale_TimeBox}>
-                                <Text style={[stylesMain.Time_FlashSale_TimeText, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
-                                    {Hours < 10 ? Hours <= 0 ? '00' : '0' + Hours : Hours}</Text>
-                            </View>
-                            <View style={stylesMain.Time_FlashSale_TimeBox}>
-                                <Text style={[stylesMain.Time_FlashSale_TimeText, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
-                                    {Minutes < 10 ? Minutes <= 0 ? '00' : '0' + Minutes : Minutes}</Text>
-                            </View>
-                            <View style={stylesMain.Time_FlashSale_TimeBox}>
-                                <Text style={[stylesMain.Time_FlashSale_TimeText, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
-                                    {Seconds < 10 ? Seconds <= 0 ? '00' : '0' + Seconds : Seconds}</Text>
+                            <View style={{ flexDirection: 'row', flex: 70 }}>
+                                <View style={[stylesMain.Time_FlashSale_TimeBox,]}>
+                                    <Text style={[stylesMain.Time_FlashSale_TimeText, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
+                                        {Hours < 10 ? Hours <= 0 ? '00' : '0' + Hours : Hours}</Text>
+                                </View>
+                                <View style={[stylesMain.Time_FlashSale_TimeBox]}>
+                                    <Text style={[stylesMain.Time_FlashSale_TimeText, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
+                                        {Minutes < 10 ? Minutes <= 0 ? '00' : '0' + Minutes : Minutes}</Text>
+                                </View>
+                                <View style={[stylesMain.Time_FlashSale_TimeBox]}>
+                                    <Text style={[stylesMain.Time_FlashSale_TimeText, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
+                                        {Seconds < 10 ? Seconds <= 0 ? '00' : '0' + Seconds : Seconds}</Text>
+                                </View>
                             </View>
                         </View>
                     </View>
-                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'FlashSaleScreen')}>
-                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('FlashSaleScreen')}>
+                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText, { flex: 30 }]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
                 </View>
-                <ScrollView horizontal>
-                    {
-                        dataService && dataService.product &&
-                        <FlatProduct custumNavigation='FlashSaleScreen' navigation={navigation} dataService={dataService.product}
-                            nameFlatProduct='FlashSaleProduct' nameSize={11} priceSize={12} dispriceSize={12} />
-                    }
-                </ScrollView>
+                {
+                    dataService && dataService.product &&
+                    <FlatProduct custumNavigation='FlashSaleScreen' navigation={navigation} dataService={dataService.product}
+                        mode='row4col1' nameFlatProduct='FlashSaleProduct' nameSize={11} priceSize={12} dispriceSize={12} />
+                }
             </View>
         ]);
     }
@@ -1331,7 +1362,7 @@ export class PromotionPopular extends React.Component {
                 //     dataService.map((item, index) => {
                 //         var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
                 return (
-                    <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Recommend_Store')} key={index}>
+                    <TouchableOpacity onPress={() => this.navigationNavigateScreen('Recommend_Store')} key={index}>
                         <View style={[stylesMain.BoxStore2Box2]}>
                             <FastImage
                                 source={{
@@ -1365,7 +1396,7 @@ export class PromotionPopular extends React.Component {
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         ลายแทงร้านค้าแนะนำ</Text>
-                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Recommend_Store')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('Recommend_Store')}>
                         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
@@ -1378,7 +1409,7 @@ export class PromotionPopular extends React.Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Product_for_you
-export class Product_for_you extends React.Component {
+export class Product_for_you extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -1401,15 +1432,15 @@ export class Product_for_you extends React.Component {
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
                         FIN คัดมาเพื่อคุณ</Text>
-                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Product_for_youScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('Product_for_youScreen')}>
                         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
                 </View>
                 {
                     loadData && loadData.length > 0 &&
-                    <FlatProduct navigation={navigation} dataService={loadData} NumberOfcolumn={2}
-                        nameSize={14} priceSize={15} dispriceSize={15} />
+                    <FlatProduct navigation={navigation} dataService={loadData} NumberOfcolumn={2} nameFlatProduct='Product_for_you'
+                        mode='row3col2' nameSize={14} priceSize={15} dispriceSize={15} />
                 }
                 {/* <ScrollView horizontal>
                     <View style={[stylesMain.ProductForYouFlexBox, stylesMain.Product_for_you]}>
@@ -1425,7 +1456,7 @@ export class Product_for_you extends React.Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Highlight
-export class Highlight extends React.Component {
+export class Highlight extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -1448,18 +1479,16 @@ export class Highlight extends React.Component {
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         ไฮไลท์ประจำสัปดาห์</Text>
-                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'HighlightScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('HighlightScreen')}>
                         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
                 </View>
-                <ScrollView horizontal>
-                    {
-                        loadData &&
-                        <ProductBox numberOfItem={12} dataService={loadData} navigation={navigation} typeip='fin' mode='row3col1'
-                            pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} />
-                    }
-                </ScrollView>
+                {
+                    loadData &&
+                    <FlatProduct navigation={navigation} dataService={loadData} NumberOfcolumn={1}
+                        nameFlatProduct='Second_product' mode='row3col1' nameSize={14} priceSize={15} dispriceSize={15} />
+                }
             </View>
         );
     }
@@ -1501,7 +1530,7 @@ export class NewStore extends React.Component {
                 var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
                 return (
                     <TouchableOpacity activeOpacity={1} key={index}
-                        onPress={this.navigationNavigateScreen.bind(this, 'Recommend_Store', {
+                        onPress={() => this.navigationNavigateScreen('Recommend_Store', {
                             id_slide: item.id, uri_path: 'publish_store/store_total', name_path: 'store_total'
                         })}
                     >
@@ -1537,7 +1566,7 @@ export class NewStore extends React.Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Exclusive
-export class Exclusive extends React.Component {
+export class Exclusive extends React.PureComponent {
     constructor(props) {
         super(props);
     }
@@ -1559,18 +1588,16 @@ export class Exclusive extends React.Component {
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
                         สินค้าสุด Exclusive</Text>
                     <TouchableOpacity
-                        onPress={this.navigationNavigateScreen.bind(this, 'ExclusiveScreen')}>
+                        onPress={() => this.navigationNavigateScreen('ExclusiveScreen')}>
                         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
                 </View>
-                <ScrollView horizontal>
-                    {
-                        loadData &&
-                        <ProductBox numberOfItem={12} dataService={loadData} navigation={navigation} typeip='fin' mode='row3col1'
-                            pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} />
-                    }
-                </ScrollView>
+                {
+                    loadData &&
+                    <FlatProduct navigation={navigation} dataService={loadData} NumberOfcolumn={1} nameFlatProduct='ExclusiveProduct'
+                        mode='row3col1' nameSize={14} priceSize={15} dispriceSize={15} />
+                }
             </View>
         );
     }
@@ -1617,7 +1644,7 @@ export class CategoryProduct extends React.Component {
                         <>
                             {
                                 activeProductMobile == false &&
-                                <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'CategoryScreen',
+                                <TouchableOpacity onPress={() => this.navigationNavigateScreen('CategoryScreen',
                                     { id_type: item.id_type })}>
                                     <FastImage
                                         source={{
@@ -1643,7 +1670,7 @@ export class CategoryProduct extends React.Component {
                                     <CategoryProductSubStore navigation={navigation} id_type={item.id_type} />
                                 </View> :
                                 <View style={{ marginBottom: 0, }}>
-                                    <CategoryProductSubPromotion navigation={navigation} id_type={item.id_type} />
+                                    {/* <CategoryProductSubPromotion navigation={navigation} id_type={item.id_type} /> */}
                                     <CategoryProductSubStore navigation={navigation} id_type={item.id_type} />
                                 </View>
                         }
@@ -1670,7 +1697,7 @@ export class CategoryProduct extends React.Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> CategoryProductSubProduct
-export class CategoryProductSubProduct extends React.Component {
+export class CategoryProductSubProduct extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -1702,8 +1729,8 @@ export class CategoryProductSubProduct extends React.Component {
                 }
                 {
                     dataService && dataService.length > 0 &&
-                    <FlatProduct navigation={navigation} dataService={dataService} NumberOfcolumn={2}
-                        nameSize={14} priceSize={15} dispriceSize={15} />
+                    <FlatProduct navigation={navigation} dataService={dataService} NumberOfcolumn={2} nameFlatProduct='CategoryProduct'
+                        mode='row3col2' nameSize={14} priceSize={15} dispriceSize={15} />
                 }
                 {/* {
                         dataService && dataService.length > 0 &&
@@ -1816,7 +1843,7 @@ export class CategoryProductSubPromotion extends React.Component {
         // console.log(dataMySQL);
         return (
             <View style={[type == 0 ? stylesMain.BoxStore1Box2 : stylesMain.BoxStore1Box3,
-            { borderWidth: 0, }]} /*key={index}*/>
+            { borderWidth: 0, }]} key={type} >
                 {
                     dataService &&
                     <Image
@@ -1951,7 +1978,7 @@ export class Second_product extends React.PureComponent {
                                     มือสองลดราคา</Text>
                             </View> :
                             <TouchableOpacity activeOpacity={1}
-                                onPress={this.navigationNavigateScreen.bind(this, 'SecondScreen', { selectedIndex: 0 })}>
+                                onPress={() => this.navigationNavigateScreen('SecondScreen', { selectedIndex: 0 })}>
                                 <Image
                                     style={[stylesMain.CategoryProductImageHead, { marginTop: 0 }]}
                                     source={{ uri: url }}
@@ -1962,7 +1989,7 @@ export class Second_product extends React.PureComponent {
                     {
                         loadData.product_second &&
                         <FlatProduct navigation={navigation} dataService={loadData.product_second} NumberOfcolumn={2}
-                            nameSize={14} priceSize={15} dispriceSize={15} />
+                            nameFlatProduct='Second_product' mode='row3col2' nameSize={14} priceSize={15} dispriceSize={15} />
                     }
                     {/* <ScrollView horizontal>
                         <View style={[stylesMain.ProductForYouFlexBox, { height: 370 }]}>
@@ -1993,7 +2020,7 @@ export class Second_product extends React.PureComponent {
                     }
                     <View>
                         <TouchableOpacity activeOpacity={1}
-                            onPress={this.navigationNavigateScreen.bind(this, 'SecondScreen', { selectedIndex: 1 })}>
+                            onPress={() => this.navigationNavigateScreen('SecondScreen', { selectedIndex: 1 })}>
                             <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                                 ดูทั้งหมด</Text>
                         </TouchableOpacity>
@@ -2172,7 +2199,7 @@ export class Fin_Mall extends React.Component {
                                 <TouchableOpacity
                                     key={'product_hit'}
                                     activeOpacity={1}
-                                    onPress={this.navigationNavigateScreen.bind(this, 'FinMallScreen')}>
+                                    onPress={() => this.navigationNavigateScreen('FinMallScreen')}>
                                     <View style={stylesMain.FlexRow}>
                                         {this.productCate(loadData.product_hit)}
                                     </View>
@@ -2210,17 +2237,15 @@ export class FIN_Supermarket extends React.PureComponent {
                 <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>FIN Supermarket  </Text>
                 <Slide />
                 <View style={stylesMain.Supermarket_Product}>
-                    <ScrollView horizontal>
-                        {
-                            product_hit &&
-                            <ProductBox dataService={product_hit} navigation={navigation} typeip='fin' mode='row3col1'
-                                pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} widthBox={98} radiusBox={5} />
-                        }
-                    </ScrollView>
+                    {
+                        product_hit &&
+                        <FlatProduct navigation={navigation} dataService={product_hit} NumberOfcolumn={1} radiusBox={5}
+                            nameFlatProduct='Second_product' mode='row3col1' nameSize={14} priceSize={15} dispriceSize={15} />
+                    }
                 </View>
                 <View style={[stylesMain.FlexRow, stylesMain.Supermarket_Store]}>
                     <TouchableOpacity
-                        onPress={this.navigationNavigateScreen.bind(this, 'FINSupermarket')}
+                        onPress={() => this.navigationNavigateScreen('FINSupermarket')}
                         style={{ width: width * 0.64, }}>
                         <Image
                             style={stylesMain.BoxProduct1Image}
@@ -2471,7 +2496,7 @@ export class Botton_PopUp_FIN extends React.Component {
             <>
                 <View style={stylesMain.Botton_PopUp_FIN}>
                     {/* <View style={{ left: width - 60, transform: [{ translateY: -.09 * height }] }}> */}
-                    <TouchableOpacity onPress={this.toggleComponentVisibility.bind(this, !activeSliding)}>
+                    <TouchableOpacity onPress={() => this.toggleComponentVisibility(!activeSliding)}>
                         <FastImage
                             style={stylesMain.Botton_PopUp_Image}
                             source={require('../icon/FIN_Chat-01.png')}
@@ -2487,7 +2512,7 @@ export class Botton_PopUp_FIN extends React.Component {
                         top: '50%'
                     }}
                     position="right">
-                    <TouchableOpacity onPress={this.toggleComponentVisibility.bind(this, !activeSliding)}>
+                    <TouchableOpacity onPress={() => this.toggleComponentVisibility(!activeSliding)}>
                         <View style={stylesMain.Botton_PopUp_Box}>
                             <FastImage
                                 style={stylesMain.BoxProduct1Image}

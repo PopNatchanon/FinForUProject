@@ -272,7 +272,7 @@ export default StyleSheet.create({
   },
   BoxStore1Box2: {
     // width: width * 0.55,
-    width:'55%',
+    width: '55%',
     height: 105,
     marginTop: 10,
     marginBottom: 5,
@@ -280,7 +280,7 @@ export default StyleSheet.create({
   },
   BoxStore1Box3: {
     // width: width * 0.40,
-    width:'40%',
+    width: '40%',
     height: 105,
     marginTop: 10,
     marginLeft: 5,
@@ -423,9 +423,9 @@ export default StyleSheet.create({
   Time_FlashSale_TimeBox: {
     height: 30,
     width: 30,
+    marginLeft: 5,
     backgroundColor: '#222222',
     justifyContent: 'center',
-    marginLeft: 10,
     borderRadius: 5,
   },
   Time_FlashSale_TimeText: {
@@ -606,7 +606,7 @@ export default StyleSheet.create({
     marginTop: 5,
     width,
     height: 'auto',
-    aspectRatio: 6 / 1 
+    aspectRatio: 6 / 1
   },
   CategoryProductImage: {
     width: 100,

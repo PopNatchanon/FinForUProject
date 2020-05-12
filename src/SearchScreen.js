@@ -88,7 +88,7 @@ export default class SearchScreen extends React.Component {
         } = this.state;
         var uri = [finip, 'search/search_product'].join('/');
         var dataBody = {
-            id_customer: currentUser && currentUser.id_customer,
+            id_customer: currentUser && currentUser.id_customer ? currentUser.id_customer : '',
             key: SearchText, //<< ใช้ค้นหาสินค้า
             popular: filterValue && filterValue.popular ? filterValue.popular : '', //<< ถ้าเลือกออันส่งค่า “popular” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
             lastest: filterValue && filterValue.lastest ? filterValue.lastest : '', //<< ถ้าเลือกออันส่งค่า “lastest” มาด้วย ไม่ได้เลือกส่งค่าว่างมา

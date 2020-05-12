@@ -7,7 +7,7 @@ import {
 import AsyncStorage from '@react-native-community/async-storage'
 import * as Animatable from 'react-native-animatable';
 import BottomSheet from "react-native-raw-bottom-sheet";
-import Carousel from 'react-native-snap-carousel';
+import Carousel, { PaginationLight } from 'react-native-x-carousel';
 import CookieManager from '@react-native-community/cookies';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
@@ -27,11 +27,11 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, ExitAppModule } from './MainScreen';
-import { GetServices, ProductBox, TabBar } from './tools/Tools';
+import { GetServices, ProductBox, TabBar, FlatComponent } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class DetailScreen extends React.Component {
+export default class DetailScreen extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -78,6 +78,66 @@ export default class DetailScreen extends React.Component {
     var dataBody = {
       id_product: id_product
     };
+    let itemT = [
+      /////--------------------------------------------->>>Start
+      {
+        nameComponent: 'Detail_Image',
+        renderComponent: dataService.product_data &&
+          <Detail_Image key={'Detail_Image'} dataService={dataService.product_data} navigation={navigation}
+            showImage={this.showImage.bind(this)} setShowImage={this.setShowImage.bind(this)} setActive={setActive} />
+      },
+      {
+        nameComponent: 'Detail_Data',
+        renderComponent: <Detail_Data key={'Detail_Data'} currentUser={currentUser} dataService={dataService} getStarReview={getStarReview}
+          id_product={id_product} keycokie={keycokie} navigation={navigation} />
+      },
+      {
+        nameComponent: 'Store',
+        renderComponent: <Store key={'Store'} currentUser={currentUser} dataService={dataService} keycokie={keycokie}
+          navigation={navigation} />
+      },
+      {
+        nameComponent: 'Conpon',
+        renderComponent: currentUser && dataService.product_data &&
+          <Conpon key={'Conpon'} dataService={dataService.product_data} currentUser={currentUser} />
+      },
+      {
+        nameComponent: 'Selector',
+        renderComponent: <Selector dataService={dataService} BuyProduct={BuyProduct}
+          currentUser={currentUser} keycokie={keycokie} navigation={navigation} sendProduct={this.BuyProduct.bind(this)} />
+      },
+      {
+        nameComponent: 'Detail_Category',
+        renderComponent: <Detail_Category dataService={dataService} />
+      },
+      {
+        nameComponent: 'Detail',
+        renderComponent: <Detail dataService={dataService} />
+      },
+      {
+        nameComponent: 'Reviews',
+        renderComponent: dataService.product_data &&
+          <Reviews dataService={dataService.product_data} getStarReview={this.getStarReview.bind(this)} currentUser={currentUser}
+            navigation={navigation} />
+      },
+      {
+        nameComponent: 'BannerBar',
+        renderComponent: <BannerBar />
+      },
+      {
+        nameComponent: 'Same_Store',
+        renderComponent: <Same_Store dataService={dataService} navigation={navigation} />
+      },
+      {
+        nameComponent: 'Similar_Product',
+        renderComponent: <Similar_Product dataService={dataService} navigation={navigation} />
+      },
+      {
+        nameComponent: 'Might_like',
+        renderComponent: <Might_like dataService={dataService} navigation={navigation} />
+      },
+      /////--------------------------------------------->>>End
+    ]
     return (
       <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
         {[
@@ -101,40 +161,11 @@ export default class DetailScreen extends React.Component {
         </Animatable.View>
         {[
           dataService &&
-          <ScrollView
-            key={'MainScrollView'}
-            scrollEventThrottle={16}
-            onScroll={
-              Animated.event([{
-                nativeEvent: { contentOffset: { y: scrollY } }
-              }])
-            }
-            style={{ height: '100%' }}>
-            {/* <View style={{ marginTop: -50 }}></View> */}
-            {[
-              dataService.product_data &&
-              <Detail_Image key={'Detail_Image'} dataService={dataService.product_data} navigation={navigation}
-                showImage={this.showImage.bind(this)} setShowImage={this.setShowImage.bind(this)} setActive={setActive} />,
-              <Detail_Data key={'Detail_Data'} currentUser={currentUser} dataService={dataService} getStarReview={getStarReview}
-                id_product={id_product} keycokie={keycokie} navigation={navigation} />,
-              <Store key={'Store'} currentUser={currentUser} dataService={dataService} keycokie={keycokie} navigation={navigation} />,
-              currentUser && dataService.product_data &&
-              <Conpon key={'Conpon'} dataService={dataService.product_data} currentUser={currentUser} />
-            ]}
-            <Selector dataService={dataService} BuyProduct={BuyProduct} currentUser={currentUser} keycokie={keycokie} navigation={navigation}
-              sendProduct={this.BuyProduct.bind(this)} />
-            <Detail_Category dataService={dataService} />
-            <Detail dataService={dataService} />
-            {
-              dataService.product_data &&
-              <Reviews dataService={dataService.product_data} getStarReview={this.getStarReview.bind(this)} currentUser={currentUser}
-                navigation={navigation} />
-            }
-            <BannerBar />
-            <Same_Store dataService={dataService} navigation={navigation} />
-            <Similar_Product dataService={dataService} navigation={navigation} />
-            <Might_like dataService={dataService} navigation={navigation} />
-          </ScrollView>,
+          <FlatComponent component={itemT} scrollEventThrottle={16} onScroll={
+            Animated.event([{
+              nativeEvent: { contentOffset: { y: scrollY } }
+            }])
+          } />,
           dataService && dataService.product_data &&
           <Buy_bar key={'Buy_bar'} navigation={navigation} currentUser={currentUser} dataService={dataService}
             BuyProduct={this.BuyProduct.bind(this)} />
@@ -149,7 +180,7 @@ export class Detail_Image extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      activeSlide: 0,
+      currentImage: 1,
       imageLength: 1,
       imageLengthActive: 0,
     };
@@ -177,7 +208,7 @@ export class Detail_Image extends React.PureComponent {
     const { showImage } = this.props
     showImage(true)
   }
-  _renderItem = ({ item, index }) => {
+  _renderItem = (item, index) => {
     var dataMySQL = [finip, item.image_full_path, item.image].join('/');
     return (
       <TouchableOpacity activeOpacity={1} onPress={this.sendShowImage.bind(this)}>
@@ -193,12 +224,12 @@ export class Detail_Image extends React.PureComponent {
       </TouchableOpacity>
     );
   }
-  setStateActiveSlide = (index) => {
-    this.setState({ activeSlide: index })
+  setStateActiveSlide = (value) => {
+    this.setState({ currentImage: value.current })
   }
   get id_product() {
     const { dataService, setActive, setShowImage } = this.props;
-    const { activeSlide, imageLength, } = this.state;
+    const { currentImage, imageLength, } = this.state;
     return dataService.map((item, index) => {
       let dataMySQL
       item.gallery_image ?
@@ -211,18 +242,13 @@ export class Detail_Image extends React.PureComponent {
         <View style={[stylesMain.FrameBackground2, { marginTop: 0, borderTopWidth: 0 }]} key={index}>
           <View>
             <Carousel
-              ref={c => this.activeSlide = c}
-              data={dataMySQL}
+              onPage={this.setStateActiveSlide.bind(this)}
               renderItem={this._renderItem}
-              sliderWidth={width * 1}
-              itemWidth={width * 1}
-              sliderHeight={width * 0.8}
-              // loop={true}
-              onSnapToItem={this.setStateActiveSlide.bind(this)} />
+              data={dataMySQL} />
             <View style={{ flex: 1, }}>
               <View style={[stylesMain.ItemCenter, stylesDetail.ImageSlide]}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-                  {activeSlide + 1}/{imageLength}</Text>
+                  {currentImage}/{imageLength}</Text>
               </View>
             </View>
           </View>
@@ -1104,7 +1130,7 @@ export class Detail extends React.Component {
               originWhitelist={['*']}
               source={{ html: "" }}
             /> */}
-            {/* <View style={stylesDetail.Detail_Text_Box}>
+            <View style={stylesDetail.Detail_Text_Box}>
               <Text numberOfLines={activeText == false ? 4 : null} onTextLayout={({ nativeEvent: { lines } }) =>
                 this.setStateShowMoreButton(lines.length > 4)
               } style={[
@@ -1125,7 +1151,7 @@ export class Detail extends React.Component {
                   </View>
                 </TouchableOpacity>
               }
-            </View> */}
+            </View>
           </View>
         );
       })

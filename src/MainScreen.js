@@ -831,7 +831,6 @@ export class Trend_Hit extends React.Component {
                     </View>
                 </ScrollView>
                 <View style={stylesMain.FrameBackground2}>
-                    <GetServices key={'activeDataService'} uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
                     <View style={stylesMain.FrameBackgroundTextBox}>
                         <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
                             เทรนฮิต</Text>

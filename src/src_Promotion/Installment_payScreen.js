@@ -69,7 +69,7 @@ export class Head_Image extends Component {
         <View style={stylesPromotionDeal.Head_BoxImage}>
           <FastImage style={stylesPromotionDeal.Head_Image}
             source={{
-              uri: 'http://www.mmnie.live/uploads/banner/banner_payment.jpg',
+              uri: 'http://www.mmnie.live/assets/themes/default/images/banner_payment.jpg',
             }}
             resizeMode={FastImage.resizeMode.stretch}
           />

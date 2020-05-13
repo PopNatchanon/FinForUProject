@@ -262,13 +262,11 @@ export default StyleSheet.create({
   },
   ///------------///
   BoxStore1Box: {
-    width: (width * 1 / 2) - 9,
-    height: 99,
+    width: width * 0.495,
     borderColor: '#ECECEC',
     borderWidth: 1,
     marginTop: 10,
     marginBottom: 8,
-    marginLeft: 6,
   },
   BoxStore1Box2: {
     // width: width * 0.55,
@@ -300,12 +298,11 @@ export default StyleSheet.create({
     marginLeft: 10,
   },
   BoxStore2Box2: {
-    width: 160,
-    height: 80,
+    width:width * 0.45,
     borderColor: '#ECECEC',
     marginTop: 10,
     marginBottom: 8,
-    marginLeft: 10,
+    marginLeft: 5,
   },
   BoxStore2Image: {
     width: '100%',
@@ -315,7 +312,7 @@ export default StyleSheet.create({
   },
   BoxStore2Image2: {
     width: '100%',
-    height: 60,
+    height: height * 0.10,
     borderColor: '#ECECEC',
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
@@ -395,7 +392,7 @@ export default StyleSheet.create({
   },
   FrameBackground3: {
     width,
-    height: height * 0.06,
+    height: height * 0.07,
     borderColor: '#ECECEC',
     backgroundColor: '#fff',
     borderBottomWidth: 1,
@@ -509,7 +506,7 @@ export default StyleSheet.create({
   },
   ///------------------------------------------------------------------------------------------///
   Category: {
-    width: 72,
+    width: width * 0.19,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 2,
@@ -517,14 +514,14 @@ export default StyleSheet.create({
   category_A: {
     flexDirection: 'column',
     flexWrap: 'wrap',
-    height: 190,
+    height: 205,
     paddingBottom: 6,
     paddingTop: 4,
     justifyContent: 'space-between',
   },
   Category_image: {
-    height: 40,
-    width: 40,
+    height: '100%',
+    width: '100%',
   },
   Category_box: {
     backgroundColor: '#FFFFFF',
@@ -538,7 +535,7 @@ export default StyleSheet.create({
   },
   ///------------------------------------------------------------------------------------------///
   FrameBackground_Height: {
-    height: 102
+    height: height * 0.155,
   },
   FrameBackground_Box: {
     flexDirection: 'column',
@@ -546,7 +543,7 @@ export default StyleSheet.create({
   },
   Brand_image_Box: {
     height: 28,
-    width: 117,
+    width: width * 0.30,
     borderColor: '#ECECEC',
     borderWidth: 1,
     marginLeft: 2,
@@ -634,7 +631,7 @@ export default StyleSheet.create({
   Banner_Bar_image: {
     width: width,
     height: 'auto',
-    aspectRatio: 8.5 / 1
+    aspectRatio: 8.5
   },
   Product_for_you: {
     height: 370,
@@ -742,8 +739,8 @@ export default StyleSheet.create({
   ///------------------------------------------------------------------/// ส่วน finMall
   FinMall_Box: {
     justifyContent: 'space-around',
-    height: 125,
-    marginBottom: 10
+    height: height * 0.18,
+    marginBottom: 5,
   },
   FinMall_Box_Image: {
     width: '39%',

@@ -167,7 +167,7 @@ export class Recommend_Store extends React.Component {
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={stylesMain.FlexRow}>
+                <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 4, justifyContent: 'space-between' }]}>
                     {this.dataPromotionPopular}
                 </View>
             </View>

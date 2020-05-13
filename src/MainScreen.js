@@ -66,8 +66,16 @@ export default class MainScreen extends React.PureComponent {
                 renderComponent: <Slide />
             },
             {
+                nameComponent: 'Guarantee',
+                renderComponent: <Guarantee />
+            },
+            {
                 nameComponent: 'Category',
                 renderComponent: <Category navigation={navigation} />
+            },
+            {
+                nameComponent: 'Trend_Hit',
+                renderComponent: <Trend_Hit />
             },
             {
                 nameComponent: 'Button_Bar',
@@ -670,9 +678,28 @@ export class Guarantee extends React.Component {
 
     render() {
         return (
-            <View style={{ flexDirection: 'row', width: '100%', height: 100 }}>
-                <View style={{ backgroundColor: 'blue', width: '60%' }}></View>
-                <View style={{ backgroundColor: 'red', width: '40%' }}></View>
+            <View style={{
+                flexDirection: 'row', width: '100%', height: 'auto',
+                aspectRatio: 4, justifyContent: 'space-between', marginTop: 5
+            }}>
+                <View style={{ width: '56%' }}>
+                    <FastImage
+                        style={stylesMain.BoxProduct1Image}
+                        source={{
+                            uri: ip + '/MySQL/uploads/Guarantee/455x195-finmall-02.jpg',
+                        }}
+                        resizeMode={FastImage.resizeMode.stretch}
+                    />
+                </View>
+                <View style={{ width: '42%' }}>
+                    <FastImage
+                        style={stylesMain.BoxProduct1Image}
+                        source={{
+                            uri: ip + '/MySQL/uploads/Guarantee/290x195 G.png',
+                        }}
+                        resizeMode={FastImage.resizeMode.stretch}
+                    />
+                </View>
             </View>
         );
     }
@@ -715,7 +742,7 @@ export class Category extends React.Component {
                             style={stylesMain.Category_box}
                             resizeMode={FastImage.resizeMode.cover} />
                         <View style={{ height: 25 }}>
-                            <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize7, stylesFont.FontCenter]}>
+                            <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize8, stylesFont.FontCenter]}>
                                 {item.name}</Text>
                         </View>
                     </TouchableOpacity>
@@ -757,10 +784,10 @@ export class Trend_Hit extends React.Component {
                 var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
                 return (
                     <View key={index} style={[stylesMain.ItemCenter, {
-                        height: 80, width: width * 0.30, borderWidth: 1,
+                        width: width * 0.32, borderWidth: 1,
                         flexDirection: 'row', borderColor: '#ECECEC', borderRadius: 5,
                     }]}>
-                        <View style={{ height: 30, width: 30 }}>
+                        <View style={{ height: 50, width: 50 }}>
                             <FastImage
                                 style={stylesMain.BoxStore1Image}
                                 source={{
@@ -769,8 +796,8 @@ export class Trend_Hit extends React.Component {
                                 resizeMode={FastImage.resizeMode.stretch} />
                         </View>
                         <View >
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>{item.name}</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#CACACA' }]}>37K products</Text>
+                            <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize8]}>{item.name}</Text>
+                            <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#CACACA' }]}>37K products</Text>
                         </View>
                     </View>
                 )
@@ -783,17 +810,47 @@ export class Trend_Hit extends React.Component {
         };
         return (
             <>
-                <View style={{ flexDirection: 'row', width: '100%', height: 80 }}>
-                    <View style={{ backgroundColor: 'blue', width: '50%' }}></View>
-                    <View style={{ backgroundColor: 'red', width: '50%' }}></View>
-                </View>
+                <ScrollView horizontal style={{ height: 'auto', aspectRatio: 5, marginTop: 10, width, }}>
+                    <View style={{ width: width * 0.50 }}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Trend_Hit/1180x380_trend-01.jpg',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch}
+                        />
+                    </View>
+                    <View style={{ width: width * 0.50, marginLeft: 5 }}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Trend_Hit/1180x380_trend-02.jpg',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch}
+                        />
+                    </View>
+                    <View style={{ width: width * 0.50, marginLeft: 5 }}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: ip + '/MySQL/uploads/Trend_Hit/1180x380_trend-03.jpg',
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch}
+                        />
+                    </View>
+                </ScrollView>
                 <View style={stylesMain.FrameBackground2}>
                     <GetServices key={'activeDataService'} uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
                     <View style={stylesMain.FrameBackgroundTextBox}>
                         <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
-                        เทรนฮิต</Text>
+                            เทรนฮิต</Text>
+                        <TouchableOpacity>
+                            <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyBold]}>
+                                <IconMaterialCommunityIcons name='reload' size={20} />
+                                   Reload</Text>
+                        </TouchableOpacity>
                     </View>
-                    <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-around' }}>
+                    <View style={{ flexDirection: 'row', width, justifyContent: 'space-around', height: 'auto', aspectRatio: 5 }}>
                         {this.Trend_Box}
                     </View>
                 </View>
@@ -843,44 +900,42 @@ export class Button_Bar extends React.Component {
         return (
             <>
                 <View style={stylesMain.FrameBackground3}></View>
-                <View style={stylesMain.FlexRow}>
-                    <ScrollView horizontal>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('DealScreen')}>
-                            <View style={stylesMain.Button_Bar_Box}>
-                                <FastImage style={stylesMain.Button_Bar_icon}
-                                    source={require('../icon/Icon_Deal/01.jpg')}
-                                    resizeMode={FastImage.resizeMode.contain} />
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('CoinScreen')}>
-                            <View style={stylesMain.Button_Bar_Box}>
-                                <FastImage style={stylesMain.Button_Bar_icon}
-                                    source={require('../icon/Icon_Deal/02.jpg')}
-                                    resizeMode={FastImage.resizeMode.contain} />
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('CampaignScreen')}>
-                            <View style={stylesMain.Button_Bar_Box}>
-                                <FastImage style={stylesMain.Button_Bar_icon}
-                                    source={require('../icon/Icon_Deal/03.jpg')}
-                                    resizeMode={FastImage.resizeMode.contain} />
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('The_BestFinScreen')}>
-                            <View style={stylesMain.Button_Bar_Box}>
-                                <FastImage style={stylesMain.Button_Bar_icon}
-                                    source={require('../icon/Icon_Deal/04.jpg')}
-                                    resizeMode={FastImage.resizeMode.contain} />
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('Installment_payScreen')}>
-                            <View style={stylesMain.Button_Bar_Box}>
-                                <FastImage style={stylesMain.Button_Bar_icon}
-                                    source={require('../icon/Icon_Deal/05.jpg')}
-                                    resizeMode={FastImage.resizeMode.contain} />
-                            </View>
-                        </TouchableOpacity>
-                    </ScrollView>
+                <View style={[stylesMain.FlexRow, { width, justifyContent: 'space-around' }]}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('DealScreen')}>
+                        <View style={stylesMain.Button_Bar_Box}>
+                            <FastImage style={stylesMain.Button_Bar_icon}
+                                source={require('../icon/Icon_Deal/01.jpg')}
+                                resizeMode={FastImage.resizeMode.contain} />
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('CoinScreen')}>
+                        <View style={stylesMain.Button_Bar_Box}>
+                            <FastImage style={stylesMain.Button_Bar_icon}
+                                source={require('../icon/Icon_Deal/02.jpg')}
+                                resizeMode={FastImage.resizeMode.contain} />
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('CampaignScreen')}>
+                        <View style={stylesMain.Button_Bar_Box}>
+                            <FastImage style={stylesMain.Button_Bar_icon}
+                                source={require('../icon/Icon_Deal/03.jpg')}
+                                resizeMode={FastImage.resizeMode.contain} />
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('The_BestFinScreen')}>
+                        <View style={stylesMain.Button_Bar_Box}>
+                            <FastImage style={stylesMain.Button_Bar_icon}
+                                source={require('../icon/Icon_Deal/04.jpg')}
+                                resizeMode={FastImage.resizeMode.contain} />
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('Installment_payScreen')}>
+                        <View style={stylesMain.Button_Bar_Box}>
+                            <FastImage style={stylesMain.Button_Bar_icon}
+                                source={require('../icon/Icon_Deal/05.jpg')}
+                                resizeMode={FastImage.resizeMode.contain} />
+                        </View>
+                    </TouchableOpacity>
                 </View>
             </>
         );
@@ -916,8 +971,7 @@ export class Recommend_Brand extends React.Component {
                                 style={[stylesMain.Brand_image_RCM, stylesMain.ItemCenterVertical]}
                                 source={{
                                     uri: dataMySQL,
-                                    height: 28,
-                                    width: 117,
+
                                 }}
                                 resizeMode={FastImage.resizeMode.cover} />
                         </View>
@@ -981,10 +1035,8 @@ export class Popular_store extends React.Component {
                                 style={stylesMain.BoxStore1Image}
                                 source={{
                                     uri: dataMySQL,
-                                    width: (width * 1 / 2) - 9,
-                                    height: 100,
                                 }}
-                                resizeMode={FastImage.resizeMode.stretch} />
+                                resizeMode={FastImage.resizeMode.cover} />
                         </View>
                     </TouchableOpacity>
                 )
@@ -1002,7 +1054,7 @@ export class Popular_store extends React.Component {
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         ร้านที่ใช่อยากให้ช้อป</Text>
                 </View>
-                <View style={stylesMain.FlexRow}>
+                <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 3.5, justifyContent: 'space-between' }]} >
                     {this.PopularStoreItem}
                 </View>
             </View>
@@ -1362,18 +1414,16 @@ export class PromotionPopular extends React.Component {
                 //     dataService.map((item, index) => {
                 //         var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
                 return (
-                    <TouchableOpacity onPress={() => this.navigationNavigateScreen('Recommend_Store')} key={index}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('Recommend_Store')} key={index}>
                         <View style={[stylesMain.BoxStore2Box2]}>
                             <FastImage
                                 source={{
                                     uri: dataMySQL,
-                                    width: 160,
-                                    height: 80,
                                 }}
                                 style={[stylesMain.BoxStore2Image2]}
-                                resizeMode={FastImage.resizeMode.stretch} />
+                                resizeMode={FastImage.resizeMode.cover} />
                             <View style={{
-                                height: 20, paddingHorizontal: 4, padding: 1, backgroundColor: '#0A55A6', borderBottomLeftRadius: 8, borderBottomRightRadius: 8
+                                paddingHorizontal: 4, padding: 1, backgroundColor: '#0A55A6', borderBottomLeftRadius: 8, borderBottomRightRadius: 8
                             }}>
                                 <Text numberOfLines={1} style={[
                                     stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#fff', marginLeft: 2 }
@@ -1401,9 +1451,11 @@ export class PromotionPopular extends React.Component {
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
                 </View>
-                <ScrollView horizontal>
-                    {this.dataPromotionPopular}
-                </ScrollView>
+                <View style={{ height: 'auto', aspectRatio: 3.7 }}>
+                    <ScrollView horizontal>
+                        {this.dataPromotionPopular}
+                    </ScrollView>
+                </View>
             </View>
         );
     }
@@ -1540,7 +1592,7 @@ export class NewStore extends React.Component {
                                     uri: dataMySQL,
                                 }}
                                 style={stylesMain.BoxStore1Image}
-                                resizeMode={FastImage.resizeMode.stretch} />
+                                resizeMode={FastImage.resizeMode.cover} />
                         </View>
                     </TouchableOpacity>
                 )
@@ -1558,7 +1610,7 @@ export class NewStore extends React.Component {
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         ร้านค้าห้ามพลาด!!่</Text>
                 </View>
-                <View style={stylesMain.FlexRow}>
+                <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 3.5, justifyContent: 'space-between' }]}>
                     {this.dataNewStore}
                 </View>
             </View>
@@ -1670,7 +1722,7 @@ export class CategoryProduct extends React.Component {
                                     <CategoryProductSubStore navigation={navigation} id_type={item.id_type} />
                                 </View> :
                                 <View style={{ marginBottom: 0, }}>
-                                    {/* <CategoryProductSubPromotion navigation={navigation} id_type={item.id_type} /> */}
+                                    <CategoryProductSubPromotion navigation={navigation} id_type={item.id_type} />
                                     <CategoryProductSubStore navigation={navigation} id_type={item.id_type} />
                                 </View>
                         }
@@ -1837,8 +1889,8 @@ export class CategoryProductSubPromotion extends React.Component {
     }
     dataCategoryProductSubPromotion(dataService, type) {
         // const { dataService } = this.state;
-        var dataMySQL = [finip, dataService && dataService.banner[0].path_mobile,
-            dataService && dataService.banner[0].image].join('/');
+        var dataMySQL = [finip, dataService && dataService.banner.length > 0 && dataService.banner[0].path_mobile,
+            dataService && dataService.banner.length > 0 && dataService.banner[0].image].join('/');
         // console.log('dataCategoryProductSubPromotion');
         // console.log(dataMySQL);
         return (
@@ -2136,6 +2188,7 @@ export class Fin_Mall extends React.Component {
     }
     productCate = (type) => {
         return type.map((item, index) => {
+
             var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
             return (
                 <View style={stylesMain.Popular_Box_D} key={index}>

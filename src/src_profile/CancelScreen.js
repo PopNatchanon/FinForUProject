@@ -105,13 +105,14 @@ export class CancelScreen_Product extends Component {
       type_purchase: 'cancel',
       device: "mobile_device",
     };
+    activeSelectedIndex == true && currentUser && keycokie &&
+      GetServices({
+        uriPointer: uri, Authorization: keycokie, showConsole: 'view_purchase', dataBody,
+        getDataSource: this.getData.bind(this),
+      })
     return (
       <>
-        {[
-          activeSelectedIndex == true && currentUser && keycokie &&
-          <GetServices uriPointer={uri} Authorization={keycokie} key={'view_purchase'}
-            showConsole={'view_purchase'}
-            dataBody={dataBody} getDataSource={this.getData.bind(this)} />,
+        {
           activeSelectedIndex == false && ([
             <Text key={'all'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
               marginLeft: 10, marginTop: 10,
@@ -127,7 +128,7 @@ export class CancelScreen_Product extends Component {
                   ยังไม่มีคำสั่งซื้อ</Text>
               </View>
           ])
-        ]}
+        }
       </>
     );
   }
@@ -217,7 +218,6 @@ export class Cancel_Detail extends Component {
   }
 }
 ///----------------------------------------------------------------------------------------------->>>> 
-
 export class Cancel_Alert extends Component {
   constructor(props) {
     super(props);

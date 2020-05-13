@@ -100,13 +100,14 @@ export class Button_bar extends Component {
         };
         switch (selectedIndex) {
             case 0:
+                activeSelectedIndex == true && currentUser && keycokie && selectedIndex == 0 &&
+                    GetServices({
+                        uriPointer: uri, Authorization: keycokie, showConsole: 'view_purchase', dataBody,
+                        getDataSource: this.getData.bind(this),
+                    })
                 return (
                     <>
-                        {[
-                            activeSelectedIndex == true && currentUser && keycokie && selectedIndex == 0 &&
-                            <GetServices uriPointer={uri} Authorization={keycokie} key={'view_purchase'}
-                                showConsole={'view_purchase'}
-                                dataBody={dataBody} getDataSource={this.getData.bind(this)} />,
+                        {
                             activeSelectedIndex == false && selectedIndex == 0 && ([
                                 <Text key={'all'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
                                     marginLeft: 10, marginTop: 10,
@@ -122,17 +123,18 @@ export class Button_bar extends Component {
                                             ยังไม่มีคำสั่งซื้อ</Text>
                                     </View>
                             ])
-                        ]}
+                        }
                     </>
                 )
             case 1:
+                activeSelectedIndex == true && currentUser && keycokie && selectedIndex == 1 &&
+                    GetServices({
+                        uriPointer: uri, Authorization: keycokie, showConsole: 'view_purchase', dataBody,
+                        getDataSource: this.getData.bind(this),
+                    })
                 return (
                     <>
-                        {[
-                            activeSelectedIndex == true && currentUser && keycokie && selectedIndex == 1 &&
-                            <GetServices uriPointer={uri} Authorization={keycokie} key={'view_purchase'}
-                                showConsole={'view_purchase'}
-                                dataBody={dataBody} getDataSource={this.getData.bind(this)} />,
+                        {
                             activeSelectedIndex == false && selectedIndex == 1 && ([
                                 <Text key={'wait'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
                                     marginLeft: 10, marginTop: 10,
@@ -148,17 +150,18 @@ export class Button_bar extends Component {
                                             ยังไม่มีคำสั่งซื้อ</Text>
                                     </View>
                             ])
-                        ]}
+                        }
                     </>
                 )
             case 2:
+                activeSelectedIndex == true && currentUser && keycokie && selectedIndex == 2 &&
+                    GetServices({
+                        uriPointer: uri, Authorization: keycokie, showConsole: 'view_purchase', dataBody,
+                        getDataSource: this.getData.bind(this),
+                    })
                 return (
                     <>
-                        {[
-                            activeSelectedIndex == true && currentUser && keycokie && selectedIndex == 2 &&
-                            <GetServices uriPointer={uri} Authorization={keycokie} key={'view_purchase'}
-                                showConsole={'view_purchase'}
-                                dataBody={dataBody} getDataSource={this.getData.bind(this)} />,
+                        {
                             activeSelectedIndex == false && selectedIndex == 2 && ([
                                 <Text key={'paid'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
                                     marginLeft: 10, marginTop: 10,
@@ -174,17 +177,18 @@ export class Button_bar extends Component {
                                             ยังไม่มีคำสั่งซื้อ</Text>
                                     </View>
                             ])
-                        ]}
+                        }
                     </>
                 )
             case 3:
+                activeSelectedIndex == true && currentUser && keycokie && selectedIndex == 3 &&
+                    GetServices({
+                        uriPointer: uri, Authorization: keycokie, showConsole: 'view_purchase', dataBody,
+                        getDataSource: this.getData.bind(this),
+                    })
                 return (
                     <>
-                        {[
-                            activeSelectedIndex == true && currentUser && keycokie && selectedIndex == 3 &&
-                            <GetServices uriPointer={uri} Authorization={keycokie} key={'view_purchase'}
-                                showConsole={'view_purchase'}
-                                dataBody={dataBody} getDataSource={this.getData.bind(this)} />,
+                        {
                             activeSelectedIndex == false && selectedIndex == 3 && ([
                                 <Text key={'accepted'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
                                     marginLeft: 10, marginTop: 10,
@@ -200,17 +204,18 @@ export class Button_bar extends Component {
                                             ยังไม่มีคำสั่งซื้อ</Text>
                                     </View>
                             ])
-                        ]}
+                        }
                     </>
                 )
             case 4:
+                activeSelectedIndex == true && currentUser && keycokie && selectedIndex == 4 &&
+                    GetServices({
+                        uriPointer: uri, Authorization: keycokie, showConsole: 'view_purchase', dataBody,
+                        getDataSource: this.getData.bind(this),
+                    })
                 return (
                     <>
-                        {[
-                            activeSelectedIndex == true && currentUser && keycokie && selectedIndex == 4 &&
-                            <GetServices uriPointer={uri} Authorization={keycokie} key={'view_purchase'}
-                                showConsole={'view_purchase'}
-                                dataBody={dataBody} getDataSource={this.getData.bind(this)} />,
+                        {
                             activeSelectedIndex == false && selectedIndex == 4 && ([
                                 <Text key={'cancel'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
                                     marginLeft: 10, marginTop: 10,
@@ -226,7 +231,7 @@ export class Button_bar extends Component {
                                             ยังไม่มีคำสั่งซื้อ</Text>
                                     </View>
                             ])
-                        ]}
+                        }
                     </>
                 )
         }

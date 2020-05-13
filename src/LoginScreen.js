@@ -30,17 +30,6 @@ export default class LoginScreen extends React.Component {
   }
   shouldComponentUpdate = (nextProps, nextState) => {
     const { navigation } = this.props
-    if (
-      ////>nextProps
-      navigation !== nextProps.navigation
-      ////>nextState
-    ) {
-      return true
-    }
-    return false
-  }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { navigation } = this.props
     if (navigation !== nextProps.navigation) {
       return true
     }
@@ -97,19 +86,6 @@ export class Login extends React.Component {
       eye: true,
     }
   }
-  // shouldComponentUpdate = (nextProps, nextState) => {
-  //   const { navigation } = this.props
-  //   const { eye, user, } = this.state;
-  //   if (
-  //     ////>nextProps
-  //     navigation !== nextProps.navigation ||
-  //     ////>nextProps
-  //     eye !== nextState.eye || user !== nextState.user
-  //   ) {
-  //     return true
-  //   }
-  //   return false
-  // }
   storeData = async (item) => {
     try {
       await AsyncStorage.setItem('@MyKey', JSON.stringify(item))
@@ -287,17 +263,6 @@ export class Register extends React.Component {
     super(props);
     this.state = {
     };
-  }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { navigation } = this.props
-    if (
-      ////>nextProps
-      navigation !== nextProps.navigation
-      ////>nextState
-    ) {
-      return true
-    }
-    return false
   }
   navigationNavigateScreen = (value, value2) => {
     const { navigation } = this.props

@@ -25,15 +25,12 @@ import { AppBar1 } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-
-
 export default class Seller_Profile_Edit extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
@@ -134,7 +131,6 @@ export class Seller_SettingImage extends Component {
         );
     }
 }
-
 ///------------------------------------------------------------------------------///
 export class Seller_Up_Image extends Component {
     constructor(props) {
@@ -241,19 +237,15 @@ export class Seller_Up_Image extends Component {
     }
 }
 ///------------------------------------------------------------------------------///
-
 export class Seller_Detail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
         };
     }
-
     render() {
         return (
             <View>
-
                 {/* <View style={[stylesMain.FrameBackground, { paddingVertical: 5, marginTop: 5 }]}>
                     <TouchableOpacity>
                         <View style={stylesSeller.Seller_Detail_BoxUp_Image}>
@@ -275,13 +267,10 @@ export class Seller_Detail extends Component {
                     </View>
                 </View>
             </View>
-
         );
     }
 }
-
 ///------------------------------------------------------------------------------///
-
 export class Seller_SettingButton extends Component {
     constructor(props) {
         super(props);
@@ -356,5 +345,3 @@ export class Seller_SettingButton extends Component {
         );
     }
 }
-
-///------------------------------------------------------------------------------///

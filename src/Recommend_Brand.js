@@ -36,18 +36,16 @@ export default class Recommend_Brand extends React.Component {
         const { navigation } = this.props
         const { activeGetCurrentUser, activeDataService, currentUser, dataService, } = this.state
         const uri = [finip, '/brand/all_brand'].join('/')
+        activeGetCurrentUser == false && activeDataService == true &&
+            GetServices({ uriPointer: uri, getDataSource: this.getData.bind(this), })
+        activeGetCurrentUser == true &&
+            GetData({ getSource: this.getSource.bind(this), getUser: true, })
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                {[
+                {
                     (activeGetCurrentUser == true || activeDataService == true) &&
-                    <LoadingScreen key='LoadingScreen' />,
-                    activeGetCurrentUser == false && activeDataService == true &&
-                    <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)}
-                        // showConsole='campaign_data'
-                        key='activeDataService' />,
-                    activeGetCurrentUser == true &&
-                    <GetData getSource={this.getSource.bind(this)} getUser={true} key={'GetData'} />
-                ]}
+                    <LoadingScreen key='LoadingScreen' />
+                }
                 <AppBar1 titleHead={'แบรนด์แนะนำ'} backArrow searchBar chatBar navigation={navigation} />
                 <ScrollView>
                     {

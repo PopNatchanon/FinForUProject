@@ -38,9 +38,7 @@ export default class Seller_Setting extends Component {
         );
     }
 }
-
 ///------------------------------------------------------------------------------/// 
-
 export class Seller_Setting_Topic extends Component {
     constructor(props) {
         super(props);

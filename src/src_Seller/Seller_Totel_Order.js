@@ -73,15 +73,16 @@ export class Button_bar extends Component {
                                     'wait',
             device: "mobile_device",
         };
+        activeGetCurrentUser == false && activeSelectedIndex == true && cokie &&
+            GetServices({
+                uriPointer: uri, Authorization: cokie, showConsole: 'view_purchase', dataBody,
+                getDataSource: this.getData.bind(this),
+            })
+        activeGetCurrentUser == true &&
+            GetData({ getCokie: true, getSource: this.getSource.bind(this), getUser: true, })
         return (
             <View>
-                {[
-                    activeGetCurrentUser == false && activeSelectedIndex == true && cokie &&
-                    <GetServices uriPointer={uri} Authorization={cokie} key={'view_purchase'}
-                        showConsole={'view_purchase'}
-                        dataBody={dataBody} getDataSource={this.getData.bind(this)} />,
-                    activeGetCurrentUser == true &&
-                    <GetData getCokie={true} getSource={this.getSource.bind(this)} getUser={true} key={'GetData'} />,
+                {
                     activeSelectedIndex == false && ([
                         <Text key={'wait'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
                             marginLeft: 10, marginTop: 10,
@@ -96,7 +97,7 @@ export class Button_bar extends Component {
                                     ยังไม่มีคำสั่งซื้อ</Text>
                             </View>
                     ])
-                ]}
+                }
             </View>
         )
     }

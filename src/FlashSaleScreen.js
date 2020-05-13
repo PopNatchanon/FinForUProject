@@ -88,16 +88,14 @@ export default class FlashSaleScreen extends React.Component {
             curTime > endTime &&
                 this.getReData()
         }
+        activeFlashStart == true &&
+            GetServices({ dataBod: dataBody, getDataSource: this.getData.bind(this), uriPointer: uri })
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                {[
-                    activeFlashStart == true &&
-                    <GetServices dataBody={dataBody} getDataSource={this.getData.bind(this)}
-                        showConsole='activeFlashStart'
-                        uriPointer={uri} />,
+                {
                     activeFlashStart == true &&
                     <LoadingScreen key={'LoadingScreen'} />
-                ]}
+                }
                 <AppBar1 titleHead={'FLASH SALE'} backArrow searchBar chatBar navigation={navigation} />
                 <ScrollView
                     stickyHeaderIndices={[1]}
@@ -223,14 +221,12 @@ export class Time_FlashSale extends React.Component {
                 )
                 return item.push({ name: value.time_show, subname: value.flash_item == 'now' ? 'กำลังดำเนินการอยู่' : 'เร็วๆนี้' })
             })
+        activeselectedIndex2 == true &&
+            GetServices({ uriPointer: uri, getDataSource: this.getData.bind(this) })
         return ([
             <Animatable.View elevation={1} style={[stylesMain.FrameBackground, stylesMain.FlexRow, {
                 marginTop: marginTopFlashsale, marginBottom: marginTopTime, paddingBottom: 0, height: 40,
             }]}>
-                {
-                    activeselectedIndex2 == true &&
-                    <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} />
-                }
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { textAlignVertical: 'center' }]}>FLASH SALE</Text>
                 <IconMaterialIcons name='access-time' size={25} style={[stylesMain.ItemCenterVertical, { marginLeft: 10, }]} />
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical, {
@@ -279,17 +275,6 @@ export class FlashSale_Product extends React.Component {
         super(props);
         this.state = {
         };
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation } = this.props;
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props

@@ -47,18 +47,16 @@ export default class Recommend_Store extends React.Component {
         var dataBody = {
             id_slide,
         };
+        activeGetSource == false && activeGetServices == true && id_slide && cokie &&
+            GetServices({ key: name_path, uriPointer: uri, dataBody, Authorization: cokie, getDataSource: this.getData.bind(this), })
+        activeGetSource == true &&
+            GetData({ getCokie: true, getUser: true, getSource: this.getSource.bind(this), })
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                {[
+                {
                     (activeGetSource == true || activeGetServices == true || activeStore_Detail == true) &&
-                    <LoadingScreen key='LoadingScreen' />,
-                    activeGetSource == false && activeGetServices == true && id_slide && cokie &&
-                    <GetServices key={name_path} uriPointer={uri} dataBody={dataBody} Authorization={cokie}
-                        // showConsole={name_path}
-                        getDataSource={this.getData.bind(this)} />,
-                    activeGetSource == true &&
-                    <GetData key='GetData' getCokie={true} getUser={true} getSource={this.getSource.bind(this)} />
-                ]}
+                    <LoadingScreen key='LoadingScreen' />
+                }
                 <AppBar leftBar='backarrow' rightBar='chat' navigation={navigation} />
                 <ScrollView>
                     <Header dataService={{
@@ -192,14 +190,10 @@ export class Store_Detail extends React.Component {
         };
         const image_header = [finip, dataService.image_head_path, dataService.image_head].join('/')
         const image_store = [finip, dataService.image_path, dataService.store_image].join('/')
+        activeGetServices == true && cokie &&
+            GetServices({ uriPointer: uri, dataBody, Authorization: cokie, getDataSource: this.getData.bind(this), })
         return (
             <View style={{ backgroundColor: '#FFFFFF', width: '100%', marginVertical: 5 }}>
-                {
-                    activeGetServices == true && cokie &&
-                    <GetServices key={'follow_data'} uriPointer={uri} dataBody={dataBody} Authorization={cokie}
-                        // showConsole={'follow_data'}
-                        getDataSource={this.getData.bind(this)} />
-                }
                 <View>
                     <FastImage
                         style={stylesTopic.Store_Image}

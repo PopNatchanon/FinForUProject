@@ -44,24 +44,6 @@ export default class CartScreen extends React.Component {
             itemData: [],
         };
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation } = this.props
-        const {
-            activeDelete, activeRefresh, activeSave, activeSave2, ArrayItem, ButtomDeleteAll, checkedAll, currentUser, dataService, dataService2, keycokie
-        } = this.state
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation ||
-            ////>nextState
-            activeDelete !== nextState.activeDelete || activeRefresh !== nextState.activeRefresh || activeSave !== nextState.activeSave ||
-            activeSave2 !== nextState.activeSave2 || ArrayItem !== nextState.ArrayItem || ButtomDeleteAll !== nextState.ButtomDeleteAll ||
-            checkedAll !== nextState.checkedAll || currentUser !== nextState.currentUser || dataService !== nextState.dataService ||
-            dataService2 !== nextState.dataService2 || keycokie !== nextState.keycokie
-        ) {
-            return true
-        }
-        return false
-    }
     componentDidMount() {
         this.getDataAsync()
         CookieManager.get(finip + '/auth/login_customer')
@@ -115,6 +97,12 @@ export default class CartScreen extends React.Component {
         )
         var uri2 = finip + '/cart/auto_save_ajax'
         var uri3 = finip + '/cart/delete_cart'
+        currentUser && dataBody && activeRefresh == true &&
+            GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), })
+        ArrayItem && activeSave == true &&
+            GetServices({ uriPointer: uri2, dataBody: ArrayItem, Authorization: keycokie, getDataSource: this.getData2.bind(this), })
+        ArrayItem2 && activeDelete == true &&
+            GetServices({ uriPointer: uri3, dataBody: ArrayItem2, Authorization: keycokie, getDataSource: this.getData3.bind(this), })
         activeSave2 == true &&
             this.setState({ activeSave2: false })
         return (
@@ -124,20 +112,6 @@ export default class CartScreen extends React.Component {
                     <LoadingScreen />
 
                 } */}
-                {[
-                    currentUser && dataBody && activeRefresh == true &&
-                    <GetServices uriPointer={uri} dataBody={dataBody}
-                        // showConsole={'cart_ajax'}
-                        getDataSource={this.getData.bind(this)} key={'cart_ajax'} />,
-                    ArrayItem && activeSave == true &&
-                    <GetServices uriPointer={uri2} dataBody={ArrayItem} Authorization={keycokie} getDataSource={this.getData2.bind(this)}
-                        // showConsole={'auto_save_ajax'}
-                        key={'auto_save_ajax'} />,
-                    ArrayItem2 && activeDelete == true &&
-                    <GetServices uriPointer={uri3} dataBody={ArrayItem2} Authorization={keycokie} getDataSource={this.getData3.bind(this)}
-                        // showConsole={'delete_cart'}
-                        key={'delete_cart'} />
-                ]}
                 <AppBar1 navigation={navigation} titleHead='รถเข็น' deleteBar={dataService && dataService.cart_list.length > 0 ? true : false}
                     backArrow ButtomDeleteAll={ButtomDeleteAll} propsFunction={this.propsFunction.bind(this)} />
                 <ScrollView>
@@ -170,24 +144,6 @@ export class Product_Cart extends React.Component {
             activeHeadArray: false,
             activeRefresh: false,
         };
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { ArrayItem, ArrayItem2, checkedAll, currentUser, dataService, dataService2, getCheckedAll, itemData, sendData, } = this.props
-        const { activecart, activeHeadArray, activeRefresh, dataNewService, ItemArray, HeadArray } = this.state
-        if (
-            ////>nextProps
-            ArrayItem !== nextProps.ArrayItem || ArrayItem2 !== nextProps.ArrayItem2 || checkedAll !== nextProps.checkedAll ||
-            currentUser !== nextProps.currentUser || dataService !== nextProps.dataService || dataService2 !== nextProps.dataService2 ||
-            getCheckedAll !== nextProps.getCheckedAll || itemData !== nextProps.itemData || sendData !== nextProps.sendData ||
-            ////>nextState
-            activecart !== nextState.activecart || activeHeadArray !== nextState.activeHeadArray ||
-            activeRefresh !== nextState.activeRefresh || dataNewService !== nextState.dataNewService || ItemArray !== nextState.ItemArray ||
-            HeadArray !== nextState.HeadArray
-
-        ) {
-            return true
-        }
-        return false
     }
     setStateItemArrayChecked = (checked, id_cartdetail, ) => {
         const { ArrayItem, currentUser, dataService, getCheckedAll, } = this.props
@@ -775,28 +731,6 @@ export class Buy_bar extends React.Component {
             });
         });
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { checkedAll, dataService2, DeleteAction, keycokie, getCheckedAll, list_order, navigation } = this.props
-        const {
-            create_bill, check_coupon, check_coupon2, Coupon, dataBody2, dataBody3, dataBody4, dataService, dataService3, dataService4,
-            dataService5, errorService3, otherCoupon, Service3, text,
-        } = this.state;
-        if (
-            ////>nextProps
-            checkedAll !== nextProps.checkedAll || dataService2 !== nextProps.dataService2 ||
-            DeleteAction !== nextProps.DeleteAction || keycokie !== nextProps.keycokie || getCheckedAll !== nextProps.getCheckedAll ||
-            list_order !== nextProps.list_order || navigation !== nextProps.navigation ||
-            ////>nextState
-            create_bill !== nextState.create_bill || check_coupon !== nextState.check_coupon || check_coupon2 !== nextState.check_coupon2 ||
-            Coupon !== nextState.Coupon || dataBody2 !== nextState.dataBody2 || dataBody3 !== nextState.dataBody3 ||
-            dataBody4 !== nextState.dataBody4 || dataService !== nextState.dataService || dataService3 !== nextState.dataService3 ||
-            dataService4 !== nextState.dataService4 || dataService5 != nextState.dataService5 || errorService3 !== nextState.errorService3 ||
-            otherCoupon !== nextState.otherCoupon || Service3 !== nextState.Service3 || text !== nextState.text
-        ) {
-            return true
-        }
-        return false
-    }
     componentDidMount() {
         this.setStateCancel()
     }
@@ -957,6 +891,26 @@ export class Buy_bar extends React.Component {
         var uri4 = finip + '/bill/create_bill';
         errorService3 === true &&
             this._spring()
+        Coupon == true &&
+            GetServices({
+                uriPointer: uri, showConsole: 'check_coupon', Authorization: keycokie, dataBody,
+                getDataSource: this.getData.bind(this)
+            })
+        otherCoupon == true &&
+            GetServices({
+                uriPointer: uri2, showConsole: 'get_other_coupon', Authorization: keycokie, dataBody: dataBody2,
+                getDataSource: this.getData2.bind(this)
+            })
+        check_coupon == true &&
+            GetServices({
+                uriPointer: uri3, showConsole: 'track_data', Authorization: keycokie, dataBody3,
+                getDataSource: this.getData3.bind(this)
+            })
+        create_bill == true &&
+            GetServices({
+                uriPointer: uri4, showConsole: 'create_bill', Authorization: keycokie, dataBody4,
+                getDataSource: this.getData4.bind(this)
+            })
         return ([
             <Animatable.View key={'Animatable'} style={[stylesMain.animatedView, {
                 opacity: this.springValue, transform: [{ translateY: this.transformValue }]
@@ -966,31 +920,7 @@ export class Buy_bar extends React.Component {
                 </View>
             </Animatable.View>,
             <View style={stylesCart.Bar} key={'CartBar'}>
-                {[
-                    Coupon == true &&
-                    <GetServices uriPointer={uri}
-                        key={'check_coupon'}
-                        showConsole={'check_coupon'}
-                        Authorization={keycokie}
-                        dataBody={dataBody} getDataSource={this.getData.bind(this)} />,
-                    otherCoupon == true &&
-                    <GetServices uriPointer={uri2}
-                        key={'get_other_coupon'}
-                        showConsole={'get_other_coupon'}
-                        Authorization={keycokie}
-                        dataBody={dataBody2} getDataSource={this.getData2.bind(this)} />,
-                    check_coupon == true &&
-                    <GetServices uriPointer={uri3}
-                        key={'track_data'}
-                        showConsole={'track_data'}
-                        Authorization={keycokie}
-                        dataBody={dataBody3} getDataSource={this.getData3.bind(this)} />,
-                    create_bill == true &&
-                    <GetServices uriPointer={uri4}
-                        key={'create_bill'}
-                        showConsole={'create_bill'}
-                        Authorization={keycokie}
-                        dataBody={dataBody4} getDataSource={this.getData4.bind(this)} />,
+                {
                     ButtomDeleteAll == false &&
                     <View style={stylesCart.Bar_Code} key={'Bar_Code'}>
                         <IconFoundation name='burst' size={30} style={[stylesMain.ItemCenterVertical, { left: 5, width: '8%' }]} />
@@ -1052,7 +982,7 @@ export class Buy_bar extends React.Component {
                                 </TouchableOpacity>
                         }
                     </View>
-                ]}
+                }
                 <View style={stylesCart.Bar_Buy}>
                     <View>
                         <CheckBox
@@ -1104,17 +1034,6 @@ export class Coupon_Detail_BottomSheet extends React.Component {
         super(props);
         this.state = {
         };
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { dataService, getDataSource } = this.props
-        if (
-            ////>nextProps
-            dataService !== nextProps.dataService || getDataSource !== nextProps.getDataSource
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
     }
     saveTicket = (dataService) => {
         const { getDataSource, } = this.props

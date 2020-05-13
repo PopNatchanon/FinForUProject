@@ -492,7 +492,7 @@ export class Seller_Up_ProductDetail extends Component {
                     return (
                       <View key={index} style={stylesSeller.SelectSheet_TextInput}>
                         <TextInput
-                          style={[stylesFont.FontFamilyText, stylesFont.FontSize5,{width:80 ,textAlign:'center'}]}
+                          style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: 80, textAlign: 'center' }]}
                           placeholder="สี"
                           maxLength={10}
                           onChangeText={(value) => this.setStateValue(value, index)}>
@@ -528,7 +528,7 @@ export class Seller_Up_ProductDetail extends Component {
                   }) : <></>,
                 valueNumber2.length < 20 &&
                 <TouchableOpacity onPress={this.setStateInput2.bind(this)}
-                  key='addInput' style={[stylesSeller.SelectSheet_TextInput,{ height: 50 }]}>
+                  key='addInput' style={[stylesSeller.SelectSheet_TextInput, { height: 50 }]}>
                   <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>+เพิ่ม</Text>
                 </TouchableOpacity>
               ]}
@@ -770,17 +770,15 @@ export class Seller_Up_ProductDetail extends Component {
     var dataBodyUnSubCategory = {
       id_subtype: subCategorySelect && subCategorySelect.id_subtype,
     }
+    activeCategory == true &&
+      GetServices({ uriPointer: uriCategory, getDataSource: this.getCategory.bind(this), })
+    activeSubCategory == true &&
+      GetServices({ uriPointer: uriSubCategory, dataBodySubCategory, getDataSource: this.getSubCategory.bind(this), })
+    activeUnSubCategory == true &&
+      GetServices({ uriPointer: uriUnSubCategory, dataBodyUnSubCategory, getDataSource: this.getUnSubCategory.bind(this), })
     return (
       <View>
         {/* หมวดหมู่สินค้า */}
-        {[
-          activeCategory == true &&
-          <GetServices uriPointer={uriCategory} getDataSource={this.getCategory.bind(this)} />,
-          activeSubCategory == true &&
-          <GetServices uriPointer={uriSubCategory} dataBody={dataBodySubCategory} getDataSource={this.getSubCategory.bind(this)} />,
-          activeUnSubCategory == true &&
-          <GetServices uriPointer={uriUnSubCategory} dataBody={dataBodyUnSubCategory} getDataSource={this.getUnSubCategory.bind(this)} />
-        ]}
         <BottomSheet
           ref={ref => {
             this.CategorySheet = ref;

@@ -46,16 +46,12 @@ export default class Detail_Campaign extends Component {
             "id_category": "",
             "id_campaign": id_campaign,
         }
+        activeGetCurrentUser == false && activeDataService == true &&
+            GetServices({ dataBody, uriPointer: uri, getDataSource: this.getData.bind(this), })
+        activeGetCurrentUser == true &&
+            GetData({ getSource: this.getSource.bind(this), getUser: true, })
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                {[
-                    activeGetCurrentUser == false && activeDataService == true &&
-                    <GetServices dataBody={dataBody} uriPointer={uri} getDataSource={this.getData.bind(this)}
-                        // showConsole='campaign_detail'
-                        key='activeDataService' />,
-                    activeGetCurrentUser == true &&
-                    <GetData getSource={this.getSource.bind(this)} getUser={true} key={'GetData'} />
-                ]}
                 <AppBar1 titleHead={'โปรโมชั่น'} backArrow searchBar chatBar navigation={navigation} />
                 <ScrollView>
                     <Slide banner={dataService && dataService.list_banner} />
@@ -137,7 +133,6 @@ export class New_year_Product extends Component {
         this.state = {
         };
     }
-
     render() {
         const { navigation, dataService } = this.props
         return (
@@ -167,7 +162,6 @@ export class Store_Campaign extends Component {
         this.state = {
         };
     }
-
     Store_Sale_Box() {
         const { dataService } = this.props
         console.log('Store_Campaign')

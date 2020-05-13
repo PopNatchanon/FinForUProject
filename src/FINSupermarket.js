@@ -51,12 +51,11 @@ export default class FINSupermarket extends React.Component {
 
   render() {
     const { navigation } = this.props
-
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
         <AppBar1 backArrow navigation={this.props.navigation} titleHead='FIN Supermarket' />
         <ScrollView>
-          <View style={{width:'100%',height:180,marginTop:10}}>
+          <View style={{ width: '100%', height: 180, marginTop: 10 }}>
             <FastImage
               style={stylesMain.BoxProduct1Image}
               source={{
@@ -90,24 +89,12 @@ export class FinMall_Product extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeDataService: true,
       dataService: [],
     };
   }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { navigation } = this.props
-    const { dataService } = this.state
-    if (
-      ////>nextProps
-      navigation !== nextProps.navigation ||
-      ////>nextState
-      dataService !== nextState.dataService
-    ) {
-      return true
-    }
-    return false
-  }
   getData = (dataService) => {
-    this.setState({ dataService })
+    this.setState({ activeDataService: false, dataService })
   }
   navigationNavigateScreen = (value, value2) => {
     const { navigation } = this.props
@@ -121,13 +108,14 @@ export class FinMall_Product extends React.Component {
   }
   render() {
     const { navigation } = this.props
-    const { dataService } = this.state
+    const { activeDataService, dataService } = this.state
     var uri = ip + '/mysql/DataServiceMain.php';
     var dataBody = {
       type: 'todayproduct'
-    }; return (
+    };
+    activeDataService == true && GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), })
+    return (
       <View style={stylesMain.FrameBackground}>
-        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
         <View style={stylesMain.FrameBackgroundTextBox}>
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
             Fin Mall
@@ -153,16 +141,16 @@ export class FIN_Supermarket extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeDataService: true,
       dataService: [],
     };
-    this.getData = this.getData.bind(this)
   }
   getData(dataService) {
-    this.setState({ dataService })
+    this.setState({ activeDataService: false, dataService })
   }
   render() {
-    const { dataService } = this.state
     const { navigation } = this.props
+    const { activeDataService, dataService } = this.state
     const item = [{
       name: 'Global Items'
     }, {
@@ -174,9 +162,9 @@ export class FIN_Supermarket extends React.Component {
     var dataBody = {
       type: 'todayproduct'
     };
+    activeDataService == true && GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), })
     return (
       <View>
-        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
         <View style={[stylesMain.FrameBackground2]}>
           <TabBar
             // sendData={this.getData.bind(this)}
@@ -311,23 +299,24 @@ export class Product_Today_Supermarket extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeDataService: true,
       dataService: [],
     };
     this.getData = this.getData.bind(this)
   }
   getData(dataService) {
-    this.setState({ dataService })
+    this.setState({ activeDataService: false, dataService })
   }
   render() {
-    const { dataService } = this.state
     const { navigation } = this.props
+    const { activeDataService, dataService } = this.state
     var uri = ip + '/mysql/DataServiceMain.php';
     var dataBody = {
       type: 'todayproduct'
     };
+    activeDataService == true && GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), })
     return (
       <View>
-        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
         <View style={[stylesMain.FrameBackground, { marginTop: 20 }]}>
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>สินค้าประจำวันที่ควรช้อป!!</Text>
           <ScrollView horizontal>
@@ -352,34 +341,27 @@ export class Product_Shop extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeDataService: true,
       sliderVisible: false,
       dataService: [],
     };
-  }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { dataService, sliderVisible } = this.state
-    const { navigation } = this.props
-    if (dataService !== nextState.dataService || sliderVisible !== nextState.sliderVisible || navigation !== nextProps.navigation) {
-      return true
-    }
-    return false
   }
   setSlider = (sliderVisible) => {
     this.setState({ sliderVisible })
   }
   getData = (dataService) => {
-    this.setState({ dataService })
+    this.setState({ activeDataService: false, dataService })
   }
   render() {
-    const { dataService } = this.state
     const { navigation } = this.props
+    const { activeDataService, dataService } = this.state
     var uri = ip + '/mysql/DataServiceMain.php';
     var dataBody = {
       type: 'todayproduct'
     };
+    activeDataService == true && GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), })
     return (
       <View>
-        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
         <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>สินค้าที่คุณควรช้อป!!!</Text>
         {
           dataService ?

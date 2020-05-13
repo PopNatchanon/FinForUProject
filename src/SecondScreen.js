@@ -25,17 +25,6 @@ export default class SecondScreen extends React.Component {
     this.state = {
     };
   }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { navigation } = this.props;
-    if (
-      ////>nextProps
-      navigation !== nextProps.navigation
-      ////>nextState
-    ) {
-      return true
-    }
-    return false
-  }
   get PathList() {
     const { navigation } = this.props;
     const selectedIndex = navigation.getParam('selectedIndex')
@@ -71,32 +60,20 @@ export class Second_Product extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeDataService: true,
       dataService: [],
       sliderVisible: false,
     };
-  }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { navigation } = this.props
-    const { dataService, sliderVisible } = this.state
-    if (
-      ////>nextProps
-      navigation !== nextProps.navigation ||
-      ////>nextState
-      dataService !== nextState.dataService || sliderVisible !== nextState.sliderVisible
-    ) {
-      return true
-    }
-    return false
   }
   setSlider = (sliderVisible) => {
     this.setState({ sliderVisible })
   }
   getData = (dataService) => {
-    this.setState({ dataService })
+    this.setState({ activeDataService: false, dataService })
   }
   render() {
     const { navigation } = this.props
-    const { dataService, sliderVisible } = this.state
+    const { activeDataService, dataService, sliderVisible } = this.state
     var uri = ip + '/mysql/DataServiceMain.php';
     var dataBody = {
       type: 'todayproduct'
@@ -130,12 +107,9 @@ export class Second_Product extends React.Component {
         name: 'ETONWEAG'
       }]
     }]
+    activeDataService == true && GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
     return (
       <View style={{ flex: 1 }}>
-        <GetServices
-          uriPointer={uri}  
-          dataBody={dataBody}
-          getDataSource={this.getData.bind(this)} />
         <ScrollView stickyHeaderIndices={[5]}>
           <Slide />
           <Second_Store navigation={navigation} />
@@ -164,17 +138,6 @@ export class Second_Store extends React.Component {
     super(props);
     this.state = {
     };
-  }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { navigation } = this.props
-    if (
-      ////>nextProps
-      navigation !== nextProps.navigation
-      ////>nextState
-    ) {
-      return true
-    }
-    return false
   }
   navigationNavigateScreen = (value, value2) => {
     const { navigation } = this.props
@@ -224,24 +187,12 @@ export class Second_Product_Brand extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeDataService: true,
       dataService: [],
     };
   }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { navigation } = this.props
-    const { dataService } = this.state
-    if (
-      ////>nextProps
-      navigation !== nextProps.navigation ||
-      ////>nextState
-      dataService !== nextState.dataService
-    ) {
-      return true
-    }
-    return false
-  }
   getData = (dataService) => {
-    this.setState({ dataService })
+    this.setState({ activeDataService: false, dataService })
   }
   render() {
     const { navigation } = this.props
@@ -250,12 +201,9 @@ export class Second_Product_Brand extends React.Component {
     var dataBody = {
       type: 'sale'
     };
+    activeDataService == true && GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
     return (
       <View style={stylesMain.FrameBackground2}>
-        <GetServices
-          uriPointer={uri}
-          dataBody={dataBody}
-          getDataSource={this.getData.bind(this)} />
         <View style={stylesMain.FrameBackgroundTextBox}>
           <View style={[stylesMain.FlexRow, { marginTop: 5, }]}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>

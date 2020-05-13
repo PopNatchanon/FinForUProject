@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React from 'react';
 import {
-  Dimensions, SafeAreaView, ScrollView, View,
+  Dimensions, SafeAreaView, ScrollView, View, FlatList
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
@@ -37,33 +37,33 @@ export default class FeedScreen extends React.Component {
   render() {
     const { navigation } = this.props
     const { activeGetSource, activeLogin, activeSelectedIndex, currentUser, selectedIndex } = this.state
-    console.log('=============================================FeedScreen')
-    console.log('activeGetSource')
-    console.log(activeGetSource)
-    console.log('activeSelectedIndex')
-    console.log(activeSelectedIndex)
+    activeGetSource == true && GetData({ getCokie: true, getUser: true, getSource: this.getSource.bind(this) })
     return (
       <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
         {
           activeGetSource == true &&
-          <LoadingScreen key='LoadingScreen' />,
-          activeGetSource == true &&
-          <GetData key='GetData' getCokie={true} getUser={true} getSource={this.getSource.bind(this)} />
+          <LoadingScreen key='LoadingScreen' />
         }
-        <AppBar1 titleHead='ฟีด' storeBar menuBar navigation={navigation} />
-        {
-          currentUser &&
-          <MenuBar getActiveSelectedIndex={this.getActiveSelectedIndex.bind(this)} sendText={this.getSelectedIndex.bind(this)} />
-        }
-        <ScrollView>
+        <View style={{ flex: 9, }}>
+          <AppBar1 titleHead='ฟีด' storeBar menuBar navigation={navigation} />
+        </View>
+        <View style={{ flex: 5, }}>
+          {
+            currentUser &&
+            <MenuBar getActiveSelectedIndex={this.getActiveSelectedIndex.bind(this)} sendText={this.getSelectedIndex.bind(this)} />
+          }
+        </View>
+        <View style={{ flex: 76, }}>
           {
             activeGetSource == false &&
             <Button_Bar activeSelectedIndex={activeSelectedIndex}
               currentUser={currentUser} getActiveSelectedIndex={this.getActiveSelectedIndex.bind(this)}
               selectedIndex={currentUser ? selectedIndex : 1} navigation={navigation} />
           }
-        </ScrollView>
-        <Toolbar navigation={navigation} />
+        </View>
+        <View style={{ flex: 10, }}>
+          <Toolbar navigation={navigation} />
+        </View>
         <ExitAppModule navigation={navigation} />
       </SafeAreaView>
     );
@@ -124,20 +124,17 @@ export class Button_Bar extends React.Component {
     var dataBody = {
       id_customer: currentUser && currentUser.id_customer ? currentUser.id_customer : ''
     }
-    console.log('=============================================Button_Bar')
-    console.log('activeSelectedIndex')
-    console.log(activeSelectedIndex)
-    console.log(uri)
-    console.log(dataBody)
+    activeSelectedIndex == true &&
+      GetServices({
+        uriPointer: uri, dataBody: (selectedIndex == 0 ? dataBody : undefined), getDataSource: this.getData.bind(this),
+        showConsole: 'feed_store_follow'
+      })
     return (
-      <View>
-        {[
+      <View style={{ flex: 1, height: '100%' }}>
+        {
           activeSelectedIndex == true &&
-          <LoadingScreen key='LoadingScreen' />,
-          activeSelectedIndex == true &&
-          <GetServices key='feed_store_follow' uriPointer={uri} dataBody={selectedIndex == 0 ? dataBody : undefined}
-            getDataSource={this.getData.bind(this)} showConsole='feed_store_follow' />
-        ]}
+          <LoadingScreen key='LoadingScreen' />
+        }
         <Highlights dataService={dataService && dataService.feed_follow} Follow navigation={navigation} />
       </View>
     );
@@ -154,15 +151,29 @@ export class Highlights extends React.Component {
     const { dataService, Follow, navigation } = this.props
     return (
       <View style={stylesMain.FrameBackground, stylesMain.BackgroundAreaView}>
-        <View style={stylesStore.StoreFeedBoxProduct}>
+        <View>
           {
             dataService &&
-            <FeedBox dataService={dataService} navigation={navigation}
-              Follow={
-                Follow ?
-                  Follow :
-                  null
-              } Header />
+            <FlatList
+              scrollEnabled={true}
+              initialNumToRender={10}
+              data={dataService}
+              keyExtractor={(value, index) => 'Feed' + index}
+              // ListHeaderComponent={this.renderHeader}
+              ListHeaderComponentStyle={{
+                flexDirection: 'column'
+              }}
+              renderItem={(value) =>
+                <>
+                  <FeedBox dataService={value.item} navigation={navigation}
+                    Follow={
+                      Follow ?
+                        Follow :
+                        null
+                    } Header />
+                </>
+              }
+            />
           }
         </View>
       </View>

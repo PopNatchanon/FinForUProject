@@ -73,7 +73,7 @@ export default class Customer_Order extends Component {
     }
     render() {
         const { navigation } = this.props
-        const { activeReset, activeIdAddress, currentUser, dataBody2, dataService, keycokie } = this.state
+        const { activeReset, activeIdAddress, currentUser, dataBody: dataBody2, dataService, keycokie } = this.state
         var no_invoice = navigation.getParam('no_invoice');
         // var no_invoice = 'FINV4320200404124752'
         var uri = finip + '/bill/bill_list';
@@ -82,18 +82,15 @@ export default class Customer_Order extends Component {
             no_invoice,
         };
         var uri2 = finip + '/bill/update_bill_address';
+        activeReset == true && currentUser && currentUser.id_customer && keycokie && no_invoice &&
+            GetServices({ uriPointer: uri, dataBody, Authorization: keycokie, getDataSource: this.getData.bind(this), })
+        activeIdAddress == true &&
+            GetServices({
+                uriPointer: uri2, dataBody: dataBody2, Authorization: keycokie, showConsole: 'update_bill_address',
+                getDataSource: this.getData3.bind(this),
+            })
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                {[
-                    activeReset == true && currentUser && currentUser.id_customer && keycokie && no_invoice &&
-                    <GetServices uriPointer={uri} dataBody={dataBody} Authorization={keycokie}
-                        // showConsole={'bill_list'}
-                        getDataSource={this.getData.bind(this)} key={'bill_list'} />,
-                    activeIdAddress == true &&
-                    <GetServices uriPointer={uri2} dataBody={dataBody2} Authorization={keycokie}
-                        showConsole={'update_bill_address'}
-                        getDataSource={this.getData3.bind(this)} key={'update_bill_address'} />
-                ]}
                 <AppBar1 backArrow titleHead='สั่งซื้อสินค้า' navigation={navigation} />
                 <ScrollView>
                     {[
@@ -729,13 +726,10 @@ export class OmiseBox extends Component {
         } = this.state;
         console.log(dataBody)
         var uri = finip + '/e15de57976dca/pay976dca'
+        activePayment == true &&
+            GetServices({ uriPointer: uri, dataBody, showConsole: 'pay976dca', nojson, getDataSource: this.getData.bind(this) })
         return (
             <View style={[stylesMain.ItemCenter, { height, width }]}>
-                {
-                    activePayment == true &&
-                    <GetServices uriPointer={uri} dataBody={dataBody} showConsole={'pay976dca'} nojson
-                        getDataSource={this.getData.bind(this)} key={'pay976dca'} />
-                }
                 <View style={{ height, width, backgroundColor: '#555555', opacity: 0.5, position: 'absolute' }}></View>
                 <Content>
                     <Form style={stylesMain.ItemCenterVertical, { height }}>

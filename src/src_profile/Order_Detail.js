@@ -52,16 +52,17 @@ export default class Order_Detail extends Component {
             id_customer: currentUser && currentUser.id_customer,
             id_cartdetail,
         };
+        activeSelectedIndex == true && currentUser && id_cartdetail && keycokie &&
+            GetServices({
+                uriPointer: uri, Authorization: keycokie, showConsole: 'mobile_tranport',
+                dataBody, getDataSource: this.getData.bind(this),
+            })
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                {[
-                    activeSelectedIndex == true && currentUser && id_cartdetail && keycokie &&
-                    <GetServices uriPointer={uri} Authorization={keycokie} key={'mobile_tranport'}
-                        showConsole={'mobile_tranport'}
-                        dataBody={dataBody} getDataSource={this.getData.bind(this)} />,
+                {
                     activeSelectedIndex == true &&
                     <LoadingScreen key={'LoadingScreen'} />
-                ]}
+                }
                 <AppBar1 backArrow navigation={this.props.navigation} titleHead='รายละเอียด' />
                 <ScrollView>
                     {

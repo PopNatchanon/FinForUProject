@@ -56,15 +56,13 @@ export default class Customer_Complete_Order extends Component {
     var dataBody2 = {
       type: 'product',
     };
+    currentUser && currentUser.id_customer && keycokie &&
+      GetServices({
+        Authorization: keycokie, uriPointer: uri, dataBody, showConsole: 'thank_you_bill', getDataSource: this.getData.bind(this),
+      })
+    GetServices({ uriPointer: uri2, dataBody: dataBody2, getDataSource: this.getData2.bind(this), })
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
-        {[
-          currentUser && currentUser.id_customer && keycokie &&
-          <GetServices Authorization={keycokie} uriPointer={uri} dataBody={dataBody}
-            showConsole='thank_you_bill'
-            getDataSource={this.getData.bind(this)} />,
-          <GetServices uriPointer={uri2} dataBody={dataBody2} getDataSource={this.getData2.bind(this)} />
-        ]}
         <AppBar1 backArrow goToTop navigation={navigation} />
         <ScrollView>
           {[

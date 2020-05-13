@@ -401,7 +401,7 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     borderTopWidth: 1,
     marginTop: 30,
-    marginBottom: -75,
+    marginBottom: -70,
   },
   FrameBackgroundTextBox: {
     flexDirection: 'row',
@@ -650,7 +650,8 @@ export default StyleSheet.create({
     width: 70,
     alignItems: 'center',
     alignContent: 'center',
-    height: 70,
+    height: 'auto',
+    aspectRatio: 0.9,
     paddingVertical: 10,
     paddingHorizontal: 4
   },

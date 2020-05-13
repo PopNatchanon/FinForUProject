@@ -16,14 +16,12 @@ import { AppBar1 } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-
 export default class Seller_Detail_Order extends Component {
     constructor(props) {
         super(props);
         this.state = {         
         };    
     }
-
     PathList() {
         const selectedIndex = this.props.navigation.getParam('selectedIndex')
         switch (selectedIndex) {
@@ -51,7 +49,6 @@ export default class Seller_Detail_Order extends Component {
 
         }
     }
-
     render() {
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
@@ -60,8 +57,6 @@ export default class Seller_Detail_Order extends Component {
         );
     }
 }
-
-
 ///----------------------------------------------------------------------------------------------->>>> Detail
 export class Detail extends Component {
     constructor(props) {
@@ -69,7 +64,6 @@ export class Detail extends Component {
         this.state = {
         };
     }
-
     render() {
         return (
             <View>
@@ -157,14 +151,12 @@ export class Order_Sending extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>>
-
 export class Seller_Detail_Reviews extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
         return (
             <View>

@@ -22,17 +22,6 @@ export default class BellScreen extends React.Component {
         this.state = {
         };
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation } = this.props
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
-    }
     render() {
         const { navigation } = this.props
         return (
@@ -54,24 +43,12 @@ export class Popular_store extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            activeGetServices: true,
             dataService: [],
         };
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation } = this.props
-        const { dataService } = this.state
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation ||
-            ////>nextState
-            dataService !== nextState.dataService
-        ) {
-            return true
-        }
-        return false
-    }
     getData = (dataService) => {
-        this.setState({ dataService })
+        this.setState({ activeGetServices: false, dataService })
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
@@ -110,13 +87,14 @@ export class Popular_store extends React.Component {
         })
     }
     render() {
+        const { activeGetServices } = this.state
         var uri = ip + '/mysql/DataServiceMain.php';
         var dataBody = {
             type: 'store'
         };
+        activeGetServices == true && GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), })
         return (
             <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView]}>
-                <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
                         ร้านเด็ด</Text>
@@ -136,17 +114,6 @@ export class Pro_for_U extends React.Component {
         super(props);
         this.state = {
         };
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation } = this.props
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
@@ -225,17 +192,6 @@ export class Update_buy extends React.Component {
         super(props);
         this.state = {
         };
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation } = this.props
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props

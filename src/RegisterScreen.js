@@ -28,17 +28,6 @@ export default class Register_OTPScreen extends React.Component {
     this.state = {
     };
   }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { navigation } = this.props
-    if (
-      ////>nextProps
-      navigation !== nextProps.navigation
-      ////>nextState
-    ) {
-      return true
-    }
-    return false
-  }
   render() {
     const { navigation } = this.props
     return (
@@ -93,20 +82,6 @@ export class Login extends React.Component {
       show: false,
       user: {},
     };
-  }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { navigation, } = this.props
-    const { activeNow, date, DataDay, DataMo, DataYear, item1, show, user, } = this.state
-    if (
-      ////>nextProps
-      navigation !== nextProps.navigation ||
-      ////>nextState
-      activeNow !== nextState.activeNow || date !== nextState.date || DataDay !== nextState.DataDay || DataMo !== nextState.DataMo ||
-      DataYear !== nextState.DataYear || item1 !== nextState.item1 || show !== nextState.show || user !== nextState.user
-    ) {
-      return true
-    }
-    return false
   }
   componentDidMount() {
     const { user } = this.state;
@@ -616,17 +591,6 @@ export class Register extends React.Component {
     this.state = {
       item1: false,
     };
-  }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { item1 } = this.state
-    if (
-      ////>nextProps
-      ////>nextState
-      item1 !== nextState.item1
-    ) {
-      return true
-    }
-    return false
   }
   setStateItem1 = () => {
     const { item1 } = this.state

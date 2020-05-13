@@ -46,18 +46,16 @@ export default class CoinScreen extends Component {
         // console.log(activeGetCurrentUser)
         // console.log('activeDataService')
         // console.log(activeDataService)
+        activeGetCurrentUser == false && activeDataService == true && cokie &&
+            GetServices({ uriPointer: uri, Authorization: cokie, getDataSource: this.getData.bind(this), })
+        activeGetCurrentUser == true &&
+            GetData({ getCokie: true, getSource: this.getSource.bind(this), getUser: true, })
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                {[
+                {
                     (activeGetCurrentUser == true || activeDataService == true) &&
-                    <LoadingScreen key='LoadingScreen' />,
-                    activeGetCurrentUser == false && activeDataService == true && cokie &&
-                    <GetServices uriPointer={uri} Authorization={cokie} getDataSource={this.getData.bind(this)} key='activeDataService'
-                    // showConsole={'CoinScreen'}
-                    />,
-                    activeGetCurrentUser == true &&
-                    <GetData getCokie={true} getSource={this.getSource.bind(this)} getUser={true} key='GetData' />
-                ]}
+                    <LoadingScreen key='LoadingScreen' />
+                }
                 <AppBar1 titleHead={'FIN COINS'} backArrow searchBar chatBar navigation={navigation} />
                 <ScrollView>
                     {
@@ -84,7 +82,6 @@ export default class CoinScreen extends Component {
         );
     }
 }
-
 ///----------------------------------------------------------------------------------------------->>>>
 export class CoinCollect extends Component {
     constructor(props) {
@@ -92,40 +89,6 @@ export class CoinCollect extends Component {
         this.state = {
             pathlist: 0,
             activeGetServices: true,
-        }
-    }
-    get PathList() {
-        const { cokie, currentUser } = this.props
-        const { dataService, pathlist } = this.state
-        switch (pathlist) {
-            case 0:
-                return (
-                    dataService && dataService.coupon.map((value, index) => {
-                        return <CoinPageBody currentUser={currentUser} cokie={cokie} getVoucher={this.getVoucher.bind(this)}
-                            dataService={value} key={index} />
-                    })
-                )
-            case 1:
-                return (
-                    dataService && dataService.coupon.map((value, index) => {
-                        return <CoinPageBody currentUser={currentUser} cokie={cokie} getVoucher={this.getVoucher.bind(this)}
-                            dataService={value} key={index} />
-                    })
-                )
-            case 2:
-                return (
-                    dataService && dataService.coupon.map((value, index) => {
-                        return <CoinPageBody currentUser={currentUser} cokie={cokie} getVoucher={this.getVoucher.bind(this)}
-                            dataService={value} key={index} />
-                    })
-                )
-            case 3:
-                return (
-                    dataService && dataService.coupon.map((value, index) => {
-                        return <CoinPageBody currentUser={currentUser} cokie={cokie} getVoucher={this.getVoucher.bind(this)}
-                            dataService={value} key={index} />
-                    })
-                )
         }
     }
     getVoucher = (id_promotion) => {
@@ -155,15 +118,10 @@ export class CoinCollect extends Component {
             device: "mobile_device",
             id_promotion_voucher: id_promotion ? id_promotion : ''
         }
+        activeGetServices == true && currentUser && cokie &&
+            GetServices({ uriPointer: uri, dataBody, Authorization: cokie, getDataSource: this.getData.bind(this) })
         return (
             <View>
-                {
-                    activeGetServices == true && currentUser && cokie &&
-                    <GetServices key='GetServices' uriPointer={uri} dataBody={dataBody} Authorization={cokie}
-                        getDataSource={this.getData.bind(this)}
-                    // showConsole='save_coupon_voucher' 
-                    />
-                }
                 <View style={stylesProfile.CoinCollect}>
                     <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, stylesMain.FlexRow, { width }]}>
                         <FastImage
@@ -200,7 +158,12 @@ export class CoinCollect extends Component {
                     />
                 </View>
                 <View>
-                    {this.PathList}
+                    {
+                        dataService && dataService.coupon.map((value, index) => {
+                            return <CoinPageBody currentUser={currentUser} cokie={cokie} getVoucher={this.getVoucher.bind(this)}
+                                dataService={value} key={index} />
+                        })
+                    }
                 </View>
             </View>
         )
@@ -297,15 +260,10 @@ export class CoinPageBody extends Component {
             id_promotion_voucher: dataService.id_promotion ? dataService.id_promotion : ''
         }
         var dataMySQL = [finip, dataService.image_path, dataService.image].join('/');
+        activeGetServices == true && currentUser && cokie &&
+            GetServices({ uriPointer: uri, dataBody, Authorization: cokie, getDataSource: this.getData.bind(this) })
         return (
             <View style={stylesMain.FrameBackground}>
-                {
-                    activeGetServices == true && currentUser && cokie &&
-                    <GetServices key='GetServices' uriPointer={uri} dataBody={dataBody} Authorization={cokie}
-                        getDataSource={this.getData.bind(this)}
-                    // showConsole='==================show_voucher'
-                    />
-                }
                 <View style={{ alignItems: 'center' }}>
                     <View>
                         <BottomSheet
@@ -375,4 +333,3 @@ export class CoinPageBody extends Component {
         )
     }
 }
-

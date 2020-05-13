@@ -47,15 +47,13 @@ export default class Reviews_score extends React.Component {
             rating: filterValue && filterValue.rating ? filterValue.rating + '' : '',
             id_product: filterValue && filterValue.product ? id_product : '',
         };
+        activeGetServices == true &&
+            GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), showConsole: 'store_review' })
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
                 {
-                    activeGetServices == true && ([
-                        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} key={'store_review'}
-                            showConsole='store_review'
-                        />,
-                        <LoadingScreen key={'LoadingScreen'} />
-                    ])
+                    activeGetServices == true &&
+                    <LoadingScreen key={'LoadingScreen'} />
                 }
                 <AppBar1 backArrow navigation={navigation} titleHead='คะแนน' />
                 <Reviews_Bar filterValue={this.filterValue.bind(this)} />

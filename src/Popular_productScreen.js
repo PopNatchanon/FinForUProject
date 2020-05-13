@@ -45,12 +45,10 @@ export default class Popular_productScreen extends React.Component {
         };
         id_item == null &&
             this.setState({ id_item: navigation.getParam('id_item') })
+        activeDataService == true &&
+            GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), })
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                {
-                    activeDataService == true &&
-                    <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
-                }
                 <AppBar1 backArrow navigation={navigation} titleHead='สินค้ายอดนิยม' />
                 {
                     id_item != null ?

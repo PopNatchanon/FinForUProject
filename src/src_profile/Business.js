@@ -26,26 +26,12 @@ import { AppBar1, ExitAppModule } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-
 export default class Business extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       currentUser: {},
     }
-  }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { navigation } = this.props
-    const { currentUser } = this.state;
-    if (
-      ////>nextProps
-      navigation !== nextProps.navigation ||
-      ////>nextState
-      currentUser !== nextState.currentUser
-    ) {
-      return true
-    }
-    return false
   }
   PathList() {
     const { navigation } = this.props
@@ -134,7 +120,6 @@ export class Business_Profile extends React.Component {
     this.state = {
     };
   }
-
   render() {
     return (
       <>
@@ -156,25 +141,12 @@ export class Business_Profile extends React.Component {
     );
   }
 }
-
-
 ///----------------------------------------------------------------------------------------------->>>>
 export class Business_MenuBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
     };
-  }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { navigation } = this.props
-    if (
-      ////>nextProps
-      navigation !== nextProps.navigation
-      ////>nextState
-    ) {
-      return true
-    }
-    return false
   }
   navigationNavigateScreen = (value, value2) => {
     const { navigation } = this.props
@@ -252,17 +224,6 @@ export class Income extends React.Component {
     this.state = {
     };
   }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { navigation } = this.props
-    if (
-      ////>nextProps
-      navigation !== nextProps.navigation
-      ////>nextState
-    ) {
-      return true
-    }
-    return false
-  }
   navigationNavigateScreen = (value, value2) => {
     const { navigation } = this.props
     value == 'goBack' ?
@@ -273,7 +234,6 @@ export class Income extends React.Component {
       ) :
         navigation.push(value, value2)
   }
-
   render() {
     return (
       <>
@@ -362,7 +322,6 @@ export class Income extends React.Component {
           </View>
         </View>
       </>
-
     );
   }
 }
@@ -373,7 +332,6 @@ export class Growth extends React.Component {
     this.state = {
     };
   }
-
   render() {
     return (
       <>
@@ -464,7 +422,6 @@ export class Team extends React.Component {
     this.state = {
     };
   }
-
   render() {
     return (
       <>
@@ -536,5 +493,3 @@ export class Income_Share extends React.Component {
     );
   }
 }
-
-

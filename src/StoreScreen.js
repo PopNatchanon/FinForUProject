@@ -159,27 +159,19 @@ export default class StoreScreen extends React.Component {
         dataService && dataService.store_data.map((value) => {
             return image_header = [finip, value.image_head_path, value.image_head].join('/')
         })
+        activeGetServices == true && id_item !== undefined &&
+            GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
+        activeGetServices2 == true && id_item !== undefined &&
+            GetServices({ uriPointer: uri, dataBody: dataBody2, getDataSource: this.getData2.bind(this) })
+        activeGetCurrentUser == true &&
+            GetData({ getCokie: true, getSource: this.getSource.bind(this), getUser: true })
         // const wheight = maxheight * 3.5
         return (
             <View style={[stylesMain.BackgroundAreaView, { height: '100%', }]}>
-                {[
+                {
                     (activeGetServices == true || activeGetServices2 == true || activeGetCurrentUser == true) &&
-                    <LoadingScreen key='LoadingScreen' />,
-                    activeGetServices == true && id_item !== undefined &&
-                    <GetServices
-                        uriPointer={uri}
-                        dataBody={dataBody}
-                        // showConsole='store_home'
-                        getDataSource={this.getData.bind(this)} />,
-                    activeGetServices2 == true && id_item !== undefined &&
-                    <GetServices
-                        uriPointer={uri}
-                        dataBody={dataBody2}
-                        showConsole='store_home'
-                        getDataSource={this.getData2.bind(this)} />,
-                    activeGetCurrentUser == true &&
-                    <GetData getCokie={true} getSource={this.getSource.bind(this)} getUser={true} key={'GetData'} />
-                ]}
+                    <LoadingScreen />
+                }
                 <Animatable.View style={{
                     position: 'absolute',
                     top: 0,
@@ -270,14 +262,6 @@ export class StoreHead extends React.Component {
                 var dataMySQL = [finip, value.image_path, value.image].join('/')
                 return (
                     <View style={[stylesStore.StoreHead]} key={index}>
-                        {/* {
-                            activeGetServices == true && id_item !== undefined &&
-                            <GetServices
-                                uriPointer={uri}
-                                dataBody={dataBody}
-                                showConsole='store_home'
-                                getDataSource={this.getData.bind(this)} />
-                        } */}
                         <View style={stylesStore.StoreHeadBox}>
                             <View style={stylesMain.FlexRow}>
                                 <View>
@@ -543,17 +527,12 @@ export class TicketLine extends React.Component {
             id_store: id_item,
             id_promotion_shop: activeGetCoupon ? id_promotion : '',
         }
-        return ([
-            activeGetServices == true && cokie &&
-            <GetServices
-                Authorization={cokie}
-                uriPointer={uri}
-                dataBody={dataBody}
-                // showConsole='save_coupon_shop'
-                getDataSource={this.getData.bind(this)} />,
+        activeGetServices == true && cokie &&
+            GetServices({ Authorization: cokie, uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
+        return (
             dataService &&
             this.getTicketLine
-        ])
+        )
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> DealTop
@@ -738,18 +717,15 @@ export class BoxProduct4 extends React.Component {
         const dataBody = {
             id_store: id_item
         }
+        activeRef == true && id_item &&
+            GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
+
         return (
             <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, { marginTop: 0, marginBottom: 10 }]}>
-                {[
+                {
                     (activeRef == true) &&
-                    <LoadingScreen key='LoadingScreen' />,
-                    activeRef == true && id_item &&
-                    <GetServices
-                        uriPointer={uri}
-                        dataBody={dataBody}
-                        showConsole='feed_news'
-                        getDataSource={this.getData.bind(this)} />
-                ]}
+                    <LoadingScreen key='LoadingScreen' />
+                }
                 <View style={stylesMain.BoxProductWarp}>
                     {
                         activeRef == false && (
@@ -772,4 +748,3 @@ export class BoxProduct4 extends React.Component {
         )
     }
 }
-///----------------------------------------------------------------------------------------------->>>>

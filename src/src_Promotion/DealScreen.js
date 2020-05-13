@@ -42,18 +42,16 @@ export default class DealScreen extends React.Component {
     const { navigation } = this.props
     const { activeGetCurrentUser, activeGetServices, currentUser, dataService, keycokie } = this.state
     var uri = finip + '/coupon/coupon_findeal_mobile';
+    activeGetCurrentUser == false && activeGetServices == true &&
+      GetServices({ Authorization: keycokie, uriPointer: uri, getDataSource: this.getData.bind(this), })
+    activeGetCurrentUser == true &&
+      GetData({ getCokie: true, getSource: this.getSource.bind(this), getUser: true, })
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
-        {[
+        {
           (activeGetCurrentUser == true || activeGetServices == true) &&
-          <LoadingScreen key='LoadingScreen' />,
-          activeGetCurrentUser == false && activeGetServices == true &&
-          <GetServices Authorization={keycokie} uriPointer={uri} getDataSource={this.getData.bind(this)} key='GetServices'
-          // showConsole='coupon_findeal_mobile'
-          />,
-          activeGetCurrentUser == true &&
-          <GetData getCokie={true} getSource={this.getSource.bind(this)} getUser={true} key='GetData' />
-        ]}
+          <LoadingScreen key='LoadingScreen' />
+        }
         <AppBar1 titleHead={'ดีลสุดคุ้ม'} backArrow searchBar chatBar navigation={navigation} />
         <ScrollView>
           {[
@@ -259,20 +257,14 @@ export class Deal_Today extends React.Component {
       device: 'mobile_device',
       id_promotion_shop: id_promotion,
     }
+    activeServices.activeGetServices == true && currentUser && keycokie &&
+      GetServices({ Authorization: keycokie, dataBody, uriPointer: uri, getDataSource: this.getData.bind(this) })
+    activeServices.activeGetServices2 == true && currentUser && keycokie &&
+      GetServices({ Authorization: keycokie, dataBody: dataBody2, uriPointer: uri2, getDataSource: this.getData2.bind(this) })
     return (
       <View style={[stylesMain.FrameBackground,
         // { backgroundColor: '#AF5F92', }
       ]}>
-        {[
-          activeServices.activeGetServices == true && currentUser && keycokie &&
-          <GetServices Authorization={keycokie} dataBody={dataBody} uriPointer={uri} getDataSource={this.getData.bind(this)}
-            key='save_coupon_fin'
-          />,
-          activeServices.activeGetServices2 == true && currentUser && keycokie &&
-          <GetServices Authorization={keycokie} dataBody={dataBody2} uriPointer={uri2} getDataSource={this.getData2.bind(this)}
-            key='save_coupon_shop'
-          />
-        ]}
         <View style={stylesDeal.BoxText_Row}>
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ดีลเด็ดประจำวัน</Text>
           <TouchableOpacity onPress={() => this.props.navigation.push('Deal_Topic', { selectedIndex: 0 })}>
@@ -359,18 +351,18 @@ export class Second_Store extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeGetServices: true,
+      activeGetServices2: true,
       dataService: [],
       dataService2: [],
       activeSlide: 0,
     };
-    this.getData = this.getData.bind(this)
-    this.getData2 = this.getData2.bind(this)
   }
   getData(dataService) {
-    this.setState({ dataService })
+    this.setState({ activeGetServices: false, dataService })
   }
   getData2(dataService2) {
-    this.setState({ dataService2 })
+    this.setState({ activeGetServices2: false, dataService2 })
   }
   _renderItem = ({ item, index }) => {
     var dataMySQL = [finip, item.image_path, item.image].join('/');
@@ -419,8 +411,8 @@ export class Second_Store extends React.Component {
     );
   }
   render() {
-    const { dataService } = this.state
     const { navigation } = this.props
+    const { activeGetServices, activeGetServices2, dataService } = this.state
     var uri = ip + '/mysql/DataServiceMain.php';
     var dataBody = {
       type: 'sale'
@@ -429,10 +421,10 @@ export class Second_Store extends React.Component {
     var dataBody2 = {
       slide: 'banner'
     };
+    activeGetServices == true && GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
+    activeGetServices2 == true && GetServices({ uriPointer: uri, dataBody: dataBody2, getDataSource: this.getData2.bind(this) })
     return (
       <View style={[stylesMain.FrameBackground, { width: '100%' }]}>
-        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
-        <GetServices uriPointer={uri2} dataBody={dataBody2} getDataSource={this.getData2} />
         <View style={stylesDeal.BoxText_Row}>
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ร้านมือสองลดราคา</Text>
           <TouchableOpacity onPress={() => navigation.push('Deal_Topic', { selectedIndex: 2 })}>

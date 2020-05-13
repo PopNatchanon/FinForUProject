@@ -66,12 +66,9 @@ export class Toolbar extends React.Component {
                 routeSelcet = item.routeName
             )
         })
+        activeGetCurrentUser == true && GetData({ getSource: this.getSource.bind(this), getUser: true })
         return (
             <View style={stylesMain.Toolbar}>
-                {
-                    activeGetCurrentUser == true &&
-                    <GetData getSource={this.getSource.bind(this)} getUser={true} />
-                }
                 <TouchableOpacity activeOpacity={1}
                     onPress={
                         routeSelcet != 'MainScreen' ?
@@ -709,51 +706,58 @@ export class TabBar extends React.Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> GetData
-export class GetData extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            activeLogin: true,
-        }
+function promiseAsyncStorage(promise) {
+    return promise.then(data => {
+        return [null, data]
+    }).catch(err => [err])
+}
+///----------------------------------------------------------------------------------------------->>>> GetData
+export async function GetData(props) {
+    SplashScreen.hide();
+    const { getCokie, getSource, getUser, } = props;
+    let error, result;
+    var activeLogin;
+    var value = {};
+    [error, result] = await promiseAsyncStorage(AsyncStorage.multiGet(['@MyKey', '@MyLongin']));
+    if (error) {
+        console.log(error)
+        getCokie == true && (value.keycokie = undefined)
+        getUser == true && (value.currentUser = undefined);
+        return getSource(value)
     }
-    setStateLogin = (autoLogin) => {
-        // console.log('setStateLogin')
-        // console.log(autoLogin)
-        if (autoLogin) {
-            fetch(finip + '/auth/login_customer', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: autoLogin,
-            })
-                .then((response) => response.json())
-                .then((responseJson) => {
-                    console.log('responseJson')
-                    console.log(responseJson)
-                    this.setState({ activeLogin: true })
-                })
-                .catch((error) => {
-                    console.error(error);
-                })
-        } else {
-            this.setState({ activeLogin: false })
-        }
+    if (result[1][1] === undefined) {
+        console.log(result[1][1])
+        getCokie == true && (value.keycokie = undefined)
+        getUser == true && (value.currentUser = undefined);
+        return getSource(value)
     }
-    getDataAsync = async () => {
-        const { getCokie, getSource, getUser, } = this.props
-        const { activeLogin } = this.state
-        const currentUser = await AsyncStorage.getItem('@MyKey')
-        const autoLogin = await AsyncStorage.getItem('@MyLongin')
-        // console.log('autoLogin')
-        // console.log(autoLogin)
-        var value = {}
+    const currentUser = result[0][1];
+    const autoLogin = result[1][1];
+    if (currentUser && autoLogin) {
         CookieManager.get(finip + '/auth/login_customer')
             .then((res) => {
                 var keycokie = res.token
-                keycokie === undefined && autoLogin &&
-                    this.setStateLogin(autoLogin)
+                if (keycokie === undefined && autoLogin) {
+                    fetch(finip + '/auth/login_customer', {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                        },
+                        body: autoLogin,
+                    })
+                        .then((response) => response.json())
+                        .then((responseJson) => {
+                            console.log('responseJson')
+                            console.log(responseJson)
+                            activeLogin = true
+                        })
+                        .catch((error) => {
+                            console.log(error, 'background: Red; color: #FFF');
+                        })
+                } else {
+                    activeLogin = false
+                };
                 getCokie == true && (
                     (
                         keycokie ?
@@ -763,7 +767,7 @@ export class GetData extends React.Component {
                                 value.keycokie = undefined
                             )
                     )
-                )
+                );
                 getUser == true &&
                     (
                         currentUser ?
@@ -777,209 +781,196 @@ export class GetData extends React.Component {
                     (
                         value.activeLogin = activeLogin
                     );
-                (activeLogin || (value.currentUser !== undefined || value.keycokie !== undefined)) &&
+                return (activeLogin || (value.currentUser !== undefined || value.keycokie !== undefined)) &&
                     getSource(value);
-            })
-    }
-    componentDidMount() {
-        this.getDataAsync()
-        SplashScreen.hide();
-    }
-    render() {
-        return <></>
+            });
+    } else {
+        getCokie == true && (value.keycokie = undefined)
+        getUser == true && (value.currentUser = undefined);
+        return getSource(value)
     }
 }
+///----------------------------------------------------------------------------------------------->>>> GetData
+function promiseGetServices(promise, nojson) {
+    return promise.then(data => {
+        return nojson ? [null, data.text()] : [null, data.json()]
+    }).catch(err => [err])
+}
+///----------------------------------------------------------------------------------------------->>>> GetData
+function promiseDataGetServices(promise, nojson) {
+    return promise.then(data => {
+        return [null, data]
+    }).catch(err => [err])
+}
 ///----------------------------------------------------------------------------------------------->>>> GetServices
-export class GetServices extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
+export async function GetServices(props) {
+    const {
+        Authorization, dataBody, uriPointer, getDataSource, nojson, showConsole, nameFunction,
+    } = props
+    let error, rawData, processData;
+    showConsole && (
+        console.log(showConsole),
+        Authorization && (
+            console.log('Authorization'),
+            console.log(Authorization)
+        ),
+        console.log('uri'),
+        console.log(uriPointer),
+        console.log('dataBody'),
+        console.log(dataBody),
+        console.log('JSONdataBody'),
+        console.log(JSON.stringify(dataBody))
+    );
+    [error, rawData] = await promiseGetServices(fetch(uriPointer, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': Authorization
+        },
+        body: JSON.stringify(dataBody),
+    }), nojson);
+    if (error) {
+        console.log((showConsole ? showConsole + '|' + nameFunction : nameFunction) + ':Phase 1')
+        console.log('ERROR:FETCH => ' + error)
+        console.log(uriPointer)
+        dataBody && console.log(dataBody)
+        return getDataSource(undefined)
     }
-    getDataSource = async () => {
-        const {
-            Authorization, dataBody, uriPointer, getDataSource, nojson, showConsole,
-        } = this.props
-        showConsole && (
-            console.log(showConsole),
-            Authorization && (
-                console.log('Authorization'),
-                console.log(Authorization)
-            ),
-            console.log('uri'),
-            console.log(uriPointer),
-            console.log('dataBody'),
-            console.log(dataBody),
-            console.log('JSONdataBody'),
-            console.log(JSON.stringify(dataBody))
-        )
-        fetch(uriPointer, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': Authorization
-            },
-            body: JSON.stringify(dataBody),
+    if (rawData === undefined) {
+        console.log((showConsole ? showConsole + '|' + nameFunction : nameFunction) + ':Phase 1')
+        console.log('No Data!')
+        return getDataSource(undefined)
+    }
+    [error, processData] = await promiseDataGetServices(rawData)
+    if (error) {
+        console.log((showConsole ? showConsole + '|' + nameFunction : nameFunction) + ':Phase 2')
+        console.log('ERROR:JSON => ' + error)
+        console.log(uriPointer)
+        dataBody && console.log(dataBody)
+        return getDataSource(undefined)
+    }
+    if (processData === undefined) {
+        console.log((showConsole ? showConsole + '|' + nameFunction : nameFunction) + ':Phase 2')
+        console.log('No Data!')
+        return getDataSource(undefined)
+    }
+    return getDataSource(processData);
+}
+///----------------------------------------------------------------------------------------------->>>> GetServices
+export async function GetServicesBlob(props) {
+    const {
+        FormData, Authorization, dataBody, uriPointer, getDataSource, nojson, noSendError, noStringify, showConsole,
+    } = props
+    showConsole && (
+        console.log(showConsole),
+        Authorization && (
+            console.log('Authorization'),
+            console.log(Authorization)
+        ),
+        console.log('uri'),
+        console.log(uriPointer),
+        console.log('dataBody'),
+        console.log(dataBody),
+        console.log('JSONdataBody'),
+        console.log(JSON.stringify(dataBody))
+    )
+    RNFetchBlob.fetch(
+        'POST',
+        uriPointer,
+        {
+            Authorization: Authorization,
+            'Content-Type': 'multipart/form-data',
+        },
+        dataBody
+    )
+        .then((res) => {
+            showConsole && (
+                console.log('res.data'),
+                console.log(res.data),
+                console.log('res.json()'),
+                console.log(res.json())
+            )
+            getDataSource(res.json())
+        }).catch((err) => {
+            // ...
         })
-            .then((response) => nojson ? response.text() : response.json())
-            .then((responseJson) => {
-                showConsole && (
-                    console.log('responseJson'),
-                    console.log(responseJson)
-                )
-                getDataSource(responseJson);
-            })
-            .catch((error) => {
-                console.error(error)
-            })
-    }
-    componentDidMount() {
-        this.getDataSource()
-    }
-    render() {
-        return <></>
-    }
-}
-///----------------------------------------------------------------------------------------------->>>> GetServices
-export class GetServicesBlob extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    getDataSource = async () => {
-        const {
-            FormData, Authorization, dataBody, uriPointer, getDataSource, nojson, noSendError, noStringify, showConsole,
-        } = this.props
-        showConsole && (
-            console.log(showConsole),
-            Authorization && (
-                console.log('Authorization'),
-                console.log(Authorization)
-            ),
-            console.log('uri'),
-            console.log(uriPointer),
-            console.log('dataBody'),
-            console.log(dataBody),
-            console.log('JSONdataBody'),
-            console.log(JSON.stringify(dataBody))
-        )
-        RNFetchBlob.fetch(
-            'POST',
-            uriPointer,
-            {
-                Authorization: Authorization,
-                'Content-Type': 'multipart/form-data',
-            },
-            dataBody
-        )
-            .then((res) => {
-                showConsole && (
-                    console.log('res.data'),
-                    console.log(res.data),
-                    console.log('res.json()'),
-                    console.log(res.json())
-                )
-                getDataSource(res.json())
-            }).catch((err) => {
-                // ...
-            })
-    }
-    componentDidMount() {
-        this.getDataSource()
-    }
-    render() {
-        return <></>
-    }
 }
 ///----------------------------------------------------------------------------------------------->>>> GetCoupon
-export class GetCoupon extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    get setCoupon() {
-        const {
-            codeList, colorCoupon, couponText, getCoupon, flexRow, saveCoupon, setDataService, textDetail, timeOut, useCoupon,
-        } = this.props
-        return (
-            <View style={[
-                flexRow ?
-                    stylesDeal.Coupon_BOX2 :
-                    stylesDeal.Coupon_BOX, {
-                    backgroundColor:
-                        codeList != 'available' ?
-                            '#C4C4C4' :
-                            null
-                }]}>
-                <View style={{
-                    opacity:
-                        codeList != 'available' ?
-                            0.4 :
-                            null,
-                    flexDirection: 'row',
-                    justifyContent:
+export function GetCoupon(props) {
+    const {
+        codeList, colorCoupon, couponText, getCoupon, flexRow, saveCoupon, setDataService, textDetail, timeOut, useCoupon,
+    } = props
+    return (
+        <View style={[
+            flexRow ?
+                stylesDeal.Coupon_BOX2 :
+                stylesDeal.Coupon_BOX, {
+                backgroundColor:
+                    codeList != 'available' ?
+                        '#C4C4C4' :
+                        null
+            }]}>
+            <View style={{
+                opacity:
+                    codeList != 'available' ?
+                        0.4 :
+                        null,
+                flexDirection: 'row',
+                justifyContent:
+                    flexRow ?
+                        null :
+                        'flex-end',
+                marginBottom:
+                    codeList != 'available' ?
+                        -70 :
+                        null,
+            }}>
+                <View style={{ width: width * 0.31, height: 80, marginLeft: 5, paddingHorizontal: 2, justifyContent: 'center' }}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7,]}>{couponText}</Text>
+                    <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize9,]}>{textDetail}</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>ใช้ได้ก่อน {
+                        timeOut ?
+                            timeOut :
+                            ''
+                    }</Text>
+                </View>
+                <TouchableOpacity onPress={() => { getCoupon(setDataService) }}>
+                    <View style={[
                         flexRow ?
-                            null :
-                            'flex-end',
-                    marginBottom:
-                        codeList != 'available' ?
-                            -70 :
-                            null,
-                }}>
-                    <View style={{ width: width * 0.31, height: 80, marginLeft: 5, paddingHorizontal: 2, justifyContent: 'center' }}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7,]}>{couponText}</Text>
-                        <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize9,]}>{textDetail}</Text>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>ใช้ได้ก่อน {
-                            timeOut ?
-                                timeOut :
-                                ''
+                            stylesDeal.Coupon_BOX_A2 :
+                            stylesDeal.Coupon_BOX_A, {
+                            backgroundColor:
+                                colorCoupon ?
+                                    colorCoupon :
+                                    '#007bff',
+                        }]}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>{
+                            useCoupon ?
+                                'ใช้โค้ด' :
+                                'เก็บ'
                         }</Text>
                     </View>
-                    <TouchableOpacity onPress={() => { getCoupon(setDataService) }}>
-                        <View style={[
-                            flexRow ?
-                                stylesDeal.Coupon_BOX_A2 :
-                                stylesDeal.Coupon_BOX_A, {
-                                backgroundColor:
-                                    colorCoupon ?
-                                        colorCoupon :
-                                        '#007bff',
-                            }]}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>{
-                                useCoupon ?
-                                    'ใช้โค้ด' :
-                                    'เก็บ'
-                            }</Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-                {
-                    codeList != 'available' &&
-                    <View style={{ backgroundColor: '#C1C1C1', opacity: 0.7, width: 0.31, height: 80, marginTop: -10, borderRadius: 5, alignItems: 'center' }}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, stylesMain.ItemCenterVertical, {
-                            color: '#FFFFFF',
-                        }]}>
-                            {
-                                codeList == 'usedCode' ?
-                                    'ใช้แล้ว' :
-                                    saveCoupon ?
-                                        'เก็บแล้ว' :
-                                        'หมดอายุ'
-                            }
-                        </Text>
-                    </View>
-                }
+                </TouchableOpacity>
             </View>
-        )
-    }
-    render() {
-        return (
-            this.setCoupon
-        )
-    }
+            {
+                codeList != 'available' &&
+                <View style={{ backgroundColor: '#C1C1C1', opacity: 0.7, width: 0.31, height: 80, marginTop: -10, borderRadius: 5, alignItems: 'center' }}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, stylesMain.ItemCenterVertical, {
+                        color: '#FFFFFF',
+                    }]}>
+                        {
+                            codeList == 'usedCode' ?
+                                'ใช้แล้ว' :
+                                saveCoupon ?
+                                    'เก็บแล้ว' :
+                                    'หมดอายุ'
+                        }
+                    </Text>
+                </View>
+            }
+        </View>
+    )
 }
 ///----------------------------------------------------------------------------------------------->>>> ProductBox
 export class ProductBox extends React.Component {
@@ -1200,7 +1191,7 @@ export class ProductBox extends React.Component {
 }
 ///----------------------------------------------------------------------------------------------->>>> FlatComponent
 export function FlatComponent(props) {
-    const { component, onScroll, scrollEventThrottle } = props
+    const { component, componentPage, onScroll, scrollEventThrottle } = props
     return (
         component &&
         <FlatList
@@ -1210,15 +1201,16 @@ export function FlatComponent(props) {
             scrollEnabled={true}
             initialNumToRender={10}
             data={component}
-            keyExtractor={(value) => 'Component:' + value.nameComponent}
+            keyExtractor={(value, index) => 'Component:' + (componentPage ? componentPage : index) + '_' + value.nameComponent}
             renderItem={(value) => value.item.renderComponent}
         />
     )
 }
 ///----------------------------------------------------------------------------------------------->>>> FlatProduct
-export function FlatProduct({
-    dataService, nameFlatProduct, NumberOfcolumn, nameSize, priceSize, dispriceSize, custumNavigation, mode, navigation, radiusBox
-}) {
+export function FlatProduct(props) {
+    const {
+        dataService, nameFlatProduct, NumberOfcolumn, nameSize, priceSize, dispriceSize, custumNavigation, mode, navigation, radiusBox
+    } = props
     var itemT = []
     if (NumberOfcolumn == 2 && dataService && dataService.length > 0)
         for (var n = 0; n < dataService.length; n += 2) {
@@ -1257,7 +1249,8 @@ export function FlatProduct({
     )
 }
 ///----------------------------------------------------------------------------------------------->>>> NavigationNavigateScreen
-export function NavigationNavigateScreen({ value, value2, navigation }) {
+export function NavigationNavigateScreen(props) {
+    const { value, value2, navigation } = props
     value == 'goBack' ?
         navigation.goBack() :
         value == 'LoginScreen' ? (
@@ -1268,9 +1261,10 @@ export function NavigationNavigateScreen({ value, value2, navigation }) {
 
 }
 ///----------------------------------------------------------------------------------------------->>>> RenderProduct
-export function RenderProduct({
-    custumNavigation, item, dispriceSize, getDataService, mode, navigation, nameSize, noNavigation, priceSize, radiusBox, onShow,
-}) {
+export function RenderProduct(props) {
+    const {
+        custumNavigation, item, dispriceSize, getDataService, mode, navigation, nameSize, noNavigation, priceSize, radiusBox, onShow,
+    } = props
     onShow && ([
         console.log('///----------------------------------------------------------------------------------------------->>>> RenderProduct'),
         console.log(item)
@@ -1425,7 +1419,8 @@ export function RenderProduct({
     );
 }
 ///----------------------------------------------------------------------------------------------->>>> RenderSubStore
-export function RenderSubStore({ item }) {
+export function RenderSubStore(props) {
+    const { item } = props
     var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
     return (
         <TouchableOpacity activeOpacity={1} style={stylesMain.FlexRow}>
@@ -1493,18 +1488,18 @@ export class FeedBox extends React.Component {
     setStateButton = (length) => {
         var Button_Follow_After = []
         for (var n = 0; n < length; n++) {
-            Button_Follow_After[n] = { check: true, like: false }
+            Button_Follow_After = { check: true, like: false }
         }
         this.setState({ Button_Follow_After, activeFeed: true, })
     }
-    setStateButton_Follow_After = (index) => {
+    setStateButton_Follow_After = () => {
         const { Button_Follow_After, } = this.state
-        Button_Follow_After[index].check = !Button_Follow_After[index].check
+        Button_Follow_After.check = !Button_Follow_After.check
         this.setState({ Button_Follow_After, activeFeed: true })
     }
-    setStateButton_Like_heart = (index) => {
+    setStateButton_Like_heart = () => {
         const { Button_Follow_After, } = this.state
-        Button_Follow_After[index].like = !Button_Follow_After[index].like
+        Button_Follow_After.like = !Button_Follow_After.like
         this.setState({ Button_Follow_After, activeFeed: true })
     }
     actionOption = (selected, id_store, id_feed) => {
@@ -1523,112 +1518,108 @@ export class FeedBox extends React.Component {
         const { dataService, Follow, Header, typeip, postpath, prepath, userOwner } = this.props
         const { Button_Follow_After, } = this.state
         Button_Follow_After == null && dataService.length > 0 && (
-            this.setStateButton(dataService.length)
+            //     this.setStateButton(dataService.length)
+            this.setState({ Button_Follow_After: { check: true, like: false }, activeFeed: true, })
         )
         const options = userOwner ? ['แก้ไข', 'ลบ'] : ['รายงานความไม่เหมาะสม']
-        console.log('dataService')
+        var dataMySQL_p = [finip, dataService.image_path, dataService.image].join('/');
+        var dataMySQL_s = [finip, dataService.store_path, dataService.store_image].join('/');
         console.log(dataService)
-        return dataService.map((item, index) => {
-            var dataMySQL_p = [finip, item.image_path, item.image].join('/');
-            var dataMySQL_s = [finip, item.store_path, item.store_image].join('/');
-            return (
-                <View style={stylesMain.BoxProduct4Box} key={index}>
-                    {
-                        Header &&
-                        <View style={stylesMain.BoxProduct4PlusHeader}>
-                            <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', {
-                                id_item: item.id_store ? item.id_store : item.p_id_store
-                            })}>
-                                <View style={stylesMain.FlexRow}>
-                                    <FastImage
-                                        style={stylesMain.BoxProduct4PlusImage}
-                                        source={{
-                                            uri: dataMySQL_s,
-                                        }} />
-                                    <Text style={[
-                                        stylesMain.BoxProduct4PlusImageText, stylesFont.FontFamilyBold, stylesFont.FontSize5
-                                    ]}>
-                                        {item.store_name}</Text>
-                                </View>
-                            </TouchableOpacity>
-                            <View style={stylesMain.BoxProduct4PlusButtonBox}>
-                                {
-                                    Follow ?
-                                        null :
-                                        <TouchableOpacity onPress={this.setStateButton_Follow_After.bind(this, index)}>
-                                            <View style={stylesMain.BoxProduct4PlusButtonFollow}>
-                                                <Text style={[
-                                                    stylesMain.BoxProduct4PlusButtonFollowText, stylesFont.FontFamilyText,
-                                                    stylesFont.FontSize6
-                                                ]}>
-                                                    {Button_Follow_After[index].check == true ? 'ติดตาม' : 'กำลังติดตาม'}</Text>
-                                            </View>
-                                        </TouchableOpacity>
-                                }
-                                <ModalDropdown
-                                    options={options}
-                                    onSelect={(selected) => { this.actionOption(selected, item.id_store, item.id_feed) }}
-                                    dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}
-                                    dropdownStyle={{ paddingHorizontal: 10, height: 44, borderRadius: 5 }}>
-                                    <IconEntypo name='dots-three-vertical' size={25} />
-                                </ModalDropdown>
-                            </View>
-                        </View>
-                    }
-                    <View>
-                        <View style={[stylesMain.ItemCenter, { width: '100%' }]}>
-                            {
+        return (
+            <View style={stylesMain.BoxProduct4Box}>
+                {
+                    Header &&
+                    <View style={stylesMain.BoxProduct4PlusHeader}>
+                        <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', {
+                            id_item: dataService.id_store ? dataService.id_store : dataService.p_id_store
+                        })}>
+                            <View style={stylesMain.FlexRow}>
                                 <FastImage
+                                    style={stylesMain.BoxProduct4PlusImage}
                                     source={{
-                                        uri: dataMySQL_p,
-                                    }}
-                                    style={stylesMain.BoxProduct4Image}
-                                    resizeMode={FastImage.resizeMode.contain} />
+                                        uri: dataMySQL_s,
+                                    }} />
+                                <Text style={[
+                                    stylesMain.BoxProduct4PlusImageText, stylesFont.FontFamilyBold, stylesFont.FontSize5
+                                ]}>
+                                    {dataService.store_name}</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <View style={stylesMain.BoxProduct4PlusButtonBox}>
+                            {
+                                Follow ?
+                                    null :
+                                    <TouchableOpacity onPress={this.setStateButton_Follow_After.bind(this)}>
+                                        <View style={stylesMain.BoxProduct4PlusButtonFollow}>
+                                            <Text style={[
+                                                stylesMain.BoxProduct4PlusButtonFollowText, stylesFont.FontFamilyText,
+                                                stylesFont.FontSize6
+                                            ]}>
+                                                {Button_Follow_After.check == true ? 'ติดตาม' : 'กำลังติดตาม'}</Text>
+                                        </View>
+                                    </TouchableOpacity>
                             }
+                            <ModalDropdown
+                                options={options}
+                                onSelect={(selected) => { this.actionOption(selected, dataService.id_store, dataService.id_feed) }}
+                                dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}
+                                dropdownStyle={{ paddingHorizontal: 10, height: 44, borderRadius: 5 }}>
+                                <IconEntypo name='dots-three-vertical' size={25} />
+                            </ModalDropdown>
                         </View>
-                        <View style={stylesMain.BoxProduct4ComBox}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                {item.detail}</Text>
-                            <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
-                                ที่สุดสำหรับคุณ</Text>
-                            {/* <View style={stylesMain.FlexRow}>
+                    </View>
+                }
+                <View>
+                    <View style={[stylesMain.ItemCenter, { width: '100%' }]}>
+                        <FastImage
+                            source={{
+                                uri: dataMySQL_p,
+                            }}
+                            style={stylesMain.BoxProduct4Image}
+                            resizeMode={FastImage.resizeMode.contain} />
+                    </View>
+                    <View style={stylesMain.BoxProduct4ComBox}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                            {dataService.detail}</Text>
+                        <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
+                            ที่สุดสำหรับคุณ</Text>
+                        {/* <View style={stylesMain.FlexRow}>
                                 <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: '#9F9C9C' }]}>
                                     200 การเข้าชม</Text>
                                 <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: '#9F9C9C' }]}>
                                     เมื่อ 3 วันที่ผ่านมา</Text>
                             </View> */}
-                        </View>
-                        <View style={stylesMain.BoxProduct4ComBox2}>
-                            <TouchableOpacity activeOpacity={1} onPress={this.setStateButton_Like_heart.bind(this, index)} style={
-                                stylesMain.BoxProduct4ComBoxIcon}>
-                                {
-                                    Button_Follow_After &&
-                                    <IconFontAwesome name={Button_Follow_After[index].like == true ? 'heart' : 'heart-o'} size={20} style={{
-                                        color: Button_Follow_After[index].like == true ? '#ff0066' : '#111111'
-                                    }} />
-                                }
+                    </View>
+                    <View style={stylesMain.BoxProduct4ComBox2}>
+                        <TouchableOpacity activeOpacity={1} onPress={this.setStateButton_Like_heart.bind(this)} style={
+                            stylesMain.BoxProduct4ComBoxIcon}>
+                            {
+                                Button_Follow_After &&
+                                <IconFontAwesome name={Button_Follow_After.like == true ? 'heart' : 'heart-o'} size={20} style={{
+                                    color: Button_Follow_After.like == true ? '#ff0066' : '#111111'
+                                }} />
+                            }
+                            <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                                ถูกใจ</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', {
+                            selectedIndex: 9
+                        })}>
+                            <View style={stylesMain.BoxProduct4ComBoxIcon}>
+                                <IconFontAwesome5 name='comment-dots' size={20} />
                                 <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                                    ถูกใจ</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', {
-                                selectedIndex: 9
-                            })}>
-                                <View style={stylesMain.BoxProduct4ComBoxIcon}>
-                                    <IconFontAwesome5 name='comment-dots' size={20} />
-                                    <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                                        แสดงความคิดเห็น</Text>
-                                </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={stylesMain.BoxProduct4ComBoxIcon} onPress={this.onShare}>
-                                <IconEntypo name='share' size={20} />
-                                <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                                    แชร์</Text>
-                            </TouchableOpacity>
-                        </View>
+                                    แสดงความคิดเห็น</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={stylesMain.BoxProduct4ComBoxIcon} onPress={this.onShare}>
+                            <IconEntypo name='share' size={20} />
+                            <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                                แชร์</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
-            );
-        })
+            </View>
+        );
     }
     render() {
         return (
@@ -1666,19 +1657,17 @@ export class LoadingScreen extends React.Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> BrowerScreen
-export class BrowerScreen extends React.Component {
-    render() {
-        const { url } = this.props
-        return (
-            <View style={{ flex: 1 }}>
-                <WebView
-                    source={{
-                        uri: url
-                    }}
-                    style={{ flex: 1 }} />
-            </View>
-        )
-    }
+export function BrowerScreen(props) {
+    const { url } = props
+    return (
+        <View style={{ flex: 1 }}>
+            <WebView
+                source={{
+                    uri: url
+                }}
+                style={{ flex: 1 }} />
+        </View>
+    )
 }
 ///----------------------------------------------------------------------------------------------->>>> SlideTab2
 export class SlideTab2 extends React.Component {

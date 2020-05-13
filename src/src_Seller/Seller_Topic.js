@@ -1046,5 +1046,3 @@ export class Up_Product_Select extends Component {
         );
     }
 }
-
-

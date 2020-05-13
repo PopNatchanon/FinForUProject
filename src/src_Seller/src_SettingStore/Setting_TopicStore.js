@@ -190,7 +190,6 @@ export class Notification extends Component {
     }
 }
 ///----------------------------------------แก้ไขบัญชีธนาคาร--------------------------------------///
-
 export class Edit_Bank extends Component {
     constructor(props) {
         super(props);
@@ -261,7 +260,6 @@ export class Edit_Bank extends Component {
     }
 }
 ///----------------------------------------แก้ไขเอกสารการจดแจ้ง --------------------------------------///
-
 export class Notification_From extends Component {
     constructor(props) {
         super(props);
@@ -443,7 +441,6 @@ export class Notification_From extends Component {
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { width: 250, marginTop: 10, color: '#B7B7B7' }]}>*กรุณาอัพโหลดเอกสารที่เป็นปัจจุบัน หากไม่ทำรายการ เราจะทำการถอนการขายสินค้าของท่านบนเว็บของเรา</Text>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginTop: 10 }]}>โปรดระบุวันหมดอายุ</Text>
                         <View style={{ width: '100%', alignItems: 'center', }}>
-
                             <View style={[stylesLogin.DateBox, stylesMain.ItemCenter]}>
                                 <View style={stylesMain.FlexRow}>
                                     <View style={[stylesLogin.DateBoxBody, { width: 70, }]}>
@@ -488,16 +485,13 @@ export class Notification_From extends Component {
         );
     }
 }
-
 ///------------------------------------------------------------------------------///
-
 export class Setting_Address_Store extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
         return (
             <View>
@@ -514,9 +508,7 @@ export class Setting_Address_Store extends Component {
         );
     }
 }
-
 ///------------------------------------------------------------------------------///
-
 export class Up_Code_Number extends Component {
     constructor(props) {
         super(props);

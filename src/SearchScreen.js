@@ -115,22 +115,19 @@ export default class SearchScreen extends React.Component {
         if (actionStart == true && dataService && dataServiceBU && filterValue.id_type == undefined) {
             this.setStart()
         }
+        activeGetCurrentUser == true &&
+            GetData({ getCokie: true, getSource: this.getSource.bind(this), getUser: true, })
+        modeStore == true && activeGetCurrentUser == false && activeGetServices == true &&
+            GetServices({ uriPointer: uri2, dataBody: dataBody2, getDataSource: this.getData.bind(this), })
+        SearchText && activeGetCurrentUser == false && activeGetServices == true &&
+            GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
         return (
             <SafeAreaView style={stylesMain.SafeAreaView} >
-                {
-                    activeGetCurrentUser == true &&
-                    <GetData getCokie={true} getSource={this.getSource.bind(this)} getUser={true} key={'GetData'} />
-                }
                 <AppBar searchBar={SearchText ? undefined : true} navigation={navigation} SearchText={SearchText} leftBar='backarrow' />
                 {
                     modeStore == true ?
                         (
                             <ScrollView>
-                                {
-                                    activeGetCurrentUser == false && activeGetServices == true &&
-                                    <GetServices uriPointer={uri2} dataBody={dataBody2} getDataSource={this.getData.bind(this)}
-                                        showConsole='other_store' />
-                                }
                                 <HeadBox navigation={navigation} SearchText={SearchText} />
                                 {
                                     dataService && dataService.store && dataService.store.map((value, index) => {
@@ -142,11 +139,6 @@ export default class SearchScreen extends React.Component {
                         ) :
                         SearchText ? (
                             <ScrollView>
-                                {
-                                    activeGetCurrentUser == false && activeGetServices == true &&
-                                    <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)}
-                                        showConsole='search_product' />
-                                }
                                 <HeadBox id_type={id_type} navigation={navigation} SearchText={SearchText} otherOption />
                                 {
                                     dataService && dataService.store && dataService.store.map((value, index) => {
@@ -255,13 +247,10 @@ export class StoreCard extends React.Component {
 
         };
         var dataMySQL = [finip, dataService.store_path, dataService.image_store].join('/');
+        activeGetServices == true &&
+            GetServices({ Authorization: cokie, uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
         return (
             <View style={stylesMain.BoxStore5Box}>
-                {
-                    activeGetServices == true &&
-                    <GetServices Authorization={cokie} uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)}
-                        showConsole='follow_data' />
-                }
                 <TouchableOpacity style={stylesMain.FlexRow}
                     onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: 24 })}>
                     <View style={[stylesMain.BoxStore5Image, stylesMain.ItemCenterVertical, {

@@ -23,19 +23,6 @@ export default class Same_StoreScreen extends React.Component {
             dataService: []
         };
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation } = this.props
-        const { Title, dataService } = this.state
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation ||
-            ////>nextState
-            Title !== nextState.Title || dataService !== nextState.dataService
-        ) {
-            return true
-        }
-        return false
-    }
     getData = (dataService) => {
         this.setState({ dataService })
     }
@@ -68,12 +55,10 @@ export default class Same_StoreScreen extends React.Component {
             default:
                 break;
         }
+        dataBody !== undefined &&
+            GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
         return (
             <SafeAreaView style={{ height: '100%' }}>
-                {
-                    dataBody !== undefined &&
-                    <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
-                }
                 <AppBar1 titleHead={title} backArrow navigation={navigation} />
                 <ScrollView stickyHeaderIndices={[type_product == 'youlike' ? 2 : null]}>
                     <Slide />
@@ -96,17 +81,6 @@ export class Header extends React.Component {
         super(props);
         this.state = {
         };
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { Title } = this.props
-        if (
-            ////>nextProps
-            Title !== nextProps.Title
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
     }
     render() {
         const { Title } = this.props

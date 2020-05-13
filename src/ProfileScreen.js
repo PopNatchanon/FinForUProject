@@ -34,10 +34,6 @@ export default class ProfileScreen extends React.Component {
         }
     }
     getSource = (value) => {
-        console.log('currentUser')
-        console.log(value.currentUser)
-        console.log('cokie')
-        console.log(value.keycokie)
         this.setState({ activeGetSource: false, currentUser: value.currentUser, cokie: value.keycokie })
     }
     getData = (dataSevice) => {
@@ -54,17 +50,16 @@ export default class ProfileScreen extends React.Component {
         var dataBody = {
             id_customer: currentUser ? currentUser.id_customer : '',
         }
+        activeGetSource == false && activeGetServices == true &&
+            GetServices({ uriPointer: uri, dataBody, Authorization: cokie, getDataSource: this.getData.bind(this) })
+        activeGetSource == true &&
+            GetData({ getCokie: true, getUser: true, getSource: this.getSource.bind(this), })
         return (
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
-                {[
+                {
                     (activeGetSource == true || activeGetServices == true) &&
-                    <LoadingScreen key='LoadingScreen' />,
-                    activeGetSource == false && activeGetServices == true &&
-                    <GetServices key='GetServices' uriPointer={uri} dataBody={dataBody} Authorization={cokie}
-                        getDataSource={this.getData.bind(this)} />,
-                    activeGetSource == true &&
-                    <GetData key='GetData' getCokie={true} getUser={true} getSource={this.getSource.bind(this)} />
-                ]}
+                    <LoadingScreen key='LoadingScreen' />
+                }
                 <ScrollView>
                     <View>
                         {
@@ -169,17 +164,6 @@ export class Menubar extends React.Component {
     constructor(props) {
         super(props)
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation } = this.props
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
-    }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
         value == 'goBack' ?
@@ -221,17 +205,6 @@ export class Menubar extends React.Component {
 export class MenubarSub extends React.Component {
     constructor(props) {
         super(props)
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation } = this.props
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
@@ -411,17 +384,6 @@ export class ListMenu extends React.Component {
     constructor(props) {
         super(props);
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation } = this.props
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
-    }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
         value == 'goBack' ?
@@ -561,41 +523,9 @@ export class ViewCode extends React.Component {
     getPath = (value) => {
         this.setState({ activeGetServices: true, pathlist: value.selectedIndex });
     }
-    get PathList() {
+    render() {
         const { currentUser, cokie } = this.props
         const { activeGetServices, dataSevice, pathlist } = this.state
-        const uri = finip + '/profile/coupon_shop'
-        const uri2 = finip + '/profile/coupon_used'
-        const uri3 = finip + '/profile/coupon_timeout'
-        var dataBody = {
-            id_customer: currentUser ? currentUser.id_customer : '',
-            device: "mobile_device",
-        }
-        switch (pathlist) {
-            case 0:
-                return ([
-                    activeGetServices == true &&
-                    <GetServices key='GetServices' uriPointer={uri} dataBody={dataBody} Authorization={cokie}
-                        getDataSource={this.getData.bind(this)} showConsole='coupon_shop' />,
-                    <MyCode key='MyCode' currentUser={currentUser} cokie={cokie} dataSevice={dataSevice} codeList={'available'} />
-                ])
-            case 1:
-                return (
-                    activeGetServices == true &&
-                    <GetServices key='GetServices' uriPointer={uri2} dataBody={dataBody} Authorization={cokie}
-                        getDataSource={this.getData.bind(this)} showConsole='coupon_shop' />,
-                    <MyCode key='MyCode' currentUser={currentUser} cokie={cokie} dataSevice={dataSevice} codeList={'usedCode'} />
-                )
-            case 2:
-                return (
-                    activeGetServices == true &&
-                    <GetServices key='GetServices' uriPointer={uri3} dataBody={dataBody} Authorization={cokie}
-                        getDataSource={this.getData.bind(this)} showConsole='coupon_shop' />,
-                    <MyCode key='MyCode' currentUser={currentUser} cokie={cokie} dataSevice={dataSevice} codeList={'timeOut'} />
-                )
-        }
-    }
-    render() {
         const item = [{
             name: 'โค้ดที่ใช้ได้'
         }, {
@@ -603,6 +533,18 @@ export class ViewCode extends React.Component {
         }, {
             name: 'โ่ค้ดที่หมดอายุ'
         }]
+        const uri = finip + '/profile/coupon_shop'
+        const uri2 = finip + '/profile/coupon_used'
+        const uri3 = finip + '/profile/coupon_timeout'
+        var dataBody = {
+            id_customer: currentUser ? currentUser.id_customer : '',
+            device: "mobile_device",
+        }
+        activeGetServices == true &&
+            GetServices({
+                uriPointer: pathlist == 0 ? uri : pathlist == 1 ? uri2 : uri3, dataBody, Authorization: cokie,
+                getDataSource: this.getData.bind(this)
+            })
         return (
             <View>
                 <View style={stylesProfile.ViewCode}>
@@ -616,7 +558,8 @@ export class ViewCode extends React.Component {
                         setVertical={4} />
                 </View>
                 <View>
-                    {this.PathList}
+                    <MyCode key='MyCode' currentUser={currentUser} cokie={cokie} dataSevice={dataSevice}
+                        codeList={pathlist == 0 ? 'available' : pathlist == 1 ? 'usedCode' : 'timeOut'} />
                 </View>
             </View>
         )
@@ -669,18 +612,15 @@ export class MyCode extends React.Component {
         activeFollow == false && data.map((value) => {
             return value.follow === undefined && this.followStore(value.id_store, false)
         })
-
+        activeFollow == true && currentUser && cokie &&
+            GetServices({ Authorization: cokie, dataBody, uriPointer: uri, getDataSource: this.getData.bind(this), })
         return (
             codeList == 'available' ?
                 <View>
-                    {[
+                    {
                         activeFollow == true &&
-                        <LoadingScreen key='LoadingScreen' />,
-                        activeFollow == true && currentUser && cokie &&
-                        <GetServices Authorization={cokie} dataBody={dataBody} uriPointer={uri} getDataSource={this.getData.bind(this)}
-                            key='follow_data' showConsole='follow_data'
-                        />
-                    ]}
+                        <LoadingScreen key='LoadingScreen' />
+                    }
                     <View style={stylesProfile.ViewCode}>
                         <View style={stylesMain.FlexRow}>
                             <View style={[stylesMain.ItemCenter, { width: '70%', }]}>

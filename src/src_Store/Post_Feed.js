@@ -95,12 +95,10 @@ export default class Post_Feed extends Component {
     }
     render() {
         const { activeGetCurrentUser } = this.state
+        activeGetCurrentUser == true &&
+            GetData({ getCokie: true, getSource: this.getSource.bind(this), getUse: true, })
         return (
             <SafeAreaView style={{ height: '100%' }}>
-                {
-                    activeGetCurrentUser == true &&
-                    <GetData getCokie={true} getSource={this.getSource.bind(this)} getUser={true} key={'GetData'} />
-                }
                 {this.PathList()}
             </SafeAreaView>
         );
@@ -191,24 +189,14 @@ export class Score_store extends React.Component {
                 nameline2: '(' + (dataService ? dataService.rate_1 : '0') + ')',
             }
         ]
+        activeGetServices == true && id_store && cokie &&
+            GetServices({
+                Authorization: cokie, uriPointer: uri, dataBody, showConsole: 'score_data', getDataSource: this.getData.bind(this),
+            })
+        activeGetServices2 == true && id_store && cokie &&
+            GetServices({ Authorization: cokie, uriPointer: uri, showConsole: 'score_data', getDataSource: this.getData2.bind(this), })
         return (
             <>
-                {[
-                    activeGetServices == true && id_store && cokie &&
-                    <GetServices
-                        Authorization={cokie}
-                        uriPointer={uri}
-                        dataBody={dataBody}
-                        showConsole='score_data'
-                        getDataSource={this.getData.bind(this)} />,
-                    activeGetServices2 == true && id_store && cokie &&
-                    <GetServices
-                        Authorization={cokie}
-                        uriPointer={uri}
-                        dataBody={dataBody}
-                        showConsole='score_data'
-                        getDataSource={this.getData2.bind(this)} />,
-                ]}
                 <View style={{ backgroundColor: '#4C9AE2', width: '100%', }}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF', margin: 10 }]}> เรตติ้งร้าน </Text>
                     <View style={stylesMain.ItemCenter}>
@@ -466,23 +454,25 @@ export class Post_New extends React.Component {
                 id_feed,
                 act: 'view'
             } : {};
+
+        activePost == true && (
+            actionPost == 'edit' ?
+                GetServices({
+                    uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'feed_action_update',
+                    getDataSource: this.getData.bind(this)
+                }) :
+                GetServicesBlob({
+                    FormData, key: 'create_feed', uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'create_feed',
+                    getDataSource: this.getData.bind(this),
+                })
+        ),
+            activePostView == true && actionPost == 'edit' && id_feed && id_store && cokie &&
+            GetServices({
+                uriPointer: uri2, dataBody: dataBody2, Authorization: cokie, showConsole: 'feed_action_view',
+                getDataSource: this.getData2.bind(this),
+            })
         return (
             <>
-                {[
-                    activePost == true && (
-                        actionPost == 'edit' ?
-                            <GetServices key='feed_action_update' uriPointer={uri} dataBody={dataBody} Authorization={cokie}
-                                showConsole={'feed_action_update'}
-                                getDataSource={this.getData.bind(this)} /> :
-                            <GetServicesBlob FormData key='create_feed' uriPointer={uri} dataBody={dataBody} Authorization={cokie}
-                                showConsole={'create_feed'}
-                                getDataSource={this.getData.bind(this)} />
-                    ),
-                    activePostView == true && actionPost == 'edit' && id_feed && id_store && cokie &&
-                    <GetServices key='feed_action_view' uriPointer={uri2} dataBody={dataBody2} Authorization={cokie}
-                        showConsole={'feed_action_view'}
-                        getDataSource={this.getData2.bind(this)} />
-                ]}
                 <BottomSheet
                     ref={ref => {
                         this.FramestickerSheet = ref;
@@ -611,14 +601,13 @@ export class Select_TagProduct extends React.Component {
             id_store,
             level: selectedIndex == 0 ? 'normal' : selectedIndex == 1 ? 'favorite' : 'normal'
         }
+        activeGetServices == true && cokie &&
+            GetServices({
+                uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'feed_tag_product',
+                getDataSource: this.getData.bind(this),
+            })
         return (
             <>
-                {
-                    activeGetServices == true && cokie &&
-                    <GetServices key='feed_tag_product' uriPointer={uri} dataBody={dataBody} Authorization={cokie}
-                        showConsole={'feed_tag_product'}
-                        getDataSource={this.getData.bind(this)} />
-                }
                 <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', height: 40 }]}>
                     <TabBar
                         item={item}

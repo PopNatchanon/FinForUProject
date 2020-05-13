@@ -101,17 +101,16 @@ export default class Product_for_youScreen extends React.Component {
         name: 'ETONWEAG'
       }]
     }]
+    activeGetCurrentUser == false && activeGetServices == true &&
+      GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), })
+    activeGetCurrentUser == true &&
+      GetData({ getCokie: true, getSource: this.getSource.bind(this), getUser: true, })
     return (
       <SafeAreaView style={stylesMain.SafeAreaView} key='foryou'>
-        {[
+        {
           (activeGetCurrentUser == true || activeGetServices == true) &&
-          <LoadingScreen key='LoadingScreen' />,
-          activeGetCurrentUser == false && activeGetServices == true &&
-          <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)}
-            showConsole='exclusive_mobile' />,
-          activeGetCurrentUser == true &&
-          <GetData getCokie={true} getSource={this.getSource.bind(this)} getUser={true} key={'GetData'} />
-        ]}
+          <LoadingScreen key='LoadingScreen' />
+        }
         <AppBar1 backArrow navigation={navigation} titleHead='FIN คัดมาเพื่อคุณ' />
         <ScrollView stickyHeaderIndices={[2]}>
           <Slide dataService={dataService && dataService.banner} />

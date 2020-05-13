@@ -24,10 +24,11 @@ export default class Installment_payScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeGetServices: true,
     };
   }
   getData = (dataService) => {
-    this.setState({ dataService })
+    this.setState({ activeGetServices: false, dataService })
   }
   render() {
     const { navigation } = this.props
@@ -35,9 +36,9 @@ export default class Installment_payScreen extends Component {
     // console.log('Installment_payScreen')
     // console.log(dataService)
     var uri = finip + '/coupon/installment_data'
+    activeGetServices == true && GetServices({ uriPointer: uri, getDataSource: this.getData.bind(this), })
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
-        <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} />
         <AppBar1 titleHead={'ผ่อน 0 % สูงสุด 10 เดือน'} backArrow searchBar chatBar navigation={navigation} />
         <ScrollView>
           <Slide banner={dataService && dataService.banner} />
@@ -72,7 +73,6 @@ export class Head_Image extends Component {
             }}
             resizeMode={FastImage.resizeMode.stretch}
           />
-
         </View>
         <View style={stylesPromotionDeal.Head_BoxText}>
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>
@@ -107,7 +107,6 @@ export class CategoryProduct_pay extends Component {
     this.state = {
     };
   }
-
   render() {
     const { dataService, navigation } = this.props
     // console.log('Installment_payScreen')

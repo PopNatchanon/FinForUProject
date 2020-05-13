@@ -63,6 +63,8 @@ export default class Deal_Topic extends Component {
             device: 'mobile_device',
             id_category: id_category ? id_category : ''
         }
+        selectedIndex == 1 && activeGetCurrentUser == false && activeGetServices2 == true &&
+            GetServices({ dataBody: dataBody2, uriPointer: uri2, getDataSource: this.getData2.bind(this), showConsole: 'exclusive_deal' })
         switch (selectedIndex) {
             case 0:
                 return (
@@ -88,12 +90,6 @@ export default class Deal_Topic extends Component {
             case 1:
                 return (
                     <View>
-                        {
-                            activeGetCurrentUser == false && activeGetServices2 == true &&
-                            <GetServices dataBody={dataBody2} uriPointer={uri2}
-                                getDataSource={this.getData2.bind(this)} key='exclusive_deal' showConsole='exclusive_deal'
-                            />
-                        }
                         <AppBar1 backArrow navigation={navigation} titleHead='ดีลสุด Exclusive' />
                         <ScrollView stickyHeaderIndices={[2]}>
                             {
@@ -162,18 +158,16 @@ export default class Deal_Topic extends Component {
     render() {
         const { activeGetCurrentUser, activeGetServices, activeGetServices2, keycokie, } = this.state
         const uri = finip + '/coupon/coupon_day_mobile'
+        activeGetCurrentUser == false && activeGetServices == true &&
+            GetServices({ Authorization: keycokie, uriPointer: uri, getDataSource: this.getData.bind(this), })
+        activeGetCurrentUser == true &&
+            GetData({ getCokie: true, getSource: this.getSource.bind(this), getUser: true, })
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                {[
+                {
                     (activeGetCurrentUser == true || activeGetServices == true || activeGetServices2 == true) &&
-                    <LoadingScreen key='LoadingScreen' />,
-                    activeGetCurrentUser == false && activeGetServices == true &&
-                    <GetServices Authorization={keycokie} uriPointer={uri} getDataSource={this.getData.bind(this)}
-                        key='coupon_day_mobile'
-                    />,
-                    activeGetCurrentUser == true &&
-                    <GetData getCokie={true} getSource={this.getSource.bind(this)} getUser={true} key='GetData' />
-                ]}
+                    <LoadingScreen key='LoadingScreen' />
+                }
                 {this.PathList()}
                 <ExitAppModule navigation={this.props.navigation} />
             </SafeAreaView>
@@ -215,14 +209,10 @@ export class Deal_CuponToday extends Component {
             device: 'mobile_device',
             id_promotion,
         }
+        activeGetServices == true && currentUser && keycokie &&
+            GetServices({ Authorization: keycokie, dataBody, uriPointer: uri, getDataSource: this.getData.bind(this), })
         return (
             <View>
-                {
-                    activeGetServices == true && currentUser && keycokie &&
-                    <GetServices Authorization={keycokie} dataBody={dataBody} uriPointer={uri} getDataSource={this.getData.bind(this)}
-                        key='save_coupon_fin'
-                    />
-                }
                 <View style={{ padding: 10, }}>
                     <View style={stylesPromotionDeal.Deal_Today_Box}>
                         <Text style={stylesFont.FontFamilyText}> คูปองส่วนลดจาก FIN</Text>
@@ -244,7 +234,6 @@ export class Deal_CuponToday extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>>
-
 export class Deal_ProductToday extends Component {
     constructor(props) {
         super(props);
@@ -304,7 +293,6 @@ export class Deal_ProductToday extends Component {
         );
     }
 }
-
 ///----------------------------------------------------------------------------------------------->>>>
 export class Not_Internet extends Component {
     constructor(props) {

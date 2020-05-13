@@ -41,18 +41,16 @@ export default class CampaignScreen extends Component {
     var dataBody = {
       "id_category": ""
     }
+    activeGetCurrentUser == false && activeDataService == true &&
+      GetServices({ dataBody, uriPointer: uri, getDataSource: this.getData.bind(this), })
+    activeGetCurrentUser == true &&
+      GetData({ getSource: this.getSource.bind(this), getUser: true, })
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
-        {[
+        {
           (activeGetCurrentUser == true || activeDataService == true) &&
-          <LoadingScreen key='LoadingScreen' />,
-          activeGetCurrentUser == false && activeDataService == true &&
-          <GetServices dataBody={dataBody} uriPointer={uri} getDataSource={this.getData.bind(this)}
-            // showConsole='campaign_data'
-            key='activeDataService' />,
-          activeGetCurrentUser == true &&
-          <GetData getSource={this.getSource.bind(this)} getUser={true} key={'GetData'} />
-        ]}
+          <LoadingScreen key='LoadingScreen' />
+        }
         <AppBar1 titleHead={'แคมเปญ'} backArrow searchBar chatBar navigation={navigation} />
         <ScrollView>
           {
@@ -177,4 +175,3 @@ export class CampaignBody extends Component {
     )
   }
 }
-

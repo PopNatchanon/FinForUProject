@@ -27,17 +27,6 @@ export default class HighlightScreen extends React.Component {
     this.state = {
     };
   }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { navigation } = this.props
-    if (
-      ////>nextProps
-      navigation !== nextProps.navigation
-      ////>nextState
-    ) {
-      return true
-    }
-    return false
-  }
   render() {
     const { navigation } = this.props
     return (
@@ -80,12 +69,10 @@ export class Button_Bar extends React.Component {
     }]
     dataService && dataService.map((item) => { return item2.push({ name: item.name }) })
     category && category.map((item) => { return item2.push({ name: item.name }) })
+    category == undefined &&
+      GetServices({ uriPointer: uri, getDataSource: this.getData.bind(this), })
     return (
       <View style={{ width: '100%', height: 40, backgroundColor: '#FFFFFF', borderColor: '#ECECEC', borderWidth: 1, }}>
-        {
-          category == undefined &&
-          <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} />
-        }
         <ScrollView horizontal>
           <TabBar
             sendData={this.updateIndex.bind(this)}
@@ -108,12 +95,13 @@ export class Highlight_Product extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      activeDataService: true,
       dataService: [],
     }
     this.getData = this.getData.bind(this)
   }
   getData(dataService) {
-    this.setState({ dataService })
+    this.setState({ activeDataService: false, dataService })
   }
   dataNewHighlight() {
     const { dataService } = this.state
@@ -161,13 +149,14 @@ export class Highlight_Product extends React.Component {
     })
   }
   render() {
+    const { activeDataService } = this.state
     var uri = ip + '/mysql/DataServiceMain.php';
     var dataBody = {
       type: 'sale'
     };
+    activeDataService == true && GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData, })
     return (
       <View>
-        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData} />
         <View style={{ alignItems: 'center' }}>
           <View>
             {this.dataNewHighlight()}

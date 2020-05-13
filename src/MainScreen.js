@@ -35,7 +35,7 @@ import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import {
     BrowerScreen, GetServices, GetData, ProductBox, Toolbar, TabBar, LoadingScreen, RenderHeader,
-    FlatProduct, FlatComponent
+    FlatProduct, FlatComponent,
 } from './tools/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from './navigator/IpConfig';
@@ -46,7 +46,6 @@ export default class MainScreen extends React.PureComponent {
         this.state = {
             activeDataService: true,
             activeExit: true,
-            activeFlashSale: true,
             activeLoading: true,
             dataService: [],
         };
@@ -56,7 +55,7 @@ export default class MainScreen extends React.PureComponent {
     }
     render() {
         const { navigation } = this.props;
-        const { activeDataService, activeFlashSale, activeLoading, dataService, } = this.state;
+        const { activeDataService, activeLoading, dataService, } = this.state;
         const browerProps = navigation.getParam('browerProps');
         var uri = [finip, 'home/publish_mobile'].join('/');
         let itemT = [
@@ -75,7 +74,7 @@ export default class MainScreen extends React.PureComponent {
             },
             {
                 nameComponent: 'FlashSale',
-                renderComponent: <FlashSale navigation={navigation} activeDataService={activeFlashSale} />
+                renderComponent: <FlashSale navigation={navigation} />
             },
             {
                 nameComponent: 'Recommend_Brand',
@@ -126,7 +125,7 @@ export default class MainScreen extends React.PureComponent {
             },
             {
                 nameComponent: 'CategoryProduct',
-                renderComponent: <CategoryProduct activeMain={activeDataService} navigation={navigation} />
+                renderComponent: <CategoryProduct navigation={navigation} />
             },
             {
                 nameComponent: 'Second_product',
@@ -151,18 +150,15 @@ export default class MainScreen extends React.PureComponent {
             /////--------------------------------------------->>>End
         ]
         // this.FlatMainScreen && console.log(this.FlatMainScreen.recordInteraction())
+        activeDataService == true && GetServices({ uriPointer: uri, getDataSource: this.getData.bind(this) })
         return (
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
-                {[
+                {
                     activeDataService == true &&
-                    <LoadingScreen key='LoadingScreen' />,
-                    activeDataService == true &&
-                    <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} key={'activeDataService'}
-                    // showConsole={'Main'}
-                    />,
-                ]}
+                    <LoadingScreen key='LoadingScreen' />
+                }
                 <AppBar navigation={navigation} style={{ flex: 5, }} />
-                <FlatComponent component={itemT} />
+                <FlatComponent componentPage='MainScreen' component={itemT} />
                 <Botton_PopUp_FIN useNativeDriver />
                 <Toolbar navigation={navigation} style={{ flex: 5, }} />
                 <ExitAppModule navigation={navigation} />
@@ -294,14 +290,14 @@ export class AppBar extends React.Component {
         const AIconEntypo = Animatable.createAnimatableComponent(IconEntypo)
         const AIconFeather = Animatable.createAnimatableComponent(IconFeather)
         const AIconFontAwesome5 = Animatable.createAnimatableComponent(IconFontAwesome5)
+        activeGetCurrentUser == true && GetData({ getSource: this.getSource.bind(this), getUser: true, })
         return (
             <Animatable.View style={[stylesMain.Appbar, stylesMain.FlexRow, {
                 backgroundColor: ABGColor ? ABGColor : '#fff',
                 borderColor: ABDColor ? ABDColor : '#ECECEC',
             }]}>
                 {[
-                    activeGetCurrentUser == true &&
-                    <GetData getSource={this.getSource.bind(this)} getUser={true} key={'GetData'} />,
+
                     leftBar == 'backarrow' &&
                     <View key={'backarrow'} style={{ flex: 5 }}>
                         <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 40, height: 50 }]}
@@ -439,7 +435,7 @@ export class AppBar1 extends React.Component {
         };
     }
     navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
+        const { navigation } = this.props;
         value == 'goBack' ?
             navigation.goBack() :
             value == 'LoginScreen' ? (
@@ -448,24 +444,25 @@ export class AppBar1 extends React.Component {
             ) :
                 value == 'popToTop' ?
                     navigation.popToTop() :
-                    navigation.push(value, value2)
+                    navigation.push(value, value2);
     }
     getSource = (value) => {
         this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser });
     }
     setText = (text) => {
-        this.setState({ text })
+        this.setState({ text });
     }
     deleteFunction = () => {
-        const { propsFunction } = this.props
-        propsFunction()
+        const { propsFunction } = this.props;
+        propsFunction();
     }
     render() {
         const {
             backArrow, backArrowColor, ButtomDeleteAll, chatBar, colorBar, deleteBar, getActivePost, goToTop, menuBar, postBar, saveBar,
             searchBar, settingBar, storeBar, titleHead,
         } = this.props;
-        const { activeGetCurrentUser, currentUser, } = this.state
+        const { activeGetCurrentUser, currentUser, } = this.state;
+        activeGetCurrentUser == true && GetData({ getSource: this.getSource.bind(this), getUser: true });
         return (
             <View style={
                 colorBar ?
@@ -473,10 +470,6 @@ export class AppBar1 extends React.Component {
                     menuBar ?
                         stylesStore.AppbarMenu :
                         stylesStore.Appbar}>
-                {
-                    activeGetCurrentUser == true &&
-                    <GetData getSource={this.getSource.bind(this)} getUser={true} key={'GetData'} />
-                }
                 <View style={stylesMain.FlexRow}>
                     {
                         backArrow &&
@@ -628,12 +621,10 @@ export class Slide extends React.PureComponent {
             slide: 'banner'
         };
         var uri = [finip, 'home/home_mobile'].join('/')
+        activeDataService == true && banner == undefined &&
+            GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
         return (
             <View>
-                {
-                    activeDataService == true && banner == undefined &&
-                    <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
-                }
                 <Carousel
                     renderItem={this._renderItem}
                     data={banner ? banner : dataService}
@@ -707,12 +698,9 @@ export class Category extends React.Component {
     render() {
         const { activeDataService } = this.state
         var uri = finip + '/home/category_mobile'
+        activeDataService == true && GetServices({ uriPointer: uri, getDataSource: this.getData.bind(this) })
         return (
             <View style={stylesMain.FrameBackground2}>
-                {
-                    activeDataService == true &&
-                    <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} />
-                }
                 <ScrollView horizontal>
                     <View style={stylesMain.category_A}>
                         {this.dataCategory}
@@ -727,6 +715,7 @@ export class Trend_Hit extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            activeDataService: false
         };
     }
     getData = (dataService) => {
@@ -756,13 +745,14 @@ export class Trend_Hit extends React.Component {
             })
     }
     render() {
+        var { activeDataService } = this.state
         var uri = ip + '/mysql/DataServiceMain.php';
         var dataBody = {
             type: 'Trend_Hit'
         };
+        activeDataService == true && GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
         return (
             <View style={stylesMain.FrameBackground2}>
-                <GetServices key={'activeDataService'} uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
                 <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
                     เทรนฮิต</Text>
                 <ScrollView horizontal>
@@ -1195,6 +1185,7 @@ export class FlashSale extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
+            activeDataService: true,
             curTime: new Date(),
             dataService: [],
             endTime: new Date(),
@@ -1202,7 +1193,7 @@ export class FlashSale extends React.PureComponent {
     }
     getData = (dataService) => {
         var flash_end = dataService.flash_end && dataService.flash_end.split(':')
-        this.setState({ dataService, endTime: new Date().setHours(flash_end[0], flash_end[1], flash_end[2]) })
+        this.setState({ activeDataService: false, dataService, endTime: new Date().setHours(flash_end[0], flash_end[1], flash_end[2]) })
     }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
@@ -1229,9 +1220,10 @@ export class FlashSale extends React.PureComponent {
         clearInterval(this.intervalID);
     }
     render() {
-        const { activeDataService, navigation } = this.props
-        const { curTime, dataService, endTime, } = this.state
+        const { navigation } = this.props
+        const { activeDataService, curTime, dataService, endTime, } = this.state
         var uri = finip + '/flashsale/flash_timer';
+        activeDataService == true && GetServices({ uriPointer: uri, getDataSource: this.getData.bind(this) })
         var Hours = 0
         var Minutes = 0
         var Seconds = 0
@@ -1243,7 +1235,7 @@ export class FlashSale extends React.PureComponent {
             Minutes = Number(new Date(endTime).getMinutes()) - Number(new Date(curTime).getMinutes()),
             Seconds = Number(new Date(endTime).getSeconds()) - Number(new Date(curTime).getSeconds()),
             activeDataService == false && Hours <= 0 && Minutes <= 0 && Seconds <= 0 && (
-                this.setState({ dataService: [] })
+                this.setState({ activeDataService: true, dataService: [] })
             ),
             Hours > 0 && (Minutes < 0 || Seconds < 0) && ([
                 Hours = Hours - 1,
@@ -1254,14 +1246,9 @@ export class FlashSale extends React.PureComponent {
                 Seconds = 60 + Seconds
             ])
         ])
-        return ([
-            activeDataService == true &&
-            <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)}
-                //dataBody={dataBody}   showConsole={'FlashSale'}
-                key={'FlashSale'}
-            />,
+        return (
             activeDataService == false && dataService &&
-            <View key={'FlashSaleBox'} style={[stylesMain.FrameBackground2, { marginTop: 10 }]}>
+            <View style={[stylesMain.FrameBackground2, { marginTop: 10 }]}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <View style={[stylesMain.FlexRow, { marginTop: 5, flex: 70 }]}>
                         <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBoldBold, stylesFont.FontSize3, {
@@ -1300,7 +1287,7 @@ export class FlashSale extends React.PureComponent {
                         mode='row4col1' nameFlatProduct='FlashSaleProduct' nameSize={11} priceSize={12} dispriceSize={12} />
                 }
             </View>
-        ]);
+        );
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> PromotionPopular
@@ -1641,7 +1628,7 @@ export class CategoryProduct extends React.Component {
                                     <CategoryProductSubStore navigation={navigation} id_type={item.id_type} />
                                 </View> :
                                 <View style={{ marginBottom: 0, }}>
-                                    {/* <CategoryProductSubPromotion navigation={navigation} id_type={item.id_type} /> */}
+                                    <CategoryProductSubPromotion navigation={navigation} id_type={item.id_type} />
                                     <CategoryProductSubStore navigation={navigation} id_type={item.id_type} />
                                 </View>
                         }
@@ -1656,13 +1643,12 @@ export class CategoryProduct extends React.Component {
         //     type: 'type'
         // };
         var uri = finip + '/home/category_mobile';
+        activeDataService == true && GetServices({ uriPointer: uri, getDataSource: this.getData.bind(this) })
         return (
             <View>
-                {[
-                    activeDataService == true &&
-                    <GetServices key={'activeDataService'} uriPointer={uri} getDataSource={this.getData.bind(this)} />,
+                {
                     this.dataCategory
-                ]}
+                }
             </View>
         )
     }
@@ -1681,23 +1667,17 @@ export class CategoryProductSubProduct extends React.PureComponent {
         getActiveProductMobile(false)
         this.setState({ dataService, activeDataService: false })
     }
-    renderHeader = () => {
-        const { headerData, navigation } = this.props
-        return <RenderHeader navigation={navigation} item={headerData} />
-    }
     render() {
-        const { activeProductMobile, id_type, navigation } = this.props
+        const { activeProductMobile, headerData, id_type, navigation } = this.props
         const { dataService, } = this.state
         var uri = finip + '/home/product_mobile';
         var dataBody = {
             id_type: id_type
         };
+        activeProductMobile == true && id_type &&
+            GetServices({ nameFunction: headerData.name, uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
         return (
             <>
-                {
-                    activeProductMobile == true && id_type &&
-                    <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />
-                }
                 {
                     dataService && dataService.length > 0 &&
                     <FlatProduct navigation={navigation} dataService={dataService} NumberOfcolumn={2} nameFlatProduct='CategoryProduct'
@@ -1771,11 +1751,10 @@ export class CategoryProductSubStore extends React.PureComponent {
                     item2: dataService.banner[n + 1]
                 })
             }
+        activeDataService == true && GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
         return (
             <>
-                {[
-                    activeDataService == true &&
-                    <GetServices key={'activeDataService'} uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} />,
+                {
                     dataService && dataService.banner && (
                         <Carousel
                             key={'banner'}
@@ -1786,7 +1765,7 @@ export class CategoryProductSubStore extends React.PureComponent {
                             autoplayInterval={3000}
                             pagination={PaginationLight} />
                     )
-                ]}
+                }
             </>
         );
     }
@@ -1808,8 +1787,9 @@ export class CategoryProductSubPromotion extends React.Component {
     }
     dataCategoryProductSubPromotion(dataService, type) {
         // const { dataService } = this.state;
-        var dataMySQL = [finip, dataService && dataService.banner[0].path_mobile,
-            dataService && dataService.banner[0].image].join('/');
+        // console.log(dataService);
+        var dataMySQL = [finip, dataService && dataService.banner.length > 0 && dataService.banner[0].path_mobile,
+            dataService && dataService.banner.length > 0 && dataService.banner[0].image].join('/');
         // console.log('dataCategoryProductSubPromotion');
         // console.log(dataMySQL);
         return (
@@ -1858,21 +1838,17 @@ export class CategoryProductSubPromotion extends React.Component {
             promotion: 'promotions_2',
             id_type: id_type,
         };
+        activeDataService == true && GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
+        activeDataService2 == true && GetServices({ uriPointer: uri, dataBody: dataBody2, getDataSource: this.getData2.bind(this) })
         return (
             <>
                 <View style={[stylesMain.FlexRow, { width: '100%' }]}>
-                    {[
-                        activeDataService == true &&
-                        <GetServices key={'activeDataService'} uriPointer={uri} dataBody={dataBody}
-                            getDataSource={this.getData.bind(this)} />,
-                        activeDataService2 == true &&
-                        <GetServices key={'activeDataService2'} uriPointer={uri} dataBody={dataBody2}
-                            getDataSource={this.getData2.bind(this)} />,
+                    {
                         dataService && dataService.banner && dataService2 && dataService2.banner && ([
                             this.dataCategoryProductSubPromotion(dataService, 0),
                             this.dataCategoryProductSubPromotion(dataService2, 1)
                         ])
-                    ]}
+                    }
                 </View>
             </>
         );

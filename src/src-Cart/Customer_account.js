@@ -125,25 +125,22 @@ export default class Customer_account extends Component {
         }
         console.log('============================>render|dataBody')
         console.log(dataBody)
+        activeSave == true && keycokie && type_special == undefined &&
+            GetServices({
+                uriPointer: uri, dataBody, getDataSource: this.getData3.bind(this), Authorization: keycokie, showConsole: 'address'
+            })
+        activeSave2 == true && keycokie && type_special == undefined && type != 'edit' &&
+            GetServices({
+                uriPointer: uri2, dataBody: { address: "--" }, getDataSource: this.getData4.bind(this), Authorization: keycokie,
+            })
+        activeGetServices == true && currentUser && currentUser.id_customer && keycokie && id_address &&
+            type_special == undefined &&
+            GetServices({
+                uriPointer: uri3, dataBody3, getDataSource: this.getData5.bind(this), Authorization: keycokie,
+                showConsole: 'edit_address'
+            })
         return (
             <SafeAreaView style={{ backgroundColor: '#E9E9E9', flex: 1, }}>
-                {[
-                    activeSave == true && keycokie && type_special == undefined &&
-                    <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData3.bind(this)} Authorization={keycokie}
-                        key={'address'}
-                        showConsole='address'
-                    />,
-                    activeSave2 == true && keycokie && type_special == undefined && type != 'edit' &&
-                    <GetServices uriPointer={uri2} dataBody={{ address: "--" }} getDataSource={this.getData4.bind(this)}
-                        Authorization={keycokie} key={'add_address'}
-                    />,
-                    activeGetServices == true && currentUser && currentUser.id_customer && keycokie && id_address &&
-                    type_special == undefined &&
-                    <GetServices uriPointer={uri3} dataBody={dataBody3} getDataSource={this.getData5.bind(this)}
-                        Authorization={keycokie} key={'edit_address'}
-                        showConsole='edit_address'
-                    />
-                ]}
                 <Appbar navigation={navigation} type={type} />
                 <ScrollView>
                     <Account currentUser={this.state.currentUser} dataService={dataService3 && dataService3.list_address}

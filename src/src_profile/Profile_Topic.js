@@ -79,14 +79,13 @@ export default class Profile_Topic extends React.Component {
                         <ChatScreen navigation={navigation} />
                     </SafeAreaView>)
             case 2:
+                activeGetSource == false && activeGetServices == true && currentUser && cokie && selectedIndex == 2 &&
+                    GetServices({
+                        uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'product_interest',
+                        getDataSource: this.getData.bind(this),
+                    })
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        {
-                            activeGetSource == false && activeGetServices == true && currentUser && cokie && selectedIndex == 2 &&
-                            <GetServices key='GetServices' uriPointer={uri} dataBody={dataBody} Authorization={cokie}
-                                showConsole='product_interest'
-                                getDataSource={this.getData.bind(this)} />
-                        }
                         <AppBar1 backArrow navigation={navigation} titleHead='สิ่งที่สนใจ' />
                         {
                             dataSevice &&
@@ -95,14 +94,13 @@ export default class Profile_Topic extends React.Component {
                     </SafeAreaView>
                 )
             case 3:
+                activeGetSource == false && activeGetServices == true && currentUser && cokie && selectedIndex == 3 &&
+                    GetServices({
+                        uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'store_follow',
+                        getDataSource: this.getData.bind(this),
+                    })
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        {
-                            activeGetSource == false && activeGetServices == true && currentUser && cokie && selectedIndex == 3 &&
-                            <GetServices key='GetServices' uriPointer={uri} dataBody={dataBody} Authorization={cokie}
-                                showConsole='store_follow'
-                                getDataSource={this.getData.bind(this)} />
-                        }
                         <AppBar1 backArrow navigation={navigation} titleHead='ร้านที่ติดตาม' />
                         {
                             dataSevice &&
@@ -111,14 +109,13 @@ export default class Profile_Topic extends React.Component {
                     </SafeAreaView>
                 )
             case 4:
+                activeGetSource == false && activeGetServices == true && currentUser && cokie && selectedIndex == 4 &&
+                    GetServices({
+                        uriPointer: uri, dataBody: dataBody2, Authorization: cokie, showConsole: '4|review_product',
+                        getDataSource: this.getData.bind(this),
+                    })
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        {
-                            activeGetSource == false && activeGetServices == true && currentUser && cokie && selectedIndex == 4 &&
-                            <GetServices key='GetServices' uriPointer={uri} dataBody={dataBody2} Authorization={cokie}
-                                showConsole='4|review_product'
-                                getDataSource={this.getData.bind(this)} />
-                        }
                         <AppBar1 backArrow navigation={navigation} titleHead='รีวิวของฉัน' />
                         {
                             dataSevice &&
@@ -141,14 +138,13 @@ export default class Profile_Topic extends React.Component {
                     </SafeAreaView>
                 )
             case 7:
+                activeGetSource == false && activeGetServices == true && currentUser && cokie && selectedIndex == 7 &&
+                    GetServices({
+                        uriPointer: uri, dataBody: dataBody2, Authorization: cokie, showConsole: '7|review_product',
+                        getDataSource: this.getData.bind(this),
+                    })
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        {
-                            activeGetSource == false && activeGetServices == true && currentUser && cokie && selectedIndex == 7 &&
-                            <GetServices key='GetServices' uriPointer={uri} dataBody={dataBody2} Authorization={cokie}
-                                showConsole='7|review_product'
-                                getDataSource={this.getData.bind(this)} />
-                        }
                         <AppBar1 backArrow navigation={navigation} titleHead='รีวิวของฉัน' />
                         <ScrollView>
                             {
@@ -180,14 +176,14 @@ export default class Profile_Topic extends React.Component {
     render() {
         const { navigation } = this.props
         const { activeGetServices, activeGetSource, } = this.state
+        activeGetSource == true &&
+            GetData({ getCokie: true, getUser: true, getSource: this.getSource.bind(this), })
         return (
             <>
-                {[
+                {
                     (activeGetSource == true || activeGetServices == true) &&
-                    <LoadingScreen key='LoadingScreen' />,
-                    activeGetSource == true &&
-                    <GetData key='GetData' getCokie={true} getUser={true} getSource={this.getSource.bind(this)} />
-                ]}
+                    <LoadingScreen key='LoadingScreen' />
+                }
                 {this.PathList()}
                 <ExitAppModule navigation={navigation} />
             </>
@@ -601,14 +597,13 @@ export class Follow_store_Box extends React.Component {
             id_store: dataSevice.id_store,
             follow: "active",
         }
+        activeGetServices == true &&
+            GetServices({
+                uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'product_interest',
+                getDataSource: this.getData.bind(this),
+            })
         return (
             <>
-                {
-                    activeGetServices == true &&
-                    <GetServices key='GetServices' uriPointer={uri} dataBody={dataBody} Authorization={cokie}
-                        showConsole='product_interest'
-                        getDataSource={this.getData.bind(this)} />
-                }
                 <View style={stylesProfileTopic.Follow_store_Box}>
                     <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: dataSevice.id_store })}
                         style={{ flexDirection: 'row', }}>
@@ -667,14 +662,13 @@ export class Might_like_Store extends React.Component {
             id_store: dataSevice.id_store,
             follow: "active",
         }
+        activeGetServices == true &&
+            GetServices({
+                uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'product_interest',
+                getDataSource: this.getData.bind(this),
+            })
         return (
             <View>
-                {
-                    activeGetServices == true &&
-                    <GetServices key='GetServices' uriPointer={uri} dataBody={dataBody} Authorization={cokie}
-                        showConsole='product_interest'
-                        getDataSource={this.getData.bind(this)} />
-                }
                 <View style={stylesProfileTopic.Might_like_Store}>
                     <View style={stylesProfileTopic.Follow_store_Box}>
                         <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: dataSevice.id_store })}
@@ -1192,14 +1186,13 @@ export class Review_From extends React.Component {
             comment: Review
         }
         activeAuto == true && this.setStatus()
+        activeGetServices == true &&
+            GetServices({
+                uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'product_interest',
+                getDataSource: this.getData.bind(this),
+            })
         return (
             <View style={stylesMain.SafeAreaView}>
-                {
-                    activeGetServices == true &&
-                    <GetServices key='GetServices' uriPointer={uri} dataBody={dataBody} Authorization={cokie}
-                        showConsole='product_interest'
-                        getDataSource={this.getData.bind(this)} />
-                }
                 <View style={stylesProfileTopic.Review_From}>
                     <IconIonicons name='md-key' size={30} />
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}> คุณภาพสินค้า </Text>

@@ -24,10 +24,11 @@ export default class The_BestFinScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeGetServices: true,
     };
   }
   getData = (dataService) => {
-    this.setState({ dataService })
+    this.setState({ activeGetServices: false, dataService })
   }
   render() {
     const { navigation } = this.props
@@ -35,9 +36,9 @@ export default class The_BestFinScreen extends Component {
     var uri = finip + '/coupon/superfin'
     // console.log('dataService')
     // console.log(dataService)
+    activeGetServices == true && GetServices({ uriPointer: uri, getDataSource: this.getData.bind(this), })
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
-        <GetServices uriPointer={uri} getDataSource={this.getData.bind(this)} />
         <AppBar1 titleHead={'สุดคุ้มสุดฟิน'} backArrow searchBar chatBar navigation={navigation} />
         <ScrollView>
           <Slide banner={dataService && dataService.banner} />
@@ -100,7 +101,6 @@ export class Store_Sale extends Component {
     this.state = {
     };
   }
-
   Store_Sale_Box() {
     const { dataService } = this.props
     // console.log('Store_Sale')
@@ -191,7 +191,6 @@ export class Product_Cool extends Component {
     this.state = {
     };
   }
-
   render() {
     const { dataService } = this.props
     // console.log('COOL')

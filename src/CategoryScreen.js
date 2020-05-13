@@ -89,15 +89,13 @@ export default class CategoryScreen extends React.Component {
                 name: 'ETONWEAG'
             }]
         }]
+        activeGetServices == true &&
+            GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), })
         return (
             <SafeAreaView style={[stylesMain.SafeAreaView]}>
                 {
-                    activeGetServices == true && ([
-                        <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} key={'Category'}
-                            // showConsole='Category'
-                        />,
-                        <LoadingScreen key={'LoadingScreen'} />
-                    ])
+                    activeGetServices == true &&
+                    <LoadingScreen key={'LoadingScreen'} />
                 }
                 <AppBar leftBar='backarrow' navigation={navigation} />
                 <ScrollView stickyHeaderIndices={[5]}>

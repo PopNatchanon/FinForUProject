@@ -25,19 +25,6 @@ export default class NewsScreen extends React.Component {
             selectedIndex: 0
         };
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation } = this.props
-        const { selectedIndex } = this.state
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation ||
-            ////>nextState
-            selectedIndex !== nextState.selectedIndex
-        ) {
-            return true
-        }
-        return false
-    }
     getData = (selectedIndex) => {
         this.setState({ selectedIndex });
     }
@@ -67,17 +54,6 @@ export class MenuBar extends React.Component {
         super(props);
         this.state = {
         }
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { getData } = this.props
-        if (
-            ////>nextProps
-            getData !== nextProps.getData
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
     }
     getData = (value) => {
         const { getData } = this.props
@@ -113,39 +89,11 @@ export class Button_Bar extends React.Component {
         this.state = {
         }
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { selectedIndex } = this.props
-        if (
-            ////>nextProps
-            selectedIndex !== nextProps.selectedIndex
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
-    }
-    get ViewSide() {
-        const { selectedIndex } = this.props
-        switch (selectedIndex) {
-            case 0:
-                return (
-                    <SafeAreaView>
-                        <Blog Body='News' />
-                    </SafeAreaView>
-                );
-            case 1:
-                return (
-                    < SafeAreaView>
-                        <Blog Body='Blog' />
-                    </SafeAreaView>
-                );
-            default:
-        }
-    }
     render() {
+        const { selectedIndex } = this.props
         return (
             <View>
-                {this.ViewSide}
+                <Blog Body={selectedIndex == 0 ? 'News' : 'Blog'} />
             </View>
         );
     }
@@ -156,17 +104,6 @@ export class Blog extends React.Component {
         super(props);
         this.state = {
         };
-    }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { Body } = this.props
-        if (
-            ////>nextProps
-            Body !== nextProps.Body
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
     }
     onShare = async () => {
         try {

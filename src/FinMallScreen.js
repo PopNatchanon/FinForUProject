@@ -32,13 +32,6 @@ export default class FinMallScreen extends React.Component {
       dataService: [],
     };
   }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { navigation, loadData } = this.props
-    if (loadData !== nextProps.loadData || navigation !== nextProps.navigation) {
-      return true
-    }
-    return false
-  }
   setSlider = (sliderVisible) => {
     this.setState({ sliderVisible })
   }
@@ -150,17 +143,16 @@ export class FIN_Mall extends React.Component {
         name: 'ETONWEAG'
       }]
     }]
+    activeGetCurrentUser == false && activeGetServices == true &&
+      GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), })
+    activeGetCurrentUser == true &&
+      GetData({ getCokie: true, getSource: this.getSource.bind(this), getUser: true, })
     return (
       <View key='FINMall'>
-        {[
+        {
           (activeGetCurrentUser == true || activeGetServices == true) &&
-          <LoadingScreen key='LoadingScreen' />,
-          activeGetCurrentUser == false && activeGetServices == true &&
-          <GetServices uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)}
-            showConsole='exclusive_mobile' />,
-          activeGetCurrentUser == true &&
-          <GetData getCokie={true} getSource={this.getSource.bind(this)} getUser={true} key={'GetData'} />
-        ]}
+          <LoadingScreen key='LoadingScreen' />
+        }
         <ScrollView stickyHeaderIndices={[2]}>
           <Slide dataService={dataService && dataService.banner} />
           <View style={{ marginBottom: 10 }}></View>

@@ -16,16 +16,10 @@ import { AppBar1, ExitAppModule } from '../MainScreen';
 import { finip, ip, } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class Detail_Pro extends React.Component {
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation } = this.props
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
     }
     get PathList() {
         const { navigation } = this.props
@@ -235,17 +229,6 @@ export class Detail_Button extends React.Component {
         this.state = {
         };
     }
-    shouldComponentUpdate = (nextProps, nextState) => {
-        const { navigation, } = this.props
-        if (
-            ////>nextProps
-            navigation !== nextProps.navigation
-            ////>nextState
-        ) {
-            return true
-        }
-        return false
-    }
     navigationNavigateScreen = (value, value2) => {
         const { navigation } = this.props
         value == 'goBack' ?
@@ -268,5 +251,3 @@ export class Detail_Button extends React.Component {
         );
     }
 }
-
-

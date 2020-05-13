@@ -88,12 +88,10 @@ export default class Setting_Topic extends Component {
   render() {
     const { navigation, } = this.props
     const { activeGetSource } = this.state
+    activeGetSource == true &&
+      GetServices({ getCokie: true, getUser: true, getSource: this.getSource.bind(this), })
     return (
       <SafeAreaView style={[stylesMain.SafeAreaView]}>
-        {
-          activeGetSource == true &&
-          <GetData key='GetData' getCokie={true} getUser={true} getSource={this.getSource.bind(this)} />
-        }
         {this.PathList()}
         <ExitAppModule navigation={navigation} />
       </SafeAreaView>
@@ -435,7 +433,7 @@ export class Edit_Profile extends Component {
   render() {
     const { activeGetSource, cokie, currentUser, } = this.props
     const {
-      activeGetServices, activeGetServices2, Birth_day, dataBody2, Gender, image, image_path, Name, Phone,
+      activeGetServices, activeGetServices2, Birth_day, dataBody: dataBody2, Gender, image, image_path, Name, Phone,
     } = this.state
     const uri = finip + '/profile/profile_mobile'
     var dataBody = {
@@ -444,7 +442,12 @@ export class Edit_Profile extends Component {
     const uri2 = finip + '/profile/update_profile_mobile'
     currentUser != null && Name == null &&
       this.setCurrentUser()
-    console
+    activeGetSource == false && activeGetServices == true &&
+      GetServices({ uriPointer: uri, dataBody: dataBody, Authorization: cokie, getDataSource: this.getData.bind(this), })
+    activeGetServices2 == true &&
+      GetServicesBlob({
+        FormData: true, uriPointer: uri2, dataBody: dataBody2, Authorization: cokie, getDataSource: this.getData2.bind(this),
+      })
     return (
       <>
         {/* ชื่อ-นามสกุล */}
@@ -508,16 +511,6 @@ export class Edit_Profile extends Component {
           {this.Phone_numberSheetBody()}
         </BottomSheet>
         <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขโปรไฟล์' />
-        {[
-          activeGetSource == false && activeGetServices == true &&
-          <GetServices key='profile_mobile' uriPointer={uri} dataBody={dataBody} Authorization={cokie}
-            // showConsole={'profile_mobile'} 
-            getDataSource={this.getData.bind(this)} />,
-          activeGetServices2 == true &&
-          <GetServicesBlob FormData key='update_profile_mobile' uriPointer={uri2} dataBody={dataBody2} Authorization={cokie}
-            showConsole={'update_profile_mobile'}
-            nojson getDataSource={this.getData2.bind(this)} />,
-        ]}
         <ScrollView>
           <Seller_SettingImage image_path={image_path} image={image} sendImageProfile={this.sendImageProfile.bind(this)} />
           <View style={{ marginTop: 20, height, }}>
@@ -620,14 +613,10 @@ export class Edit_Pass extends Component {
       confirm_password,
     }
     console.log(current_password != '' && new_password != '' && confirm_password != '')
+    activeGetSource == false && activeGetServices == true &&
+      GetServices({ uriPointer: uri, dataBody: dataBody, Authorization: cokie, getDataSource: this.getData.bind(this), })
     return (
       <>
-        {
-          activeGetSource == false && activeGetServices == true &&
-          <GetServices key='change_customer_password' uriPointer={uri} dataBody={dataBody} Authorization={cokie}
-            showConsole={'change_customer_password'}
-            getDataSource={this.getData.bind(this)} />
-        }
         <AppBar1 backArrow navigation={navigation} titleHead='เปลี่ยนรหัสผ่าน' />
         <ScrollView>
           <View style={stylesProfileTopic.Edit_Pass}>
@@ -734,14 +723,10 @@ export class Edit_Address extends Component {
       } : {
         id_customer: currentUser && currentUser.id_customer,
       };
-
+    currentUser && keycokie && currentUser.id_customer && activeReset == true &&
+      GetServices({ uriPointer: uri, dataBody, Authorization: keycokie, getDataSource: this.getData.bind(this) })
     return (
       <View style={{ flex: 1, height: '100%' }}>
-        {
-          currentUser && keycokie && currentUser.id_customer && activeReset == true &&
-          <GetServices uriPointer={uri} dataBody={dataBody} Authorization={keycokie}
-            getDataSource={this.getData.bind(this)} key={'zzz'} />
-        }
         <AppBar1 backArrow navigation={navigation} titleHead={type_special == 'tax' ? 'ที่อยู่ในใบกำกับภาษี' : 'ที่อยู่ของฉัน'} />
         <ScrollView style={{ height: 1000 }}>
           {
@@ -830,19 +815,6 @@ export class Edit_Chat extends Component {
     this.state = {
     };
   }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { navigation, } = this.props
-    const { item1, } = this.state
-    if (
-      ////>nextProps
-      navigation !== nextProps.navigation ||
-      ////>nextState
-      item1 !== nextState.item1
-    ) {
-      return true
-    }
-    return false
-  }
   setStateItem1 = (item1) => {
     this.setState({ item1 })
   }
@@ -876,17 +848,6 @@ export class Edit_Bell extends Component {
     super(props);
     this.state = {
     };
-  }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { navigation, } = this.props
-    if (
-      ////>nextProps
-      navigation !== nextProps.navigation
-      ////>nextState
-    ) {
-      return true
-    }
-    return false
   }
   navigationNavigateScreen = (value, value2) => {
     const { navigation } = this.props
@@ -935,19 +896,6 @@ export class Language_Screen extends Component {
       checked2: true,
     };
   }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { navigation, } = this.props
-    const { checked, checked2 } = this.state
-    if (
-      ////>nextProps
-      navigation !== nextProps.navigation ||
-      ////>nextState
-      checked !== nextState.checked || checked2 !== nextState.checked2
-    ) {
-      return true
-    }
-    return false
-  }
   setStateChecked = (checked, checked2) => {
     this.setState({ checked, checked2 })
   }
@@ -994,19 +942,6 @@ export class Edit_Setting_Bell extends Component {
     super(props);
     this.state = {
     };
-  }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { navigation, } = this.props
-    const { item1, item2, item3, item4 } = this.state
-    if (
-      ////>nextProps
-      navigation !== nextProps.navigation ||
-      ////>nextState
-      item1 !== nextState.item1 || item2 !== nextState.item2 || item3 !== nextState.item3 || item4 !== nextState.item4
-    ) {
-      return true
-    }
-    return false
   }
   setStateItem1 = (item1) => {
     this.setState({ item1 })
@@ -1092,19 +1027,6 @@ export class Edit_Setting_Email extends Component {
     super(props);
     this.state = {
     };
-  }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { navigation, } = this.props
-    const { item1, item2, item3 } = this.state
-    if (
-      ////>nextProps
-      navigation !== nextProps.navigation ||
-      ////>nextState
-      item1 !== nextState.item1 || item2 !== nextState.item2 || item3 !== nextState.item3
-    ) {
-      return true
-    }
-    return false
   }
   setStateItem1 = (item1) => {
     this.setState({ item1 })

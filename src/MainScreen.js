@@ -131,10 +131,10 @@ export default class MainScreen extends React.PureComponent {
                 nameComponent: 'Product_for_you',
                 renderComponent: <Product_for_you navigation={navigation} loadData={dataService.for_you} />
             },
-            {
-                nameComponent: 'CategoryProduct',
-                renderComponent: <CategoryProduct navigation={navigation} />
-            },
+            // {
+            //     nameComponent: 'CategoryProduct',
+            //     renderComponent: <CategoryProduct navigation={navigation} />
+            // },
             {
                 nameComponent: 'Second_product',
                 renderComponent: <Second_product navigation={navigation} loadData={{
@@ -760,7 +760,8 @@ export class Trend_Hit extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeDataService: false
+            activeDataService: true,
+            dataService: [],
         };
     }
     getData = (dataService) => {
@@ -782,7 +783,7 @@ export class Trend_Hit extends React.Component {
                                 source={{
                                     uri: dataMySQL,
                                 }}
-                                resizeMode={FastImage.resizeMode.stretch} />
+                                resizeMode={FastImage.resizeMode.cover} />
                         </View>
                         <View >
                             <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize8]}>{item.name}</Text>
@@ -840,7 +841,7 @@ export class Trend_Hit extends React.Component {
                                    Reload</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={{ flexDirection: 'row', width, justifyContent: 'space-around', height: 'auto', aspectRatio: 5 }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', height: 'auto', aspectRatio: 5 }}>
                         {this.Trend_Box}
                     </View>
                 </View>
@@ -1061,7 +1062,7 @@ export class Popular_product extends React.Component {
     productCate = (type) => {
         return type.map((item, index) => {
             var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
-            return (
+            return index < 2 && (
                 <View style={stylesMain.Popular_Box_D} key={index}>
                     <FastImage
                         style={stylesMain.Popular_image_Box}
@@ -1117,7 +1118,7 @@ export class Popular_product extends React.Component {
                                 ดูทั้งหมด</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={stylesMain.FlexRow}>
+                    <View style={[stylesMain.FlexRow]}>
                         <ScrollView horizontal>
                             {[
                                 loadData.product_hit &&
@@ -2053,29 +2054,27 @@ export class Second_product extends React.PureComponent {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <View>
-                    <View style={stylesMain.Second_StoreFin_Image}>
-                        {[
-                            loadData.list_store2_1 &&
-                            <View key={'list_store2_1'} style={stylesMain.Second_StoreFin_ImageA}>
-                                <View>
-                                    {this.renderItem1(loadData.list_store2_1)}
+                <View style={stylesMain.Second_StoreFin_Image}>
+                    {[
+                        loadData.list_store2_1 &&
+                        <View key={'list_store2_1'} style={stylesMain.Second_StoreFin_ImageA}>
+                            <View>
+                                {this.renderItem1(loadData.list_store2_1)}
+                            </View>
+                            {this.pagination}
+                        </View>,
+                        loadData.list_store2_2 &&
+                        <View key={'list_store2_2'}>
+                            <View style={stylesMain.Second_StoreFin_ImageB}>
+                                <View style={stylesMain.Second_StoreFin_ImageB_T}>
+                                    {this.renderItem2([loadData.list_store2_2[0]])}
                                 </View>
-                                {this.pagination}
-                            </View>,
-                            loadData.list_store2_2 &&
-                            <View key={'list_store2_2'}>
-                                <View style={stylesMain.Second_StoreFin_ImageB}>
-                                    <View style={stylesMain.Second_StoreFin_ImageB_T}>
-                                        {this.renderItem2([loadData.list_store2_2[0]])}
-                                    </View>
-                                    <View style={[stylesMain.Second_StoreFin_ImageB_T]}>
-                                        {this.renderItem2([loadData.list_store2_2[1]])}
-                                    </View>
+                                <View style={[stylesMain.Second_StoreFin_ImageB_T]}>
+                                    {this.renderItem2([loadData.list_store2_2[1]])}
                                 </View>
                             </View>
-                        ]}
-                    </View>
+                        </View>
+                    ]}
                 </View>
             </View>
         )
@@ -2163,9 +2162,8 @@ export class Fin_Mall extends React.Component {
     }
     productCate = (type) => {
         return type.map((item, index) => {
-
             var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
-            return (
+            return item < 5 && (
                 <View style={stylesMain.Popular_Box_D} key={index}>
                     <FastImage
                         style={stylesMain.Popular_image_Box}
@@ -2283,7 +2281,7 @@ export class FIN_Supermarket extends React.PureComponent {
                             resizeMode='stretch'
                             resizeMethod='resize' />
                     </TouchableOpacity>
-                    <View style={{ width: width * 0.32, justifyContent: 'space-between' }}>
+                    <View style={{ width: width * 0.35, justifyContent: 'space-between' }}>
                         <View style={stylesMain.Supermarket_Image}>
                             <Image
                                 style={stylesMain.BoxProduct1Image}

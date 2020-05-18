@@ -541,7 +541,7 @@ export class Seller_Up_ProductDetail extends Component {
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ยกเลิก</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity activeOpacity={1} onPress={() => { [this.SelectSheet.close(), this.props.navigation.push('Seller_Topic', { selectedIndex: 13 })] }}>
+          <TouchableOpacity activeOpacity={1} onPress={() => { [this.SelectSheet.close(), this.props.navigation.push('Seller_Topic', { selectedIndex: 14 })] }}>
             <View style={stylesSeller.BottomSheet_Botton_OK}>
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตกลง</Text>
             </View>

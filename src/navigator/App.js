@@ -448,7 +448,6 @@ const PathScreen = createStackNavigator({
       header: null,
     })
   },
-
 },
   {
     initialRouteName: 'MainScreen',

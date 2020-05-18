@@ -131,10 +131,10 @@ export default class MainScreen extends React.PureComponent {
                 nameComponent: 'Product_for_you',
                 renderComponent: <Product_for_you navigation={navigation} loadData={dataService.for_you} />
             },
-            // {
-            //     nameComponent: 'CategoryProduct',
-            //     renderComponent: <CategoryProduct navigation={navigation} />
-            // },
+            {
+                nameComponent: 'CategoryProduct',
+                renderComponent: <CategoryProduct navigation={navigation} />
+            },
             {
                 nameComponent: 'Second_product',
                 renderComponent: <Second_product navigation={navigation} loadData={{
@@ -466,8 +466,8 @@ export class AppBar1 extends React.Component {
     }
     render() {
         const {
-            backArrow, backArrowColor, ButtomDeleteAll, chatBar, colorBar, deleteBar, getActivePost, goToTop, menuBar, postBar, saveBar,
-            searchBar, settingBar, storeBar, titleHead,
+            backArrow, backArrowColor, ButtomDeleteAll, chatBar, colorBar, deleteBar, getActivePost, goToTop, menuBar, postBar, saveBar, UpBankBar,
+            searchBar, settingBar, storeBar, titleHead, backNavigation, navigation,
         } = this.props;
         const { activeGetCurrentUser, currentUser, } = this.state;
         activeGetCurrentUser == true && GetData({ getSource: this.getSource.bind(this), getUser: true });
@@ -486,7 +486,9 @@ export class AppBar1 extends React.Component {
                             onPress={
                                 goToTop ?
                                     () => this.navigationNavigateScreen('popToTop') :
-                                    () => this.navigationNavigateScreen('goBack')
+                                    backNavigation ?
+                                        () => ([navigation.state.params.backNavigation('goBack'), this.navigationNavigateScreen('goBack')]) :
+                                        () => this.navigationNavigateScreen('goBack')
                             }>
                             <IconEntypo style={[stylesStore.Icon_appbar, {
                                 color: backArrowColor ? backArrowColor : '#ffffff'
@@ -566,6 +568,18 @@ export class AppBar1 extends React.Component {
                                     marginRight: 8,
                                 }]}>
                                 บันทึก</Text>
+                        </TouchableOpacity>,
+                        UpBankBar &&
+                        <TouchableOpacity
+                            key={'UpBankBar'}
+                            style={[stylesMain.ItemCenter, { width: 80 }]}
+                            onPress={() => this.navigationNavigateScreen('Setting_TopicStore', { selectedIndex: 1 })}>
+                            <Text style={[
+                                stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize4, {
+                                    width: 80,
+                                    marginRight: 8,
+                                }]}>
+                                เพิ่มบัญชี</Text>
                         </TouchableOpacity>,
                         deleteBar &&
                         <TouchableOpacity
@@ -2163,7 +2177,7 @@ export class Fin_Mall extends React.Component {
     productCate = (type) => {
         return type.map((item, index) => {
             var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
-            return item < 5 && (
+            return (
                 <View style={stylesMain.Popular_Box_D} key={index}>
                     <FastImage
                         style={stylesMain.Popular_image_Box}

@@ -423,7 +423,7 @@ export class ListMenu extends React.Component {
                                     stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6,
                                     stylesFont.FontCenter
                                 ]}>
-                                    กลุ่มธุรกิจของฉัน</Text>
+                                    สมาชิกAffiliate </Text>
                             </View>
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>

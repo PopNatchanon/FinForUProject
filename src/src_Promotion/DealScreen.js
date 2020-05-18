@@ -20,7 +20,7 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, Second_product, TodayProduct, } from '../MainScreen';
-import { GetCoupon, GetData, GetServices, ProductBox, LoadingScreen, } from '../tools/Tools';
+import { GetCoupon, GetData, GetServices, ProductBox, LoadingScreen, NavigationNavigateScreen, } from '../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -41,7 +41,7 @@ export default class DealScreen extends React.Component {
   render() {
     const { navigation } = this.props
     const { activeGetCurrentUser, activeGetServices, currentUser, dataService, keycokie } = this.state
-    var uri = finip + '/coupon/coupon_findeal_mobile';
+    var uri = `${finip}/coupon/coupon_findeal_mobile`;
     activeGetCurrentUser == false && activeGetServices == true &&
       GetServices({ Authorization: keycokie, uriPointer: uri, getDataSource: this.getData.bind(this), })
     activeGetCurrentUser == true &&
@@ -94,7 +94,7 @@ export class Slide extends React.PureComponent {
     };
   }
   _renderItem = item => {
-    var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
+    var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
     return (
       <View style={stylesDeal.child} key={item.id}>
         <FastImage
@@ -133,37 +133,48 @@ export class Button_Bar extends React.Component {
     };
   }
   render() {
+    const { navigation } = this.props
     return (
       <View style={[stylesDeal.Button_Bar, { bottom: '7%', }]}>
-        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('DealScreen')}>
+        <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+          goScreen: 'DealScreen', navigation, onPush
+        })}>
           <View style={[stylesDeal.Button_Bar_Box]}>
             <FastImage style={stylesMain.Button_Bar_icon}
               source={require('../../icon/Icon_Deal/01.jpg')}
               resizeMode={FastImage.resizeMode.contain} />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('CoinScreen')}>
+        <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+          goScreen: 'CoinScreen', navigation, onPush
+        })}>
           <View style={[stylesDeal.Button_Bar_Box]}>
             <FastImage style={stylesMain.Button_Bar_icon}
               source={require('../../icon/Icon_Deal/02.jpg')}
               resizeMode={FastImage.resizeMode.contain} />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('CampaignScreen')}>
+        <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+          goScreen: 'CampaignScreen', navigation, onPush
+        })}>
           <View style={[stylesDeal.Button_Bar_Box]}>
             <FastImage style={stylesMain.Button_Bar_icon}
               source={require('../../icon/Icon_Deal/03.jpg')}
               resizeMode={FastImage.resizeMode.contain} />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('The_BestFinScreen')}>
+        <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+          goScreen: 'The_BestFinScreen', navigation, onPush
+        })}>
           <View style={[stylesDeal.Button_Bar_Box]}>
             <FastImage style={stylesMain.Button_Bar_icon}
               source={require('../../icon/Icon_Deal/04.jpg')}
               resizeMode={FastImage.resizeMode.contain} />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.replace('Installment_payScreen')}>
+        <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+          goScreen: 'Installment_payScreen', navigation, onPush
+        })}>
           <View style={[stylesDeal.Button_Bar_Box]}>
             <FastImage style={stylesMain.Button_Bar_icon}
               source={require('../../icon/Icon_Deal/05.jpg')}
@@ -192,7 +203,7 @@ export class Deal_Calendar extends React.Component {
           <View style={stylesDeal.Deal_Calendar_Box}>
             {
               dataService && dataService.map((value, index) => {
-                const image_carlendar = finip + '/' + value.image_path + '/' + value.image
+                const image_carlendar = `${finip}/${value.image_path}/${value.image}`
                 return <View key={index} style={stylesDeal.Deal_Calendar_BoxN}>
                   <FastImage style={stylesMain.BoxProduct1Image}
                     source={{
@@ -243,15 +254,15 @@ export class Deal_Today extends React.Component {
     this.setState({ activeServices, id_promotion, })
   }
   render() {
-    const { currentUser, keycokie } = this.props
+    const { currentUser, keycokie, navigation } = this.props
     const { activeServices, dataService, dataService2, id_promotion } = this.state
-    const uri = finip + '/coupon/save_coupon_fin'
+    const uri = `${finip}/coupon/save_coupon_fin`
     var dataBody = {
       id_customer: currentUser.id_customer,
       device: 'mobile_device',
       id_promotion,
     }
-    const uri2 = finip + '/coupon/save_coupon_shop'
+    const uri2 = `${finip}/coupon/save_coupon_shop`
     var dataBody2 = {
       id_customer: currentUser.id_customer,
       device: 'mobile_device',
@@ -267,7 +278,7 @@ export class Deal_Today extends React.Component {
       ]}>
         <View style={stylesDeal.BoxText_Row}>
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ดีลเด็ดประจำวัน</Text>
-          <TouchableOpacity onPress={() => this.props.navigation.push('Deal_Topic', { selectedIndex: 0 })}>
+          <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Deal_Topic', setData: { selectedIndex: 0 }, navigation })}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB]}>ดูทั้งหมด</Text>
           </TouchableOpacity>
         </View>
@@ -326,7 +337,7 @@ export class Deal_Exclusive extends React.Component {
       ]}>
         <View style={stylesDeal.BoxText_Row}>
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ดีลสุด Exclusive</Text>
-          <TouchableOpacity onPress={() => this.props.navigation.push('Deal_Topic', { selectedIndex: 1 })}>
+          <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Deal_Topic', setData: { selectedIndex: 1 }, navigation })}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndW]}>ดูทั้งหมด</Text>
           </TouchableOpacity>
         </View>
@@ -365,7 +376,7 @@ export class Second_Store extends React.Component {
     this.setState({ activeGetServices2: false, dataService2 })
   }
   _renderItem = ({ item, index }) => {
-    var dataMySQL = [finip, item.image_path, item.image].join('/');
+    var dataMySQL = `${finip}/${dataService.image_path}/${dataService.image}`
     return (
       <View key={index}>
         <FastImage
@@ -413,11 +424,11 @@ export class Second_Store extends React.Component {
   render() {
     const { navigation } = this.props
     const { activeGetServices, activeGetServices2, dataService } = this.state
-    var uri = ip + '/mysql/DataServiceMain.php';
+    var uri = `${ip}/mysql/DataServiceMain.php`
     var dataBody = {
       type: 'sale'
     };
-    var uri2 = finip + '/home/home_mobile';
+    var uri2 = `${finip}/home/home_mobile`;
     var dataBody2 = {
       slide: 'banner'
     };
@@ -464,7 +475,7 @@ export class ProDed_Store extends React.Component {
   dataNewStore() {
     const { dataService } = this.props
     return dataService.map((item, index) => {
-      var dataMySQL = finip + '/' + item.store_path + '/' + item.image_store;
+      var dataMySQL = `${finip}/${item.store_path}/${item.image_store}`;
       return (
         <View style={stylesDeal.ProDed_Store} key={index}>
           <FastImage
@@ -480,13 +491,16 @@ export class ProDed_Store extends React.Component {
     })
   }
   render() {
+    const { navigation } = this.props
     return (
       <View style={[stylesMain.FrameBackground,
       { backgroundColor: '#9887E0', width: '100%' }
       ]}>
         <View style={stylesDeal.BoxText_Row}>
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ร้านนี้มีดีล</Text>
-          <TouchableOpacity onPress={() => this.props.navigation.push('Deal_Topic', { selectedIndex: 4 })}>
+          <TouchableOpacity onPress={() => NavigationNavigateScreen({
+            goScreen: 'Deal_Topic', setData: { selectedIndex: 4 }, navigation
+          })}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndW]}>ดูทั้งหมด</Text>
           </TouchableOpacity>
         </View>
@@ -516,7 +530,7 @@ export class ProDed_New_Store extends React.Component {
             {/* <View style={{ height: 220, flexDirection:'row'}}> */}
             {
               dataService && dataService.map((item, index) => {
-                var dataMySQL = finip + '/' + item.store_path + '/' + item.image_store;
+                var dataMySQL = `${finip}/${item.store_path}/${item.image_store}`;
                 return <View key={index} style={stylesDeal.ProDed_New_Store_Boximage}>
                   <View style={{ width: 60, height: 60 }}>
                     <FastImage

@@ -12,7 +12,7 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from './MainScreen';
-import { GetServices, Toolbar } from './tools/Tools';
+import { GetServices, Toolbar, NavigationNavigateScreen } from './customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -21,9 +21,9 @@ export default class BellScreen extends React.Component {
         super(props);
         this.state = {
         };
-    }
+    };
     render() {
-        const { navigation } = this.props
+        const { navigation } = this.props;
         return (
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                 <AppBar1 titleHead='การแจ้งเตือน' />
@@ -36,8 +36,8 @@ export default class BellScreen extends React.Component {
                 <ExitAppModule navigation={navigation} />
             </SafeAreaView>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> Popular_store
 export class Popular_store extends React.Component {
     constructor(props) {
@@ -46,28 +46,19 @@ export class Popular_store extends React.Component {
             activeGetServices: true,
             dataService: [],
         };
-    }
+    };
     getData = (dataService) => {
-        this.setState({ activeGetServices: false, dataService })
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
+        this.setState({ activeGetServices: false, dataService });
+    };
     get dataNewStore() {
-        const { dataService } = this.state
+        const { navigation } = this.props;
+        const { dataService } = this.state;
         const text = 'ร้าน AVIRA ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!';
         return dataService.map((item, index) => {
-            var dataMySQL = [ip + '/mysql/uploads/slide/NewStore', item.image].join('/');
+            var dataMySQL = `${ip}/mysql/uploads/slide/${item.image}`;
             return (
                 <TouchableOpacity activeOpacity={1} key={index}
-                    onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: item.id_store })}>
+                    onPress={() => NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: item.id_store }, navigation })}>
                     <View style={stylesMain.BoxStore3Box}>
                         <FastImage
                             source={{
@@ -83,16 +74,16 @@ export class Popular_store extends React.Component {
                         </Text>
                     </View>
                 </TouchableOpacity>
-            )
-        })
-    }
+            );
+        });
+    };
     render() {
-        const { activeGetServices } = this.state
-        var uri = ip + '/mysql/DataServiceMain.php';
+        const { activeGetServices } = this.state;
+        var uri = `${ip}/mysql/DataServiceMain.php`;
         var dataBody = {
             type: 'store'
         };
-        activeGetServices == true && GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), })
+        activeGetServices == true && GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), });
         return (
             <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView]}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
@@ -106,26 +97,17 @@ export class Popular_store extends React.Component {
                 </ScrollView>
             </View>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> Pro_for_U
 export class Pro_for_U extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
+    };
     render() {
+        const { navigation } = this.props;
         return (
             <View>
                 <View style={stylesMain.FrameBackgroundTextBox}>
@@ -134,48 +116,48 @@ export class Pro_for_U extends React.Component {
                 </View>
                 <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, stylesMain.ItemCenter]}>
                     <TouchableOpacity activeOpacity={1}
-                        onPress={this.navigationNavigateScreen.bind(this, 'Detail_Pro', { selectedIndex: 0 })}>
+                        onPress={() => NavigationNavigateScreen({ goScreen: 'Detail_Pro', setData: { selectedIndex: 0 }, navigation })}>
                         <View style={stylesMain.BoxStore4Box}>
                             <FastImage
                                 style={stylesMain.BoxStore4Image}
                                 source={{
-                                    uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
+                                    uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop1.jpg`,
                                 }} />
                             <Text numberOfLines={4} style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                 ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1}
-                        onPress={this.navigationNavigateScreen.bind(this, 'Detail_Pro', { selectedIndex: 0 })}>
+                        onPress={() => NavigationNavigateScreen({ goScreen: 'Detail_Pro', setData: { selectedIndex: 0 }, navigation })}>
                         <View style={stylesMain.BoxStore4Box}>
                             <FastImage
                                 style={stylesMain.BoxStore4Image}
                                 source={{
-                                    uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop2.jpg',
+                                    uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop2.jpg`,
                                 }} />
                             <Text numberOfLines={4} style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                 ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1}
-                        onPress={this.navigationNavigateScreen.bind(this, 'Detail_Pro', { selectedIndex: 0 })}>
+                        onPress={() => NavigationNavigateScreen({ goScreen: 'Detail_Pro', setData: { selectedIndex: 0 }, navigation })}>
                         <View style={stylesMain.BoxStore4Box}>
                             <FastImage
                                 style={stylesMain.BoxStore4Image}
                                 source={{
-                                    uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop3.jpg',
+                                    uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop3.jpg`,
                                 }} />
                             <Text numberOfLines={4} style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                 ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1}
-                        onPress={this.navigationNavigateScreen.bind(this, 'Detail_Pro', { selectedIndex: 0 })}>
+                        onPress={() => NavigationNavigateScreen({ goScreen: 'Detail_Pro', setData: { selectedIndex: 0 }, navigation })}>
                         <View style={stylesMain.BoxStore4Box}>
                             <FastImage
                                 style={stylesMain.BoxStore4Image}
                                 source={{
-                                    uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop4.jpg',
+                                    uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop4.jpg`,
                                 }} />
                             <Text numberOfLines={4} style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                 ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!!</Text>
@@ -184,26 +166,17 @@ export class Pro_for_U extends React.Component {
                 </View>
             </View>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> Pro_for_U
 export class Update_buy extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
+    };
     render() {
+        const { navigation } = this.props;
         return (
             <View>
                 <View style={stylesMain.FrameBackgroundTextBox}>
@@ -212,12 +185,12 @@ export class Update_buy extends React.Component {
                 </View>
                 <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, stylesMain.ItemCenter]}>
                     <TouchableOpacity activeOpacity={1}
-                        onPress={this.navigationNavigateScreen.bind(this, 'Detail_Pro', { selectedIndex: 1 })}>
+                        onPress={() => NavigationNavigateScreen({ goScreen: 'Detail_Pro', setData: { selectedIndex: 1 }, navigation })}>
                         <View style={stylesMain.BoxStore4Box}>
                             <FastImage
                                 style={stylesMain.BoxStore4Image}
                                 source={{
-                                    uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
+                                    uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop1.jpg`,
                                 }} />
                             <Text numberOfLines={4} style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                 คุณให้คะแนนเรทติ้งการสั่งซื้อแล้วรึยัง</Text>
@@ -227,7 +200,7 @@ export class Update_buy extends React.Component {
                         <FastImage
                             style={stylesMain.BoxStore4Image}
                             source={{
-                                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
+                                uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop1.jpg`,
                             }} />
                         <Text numberOfLines={4} style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                             กรุณาชำระเงิน ........ บาท สำหรับคำสั่งซื้อ ภายในวันที่ 19-12-2019 </Text>
@@ -236,7 +209,7 @@ export class Update_buy extends React.Component {
                         <FastImage
                             style={stylesMain.BoxStore4Image}
                             source={{
-                                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
+                                uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop1.jpg`,
                             }} />
                         <Text numberOfLines={4} style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                             คุณให้คะแนนเรทติ้งการสั่งซื้อแล้วรึยัง??</Text>
@@ -245,7 +218,7 @@ export class Update_buy extends React.Component {
                         <FastImage
                             style={stylesMain.BoxStore4Image}
                             source={{
-                                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
+                                uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop1.jpg`,
                             }} />
                         <Text numberOfLines={4} style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                             กรุณาชำระเงิน ........ บาท สำหรับคำสั่งซื้อ ภายในวันที่ 19-12-2019 </Text>
@@ -253,5 +226,5 @@ export class Update_buy extends React.Component {
                 </View>
             </View>
         );
-    }
-}
+    };
+};

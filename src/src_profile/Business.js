@@ -25,6 +25,7 @@ import stylesProfile from '../../style/StylesProfileScreen'
 import { AppBar1, ExitAppModule } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';
+import { NavigationNavigateScreen } from '../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class Business extends React.Component {
   constructor(props) {
@@ -35,7 +36,7 @@ export default class Business extends React.Component {
   }
   PathList() {
     const { navigation } = this.props
-    const selectedIndex = this.props.navigation.getParam('selectedIndex')
+    const selectedIndex = navigation.getParam('selectedIndex')
     switch (selectedIndex) {
       case 0:
         return (
@@ -148,22 +149,13 @@ export class Business_MenuBar extends React.Component {
     this.state = {
     };
   }
-  navigationNavigateScreen = (value, value2) => {
-    const { navigation } = this.props
-    value == 'goBack' ?
-      navigation.goBack() :
-      value == 'LoginScreen' ? (
-        navigation.popToTop(),
-        navigation.replace(value, value2)
-      ) :
-        navigation.push(value, value2)
-  }
   render() {
+    const { navigation } = this.props
     return (
       <>
         <View style={{ backgroundColor: '#FFFFFF' }}>
           <TouchableOpacity activeOpacity={1}
-            onPress={this.navigationNavigateScreen.bind(this, 'Business', { selectedIndex: 1 })}>
+            onPress={() => NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 1 }, navigation })}>
             <View style={stylesProfile.ListMenuList}>
               <View style={stylesProfile.ListMenuListSub}>
                 <Text style={[
@@ -176,7 +168,7 @@ export class Business_MenuBar extends React.Component {
             </View>
           </TouchableOpacity>
           <TouchableOpacity activeOpacity={1}
-            onPress={this.navigationNavigateScreen.bind(this, 'Business', { selectedIndex: 2 })}>
+            onPress={() => NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 2 }, navigation })}>
             <View style={stylesProfile.ListMenuList}>
               <View style={stylesProfile.ListMenuListSub}>
                 <Text style={[
@@ -188,7 +180,9 @@ export class Business_MenuBar extends React.Component {
               <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Seller_Topic', { selectedIndex: 9 })}>
+          <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+            goScreen: 'Seller_Topic', setData: { selectedIndex: 9 }, navigation
+          })}>
             <View style={stylesProfile.ListMenuList}>
               <View style={stylesProfile.ListMenuListSub}>
                 <Text style={[
@@ -200,7 +194,9 @@ export class Business_MenuBar extends React.Component {
               <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 1 })}>
+          <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+            goScreen: 'Setting_TopicStore', setData: { selectedIndex: 1 }, navigation
+          })}>
             <View style={stylesProfile.ListMenuList}>
               <View style={stylesProfile.ListMenuListSub}>
                 <Text style={[
@@ -224,26 +220,17 @@ export class Income extends React.Component {
     this.state = {
     };
   }
-  navigationNavigateScreen = (value, value2) => {
-    const { navigation } = this.props
-    value == 'goBack' ?
-      navigation.goBack() :
-      value == 'LoginScreen' ? (
-        navigation.popToTop(),
-        navigation.replace(value, value2)
-      ) :
-        navigation.push(value, value2)
-  }
   render() {
+    const { navigation } = this.props
     return (
       <>
         <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', marginTop: 10, height: 40 }]}>
           <TouchableOpacity style={[stylesMain.ItemCenter, { width: '50%' }]} activeOpacity={1}
-            onPress={() => this.props.navigation.push('Seller_Topic', { selectedIndex: 8 })} >
+            onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 8 }, navigation })} >
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>รายได้จากกลุ่มธุรกิจ </Text>
           </TouchableOpacity>
           <TouchableOpacity style={[stylesMain.ItemCenter, { width: '50%' }]} activeOpacity={1}
-            onPress={this.navigationNavigateScreen.bind(this, 'Business', { selectedIndex: 4 })}>
+            onPress={() => NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 4 }, navigation })}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>รายได้จากการแชร์ </Text>
           </TouchableOpacity>
         </View>
@@ -268,7 +255,7 @@ export class Income extends React.Component {
         </View>
         <View style={{ backgroundColor: '#FFFFFF', marginVertical: 5 }}>
           <TouchableOpacity activeOpacity={1}
-            onPress={this.navigationNavigateScreen.bind(this, 'Business', { selectedIndex: 3 })}>
+            onPress={() => NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 3 }, navigation })}>
             <View style={stylesProfile.ListMenuList}>
               <View style={[stylesMain.ItemCenter, { height: 50, width: 50, borderWidth: 3, borderRadius: 25, marginLeft: 20, margin: 10 }]}>
                 <IconAntDesign name='user' size={30} />
@@ -479,7 +466,7 @@ export class Income_Share extends React.Component {
               <View>
                 <FastImage
                   style={{ height: 50, width: 50 }}
-                  source={{ uri: ip + '/MySQL/uploads/products/2019-10-29-1572323907.png' }} />
+                  source={{ uri: `${ip}/mysql/uploads/products/2019-10-29-1572323907.jpg` }} />
               </View>
               <View>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,]}>กระเป๋าxxxxxxxx</Text>

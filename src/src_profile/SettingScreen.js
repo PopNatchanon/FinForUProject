@@ -18,6 +18,7 @@ import stylesProfile from '../../style/StylesProfileScreen'
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from '../MainScreen';
+import { NavigationNavigateScreen } from '../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class SettingScreen extends Component {
@@ -25,15 +26,16 @@ export default class SettingScreen extends Component {
         super(props);
     }
     render() {
+        const { navigation } = this.props
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                <AppBar1 backArrow navigation={this.props.navigation} titleHead='ตั้งค่าบัญชี' />
+                <AppBar1 backArrow navigation={navigation} titleHead='ตั้งค่าบัญชี' />
                 <ScrollView>
                     <View>
-                        <ListMenu navigation={this.props.navigation} />
+                        <ListMenu navigation={navigation} />
                     </View>
                 </ScrollView>
-                <ExitAppModule navigation={this.props.navigation} />
+                <ExitAppModule navigation={navigation} />
             </SafeAreaView>
         );
     }
@@ -68,6 +70,7 @@ export class ListMenu extends Component {
         )
     }
     render() {
+        const { navigation } = this.props
         return (
             <>
                 <View style={stylesProfile.ListMenuList}>
@@ -77,7 +80,9 @@ export class ListMenu extends Component {
                             </Text>
                     </View>
                 </View>
-                <TouchableOpacity onPress={() => this.props.navigation.push('Setting_Topic', { selectedIndex: 0 })}>
+                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Setting_Topic', setData: { selectedIndex: 0 }, navigation
+                })}>
                     <View style={stylesProfileTopic.BoxTopic}>
                         <View style={stylesProfile.ListMenuListSub}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -87,7 +92,9 @@ export class ListMenu extends Component {
                         <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.push('Setting_Topic', { selectedIndex: 1 })}>
+                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Setting_Topic', setData: { selectedIndex: 1 }, navigation
+                })}>
                     <View style={stylesProfileTopic.BoxTopic}>
                         <View style={stylesProfile.ListMenuListSub}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -104,7 +111,9 @@ export class ListMenu extends Component {
                             </Text>
                     </View>
                 </View>
-                <TouchableOpacity onPress={() => this.props.navigation.push('Setting_Topic', { selectedIndex: 2 })}>
+                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Setting_Topic', setData: { selectedIndex: 2 }, navigation
+                })}>
                     <View style={stylesProfileTopic.BoxTopic}>
                         <View style={stylesProfile.ListMenuListSub}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -114,7 +123,9 @@ export class ListMenu extends Component {
                         <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.push('Setting_Topic', { selectedIndex: 3 })}>
+                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Setting_Topic', setData: { selectedIndex: 3 }, navigation
+                })}>
                     <View style={stylesProfileTopic.BoxTopic}>
                         <View style={stylesProfile.ListMenuListSub}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -124,7 +135,9 @@ export class ListMenu extends Component {
                         <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.push('Setting_Topic', { selectedIndex: 4 })}>
+                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Setting_Topic', setData: { selectedIndex: 4 }, navigation
+                })}>
                     <View style={stylesProfileTopic.BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
                             ภาษา
@@ -139,7 +152,9 @@ export class ListMenu extends Component {
                             </Text>
                     </View>
                 </View>
-                <TouchableOpacity onPress={() => this.props.navigation.push('Profile_Topic', { selectedIndex: 5 })}>
+                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Profile_Topic', setData: { selectedIndex: 5 }, navigation
+                })}>
                     <View style={stylesProfileTopic.BoxTopic}>
                         <View style={stylesProfile.ListMenuListSub}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -169,7 +184,7 @@ export class ListMenu extends Component {
                         <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={this.handleOpen} style={{ marginTop: 10 }}>
+                <TouchableOpacity onPress={() => this.handleOpen()} style={{ marginTop: 10 }}>
                     <View style={stylesProfileTopic.Button_Logout}>
                         <View style={stylesProfileTopic.Button_LogoutBox}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ออกจากระบบ</Text>
@@ -190,9 +205,9 @@ export class ListMenu extends Component {
                     onRequestClose={() => null}
                 >
                     <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
-                        <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose}
+                        <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={() => this.handleClose()}
                             containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ไม่</SCLAlertButton>
-                        <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={this.logoutPress}
+                        <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={() => this.logoutPress()}
                             containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ใช่</SCLAlertButton>
                     </View>
                 </SCLAlert>

@@ -17,7 +17,7 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { ExitAppModule } from '../MainScreen';
-import { GetServices } from '../tools/Tools';
+import { GetServices } from '../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -38,7 +38,7 @@ export default class Customer_account extends Component {
     }
     componentDidMount() {
         this.getDataasync()
-        CookieManager.get(finip + '/auth/login_customer')
+        CookieManager.get(`${finip}/auth/login_customer`)
             .then((res) => {
                 var keycokie = res.token
                 this.setState({ keycokie })
@@ -116,9 +116,9 @@ export default class Customer_account extends Component {
         const type = navigation.getParam('type')
         const type_special = navigation.getParam('type_special')
         const id_address = navigation.getParam('id_address')
-        var uri = [finip, type == 'edit' ? '/profile/update_address' : '/profile/insert_address'].join('/');
-        var uri2 = [finip, '/profile/add_address'].join('/');
-        var uri3 = [finip, '/profile/edit_address'].join('/');
+        var uri = `${finip}/${(type == 'edit' ? '/profile/update_address' : '/profile/insert_address')}`;
+        var uri2 = `${finip}/profile/add_address`;
+        var uri3 = `${finip}/profile/edit_address`;
         var dataBody3 = {
             id_customer: currentUser && currentUser.id_customer,
             id_address
@@ -198,7 +198,7 @@ export class Account extends Component {
         };
     }
     getDataProvince() {
-        fetch(finip + '/profile/province_mobile', {
+        fetch(`${finip}/profile/province_mobile`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -223,7 +223,7 @@ export class Account extends Component {
                 id_customer: currentUser.id_customer,
                 value_province: itemValue,
             };
-            fetch(finip + '/profile/ajax_amphur', {
+            fetch(`${finip}/profile/ajax_amphur`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -264,7 +264,7 @@ export class Account extends Component {
                 id_customer: currentUser.id_customer,
                 value_amphur: itemValue,
             };
-            fetch(finip + '/profile/ajax_tumbol', {
+            fetch(`${finip}/profile/ajax_tumbol`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -527,7 +527,7 @@ export class Account_main extends Component {
                         checkedColor='#95F29F'
                         uncheckedIcon='toggle-off'
                         checked={item1}
-                        onPress={this.setStateItem1.bind(this, !item1)}
+                        onPress={()=>this.setStateItem1(!item1)}
                     />
                 </View> */}
                 <View style={styles.Account_Box}>
@@ -538,7 +538,7 @@ export class Account_main extends Component {
                         checkedColor='#95F29F'
                         uncheckedIcon='toggle-off'
                         checked={item2}
-                        onPress={this.setStateItem2.bind(this, !item2)}
+                        onPress={() => this.setStateItem2(!item2)}
                     />
                 </View>
             </View>
@@ -566,7 +566,7 @@ export class Button_Bar extends Component {
             bool = false;
         return (
             <View style={{ alignItems: 'center', justifyContent: 'flex-end', }}>
-                <TouchableOpacity activeOpacity={bool == true ? 0.2 : 1} onPress={bool == true ? this.activeSave.bind(this) : null}>
+                <TouchableOpacity activeOpacity={bool == true ? 0.2 : 1} onPress={bool == true ? () => this.activeSave() : null}>
                     <View style={{
                         height: 40, backgroundColor: bool == true ? '#0A55A6' : '#ECECEC'
                         , width, alignItems: 'center', justifyContent: 'center',

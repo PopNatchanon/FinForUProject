@@ -11,7 +11,7 @@ import stylesMain from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, TodayProduct, ExitAppModule, } from './MainScreen';
 import { Button_Bar, } from './ExclusiveScreen';
-import { GetData, GetServices, SlideTab2, LoadingScreen } from './tools/Tools';
+import { GetData, GetServices, SlideTab2, LoadingScreen } from './customComponents/Tools';
 import { Slide } from './src_Promotion/DealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from './navigator/IpConfig';
@@ -63,7 +63,7 @@ export default class Product_for_youScreen extends React.Component {
       activeArray, activeGetCurrentUser, activeGetServices, cokie, currentUser, dataService, filterValue, modeStore, SearchText,
       sliderVisible,
     } = this.state;
-    var uri = finip + '/publish_store/foryou_mobile';
+    var uri = `${finip}/publish_store/foryou_mobile`;
     var dataBody = {
       popular: filterValue && filterValue.popular ? filterValue.popular : '',
       lastest: filterValue && filterValue.lastest ? filterValue.lastest : '',

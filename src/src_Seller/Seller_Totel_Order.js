@@ -18,7 +18,7 @@ import stylesMain from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, } from '../MainScreen';
-import { TabBar, GetData, GetServices } from '../tools/Tools';
+import { TabBar, GetData, GetServices, NavigationNavigateScreen } from '../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -29,11 +29,12 @@ export default class Seller_Totel_Order extends Component {
         };
     }
     render() {
-        const selectedIndex = this.props.navigation.getParam('selectedIndex')
+        const { navigation } = this.props
+        const selectedIndex = navigation.getParam('selectedIndex')
         return (
             <SafeAreaView style={[stylesMain.SafeAreaView, { height: 'auto' }]}>
-                <AppBar1 backArrow navigation={this.props.navigation} titleHead='ประวัติการขาย' />
-                <Button_bar navigation={this.props.navigation} SetselectedIndex={selectedIndex} />
+                <AppBar1 backArrow navigation={navigation} titleHead='ประวัติการขาย' />
+                <Button_bar navigation={navigation} SetselectedIndex={selectedIndex} />
             </SafeAreaView>
         );
     }
@@ -61,7 +62,7 @@ export class Button_bar extends Component {
     PathList() {
         const { navigation, } = this.props
         const { currentUser, cokie, activeGetCurrentUser, activeSelectedIndex, dataService, selectedIndex, } = this.state
-        var uri = finip + '/purchase_data/view_store_purchase';
+        var uri = `${finip}/purchase_data/view_store_purchase`;
         var dataBody = {
             id_customer: currentUser && currentUser.id_customer,
             type_purchase:
@@ -143,24 +144,10 @@ export class Order_Me_Box extends Component {
         this.state = {
         };
     }
-    navigationNavigateScreen = (value, value2, value3) => {
-        const { navigation } = this.props
-        value3 && (
-            console.log(value3.consolename),
-            console.log(value3.consolelog)
-        )
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
     render() { // 3 // Review_order return_order detail_order // buy_again_order return_order
-        const { dataService, } = this.props
-        const uri_image_Customer = finip + '/' + dataService.cus_imgpath + '/' + dataService.cus_img
-        const uri_image_product = finip + '/' + dataService.image_path + '/' + dataService.image_product
+        const { dataService, navigation } = this.props
+        const uri_image_Customer = `${finip}/${dataService.cus_imgpath}/${dataService.cus_img}`
+        const uri_image_product = `${finip}/${dataService.image_path}/${dataService.image_product}`
         return (
             <>
                 <View style={stylesMain.FrameBackground}>
@@ -208,7 +195,9 @@ export class Order_Me_Box extends Component {
                             </TouchableOpacity>,
                             dataService.purchase == 'reviewed' &&
                             <TouchableOpacity key={'Review_order'} activeOpacity={1}
-                                onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 7 })}>
+                                onPress={() => NavigationNavigateScreen({
+                                    goScreen: 'Profile_Topic', setData: { selectedIndex: 7 }, navigation
+                                })}>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical, {
                                     color: '#111', width: width * 0.3, textAlign: 'center',
                                 }]}>
@@ -232,7 +221,7 @@ export class Order_Me_Box extends Component {
                                 <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                                     {dataService.product_name}</Text>
                                 <Text numberOfLines={2} style={[stylesFont.FontFamilyText, stylesFont.FontSize7,]}>
-                                    {dataService.detail_1 + ' ' + dataService.detail_2}</Text>
+                                    {`${dataService.detail_1} ${dataService.detail_2}`}</Text>
                                 <NumberFormat
                                     value={dataService.quantity}
                                     displayType={'text'}
@@ -267,7 +256,9 @@ export class Order_Me_Box extends Component {
                                 } />
                         </View>
                         <View style={[stylesProfileTopic.Order_Box_priceText, { marginTop: 5, }]}>
-                            <TouchableOpacity onPress={() => this.props.navigation.push('Seller_Detail_Order', { selectedIndex: 0 })}>
+                            <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                                goScreen: 'Seller_Detail_Order', setData: { selectedIndex: 0 }, navigation
+                            })}>
                                 <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
                                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
                                 </View>

@@ -1,8 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React from 'react';
 import {
-    Animated, BackHandler, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, YellowBox, ActivityIndicator,
-    Image, FlatList
+    Animated, BackHandler, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, YellowBox, Image,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import ActionButton from 'react-native-action-button';
@@ -35,12 +34,13 @@ import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import {
     BrowerScreen, GetServices, GetData, ProductBox, Toolbar, TabBar, LoadingScreen, RenderHeader,
-    FlatProduct, FlatComponent,
-} from './tools/Tools';
+    FlatProduct, FlatComponent, NavigationNavigateScreen,
+} from './customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from './navigator/IpConfig';
-///----------------------------------------------------------------------------------------------->>>> Main
+///----------------------------------------------------------------------------------------------->>>> Main // complete_last_function
 export default class MainScreen extends React.PureComponent {
+    abortController = new AbortController();
     constructor(props) {
         super(props);
         this.state = {
@@ -49,15 +49,22 @@ export default class MainScreen extends React.PureComponent {
             activeLoading: true,
             dataService: [],
         };
-    }
+    };
+    componentDidMount() {
+        this.SetTimeLoading = setTimeout(() => this.setState({ activeLoading: false }), 8000);
+    };
+    componentWillUnmount() {
+        this.abortController.abort()
+        clearTimeout(this.SetTimeLoading);
+    };
     getData = (dataService) => {
         this.setState({ dataService, activeDataService: false });
-    }
+    };
     render() {
         const { navigation } = this.props;
         const { activeDataService, activeLoading, dataService, } = this.state;
         const browerProps = navigation.getParam('browerProps');
-        var uri = [finip, 'home/publish_mobile'].join('/');
+        var uri = `${finip}/home/publish_mobile`;
         let itemT = [
             /////--------------------------------------------->>>Start
             {
@@ -86,7 +93,8 @@ export default class MainScreen extends React.PureComponent {
             },
             {
                 nameComponent: 'Recommend_Brand',
-                renderComponent: <Recommend_Brand navigation={navigation} loadData={dataService.brand} />
+                renderComponent: <Recommend_Brand navigation={navigation}
+                    loadData={dataService.brand} />
             },
             {
                 nameComponent: 'BannerBar_TWO',
@@ -94,15 +102,18 @@ export default class MainScreen extends React.PureComponent {
             },
             {
                 nameComponent: 'Exclusive',
-                renderComponent: <Exclusive navigation={navigation} loadData={dataService.exclusive} />
+                renderComponent: <Exclusive navigation={navigation}
+                    loadData={dataService.exclusive} />
             },
             {
                 nameComponent: 'NewStore',
-                renderComponent: <NewStore navigation={navigation} loadData={dataService.dont_miss} />
+                renderComponent: <NewStore navigation={navigation}
+                    loadData={dataService.dont_miss} />
             },
             {
                 nameComponent: 'Fin_Mall',
-                renderComponent: <Fin_Mall navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />
+                renderComponent: <Fin_Mall navigation={navigation}
+                    loadData={{ product_hit: dataService.product_hit }} />
             },
             {
                 nameComponent: 'BannerBar_ONE',
@@ -114,11 +125,13 @@ export default class MainScreen extends React.PureComponent {
             },
             {
                 nameComponent: 'PromotionPopular',
-                renderComponent: <PromotionPopular navigation={navigation} loadData={dataService.recommend_store} />
+                renderComponent: <PromotionPopular navigation={navigation}
+                    loadData={dataService.recommend_store} />
             },
             {
                 nameComponent: 'Popular_store',
-                renderComponent: <Popular_store navigation={navigation} loadData={dataService.store_good} />
+                renderComponent: <Popular_store navigation={navigation}
+                    loadData={dataService.store_good} />
             },
             {
                 nameComponent: 'Popular_product',
@@ -129,7 +142,8 @@ export default class MainScreen extends React.PureComponent {
             },
             {
                 nameComponent: 'Product_for_you',
-                renderComponent: <Product_for_you navigation={navigation} loadData={dataService.for_you} />
+                renderComponent: <Product_for_you navigation={navigation}
+                    loadData={dataService.for_you} />
             },
             {
                 nameComponent: 'CategoryProduct',
@@ -149,20 +163,24 @@ export default class MainScreen extends React.PureComponent {
             },
             {
                 nameComponent: 'FIN_Supermarket',
-                renderComponent: <FIN_Supermarket navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />
+                renderComponent: <FIN_Supermarket navigation={navigation}
+                    loadData={{ product_hit: dataService.product_hit }} />
             },
             {
                 nameComponent: 'TodayProduct',
-                renderComponent: <TodayProduct navigation={navigation} loadData={dataService.for_you2} />
+                renderComponent: <TodayProduct navigation={navigation}
+                    loadData={dataService.for_you2} />
             },
             /////--------------------------------------------->>>End
-        ]
+        ];
         // this.FlatMainScreen && console.log(this.FlatMainScreen.recordInteraction())
-        activeDataService == true && GetServices({ uriPointer: uri, getDataSource: this.getData.bind(this) })
+        activeDataService == true && GetServices({
+            abortController: this.abortController, uriPointer: uri, getDataSource: this.getData.bind(this)
+        });
         return (
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                 {
-                    activeDataService == true &&
+                    (activeDataService == true || activeLoading == true) &&
                     <LoadingScreen key='LoadingScreen' />
                 }
                 <AppBar navigation={navigation} style={{ flex: 5, }} />
@@ -172,8 +190,8 @@ export default class MainScreen extends React.PureComponent {
                 <ExitAppModule navigation={navigation} />
             </SafeAreaView>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> ExitAppModule
 export class ExitAppModule extends React.Component {
     constructor(props) {
@@ -183,14 +201,14 @@ export class ExitAppModule extends React.Component {
         };
         this.springValue = new Animated.Value(0);
         this.transformValue = new Animated.Value(100)
-    }
+    };
     componentDidMount() {
         YellowBox.ignoreWarnings(["Require cycle:", "*"]);
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton.bind(this));
-    }
+    };
     componentWillUnmount() {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton.bind(this));
-    }
+    };
     _spring = () => {
         this.setState({ backClickCount: 1 }, () => {
             Animated.sequence([
@@ -239,19 +257,19 @@ export class ExitAppModule extends React.Component {
                 this.setState({ backClickCount: 0 });
             });
         });
-    }
+    };
     handleBackButton = () => {
-        const { backClickCount } = this.state
-        const { navigation } = this.props
-        var routeProps = navigation.dangerouslyGetParent().state.routes.length
+        const { backClickCount } = this.state;
+        const { navigation } = this.props;
+        var routeProps = navigation.dangerouslyGetParent().state.routes.length;
         return routeProps == 1 ? (
             backClickCount == 1 ? BackHandler.exitApp() : this._spring(),
             true
         ) : (
                 navigation.pop(),
                 true
-            )
-    }
+            );
+    };
     render() {
         return (
             <Animatable.View style={[stylesMain.animatedView, { opacity: this.springValue, transform: [{ translateY: this.transformValue }] }]}>
@@ -259,9 +277,9 @@ export class ExitAppModule extends React.Component {
                     <Text style={[stylesMain.exitTitleText, stylesFont.FontFamilyText]}>กดอีกครั้งเพื่อออก</Text>
                 </View>
             </Animatable.View>
-        )
-    }
-}
+        );
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> AppBar ค้นหา
 export class AppBar extends React.Component {
     constructor(props) {
@@ -270,35 +288,29 @@ export class AppBar extends React.Component {
             activeGetCurrentUser: true,
             text: '',
         };
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
+    };
+    componentDidMount() {
+        const { activeGetCurrentUser, } = this.state;
+        activeGetCurrentUser == true && GetData({ getSource: this.getSource.bind(this), getUser: true, });
     }
     getSource = (value) => {
         this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser });
-    }
+    };
     setText = (text) => {
-        this.setState({ text })
-    }
+        this.setState({ text });
+    };
     setSubmit = () => {
-        const { text, } = this.state
+        const { navigation } = this.props
+        const { text, } = this.state;
         text != undefined && text != ' ' &&
-            this.navigationNavigateScreen('SearchScreen', { SearchText: text })
-    }
+            NavigationNavigateScreen({ goScreen: 'SearchScreen', setData: { SearchText: text }, navigation });
+    };
     render() {
-        const { ABDColor, ABGColor, AIColor, leftBar, rightBar, searchBar, SearchText } = this.props
-        const { activeGetCurrentUser, currentUser, text, } = this.state
-        const AIconEntypo = Animatable.createAnimatableComponent(IconEntypo)
-        const AIconFeather = Animatable.createAnimatableComponent(IconFeather)
-        const AIconFontAwesome5 = Animatable.createAnimatableComponent(IconFontAwesome5)
-        activeGetCurrentUser == true && GetData({ getSource: this.getSource.bind(this), getUser: true, })
+        const { ABDColor, ABGColor, AIColor, leftBar, navigation, rightBar, searchBar, SearchText } = this.props;
+        const { currentUser, text, } = this.state;
+        const AIconEntypo = Animatable.createAnimatableComponent(IconEntypo);
+        const AIconFeather = Animatable.createAnimatableComponent(IconFeather);
+        const AIconFontAwesome5 = Animatable.createAnimatableComponent(IconFontAwesome5);
         return (
             <Animatable.View style={[stylesMain.Appbar, stylesMain.FlexRow, {
                 backgroundColor: ABGColor ? ABGColor : '#fff',
@@ -310,13 +322,13 @@ export class AppBar extends React.Component {
                     <View key={'backarrow'} style={{ flex: 5 }}>
                         <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 40, height: 50 }]}
                             activeOpacity={1}
-                            onPress={() => this.navigationNavigateScreen('goBack')}>
+                            onPress={() => NavigationNavigateScreen({ goScreen: 'goBack', navigation })}>
                             <AIconEntypo name="chevron-left" size={30} style={{ color: AIColor ? AIColor : '#111', }} />
                         </TouchableOpacity>
                     </View>,
                     searchBar ?
                         <TouchableOpacity key={'searchBar'} activeOpacity={1}
-                        // onPress={() => this.navigationNavigateScreen('goBack')}
+                        // onPress={() => NavigationNavigateScreen('goBack')}
                         >
                             <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical]}>
                                 {
@@ -350,7 +362,9 @@ export class AppBar extends React.Component {
                             </View>
                         </TouchableOpacity> :
                         <TouchableOpacity key={'searchBar'} activeOpacity={1} onPress={
-                            () => this.navigationNavigateScreen(SearchText ? 'goBack' : 'SearchScreen', { modeStore: false })}>
+                            () => NavigationNavigateScreen({
+                                goScreen: SearchText ? 'goBack' : 'SearchScreen', setData: { modeStore: false }, navigation
+                            })}>
                             <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical, { flex: 90 }]}>
                                 {
                                     /* <FastImage
@@ -402,15 +416,19 @@ export class AppBar extends React.Component {
                                     <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40, flex: 50 }]}
                                         onPress={
                                             currentUser ?
-                                                () => this.navigationNavigateScreen('Profile_Topic', { selectedIndex: 1 }) :
-                                                () => this.navigationNavigateScreen('LoginScreen')}>
+                                                () => NavigationNavigateScreen({
+                                                    goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation
+                                                }) :
+                                                () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation })}>
                                         <IconAntDesign name="message1" size={25} />
                                     </TouchableOpacity> :
                                     <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40, flex: 50 }]}
                                         onPress={
                                             currentUser ?
-                                                () => this.navigationNavigateScreen('Profile_Topic', { selectedIndex: 1 }) :
-                                                () => this.navigationNavigateScreen('LoginScreen')}>
+                                                () => NavigationNavigateScreen({
+                                                    goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation
+                                                }) :
+                                                () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation })}>
                                         <IconAntDesign name="message1" size={25} />
                                     </TouchableOpacity>
                             }
@@ -424,16 +442,16 @@ export class AppBar extends React.Component {
                                 flex: 50
                             }]} onPress={
                                 currentUser ?
-                                    () => this.navigationNavigateScreen('CartScreen') :
-                                    () => this.navigationNavigateScreen('LoginScreen')}>
+                                    () => NavigationNavigateScreen({ goScreen: 'CartScreen', navigation }) :
+                                    () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation })}>
                                 <IconAntDesign name="shoppingcart" size={25} />
                             </TouchableOpacity>
                         </View>
                 ]}
             </Animatable.View>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> AppBar สีคราม
 export class AppBar1 extends React.Component {
     constructor(props) {
@@ -441,36 +459,27 @@ export class AppBar1 extends React.Component {
         this.state = {
             activeGetCurrentUser: true,
         };
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props;
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                value == 'popToTop' ?
-                    navigation.popToTop() :
-                    navigation.push(value, value2);
+    };
+    componentDidMount() {
+        const { activeGetCurrentUser, } = this.state;
+        activeGetCurrentUser == true && GetData({ getSource: this.getSource.bind(this), getUser: true, });
     }
     getSource = (value) => {
         this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser });
-    }
+    };
     setText = (text) => {
         this.setState({ text });
-    }
+    };
     deleteFunction = () => {
         const { propsFunction } = this.props;
         propsFunction();
-    }
+    };
     render() {
         const {
-            backArrow, backArrowColor, ButtomDeleteAll, chatBar, colorBar, deleteBar, getActivePost, goToTop, menuBar, postBar, saveBar,
-            searchBar, settingBar, storeBar, titleHead,
+            backArrow, backArrowColor, ButtomDeleteAll, chatBar, colorBar, deleteBar, getActivePost, goToTop, menuBar, navigation, postBar,
+            saveBar, searchBar, settingBar, storeBar, titleHead,
         } = this.props;
-        const { activeGetCurrentUser, currentUser, } = this.state;
-        activeGetCurrentUser == true && GetData({ getSource: this.getSource.bind(this), getUser: true });
+        const { currentUser, } = this.state;
         return (
             <View style={
                 colorBar ?
@@ -485,8 +494,8 @@ export class AppBar1 extends React.Component {
                             activeOpacity={1}
                             onPress={
                                 goToTop ?
-                                    () => this.navigationNavigateScreen('popToTop') :
-                                    () => this.navigationNavigateScreen('goBack')
+                                    () => NavigationNavigateScreen({ goScreen: 'popToTop', navigation }) :
+                                    () => NavigationNavigateScreen({ goScreen: 'goBack', navigation })
                             }>
                             <IconEntypo style={[stylesStore.Icon_appbar, {
                                 color: backArrowColor ? backArrowColor : '#ffffff'
@@ -504,7 +513,9 @@ export class AppBar1 extends React.Component {
                         <TouchableOpacity
                             key={'searchBar'}
                             style={[stylesMain.ItemCenter, { width: 40 }]}
-                            onPress={() => this.navigationNavigateScreen('SearchScreen', { modeStore: false })}>
+                            onPress={() => NavigationNavigateScreen({
+                                goScreen: 'SearchScreen', setData: { modeStore: false }, navigation
+                            })}>
                             <IconAntDesign RightItem name="search1" size={25} style={[
                                 stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
                                     marginRight: 8
@@ -514,7 +525,7 @@ export class AppBar1 extends React.Component {
                         <TouchableOpacity
                             key={'settingBar'}
                             style={[stylesMain.ItemCenter, { width: 40 }]}
-                            onPress={() => this.navigationNavigateScreen('Seller_Setting')}>
+                            onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Setting', navigation })}>
                             <IconMaterialCommunityIcons name="settings-outline" size={25} style={[
                                 stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
                                     marginRight: 8
@@ -526,8 +537,10 @@ export class AppBar1 extends React.Component {
                             style={[stylesMain.ItemCenter, { width: 40 }]}
                             onPress={
                                 currentUser ?
-                                    () => this.navigationNavigateScreen('Profile_Topic', { selectedIndex: 1 }) :
-                                    () => this.navigationNavigateScreen('LoginScreen')
+                                    () => NavigationNavigateScreen({
+                                        goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation
+                                    }) :
+                                    () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation })
                             }>
                             <IconAntDesign RightItem name="message1" size={25} style={[
                                 stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
@@ -538,7 +551,9 @@ export class AppBar1 extends React.Component {
                         <TouchableOpacity
                             key={'storeBar'}
                             style={[stylesMain.ItemCenter, { width: 40 }]}
-                            onPress={() => this.navigationNavigateScreen('Profile_Topic', { selectedIndex: 3 })}>
+                            onPress={() => NavigationNavigateScreen({
+                                goScreen: 'Profile_Topic', setData: { selectedIndex: 3 }, navigation
+                            })}>
                             <IconFontAwesome5 RightItem name="store" size={20} style={[
                                 stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
                                     marginRight: 8
@@ -570,7 +585,7 @@ export class AppBar1 extends React.Component {
                         deleteBar &&
                         <TouchableOpacity
                             key={'deleteBar'}
-                            onPress={this.deleteFunction.bind(this)}
+                            onPress={() => this.deleteFunction()}
                             style={[stylesMain.ItemCenter, { width: 60 }]}>
                             <Text style={[
                                 stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize4, {
@@ -585,10 +600,11 @@ export class AppBar1 extends React.Component {
                 </View>
             </View>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> Slide
 export class Slide extends React.PureComponent {
+    abortController = new AbortController();
     constructor(props) {
         super(props);
         this.state = {
@@ -596,16 +612,19 @@ export class Slide extends React.PureComponent {
             activeSlide: 0,
             dataService: [],
         };
-    }
+    };
+    componentWillUnmount() {
+        this.abortController.abort()
+    };
     getData = (dataService) => {
-        this.setState({ activeDataService: false, dataService, })
-    }
+        this.setState({ activeDataService: false, dataService, });
+    };
     getActiveSlide = (activeSlide) => {
-        this.setState({ activeSlide })
-    }
+        this.setState({ activeSlide });
+    };
     _renderItem = item => {
-        // var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
-        var dataMySQL = [finip, item.image_path, item.image].join('/');
+        // var dataMySQL = `${ip}/mysql/${item.image_path}/${item.image}`;
+        var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
         return (
             <View style={stylesMain.child} key={item.id}>
                 <Image
@@ -617,32 +636,35 @@ export class Slide extends React.PureComponent {
                     resizeMethod='resize' />
             </View>
         );
-    }
+    };
     render() {
-        // var uri = ip + '/mysql/DataServiceMain.php';
+        // var uri = `${ip}/mysql/DataServiceMain.php`
         // var dataBody = {
         //     type: 'slide'
         // };
-        const { banner } = this.props
-        const { activeDataService, dataService, } = this.state
+        const { banner } = this.props;
+        const { activeDataService, dataService, } = this.state;
         var dataBody = {
             slide: 'banner'
         };
-        var uri = [finip, 'home/home_mobile'].join('/')
+        var uri = `${finip}/home/home_mobile`;
         activeDataService == true && banner == undefined &&
-            GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
+            GetServices({ abortController: this.abortController, uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) });
         return (
             <View>
-                <Carousel
-                    renderItem={this._renderItem}
-                    data={banner ? banner : dataService}
-                    loop
-                    autoplay
-                    autoplayInterval={3000}
-                    pagination={PaginationLight} />
+                {
+                    (banner ? banner : dataService) &&
+                    <Carousel
+                        renderItem={this._renderItem}
+                        data={banner ? banner : dataService}
+                        loop
+                        autoplay
+                        autoplayInterval={3000}
+                        pagination={PaginationLight} />
+                }
                 {/* {
                     dataService && dataService.map((item) => {
-                        var dataMySQL = [finip, item.image_path, 'mobile', item.image].join('/');
+                        var dataMySQL = `${finip}/${item.image_path}/mobile/${item.image}`;
                         return (
                             <View style={stylesMain.child} key={item.id}>
                                 <FastImage
@@ -657,16 +679,15 @@ export class Slide extends React.PureComponent {
                 } */}
             </View>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> Guarantee
 export class Guarantee extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
-    }
-
+    };
     render() {
         return (
             <View style={{
@@ -677,7 +698,7 @@ export class Guarantee extends React.Component {
                     <FastImage
                         style={stylesMain.BoxProduct1Image}
                         source={{
-                            uri: ip + '/MySQL/uploads/Guarantee/455x195-finmall-02.jpg',
+                            uri: `${ip}/MySQL/uploads/Guarantee/455x195-finmall-02.jpg`,
                         }}
                         resizeMode={FastImage.resizeMode.stretch}
                     />
@@ -686,46 +707,41 @@ export class Guarantee extends React.Component {
                     <FastImage
                         style={stylesMain.BoxProduct1Image}
                         source={{
-                            uri: ip + '/MySQL/uploads/Guarantee/290x195 G.png',
+                            uri: `${ip}/MySQL/uploads/Guarantee/290x195 G.png`,
                         }}
                         resizeMode={FastImage.resizeMode.stretch}
                     />
                 </View>
             </View>
         );
-    }
-}
-
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> Category
 export class Category extends React.Component {
+    abortController = new AbortController();
     constructor(props) {
         super(props);
         this.state = {
             activeDataService: true,
             dataService: [],
         };
-    }
+    };
+    componentWillUnmount() {
+        this.abortController.abort()
+    };
     getData = (dataService) => {
-        this.setState({ activeDataService: false, dataService, })
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
+        this.setState({ activeDataService: false, dataService, });
+    };
     get dataCategory() {
-        const { dataService } = this.state
+        const { navigation } = this.props
+        const { dataService } = this.state;
         return dataService &&
             dataService.map((item, index) => {
-                var dataMySQL = finip + '/' + item.image_path + '/' + 'menu' + '/' + item.image_head;
+                var dataMySQL = `${finip}/${item.image_path}/menu/${item.image_head}`;
                 return (
-                    <TouchableOpacity activeOpacity={1} key={index} onPress={() => this.navigationNavigateScreen(
-                        'CategoryScreen', { id_type: item.id_type })} style={stylesMain.Category}>
+                    <TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'CategoryScreen', setData: { id_type: item.id_type }, navigation
+                    })} style={stylesMain.Category}>
                         <FastImage
                             source={{
                                 uri: dataMySQL,
@@ -737,13 +753,15 @@ export class Category extends React.Component {
                                 {item.name}</Text>
                         </View>
                     </TouchableOpacity>
-                )
-            })
-    }
+                );
+            });
+    };
     render() {
-        const { activeDataService } = this.state
-        var uri = finip + '/home/category_mobile'
-        activeDataService == true && GetServices({ uriPointer: uri, getDataSource: this.getData.bind(this) })
+        const { activeDataService } = this.state;
+        var uri = `${finip}/home/category_mobile`;
+        activeDataService == true && GetServices({
+            abortController: this.abortController, uriPointer: uri, getDataSource: this.getData.bind(this)
+        });
         return (
             <View style={stylesMain.FrameBackground2}>
                 <ScrollView horizontal>
@@ -753,24 +771,28 @@ export class Category extends React.Component {
                 </ScrollView>
             </View>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> 
 export class Trend_Hit extends React.Component {
+    abortController = new AbortController();
     constructor(props) {
         super(props);
         this.state = {
             activeDataService: false
         };
-    }
+    };
+    componentWillUnmount() {
+        this.abortController.abort()
+    };
     getData = (dataService) => {
-        this.setState({ activeDataService: false, dataService, })
-    }
+        this.setState({ activeDataService: false, dataService, });
+    };
     get Trend_Box() {
-        var { dataService } = this.state
+        var { dataService } = this.state;
         return dataService &&
             dataService.map((item, index) => {
-                var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
+                var dataMySQL = `${ip}/mysql/${item.image_path}/${item.image}`;
                 return (
                     <View key={index} style={[stylesMain.ItemCenter, {
                         width: width * 0.32, borderWidth: 1,
@@ -789,16 +811,18 @@ export class Trend_Hit extends React.Component {
                             <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#CACACA' }]}>37K products</Text>
                         </View>
                     </View>
-                )
-            })
-    }
+                );
+            });
+    };
     render() {
-        var { activeDataService } = this.state
-        var uri = ip + '/mysql/DataServiceMain.php';
+        var { activeDataService } = this.state;
+        var uri = `${ip}/mysql/DataServiceMain.php`;
         var dataBody = {
             type: 'Trend_Hit'
         };
-        activeDataService == true && GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
+        activeDataService == true && GetServices({
+            abortController: this.abortController, uriPointer: uri, dataBody, getDataSource: this.getData.bind(this)
+        });
         return (
             <>
                 <ScrollView horizontal style={{ height: 'auto', aspectRatio: 5, marginTop: 10, width, }}>
@@ -806,7 +830,7 @@ export class Trend_Hit extends React.Component {
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
-                                uri: ip + '/MySQL/uploads/Trend_Hit/1180x380_trend-01.jpg',
+                                uri: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-01.jpg`,
                             }}
                             resizeMode={FastImage.resizeMode.stretch}
                         />
@@ -815,7 +839,7 @@ export class Trend_Hit extends React.Component {
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
-                                uri: ip + '/MySQL/uploads/Trend_Hit/1180x380_trend-02.jpg',
+                                uri: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-02.jpg`,
                             }}
                             resizeMode={FastImage.resizeMode.stretch}
                         />
@@ -824,7 +848,7 @@ export class Trend_Hit extends React.Component {
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
-                                uri: ip + '/MySQL/uploads/Trend_Hit/1180x380_trend-03.jpg',
+                                uri: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-03.jpg`,
                             }}
                             resizeMode={FastImage.resizeMode.stretch}
                         />
@@ -846,80 +870,81 @@ export class Trend_Hit extends React.Component {
                 </View>
             </>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>>
 export class Fin_Service extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
-    }
+    };
     render() {
         return (
             <View style={[stylesMain.FrameBackground2, { height: 80, }]}>
                 <Image
                     style={stylesMain.BoxProduct1Image}
                     source={{
-                        uri: ip + '/MySQL/uploads/Text/Annotation 2020-05-09 153106.png',
+                        uri: `${ip}/MySQL/uploads/Text/Annotation 2020-05-09 153106.png`
                     }}
                     resizeMode='contain'
                     resizeMethod='resize' />
             </View>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> Button_Bar
 export class Button_Bar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
+    };
     render() {
+        const { navigation } = this.props
         return (
             <>
                 <View style={stylesMain.FrameBackground3}></View>
                 <View style={[stylesMain.FlexRow, { width, justifyContent: 'space-around' }]}>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('DealScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'DealScreen', navigation
+                    })}>
                         <View style={stylesMain.Button_Bar_Box}>
                             <FastImage style={stylesMain.Button_Bar_icon}
                                 source={require('../icon/Icon_Deal/01.jpg')}
                                 resizeMode={FastImage.resizeMode.contain} />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('CoinScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'CoinScreen', navigation
+                    })}>
                         <View style={stylesMain.Button_Bar_Box}>
                             <FastImage style={stylesMain.Button_Bar_icon}
                                 source={require('../icon/Icon_Deal/02.jpg')}
                                 resizeMode={FastImage.resizeMode.contain} />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('CampaignScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'CampaignScreen', navigation
+                    })}>
                         <View style={stylesMain.Button_Bar_Box}>
                             <FastImage style={stylesMain.Button_Bar_icon}
                                 source={require('../icon/Icon_Deal/03.jpg')}
                                 resizeMode={FastImage.resizeMode.contain} />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('The_BestFinScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'The_BestFinScreen', navigation
+                    })}>
                         <View style={stylesMain.Button_Bar_Box}>
                             <FastImage style={stylesMain.Button_Bar_icon}
                                 source={require('../icon/Icon_Deal/04.jpg')}
                                 resizeMode={FastImage.resizeMode.contain} />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('Installment_payScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Installment_payScreen', navigation
+                    })}>
                         <View style={stylesMain.Button_Bar_Box}>
                             <FastImage style={stylesMain.Button_Bar_icon}
                                 source={require('../icon/Icon_Deal/05.jpg')}
@@ -929,33 +954,24 @@ export class Button_Bar extends React.Component {
                 </View>
             </>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> Brand_RCM
 export class Recommend_Brand extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
+    };
     get recommendBrand() {
-        const { loadData } = this.props
+        const { loadData, navigation } = this.props;
         return loadData &&
             loadData.map((item, index) => {
-                var dataMySQL = finip + '/' + item.image_path + '/' + item.image
+                var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
                 return (
-                    <TouchableOpacity activeOpacity={1} key={index}
-                        onPress={() => this.navigationNavigateScreen('Recommend_Brand')}>
+                    <TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Recommend_Brand', navigation
+                    })}>
                         <View style={stylesMain.Brand_image_Box}>
                             <FastImage
                                 style={[stylesMain.Brand_image_RCM, stylesMain.ItemCenterVertical]}
@@ -970,12 +986,15 @@ export class Recommend_Brand extends React.Component {
             })
     }
     render() {
+        const { navigation } = this.props
         return (
             <View style={[stylesMain.FrameBackground2, stylesMain.FrameBackground_Height]}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
                         แบรนด์แนะนำ</Text>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('Recommend_Brand')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Recommend_Brand', navigation
+                    })}>
                         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
@@ -987,39 +1006,31 @@ export class Recommend_Brand extends React.Component {
                 </ScrollView>
             </View>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> Popular_store
 export class Popular_store extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-        }
-    }
+        };
+    };
     getData = (dataService) => {
-        this.setState({ dataService, activeDataService: false })
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
+        this.setState({ dataService, activeDataService: false });
+    };
     get PopularStoreItem() {
-        const { loadData } = this.props;
+        const { loadData, navigation } = this.props;
         return loadData &&
             loadData.map((item, index) => {
-                var dataMySQL = finip + '/' + item.image_path + '/' + item.image
+                var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
                 // var { dataService } = this.state
                 // return dataService &&
                 //     dataService.map((item, index) => {
-                //         var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
+                //         var dataMySQL = `${ip}/mysql/${item.image_path}/${item.image}`;
                 return (
-                    <TouchableOpacity activeOpacity={1} key={index} onPress={() => this.navigationNavigateScreen('Recommend_Store')}>
+                    <TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Recommend_Store', navigation
+                    })}>
                         <View style={stylesMain.BoxStore1Box}>
                             <FastImage
                                 style={stylesMain.BoxStore1Image}
@@ -1029,11 +1040,11 @@ export class Popular_store extends React.Component {
                                 resizeMode={FastImage.resizeMode.cover} />
                         </View>
                     </TouchableOpacity>
-                )
-            })
-    }
+                );
+            });
+    };
     render() {
-        // var uri = ip + '/mysql/DataServiceMain.php';
+        // var uri = `${ip}/mysql/DataServiceMain.php`
         // var dataBody = {
         //     type: 'store2'
         // };
@@ -1048,19 +1059,19 @@ export class Popular_store extends React.Component {
                     {this.PopularStoreItem}
                 </View>
             </View>
-        )
-    }
-}
+        );
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> Popular_product
 export class Popular_product extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
-    }
+    };
     productCate = (type) => {
         return type.map((item, index) => {
-            var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
+            var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
             return (
                 <View style={stylesMain.Popular_Box_D} key={index}>
                     <FastImage
@@ -1088,21 +1099,11 @@ export class Popular_product extends React.Component {
                             } />
                     </View>
                 </View>
-            )
-        })
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
+            );
+        });
+    };
     render() {
-        const { loadData } = this.props
+        const { loadData, navigation } = this.props;
         return (
             <View>
                 <View style={[stylesMain.FrameBackground2]}>
@@ -1111,8 +1112,9 @@ export class Popular_product extends React.Component {
                             สินค้ายอดนิยม</Text>
                         <TouchableOpacity
                             activeOpacity={1}
-                            onPress={() => this.navigationNavigateScreen(
-                                'Popular_productScreen', { id_item: 0, loadData: loadData })}>
+                            onPress={() => NavigationNavigateScreen({
+                                goScreen: 'Popular_productScreen', setData: { id_item: 0, loadData: loadData }, navigation
+                            })}>
                             <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                                 ดูทั้งหมด</Text>
                         </TouchableOpacity>
@@ -1124,8 +1126,9 @@ export class Popular_product extends React.Component {
                                 <TouchableOpacity
                                     key={'product_hit'}
                                     activeOpacity={1}
-                                    onPress={() => this.navigationNavigateScreen(
-                                        'Popular_productScreen', { id_item: 0, loadData: loadData })}>
+                                    onPress={() => NavigationNavigateScreen({
+                                        goScreen: 'Popular_productScreen', setData: { id_item: 0, loadData: loadData }, navigation
+                                    })}>
                                     <View style={stylesMain.Popular_Box_B}>
                                         <View style={stylesMain.PopularText_A}>
                                             <Text style={[
@@ -1143,8 +1146,9 @@ export class Popular_product extends React.Component {
                                 <TouchableOpacity
                                     key={'best_price'}
                                     activeOpacity={1}
-                                    onPress={() => this.navigationNavigateScreen(
-                                        'Popular_productScreen', { id_item: 1, loadData: loadData })}>
+                                    onPress={() => NavigationNavigateScreen({
+                                        goScreen: 'Popular_productScreen', setData: { id_item: 1, loadData: loadData }, navigation
+                                    })}>
                                     <View style={stylesMain.Popular_Box_B}>
                                         <View style={stylesMain.PopularText_A}>
                                             <Text style={[{
@@ -1161,8 +1165,9 @@ export class Popular_product extends React.Component {
                                 <TouchableOpacity
                                     key={'best_sale'}
                                     activeOpacity={1}
-                                    onPress={() => this.navigationNavigateScreen(
-                                        'Popular_productScreen', { id_item: 2, loadData: loadData })}>
+                                    onPress={() => NavigationNavigateScreen({
+                                        goScreen: 'Popular_productScreen', setData: { id_item: 2, loadData: loadData }, navigation
+                                    })}>
                                     <View style={stylesMain.Popular_Box_B}>
                                         <View style={stylesMain.PopularText_A}>
                                             <Text style={[{
@@ -1179,8 +1184,9 @@ export class Popular_product extends React.Component {
                                 <TouchableOpacity
                                     key={'best_cool'}
                                     activeOpacity={1}
-                                    onPress={() => this.navigationNavigateScreen(
-                                        'Popular_productScreen', { id_item: 3, loadData: loadData })}>
+                                    onPress={() => NavigationNavigateScreen({
+                                        goScreen: 'Popular_productScreen', setData: { id_item: 3, loadData: loadData }, navigation
+                                    })}>
                                     <View style={stylesMain.Popular_Box_B}>
                                         <View style={stylesMain.PopularText_A}>
                                             <Text style={[{
@@ -1198,71 +1204,72 @@ export class Popular_product extends React.Component {
                     </View>
                 </View>
             </View>
-        )
-    }
-}
+        );
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> BannerBar_ONE
 export class BannerBar_ONE extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
-    }
+    };
     render() {
         return (
             <View style={stylesMain.Banner_Bar}>
                 <FastImage
                     style={stylesMain.Banner_Bar_image}
                     source={{
-                        uri: ip + '/MySQL/uploads/Resize/BannerTap/banner 1920-220เพชร3.jpg',
+                        uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 1920-220เพชร3.jpg`
                     }}
                     resizeMode={FastImage.resizeMode.contain} />
             </View>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> BannerBar_TWO
 export class BannerBar_TWO extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
-    }
+    };
     render() {
         return (
             <View style={stylesMain.Banner_Bar}>
                 <FastImage
                     style={stylesMain.Banner_Bar_image}
                     source={{
-                        uri: ip + '/MySQL/uploads/Resize/BannerTap/banner 1920-220สำอาง.jpg',
+                        uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 1920-220สำอาง.jpg`
                     }}
                     resizeMode={FastImage.resizeMode.contain} />
             </View>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> BannerBar_THREE
 export class BannerBar_THREE extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
-    }
+    };
     render() {
         return (
             <View style={stylesMain.Banner_Bar}>
                 <FastImage
                     style={stylesMain.Banner_Bar_image}
                     source={{
-                        uri: ip + '/MySQL/uploads/Resize/BannerTap/banner 1920-220แม่2.jpg',
+                        uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 1920-220แม่2.jpg`
                     }}
                     resizeMode={FastImage.resizeMode.contain} />
             </View>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> FlashSale
 export class FlashSale extends React.PureComponent {
+    abortController = new AbortController();
     constructor(props) {
         super(props);
         this.state = {
@@ -1271,43 +1278,36 @@ export class FlashSale extends React.PureComponent {
             dataService: [],
             endTime: new Date(),
         };
-    }
-    getData = (dataService) => {
-        var flash_end = dataService.flash_end && dataService.flash_end.split(':')
-        this.setState({ activeDataService: false, dataService, endTime: new Date().setHours(flash_end[0], flash_end[1], flash_end[2]) })
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
+    };
     componentDidMount() {
         this.intervalID = setInterval(
             () => this.tick(),
             1000
         );
-    }
+    };
+    componentWillUnmount() {
+        this.abortController.abort()
+        clearInterval(this.intervalID);
+    };
     tick() {
         this.setState({
             curTime: new Date()
         });
-    }
-    componentWillUnmount() {
-        clearInterval(this.intervalID);
-    }
+    };
+    getData = (dataService) => {
+        var flash_end = dataService.flash_end && dataService.flash_end.split(':');
+        this.setState({ activeDataService: false, dataService, endTime: new Date().setHours(flash_end[0], flash_end[1], flash_end[2]) });
+    };
     render() {
-        const { navigation } = this.props
-        const { activeDataService, curTime, dataService, endTime, } = this.state
-        var uri = finip + '/flashsale/flash_timer';
-        activeDataService == true && GetServices({ uriPointer: uri, getDataSource: this.getData.bind(this) })
-        var Hours = 0
-        var Minutes = 0
-        var Seconds = 0
+        const { navigation } = this.props;
+        const { activeDataService, curTime, dataService, endTime, } = this.state;
+        var uri = `${finip}/flashsale/flash_timer`;
+        activeDataService == true && GetServices({
+            abortController: this.abortController, uriPointer: uri, getDataSource: this.getData.bind(this)
+        });
+        var Hours = 0;
+        var Minutes = 0;
+        var Seconds = 0;
         endTime && ([
             Hours = Number(new Date(endTime).getHours()) - Number(new Date(curTime).getHours()),
             (Number(new Date(endTime).getDate()) - Number(new Date(curTime).getDate())) > 0 && (
@@ -1326,7 +1326,7 @@ export class FlashSale extends React.PureComponent {
                 Minutes = Minutes - 1,
                 Seconds = 60 + Seconds
             ])
-        ])
+        ]);
         return (
             activeDataService == false && dataService &&
             <View style={[stylesMain.FrameBackground2, { marginTop: 10 }]}>
@@ -1357,7 +1357,9 @@ export class FlashSale extends React.PureComponent {
                             </View>
                         </View>
                     </View>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('FlashSaleScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'FlashSaleScreen', navigation
+                    })}>
                         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText, { flex: 30 }]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
@@ -1365,43 +1367,36 @@ export class FlashSale extends React.PureComponent {
                 {
                     dataService && dataService.product &&
                     <FlatProduct custumNavigation='FlashSaleScreen' navigation={navigation} dataService={dataService.product}
-                        mode='row4col1' nameFlatProduct='FlashSaleProduct' nameSize={11} priceSize={12} dispriceSize={12} />
+                        mode='row4' nameFlatProduct='FlashSaleProduct' nameSize={11} priceSize={12} dispriceSize={12} />
                 }
             </View>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> PromotionPopular
 export class PromotionPopular extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
-    }
+    };
     getData = (dataService) => {
-        this.setState({ dataService, activeDataService: false })
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
+        this.setState({ dataService, activeDataService: false });
+    };
     get dataPromotionPopular() {
-        const { loadData } = this.props
+        const { loadData, navigation } = this.props;
         return loadData &&
             loadData.map((item, index) => {
-                var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
+                var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
                 // var { dataService } = this.state
                 // return dataService &&
                 //     dataService.map((item, index) => {
-                //         var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
+                //         var dataMySQL = `${ip}/mysql/${item.image_path}/${item.image}`;
                 return (
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('Recommend_Store')} key={index}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Recommend_Store', navigation
+                    })}
+                        key={index}>
                         <View style={[stylesMain.BoxStore2Box2]}>
                             <FastImage
                                 source={{
@@ -1419,11 +1414,12 @@ export class PromotionPopular extends React.Component {
                             </View>
                         </View>
                     </TouchableOpacity>
-                )
-            })
-    }
+                );
+            });
+    };
     render() {
-        // var uri = ip + '/mysql/DataServiceMain.php';
+        const { navigation } = this.props
+        // var uri = `${ip}/mysql/DataServiceMain.php`
         // var dataBody = {
         //     type: 'Promotion'
         // };
@@ -1433,7 +1429,9 @@ export class PromotionPopular extends React.Component {
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         ลายแทงร้านค้าแนะนำ</Text>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('Recommend_Store')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Recommend_Store', navigation
+                    })}>
                         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
@@ -1445,33 +1443,25 @@ export class PromotionPopular extends React.Component {
                 </View>
             </View>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> Product_for_you
 export class Product_for_you extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
         };
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
+    };
     render() {
-        const { loadData, navigation } = this.props
+        const { loadData, navigation } = this.props;
         return (
             <View style={[stylesMain.FrameBackground2]}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
                         FIN คัดมาเพื่อคุณ</Text>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('Product_for_youScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Product_for_youScreen', navigation
+                    })}>
                         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
@@ -1479,7 +1469,7 @@ export class Product_for_you extends React.PureComponent {
                 {
                     loadData && loadData.length > 0 &&
                     <FlatProduct navigation={navigation} dataService={loadData} NumberOfcolumn={2} nameFlatProduct='Product_for_you'
-                        mode='row3col2' nameSize={14} priceSize={15} dispriceSize={15} />
+                        mode='row3' nameSize={14} priceSize={15} dispriceSize={15} />
                 }
                 {/* <ScrollView horizontal>
                     <View style={[stylesMain.ProductForYouFlexBox, stylesMain.Product_for_you]}>
@@ -1492,33 +1482,25 @@ export class Product_for_you extends React.PureComponent {
                 </ScrollView> */}
             </View>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> Highlight
 export class Highlight extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
         };
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
+    };
     render() {
-        const { loadData, navigation } = this.props
+        const { loadData, navigation } = this.props;
         return (
             <View style={stylesMain.FrameBackground2}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         ไฮไลท์ประจำสัปดาห์</Text>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.navigationNavigateScreen('HighlightScreen')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'HighlightScreen', navigation
+                    })}>
                         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
@@ -1526,37 +1508,25 @@ export class Highlight extends React.PureComponent {
                 {
                     loadData &&
                     <FlatProduct navigation={navigation} dataService={loadData} NumberOfcolumn={1}
-                        nameFlatProduct='Second_product' mode='row3col1' nameSize={14} priceSize={15} dispriceSize={15} />
+                        nameFlatProduct='Second_product' mode='row3' nameSize={14} priceSize={15} dispriceSize={15} />
                 }
             </View>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> NewStore
 export class NewStore extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             activeDataService: true,
-            dataService: [],
         };
-    }
+    };
     getData = (dataService) => {
-        this.setState({ dataService, activeDataService: false })
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
-
+        this.setState({ dataService, activeDataService: false });
+    };
     get dataNewStore() {
-        const { loadData } = this.props
+        const { loadData, navigation } = this.props;
         // var { dataService } = this.state
         // loadData && (dataService = loadData)
         return loadData &&
@@ -1565,12 +1535,14 @@ export class NewStore extends React.Component {
                 //     dataService.map((item, index) => {
                 // console.log('dataNewStore')
                 // console.log(item)
-                // var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
-                var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
+                // var dataMySQL = `${ip}/mysql/${item.image_path}/${item.image}`;
+                var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
                 return (
                     <TouchableOpacity activeOpacity={1} key={index}
-                        onPress={() => this.navigationNavigateScreen('Recommend_Store', {
-                            id_slide: item.id, uri_path: 'publish_store/store_total', name_path: 'store_total'
+                        onPress={() => NavigationNavigateScreen({
+                            goScreen: 'Recommend_Store', setData: {
+                                id_slide: item.id, uri_path: 'publish_store/store_total', name_path: 'store_total'
+                            }, navigation
                         })}
                     >
                         <View style={stylesMain.BoxStore1Box}>
@@ -1582,11 +1554,11 @@ export class NewStore extends React.Component {
                                 resizeMode={FastImage.resizeMode.cover} />
                         </View>
                     </TouchableOpacity>
-                )
-            })
-    }
+                );
+            });
+    };
     render() {
-        // var uri = ip + '/mysql/DataServiceMain.php';
+        // var uri = `${ip}/mysql/DataServiceMain.php`
         // var dataBody = {
         //     type: 'store1'
         // };
@@ -1602,23 +1574,13 @@ export class NewStore extends React.Component {
                 </View>
             </View>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> Exclusive
 export class Exclusive extends React.PureComponent {
     constructor(props) {
         super(props);
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
+    };
     render() {
         const { loadData, navigation } = this.props
         return (
@@ -1627,7 +1589,7 @@ export class Exclusive extends React.PureComponent {
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
                         สินค้าสุด Exclusive</Text>
                     <TouchableOpacity
-                        onPress={() => this.navigationNavigateScreen('ExclusiveScreen')}>
+                        onPress={() => NavigationNavigateScreen({ goScreen: 'ExclusiveScreen', navigation })}>
                         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
@@ -1635,45 +1597,38 @@ export class Exclusive extends React.PureComponent {
                 {
                     loadData &&
                     <FlatProduct navigation={navigation} dataService={loadData} NumberOfcolumn={1} nameFlatProduct='ExclusiveProduct'
-                        mode='row3col1' nameSize={14} priceSize={15} dispriceSize={15} />
+                        mode='row3' nameSize={14} priceSize={15} dispriceSize={15} />
                 }
             </View>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> CategoryProduct
 export class CategoryProduct extends React.Component {
+    abortController = new AbortController();
     constructor(props) {
         super(props);
         this.state = {
             activeDataService: true,
             activeProductMobile: true,
-            dataService: [],
-        }
-    }
+        };
+    };
+    componentWillUnmount() {
+        this.abortController.abort()
+    };
     getActiveProductMobile = (activeProductMobile) => {
-        this.setState({ activeProductMobile })
-    }
+        this.setState({ activeProductMobile });
+    };
     getData = (dataService) => {
-        this.setState({ dataService, activeDataService: false })
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
+        this.setState({ dataService, activeDataService: false });
+    };
     get dataCategory() {
-        const { navigation, NoStoreReCom, } = this.props
-        const { activeProductMobile, dataService } = this.state
+        const { navigation, NoStoreReCom, } = this.props;
+        const { activeProductMobile, dataService } = this.state;
         return dataService &&
             dataService.map((item, index) => {
-                // var dataMySQL = [ip ,'mysql', item.image_path, item.image_head].join('/');
-                var dataMySQL = finip + '/' + item.mobile_head;
+                // var dataMySQL = `${ip}/mysql/${item.image_path}/${item.image}`;
+                var dataMySQL = `${finip}/${item.mobile_head}`;
                 return (
                     <View style={[stylesMain.FrameBackground2, {
                         marginTop: activeProductMobile == false ? 10 : 0,
@@ -1683,8 +1638,9 @@ export class CategoryProduct extends React.Component {
                         <>
                             {
                                 activeProductMobile == false &&
-                                <TouchableOpacity onPress={() => this.navigationNavigateScreen('CategoryScreen',
-                                    { id_type: item.id_type })}>
+                                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                                    goScreen: 'CategoryScreen', setData: { id_type: item.id_type }, navigation,
+                                })}>
                                     <FastImage
                                         source={{
                                             uri: dataMySQL,
@@ -1715,54 +1671,59 @@ export class CategoryProduct extends React.Component {
                         }
                     </View>
                 );
-            })
-    }
+            });
+    };
     render() {
-        const { activeDataService } = this.state
-        // var uri = ip + '/mysql/DataServiceMain.php';
-        // var dataBody = {
-        //     type: 'type'
-        // };
-        var uri = finip + '/home/category_mobile';
-        activeDataService == true && GetServices({ uriPointer: uri, getDataSource: this.getData.bind(this) })
+        const { activeDataService } = this.state;
+        var uri = `${finip}/home/category_mobile`;
+        activeDataService == true && GetServices({
+            abortController: this.abortController, uriPointer: uri, getDataSource: this.getData.bind(this)
+        });
         return (
             <View>
                 {
                     this.dataCategory
                 }
             </View>
-        )
-    }
-}
+        );
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> CategoryProductSubProduct
 export class CategoryProductSubProduct extends React.PureComponent {
+    abortController = new AbortController();
     constructor(props) {
         super(props);
         this.state = {
             activeDataService: true,
             dataService: [],
-        }
-    }
+        };
+    };
+    componentWillUnmount() {
+        this.abortController.abort()
+    };
     getData = (dataService) => {
-        const { getActiveProductMobile } = this.props
-        getActiveProductMobile(false)
-        this.setState({ dataService, activeDataService: false })
-    }
+        const { getActiveProductMobile } = this.props;
+        getActiveProductMobile(false);
+        this.setState({ dataService, activeDataService: false });
+    };
     render() {
-        const { activeProductMobile, headerData, id_type, navigation } = this.props
-        const { dataService, } = this.state
-        var uri = finip + '/home/product_mobile';
+        const { activeProductMobile, headerData, id_type, navigation } = this.props;
+        const { dataService, } = this.state;
+        var uri = `${finip}/home/product_mobile`;
         var dataBody = {
             id_type: id_type
         };
         activeProductMobile == true && id_type &&
-            GetServices({ nameFunction: headerData.name, uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
+            GetServices({
+                abortController: this.abortController, nameFunction: headerData.name, uriPointer: uri, dataBody,
+                getDataSource: this.getData.bind(this),
+            });
         return (
             <>
                 {
                     dataService && dataService.length > 0 &&
                     <FlatProduct navigation={navigation} dataService={dataService} NumberOfcolumn={2} nameFlatProduct='CategoryProduct'
-                        mode='row3col2' nameSize={14} priceSize={15} dispriceSize={15} />
+                        mode='row3' nameSize={14} priceSize={15} dispriceSize={15} />
                 }
                 {/* {
                         dataService && dataService.length > 0 &&
@@ -1770,29 +1731,33 @@ export class CategoryProductSubProduct extends React.PureComponent {
                             pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} />
                     } */}
             </>
-        )
-    }
-}
+        );
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> CategoryProductSubStore
 export class CategoryProductSubStore extends React.PureComponent {
+    abortController = new AbortController();
     constructor(props) {
         super(props);
         this.state = {
             activeDataService: true,
-        }
-    }
+        };
+    };
+    componentWillUnmount() {
+        this.abortController.abort()
+    };
     getData = (dataService) => {
-        this.setState({ dataService, activeDataService: false })
-    }
+        this.setState({ dataService, activeDataService: false });
+    };
     setActiveSlide = (index) => {
-        this.setState({ activeSlide: index })
-    }
+        this.setState({ activeSlide: index });
+    };
     _renderItem = (item, index) => {
-        var dataMySQL = finip + '/' + item.item.image_path + '/' + item.item.image;
-        var dataMySQL2
+        var dataMySQL = `${finip}/${item.item.image_path}/${item.item.image}`;
+        var dataMySQL2;
         item.item2 && (
-            dataMySQL2 = finip + '/' + item.item2.image_path + '/' + item.item2.image
-        )
+            dataMySQL2 = `${finip}/${item.item2.image_path}/${item.item2.image}`
+        );
         return (
             <TouchableOpacity activeOpacity={1} key={index} style={stylesMain.FlexRow}>
                 <View style={[stylesMain.CategoryProductStoreBox]}>
@@ -1815,28 +1780,30 @@ export class CategoryProductSubStore extends React.PureComponent {
                 </View>
             </TouchableOpacity>
         );
-    }
+    };
     render() {
-        const { id_type } = this.props
-        const { dataService, activeDataService } = this.state
-        var uri = finip + '/home/publish_cate_mobile';
-        var dataBody = {
-            promotion: 'shop',
-            id_type: id_type,
-        };
-        var item = []
-        if (dataService && dataService.banner)
+        const { id_type, } = this.props;
+        const { activeDataService, dataService } = this.state;
+        var item = [];
+        if (dataService && dataService.banner && dataService.banner.length > 0)
             for (var n = 0; n < dataService.banner.length; n += 2) {
                 item.push({
                     item: dataService.banner[n],
                     item2: dataService.banner[n + 1]
-                })
-            }
-        activeDataService == true && GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
+                });
+            };
+        var uri = `${finip}/home/publish_cate_mobile`
+        var dataBody = {
+            promotion: 'shop',
+            id_type: id_type,
+        };
+        activeDataService == true && GetServices({
+            abortController: this.abortController, uriPointer: uri, dataBody, getDataSource: this.getData.bind(this)
+        });
         return (
             <>
                 {
-                    dataService && dataService.banner && (
+                    dataService && dataService.banner && dataService.banner.length > 0 && (
                         <Carousel
                             key={'banner'}
                             renderItem={this._renderItem}
@@ -1849,32 +1816,36 @@ export class CategoryProductSubStore extends React.PureComponent {
                 }
             </>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> CategoryProductSubPromotion
 export class CategoryProductSubPromotion extends React.Component {
+    abortController = new AbortController();
     constructor(props) {
         super(props);
         this.state = {
             activeDataService: true,
             activeDataService2: true,
-        }
-    }
+            failFetchDataService: 0,
+            failFetchDataService2: 0,
+        };
+    };
+    componentWillUnmount() {
+        this.abortController.abort()
+    };
     getData = (dataService) => {
-        this.setState({ dataService, activeDataService: false })
-    }
+        this.setState({ dataService, activeDataService: false });
+    };
     getData2 = (dataService2) => {
-        this.setState({ dataService2, activeDataService2: false })
-    }
+        this.setState({ dataService2, activeDataService2: false });
+    };
     dataCategoryProductSubPromotion(dataService, type) {
-        // const { dataService } = this.state;
-        var dataMySQL = [finip, dataService && dataService.banner.length > 0 && dataService.banner[0].path_mobile,
-            dataService && dataService.banner.length > 0 && dataService.banner[0].image].join('/');
-        // console.log('dataCategoryProductSubPromotion');
-        // console.log(dataMySQL);
+        var dataMySQL = dataService && dataService.banner &&
+            `${finip}/${(dataService.banner[0].path_mobile)}/${(dataService.banner[0].image)}`
+        if (dataMySQL == false) { return <></> }
         return (
             <View style={[type == 0 ? stylesMain.BoxStore1Box2 : stylesMain.BoxStore1Box3,
-            { borderWidth: 0, }]} key={type} >
+            { borderWidth: 0, }]} key={dataService.banner[0].id} >
                 {
                     dataService &&
                     <Image
@@ -1887,29 +1858,13 @@ export class CategoryProductSubPromotion extends React.Component {
                 }
             </View>
         );
-    }
-    // get dataCategoryProductSubPromotion2() {
-    //     const { dataService } = this.state;
-    //     var dataMySQL = [finip, dataService && dataService.banner[0].path_mobile,
-    //         dataService && dataService.banner[0].image].join('/');
-    //     return dataService && (
-    //         <View style={[stylesMain.BoxStore1Box3, { borderWidth: 0, }]} /*key={index}*/>
-    //             {
-    //                 dataService &&
-    //                 <FastImage
-    //                     source={{
-    //                         uri: dataMySQL,
-    //                     }}
-    //                     resizeMode={FastImage.resizeMode.cover}
-    //                     style={[stylesMain.BoxProduct1Image, { borderRadius: 6, }]} />
-    //             }
-    //         </View>
-    //     );
-    // }
+    };
     render() {
-        const { id_type } = this.props
-        const { activeDataService, activeDataService2, dataService, dataService2, } = this.state
-        var uri = finip + '/home/publish_cate_mobile';
+        const { id_type } = this.props;
+        const {
+            activeDataService, activeDataService2, dataService, dataService2, failFetchDataService, failFetchDataService2
+        } = this.state;
+        var uri = `${finip}/home/publish_cate_mobile`;
         var dataBody = {
             promotion: 'promotions_1',
             id_type: id_type,
@@ -1918,22 +1873,36 @@ export class CategoryProductSubPromotion extends React.Component {
             promotion: 'promotions_2',
             id_type: id_type,
         };
-        activeDataService == true && GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
-        activeDataService2 == true && GetServices({ uriPointer: uri, dataBody: dataBody2, getDataSource: this.getData2.bind(this) })
+        dataService && dataService.error == 'TypeError: Network request failed' &&
+            this.setState({ activeDataService: true, dataService: undefined, failFetchDataService: failFetchDataService + 1 })
+        dataService2 && dataService2.error == 'TypeError: Network request failed' &&
+            this.setState({ activeDataService2: true, dataService2: undefined, failFetchDataService2: failFetchDataService2 + 1 })
+        activeDataService == true && failFetchDataService < 5 &&
+            GetServices({ abortController: this.abortController, uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) });
+        activeDataService2 == true && failFetchDataService2 < 5 &&
+            GetServices({
+                abortController: this.abortController, uriPointer: uri, dataBody: dataBody2, getDataSource: this.getData2.bind(this)
+            });
         return (
             <>
                 <View style={[stylesMain.FlexRow, { width: '100%' }]}>
                     {
                         dataService && dataService.banner && dataService2 && dataService2.banner && ([
-                            this.dataCategoryProductSubPromotion(dataService, 0),
-                            this.dataCategoryProductSubPromotion(dataService2, 1)
+                            (
+                                dataService.banner.length > 0 &&
+                                this.dataCategoryProductSubPromotion(dataService, 0)
+                            ),
+                            (
+                                dataService2.banner.length > 0 &&
+                                this.dataCategoryProductSubPromotion(dataService2, 1)
+                            ),
                         ])
                     }
                 </View>
             </>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> Second_product
 export class Second_product extends React.PureComponent {
     constructor(props) {
@@ -1941,20 +1910,10 @@ export class Second_product extends React.PureComponent {
         this.state = {
             activeSlide: 0,
         };
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
+    };
     renderItem1 = (item) => {
         return item.map((item, index) => {
-            var dataMySQL = finip + '/' + item.image_path + '/' + item.image
+            var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
             return (
                 <View key={index} style={{ width: width * 0.64, height: 196 }}>
                     <Image
@@ -1968,11 +1927,11 @@ export class Second_product extends React.PureComponent {
                         resizeMethod='resize' />
                 </View>
             );
-        })
-    }
+        });
+    };
     renderItem2 = (item) => {
         return item.map((item, index) => {
-            var dataMySQL = finip + '/' + item.image_path + '/' + item.image
+            var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
             return (
                 <View key={index} style={{ width: width * 0.32, height: 130 }}>
                     <Image
@@ -1986,13 +1945,13 @@ export class Second_product extends React.PureComponent {
                         resizeMethod='resize' />
                 </View>
             );
-        })
-    }
+        });
+    };
     get Second_Storeheader() {
-        const { Header_Second, loadData, navigation, } = this.props
-        var url
+        const { Header_Second, loadData, navigation, } = this.props;
+        var url;
         loadData.mobile_bar &&
-            loadData.mobile_bar.map((item) => { (url = finip + '/' + item.image_path + '/' + item.image) })
+            loadData.mobile_bar.map((item) => { (url = `${finip}/${item.image_path}/${item.image}`) });
         return (
             <View key={'mobile_bar'} style={[stylesMain.FrameBackground2, {
                 marginTop: 0, backgroundColor: loadData.bg_m, borderBottomWidth: null
@@ -2005,7 +1964,9 @@ export class Second_product extends React.PureComponent {
                                     มือสองลดราคา</Text>
                             </View> :
                             <TouchableOpacity activeOpacity={1}
-                                onPress={() => this.navigationNavigateScreen('SecondScreen', { selectedIndex: 0 })}>
+                                onPress={() => NavigationNavigateScreen({
+                                    goScreen: 'SecondScreen', setData: { selectedIndex: 0 }, navigation,
+                                })}>
                                 <Image
                                     style={[stylesMain.CategoryProductImageHead, { marginTop: 0 }]}
                                     source={{ uri: url }}
@@ -2016,7 +1977,7 @@ export class Second_product extends React.PureComponent {
                     {
                         loadData.product_second &&
                         <FlatProduct navigation={navigation} dataService={loadData.product_second} NumberOfcolumn={2}
-                            nameFlatProduct='Second_product' mode='row3col2' nameSize={14} priceSize={15} dispriceSize={15} />
+                            nameFlatProduct='Second_product' mode='row3' nameSize={14} priceSize={15} dispriceSize={15} />
                     }
                     {/* <ScrollView horizontal>
                         <View style={[stylesMain.ProductForYouFlexBox, { height: 370 }]}>
@@ -2029,10 +1990,10 @@ export class Second_product extends React.PureComponent {
                     </ScrollView> */}
                 </View>
             </View>
-        )
-    }
+        );
+    };
     get Second_Storebody() {
-        const { Header_Second, loadData, } = this.props
+        const { Header_Second, loadData, navigation, } = this.props;
         return (
             <View key={'Header_Second'} style={stylesMain.Second_StoreFin}>
                 <View style={stylesMain.Second_StoreFin_BoxHead}>
@@ -2047,7 +2008,9 @@ export class Second_product extends React.PureComponent {
                     }
                     <View>
                         <TouchableOpacity activeOpacity={1}
-                            onPress={() => this.navigationNavigateScreen('SecondScreen', { selectedIndex: 1 })}>
+                            onPress={() => NavigationNavigateScreen({
+                                goScreen: 'SecondScreen', setData: { selectedIndex: 1 }, navigation,
+                            })}>
                             <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                                 ดูทั้งหมด</Text>
                         </TouchableOpacity>
@@ -2078,14 +2041,14 @@ export class Second_product extends React.PureComponent {
                     </View>
                 </View>
             </View>
-        )
-    }
+        );
+    };
     _renderFooter = (item, index) => {
-        var dataMySQL = finip + '/' + item.item.image_path + '/' + item.item.image;
-        var dataMySQL2
+        var dataMySQL = `${finip}/${item.item.image_path}/${item.item.image}`;
+        var dataMySQL2;
         item.item2 && (
-            dataMySQL2 = finip + '/' + item.item2.image_path + '/' + item.item2.image
-        )
+            dataMySQL2 = `${finip}/${item.item2.image_path}/${item.item2.image}`
+        );
         return (
             <TouchableOpacity activeOpacity={1} key={index} style={stylesMain.FlexRow}>
                 <View style={[stylesMain.CategoryProductStoreBox]}>
@@ -2112,17 +2075,17 @@ export class Second_product extends React.PureComponent {
                 </View>
             </TouchableOpacity>
         );
-    }
+    };
     get Second_Storefooter() {
-        const { loadData } = this.props
-        var item = []
+        const { loadData } = this.props;
+        var item = [];
         if (loadData.mobile_slide)
             for (var n = 0; n < loadData.mobile_slide.length; n += 2) {
                 item.push({
                     item: loadData.mobile_slide[n],
                     item2: loadData.mobile_slide[n + 1]
-                })
-            }
+                });
+            };
         return (
             <View key={'mobile_slide'} style={stylesMain.Second_Storefooter}>
                 <ScrollView horizontal>
@@ -2140,8 +2103,8 @@ export class Second_product extends React.PureComponent {
                     </View>
                 </ScrollView>
             </View>
-        )
-    }
+        );
+    };
     render() {
         return (
             <View style={stylesMain.FrameBackground2}>
@@ -2151,20 +2114,19 @@ export class Second_product extends React.PureComponent {
                     this.Second_Storefooter
                 ]}
             </View>
-        )
-    }
-}
+        );
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>>
 export class Fin_Mall extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
-    }
+    };
     productCate = (type) => {
         return type.map((item, index) => {
-
-            var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
+            var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
             return (
                 <View style={stylesMain.Popular_Box_D} key={index}>
                     <FastImage
@@ -2192,21 +2154,11 @@ export class Fin_Mall extends React.Component {
                             } />
                     </View>
                 </View>
-            )
-        })
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
+            );
+        });
+    };
     render() {
-        const { loadData } = this.props
+        const { loadData, navigation } = this.props;
         return (
             <View style={stylesMain.FrameBackground2}>
                 <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>Fin Mall </Text>
@@ -2215,7 +2167,7 @@ export class Fin_Mall extends React.Component {
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
-                                uri: ip + '/MySQL/uploads/Image_FinMall/Finmall_Banner.jpg',
+                                uri: `${ip}/MySQL/uploads/Image_FinMall/Finmall_Banner.jpg`,
                             }}
                             resizeMode={FastImage.resizeMode.cover}
                         />
@@ -2227,7 +2179,7 @@ export class Fin_Mall extends React.Component {
                                 <TouchableOpacity
                                     key={'product_hit'}
                                     activeOpacity={1}
-                                    onPress={() => this.navigationNavigateScreen('FinMallScreen')}>
+                                    onPress={() => NavigationNavigateScreen({ goScreen: 'FinMallScreen', navigation })}>
                                     <View style={stylesMain.FlexRow}>
                                         {this.productCate(loadData.product_hit)}
                                     </View>
@@ -2238,47 +2190,38 @@ export class Fin_Mall extends React.Component {
                 </View>
             </View>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> FIN_Supermarket
 export class FIN_Supermarket extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
         };
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.navigate(value, value2)
-    }
+    };
     render() {
-        const { loadData, navigation } = this.props
-        const { product_hit } = loadData
+        const { loadData, navigation } = this.props;
+        const { product_hit } = loadData;
         return (
             <View style={stylesMain.FrameBackground2}>
-                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>FIN Supermarket  </Text>
+                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
+                    FIN Supermarket  </Text>
                 <Slide />
                 <View style={stylesMain.Supermarket_Product}>
                     {
                         product_hit &&
                         <FlatProduct navigation={navigation} dataService={product_hit} NumberOfcolumn={1} radiusBox={5}
-                            nameFlatProduct='Second_product' mode='row3col1' nameSize={14} priceSize={15} dispriceSize={15} />
+                            nameFlatProduct='FIN_Supermarket' mode='row3' nameSize={14} priceSize={15} dispriceSize={15} />
                     }
                 </View>
                 <View style={[stylesMain.FlexRow, stylesMain.Supermarket_Store]}>
                     <TouchableOpacity
-                        onPress={() => this.navigationNavigateScreen('FINSupermarket')}
+                        onPress={() => NavigationNavigateScreen({ goScreen: 'FINSupermarket', navigation })}
                         style={{ width: width * 0.64, }}>
                         <Image
                             style={stylesMain.BoxProduct1Image}
                             source={{
-                                uri: ip + '/MySQL/uploads/Image_FinMall/market_banner01.jpg',
+                                uri: `${ip}/MySQL/uploads/Image_FinMall/market_banner01.jpg`,
                             }}
                             resizeMode='stretch'
                             resizeMethod='resize' />
@@ -2288,7 +2231,7 @@ export class FIN_Supermarket extends React.PureComponent {
                             <Image
                                 style={stylesMain.BoxProduct1Image}
                                 source={{
-                                    uri: ip + '/MySQL/uploads/Image_FinMall/supermarket-04.jpg',
+                                    uri: `${ip}/MySQL/uploads/Image_FinMall/supermarket-04.jpg`,
                                 }}
                                 resizeMode='stretch'
                                 resizeMethod='resize' />
@@ -2297,7 +2240,7 @@ export class FIN_Supermarket extends React.PureComponent {
                             <Image
                                 style={stylesMain.BoxProduct1Image}
                                 source={{
-                                    uri: ip + '/MySQL/uploads/Image_FinMall/supermarket-04.jpg',
+                                    uri: `${ip}/MySQL/uploads/Image_FinMall/supermarket-04.jpg`,
                                 }}
                                 resizeMode='stretch'
                                 resizeMethod='resize' />
@@ -2309,7 +2252,7 @@ export class FIN_Supermarket extends React.PureComponent {
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
-                                uri: ip + '/MySQL/uploads/Image_FinMall/logo-foodland.png',
+                                uri: `${ip}/MySQL/uploads/Image_FinMall/logo-foodland.png`,
                             }}
                             resizeMode={FastImage.resizeMode.stretch} />
                     </View>
@@ -2317,7 +2260,7 @@ export class FIN_Supermarket extends React.PureComponent {
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
-                                uri: ip + '/MySQL/uploads/Image_FinMall/logo-maxvalu.png',
+                                uri: `${ip}/MySQL/uploads/Image_FinMall/logo-maxvalu.png`,
                             }}
                             resizeMode={FastImage.resizeMode.stretch} />
                     </View>
@@ -2325,7 +2268,7 @@ export class FIN_Supermarket extends React.PureComponent {
                 <FastImage
                     style={stylesMain.Banner_Bar_image}
                     source={{
-                        uri: ip + '/MySQL/uploads/Image_FinMall/market_banner06.jpg',
+                        uri: `${ip}/MySQL/uploads/Image_FinMall/market_banner06.jpg`,
                     }}
                     resizeMode={FastImage.resizeMode.contain}
                 />
@@ -2342,7 +2285,7 @@ export class FIN_Supermarket extends React.PureComponent {
                         <FastImage
                             style={{ height: 50, width: 100 }}
                             source={{
-                                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand01.jpg',
+                                uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand01.jpg`,
                             }}
                             resizeMode={FastImage.resizeMode.stretch} />
                         <View style={[stylesMain.ItemCenter]}>
@@ -2354,7 +2297,7 @@ export class FIN_Supermarket extends React.PureComponent {
                         <FastImage
                             style={{ height: 50, width: 100 }}
                             source={{
-                                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand02.jpg',
+                                uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand02.jpg`,
                             }}
                             resizeMode={FastImage.resizeMode.stretch} />
                         <View style={[stylesMain.ItemCenter]}>
@@ -2366,7 +2309,7 @@ export class FIN_Supermarket extends React.PureComponent {
                         <FastImage
                             style={{ height: 50, width: 100 }}
                             source={{
-                                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand03.jpg',
+                                uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand03.jpg`,
                             }}
                             resizeMode={FastImage.resizeMode.stretch} />
                         <View style={[stylesMain.ItemCenter]}>
@@ -2378,7 +2321,7 @@ export class FIN_Supermarket extends React.PureComponent {
                         <FastImage
                             style={{ height: 50, width: 100 }}
                             source={{
-                                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand04.jpg',
+                                uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand04.jpg`,
                             }}
                             resizeMode={FastImage.resizeMode.stretch} />
                         <View style={[stylesMain.ItemCenter]}>
@@ -2390,7 +2333,7 @@ export class FIN_Supermarket extends React.PureComponent {
                         <FastImage
                             style={{ height: 50, width: 100 }}
                             source={{
-                                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand04.jpg',
+                                uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand04.jpg`,
                             }}
                             resizeMode={FastImage.resizeMode.stretch} />
                         <View style={[stylesMain.ItemCenter]}>
@@ -2404,7 +2347,7 @@ export class FIN_Supermarket extends React.PureComponent {
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
-                                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand02.jpg',
+                                uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand02.jpg`,
                             }}
                             resizeMode={FastImage.resizeMode.stretch} />
                     </View>
@@ -2412,7 +2355,7 @@ export class FIN_Supermarket extends React.PureComponent {
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
-                                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand03.jpg',
+                                uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand03.jpg`,
                             }}
                             resizeMode={FastImage.resizeMode.stretch} />
                     </View>
@@ -2420,7 +2363,7 @@ export class FIN_Supermarket extends React.PureComponent {
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
-                                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand04.jpg',
+                                uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand04.jpg`,
                             }}
                             resizeMode={FastImage.resizeMode.stretch} />
                     </View>
@@ -2428,7 +2371,7 @@ export class FIN_Supermarket extends React.PureComponent {
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
-                                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand05.jpg',
+                                uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand05.jpg`,
                             }}
                             resizeMode={FastImage.resizeMode.stretch} />
                     </View>
@@ -2436,7 +2379,7 @@ export class FIN_Supermarket extends React.PureComponent {
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
-                                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand06.jpg',
+                                uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand06.jpg`,
                             }}
                             resizeMode={FastImage.resizeMode.stretch} />
                     </View>
@@ -2444,22 +2387,22 @@ export class FIN_Supermarket extends React.PureComponent {
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
-                                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand07.jpg',
+                                uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand07.jpg`,
                             }}
                             resizeMode={FastImage.resizeMode.stretch} />
                     </View>
                 </ScrollView>
             </View>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> TodayProduct
 export class TodayProduct extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
-    }
+    };
     render() {
         const { loadData, navigation, noTitle, onShow, prepath, typeip, } = this.props
         return (
@@ -2486,18 +2429,17 @@ export class TodayProduct extends React.Component {
                     }
                 </View>
             </View>
-        )
-    }
-}
+        );
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>>
 export class Botton_PopUp_FIN extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             activeSliding: false,
-
         };
-    }
+    };
     toggleComponentVisibility = (activeSliding) => {
         activeSliding == true &&
             Notifications.postLocalNotification({
@@ -2506,19 +2448,9 @@ export class Botton_PopUp_FIN extends React.Component {
                 extra: "data"
             });
         this.setState({ activeSliding });
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
+    };
     render() {
-        const { activeSliding } = this.state
+        const { activeSliding } = this.state;
         // console.log(activeSliding)
         return (
             <>
@@ -2556,5 +2488,5 @@ export class Botton_PopUp_FIN extends React.Component {
                 </SlidingView>
             </>
         );
-    }
-}
+    };
+};

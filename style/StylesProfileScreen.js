@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import { normalize } from './stylesFont';
 export const { width, height } = Dimensions.get('window');
 export default StyleSheet.create({
     Appbar: {
@@ -48,8 +49,8 @@ export default StyleSheet.create({
     },
     HeadbarBoxImage: {
         backgroundColor: '#FFFFFF',
-        width: 80,
-        height: 80,
+        width: normalize(80),
+        height: normalize(80),
         borderRadius: 40,
         marginTop: 10,
         marginLeft: 30,

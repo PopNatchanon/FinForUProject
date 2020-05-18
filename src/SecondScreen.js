@@ -13,7 +13,7 @@ import stylesMain from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, AppBar1, BannerBar_ONE, ExitAppModule, TodayProduct, } from './MainScreen';
 import { Button_Bar, } from './ExclusiveScreen';
-import { GetServices, ProductBox, SlideTab2, } from './tools/Tools';
+import { GetServices, ProductBox, SlideTab2, NavigationNavigateScreen, } from './customComponents/Tools';
 import { Slide, } from './src_Promotion/DealScreen';
 import { Store_Detail, } from './Recommend_Store';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -74,7 +74,7 @@ export class Second_Product extends React.Component {
   render() {
     const { navigation } = this.props
     const { activeDataService, dataService, sliderVisible } = this.state
-    var uri = ip + '/mysql/DataServiceMain.php';
+    var uri = `${ip}/mysql/DataServiceMain.php`;
     var dataBody = {
       type: 'todayproduct'
     };
@@ -139,17 +139,8 @@ export class Second_Store extends React.Component {
     this.state = {
     };
   }
-  navigationNavigateScreen = (value, value2) => {
-    const { navigation } = this.props
-    value == 'goBack' ?
-      navigation.goBack() :
-      value == 'LoginScreen' ? (
-        navigation.popToTop(),
-        navigation.replace(value, value2)
-      ) :
-        navigation.push(value, value2)
-  }
   render() {
+    const { navigation } = this.props
     return (
       <View style={stylesMain.FrameBackground2}>
         <View style={stylesMain.FrameBackgroundTextBox}>
@@ -157,22 +148,22 @@ export class Second_Store extends React.Component {
             ร้านค้ามือสองที่แนะนำ</Text>
         </View>
         <View style={stylesMain.FlexRow}>
-          <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Recommend_Store')}>
+          <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Recommend_Store', navigation })}>
             <View style={stylesMain.BoxStore1Box}>
               <FastImage
                 style={stylesMain.BoxStore1Image}
                 source={{
-                  uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop2.jpg',
+                  uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop2.jpg`,
                 }}
                 resizeMode={FastImage.resizeMode.stretch} />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Recommend_Store')}>
+          <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Recommend_Store', navigation })}>
             <View style={stylesMain.BoxStore1Box}>
               <FastImage
                 style={stylesMain.BoxStore1Image}
                 source={{
-                  uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop3.jpg',
+                  uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop3.jpg`,
                 }}
                 resizeMode={FastImage.resizeMode.stretch} />
             </View>
@@ -197,7 +188,7 @@ export class Second_Product_Brand extends React.Component {
   render() {
     const { navigation } = this.props
     const { dataService } = this.state
-    var uri = ip + '/mysql/DataServiceMain.php';
+    var uri = `${ip}/mysql/DataServiceMain.php`;
     var dataBody = {
       type: 'sale'
     };

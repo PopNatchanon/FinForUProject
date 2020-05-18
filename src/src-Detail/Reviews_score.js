@@ -14,7 +14,7 @@ import stylesFont from '../../style/stylesFont';
 import stylesDetail from '../../style/StylesDetailScreen'
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1 } from '../MainScreen';
-import { TabBar, LoadingScreen, GetServices } from '../tools/Tools';
+import { TabBar, LoadingScreen, GetServices } from '../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -41,7 +41,7 @@ export default class Reviews_score extends React.Component {
         const { activeGetServices, dataService, filterValue } = this.state
         const id_product = navigation.getParam('id_product')
         const id_store = navigation.getParam('id_store')
-        var uri = finip + '/product/store_review';
+        var uri = `${finip}/product/store_review`;
         var dataBody = {
             id_store: id_store,
             rating: filterValue && filterValue.rating ? filterValue.rating + '' : '',
@@ -205,7 +205,7 @@ export class Reviews_Box extends React.Component {
     render() {
         const { dataService } = this.props;
         const image_customer = dataService.user_type == 'fin' ?
-            finip + '/' + dataService.path_customer + '/' + dataService.img_customer :
+            `${finip}/${dataService.path_customer}/${dataService.img_customer}` :
             dataService.img_customer;
         var img_rate = dataService.img_rate.length > 0 && dataService.img_rate.split(';')
         console.log(img_rate)
@@ -228,7 +228,7 @@ export class Reviews_Box extends React.Component {
                         <View style={[stylesDetail.Comment_Image_A, stylesMain.BottomSpace]}>
                             {
                                 img_rate.map((value, index) => {
-                                    const image_product = finip + '/' + dataService.path_rate_thumb + '/' + value
+                                    const image_product = `${finip}/${dataService.path_rate_thumb}/${value}`
                                     return <FastImage
                                         key={index}
                                         style={stylesDetail.Reviews_Image}

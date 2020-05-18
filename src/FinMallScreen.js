@@ -18,7 +18,7 @@ import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, TodayProduct, ExitAppModule, Recommend_Brand, } from './MainScreen';
 import { Slide, } from './src_Promotion/DealScreen';
-import { GetData, GetServices, TabBar, ProductBox, SlideTab2, LoadingScreen } from './tools/Tools';
+import { GetData, GetServices, TabBar, ProductBox, SlideTab2, LoadingScreen } from './customComponents/Tools';
 import { Button_Bar, PricesSlide, SlideTab, } from './ExclusiveScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from './navigator/IpConfig';
@@ -37,16 +37,6 @@ export default class FinMallScreen extends React.Component {
   }
   getData = (dataService) => {
     this.setState({ dataService })
-  }
-  navigationNavigateScreen = (value, value2) => {
-    const { navigation } = this.props
-    value == 'goBack' ?
-      navigation.goBack() :
-      value == 'LoginScreen' ? (
-        navigation.popToTop(),
-        navigation.replace(value, value2)
-      ) :
-        navigation.push(value, value2)
   }
   render() {
     const { navigation } = this.props
@@ -105,7 +95,7 @@ export class FIN_Mall extends React.Component {
     const { navigation } = this.props;
     const { activeGetCurrentUser, activeGetServices, dataService, filterValue,
       sliderVisible, } = this.state;
-    var uri = finip + '/finmall/finmall_mobile';
+    var uri = `${finip}/finmall/finmall_mobile`;
     var dataBody = {
       popular: filterValue && filterValue.popular ? filterValue.popular : '',
       lastest: filterValue && filterValue.lastest ? filterValue.lastest : '',

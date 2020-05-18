@@ -15,7 +15,7 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, TodayProduct, } from '../MainScreen';
-import { GetServices } from '../tools/Tools';
+import { GetServices, NavigationNavigateScreen } from '../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -31,7 +31,7 @@ export default class Customer_Complete_Order extends Component {
   }
   componentDidMount() {
     this.getDataasync()
-    CookieManager.get(finip + '/auth/login_customer')
+    CookieManager.get(`${finip}/auth/login_customer`)
       .then((res) => {
         var keycokie = res.token
         this.setState({ keycokie })
@@ -47,12 +47,12 @@ export default class Customer_Complete_Order extends Component {
     const { navigation } = this.props
     const { currentUser, dataService, dataService2, keycokie } = this.state
     var no_invoice = navigation.getParam('no_invoice');
-    var uri = finip + '/purchase_data/thank_you_bill';
+    var uri = `${finip}/purchase_data/thank_you_bill`;
     var dataBody = {
       id_customer: currentUser && currentUser.id_customer,
       no_invoice,
     };
-    var uri2 = ip + '/mysql/DataServiceMain.php';
+    var uri2 = `${ip}/mysql/DataServiceMain.php`;
     var dataBody2 = {
       type: 'product',
     };
@@ -84,22 +84,10 @@ export class Customer_Product extends Component {
     this.state = {
     };
   }
-  navigationNavigateScreen = (value, value2) => {
-    const { navigation } = this.props
-    value == 'goBack' ?
-      navigation.goBack() :
-      value == 'LoginScreen' ? (
-        navigation.popToTop(),
-        navigation.replace(value, value2)
-      ) :
-        value == 'popToTop' ?
-          navigation.popToTop() :
-          navigation.push(value, value2)
-  }
   render() {
-    const { dataService, no_invoice } = this.props
+    const { dataService, navigation, no_invoice } = this.props
     return dataService.result.map((value) => {
-      const dataMySQL = finip + '/' + value.image_path + '/' + value.image_main
+      const dataMySQL = `${finip}/${value.image_path}/${value.image_main}`
       return (
         <View>
           <View style={{ justifyContent: 'center', alignItems: 'center', height: 150, backgroundColor: '#FFFFFF' }}>
@@ -166,7 +154,7 @@ export class Customer_Product extends Component {
               </View>
             </View>
             <View style={{ alignItems: 'center', marginTop: 10 }}>
-              <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'popToTop')}>
+              <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'popToTop', navigation })}>
                 <View style={{ backgroundColor: '#0A55A6', paddingHorizontal: 10, padding: 10, borderRadius: 5, }}>
                   <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ช้อปต่อไม่รอแล้วนะ</Text>
                 </View>

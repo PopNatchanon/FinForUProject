@@ -51,8 +51,9 @@ export default StyleSheet.create({
         flexDirection: 'row',
     },
     Bar_Code_Box: {
-        width: 200,
+        width: 'auto',
         height: 40,
+        aspectRatio: 4,
         borderColor: '#ECECEC',
         borderWidth: 1,
     },

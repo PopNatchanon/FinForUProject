@@ -24,10 +24,10 @@ import stylesTopic from '../../../style/styleTopic';
 import stylesProfile from '../../../style/StylesProfileScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { Button_Bar } from '../../HighlightScreen';
-import { GetServices, GetCoupon, GetData, TabBar, LoadingScreen } from '../../tools/Tools';
+import { GetServices, GetCoupon, GetData, TabBar, LoadingScreen, NavigationNavigateScreen } from '../../customComponents/Tools';
 import { TodayProduct, Slide, AppBar1, ExitAppModule, } from '../../MainScreen';
 import { Store_Detail } from '../../Recommend_Store';
-import { ProductBox } from '../../tools/Tools';
+import { ProductBox } from '../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -58,7 +58,7 @@ export default class Deal_Topic extends Component {
         const { navigation } = this.props
         const { activeGetCurrentUser, activeGetServices2, currentUser, dataService, dataService2, id_category, keycokie, } = this.state
         const selectedIndex = navigation.getParam('selectedIndex')
-        const uri2 = finip + '/highlight/exclusive_deal'
+        const uri2 = `${finip}/highlight/exclusive_deal`
         var dataBody2 = {
             device: 'mobile_device',
             id_category: id_category ? id_category : ''
@@ -156,8 +156,9 @@ export default class Deal_Topic extends Component {
         }
     }
     render() {
+        const { navigation } = this.props
         const { activeGetCurrentUser, activeGetServices, activeGetServices2, keycokie, } = this.state
-        const uri = finip + '/coupon/coupon_day_mobile'
+        const uri = `${finip}/coupon/coupon_day_mobile`
         activeGetCurrentUser == false && activeGetServices == true &&
             GetServices({ Authorization: keycokie, uriPointer: uri, getDataSource: this.getData.bind(this), })
         activeGetCurrentUser == true &&
@@ -169,7 +170,7 @@ export default class Deal_Topic extends Component {
                     <LoadingScreen key='LoadingScreen' />
                 }
                 {this.PathList()}
-                <ExitAppModule navigation={this.props.navigation} />
+                <ExitAppModule navigation={navigation} />
             </SafeAreaView>
         );
     }
@@ -203,7 +204,7 @@ export class Deal_CuponToday extends Component {
     render() {
         const { currentUser, keycokie, } = this.props
         const { activeGetServices, dataService, id_promotion, } = this.state
-        const uri = finip + '/coupon/save_coupon_fin'
+        const uri = `${finip}/coupon/save_coupon_fin`
         var dataBody = {
             id_customer: currentUser.id_customer,
             device: 'mobile_device',
@@ -242,7 +243,7 @@ export class Deal_ProductToday extends Component {
     }
     render() {
         const { dataService, dataService2 } = this.props
-        const image_store = finip + '/' + dataService.store_path + '/' + dataService.image_store
+        const image_store = `${finip}/${dataService.store_path}/${dataService.image_store}`
         return (
             <View style={stylesMain.SafeAreaView}>
                 <View style={[stylesMain.FrameBackground, { borderColor: '#ECECEC', borderWidth: 1 }]}>
@@ -259,7 +260,7 @@ export class Deal_ProductToday extends Component {
                     <View style={{ width: '100%', justifyContent: 'space-around', flexDirection: 'row', padding: 5 }}>
                         {
                             dataService2 && dataService2.map((value, index) => {
-                                const image_produxt = finip + '/' + value.path_image_product + '/' + value.image_product
+                                const image_produxt = `${finip}/${value.path_image_product}/${value.image_product}`
                                 if (index < 3) {
                                     return <View key={index} style={[stylesMain.ItemCenter, { width: '25%', borderColor: '#ECECEC', borderWidth: 0.5, height: 120, padding: 5 }]}>
                                         <View style={{ height: '80%', width: '100%' }}>
@@ -300,27 +301,18 @@ export class Not_Internet extends Component {
         this.state = {
         };
     }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
     render() {
+        const { navigation } = this.props
         return (
             <View style={stylesMain.ItemCenter}>
                 <FastImage style={{ height: 200, width: 200 }}
                     source={{
-                        uri: ip + '/MySQL/uploads/icon_5/wifi-connected-png-8.png',
+                        uri: `${ip}/mysql/uploads/icon_5/wifi-connected-png-8.png`,
                     }}
                 />
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { width: 300, textAlign: 'center', color: '#969BA0' }]}> WHOOPS! ดูเหมือนว่าจะมีปัญหาในการเชื่อมต่อเซิร์ฟเวอร์ ลองพยายามตรวจสอบ
                 การเชื่อมต่ออินเตอร์เน็ตแล้วลองใหม่อีกครั้ง </Text>
-                <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'goBack')}>
+                <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'goBack', navigation })}>
                     <View style={[stylesMain.ItemCenter, { padding: 10, backgroundColor: '#0A55A6', borderRadius: 5, marginTop: 10 }]}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>อัปโหลดอีกครั้ง</Text>
                     </View>

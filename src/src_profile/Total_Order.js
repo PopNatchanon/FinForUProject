@@ -19,7 +19,7 @@ import stylesMain from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from '../MainScreen';
-import { TabBar, GetServices, LoadingScreen } from '../tools/Tools';
+import { TabBar, GetServices, LoadingScreen, NavigationNavigateScreen } from '../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -36,7 +36,7 @@ export default class Total_Order extends Component {
     }
     componentDidMount() {
         this.getDataAsync()
-        CookieManager.get(finip + '/auth/login_customer')
+        CookieManager.get(`${finip}/auth/login_customer`)
             .then((res) => {
                 var keycokie = res.token
                 this.setState({ keycokie })
@@ -71,6 +71,10 @@ export class Button_bar extends Component {
             activeSelectedIndex: true,
         };
     }
+    componentDidMount() {
+        const { SetselectedIndex } = this.props
+        SetselectedIndex == 0 && this.setState({ selectedIndex: 0 })
+    }
     getData = (dataService) => {
         const { setLoading } = this.props
         this.setState({ activeSelectedIndex: false, dataService })
@@ -86,7 +90,7 @@ export class Button_bar extends Component {
         const { activeSelectedIndex, dataService, selectedIndex, } = this.state
         console.log('selectedIndex')
         console.log(selectedIndex)
-        var uri = finip + '/purchase_data/view_purchase';
+        var uri = `${finip}/purchase_data/view_purchase`
         var dataBody = {
             id_customer: currentUser && currentUser.id_customer,
             type_purchase:
@@ -239,6 +243,7 @@ export class Button_bar extends Component {
     render() {
         const { SetselectedIndex } = this.props
         const { selectedIndex } = this.state
+        console.log('\n-------------------------------->selected: ' + SetselectedIndex)
         console.log('\n--------------------------------\nselectedIndex: ' + selectedIndex + '\n--------------------------------')
         const item = [{
             name: 'ทั้งหมด'
@@ -259,7 +264,7 @@ export class Button_bar extends Component {
                             sendData={this.updateIndex.bind(this)}
                             item={item}
                             // noLimit
-                            SetValue={selectedIndex > -1 ? selectedIndex : SetselectedIndex}
+                            SetValue={selectedIndex >= 0 ? selectedIndex : SetselectedIndex}
                             // widthBox={98}
                             activeColor={'#fff'}
                             activeFontColor={'#0A55A6'}
@@ -282,25 +287,11 @@ export class From_Order_Box extends Component {
         this.state = {
         };
     }
-    navigationNavigateScreen = (value, value2, value3) => {
-        const { navigation } = this.props
-        value3 && (
-            console.log(value3.consolename),
-            console.log(value3.consolelog)
-        )
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
     render() { // 3 // Review_order return_order detail_order // buy_again_order return_order
-        const { dataService, } = this.props
+        const { dataService, navigation } = this.props
         console.log(dataService)
-        const uri_image_store = finip + '/' + dataService.store_path + '/' + dataService.store_image
-        const uri_image_product = finip + '/' + dataService.path_product + '/' + dataService.image_product
+        const uri_image_store = `${finip}/${dataService.store_path}/${dataService.store_image}`
+        const uri_image_product = `${finip}/${dataService.path_product}/${dataService.image_product}`
         return (
             <View>
                 <View style={stylesMain.FrameBackground}>
@@ -339,7 +330,9 @@ export class From_Order_Box extends Component {
                         {[
                             dataService.status_purchase == 'wait' &&
                             <TouchableOpacity key={'Review_order'} activeOpacity={1}
-                                onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 7 })}>
+                                onPress={() => NavigationNavigateScreen({
+                                    goScreen: 'Profile_Topic', setData: { selectedIndex: 7 }, navigation
+                                })}>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical, {
                                     color: '#111', width: width * 0.3, textAlign: 'center', color: '#20BDA1'
                                 }]}>
@@ -361,7 +354,9 @@ export class From_Order_Box extends Component {
                             ),
                             dataService.status_purchase == 'accepted' &&
                             <TouchableOpacity key={'Review_order'} activeOpacity={1}
-                                onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 7 })}>
+                                onPress={() => NavigationNavigateScreen({
+                                    goScreen: 'Profile_Topic', setData: { selectedIndex: 7 }, navigation
+                                })}>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical, {
                                     color: '#20BDA1', width: width * 0.3, textAlign: 'center',
                                 }]}>
@@ -371,7 +366,9 @@ export class From_Order_Box extends Component {
                             </TouchableOpacity>,
                             dataService.status_purchase == 'cancel' &&
                             <TouchableOpacity key={'Review_order'} activeOpacity={1}
-                                onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 7 })}>
+                                onPress={() => NavigationNavigateScreen({
+                                    goScreen: 'Profile_Topic', setData: { selectedIndex: 7 }, navigation
+                                })}>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical, {
                                     color: '#111', width: width * 0.3, textAlign: 'center',
                                 }]}>
@@ -393,7 +390,7 @@ export class From_Order_Box extends Component {
                                 <Text numberOfLines={2} style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                                     {dataService.product_name}</Text>
                                 <Text numberOfLines={2} style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A2A2A2' }]}>
-                                    {dataService.detail_1 + ' ' + dataService.detail_2}</Text>
+                                    {`${dataService.detail_1} ${dataService.detail_2}`}</Text>
                                 <NumberFormat
                                     value={dataService.quantity}
                                     displayType={'text'}
@@ -430,8 +427,9 @@ export class From_Order_Box extends Component {
                         <View style={[stylesProfileTopic.Order_Box_priceText, { marginTop: 5, }]}>
                             {[
                                 dataService.status_purchase == 'wait' &&
-                                <TouchableOpacity key={'payment_order'} onPress={this.navigationNavigateScreen.bind(this, 'Customer_Order',
-                                    { no_invoice: dataService.invoice_no })}>
+                                <TouchableOpacity key={'payment_order'} onPress={() => NavigationNavigateScreen({
+                                    goScreen: 'Customer_Order', setData: { no_invoice: dataService.invoice_no }, navigation
+                                })}>
                                     <View style={[stylesProfileTopic.Order_Button, {
                                         borderWidth: 1, borderColor: '#0A55A6', backgroundColor: '#0A55A6'
                                     }]}>
@@ -440,16 +438,17 @@ export class From_Order_Box extends Component {
                                     </View>
                                 </TouchableOpacity>,
                                 dataService.status_purchase == 'wait' &&
-                                <TouchableOpacity key={'cancel_order'} onPress={this.navigationNavigateScreen.bind(this, 'CancelScreen', {
-                                    selectedIndex: 1
+                                <TouchableOpacity key={'cancel_order'} onPress={() => NavigationNavigateScreen({
+                                    goScreen: 'CancelScreen', setData: { selectedIndex: 1 }, navigation
                                 })}>
                                     <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
                                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยกเลิกสินค้า</Text>
                                     </View>
                                 </TouchableOpacity>,
                                 dataService.status_purchase == 'accepted' &&
-                                <TouchableOpacity key={'return_order'} onPress={this.navigationNavigateScreen.bind(this, 'Return_products', {
-                                    selectedIndex: 1
+                                <TouchableOpacity key={'return_order'} onPress={() => NavigationNavigateScreen({
+                                    goScreen: 'Return_products',
+                                    setData: { selectedIndex: 1 }, navigation
                                 })}>
                                     <View style={{ borderBottomColor: '#0A55A6', borderBottomWidth: 1, height: 20, }}>
                                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>
@@ -459,12 +458,12 @@ export class From_Order_Box extends Component {
                                 (dataService.status_purchase == 'paid' || dataService.status_purchase == 'accepted') &&
                                 <TouchableOpacity key={'detail_order'}
                                     onPress={
-                                        this.navigationNavigateScreen.bind(this, 'Order_Detail',
-                                            {
+                                        NavigationNavigateScreen({
+                                            goScreen: 'Order_Detail', setData: {
                                                 id_cartdetail: dataService.id_cartdetail, insert_date: dataService.insert_date,
                                                 no_invoice: dataService.invoice_no
-                                            },
-                                            { consolename: 'detail_order', consolelog: dataService })}>
+                                            }, setConsole: { consolename: 'detail_order', consolelog: dataService }, navigation
+                                        })}>
                                     <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
                                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
                                     </View>

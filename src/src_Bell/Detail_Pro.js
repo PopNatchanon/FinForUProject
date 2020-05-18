@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React from 'react';
 import {
-    Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View, 
+    Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
@@ -14,6 +14,7 @@ import stylesMain from '../../style/StylesMainScreen';
 import { AppBar1, ExitAppModule } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '.././navigator/IpConfig';
+import { NavigationNavigateScreen } from '../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class Detail_Pro extends React.Component {
     constructor(props) {
@@ -50,7 +51,7 @@ export default class Detail_Pro extends React.Component {
                         <Detail_Product_Check />
                     </View>
                 )
-           
+
         }
     }
     render() {
@@ -76,7 +77,7 @@ export class Detail_Promotion extends React.Component {
                 <View style={{ width: '100%', height: 150, marginVertical: 10, alignItems: 'center', }}>
                     <FastImage style={{ height: '100%', width: '95%', }}
                         source={{
-                            uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
+                            uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop1.jpg`,
                         }}
                     />
                 </View>
@@ -175,7 +176,7 @@ export class Detail_Product extends React.Component {
                     <View style={{ height: 100, width: 100, flexDirection: 'row' }}>
                         <FastImage style={{ height: '100%', width: '100%', }}
                             source={{
-                                uri: ip + '/MySQL/uploads/products/2019-10-10-1570677650.png',
+                                uri: `${ip}/mysql/uploads/products/2019-10-10-1570677650.jpg`,
                             }}
                         />
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>นาฬิกา TISSOT</Text>
@@ -229,19 +230,12 @@ export class Detail_Button extends React.Component {
         this.state = {
         };
     }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
     render() {
+        const { navigation } = this.props
         return (
-            <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Detail_Pro', { selectedIndex: 2 })}>
+            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                goScreen: 'Detail_Pro', setData: { selectedIndex: 2 }, navigation
+            })}>
                 <View style={{
                     width: '100%', backgroundColor: '#0A55A6', height: 50, alignItems: 'center', justifyContent: 'center', marginTop: 10
                 }}>

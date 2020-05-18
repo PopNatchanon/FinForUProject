@@ -1,12 +1,11 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React from 'react';
 import {
-    Animated, Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
-    StyleSheet, TouchableHighlight, TextInput,
+    Animated, Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View, TextInput,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import * as Animatable from 'react-native-animatable';
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-community/async-storage';
 import BottomSheet from "react-native-raw-bottom-sheet";
 import { CheckBox } from 'react-native-elements';
 import CookieManager from '@react-native-community/cookies';
@@ -21,12 +20,12 @@ import IconFontisto from 'react-native-vector-icons/Fontisto';
 import IconFoundation from 'react-native-vector-icons/Foundation';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesCart from '../style/stylesCartScreen';
-import stylesFont from '../style/stylesFont';
+import stylesFont, { normalize } from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from './MainScreen';
-import { GetServices } from './tools/Tools';
-import { PopularProduct } from './StoreScreen'
+import { GetServices, GetData, NavigationNavigateScreen } from './customComponents/Tools';
+import { PopularProduct } from './StoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -35,6 +34,7 @@ export default class CartScreen extends React.Component {
         super(props);
         this.state = {
             activeDelete: false,
+            activeGetSource: true,
             activeRefresh: true,
             activeSave: false,
             activeSave2: false,
@@ -43,68 +43,64 @@ export default class CartScreen extends React.Component {
             itemCount: [],
             itemData: [],
         };
-    }
+    };
     componentDidMount() {
-        this.getDataAsync()
-        CookieManager.get(finip + '/auth/login_customer')
-            .then((res) => {
-                var keycokie = res.token
-                this.setState({ keycokie })
-            });
-    }
-    getDataAsync = async () => {
-        const currentUser = await AsyncStorage.getItem('@MyKey')
-        this.setState({ currentUser: JSON.parse(currentUser) })
-    }
+        const { activeGetSource, } = this.state;
+        activeGetSource == true && GetData({ getCokie: true, getUser: true, getSource: this.getSource.bind(this) });
+    };
+    getSource = (value) => {
+        this.setState({ activeGetSource: false, currentUser: value.currentUser, cokie: value.keycokie, activeLogin: value.activeLogin });
+    };
     getData = (dataService) => {
+        console.log(dataService)
         for (var n = 0; n < dataService.cart_list.length; n++) {
-            dataService.cart_list[n].key = n
-        }
-        this.setState({ activeRefresh: false, dataService, })
-    }
+            dataService.cart_list[n].key = n;
+        };
+        this.setState({ activeRefresh: false, dataService, });
+    };
     getData2 = (dataService2) => {
-        this.setState({ activeRefresh: true, activeSave: false, dataService2, })
-    }
+        this.setState({ activeRefresh: true, activeSave: false, dataService2, });
+    };
     getData3 = (dataService3) => {
-        this.setState({ activeRefresh: true, activeDelete: false, dataService3, })
-    }
+        this.setState({ activeRefresh: true, activeDelete: false, dataService3, });
+    };
     getCheckedAll = (checkedAll) => {
-        this.setState({ checkedAll, activeSave2: true })
-    }
+        this.setState({ checkedAll, activeSave2: true });
+    };
     ArrayItem = (ArrayItem) => {
-        this.setState({ activeSave: true, ArrayItem, })
-    }
+        this.setState({ activeSave: true, ArrayItem, });
+    };
     ArrayItem2 = (ArrayItem2) => {
-        this.setState({ activeDelete: true, ArrayItem2, ButtomDeleteAll: false })
-    }
+        this.setState({ activeDelete: true, ArrayItem2, ButtomDeleteAll: false });
+    };
     propsFunction = () => {
         const { ButtomDeleteAll } = this.state;
-        this.setState({ ButtomDeleteAll: !ButtomDeleteAll, })
-    }
+        this.setState({ ButtomDeleteAll: !ButtomDeleteAll, });
+    };
     render() {
         const { navigation } = this.props;
         const {
             activeDelete, activeSave, activeSave2, activeRefresh, ArrayItem, ArrayItem2, ButtomDeleteAll, checkedAll, currentUser,
-            dataService, dataService2, keycokie
-        } = this.state
-        var uri
-        var dataBody
+            dataService, dataService2, cokie
+        } = this.state;
+        var uri;
+        var dataBody;
         currentUser && (
-            uri = finip + '/cart/cart_mobile',
+            uri = `${finip}/cart/cart_mobile`,
             dataBody = {
                 id_customer: currentUser.id_customer
             }
-        )
-        var uri2 = finip + '/cart/auto_save_ajax'
-        var uri3 = finip + '/cart/delete_cart'
+        );
+        var uri2 = `${finip}/cart/auto_save_ajax`;
+        var uri3 = `${finip}/cart/delete_cart`;
         currentUser && dataBody && activeRefresh == true &&
-            GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), })
+            GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), });
         ArrayItem && activeSave == true &&
-            GetServices({ uriPointer: uri2, dataBody: ArrayItem, Authorization: keycokie, getDataSource: this.getData2.bind(this), })
+            GetServices({ uriPointer: uri2, dataBody: ArrayItem, Authorization: cokie, getDataSource: this.getData2.bind(this), });
         ArrayItem2 && activeDelete == true &&
-            GetServices({ uriPointer: uri3, dataBody: ArrayItem2, Authorization: keycokie, getDataSource: this.getData3.bind(this), })
+            GetServices({ uriPointer: uri3, dataBody: ArrayItem2, Authorization: cokie, getDataSource: this.getData3.bind(this), });
         activeSave2 == true &&
-            this.setState({ activeSave2: false })
+            this.setState({ activeSave2: false });
         return (
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                 {/* {
@@ -112,7 +108,8 @@ export default class CartScreen extends React.Component {
                     <LoadingScreen />
 
                 } */}
-                <AppBar1 navigation={navigation} titleHead='รถเข็น' deleteBar={dataService && dataService.cart_list.length > 0 ? true : false}
+                <AppBar1 navigation={navigation} titleHead='รถเข็น'
+                    deleteBar={dataService && dataService.cart_list.length > 0 ? true : false}
                     backArrow ButtomDeleteAll={ButtomDeleteAll} propsFunction={this.propsFunction.bind(this)} />
                 <ScrollView>
                     {
@@ -126,15 +123,15 @@ export default class CartScreen extends React.Component {
                 </ScrollView>
                 {
                     dataService && dataService.cart_list.length > 0 && dataService2 &&
-                    <Buy_bar navigation={navigation} dataService2={dataService2} checkedAll={checkedAll} list_order={ArrayItem.list_order}
-                        getCheckedAll={this.getCheckedAll.bind(this)} ButtomDeleteAll={ButtomDeleteAll} currentUser={currentUser}
-                        DeleteAction={this.ArrayItem2.bind(this)} keycokie={keycokie} />
+                    <Buy_bar navigation={navigation} dataService2={dataService2} checkedAll={checkedAll}
+                        list_order={ArrayItem.list_order} getCheckedAll={this.getCheckedAll.bind(this)} ButtomDeleteAll={ButtomDeleteAll}
+                        currentUser={currentUser} DeleteAction={this.ArrayItem2.bind(this)} cokie={cokie} />
                 }
                 <ExitAppModule navigation={navigation} />
             </SafeAreaView>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> Product_Cart
 export class Product_Cart extends React.Component {
     constructor(props) {
@@ -144,42 +141,42 @@ export class Product_Cart extends React.Component {
             activeHeadArray: false,
             activeRefresh: false,
         };
-    }
+    };
     setStateItemArrayChecked = (checked, id_cartdetail, ) => {
-        const { ArrayItem, currentUser, dataService, getCheckedAll, } = this.props
-        const { HeadArray, ItemArray } = this.state
-        var numindex = ItemArray.map((item) => { return item.id_cartdetail; }).indexOf(id_cartdetail)
-        ItemArray[numindex].checked = checked
+        const { ArrayItem, currentUser, dataService, getCheckedAll, } = this.props;
+        const { HeadArray, ItemArray } = this.state;
+        var numindex = ItemArray.map((item) => { return item.id_cartdetail; }).indexOf(id_cartdetail);
+        ItemArray[numindex].checked = checked;
         var checkedMain = ItemArray.filter((item) => { return item.name_store == ItemArray[numindex].name_store })
-            .map((item2) => { return item2.checked }).every((item3) => { return item3 == true })
-        var numindex_h = HeadArray.map((item) => { return item.name; }).indexOf(ItemArray[numindex].name_store)
-        var id = []
+            .map((item2) => { return item2.checked }).every((item3) => { return item3 == true });
+        var numindex_h = HeadArray.map((item) => { return item.name; }).indexOf(ItemArray[numindex].name_store);
+        var id = [];
         for (var n = 0; n < dataService.length; n++) {
             if (ItemArray[n].checked == true) {
-                id.push(dataService[n].id_cartdetail)
-            }
-        }
-        HeadArray[numindex_h].checked = checkedMain
-        var checkedAll = HeadArray.map((item) => { return item.checked }).every((item2) => { return item2 == true })
-        getCheckedAll(checkedAll)
+                id.push(dataService[n].id_cartdetail);
+            };
+        };
+        HeadArray[numindex_h].checked = checkedMain;
+        var checkedAll = HeadArray.map((item) => { return item.checked }).every((item2) => { return item2 == true });
+        getCheckedAll(checkedAll);
         ArrayItem({
             amount: ItemArray[numindex].itemCount,
             list_order: id.join(','),
             id_cartdetail: id_cartdetail,
             id_customer: currentUser.id_customer
-        })
-        this.setState({ activecart: true, ItemArray, HeadArray, })
-    }
+        });
+        this.setState({ activecart: true, ItemArray, HeadArray, });
+    };
     setStateItemArrayitemCount = (itemCount, id_cartdetail, max_remain, ) => {
-        const { ArrayItem, currentUser, dataService, } = this.props
-        const { ItemArray } = this.state
-        var numindex = ItemArray.map((item) => { return item.id_cartdetail; }).indexOf(id_cartdetail)
-        var id = []
+        const { ArrayItem, currentUser, dataService, } = this.props;
+        const { ItemArray } = this.state;
+        var numindex = ItemArray.map((item) => { return item.id_cartdetail; }).indexOf(id_cartdetail);
+        var id = [];
         for (var n = 0; n < dataService.length; n++) {
             if (ItemArray[n].checked == true) {
-                id.push(ItemArray[n].id_cartdetail)
-            }
-        }
+                id.push(ItemArray[n].id_cartdetail);
+            };
+        };
         itemCount > 0 && itemCount < max_remain && (
             ItemArray[numindex].itemCount = itemCount,
             ArrayItem({
@@ -188,58 +185,58 @@ export class Product_Cart extends React.Component {
                 id_cartdetail: id_cartdetail,
                 id_customer: currentUser.id_customer
             })
-        )
-        this.setState({ activecart: false, activeHeadArray: false, activeRefresh: false })
-    }
+        );
+        this.setState({ activecart: false, activeHeadArray: false, activeRefresh: false });
+    };
     setStateHeadArray = (checked, name) => {
-        const { getCheckedAll, } = this.props
-        const { HeadArray, ItemArray } = this.state
-        var numindex = HeadArray.map((item) => { return item.name; }).indexOf(name)
-        HeadArray[numindex].checked = checked
-        var numcount = ItemArray.filter((value) => { return value.name_store == name }).map((item) => { return item.id_cartdetail })
+        const { getCheckedAll, } = this.props;
+        const { HeadArray, ItemArray } = this.state;
+        var numindex = HeadArray.map((item) => { return item.name; }).indexOf(name);
+        HeadArray[numindex].checked = checked;
+        var numcount = ItemArray.filter((value) => { return value.name_store == name }).map((item) => { return item.id_cartdetail });
         for (var n = 0; n < numcount.length; n++) {
-            var numindex_n = ItemArray.map((item) => { return item.id_cartdetail; }).indexOf(numcount[n])
-            ItemArray[numindex_n].checked = checked
-        }
-        var checkedAll = HeadArray.map((item) => { return item.checked }).every((item2) => { return item2 == true })
-        getCheckedAll(checkedAll)
-        this.setState({ activecart: true, activeHeadArray: true, HeadArray, ItemArray, })
-    }
+            var numindex_n = ItemArray.map((item) => { return item.id_cartdetail; }).indexOf(numcount[n]);
+            ItemArray[numindex_n].checked = checked;
+        };
+        var checkedAll = HeadArray.map((item) => { return item.checked }).every((item2) => { return item2 == true });
+        getCheckedAll(checkedAll);
+        this.setState({ activecart: true, activeHeadArray: true, HeadArray, ItemArray, });
+    };
     checkItem = (length) => {
-        const { dataService } = this.props
+        const { dataService } = this.props;
         if (dataService != null) {
-            var ItemArray = []
-            var n
+            var ItemArray = [];
+            var n;
             for (n = 0; length > n; n++) {
                 ItemArray[n] = {
                     checked: true,
                     itemCount: dataService[n].quantity * 1,
                     id_cartdetail: dataService[n].id_cartdetail,
                     name_store: dataService[n].name,
-                }
-            }
-            this.setState({ ItemArray, activeRefresh: true })
-        }
-    }
+                };
+            };
+            this.setState({ ItemArray, activeRefresh: true });
+        };
+    };
     setStateAll = (checked) => {
-        const { getCheckedAll, } = this.props
-        const { HeadArray, ItemArray } = this.state
+        const { getCheckedAll, } = this.props;
+        const { HeadArray, ItemArray } = this.state;
         for (var n_all = 0; n_all < HeadArray.length; n_all++) {
-            HeadArray[n_all].checked = checked
+            HeadArray[n_all].checked = checked;
             var numcount = ItemArray.filter((value) => { return value.name_store == HeadArray[n_all].name })
-                .map((item) => { return item.id_cartdetail })
+                .map((item) => { return item.id_cartdetail });
             for (var n = 0; n < numcount.length; n++) {
                 var numindex_n = ItemArray.map((item) => { return item.id_cartdetail; }).indexOf(numcount[n])
                 ItemArray[numindex_n].checked = checked
-            }
-            var checkedAll = HeadArray.map((item) => { return item.checked }).every((item2) => { return item2 == true })
-        }
-        getCheckedAll(checkedAll)
-        this.setState({ activecart: true, activeHeadArray: true, HeadArray, ItemArray, })
-    }
+            };
+            var checkedAll = HeadArray.map((item) => { return item.checked }).every((item2) => { return item2 == true });
+        };
+        getCheckedAll(checkedAll);
+        this.setState({ activecart: true, activeHeadArray: true, HeadArray, ItemArray, });
+    };
     renderItem = (data, { checkedAll, dataService, dataService2 } = this.props,
         { activecart, activeHeadArray, activeRefresh, ItemArray, HeadArray, } = this.state) => (
-            this.dataMySQL = finip + '/' + data.item.path_product + '/' + data.item.image_product,
+            this.dataMySQL = `${finip}/${data.item.path_product}/${data.item.image_product}`,
             this.numindex = ItemArray.map((item) => { return item.id_cartdetail; })
                 .indexOf(data.item.id_cartdetail),
             ((dataService2 == null && activecart == true) || (activeHeadArray == true && activecart == true) || (activeRefresh == true)) &&
@@ -250,7 +247,6 @@ export class Product_Cart extends React.Component {
             ),
             <TouchableOpacity
                 activeOpacity={1}
-
                 style={{ backgroundColor: '#fff', borderColor: '#ECECEC', borderRightWidth: 1, }}
             >
                 <View style={{ flexDirection: 'row', }}>
@@ -262,12 +258,12 @@ export class Product_Cart extends React.Component {
                         textStyle={14}
                         fontFamily={'SukhumvitSet-Text'}
                         checked={ItemArray[this.numindex].checked}
-                        onPress={this.setStateItemArrayChecked.bind(this,
+                        onPress={() => this.setStateItemArrayChecked(
                             !ItemArray[this.numindex].checked,
                             data.item.id_cartdetail,
                         )} />
                     <View style={{
-                        backgroundColor: '#fffffe', width: 140, height: 140, marginVertical: 6,
+                        backgroundColor: '#fffffe', width: normalize(100), height: 'auto', aspectRatio: 1, marginVertical: 6,
                         borderColor: '#ECECEC',
                         borderWidth: 1
                     }}>
@@ -282,7 +278,7 @@ export class Product_Cart extends React.Component {
                         <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: width * 0.38 }]}>
                             {data.item.product_name}</Text>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                            {data.item.detail_1 + ' ' + data.item.detail_2}</Text>
+                            {`${data.item.detail_1} ${data.item.detail_2}`}</Text>
                         {
                             /* <NumberFormat
                                     value={data.item.price}
@@ -311,7 +307,7 @@ export class Product_Cart extends React.Component {
                         <View style={{ flexDirection: 'row' }}>
                             <TouchableOpacity activeOpacity={1}
                                 onPress={
-                                    this.setStateItemArrayitemCount.bind(this,
+                                    () => this.setStateItemArrayitemCount(
                                         ItemArray[this.numindex].itemCount - 1,
                                         data.item.id_cartdetail,
                                         data.item.max_remain,
@@ -339,7 +335,7 @@ export class Product_Cart extends React.Component {
                             </View>
                             <TouchableOpacity activeOpacity={1}
                                 onPress={
-                                    this.setStateItemArrayitemCount.bind(this,
+                                    () => this.setStateItemArrayitemCount(
                                         ItemArray[this.numindex].itemCount + 1,
                                         data.item.id_cartdetail,
                                         data.item.max_remain,
@@ -363,24 +359,18 @@ export class Product_Cart extends React.Component {
                     </View>
                 </View>
             </TouchableOpacity>
-        )
+        );
     DeleteItem = (id_cartdetail, data, rowMap, ) => {
-        const { ArrayItem2, currentUser } = this.props
+        const { ArrayItem2, currentUser } = this.props;
         setTimeout(() => {
-            rowMap[data.item.key].closeRow()
-        }, 450)
+            rowMap[data.item.key] && rowMap[data.item.key].closeRow()
+        }, 450);
         ArrayItem2({
             list_order: id_cartdetail,
             id_customer: currentUser.id_customer
-        })
-    }
+        });
+    };
     renderHiddenItem = (data, rowMap, ) => (
-        // console.log('rowMap'),
-        // console.log(rowMap),
-        // console.log('data'),
-        // console.log(data),
-        // console.log('datasecc'),
-        // console.log(rowMap[data.index]),
         <View style={{
             alignItems: 'center',
             backgroundColor: '#DDD',
@@ -403,50 +393,46 @@ export class Product_Cart extends React.Component {
                     borderTopWidth: 1,
                     borderBottomWidth: 1,
                 }]}
-                onPress={this.DeleteItem.bind(this, data.item.id_cartdetail, data, rowMap)}
+                onPress={() => this.DeleteItem(data.item.id_cartdetail, data, rowMap)}
             >
                 <IconFontAwesome name='trash-o' size={30} style={{ color: '#fff' }} />
             </TouchableOpacity>
         </View>
-    )
+    );
     render() {
-        const { checkedAll, dataService, dataService2 } = this.props
-        const { dataNewService, ItemArray, HeadArray, } = this.state
+        const { dataService, } = this.props;
+        const { ItemArray, HeadArray, } = this.state;
         dataService && (ItemArray == null || (dataService.length != ItemArray.length)) &&
-            this.checkItem(dataService.length)
-        var arrayName = []
-        var arrayItem = []
+            this.checkItem(dataService.length);
+        var arrayName = [];
+        var arrayItem = [];
         if (dataService.length > 0 && HeadArray == null) {
             for (var n = 0; n < dataService.length; n++) {
                 if (arrayName.indexOf(dataService[n].name) == -1) {
-                    arrayName.push(dataService[n].name)
+                    arrayName.push(dataService[n].name);
                     arrayItem.push({
                         name: dataService[n].name, store_path: dataService[n].store_path,
                         store_image: dataService[n].store_image, checked: true
-                    })
-                }
-            }
-            this.setState({ HeadArray: arrayItem })
-        }
+                    });
+                };
+            };
+            this.setState({ HeadArray: arrayItem });
+        };
         if (HeadArray != null && HeadArray.map((value) => { return dataService.some((item) => { return item.name == value.name }) })
             .every((value2) => { return value2 == true }) == false) {
-            arrayName = []
-            arrayItem = []
+            arrayName = [];
+            arrayItem = [];
             for (var n = 0; n < dataService.length; n++) {
                 if (arrayName.indexOf(dataService[n].name) == -1) {
-                    arrayName.push(dataService[n].name)
+                    arrayName.push(dataService[n].name);
                     arrayItem.push({
                         name: dataService[n].name, store_path: dataService[n].store_path,
                         store_image: dataService[n].store_image, checked: true
-                    })
-                }
-            }
-            this.setState({ HeadArray: arrayItem, activecart: true, dataService2: [], })
-        }
-        // console.log('dataService')
-        // console.log(dataService)
-        // checkedAll && checkedAll.activeSave2 == true &&
-        //     this.setStateAll(checkedAll.checkedAll)
+                    });
+                };
+            };
+            this.setState({ HeadArray: arrayItem, activecart: true, dataService2: [], });
+        };
         return (
             <View>
                 {
@@ -454,7 +440,7 @@ export class Product_Cart extends React.Component {
                         dataService.length > 0 ? (
                             ItemArray &&
                             HeadArray.map((item_n, index_n) => {
-                                var dataMySQL_n = finip + '/' + item_n.store_path + '/' + item_n.store_image
+                                var dataMySQL_n = `${finip}/${item_n.store_path}/${item_n.store_image}`;
                                 return (
                                     <View style={{ marginBottom: 10, backgroundColor: '#fff' }} key={index_n}>
                                         <View style={{
@@ -468,7 +454,7 @@ export class Product_Cart extends React.Component {
                                                     textStyle={14}
                                                     fontFamily={'SukhumvitSet-Text'}
                                                     checked={item_n.checked}
-                                                    onPress={this.setStateHeadArray.bind(this, !item_n.checked, item_n.name)}
+                                                    onPress={() => this.setStateHeadArray(!item_n.checked, item_n.name)}
                                                 />
                                                 <View style={[stylesMain.ItemCenterVertical, {
                                                     width: 30, height: 30, borderRadius: 20, backgroundColor: '#cecece'
@@ -498,140 +484,6 @@ export class Product_Cart extends React.Component {
                                                 stopRightSwipe={-75}
                                             />
                                         </View>
-                                        {/*
-                                        dataService
-                                            .filter((value) => { return value.name == item_n.name })
-                                            .map((item, index) => {
-                                                var dataMySQL = finip + '/' + item.path_product + '/' + item.image_product
-                                                var numindex = ItemArray.map((item) => { return item.id_cartdetail; })
-                                                    .indexOf(item.id_cartdetail);
-                                                dataService2 == null && activecart == true &&
-                                                    this.setStateItemArrayitemCount(
-                                                        ItemArray[numindex].itemCount,
-                                                        item.id_cartdetail,
-                                                        item.max_remain,
-                                                    );
-                                                activeHeadArray == true && activecart == true &&
-                                                    this.setStateItemArrayitemCount(
-                                                        ItemArray[numindex].itemCount,
-                                                        item.id_cartdetail,
-                                                        item.max_remain,
-                                                    );
-                                                return (
-                                                    <View key={index}>
-                                                        <View style={{ flexDirection: 'row', }}>
-                                                            <CheckBox
-                                                                containerStyle={[
-                                                                    stylesMain.ItemCenterVertical, {
-                                                                        backgroundColor: null, borderWidth: null,
-                                                                    }]}
-                                                                textStyle={14}
-                                                                fontFamily={'SukhumvitSet-Text'}
-                                                                checked={ItemArray[numindex].checked}
-                                                                onPress={this.setStateItemArrayChecked.bind(this,
-                                                                    !ItemArray[numindex].checked,
-                                                                    item.id_cartdetail,
-                                                                )} />
-                                                            <View style={{
-                                                                backgroundColor: '#fffffe', width: 140, height: 140, marginVertical: 6,
-                                                                borderColor: '#ECECEC',
-                                                                borderWidth: 1
-                                                            }}>
-                                                                <FastImage
-                                                                    style={[stylesMain.BoxProduct2Image, { flex: 1 }]}
-                                                                    source={{
-                                                                        uri: dataMySQL,
-                                                                    }}
-                                                                    resizeMode={FastImage.resizeMode.contain} />
-                                                            </View>
-                                                            <View style={[stylesMain.ItemCenterVertical, { marginLeft: 25 }]}>
-                                                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-                                                                    {item.product_name}</Text>
-                                                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                                                    {item.detail_1 + ' ' + item.detail_2}</Text>
-                                                                {
-                                                                    /* <NumberFormat
-                                                                            value={item.price}
-                                                                            displayType={'text'}
-                                                                            thousandSeparator={true}
-                                                                            prefix={'฿'}
-                                                                            renderText={value =>
-                                                                                <Text style={[stylesFont.FontSize6, 
-                                                                                    stylesFont.FontFamilyText, {
-                                                                                     color: '#0A55A6' 
-                                                                                    }]}>
-                                                                                    {value}</Text>
-                                                                            } /> *//*
-                                                                }
-                                                                <NumberFormat
-                                                                    value={item.price}
-                                                                    displayType={'text'}
-                                                                    thousandSeparator={true}
-                                                                    prefix={'฿'}
-                                                                    renderText={value =>
-                                                                        <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyBold, {
-                                                                            color: '#0A55A6'
-                                                                        }]}>
-                                                                            {value}</Text>
-                                                                    } />
-                                                                <View style={{ flexDirection: 'row' }}>
-                                                                    <TouchableOpacity activeOpacity={1}
-                                                                        onPress={
-                                                                            this.setStateItemArrayitemCount.bind(this,
-                                                                                ItemArray[numindex].itemCount - 1,
-                                                                                item.id_cartdetail,
-                                                                                item.max_remain,
-                                                                            )}>
-                                                                        <View style={[stylesMain.ItemCenter, {
-                                                                            width: 30, height: 25, borderColor: '#ECECEC',
-                                                                            borderRightWidth: 0,
-                                                                            borderWidth: 1
-                                                                        }]}>
-                                                                            <Text style={[stylesMain.ItemCenterVertical,
-                                                                            stylesFont.FontSize4, {
-                                                                                color:
-                                                                                    ItemArray[numindex].itemCount > 1 ?
-                                                                                        '#111' :
-                                                                                        '#CECECE'
-                                                                            }]}>
-                                                                                -</Text>
-                                                                        </View>
-                                                                    </TouchableOpacity>
-                                                                    <View style={[stylesMain.ItemCenter, stylesFont.FontFamilyText, {
-                                                                        width: 50, height: 25, borderColor: '#ECECEC', borderWidth: 1
-                                                                    }]}>
-                                                                        <Text style={[stylesMain.ItemCenterVertical]}>
-                                                                            {ItemArray[numindex].itemCount}</Text>
-                                                                    </View>
-                                                                    <TouchableOpacity activeOpacity={1}
-                                                                        onPress={
-                                                                            this.setStateItemArrayitemCount.bind(this,
-                                                                                ItemArray[numindex].itemCount + 1,
-                                                                                item.id_cartdetail,
-                                                                                item.max_remain,
-                                                                            )}>
-                                                                        <View style={[stylesMain.ItemCenter, {
-                                                                            width: 30, height: 25, borderColor: '#ECECEC',
-                                                                            borderLeftWidth: 0,
-                                                                            borderWidth: 1
-                                                                        }]}>
-                                                                            <Text style={[stylesMain.ItemCenterVertical,
-                                                                            stylesFont.FontSize4, {
-                                                                                color:
-                                                                                    ItemArray[numindex].itemCount < item.max_remain - 1 ?
-                                                                                        '#111' :
-                                                                                        '#CECECE'
-                                                                            }]}>
-                                                                                +</Text>
-                                                                        </View>
-                                                                    </TouchableOpacity>
-                                                                </View>
-                                                            </View>
-                                                        </View>
-                                                    </View>
-                                                )
-                                            })
-                                    */}
                                     </View>
                                 )
                             })
@@ -648,23 +500,23 @@ export class Product_Cart extends React.Component {
                 }
             </View >
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> Product_Like
 export class Product_Like extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
-    }
+    };
     render() {
         return (
             <View>
                 <Text> รายการที่คุณชอบ </Text>
             </View>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> Buy_bar
 export class Buy_bar extends React.Component {
     constructor(props) {
@@ -672,16 +524,17 @@ export class Buy_bar extends React.Component {
         this.state = {
             create_bill: false,
             check_coupon: false,
-            check_coupon2: false,
+            check_coupon2: true,
             Coupon: true,
             dataService: [],
             errorService3: false,
             otherCoupon: false,
             Service3: false,
+            text: '',
         };
-        this.springValue = new Animated.Value(0);
-        this.transformValue = new Animated.Value(100)
-    }
+        this.springValue = new Animated.Value(0);;
+        this.transformValue = new Animated.Value(100);
+    };
     _spring = () => {
         this.setState({ errorService3: true }, () => {
             Animated.sequence([
@@ -730,90 +583,76 @@ export class Buy_bar extends React.Component {
                 this.setState({ errorService3: false });
             });
         });
-    }
+    };
     componentDidMount() {
-        this.setStateCancel()
-    }
+        this.setStateCancel();
+    };
     StateBox = () => {
-        const { checkedAll, getCheckedAll, } = this.props
-        getCheckedAll(!checkedAll)
-    }
+        const { checkedAll, getCheckedAll, } = this.props;
+        getCheckedAll(!checkedAll);
+    };
     DeleteAction = () => {
-        const { currentUser, DeleteAction, list_order, } = this.props
+        const { currentUser, DeleteAction, list_order, } = this.props;
         DeleteAction({
             id_customer: currentUser.id_customer,
             list_order
-        })
-    }
+        });
+    };
     getData = (dataService) => {
-        this.setState({ dataService, Coupon: false })
-    }
+        this.setState({ dataService, Coupon: false });
+    };
     getData2 = (dataService3) => {
         const { currentUser, list_order, } = this.props;
         const { text, } = this.state;
-        console.log('dataService3')
-        console.log(dataService3)
         var dataBody3 = {
             id_customer: currentUser.id_customer,
             list_order,
             use_coupon: '',
             other_coupon: text,
-        }
+        };
         var dataBody4 = {
             id_customer: currentUser.id_customer,
             id_cartdetail: list_order,
             use_coupon: '',
             other_coupon: text,
-            buy_now: "cart"
-        }
-        dataService3.coupon_message !== 'เงื่อนไขส่วนลดไม่ถูกต้อง' ?
+            buy_now: "cart",
+        };
+        dataService3 && dataService3.coupon_message !== 'เงื่อนไขส่วนลดไม่ถูกต้อง' ?
             this.setState({ dataBody3, dataBody4, dataService3, otherCoupon: false, Service3: true, check_coupon: true }) :
-            this.setState({ errorService3: true, otherCoupon: false, text: '' })
-    }
+            this.setState({ errorService3: true, otherCoupon: false, text: '' });
+    };
     setStateCoupon2 = (dataService4) => {
         const { currentUser, list_order, } = this.props;
-        console.log('dataService4')
-        console.log(dataService4)
         var dataBody3 = {
             id_customer: currentUser.id_customer,
             list_order,
             use_coupon: dataService4.id_coupon,
             other_coupon: '',
-        }
+        };
         var dataBody4 = {
             id_customer: currentUser.id_customer,
             id_cartdetail: list_order,
             use_coupon: dataService4.id_coupon,
             other_coupon: '',
-            buy_now: "cart"
-        }
-        this.setState({ dataBody3, dataBody4, dataService4, check_coupon: true })
+            buy_now: "cart",
+        };
+        this.setState({ dataBody3, dataBody4, dataService4, check_coupon: true });
         this.ConponSheet.close();
-    }
+    };
     getData3 = (dataService5) => {
-        const { check_coupon2, } = this.state;
-        console.log('dataService5')
-        console.log(dataService5)
-        this.setState({ dataService5, check_coupon: false, Service3: check_coupon2 == true ? false : true, check_coupon2: false })
-    }
+        const { check_coupon2 } = this.state;
+        this.setState({
+            dataService5, check_coupon: false, Service3: check_coupon2 == true ? false : true,
+            check_coupon2: false
+        });
+    };
     getData4 = (dataService6) => {
-        console.log('dataService6')
-        console.log(dataService6)
-        this.navigationNavigateScreen('Customer_Order', { no_invoice: dataService6.no_invoice })
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
+        const { navigation } = this.props;
+        NavigationNavigateScreen({ goScreen: 'Customer_Order', setData: { no_invoice: dataService6.no_invoice }, navigation });
+    };
     setStateText = (text) => {
-        this.setState({ text })
-    }
+        this.setState({ text });
+    };
     setStateCancel = () => {
         const { currentUser, list_order, } = this.props;
         var dataBody3 = {
@@ -821,19 +660,19 @@ export class Buy_bar extends React.Component {
             list_order,
             use_coupon: '',
             other_coupon: '',
-        }
+        };
         var dataBody4 = {
             id_customer: currentUser.id_customer,
             id_cartdetail: list_order,
             use_coupon: '',
             other_coupon: '',
-            buy_now: "cart"
-        }
+            buy_now: "cart",
+        };
         this.setState({
-            dataBody3, dataBody4, dataService3: [], dataService4: [], dataService5: [], Service3: false, text: '', check_coupon: true,
-            check_coupon2: true
-        })
-    }
+            dataBody3, dataBody4, dataService3: undefined, dataService4: undefined, dataService5: undefined, Service3: false, text: '',
+            check_coupon: true, check_coupon2: true,
+        });
+    };
     setStateCoupon = () => {
         const { currentUser, list_order, } = this.props;
         const { text, } = this.state;
@@ -842,12 +681,11 @@ export class Buy_bar extends React.Component {
             list_order,
             my_coupon: text,
         };
-        console.log(dataBody2)
         text !== undefined &&
-            this.setState({ otherCoupon: true, dataBody2 })
-    }
+            this.setState({ otherCoupon: true, dataBody2 });
+    };
     get ConponSheetBody() {
-        const { dataService } = this.state
+        const { dataService } = this.state;
         return (
             dataService && dataService.coupon_data && dataService.coupon_data.length > 0 &&
             <>
@@ -865,52 +703,53 @@ export class Buy_bar extends React.Component {
                     </ScrollView>
                 </View>
             </>
-        )
-    }
+        );
+    };
     ConponSheetButtom = () => {
         this.ConponSheet.open();
-    }
+    };
     setStateBill = () => {
-        this.setState({ create_bill: true })
-    }
+        this.setState({ create_bill: true });
+    };
+    StateBox = () => {
+
+    };
     render() {
-        const { ButtomDeleteAll, checkedAll, currentUser, dataService2, keycokie, list_order, } = this.props;
+        const { ButtomDeleteAll, checkedAll, currentUser, dataService2, cokie, list_order, } = this.props;
         const {
             create_bill, check_coupon, Coupon, dataBody2, dataBody3, dataBody4, dataService3, dataService4, dataService5, errorService3,
-            otherCoupon,
-            Service3,
-            text,
+            otherCoupon, Service3, text,
         } = this.state;
-        var uri = finip + '/cart/check_coupon';
+        var uri = `${finip}/cart/check_coupon`;
         var dataBody = {
             id_customer: currentUser.id_customer,
             list_order
         };
-        var uri2 = finip + '/coupon/get_other_coupon';
-        var uri3 = finip + '/cart/track_data';
-        var uri4 = finip + '/bill/create_bill';
+        var uri2 = `${finip}/coupon/get_other_coupon`;
+        var uri3 = `${finip}/cart/track_data`;
+        var uri4 = `${finip}/bill/create_bill`;
         errorService3 === true &&
-            this._spring()
-        Coupon == true &&
+            this._spring();
+        Coupon == true && cokie &&
             GetServices({
-                uriPointer: uri, showConsole: 'check_coupon', Authorization: keycokie, dataBody,
+                uriPointer: uri, showConsole: 'check_coupon', Authorization: cokie, dataBody,
                 getDataSource: this.getData.bind(this)
-            })
-        otherCoupon == true &&
+            });
+        otherCoupon == true && cokie &&
             GetServices({
-                uriPointer: uri2, showConsole: 'get_other_coupon', Authorization: keycokie, dataBody: dataBody2,
+                uriPointer: uri2, showConsole: 'get_other_coupon', Authorization: cokie, dataBody: dataBody2,
                 getDataSource: this.getData2.bind(this)
-            })
-        check_coupon == true &&
+            });
+        check_coupon == true && cokie &&
             GetServices({
-                uriPointer: uri3, showConsole: 'track_data', Authorization: keycokie, dataBody3,
+                uriPointer: uri3, showConsole: 'track_data', Authorization: cokie, dataBody: dataBody3,
                 getDataSource: this.getData3.bind(this)
-            })
-        create_bill == true &&
+            });
+        create_bill == true && cokie &&
             GetServices({
-                uriPointer: uri4, showConsole: 'create_bill', Authorization: keycokie, dataBody4,
+                uriPointer: uri4, showConsole: 'create_bill', Authorization: cokie, dataBody: dataBody4,
                 getDataSource: this.getData4.bind(this)
-            })
+            });
         return ([
             <Animatable.View key={'Animatable'} style={[stylesMain.animatedView, {
                 opacity: this.springValue, transform: [{ translateY: this.transformValue }]
@@ -919,25 +758,25 @@ export class Buy_bar extends React.Component {
                     <Text style={[stylesMain.exitTitleText, stylesFont.FontFamilyText, { color: 'red' }]}>เงื่อนไขส่วนลดไม่ถูกต้อง</Text>
                 </View>
             </Animatable.View>,
-            <View style={stylesCart.Bar} key={'CartBar'}>
+            <View style={[stylesCart.Bar]} key={'CartBar'}>
                 {
                     ButtomDeleteAll == false &&
-                    <View style={stylesCart.Bar_Code} key={'Bar_Code'}>
-                        <IconFoundation name='burst' size={30} style={[stylesMain.ItemCenterVertical, { left: 5, width: '8%' }]} />
+                    <View style={[stylesCart.Bar_Code]} key={'Bar_Code'}>
+                        <IconFoundation name='burst' size={30} style={[stylesMain.ItemCenterVertical, { flex: 2 }]} />
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical, {
-                            left: '8%', width: '16%'
+                            flex: 3.5,
                         }]}>
                             โค้ดส่วนลด</Text>
                         {
-                            Service3 == true ?
-                                <View style={{ flexDirection: 'row' }}>
+                            (dataService4 && dataService4.name || dataService3 && dataService3.coupon_message) && Service3 == true ?
+                                <View style={{ flexDirection: 'row', flex: 9, }}>
                                     <Text style={[stylesCart.Bar_Code_Box, stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, {
                                         borderWidth: 0, textAlignVertical: 'center'
                                     }]}>
-                                        {dataService4 ? dataService4.name : dataService3.coupon_message}
+                                        {dataService4 ? dataService4.name : dataService3 ? dataService3.coupon_message : ''}
                                     </Text>
                                 </View> :
-                                <View style={{ flexDirection: 'row' }}>
+                                <View style={{ flexDirection: 'row', flex: 9, }}>
                                     <TextInput
                                         style={[stylesCart.Bar_Code_Box, stylesMain.ItemCenterVertical, stylesFont.FontFamilyText,]}
                                         onChangeText={this.setStateText.bind(this)} value={text} />
@@ -957,7 +796,7 @@ export class Buy_bar extends React.Component {
                                         }}>
                                         {this.ConponSheetBody}
                                     </BottomSheet>
-                                    <TouchableOpacity onPress={this.ConponSheetButtom.bind(this)} style={{ marginLeft: -35 }}>
+                                    <TouchableOpacity onPress={() => this.ConponSheetButtom()} style={{ marginLeft: -35 }}>
                                         <IconFontAwesome name='caret-down' size={20} style={{
                                             textAlign: 'center', textAlignVertical: 'center', width: 40, height: '100%'
                                         }} />
@@ -965,14 +804,14 @@ export class Buy_bar extends React.Component {
                                 </View>
                         }
                         {
-                            Service3 == true ?
-                                <TouchableOpacity onPress={this.setStateCancel.bind(this)} style={{ width: 100, marginLeft: 0 }}>
+                            (dataService4 && dataService4.name || dataService3 && dataService3.coupon_message) && Service3 == true ?
+                                <TouchableOpacity onPress={() => this.setStateCancel()} style={{ flex: 3, }}>
                                     <IconFontisto name='close-a' size={20} style={[stylesMain.ItemCenterVertical, {
-                                        color: 'red', marginLeft: 5
+                                        color: 'red',
                                     }]} />
                                 </TouchableOpacity> :
-                                <TouchableOpacity onPress={this.setStateCoupon.bind(this)} style={{ width: 100, marginLeft: 0 }}>
-                                    <View style={[stylesCart.Bar_Code_Box_Text, stylesMain.ItemCenterVertical, { marginLeft: 5 }]}>
+                                <TouchableOpacity onPress={() => this.setStateCoupon()} style={{ flex: 3, }}>
+                                    <View style={[stylesCart.Bar_Code_Box_Text, stylesMain.ItemCenterVertical,]}>
                                         <Text style={[
                                             stylesCart.Bar_Code_Text, stylesFont.FontSize6, stylesFont.FontFamilyText,
                                             stylesMain.ItemCenterVertical
@@ -983,7 +822,7 @@ export class Buy_bar extends React.Component {
                         }
                     </View>
                 }
-                <View style={stylesCart.Bar_Buy}>
+                <View style={[stylesCart.Bar_Buy]}>
                     <View>
                         <CheckBox
                             title='เลือกทั้งหมด'
@@ -991,7 +830,7 @@ export class Buy_bar extends React.Component {
                             textStyle={14}
                             fontFamily={'SukhumvitSet-Text'}
                             checked={checkedAll}
-                            onPress={this.StateBox.bind(this)} />
+                            onPress={() => this.StateBox()} />
                     </View>
                     {
                         ButtomDeleteAll == false &&
@@ -1013,8 +852,8 @@ export class Buy_bar extends React.Component {
                     }
                     <TouchableOpacity activeOpacity={1} onPress={
                         ButtomDeleteAll == true ?
-                            this.DeleteAction.bind(this) :
-                            this.setStateBill.bind(this)}>
+                            () => this.DeleteAction() :
+                            () => this.setStateBill()}>
                         <View style={[stylesCart.BOX_Buy, stylesMain.ItemCenterVertical]}>
                             <Text style={[
                                 stylesCart.BOX_Buy_Text, stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical
@@ -1025,23 +864,21 @@ export class Buy_bar extends React.Component {
                 </View>
             </View >
         ]);
-    }
-}
-
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>>
 export class Coupon_Detail_BottomSheet extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
-    }
-    saveTicket = (dataService) => {
-        const { getDataSource, } = this.props
-        getDataSource(dataService)
-    }
+    };
+    saveTicket = () => {
+        const { dataService, getDataSource, } = this.props;
+        getDataSource(dataService);
+    };
     render() {
-        const { dataService, } = this.props
-        console.log(dataService)
+        const { dataService, } = this.props;
         return (
             <View style={{
                 width: '100%', height: 100, borderWidth: 1,
@@ -1059,7 +896,7 @@ export class Coupon_Detail_BottomSheet extends React.Component {
                             2020.02.22-2020.03.01</Text>
                     </View>
                     <TouchableOpacity
-                        onPress={this.saveTicket.bind(this, dataService)}>
+                        onPress={() => this.saveTicket()}>
                         <View style={[stylesMain.ItemCenter, {
                             backgroundColor: '#0A55A6', paddingHorizontal: 10,
                             borderRadius: 5
@@ -1071,5 +908,5 @@ export class Coupon_Detail_BottomSheet extends React.Component {
                 </View>
             </View>
         );
-    }
-}
+    };
+};

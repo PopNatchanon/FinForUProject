@@ -15,7 +15,7 @@ import stylesMain from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from '../MainScreen';
-import { GetServices, LoadingScreen } from '../tools/Tools';
+import { GetServices, LoadingScreen } from '../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -32,7 +32,7 @@ export default class Order_Detail extends Component {
     }
     componentDidMount() {
         this.getDataAsync()
-        CookieManager.get(finip + '/auth/login_customer')
+        CookieManager.get(`${finip}/auth/login_customer`)
             .then((res) => {
                 var keycokie = res.token
                 this.setState({ keycokie })
@@ -47,7 +47,7 @@ export default class Order_Detail extends Component {
         const id_cartdetail = navigation.getParam('id_cartdetail')
         const insert_date = navigation.getParam('insert_date')
         const no_invoice = navigation.getParam('no_invoice')
-        var uri = finip + '/purchase_data/mobile_tranport';
+        var uri = `${finip}/purchase_data/mobile_tranport`
         var dataBody = {
             id_customer: currentUser && currentUser.id_customer,
             id_cartdetail,
@@ -63,7 +63,7 @@ export default class Order_Detail extends Component {
                     activeSelectedIndex == true &&
                     <LoadingScreen key={'LoadingScreen'} />
                 }
-                <AppBar1 backArrow navigation={this.props.navigation} titleHead='รายละเอียด' />
+                <AppBar1 backArrow navigation={navigation} titleHead='รายละเอียด' />
                 <ScrollView>
                     {
                         dataService && dataService.result && dataService.result.length > 0 ?
@@ -95,7 +95,7 @@ export default class Order_Detail extends Component {
                             </>
                     }
                 </ScrollView>
-                <ExitAppModule navigation={this.props.navigation} />
+                <ExitAppModule navigation={navigation} />
             </SafeAreaView>
         );
     }
@@ -109,8 +109,7 @@ export class Detail extends Component {
     }
     render() {
         const { dataService } = this.props;
-        const uri_image_tracking = [finip, dataService.image_path,
-            dataService.image ? dataService.image : dataService.image_name].join('/');
+        const uri_image_tracking = `${finip}/${dataService.image_path}/${(dataService.image ? dataService.image : dataService.image_name)}`;
         console.log(uri_image_tracking)
         return (
             <>
@@ -122,7 +121,7 @@ export class Detail extends Component {
                             }}
                             resizeMode={FastImage.resizeMode.contain} />
                     </View>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}> จัดส่งโดย : {dataService.name} </Text>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>{`จัดส่งโดย : ${dataService.name}`}</Text>
                 </View>
                 {/* <View style={stylesProfileTopic.Order_Detail_Address}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ผู้รับ : ส.ยายยิ้ม</Text>

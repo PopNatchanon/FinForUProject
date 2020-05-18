@@ -23,7 +23,7 @@ import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_T
 import stylesLogin from '../../../style/stylesLoginScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, } from '../../MainScreen';
-import { GetData, GetServices, GetServicesBlob } from '../../tools/Tools';
+import { GetData, GetServices, GetServicesBlob, NavigationNavigateScreen } from '../../customComponents/Tools';
 import { Seller_SettingImage } from '../../src_Seller/Seller_Profile_Edit';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../navigator/IpConfig';
@@ -237,7 +237,7 @@ export class Edit_Profile extends Component {
             />
           </View>
         </View>
-        <TouchableOpacity onPress={this.SaveName.bind(this)}>
+        <TouchableOpacity onPress={() => this.SaveName()}>
           <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
           </View>
@@ -273,7 +273,7 @@ export class Edit_Profile extends Component {
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 15, marginLeft: 10 }]}>หญิง</Text>
           </View>
         </View>
-        <TouchableOpacity onPress={this.SaveGender.bind(this)}>
+        <TouchableOpacity onPress={() => this.SaveGender()}>
           <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
           </View>
@@ -364,7 +364,7 @@ export class Edit_Profile extends Component {
             </View> */}
           </View>
         </View>
-        <TouchableOpacity onPress={this.SaveBirth_day.bind(this)}>
+        <TouchableOpacity onPress={() => this.SaveBirth_day()}>
           <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
           </View>
@@ -387,7 +387,7 @@ export class Edit_Profile extends Component {
             />
           </View>
         </View>
-        <TouchableOpacity onPress={this.SavePhone.bind(this)}>
+        <TouchableOpacity onPress={() => this.SavePhone()}>
           <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
           </View>
@@ -408,7 +408,7 @@ export class Edit_Profile extends Component {
       console.log('value.date_of_birth')
       console.log(value.date_of_birth)
       const bday = new Date(value.date_of_birth)
-      var dob = [bday.getDate(), (bday.getMonth() + 1), bday.getFullYear()].join('-')
+      var dob = `${bday.getDate()}-${(bday.getMonth() + 1)}-${bday.getFullYear()}`
       this.setState({
         Name: value.name, InputName: value.name,
         Gender: checked, InputGender: checked,
@@ -431,15 +431,15 @@ export class Edit_Profile extends Component {
     this.setState({ path: value })
   }
   render() {
-    const { activeGetSource, cokie, currentUser, } = this.props
+    const { activeGetSource, cokie, currentUser, navigation } = this.props
     const {
       activeGetServices, activeGetServices2, Birth_day, dataBody: dataBody2, Gender, image, image_path, Name, Phone,
     } = this.state
-    const uri = finip + '/profile/profile_mobile'
+    const uri = `${finip}/profile/profile_mobile`
     var dataBody = {
       id_customer: currentUser ? currentUser.id_customer : '',
     }
-    const uri2 = finip + '/profile/update_profile_mobile'
+    const uri2 = `${finip}/profile/update_profile_mobile`
     currentUser != null && Name == null &&
       this.setCurrentUser()
     activeGetSource == false && activeGetServices == true &&
@@ -510,7 +510,7 @@ export class Edit_Profile extends Component {
           }}>
           {this.Phone_numberSheetBody()}
         </BottomSheet>
-        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขโปรไฟล์' />
+        <AppBar1 backArrow navigation={navigation} titleHead='แก้ไขโปรไฟล์' />
         <ScrollView>
           <Seller_SettingImage image_path={image_path} image={image} sendImageProfile={this.sendImageProfile.bind(this)} />
           <View style={{ marginTop: 20, height, }}>
@@ -523,7 +523,9 @@ export class Edit_Profile extends Component {
                 </View>
                 <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
               </View></TouchableOpacity>
-            <TouchableOpacity onPress={() => this.props.navigation.push('Setting_Topic', { selectedIndex: 7 })}>
+            <TouchableOpacity onPress={() => NavigationNavigateScreen({
+              goScreen: 'Setting_Topic', setData: { selectedIndex: 7 }, navigation
+            })}>
               <View style={stylesProfileTopic.BoxTopic}>
                 <View style={stylesMain.FlexRow}>
                   <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -566,7 +568,7 @@ export class Edit_Profile extends Component {
           </View>
         </ScrollView>
         <View style={{ alignItems: 'center', height: 40 }}>
-          <TouchableOpacity TouchableOpacity onPress={this.SaveProfile.bind(this)}>
+          <TouchableOpacity TouchableOpacity onPress={() => this.SaveProfile()}>
             <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึกการเปลี่ยนแปลง</Text>
             </View>
@@ -605,7 +607,7 @@ export class Edit_Pass extends Component {
   render() {
     const { activeGetSource, cokie, currentUser, navigation, } = this.props
     const { activeGetServices, current_password, new_password, confirm_password, } = this.state
-    const uri = finip + '/profile/change_customer_password'
+    const uri = `${finip}/profile/change_customer_password`
     var dataBody = {
       id_customer: currentUser ? currentUser.id_customer : '',
       current_password,
@@ -683,21 +685,11 @@ export class Edit_Address extends Component {
     };
   }
   componentDidMount() {
-    CookieManager.get(finip + '/auth/login_customer')
+    CookieManager.get(`${finip}/auth/login_customer`)
       .then((res) => {
         var keycokie = res.token
         this.setState({ keycokie })
       });
-  }
-  navigationNavigateScreen = (value, value2) => {
-    const { navigation } = this.props
-    value == 'goBack' ?
-      navigation.goBack() :
-      value == 'LoginScreen' ? (
-        navigation.popToTop(),
-        navigation.replace(value, value2)
-      ) :
-        navigation.push(value, value2)
   }
   getData = (dataService) => {
     this.setState({ dataService, activeReset: false })
@@ -711,11 +703,7 @@ export class Edit_Address extends Component {
     const no_invoice = navigation.getParam('no_invoice')
     const type = navigation.getParam('type')
     const type_special = navigation.getParam('type_special')
-    var uri = [finip,
-      type == 'select' ?
-        '/bill/bill_list' :
-        'profile/my_address'
-    ].join('/');
+    var uri = `${finip}/${(type == 'select' ? 'bill/bill_list' : 'profile/my_address')}`;
     var dataBody = type == 'select' ?
       {
         id_customer: currentUser && currentUser.id_customer,
@@ -738,8 +726,8 @@ export class Edit_Address extends Component {
           }
         </ScrollView>
         <View style={{ alignItems: 'center', justifyContent: 'flex-end' }}>
-          <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Customer_account', {
-            type_special, updateData2: this.getData2.bind(this),
+          <TouchableOpacity onPress={() => NavigationNavigateScreen({
+            goScreen: 'Customer_account', setData: { type_special, updateData2: this.getData2.bind(this), }, navigation
           })}>
             <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>เพิ่มที่อยู่</Text>
@@ -766,24 +754,16 @@ export class Address_Customar extends Component {
     navigation.state.params.updateData(value);
     navigation.goBack();
   }
-  navigationNavigateScreen = (value, value2) => {
-    const { navigation } = this.props
-    value == 'goBack' ?
-      navigation.goBack() :
-      value == 'LoginScreen' ? (
-        navigation.popToTop(),
-        navigation.replace(value, value2)
-      ) :
-        navigation.push(value, value2)
-  }
   render() {
-    const { dataService, index, type, type_special } = this.props
+    const { dataService, index, navigation, type, type_special } = this.props
     return (
       <TouchableOpacity key={index} onPress={
         type == 'select' ?
-          this.returnValue.bind(this, dataService.id_address) :
-          this.navigationNavigateScreen.bind(this, 'Customer_account', {
-            type: 'edit', type_special, id_address: dataService.id_address, updateData2: this.getData2.bind(this),
+          () => this.returnValue(dataService.id_address) :
+          () => NavigationNavigateScreen({
+            goScreen: 'Customer_account', setData: {
+              type: 'edit', type_special, id_address: dataService.id_address, updateData2: this.getData2.bind(this),
+            }, navigation
           })
       }>
         <View style={stylesProfileTopic.Address_Customar}>
@@ -799,7 +779,7 @@ export class Address_Customar extends Component {
           </View>
           <View style={{ marginLeft: 50, marginBottom: 10, }}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { paddingLeft: 8 }]}>
-              {dataService.customer_name} | {dataService.telephone_number}</Text>
+              {`${dataService.customer_name} | ${dataService.telephone_number}`}</Text>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { paddingLeft: 8, width: '90%', }]}>
               {dataService.address}</Text>
           </View>
@@ -836,7 +816,7 @@ export class Edit_Chat extends Component {
             checkedColor='#95F29F'
             uncheckedIcon='toggle-off'
             checked={item1}
-            onPress={this.setStateItem1.bind(this, !item1)} />
+            onPress={() => this.setStateItem1(!item1)} />
         </View>
       </>
     );
@@ -849,22 +829,12 @@ export class Edit_Bell extends Component {
     this.state = {
     };
   }
-  navigationNavigateScreen = (value, value2) => {
-    const { navigation } = this.props
-    value == 'goBack' ?
-      navigation.goBack() :
-      value == 'LoginScreen' ? (
-        navigation.popToTop(),
-        navigation.replace(value, value2)
-      ) :
-        navigation.push(value, value2)
-  }
   render() {
     const { navigation, } = this.props
     return (
       <SafeAreaView>
         <AppBar1 backArrow navigation={navigation} titleHead='ตั้งค่าการแจ้งเตือน' />
-        <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Setting_Topic', { selectedIndex: 5 })}>
+        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 5 }, navigation })}>
           <View style={stylesProfileTopic.BoxTopic}>
             <View style={stylesMain.FlexRow}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -874,7 +844,7 @@ export class Edit_Bell extends Component {
             <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Setting_Topic', { selectedIndex: 6 })}>
+        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 6 }, navigation })}>
           <View style={stylesProfileTopic.BoxTopic}>
             <View style={stylesMain.FlexRow}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -909,7 +879,7 @@ export class Language_Screen extends Component {
           <View style={stylesMain.FlexRow}>
             <CheckBox
               checked={checked}
-              onPress={this.setStateChecked.bind(this, true, false)} />
+              onPress={() => this.setStateChecked(true, false)} />
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10, }]}>
               English
                </Text>
@@ -919,7 +889,7 @@ export class Language_Screen extends Component {
           <View style={stylesMain.FlexRow}>
             <CheckBox
               checked={checked2}
-              onPress={this.setStateChecked.bind(this, false, true)} />
+              onPress={() => this.setStateChecked(false, true)} />
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10, }]}>
               ไทย
             </Text>
@@ -973,7 +943,7 @@ export class Edit_Setting_Bell extends Component {
             checkedColor='#95F29F'
             uncheckedIcon='toggle-off'
             checked={item1}
-            onPress={this.setStateItem1.bind(this, !item1)} />
+            onPress={() => this.setStateItem1(!item1)} />
         </View>
         <View style={stylesProfileTopic.BoxTopic}>
           <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
@@ -987,7 +957,7 @@ export class Edit_Setting_Bell extends Component {
             checkedColor='#95F29F'
             uncheckedIcon='toggle-off'
             checked={item2}
-            onPress={this.setStateItem2.bind(this, !item2)} />
+            onPress={() => this.setStateItem2(!item2)} />
         </View>
         <View style={stylesProfileTopic.BoxTopic}>
           <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
@@ -1001,7 +971,7 @@ export class Edit_Setting_Bell extends Component {
             checkedColor='#95F29F'
             uncheckedIcon='toggle-off'
             checked={item3}
-            onPress={this.setStateItem3.bind(this, !item3)} />
+            onPress={() => this.setStateItem3(!item3)} />
         </View>
         <View style={stylesProfileTopic.BoxTopic}>
           <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
@@ -1015,7 +985,7 @@ export class Edit_Setting_Bell extends Component {
             checkedColor='#95F29F'
             uncheckedIcon='toggle-off'
             checked={item4}
-            onPress={this.setStateItem4.bind(this, !item4)} />
+            onPress={() => this.setStateItem4(!item4)} />
         </View>
       </SafeAreaView>
     );
@@ -1055,7 +1025,7 @@ export class Edit_Setting_Email extends Component {
             checkedColor='#95F29F'
             uncheckedIcon='toggle-off'
             checked={item1}
-            onPress={this.setStateItem1.bind(this, !item1)} />
+            onPress={() => this.setStateItem1(!item1)} />
         </View>
         <View style={stylesProfileTopic.BoxTopic}>
           <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
@@ -1069,7 +1039,7 @@ export class Edit_Setting_Email extends Component {
             checkedColor='#95F29F'
             uncheckedIcon='toggle-off'
             checked={item2}
-            onPress={this.setStateItem2.bind(this, !item2)} />
+            onPress={() => this.setStateItem2(!item2)} />
         </View>
         <View style={stylesProfileTopic.BoxTopic}>
           <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
@@ -1083,7 +1053,7 @@ export class Edit_Setting_Email extends Component {
             checkedColor='#95F29F'
             uncheckedIcon='toggle-off'
             checked={item3}
-            onPress={this.setStateItem3.bind(this, !item3)} />
+            onPress={() => this.setStateItem3(!item3)} />
         </View>
       </SafeAreaView>
     );

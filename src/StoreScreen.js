@@ -18,7 +18,9 @@ import stylesMain from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, ExitAppModule, } from './MainScreen';
-import { FeedBox, GetCoupon, GetData, GetServices, ProductBox, TabBar, LoadingScreen, } from './tools/Tools';
+import {
+    FeedBox, GetCoupon, GetData, GetServices, ProductBox, TabBar, LoadingScreen, NavigationNavigateScreen,
+} from './customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -35,16 +37,6 @@ export default class StoreScreen extends React.Component {
             selectedIndex2: 0,
             scrollY: new Animated.Value(0)
         };
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
     }
     getSelectedIndex = (selectedIndex) => {
         this.setState({ selectedIndex, activeRef: true })
@@ -100,7 +92,7 @@ export default class StoreScreen extends React.Component {
         const { navigation, } = this.props
         const { activeGetCurrentUser, activeGetServices, activeGetServices2, dataService, filterValue, scrollY, selectedIndex, } = this.state
         const id_item = navigation.getParam('id_item')
-        var uri = [finip, 'brand/store_home'].join('/');
+        var uri = `${finip}/brand/store_home`;
         var dataBody = {
             id_store: id_item,
             popular: 'popular', //<< ถ้าเลือกออันส่งค่า “popular” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
@@ -120,11 +112,6 @@ export default class StoreScreen extends React.Component {
             max_price: ''
         }
         const maxheight = 70
-        // var s_item = dataService.map((item) => {
-        //     return ({
-        //         id_store: item.id_store, name: item.name, image: item.image, image_path: item.image_path,
-        //     })
-        // })
         const AnimatedHeadopacity = scrollY.interpolate({
             inputRange: [0, maxheight],
             outputRange: [1, 0],
@@ -157,7 +144,7 @@ export default class StoreScreen extends React.Component {
         })
         var image_header
         dataService && dataService.store_data.map((value) => {
-            return image_header = [finip, value.image_head_path, value.image_head].join('/')
+            return image_header = `${finip}/${value.image_head_path}/${value.image_head}`
         })
         activeGetServices == true && id_item !== undefined &&
             GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
@@ -225,9 +212,11 @@ export default class StoreScreen extends React.Component {
                     selectedIndex == 2 &&
                     <>
                         <ActionButton buttonColor="#0A55A6" size={50}
-                            onPress={this.navigationNavigateScreen.bind(this, 'Post_Feed', {
-                                selectedIndex: 1, id_store: id_item, store_data: dataService.store_data,
-                                getDataSource: this.getDataSource.bind(this)
+                            onPress={() => NavigationNavigateScreen({
+                                goScreen: 'Post_Feed', setData: {
+                                    selectedIndex: 1, id_store: id_item, store_data: dataService.store_data,
+                                    getDataSource: this.getDataSource.bind(this)
+                                }, navigation
                             })}>
                         </ActionButton>
                     </>
@@ -245,21 +234,11 @@ export class StoreHead extends React.Component {
             activeGetServices: true
         }
     }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
     get getDetailStore() {
-        const { dataService } = this.props;
+        const { dataService, navigation } = this.props;
         return dataService ? (
             dataService.map((value, index) => {
-                var dataMySQL = [finip, value.image_path, value.image].join('/')
+                var dataMySQL = `${finip}/${value.image_path}/${value.image}`
                 return (
                     <View style={[stylesStore.StoreHead]} key={index}>
                         <View style={stylesStore.StoreHeadBox}>
@@ -286,7 +265,9 @@ export class StoreHead extends React.Component {
                                     <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                                         ติดตาม</Text>
                                 </View>
-                                <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 })}>
+                                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                                    goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation
+                                })}>
                                     <View style={stylesStore.StoreHeadButtom}>
                                         <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                                             แชท</Text>
@@ -312,16 +293,6 @@ export class StoreHeadDetails extends React.Component {
         this.state = {
         };
     }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
     get getDetailStore() {
         const { dataService, navigation } = this.props;
         const id_item = navigation.getParam('id_item')
@@ -343,7 +314,7 @@ export class StoreHeadDetails extends React.Component {
                         <View>
                             <View style={stylesMain.FlexRow}>
                                 <Text style={[stylesStore.StoreHeadDetailsText2_1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                    {value.rating != 'ยังไม่มีการรีวิว' ? (value.rating + ' จาก 5') : value.rating}</Text>
+                                    {value.rating != 'ยังไม่มีการรีวิว' ? `${value.rating} จาก 5` : value.rating}</Text>
                                 <Text style={[stylesStore.StoreHeadDetailsText2_3, stylesFont.FontFamilyText, stylesFont.FontSize8]}>
                                     ({value.rating_number})</Text>
                             </View>
@@ -359,7 +330,9 @@ export class StoreHeadDetails extends React.Component {
                             </View>
                         </View>
                         <TouchableOpacity activeOpacity={1}
-                            onPress={this.navigationNavigateScreen.bind(this, 'Post_Feed', { selectedIndex: 0, id_store: id_item })}>
+                            onPress={() => NavigationNavigateScreen({
+                                goScreen: 'Post_Feed', setData: { selectedIndex: 0, id_store: id_item }, navigation
+                            })}>
                             <IconEntypo name='chevron-right' size={25} color='#0A55A6' />
                         </TouchableOpacity>
                     </View>
@@ -437,9 +410,9 @@ export class Banner extends React.PureComponent {
         const { dataService } = this.props;
         const slideDelay = 3000;
         return dataService && dataService.map((value, index) => {
-            // var uri = 'https://finforyou.com/' + item.name;
+            // var uri = `https://finforyou.com/${item.name}`;
             var image_banner = value.image_banner.split(';');
-            image_banner = image_banner.map((value2) => { return [finip, value.image_banner_path, value2].join('/') })
+            image_banner = image_banner.map((value2) => { return `${finip}/${value.image_banner_path}/${value2}` })
             return (
                 <View key={index}>
                     <View style={[stylesStore.Banner, { borderLeftWidth: 0, paddingLeft: 0 }]}>
@@ -520,7 +493,7 @@ export class TicketLine extends React.Component {
         const { currentUser, cokie, navigation, } = this.props
         const { activeGetCoupon, activeGetServices, dataService, id_promotion } = this.state
         const id_item = navigation.getParam('id_item')
-        var uri = [finip, 'coupon/save_coupon_shop'].join('/');
+        var uri = `${finip}/coupon/save_coupon_shop`;
         var dataBody = {
             id_customer: currentUser && currentUser.id_customer,
             device: 'mobile_device',
@@ -530,7 +503,6 @@ export class TicketLine extends React.Component {
         activeGetServices == true && cokie &&
             GetServices({ Authorization: cokie, uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
         return (
-            dataService &&
             this.getTicketLine
         )
     }
@@ -627,9 +599,12 @@ export class SubMenu extends React.Component {
             name: 'สินค้าขายดี'
         }, {
             actionItem: [
-                <IconMaterialIcons name='unfold-more' size={15} style={[stylesMain.ItemCenterVertical, { color: '#6C6C6C', marginLeft: 2 }]} />,
-                <IconMaterialIcons name='arrow-upward' size={15} style={[stylesMain.ItemCenterVertical, { color: '#0A55A6', marginLeft: 2 }]} />,
-                <IconMaterialIcons name='arrow-downward' size={15} style={[stylesMain.ItemCenterVertical, { color: '#0A55A6', marginLeft: 2 }]} />
+                <IconMaterialIcons name='unfold-more' size={15} style={[
+                    stylesMain.ItemCenterVertical, { color: '#6C6C6C', marginLeft: 2 }]} />,
+                <IconMaterialIcons name='arrow-upward' size={15} style={[
+                    stylesMain.ItemCenterVertical, { color: '#0A55A6', marginLeft: 2 }]} />,
+                <IconMaterialIcons name='arrow-downward' size={15} style={[
+                    stylesMain.ItemCenterVertical, { color: '#0A55A6', marginLeft: 2 }]} />
             ],
             actionList: [1, 2],
             actionReturn: ['min', 'max'],
@@ -690,16 +665,6 @@ export class BoxProduct4 extends React.Component {
         this.state = {
         };
     }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
     getData = (dataService) => {
         const { getDataSource } = this.props
         this.setState({ dataService })
@@ -713,7 +678,7 @@ export class BoxProduct4 extends React.Component {
         const { activeRef, navigation } = this.props;
         const { dataService } = this.state;
         const id_item = navigation.getParam('id_item')
-        const uri = [finip, 'brand/feed_news'].join('/');
+        const uri = `${finip}/brand/feed_news`;
         const dataBody = {
             id_store: id_item
         }

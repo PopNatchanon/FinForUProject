@@ -19,16 +19,17 @@ import { ip, finip } from '.././navigator/IpConfig';
 export default class Seller_Detail_Order extends Component {
     constructor(props) {
         super(props);
-        this.state = {         
-        };    
+        this.state = {
+        };
     }
     PathList() {
-        const selectedIndex = this.props.navigation.getParam('selectedIndex')
+        const { navigation } = this.props
+        const selectedIndex = navigation.getParam('selectedIndex')
         switch (selectedIndex) {
             case 0:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='รายละเอียด' />
+                        <AppBar1 backArrow navigation={navigation} titleHead='รายละเอียด' />
                         <ScrollView>
                             <Detail />
                             <Order_Sending />
@@ -38,7 +39,7 @@ export default class Seller_Detail_Order extends Component {
             case 1:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='รายละเอียด' />
+                        <AppBar1 backArrow navigation={navigation} titleHead='รายละเอียด' />
                         <ScrollView>
                             <Detail />
                             <Order_Sending />
@@ -115,8 +116,8 @@ export class Order_Sending extends Component {
                         <View style={{ width: 300, marginLeft: 10, }}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                                 สินค้าของท่านอยู่ในระหว่างการจัดส่งโดย TNT หมายเลขพัสดุ [KERPU066037402].
-                                 ท่านสามารถติดตามสถานะของสินค้าท่านได้ที่Tracking Page.
-                                 โปรดให้เวลา 24 - 48 ชม ในการอัพเดทข้อมูลจากเวปไซต์ของบริษัทขนส่ง
+                                ท่านสามารถติดตามสถานะของสินค้าท่านได้ที่Tracking Page.
+                                โปรดให้เวลา 24 - 48 ชม ในการอัพเดทข้อมูลจากเวปไซต์ของบริษัทขนส่ง
                         </Text>
                         </View>
                     </View>
@@ -176,21 +177,21 @@ export class Seller_Detail_Reviews extends Component {
                         <View style={{ height: 100, width: 100, borderColor: '#F3F3F3', borderWidth: 1 }}>
                             <FastImage style={stylesMain.BoxProduct1Image}
                                 source={{
-                                    uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
+                                    uri: `${ip}/mysql/uploads/products/2019-03-20-1553064759.jpg`,
                                 }}
                             />
                         </View>
                         <View style={{ height: 100, width: 100, borderColor: '#F3F3F3', borderWidth: 1 }}>
                             <FastImage style={stylesMain.BoxProduct1Image}
                                 source={{
-                                    uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
+                                    uri: `${ip}/mysql/uploads/products/2019-03-20-1553064759.jpg`,
                                 }}
                             />
                         </View>
                         <View style={{ height: 100, width: 100, borderColor: '#F3F3F3', borderWidth: 1 }}>
                             <FastImage style={stylesMain.BoxProduct1Image}
                                 source={{
-                                    uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
+                                    uri: `${ip}/mysql/uploads/products/2019-03-20-1553064759.jpg`,
                                 }}
                             />
                         </View>

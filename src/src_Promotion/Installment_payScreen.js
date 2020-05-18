@@ -16,7 +16,7 @@ import stylesPromotionDeal from '../../style/stylePromotion-src/styleDealScreen'
 import { AppBar1, ExitAppModule, Slide, } from '../MainScreen';
 import { Button_Bar, } from './DealScreen';
 import { CategoryProduct } from '../MainScreen';
-import { GetServices, ProductBox } from '../../src/tools/Tools';
+import { GetServices, ProductBox } from '../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -35,7 +35,7 @@ export default class Installment_payScreen extends Component {
     const { dataService, } = this.state
     // console.log('Installment_payScreen')
     // console.log(dataService)
-    var uri = finip + '/coupon/installment_data'
+    var uri = `${finip}/coupon/installment_data`
     activeGetServices == true && GetServices({ uriPointer: uri, getDataSource: this.getData.bind(this), })
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
@@ -113,10 +113,9 @@ export class CategoryProduct_pay extends Component {
     // console.log(dataService)
     return (
       <>
-        {/* <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'CategoryScreen')}> */}
         {
           dataService && dataService.map((value, index) => {
-            var mobile_head = [finip, value.mobile_head].join('/');
+            var mobile_head = `${finip}/${value.mobile_head}`;
             {/* console.log('value.store')
             console.log(value.store) */}
             return (
@@ -138,7 +137,7 @@ export class CategoryProduct_pay extends Component {
                 <ScrollView horizontal>
                   {
                     value.store.map((value2, index2) => {
-                      var image_store = [finip, value2.image_path, value2.image].join('/');
+                      var image_store = `${finip}/${value2.image_path}/${value2.image}`
                       console.log(image_store)
                       return (
                         <View key={index2} style={[stylesMain.CategoryProductStoreBox,
@@ -158,7 +157,6 @@ export class CategoryProduct_pay extends Component {
             )
           })
         }
-        {/* </TouchableOpacity> */}
       </>
     );
   }

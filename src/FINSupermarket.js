@@ -18,7 +18,7 @@ import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, TodayProduct, ExitAppModule, Recommend_Brand, } from './MainScreen';
 import { Slide, } from './src_Promotion/DealScreen';
-import { GetServices, TabBar, ProductBox, SlideTab2, } from './tools/Tools';
+import { GetServices, TabBar, ProductBox, SlideTab2, NavigationNavigateScreen, FlatProduct, } from './customComponents/Tools';
 import { Button_Bar, PricesSlide, SlideTab, } from './ExclusiveScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from './navigator/IpConfig';
@@ -38,28 +38,17 @@ export default class FINSupermarket extends React.Component {
   getData = (dataService) => {
     this.setState({ dataService })
   }
-  navigationNavigateScreen = (value, value2) => {
-    const { navigation } = this.props
-    value == 'goBack' ?
-      navigation.goBack() :
-      value == 'LoginScreen' ? (
-        navigation.popToTop(),
-        navigation.replace(value, value2)
-      ) :
-        navigation.push(value, value2)
-  }
-
   render() {
     const { navigation } = this.props
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
-        <AppBar1 backArrow navigation={this.props.navigation} titleHead='FIN Supermarket' />
+        <AppBar1 backArrow navigation={navigation} titleHead='FIN Supermarket' />
         <ScrollView>
           <View style={{ width: '100%', height: 180, marginTop: 10 }}>
             <FastImage
               style={stylesMain.BoxProduct1Image}
               source={{
-                uri: ip + '/MySQL/uploads/Image_FinMall/bannersupermarket5.jpg',
+                uri: `${ip}/MySQL/uploads/Image_FinMall/bannersupermarket5.jpg`,
               }}
               resizeMode={FastImage.resizeMode.stretch}
             />
@@ -72,7 +61,7 @@ export default class FINSupermarket extends React.Component {
             <FastImage
               style={stylesMain.BoxProduct1Image}
               source={{
-                uri: ip + '/MySQL/uploads/Image_FinMall/market_banner06.jpg',
+                uri: `${ip}/MySQL/uploads/Image_FinMall/market_banner06.jpg`,
               }}
               resizeMode={FastImage.resizeMode.contain}
             />
@@ -96,20 +85,10 @@ export class FinMall_Product extends React.Component {
   getData = (dataService) => {
     this.setState({ activeDataService: false, dataService })
   }
-  navigationNavigateScreen = (value, value2) => {
-    const { navigation } = this.props
-    value == 'goBack' ?
-      navigation.goBack() :
-      value == 'LoginScreen' ? (
-        navigation.popToTop(),
-        navigation.replace(value, value2)
-      ) :
-        navigation.push(value, value2)
-  }
   render() {
     const { navigation } = this.props
     const { activeDataService, dataService } = this.state
-    var uri = ip + '/mysql/DataServiceMain.php';
+    var uri = `${ip}/mysql/DataServiceMain.php`;
     var dataBody = {
       type: 'todayproduct'
     };
@@ -120,7 +99,9 @@ export class FinMall_Product extends React.Component {
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
             Fin Mall
             </Text>
-          <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'FinMallScreen', { selectedIndex: 1 })}>
+          <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+            goScreen: 'FinMallScreen', setData: { selectedIndex: 1 }, navigation
+          })}>
             <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
               ดูทั้งหมด</Text>
           </TouchableOpacity>
@@ -158,7 +139,7 @@ export class FIN_Supermarket extends React.Component {
     }, {
       name: 'Skincare'
     }]
-    var uri = ip + '/mysql/DataServiceMain.php';
+    var uri = `${ip}/mysql/DataServiceMain.php`;
     var dataBody = {
       type: 'todayproduct'
     };
@@ -188,17 +169,11 @@ export class FIN_Supermarket extends React.Component {
                     Skincare</Text>
                 </TouchableOpacity>
               </View> */}
-          <ScrollView horizontal>
-            <View style={[stylesMain.ProductForYouFlexBox, { height: 375, backgroundColor: '#0A55A6', paddingTop: 10, }]}>
-              {
-                dataService ?
-                  <ProductBox dataService={dataService} navigation={navigation} typeip='ip' mode='row3col2' prepath='mysql'
-                    pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                  /> :
-                  null
-              }
-            </View>
-          </ScrollView>
+          {
+            dataService &&
+            <FlatProduct navigation={navigation} dataService={dataService} NumberOfcolumn={2} nameFlatProduct='DetailScreen'
+              mode='row3' nameSize={14} priceSize={15} dispriceSize={15} />
+          }
         </View>
       </View>
     );
@@ -219,7 +194,7 @@ export class Brand_Supermarket extends React.Component {
             <FastImage
               style={stylesMain.BoxProduct1Image}
               source={{
-                uri: ip + '/MySQL/uploads/Image_FinMall/logo-foodland.png',
+                uri: `${ip}/MySQL/uploads/Image_FinMall/logo-foodland.png`,
               }}
               resizeMode={FastImage.resizeMode.stretch}
             />
@@ -228,7 +203,7 @@ export class Brand_Supermarket extends React.Component {
             <FastImage
               style={stylesMain.BoxProduct1Image}
               source={{
-                uri: ip + '/MySQL/uploads/Image_FinMall/logo-maxvalu.png',
+                uri: `${ip}/MySQL/uploads/Image_FinMall/logo-maxvalu.png`,
               }}
               resizeMode={FastImage.resizeMode.stretch}
             />
@@ -239,7 +214,7 @@ export class Brand_Supermarket extends React.Component {
             <FastImage
               style={stylesMain.BoxProduct1Image}
               source={{
-                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand02.jpg',
+                uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand02.jpg`,
               }}
               resizeMode={FastImage.resizeMode.contain}
             />
@@ -248,7 +223,7 @@ export class Brand_Supermarket extends React.Component {
             <FastImage
               style={stylesMain.BoxProduct1Image}
               source={{
-                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand03.jpg',
+                uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand03.jpg`,
               }}
               resizeMode={FastImage.resizeMode.contain}
             />
@@ -257,7 +232,7 @@ export class Brand_Supermarket extends React.Component {
             <FastImage
               style={stylesMain.BoxProduct1Image}
               source={{
-                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand04.jpg',
+                uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand04.jpg`,
               }}
               resizeMode={FastImage.resizeMode.contain}
             />
@@ -266,7 +241,7 @@ export class Brand_Supermarket extends React.Component {
             <FastImage
               style={stylesMain.BoxProduct1Image}
               source={{
-                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand06.jpg',
+                uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand06.jpg`,
               }}
               resizeMode={FastImage.resizeMode.contain}
             />
@@ -275,7 +250,7 @@ export class Brand_Supermarket extends React.Component {
             <FastImage
               style={stylesMain.BoxProduct1Image}
               source={{
-                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand05.jpg',
+                uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand05.jpg`,
               }}
               resizeMode={FastImage.resizeMode.contain}
             />
@@ -284,7 +259,7 @@ export class Brand_Supermarket extends React.Component {
             <FastImage
               style={stylesMain.BoxProduct1Image}
               source={{
-                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand01.jpg',
+                uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand01.jpg`,
               }}
               resizeMode={FastImage.resizeMode.contain}
             />
@@ -302,7 +277,6 @@ export class Product_Today_Supermarket extends Component {
       activeDataService: true,
       dataService: [],
     };
-    this.getData = this.getData.bind(this)
   }
   getData(dataService) {
     this.setState({ activeDataService: false, dataService })
@@ -310,7 +284,7 @@ export class Product_Today_Supermarket extends Component {
   render() {
     const { navigation } = this.props
     const { activeDataService, dataService } = this.state
-    var uri = ip + '/mysql/DataServiceMain.php';
+    var uri = `${ip}/MySQL/DataServiceMain.php`;
     var dataBody = {
       type: 'todayproduct'
     };
@@ -319,17 +293,11 @@ export class Product_Today_Supermarket extends Component {
       <View>
         <View style={[stylesMain.FrameBackground, { marginTop: 20 }]}>
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>สินค้าประจำวันที่ควรช้อป!!</Text>
-          <ScrollView horizontal>
-            <View style={stylesMain.FlexRow}>
-              {
-                dataService ?
-                  <ProductBox dataService={dataService} navigation={navigation} typeip='ip' mode='row3col2' prepath='mysql'
-                    pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                  /> :
-                  null
-              }
-            </View>
-          </ScrollView>
+          {
+            dataService &&
+            <FlatProduct navigation={navigation} dataService={dataService} NumberOfcolumn={2} nameFlatProduct='DetailScreen'
+              mode='row3' nameSize={14} priceSize={15} dispriceSize={15} />
+          }
         </View>
       </View>
     );
@@ -355,7 +323,7 @@ export class Product_Shop extends React.Component {
   render() {
     const { navigation } = this.props
     const { activeDataService, dataService } = this.state
-    var uri = ip + '/mysql/DataServiceMain.php';
+    var uri = `${ip}/MySQL/DataServiceMain.php`;
     var dataBody = {
       type: 'todayproduct'
     };

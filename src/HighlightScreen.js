@@ -16,7 +16,7 @@ import stylesFont from '../style/stylesFont';
 import { AppBar1, ExitAppModule } from './MainScreen';
 import { FlashSale_Product } from './FlashSaleScreen';
 import { Slide } from './src_Promotion/DealScreen';
-import { GetServices, TabBar } from './tools/Tools';
+import { GetServices, TabBar } from './customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from './navigator/IpConfig';
 import NumberFormat from 'react-number-format';
@@ -63,7 +63,7 @@ export class Button_Bar extends React.Component {
   render() {
     const { category } = this.props
     const { dataService } = this.state
-    var uri = finip + '/home/category_mobile';
+    var uri = `${finip}/mysql/home/category_mobile`;
     var item2 = [{
       name: 'ทั้งหมด'
     }]
@@ -106,7 +106,7 @@ export class Highlight_Product extends React.Component {
   dataNewHighlight() {
     const { dataService } = this.state
     return dataService.map((item, index) => {
-      var dataMySQL = [ip, 'mysql', item.image_path, item.image].join('/');
+      var dataMySQL = `${ip}/mysql/${item.image_path}/${item.image}`;
       return (
         <>
           <View style={[stylesMain.FlexRow, stylesMain.FrameBackground]}>
@@ -150,7 +150,7 @@ export class Highlight_Product extends React.Component {
   }
   render() {
     const { activeDataService } = this.state
-    var uri = ip + '/mysql/DataServiceMain.php';
+    var uri = `${ip}/MySQL/DataServiceMain.php`;
     var dataBody = {
       type: 'sale'
     };
@@ -173,7 +173,6 @@ export class Highlight_Brand extends React.Component {
     this.state = {
     };
   }
-
   render() {
     return (
       <View style={{ marginVertical: 10 }}>
@@ -182,7 +181,7 @@ export class Highlight_Brand extends React.Component {
             <FastImage
               style={[stylesMain.BoxProduct1Image, { borderRadius: 5 }]}
               source={{
-                uri: ip + '/MySQL/uploads/Image_FinMall/market_banner01.jpg',
+                uri: `${ip}/MySQL/uploads/Image_FinMall/market_banner01.jpg`,
               }}
               resizeMode={FastImage.resizeMode.stretch}
             />
@@ -191,7 +190,7 @@ export class Highlight_Brand extends React.Component {
             <FastImage
               style={[stylesMain.BoxProduct1Image, { borderRadius: 5 }]}
               source={{
-                uri: ip + '/MySQL/uploads/Image_FinMall/market_banner01.jpg',
+                uri: `${ip}/MySQL/uploads/Image_FinMall/market_banner01.jpg`,
               }}
               resizeMode={FastImage.resizeMode.stretch}
             />
@@ -202,7 +201,7 @@ export class Highlight_Brand extends React.Component {
             <FastImage
               style={[stylesMain.BoxProduct1Image, { borderRadius: 5 }]}
               source={{
-                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand04.jpg',
+                uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand04.jpg`,
               }}
               resizeMode={FastImage.resizeMode.stretch}
             />
@@ -211,7 +210,7 @@ export class Highlight_Brand extends React.Component {
             <FastImage
               style={[stylesMain.BoxProduct1Image, { borderRadius: 5 }]}
               source={{
-                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand03.jpg',
+                uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand03.jpg`,
               }}
               resizeMode={FastImage.resizeMode.stretch}
             />
@@ -220,7 +219,7 @@ export class Highlight_Brand extends React.Component {
             <FastImage
               style={[stylesMain.BoxProduct1Image, { borderRadius: 5 }]}
               source={{
-                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand02.jpg',
+                uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand02.jpg`,
               }}
               resizeMode={FastImage.resizeMode.stretch}
             />
@@ -229,7 +228,7 @@ export class Highlight_Brand extends React.Component {
             <FastImage
               style={[stylesMain.BoxProduct1Image, { borderRadius: 5 }]}
               source={{
-                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand01.jpg',
+                uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand01.jpg`,
               }}
               resizeMode={FastImage.resizeMode.stretch}
             />
@@ -238,7 +237,7 @@ export class Highlight_Brand extends React.Component {
             <FastImage
               style={[stylesMain.BoxProduct1Image, { borderRadius: 5 }]}
               source={{
-                uri: ip + '/MySQL/uploads/Image_FinMall/market_brand05.jpg',
+                uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand05.jpg`,
               }}
               resizeMode={FastImage.resizeMode.stretch}
             />

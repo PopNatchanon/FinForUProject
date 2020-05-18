@@ -28,7 +28,7 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from '../MainScreen';
-import { GetServices } from '../tools/Tools';
+import { GetServices, NavigationNavigateScreen } from '../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -42,7 +42,7 @@ export default class Customer_Order extends Component {
     }
     componentDidMount() {
         this.getDataAsync()
-        CookieManager.get(finip + '/auth/login_customer')
+        CookieManager.get(`${finip}/auth/login_customer`)
             .then((res) => {
                 var keycokie = res.token
                 this.setState({ keycokie })
@@ -73,15 +73,15 @@ export default class Customer_Order extends Component {
     }
     render() {
         const { navigation } = this.props
-        const { activeReset, activeIdAddress, currentUser, dataBody: dataBody2, dataService, keycokie } = this.state
+        const { activeReset, activeIdAddress, currentUser, dataBody2, dataService, keycokie } = this.state
         var no_invoice = navigation.getParam('no_invoice');
         // var no_invoice = 'FINV4320200404124752'
-        var uri = finip + '/bill/bill_list';
+        var uri = `${finip}/bill/bill_list`;
         var dataBody = {
             id_customer: currentUser && currentUser.id_customer,
             no_invoice,
         };
-        var uri2 = finip + '/bill/update_bill_address';
+        var uri2 = `${finip}/bill/update_bill_address`;
         activeReset == true && currentUser && currentUser.id_customer && keycokie && no_invoice &&
             GetServices({ uriPointer: uri, dataBody, Authorization: keycokie, getDataSource: this.getData.bind(this), })
         activeIdAddress == true &&
@@ -119,16 +119,6 @@ export class Account extends Component {
         this.state = {
         };
     }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
     getData = (dataSelect) => {
         const { getData } = this.props
         getData(dataSelect)
@@ -152,15 +142,18 @@ export class Account extends Component {
                                         paddingLeft: 8
                                     }]}>
                                         {data.customer_name} | {data.telephone_number}</Text>,
-                                    <Text key={'address'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { paddingLeft: 8, width: '100%', }]}>
+                                    <Text key={'address'} style={[
+                                        stylesFont.FontFamilyText, stylesFont.FontSize5, { paddingLeft: 8, width: '100%', }]}>
                                         {data.address}</Text>
                                 ])
                             }
                         </View>
                     </View>
-                    <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Setting_Topic', {
-                        selectedIndex: 1, type: 'select', updateData: this.getData.bind(this),
-                        no_invoice: data.no_invoice
+                    <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Setting_Topic', setData: {
+                            selectedIndex: 1, type: 'select', updateData: this.getData.bind(this),
+                            no_invoice: data.no_invoice
+                        }, navigation
                     })}>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' style={stylesMain.ItemCenterVertical} />
                     </TouchableOpacity>
@@ -178,7 +171,7 @@ export class Order extends Component {
     }
     render() {
         const { dataService } = this.props
-        const dataMySQL = finip + '/' + dataService.image_path + '/' + dataService.image_product
+        const dataMySQL = `${finip}/${dataService.image_path}/${dataService.image_product}`
         console.log('dataService')
         console.log(dataService)
         return (
@@ -188,7 +181,7 @@ export class Order extends Component {
                         {/* <FastImage
                             style={[stylesCustomerOrder.Order_Head_store, stylesMain.ItemCenterVertical]}
                             source={{
-                                uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
+                                uri: `${ip}/MySQL/uploads/slide/NewStore/luxury_shop1.jpg`,
                             }}
                         /> */}
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, stylesMain.ItemCenterVertical, {
@@ -255,16 +248,6 @@ export class Option_payment extends Component {
             path1: 0,
             item1: false,
         };
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
     }
     Path1() {
         switch (this.state.path1) {
@@ -353,16 +336,6 @@ export class Option_payment extends Component {
                     </View>
                 )
         }
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
     }
     setModalVisible = (modalVisible) => {
         this.setState({ modalVisible })
@@ -494,7 +467,7 @@ export class Option_payment extends Component {
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}> ตัวเลือกการชำระเงิน </Text> 
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}> การชำระเงิน </Text>
                     </View>
-                    <TouchableOpacity onPress={this.setModalVisible.bind(this, !modalVisible)}>
+                    <TouchableOpacity onPress={()=>this.setModalVisible(!modalVisible)}>
                         {/* <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}> เลือกวิธีการชำระเงิน</Text> 
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}> ชำระเงิน</Text>
                     </TouchableOpacity>
@@ -535,7 +508,7 @@ export class Option_payment extends Component {
                             checkedColor='#95F29F'
                             uncheckedIcon='toggle-off'
                             checked={item1}
-                            onPress={this.setStateItem1.bind(this)} />
+                            onPress={() => this.setStateItem1()} />
                     </View>
                 </View>
                 {
@@ -560,9 +533,11 @@ export class Option_payment extends Component {
                                     }
                                 </View>
                             </View>
-                            <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Setting_Topic', {
-                                selectedIndex: 1, type: 'select', type_special: 'tax', updateData: this.getData.bind(this),
-                                no_invoice: data.no_invoice
+                            <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                                goScreen: 'Setting_Topic', setData: {
+                                    selectedIndex: 1, type: 'select', type_special: 'tax', updateData: this.getData.bind(this),
+                                    no_invoice: data.no_invoice
+                                }, navigation
                             })}>
                                 <IconEntypo name='chevron-right' size={35} style={stylesMain.ItemCenterVertical} />
                             </TouchableOpacity>
@@ -615,7 +590,7 @@ export class Bar_payment extends Component {
                                 {value}</Text>
                         } />
                 </View>
-                <TouchableOpacity activeOpacity={1} onPress={this.setModalVisible.bind(this, !modalVisible)}>
+                <TouchableOpacity activeOpacity={1} onPress={() => this.setModalVisible(!modalVisible)}>
                     <View style={{ width: 150, height: 50, backgroundColor: '#0A55A6', justifyContent: 'center', alignItems: 'center', }}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>ชำระเงิน</Text>
                     </View>
@@ -684,18 +659,8 @@ export class OmiseBox extends Component {
             });
         }
     }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
     getData = (dataService2) => {
-        const { dataService, getData, no_invoice } = this.props
+        const { dataService, getData, navigation, no_invoice } = this.props
         var data = dataService2.split('"')
         data.map((value) => {
             var item = value.split(':')
@@ -704,7 +669,7 @@ export class OmiseBox extends Component {
                 item2.map((value3) => {
                     if (value3 == 'true') {
                         getData(false)
-                        this.navigationNavigateScreen('Customer_Complete_Order', { no_invoice })
+                        NavigationNavigateScreen({ goScreen: 'Customer_Complete_Order', setData: { no_invoice }, navigation })
                     }
                     if (value3 == 'false') {
 
@@ -725,7 +690,7 @@ export class OmiseBox extends Component {
             activePayment,
         } = this.state;
         console.log(dataBody)
-        var uri = finip + '/e15de57976dca/pay976dca'
+        var uri = `${finip}/e15de57976dca/pay976dca`
         activePayment == true &&
             GetServices({ uriPointer: uri, dataBody, showConsole: 'pay976dca', nojson, getDataSource: this.getData.bind(this) })
         return (
@@ -785,7 +750,7 @@ export class OmiseBox extends Component {
                                     />
                                 </Item>
                             </View>
-                            <Button full onPress={this._createToken.bind(this)} style={{
+                            <Button full onPress={() => this._createToken()} style={{
                                 borderBottomLeftRadius: 8, borderBottomRightRadius: 8, backgroundColor: '#0A55A6'
                             }}>
                                 <NumberFormat

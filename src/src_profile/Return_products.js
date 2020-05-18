@@ -28,7 +28,8 @@ export default class Return_products extends Component {
     };
   }
   PathList() {
-    const selectedIndex = this.props.navigation.getParam('selectedIndex')
+    const { navigation } = this.props
+    const selectedIndex = navigation.getParam('selectedIndex')
     switch (selectedIndex) {
       case 0:
         return (
@@ -45,13 +46,14 @@ export default class Return_products extends Component {
     }
   }
   render() {
+    const { navigation } = this.props
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
-        <AppBar1 backArrow navigation={this.props.navigation} titleHead='คืนสินค้า/คืนเงิน' />
+        <AppBar1 backArrow navigation={navigation} titleHead='คืนสินค้า/คืนเงิน' />
         <ScrollView>
           {this.PathList()}
         </ScrollView>
-        <ExitAppModule navigation={this.props.navigation} />
+        <ExitAppModule navigation={navigation} />
       </SafeAreaView>
     );
   }
@@ -106,7 +108,7 @@ export class Return extends Component {
             <View style={stylesProfileTopic.Order_Product_Pro}>
               <FastImage style={stylesMain.BoxProduct1Image}
                 source={{
-                  uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
+                  uri: `${ip}/mysql/uploads/products/2019-03-20-1553064759.jpg`,
                 }}
               />
             </View>
@@ -128,7 +130,7 @@ export class Return_Detail extends Component {
     super(props);
     this.state = {
       avatarSource: [],
-      Text:'',
+      Text: '',
     };
   }
   UploadImageSingle = (index) => {
@@ -157,13 +159,13 @@ export class Return_Detail extends Component {
     return (
       <View style={{ padding: 10, }}>
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ยอดเงินคืน</Text>
-          <TextInput
-            style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesProfileTopic.Return_Detail_Box]}
-            placeholder="กรอกจำนวนยอดเงินคืน"
-            maxLength={40}
-            value={this.state.Text}
-            onChangeText={(Text) => this.setState({ Text })}>
-          </TextInput>
+        <TextInput
+          style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesProfileTopic.Return_Detail_Box]}
+          placeholder="กรอกจำนวนยอดเงินคืน"
+          maxLength={40}
+          value={this.state.Text}
+          onChangeText={(Text) => this.setState({ Text })}>
+        </TextInput>
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>เหตุผลการคืนสินค้า</Text>
         <View style={stylesProfileTopic.Return_Detail_Box}>
           <Picker
@@ -187,7 +189,7 @@ export class Return_Detail extends Component {
             value={this.state.Detail}
             onChangeText={(Detail) => this.setState({ Detail })}></TextInput>
         </View>
-        <View style={{width:'100%',backgroundColor:'#FFFFFF',borderColor:'#D5D5D5',borderWidth:1,paddingVertical:10,marginTop:5}}>
+        <View style={{ width: '100%', backgroundColor: '#FFFFFF', borderColor: '#D5D5D5', borderWidth: 1, paddingVertical: 10, marginTop: 5 }}>
           <ScrollView horizontal>
             {
               avatarSource ? [
@@ -204,7 +206,7 @@ export class Return_Detail extends Component {
                   )
                 }),
                 avatarSource.length < 7 &&
-                <TouchableOpacity onPress={this.UploadImageMultiple} key={'upload'}>
+                <TouchableOpacity onPress={() => this.UploadImageMultiple()} key={'upload'}>
                   <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: '#0A55A6', borderWidth: 1, }]}>
                     <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
                       <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
@@ -213,7 +215,7 @@ export class Return_Detail extends Component {
                   </View>
                 </TouchableOpacity>
               ] :
-                <TouchableOpacity onPress={this.UploadImageMultiple}>
+                <TouchableOpacity onPress={() => this.UploadImageMultiple()}>
                   <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: '#0A55A6', borderWidth: 1, }]}>
                     <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
                       <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
@@ -222,9 +224,9 @@ export class Return_Detail extends Component {
                   </View>
                 </TouchableOpacity>
             }
-          </ScrollView>  
+          </ScrollView>
         </View>
-        <Return_Alert/>
+        <Return_Alert />
       </View>
     );
   }
@@ -251,8 +253,8 @@ export class Return_Alert extends Component {
   render() {
     return (
       <View>
-      <View style={stylesProfileTopic.Return_ButtonBox}>
-          <TouchableOpacity onPress={this.handleOpen}  style={stylesMain.ItemCenter}>
+        <View style={stylesProfileTopic.Return_ButtonBox}>
+          <TouchableOpacity onPress={() => this.handleOpen()} style={stylesMain.ItemCenter}>
             <View style={stylesProfileTopic.Return_Button}>
               <Text>คืนสินค้า</Text>
             </View>
@@ -267,10 +269,10 @@ export class Return_Alert extends Component {
           subtitle="กรุณารอการตรวจสอบจากร้านค้า"
           subtitleStyle={stylesFont.FontFamilyText}
           onRequestClose={() => null}
-       >
+        >
           <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
-            <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยกเลิก</SCLAlertButton>
-            <SCLAlertButton theme="success" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยืนยัน</SCLAlertButton>
+            <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={() => this.handleClose()} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยกเลิก</SCLAlertButton>
+            <SCLAlertButton theme="success" textStyle={stylesFont.FontFamilyText} onPress={() => this.handleClose()} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยืนยัน</SCLAlertButton>
           </View>
         </SCLAlert>
       </View>

@@ -12,7 +12,7 @@ import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, TodayProduct, } from './MainScreen';
 import { Slide } from './src_Promotion/DealScreen';
-import { TabBar, GetServices } from './tools/Tools';
+import { TabBar, GetServices } from './customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -39,7 +39,7 @@ export default class Popular_productScreen extends React.Component {
         dataArray[1] = loadData.best_price
         dataArray[2] = loadData.best_sale
         dataArray[3] = loadData.best_cool
-        var uri = finip + '/home/home_mobile'
+        var uri = `${finip}/home/home_mobile`;
         var dataBody = {
             slide: 'banner'
         };

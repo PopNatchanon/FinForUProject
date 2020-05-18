@@ -15,7 +15,7 @@ import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> tools
 import { AppBar, ExitAppModule, } from './MainScreen';
-import { GetData, GetServices, ProductBox, LoadingScreen } from './tools/Tools';
+import { GetData, GetServices, ProductBox, LoadingScreen, NavigationNavigateScreen } from './customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> ip
 import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -43,7 +43,7 @@ export default class Recommend_Store extends React.Component {
         const id_slide = navigation.getParam('id_slide');
         const uri_path = navigation.getParam('uri_path');
         const name_path = navigation.getParam('name_path');
-        const uri = [finip, uri_path].join('/')
+        const uri = `${finip}/${uri_path}`
         var dataBody = {
             id_slide,
         };
@@ -87,7 +87,7 @@ export class Header extends React.Component {
         const { dataService } = this.props //slide_image: dataService.slide_image, list_slide: dataService.list_slide
         return dataService && dataService.list_slide && dataService.list_slide.length > 0 ? (
             dataService.list_slide.map((value, index) => {
-                const image_header = [finip, dataService.slide_image.image_path, dataService.slide_image.image].join('/')
+                const image_header = `${finip}/${dataService.slide_image.image_path}/${dataService.slide_image.image}`
                 return <View key={index} style={stylesTopic.Header} >
                     <FastImage
                         source={{ uri: image_header, }}
@@ -117,16 +117,6 @@ export class Store_Detail extends React.Component {
             activeFollow: false,
             activeGetServices: true,
         };
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
     }
     starReview(star, starSize) {
         let starBox = []
@@ -164,7 +154,7 @@ export class Store_Detail extends React.Component {
     onShare = async () => {
         try {
             const result = await Share.share({
-                message: 'หลายคนคงจะเคยอยากรู้ วิธีดูเพชรแท้ ว่าจริงๆแล้วเพชรแท้ดูยังไง?\n' + finip,
+                message: `หลายคนคงจะเคยอยากรู้ วิธีดูเพชรแท้ ว่าจริงๆแล้วเพชรแท้ดูยังไง?\n${finip}`,
             });
             if (result.action === Share.sharedAction) {
                 if (result.activityType) {
@@ -182,14 +172,14 @@ export class Store_Detail extends React.Component {
     render() {
         const { cokie, currentUser, dataService, navigation } = this.props
         const { activeFollow, activeGetServices, dataService2 } = this.state
-        const uri = [finip, 'brand/follow_data'].join('/')
+        const uri = `${finip}/brand/follow_data`
         var dataBody = {
             id_customer: currentUser.id_customer,
             id_store: dataService.id_store,
             follow: activeFollow ? "active" : '',
         };
-        const image_header = [finip, dataService.image_head_path, dataService.image_head].join('/')
-        const image_store = [finip, dataService.image_path, dataService.store_image].join('/')
+        const image_header = `${finip}/${dataService.image_head_path}/${dataService.image_head}`
+        const image_store = `${finip}/${dataService.image_path}/${dataService.store_image}`
         activeGetServices == true && cokie &&
             GetServices({ uriPointer: uri, dataBody, Authorization: cokie, getDataSource: this.getData.bind(this), })
         return (
@@ -201,8 +191,8 @@ export class Store_Detail extends React.Component {
                         resizeMode={FastImage.resizeMode.stretch}
                     />
                     <View style={stylesTopic.Store_Box}>
-                        <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', {
-                            id_item: dataService.id_store
+                        <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                            goScreen: 'StoreScreen', setData: { id_item: dataService.id_store }, navigation
                         })}>
                             <View style={[stylesTopic.Store_Pro, stylesMain.ItemCenter]}>
                                 <FastImage
@@ -213,8 +203,8 @@ export class Store_Detail extends React.Component {
                             </View>
                         </TouchableOpacity>
                         <View style={{ margin: 10, }}>
-                            <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', {
-                                id_item: dataService.id_store
+                            <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                                goScreen: 'StoreScreen', setData: { id_item: dataService.id_store }, navigation
                             })}>
                                 <View style={stylesTopic.Store_Name}>
                                     <Text style={[stylesTopic.Store_NameText, stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
@@ -236,20 +226,20 @@ export class Store_Detail extends React.Component {
                             <View>
                                 <View style={stylesTopic.Store_BoxButton}>
                                     <View style={stylesTopic.Store_Button}>
-                                        <TouchableOpacity onPress={this.setStateFollow.bind(this)}>
+                                        <TouchableOpacity onPress={() => this.setStateFollow()}>
                                             <Text style={[stylesFont.FontFamilyText, { textAlign: 'center', color: '#0A55A6' }]}>
                                                 {dataService2 && dataService2.output}</Text>
                                         </TouchableOpacity>
                                     </View>
-                                    <TouchableOpacity
-                                        onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: 23 })}
-                                        style={[stylesTopic.Store_Button, { backgroundColor: '#0A55A6', marginLeft: 8, }]}>
+                                    <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                                        goScreen: 'StoreScreen', setData: { id_item: dataService.id_store }, navigation
+                                    })} style={[stylesTopic.Store_Button, { backgroundColor: '#0A55A6', marginLeft: 8, }]}>
                                         <Text style={[stylesFont.FontFamilyText, { textAlign: 'center', color: '#FFFFFF' }]}>
                                             เข้าดูร้านค้า</Text>
                                     </TouchableOpacity>
                                 </View>
                                 <View style={stylesTopic.Store_BoxIcon}>
-                                    <TouchableOpacity style={stylesTopic.Store_Icon} onPress={this.onShare}>
+                                    <TouchableOpacity style={stylesTopic.Store_Icon} onPress={() => this.onShare()}>
                                         <IconEntypo name='share' size={20} />
                                         <Text style={stylesFont.FontFamilyText}> แชร์</Text>
                                     </TouchableOpacity>

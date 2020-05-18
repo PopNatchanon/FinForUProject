@@ -14,7 +14,7 @@ import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, TodayProduct, ExitAppModule, } from './MainScreen';
-import { GetData, GetServices, TabBar, SlideTab2, LoadingScreen } from './tools/Tools';
+import { GetData, GetServices, TabBar, SlideTab2, LoadingScreen } from './customComponents/Tools';
 import { Slide, } from './src_Promotion/DealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from './navigator/IpConfig';
@@ -25,31 +25,35 @@ export default class ExclusiveScreen extends React.Component {
     this.state = {
       activeArray: true,
       activeGetServices: true,
-      activeGetCurrentUser: true,
+      activeGetSource: true,
       data: [],
       filterValue: { popular: 'popular' },
       sliderVisible: false,
     };
-  }
+  };
+  componentDidMount() {
+    const { activeGetSource, } = this.state;
+    activeGetSource == true && GetData({ getCokie: true, getUser: true, getSource: this.getSource.bind(this) });
+  };
   setSlider = (sliderVisible) => {
-    this.setState({ sliderVisible })
-  }
+    this.setState({ sliderVisible });
+  };
   getData = (dataService) => {
-    this.setState({ activeGetServices: false, dataService })
-  }
+    this.setState({ activeGetServices: false, dataService });
+  };
   getSource = (value) => {
-    this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser, cokie: value.keycokie });
-  }
+    this.setState({ activeGetSource: false, currentUser: value.currentUser, cokie: value.keycokie, });
+  };
   setStatefilterValue = (value) => {
-    console.log(value)
+    console.log(value);
     const { dataServiceBU, filterValue, } = this.state;
     filterValue.minvalue = (value && value.minvalue ? value.minvalue : '');
     filterValue.maxvalue = (value && value.maxvalue ? value.maxvalue : '');
     filterValue.id_type = value.selectedIndex != -1 && value.selectedIndex != '' && value.listIndex == 0 ?
-      dataServiceBU.category[value.selectedIndex].id_type : ''
-    console.log(filterValue)
+      dataServiceBU.category[value.selectedIndex].id_type : '';
+    console.log(filterValue);
     this.setState({ activeGetServices: true, filterValue, sliderVisible: false });
-  }
+  };
   setStateMainfilterValue = (value) => {
     const { filterValue, } = this.state;
     console.log(value);
@@ -59,12 +63,12 @@ export default class ExclusiveScreen extends React.Component {
     filterValue.sort_price = value.selectedIndex == 3 ? value.actionReturn : '';
     // console.log(filterValue);
     this.setState({ activeGetServices: true, filterValue });
-  }
+  };
   render() {
     const { navigation } = this.props;
-    const { activeGetCurrentUser, activeGetServices, dataService, filterValue,
+    const { activeGetSource, activeGetServices, dataService, filterValue,
       sliderVisible, } = this.state;
-    var uri = finip + '/highlight/exclusive_mobile';
+    var uri = `${finip}/highlight/exclusive_mobile`;
     var dataBody = {
       popular: filterValue && filterValue.popular ? filterValue.popular : '', // ถ้าเลือกออันส่งค่า “popular” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
       lastest: filterValue && filterValue.lastest ? filterValue.lastest : '', //..ถ้าเลือกออันส่งค่า “lastest” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
@@ -101,15 +105,13 @@ export default class ExclusiveScreen extends React.Component {
       }, {
         name: 'ETONWEAG'
       }]
-    }]
-    activeGetCurrentUser == false && activeGetServices == true &&
-      GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), })
-    activeGetCurrentUser == true &&
-      GetData({ getCokie: true, getSource: this.getSource.bind(this), getUser: true, })
+    }];
+    activeGetSource == false && activeGetServices == true &&
+      GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), });
     return (
       <SafeAreaView style={stylesMain.SafeAreaView} key='Exclusive'>
         {
-          (activeGetCurrentUser == true || activeGetServices == true) &&
+          (activeGetSource == true || activeGetServices == true) &&
           <LoadingScreen key='LoadingScreen' />
         }
         <AppBar1 titleHead={'สินค้าสุด Exclusive'} backArrow searchBar chatBar navigation={navigation} />
@@ -130,8 +132,8 @@ export default class ExclusiveScreen extends React.Component {
         <ExitAppModule navigation={navigation} />
       </SafeAreaView>
     );
-  }
-}
+  };
+};
 ///----------------------------------------------------------------------------------------------->>>> Button_Bar
 export class Button_Bar extends React.Component {
   constructor(props) {
@@ -139,16 +141,16 @@ export class Button_Bar extends React.Component {
     this.state = {
       selectedIndex: 0,
     };
-  }
+  };
   updateIndex = (value) => {
-    const { filterValue } = this.props
-    filterValue(value.selectedIndex)
-    this.setState({ selectedIndex: value.selectedIndex })
-  }
+    const { filterValue } = this.props;
+    filterValue(value.selectedIndex);
+    this.setState({ selectedIndex: value.selectedIndex });
+  };
   setSliderVisible = () => {
     const { setSliderVisible } = this.props;
-    setSliderVisible(true)
-  }
+    setSliderVisible(true);
+  };
   render() {
     const item = [{
       name: 'ยอดนิยม'
@@ -165,7 +167,7 @@ export class Button_Bar extends React.Component {
       actionList: [1, 2],
       actionReturn: ['min', 'max'],
       name: 'ราคา'
-    }]
+    }];
     return (
       <View>
         <View style={stylesTopic.Button_Bar}>
@@ -183,7 +185,7 @@ export class Button_Bar extends React.Component {
               activeFontColor={'#0A55A6'}
               type='tag' />
           </View>
-          <TouchableOpacity onPress={this.setSliderVisible}>
+          <TouchableOpacity onPress={() => this.setSliderVisible()}>
             <View style={[stylesMain.ItemCenterVertical, stylesTopic.Button_Bar_Icon, { borderLeftColor: 'black', borderLeftWidth: 1.2 }]}>
               <IconFeather RightItem name="filter" size={18} color='#0A55A6' />
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ตัวกรอง</Text>
@@ -192,5 +194,5 @@ export class Button_Bar extends React.Component {
         </View>
       </View>
     );
-  }
-}
+  };
+};

@@ -16,7 +16,7 @@ import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, Slide } from './MainScreen';
-import { GetServices, TabBar, LoadingScreen, } from './tools/Tools';
+import { GetServices, TabBar, LoadingScreen, } from './customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from './navigator/IpConfig';
 import NumberFormat from 'react-number-format';
@@ -69,7 +69,7 @@ export default class FlashSaleScreen extends React.Component {
             outputRange: [0, -56],
             extrapolate: 'clamp',
         })
-        var uri = finip + '/flashsale/flash_schedule';
+        var uri = `${finip}/flashsale/flash_schedule`;
         var dataBody = {
             id_flash: pkid ? pkid : "",
             id_category: id_type ? id_type : "",
@@ -164,7 +164,7 @@ export class Time_FlashSale extends React.Component {
     render() {
         const { activeFlashStart, activeReData, curTime, dataService2, marginTopFlashsale, marginTopTime } = this.props
         const { activeselectedIndex, activeselectedIndex2, dataService, endTime, flash_item, selectedIndex, } = this.state
-        var uri = finip + '/home/category_mobile';
+        var uri = `${finip}/home/category_mobile`;
         var item = []
         var item2 = [{
             name: 'ทั้งหมด'
@@ -192,7 +192,7 @@ export class Time_FlashSale extends React.Component {
             ])
         ])
         console.log('Hours : Minutes : Seconds');
-        console.log(Hours + ':' + Minutes + ':' + Seconds);
+        console.log(`${Hours} : ${Minutes} : ${Seconds}`);
         dataService2 &&
             dataService2.map((value, index) => {
                 var start_period = value.start_period.split(' ')
@@ -276,24 +276,15 @@ export class FlashSale_Product extends React.Component {
         this.state = {
         };
     }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
     render() {
-        const { dataService } = this.props
-        var image_product = finip + '/' + dataService.image_path + '/' + dataService.image
+        const { dataService, navigation } = this.props
+        var image_product = `${finip}/${dataService.image_path}/${dataService.image}`;
         return (
             <View style={stylesTopic.FlashSale_Product}>
                 <View style={[stylesTopic.FlashSale_ProductBox, { flex: 1 }]}>
-                    <TouchableOpacity onPress={this.navigationNavigateScreen.bind(
-                        this, 'DetailScreen', { id_item: dataService.id_product })}>
+                    <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                        goScreen: 'DetailScreen', setData: { id_item: dataService.id_product }, navigation
+                    })}>
                         <View style={stylesTopic.FlashSale_ProductBox_Image}>
                             <FastImage
                                 style={stylesTopic.Image}
@@ -304,8 +295,9 @@ export class FlashSale_Product extends React.Component {
                         </View>
                     </TouchableOpacity>
                     <View style={{ flexDirection: 'row', flex: 1, }}>
-                        <TouchableOpacity onPress={this.navigationNavigateScreen.bind(
-                            this, 'DetailScreen', { id_item: dataService.id_product })}>
+                        <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                            goScreen: 'DetailScreen', setData: { id_item: dataService.id_product }, navigation
+                        })}>
                             <View style={{ width: width * 0.52 }}>
                                 <Text numberOfLines={4} style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10 }]}>
                                     {dataService.name}</Text>
@@ -326,7 +318,7 @@ export class FlashSale_Product extends React.Component {
                             </View>
                         </TouchableOpacity>
                         <View style={{ width: 40, justifyContent: 'flex-end' }}>
-                            <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'CartScreen')}>
+                            <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'CartScreen', navigation })}>
                                 <View style={[stylesTopic.FlashSale_ProductBox_Icon]}>
                                     <IconAntDesign RightItem name="shoppingcart" size={30} color='#FFFFFF' />
                                 </View>

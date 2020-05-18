@@ -16,7 +16,7 @@ import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, Second_product, Slide } from '../MainScreen';
 import { Button_Bar, } from './DealScreen';
-import { GetServices, ProductBox } from '../../src/tools/Tools';
+import { GetServices, ProductBox } from '../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -33,7 +33,7 @@ export default class The_BestFinScreen extends Component {
   render() {
     const { navigation } = this.props
     const { dataService, } = this.state
-    var uri = finip + '/coupon/superfin'
+    var uri = `${finip}/coupon/superfin`
     // console.log('dataService')
     // console.log(dataService)
     activeGetServices == true && GetServices({ uriPointer: uri, getDataSource: this.getData.bind(this), })
@@ -107,15 +107,15 @@ export class Store_Sale extends Component {
     // console.log(dataService)
     var discount_xl
     dataService && dataService.discount_xl.map((value) => {
-      return discount_xl = [finip, value.image_path, value.image].join('/');
+      return discount_xl = `${finip}/${value.image_path}/${value.image}`
     })
     var discount_l = []
     dataService && dataService.discount_l.map((value) => {
-      return discount_l.push([finip, value.image_path, value.image].join('/'));
+      return discount_l.push(`${finip}/${value.image_path}/${value.image}`);
     })
     var discount_m = []
     dataService && dataService.discount_m.map((value) => {
-      return discount_m.push([finip, value.image_path, value.image].join('/'));
+      return discount_m.push(`${finip}/${value.image_path}/${value.image}`);
     })
     return (
       <View style={stylesDeal.Store_Sale}>
@@ -229,7 +229,7 @@ export class Second_Store extends Component {
 
   }
   // _renderItem = ({ item, index }) => {
-  //   var dataMySQL = [finip, item.image_path, item.image].join('/');
+  //   var dataMySQL = `${finip}/${value.image_path}/${value.image}`
   //   return (
   //     <View key={index}>
   //       <FastImage
@@ -250,15 +250,15 @@ export class Second_Store extends Component {
     // console.log(dataService)
     var discount_sec_xl
     dataService && dataService.discount_sec_xl.map((value) => {
-      return discount_sec_xl = [finip, value.image_path, value.image].join('/');
+      return discount_sec_xl = `${finip}/${value.image_path}/${value.image}`
     })
     var discount_sec_l = []
     dataService && dataService.discount_sec_l.map((value) => {
-      return discount_sec_l.push([finip, value.image_path, value.image].join('/'));
+      return discount_sec_l.push(`${finip}/${value.image_path}/${value.image}`);
     })
     var discount_sec_m = []
     dataService && dataService.discount_sec_m.map((value) => {
-      return discount_sec_m.push([finip, value.image_path, value.image].join('/'));
+      return discount_sec_m.push(`${finip}/${value.image_path}/${value.image}`);
     })
     return (
       <View style={stylesDeal.Second_Store}>

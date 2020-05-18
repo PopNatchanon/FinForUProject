@@ -12,7 +12,7 @@ import stylesFont from '../style/stylesFont';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, BannerBar_TWO, ExitAppModule, Slide, TodayProduct, } from './MainScreen';
 import { Button_Bar, } from './ExclusiveScreen';
-import { GetServices, ProductBox, SlideTab2, LoadingScreen, } from './tools/Tools';
+import { GetServices, ProductBox, SlideTab2, LoadingScreen, NavigationNavigateScreen, FlatProduct, } from './customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -25,34 +25,34 @@ export default class CategoryScreen extends React.Component {
             filterValue: {},
             sliderVisible: false,
         };
-    }
+    };
     getData = (dataService) => {
-        this.setState({ activeGetServices: false, dataService })
-    }
+        this.setState({ activeGetServices: false, dataService });
+    };
     setStatefilterValue = (value) => {
-        console.log(value)
+        console.log(value);
         const { filterValue, } = this.state;
-        console.log(filterValue)
+        console.log(filterValue);
         filterValue.minvalue = (value && value.minvalue ? value.minvalue : '');
         filterValue.maxvalue = (value && value.maxvalue ? value.maxvalue : '');
-        console.log(filterValue)
+        console.log(filterValue);
         this.setState({ activeGetServices: true, filterValue, sliderVisible: false });
-    }
+    };
     setStateMainfilterValue = (value) => {
         const { filterValue, } = this.state;
         filterValue.lastest = value.selectedIndex == 2 ? 'lastest' : '';
         filterValue.sort_by = value.selectedIndex == 3 ? value.actionReturn : '';
         console.log(filterValue);
         this.setState({ activeGetServices: true, filterValue });
-    }
+    };
     setSlider = (sliderVisible) => {
-        this.setState({ sliderVisible })
-    }
+        this.setState({ sliderVisible });
+    };
     render() {
-        const { navigation } = this.props
-        const { activeGetServices, dataService, filterValue, sliderVisible } = this.state
-        const id_type = navigation.getParam('id_type')
-        var uri = finip + '/category/category_mobile';
+        const { navigation } = this.props;
+        const { activeGetServices, dataService, filterValue, sliderVisible } = this.state;
+        const id_type = navigation.getParam('id_type');
+        var uri = `${finip}/category/category_mobile`;
         var dataBody = {
             category_number: id_type,
             sort_by: filterValue && filterValue.sort_by ? filterValue.sort_by : '',
@@ -88,9 +88,9 @@ export default class CategoryScreen extends React.Component {
             }, {
                 name: 'ETONWEAG'
             }]
-        }]
+        }];
         activeGetServices == true &&
-            GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), })
+            GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), });
         return (
             <SafeAreaView style={[stylesMain.SafeAreaView]}>
                 {
@@ -115,8 +115,8 @@ export default class CategoryScreen extends React.Component {
                     setStateSliderVisible={this.setSlider.bind(this)} />
             </SafeAreaView>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> Recommend_Store
 export class Recommend_Store extends React.Component {
     constructor(props) {
@@ -124,24 +124,14 @@ export class Recommend_Store extends React.Component {
         this.state = {
             dataService: [],
         };
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
+    };
     get dataPromotionPopular() {
-        const { recommend } = this.props
+        const { navigation, recommend } = this.props;
         return recommend &&
             recommend.map((item, index) => {
-                var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
+                var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
                 return (
-                    <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Recommend_Store')} key={index}>
+                    <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Recommend_Store', navigation })} key={index}>
                         <View style={stylesMain.BoxStore1Box}>
                             <FastImage
                                 source={{
@@ -151,16 +141,17 @@ export class Recommend_Store extends React.Component {
                                 resizeMode={FastImage.resizeMode.contain} />
                         </View>
                     </TouchableOpacity>
-                )
-            })
-    }
+                );
+            });
+    };
     render() {
+        const { navigation } = this.props;
         return (
             <View style={stylesMain.FrameBackground}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         ร้านค้าที่แนะนำ</Text>
-                    <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Recommend_Store')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Recommend_Store', navigation })}>
                         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
@@ -170,17 +161,17 @@ export class Recommend_Store extends React.Component {
                 </View>
             </View>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> Product_Brand
 export class Product_Brand extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
-    }
+    };
     render() {
-        const { loadData, navigation, } = this.props
+        const { loadData, navigation, } = this.props;
         return (
             <View style={stylesMain.FrameBackground}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
@@ -188,14 +179,13 @@ export class Product_Brand extends React.Component {
                         สินค้าแบรนด์ดัง
                     </Text>
                 </View>
-                <ScrollView horizontal>
-                    {
-                        loadData &&
-                        <ProductBox dataService={loadData} navigation={navigation} mode='row3col1'
-                            pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} />
-                    }
-                </ScrollView>
+                {
+                    product_hit &&
+                    <FlatProduct navigation={navigation} dataService={product_hit} NumberOfcolumn={1} radiusBox={5}
+                        nameFlatProduct='Product_Brand' custumNavigation='DetailScreen' mode='row3' nameSize={14} priceSize={15}
+                        dispriceSize={15} />
+                }
             </View>
         );
-    }
-}
+    };
+};

@@ -14,7 +14,7 @@ import stylesMain from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from './MainScreen';
-import { TabBar, Toolbar } from './tools/Tools';
+import { TabBar, Toolbar } from './customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -108,7 +108,7 @@ export class Blog extends React.Component {
     onShare = async () => {
         try {
             const result = await Share.share({
-                message: 'หลายคนคงจะเคยอยากรู้ วิธีดูเพชรแท้ ว่าจริงๆแล้วเพชรแท้ดูยังไง?\n' + finip,
+                message: `หลายคนคงจะเคยอยากรู้ วิธีดูเพชรแท้ ว่าจริงๆแล้วเพชรแท้ดูยังไง?\n${finip}`,
             });
             if (result.action === Share.sharedAction) {
                 if (result.activityType) {
@@ -129,14 +129,14 @@ export class Blog extends React.Component {
                 <View style={stylesStore.header_Box}>
                     <FastImage
                         style={stylesStore.header_image}
-                        source={{ uri: ip + '/MySQL/uploads/page_News/page_J_News.jpg' }} />
+                        source={{ uri: `${ip}/MySQL/uploads/page_News/page_J_News.jpg` }} />
                     <View style={{ flexDirection: 'row', width: '100%' }}>
                         <Text numberOfLines={2} style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { width: '80%' }]}>
                             หลายคนคงจะเคยอยากรู้ วิธีดูเพชรแท้ ว่าจริงๆแล้วเพชรแท้ดูยังไง?</Text>
                         <View>
                             <View style={stylesStore.header_icon_Box}>
                                 <IconEntypo style={stylesStore.header_icon} name='eye' size={25} />
-                                <TouchableOpacity onPress={this.onShare}>
+                                <TouchableOpacity onPress={() => this.onShare()}>
                                     <IconEntypo style={stylesStore.header_icon} name='share' size={25} />
                                 </TouchableOpacity>
                             </View>
@@ -147,7 +147,7 @@ export class Blog extends React.Component {
                     <View style={stylesStore.body_Box_A}>
                         <FastImage
                             style={stylesStore.body_image}
-                            source={{ uri: ip + '/MySQL/uploads/page_News/วิธีดูเข็มและรองเท้แตะกุชชี่ของแท้-660x330.jpg' }}>
+                            source={{ uri: `${ip}/MySQL/uploads/page_News/วิธีดูเข็มและรองเท้แตะกุชชี่ของแท้-660x330.jpg` }}>
                         </FastImage>
                         <Text numberOfLines={5} style={[stylesStore.body_Text, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
                             วันนี้เราจะมาสอนวิธีการแยกเข็มขัดกุชชี่และรองเท้าแตะกุชชี่</Text>
@@ -157,7 +157,7 @@ export class Blog extends React.Component {
                     <View style={stylesStore.body_Box_A}>
                         <FastImage
                             style={stylesStore.body_image}
-                            source={{ uri: ip + '/MySQL/uploads/page_News/page_J_News.jpg' }}>
+                            source={{ uri: `${ip}/MySQL/uploads/page_News/page_J_News.jpg` }}>
                         </FastImage>
                         <Text numberOfLines={5} style={[stylesStore.body_Text, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
                             หลายคนคงจะเคยอยากรู้วิธีดูเพชรแท้ว่าจริงๆแล้วเพชรแท้ดูยังไง?</Text>
@@ -167,7 +167,7 @@ export class Blog extends React.Component {
                     <View style={stylesStore.body_Box_A}>
                         <FastImage
                             style={stylesStore.body_image}
-                            source={{ uri: ip + '/MySQL/uploads/page_News/Supreme.jpg' }}>
+                            source={{ uri: `${ip}/MySQL/uploads/page_News/Supreme.jpg` }}>
                         </FastImage>
                         <Text numberOfLines={5} style={[stylesStore.body_Text, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
                             ถ้าพูดถึงแบรนด์ที่มาแรงและหลายคนก็ยังคงชื่อชอบอยู่ในช่วง 2 – 3 ปีที่ผ่านมานี้ก็ต้องแบรนด์ ‘Supreme’ นี่แหละค่ะ</Text>
@@ -177,7 +177,7 @@ export class Blog extends React.Component {
                     <View style={stylesStore.body_Box_A}>
                         <FastImage
                             style={stylesStore.body_image}
-                            source={{ uri: ip + '/MySQL/uploads/page_News/วิธีดูเข็มและรองเท้แตะกุชชี่ของแท้-660x330.jpg' }}>
+                            source={{ uri: `${ip}/MySQL/uploads/page_News/วิธีดูเข็มและรองเท้แตะกุชชี่ของแท้-660x330.jpg` }}>
                         </FastImage>
                         <Text numberOfLines={5} style={[stylesStore.body_Text, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
                             วันนี้เราจะมาสอนวิธีการแยกเข็มขัดกุชชี่และรองเท้าแตะกุชชี่</Text>

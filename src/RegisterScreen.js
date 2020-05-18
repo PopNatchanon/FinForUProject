@@ -55,7 +55,7 @@ export class Logo extends React.Component {
         <ImageBackground
           style={stylesLogin.Logo_Box}
           source={{
-            uri: ip + '/MySQL/uploads/icon_5/11111-10.jpg',
+            uri: `${ip}/MySQL/uploads/icon_5/11111-10.jpg`,
           }}
           resizeMode={FastImage.resizeMode.stretch}
         >
@@ -201,7 +201,7 @@ export class Login extends React.Component {
     user.birth_mon = new Date(date).getMonth() + 1;
     user.birth_year = new Date(date).getFullYear();
     this.setState({ user });
-    fetch(finip + '/auth/register_customer', {
+    fetch(`${finip}/auth/register_customer`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -212,7 +212,7 @@ export class Login extends React.Component {
       .then((response) => response.json())
       .then((responseJson) => {
         if (responseJson.result == 'Complete') {
-          fetch(finip + '/auth/login_customer', {
+          fetch(`${finip}/auth/login_customer`, {
             method: 'POST',
             headers: {
               'Accept': 'application/json',
@@ -542,7 +542,7 @@ export class Login extends React.Component {
         <View style={stylesLogin.RegisterScreen_CheckBox}>
           <CheckBox
             checked={item1}
-            onPress={this.setStateItem1.bind(this)} />
+            onPress={() => this.setStateItem1()} />
           <View style={stylesLogin.RegisterScreen_Check_Box}>
             <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText]}>
               ฉันยอมรับเงื่อนไขของ FIN ข้อตกลงการใช้งาน และยินยอมดำเนินการกับข้อมูลส่วนตัวตามที่ระบุใน นโยบายส่วนตัว</Text>
@@ -556,7 +556,7 @@ export class Login extends React.Component {
           }
             onPress={
               item1 == true ?
-                this.handleSubmit.bind(this) :
+                () => this.handleSubmit() :
                 null
             }>
             <View style={[stylesLogin.Login_Box_Text_B, {
@@ -611,32 +611,32 @@ export class Register extends React.Component {
             checkedColor='#95F29F'
             uncheckedIcon='toggle-off'
             checked={item1}
-            onPress={this.setStateItem1.bind(this)} />
+            onPress={() => this.setStateItem1()} />
         </View>
         <View>
-          <Text style={[stylesFont.FontCenter, stylesFont.FontSize5, stylesFont.FontFamilyText, { color: '#FFFFFF' ,marginTop:-10}]}>
+          <Text style={[stylesFont.FontCenter, stylesFont.FontSize5, stylesFont.FontFamilyText, { color: '#FFFFFF', marginTop: -10 }]}>
             ---------- สมัครสมาชิกด้วยช่องทางอื่น ----------</Text>
         </View>
         <View style={stylesLogin.Register_Box_Button}>
-            <TouchableOpacity>
-              <View style={{ marginLeft: 10, width: 140, height: 50}}>
-                <FastImage
-                  style={stylesLogin.Register_Box_image}
-                  source={require('../icon/logoutappfacebook.png')}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <View style={{ marginLeft: 10, width: 140, height: 50}}>
-                <FastImage
-                  style={stylesLogin.Register_Box_image}
-                  source={require('../icon/logoutapp14.png')}
-                  resizeMode={FastImage.resizeMode.contain}
-                />
-              </View>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity>
+            <View style={{ marginLeft: 10, width: 140, height: 50 }}>
+              <FastImage
+                style={stylesLogin.Register_Box_image}
+                source={require('../icon/logoutappfacebook.png')}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <View style={{ marginLeft: 10, width: 140, height: 50 }}>
+              <FastImage
+                style={stylesLogin.Register_Box_image}
+                source={require('../icon/logoutapp14.png')}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }

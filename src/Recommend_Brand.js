@@ -13,7 +13,7 @@ import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, } from './MainScreen';
-import { ProductBox, LoadingScreen, GetData, GetServices, } from './tools/Tools';
+import { ProductBox, LoadingScreen, GetData, GetServices, NavigationNavigateScreen, } from './customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -35,7 +35,7 @@ export default class Recommend_Brand extends React.Component {
     render() {
         const { navigation } = this.props
         const { activeGetCurrentUser, activeDataService, currentUser, dataService, } = this.state
-        const uri = [finip, '/brand/all_brand'].join('/')
+        const uri = `${finip}/brand/all_brand`;
         activeGetCurrentUser == false && activeDataService == true &&
             GetServices({ uriPointer: uri, getDataSource: this.getData.bind(this), })
         activeGetCurrentUser == true &&
@@ -68,23 +68,12 @@ export class Recommend_Brand_Store extends React.Component {
         this.state = {
         };
     }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
-
     render() {
         const { navigation, dataService } = this.props
         console.log('Recommend_Brand')
         console.log(dataService)
-        const image_header = [finip, dataService.image_head_path, dataService.image_head].join('/')
-        const image_store = [finip, dataService.store_path, dataService.image_store].join('/')
+        const image_header = `${finip}/${dataService.image_head_path}/${dataService.image_head}`;
+        const image_store = `${finip}/${dataService.store_path}/${dataService.image_store}`;
         return (
             <View style={stylesMain.FrameBackground}>
                 <FastImage
@@ -103,7 +92,9 @@ export class Recommend_Brand_Store extends React.Component {
                             }}
                             resizeMode={FastImage.resizeMode.contain} />
                     </View>
-                    <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: 23 })}>
+                    <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                        goScreen: 'StoreScreen', setData: { id_item: 23 }, navigation
+                    })}>
                         <View style={[stylesTopic.Recommend_Brand_ProButton]}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เข้าดูร้าน</Text>
                         </View>
@@ -115,7 +106,6 @@ export class Recommend_Brand_Store extends React.Component {
                         <ProductBox dataService={dataService.product} navigation={navigation}
                             pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
                         />
-
                     }
                 </ScrollView>
             </View>

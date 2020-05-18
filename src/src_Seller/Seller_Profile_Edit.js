@@ -32,9 +32,10 @@ export default class Seller_Profile_Edit extends Component {
         };
     }
     render() {
+        const { navigation } = this.props
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขรายละเอียดร้านค้า' saveBar />
+                <AppBar1 backArrow navigation={navigation} titleHead='แก้ไขรายละเอียดร้านค้า' saveBar />
                 <ScrollView>
                     <Seller_SettingImage />
                     <Seller_Up_Image />
@@ -79,7 +80,7 @@ export class Seller_SettingImage extends Component {
     render() {
         const { image, image_path, } = this.props
         const { avatarSource2, avatarSource3 } = this.state
-        const image_User = [finip, image_path, image].join('/')
+        const image_User = `${finip}/${image_path}/${image}`
         return (
             <View>
                 <View>
@@ -94,7 +95,7 @@ export class Seller_SettingImage extends Component {
                         }
                     </View>
                     <View style={stylesSeller.Seller_SettingImageEdit_BG}>
-                        <TouchableOpacity onPress={this.UploadImageBackground}>
+                        <TouchableOpacity onPress={() => this.UploadImageBackground()}>
                             <View style={stylesMain.FlexRow}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { textAlign: 'right', color: '#FFFFFF' }]}>
                                     แตะเพื่อเปลี่ยน</Text>
@@ -120,7 +121,7 @@ export class Seller_SettingImage extends Component {
                         }
                     </View>
                     <View style={stylesSeller.Seller_SettingImageIconBox}>
-                        <TouchableOpacity onPress={this.UploadImageProfile}>
+                        <TouchableOpacity onPress={() => this.UploadImageProfile()}>
                             <View style={stylesSeller.Seller_SettingImageIconBox_Camara}>
                                 <IconFeather name='camera' size={17} />
                             </View>
@@ -162,7 +163,7 @@ export class Seller_Up_Image extends Component {
     }
     UploadImageData = () => {
         const { avatarSource } = this.state
-        var uri = [ip, 'sql/uploadimage/updateimage.php'].join('/')
+        var uri = `${ip}/sql/uploadimage/updateimage.php`
         avatarSource && (
             fetch(uri, {
                 method: "POST",
@@ -209,7 +210,7 @@ export class Seller_Up_Image extends Component {
                                     )
                                 }),
                                 avatarSource.length < 7 &&
-                                <TouchableOpacity onPress={this.UploadImageMultiple} key={'upload'}>
+                                <TouchableOpacity onPress={() => this.UploadImageMultiple()} key={'upload'}>
                                     <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>
                                         <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
                                             <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
@@ -218,7 +219,7 @@ export class Seller_Up_Image extends Component {
                                     </View>
                                 </TouchableOpacity>
                             ] :
-                                <TouchableOpacity onPress={this.UploadImageMultiple}>
+                                <TouchableOpacity onPress={() => this.UploadImageMultiple()}>
                                     <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>
                                         <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
                                             <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
@@ -229,7 +230,7 @@ export class Seller_Up_Image extends Component {
                         }
                     </ScrollView>
                 </View>
-                {/* <TouchableOpacity onPress={this.UploadImageData} style={stylesMain.ItemCenter}>
+                {/* <TouchableOpacity onPress={() => this.UploadImageData} style={stylesMain.ItemCenter}>
             <Text style={[{ width: 75, height: 40, borderWidth: 1, borderColor: '#456488', marginTop: 10, textAlign: 'center', textAlignVertical: 'center', color: '#fff', backgroundColor: '#456488' }]}>Upload</Text>
           </TouchableOpacity> */}
             </View>

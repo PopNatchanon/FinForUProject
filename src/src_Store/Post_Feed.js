@@ -25,10 +25,12 @@ import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topi
 import stylesTopic from '../../style/styleTopic';
 import stylesProfile from '../../style/StylesProfileScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { GetServices, GetCoupon, TabBar, LoadingScreen, GetData, GetServicesBlob } from '../tools/Tools';
+import {
+    GetServices, GetCoupon, TabBar, LoadingScreen, GetData, GetServicesBlob, NavigationNavigateScreen
+} from '../customComponents/Tools';
 import { TodayProduct, Slide, AppBar1, ExitAppModule, } from '../MainScreen';
 import { Store_Detail } from '../Recommend_Store';
-import { ProductBox } from '../tools/Tools';
+import { ProductBox } from '../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -67,7 +69,8 @@ export default class Post_Feed extends Component {
                         <AppBar1 backArrow postBar getActivePost={this.getActivePost.bind(this)} navigation={navigation}
                             titleHead={actionPost == 'edit' ? 'แก้ไขโพสต์' : 'โพสต์ใหม่'} />
                         <ScrollView>
-                            <Post_New activePost={activePost} cokie={cokie} getActivePost={this.getActivePost.bind(this)} navigation={navigation} />
+                            <Post_New activePost={activePost} cokie={cokie} getActivePost={this.getActivePost.bind(this)}
+                                navigation={navigation} />
                         </ScrollView>
                     </>
                 )
@@ -162,7 +165,7 @@ export class Score_store extends React.Component {
         const { cokie, navigation } = this.props;
         const { activeGetServices, activeGetServices2, dataService, dataService2, score } = this.state;
         const id_store = navigation.getParam('id_store');
-        var uri = [finip, 'store/score_data'].join('/');
+        var uri = `${finip}/store/score_data`;
         var dataBody = {
             id_store,
             score,
@@ -170,23 +173,23 @@ export class Score_store extends React.Component {
         item = [
             {
                 name: 'ทั้งหมด',
-                nameline2: '(' + (dataService ? (dataService.rate_1 + dataService.rate_2 + dataService.rate_3 + dataService.rate_4 +
-                    dataService.rate_5) : '0') + ')',
+                nameline2: `(${(dataService ? (dataService.rate_1 + dataService.rate_2 + dataService.rate_3 + dataService.rate_4 +
+                    dataService.rate_5) : '0')})`,
             }, {
                 name: '5 ดาว',
-                nameline2: '(' + (dataService ? dataService.rate_5 : '0') + ')',
+                nameline2: `(${(dataService ? dataService.rate_5 : '0')})`,
             }, {
                 name: '4 ดาว',
-                nameline2: '(' + (dataService ? dataService.rate_4 : '0') + ')',
+                nameline2: `(${(dataService ? dataService.rate_4 : '0')})`,
             }, {
                 name: '3 ดาว',
-                nameline2: '(' + (dataService ? dataService.rate_3 : '0') + ')',
+                nameline2: `(${(dataService ? dataService.rate_3 : '0')})`,
             }, {
                 name: '2 ดาว',
-                nameline2: '(' + (dataService ? dataService.rate_2 : '0') + ')',
+                nameline2: `(${(dataService ? dataService.rate_2 : '0')})`,
             }, {
                 name: '1 ดาว',
-                nameline2: '(' + (dataService ? dataService.rate_1 : '0') + ')',
+                nameline2: `(${(dataService ? dataService.rate_1 : '0')})`,
             }
         ]
         activeGetServices == true && id_store && cokie &&
@@ -200,7 +203,10 @@ export class Score_store extends React.Component {
                 <View style={{ backgroundColor: '#4C9AE2', width: '100%', }}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF', margin: 10 }]}> เรตติ้งร้าน </Text>
                     <View style={stylesMain.ItemCenter}>
-                        <View style={[stylesMain.ItemCenter, { borderWidth: 1, backgroundColor: '#FFFFFF', height: 130, width: 130, borderRadius: 80, marginBottom: 10 }]}>
+                        <View style={[
+                            stylesMain.ItemCenter, {
+                                borderWidth: 1, backgroundColor: '#FFFFFF', height: 130, width: 130, borderRadius: 80, marginBottom: 10
+                            }]}>
                             {
                                 dataService && dataService.rating_store == 'ยังไม่มีการรีวิว' ?
                                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ยังไม่มีการรีวิว</Text> :
@@ -271,7 +277,7 @@ export class Box_Rating extends React.Component {
     }
     render() {
         const { comment_box, dataService } = this.props
-        const image_customer = [finip, dataService.path_customer, dataService.img_customer].join('/')
+        const image_customer = `${finip}/${dataService.path_customer}/${dataService.img_customer}`
         return (
             <View style={stylesMain.FrameBackground}>
                 <View style={[stylesMain.FlexRow, { borderColor: '#ECECEC', borderBottomWidth: 1 }]}>
@@ -369,42 +375,42 @@ export class Post_New extends React.Component {
                         <TouchableOpacity>
                             <FastImage style={{ height: 120, width: 120, marginBottom: 10 }}
                                 source={{
-                                    uri: ip + '/MySQL/uploads/Framesticker/Framesticker01.jpg',
+                                    uri: `${ip}/MySQL/uploads/Framesticker/Framesticker01.jpg`,
                                 }}
                             />
                         </TouchableOpacity>
                         <TouchableOpacity>
                             <FastImage style={{ height: 120, width: 120, }}
                                 source={{
-                                    uri: ip + '/MySQL/uploads/Framesticker/Framesticker02.jpg',
+                                    uri: `${ip}/MySQL/uploads/Framesticker/Framesticker02.jpg`,
                                 }}
                             />
                         </TouchableOpacity>
                         <TouchableOpacity>
                             <FastImage style={{ height: 120, width: 120, }}
                                 source={{
-                                    uri: ip + '/MySQL/uploads/Framesticker/Framesticker03.jpg',
+                                    uri: `${ip}/MySQL/uploads/Framesticker/Framesticker03.jpg`,
                                 }}
                             />
                         </TouchableOpacity>
                         <TouchableOpacity>
                             <FastImage style={{ height: 120, width: 120, }}
                                 source={{
-                                    uri: ip + '/MySQL/uploads/Framesticker/Framesticker04.jpg',
+                                    uri: `${ip}/MySQL/uploads/Framesticker/Framesticker04.jpg`,
                                 }}
                             />
                         </TouchableOpacity>
                         <TouchableOpacity>
                             <FastImage style={{ height: 120, width: 120, }}
                                 source={{
-                                    uri: ip + '/MySQL/uploads/Framesticker/Framesticker05.jpg',
+                                    uri: `${ip}/MySQL/uploads/Framesticker/Framesticker05.jpg`,
                                 }}
                             />
                         </TouchableOpacity>
                         <TouchableOpacity>
                             <FastImage style={{ height: 120, width: 120, }}
                                 source={{
-                                    uri: ip + '/MySQL/uploads/Framesticker/Framesticker06.jpg',
+                                    uri: `${ip}/MySQL/uploads/Framesticker/Framesticker06.jpg`,
                                 }}
                             />
                         </TouchableOpacity>
@@ -421,9 +427,9 @@ export class Post_New extends React.Component {
         const id_store = navigation.getParam('id_store');
         const store_data = navigation.getParam('store_data');
         const store_data_2 = store_data && store_data[0];
-        const image_storee = store_data_2 && [finip, store_data_2.image_path, store_data_2.image].join('/');
-        const image_post = [finip, image_path, image].join('/')
-        const uri = [finip, actionPost == 'edit' ? 'brand/feed_action' : 'brand/create_feed'].join('/')
+        const image_storee = store_data_2 && `${finip}/${store_data_2.image_path}/${store_data_2.image}`;
+        const image_post = `${finip}/${image_path}/${image}`
+        const uri = `${finip}/${(actionPost == 'edit' ? 'brand/feed_action' : 'brand/create_feed')}`;
         var o = avatarSource && avatarSource.path.split('/')
         var tagProductBody = tagProduct && tagProduct.map((value) => { return value.id_product })
         console.log(tagProductBody)
@@ -447,7 +453,7 @@ export class Post_New extends React.Component {
                     { name: 'detail', data: Detail },
                     { name: 'id_product', data: tagProduct ? tagProductBody.join(';') : '' },
                 ];
-        const uri2 = [finip, 'brand/feed_action'].join('/')
+        const uri2 = `${finip}/brand/feed_action`
         var dataBody2 = actionPost == 'edit' ?
             {
                 id_store,
@@ -532,7 +538,7 @@ export class Post_New extends React.Component {
                                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, stylesMain.ItemCenterVertical, {
                                             color: '#fff', marginLeft: 8,
                                         }]}>{value.name}</Text>
-                                        <TouchableOpacity onPress={this.deleteTag.bind(this, index)}
+                                        <TouchableOpacity onPress={() => this.deleteTag(index)}
                                             style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
                                                 marginLeft: 4, backgroundColor: '#ECECEC', height: 15, width: 15, borderRadius: 15,
                                                 marginRight: 4,
@@ -545,13 +551,15 @@ export class Post_New extends React.Component {
                         }
                     </View>
                     <TouchableOpacity style={[stylesMain.FlexRow, { borderColor: '#ECECEC', borderBottomWidth: 1, padding: 10 }]}
-                        onPress={this.UploadImagePostFeed}>
+                        onPress={() => this.UploadImagePostFeed()}>
                         <IconFontAwesome name='image' size={25} color='#43A047' style={{ marginRight: 10, }} />
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>รูปภาพ</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={[stylesMain.FlexRow, { borderColor: '#ECECEC', borderBottomWidth: 1, padding: 10 }]}
-                        activeOpacity={1} onPress={() => navigation.push('Post_Feed', {
-                            selectedIndex: 2, id_store, getDataService: this.getDataService.bind(this)
+                        activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                            goScreen: 'Post_Feed', setData: {
+                                selectedIndex: 2, id_store, getDataService: this.getDataService.bind(this)
+                            }, navigation
                         })}>
                         <IconAntDesign name='tago' size={25} style={{ marginRight: 10, }} />
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>แท็กสินค้า</Text>
@@ -596,7 +604,7 @@ export class Select_TagProduct extends React.Component {
         }, {
             name: 'รายการโปรด'
         },]
-        const uri = [finip, 'brand/feed_tag_product'].join('/')
+        const uri = `${finip}/brand/feed_tag_product`
         var dataBody = {
             id_store,
             level: selectedIndex == 0 ? 'normal' : selectedIndex == 1 ? 'favorite' : 'normal'
@@ -697,4 +705,3 @@ export class Feed_comment extends React.Component {
         );
     }
 }
-

@@ -16,7 +16,7 @@ import stylesMain from '../../style/StylesMainScreen';
 import { AppBar1, Slide, TodayProduct, ExitAppModule, } from '../MainScreen';
 import { Button_Bar } from '../HighlightScreen';
 import { Store_Sale } from './The_BestFinScreen';
-import { GetCoupon, GetData, GetServices, ProductBox } from '../tools/Tools';
+import { GetCoupon, GetData, GetServices, ProductBox } from '../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '.././navigator/IpConfig';
 import StylesMainScreen from '../../style/StylesMainScreen';
@@ -41,7 +41,7 @@ export default class Detail_Campaign extends Component {
         const { navigation } = this.props
         const { activeGetCurrentUser, activeDataService, currentUser, dataService, } = this.state
         const id_campaign = navigation.getParam('id_campaign')
-        var uri = finip + '/campaign/campaign_detail';
+        var uri = `${finip}/campaign/campaign_detail`;
         var dataBody = {
             "id_category": "",
             "id_campaign": id_campaign,
@@ -168,15 +168,15 @@ export class Store_Campaign extends Component {
         console.log(dataService)
         var campaign_banner_1
         dataService && dataService.campaign_banner_1.map((value) => {
-            return campaign_banner_1 = [finip, value.image_path, value.image].join('/');
+            return campaign_banner_1 = `${finip}/${dataService.image_path}/${dataService.image}`
         })
         var campaign_banner_2 = []
         dataService && dataService.campaign_banner_2.map((value) => {
-            return campaign_banner_2.push([finip, value.image_path, value.image].join('/'));
+            return campaign_banner_2.push(`${finip}/${dataService.image_path}/${dataService.image}`);
         })
         var campaign_banner_3 = []
         dataService && dataService.campaign_banner_3.map((value) => {
-            return campaign_banner_3.push([finip, value.image_path, value.image].join('/'));
+            return campaign_banner_3.push(`${finip}/${dataService.image_path}/${dataService.image}`);
         })
         return (
             <View style={stylesDeal.Store_Sale}>

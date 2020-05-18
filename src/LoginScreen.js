@@ -18,7 +18,7 @@ import stylesLogin from '../style/stylesLoginScreen';
 import stylesMain from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { ExitAppModule, } from './MainScreen'
-import { Toolbar, } from './tools/Tools';
+import { Toolbar, NavigationNavigateScreen, } from './customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -27,13 +27,6 @@ export default class LoginScreen extends React.Component {
     super(props);
     this.state = {
     };
-  }
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const { navigation } = this.props
-    if (navigation !== nextProps.navigation) {
-      return true
-    }
-    return false
   }
   render() {
     const { navigation } = this.props
@@ -63,7 +56,7 @@ export class Logo extends React.Component {
         <ImageBackground
           style={stylesLogin.Logo_Box}
           source={{
-            uri: ip + '/MySQL/uploads/icon_5/sign-in-bg02.jpg',
+            uri: `${ip}/MySQL/uploads/icon_5/sign-in-bg02.jpg`,
           }}
           resizeMode={FastImage.resizeMode.stretch}
         >
@@ -107,19 +100,10 @@ export class Login extends React.Component {
       // clear error
     }
   }
-  navigationNavigateScreen = (value, value2) => {
-    const { navigation } = this.props
-    value == 'goBack' ?
-      navigation.goBack() :
-      value == 'LoginScreen' ? (
-        navigation.popToTop(),
-        navigation.replace(value, value2)
-      ) :
-        navigation.push(value, value2)
-  }
   getData = async () => {
+    const { navigation } = this.props
     const { user } = this.state;
-    fetch(finip + '/auth/login_customer', {
+    fetch(`${finip}/auth/login_customer`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -134,7 +118,7 @@ export class Login extends React.Component {
         if (responseJson.data != null) {
           var userser = { email: user.email, password: user.password }
           this.storeLogin(userser)
-          this.navigationNavigateScreen('MainScreen');
+          NavigationNavigateScreen({ goScreen: 'MainScreen', navigation });
         } else {
           this.setState({ errorMessage: responseJson, showErrorMessage: true })
         }
@@ -220,7 +204,7 @@ export class Login extends React.Component {
                 underlineInvalidColor: 'red'
               }} />
             <TouchableOpacity style={stylesLogin.eyestyle}
-              onPress={this.setStateEye.bind(this, !eye)}>
+              onPress={() => this.setStateEye(!eye)}>
               <View>
                 <IconFeather RightItem name={eye == false ? "eye" : "eye-off"} size={20} style={{ marginTop: 5 }} />
               </View>
@@ -230,7 +214,7 @@ export class Login extends React.Component {
                 ลืมรหัสผ่าน?</Text>
             </View>
             <View style={[stylesMain.ItemCenter]}>
-              <TouchableOpacity onPress={this.handleSubmit.bind(this)}>
+              <TouchableOpacity onPress={() => this.handleSubmit()}>
                 <View style={[stylesLogin.Login_Box_Text_B, stylesMain.ItemCenter]}>
                   <Text style={[
                     stylesLogin.Login__Text, stylesFont.FontFamilyText, stylesFont.FontSize4, stylesMain.ItemCenterVertical
@@ -264,22 +248,13 @@ export class Register extends React.Component {
     this.state = {
     };
   }
-  navigationNavigateScreen = (value, value2) => {
-    const { navigation } = this.props
-    value == 'goBack' ?
-      navigation.goBack() :
-      value == 'LoginScreen' ? (
-        navigation.popToTop(),
-        navigation.replace(value, value2)
-      ) :
-        navigation.push(value, value2)
-  }
   render() {
+    const { navigation } = this.props
     return (
       <View style={stylesLogin.Register_Box}>
         <View style={stylesLogin.Register_Box_A}>
           <View style={{ alignItems: 'flex-end' }}>
-            <TouchableOpacity style={{ width: 120, }} onPress={this.navigationNavigateScreen.bind(this, 'RegisterScreen')}>
+            <TouchableOpacity style={{ width: 120, }} onPress={() => NavigationNavigateScreen({ goScreen: 'RegisterScreen', navigation })}>
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { marginTop: 10, color: '#f5df89', }]}>
                 สมัครสมาชิกใหม่
               </Text>

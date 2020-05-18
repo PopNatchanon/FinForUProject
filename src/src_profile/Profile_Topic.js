@@ -23,7 +23,7 @@ import stylesMain from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, TodayProduct } from '../MainScreen';
-import { GetData, GetServices, LoadingScreen } from '../tools/Tools';
+import { GetData, GetServices, LoadingScreen, NavigationNavigateScreen } from '../customComponents/Tools';
 import { PopularProduct } from '../StoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';
@@ -48,15 +48,14 @@ export default class Profile_Topic extends React.Component {
         const { activeGetServices, activeGetSource, currentUser, cokie, dataSevice } = this.state
         const selectedIndex = navigation.getParam('selectedIndex')
         const id_cartdetail = navigation.getParam('id_cartdetail')
-        const uri = [finip,
+        const uri = `${finip}/${(
             selectedIndex == 2 ?
                 'profile/product_interest' :
                 selectedIndex == 3 ?
                     'profile/store_follow' :
                     (selectedIndex == 4 || selectedIndex == 7) ?
                         'profile/review_product' :
-                        ''
-        ].join('/')
+                        '')}`
         var dataBody = {
             id_customer: currentUser && currentUser.id_customer,
         }
@@ -198,9 +197,10 @@ export class LatestScreen extends React.Component {
         };
     }
     render() {
+        const { navigation } = this.props
         return (
             <ScrollView>
-                <PopularProduct navigation={this.props.navigation} noHeadText />
+                <PopularProduct navigation={navigation} noHeadText />
             </ScrollView>
         );
     }
@@ -214,10 +214,10 @@ export class AppbarChat extends React.Component {
         };
     }
     render() {
-        const { Title } = this.props
+        const { navigation, Title } = this.props
         return (
             <View style={stylesProfileTopic.AppbarChat}>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.goBack()}>
+                <TouchableOpacity activeOpacity={1} onPress={() => navigation.goBack()}>
                     <IconEntypo name='chevron-left' size={35} color='#0A55A6' style={stylesMain.ItemCenterVertical} />
                 </TouchableOpacity>
                 <View>
@@ -236,12 +236,17 @@ export class ChatScreen extends React.Component {
         };
     }
     render() {
+        const { navigation } = this.props
         return (
             <ScrollView>
-                <TouchableOpacity onPress={() => this.props.navigation.push('Profile_Topic', { selectedIndex: 6 })}>
+                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Profile_Topic', setData: { selectedIndex: 6 }, navigation
+                })}>
                     <Chat_Tag />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.push('Profile_Topic', { selectedIndex: 6 })}>
+                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Profile_Topic', setData: { selectedIndex: 6 }, navigation
+                })}>
                     <Chat_Tag />
                 </TouchableOpacity>
             </ScrollView>
@@ -501,7 +506,7 @@ export class Chat_Tag extends React.Component {
                         <View style={stylesMain.ItemCenterVertical}>
                             <FastImage style={stylesProfileTopic.Chat_Tag_image}
                                 source={{
-                                    uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
+                                    uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop1.jpg`,
                                 }}
                             />
                             <View style={stylesProfileTopic.Chat_Tag_online}>
@@ -574,24 +579,14 @@ export class Follow_store_Box extends React.Component {
             Button_Follow_Before: true,
         };
     }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
     getData = (value) => {
         this.setState({ activeGetServices: false })
     }
     render() {
-        const { cokie, currentUser, dataSevice } = this.props
+        const { cokie, currentUser, dataSevice, navigation } = this.props
         const { activeGetServices, Button_Follow_Before } = this.state
-        const image_store = [finip, dataSevice.store_path, dataSevice.image_store].join('/')
-        const uri = [finip, 'brand/follow_data'].join('/')
+        const image_store = `${finip}/${dataSevice.store_path}/${dataSevice.image_store}`
+        const uri = `${finip}/brand/follow_data`
         var dataBody = {
             id_customer: currentUser && currentUser.id_customer,
             id_store: dataSevice.id_store,
@@ -605,7 +600,9 @@ export class Follow_store_Box extends React.Component {
         return (
             <>
                 <View style={stylesProfileTopic.Follow_store_Box}>
-                    <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: dataSevice.id_store })}
+                    <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                        goScreen: 'StoreScreen', setData: { id_item: dataSevice.id_store }, navigation
+                    })}
                         style={{ flexDirection: 'row', }}>
                         <FastImage style={stylesProfileTopic.Follow_store_Box_image}
                             source={{
@@ -637,26 +634,16 @@ export class Might_like_Store extends React.Component {
             Button_Follow_After: true,
         };
     }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
     getData = (value) => {
         console.log('Might_like_Store')
         console.log(value)
         this.setState({ activeGetServices: false })
     }
     render() {
-        const { cokie, currentUser, dataSevice } = this.props
+        const { cokie, currentUser, dataSevice, navigation } = this.props
         const { activeGetServices, Button_Follow_After } = this.state
-        const image_store = [finip, dataSevice.store_path, dataSevice.image_store].join('/')
-        const uri = [finip, 'brand/follow_data'].join('/')
+        const image_store = `${finip}/${dataSevice.store_path}/${dataSevice.image_store}`
+        const uri = `${finip}/brand/follow_data`
         var dataBody = {
             id_customer: currentUser && currentUser.id_customer,
             id_store: dataSevice.id_store,
@@ -671,7 +658,9 @@ export class Might_like_Store extends React.Component {
             <View>
                 <View style={stylesProfileTopic.Might_like_Store}>
                     <View style={stylesProfileTopic.Follow_store_Box}>
-                        <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: dataSevice.id_store })}
+                        <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                            goScreen: 'StoreScreen', setData: { id_item: dataSevice.id_store }, navigation
+                        })}
                             style={{ flexDirection: 'row', }}>
                             <FastImage style={stylesProfileTopic.Follow_store_Box_image}
                                 source={{
@@ -697,7 +686,7 @@ export class Might_like_Store extends React.Component {
                             <View style={stylesProfileTopic.Might_like_Store_BoxP}>
                                 {
                                     dataSevice.product.map((value, index) => {
-                                        const image_product = [finip, value.image_path, value.image].join('/')
+                                        const image_product = `${finip}/${value.image_path}/${value.image}`
                                         return (index < 4 &&
                                             <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
                                                 <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage}
@@ -787,8 +776,8 @@ export class Review_me extends React.Component {
         return starBox
     }
     render() {
-        const { dataSevice } = this.props
-        const image_product = [finip, dataSevice.path_product, dataSevice.image_product].join('/')
+        const { dataSevice, navigation } = this.props
+        const image_product = `${finip}/${dataSevice.path_product}/${dataSevice.image_product}`;
         return (
             <View>
                 <View style={stylesProfileTopic.Review_me}>
@@ -801,8 +790,8 @@ export class Review_me extends React.Component {
                         <View style={{ flexDirection: 'row', width: 120, justifyContent: 'space-between' }}>
                             {this.starReview(dataSevice.rating, 20)}
                         </View>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Profile_Topic', {
-                            selectedIndex: 7, id_cartdetail: dataSevice.id_cartdetail
+                        <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                            goScreen: 'Profile_Topic', setData: { selectedIndex: 7, id_cartdetail: dataSevice.id_cartdetail }, navigation
                         })}>
                             <View style={stylesProfileTopic.Review_me_Box_head}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>
@@ -840,12 +829,13 @@ export class Help_meScreen extends React.Component {
         };
     }
     render() {
+        const { navigation } = this.props
         return (
             <View>
                 <ScrollView>
-                    <Help_me navigation={this.props.navigation} />
-                    <Question navigation={this.props.navigation} />
-                    <Topic_Help navigation={this.props.navigation} />
+                    <Help_me navigation={navigation} />
+                    <Question navigation={navigation} />
+                    <Topic_Help navigation={navigation} />
                 </ScrollView>
             </View>
         );
@@ -921,17 +911,23 @@ export class Topic_Help extends React.Component {
         };
     }
     render() {
-        const HeadTitle_Help = this.props.navigation.getParam('HeadTitle_Help')
+        const { navigation } = this.props
+        const HeadTitle_Help = navigation.getParam('HeadTitle_Help')
         return (
             <View style={stylesMain.FrameBackground}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}> หัวข้อ </Text>
                 <View style={{ justifyContent: 'center', alignItems: 'center', paddingBottom: 10 }}>
-                    <TouchableOpacity style={stylesProfileTopic.Topic_Box} onPress={() =>
+                    <TouchableOpacity style={stylesProfileTopic.Topic_Box} onPress={
                         HeadTitle_Help ?
                             HeadTitle_Help == 'บัญชีของฉัน' ?
                                 null :
-                                this.props.navigation.replace('Profile_Topic', { selectedIndex: 8, HeadTitle_Help: 'บัญชีของฉัน' }) :
-                            this.props.navigation.push('Profile_Topic', { selectedIndex: 8, HeadTitle_Help: 'บัญชีของฉัน' })
+                                () => NavigationNavigateScreen({
+                                    goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'บัญชีของฉัน' }, navigation,
+                                    noPush
+                                }) :
+                            () => NavigationNavigateScreen({
+                                goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'บัญชีของฉัน' }, navigation,
+                            })
                     }>
                         <IconAntDesign RightItem name="user" size={30} style={stylesProfileTopic.Topic_Box_icon} />
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>บัญชีของฉัน</Text>
@@ -940,8 +936,13 @@ export class Topic_Help extends React.Component {
                         HeadTitle_Help ?
                             HeadTitle_Help == 'การคืนสินค้า' ?
                                 null :
-                                this.props.navigation.replace('Profile_Topic', { selectedIndex: 8, HeadTitle_Help: 'การคืนสินค้า' }) :
-                            this.props.navigation.push('Profile_Topic', { selectedIndex: 8, HeadTitle_Help: 'การคืนสินค้า' })
+                                () => NavigationNavigateScreen({
+                                    goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การคืนสินค้า' }, navigation,
+                                    noPush
+                                }) :
+                            () => NavigationNavigateScreen({
+                                goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การคืนสินค้า' }, navigation,
+                            })
                     }>
                         <IconAntDesign RightItem name="retweet" size={30} style={stylesProfileTopic.Topic_Box_icon} />
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>การคืนสินค้า</Text>
@@ -950,8 +951,13 @@ export class Topic_Help extends React.Component {
                         HeadTitle_Help ?
                             HeadTitle_Help == 'การชำระเงิน' ?
                                 null :
-                                this.props.navigation.replace('Profile_Topic', { selectedIndex: 8, HeadTitle_Help: 'การชำระเงิน' }) :
-                            this.props.navigation.push('Profile_Topic', { selectedIndex: 8, HeadTitle_Help: 'การชำระเงิน' })
+                                () => NavigationNavigateScreen({
+                                    goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การชำระเงิน' }, navigation,
+                                    noPush
+                                }) :
+                            () => NavigationNavigateScreen({
+                                goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การชำระเงิน' }, navigation,
+                            })
                     }>
                         <IconEntypo RightItem name="credit-card" size={30} style={stylesProfileTopic.Topic_Box_icon} />
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>การชำระเงิน</Text>
@@ -960,8 +966,13 @@ export class Topic_Help extends React.Component {
                         HeadTitle_Help ?
                             HeadTitle_Help == 'การสั่งซื้อ' ?
                                 null :
-                                this.props.navigation.replace('Profile_Topic', { selectedIndex: 8, HeadTitle_Help: 'การสั่งซื้อ' }) :
-                            this.props.navigation.push('Profile_Topic', { selectedIndex: 8, HeadTitle_Help: 'การสั่งซื้อ' })
+                                () => NavigationNavigateScreen({
+                                    goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การสั่งซื้อ' }, navigation,
+                                    noPush
+                                }) :
+                            () => NavigationNavigateScreen({
+                                goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การสั่งซื้อ' }, navigation,
+                            })
                     }>
                         <IconAntDesign RightItem name="shoppingcart" size={30} style={stylesProfileTopic.Topic_Box_icon} />
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>การสั่งซื้อ</Text>
@@ -970,8 +981,13 @@ export class Topic_Help extends React.Component {
                         HeadTitle_Help ?
                             HeadTitle_Help == 'หัวข้ออื่นๆ' ?
                                 null :
-                                this.props.navigation.replace('Profile_Topic', { selectedIndex: 8, HeadTitle_Help: 'หัวข้ออื่นๆ' }) :
-                            this.props.navigation.push('Profile_Topic', { selectedIndex: 8, HeadTitle_Help: 'หัวข้ออื่นๆ' })
+                                () => NavigationNavigateScreen({
+                                    goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'หัวข้ออื่นๆ' }, navigation,
+                                    noPush
+                                }) :
+                            () => NavigationNavigateScreen({
+                                goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'หัวข้ออื่นๆ' }, navigation,
+                            })
                     }>
                         <IconAntDesign RightItem name="ellipsis1" size={30} style={stylesProfileTopic.Topic_Box_icon} />
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>หัวข้ออื่นๆ</Text>
@@ -989,7 +1005,8 @@ export class Account_Help extends React.Component {
         };
     }
     render() {
-        const HeadTitle_Help = this.props.navigation.getParam('HeadTitle_Help')
+        const { navigation } = this.props
+        const HeadTitle_Help = navigation.getParam('HeadTitle_Help')
         return (
             <View>
                 <View style={stylesProfileTopic.Account_Help}>
@@ -1007,27 +1024,35 @@ export class Account_Help extends React.Component {
                     </View>
                 </View>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { margin: 10 }]}> {HeadTitle_Help} </Text>
-                <TouchableOpacity onPress={() => this.props.navigation.push('Profile_Topic', { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help })}>
+                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Profile_Topic', setData: { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help }, navigation
+                })}>
                     <View style={stylesProfileTopic.Question_Box}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ทำไมฉันจึงไม่สามารถเปลี่ยนเบอร์โทรศัพท์ที่ลงทะเบียนไว้ได้?</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.push('Profile_Topic', { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help })}>
+                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Profile_Topic', setData: { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help }, navigation
+                })}>
                     <View style={stylesProfileTopic.Question_Box}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ทำไมคำขอลบบัญชีของฉันจึงถูกปฏิเสธ?</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.push('Profile_Topic', { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help })}>
+                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Profile_Topic', setData: { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help }, navigation
+                })}>
                     <View style={stylesProfileTopic.Question_Box}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ฉันสามารถเปลี่ยนบัญชีผู้ใช้และเปลี่ยนชื่อของร้านค้าได้อย่างไร</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.push('Profile_Topic', { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help })}>
+                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Profile_Topic', setData: { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help }, navigation
+                })}>
                     <View style={stylesProfileTopic.Question_Box}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ทำไมฉันถึงลงชื่อเข้าใช้งานไม่ได้?</Text>
                     </View>
                 </TouchableOpacity>
-                <Topic_Help navigation={this.props.navigation} />
+                <Topic_Help navigation={navigation} />
             </View>
         );
     }
@@ -1040,7 +1065,8 @@ export class Topic_DetailHelp extends React.Component {
         };
     }
     render() {
-        const HeadTitle_Help = this.props.navigation.getParam('HeadTitle_Help')
+        const { navigation } = this.props
+        const HeadTitle_Help = navigation.getParam('HeadTitle_Help')
         return (
             <View style={stylesMain.SafeAreaView}>
                 <ScrollView>
@@ -1129,13 +1155,13 @@ export class Review_From extends React.Component {
         for (var n = 0; n < 5; n++) {
             if (star > n) {
                 starBox.push(
-                    <TouchableOpacity activeOpacity={1} key={n} onPress={this.selectStar.bind(this, n + 1)}>
+                    <TouchableOpacity activeOpacity={1} key={n} onPress={() => this.selectStar(n + 1)}>
                         <IconFontAwesome name='star' size={40} color='#FFAC33' />
                     </TouchableOpacity>
                 )
             } else {
                 starBox.push(
-                    <TouchableOpacity key={n} activeOpacity={1} onPress={this.selectStar.bind(this, n + 1)}>
+                    <TouchableOpacity key={n} activeOpacity={1} onPress={() => this.selectStar(n + 1)}>
                         <IconFontAwesome name='star' size={40} color='#E9E9E9' />
                     </TouchableOpacity>
                 )
@@ -1178,8 +1204,8 @@ export class Review_From extends React.Component {
         const { cokie, currentUser, dataSevice, navigation } = this.props
         const { activeAuto, activeGetServices, avatarSource, Review, starmain } = this.state
         const id_cartdetail = navigation.getParam('id_cartdetail')
-        const image_product = [finip, dataSevice.path_product, dataSevice.image_product].join('/')
-        const uri = [finip, '/profile/update_review'].join('/')
+        const image_product = `${finip}/${dataSevice.path_product}/${dataSevice.image_product}`
+        const uri = `${finip}/profile/update_review`
         var dataBody = {
             id_customer: currentUser ? currentUser.id_customer : '',
             id_cartdetail,
@@ -1249,7 +1275,7 @@ export class Review_From extends React.Component {
                                         )
                                     }),
                                     avatarSource.length < 3 &&
-                                    <TouchableOpacity onPress={this.UploadImageMultiple} key={'upload'}>
+                                    <TouchableOpacity onPress={() => this.UploadImageMultiple()} key={'upload'}>
                                         <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: '#0A55A6', borderWidth: 1, }]}>
                                             <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
                                                 <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
@@ -1258,7 +1284,7 @@ export class Review_From extends React.Component {
                                         </View>
                                     </TouchableOpacity>
                                 ] :
-                                    <TouchableOpacity onPress={this.UploadImageMultiple}>
+                                    <TouchableOpacity onPress={() => this.UploadImageMultiple()}>
                                         <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: '#0A55A6', borderWidth: 1, }]}>
                                             <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
                                                 <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
@@ -1284,7 +1310,7 @@ export class Review_From extends React.Component {
                 </View>
                 <View>
                     <View style={{ alignItems: 'center', width: '100%' }}>
-                        <TouchableOpacity onPress={this.UploadReview.bind(this)} style={stylesProfileTopic.Review_From_Buttonshare}>
+                        <TouchableOpacity onPress={() => this.UploadReview()} style={stylesProfileTopic.Review_From_Buttonshare}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>แชร์รีวิว</Text>
                         </TouchableOpacity>
                     </View>

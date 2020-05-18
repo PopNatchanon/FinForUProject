@@ -23,20 +23,22 @@ import stylesProfile from '../../style/StylesProfileScreen';
 import { ip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 import { AppBar1 } from '../MainScreen';
+import { NavigationNavigateScreen } from '../customComponents/Tools';
 
 export default class SellerScreen extends Component {
     constructor(props) {
         super(props);
     }
     render() {
+        const { navigation } = this.props
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                <AppBar1 backArrow navigation={this.props.navigation} settingBar chatBar titleHead='ร้านของฉัน' />
+                <AppBar1 backArrow navigation={navigation} settingBar chatBar titleHead='ร้านของฉัน' />
                 <ScrollView>
                     <View>
-                        <Headbar navigation={this.props.navigation} />
-                        <Menubar navigation={this.props.navigation} />
-                        <ListMenu navigation={this.props.navigation} />
+                        <Headbar navigation={navigation} />
+                        <Menubar navigation={navigation} />
+                        <ListMenu navigation={navigation} />
                         <Seller_Product />
                     </View>
                 </ScrollView>
@@ -52,9 +54,12 @@ export class Headbar extends Component {
         super(props)
     }
     render() {
+        const { navigation } = this.props
         return (
             <View>
-                <TouchableOpacity onPress={() => this.props.navigation.push('Seller_Profile_Edit')}>
+                <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Seller_Profile_Edit', navigation
+                })}>
                     <ImageBackground
                         source={require('../../icon/bgprofile.jpg')}
                         style={stylesProfile.HeadbarImage}
@@ -90,6 +95,7 @@ export class Menubar extends Component {
         super(props)
     }
     render() {
+        const { navigation } = this.props
         return (
             <View style={stylesProfile.Menu}>
                 <View style={[stylesProfile.Menubar, { height: 35, }]}>
@@ -98,7 +104,9 @@ export class Menubar extends Component {
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,]}> การขายของฉัน </Text>
                     </View>
                     <View style={stylesMain.FlexRow}>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Seller_Totel_Order', { selectedIndex: 0 })}>
+                        <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                            goScreen: 'Seller_Totel_Order', setData: { selectedIndex: 0 }, navigation
+                        })}>
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#BABABA' }]}>
                                 ดูประวัติการขาย
                             </Text>
@@ -106,7 +114,7 @@ export class Menubar extends Component {
                         <IconEntypo name='chevron-right' size={25} color='#0A55A6' />
                     </View>
                 </View>
-                <MenubarSub navigation={this.props.navigation} />
+                <MenubarSub navigation={navigation} />
             </View>
         )
     }
@@ -117,10 +125,13 @@ export class MenubarSub extends Component {
         super(props)
     }
     render() {
+        const { navigation } = this.props
         return (
             <View style={stylesProfile.MenubarSub}>
                 <View style={stylesProfile.MenubarSubLine1}>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Seller_Totel_Order', { selectedIndex: 1 })}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Seller_Totel_Order', setData: { selectedIndex: 1 }, navigation
+                    })}>
                         <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
                             <FastImage
                                 source={require('../../icon/truck-facing-right.png')}
@@ -131,7 +142,9 @@ export class MenubarSub extends Component {
                         </Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Seller_Return', { selectedIndex: 3 })}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Seller_Return', setData: { selectedIndex: 3 }, navigation
+                    })}>
                         <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
                             <FastImage
                                 source={require('../../icon/box.png')}
@@ -142,7 +155,9 @@ export class MenubarSub extends Component {
                         </Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Seller_Return', { selectedIndex: 0 })}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Seller_Return', setData: { selectedIndex: 0 }, navigation
+                    })}>
                         <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
                             <FastImage
                                 source={require('../../icon/repeat.png')}
@@ -153,7 +168,9 @@ export class MenubarSub extends Component {
                         </Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Seller_Return', { selectedIndex: 2 })}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Seller_Return', setData: { selectedIndex: 2 }, navigation
+                    })}>
                         <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
                             <IconFeather name='more-horizontal' size={50} />
                             <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
@@ -172,10 +189,13 @@ export class ListMenu extends Component {
         super(props);
     }
     render() {
+        const { navigation } = this.props
         return (
             <View>
                 <View style={stylesProfile.ListMenu}>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Seller_Up_Product')}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Seller_Totel_Order', navigation
+                    })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconAntDesign RightItem name="plussquareo" size={35} color='#0A55A6' style={stylesProfile.ListMenuListSubIcon} />
@@ -187,7 +207,9 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Seller_Totel_Order', { selectedIndex: 0 })}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Seller_Totel_Order', setData: { selectedIndex: 0 }, navigation
+                    })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconMaterialIcons RightItem name="access-time" color='#D0B216' size={35} style={stylesProfile.ListMenuListSubIcon} />
@@ -198,7 +220,9 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Seller_Totel_Order', { selectedIndex: 2 })}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Seller_Totel_Order', setData: { selectedIndex: 2 }, navigation
+                    })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconMaterialCommunityIcons name="car-estate" size={35} color='#9E9E9E' style={stylesProfile.ListMenuListSubIcon} />
@@ -209,7 +233,9 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Seller_Topic', { selectedIndex: 8 })}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Seller_Topic', setData: { selectedIndex: 8 }, navigation
+                    })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconsFontAwesome RightItem name="bank" size={30} color='#5CCFA8' style={stylesProfile.ListMenuListSubIcon} />
@@ -220,7 +246,9 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Seller_Topic', { selectedIndex: 9 })}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Seller_Topic', setData: { selectedIndex: 9 }, navigation
+                    })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconsFontAwesome5 RightItem name="money-bill" size={30} color='#154FC6' style={stylesProfile.ListMenuListSubIcon} />
@@ -231,7 +259,9 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Seller_Topic', { selectedIndex: 0 })}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Seller_Topic', setData: { selectedIndex: 0 }, navigation
+                    })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconEntypo RightItem name="megaphone" size={35} color='#FC6B00' style={stylesProfile.ListMenuListSubIcon} />
@@ -242,7 +272,9 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Seller_Topic', { selectedIndex: 1 })}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Seller_Topic', setData: { selectedIndex: 1 }, navigation
+                    })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconEntypo RightItem name="bar-graph" size={30} color='#0A55A6' style={stylesProfile.ListMenuListSubIcon} />
@@ -253,7 +285,9 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Seller_Topic', { selectedIndex: 2 })}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Seller_Topic', setData: { selectedIndex: 2 }, navigation
+                    })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconMaterialCommunityIcons RightItem name="star" size={35} color='#FFAC33' style={stylesProfile.ListMenuListSubIcon} />
@@ -264,10 +298,13 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Seller_Return', { selectedIndex: 2 })}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Seller_Return', setData: { selectedIndex: 2 }, navigation
+                    })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
-                                <IconsFontAwesome5 RightItem name="store-alt" size={30} color='#06BBBB' style={stylesProfile.ListMenuListSubIcon} />
+                                <IconsFontAwesome5 RightItem name="store-alt" size={30} color='#06BBBB'
+                                    style={stylesProfile.ListMenuListSubIcon} />
                                 <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     คลังสินค้าของฉัน
                                 </Text>
@@ -275,10 +312,13 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.props.navigation.push('Profile_Topic', { selectedIndex: 5 })}>
+                    <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Profile_Topic', setData: { selectedIndex: 5 }, navigation
+                    })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
-                                <IconFeather RightItem name="help-circle" size={35} color='#00A3FF' style={stylesProfile.ListMenuListSubIcon} />
+                                <IconFeather RightItem name="help-circle" size={35} color='#00A3FF'
+                                    style={stylesProfile.ListMenuListSubIcon} />
                                 <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     ช่วยเหลือ
                             </Text>
@@ -286,13 +326,11 @@ export class ListMenu extends Component {
                             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                         </View>
                     </TouchableOpacity>
-                 
                 </View>
             </View>
         )
     }
 }
-
 ///--------------------------------------------------------------------------///
 export class Seller_Product extends Component {
     constructor(props) {
@@ -300,7 +338,6 @@ export class Seller_Product extends Component {
         this.state = {
         };
     }
-
     render() {
         return (
             <View style={stylesMain.FrameBackground}>
@@ -316,16 +353,13 @@ export class Seller_Product extends Component {
         );
     }
 }
-
 ///--------------------------------------------------------------------------///
-
 export class Seller_Product_Box extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
         return (
             <TouchableOpacity style={{ width: '30%', borderColor: '#ECECEC', borderWidth: 1, padding: 10 }}>
@@ -333,7 +367,7 @@ export class Seller_Product_Box extends Component {
                     <FastImage
                         style={stylesMain.BoxProduct1Image}
                         source={{
-                            uri: ip + '/MySQL/uploads/products/2019-10-09-1570615168.png',
+                            uri: `${ip}/MySQL/uploads/products/2019-10-09-1570615168.png`,
                         }}
                     />
                 </View>

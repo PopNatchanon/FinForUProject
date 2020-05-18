@@ -11,9 +11,10 @@ import stylesMain from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, } from './MainScreen';
-import { FeedBox, GetData, GetServices, TabBar, Toolbar, LoadingScreen } from './tools/Tools';
+import { FeedBox, GetData, GetServices, TabBar, Toolbar, LoadingScreen } from './customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from './navigator/IpConfig';
+import { normalize } from '../style/stylesFont';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class FeedScreen extends React.Component {
   constructor(props) {
@@ -23,37 +24,40 @@ export default class FeedScreen extends React.Component {
       activeSelectedIndex: true,
       selectedIndex: 0
     };
-  }
+  };
+  componentDidMount() {
+    const { activeGetSource, } = this.state;
+    activeGetSource == true && GetData({ getCokie: true, getUser: true, getSource: this.getSource.bind(this) });
+  };
   getSource = (value) => {
-    console.log(value)
-    this.setState({ activeGetSource: false, currentUser: value.currentUser, cokie: value.keycokie, activeLogin: value.activeLogin })
-  }
+    console.log(value);
+    this.setState({ activeGetSource: false, currentUser: value.currentUser, cokie: value.keycokie, activeLogin: value.activeLogin });
+  };
   getSelectedIndex = (selectedIndex) => {
     this.setState({ selectedIndex });
-  }
+  };
   getActiveSelectedIndex = (activeSelectedIndex) => {
     this.setState({ activeSelectedIndex });
-  }
+  };
   render() {
-    const { navigation } = this.props
-    const { activeGetSource, activeLogin, activeSelectedIndex, currentUser, selectedIndex } = this.state
-    activeGetSource == true && GetData({ getCokie: true, getUser: true, getSource: this.getSource.bind(this) })
+    const { navigation } = this.props;
+    const { activeGetSource, activeLogin, activeSelectedIndex, currentUser, selectedIndex } = this.state;
     return (
       <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
         {
           activeGetSource == true &&
           <LoadingScreen key='LoadingScreen' />
         }
-        <View style={{ flex: 9, }}>
+        <View style={{ flex: normalize(8.5), }}>
           <AppBar1 titleHead='ฟีด' storeBar menuBar navigation={navigation} />
         </View>
-        <View style={{ flex: 5, }}>
+        <View style={{ flex: normalize(6), }}>
           {
             currentUser &&
             <MenuBar getActiveSelectedIndex={this.getActiveSelectedIndex.bind(this)} sendText={this.getSelectedIndex.bind(this)} />
           }
         </View>
-        <View style={{ flex: 76, }}>
+        <View style={{ flex: normalize(75) }}>
           {
             activeGetSource == false &&
             <Button_Bar activeSelectedIndex={activeSelectedIndex}
@@ -61,32 +65,32 @@ export default class FeedScreen extends React.Component {
               selectedIndex={currentUser ? selectedIndex : 1} navigation={navigation} />
           }
         </View>
-        <View style={{ flex: 10, }}>
+        <View style={{ flex: normalize(8.5), }}>
           <Toolbar navigation={navigation} />
         </View>
         <ExitAppModule navigation={navigation} />
       </SafeAreaView>
     );
-  }
-}
+  };
+};
 ///----------------------------------------------------------------------------------------------->>>> MenuBar
 export class MenuBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-    }
-  }
+    };
+  };
   getData = (value) => {
-    const { getActiveSelectedIndex, sendText } = this.props
+    const { getActiveSelectedIndex, sendText } = this.props;
     sendText(value.selectedIndex);
     getActiveSelectedIndex(true);
-  }
+  };
   render() {
     const item = [{
       name: 'กำลังติดตาม'
     }, {
       name: 'ไฮไลท์'
-    }]
+    }];
     return (
       <View>
         <View>
@@ -102,33 +106,32 @@ export class MenuBar extends React.Component {
         </View>
       </View>
     );
-  }
-}
+  };
+};
 ///----------------------------------------------------------------------------------------------->>>> Button_Bar
 export class Button_Bar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-    }
-  }
+    };
+  };
   getData = (dataService) => {
-    const { getActiveSelectedIndex } = this.props
+    const { getActiveSelectedIndex } = this.props;
     getActiveSelectedIndex(false);
-    this.setState({ dataService })
-  }
+    this.setState({ dataService });
+  };
   render() {
-    const { activeSelectedIndex, currentUser, navigation, selectedIndex } = this.props
-    const { dataService } = this.state
-    var uri = [finip,
-      selectedIndex == 0 ? 'brand/feed_store_follow' : 'brand/feed_highlight'].join('/');
+    const { activeSelectedIndex, currentUser, navigation, selectedIndex } = this.props;
+    const { dataService } = this.state;
+    var uri = `${finip}/${(selectedIndex == 0 ? 'brand/feed_store_follow' : 'brand/feed_highlight')}`
     var dataBody = {
       id_customer: currentUser && currentUser.id_customer ? currentUser.id_customer : ''
-    }
+    };
     activeSelectedIndex == true &&
       GetServices({
         uriPointer: uri, dataBody: (selectedIndex == 0 ? dataBody : undefined), getDataSource: this.getData.bind(this),
         showConsole: 'feed_store_follow'
-      })
+      });
     return (
       <View style={{ flex: 1, height: '100%' }}>
         {
@@ -138,17 +141,17 @@ export class Button_Bar extends React.Component {
         <Highlights dataService={dataService && dataService.feed_follow} Follow navigation={navigation} />
       </View>
     );
-  }
-}
+  };
+};
 ///----------------------------------------------------------------------------------------------->>>> Highlights
 export class Highlights extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
     };
-  }
+  };
   render() {
-    const { dataService, Follow, navigation } = this.props
+    const { dataService, Follow, navigation } = this.props;
     return (
       <View style={stylesMain.FrameBackground, stylesMain.BackgroundAreaView}>
         <View>
@@ -158,7 +161,7 @@ export class Highlights extends React.Component {
               scrollEnabled={true}
               initialNumToRender={10}
               data={dataService}
-              keyExtractor={(value, index) => 'Feed' + index}
+              keyExtractor={(value, index) => `Feed${index}`}
               // ListHeaderComponent={this.renderHeader}
               ListHeaderComponentStyle={{
                 flexDirection: 'column'
@@ -177,6 +180,6 @@ export class Highlights extends React.Component {
           }
         </View>
       </View>
-    )
-  }
-}
+    );
+  };
+};

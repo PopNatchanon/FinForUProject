@@ -41,25 +41,16 @@ export class Toolbar extends React.Component {
     getSource = (value) => {
         this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser })
     }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.replace(value, value2)
-    }
     render() {
+        const { navigation } = this.props
         const { activeGetCurrentUser, currentUser } = this.state;
         var u_name = null;
         if (currentUser != null) {
             currentUser.name &&
                 (u_name = currentUser.name)
         }
-        var routeProps = this.props.navigation.dangerouslyGetParent().state.routes
-        var routeLength = this.props.navigation.dangerouslyGetParent().state.routes.length
+        var routeProps = navigation.dangerouslyGetParent().state.routes
+        var routeLength = navigation.dangerouslyGetParent().state.routes.length
         var routeSelcet
         routeProps.map((item, index) => {
             routeLength == index + 1 && (
@@ -72,7 +63,7 @@ export class Toolbar extends React.Component {
                 <TouchableOpacity activeOpacity={1}
                     onPress={
                         routeSelcet != 'MainScreen' ?
-                            this.navigationNavigateScreen.bind(this, 'MainScreen') :
+                            () => NavigationNavigateScreen({ goScreen: 'MainScreen', navigation }) :
                             null}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="home" size={25}
@@ -92,7 +83,7 @@ export class Toolbar extends React.Component {
                 <TouchableOpacity activeOpacity={1}
                     onPress={
                         routeSelcet != 'FeedScreen' ?
-                            this.navigationNavigateScreen.bind(this, 'FeedScreen') :
+                            () => NavigationNavigateScreen({ goScreen: 'FeedScreen', navigation }) :
                             null}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="tagso" size={25}
@@ -112,7 +103,7 @@ export class Toolbar extends React.Component {
                 <TouchableOpacity activeOpacity={1}
                     onPress={
                         routeSelcet != 'NewsScreen' ?
-                            this.navigationNavigateScreen.bind(this, 'NewsScreen') :
+                            () => NavigationNavigateScreen({ goScreen: 'NewsScreen', navigation }) :
                             null}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="notification" size={25}
@@ -132,7 +123,7 @@ export class Toolbar extends React.Component {
                 <TouchableOpacity activeOpacity={1}
                     onPress={
                         routeSelcet != 'BellScreen' ?
-                            this.navigationNavigateScreen.bind(this, 'BellScreen') :
+                            () => NavigationNavigateScreen({ goScreen: 'BellScreen', navigation }) :
                             null}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="bells" size={25}
@@ -155,7 +146,7 @@ export class Toolbar extends React.Component {
                         <TouchableOpacity activeOpacity={1}
                             onPress={
                                 routeSelcet != 'LoginScreen' ?
-                                    this.navigationNavigateScreen.bind(this, 'LoginScreen') :
+                                    () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation }) :
                                     null}>
                             <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                                 <IconAntDesign name="user" size={25} color={
@@ -175,7 +166,7 @@ export class Toolbar extends React.Component {
                         <TouchableOpacity activeOpacity={1}
                             onPress={
                                 routeSelcet != 'ProfileScreen' ?
-                                    this.navigationNavigateScreen.bind(this, 'ProfileScreen') :
+                                    () => NavigationNavigateScreen({ goScreen: 'ProfileScreen', navigation }) :
                                     null
                             }>
                             <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
@@ -267,7 +258,8 @@ export class TabBar extends React.Component {
         } = this.props
         const { PassSetValue, pathlist, pathlist2 } = this.state
         const countItem = item.length;
-        SetValue && SetValue != pathlist &&
+        console.log(`SetValue = > ${SetValue}`)
+        SetValue >= 0 && SetValue != pathlist &&
             this.setSelectTab(SetValue)
         return item.map((item, index) => {
             return (
@@ -278,13 +270,13 @@ export class TabBar extends React.Component {
                 } onPress={
                     NoSelectTab ?
                         pathlist == index ?
-                            this.setSelectTab.bind(this, -1) :
-                            this.setSelectTab.bind(this, index) :
+                            () => this.setSelectTab(-1) :
+                            () => this.setSelectTab(index) :
                         item.actionItem && pathlist == index ?
-                            this.setSelectTab.bind(this, index, undefined, 'swap') :
+                            () => this.setSelectTab(index, undefined, 'swap') :
                             item.actionItem ?
-                                this.setSelectTab.bind(this, index, undefined, 'set') :
-                                this.setSelectTab.bind(this, index)
+                                () => this.setSelectTab(index, undefined, 'set') :
+                                () => this.setSelectTab(index)
                 }>
                     {
                         pathlist == index ?
@@ -734,11 +726,11 @@ export async function GetData(props) {
     const currentUser = result[0][1];
     const autoLogin = result[1][1];
     if (currentUser && autoLogin) {
-        CookieManager.get(finip + '/auth/login_customer')
+        CookieManager.get(`${finip}/auth/login_customer`)
             .then((res) => {
                 var keycokie = res.token
                 if (keycokie === undefined && autoLogin) {
-                    fetch(finip + '/auth/login_customer', {
+                    fetch(`${finip}/auth/login_customer`, {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',
@@ -748,8 +740,8 @@ export async function GetData(props) {
                     })
                         .then((response) => response.json())
                         .then((responseJson) => {
-                            console.log('responseJson')
-                            console.log(responseJson)
+                            // console.log('responseJson')
+                            // console.log(responseJson)
                             activeLogin = true
                         })
                         .catch((error) => {
@@ -805,56 +797,63 @@ function promiseDataGetServices(promise, nojson) {
 ///----------------------------------------------------------------------------------------------->>>> GetServices
 export async function GetServices(props) {
     const {
-        Authorization, dataBody, uriPointer, getDataSource, nojson, showConsole, nameFunction,
+        abortController, Authorization, dataBody, uriPointer, getDataSource, nojson, showConsole, nameFunction,
     } = props
-    let error, rawData, processData;
     showConsole && (
         console.log(showConsole),
         Authorization && (
-            console.log('Authorization'),
-            console.log(Authorization)
+            console.log(`Authorization => ${Authorization}`)
         ),
-        console.log('uri'),
-        console.log(uriPointer),
-        console.log('dataBody'),
-        console.log(dataBody),
-        console.log('JSONdataBody'),
-        console.log(JSON.stringify(dataBody))
+        console.log(`uri => ${uriPointer}`),
+        console.log(`dataBody`),
+        console.log(dataBody)
     );
+    let error, rawData, processData;
     [error, rawData] = await promiseGetServices(fetch(uriPointer, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': Authorization
+            'Authorization': Authorization,
+            signal: abortController ? abortController.signal : undefined
         },
         body: JSON.stringify(dataBody),
     }), nojson);
     if (error) {
-        console.log((showConsole ? showConsole + '|' + nameFunction : nameFunction) + ':Phase 1')
-        console.log('ERROR:FETCH => ' + error)
-        console.log(uriPointer)
-        dataBody && console.log(dataBody)
-        return getDataSource(undefined)
-    }
+        console.log(`${(showConsole ? nameFunction ? `${showConsole}|${nameFunction}` : showConsole : nameFunction)}':Phase 1`);
+        console.log(`ERROR:FETCH => ${error}`);
+        console.log(uriPointer);
+        dataBody && console.log(dataBody);
+        abortController && abortController.abort();
+        return getDataSource({ error });
+    };
     if (rawData === undefined) {
-        console.log((showConsole ? showConsole + '|' + nameFunction : nameFunction) + ':Phase 1')
-        console.log('No Data!')
-        return getDataSource(undefined)
-    }
-    [error, processData] = await promiseDataGetServices(rawData)
+        console.log(`${(showConsole ? nameFunction ? `${showConsole}|${nameFunction}` : showConsole : nameFunction)}':Phase 1`);
+        console.log('No Data!');
+        abortController && abortController.abort();
+        return getDataSource({ data: 'No Data' });
+    };
+    showConsole &&
+        console.log('Complete Connect To Server');
+    [error, processData] = await promiseDataGetServices(rawData);
     if (error) {
-        console.log((showConsole ? showConsole + '|' + nameFunction : nameFunction) + ':Phase 2')
-        console.log('ERROR:JSON => ' + error)
-        console.log(uriPointer)
-        dataBody && console.log(dataBody)
-        return getDataSource(undefined)
-    }
+        console.log(`${(showConsole ? nameFunction ? `${showConsole}|${nameFunction}` : showConsole : nameFunction)}':Phase 2`);
+        console.log(`ERROR:FETCH => ${error}`);
+        console.log(uriPointer);
+        dataBody && console.log(dataBody);
+        abortController && abortController.abort();
+        return getDataSource({ error });
+    };
     if (processData === undefined) {
-        console.log((showConsole ? showConsole + '|' + nameFunction : nameFunction) + ':Phase 2')
-        console.log('No Data!')
-        return getDataSource(undefined)
+        console.log(`${(showConsole ? nameFunction ? `${showConsole}|${nameFunction}` : showConsole : nameFunction)}':Phase 2`);
+        console.log('No Data!');
+        abortController && abortController.abort();
+        return getDataSource({ data: 'Error converting to Json.' });
     }
+    showConsole && ([
+        console.log('Complete Converting To JSON'),
+        console.log(processData),
+    ])
     return getDataSource(processData);
 }
 ///----------------------------------------------------------------------------------------------->>>> GetServices
@@ -973,221 +972,181 @@ export function GetCoupon(props) {
     )
 }
 ///----------------------------------------------------------------------------------------------->>>> ProductBox
-export class ProductBox extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
-    LoadingStore = (ImageStore) => {
-        this.setState({ ImageStore })
-    }
-    getDataService = (id_product, name) => {
-        const { getDataService } = this.props
-        getDataService({ id_product, name })
-    }
-    get ProductBoxRender() {
-        const {
-            dataService, dispriceSize, mode, nameSize, noNavigation, numberOfItem, onShow, pointerUrl, pointerid_store, postpath, prepath,
-            priceSize, radiusBox, typeip,
-        } = this.props
-        onShow && ([console.log('ProductBoxRender'), console.log(dataService)])
-        const { ImageStore } = this.state
-        return dataService.map((item, index) => {
-            onShow && ([console.log('ProductBoxRender|||map'), console.log(item)])
-            if (index < (numberOfItem ? numberOfItem : dataService.length)) {
-                var discount
-                item.discount && (
-                    discount = item.discount.replace("%", "")
-                )
-                var url
-                { typeip == 'ip' ? url = ip : url = finip }
-                var dataMySQL = typeip == 'ip' ?
-                    [url,
+export function ProductBox(props) {
+    const {
+        dataService, dispriceSize, mode, nameSize, noNavigation, numberOfItem, onShow, pointerUrl, pointerid_store, postpath, prepath,
+        priceSize, radiusBox, typeip, getDataService
+    } = props
+    onShow && ([console.log('ProductBoxRender'), console.log(dataService)])
+    return dataService.map((item, index) => {
+        onShow && ([console.log('ProductBoxRender|||map'), console.log(item)])
+        if (index < (numberOfItem ? numberOfItem : dataService.length)) {
+            var discount
+            item.discount && (
+                discount = item.discount.replace("%", "")
+            )
+            var url
+            { typeip == 'ip' ? url = ip : url = finip }
+            var dataMySQL =
+                typeip == 'ip' ?
+                    `${ip}/${(
                         prepath ?
                             postpath ?
-                                prepath + '/' + item.image_path + '/' + postpath :
-                                prepath + '/' + item.image_path :
+                                `${prepath}/${item.image_path}/${postpath}` :
+                                `${prepath}/${item.image_path}` :
                             postpath ?
-                                item.image_path + '/' + postpath :
-                                item.image_path,
-                        item.image_product ?
-                            item.image_product :
-                            item.image].join('/') :
-                    [
-                        url,
-                        item.path_image_product ? item.path_image_product : item.image_path,
-                        item.image_product ? item.image_product : item.image_main ? item.image_main : item.image
-                    ].join('/');
-                return (
-                    <TouchableOpacity
-                        activeOpacity={1}
-                        key={index}
-                        onPress={
-                            noNavigation ?
-                                this.getDataService.bind(this, item.id_product, item.name_product ? item.name_product : item.name) :
-                                this.navigationNavigateScreen.bind(this, pointerUrl, pointerid_store ? {
-                                    id_item: item.id_product
-                                } : null)}>
-                        <View style={[
-                            mode == 'row4col1' ?
-                                stylesMain.BoxProduct5Box :
-                                mode == 'row3col2' ?
-                                    stylesMain.BoxProduct1Box2 :
-                                    mode == 'row3col2_2' ?
-                                        stylesMain.BoxProduct4Box :
-                                        mode == 'row3colall' ?
-                                            stylesMain.BoxProduct2Box :
-                                            mode == 'row2colall' ?
-                                                stylesMain.BoxProduct3Box :
-                                                mode == '5item' ?
-                                                    stylesDeal.Deal_Exclusive_Box :
-                                                    stylesMain.BoxProduct1Box,
-                            {
-                                marginBottom: mode == 'row3col2_2' ? 4 : null,
-                                borderRadius: radiusBox ? radiusBox : 0
-                            }
-                        ]}>
-                            <View style={
-                                mode == 'row4col1' ?
-                                    stylesMain.BoxProduct5ImageofLines :
+                                `${item.image_path}/${postpath}` :
+                                `${item.image_path}`)}` :
+                    `${finip}/${(item.path_image_product ? item.path_image_product : item.image_path)}/
+                    ${(item.image_product ? item.image_product : item.image_main ? item.image_main : item.image)}`;
+            return (
+                <TouchableOpacity
+                    activeOpacity={1}
+                    key={index}
+                    onPress={
+                        noNavigation ?
+                            () => getDataService({
+                                id_product: item.id_product, name: item.name_product ? item.name_product : item.name
+                            }) :
+                            () => NavigationNavigateScreen({
+                                goScreen: pointerUrl, setData: pointerid_store ? { id_item: item.id_product } : null
+                            })}>
+                    <View style={[
+                        mode == 'row4col1' ?
+                            stylesMain.BoxProduct5Box :
+                            mode == 'row3col2' ?
+                                stylesMain.BoxProduct1Box2 :
+                                mode == 'row3col2_2' ?
+                                    stylesMain.BoxProduct4Box :
                                     mode == 'row3colall' ?
-                                        stylesMain.BoxProduct2ImageofLines :
+                                        stylesMain.BoxProduct2Box :
                                         mode == 'row2colall' ?
-                                            stylesMain.BoxProduct3ImageofLines :
+                                            stylesMain.BoxProduct3Box :
                                             mode == '5item' ?
-                                                stylesMain.BoxProduct1ImageofLines2 :
-                                                stylesMain.BoxProduct1ImageofLines
-                            }>
-                                {
-                                    ImageStore == 'false' &&
-                                    <Text style={[stylesMain.BoxProduct5Image, { textAlign: 'center', textAlignVertical: 'center' }]}>
-                                        Loading Image...</Text>
-                                }
-                                <FastImage
-                                    source={{
-                                        uri: dataMySQL,
-                                    }}
-                                    style={[
-                                        mode == 'row4col1' ?
-                                            stylesMain.BoxProduct5Image :
-                                            mode == 'row3colall' || mode == '5item' ?
-                                                stylesMain.BoxProduct2Image :
-                                                stylesMain.BoxProduct1Image,
-                                        {
-                                            borderTopLeftRadius: radiusBox ? radiusBox : 0,
-                                            borderTopRightRadius: radiusBox ? radiusBox : 0
-                                        }
-                                    ]}
-                                    onError={this.LoadingStore.bind(this, false)}
-                                    onLoad={this.LoadingStore.bind(this, true)}
-                                    resizeMode={FastImage.resizeMode.contain} />
-                            </View>
-                            <View style={{
-                                height:
+                                                stylesDeal.Deal_Exclusive_Box :
+                                                stylesMain.BoxProduct1Box,
+                        {
+                            marginBottom: mode == 'row3col2_2' ? 4 : null,
+                            borderRadius: radiusBox ? radiusBox : 0
+                        }
+                    ]}>
+                        <View style={
+                            mode == 'row4col1' ?
+                                stylesMain.BoxProduct5ImageofLines :
+                                mode == 'row3colall' ?
+                                    stylesMain.BoxProduct2ImageofLines :
+                                    mode == 'row2colall' ?
+                                        stylesMain.BoxProduct3ImageofLines :
+                                        mode == '5item' ?
+                                            stylesMain.BoxProduct1ImageofLines2 :
+                                            stylesMain.BoxProduct1ImageofLines
+                        }>
+                            <FastImage
+                                source={{
+                                    uri: dataMySQL,
+                                }}
+                                style={[
                                     mode == 'row4col1' ?
-                                        55 :
-                                        60,
-                                paddingHorizontal: 3
-                            }}>
-                                <View style={[
-                                    stylesMain.BoxProduct1NameofLines
-                                ]}>
-                                    <Text numberOfLines={1} style={[
-                                        stylesFont.FontFamilySemiBold,
-                                        {
-                                            fontSize: nameSize ? nameSize : 16,
-                                        }
-                                    ]}>
-                                        {item.name_product ? item.name_product : item.name}</Text>
-                                </View>
-                                <View style={[
-                                    stylesMain.BoxProduct1PriceofLines,
-                                ]}>
-                                    <View style={[stylesMain.FlexRow, { paddingVertical: 2 }]}>
-                                        <NumberFormat
-                                            value={
-                                                item.price_discount ?
-                                                    item.price_discount :
-                                                    item.full_price ?
-                                                        item.full_price :
-                                                        item.price
-                                            }
-                                            fixedDecimalScale
-                                            decimalScale={0}
-                                            displayType={'text'}
-                                            thousandSeparator={true}
-                                            prefix={'฿'}
-                                            renderText={value =>
-                                                <Text style={[
-                                                    stylesMain.BoxProduct1ImagePrice,
-                                                    stylesFont.FontFamilyBoldBold, {
-                                                        fontSize: priceSize ? priceSize : 14,
-                                                    }
-                                                ]}>
-                                                    {value}</Text>
-                                            } />
-                                        {
-                                            discount > 0 &&
-                                            <NumberFormat
-                                                value={item.discount && item.discount}
-                                                displayType={'text'}
-                                                thousandSeparator={true}
-                                                suffix={'%'}
-                                                renderText={
-                                                    value =>
-                                                        value &&
-                                                        <View style={[stylesMain.Box_On_sale, { borderRadius: 10 }]}>
-                                                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, {
-                                                                color: '#FFFFFF'
-                                                            }]}>
-                                                                {'-' + value}</Text>
-                                                        </View>
-                                                } />
-                                        }
-                                    </View>
+                                        stylesMain.BoxProduct5Image :
+                                        mode == 'row3colall' || mode == '5item' ?
+                                            stylesMain.BoxProduct2Image :
+                                            stylesMain.BoxProduct1Image,
                                     {
-                                        item.price_discount &&
+                                        borderTopLeftRadius: radiusBox ? radiusBox : 0,
+                                        borderTopRightRadius: radiusBox ? radiusBox : 0
+                                    }
+                                ]}
+                                resizeMode={FastImage.resizeMode.contain} />
+                        </View>
+                        <View style={{
+                            height:
+                                mode == 'row4col1' ?
+                                    55 :
+                                    60,
+                            paddingHorizontal: 3
+                        }}>
+                            <View style={[
+                                stylesMain.BoxProduct1NameofLines
+                            ]}>
+                                <Text numberOfLines={1} style={[
+                                    stylesFont.FontFamilySemiBold,
+                                    {
+                                        fontSize: nameSize ? nameSize : 16,
+                                    }
+                                ]}>
+                                    {item.name_product ? item.name_product : item.name}</Text>
+                            </View>
+                            <View style={[
+                                stylesMain.BoxProduct1PriceofLines,
+                            ]}>
+                                <View style={[stylesMain.FlexRow, { paddingVertical: 2 }]}>
+                                    <NumberFormat
+                                        value={
+                                            item.price_discount ?
+                                                item.price_discount :
+                                                item.full_price ?
+                                                    item.full_price :
+                                                    item.price
+                                        }
+                                        fixedDecimalScale
+                                        decimalScale={0}
+                                        displayType={'text'}
+                                        thousandSeparator={true}
+                                        prefix={'฿'}
+                                        renderText={value =>
+                                            <Text style={[
+                                                stylesMain.BoxProduct1ImagePrice,
+                                                stylesFont.FontFamilyBoldBold, {
+                                                    fontSize: priceSize ? priceSize : 14,
+                                                }
+                                            ]}>
+                                                {value}</Text>
+                                        } />
+                                    {
+                                        discount > 0 &&
                                         <NumberFormat
-                                            value={item.price}
-                                            fixedDecimalScale
-                                            decimalScale={0}
+                                            value={item.discount && item.discount}
                                             displayType={'text'}
                                             thousandSeparator={true}
-                                            prefix={'฿'}
-                                            renderText={value =>
-                                                <Text style={[
-                                                    stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontFamilyText, {
-                                                        marginTop: -4,
-                                                        fontSize: dispriceSize ? dispriceSize : 14
-                                                    }
-                                                ]}>
-                                                    {value}</Text>
+                                            suffix={'%'}
+                                            renderText={
+                                                value =>
+                                                    value &&
+                                                    <View style={[stylesMain.Box_On_sale, { borderRadius: 10 }]}>
+                                                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, {
+                                                            color: '#FFFFFF'
+                                                        }]}>
+                                                            {`-${value}`}</Text>
+                                                    </View>
                                             } />
                                     }
                                 </View>
+                                {
+                                    item.price_discount &&
+                                    <NumberFormat
+                                        value={item.price}
+                                        fixedDecimalScale
+                                        decimalScale={0}
+                                        displayType={'text'}
+                                        thousandSeparator={true}
+                                        prefix={'฿'}
+                                        renderText={value =>
+                                            <Text style={[
+                                                stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontFamilyText, {
+                                                    marginTop: -4,
+                                                    fontSize: dispriceSize ? dispriceSize : 14
+                                                }
+                                            ]}>
+                                                {value}</Text>
+                                        } />
+                                }
                             </View>
                         </View>
-                    </TouchableOpacity>
-                );
-            }
-        })
-    }
-    render() {
-        return (
-            this.ProductBoxRender
-        )
-    }
+                    </View>
+                </TouchableOpacity>
+            );
+        }
+    })
 }
 ///----------------------------------------------------------------------------------------------->>>> FlatComponent
 export function FlatComponent(props) {
@@ -1201,7 +1160,7 @@ export function FlatComponent(props) {
             scrollEnabled={true}
             initialNumToRender={10}
             data={component}
-            keyExtractor={(value, index) => 'Component:' + (componentPage ? componentPage : index) + '_' + value.nameComponent}
+            keyExtractor={(value, index) => `Component:${componentPage ? componentPage : index}_${value.nameComponent}`}
             renderItem={(value) => value.item.renderComponent}
         />
     )
@@ -1250,14 +1209,20 @@ export function FlatProduct(props) {
 }
 ///----------------------------------------------------------------------------------------------->>>> NavigationNavigateScreen
 export function NavigationNavigateScreen(props) {
-    const { value, value2, navigation } = props
-    value == 'goBack' ?
+    const { goScreen, setConsole, setData, navigation, noPush } = props
+    setConsole && (
+        console.log(setConsole.consolename),
+        console.log(setConsole.consolelog)
+    )
+    goScreen == 'goBack' ?
         navigation.goBack() :
-        value == 'LoginScreen' ? (
+        goScreen == 'LoginScreen' ? (
             navigation.popToTop(),
-            navigation.replace(value, value2)
+            navigation.replace(goScreen, setData)
         ) :
-            navigation.push(value, value2)
+            goScreen == 'popToTop' ?
+                navigation.popToTop() :
+                noPush ? navigation.replace(goScreen, setData) : navigation.push(goScreen, setData);
 
 }
 ///----------------------------------------------------------------------------------------------->>>> RenderProduct
@@ -1271,46 +1236,42 @@ export function RenderProduct(props) {
     ])
     var url
     { url = finip }
-    var dataMySQL =
-        [
-            url,
-            item.path_image_product ? item.path_image_product : item.image_path,
-            item.image_product ? item.image_product : item.image_main ? item.image_main : item.image
-        ].join('/');
+    var dataMySQL = `${finip}/${(item.path_image_product ? item.path_image_product : item.image_path)}/
+                    ${(item.image_product ? item.image_product : item.image_main ? item.image_main : item.image)}`;
     return (
         <TouchableOpacity activeOpacity={1} onPress={() =>
             noNavigation ?
                 getDataService({ id_product, name }) :
                 NavigationNavigateScreen({
-                    navigation, value: custumNavigation ? custumNavigation : 'DetailScreen', value2: {
+                    navigation, goScreen: custumNavigation ? custumNavigation : 'DetailScreen', setData: {
                         id_item: item.id_product
                     }
                 })}>
             <View style={[
-                mode == 'row4col1' ?
+                mode == 'row4' ?
                     stylesMain.BoxProduct5Box :
-                    mode == 'row3col2' ?
+                    mode == 'row3' ?
                         stylesMain.BoxProduct1Box2 :
-                        mode == 'row3col2_2' ?
+                        mode == 'row3_2' ?
                             stylesMain.BoxProduct4Box :
-                            mode == 'row3colall' ?
+                            mode == 'row3_all' ?
                                 stylesMain.BoxProduct2Box :
-                                mode == 'row2colall' ?
+                                mode == 'row2_all' ?
                                     stylesMain.BoxProduct3Box :
                                     mode == '5item' ?
                                         stylesDeal.Deal_Exclusive_Box :
                                         stylesMain.BoxProduct1Box,
                 {
-                    marginBottom: mode == 'row3col2_2' ? 4 : null,
+                    marginBottom: mode == 'row3_2' ? 4 : null,
                     borderRadius: radiusBox ? radiusBox : 0
                 }
             ]}>
                 <View style={
-                    mode == 'row4col1' ?
+                    mode == 'row4' ?
                         stylesMain.BoxProduct5ImageofLines :
-                        mode == 'row3colall' ?
+                        mode == 'row3_all' ?
                             stylesMain.BoxProduct2ImageofLines :
-                            mode == 'row2colall' ?
+                            mode == 'row2_all' ?
                                 stylesMain.BoxProduct3ImageofLines :
                                 mode == '5item' ?
                                     stylesMain.BoxProduct1ImageofLines2 :
@@ -1321,9 +1282,9 @@ export function RenderProduct(props) {
                             uri: dataMySQL,
                         }}
                         style={[
-                            mode == 'row4col1' ?
+                            mode == 'row4' ?
                                 stylesMain.BoxProduct5Image :
-                                mode == 'row3colall' || mode == '5item' ?
+                                mode == 'row3_all' || mode == '5item' ?
                                     stylesMain.BoxProduct2Image :
                                     stylesMain.BoxProduct1Image,
                             {
@@ -1388,7 +1349,7 @@ export function RenderProduct(props) {
                                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, {
                                                     color: '#FFFFFF'
                                                 }]}>
-                                                    {'-' + value}</Text>
+                                                    {`-${value}`}</Text>
                                             </View>
                                     } />
                             }
@@ -1421,7 +1382,7 @@ export function RenderProduct(props) {
 ///----------------------------------------------------------------------------------------------->>>> RenderSubStore
 export function RenderSubStore(props) {
     const { item } = props
-    var dataMySQL = finip + '/' + item.image_path + '/' + item.image;
+    var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
     return (
         <TouchableOpacity activeOpacity={1} style={stylesMain.FlexRow}>
             <View style={[stylesMain.CategoryProductStoreBox]}>
@@ -1460,7 +1421,7 @@ export class FeedBox extends React.Component {
     onShare = async () => {
         try {
             const result = await Share.share({
-                message: 'หลายคนคงจะเคยอยากรู้ วิธีดูเพชรแท้ ว่าจริงๆแล้วเพชรแท้ดูยังไง?\n' + finip,
+                message: `หลายคนคงจะเคยอยากรู้ วิธีดูเพชรแท้ ว่าจริงๆแล้วเพชรแท้ดูยังไง?\n${finip}`,
             });
             if (result.action === Share.sharedAction) {
                 if (result.activityType) {
@@ -1474,16 +1435,6 @@ export class FeedBox extends React.Component {
         } catch (error) {
             alert(error.message);
         }
-    }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
     }
     setStateButton = (length) => {
         var Button_Follow_After = []
@@ -1503,10 +1454,12 @@ export class FeedBox extends React.Component {
         this.setState({ Button_Follow_After, activeFeed: true })
     }
     actionOption = (selected, id_store, id_feed) => {
-        const { userOwner } = this.props
+        const { navigation, userOwner } = this.props
         userOwner && (
-            selected == 0 && this.navigationNavigateScreen('Post_Feed', {
-                selectedIndex: 1, id_store, id_feed, actionPost: 'edit', getDataSource: this.getDataSource.bind(this)
+            selected == 0 && NavigationNavigateScreen({
+                goScreen: 'Post_Feed', setData: {
+                    selectedIndex: 1, id_store, id_feed, actionPost: 'edit', getDataSource: this.getDataSource.bind(this)
+                }, navigation
             })
         )
     }
@@ -1515,23 +1468,25 @@ export class FeedBox extends React.Component {
         getDataSource(activeRef)
     }
     get FeedBoxRender() {
-        const { dataService, Follow, Header, typeip, postpath, prepath, userOwner } = this.props
+        const { dataService, Follow, Header, navigation, postpath, prepath, typeip, userOwner } = this.props
         const { Button_Follow_After, } = this.state
         Button_Follow_After == null && dataService.length > 0 && (
             //     this.setStateButton(dataService.length)
             this.setState({ Button_Follow_After: { check: true, like: false }, activeFeed: true, })
         )
         const options = userOwner ? ['แก้ไข', 'ลบ'] : ['รายงานความไม่เหมาะสม']
-        var dataMySQL_p = [finip, dataService.image_path, dataService.image].join('/');
-        var dataMySQL_s = [finip, dataService.store_path, dataService.store_image].join('/');
+        var dataMySQL_p = `${finip}/${dataService.image_path}/${dataService.image}`;
+        var dataMySQL_s = `${finip}/${dataService.store_path}/${dataService.store_image}`;
         console.log(dataService)
         return (
             <View style={stylesMain.BoxProduct4Box}>
                 {
                     Header &&
                     <View style={stylesMain.BoxProduct4PlusHeader}>
-                        <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', {
-                            id_item: dataService.id_store ? dataService.id_store : dataService.p_id_store
+                        <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                            goScreen: 'StoreScreen', setData: {
+                                id_item: dataService.id_store ? dataService.id_store : dataService.p_id_store
+                            }, navigation
                         })}>
                             <View style={stylesMain.FlexRow}>
                                 <FastImage
@@ -1549,7 +1504,7 @@ export class FeedBox extends React.Component {
                             {
                                 Follow ?
                                     null :
-                                    <TouchableOpacity onPress={this.setStateButton_Follow_After.bind(this)}>
+                                    <TouchableOpacity onPress={() => this.setStateButton_Follow_After()}>
                                         <View style={stylesMain.BoxProduct4PlusButtonFollow}>
                                             <Text style={[
                                                 stylesMain.BoxProduct4PlusButtonFollowText, stylesFont.FontFamilyText,
@@ -1591,7 +1546,7 @@ export class FeedBox extends React.Component {
                             </View> */}
                     </View>
                     <View style={stylesMain.BoxProduct4ComBox2}>
-                        <TouchableOpacity activeOpacity={1} onPress={this.setStateButton_Like_heart.bind(this)} style={
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.setStateButton_Like_heart()} style={
                             stylesMain.BoxProduct4ComBoxIcon}>
                             {
                                 Button_Follow_After &&
@@ -1602,8 +1557,8 @@ export class FeedBox extends React.Component {
                             <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                 ถูกใจ</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity activeOpacity={1} onPress={this.navigationNavigateScreen.bind(this, 'Deal_Topic', {
-                            selectedIndex: 9
+                        <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                            goScreen: 'Deal_Topic', setData: { selectedIndex: 9 }, navigation
                         })}>
                             <View style={stylesMain.BoxProduct4ComBoxIcon}>
                                 <IconFontAwesome5 name='comment-dots' size={20} />
@@ -1611,7 +1566,7 @@ export class FeedBox extends React.Component {
                                     แสดงความคิดเห็น</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity style={stylesMain.BoxProduct4ComBoxIcon} onPress={this.onShare}>
+                        <TouchableOpacity style={stylesMain.BoxProduct4ComBoxIcon} onPress={() => this.onShare()}>
                             <IconEntypo name='share' size={20} />
                             <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                 แชร์</Text>
@@ -1712,7 +1667,7 @@ export class SlideTab2 extends React.Component {
                 <View style={stylesMain.FlexRow}>
                     <TouchableOpacity
                         activeOpacity={1}
-                        onPress={this.setStateSliderVisible.bind(this)}>
+                        onPress={() => this.setStateSliderVisible()}>
                         <View style={stylesTopic.BackgroundLeft}></View>
                     </TouchableOpacity>
                     <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNB]}>
@@ -1812,7 +1767,7 @@ export class SlideTab extends React.Component {
                             }
                             {item.subtitle.length > 4 &&
                                 <TouchableOpacity
-                                    onPress={this.setStateActiveText.bind(this, !activeText)}>
+                                    onPress={() => this.setStateActiveText(!activeText)}>
                                     <View style={[stylesDetail.Detail_Box, stylesMain.ItemCenter, {
                                         borderTopWidth: null,
                                     }]}>

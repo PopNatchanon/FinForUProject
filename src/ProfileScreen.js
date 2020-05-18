@@ -21,7 +21,7 @@ import stylesMain from '../style/StylesMainScreen';
 import stylesProfile from '../style/StylesProfileScreen'
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { ExitAppModule, } from './MainScreen';
-import { GetCoupon, GetData, TabBar, Toolbar, GetServices, LoadingScreen } from './tools/Tools';
+import { GetCoupon, GetData, TabBar, Toolbar, GetServices, LoadingScreen, NavigationNavigateScreen } from './customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -46,7 +46,7 @@ export default class ProfileScreen extends React.Component {
     render() {
         const { navigation } = this.props
         const { activeGetSource, activeGetServices, currentUser, cokie, dataSevice } = this.state;
-        const uri = finip + '/profile/profile_mobile'
+        const uri = `${finip}/profile/profile_mobile`;
         var dataBody = {
             id_customer: currentUser ? currentUser.id_customer : '',
         }
@@ -82,29 +82,18 @@ export class Headbar extends React.Component {
     constructor(props) {
         super(props)
     }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
     getData = (value) => {
         const { getDataSource } = this.props
-        getDataSource(value)
+        // getDataSource(value)
     }
     render() {
         const { currentUser, dataSevice, statusOnline } = this.props
-        const uri = finip + '/' + dataSevice.list_profile[0].image_path + '/' + dataSevice.list_profile[0].image
+        const uri = `${finip}/${dataSevice.list_profile[0].image_path}/${dataSevice.list_profile[0].image}`;
         return (
             <View>
-                <TouchableOpacity activeOpacity={1}
-                    onPress={this.navigationNavigateScreen.bind(this, 'Setting_Topic', {
-                        selectedIndex: 0, getDataSource: this.getData.bind(this)
-                    })}>
+                <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Setting_Topic', setData: { selectedIndex: 0, getDataSource: this.getData.bind(this) }, navigation
+                })}>
                     <View style={{ backgroundColor: '#4a4a4a', }}>
                         <ImageBackground
                             source={require('../icon/bgprofile.jpg')}
@@ -115,8 +104,9 @@ export class Headbar extends React.Component {
                     <View style={stylesProfile.HeadbarBox1}>
                         <View style={stylesMain.FlexRow}>
                             <View>
-                                <TouchableOpacity activeOpacity={1}
-                                    onPress={this.navigationNavigateScreen.bind(this, 'SellerScreen')}>
+                                <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                                    goScreen: 'SellerScreen', navigation
+                                })}>
                                     <View style={stylesProfile.HeadbarBox1Sub}>
                                         <Text style={[
                                             stylesProfile.HeadbarBox1SubText, stylesFont.FontFamilyText, stylesFont.FontSize6
@@ -145,11 +135,11 @@ export class Headbar extends React.Component {
                             </View>
                         </View>
                         <View style={{ flexDirection: 'row', padding: 8 }}>
-                            <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'SettingScreen')}>
+                            <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'SettingScreen', navigation })}>
                                 <IconMaterialCommunityIcons RightItem name="settings-outline" style={{ marginRight: 6 }}
                                     size={25} color='#FFFFFF' />
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'CartScreen')}>
+                            <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'CartScreen', navigation })}>
                                 <IconFeather RightItem name="shopping-cart" size={25} color='#FFFFFF' />
                             </TouchableOpacity>
                         </View>
@@ -164,16 +154,6 @@ export class Menubar extends React.Component {
     constructor(props) {
         super(props)
     }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
     render() {
         const { navigation } = this.props
         return (
@@ -187,7 +167,7 @@ export class Menubar extends React.Component {
                     </View>
                     <View style={{ marginTop: 10, }}>
                         <TouchableOpacity activeOpacity={0.9}
-                            onPress={this.navigationNavigateScreen.bind(this, 'Total_Order', { selectedIndex: 0 })}>
+                            onPress={() => NavigationNavigateScreen({ goScreen: 'Total_Order', setData: { selectedIndex: 0 }, navigation })}>
                             <Text style={[
                                 stylesProfile.MenubarText2, stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize6
                             ]}>รายการการสั่งซื้อทั้งหมด
@@ -206,22 +186,13 @@ export class MenubarSub extends React.Component {
     constructor(props) {
         super(props)
     }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
     render() {
+        const { navigation } = this.props
         return (
             <View style={stylesProfile.MenubarSub}>
                 <View style={stylesMain.FlexRow}>
                     <TouchableOpacity activeOpacity={0.9}
-                        onPress={this.navigationNavigateScreen.bind(this, 'Total_Order', { selectedIndex: 1 })}>
+                        onPress={() => NavigationNavigateScreen({ goScreen: 'Total_Order', setData: { selectedIndex: 1 }, navigation })}>
                         <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <FastImage
                                 source={require('../icon/two-money-cards.png')}
@@ -231,7 +202,7 @@ export class MenubarSub extends React.Component {
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={0.9}
-                        onPress={this.navigationNavigateScreen.bind(this, 'Total_Order', { selectedIndex: 2 })}>
+                        onPress={() => NavigationNavigateScreen({ goScreen: 'Total_Order', setData: { selectedIndex: 2 }, navigation })}>
                         <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <FastImage
                                 source={require('../icon/month-calendar.png')}
@@ -241,7 +212,7 @@ export class MenubarSub extends React.Component {
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={0.9}
-                        onPress={this.navigationNavigateScreen.bind(this, 'Total_Order', { selectedIndex: 2 })}>
+                        onPress={() => NavigationNavigateScreen({ goScreen: 'Total_Order', setData: { selectedIndex: 2 }, navigation })}>
                         <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <FastImage
                                 source={require('../icon/truck-facing-right.png')}
@@ -251,7 +222,7 @@ export class MenubarSub extends React.Component {
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={0.9}
-                        onPress={this.navigationNavigateScreen.bind(this, 'Total_Order', { selectedIndex: 3 })}>
+                        onPress={() => NavigationNavigateScreen({ goScreen: 'Total_Order', setData: { selectedIndex: 3 }, navigation })}>
                         <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <FastImage
                                 source={require('../icon/rating.png')}
@@ -262,7 +233,9 @@ export class MenubarSub extends React.Component {
                     </TouchableOpacity>
                 </View>
                 <View style={[stylesProfile.MenubarSubLine2, stylesMain.FlexRow]}>
-                    <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'Return_products', { selectedIndex: 0 })}>
+                    <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Return_products', setData: { selectedIndex: 0 }, navigation
+                    })}>
                         <View style={[stylesProfile.MenubarSubLine2Box, stylesMain.ItemCenter, stylesMain.FlexRow]}>
                             <FastImage
                                 source={require('../icon/repeat.png')}
@@ -271,7 +244,9 @@ export class MenubarSub extends React.Component {
                                 คืนสินค้า/คืนเงิน</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'CancelScreen', { selectedIndex: 0 })}>
+                    <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                        goScreen: 'CancelScreen', setData: { selectedIndex: 0 }, navigation
+                    })}>
                         <View style={[stylesProfile.MenubarSubLine2Box, stylesMain.ItemCenter, stylesMain.FlexRow]}>
                             <FastImage
                                 source={require('../icon/box.png')}
@@ -307,24 +282,15 @@ export class Listbar extends React.Component {
                 )
         }
     }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
     setStatePathList = (pathlist) => {
         this.setState({ pathlist })
     }
     render() {
+        const { navigation } = this.props
         return (
             <View>
                 <View style={[stylesProfile.ListbarMain, stylesMain.FlexRow]}>
-                    <TouchableOpacity activeOpacity={0.9} onPress={this.setStatePathList.bind(this, 0)}>
+                    <TouchableOpacity activeOpacity={0.9} onPress={() => this.setStatePathList(0)}>
                         <View style={[stylesMain.FlexColumn, stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <View style={[stylesMain.ItemCenter, stylesProfile.ListbarMainRadius, { backgroundColor: '#0A81A6' }]}>
                                 <IconAntDesign name='home' size={40} style={[stylesMain.ItemCenterVertical, { color: '#fff' }]} />
@@ -335,7 +301,7 @@ export class Listbar extends React.Component {
                                 หน้าหลัก</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={0.9} onPress={this.navigationNavigateScreen.bind(this, 'DealScreen')}>
+                    <TouchableOpacity activeOpacity={0.9} onPress={() => NavigationNavigateScreen({ goScreen: 'DealScreen', navigation })}>
                         <View style={[stylesMain.FlexColumn, stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <View style={[stylesMain.ItemCenter, stylesProfile.ListbarMainRadius, { backgroundColor: '#128BCE' }]}>
                                 <IconMaterialCommunityIcons name='octagram-outline' size={40}
@@ -347,7 +313,7 @@ export class Listbar extends React.Component {
                                 โปรโมชัน</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={0.9} onPress={this.setStatePathList.bind(this, 2)}>
+                    <TouchableOpacity activeOpacity={0.9} onPress={() => this.setStatePathList(2)}>
                         <View style={[stylesMain.FlexColumn, stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <View style={[stylesMain.ItemCenter, stylesProfile.ListbarMainRadius, { backgroundColor: '#0A55A6' }]}>
                                 <IconMaterialCommunityIcons name='ticket' size={40} style={stylesProfile.ListbarMainRadiusIcon} />
@@ -358,7 +324,7 @@ export class Listbar extends React.Component {
                                 โค้ดส่วนลด</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={0.9} onPress={this.navigationNavigateScreen.bind(this, 'CoinScreen')}>
+                    <TouchableOpacity activeOpacity={0.9} onPress={() => NavigationNavigateScreen({ goScreen: 'CoinScreen', navigation })}>
                         <View style={[stylesMain.FlexColumn, stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                             <View style={[stylesMain.ItemCenter, stylesProfile.ListbarMainRadius, { backgroundColor: '#fadf2d' }]}>
                                 <FastImage
@@ -384,22 +350,13 @@ export class ListMenu extends React.Component {
     constructor(props) {
         super(props);
     }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
     render() {
+        const { navigation } = this.props
         return (
             <View>
                 <View style={stylesProfile.ListMenu}>
                     <TouchableOpacity activeOpacity={1}
-                        onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 0 })}>
+                        onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 0 }, navigation })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconMaterialIcons RightItem name="access-time" color='#D0B216' size={35}
@@ -414,7 +371,7 @@ export class ListMenu extends React.Component {
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1}
-                        onPress={this.navigationNavigateScreen.bind(this, 'Business', { selectedIndex: 0 })}>
+                        onPress={() => NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 0 }, navigation })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconFontAwesome RightItem name="users" size={30} color='#7CB4F0'
@@ -429,7 +386,7 @@ export class ListMenu extends React.Component {
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1}
-                        onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 })}>
+                        onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconAntDesign RightItem name="wechat" size={35} color='#0A55A6'
@@ -444,7 +401,7 @@ export class ListMenu extends React.Component {
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1}
-                        onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 2 })}>
+                        onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 2 }, navigation })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconAntDesign RightItem name="heart" size={35} color='#D74024' style={
@@ -459,7 +416,7 @@ export class ListMenu extends React.Component {
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1}
-                        onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 3 })}>
+                        onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 3 }, navigation })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconFontisto RightItem name="shopping-store" size={30} color='#0A55A6' style={
@@ -474,7 +431,7 @@ export class ListMenu extends React.Component {
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1}
-                        onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 4 })}>
+                        onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 4 }, navigation })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconMaterialCommunityIcons RightItem name="star-box" size={35} color='#EAD295' style={
@@ -489,7 +446,7 @@ export class ListMenu extends React.Component {
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1}
-                        onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 5 })}>
+                        onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 5 }, navigation })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
                                 <IconFeather RightItem name="help-circle" size={35} color='#00A3FF' style={
@@ -533,9 +490,9 @@ export class ViewCode extends React.Component {
         }, {
             name: 'โ่ค้ดที่หมดอายุ'
         }]
-        const uri = finip + '/profile/coupon_shop'
-        const uri2 = finip + '/profile/coupon_used'
-        const uri3 = finip + '/profile/coupon_timeout'
+        const uri = `${finip}/profile/coupon_shop`
+        const uri2 = `${finip}/profile/coupon_used`
+        const uri3 = `${finip}/profile/coupon_timeout`
         var dataBody = {
             id_customer: currentUser ? currentUser.id_customer : '',
             device: "mobile_device",
@@ -603,7 +560,7 @@ export class MyCode extends React.Component {
             }),
             this.setState({ data })
         );
-        const uri = finip + '/brand/follow_data';
+        const uri = `${finip}/brand/follow_data`;
         var dataBody = {
             id_customer: currentUser.id_customer,
             id_store,
@@ -682,7 +639,7 @@ export class MyCode extends React.Component {
                                             </View>
                                         </View>
                                         <View style={stylesProfile.FinMinssionBoxPlan1Follow}>
-                                            <TouchableOpacity onPress={this.followStore.bind(this, value.id_store, true)}>
+                                            <TouchableOpacity onPress={() => this.followStore(value.id_store, true)}>
                                                 <View style={[stylesProfile.FinMinssionBoxPlan1FollowBox, stylesMain.ItemCenter,]}>
                                                     <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText,
                                                     stylesFont.FontSize6]}>

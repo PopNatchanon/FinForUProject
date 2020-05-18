@@ -11,7 +11,7 @@ import stylesFont from '../style/stylesFont';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, TodayProduct, ExitAppModule } from './MainScreen';
 import { Button_Bar } from '../src/HighlightScreen';
-import { GetServices } from './tools/Tools';
+import { GetServices } from './customComponents/Tools';
 import { Slide } from './src_Promotion/DealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from './navigator/IpConfig';
@@ -32,7 +32,7 @@ export default class Same_StoreScreen extends React.Component {
         const type_product = navigation.getParam('type_product')
         const id_type = navigation.getParam('id_type')
         const id_store = navigation.getParam('id_store')
-        var uri = finip + '/product/product_other_mobile';
+        var uri = `${finip}/product/product_other_mobile`;
         var dataBody
         type_product && id_type && id_store && (
             dataBody = {

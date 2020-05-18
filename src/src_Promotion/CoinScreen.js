@@ -19,7 +19,7 @@ import ststylePromotionDeal from '../../style/stylePromotion-src/styleDealScreen
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, TodayProduct, ExitAppModule, } from '../MainScreen';
 import { Button_Bar, Slide } from './DealScreen';
-import { GetData, GetServices, ProductBox, TabBar, LoadingScreen, } from '../tools/Tools';
+import { GetData, GetServices, ProductBox, TabBar, LoadingScreen, } from '../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -41,7 +41,7 @@ export default class CoinScreen extends Component {
     render() {
         const { navigation } = this.props
         const { activeGetCurrentUser, activeDataService, cokie, currentUser, dataService } = this.state
-        var uri = finip + '/coupon/fin_coin_mobile';
+        var uri = `${finip}/coupon/fin_coin_mobile`
         // console.log('activeGetCurrentUser')
         // console.log(activeGetCurrentUser)
         // console.log('activeDataService')
@@ -112,7 +112,7 @@ export class CoinCollect extends Component {
         }, {
             name: 'อื่นๆ'
         }]
-        const uri = finip + '/coupon/save_coupon_voucher'
+        const uri = `${finip}/coupon/save_coupon_voucher`
         var dataBody = {
             id_customer: currentUser ? currentUser.id_customer : '',
             device: "mobile_device",
@@ -182,7 +182,7 @@ export class CoinPageBody extends Component {
     }
     DetailCoin() {
         const { dataService, getVoucher } = this.props
-        var dataMySQL = [finip, dataService.image_path, dataService.image].join('/');
+        var dataMySQL = `${finip}/${dataService.image_path}/${dataService.image}`
         return (
             <View style={{ height: '100%' }}>
                 <View style={{ width: '100%', height: 150, marginBottom: 8, }}>
@@ -242,8 +242,8 @@ export class CoinPageBody extends Component {
                                 dataService.my_coupon == 'yes' ?
                                     'แลกแล้ว' :
                                     dataService.my_coupon == 'no' ?
-                                        'แลก ' + dataService.coin_exchange + ' coin' :
-                                        'ใช้ ' + dataService.coin_exchange + ' coin'
+                                        `แลก ${dataService.coin_exchange} coin` :
+                                        `ใช้ ${dataService.coin_exchange} coin`
                             }</Text>
                     </TouchableOpacity>
                 </View>
@@ -253,13 +253,13 @@ export class CoinPageBody extends Component {
     render() {
         const { cokie, currentUser, dataService } = this.props
         const { activeGetServices, } = this.state
-        const uri = finip + '/coupon/show_voucher'
+        const uri = `${finip}/coupon/show_voucher`
         var dataBody = {
             id_customer: currentUser ? currentUser.id_customer : '',
             device: "mobile_device",
             id_promotion_voucher: dataService.id_promotion ? dataService.id_promotion : ''
         }
-        var dataMySQL = [finip, dataService.image_path, dataService.image].join('/');
+        var dataMySQL = `${finip}/${dataService.image_path}/${dataService.image}`
         activeGetServices == true && currentUser && cokie &&
             GetServices({ uriPointer: uri, dataBody, Authorization: cokie, getDataSource: this.getData.bind(this) })
         return (
@@ -318,8 +318,8 @@ export class CoinPageBody extends Component {
                                                     dataService.my_coupon == 'yes' ?
                                                         'แลกแล้ว' :
                                                         dataService.my_coupon == 'no' ?
-                                                            'แลก ' + dataService.coin_exchange + ' coin' :
-                                                            'ใช้ ' + dataService.coin_exchange + ' coin'
+                                                            `แลก ${dataService.coin_exchange} coin` :
+                                                            `ใช้ ${dataService.coin_exchange} coin`
                                                 }
                                             </Text>
                                         </View>

@@ -14,7 +14,7 @@ import stylesMain from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, BannerBar_THREE, ExitAppModule, TodayProduct, } from './MainScreen';
 import { Button_Bar, } from './ExclusiveScreen';
-import { GetData, GetServices, SlideTab2, } from './tools/Tools'
+import { GetData, GetServices, SlideTab2, NavigationNavigateScreen, } from './customComponents/Tools'
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -86,7 +86,7 @@ export default class SearchScreen extends React.Component {
             activeArray, activeGetCurrentUser, activeGetServices, actionStart, cokie, currentUser, data, dataService, dataServiceBU,
             filterValue, modeStore, SearchText, sliderVisible, id_type,
         } = this.state;
-        var uri = [finip, 'search/search_product'].join('/');
+        var uri = `${finip}/search/search_product`
         var dataBody = {
             id_customer: currentUser && currentUser.id_customer ? currentUser.id_customer : '',
             key: SearchText, //<< ใช้ค้นหาสินค้า
@@ -98,7 +98,7 @@ export default class SearchScreen extends React.Component {
             max_price: filterValue && filterValue.maxvalue ? Number(filterValue.maxvalue) : '',
             id_type: filterValue && filterValue.id_type ? filterValue.id_type : '' //<< กรณีเลือกแบบระเลียด
         };
-        var uri2 = [finip, 'search/other_store'].join('/');
+        var uri2 = `${finip}/search/other_store`
         var dataBody2 = {
             id_customer: currentUser && currentUser.id_customer,
             id_type
@@ -171,18 +171,8 @@ export class HeadBox extends React.Component {
     constructor(props) {
         super(props)
     }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
     render() {
-        const { otherOption, SearchText, id_type } = this.props
+        const { navigation, otherOption, SearchText, id_type } = this.props
         return (
             <View>
                 <View style={[stylesMain.FrameBackgroundTextBox]}>
@@ -190,8 +180,8 @@ export class HeadBox extends React.Component {
                         ร้านค้าที่เกี่ยวข้องกับ <Text>"{SearchText}"</Text></Text>
                     {
                         otherOption &&
-                        <TouchableOpacity onPress={this.navigationNavigateScreen.bind(this, 'SearchScreen', {
-                            modeStore: true, SearchText, id_type
+                        <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                            goScreen: 'SearchScreen', setData: { modeStore: true, SearchText, id_type }, navigation
                         })}>
                             <View style={[stylesMain.FlexRow, { marginRight: 4, marginTop: 8 }]}>
                                 <Text style={[
@@ -220,16 +210,6 @@ export class StoreCard extends React.Component {
             activeGetServices: true,
         }
     }
-    navigationNavigateScreen = (value, value2) => {
-        const { navigation } = this.props
-        value == 'goBack' ?
-            navigation.goBack() :
-            value == 'LoginScreen' ? (
-                navigation.popToTop(),
-                navigation.replace(value, value2)
-            ) :
-                navigation.push(value, value2)
-    }
     getData = (dataService2) => {
         this.setState({ activeFollow: false, activeGetServices: false, dataService2 })
     }
@@ -237,22 +217,22 @@ export class StoreCard extends React.Component {
         this.setState({ activeFollow: true, activeGetServices: true })
     }
     render() {
-        const { cokie, currentUser, dataService, } = this.props
+        const { cokie, currentUser, dataService, navigation } = this.props
         const { activeFollow, activeGetServices, dataService2, } = this.state
-        var uri = [finip, '/brand/follow_data'].join('/');
+        var uri = `${finip}/brand/follow_data`;
         var dataBody = {
             id_customer: currentUser && currentUser.id_customer,
             id_store: dataService.id_store,
             follow: activeFollow == true ? "active" : '',
 
         };
-        var dataMySQL = [finip, dataService.store_path, dataService.image_store].join('/');
+        var dataMySQL = `${finip}/${dataService.store_path}/${dataService.image_store}`;
         activeGetServices == true &&
             GetServices({ Authorization: cokie, uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
         return (
             <View style={stylesMain.BoxStore5Box}>
                 <TouchableOpacity style={stylesMain.FlexRow}
-                    onPress={this.navigationNavigateScreen.bind(this, 'StoreScreen', { id_item: 24 })}>
+                    onPress={() => NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: 24 }, navigation })}>
                     <View style={[stylesMain.BoxStore5Image, stylesMain.ItemCenterVertical, {
                         width: 45, height: 45, marginRight: 10,
                     }]}>
@@ -278,14 +258,16 @@ export class StoreCard extends React.Component {
                                 width: 70, height: 25, backgroundColor: '#0A55A6', borderRadius: 6, marginHorizontal: 2
                             }
                         ]}>
-                            <TouchableOpacity onPress={this.setStateFollow.bind(this)}>
+                            <TouchableOpacity onPress={() => this.setStateFollow()}>
                                 <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize7, { color: '#fff' }]}>
                                     {dataService2 && dataService2.output}</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={[{ width: 70, height: 25, backgroundColor: '#0A55A6', borderRadius: 6, marginHorizontal: 2 }]}>
                             <TouchableOpacity style={[stylesMain.ItemCenter, { width: '100%', height: '100%' }]}
-                                onPress={this.navigationNavigateScreen.bind(this, 'Profile_Topic', { selectedIndex: 1 })}>
+                                onPress={() => NavigationNavigateScreen({
+                                    goScreen: 'Profile_Topic', setData: { selectedIndex: 1, navigation }
+                                })}>
                                 <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize7, { color: '#fff' }]}>
                                     พูดคุย</Text>
                             </TouchableOpacity>

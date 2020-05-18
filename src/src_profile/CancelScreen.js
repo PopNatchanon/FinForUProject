@@ -19,7 +19,7 @@ import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topi
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from '../MainScreen';
 import { From_Order_Box } from './Total_Order';
-import { GetServices, LoadingScreen, } from '../tools/Tools';
+import { GetServices, LoadingScreen, } from '../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -36,7 +36,7 @@ export default class CancelScreen extends Component {
   }
   componentDidMount() {
     this.getDataAsync()
-    CookieManager.get(finip + '/auth/login_customer')
+    CookieManager.get(`${finip}/auth/login_customer`)
       .then((res) => {
         var keycokie = res.token
         this.setState({ keycokie })
@@ -48,7 +48,7 @@ export default class CancelScreen extends Component {
   PathList() {
     const { navigation } = this.props
     const { currentUser, keycokie, } = this.state
-    const selectedIndex = this.props.navigation.getParam('selectedIndex')
+    const selectedIndex = navigation.getParam('selectedIndex')
     // const selectedIndex = 0
     switch (selectedIndex) {
       case 0:
@@ -67,6 +67,7 @@ export default class CancelScreen extends Component {
     }
   }
   render() {
+    const { navigation } = this.props
     const { IsLoading, } = this.state
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
@@ -74,11 +75,11 @@ export default class CancelScreen extends Component {
           IsLoading == true &&
           <LoadingScreen />
         }
-        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ยกเลิกสินค้า' />
+        <AppBar1 backArrow navigation={navigation} titleHead='ยกเลิกสินค้า' />
         <ScrollView>
           {this.PathList()}
         </ScrollView>
-        <ExitAppModule navigation={this.props.navigation} />
+        <ExitAppModule navigation={navigation} />
       </SafeAreaView>
     );
   }
@@ -99,7 +100,7 @@ export class CancelScreen_Product extends Component {
   render() {
     const { currentUser, keycokie, navigation, } = this.props
     const { activeSelectedIndex, dataService, } = this.state
-    var uri = finip + '/purchase_data/view_purchase';
+    var uri = `${finip}/purchase_data/view_purchase`
     var dataBody = {
       id_customer: currentUser && currentUser.id_customer,
       type_purchase: 'cancel',
@@ -167,7 +168,7 @@ export class Cancel_Product extends Component {
               <View style={stylesProfileTopic.Order_Product_Pro}>
                 <FastImage style={stylesMain.BoxProduct1Image}
                   source={{
-                    uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
+                    uri: `${ip}/mysql/uploads/products/2019-03-20-1553064759.jpg`,
                   }}
                 />
               </View>
@@ -245,7 +246,7 @@ export class Cancel_Alert extends Component {
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>ยกเลิก</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.handleOpen}>
+          <TouchableOpacity onPress={() => this.handleOpen()}>
             <View style={[stylesProfileTopic.Cancel_Detail_Button, { marginLeft: 10 }]}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>ตกลง</Text>
             </View>
@@ -262,8 +263,8 @@ export class Cancel_Alert extends Component {
           onRequestClose={() => null}
         >
           <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
-            <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยกเลิก</SCLAlertButton>
-            <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยืนยัน</SCLAlertButton>
+            <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={() => this.handleClose()} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยกเลิก</SCLAlertButton>
+            <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={() => this.handleClose()} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยืนยัน</SCLAlertButton>
           </View>
         </SCLAlert>
       </View>

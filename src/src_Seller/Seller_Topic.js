@@ -27,7 +27,7 @@ import stylesSeller from '../../style/styleSeller-src/styleSellerScreen';
 import { ip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 import { AppBar1 } from '../MainScreen';
-import { TabBar } from '../tools/Tools';
+import { TabBar, NavigationNavigateScreen } from '../customComponents/Tools';
 
 export default class Seller_Topic extends Component {
     constructor(props) {
@@ -36,63 +36,64 @@ export default class Seller_Topic extends Component {
         };
     }
     PathList() {
-        const selectedIndex = this.props.navigation.getParam('selectedIndex')
+        const { navigation } = this.props
+        const selectedIndex = navigation.getParam('selectedIndex')
         switch (selectedIndex) {
             case 0:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='จัดการโฆษณา' />
-                        <Seller_Advertisement backArrow navigation={this.props.navigation} />
+                        <AppBar1 backArrow navigation={navigation} titleHead='จัดการโฆษณา' />
+                        <Seller_Advertisement backArrow navigation={navigation} />
                     </>
                 )
             case 1:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='สถิติร้านร้านค้า' />
+                        <AppBar1 backArrow navigation={navigation} titleHead='สถิติร้านร้านค้า' />
                         <Seller_Statistics />
                     </>
                 )
             case 2:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='คะแนนของฉัน' />
+                        <AppBar1 backArrow navigation={navigation} titleHead='คะแนนของฉัน' />
                         <ScrollView>
-                            <Seller_Score navigation={this.props.navigation} />
+                            <Seller_Score navigation={navigation} />
                         </ScrollView>
                     </>
                 )
             case 3:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แพคเกจปัจจุบันที่ใช้อยู่' />
-                        <Seller_Advertisement_Packet backArrow navigation={this.props.navigation} />
+                        <AppBar1 backArrow navigation={navigation} titleHead='แพคเกจปัจจุบันที่ใช้อยู่' />
+                        <Seller_Advertisement_Packet backArrow navigation={navigation} />
                     </>
                 )
             case 4:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='จัดการโฆษณา' />
-                        <Seller_Advertisement_PacketBuy navigation={this.props.navigation} />
+                        <AppBar1 backArrow navigation={navigation} titleHead='จัดการโฆษณา' />
+                        <Seller_Advertisement_PacketBuy navigation={navigation} />
                     </>
                 )
             case 5:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ตอบกลับความคิดเห็น' />
+                        <AppBar1 backArrow navigation={navigation} titleHead='ตอบกลับความคิดเห็น' />
                         <Seller_Comment_Reply />
                     </>
                 )
             case 6:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='FIN แคมเปญ' />
-                        <Seller_Fin_Campaign navigation={this.props.navigation} />
+                        <AppBar1 backArrow navigation={navigation} titleHead='FIN แคมเปญ' />
+                        <Seller_Fin_Campaign navigation={navigation} />
                     </>
                 )
             case 7:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='FIN แคมเปญ' />
+                        <AppBar1 backArrow navigation={navigation} titleHead='FIN แคมเปญ' />
                         <View style={{ backgroundColor: '#FFFFFF' }}>
                             <View style={{ flexDirection: 'row', padding: 5, borderColor: '#EAEAEA', borderWidth: 1 }}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { margin: 10 }]}> เลือกสินค้า </Text>
@@ -116,21 +117,21 @@ export default class Seller_Topic extends Component {
             case 8:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='รายได้ของฉัน' />
+                        <AppBar1 backArrow navigation={navigation} titleHead='รายได้ของฉัน' />
                         <My_income />
                     </>
                 )
             case 9:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ถอนเงิน' />
-                        <Withdraw_money navigation={this.props.navigation} />
+                        <AppBar1 backArrow navigation={navigation} titleHead='ถอนเงิน' />
+                        <Withdraw_money navigation={navigation} />
                     </>
                 )
             case 10:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ถอนเงิน' />
+                        <AppBar1 backArrow navigation={navigation} titleHead='ถอนเงิน' />
                         <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, , { margin: 5 }]}>รหัสผ่าน</Text>
                             <View style={{ width: '100%', borderColor: '#EAEAEA', borderRadius: 5, borderWidth: 1, height: 50 }}>
@@ -144,7 +145,10 @@ export default class Seller_Topic extends Component {
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, , { color: '#FF0000' }]}>*ระบบจะส่งรหัสยืนยันตัวตนไปที่อีเมล</Text>
                         </View>
                         <View style={{ justifyContent: 'flex-end', flex: 1, alignItems: 'center' }}>
-                            <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Seller_Topic', { selectedIndex: 11 })}
+                            <TouchableOpacity activeOpacity={1}
+                                onPress={() => NavigationNavigateScreen({
+                                    goScreen: 'Seller_Topic', setData: { selectedIndex: 11 }, navigation
+                                })}
                                 style={[stylesMain.ItemCenter, { width: '80%', height: 50, backgroundColor: '#0A55A6', borderRadius: 5, marginVertical: 10 }]}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, , { color: '#FFFFFF' }]}>เข้าสู่ระบบ</Text>
                             </TouchableOpacity>
@@ -154,14 +158,14 @@ export default class Seller_Topic extends Component {
             case 11:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ถอนเงิน' />
+                        <AppBar1 backArrow navigation={navigation} titleHead='ถอนเงิน' />
                         <Confirm_Bank />
                     </>
                 )
             case 12:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ประวัติการถอนเงิน' />
+                        <AppBar1 backArrow navigation={navigation} titleHead='ประวัติการถอนเงิน' />
                         <Withdrawal_history />
                         <Withdrawal_history />
                         <Withdrawal_history />
@@ -171,7 +175,7 @@ export default class Seller_Topic extends Component {
             case 13:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='เพิ่มสินค้า' saveBar />
+                        <AppBar1 backArrow navigation={navigation} titleHead='เพิ่มสินค้า' saveBar />
                         <Up_Product_Select />
                     </>
                 )
@@ -186,24 +190,27 @@ export default class Seller_Topic extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>>
-
 export class Seller_Advertisement extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
+        const { navigation } = this.props
         return (
             <View>
-                <TouchableOpacity onPress={() => this.props.navigation.push('Seller_Topic', { selectedIndex: 3 })}>
+                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Seller_Topic', setData: { selectedIndex: 3 }.navigation
+                })}>
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>แพคเกจปัจจุบันที่ใช้อยู่</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.push('Seller_Topic', { selectedIndex: 6 })}>
+                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Seller_Topic', setData: { selectedIndex: 6 }, navigation
+                })}>
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>FIN แคมเปญ</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
@@ -214,14 +221,12 @@ export class Seller_Advertisement extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>>
-
 export class Seller_Statistics extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
         return (
             <View>
@@ -265,17 +270,15 @@ export class Seller_Statistics extends Component {
         );
     }
 }
-
 ///----------------------------------------------------------------------------------------------->>>>
-
 export class Seller_Score extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
+        const { navigation } = this.props;
         return (
             <View>
                 <View style={{ backgroundColor: '#4C9AE2', width: '100%', }}>
@@ -295,24 +298,22 @@ export class Seller_Score extends Component {
                 </View>
                 <View style={[stylesMain.FrameBackground, { padding: 10 }]}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>ความคิดเห็น</Text></View>
-                <Seller_Comment navigation={this.props.navigation} Comment_Reply />
-                <Seller_Comment navigation={this.props.navigation} Comment_Reply />
-                <Seller_Comment navigation={this.props.navigation} Comment_Reply />
+                <Seller_Comment navigation={navigation} Comment_Reply />
+                <Seller_Comment navigation={navigation} Comment_Reply />
+                <Seller_Comment navigation={navigation} Comment_Reply />
             </View>
         );
     }
 }
 ///----------------------------------------------------------------------------------------------->>>>
-
 export class Seller_Comment extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
-        const { Comment_Reply } = this.props;
+        const { Comment_Reply, navigation } = this.props;
         return (
             <View style={stylesMain.FrameBackground}>
                 <View style={{ height: 50, width: '100%', flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 10, borderColor: '#EAEAEA', borderBottomWidth: 1, }}>
@@ -326,7 +327,7 @@ export class Seller_Comment extends Component {
                         <View style={{ height: 80, width: 80, }}>
                             <FastImage style={stylesMain.BoxProduct1Image}
                                 source={{
-                                    uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
+                                    uri: `${ip}/mysql/uploads/products/2019-03-20-1553064759.jpg`,
                                 }}
                             />
                         </View>
@@ -338,7 +339,10 @@ export class Seller_Comment extends Component {
                     </View>
                     {Comment_Reply
                         ?
-                        <TouchableOpacity style={[stylesMain.FlexRow, { alignItems: 'flex-end' }]} onPress={() => this.props.navigation.push('Seller_Topic', { selectedIndex: 5 })}>
+                        <TouchableOpacity style={[stylesMain.FlexRow, { alignItems: 'flex-end' }]}
+                            onPress={() => NavigationNavigateScreen({
+                                goScreen: 'Seller_Topic', setData: { selectedIndex: 5 }, navigation
+                            })}>
                             <IconFeather name='edit' size={15} color='#20BDA1' />
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#20BDA1' }]}> เขียนตอบกลับ</Text>
                         </TouchableOpacity> : null
@@ -393,15 +397,14 @@ export class Seller_Comment_Reply extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>>
-
 export class Seller_Advertisement_Packet extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
+        const { navigation } = this.props
         return (
             <View style={stylesMain.FrameBackground}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { margin: 10 }]}>ชื่อแพคเกจ </Text>
@@ -417,7 +420,9 @@ export class Seller_Advertisement_Packet extends Component {
                     </View>
                 </View>
                 <View style={{ width: '100%', alignItems: 'flex-end' }}>
-                    <TouchableOpacity onPress={() => this.props.navigation.push('Seller_Topic', { selectedIndex: 4 })}>
+                    <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Seller_Topic', setData: { selectedIndex: 4 }, navigation
+                    })}>
                         <View style={[stylesSeller.Seller_Return_Button, { margin: 10 }]}>
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>ซื้อแพคเกจ</Text>
                         </View>
@@ -428,7 +433,6 @@ export class Seller_Advertisement_Packet extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>>
-
 export class Seller_Advertisement_PacketBuy extends Component {
     constructor(props) {
         super(props);
@@ -440,7 +444,6 @@ export class Seller_Advertisement_PacketBuy extends Component {
             checked: true,
         };
     }
-
     render() {
         return (
             <View style={stylesMain.FrameBackground}>
@@ -507,7 +510,6 @@ export class Seller_Advertisement_PacketBuy extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>>
-
 export class Seller_Fin_Campaign extends Component {
     constructor(props) {
         super(props);
@@ -519,6 +521,7 @@ export class Seller_Fin_Campaign extends Component {
         this.setState({ selectedIndex: value.selectedIndex })
     }
     render() {
+        const { navigation } = this.props
         const item = [{
             name: 'เร็วๆ นี้'
         }, {
@@ -540,7 +543,7 @@ export class Seller_Fin_Campaign extends Component {
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
-                                uri: ip + '/MySQL/uploads/products/Campaign9999.png',
+                                uri: `${ip}/mysql/uploads/products/Campaign9999.png`,
                             }}
                         />
                     </View>
@@ -551,7 +554,10 @@ export class Seller_Fin_Campaign extends Component {
                             คอลเลคชั่นราคาต่ำกว่า 199 บาท ! (วันที่่ 5 - 11 มี.ค.) " เลย
                     </Text>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>การเข้าร่วมโปรโมชั่นจะสิ้นสุดภายใน3 วัน 1 ชั่วโมง</Text>
-                        <TouchableOpacity style={{ alignItems: 'flex-end', marginTop: 10 }} onPress={() => this.props.navigation.push('Seller_Topic', { selectedIndex: 7 })}>
+                        <TouchableOpacity style={{ alignItems: 'flex-end', marginTop: 10 }}
+                            onPress={() => NavigationNavigateScreen({
+                                goScreen: 'Seller_Topic', setData: { selectedIndex: 7 }, navigation
+                            })}>
                             <View style={[stylesMain.ItemCenter, { backgroundColor: '#7ED0E8', width: 130, borderRadius: 5, height: 30 }]}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FFFFFF' }]}>เข้าร่วมโปรโมชั่น ตอนนี้!</Text>
                             </View>
@@ -562,18 +568,14 @@ export class Seller_Fin_Campaign extends Component {
         );
     }
 }
-
-///----------------------------------------------------------------------------------------------->>>>
-
+///---------------------------------------------------------------------------------------------->>>>
 export class Seller_Fin_Campaign_Product extends Component {
     constructor(props) {
         super(props);
         this.state = {
             checked: true,
-
         };
     }
-
     render() {
         return (
             <View style={{ backgroundColor: '#FFFFFF', width: '100%' }}>
@@ -586,7 +588,7 @@ export class Seller_Fin_Campaign_Product extends Component {
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
-                                uri: ip + '/MySQL/uploads/products/2019-10-29-1572320317.jpg',
+                                uri: `${ip}/mysql/uploads/products/2019-10-29-1572320317.jpg`,
                             }}
                         />
                     </View>
@@ -601,19 +603,16 @@ export class Seller_Fin_Campaign_Product extends Component {
                     </View>
                 </View>
             </View>
-
         );
     }
 }
 ///----------------------------------------------------------------------------------------------->>>>
-
 export class Seller_Fin_Campaign_ProductSelect extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
     render() {
         return (
             <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', backgroundColor: '#FFFFFF' }]}>
@@ -711,7 +710,7 @@ export class Product_income extends Component {
                     <View style={stylesProfileTopic.Order_Product_Pro}>
                         <FastImage style={stylesMain.BoxProduct1Image}
                             source={{
-                                uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
+                                uri: `${ip}/mysql/uploads/products/2019-03-20-1553064759.jpg`,
                             }}
                         />
                     </View>
@@ -738,9 +737,12 @@ export class Withdraw_money extends Component {
         };
     }
     render() {
+        const { navigation } = this.props
         return (
             <View style={{ backgroundColor: '#FFFFFF', marginTop: 5 }}>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Seller_Topic', { selectedIndex: 12 })}>
+                <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Seller_Topic', setData: { selectedIndex: 12 }, navigation
+                })}>
                     <View style={stylesProfile.ListMenuList}>
                         <View style={stylesProfile.ListMenuListSub}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10 }]}>
@@ -750,7 +752,9 @@ export class Withdraw_money extends Component {
                         <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Seller_Topic', { selectedIndex: 10 })}>
+                <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Seller_Topic', setData: { selectedIndex: 10 }, navigation
+                })}>
                     <View style={stylesProfile.ListMenuList}>
                         <View style={stylesProfile.ListMenuListSub}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10 }]}>
@@ -806,7 +810,7 @@ export class Confirm_Bank extends Component {
                         <FastImage
                             style={{ height: 100, width: 100, borderWidth: 3 }}
                             source={{
-                                uri: ip + '/MySQL/uploads/message/BBL-LOGO.jpg',
+                                uri: `${ip}/mysql/uploads/message/BBL-LOGO.jpg`,
                             }}
                         />
                         <View style={{ margin: 10 }}>
@@ -854,7 +858,7 @@ export class Withdrawal_history extends Component {
         const { activeBox } = this.state
         return (
             <>
-                <TouchableOpacity onPress={this.activeBox.bind(this)}>
+                <TouchableOpacity onPress={() => this.activeBox()}>
                     <View style={{ backgroundColor: '#FFFFFF' }}>
                         <View style={[stylesMain.FlexRow, stylesMain.FrameBackground, { justifyContent: 'space-around' }]}>
                             <View>
@@ -877,7 +881,7 @@ export class Withdrawal_history extends Component {
                         <FastImage
                             style={{ height: 100, width: 100, borderWidth: 3 }}
                             source={{
-                                uri: ip + '/MySQL/uploads/message/BBL-LOGO.jpg',
+                                uri: `${ip}/mysql/uploads/message/BBL-LOGO.jpg`,
                             }}
                         />
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>ธนาคารกรุงเทพ</Text>
@@ -909,10 +913,10 @@ export class Up_Product_Select extends Component {
             <View>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ตั้งค่าราคาและจำนวนสินค้าในคลังทุกตัวเลือก</Text>
                 <View style={stylesMain.FlexRow}>
-                    <View style={{ width: 30, marginRight: 10 ,paddingTop:15}}>
+                    <View style={{ width: 30, marginRight: 10, paddingTop: 15 }}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ราคา</Text>
                     </View>
-                    <View style={[stylesSeller.BottomSheet_Box,{width:250}]}>
+                    <View style={[stylesSeller.BottomSheet_Box, { width: 250 }]}>
                         <TextInput
                             style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}
                             placeholder="0.00"
@@ -921,10 +925,10 @@ export class Up_Product_Select extends Component {
                     </View>
                 </View>
                 <View style={stylesMain.FlexRow}>
-                    <View style={{ width: 30, marginRight: 10 ,paddingTop:15}}>
+                    <View style={{ width: 30, marginRight: 10, paddingTop: 15 }}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,]}>คลัง</Text>
                     </View>
-                    <View style={[stylesSeller.BottomSheet_Box,{width:250}]}>
+                    <View style={[stylesSeller.BottomSheet_Box, { width: 250 }]}>
                         <TextInput
                             style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,]}
                             placeholder="0"
@@ -934,14 +938,14 @@ export class Up_Product_Select extends Component {
                 </View>
                 <View style={stylesSeller.BottomSheet_Botton}>
                     <TouchableOpacity onPress={() => { this.Edit_Body.close(); }}>
-                    <View style={stylesSeller.BottomSheet_Botton_cancel}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ยกเลิก</Text>
-                    </View>
+                        <View style={stylesSeller.BottomSheet_Botton_cancel}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ยกเลิก</Text>
+                        </View>
                     </TouchableOpacity>
                     <TouchableOpacity>
-                    <View style={stylesSeller.BottomSheet_Botton_OK}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตกลง</Text>
-                    </View>
+                        <View style={stylesSeller.BottomSheet_Botton_OK}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตกลง</Text>
+                        </View>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -988,7 +992,7 @@ export class Up_Product_Select extends Component {
                     <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>สี</Text>
                     </View>
-                    <View style={{ backgroundColor: '#FFFFFF' ,paddingVertical:5}}>
+                    <View style={{ backgroundColor: '#FFFFFF', paddingVertical: 5 }}>
                         <View style={[stylesMain.FlexRow, stylesSeller.Up_product_Select]}>
                             <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>ขาว</Text>
@@ -1017,7 +1021,7 @@ export class Up_Product_Select extends Component {
                     <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>ขนาด</Text>
                     </View>
-                    <View style={{ backgroundColor: '#FFFFFF' ,paddingVertical:5}}>
+                    <View style={{ backgroundColor: '#FFFFFF', paddingVertical: 5 }}>
                         <View style={[stylesMain.FlexRow, stylesSeller.Up_product_Select]}>
                             <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>XL</Text>

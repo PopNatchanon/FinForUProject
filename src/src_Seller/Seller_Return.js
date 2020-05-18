@@ -22,29 +22,30 @@ import { ip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 import { AppBar1 } from '../../src/MainScreen';
 import { Order_Me_Box } from './Seller_Totel_Order';
-
+import { NavigationNavigateScreen } from '../customComponents/Tools';
 export default class Seller_Return extends Component {
   PathList() {
-    const selectedIndex = this.props.navigation.getParam('selectedIndex')
+    const { navigation } = this.props
+    const selectedIndex = navigation.getParam('selectedIndex')
     switch (selectedIndex) {
       case 0:
         return (
           <View style={stylesMain.SafeAreaView}>
-            <AppBar1 backArrow navigation={this.props.navigation} titleHead='คืนสินค้า/คืนเงิน' />
+            <AppBar1 backArrow navigation={navigation} titleHead='คืนสินค้า/คืนเงิน' />
             <ScrollView>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10 }]}>คืนสินค้า/คืนเงิน</Text>
-              <Order_Me_Box navigation={this.props.navigation} Cause_cancel detail_order_cancel Contact_buyer />
-              <Order_Me_Box navigation={this.props.navigation} Cause_cancel detail_order_cancel Contact_buyer />
-              <Order_Me_Box navigation={this.props.navigation} Cause_cancel detail_order_cancel Contact_buyer />
-              <Order_Me_Box navigation={this.props.navigation} Cause_cancel detail_order_cancel Contact_buyer />
-              <Order_Me_Box navigation={this.props.navigation} Cause_cancel detail_order_cancel Contact_buyer />
+              <Order_Me_Box navigation={navigation} Cause_cancel detail_order_cancel Contact_buyer />
+              <Order_Me_Box navigation={navigation} Cause_cancel detail_order_cancel Contact_buyer />
+              <Order_Me_Box navigation={navigation} Cause_cancel detail_order_cancel Contact_buyer />
+              <Order_Me_Box navigation={navigation} Cause_cancel detail_order_cancel Contact_buyer />
+              <Order_Me_Box navigation={navigation} Cause_cancel detail_order_cancel Contact_buyer />
             </ScrollView>
           </View>
         )
       case 1:
         return (
           <View style={stylesMain.SafeAreaView}>
-            <AppBar1 backArrow navigation={this.props.navigation} titleHead='รายละเอียด' />
+            <AppBar1 backArrow navigation={navigation} titleHead='รายละเอียด' />
             <ScrollView>
               <Seller_Return_Detail />
             </ScrollView>
@@ -53,32 +54,31 @@ export default class Seller_Return extends Component {
       case 2:
         return (
           <View style={stylesMain.SafeAreaView}>
-            <AppBar1 backArrow navigation={this.props.navigation} titleHead='คลังสินค้า' />
+            <AppBar1 backArrow navigation={navigation} titleHead='คลังสินค้า' />
             <ScrollView>
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { margin: 5, }]}>รายการสินค้า</Text>
-              <Treasury_store_Product navigation={this.props.navigation} />
-              <Treasury_store_Product navigation={this.props.navigation} />
-              <Treasury_store_Product navigation={this.props.navigation} />
-              <Treasury_store_Product navigation={this.props.navigation} />
-              <Treasury_store_Product navigation={this.props.navigation} />
-              <Treasury_store_Product navigation={this.props.navigation} />
+              <Treasury_store_Product navigation={navigation} />
+              <Treasury_store_Product navigation={navigation} />
+              <Treasury_store_Product navigation={navigation} />
+              <Treasury_store_Product navigation={navigation} />
+              <Treasury_store_Product navigation={navigation} />
+              <Treasury_store_Product navigation={navigation} />
             </ScrollView>
           </View>
         )
       case 3:
         return (
           <View style={stylesMain.SafeAreaView}>
-            <AppBar1 backArrow navigation={this.props.navigation} titleHead='ยกเลิกสินค้า' />
+            <AppBar1 backArrow navigation={navigation} titleHead='ยกเลิกสินค้า' />
             <ScrollView>
-            <Order_Me_Box navigation={this.props.navigation} cancel_order Cause_cancel detail_order_cancel Contact_buyer />
-            <Order_Me_Box navigation={this.props.navigation} cancel_order Cause_cancel detail_order_cancel Contact_buyer />
-            <Order_Me_Box navigation={this.props.navigation} cancel_order Cause_cancel detail_order_cancel Contact_buyer />
-            <Order_Me_Box navigation={this.props.navigation} cancel_order Cause_cancel detail_order_cancel Contact_buyer />
-            <Order_Me_Box navigation={this.props.navigation} cancel_order Cause_cancel detail_order_cancel Contact_buyer />
+              <Order_Me_Box navigation={navigation} cancel_order Cause_cancel detail_order_cancel Contact_buyer />
+              <Order_Me_Box navigation={navigation} cancel_order Cause_cancel detail_order_cancel Contact_buyer />
+              <Order_Me_Box navigation={navigation} cancel_order Cause_cancel detail_order_cancel Contact_buyer />
+              <Order_Me_Box navigation={navigation} cancel_order Cause_cancel detail_order_cancel Contact_buyer />
+              <Order_Me_Box navigation={navigation} cancel_order Cause_cancel detail_order_cancel Contact_buyer />
             </ScrollView>
           </View>
         )
-
     }
   }
   render() {
@@ -89,16 +89,13 @@ export default class Seller_Return extends Component {
     );
   }
 }
-
 ///--------------------------------------------------------------------------/// รายละเอียดการยกเลิก
-
 export class Seller_Return_Detail extends Component {
   constructor(props) {
     super(props);
     this.state = {
     };
   }
-
   render() {
     return (
       <View style={stylesMain.SafeAreaView}>
@@ -111,7 +108,7 @@ export class Seller_Return_Detail extends Component {
             <View style={stylesMain.FlexRow}>
               <FastImage style={stylesProfileTopic.Order_StorePro}
                 source={{
-                  uri: ip + '/MySQL/uploads/slide/NewStore/luxury_shop1.jpg',
+                  uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop1.jpg`,
                 }}
               />
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { margin: 10, }]}>PPoo</Text>
@@ -122,7 +119,7 @@ export class Seller_Return_Detail extends Component {
               <View style={stylesProfileTopic.Order_Product_Pro}>
                 <FastImage style={stylesMain.BoxProduct1Image}
                   source={{
-                    uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
+                    uri: `${ip}/mysql/uploads/products/2019-03-20-1553064759.jpg`,
                   }}
                 />
               </View>
@@ -143,7 +140,7 @@ export class Seller_Return_Detail extends Component {
                 <FastImage
                   style={stylesMain.BoxProduct1Image}
                   source={{
-                    uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
+                    uri: `${ip}/mysql/uploads/products/2019-03-20-1553064759.jpg`,
                   }}
                 />
               </View>
@@ -152,7 +149,7 @@ export class Seller_Return_Detail extends Component {
                   <FastImage
                     style={stylesSeller.Seller_Return_DetailB_Image}
                     source={{
-                      uri: ip + '/MySQL/uploads/products/2019-03-16-1552756517.jpg',
+                      uri: `${ip}/mysql/uploads/products/2019-03-16-1552756517.jpg`,
                     }}
                   />
                 </View>
@@ -160,7 +157,7 @@ export class Seller_Return_Detail extends Component {
                   <FastImage
                     style={stylesSeller.Seller_Return_DetailB_Image}
                     source={{
-                      uri: ip + '/MySQL/uploads/products/2019-03-16-1552756517.jpg',
+                      uri: `${ip}/mysql/uploads/products/2019-03-16-1552756517.jpg`,
                     }}
                   />
                 </View>
@@ -168,7 +165,7 @@ export class Seller_Return_Detail extends Component {
                   <FastImage
                     style={stylesSeller.Seller_Return_DetailB_Image}
                     source={{
-                      uri: ip + '/MySQL/uploads/products/2019-03-16-1552756517.jpg',
+                      uri: `${ip}/mysql/uploads/products/2019-03-16-1552756517.jpg`,
                     }}
                   />
                 </View>
@@ -198,7 +195,6 @@ export class Seller_Return_Detail extends Component {
   }
 }
 ///--------------------------------------------------------------------------/// คลัง
-
 export class Treasury_store_Product extends Component {
   constructor(props) {
     super(props);
@@ -218,17 +214,20 @@ export class Treasury_store_Product extends Component {
     )
   }
   render() {
+    const { navigation } = this.props
     return (
       <View style={stylesMain.SafeAreaView}>
         <View style={stylesMain.FrameBackground}>
           <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', paddingHorizontal: 10 }]}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
             <View style={[stylesMain.FlexRow, stylesSeller.Treasury_store_Text]}>
-              <TouchableOpacity onPress={this.handleOpen} style={stylesMain.FlexRow}>
+              <TouchableOpacity onPress={() => this.handleOpen()} style={stylesMain.FlexRow}>
                 <IconFontAwesome name='trash-o' size={20} color='#6B87CF' />
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#6B87CF' }]}>ลบ</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => this.props.navigation.push('Seller_Up_Product')} style={stylesMain.FlexRow}>
+              <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                goScreen: 'Seller_Up_Product', navigation
+              })} style={stylesMain.FlexRow}>
                 <IconFeather name='edit' size={20} color='#6B87CF' />
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#6B87CF' }]}>แก้ไข</Text>
               </TouchableOpacity>
@@ -239,7 +238,7 @@ export class Treasury_store_Product extends Component {
               <FastImage
                 style={stylesMain.BoxProduct1Image}
                 source={{
-                  uri: ip + '/MySQL/uploads/products/2019-03-20-1553064759.jpg',
+                  uri: `${ip}/mysql/uploads/products/2019-03-20-1553064759.jpg`,
                 }}
               />
             </View>
@@ -275,10 +274,10 @@ export class Treasury_store_Product extends Component {
           subtitle="Name Product"
           subtitleStyle={stylesFont.FontFamilyText}
           onRequestClose={() => null}
-      >
+        >
           <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around', }]}>
-            <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยกเลิก</SCLAlertButton>
-            <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยืนยัน</SCLAlertButton>
+            <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={() => this.handleClose()} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยกเลิก</SCLAlertButton>
+            <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={() => this.handleClose()} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยืนยัน</SCLAlertButton>
           </View>
         </SCLAlert>
       </View>

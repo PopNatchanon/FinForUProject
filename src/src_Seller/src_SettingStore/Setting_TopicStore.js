@@ -23,95 +23,97 @@ import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_T
 ///----------------------------------------------------------------------------------------------->>>> Ip.
 ///----------------------------------------------------------------------------------------------->>>> Main
 import { AppBar1 } from '../../MainScreen';
+import { NavigationNavigateScreen } from '../../customComponents/Tools';
 
 export default class Setting_TopicStore extends Component {
     PathList() {
-        const selectedIndex = this.props.navigation.getParam('selectedIndex')
+        const { navigation } = this.props
+        const selectedIndex = navigation.getParam('selectedIndex')
         switch (selectedIndex) {
             case 0:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
-                        <Notification navigation={this.props.navigation} />
+                        <AppBar1 backArrow navigation={navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
+                        <Notification navigation={navigation} />
                         {/* แก้ไขเอกสารการจดแจ้ง */}
                     </View>
                 )
             case 1:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='เพิ่มบัญชีธนาคาร' saveBar />
-                        <Edit_Bank navigation={this.props.navigation} />
+                        <AppBar1 backArrow navigation={navigation} titleHead='เพิ่มบัญชีธนาคาร' saveBar />
+                        <Edit_Bank navigation={navigation} />
                         {/* แก้ไขบัญชีธนาคาร */}
                     </View>
                 )
             case 2:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
-                        <Notification_From navigation={this.props.navigation} />
+                        <AppBar1 backArrow navigation={navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
+                        <Notification_From navigation={navigation} />
                         {/* หนังสือจดทะเบียนบริษัท จากกรมพัฒนาธุรกิจการค้า */}
                     </View>
                 )
             case 3:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
-                        <Notification_From navigation={this.props.navigation} DetailHead='สำเนาบัตรประชาชน/พาสปอร์ตของกรรมการผู้มีอำนาจลงนาม' />
+                        <AppBar1 backArrow navigation={navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
+                        <Notification_From navigation={navigation} DetailHead='สำเนาบัตรประชาชน/พาสปอร์ตของกรรมการผู้มีอำนาจลงนาม' />
                     </View>
                 )
             case 4:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
-                        <Notification_From navigation={this.props.navigation} DetailHead='ใบทะเบียนภาษีมูลค่าเพิ่ม' />
+                        <AppBar1 backArrow navigation={navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
+                        <Notification_From navigation={navigation} DetailHead='ใบทะเบียนภาษีมูลค่าเพิ่ม' />
                     </View>
                 )
             case 5:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
-                        <Notification_From navigation={this.props.navigation} DetailHead='ใบจดทะเบียนเครื่องหมายการค้า' />
+                        <AppBar1 backArrow navigation={navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
+                        <Notification_From navigation={navigation} DetailHead='ใบจดทะเบียนเครื่องหมายการค้า' />
                     </View>
                 )
             case 6:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
-                        <Notification_From navigation={this.props.navigation} DetailHead='หนังสือรับรองการเป็นตัวแทนจำหน่าย (ไม่จำเป็นต้องระบุ)' />
+                        <AppBar1 backArrow navigation={navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
+                        <Notification_From navigation={navigation} DetailHead='หนังสือรับรองการเป็นตัวแทนจำหน่าย (ไม่จำเป็นต้องระบุ)' />
                     </View>
                 )
             case 7:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
-                        <Notification_From navigation={this.props.navigation} DetailHead='สำเนาบัญชีธนาคารของผู้ขาย' />
+                        <AppBar1 backArrow navigation={navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
+                        <Notification_From navigation={navigation} DetailHead='สำเนาบัญชีธนาคารของผู้ขาย' />
                     </View>
                 )
             case 8:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
-                        <Notification_From navigation={this.props.navigation} DetailHead='สำเนาบัญชีธนาคารของผู้ขาย' />
+                        <AppBar1 backArrow navigation={navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
+                        <Notification_From navigation={navigation} DetailHead='สำเนาบัญชีธนาคารของผู้ขาย' />
                     </View>
                 )
             case 9:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='ที่อยู่ร้านค้าของฉัน' />
-                        <Setting_Address_Store navigation={this.props.navigation} />
+                        <AppBar1 backArrow navigation={navigation} titleHead='ที่อยู่ร้านค้าของฉัน' />
+                        <Setting_Address_Store navigation={navigation} />
                     </View>
                 )
             case 10:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='เพิ่มเลขพัสดุ' />
+                        <AppBar1 backArrow navigation={navigation} titleHead='เพิ่มเลขพัสดุ' />
                         <Up_Code_Number />
                     </View>
                 )
             case 11:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={this.props.navigation} titleHead='แก้ไขเลขพัสดุ' />
+                        <AppBar1 backArrow navigation={navigation} titleHead='แก้ไขเลขพัสดุ' />
                         <Up_Code_Number />
                     </View>
                 )
@@ -131,12 +133,15 @@ export class Notification extends Component {
         };
     }
     render() {
+        const { navigation } = this.props
         return (
             <View>
                 <View style={[stylesSeller.Seller_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>แก้ไขบัญชีธนาคาร</Text>
                 </View>
-                <TouchableOpacity onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 1 })}>
+                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 1 }, navigation
+                })}>
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>บัญชีธนาคาร</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
@@ -145,40 +150,52 @@ export class Notification extends Component {
                 <View style={[stylesSeller.Seller_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>แก้ไขเอกสารจดแจ้ง</Text>
                 </View>
-                <TouchableOpacity onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 2 })}>
+                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 2 }, navigation
+                })}>
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>
                             หนังสือจดทะเบียนบริษัท จากกรมพัฒนาธุรกิจการค้า</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 3 })}>
+                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 3 }, navigation
+                })}>
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>
                             สำเนาบัตรประชาชน/พาสปอร์ตของกรรมการผู้มีอำนาจลงนาม</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 4 })}>
+                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 4 }, navigation
+                })}>
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ใบทะเบียนภาษีมูลค่าเพิ่ม</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 5 })}>
+                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 5 }, navigation
+                })}>
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ใบจดทะเบียนเครื่องหมายการค้า</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 6 })}>
+                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 6 }, navigation
+                })}>
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>
                             หนังสือรับรองการเป็นตัวแทนจำหน่าย (ไม่จำเป็นต้องระบุ)</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 7 })}>
+                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 7 }, navigation
+                })}>
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>สำเนาบัญชีธนาคารของผู้ขาย</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
@@ -296,7 +313,7 @@ export class Notification_From extends Component {
     }
     // UploadImageData = () => {
     //     const { avatarSource } = this.state
-    //     var uri = [ip, 'sql/uploadimage/updateimage.php'].join('/')
+    //     var uri = `${ip}/sql/uploadimage/updateimage.php`
     //     avatarSource && (
     //         fetch(uri, {
     //             method: "POST",
@@ -419,7 +436,7 @@ export class Notification_From extends Component {
                                         )
                                     }),
                                     avatarSource.length < 7 &&
-                                    <TouchableOpacity onPress={this.UploadImageMultiple} key={'upload'}>
+                                    <TouchableOpacity onPress={() => this.UploadImageMultiple()} key={'upload'}>
                                         <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>
                                             <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
                                                 <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
@@ -428,7 +445,7 @@ export class Notification_From extends Component {
                                         </View>
                                     </TouchableOpacity>
                                 ] :
-                                    <TouchableOpacity onPress={this.UploadImageMultiple}>
+                                    <TouchableOpacity onPress={() => this.UploadImageMultiple()}>
                                         <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>
                                             <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
                                                 <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
@@ -493,12 +510,13 @@ export class Setting_Address_Store extends Component {
         };
     }
     render() {
+        const { navigation } = this.props
         return (
             <View>
                 <Address_Customar MainAddress />
                 <Address_Customar />
                 <View style={{ alignItems: 'center', justifyContent: 'flex-end', height: 475 }}>
-                    <TouchableOpacity onPress={() => this.props.navigation.push('Customer_account')}>
+                    <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Customer_account', navigation })}>
                         <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { color: '#FFFFFF' }]}>เพิ่มที่อยู่</Text>
                         </View>
@@ -551,7 +569,7 @@ export class Up_Code_Number extends Component {
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ยกเลิก</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={this.handleOpen}>
+                        <TouchableOpacity onPress={() => this.handleOpen()}>
                             <View style={stylesSeller.BottomSheet_Botton_OK}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตกลง</Text>
                             </View>
@@ -569,8 +587,8 @@ export class Up_Code_Number extends Component {
                     onRequestClose={() => null}
                 >
                     <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
-                        <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยกเลิก</SCLAlertButton>
-                        <SCLAlertButton theme="success" textStyle={stylesFont.FontFamilyText} onPress={this.handleClose} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยืนยัน</SCLAlertButton>
+                        <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={() => this.handleClose()} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยกเลิก</SCLAlertButton>
+                        <SCLAlertButton theme="success" textStyle={stylesFont.FontFamilyText} onPress={() => this.handleClose()} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยืนยัน</SCLAlertButton>
                     </View>
                 </SCLAlert>
             </View>

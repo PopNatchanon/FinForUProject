@@ -15,7 +15,7 @@ import ststylePromotionDeal from '../../style/stylePromotion-src/styleDealScreen
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, Slide, } from '../MainScreen';
 import { Button_Bar, } from './DealScreen';
-import { TabBar, GetData, GetServices, LoadingScreen, } from '../tools/Tools';
+import { TabBar, GetData, GetServices, LoadingScreen, NavigationNavigateScreen, } from '../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -37,7 +37,7 @@ export default class CampaignScreen extends Component {
   render() {
     const { navigation } = this.props
     const { activeGetCurrentUser, activeDataService, currentUser, dataService, } = this.state
-    var uri = finip + '/campaign/campaign_data';
+    var uri = `${finip}/campaign/campaign_data`
     var dataBody = {
       "id_category": ""
     }
@@ -129,10 +129,10 @@ export class CampaignBody extends Component {
     }
   }
   get Campaign() {
-    const { dataService, } = this.props
+    const { dataService, navigation } = this.props
     // console.log('CampaignBody')
     // console.log(dataService)
-    var dataMySQL = [finip, dataService.image_path, dataService.image].join('/');
+    var dataMySQL = `${finip}/${dataService.image_path}/${dataService.image}`;
     return (
       <View style={ststylePromotionDeal.CampaignBody}>
         <View style={[ststylePromotionDeal.CampaignBody_BoxImage, { padding: 5 }]}>
@@ -147,20 +147,23 @@ export class CampaignBody extends Component {
           <View style={ststylePromotionDeal.CampaignBody_BoxText}>
             <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>{dataService.name} </Text>
             <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>{dataService.description}</Text>
-            <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>วันหมดอายุ : {dataService.end}</Text>
+            <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>{`วันหมดอายุ : ${dataService.end}`}</Text>
           </View>
           <View style={[ststylePromotionDeal.CampaignBody_Icon_Button, stylesMain.ItemCenterVertical]}>
             <View style={[ststylePromotionDeal.CampaignBody_Icon, stylesMain.ItemCenterVertical]}>
               <IconEntypo name='share' size={20} color='#FFFFFF' />
             </View>
-            <TouchableOpacity onPress={() => this.props.navigation.push('Detail_Campaign', { selectedIndex: 0, id_campaign: dataService.id_campaign })}>
+            <TouchableOpacity onPress={() => NavigationNavigateScreen({
+              goScree: 'Detail_Campaign', setData: { selectedIndex: 0, id_campaign: dataService.id_campaign }, navigation
+            })}>
               <View style={[ststylePromotionDeal.CampaignBody_Button, stylesMain.ItemCenterVertical]}>
-                <Text style={[stylesFont.FontFamilyBold, ststylePromotionDeal.CampaignBody_ButtonText, stylesMain.ItemCenterVertical]}>รายละเอียด</Text>
+                <Text style={[stylesFont.FontFamilyBold, ststylePromotionDeal.CampaignBody_ButtonText, stylesMain.ItemCenterVertical]}>
+                  รายละเอียด</Text>
               </View>
             </TouchableOpacity>
           </View>
         </View>
-      </View>
+      </View >
     )
   }
   render() {

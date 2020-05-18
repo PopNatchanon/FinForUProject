@@ -40,7 +40,6 @@ export default StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: '100%',
-        height: 45,
         backgroundColor: '#FFF',
         marginTop: 5,
         paddingLeft: 10,
@@ -330,5 +329,7 @@ export default StyleSheet.create({
         paddingHorizontal: 10,
         backgroundColor: '#FFFFFF',
         marginTop: 5
-    }
+    },
+    //   ------------------>
+
 }) 

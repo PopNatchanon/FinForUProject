@@ -544,7 +544,7 @@ export class Seller_Up_ProductDetail extends Component {
           </TouchableOpacity>
           <TouchableOpacity activeOpacity={1} onPress={() => {
             [
-              this.SelectSheet.close(), NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 13 }, navigation })
+              this.SelectSheet.close(), NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 14 }, navigation })
             ]
           }}>
             <View style={stylesSeller.BottomSheet_Botton_OK}>

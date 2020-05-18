@@ -298,7 +298,7 @@ export default StyleSheet.create({
     marginLeft: 10,
   },
   BoxStore2Box2: {
-    width:width * 0.45,
+    width: width * 0.45,
     borderColor: '#ECECEC',
     marginTop: 10,
     marginBottom: 8,
@@ -558,34 +558,30 @@ export default StyleSheet.create({
   },
   ///------------------------------------------------------------------------------------------///
   Popular_Box_B: {
-    width: 175,
-    height: 140,
+    width: 176,
+    height: height * 0.22,
     flexDirection: 'column',
-    marginLeft: 5,
-    marginVertical: 5,
+    marginLeft: 10,
     backgroundColor: '#EDEDED',
-    paddingHorizontal: 2,
   },
   Popular_Box_D: {
     marginHorizontal: 3,
-    marginTop: 5,
+    marginVertical: 10,
     height: 80,
     width: 80,
   },
   Popular_image_Box: {
-    height: 80,
-    width: 80,
+    height: '100%',
+    width: '100%',
     backgroundColor: '#FFFFFF',
-    borderColor: '#EAEAEA',
-    borderWidth: 1,
     borderRadius: 5,
   },
   PopularText_A: {
     backgroundColor: '#0A55A6',
     borderColor: '#ECECEC',
     borderWidth: 0.5,
-    height: 20,
-    width: 100,
+    height: height * 0.04,
+    width: width * 0.20,
 
   },
   Image_icon_top: {
@@ -667,11 +663,12 @@ export default StyleSheet.create({
   Second_StoreFin_BoxHead: {
     flexDirection: 'row',
     width: 'auto',
-    height: 30,
+    height: height * 0.05,
+    // height: 'auto',
+    // aspectRatio: 6,
     justifyContent: 'space-between',
   },
   Second_StoreFin_Image: {
-    width: width,
     marginLeft: 6,
     flexDirection: 'row',
   },
@@ -762,7 +759,8 @@ export default StyleSheet.create({
     paddingVertical: 10
   },
   Supermarket_Store: {
-    height: 170,
+    height: 'auto',
+    aspectRatio: 2.5,
     padding: 5,
     justifyContent: 'space-between',
     marginTop: 10
@@ -775,7 +773,8 @@ export default StyleSheet.create({
   Supermarket_BrandBox: {
     width: '100%',
     flexDirection: 'row',
-    height: 100,
+    height: 'auto',
+    aspectRatio: 5.5,
     justifyContent: 'space-around'
   },
   Supermarket_Brand_Image: {
@@ -786,7 +785,7 @@ export default StyleSheet.create({
   Supermarket_Brand_Shop: {
     borderColor: '#ECECEC',
     borderWidth: 1,
-    width: 110,
+    width: width * 0.30,
     padding: 5,
     borderRadius: 5,
     marginLeft: 5,

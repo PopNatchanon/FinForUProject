@@ -1,13 +1,18 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-    Dimensions, SafeAreaView, ScrollView, ImageBackground, Text, TextInput, TouchableOpacity, View,
+    Dimensions, SafeAreaView, ScrollView, ImageBackground, Text, TextInput, TouchableOpacity, View, Alert
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import { CheckBox } from 'react-native-elements';
 import BottomSheet from "react-native-raw-bottom-sheet";
+import PINCode from '@haskkor/react-native-pincode';
+import DatePicker from 'react-native-datepicker';
+import { PinResultStatus, hasUserSetPinCode } from "@haskkor/react-native-pincode/index";
+import delay from "@haskkor/react-native-pincode/src/delay";
+import PinCodeEnter from "@haskkor/react-native-pincode/index";
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -93,25 +98,8 @@ export default class Seller_Topic extends Component {
             case 7:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={navigation} titleHead='FIN แคมเปญ' />
-                        <View style={{ backgroundColor: '#FFFFFF' }}>
-                            <View style={{ flexDirection: 'row', padding: 5, borderColor: '#EAEAEA', borderWidth: 1 }}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { margin: 10 }]}> เลือกสินค้า </Text>
-                                <View style={{ flexDirection: 'row', width: '65%', paddingLeft: 10, borderColor: '#EAEAEA', borderRadius: 5, borderWidth: 1, }}>
-                                    <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { width: '90%' }]}
-                                        placeholder=""
-                                        value={this.state.text}
-                                        onChangeText={(text) => this.setState({ text })}>
-                                    </TextInput>
-                                    <TouchableOpacity>
-                                        <IconAntDesign RightItem name="search1" size={20} style={{ marginVertical: 10 }} />
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </View>
-                        <Seller_Fin_Campaign_Product />
-                        <Seller_Fin_Campaign_Product />
-                        <Seller_Fin_Campaign_ProductSelect />
+                        <AppBar1 backArrow navigation={navigation} titleHead='เลือกสินค้า' />
+                        <Seller_ProductSelect />
                     </>
                 )
             case 8:
@@ -131,38 +119,25 @@ export default class Seller_Topic extends Component {
             case 10:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={navigation} titleHead='ถอนเงิน' />
-                        <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, , { margin: 5 }]}>รหัสผ่าน</Text>
-                            <View style={{ width: '100%', borderColor: '#EAEAEA', borderRadius: 5, borderWidth: 1, height: 50 }}>
-                                <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}
-                                    placeholder=""
-                                    maxLength={10}
-                                    value={this.state.text}
-                                    onChangeText={(text) => this.setState({ text })}>
-                                </TextInput>
-                            </View>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, , { color: '#FF0000' }]}>*ระบบจะส่งรหัสยืนยันตัวตนไปที่อีเมล</Text>
-                        </View>
-                        <View style={{ justifyContent: 'flex-end', flex: 1, alignItems: 'center' }}>
-                            <TouchableOpacity activeOpacity={1}
-                                onPress={() => NavigationNavigateScreen({
-                                    goScreen: 'Seller_Topic', setData: { selectedIndex: 11 }, navigation
-                                })}
-                                style={[stylesMain.ItemCenter, { width: '80%', height: 50, backgroundColor: '#0A55A6', borderRadius: 5, marginVertical: 10 }]}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, , { color: '#FFFFFF' }]}>เข้าสู่ระบบ</Text>
-                            </TouchableOpacity>
-                        </View>
+                        <AppBar1 backArrow navigation={navigation} titleHead='PIN' />
+                        <PIN_Code navigation={navigation} />
                     </>
                 )
             case 11:
                 return (
                     <>
                         <AppBar1 backArrow navigation={navigation} titleHead='ถอนเงิน' />
-                        <Confirm_Bank />
+                        <Confirm_Bank navigation={navigation} />
                     </>
                 )
             case 12:
+                return (
+                    <>
+                        <AppBar1 backArrow navigation={navigation} titleHead='ถอนเงิน' />
+                        <PIN_Code_Mail navigation={navigation} />
+                    </>
+                )
+            case 13:
                 return (
                     <>
                         <AppBar1 backArrow navigation={navigation} titleHead='ประวัติการถอนเงิน' />
@@ -172,11 +147,41 @@ export default class Seller_Topic extends Component {
                         <Withdrawal_history />
                     </>
                 )
-            case 13:
+            case 14:
                 return (
                     <>
                         <AppBar1 backArrow navigation={navigation} titleHead='เพิ่มสินค้า' saveBar />
                         <Up_Product_Select />
+                    </>
+                )
+            case 15:
+                return (
+                    <>
+                        <AppBar1 backArrow navigation={navigation} titleHead='โค้ดส่วนลด' />
+                        <Code_Sale navigation={navigation} />
+                    </>
+                )
+            case 16:
+                return (
+                    <>
+                        <AppBar1 backArrow navigation={navigation} titleHead='ข้อมูลโค้ดส่วนลด' />
+                        <Form_Code_Sale navigation={navigation} />
+                    </>
+                )
+            case 17:
+                return (
+                    <>
+                        <AppBar1 UpBankBar backArrow navigation={navigation} titleHead='บัญชีธนาคาร' />
+                        <Bank_Totel navigation={navigation} Bank_True Bank_Default />
+                        <Bank_Totel navigation={navigation} Bank_False Bank_Edit />
+
+                    </>
+                )
+            case 18:
+                return (
+                    <>
+                        <AppBar1 deleteBar backArrow navigation={navigation} titleHead='บัญชีธนาคาร' />
+                        <Bank_detall />
                     </>
                 )
         }
@@ -189,6 +194,102 @@ export default class Seller_Topic extends Component {
         );
     }
 }
+///----------------------------------------------------------------------------------------------->>>>
+export class PIN_Code extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            pinCodeStatus: 'enter',
+        };
+        this.finishProcess = this.finishProcess.bind(this);
+        this.handleResultEnterPin = this.handleResultEnterPin.bind(this);
+        // this.finishProcess = this.finishProcess.bind(this)
+    }
+    finishProcess(pinCode) {
+        const { navigation } = this.props
+        const Withdraw = navigation.getParam("Withdraw")
+        // console.log('finishProcess', pinCode)
+        NavigationNavigateScreen({
+            value: 'Seller_Topic',
+            value2: { selectedIndex: Withdraw == "Withdraw" ? 11 : 17, }, navigation
+        })
+    };
+    renderForgot() {
+        return (
+            <TouchableOpacity
+                onPress={() =>
+                    Alert.alert('Forgot Password')}
+            >
+                <Text>Forgot?</Text>
+            </TouchableOpacity>
+        )
+    }
+    handleResultEnterPin(pinCode) {
+        console.log('handleResultEnterPin', pinCode)
+        this.setState({ pinCodeStatus: 'failure' });
+    };
+    onFail(pinCode) {
+        console.log('onFail', pinCode)
+    };
+    render() {
+        return (
+            <PINCode status={'enter'}
+                pinCodeVisible={true}
+                disableLockScreen
+                passwordLength={6}
+                bottomLeftComponent={this.renderForgot()}
+                buttonDeleteText={'delete'}
+                storedPin='123456'
+                touchIDDisabled
+                finishProcess={(pinCode) => this.finishProcess(pinCode)}
+                handleResultEnterPin={(code) => this.handleResultEnterPin(code)}
+                onFail={(attempt) => this.onFail(attempt)}
+            />
+        );
+    }
+}
+///----------------------------------------------------------------------------------------------->>>>
+export class PIN_Code_Mail extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            pinCodeStatus: 'enter',
+        };
+        this.finishProcess = this.finishProcess.bind(this);
+        this.handleResultEnterPin = this.handleResultEnterPin.bind(this);
+        // this.finishProcess = this.finishProcess.bind(this)
+    }
+    finishProcess(pinCode) {
+        const { navigation } = this.props
+        console.log('finishProcess', pinCode)
+        NavigationNavigateScreen({
+            value: 'Seller_Topic', value2: { selectedIndex: 9, }, navigation
+        })
+    };
+    handleResultEnterPin(pinCode) {
+        console.log('handleResultEnterPin', pinCode)
+        this.setState({ pinCodeStatus: 'failure' });
+    };
+    onFail(pinCode) {
+        console.log('onFail', pinCode)
+    };
+    render() {
+        return (
+            <PINCode status={'enter'}
+                pinCodeVisible={true}
+                disableLockScreen
+                passwordLength={6}
+                buttonDeleteText={'delete'}
+                storedPin='111111'
+                touchIDDisabled
+                finishProcess={(pinCode) => this.finishProcess(pinCode)}
+                handleResultEnterPin={(code) => this.handleResultEnterPin(code)}
+                onFail={(attempt) => this.onFail(attempt)}
+            />
+        );
+    }
+}
+
 ///----------------------------------------------------------------------------------------------->>>>
 export class Seller_Advertisement extends Component {
     constructor(props) {
@@ -213,6 +314,14 @@ export class Seller_Advertisement extends Component {
                 })}>
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>FIN แคมเปญ</Text>
+                        <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Seller_Topic', setData: { selectedIndex: 15 }, navigation
+                })}>
+                    <View style={stylesSeller.Seller_Setting_BoxTopic}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>โค้ดส่วนลด</Text>
                         <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
@@ -568,8 +677,10 @@ export class Seller_Fin_Campaign extends Component {
         );
     }
 }
-///---------------------------------------------------------------------------------------------->>>>
-export class Seller_Fin_Campaign_Product extends Component {
+
+///----------------------------------------------------------------------------------------------->>>>
+
+export class Seller_Product extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -607,7 +718,8 @@ export class Seller_Fin_Campaign_Product extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>>
-export class Seller_Fin_Campaign_ProductSelect extends Component {
+
+export class Seller_ProductSelect extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -615,28 +727,48 @@ export class Seller_Fin_Campaign_ProductSelect extends Component {
     }
     render() {
         return (
-            <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', backgroundColor: '#FFFFFF' }]}>
-                <View style={stylesMain.FlexRow}>
-                    <CheckBox
-                        checked={this.state.checked}
-                        onPress={() => this.setState({ checked: !this.state.checked, checked2: !this.state.checked2 })}
-                    />
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 15 }]}>เลือกทั้งหมด</Text>
-                </View>
-                <View style={[stylesMain.FlexRow, { marginTop: 15, marginRight: 10 }]}>
-                    <TouchableOpacity>
-                        <View style={[stylesMain.ItemCenter, { borderColor: '#0A55A6', borderWidth: 1, padding: 5, width: 100, borderRadius: 5 }]}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#0A55A6' }]}>ยกเลิก</Text>
+            <>
+                <ScrollView>
+                    <View style={{ backgroundColor: '#FFFFFF' }}>
+                        <View style={{ flexDirection: 'row', padding: 5, borderColor: '#EAEAEA', borderWidth: 1 }}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { margin: 10 }]}> เลือกสินค้า </Text>
+                            <View style={{ flexDirection: 'row', width: '65%', paddingLeft: 10, borderColor: '#EAEAEA', borderRadius: 5, borderWidth: 1, }}>
+                                <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { width: '90%' }]}
+                                    placeholder=""
+                                    value={this.state.text}
+                                    onChangeText={(text) => this.setState({ text })}>
+                                </TextInput>
+                                <TouchableOpacity>
+                                    <IconAntDesign RightItem name="search1" size={20} style={{ marginVertical: 10 }} />
+                                </TouchableOpacity>
+                            </View>
                         </View>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity>
-                        <View style={[stylesMain.ItemCenter, { borderColor: '#0A55A6', borderWidth: 1, backgroundColor: '#0A55A6', padding: 5, marginLeft: 10, borderRadius: 5, width: 100 }]}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตกลง</Text>
-                        </View>
-                    </TouchableOpacity>
+                    </View>
+                    <Seller_Product />
+                    <Seller_Product />
+                </ScrollView>
+                <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', backgroundColor: '#FFFFFF' }]}>
+                    <View style={stylesMain.FlexRow}>
+                        <CheckBox
+                            checked={this.state.checked}
+                            onPress={() => this.setState({ checked: !this.state.checked, checked2: !this.state.checked2 })}
+                        />
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 15 }]}>เลือกทั้งหมด</Text>
+                    </View>
+                    <View style={[stylesMain.FlexRow, { marginVertical: 10, marginRight: 10 }]}>
+                        <TouchableOpacity>
+                            <View style={[stylesMain.ItemCenter, { borderColor: '#0A55A6', borderWidth: 1, padding: 5, width: 100, borderRadius: 5 }]}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#0A55A6' }]}>ยกเลิก</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <View style={[stylesMain.ItemCenter, { borderColor: '#0A55A6', borderWidth: 1, backgroundColor: '#0A55A6', padding: 5, marginLeft: 10, borderRadius: 5, width: 100 }]}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตกลง</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
+            </>
         );
     }
 }
@@ -741,7 +873,7 @@ export class Withdraw_money extends Component {
         return (
             <View style={{ backgroundColor: '#FFFFFF', marginTop: 5 }}>
                 <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
-                    goScreen: 'Seller_Topic', setData: { selectedIndex: 12 }, navigation
+                    goScreen: 'Seller_Topic', setData: { selectedIndex: 13 }, navigation
                 })}>
                     <View style={stylesProfile.ListMenuList}>
                         <View style={stylesProfile.ListMenuListSub}>
@@ -753,7 +885,7 @@ export class Withdraw_money extends Component {
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
-                    goScreen: 'Seller_Topic', setData: { selectedIndex: 10 }, navigation
+                    goScreen: 'Seller_Topic', setData: { selectedIndex: 10, Withdraw: 'Withdraw' }, navigation
                 })}>
                     <View style={stylesProfile.ListMenuList}>
                         <View style={stylesProfile.ListMenuListSub}>
@@ -764,16 +896,18 @@ export class Withdraw_money extends Component {
                         <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                     </View>
                 </TouchableOpacity>
-                {/* <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.push('Setting_TopicStore', { selectedIndex: 1 })}>
+                <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Seller_Topic', setData: { selectedIndex: 10, Withdraw: 'Bank' }, navigation
+                })}>
                     <View style={stylesProfile.ListMenuList}>
                         <View style={stylesProfile.ListMenuListSub}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10 }]}>
-                                เพิ่มบัญชี
+                                บัญชีธนาคาร
                             </Text>
                         </View>
                         <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
                     </View>
-                </TouchableOpacity> */}
+                </TouchableOpacity>
             </View>
         );
     }
@@ -788,22 +922,9 @@ export class Confirm_Bank extends Component {
         };
     }
     render() {
+        const { navigation } = this.props
         return (
             <>
-                <View>
-                    <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, , { margin: 5 }]}>การยืนยันตัวตน</Text>
-                        <View style={{ width: '100%', borderColor: '#EAEAEA', borderRadius: 5, borderWidth: 1, height: 50 }}>
-                            <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}
-                                placeholder=""
-                                maxLength={10}
-                                value={this.state.text}
-                                onChangeText={(text) => this.setState({ text })}>
-                            </TextInput>
-                        </View>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, , { color: '#FF0000' }]}>*รหัสยืนยันตัวตนจากอีเมลของท่าน</Text>
-                    </View>
-                </View>
                 <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10, paddingBottom: 10 }]}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, , { margin: 5 }]}>ถอนเงินไปที่</Text>
                     <View style={stylesMain.FlexRow}>
@@ -833,7 +954,9 @@ export class Confirm_Bank extends Component {
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,]}>ระยะเวลาดำเนินการ : 3-5 วันทำการ</Text>
                 </View>
                 <View style={{ justifyContent: 'flex-end', flex: 1, alignItems: 'center' }}>
-                    <TouchableOpacity //activeOpacity={1} onPress={() => this.props.navigation.push('Seller_Topic', { selectedIndex: 11 })}
+                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Seller_Topic', setData: { selectedIndex: 12 }, navigation
+                    })}
                         style={[stylesMain.ItemCenter, { width: '80%', height: 50, backgroundColor: '#0A55A6', borderRadius: 5, marginVertical: 10 }]}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, , { color: '#FFFFFF' }]}>ยืนยันการถอนเงิน</Text>
                     </TouchableOpacity>
@@ -1050,3 +1173,364 @@ export class Up_Product_Select extends Component {
         );
     }
 }
+///----------------------------------------------------------------------------------------------->>>>
+export class Code_Sale extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedIndex: 0
+        };
+    }
+
+    get Code_BOX() {
+        return (
+            <View style={[stylesMain.FrameBackground, { padding: 10 }]}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>BirthDAY</Text>
+                <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', width: '60%' }]}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>25-02-2020 15:00</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>25-02-2020 16:00</Text>
+                </View>
+                <View style={[stylesMain.FlexRow, { justifyContent: 'space-around', width: '50%' }]}>
+                    <View>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>โค้ดส่วนลด</Text>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>ประเภทโค้ด</Text>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>ราคาขั้นต่ำ</Text>
+                    </View>
+                    <View>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>FINs00wk</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>ลดบาท</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>฿100</Text>
+                    </View>
+                </View>
+                <View style={[stylesMain.FlexRow, { borderBottomWidth: 2, borderTopWidth: 2, justifyContent: 'space-around', paddingVertical: 10, marginVertical: 10 }]}>
+                    <View style={{ width: '30%', }}>
+                        <View style={[stylesMain.ItemCenter, { backgroundColor: '#0A55A6', paddingVertical: 5, borderRadius: 5 }]}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#FFFFFF' }]}>จำนวน </Text>
+                        </View>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'center', marginTop: 5 }]}>100</Text>
+                    </View>
+                    <View style={{ width: '30%' }}>
+                        <View style={[stylesMain.ItemCenter, { backgroundColor: '#0A55A6', paddingVertical: 5, borderRadius: 5 }]}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#FFFFFF' }]}>ผู้ซื้อกดรับ </Text>
+                        </View>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'center', marginTop: 5 }]}>50</Text>
+                    </View>
+                    <View style={{ width: '30%' }}>
+                        <View style={[stylesMain.ItemCenter, { backgroundColor: '#0A55A6', paddingVertical: 5, borderRadius: 5 }]}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#FFFFFF' }]}>ใช้แล้ว </Text>
+                        </View>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'center', marginTop: 5 }]}>20</Text>
+                    </View>
+                </View>
+                <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', marginBottom: 10 }]}>
+                    <TouchableOpacity style={[stylesMain.ItemCenter, { borderColor: '#0A55A6', borderWidth: 1, width: '49%' }]}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#0A55A6' }]}>แก้ไข</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[stylesMain.ItemCenter, { borderColor: '#0A55A6', borderWidth: 1, width: '49%' }]}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#0A55A6' }]}>ลบ</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        )
+    }
+    updataIndex(value) {
+        this.setState({ selectedIndex: value.selectedIndex })
+    }
+    render() {
+        const { navigation } = this.props
+        const item = [{
+            name: 'เร็วๆ นี้'
+        }, {
+            name: 'กำลังดำเนินการ'
+        }, {
+            name: 'หมดอายุแล้ว'
+        }]
+        return (
+            <>
+                <View style={stylesMain.FrameBackground}>
+                    <TabBar
+                        sendData={this.updataIndex.bind(this)}
+                        setVertical={4}
+                        item={item}
+                    />
+                </View>
+                <ScrollView>
+                    {this.Code_BOX}
+                </ScrollView>
+                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Seller_Topic', setData: { selectedIndex: 16 }, navigation
+                })}
+                    style={[stylesMain.ItemCenter, { backgroundColor: '#0A55A6', paddingVertical: 10 }]}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>
+                        สร้างโปรโมชันส่วนลด
+                    </Text>
+                </TouchableOpacity>
+            </>
+        );
+    }
+}
+///----------------------------------------------------------------------------------------------->>>>
+export class Form_Code_Sale extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+    setStateChecked = (checked, checked2) => {
+        this.setState({ checked, checked2 })
+    }
+    render() {
+        const { navigation } = this.props
+        const { name, code, MFG_Day, MFG_Time, EXP_Day, EXP_Time, checked, checked2, min_Price } = this.state
+        return (
+            <ScrollView>
+                <View style={stylesSeller.Seller_Up_ProductDetail}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '20%' }]}>ชื่อโค้ด</Text>
+                    <TextInput
+                        style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '80%', textAlign: 'right' }]}
+                        placeholder="สูงสุด100ตัวอักษร"
+                        maxLength={100}
+                        value={name}
+                        onChangeText={(name) => this.setState({ name })}></TextInput>
+                </View>
+                <View style={stylesSeller.Seller_Up_ProductDetail}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '30%' }]}>โค้ดส่วนลด</Text>
+                    <View style={[stylesMain.ItemCenter, { backgroundColor: '#EAEAEA', width: '30%', paddingVertical: 5 }]}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>Fin</Text>
+                    </View>
+                    <TextInput
+                        style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'right' }]}
+                        placeholder="สูงสุด6ตัวอักษร"
+                        maxLength={6}
+                        value={code}
+                        onChangeText={(code) => this.setState({ code })}></TextInput>
+                </View>
+                <View style={stylesSeller.Seller_Up_ProductDetail}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '20%' }]}>วันที่เริ่มต้น</Text>
+                    <DatePicker
+                        style={{ width: 300 }}
+                        date={MFG_Day}
+                        mode="date"
+                        placeholder="select date"
+                        format="DD-MM-YYYY"
+                        minDate="01-12-1920"
+                        maxDate="01-06-2020"
+                        confirmBtnText="Confirm"
+                        cancelBtnText="Cancel"
+                        customStyles={{
+                            dateIcon: {
+                                position: 'absolute',
+                                left: 0,
+                                top: 4,
+                                marginLeft: 0
+                            },
+                        }}
+                        onDateChange={(MFG_Day) => { this.setState({ MFG_Day }) }}
+                    />
+                </View>
+                <View style={stylesSeller.Seller_Up_ProductDetail}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '20%' }]}>เวลาเริ่มต้น</Text>
+                    <TextInput
+                        style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '80%', textAlign: 'right' }]}
+                        placeholder="ระบุ"
+                        maxLength={6}
+                        value={MFG_Time}
+                        onChangeText={(MFG_Time) => this.setState({ MFG_Time })}></TextInput>
+                </View>
+                <View style={stylesSeller.Seller_Up_ProductDetail}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '20%' }]}>วันที่สิ้นสุด</Text>
+                    <DatePicker
+                        style={{ width: 300 }}
+                        date={EXP_Day}
+                        mode="date"
+                        placeholder="select date"
+                        format="DD-MM-YYYY"
+                        minDate="01-12-1920"
+                        maxDate="01-06-2020"
+                        confirmBtnText="Confirm"
+                        cancelBtnText="Cancel"
+                        customStyles={{
+                            dateIcon: {
+                                position: 'absolute',
+                                left: 0,
+                                top: 4,
+                                marginLeft: 0
+                            },
+                        }}
+                        onDateChange={(EXP_Day) => { this.setState({ EXP_Day }) }}
+                    />
+                </View>
+                <View style={stylesSeller.Seller_Up_ProductDetail}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '20%' }]}>เวลาสิ้นสุด</Text>
+                    <TextInput
+                        style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '80%', textAlign: 'right' }]}
+                        placeholder="ระบุ"
+                        maxLength={6}
+                        value={EXP_Time}
+                        onChangeText={(EXP_Time) => this.setState({ EXP_Time })}></TextInput>
+                </View>
+                <View style={stylesSeller.Seller_Up_ProductDetail}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '20%' }]}>ประเภทโค้ด</Text>
+                    <View style={stylesMain.FlexRow}>
+                        <CheckBox
+                            checked={checked}
+                            onPress={() => this.setStateChecked(true, false)} />
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10, }]}>
+                            ลด%</Text>
+                        <CheckBox
+                            checked={checked2}
+                            onPress={() => this.setStateChecked(false, true)} />
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10, }]}>
+                            ลดบาท</Text>
+                    </View>
+                </View>
+                <View style={stylesSeller.Seller_Up_ProductDetail}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '20%' }]}>ราคาขั้นต่ำ</Text>
+                    <TextInput
+                        style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '80%', textAlign: 'right' }]}
+                        placeholder="ระบุราคาขั้นต่ำในการใช้คูปอง"
+                        maxLength={10}
+                        value={min_Price}
+                        onChangeText={(min_Price) => this.setState({ min_Price })}></TextInput>
+                </View>
+                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Seller_Topic', setData: { selectedIndex: 7 }, navigation
+                })}
+                    style={stylesSeller.Seller_Up_ProductDetail}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '30%' }]}>เลือกสินค้าที่ใช้ได้</Text>
+                    <IconEntypo name='chevron-right' size={40} color='#0A55A6' />
+                </TouchableOpacity>
+            </ScrollView>
+        );
+    }
+}
+///--------------------------------------------------------------------------///
+export class Bank_Totel extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
+    render() {
+        const { Bank_True, Bank_False, Bank_Default, Bank_Edit, navigation } = this.props
+        return (
+            <TouchableOpacity
+                onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Seller_Topic', setData: { selectedIndex: 18 }, navigation
+                })}
+                style={[stylesMain.FlexRow, {
+                    backgroundColor: '#FFFFFF', width: '95%', padding: 10,
+                    borderColor: '#C4C4C4', borderWidth: 1, borderRadius: 5,
+                    marginTop: 10, height: 'auto', aspectRatio: 3, justifyContent: 'space-between'
+                }]}>
+                <View style={[stylesMain.FlexRow, { width: '70%' }]}>
+                    <View style={{ height: 80, width: 80 }}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: `${ip}/MySQL/uploads/message/BBL-LOGO.jpg`,
+                            }}
+                        />
+                    </View>
+                    <View style={{ marginLeft: 10 }}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>กรุงไทย (KTB)</Text>
+                        {
+                            Bank_True &&
+                            <View style={stylesMain.FlexRow}>
+                                <IconAntDesign name='checkcircle' size={15} color='#1BBE83' />
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#1BBE83', marginLeft: 10, }]}>ตรวจสอบแล้ว</Text>
+                            </View>
+                        }
+                        {
+                            Bank_False &&
+                            <View style={stylesMain.FlexRow}>
+                                <IconAntDesign name='closecircleo' size={15} color='#EC3535' />
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#EC3535', marginLeft: 10, }]}>ไม่ผ่านการตรวจสอบ</Text>
+                            </View>
+                        }
+
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>*******345</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>ยนะ ชนะ</Text>
+                    </View>
+                </View>
+                <View style={{ justifyContent: 'flex-end' }}>
+                    {
+                        Bank_Default &&
+                        <View style={{
+                            borderColor: '#1BBE83', borderWidth: 1,
+                            backgroundColor: '#ABEAD3', paddingHorizontal: 10, borderRadius: 5
+                        }}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#1BBE83' }]}>ค่าเริ่มต้น</Text>
+                        </View>
+                    }
+                    {
+                        Bank_Edit &&
+                        <View style={{
+                            borderColor: '#BE1B68', borderWidth: 1,
+                            backgroundColor: '#EAABAD', paddingHorizontal: 10, borderRadius: 5
+                        }}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#BE1B68' }]}>ค่าเริ่มต้น</Text>
+                        </View>
+                    }
+                </View>
+            </TouchableOpacity>
+        )
+    }
+}
+///--------------------------------------------------------------------------///
+export class Bank_detall extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
+    render() {
+        return (
+            <>
+                <ScrollView>
+                    <View style={stylesMain.ItemCenter}>
+                        <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', width: '95%', marginTop: 10, padding: 10 }]}>
+                            <IconAntDesign name='checkcircle' size={20} color='#1BBE83' />
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#1BBE83', marginLeft: 10, }]}>ตรวจสอบแล้ว</Text>
+                        </View>
+                        <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', width: '95%', marginTop: 10, padding: 10 }]}>
+                            <View>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>ชื่อธนาคาร</Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10 }]}>กรุงไทย (KTB)</Text>
+                            </View>
+                            <View style={{ height: 60, width: 60, marginLeft: 10 }}>
+                                <FastImage
+                                    style={stylesMain.BoxProduct1Image}
+                                    source={{
+                                        uri: ip + '/MySQL/uploads/message/BBL-LOGO.jpg',
+                                    }}
+                                />
+                            </View>
+                        </View>
+                        <View style={{ backgroundColor: '#FFFFFF', width: '95%', marginTop: 10, padding: 10 }}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>ชื่อบัญชีธนาคาร</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10 }]}>ยนะ ชนะ</Text>
+                        </View>
+                        <View style={{ backgroundColor: '#FFFFFF', width: '95%', marginTop: 10, padding: 10 }}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>เลขที่บัญชี</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10 }]}>*******345</Text>
+                        </View>
+                        <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', width: '95%', marginTop: 10, padding: 10, justifyContent: 'space-between' }]}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>หน้าบัญชีธนาคาร</Text>
+                            <TouchableOpacity style={stylesMain.FlexRow}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6', marginRight: 10 }]}>ดูเอกสาร</Text>
+                                <IconEntypo name='eye' size={25} />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </ScrollView>
+                <TouchableOpacity style={[stylesMain.ItemCenter, { height: 50, backgroundColor: '#0A55A6' }]}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#FFFFFF' }]}>ตั้งเป็นบัญชีตั้งต้น</Text>
+                </TouchableOpacity>
+            </>
+        );
+    }
+}
+

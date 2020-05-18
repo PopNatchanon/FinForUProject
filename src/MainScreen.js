@@ -93,8 +93,7 @@ export default class MainScreen extends React.PureComponent {
             },
             {
                 nameComponent: 'Recommend_Brand',
-                renderComponent: <Recommend_Brand navigation={navigation}
-                    loadData={dataService.brand} />
+                renderComponent: <Recommend_Brand navigation={navigation} loadData={dataService.brand} />
             },
             {
                 nameComponent: 'BannerBar_TWO',
@@ -102,18 +101,15 @@ export default class MainScreen extends React.PureComponent {
             },
             {
                 nameComponent: 'Exclusive',
-                renderComponent: <Exclusive navigation={navigation}
-                    loadData={dataService.exclusive} />
+                renderComponent: <Exclusive navigation={navigation} loadData={dataService.exclusive} />
             },
             {
                 nameComponent: 'NewStore',
-                renderComponent: <NewStore navigation={navigation}
-                    loadData={dataService.dont_miss} />
+                renderComponent: <NewStore navigation={navigation} loadData={dataService.dont_miss} />
             },
             {
                 nameComponent: 'Fin_Mall',
-                renderComponent: <Fin_Mall navigation={navigation}
-                    loadData={{ product_hit: dataService.product_hit }} />
+                renderComponent: <Fin_Mall navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />
             },
             {
                 nameComponent: 'BannerBar_ONE',
@@ -125,13 +121,11 @@ export default class MainScreen extends React.PureComponent {
             },
             {
                 nameComponent: 'PromotionPopular',
-                renderComponent: <PromotionPopular navigation={navigation}
-                    loadData={dataService.recommend_store} />
+                renderComponent: <PromotionPopular navigation={navigation} loadData={dataService.recommend_store} />
             },
             {
                 nameComponent: 'Popular_store',
-                renderComponent: <Popular_store navigation={navigation}
-                    loadData={dataService.store_good} />
+                renderComponent: <Popular_store navigation={navigation} loadData={dataService.store_good} />
             },
             {
                 nameComponent: 'Popular_product',
@@ -142,8 +136,7 @@ export default class MainScreen extends React.PureComponent {
             },
             {
                 nameComponent: 'Product_for_you',
-                renderComponent: <Product_for_you navigation={navigation}
-                    loadData={dataService.for_you} />
+                renderComponent: <Product_for_you navigation={navigation} loadData={dataService.for_you} />
             },
             {
                 nameComponent: 'CategoryProduct',
@@ -163,13 +156,11 @@ export default class MainScreen extends React.PureComponent {
             },
             {
                 nameComponent: 'FIN_Supermarket',
-                renderComponent: <FIN_Supermarket navigation={navigation}
-                    loadData={{ product_hit: dataService.product_hit }} />
+                renderComponent: <FIN_Supermarket navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />
             },
             {
                 nameComponent: 'TodayProduct',
-                renderComponent: <TodayProduct navigation={navigation}
-                    loadData={dataService.for_you2} />
+                renderComponent: <TodayProduct navigation={navigation} loadData={dataService.for_you2} />
             },
             /////--------------------------------------------->>>End
         ];
@@ -477,7 +468,7 @@ export class AppBar1 extends React.Component {
     render() {
         const {
             backArrow, backArrowColor, ButtomDeleteAll, chatBar, colorBar, deleteBar, getActivePost, goToTop, menuBar, navigation, postBar,
-            saveBar, searchBar, settingBar, storeBar, titleHead,
+            saveBar, searchBar, settingBar, storeBar, titleHead, backNavigation, UpBankBar,
         } = this.props;
         const { currentUser, } = this.state;
         return (
@@ -495,7 +486,12 @@ export class AppBar1 extends React.Component {
                             onPress={
                                 goToTop ?
                                     () => NavigationNavigateScreen({ goScreen: 'popToTop', navigation }) :
-                                    () => NavigationNavigateScreen({ goScreen: 'goBack', navigation })
+                                    backNavigation ?
+                                        () => ([
+                                            navigation.state.params.backNavigation('goBack'),
+                                            NavigationNavigateScreen({ goScreen: 'goBack', navigation })
+                                        ]) :
+                                        () => NavigationNavigateScreen({ goScreen: 'goBack', navigation })
                             }>
                             <IconEntypo style={[stylesStore.Icon_appbar, {
                                 color: backArrowColor ? backArrowColor : '#ffffff'
@@ -581,6 +577,18 @@ export class AppBar1 extends React.Component {
                                     marginRight: 8,
                                 }]}>
                                 บันทึก</Text>
+                        </TouchableOpacity>,
+                        UpBankBar &&
+                        <TouchableOpacity
+                            key={'UpBankBar'}
+                            style={[stylesMain.ItemCenter, { width: 80 }]}
+                            onPress={() => this.navigationNavigateScreen('Setting_TopicStore', { selectedIndex: 1 })}>
+                            <Text style={[
+                                stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize4, {
+                                    width: 80,
+                                    marginRight: 8,
+                                }]}>
+                                เพิ่มบัญชี</Text>
                         </TouchableOpacity>,
                         deleteBar &&
                         <TouchableOpacity
@@ -779,7 +787,8 @@ export class Trend_Hit extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeDataService: false
+            activeDataService: true,
+            dataService: [],
         };
     };
     componentWillUnmount() {
@@ -804,7 +813,7 @@ export class Trend_Hit extends React.Component {
                                 source={{
                                     uri: dataMySQL,
                                 }}
-                                resizeMode={FastImage.resizeMode.stretch} />
+                                resizeMode={FastImage.resizeMode.cover} />
                         </View>
                         <View >
                             <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize8]}>{item.name}</Text>
@@ -864,7 +873,7 @@ export class Trend_Hit extends React.Component {
                                    Reload</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={{ flexDirection: 'row', width, justifyContent: 'space-around', height: 'auto', aspectRatio: 5 }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', height: 'auto', aspectRatio: 5 }}>
                         {this.Trend_Box}
                     </View>
                 </View>
@@ -1072,13 +1081,12 @@ export class Popular_product extends React.Component {
     productCate = (type) => {
         return type.map((item, index) => {
             var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
-            return (
+            return index < 2 && (
                 <View style={stylesMain.Popular_Box_D} key={index}>
                     <FastImage
                         style={stylesMain.Popular_image_Box}
                         source={{
                             uri: dataMySQL,
-
                         }}
                         resizeMode={FastImage.resizeMode.contain} />
                     <View style={{ padding: 3 }}>
@@ -1119,7 +1127,7 @@ export class Popular_product extends React.Component {
                                 ดูทั้งหมด</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={stylesMain.FlexRow}>
+                    <View style={[stylesMain.FlexRow]}>
                         <ScrollView horizontal>
                             {[
                                 loadData.product_hit &&
@@ -2016,29 +2024,27 @@ export class Second_product extends React.PureComponent {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <View>
-                    <View style={stylesMain.Second_StoreFin_Image}>
-                        {[
-                            loadData.list_store2_1 &&
-                            <View key={'list_store2_1'} style={stylesMain.Second_StoreFin_ImageA}>
-                                <View>
-                                    {this.renderItem1(loadData.list_store2_1)}
+                <View style={stylesMain.Second_StoreFin_Image}>
+                    {[
+                        loadData.list_store2_1 &&
+                        <View key={'list_store2_1'} style={stylesMain.Second_StoreFin_ImageA}>
+                            <View>
+                                {this.renderItem1(loadData.list_store2_1)}
+                            </View>
+                            {this.pagination}
+                        </View>,
+                        loadData.list_store2_2 &&
+                        <View key={'list_store2_2'}>
+                            <View style={stylesMain.Second_StoreFin_ImageB}>
+                                <View style={stylesMain.Second_StoreFin_ImageB_T}>
+                                    {this.renderItem2([loadData.list_store2_2[0]])}
                                 </View>
-                                {this.pagination}
-                            </View>,
-                            loadData.list_store2_2 &&
-                            <View key={'list_store2_2'}>
-                                <View style={stylesMain.Second_StoreFin_ImageB}>
-                                    <View style={stylesMain.Second_StoreFin_ImageB_T}>
-                                        {this.renderItem2([loadData.list_store2_2[0]])}
-                                    </View>
-                                    <View style={[stylesMain.Second_StoreFin_ImageB_T]}>
-                                        {this.renderItem2([loadData.list_store2_2[1]])}
-                                    </View>
+                                <View style={[stylesMain.Second_StoreFin_ImageB_T]}>
+                                    {this.renderItem2([loadData.list_store2_2[1]])}
                                 </View>
                             </View>
-                        ]}
-                    </View>
+                        </View>
+                    ]}
                 </View>
             </View>
         );
@@ -2226,7 +2232,7 @@ export class FIN_Supermarket extends React.PureComponent {
                             resizeMode='stretch'
                             resizeMethod='resize' />
                     </TouchableOpacity>
-                    <View style={{ width: width * 0.32, justifyContent: 'space-between' }}>
+                    <View style={{ width: width * 0.35, justifyContent: 'space-between' }}>
                         <View style={stylesMain.Supermarket_Image}>
                             <Image
                                 style={stylesMain.BoxProduct1Image}

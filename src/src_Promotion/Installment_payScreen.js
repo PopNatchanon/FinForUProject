@@ -127,12 +127,11 @@ export class CategoryProduct_pay extends Component {
                   style={[stylesMain.CategoryProductImageHead]}
                   resizeMode={FastImage.resizeMode.cover}
                 />
-                <ScrollView horizontal>
-                  <View style={[stylesMain.ProductForYouFlexBox, stylesMain.BoxProductWarpBox]}>
-                    <ProductBox dataService={value.product} navigation={navigation} mode='row3col2'
-                      pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} />
-                  </View>
-                </ScrollView>
+                {
+                  value && value.product &&
+                  <FlatProduct custumNavigation='CategoryProduct_pay' navigation={navigation} dataService={value.product} NumberOfcolumn={2}
+                    mode='row3' nameFlatProduct='CategoryProduct_pay' nameSize={14} priceSize={15} dispriceSize={15} />
+                }
                 <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>ร้านนี้ผ่อนได้</Text>
                 <ScrollView horizontal>
                   {

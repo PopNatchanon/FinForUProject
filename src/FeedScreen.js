@@ -48,26 +48,18 @@ export default class FeedScreen extends React.Component {
           activeGetSource == true &&
           <LoadingScreen key='LoadingScreen' />
         }
-        <View style={{ flex: normalize(8.5), }}>
-          <AppBar1 titleHead='ฟีด' storeBar menuBar navigation={navigation} />
-        </View>
-        <View style={{ flex: normalize(6), }}>
-          {
-            currentUser &&
-            <MenuBar getActiveSelectedIndex={this.getActiveSelectedIndex.bind(this)} sendText={this.getSelectedIndex.bind(this)} />
-          }
-        </View>
-        <View style={{ flex: normalize(75) }}>
-          {
-            activeGetSource == false &&
-            <Button_Bar activeSelectedIndex={activeSelectedIndex}
-              currentUser={currentUser} getActiveSelectedIndex={this.getActiveSelectedIndex.bind(this)}
-              selectedIndex={currentUser ? selectedIndex : 1} navigation={navigation} />
-          }
-        </View>
-        <View style={{ flex: normalize(8.5), }}>
-          <Toolbar navigation={navigation} />
-        </View>
+        <AppBar1 titleHead='ฟีด' storeBar menuBar navigation={navigation} />
+        {
+          currentUser &&
+          <MenuBar getActiveSelectedIndex={this.getActiveSelectedIndex.bind(this)} sendText={this.getSelectedIndex.bind(this)} />
+        }
+        {
+          activeGetSource == false &&
+          <Button_Bar activeSelectedIndex={activeSelectedIndex}
+            currentUser={currentUser} getActiveSelectedIndex={this.getActiveSelectedIndex.bind(this)}
+            selectedIndex={currentUser ? selectedIndex : 1} navigation={navigation} />
+        }
+        <Toolbar navigation={navigation} />
         <ExitAppModule navigation={navigation} />
       </SafeAreaView>
     );

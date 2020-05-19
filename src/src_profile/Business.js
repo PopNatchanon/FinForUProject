@@ -111,19 +111,9 @@ export class Register_Affiliate extends React.Component {
     this.state = {
     };
   }
-  navigationNavigateScreen = (value, value2) => {
-    const { navigation } = this.props
-    value == 'goBack' ?
-      navigation.goBack() :
-      value == 'LoginScreen' ? (
-        navigation.popToTop(),
-        navigation.replace(value, value2)
-      ) :
-        navigation.push(value, value2)
-  }
   render() {
+    const { navigation } = this.props
     return (
-
       <View style={[stylesMain.ItemCenter, stylesMain.FrameBackground]}>
         <View style={[stylesMain.ItemCenter, { width: '95%', marginVertical: 10 }]}>
           <View style={[stylesMain.ItemCenter, {
@@ -149,7 +139,7 @@ export class Register_Affiliate extends React.Component {
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,]}>เพิ่มโอกาสสร้างรายได้เสริม ด้วย Affiliate Marketing</Text>
             <TouchableOpacity
               // onPress={this.navigationNavigateScreen.bind(this, 'Business', { selectedIndex: 1 })}
-              onPress={this.navigationNavigateScreen.bind(this, 'Business', { selectedIndex: 6 })}
+              onPress={() => NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 6 }, navigation })}
               style={[stylesMain.ItemCenter, {
                 borderColor: '#0A55A6', borderWidth: 2,
                 margin: 10, padding: 10, borderRadius: 5

@@ -13,7 +13,7 @@ import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, } from './MainScreen';
-import { ProductBox, LoadingScreen, GetData, GetServices, NavigationNavigateScreen, } from './customComponents/Tools';
+import { ProductBox, LoadingScreen, GetData, GetServices, NavigationNavigateScreen, FlatProduct, } from './customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -100,14 +100,11 @@ export class Recommend_Brand_Store extends React.Component {
                         </View>
                     </TouchableOpacity>
                 </View>
-                <ScrollView horizontal>
-                    {
-                        dataService &&
-                        <ProductBox dataService={dataService.product} navigation={navigation}
-                            pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                        />
-                    }
-                </ScrollView>
+                {
+                    dataService && dataService.product &&
+                    <FlatProduct custumNavigation='Recommend_Brand_Store' navigation={navigation} dataService={dataService.product}
+                        mode='row3' nameFlatProduct='Recommend_Brand_Store' nameSize={14} priceSize={15} dispriceSize={15} />
+                }
             </View>
         );
     }

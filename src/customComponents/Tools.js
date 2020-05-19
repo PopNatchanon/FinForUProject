@@ -697,8 +697,14 @@ export class TabBar extends React.Component {
         )
     }
 }
-///----------------------------------------------------------------------------------------------->>>> GetData
-function promiseAsyncStorage(promise) {
+///----------------------------------------------------------------------------------------------->>>> promiseConnectServices
+function promiseConnectServices(promise, nojson) {
+    return promise.then(data => {
+        return nojson ? [null, data.text()] : [null, data.json()]
+    }).catch(err => [err])
+}
+///----------------------------------------------------------------------------------------------->>>> promiseProcessData
+function promiseProcessData(promise) {
     return promise.then(data => {
         return [null, data]
     }).catch(err => [err])
@@ -710,7 +716,7 @@ export async function GetData(props) {
     let error, result;
     var activeLogin;
     var value = {};
-    [error, result] = await promiseAsyncStorage(AsyncStorage.multiGet(['@MyKey', '@MyLongin']));
+    [error, result] = await promiseProcessData(AsyncStorage.multiGet(['@MyKey', '@MyLongin']));
     if (error) {
         console.log(error)
         getCokie == true && (value.keycokie = undefined)
@@ -782,18 +788,6 @@ export async function GetData(props) {
         return getSource(value)
     }
 }
-///----------------------------------------------------------------------------------------------->>>> GetData
-function promiseGetServices(promise, nojson) {
-    return promise.then(data => {
-        return nojson ? [null, data.text()] : [null, data.json()]
-    }).catch(err => [err])
-}
-///----------------------------------------------------------------------------------------------->>>> GetData
-function promiseDataGetServices(promise, nojson) {
-    return promise.then(data => {
-        return [null, data]
-    }).catch(err => [err])
-}
 ///----------------------------------------------------------------------------------------------->>>> GetServices
 export async function GetServices(props) {
     const {
@@ -809,7 +803,7 @@ export async function GetServices(props) {
         console.log(dataBody)
     );
     let error, rawData, processData;
-    [error, rawData] = await promiseGetServices(fetch(uriPointer, {
+    [error, rawData] = await promiseConnectServices(fetch(uriPointer, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -835,7 +829,7 @@ export async function GetServices(props) {
     };
     showConsole &&
         console.log('Complete Connect To Server');
-    [error, processData] = await promiseDataGetServices(rawData);
+    [error, processData] = await promiseProcessData(rawData);
     if (error) {
         console.log(`${(showConsole ? nameFunction ? `${showConsole}|${nameFunction}` : showConsole : nameFunction)}':Phase 2`);
         console.log(`ERROR:FETCH => ${error}`);
@@ -859,22 +853,19 @@ export async function GetServices(props) {
 ///----------------------------------------------------------------------------------------------->>>> GetServices
 export async function GetServicesBlob(props) {
     const {
-        FormData, Authorization, dataBody, uriPointer, getDataSource, nojson, noSendError, noStringify, showConsole,
+        abortController, Authorization, dataBody, uriPointer, getDataSource, nojson, showConsole, nameFunction,
     } = props
     showConsole && (
-        console.log(showConsole),
+        console.log(`${showConsole}'Blob`),
         Authorization && (
-            console.log('Authorization'),
-            console.log(Authorization)
+            console.log(`Authorization => ${Authorization}`)
         ),
-        console.log('uri'),
-        console.log(uriPointer),
-        console.log('dataBody'),
-        console.log(dataBody),
-        console.log('JSONdataBody'),
-        console.log(JSON.stringify(dataBody))
-    )
-    RNFetchBlob.fetch(
+        console.log(`uri => ${uriPointer}`),
+        console.log(`dataBody`),
+        console.log(dataBody)
+    );
+    let error, rawData, processData;
+    [error, rawData] = await promiseConnectServices(RNFetchBlob.fetch(
         'POST',
         uriPointer,
         {
@@ -882,18 +873,43 @@ export async function GetServicesBlob(props) {
             'Content-Type': 'multipart/form-data',
         },
         dataBody
-    )
-        .then((res) => {
-            showConsole && (
-                console.log('res.data'),
-                console.log(res.data),
-                console.log('res.json()'),
-                console.log(res.json())
-            )
-            getDataSource(res.json())
-        }).catch((err) => {
-            // ...
-        })
+    ), nojson);
+    if (error) {
+        console.log(`${(showConsole ? nameFunction ? `${showConsole}|${nameFunction}` : showConsole : nameFunction)}'Blob:Phase 1`);
+        console.log(`ERROR:FETCH => ${error}`);
+        console.log(uriPointer);
+        dataBody && console.log(dataBody);
+        abortController && abortController.abort();
+        return getDataSource({ error });
+    };
+    if (rawData === undefined) {
+        console.log(`${(showConsole ? nameFunction ? `${showConsole}|${nameFunction}` : showConsole : nameFunction)}'Blob:Phase 1`);
+        console.log('No Data!');
+        abortController && abortController.abort();
+        return getDataSource({ data: 'No Data' });
+    };
+    showConsole &&
+        console.log('Complete Connect To Server');
+    [error, processData] = await promiseProcessData(rawData);
+    if (error) {
+        console.log(`${(showConsole ? nameFunction ? `${showConsole}|${nameFunction}` : showConsole : nameFunction)}'Blob:Phase 2`);
+        console.log(`ERROR:FETCH => ${error}`);
+        console.log(uriPointer);
+        dataBody && console.log(dataBody);
+        abortController && abortController.abort();
+        return getDataSource({ error });
+    };
+    if (processData === undefined) {
+        console.log(`${(showConsole ? nameFunction ? `${showConsole}|${nameFunction}` : showConsole : nameFunction)}'Blob:Phase 2`);
+        console.log('No Data!');
+        abortController && abortController.abort();
+        return getDataSource({ data: 'Error converting to Json.' });
+    }
+    showConsole && ([
+        console.log('Complete Converting To JSON'),
+        console.log(processData),
+    ])
+    return getDataSource(processData);
 }
 ///----------------------------------------------------------------------------------------------->>>> GetCoupon
 export function GetCoupon(props) {
@@ -954,7 +970,10 @@ export function GetCoupon(props) {
             </View>
             {
                 codeList != 'available' &&
-                <View style={{ backgroundColor: '#C1C1C1', opacity: 0.7, width: 0.31, height: 80, marginTop: -10, borderRadius: 5, alignItems: 'center' }}>
+                <View style={{
+                    backgroundColor: '#C1C1C1', opacity: 0.7, width: 0.31, height: 80, marginTop: -10, borderRadius: 5,
+                    alignItems: 'center'
+                }}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, stylesMain.ItemCenterVertical, {
                         color: '#FFFFFF',
                     }]}>
@@ -974,8 +993,8 @@ export function GetCoupon(props) {
 ///----------------------------------------------------------------------------------------------->>>> ProductBox
 export function ProductBox(props) {
     const {
-        dataService, dispriceSize, mode, nameSize, noNavigation, numberOfItem, onShow, pointerUrl, pointerid_store, postpath, prepath,
-        priceSize, radiusBox, typeip, getDataService
+        dataService, dispriceSize, mode, navigation, nameSize, noNavigation, numberOfItem, onShow, pointerUrl, pointerid_store, postpath,
+        prepath, priceSize, radiusBox, typeip, getDataService,
     } = props
     onShow && ([console.log('ProductBoxRender'), console.log(dataService)])
     return dataService.map((item, index) => {
@@ -985,7 +1004,10 @@ export function ProductBox(props) {
             item.discount && (
                 discount = item.discount.replace("%", "")
             )
-            var dataMySQL = typeip == 'ip' ? `${ip}/${(prepath ? postpath ? `${prepath}/${item.image_path}/${postpath}` : `${prepath}/${item.image_path}` : postpath ? `${item.image_path}/${postpath}` : `${item.image_path}`)}` : `${finip}/${(item.path_image_product ? item.path_image_product : item.image_path)}/${(item.image_product ? item.image_product : item.image_main ? item.image_main : item.image)}`;
+            var dataMySQL = typeip == 'ip' ? `${ip}/${(prepath ? postpath ? `${prepath}/${item.image_path}/${postpath}` :
+                `${prepath}/${item.image_path}` : postpath ? `${item.image_path}/${postpath}` : `${item.image_path}`)}` :
+                `${finip}/${(item.path_image_product ? item.path_image_product :
+                    item.image_path)}/${(item.image_product ? item.image_product : item.image_main ? item.image_main : item.image)}`;
             return (
                 <TouchableOpacity
                     activeOpacity={1}
@@ -996,7 +1018,7 @@ export function ProductBox(props) {
                                 id_product: item.id_product, name: item.name_product ? item.name_product : item.name
                             }) :
                             () => NavigationNavigateScreen({
-                                goScreen: pointerUrl, setData: pointerid_store ? { id_item: item.id_product } : null
+                                goScreen: pointerUrl, setData: (pointerid_store ? { id_item: item.id_product } : null), navigation
                             })}>
                     <View style={[
                         mode == 'row4col1' ?
@@ -1209,7 +1231,9 @@ export function NavigationNavigateScreen(props) {
         ) :
             goScreen == 'popToTop' ?
                 navigation.popToTop() :
-                noPush ? navigation.replace(goScreen, setData) : navigation.push(goScreen, setData);
+                noPush ?
+                    navigation.replace(goScreen, setData) :
+                    navigation.push(goScreen, setData);
 
 }
 ///----------------------------------------------------------------------------------------------->>>> RenderProduct
@@ -1221,7 +1245,8 @@ export function RenderProduct(props) {
         console.log('///----------------------------------------------------------------------------------------------->>>> RenderProduct'),
         console.log(item)
     ])
-    var dataMySQL = `${finip}/${(item.path_image_product ? item.path_image_product : item.image_path)}/${(item.image_product ? item.image_product : item.image_main ? item.image_main : item.image)}`;
+    var dataMySQL = `${finip}/${(item.path_image_product ? item.path_image_product :
+        item.image_path)}/${(item.image_product ? item.image_product : item.image_main ? item.image_main : item.image)}`;
     return (
         <TouchableOpacity activeOpacity={1} onPress={() =>
             noNavigation ?

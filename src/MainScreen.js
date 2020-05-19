@@ -2421,6 +2421,7 @@ export class TodayProduct extends React.Component {
     };
     render() {
         const { loadData, navigation, noTitle, onShow, prepath, typeip, } = this.props
+        onShow && console.log(onShow)
         return (
             <View style={[stylesMain.BoxProduct2, { backgroundColor: 'transparent' }]}>
                 {

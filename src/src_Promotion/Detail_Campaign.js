@@ -16,7 +16,7 @@ import stylesMain from '../../style/StylesMainScreen';
 import { AppBar1, Slide, TodayProduct, ExitAppModule, } from '../MainScreen';
 import { Button_Bar } from '../HighlightScreen';
 import { Store_Sale } from './The_BestFinScreen';
-import { GetCoupon, GetData, GetServices, ProductBox } from '../customComponents/Tools';
+import { GetCoupon, GetData, GetServices, ProductBox, FlatProduct } from '../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '.././navigator/IpConfig';
 import StylesMainScreen from '../../style/StylesMainScreen';
@@ -110,18 +110,11 @@ export class New_year_Campaign extends Component {
                 <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', }]}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>  ปีใหม่ช๊อปของใหม่</Text>
                 </View>
-                <ScrollView horizontal>
-                    <View style={[stylesMain.ProductForYouFlexBox, stylesMain.Product_for_you]}>
-
-                        {
-                            dataService ?
-                                <ProductBox dataService={dataService} navigation={navigation} mode='row3col2'
-                                    pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                                /> :
-                                null
-                        }
-                    </View>
-                </ScrollView>
+                {
+                    dataService &&
+                    <FlatProduct custumNavigation='Second_Store' navigation={navigation} dataService={dataService} NumberOfcolumn={2}
+                        mode='row3' nameFlatProduct='Second_Store' nameSize={14} priceSize={15} dispriceSize={15} />
+                }
             </View>
         );
     }
@@ -140,17 +133,11 @@ export class New_year_Product extends Component {
                 <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', width: 180 }]}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>  ปีใหม่แล้วไปลองของใหม่กัน</Text>
                 </View>
-                <ScrollView horizontal>
-                    <View style={[stylesMain.ProductForYouFlexBox, stylesMain.Product_for_you]}>
-                        {
-                            dataService ?
-                                <ProductBox dataService={dataService} navigation={navigation}
-                                    pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                                /> :
-                                null
-                        }
-                    </View>
-                </ScrollView>
+                {
+                    dataService &&
+                    <FlatProduct custumNavigation='New_year_Product' navigation={navigation} dataService={dataService} NumberOfcolumn={2}
+                        mode='row3' nameFlatProduct='New_year_Product' nameSize={14} priceSize={15} dispriceSize={15} />
+                }
             </View>
         );
     }

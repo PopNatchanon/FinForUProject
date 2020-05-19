@@ -84,10 +84,10 @@ export class Headbar extends React.Component {
     }
     getData = (value) => {
         const { getDataSource } = this.props
-        // getDataSource(value)
+        getDataSource(value)
     }
     render() {
-        const { currentUser, dataSevice, statusOnline } = this.props
+        const { currentUser, dataSevice, navigation, statusOnline, } = this.props
         const uri = `${finip}/${dataSevice.list_profile[0].image_path}/${dataSevice.list_profile[0].image}`;
         return (
             <View>

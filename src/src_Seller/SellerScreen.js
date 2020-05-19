@@ -194,7 +194,7 @@ export class ListMenu extends Component {
             <View>
                 <View style={stylesProfile.ListMenu}>
                     <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
-                        goScreen: 'Seller_Totel_Order', navigation
+                        goScreen: 'Seller_Up_Product', navigation
                     })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>

@@ -13,7 +13,7 @@ import stylesMain from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, AppBar1, BannerBar_ONE, ExitAppModule, TodayProduct, } from './MainScreen';
 import { Button_Bar, } from './ExclusiveScreen';
-import { GetServices, ProductBox, SlideTab2, NavigationNavigateScreen, } from './customComponents/Tools';
+import { GetServices, ProductBox, SlideTab2, NavigationNavigateScreen, FlatProduct, } from './customComponents/Tools';
 import { Slide, } from './src_Promotion/DealScreen';
 import { Store_Detail, } from './Recommend_Store';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -201,22 +201,11 @@ export class Second_Product_Brand extends React.Component {
               สินค้ามือสองแบรนด์ดัง</Text>
           </View>
         </View>
-        <ScrollView horizontal>
-          {
-            dataService &&
-            <ProductBox
-              dataService={dataService}
-              navigation={navigation}
-              typeip='ip'
-              mode='row4col1'
-              prepath='mysql'
-              pointerUrl='DetailScreen'
-              pointerid_store
-              nameSize={11}
-              priceSize={12}
-              dispriceSize={12} />
-          }
-        </ScrollView>
+        {
+          dataService &&
+          <FlatProduct custumNavigation='Second_Product_Brand' navigation={navigation} dataService={dataService}
+            mode='row4' nameFlatProduct='Second_Product_Brand' nameSize={11} priceSize={12} dispriceSize={12} />
+        }
       </View>
     );
   }

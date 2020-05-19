@@ -209,10 +209,7 @@ export class PIN_Code extends Component {
         const { navigation } = this.props
         const Withdraw = navigation.getParam("Withdraw")
         // console.log('finishProcess', pinCode)
-        NavigationNavigateScreen({
-            value: 'Seller_Topic',
-            value2: { selectedIndex: Withdraw == "Withdraw" ? 11 : 17, }, navigation
-        })
+        NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: Withdraw == "Withdraw" ? 11 : 17, }, navigation })
     };
     renderForgot() {
         return (
@@ -262,9 +259,7 @@ export class PIN_Code_Mail extends Component {
     finishProcess(pinCode) {
         const { navigation } = this.props
         console.log('finishProcess', pinCode)
-        NavigationNavigateScreen({
-            value: 'Seller_Topic', value2: { selectedIndex: 9, }, navigation
-        })
+        NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 9, }, navigation })
     };
     handleResultEnterPin(pinCode) {
         console.log('handleResultEnterPin', pinCode)
@@ -302,7 +297,7 @@ export class Seller_Advertisement extends Component {
         return (
             <View>
                 <TouchableOpacity onPress={() => NavigationNavigateScreen({
-                    goScreen: 'Seller_Topic', setData: { selectedIndex: 3 }.navigation
+                    goScreen: 'Seller_Topic', setData: { selectedIndex: 3 }, navigation
                 })}>
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>แพคเกจปัจจุบันที่ใช้อยู่</Text>

@@ -20,7 +20,7 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, Second_product, TodayProduct, } from '../MainScreen';
-import { GetCoupon, GetData, GetServices, ProductBox, LoadingScreen, NavigationNavigateScreen, } from '../customComponents/Tools';
+import { GetCoupon, GetData, GetServices, ProductBox, LoadingScreen, NavigationNavigateScreen, FlatProduct, } from '../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -342,17 +342,11 @@ export class Deal_Exclusive extends React.Component {
           </TouchableOpacity>
         </View>
         {/* <View style={stylesDeal.Deal_Exclusive}> */}
-        <ScrollView horizontal>
-          <View style={[stylesMain.ProductForYouFlexBox, stylesMain.Product_for_you]}>
-            {
-              dataService ?
-                <ProductBox dataService={dataService} navigation={navigation} mode='row3col2'
-                  pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                /> :
-                null
-            }
-          </View>
-        </ScrollView>
+        {
+          dataService &&
+          <FlatProduct custumNavigation='Deal_Exclusive' navigation={navigation} dataService={dataService} NumberOfcolumn={2}
+            mode='row3' nameFlatProduct='Deal_Exclusive' nameSize={14} priceSize={15} dispriceSize={15} />
+        }
       </View>
     );
   }
@@ -438,29 +432,22 @@ export class Second_Store extends React.Component {
       <View style={[stylesMain.FrameBackground, { width: '100%' }]}>
         <View style={stylesDeal.BoxText_Row}>
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ร้านมือสองลดราคา</Text>
-          <TouchableOpacity onPress={() => navigation.push('Deal_Topic', { selectedIndex: 2 })}>
+          <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Deal_Topic', setData: { selectedIndex: 2 }, navigation })}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB]}>ดูทั้งหมด</Text>
           </TouchableOpacity>
         </View>
         {this.sildeView()}
         <View style={stylesDeal.BoxText_Row}>
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>มือสองลดราคา</Text>
-          <TouchableOpacity onPress={() => navigation.push('Deal_Topic', { selectedIndex: 3 })}>
+          <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Deal_Topic', setData: { selectedIndex: 3 }, navigation })}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB]}>ดูทั้งหมด</Text>
           </TouchableOpacity>
         </View>
-        <ScrollView horizontal>
-          <View style={{ flexDirection: 'row', }}>
-            {
-              dataService ?
-                <ProductBox dataService={dataService} navigation={navigation} typeip={'ip'} mode='row3col1'
-                  pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                  prepath='mysql'
-                /> :
-                null
-            }
-          </View>
-        </ScrollView>
+        {
+          dataService &&
+          <FlatProduct custumNavigation='Second_Store' navigation={navigation} dataService={dataService}
+            mode='row3' nameFlatProduct='Second_Store' nameSize={14} priceSize={15} dispriceSize={15} />
+        }
       </View>
     );
   }

@@ -538,7 +538,7 @@ export class InterestedScreen extends React.Component {
         const { dataSevice, navigation } = this.props
         return (
             <ScrollView>
-                <TodayProduct loadData={dataSevice} navigation={navigation} noTitle />
+                <TodayProduct loadData={dataSevice} navigation={navigation} noTitle onShow='InterestedScreen' />
             </ScrollView>
         );
     }

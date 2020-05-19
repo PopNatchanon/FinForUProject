@@ -19,7 +19,7 @@ import stylesStore from '../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, ExitAppModule, } from './MainScreen';
 import {
-    FeedBox, GetCoupon, GetData, GetServices, ProductBox, TabBar, LoadingScreen, NavigationNavigateScreen,
+    FeedBox, GetCoupon, GetData, GetServices, ProductBox, TabBar, LoadingScreen, NavigationNavigateScreen, FlatProduct,
 } from './customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from './navigator/IpConfig';
@@ -522,20 +522,11 @@ export class DealTop extends React.Component {
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
                         {titlename}</Text>
                 </View>
-                <ScrollView horizontal>
-                    {
-                        dataService &&
-                        <ProductBox
-                            dataService={dataService}
-                            navigation={navigation}
-                            mode='row3col1'
-                            pointerUrl='DetailScreen'
-                            pointerid_store
-                            nameSize={14}
-                            priceSize={15}
-                            dispriceSize={15} />
-                    }
-                </ScrollView>
+                {
+                    dataService &&
+                    <FlatProduct custumNavigation='DealTop' navigation={navigation} dataService={dataService}
+                        mode='row3' nameFlatProduct='DealTop' nameSize={14} priceSize={15} dispriceSize={15} />
+                }
             </View>
         );
     }

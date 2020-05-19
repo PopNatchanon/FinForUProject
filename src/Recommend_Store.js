@@ -15,7 +15,7 @@ import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> tools
 import { AppBar, ExitAppModule, } from './MainScreen';
-import { GetData, GetServices, ProductBox, LoadingScreen, NavigationNavigateScreen } from './customComponents/Tools';
+import { GetData, GetServices, ProductBox, LoadingScreen, NavigationNavigateScreen, FlatProduct } from './customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> ip
 import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -259,20 +259,11 @@ export class Store_Detail extends React.Component {
                                 สินค้าขายดีประจำร้าน</Text>
                         </View>
                         <View style={stylesTopic.Store_Product}>
-                            <ScrollView horizontal>
-                                {
-                                    dataService &&
-                                    <ProductBox
-                                        dataService={dataService.product}
-                                        navigation={navigation}
-                                        mode='row3col1'
-                                        pointerUrl='DetailScreen'
-                                        pointerid_store
-                                        nameSize={14}
-                                        priceSize={15}
-                                        dispriceSize={15} />
-                                }
-                            </ScrollView>
+                            {
+                                dataService && dataService.product &&
+                                <FlatProduct custumNavigation='Store_Detail' navigation={navigation} dataService={dataService.product}
+                                    mode='row3' nameFlatProduct='Store_Detail' nameSize={14} priceSize={15} dispriceSize={15} />
+                            }
                         </View>
                     </View>
                 </View>

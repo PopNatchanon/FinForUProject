@@ -78,17 +78,11 @@ export class Fin_sale extends Component {
           <View style={stylesDeal.Fin_sale_BoxHead}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
           </View>
-          <ScrollView horizontal>
-            <View style={stylesDeal.Fin_sale_BoxProduct}>
-              {
-                dataService ?
-                  <ProductBox dataService={dataService} navigation={navigation} mode='row3col1'
-                    pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                  /> :
-                  null
-              }
-            </View>
-          </ScrollView>
+          {
+            dataService &&
+            <FlatProduct custumNavigation='CategoryProduct_pay' navigation={navigation} dataService={dataService} NumberOfcolumn={1}
+              mode='row3' nameFlatProduct='CategoryProduct_pay' nameSize={14} priceSize={15} dispriceSize={15} />
+          }
         </View>
       </>
     );
@@ -204,17 +198,11 @@ export class Product_Cool extends Component {
           <View style={[stylesDeal.Fin_sale_BoxHead, { marginTop: -10 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
           </View>
-          <ScrollView horizontal>
-            <View style={[stylesMain.ProductForYouFlexBox, stylesMain.Product_for_you]}>
-              {
-                dataService ?
-                  <ProductBox dataService={dataService} typeip='fin' mode='row3col2'
-                    pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                  /> :
-                  null
-              }
-            </View>
-          </ScrollView>
+          {
+            dataService &&
+            <FlatProduct custumNavigation='CategoryProduct_pay' navigation={navigation} dataService={dataService} NumberOfcolumn={2}
+              mode='row3' nameFlatProduct='CategoryProduct_pay' nameSize={14} priceSize={15} dispriceSize={15} />
+          }
         </View>
       </>
     );
@@ -323,18 +311,11 @@ export class Second_Store extends Component {
           </View>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
         </View>
-        <ScrollView horizontal>
-          <View style={[stylesMain.ProductForYouFlexBox, stylesMain.Product_for_you]}>
-            {
-              dataService ?
-                <ProductBox dataService={dataService.product_sec} navigation={navigation} mode='row3col2'
-                  pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                /> :
-                null
-            }
-          </View>
-        </ScrollView>
-
+        {
+          dataService && dataService.product_sec &&
+          <FlatProduct custumNavigation='CategoryProduct_pay' navigation={navigation} dataService={dataService.product_sec} NumberOfcolumn={2}
+            mode='row3' nameFlatProduct='CategoryProduct_pay' nameSize={14} priceSize={15} dispriceSize={15} />
+        }
       </View>
     );
   }

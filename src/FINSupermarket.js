@@ -106,13 +106,11 @@ export class FinMall_Product extends React.Component {
               ดูทั้งหมด</Text>
           </TouchableOpacity>
         </View>
-        <ScrollView horizontal>
-          {
-            dataService &&
-            <ProductBox dataService={dataService} navigation={navigation} typeip='ip' mode='row3col1' prepath='mysql'
-              pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} />
-          }
-        </ScrollView>
+        {
+          dataService &&
+          <FlatProduct custumNavigation='FinMall_Product' navigation={navigation} dataService={dataService}
+            mode='row3' nameFlatProduct='FinMall_Product' nameSize={14} priceSize={15} dispriceSize={15} />
+        }
       </View>
     );
   }

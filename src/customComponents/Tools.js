@@ -1222,7 +1222,6 @@ export function RenderProduct(props) {
         console.log(item)
     ])
     var dataMySQL = `${finip}/${(item.path_image_product ? item.path_image_product : item.image_path)}/${(item.image_product ? item.image_product : item.image_main ? item.image_main : item.image)}`;
-    console.log(dataMySQL)
     return (
         <TouchableOpacity activeOpacity={1} onPress={() =>
             noNavigation ?

@@ -138,10 +138,18 @@ export default class MainScreen extends React.PureComponent {
                 nameComponent: 'Product_for_you',
                 renderComponent: <Product_for_you navigation={navigation} loadData={dataService.for_you} />
             },
-            {
-                nameComponent: 'CategoryProduct',
-                renderComponent: <CategoryProduct navigation={navigation} />
-            },
+            // {
+            //     nameComponent: 'CategoryProduct',
+            //     renderComponent: <CategoryProduct navigation={navigation} />
+            // },
+            // {
+            //     nameComponent: 'Category_Image_Total',
+            //     renderComponent: <Category_Image_Total sizeBox={1} />
+            // },
+            // {
+            //     nameComponent: 'Category_Image_Total',
+            //     renderComponent: <Category_Image_Total sizeBox={2} />
+            // },
             {
                 nameComponent: 'Second_product',
                 renderComponent: <Second_product navigation={navigation} loadData={{
@@ -168,6 +176,8 @@ export default class MainScreen extends React.PureComponent {
         activeDataService == true && GetServices({
             abortController: this.abortController, uriPointer: uri, getDataSource: this.getData.bind(this)
         });
+        const data = [1, 2, 1, 2]
+        data.map((value, index) => { return itemT.splice(17 + index, 0, { nameComponent: `Category_Image_Total${index}`, renderComponent: <Category_Image_Total sizeBox={value} /> }) })
         return (
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                 {
@@ -2496,3 +2506,30 @@ export class Botton_PopUp_FIN extends React.Component {
         );
     };
 };
+///----------------------------------------------------------------------------------------------->>>>
+export class Category_Image_Total extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
+    render() {
+        const { sizeBox } = this.props
+        return (
+            <View style={{ marginTop: 10 }}>
+                <View style={{ height: 'auto', aspectRatio: 3.5, backgroundColor: '#3D90E7' }}>
+                    <Text>Size A</Text>
+                </View>
+                <View style={[stylesMain.FlexRow, { width: '100%', height: 'auto', aspectRatio: 3, justifyContent: 'space-between', marginTop: 5 }]}>
+                    <View style={{ backgroundColor: sizeBox == 1 ? '#DB9B85' : '#29B9DE', width: width * 0.49 }}></View>
+                    <View style={{ backgroundColor: sizeBox == 1 ? '#EDB3DA' : '#8672BB', width: width * 0.49 }}></View>
+                </View>
+                <View style={[stylesMain.FlexRow, { width: '100%', height: 'auto', aspectRatio: 2.5, justifyContent: 'space-between', marginTop: 5 }]}>
+                    <View style={{ backgroundColor: '#BCB3ED', width: width * 0.49 }}></View>
+                    <View style={{ backgroundColor: '#72BB75', width: width * 0.49 }}></View>
+                </View>
+            </View>
+        );
+    }
+}

@@ -49,8 +49,8 @@ export default StyleSheet.create({
     },
     HeadbarBoxImage: {
         backgroundColor: '#FFFFFF',
-        width: normalize(80),
-        height: normalize(80),
+        width: normalize(60),
+        height: normalize(60),
         borderRadius: 40,
         marginTop: 10,
         marginLeft: 30,

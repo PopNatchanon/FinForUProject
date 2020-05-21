@@ -180,8 +180,8 @@ export class Product_Brand extends React.Component {
                     </Text>
                 </View>
                 {
-                    product_hit &&
-                    <FlatProduct navigation={navigation} dataService={product_hit} NumberOfcolumn={1} radiusBox={5}
+                    loadData && loadData.product_hit &&
+                    <FlatProduct navigation={navigation} dataService={loadData.product_hit} NumberOfcolumn={1} radiusBox={5}
                         nameFlatProduct='Product_Brand' custumNavigation='DetailScreen' mode='row3' nameSize={14} priceSize={15}
                         dispriceSize={15} />
                 }

@@ -52,6 +52,9 @@ export default class DetailScreen extends React.PureComponent {
   showImage = (showItemImage) => {
     this.setState({ showItemImage })
   }
+  setActives = (activeRefresh) => {
+    this.setState({ activeRefresh })
+  }
   getData = (dataService) => {
     this.setState({ activeDataService: false, dataService })
   }
@@ -97,8 +100,8 @@ export default class DetailScreen extends React.PureComponent {
       },
       {
         nameComponent: 'Selector_Product',
-        renderComponent: <Selector dataService={dataService} BuyProduct={BuyProduct}
-          currentUser={currentUser} cokie={cokie} navigation={navigation} sendProduct={this.BuyProduct.bind(this)} />
+        renderComponent: <Selector dataService={dataService} BuyProduct={BuyProduct} currentUser={currentUser} cokie={cokie}
+          getActive={this.setActives.bind(this)} navigation={navigation} sendProduct={this.BuyProduct.bind(this)} />
       },
       {
         nameComponent: 'Detail_Category',
@@ -150,7 +153,7 @@ export default class DetailScreen extends React.PureComponent {
             right: 0,
             overflow: 'hidden',
           }}> */}
-        <AppBar leftBar='backarrow' navigation={navigation} />
+        <AppBar getActive={this.setActives.bind(this)} refresh={activeRefresh} leftBar='backarrow' navigation={navigation} />
         {/* </View>
         </Animatable.View> */}
         {[
@@ -648,10 +651,11 @@ export class Selector extends React.Component {
     this.setState({ dataService3, activeSelect2: false, itemCount: dataService3.amount_data < 1 ? 0 : 1 })
   }
   getData3 = (dataService3) => {
+    const { getActive, navigation } = this.props
     const { BuyProduct2 } = this.state
-    const { navigation } = this.props
     this.SelectorSheet.close();
     this.setState({ activeSelect3: false })
+    getActive(true)
     BuyProduct2 == 'gocart' &&
       navigation.push('CartScreen')
   }

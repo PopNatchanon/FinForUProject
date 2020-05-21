@@ -191,27 +191,27 @@ export default class MainScreen extends React.PureComponent {
         activeDataService == true && GetServices({
             abortController: this.abortController, uriPointer: uri, getDataSource: this.getData.bind(this)
         });
-        const uri2 = `${ip}/MySQL/DataServiceMain.php`
-        const dataBody2 = {
-            type: 'categorylist'
-        }
-        activeDataService2 == true && GetServices({ uriPointer: uri2, dataBody: dataBody2, getDataSource: this.getData2.bind(this) })
-        var data = []
-        var S
-        var M
-        var L
-        if (dataService2) {
-            for (var n = 0; n < dataService2.length; n = n + 5) {
-                S = [dataService2[0 + n]]
-                M = [dataService2[1 + n], dataService2[2 + n]]
-                L = [dataService2[3 + n], dataService2[4 + n]]
-                data.push({ S, M, L })
-            }
-        }
-        data.map((value, index) => {
+        const uri2 = `${finip}/home/category_mobile`;
+        // const dataBody2 = {
+        //     type: 'categorylist'
+        // }
+        activeDataService2 == true && GetServices({ uriPointer: uri2, getDataSource: this.getData2.bind(this) })
+        // var data = []
+        // var S
+        // var M
+        // var L
+        // if (dataService2) {
+        //     for (var n = 0; n < dataService2.length; n = n + 5) {
+        //         S = [dataService2[0 + n]]
+        //         M = [dataService2[1 + n], dataService2[2 + n]]
+        //         L = [dataService2[3 + n], dataService2[4 + n]]
+        //         data.push({ S, M, L })
+        //     }
+        // }
+        dataService2 && dataService2.map((value, index) => {
             return itemT.splice(18 + index, 0, {
-                nameComponent: `Category_Image_Total${index}`,
-                renderComponent: <Category_Image_Total dataService={value} />
+                nameComponent: `CategoryProduct${index}`,
+                renderComponent: <CategoryProduct dataService={value} navigation={navigation} />
             })
         })
         return (
@@ -351,7 +351,7 @@ export class AppBar extends React.Component {
             NavigationNavigateScreen({ goScreen: 'SearchScreen', setData: { SearchText: text }, navigation });
     };
     render() {
-        const { ABDColor, ABGColor, AIColor, leftBar, navigation, rightBar, searchBar, SearchText } = this.props;
+        const { ABDColor, ABGColor, refresh, AIColor, leftBar, getActive, navigation, rightBar, searchBar, SearchText } = this.props;
         const { activeRefresh, currentUser, dataService, text, } = this.state;
         const AIconEntypo = Animatable.createAnimatableComponent(IconEntypo);
         const AIconFeather = Animatable.createAnimatableComponent(IconFeather);
@@ -364,6 +364,10 @@ export class AppBar extends React.Component {
                 id_customer: currentUser.id_customer
             }
         );
+        if (refresh == true) {
+            this.setState({ activeRefresh: true })
+            getActive(false)
+        }
         dataService && console.log(dataService.cart_list.length)
         currentUser && dataBody && activeRefresh == true &&
             GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), showConsole: 'AppBar' });
@@ -498,7 +502,9 @@ export class AppBar extends React.Component {
                                 flex: 50
                             }]} onPress={
                                 currentUser ?
-                                    () => NavigationNavigateScreen({ goScreen: 'CartScreen', navigation }) :
+                                    () => NavigationNavigateScreen({
+                                        goScreen: 'CartScreen', navigation
+                                    }) :
                                     () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true })}>
                                 {
                                     dataService && dataService.cart_list.length > 0 &&
@@ -1694,66 +1700,63 @@ export class CategoryProduct extends React.Component {
     getActiveProductMobile = (activeProductMobile) => {
         this.setState({ activeProductMobile });
     };
-    getData = (dataService) => {
-        this.setState({ dataService, activeDataService: false });
-    };
+    // getData = (dataService) => {
+    //     this.setState({ dataService, activeDataService: false });
+    // };
     get dataCategory() {
-        const { navigation, NoStoreReCom, } = this.props;
-        const { activeProductMobile, dataService } = this.state;
-        return dataService &&
-            dataService.map((item, index) => {
-                // var dataMySQL = `${ip}/mysql/${item.image_path}/${item.image}`;
-                var dataMySQL = `${finip}/${item.mobile_head}`;
-                return (
-                    <View style={[stylesMain.FrameBackground2, {
-                        marginTop: activeProductMobile == false ? 10 : 0,
-                        backgroundColor: activeProductMobile == false ? item.bg_m : 'transparent',
-                        paddingBottom: activeProductMobile == false ? 4 : 0,
-                    }]} key={index}>
-                        <>
-                            {
-                                activeProductMobile == false &&
-                                <TouchableOpacity onPress={() => NavigationNavigateScreen({
-                                    goScreen: 'CategoryScreen', setData: { id_type: item.id_type }, navigation,
-                                })}>
-                                    <FastImage
-                                        source={{
-                                            uri: dataMySQL,
-                                        }}
-                                        style={[stylesMain.CategoryProductImageHead]}
-                                        resizeMode={FastImage.resizeMode.contain} />
-                                </TouchableOpacity>
-                            }
-                            <CategoryProductSubProduct activeProductMobile={activeProductMobile}
-                                getActiveProductMobile={this.getActiveProductMobile.bind(this)} navigation={navigation} headerData={item}
-                                id_type={item.id_type} />
-                        </>
-                        {
-                            NoStoreReCom ?
-                                <View style={{ marginBottom: 10, }}>
-                                    <View style={{ marginTop: 10, }}>
-                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
-                                            marginLeft: 8, color: '#fff'
-                                        }]}>
-                                            ร้านนี้ผ่อนได้ </Text>
-                                    </View>
-                                    <CategoryProductSubStore navigation={navigation} id_type={item.id_type} />
-                                </View> :
-                                <View style={{ marginBottom: 0, }}>
-                                    <CategoryProductSubPromotion navigation={navigation} id_type={item.id_type} />
-                                    <CategoryProductSubStore navigation={navigation} id_type={item.id_type} />
-                                </View>
-                        }
-                    </View>
-                );
-            });
+        const { dataService, navigation, NoStoreReCom, } = this.props;
+        const { activeProductMobile, } = this.state;
+        // var dataMySQL = `${ip}/mysql/${item.image_path}/${item.image}`;
+        var dataMySQL = `${finip}/${dataService.mobile_head}`;
+        return (
+            <View style={[stylesMain.FrameBackground2, {
+                marginTop: activeProductMobile == false ? 10 : 0,
+                backgroundColor: activeProductMobile == false ? dataService.bg_m : 'transparent',
+                paddingBottom: activeProductMobile == false ? 4 : 0,
+            }]}>
+                <>
+                    {
+                        activeProductMobile == false &&
+                        <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                            goScreen: 'CategoryScreen', setData: { id_type: dataService.id_type }, navigation,
+                        })}>
+                            <FastImage
+                                source={{
+                                    uri: dataMySQL,
+                                }}
+                                style={[stylesMain.CategoryProductImageHead]}
+                                resizeMode={FastImage.resizeMode.contain} />
+                        </TouchableOpacity>
+                    }
+                    <CategoryProductSubProduct activeProductMobile={activeProductMobile}
+                        getActiveProductMobile={this.getActiveProductMobile.bind(this)} navigation={navigation} headerData={dataService}
+                        id_type={dataService.id_type} />
+                </>
+                {
+                    NoStoreReCom ?
+                        <View style={{ marginBottom: 10, }}>
+                            <View style={{ marginTop: 10, }}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
+                                    marginLeft: 8, color: '#fff'
+                                }]}>
+                                    ร้านนี้ผ่อนได้ </Text>
+                            </View>
+                            <CategoryProductSubStore navigation={navigation} id_type={dataService.id_type} />
+                        </View> :
+                        <View style={{ marginBottom: 0, }}>
+                            <CategoryProductSubPromotion navigation={navigation} id_type={dataService.id_type} />
+                            <CategoryProductSubStore navigation={navigation} id_type={dataService.id_type} />
+                        </View>
+                }
+            </View>
+        );
     };
     render() {
-        const { activeDataService } = this.state;
-        var uri = `${finip}/home/category_mobile`;
-        activeDataService == true && GetServices({
-            abortController: this.abortController, uriPointer: uri, getDataSource: this.getData.bind(this)
-        });
+        // const { activeDataService } = this.state;
+        // var uri = `${finip}/home/category_mobile`;
+        // activeDataService == true && GetServices({
+        //     abortController: this.abortController, uriPointer: uri, getDataSource: this.getData.bind(this)
+        // });
         return (
             <View>
                 {
@@ -2589,7 +2592,7 @@ export class Botton_PopUp_FIN extends React.Component {
                         top: '50%'
                     }}
                     position="right">
-                    <TouchableOpacity onPress={() => this.toggleComponentVisibility(!activeSliding)}>
+                    <TouchableOpacity onPress={() => this.setState({ activeSliding: !activeSliding })}>
                         <View style={stylesMain.Botton_PopUp_Box}>
                             <FastImage
                                 style={stylesMain.BoxProduct1Image}

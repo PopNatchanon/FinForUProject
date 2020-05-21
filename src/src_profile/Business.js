@@ -4,11 +4,11 @@ import {
   Dimensions, ImageBackground, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
-
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 // import { GiftedChat, Bubble, Send } from 'react-native-gifted-chat';
 import ImagePicker from 'react-native-image-crop-picker';
+import { BarChart, Grid } from 'react-native-svg-charts'
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -23,10 +23,10 @@ import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topi
 import stylesProfile from '../../style/StylesProfileScreen'
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from '../MainScreen';
-///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '.././navigator/IpConfig';
 import { TabBar, NavigationNavigateScreen } from '../customComponents/Tools';
 import { Product_income } from '../src_Seller/Seller_Topic';
+///----------------------------------------------------------------------------------------------->>>> Ip
+import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class Business extends React.Component {
   constructor(props) {
@@ -80,10 +80,9 @@ export default class Business extends React.Component {
         return (
           <>
             <AppBar1 backArrow navigation={navigation} titleHead='สมาชิกAffiliate' />
-            <ScrollView>
-              <Business_Profile />
-              <Growth />
-            </ScrollView>
+            <BarChartExample />
+            {/* <Business_Profile />
+            <Growth /> */}
           </>
         )
       case 5:
@@ -139,7 +138,7 @@ export class Register_Affiliate extends React.Component {
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,]}>เพิ่มโอกาสสร้างรายได้เสริม ด้วย Affiliate Marketing</Text>
             <TouchableOpacity
               // onPress={this.navigationNavigateScreen.bind(this, 'Business', { selectedIndex: 1 })}
-              onPress={() => NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 6 }, navigation })}
+              onPress={() => NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 4 }, navigation })}
               style={[stylesMain.ItemCenter, {
                 borderColor: '#0A55A6', borderWidth: 2,
                 margin: 10, padding: 10, borderRadius: 5
@@ -349,6 +348,23 @@ export class Income extends React.Component {
 
 
 ///----------------------------------------------------------------------------------------------->>>>
+class BarChartExample extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
+  render() {
+    const fill = 'rgb(134, 65, 244)'
+    const data = [50, 10, 40, 95, -4, -24, null, 85, undefined, 0, 35, 53, -53, 24, 50, -20, -80]
+    return (
+      <BarChart style={{ height: 200 }} data={data} svg={{ fill }} contentInset={{ top: 30, bottom: 30 }}>
+        <Grid />
+      </BarChart>
+    )
+  }
+
+}
 export class Growth extends React.Component {
   constructor(props) {
     super(props);
@@ -395,6 +411,7 @@ export class Growth extends React.Component {
     );
   }
 }
+
 ///----------------------------------------------------------------------------------------------->>>>
 export class Finance extends React.Component {
   constructor(props) {

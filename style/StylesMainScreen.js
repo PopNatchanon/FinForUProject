@@ -298,7 +298,7 @@ export default StyleSheet.create({
     marginLeft: 10,
   },
   BoxStore2Box2: {
-    width: width * 0.45,
+    width: width * 0.55,
     borderColor: '#ECECEC',
     marginTop: 10,
     marginBottom: 8,
@@ -312,7 +312,7 @@ export default StyleSheet.create({
   },
   BoxStore2Image2: {
     width: '100%',
-    height: height * 0.10,
+    height: height * 0.14,
     borderColor: '#ECECEC',
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
@@ -398,7 +398,7 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     borderTopWidth: 1,
     marginTop: 30,
-    marginBottom: -70,
+    marginBottom: -75,
   },
   FrameBackgroundTextBox: {
     flexDirection: 'row',
@@ -627,7 +627,7 @@ export default StyleSheet.create({
   Banner_Bar_image: {
     width: width,
     height: 'auto',
-    aspectRatio: 8.5
+    aspectRatio: 7
   },
   Product_for_you: {
     height: 370,
@@ -649,12 +649,12 @@ export default StyleSheet.create({
     paddingHorizontal: 4
   },
   Button_Bar_icon: {
-    height: 60,
-    width: 60,
+    height: 65,
+    width: 65,
     borderColor: '#FFFFFF',
     borderWidth: 2,
     resizeMode: 'stretch',
-    borderRadius: 30,
+    borderRadius: 32.5,
   },
   ///------------------------------------------------------------------///
   Second_StoreFin: {
@@ -735,12 +735,14 @@ export default StyleSheet.create({
   },
   ///------------------------------------------------------------------/// ส่วน finMall
   FinMall_Box: {
+    width,
     justifyContent: 'space-around',
-    height: height * 0.18,
+    height: 'auto',
+    aspectRatio: 2.8,
     marginBottom: 5,
   },
   FinMall_Box_Image: {
-    width: '39%',
+    width: width * 0.50,
     borderColor: '#EDEDED',
     borderWidth: 1
   },
@@ -749,7 +751,7 @@ export default StyleSheet.create({
     height: 100
   },
   FinMall_ScrollView: {
-    width: '57.5%',
+    marginLeft: 5,
     backgroundColor: '#EDEDED'
   },
   ///------------------------------------------------------------------/// ส่วน FIN Supermarket

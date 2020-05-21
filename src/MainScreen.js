@@ -45,6 +45,7 @@ export default class MainScreen extends React.PureComponent {
         super(props);
         this.state = {
             activeDataService: true,
+            activeDataService2: true,
             activeExit: true,
             activeLoading: true,
             dataService: [],
@@ -60,9 +61,12 @@ export default class MainScreen extends React.PureComponent {
     getData = (dataService) => {
         this.setState({ dataService, activeDataService: false });
     };
+    getData2 = (dataService2) => {
+        this.setState({ dataService2, activeDataService2: false });
+    };
     render() {
         const { navigation } = this.props;
-        const { activeDataService, activeLoading, dataService, } = this.state;
+        const { activeDataService, activeDataService2, activeLoading, dataService, dataService2 } = this.state;
         const browerProps = navigation.getParam('browerProps');
         var uri = `${finip}/home/publish_mobile`;
         let itemT = [
@@ -90,6 +94,10 @@ export default class MainScreen extends React.PureComponent {
             {
                 nameComponent: 'FlashSale',
                 renderComponent: <FlashSale navigation={navigation} />
+            },
+            {
+                nameComponent: 'Fin_Service',
+                renderComponent: <Fin_Service navigation={navigation} />
             },
             {
                 nameComponent: 'Recommend_Brand',
@@ -176,8 +184,29 @@ export default class MainScreen extends React.PureComponent {
         activeDataService == true && GetServices({
             abortController: this.abortController, uriPointer: uri, getDataSource: this.getData.bind(this)
         });
-        const data = [1, 2, 1, 2]
-        data.map((value, index) => { return itemT.splice(17 + index, 0, { nameComponent: `Category_Image_Total${index}`, renderComponent: <Category_Image_Total sizeBox={value} /> }) })
+        const uri2 = `${ip}/MySQL/DataServiceMain.php`
+        const dataBody2 = {
+            type: 'categorylist'
+        }
+        activeDataService2 == true && GetServices({ uriPointer: uri2, dataBody: dataBody2, getDataSource: this.getData2.bind(this) })
+        var data = []
+        var S
+        var M
+        var L
+        if (dataService2) {
+            for (var n = 0; n < dataService2.length; n = n + 5) {
+                S = [dataService2[0 + n]]
+                M = [dataService2[1 + n], dataService2[2 + n]]
+                L = [dataService2[3 + n], dataService2[4 + n]]
+                data.push({ S, M, L })
+            }
+        }
+        data.map((value, index) => {
+            return itemT.splice(18 + index, 0, {
+                nameComponent: `Category_Image_Total${index}`,
+                renderComponent: <Category_Image_Total dataService={value} />
+            })
+        })
         return (
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                 {
@@ -710,7 +739,7 @@ export class Guarantee extends React.Component {
         return (
             <View style={{
                 flexDirection: 'row', width: '100%', height: 'auto',
-                aspectRatio: 4, justifyContent: 'space-between', marginTop: 5
+                aspectRatio: 3.3, justifyContent: 'space-between', marginTop: 5
             }}>
                 <View style={{ width: '56%' }}>
                     <FastImage
@@ -718,7 +747,7 @@ export class Guarantee extends React.Component {
                         source={{
                             uri: `${ip}/MySQL/uploads/Guarantee/455x195-finmall-02.jpg`,
                         }}
-                        resizeMode={FastImage.resizeMode.stretch}
+                        resizeMode={FastImage.resizeMode.cover}
                     />
                 </View>
                 <View style={{ width: '42%' }}>
@@ -823,7 +852,7 @@ export class Trend_Hit extends React.Component {
                                 source={{
                                     uri: dataMySQL,
                                 }}
-                                resizeMode={FastImage.resizeMode.cover} />
+                                resizeMode={FastImage.resizeMode.contain} />
                         </View>
                         <View >
                             <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize8]}>{item.name}</Text>
@@ -844,8 +873,8 @@ export class Trend_Hit extends React.Component {
         });
         return (
             <>
-                <ScrollView horizontal style={{ height: 'auto', aspectRatio: 5, marginTop: 10, width, }}>
-                    <View style={{ width: width * 0.50 }}>
+                <ScrollView horizontal style={{ height: 'auto', aspectRatio: 4, marginTop: 10, width, }}>
+                    <View style={{ width: width * 0.70 }}>
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
@@ -854,7 +883,7 @@ export class Trend_Hit extends React.Component {
                             resizeMode={FastImage.resizeMode.stretch}
                         />
                     </View>
-                    <View style={{ width: width * 0.50, marginLeft: 5 }}>
+                    <View style={{ width: width * 0.70, marginLeft: 5 }}>
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
@@ -863,7 +892,7 @@ export class Trend_Hit extends React.Component {
                             resizeMode={FastImage.resizeMode.stretch}
                         />
                     </View>
-                    <View style={{ width: width * 0.50, marginLeft: 5 }}>
+                    <View style={{ width: width * 0.70, marginLeft: 5 }}>
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
@@ -900,13 +929,13 @@ export class Fin_Service extends React.Component {
     };
     render() {
         return (
-            <View style={[stylesMain.FrameBackground2, { height: 80, }]}>
+            <View style={[stylesMain.FrameBackground2, { height: 'auto', aspectRatio: 4.5 }]}>
                 <Image
                     style={stylesMain.BoxProduct1Image}
                     source={{
                         uri: `${ip}/MySQL/uploads/Text/Annotation 2020-05-09 153106.png`
                     }}
-                    resizeMode='contain'
+                    resizeMode='cover'
                     resizeMethod='resize' />
             </View>
         );
@@ -1074,7 +1103,7 @@ export class Popular_store extends React.Component {
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         ร้านที่ใช่อยากให้ช้อป</Text>
                 </View>
-                <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 3.5, justifyContent: 'space-between' }]} >
+                <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 3.3, justifyContent: 'space-between' }]} >
                     {this.PopularStoreItem}
                 </View>
             </View>
@@ -1238,9 +1267,9 @@ export class BannerBar_ONE extends React.Component {
                 <FastImage
                     style={stylesMain.Banner_Bar_image}
                     source={{
-                        uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 1920-220เพชร3.jpg`
+                        uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 111.jpg`
                     }}
-                    resizeMode={FastImage.resizeMode.contain} />
+                    resizeMode={FastImage.resizeMode.cover} />
             </View>
         );
     };
@@ -1258,9 +1287,9 @@ export class BannerBar_TWO extends React.Component {
                 <FastImage
                     style={stylesMain.Banner_Bar_image}
                     source={{
-                        uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 1920-220สำอาง.jpg`
+                        uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 222.jpg`
                     }}
-                    resizeMode={FastImage.resizeMode.contain} />
+                    resizeMode={FastImage.resizeMode.cover} />
             </View>
         );
     };
@@ -1347,7 +1376,7 @@ export class FlashSale extends React.PureComponent {
         ]);
         return (
             activeDataService == false && dataService &&
-            <View style={[stylesMain.FrameBackground2, { marginTop: 10 }]}>
+            <View style={stylesMain.FrameBackground2}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <View style={[stylesMain.FlexRow, { marginTop: 5, flex: 70 }]}>
                         <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBoldBold, stylesFont.FontSize3, {
@@ -1454,7 +1483,7 @@ export class PromotionPopular extends React.Component {
                             ดูทั้งหมด</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={{ height: 'auto', aspectRatio: 3.7 }}>
+                <View style={{ height: 'auto', aspectRatio: 2.8 }}>
                     <ScrollView horizontal>
                         {this.dataPromotionPopular}
                     </ScrollView>
@@ -1587,7 +1616,7 @@ export class NewStore extends React.Component {
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                         ร้านค้าห้ามพลาด!!่</Text>
                 </View>
-                <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 3.5, justifyContent: 'space-between' }]}>
+                <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 3.3, justifyContent: 'space-between' }]}>
                     {this.dataNewStore}
                 </View>
             </View>
@@ -2178,18 +2207,18 @@ export class Fin_Mall extends React.Component {
         return (
             <View style={stylesMain.FrameBackground2}>
                 <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>Fin Mall </Text>
-                <View style={[stylesMain.FlexRow, stylesMain.FinMall_Box]}>
-                    <View style={[stylesMain.ItemCenter, stylesMain.FinMall_Box_Image]}>
-                        <FastImage
-                            style={stylesMain.BoxProduct1Image}
-                            source={{
-                                uri: `${ip}/MySQL/uploads/Image_FinMall/Finmall_Banner.jpg`,
-                            }}
-                            resizeMode={FastImage.resizeMode.cover}
-                        />
-                    </View>
-                    <View style={stylesMain.FinMall_ScrollView}>
-                        <ScrollView horizontal>
+                <View style={stylesMain.FinMall_Box}>
+                    <ScrollView horizontal >
+                        <View style={[stylesMain.ItemCenter, stylesMain.FinMall_Box_Image]}>
+                            <FastImage
+                                style={stylesMain.BoxProduct1Image}
+                                source={{
+                                    uri: `${ip}/MySQL/uploads/Image_FinMall/Finmall_Banner.jpg`,
+                                }}
+                                resizeMode={FastImage.resizeMode.cover}
+                            />
+                        </View>
+                        <View style={stylesMain.FinMall_ScrollView}>
                             {
                                 loadData.product_hit &&
                                 <TouchableOpacity
@@ -2201,8 +2230,8 @@ export class Fin_Mall extends React.Component {
                                     </View>
                                 </TouchableOpacity>
                             }
-                        </ScrollView>
-                    </View>
+                        </View>
+                    </ScrollView>
                 </View>
             </View>
         );
@@ -2514,21 +2543,62 @@ export class Category_Image_Total extends React.Component {
         this.state = {
         };
     }
-
     render() {
-        const { sizeBox } = this.props
+        const { dataService, sizeBox } = this.props
+        console.log('Category_Image_Total')
+        console.log(dataService)
+
         return (
             <View style={{ marginTop: 10 }}>
-                <View style={{ height: 'auto', aspectRatio: 3.5, backgroundColor: '#3D90E7' }}>
-                    <Text>Size A</Text>
+                <View style={{ height: 'auto', aspectRatio: 3.5, }}>
+                    {
+                        dataService.S.map((value, index) => {
+                            return (
+                                <FastImage
+                                    key={index}
+                                    style={stylesMain.BoxProduct1Image}
+                                    source={{
+                                        uri: `${ip}/MySQL/${value.image_path}/${value.image}`,
+                                    }}
+                                    resizeMode={FastImage.resizeMode.contain}
+                                />
+                            )
+                        })
+                    }
                 </View>
                 <View style={[stylesMain.FlexRow, { width: '100%', height: 'auto', aspectRatio: 3, justifyContent: 'space-between', marginTop: 5 }]}>
-                    <View style={{ backgroundColor: sizeBox == 1 ? '#DB9B85' : '#29B9DE', width: width * 0.49 }}></View>
-                    <View style={{ backgroundColor: sizeBox == 1 ? '#EDB3DA' : '#8672BB', width: width * 0.49 }}></View>
+                    {
+                        dataService.M.map((value, index) => {
+                            return (
+                                <View key={index} style={{ width: width * 0.49 }}>
+                                    <FastImage
+                                        style={stylesMain.BoxProduct1Image}
+                                        source={{
+                                            uri: `${ip}/MySQL/${value.image_path}/${value.image}`,
+                                        }}
+                                        resizeMode={FastImage.resizeMode.contain}
+                                    />
+                                </View>
+                            )
+                        })
+                    }
                 </View>
                 <View style={[stylesMain.FlexRow, { width: '100%', height: 'auto', aspectRatio: 2.5, justifyContent: 'space-between', marginTop: 5 }]}>
-                    <View style={{ backgroundColor: '#BCB3ED', width: width * 0.49 }}></View>
-                    <View style={{ backgroundColor: '#72BB75', width: width * 0.49 }}></View>
+                    {
+                        dataService.L.map((value, index) => {
+                            return (
+                                <View key={index} style={{ width: width * 0.49 }}>
+                                    <FastImage
+                                        style={stylesMain.BoxProduct1Image}
+                                        source={{
+                                            uri: `${ip}/MySQL/${value.image_path}/${value.image}`,
+                                        }}
+                                        resizeMode={FastImage.resizeMode.contain}
+                                    />
+                                </View>
+                            )
+                        })
+                    }
                 </View>
             </View>
         );

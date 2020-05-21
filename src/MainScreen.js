@@ -153,10 +153,10 @@ export default class MainScreen extends React.PureComponent {
                 nameComponent: 'Product_for_you',
                 renderComponent: <Product_for_you navigation={navigation} loadData={dataService.for_you} />
             },
-            // {
-            //     nameComponent: 'CategoryProduct',
-            //     renderComponent: <CategoryProduct navigation={navigation} />
-            // },
+            {
+                nameComponent: 'CategoryProduct',
+                renderComponent: <CategoryProduct navigation={navigation} />
+            },
             // {
             //     nameComponent: 'Category_Image_Total',
             //     renderComponent: <Category_Image_Total sizeBox={1} />
@@ -195,7 +195,7 @@ export default class MainScreen extends React.PureComponent {
         // const dataBody2 = {
         //     type: 'categorylist'
         // }
-        activeDataService2 == true && GetServices({ uriPointer: uri2, getDataSource: this.getData2.bind(this) })
+        // activeDataService2 == true && GetServices({ uriPointer: uri2, getDataSource: this.getData2.bind(this) })
         // var data = []
         // var S
         // var M
@@ -208,12 +208,12 @@ export default class MainScreen extends React.PureComponent {
         //         data.push({ S, M, L })
         //     }
         // }
-        dataService2 && dataService2.map((value, index) => {
-            return itemT.splice(18 + index, 0, {
-                nameComponent: `CategoryProduct${index}`,
-                renderComponent: <CategoryProduct dataService={value} navigation={navigation} />
-            })
-        })
+        // dataService2 && dataService2.map((value, index) => {
+        //     return itemT.splice(18 + index, 0, {
+        //         nameComponent: `CategoryProduct${index}`,
+        //         renderComponent: <CategoryProduct dataService={value} navigation={navigation} />
+        //     })
+        // })
         return (
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                 {
@@ -1700,63 +1700,66 @@ export class CategoryProduct extends React.Component {
     getActiveProductMobile = (activeProductMobile) => {
         this.setState({ activeProductMobile });
     };
-    // getData = (dataService) => {
-    //     this.setState({ dataService, activeDataService: false });
-    // };
+    getData = (dataService) => {
+        this.setState({ dataService, activeDataService: false });
+    };
     get dataCategory() {
-        const { dataService, navigation, NoStoreReCom, } = this.props;
-        const { activeProductMobile, } = this.state;
+        const { navigation, NoStoreReCom, } = this.props;
+        const { activeProductMobile, dataService, } = this.state;
         // var dataMySQL = `${ip}/mysql/${item.image_path}/${item.image}`;
-        var dataMySQL = `${finip}/${dataService.mobile_head}`;
-        return (
-            <View style={[stylesMain.FrameBackground2, {
-                marginTop: activeProductMobile == false ? 10 : 0,
-                backgroundColor: activeProductMobile == false ? dataService.bg_m : 'transparent',
-                paddingBottom: activeProductMobile == false ? 4 : 0,
-            }]}>
-                <>
-                    {
-                        activeProductMobile == false &&
-                        <TouchableOpacity onPress={() => NavigationNavigateScreen({
-                            goScreen: 'CategoryScreen', setData: { id_type: dataService.id_type }, navigation,
-                        })}>
-                            <FastImage
-                                source={{
-                                    uri: dataMySQL,
-                                }}
-                                style={[stylesMain.CategoryProductImageHead]}
-                                resizeMode={FastImage.resizeMode.contain} />
-                        </TouchableOpacity>
-                    }
-                    <CategoryProductSubProduct activeProductMobile={activeProductMobile}
-                        getActiveProductMobile={this.getActiveProductMobile.bind(this)} navigation={navigation} headerData={dataService}
-                        id_type={dataService.id_type} />
-                </>
-                {
-                    NoStoreReCom ?
-                        <View style={{ marginBottom: 10, }}>
-                            <View style={{ marginTop: 10, }}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
-                                    marginLeft: 8, color: '#fff'
-                                }]}>
-                                    ร้านนี้ผ่อนได้ </Text>
-                            </View>
-                            <CategoryProductSubStore navigation={navigation} id_type={dataService.id_type} />
-                        </View> :
-                        <View style={{ marginBottom: 0, }}>
-                            <CategoryProductSubPromotion navigation={navigation} id_type={dataService.id_type} />
-                            <CategoryProductSubStore navigation={navigation} id_type={dataService.id_type} />
-                        </View>
-                }
-            </View>
-        );
+        return dataService &&
+            dataService.map((item, index) => {
+                var dataMySQL = `${finip}/${item.mobile_head}`;
+                return (
+                    <View key={index} style={[stylesMain.FrameBackground2, {
+                        marginTop: activeProductMobile == false ? 10 : 0,
+                        backgroundColor: activeProductMobile == false ? item.bg_m : 'transparent',
+                        paddingBottom: activeProductMobile == false ? 4 : 0,
+                    }]}>
+                        <>
+                            {
+                                activeProductMobile == false &&
+                                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                                    goScreen: 'CategoryScreen', setData: { id_type: item.id_type }, navigation,
+                                })}>
+                                    <FastImage
+                                        source={{
+                                            uri: dataMySQL,
+                                        }}
+                                        style={[stylesMain.CategoryProductImageHead]}
+                                        resizeMode={FastImage.resizeMode.contain} />
+                                </TouchableOpacity>
+                            }
+                            <CategoryProductSubProduct activeProductMobile={activeProductMobile}
+                                getActiveProductMobile={this.getActiveProductMobile.bind(this)} navigation={navigation} headerData={item}
+                                id_type={item.id_type} />
+                        </>
+                        {
+                            NoStoreReCom ?
+                                <View style={{ marginBottom: 10, }}>
+                                    <View style={{ marginTop: 10, }}>
+                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
+                                            marginLeft: 8, color: '#fff'
+                                        }]}>
+                                            ร้านนี้ผ่อนได้ </Text>
+                                    </View>
+                                    <CategoryProductSubStore navigation={navigation} id_type={item.id_type} />
+                                </View> :
+                                <View style={{ marginBottom: 0, }}>
+                                    <CategoryProductSubPromotion navigation={navigation} id_type={item.id_type} />
+                                    <CategoryProductSubStore navigation={navigation} id_type={item.id_type} />
+                                </View>
+                        }
+                    </View>
+                );
+            })
     };
     render() {
-        // const { activeDataService } = this.state;
-        // var uri = `${finip}/home/category_mobile`;
-        // activeDataService == true && GetServices({
-        //     abortController: this.abortController, uriPointer: uri, getDataSource: this.getData.bind(this)
-        // });
+        const { activeDataService } = this.state;
+        var uri = `${finip}/home/category_mobile`;
+        activeDataService == true && GetServices({
+            abortController: this.abortController, uriPointer: uri, getDataSource: this.getData.bind(this)
+        });
         return (
             <View>
                 {

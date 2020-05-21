@@ -2563,7 +2563,7 @@ export class Botton_PopUp_FIN extends React.Component {
                                 { translateY: this._translateY },
                             ]
                         }}>
-                            <TouchableOpacity onPress={() => this.setState({ activeSliding: !activeSliding })}>
+                            <TouchableOpacity activeOpacity={1} onPress={() => this.setState({ activeSliding: !activeSliding })}>
                                 <FastImage
                                     style={[stylesMain.Botton_PopUp_Image, {
                                         backfaceVisibility: 'hidden', backgroundColor: '#fff', borderRadius: 60, borderColor: '#DCDCDC',

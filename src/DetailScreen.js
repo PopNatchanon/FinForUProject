@@ -28,7 +28,9 @@ import stylesFont, { normalize } from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, ExitAppModule } from './MainScreen';
-import { GetServices, ProductBox, TabBar, FlatComponent, GetData, FlatProduct, NavigationNavigateScreen } from './customComponents/Tools';
+import {
+  GetServices, ProductBox, TabBar, FlatComponent, GetData, FlatProduct, NavigationNavigateScreen,
+} from './customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main // complete_last_function
@@ -318,8 +320,6 @@ export class Detail_Data extends React.Component {
       }
       this.setState({ newDataService: newData })
     }
-    // console.log('---------------------------------->newDataService<----------------------------------')
-    // console.log(newDataService)
     return dataService.product_data &&
       dataService.product_data.map((item, index) => {
         return (
@@ -947,7 +947,7 @@ export class Selector extends React.Component {
             <TouchableOpacity activeOpacity={1} onPress={
               currentUser ?
                 () => this.sendProduct('null') :
-                () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation })
+                () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true })
             }>
               <View style={[stylesDetail.Coupon_Box, stylesMain.ItemCenterVertical]}>
                 <Text style={[stylesDetail.Coupon_Text, stylesFont.FontSize5, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical]}>
@@ -1024,6 +1024,7 @@ export class Detail extends React.Component {
     super(props);
     this.state = {
       activeText: false,
+      showMoreButton: false,
     };
   }
   setStateShowMoreButton = (showMoreButton) => {
@@ -1039,52 +1040,26 @@ export class Detail extends React.Component {
   get id_store() {
     const { dataService } = this.props
     const { activeText, showMoreButton, } = this.state
-    // console.log(activeText)
+    console.log('activeText')
+    console.log(activeText)
+    console.log('showMoreButton')
+    console.log(showMoreButton)
     return dataService.product_data &&
       dataService.product_data.map((item, index) => {
-        console.log(item)
         return (
           <View style={stylesMain.FrameBackground} key={index}>
             <View style={[stylesMain.FrameBackgroundTextBox, stylesDetail.BottomTitle, stylesMain.MarginBottomTitle]}>
               <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
                 รายละเอียดสินค้า</Text>
             </View>
-            {/* <WebView
-              originWhitelist={['*']}
-              source={{ html: "" }}
-            /> */}
-            <View style={[stylesDetail.Detail_Text_Box, { paddingHorizontal: 6, marginTop: normalize(-5) }]}>
-              {
-                activeText == false &&
-                <HTML html={`<div>${item.detail}</div>`} imagesMaxWidth={Dimensions.get('window').width}
-                  renderers={{
-                    div: (_, children, ) => <Text key={item.id_product} numberOfLines={4} onTextLayout={({
-                      nativeEvent: { lines } }) =>
-                      this.setStateShowMoreButton(lines.length > 4)
-                    } style={[
-                      stylesDetail.Detail_Text, stylesFont.FontFamilyText, stylesFont.FontSize5
-                    ]}>{children}</Text>
-                  }} />
-              }
-              {
-                activeText == true &&
-                <HTML html={`<div>${item.detail}</div>`} imagesMaxWidth={Dimensions.get('window').width}
-                  renderers={{
-                    div: (_, children, ) => <Text key={item.id_product} numberOfLines={undefined} onTextLayout={({
-                      nativeEvent: { lines } }) =>
-                      this.setStateShowMoreButton(lines.length > 4)
-                    } style={[
-                      stylesDetail.Detail_Text, stylesFont.FontFamilyText, stylesFont.FontSize5
-                    ]}>{children}</Text>
-                  }} />
-              }
-              {/* <View style={{ marginVertical: 20, backgroundColor: 'red' }}></View>
-              <Text numberOfLines={activeText == false ? 4 : null} onTextLayout={({ nativeEvent: { lines } }) =>
-                this.setStateShowMoreButton(lines.length > 4)
-              } style={[
-                stylesDetail.Detail_Text, stylesFont.FontFamilyText, stylesFont.FontSize6
-              ]}>
-                {item.detail}</Text> */}
+            <View style={[{ marginTop: normalize(-5), }]} >
+              <View style={[{
+                paddingHorizontal: 6, maxHeight: activeText == false ? 94 : '100%', overflow: 'hidden',
+              }]}
+                onLayout={({ nativeEvent: { layout: { height } } }) => this.setStateShowMoreButton(height >= normalize(94))}>
+                <HTML html={`<div>${item.detail}</div>`} baseFontStyle={{ fontFamily: 'SukhumvitSet-Text', }}
+                  imagesMaxWidth={Dimensions.get('window').width} />
+              </View>
               {
                 showMoreButton == true &&
                 <TouchableOpacity onPress={() => this.setStateActiveText(!activeText)}>
@@ -1431,7 +1406,7 @@ export class Buy_bar extends React.Component {
               <TouchableOpacity activeOpacity={1} onPress={
                 currentUser ?
                   () => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation }) :
-                  () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation })
+                  () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true })
 
               }>
                 <IconAntDesign name='message1' size={22} style={[stylesMain.ItemCenterVertical]} />
@@ -1452,7 +1427,7 @@ export class Buy_bar extends React.Component {
             <TouchableOpacity onPress={
               currentUser ?
                 () => this.BuyProduct('addcart') :
-                () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation })
+                () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true })
             }>
               <View style={[stylesDetail.Buy_bar_Iconshop, stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
                 <IconAntDesign name='shoppingcart' size={25} />
@@ -1463,7 +1438,7 @@ export class Buy_bar extends React.Component {
             <TouchableOpacity onPress={
               currentUser ?
                 () => this.BuyProduct('gocart') :
-                () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation })
+                () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true })
             }>
               <View style={[stylesDetail.Buy_bar_IconBuy, stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
                 <Text style={[stylesDetail.Buy_bar_IconBuytext, stylesFont.FontFamilyText, stylesFont.FontCenter]}>
@@ -1495,8 +1470,6 @@ export class Show_Image extends React.Component {
         var items = { uri: `${finip}/${item.image_full_path}/${item.image}` }
         dataMySQL.push(items)
       })
-    console.log('dataMySQL|setShowItemImage')
-    console.log(dataMySQL)
     return dataMySQL
   }
   render() {

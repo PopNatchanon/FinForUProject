@@ -923,7 +923,7 @@ export class Topic_Help extends React.Component {
                                 null :
                                 () => NavigationNavigateScreen({
                                     goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'บัญชีของฉัน' }, navigation,
-                                    noPush
+                                    noPush: true
                                 }) :
                             () => NavigationNavigateScreen({
                                 goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'บัญชีของฉัน' }, navigation,
@@ -938,7 +938,7 @@ export class Topic_Help extends React.Component {
                                 null :
                                 () => NavigationNavigateScreen({
                                     goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การคืนสินค้า' }, navigation,
-                                    noPush
+                                    noPush: true
                                 }) :
                             () => NavigationNavigateScreen({
                                 goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การคืนสินค้า' }, navigation,
@@ -953,7 +953,7 @@ export class Topic_Help extends React.Component {
                                 null :
                                 () => NavigationNavigateScreen({
                                     goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การชำระเงิน' }, navigation,
-                                    noPush
+                                    noPush: true
                                 }) :
                             () => NavigationNavigateScreen({
                                 goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การชำระเงิน' }, navigation,
@@ -968,7 +968,7 @@ export class Topic_Help extends React.Component {
                                 null :
                                 () => NavigationNavigateScreen({
                                     goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การสั่งซื้อ' }, navigation,
-                                    noPush
+                                    noPush: true
                                 }) :
                             () => NavigationNavigateScreen({
                                 goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การสั่งซื้อ' }, navigation,
@@ -983,7 +983,7 @@ export class Topic_Help extends React.Component {
                                 null :
                                 () => NavigationNavigateScreen({
                                     goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'หัวข้ออื่นๆ' }, navigation,
-                                    noPush
+                                    noPush: true
                                 }) :
                             () => NavigationNavigateScreen({
                                 goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'หัวข้ออื่นๆ' }, navigation,

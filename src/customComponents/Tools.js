@@ -1,7 +1,8 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     ActivityIndicator, Dimensions, Modal, ScrollView, Text, TextInput, TouchableOpacity, View, Share, Image, FlatList,
+    StyleSheet, Platform, PixelRatio,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
@@ -14,6 +15,7 @@ import NumberFormat from 'react-number-format';
 import SlidingView from 'rn-sliding-view';
 import RNFetchBlob from 'rn-fetch-blob'
 import SplashScreen from 'react-native-splash-screen';
+import { StackActions, NavigationActions } from 'react-navigation';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -63,7 +65,7 @@ export class Toolbar extends React.Component {
                 <TouchableOpacity activeOpacity={1}
                     onPress={
                         routeSelcet != 'MainScreen' ?
-                            () => NavigationNavigateScreen({ goScreen: 'MainScreen', navigation }) :
+                            () => NavigationNavigateScreen({ goScreen: 'MainScreen', navigation, noPush: true }) :
                             null}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="home" size={25}
@@ -83,7 +85,7 @@ export class Toolbar extends React.Component {
                 <TouchableOpacity activeOpacity={1}
                     onPress={
                         routeSelcet != 'FeedScreen' ?
-                            () => NavigationNavigateScreen({ goScreen: 'FeedScreen', navigation }) :
+                            () => NavigationNavigateScreen({ goScreen: 'FeedScreen', navigation, noPush: true }) :
                             null}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="tagso" size={25}
@@ -103,7 +105,7 @@ export class Toolbar extends React.Component {
                 <TouchableOpacity activeOpacity={1}
                     onPress={
                         routeSelcet != 'NewsScreen' ?
-                            () => NavigationNavigateScreen({ goScreen: 'NewsScreen', navigation }) :
+                            () => NavigationNavigateScreen({ goScreen: 'NewsScreen', navigation, noPush: true }) :
                             null}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="notification" size={25}
@@ -123,7 +125,7 @@ export class Toolbar extends React.Component {
                 <TouchableOpacity activeOpacity={1}
                     onPress={
                         routeSelcet != 'BellScreen' ?
-                            () => NavigationNavigateScreen({ goScreen: 'BellScreen', navigation }) :
+                            () => NavigationNavigateScreen({ goScreen: 'BellScreen', navigation, noPush: true }) :
                             null}>
                     <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                         <IconAntDesign name="bells" size={25}
@@ -146,7 +148,7 @@ export class Toolbar extends React.Component {
                         <TouchableOpacity activeOpacity={1}
                             onPress={
                                 routeSelcet != 'LoginScreen' ?
-                                    () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation }) :
+                                    () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, noPush: true }) :
                                     null}>
                             <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                                 <IconAntDesign name="user" size={25} color={
@@ -166,7 +168,7 @@ export class Toolbar extends React.Component {
                         <TouchableOpacity activeOpacity={1}
                             onPress={
                                 routeSelcet != 'ProfileScreen' ?
-                                    () => NavigationNavigateScreen({ goScreen: 'ProfileScreen', navigation }) :
+                                    () => NavigationNavigateScreen({ goScreen: 'ProfileScreen', navigation, noPush: true }) :
                                     null
                             }>
                             <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
@@ -1218,20 +1220,22 @@ export function FlatProduct(props) {
 }
 ///----------------------------------------------------------------------------------------------->>>> NavigationNavigateScreen
 export function NavigationNavigateScreen(props) {
-    const { goScreen, setConsole, setData, navigation, noPush } = props
+    const { goScreen, setConsole, passHome, setData, navigation, noPush } = props
+    const navigationActions = StackActions.reset({
+        index: 0,
+        actions: [StackActions.replace({ routeName: goScreen, })],
+    })
     setConsole && (
         console.log(setConsole.consolename),
         console.log(setConsole.consolelog)
     )
     goScreen == 'goBack' ?
         navigation.goBack() :
-        goScreen == 'LoginScreen' ? (
-            navigation.popToTop(),
-            navigation.replace(goScreen, setData)
-        ) :
+        passHome == true ?
+            navigation.dispatch(navigationActions) :
             goScreen == 'popToTop' ?
                 navigation.popToTop() :
-                noPush ?
+                noPush == true ?
                     navigation.replace(goScreen, setData) :
                     navigation.push(goScreen, setData);
 
@@ -1855,3 +1859,22 @@ export class PricesSlide extends React.Component {
         )
     }
 }
+export function InlineImage(props) {
+    let style = props.style;
+    if (style && Platform.OS !== 'ios') {
+        // Multiply width and height by pixel ratio to fix React Native bug
+        style = Object.assign({}, StyleSheet.flatten(props.style));
+        ['width', 'height'].forEach((propName) => {
+            if (style[propName]) {
+                style[propName] *= PixelRatio.get();
+            }
+        });
+    }
+    return (
+        <Image
+            {...props}
+            style={style}
+        />
+    );
+};
+InlineImage.propTypes = Image.propTypes;

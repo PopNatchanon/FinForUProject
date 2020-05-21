@@ -799,11 +799,6 @@ export default StyleSheet.create({
     marginLeft: 5
   },
   ///------------------------------------------------------------------///ส่วน 
-  Botton_PopUp_FIN: {
-    bottom: '30%',
-    left: width - 60,
-    marginTop: -60
-  },
   Botton_PopUp_Image: {
     height: 60,
     width: 60,

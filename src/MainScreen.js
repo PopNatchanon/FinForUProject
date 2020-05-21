@@ -1,8 +1,15 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React from 'react';
 import {
-    Animated, BackHandler, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, YellowBox, Image,
+    Animated, BackHandler, Dimensions, SafeAreaView,
+    // ScrollView, 
+    Text, TextInput, TouchableOpacity, View, YellowBox, Image
 } from 'react-native';
+import {
+    PanGestureHandler,
+    ScrollView,
+    State,
+} from 'react-native-gesture-handler';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import ActionButton from 'react-native-action-button';
 import * as Animatable from 'react-native-animatable';
@@ -60,6 +67,7 @@ export default class MainScreen extends React.PureComponent {
     getData = (dataService) => {
         this.setState({ dataService, activeDataService: false });
     };
+    heightFlat = 0;
     render() {
         const { navigation } = this.props;
         const { activeDataService, activeLoading, dataService, } = this.state;
@@ -175,8 +183,9 @@ export default class MainScreen extends React.PureComponent {
                     <LoadingScreen key='LoadingScreen' />
                 }
                 <AppBar navigation={navigation} style={{ flex: 5, }} />
-                <FlatComponent componentPage='MainScreen' component={itemT} />
-                <Botton_PopUp_FIN useNativeDriver />
+                <FlatComponent componentPage='MainScreen' component={itemT} onLayout={({
+                    nativeEvent: { layout: { height } } }) => this.heightFlat = height} />
+                <Botton_PopUp_FIN heightFlat={this.heightFlat} />
                 <Toolbar navigation={navigation} style={{ flex: 5, }} />
                 <ExitAppModule navigation={navigation} />
             </SafeAreaView>
@@ -200,6 +209,9 @@ export class ExitAppModule extends React.Component {
     componentWillUnmount() {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton.bind(this));
     };
+    componentDidCatch() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton.bind(this));
+    }
     _spring = () => {
         this.setState({ backClickCount: 1 }, () => {
             Animated.sequence([
@@ -276,6 +288,7 @@ export class AppBar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            activeRefresh: true,
             activeGetCurrentUser: true,
             text: '',
         };
@@ -287,6 +300,9 @@ export class AppBar extends React.Component {
     getSource = (value) => {
         this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser });
     };
+    getData = (dataService) => {
+        this.setState({ activeRefresh: false, dataService });
+    }
     setText = (text) => {
         this.setState({ text });
     };
@@ -298,10 +314,21 @@ export class AppBar extends React.Component {
     };
     render() {
         const { ABDColor, ABGColor, AIColor, leftBar, navigation, rightBar, searchBar, SearchText } = this.props;
-        const { currentUser, text, } = this.state;
+        const { activeRefresh, currentUser, dataService, text, } = this.state;
         const AIconEntypo = Animatable.createAnimatableComponent(IconEntypo);
         const AIconFeather = Animatable.createAnimatableComponent(IconFeather);
         const AIconFontAwesome5 = Animatable.createAnimatableComponent(IconFontAwesome5);
+        var uri;
+        var dataBody;
+        currentUser && (
+            uri = `${finip}/cart/cart_mobile`,
+            dataBody = {
+                id_customer: currentUser.id_customer
+            }
+        );
+        dataService && console.log(dataService.cart_list.length)
+        currentUser && dataBody && activeRefresh == true &&
+            GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), showConsole: 'AppBar' });
         return (
             <Animatable.View style={[stylesMain.Appbar, stylesMain.FlexRow, {
                 backgroundColor: ABGColor ? ABGColor : '#fff',
@@ -410,7 +437,7 @@ export class AppBar extends React.Component {
                                                 () => NavigationNavigateScreen({
                                                     goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation
                                                 }) :
-                                                () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation })}>
+                                                () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true })}>
                                         <IconAntDesign name="message1" size={25} />
                                     </TouchableOpacity> :
                                     <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40, flex: 50 }]}
@@ -419,7 +446,7 @@ export class AppBar extends React.Component {
                                                 () => NavigationNavigateScreen({
                                                     goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation
                                                 }) :
-                                                () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation })}>
+                                                () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true })}>
                                         <IconAntDesign name="message1" size={25} />
                                     </TouchableOpacity>
                             }
@@ -434,7 +461,14 @@ export class AppBar extends React.Component {
                             }]} onPress={
                                 currentUser ?
                                     () => NavigationNavigateScreen({ goScreen: 'CartScreen', navigation }) :
-                                    () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation })}>
+                                    () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true })}>
+                                {
+                                    dataService && dataService.cart_list.length > 0 &&
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, {
+                                        backgroundColor: 'red', color: '#fff', width: 17, height: 17, borderRadius: 15, textAlign: 'center',
+                                        textAlignVertical: 'center', position: 'absolute', elevation: 1, left: 25, bottom: 15
+                                    }]}>{dataService.cart_list.length}</Text>
+                                }
                                 <IconAntDesign name="shoppingcart" size={25} />
                             </TouchableOpacity>
                         </View>
@@ -536,7 +570,7 @@ export class AppBar1 extends React.Component {
                                     () => NavigationNavigateScreen({
                                         goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation
                                     }) :
-                                    () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation })
+                                    () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true })
                             }>
                             <IconAntDesign RightItem name="message1" size={25} style={[
                                 stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
@@ -1288,19 +1322,14 @@ export class FlashSale extends React.PureComponent {
         };
     };
     componentDidMount() {
-        this.intervalID = setInterval(
-            () => this.tick(),
-            1000
-        );
+        this.intervalID = setInterval(() => this.tick(), 1000);
     };
     componentWillUnmount() {
         this.abortController.abort()
         clearInterval(this.intervalID);
     };
     tick() {
-        this.setState({
-            curTime: new Date()
-        });
+        this.setState({ curTime: new Date() });
     };
     getData = (dataService) => {
         var flash_end = dataService.flash_end && dataService.flash_end.split(':');
@@ -2444,32 +2473,75 @@ export class Botton_PopUp_FIN extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            activeShow: true,
             activeSliding: false,
+            rotate: 0,
         };
+        this._translateX = new Animated.Value(0);
+        this._translateY = new Animated.Value(0);
+        this._lastOffset = { x: 0, y: 0 };
+        this._onGestureEvent = Animated.event(
+            [
+                {
+                    nativeEvent: {
+                        translationX: this._translateX,
+                        translationY: this._translateY,
+                    },
+                },
+            ],
+            { useNativeDriver: false }
+        );
     };
-    toggleComponentVisibility = (activeSliding) => {
-        activeSliding == true &&
-            Notifications.postLocalNotification({
-                // title: "Hot Sale!",
-                body: "สวัสดีครับ\nต้องการให้น้องฟินช่วยด้านใดดีครับ",
-                extra: "data"
-            });
-        this.setState({ activeSliding });
+    _onHandlerStateChange = event => {
+        if (event.nativeEvent.oldState === State.ACTIVE) {
+            this._lastOffset.x += event.nativeEvent.translationX;
+            this._lastOffset.y += event.nativeEvent.translationY;
+            this._translateX.setOffset(this._lastOffset.x < -(width * 0.5) ? -(width - 68) : 0);
+            this._translateX.setValue(0);
+            this.setState({ rotate: this._lastOffset.x < -(width * 0.5) ? 1 : 0 })
+            this._translateY.setOffset(this._lastOffset.y > 0 ? 0 :
+                this._lastOffset.y < -(height - 185) ? -(height - 185) : this._lastOffset.y);
+            this._translateY.setValue(0);
+        }
     };
     render() {
-        const { activeSliding } = this.state;
-        // console.log(activeSliding)
+        const { activeSliding, activeShow } = this.state;
         return (
             <>
-                <View style={stylesMain.Botton_PopUp_FIN}>
-                    {/* <View style={{ left: width - 60, transform: [{ translateY: -.09 * height }] }}> */}
-                    <TouchableOpacity onPress={() => this.toggleComponentVisibility(!activeSliding)}>
-                        <FastImage
-                            style={stylesMain.Botton_PopUp_Image}
-                            source={require('../icon/FIN_Chat-01.png')}
-                            resizeMode={FastImage.resizeMode.contain} />
-                    </TouchableOpacity>
-                </View>
+                {
+                    activeShow == true &&
+                    <PanGestureHandler
+                        {...this.props}
+                        onGestureEvent={this._onGestureEvent}
+                        onHandlerStateChange={this._onHandlerStateChange}>
+                        <Animated.View style={{
+                            elevation: 1,
+                            height: 60,
+                            width: 60,
+                            left: width - 65,
+                            marginTop: -60,
+                            transform: [
+                                { translateX: this._translateX },
+                                { translateY: this._translateY },
+                            ]
+                        }}>
+                            <TouchableOpacity onPress={() => this.setState({ activeSliding: !activeSliding })}>
+                                <FastImage
+                                    style={[stylesMain.Botton_PopUp_Image, {
+                                        backfaceVisibility: 'hidden', backgroundColor: '#fff', borderRadius: 60, borderColor: '#DCDCDC',
+                                        borderWidth: 1, marginBottom: -20
+                                    }]}
+                                    source={require('../icon/1589958803447.png')}
+                                    resizeMode={FastImage.resizeMode.contain} />
+                                <TouchableOpacity onPress={() => this.setState({ activeShow: !activeShow })} style={{
+                                    width: 20, height: 20, left: 40, bottom: 40
+                                }}>
+                                    <IconAntDesign name='closecircle' size={20} style={{ elevation: 1, color: 'red' }} />
+                                </TouchableOpacity>
+                            </TouchableOpacity>
+                        </Animated.View>
+                    </PanGestureHandler>
+                }
                 <SlidingView
                     disableDrag
                     componentVisible={activeSliding}

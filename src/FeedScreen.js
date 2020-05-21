@@ -10,7 +10,7 @@ export const { width, height } = Dimensions.get('window');
 import stylesMain from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule, } from './MainScreen';
+import { AppBar1, ExitAppModule, Botton_PopUp_FIN, } from './MainScreen';
 import { FeedBox, GetData, GetServices, TabBar, Toolbar, LoadingScreen } from './customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from './navigator/IpConfig';
@@ -59,6 +59,7 @@ export default class FeedScreen extends React.Component {
             currentUser={currentUser} getActiveSelectedIndex={this.getActiveSelectedIndex.bind(this)}
             selectedIndex={currentUser ? selectedIndex : 1} navigation={navigation} />
         }
+        <Botton_PopUp_FIN />
         <Toolbar navigation={navigation} />
         <ExitAppModule navigation={navigation} />
       </SafeAreaView>

@@ -1733,7 +1733,7 @@ export class CategoryProduct extends React.Component {
         // var dataMySQL = `${ip}/mysql/${item.image_path}/${item.image}`;
         return dataService &&
             dataService.map((item, index) => {
-                var dataMySQL = `${finip}/${item.mobile_head}`;
+                var dataMySQL = `${finip}/${item.image_path}/${item.image_menu}`;
                 return (
                     <View key={index} style={[stylesMain.FrameBackground2, {
                         marginTop: activeProductMobile == false ? 10 : 0,
@@ -1771,7 +1771,7 @@ export class CategoryProduct extends React.Component {
                                 </View> :
                                 <View style={{ marginBottom: 0, }}>
                                     <CategoryProductSubPromotion navigation={navigation} id_type={item.id_type} />
-                                    <CategoryProductSubStore navigation={navigation} id_type={item.id_type} />
+                                    {/* <CategoryProductSubStore navigation={navigation} id_type={item.id_type} /> */}
                                 </View>
                         }
                     </View>
@@ -1858,14 +1858,14 @@ export class CategoryProductSubStore extends React.PureComponent {
         this.setState({ activeSlide: index });
     };
     _renderItem = (item, index) => {
-        var dataMySQL = `${finip}/${item.item.image_path}/${item.item.image}`;
-        var dataMySQL2;
-        item.item2 && (
-            dataMySQL2 = `${finip}/${item.item2.image_path}/${item.item2.image}`
-        );
+        var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
+        // var dataMySQL2;
+        // item.item2 && (
+        //     dataMySQL2 = `${finip}/${item.item2.image_path}/${item.item2.image}`
+        // );
         return (
-            <TouchableOpacity activeOpacity={1} key={index} style={stylesMain.FlexRow}>
-                <View style={[stylesMain.CategoryProductStoreBox]}>
+            <TouchableOpacity activeOpacity={1} key={index}>
+                <View style={[stylesMain.CategoryProductStoreBox, { width: width * 0.45, }]}>
                     <Image
                         source={{
                             uri: dataMySQL,
@@ -1874,7 +1874,7 @@ export class CategoryProductSubStore extends React.PureComponent {
                         resizeMode='cover'
                         resizeMethod='resize' />
                 </View>
-                <View style={[stylesMain.CategoryProductStoreBox]}>
+                {/* <View style={[stylesMain.CategoryProductStoreBox]}>
                     <Image
                         source={{
                             uri: dataMySQL2,
@@ -1882,21 +1882,21 @@ export class CategoryProductSubStore extends React.PureComponent {
                         style={stylesMain.CategoryProductStoreImage}
                         resizeMode='cover'
                         resizeMethod='resize' />
-                </View>
+                </View> */}
             </TouchableOpacity>
         );
     };
     render() {
         const { id_type, } = this.props;
         const { activeDataService, dataService } = this.state;
-        var item = [];
-        if (dataService && dataService.banner && dataService.banner.length > 0)
-            for (var n = 0; n < dataService.banner.length; n += 2) {
-                item.push({
-                    item: dataService.banner[n],
-                    item2: dataService.banner[n + 1]
-                });
-            };
+        // var item = [];
+        // if (dataService && dataService.banner && dataService.banner.length > 0)
+        //     for (var n = 0; n < dataService.banner.length; n += 2) {
+        //         item.push({
+        //             item: dataService.banner[n],
+        //             item2: dataService.banner[n + 1]
+        //         });
+        //     };
         var uri = `${finip}/home/publish_cate_mobile`
         var dataBody = {
             promotion: 'shop',
@@ -1906,20 +1906,20 @@ export class CategoryProductSubStore extends React.PureComponent {
             abortController: this.abortController, uriPointer: uri, dataBody, getDataSource: this.getData.bind(this)
         });
         return (
-            <>
+            <View>
                 {
                     dataService && dataService.banner && dataService.banner.length > 0 && (
                         <Carousel
                             key={'banner'}
                             renderItem={this._renderItem}
-                            data={item}
+                            data={dataService.banner}
                             loop
                             autoplay
                             autoplayInterval={3000}
                             pagination={PaginationLight} />
                     )
                 }
-            </>
+            </View>
         );
     };
 };
@@ -1944,13 +1944,12 @@ export class CategoryProductSubPromotion extends React.Component {
     getData2 = (dataService2) => {
         this.setState({ dataService2, activeDataService2: false });
     };
-    dataCategoryProductSubPromotion(dataService, type) {
+    dataCategoryProductSubPromotionSmall(dataService) {
         var dataMySQL = dataService && dataService.banner &&
-            `${finip}/${(dataService.banner[0].path_mobile)}/${(dataService.banner[0].image)}`
+            `${finip}/${(dataService.banner[0].image_path)}/${(dataService.banner[0].image)}`
         if (dataMySQL == false) { return <></> }
         return (
-            <View style={[type == 0 ? stylesMain.BoxStore1Box2 : stylesMain.BoxStore1Box3,
-            { borderWidth: 0, }]} key={dataService.banner[0].id} >
+            <View style={[stylesMain.BoxStore1Box3, { borderWidth: 0, width: '100%', marginTop: 5 }]} key={dataService.banner[0].id} >
                 {
                     dataService &&
                     <Image
@@ -1964,8 +1963,27 @@ export class CategoryProductSubPromotion extends React.Component {
             </View>
         );
     };
+    dataCategoryProductSubPromotionBig(dataService) {
+        var dataMySQL = dataService && dataService.banner &&
+            `${finip}/${(dataService.banner[0].image_path)}/${(dataService.banner[0].image)}`
+        if (dataMySQL == false) { return <></> }
+        return (
+            <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, marginTop: 5, marginBottom: 5, }]} key={dataService.banner[0].id} >
+                {
+                    dataService &&
+                    <Image
+                        source={{
+                            uri: dataMySQL,
+                        }}
+                        resizeMode='cover'
+                        resizeMethod='resize'
+                        style={[stylesMain.BoxProduct1Image, { borderRadius: 6, }]} />
+                }
+            </View>
+        );
+    }
     render() {
-        const { id_type } = this.props;
+        const { id_type, navigation, } = this.props;
         const {
             activeDataService, activeDataService2, dataService, dataService2, failFetchDataService, failFetchDataService2
         } = this.state;
@@ -1990,18 +2008,19 @@ export class CategoryProductSubPromotion extends React.Component {
             });
         return (
             <>
-                <View style={[stylesMain.FlexRow, { width: '100%' }]}>
+                <View style={[stylesMain.FlexRow, { width: '100%', marginTop: 2 }]}>
+                    <View style={{ width: width * 0.45, flexDirection: 'column', marginRight: 5 }}>
+                        {
+                            dataService2 && dataService2.banner &&
+                            this.dataCategoryProductSubPromotionSmall(dataService2, 1)
+                        }
+                        <View style={{ width: width * 0.45, height: 70, marginTop: 5 }}>
+                            <CategoryProductSubStore navigation={navigation} id_type={id_type} />
+                        </View>
+                    </View>
                     {
-                        dataService && dataService.banner && dataService2 && dataService2.banner && ([
-                            (
-                                dataService.banner.length > 0 &&
-                                this.dataCategoryProductSubPromotion(dataService, 0)
-                            ),
-                            (
-                                dataService2.banner.length > 0 &&
-                                this.dataCategoryProductSubPromotion(dataService2, 1)
-                            ),
-                        ])
+                        dataService && dataService.banner &&
+                        this.dataCategoryProductSubPromotionBig(dataService, 0)
                     }
                 </View>
             </>

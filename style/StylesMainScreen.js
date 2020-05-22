@@ -275,16 +275,16 @@ export default StyleSheet.create({
   },
   BoxStore1Box2: {
     // width: width * 0.55,
-    width: '55%',
-    height: 105,
+    width: '50%',
+    height: 160,
     marginTop: 10,
     marginBottom: 5,
     marginHorizontal: 5,
   },
   BoxStore1Box3: {
     // width: width * 0.40,
-    width: '40%',
-    height: 105,
+    width: '45%',
+    height: 85,
     marginTop: 10,
     marginLeft: 5,
   },
@@ -615,7 +615,8 @@ export default StyleSheet.create({
   },
   CategoryProductStoreBox: {
     width: width * 0.48,
-    height: 90,
+    height: 70,
+    // aspectRatio: 2,
     marginLeft: 5,
   },
   CategoryProductStoreImage: {

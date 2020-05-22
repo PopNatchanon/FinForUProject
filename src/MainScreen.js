@@ -90,10 +90,10 @@ export default class MainScreen extends React.PureComponent {
                 nameComponent: 'Category',
                 renderComponent: <Category navigation={navigation} />
             },
-            // {
-            //     nameComponent: 'Trend_Hit',
-            //     renderComponent: <Trend_Hit />
-            // },
+            {
+                nameComponent: 'Trend_Hit',
+                renderComponent: <Trend_Hit />
+            },
             {
                 nameComponent: 'Button_Bar',
                 renderComponent: <Button_Bar navigation={navigation} />
@@ -153,10 +153,10 @@ export default class MainScreen extends React.PureComponent {
                 nameComponent: 'Product_for_you',
                 renderComponent: <Product_for_you navigation={navigation} loadData={dataService.for_you} />
             },
-            // {
-            //     nameComponent: 'CategoryProduct',
-            //     renderComponent: <CategoryProduct navigation={navigation} />
-            // },
+            {
+                nameComponent: 'CategoryProduct',
+                renderComponent: <CategoryProduct navigation={navigation} />
+            },
             // {
             //     nameComponent: 'Category_Image_Total',
             //     renderComponent: <Category_Image_Total sizeBox={1} />

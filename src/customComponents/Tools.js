@@ -1056,16 +1056,11 @@ export function ProductBox(props) {
                                 source={{
                                     uri: dataMySQL,
                                 }}
-                                style={[
-                                    mode == 'row4col1' ?
-                                        stylesMain.BoxProduct5Image :
-                                        mode == 'row3colall' || mode == '5item' ?
-                                            stylesMain.BoxProduct2Image :
-                                            stylesMain.BoxProduct1Image,
-                                    {
-                                        borderTopLeftRadius: radiusBox ? radiusBox : 0,
-                                        borderTopRightRadius: radiusBox ? radiusBox : 0
-                                    }
+                                style={[stylesMain.BoxProduct2Image,
+                                {
+                                    borderTopLeftRadius: radiusBox ? radiusBox : 0,
+                                    borderTopRightRadius: radiusBox ? radiusBox : 0
+                                }
                                 ]}
                                 resizeMode={FastImage.resizeMode.contain} />
                         </View>
@@ -1303,7 +1298,7 @@ export function RenderProduct(props) {
                         source={{
                             uri: dataMySQL,
                         }}
-                        style={[stylesMain.BoxProduct1Image,
+                        style={[stylesMain.BoxProduct2Image,
                         {
                             borderTopLeftRadius: radiusBox ? radiusBox : 0,
                             borderTopRightRadius: radiusBox ? radiusBox : 0,

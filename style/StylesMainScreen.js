@@ -74,9 +74,8 @@ export default StyleSheet.create({
     height: width * 0.18,
   },
   BoxProduct1Image: {
-    width: '75%',
-    height: 'auto',
-    aspectRatio: 1,
+    width: '100%',
+    height: '100%',
   },
   BoxProduct1NameofLines: {
     width: '100%',

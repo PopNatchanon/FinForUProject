@@ -97,7 +97,7 @@ export default class CategoryScreen extends React.Component {
                     activeGetServices == true &&
                     <LoadingScreen key={'LoadingScreen'} />
                 }
-                <AppBar leftBar='backarrow' navigation={navigation} />
+                <AppBar backArrow cartBar navigation={navigation} />
                 <ScrollView stickyHeaderIndices={[5]}>
                     <Slide banner={dataService.banner} />
                     <Recommend_Store navigation={navigation} recommend={dataService.recommend} />

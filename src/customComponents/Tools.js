@@ -25,7 +25,7 @@ import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
 import stylesDetail from '../../style/StylesDetailScreen'
-import stylesFont from '../../style/stylesFont';
+import stylesFont, { normalize } from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 import stylesStore from '../../style/StylesStoreScreen';
 import stylesTopic from '../../style/styleTopic';
@@ -1201,7 +1201,10 @@ export function FlatProduct(props) {
                 flexDirection: 'column'
             }}
             renderItem={(value) =>
-                <View style={NumberOfcolumn == 2 ? stylesMain.Product_for_you : {}}>
+                <View style={{
+                    height: NumberOfcolumn == 2 ? mode == 'row3_new' ? 300 : 312 : undefined,
+                    marginTop: NumberOfcolumn == 2 ? 10 : undefined
+                }}>
                     {
                         (NumberOfcolumn == 2 ? value.item.item : value.item) &&
                         <RenderProduct custumNavigation={custumNavigation} navigation={navigation} mode={mode} radiusBox={radiusBox}
@@ -1251,6 +1254,10 @@ export function RenderProduct(props) {
     ])
     var dataMySQL = `${finip}/${(item.path_image_product ? item.path_image_product :
         item.image_path)}/${(item.image_product ? item.image_product : item.image_main ? item.image_main : item.image)}`;
+    var discount
+    item.discount && (
+        discount = item.discount.replace("%", "")
+    )
     return (
         <TouchableOpacity activeOpacity={1} onPress={() =>
             noNavigation ?
@@ -1265,50 +1272,48 @@ export function RenderProduct(props) {
                     stylesMain.BoxProduct5Box :
                     mode == 'row3' ?
                         stylesMain.BoxProduct1Box2 :
-                        mode == 'row3_2' ?
-                            stylesMain.BoxProduct4Box :
-                            mode == 'row3_all' ?
-                                stylesMain.BoxProduct2Box :
-                                mode == 'row2_all' ?
-                                    stylesMain.BoxProduct3Box :
-                                    mode == '5item' ?
-                                        stylesDeal.Deal_Exclusive_Box :
-                                        stylesMain.BoxProduct1Box,
+                        mode == 'row3_new' ?
+                            stylesMain.BoxProduct1Box2new :
+                            mode == 'row3_2' ?
+                                stylesMain.BoxProduct4Box :
+                                mode == 'row3_all' ?
+                                    stylesMain.BoxProduct2Box :
+                                    mode == 'row2_all' ?
+                                        stylesMain.BoxProduct3Box :
+                                        mode == '5item' ?
+                                            stylesDeal.Deal_Exclusive_Box :
+                                            stylesMain.BoxProduct1Box,
                 {
                     marginBottom: mode == 'row3_2' ? 4 : null,
                     borderRadius: radiusBox ? radiusBox : 0
                 }
             ]}>
-                <View style={
-                    mode == 'row4' ?
-                        stylesMain.BoxProduct5ImageofLines :
-                        mode == 'row3_all' ?
-                            stylesMain.BoxProduct2ImageofLines :
-                            mode == 'row2_all' ?
-                                stylesMain.BoxProduct3ImageofLines :
-                                mode == '5item' ?
-                                    stylesMain.BoxProduct1ImageofLines2 :
-                                    stylesMain.BoxProduct1ImageofLines
-                }>
+                <View style={[stylesMain.ItemCenter,
+                mode == 'row4' ?
+                    stylesMain.BoxProduct5ImageofLines :
+                    mode == 'row3_all' ?
+                        stylesMain.BoxProduct2ImageofLines :
+                        mode == 'row2_all' ?
+                            stylesMain.BoxProduct3ImageofLines :
+                            mode == '5item' ?
+                                stylesMain.BoxProduct1ImageofLines2 :
+                                stylesMain.BoxProduct1ImageofLines
+                ]}>
                     <FastImage
                         source={{
                             uri: dataMySQL,
                         }}
-                        style={[
-                            mode == 'row4' ?
-                                stylesMain.BoxProduct5Image :
-                                mode == 'row3_all' || mode == '5item' ?
-                                    stylesMain.BoxProduct2Image :
-                                    stylesMain.BoxProduct1Image,
-                            {
-                                borderTopLeftRadius: radiusBox ? radiusBox : 0,
-                                borderTopRightRadius: radiusBox ? radiusBox : 0
-                            }
+                        style={[stylesMain.BoxProduct1Image,
+                        {
+                            borderTopLeftRadius: radiusBox ? radiusBox : 0,
+                            borderTopRightRadius: radiusBox ? radiusBox : 0,
+                            marginTop: height * 0.015
+                        }
                         ]}
                         resizeMode={FastImage.resizeMode.contain} />
                 </View>
                 <View style={{
-                    height: 60,
+                    height: 55,
                     paddingHorizontal: 3
                 }}>
                     <View style={[
@@ -1340,7 +1345,7 @@ export function RenderProduct(props) {
                                 thousandSeparator={true}
                                 prefix={'฿'}
                                 renderText={value =>
-                                    <Text style={[
+                                    <Text numberOfLines={1} style={[
                                         stylesMain.BoxProduct1ImagePrice,
                                         stylesFont.FontFamilyBoldBold, {
                                             fontSize: priceSize ? priceSize : 14,
@@ -1349,7 +1354,7 @@ export function RenderProduct(props) {
                                         {value}</Text>
                                 } />
                             {
-                                item.discount > 0 &&
+                                discount > 0 &&
                                 <NumberFormat
                                     value={item.discount && item.discount}
                                     displayType={'text'}
@@ -1359,7 +1364,7 @@ export function RenderProduct(props) {
                                         value =>
                                             value &&
                                             <View style={[stylesMain.Box_On_sale, { borderRadius: 10 }]}>
-                                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, {
+                                                <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, {
                                                     color: '#FFFFFF'
                                                 }]}>
                                                     {`-${value}`}</Text>
@@ -1377,7 +1382,7 @@ export function RenderProduct(props) {
                                 thousandSeparator={true}
                                 prefix={'฿'}
                                 renderText={value =>
-                                    <Text style={[
+                                    <Text numberOfLines={1} style={[
                                         stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontFamilyText, {
                                             marginTop: -4,
                                             fontSize: dispriceSize ? dispriceSize : 14

@@ -57,21 +57,26 @@ export default StyleSheet.create({
     marginTop: 4,
     marginLeft: 4,
   },
+  BoxProduct1Box2new: {
+    backgroundColor: '#FFFFFF', width: 120,
+    borderColor: '#ECECEC', borderWidth: 0.5,
+  },
   BoxProduct1ImageofLines: {
     width: 113,
-    height: 113,
+    // height: 113,
   },
   BoxProduct1ImageofLines2: {
     width: width * 0.28,
-    height: width * 0.28,
+    // height: width * 0.28,
   },
   BoxProduct1ImageofLines3: {
     width: width * 0.18,
     height: width * 0.18,
   },
   BoxProduct1Image: {
-    width: '100%',
-    height: '100%',
+    width: '75%',
+    height: 'auto',
+    aspectRatio: 1,
   },
   BoxProduct1NameofLines: {
     width: '100%',
@@ -128,12 +133,12 @@ export default StyleSheet.create({
   BoxProduct2ImageofLines: {
     flex: 1,
     width: '100%',
-    height: height * (1 / 5.5),
+    // height: height * (1 / 5.5),
   },
   BoxProduct2Image: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
+    width: '75%',
+    height: 'auto',
+    aspectRatio: 1,
   },
   BoxProduct2ImagePrice: {
     fontSize: 10,
@@ -174,7 +179,7 @@ export default StyleSheet.create({
   },
   BoxProduct3ImageofLines: {
     width: '100%',
-    height: width * (1 / 2.2),
+    // height: width * (1 / 2.2),
   },
   ///------------///
   BoxProduct4Box: {
@@ -254,11 +259,12 @@ export default StyleSheet.create({
   },
   BoxProduct5ImageofLines: {
     width: 83,
-    height: 83,
+    // height: 83,
   },
   BoxProduct5Image: {
-    width: '100%',
-    height: '100%',
+    width: '75%',
+    height: 'auto',
+    aspectRatio: 1,
   },
   ///------------///
   BoxStore1Box: {
@@ -483,12 +489,13 @@ export default StyleSheet.create({
   Appbar: {
     borderColor: '#ECECEC',
     borderWidth: 1,
-    height: 50,
+    height: 55,
     paddingTop: 6,
     paddingBottom: 6,
   },
   AppbarBody: {
     marginLeft: 6,
+    borderRadius: 60,
     borderWidth: 1,
     borderColor: '#E5E5E5',
     backgroundColor: '#fff',
@@ -630,7 +637,7 @@ export default StyleSheet.create({
     aspectRatio: 7
   },
   Product_for_you: {
-    height: 370,
+    height: 320,
     marginTop: 10,
   },
   ///------------------------------------------------------------------///

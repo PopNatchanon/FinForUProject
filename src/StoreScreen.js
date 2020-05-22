@@ -180,7 +180,7 @@ export default class StoreScreen extends React.Component {
                         left: 0,
                         right: 0,
                     }}>
-                        <AppBar leftBar='backarrow' rightBar='storebar' navigation={navigation}
+                        <AppBar backArrow filterBar otherBar navigation={navigation}
                             ABGColor={AnimatedHeadbg} ABDColor={AnimatedHeadbd} AIColor={AnimatedHeadi} />
                     </View>
                 </Animatable.View>

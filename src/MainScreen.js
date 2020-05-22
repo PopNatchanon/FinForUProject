@@ -90,10 +90,10 @@ export default class MainScreen extends React.PureComponent {
                 nameComponent: 'Category',
                 renderComponent: <Category navigation={navigation} />
             },
-            {
-                nameComponent: 'Trend_Hit',
-                renderComponent: <Trend_Hit />
-            },
+            // {
+            //     nameComponent: 'Trend_Hit',
+            //     renderComponent: <Trend_Hit />
+            // },
             {
                 nameComponent: 'Button_Bar',
                 renderComponent: <Button_Bar navigation={navigation} />
@@ -191,7 +191,7 @@ export default class MainScreen extends React.PureComponent {
         activeDataService == true && GetServices({
             abortController: this.abortController, uriPointer: uri, getDataSource: this.getData.bind(this)
         });
-        const uri2 = `${finip}/home/category_mobile`;
+        // const uri2 = `${finip}/home/category_mobile`;
         // const dataBody2 = {
         //     type: 'categorylist'
         // }
@@ -220,9 +220,8 @@ export default class MainScreen extends React.PureComponent {
                     (activeDataService == true || activeLoading == true) &&
                     <LoadingScreen key='LoadingScreen' />
                 }
-                <AppBar navigation={navigation} style={{ flex: 5, }} />
-                <FlatComponent componentPage='MainScreen' component={itemT} onLayout={({
-                    nativeEvent: { layout: { height } } }) => this.heightFlat = height} />
+                <AppBar navigation={navigation} cartBar chatBar style={{ flex: 5, }} />
+                <FlatComponent componentPage='MainScreen' component={itemT} />
                 <Botton_PopUp_FIN />
                 <Toolbar navigation={navigation} style={{ flex: 5, }} />
                 <ExitAppModule navigation={navigation} />
@@ -351,11 +350,20 @@ export class AppBar extends React.Component {
             NavigationNavigateScreen({ goScreen: 'SearchScreen', setData: { SearchText: text }, navigation });
     };
     render() {
-        const { ABDColor, ABGColor, refresh, AIColor, leftBar, getActive, navigation, rightBar, searchBar, SearchText } = this.props;
+        const {
+            ABDColor, ABGColor, refresh, AIColor, getActive, navigation,
+            backArrow, cartBar, chatBar, filterBar, otherBar, searchBar, SearchText,
+        } = this.props;
         const { activeRefresh, currentUser, dataService, text, } = this.state;
         const AIconEntypo = Animatable.createAnimatableComponent(IconEntypo);
         const AIconFeather = Animatable.createAnimatableComponent(IconFeather);
         const AIconFontAwesome5 = Animatable.createAnimatableComponent(IconFontAwesome5);
+        var allWidth = width - 20
+        backArrow && (allWidth = allWidth - 30)
+        cartBar && (allWidth = allWidth - 30)
+        chatBar && (allWidth = allWidth - 30)
+        filterBar && (allWidth = allWidth - 30)
+        otherBar && (allWidth = allWidth - 30)
         var uri;
         var dataBody;
         currentUser && (
@@ -373,24 +381,26 @@ export class AppBar extends React.Component {
             GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), showConsole: 'AppBar' });
         return (
             <Animatable.View style={[stylesMain.Appbar, stylesMain.FlexRow, {
-                backgroundColor: ABGColor ? ABGColor : '#fff',
-                borderColor: ABDColor ? ABDColor : '#ECECEC',
+                backgroundColor: ABGColor ? ABGColor : '#1A3363',
+                borderBottomColor: ABDColor ? ABDColor : '#1A3363',
+                borderColor: 'transparent',
             }]}>
                 {[
 
-                    leftBar == 'backarrow' &&
-                    <View key={'backarrow'} style={{ flex: 5 }}>
-                        <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 40, height: 50 }]}
+                    backArrow &&
+                    <View key={'backarrow'}>
+                        <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]}
                             activeOpacity={1}
                             onPress={() => NavigationNavigateScreen({ goScreen: 'goBack', navigation })}>
-                            <AIconEntypo name="chevron-left" size={30} style={{ color: AIColor ? AIColor : '#111', }} />
+                            <AIconEntypo name="chevron-left" size={25} style={{ color: AIColor ? AIColor : '#fff', }} />
                         </TouchableOpacity>
                     </View>,
                     searchBar ?
                         <TouchableOpacity key={'searchBar'} activeOpacity={1}
+                            style={{ marginRight: 3 }}
                         // onPress={() => NavigationNavigateScreen('goBack')}
                         >
-                            <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical]}>
+                            <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical, { height: 30 }]}>
                                 {
                                     /* <FastImage
                                         style={[stylesMain.LOGO, stylesMain.ItemCenterVertical]}
@@ -398,14 +408,7 @@ export class AppBar extends React.Component {
                                         resizeMode={FastImage.resizeMode.stretch} /> */
                                 }
                                 <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
-                                    width:
-                                        rightBar == 'storebar' ?
-                                            leftBar == 'backarrow' ?
-                                                width - 140 :
-                                                width - 120 :
-                                            rightBar == 'chat' ?
-                                                width - 140 :
-                                                width - 120,
+                                    width: allWidth,
                                 }]}>
                                     <TextInput
                                         style={[
@@ -417,15 +420,15 @@ export class AppBar extends React.Component {
                                         onSubmitEditing={this.setSubmit}
                                         onChangeText={this.setText} />
                                 </View>
-                                <IconAntDesign name="search1" size={20}
-                                    style={[stylesMain.ItemCenterVertical, { marginRight: 4 }]} />
+                                <IconAntDesign name="search1" size={18} style={[{ top: 4, left: allWidth - 25, position: 'absolute' }]} />
                             </View>
                         </TouchableOpacity> :
-                        <TouchableOpacity key={'searchBar'} activeOpacity={1} onPress={
-                            () => NavigationNavigateScreen({
-                                goScreen: SearchText ? 'goBack' : 'SearchScreen', setData: { modeStore: false }, navigation
-                            })}>
-                            <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical, { flex: 90 }]}>
+                        <TouchableOpacity key={'searchBar'} activeOpacity={1}
+                            style={{ marginRight: 3 }} onPress={
+                                () => NavigationNavigateScreen({
+                                    goScreen: SearchText ? 'goBack' : 'SearchScreen', setData: { modeStore: false }, navigation
+                                })}>
+                            <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical, { height: 30 }]}>
                                 {
                                     /* <FastImage
                                         style={[stylesMain.LOGO, stylesMain.ItemCenterVertical]}
@@ -434,14 +437,7 @@ export class AppBar extends React.Component {
                                 }
                                 <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
                                     height: 30,
-                                    width:
-                                        rightBar == 'storebar' ?
-                                            leftBar == 'backarrow' ?
-                                                width - 140 :
-                                                width - 120 :
-                                            rightBar == 'chat' ?
-                                                width - 140 :
-                                                width - 120,
+                                    width: allWidth,
                                 }]}>
                                     <Text style={[
                                         stylesFont.FontFamilyText, stylesFont.FontSize5, stylesFont.FontCenter,
@@ -453,53 +449,44 @@ export class AppBar extends React.Component {
                                                 'ค้นหาสินค้า/ร้านค้า'
                                         }</Text>
                                 </View>
-                                <IconAntDesign name="search1" size={20} style={[stylesMain.ItemCenterVertical, {
-                                    marginRight: 4
-                                }]} />
+                                <IconAntDesign name="search1" size={18} style={[{ top: 4, left: allWidth - 25, position: 'absolute', }]} />
                             </View>
                         </TouchableOpacity>,
-                    rightBar == 'storebar' ?
-                        <View key={'storebar'} style={[stylesMain.ItemCenter, stylesMain.FlexRow, { flex: 10 }]}>
-                            <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 40, flex: 50 }]}
+                    <View key={'storebar'} style={[stylesMain.ItemCenter, stylesMain.FlexRow, stylesMain.ItemCenterVertical]}>
+                        {
+                            filterBar &&
+                            <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
+                                width: 30,
+                            }]}
                                 onPress={null/*() => navigation.push('CartScreen')*/}>
-                                <AIconFeather name="filter" size={25} style={{ color: AIColor ? AIColor : '#111' }} />
+                                <AIconFeather name="filter" size={25} style={{ color: AIColor ? AIColor : '#fff' }} />
                             </TouchableOpacity>
-                            <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 40, flex: 50 }]}
+                        }
+                        {
+                            otherBar &&
+                            <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
+                                width: 30,
+                            }]}
                                 onPress={null/*() => navigation.push('CartScreen')*/}>
-                                <AIconFontAwesome5 name="ellipsis-h" size={25} style={{ color: AIColor ? AIColor : '#111' }} />
+                                <AIconFontAwesome5 name="ellipsis-h" size={25} style={{ color: AIColor ? AIColor : '#fff' }} />
                             </TouchableOpacity>
-                        </View> :
-                        <View key={'storebar'} style={[stylesMain.FlexRow, stylesMain.ItemCenterVertical, { flex: 10 }]}>
-                            {
-                                leftBar == 'backarrow' ?
-                                    rightBar == 'chat' &&
-                                    <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40, flex: 50 }]}
-                                        onPress={
-                                            currentUser ?
-                                                () => NavigationNavigateScreen({
-                                                    goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation
-                                                }) :
-                                                () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true })}>
-                                        <IconAntDesign name="message1" size={25} />
-                                    </TouchableOpacity> :
-                                    <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40, flex: 50 }]}
-                                        onPress={
-                                            currentUser ?
-                                                () => NavigationNavigateScreen({
-                                                    goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation
-                                                }) :
-                                                () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true })}>
-                                        <IconAntDesign name="message1" size={25} />
-                                    </TouchableOpacity>
-                            }
+                        }
+                        {
+                            chatBar &&
+                            <TouchableOpacity style={[stylesMain.ItemCenter, { width: 30, }]}
+                                onPress={
+                                    currentUser ?
+                                        () => NavigationNavigateScreen({
+                                            goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation
+                                        }) :
+                                        () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true })}>
+                                <IconAntDesign name="message1" size={25} style={{ color: '#fff' }} />
+                            </TouchableOpacity>
+                        }
+                        {
+                            cartBar &&
                             <TouchableOpacity style={[stylesMain.ItemCenter, {
-                                width:
-                                    leftBar == 'backarrow' ?
-                                        rightBar == 'chat' ?
-                                            40 :
-                                            50 :
-                                        40,
-                                flex: 50
+                                width: 30,
                             }]} onPress={
                                 currentUser ?
                                     () => NavigationNavigateScreen({
@@ -510,13 +497,16 @@ export class AppBar extends React.Component {
                                     dataService && dataService.cart_list.length > 0 &&
                                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, {
                                         backgroundColor: 'red', color: '#fff', width: 17, height: 17, borderRadius: 15, textAlign: 'center',
-                                        textAlignVertical: 'center', position: 'absolute', elevation: 1, left: 25, bottom: 15
+                                        textAlignVertical: 'center', position: 'absolute', elevation: 1, left: 18, bottom: 15,
+                                        borderColor: '#1A3363', borderWidth: 1,
                                     }]}>{dataService.cart_list.length}</Text>
                                 }
-                                <IconAntDesign name="shoppingcart" size={25} />
+                                <IconAntDesign name="shoppingcart" size={25} style={{ color: '#fff' }} />
                             </TouchableOpacity>
-                        </View>
-                ]}
+                        }
+                    </View>
+                ]
+                }
             </Animatable.View>
         );
     };
@@ -1804,7 +1794,7 @@ export class CategoryProductSubProduct extends React.PureComponent {
                 {
                     dataService && dataService.length > 0 &&
                     <FlatProduct navigation={navigation} dataService={dataService} NumberOfcolumn={2} nameFlatProduct='CategoryProduct'
-                        mode='row3' nameSize={14} priceSize={15} dispriceSize={15} />
+                        mode='row3_new' nameSize={14} priceSize={15} dispriceSize={13} />
                 }
                 {/* {
                         dataService && dataService.length > 0 &&

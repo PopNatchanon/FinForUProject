@@ -32,7 +32,7 @@ export default class SecondScreen extends React.Component {
       case 0:
         return (
           <SafeAreaView style={stylesMain.SafeAreaView}>
-            <AppBar leftBar='backarrow' navigation={navigation} />
+            <AppBar backArrow cartBar navigation={navigation} />
             <Second_Product navigation={navigation} />
           </SafeAreaView>
         )

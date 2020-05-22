@@ -153,10 +153,10 @@ export default class MainScreen extends React.PureComponent {
                 nameComponent: 'Product_for_you',
                 renderComponent: <Product_for_you navigation={navigation} loadData={dataService.for_you} />
             },
-            {
-                nameComponent: 'CategoryProduct',
-                renderComponent: <CategoryProduct navigation={navigation} />
-            },
+            // {
+            //     nameComponent: 'CategoryProduct',
+            //     renderComponent: <CategoryProduct navigation={navigation} />
+            // },
             // {
             //     nameComponent: 'Category_Image_Total',
             //     renderComponent: <Category_Image_Total sizeBox={1} />
@@ -767,26 +767,58 @@ export class Guarantee extends React.Component {
     render() {
         return (
             <View style={{
-                flexDirection: 'row', width: '100%', height: 'auto',
-                aspectRatio: 3.3, justifyContent: 'space-between', marginTop: 5
+                flexDirection: 'row', width: '100%', height: 'auto', paddingHorizontal: 5,
+                aspectRatio: 4.8, justifyContent: 'space-between', marginTop: 5
             }}>
-                <View style={{ width: '56%' }}>
-                    <FastImage
-                        style={stylesMain.BoxProduct1Image}
-                        source={{
-                            uri: `${ip}/MySQL/uploads/Guarantee/455x195-finmall-02.jpg`,
-                        }}
-                        resizeMode={FastImage.resizeMode.cover}
-                    />
+                <View style={{ width: '49%', backgroundColor: '#FFFFFF', borderRadius: 5 }}>
+                    <View style={{ padding: 5 }}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: `${ip}/MySQL/uploads/Home/001.png`,
+                            }}
+                            resizeMode={FastImage.resizeMode.cover}
+                        />
+                    </View>
                 </View>
-                <View style={{ width: '42%' }}>
-                    <FastImage
-                        style={stylesMain.BoxProduct1Image}
-                        source={{
-                            uri: `${ip}/MySQL/uploads/Guarantee/290x195 G.png`,
-                        }}
-                        resizeMode={FastImage.resizeMode.stretch}
-                    />
+                <View style={{ width: '49%', flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <View style={{ width: '30%', backgroundColor: '#FFFFFF', borderRadius: 5, alignItems: 'center', padding: 5 }}>
+                        <View style={{ height: 40, width: 40, marginBottom: 2 }}>
+                            <FastImage
+                                style={stylesMain.BoxProduct1Image}
+                                source={{
+                                    uri: `${ip}/MySQL/uploads/Home/warranty_blue-05.png`,
+                                }}
+                                resizeMode={FastImage.resizeMode.cover}
+                            />
+                        </View>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize9, { textAlign: 'center' }]}>ใบทะเบียนภาษีมูลค่าเพิ่ม</Text>
+                    </View>
+                    <View style={{ width: '30%', backgroundColor: '#FFFFFF', borderRadius: 5, alignItems: 'center', padding: 5 }}>
+                        <View style={{ height: 40, width: 40, marginBottom: 2 }}>
+                            <FastImage
+                                style={stylesMain.BoxProduct1Image}
+                                source={{
+                                    uri: `${ip}/MySQL/uploads/Home/warranty_blue-01.png`,
+                                }}
+                                resizeMode={FastImage.resizeMode.cover}
+                            />
+                        </View>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize9, { textAlign: 'center' }]}>หนังสือจดทะเบียนบริษัท</Text>
+                    </View>
+                    <View style={{ width: '30%', backgroundColor: '#FFFFFF', borderRadius: 5, alignItems: 'center', padding: 5 }}>
+                        <View style={{ height: 40, width: 40, marginBottom: 2 }}>
+                            <FastImage
+                                style={stylesMain.BoxProduct1Image}
+                                source={{
+                                    uri: `${ip}/MySQL/uploads/Home/warranty_blue-03.png`,
+                                }}
+                                resizeMode={FastImage.resizeMode.cover}
+                            />
+                        </View>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize9, { textAlign: 'center' }]}>
+                            การชำระเงิน</Text>
+                    </View>
                 </View>
             </View>
         );
@@ -813,7 +845,7 @@ export class Category extends React.Component {
         const { dataService } = this.state;
         return dataService &&
             dataService.map((item, index) => {
-                var dataMySQL = `${finip}/${item.image_path}/menu/${item.image_head}`;
+                var dataMySQL = `${finip}/${item.image_path}/menu/mobile/${item.image_head}`;
                 return (
                     <TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigateScreen({
                         goScreen: 'CategoryScreen', setData: { id_type: item.id_type }, navigation
@@ -902,17 +934,19 @@ export class Trend_Hit extends React.Component {
         });
         return (
             <>
-                <ScrollView horizontal style={{ height: 'auto', aspectRatio: 4, marginTop: 10, width, }}>
-                    <View style={{ width: width * 0.70 }}>
-                        <FastImage
-                            style={stylesMain.BoxProduct1Image}
-                            source={{
-                                uri: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-01.jpg`,
-                            }}
-                            resizeMode={FastImage.resizeMode.stretch}
-                        />
+                <ScrollView horizontal style={{ height: 'auto', aspectRatio: 5, marginTop: 10, width, }}>
+                    <View style={{ width: width * 0.50, marginHorizontal: 5 }}>
+                        <View >
+                            <FastImage
+                                style={stylesMain.BoxProduct1Image}
+                                source={{
+                                    uri: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-01.jpg`,
+                                }}
+                                resizeMode={FastImage.resizeMode.stretch}
+                            />
+                        </View>
                     </View>
-                    <View style={{ width: width * 0.70, marginLeft: 5 }}>
+                    <View style={{ width: width * 0.50, marginHorizontal: 5 }}>
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
@@ -921,7 +955,7 @@ export class Trend_Hit extends React.Component {
                             resizeMode={FastImage.resizeMode.stretch}
                         />
                     </View>
-                    <View style={{ width: width * 0.70, marginLeft: 5 }}>
+                    <View style={{ width: width * 0.50, marginHorizontal: 5 }}>
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{

@@ -521,7 +521,7 @@ export default StyleSheet.create({
   category_A: {
     flexDirection: 'column',
     flexWrap: 'wrap',
-    height: 205,
+    height: 203,
     paddingBottom: 6,
     paddingTop: 4,
     justifyContent: 'space-between',

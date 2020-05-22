@@ -736,14 +736,14 @@ export default StyleSheet.create({
   ///------------------------------------------------------------------/// ส่วน finMall
   FinMall_Box: {
     width,
-    justifyContent: 'space-around',
+    justifyContent:'space-between',
     height: 'auto',
-    aspectRatio: 2.8,
-    marginBottom: 5,
+    aspectRatio: 2.5,
+    marginTop:10,
+    paddingHorizontal:5,
   },
   FinMall_Box_Image: {
     width: width * 0.50,
-    borderColor: '#EDEDED',
     borderWidth: 1
   },
   FinMall_Image: {
@@ -752,7 +752,6 @@ export default StyleSheet.create({
   },
   FinMall_ScrollView: {
     marginLeft: 5,
-    backgroundColor: '#EDEDED'
   },
   ///------------------------------------------------------------------/// ส่วน FIN Supermarket
   Supermarket_Product: {

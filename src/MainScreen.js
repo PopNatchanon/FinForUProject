@@ -122,10 +122,10 @@ export default class MainScreen extends React.PureComponent {
                 nameComponent: 'NewStore',
                 renderComponent: <NewStore navigation={navigation} loadData={dataService.dont_miss} />
             },
-            {
-                nameComponent: 'Fin_Mall',
-                renderComponent: <Fin_Mall navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />
-            },
+            // {
+            //     nameComponent: 'Fin_Mall',
+            //     renderComponent: <Fin_Mall navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />
+            // },
             {
                 nameComponent: 'BannerBar_ONE',
                 renderComponent: <BannerBar_ONE />
@@ -778,57 +778,25 @@ export class Guarantee extends React.Component {
         return (
             <View style={{
                 flexDirection: 'row', width: '100%', height: 'auto', paddingHorizontal: 5,
-                aspectRatio: 4.8, justifyContent: 'space-between', marginTop: 5
+                aspectRatio: 5.2, justifyContent: 'space-between', marginTop: 5
             }}>
                 <View style={{ width: '49%', backgroundColor: '#FFFFFF', borderRadius: 5 }}>
-                    <View style={{ padding: 5 }}>
-                        <FastImage
-                            style={stylesMain.BoxProduct1Image}
-                            source={{
-                                uri: `${ip}/MySQL/uploads/Home/001.png`,
-                            }}
-                            resizeMode={FastImage.resizeMode.cover}
-                        />
-                    </View>
+                    <FastImage
+                        style={stylesMain.BoxProduct1Image}
+                        source={{
+                            uri: `${ip}/MySQL/uploads/Home/003.png`,
+                        }}
+                        resizeMode={FastImage.resizeMode.cover}
+                    />
                 </View>
-                <View style={{ width: '49%', flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <View style={{ width: '30%', backgroundColor: '#FFFFFF', borderRadius: 5, alignItems: 'center', padding: 5 }}>
-                        <View style={{ height: 40, width: 40, marginBottom: 2 }}>
-                            <FastImage
-                                style={stylesMain.BoxProduct1Image}
-                                source={{
-                                    uri: `${ip}/MySQL/uploads/Home/warranty_blue-05.png`,
-                                }}
-                                resizeMode={FastImage.resizeMode.cover}
-                            />
-                        </View>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize9, { textAlign: 'center' }]}>ใบทะเบียนภาษีมูลค่าเพิ่ม</Text>
-                    </View>
-                    <View style={{ width: '30%', backgroundColor: '#FFFFFF', borderRadius: 5, alignItems: 'center', padding: 5 }}>
-                        <View style={{ height: 40, width: 40, marginBottom: 2 }}>
-                            <FastImage
-                                style={stylesMain.BoxProduct1Image}
-                                source={{
-                                    uri: `${ip}/MySQL/uploads/Home/warranty_blue-01.png`,
-                                }}
-                                resizeMode={FastImage.resizeMode.cover}
-                            />
-                        </View>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize9, { textAlign: 'center' }]}>หนังสือจดทะเบียนบริษัท</Text>
-                    </View>
-                    <View style={{ width: '30%', backgroundColor: '#FFFFFF', borderRadius: 5, alignItems: 'center', padding: 5 }}>
-                        <View style={{ height: 40, width: 40, marginBottom: 2 }}>
-                            <FastImage
-                                style={stylesMain.BoxProduct1Image}
-                                source={{
-                                    uri: `${ip}/MySQL/uploads/Home/warranty_blue-03.png`,
-                                }}
-                                resizeMode={FastImage.resizeMode.cover}
-                            />
-                        </View>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize9, { textAlign: 'center' }]}>
-                            การชำระเงิน</Text>
-                    </View>
+                <View style={{ width: '50%', }}>
+                    <FastImage
+                        style={stylesMain.BoxProduct1Image}
+                        source={{
+                            uri: `${ip}/MySQL/uploads/Home/00083.png`,
+                        }}
+                        resizeMode={FastImage.resizeMode.stretch}
+                    />
                 </View>
             </View>
         );
@@ -944,9 +912,9 @@ export class Trend_Hit extends React.Component {
         });
         return (
             <>
-                <ScrollView horizontal style={{ height: 'auto', aspectRatio: 5, marginTop: 10, width, }}>
-                    <View style={{ width: width * 0.50, marginHorizontal: 5 }}>
-                        <View >
+                <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 4.5, marginTop: 10, justifyContent: 'space-between', width, paddingHorizontal: 5 }]}>
+                    <View style={{ width: width * 0.48 }}>
+                        <View style={{ height: '90%' }}>
                             <FastImage
                                 style={stylesMain.BoxProduct1Image}
                                 source={{
@@ -955,26 +923,30 @@ export class Trend_Hit extends React.Component {
                                 resizeMode={FastImage.resizeMode.stretch}
                             />
                         </View>
+                        <View style={{ alignItems: 'center' }}>
+                            <View style={{ height: 40, width: 80, marginTop: -20 }}>
+                                <FastImage
+                                    style={stylesMain.BoxProduct1Image}
+                                    source={{
+                                        uri: `${ip}/MySQL/uploads/Home/Button_Gif/shopnow_button.gif`,
+                                    }}
+                                    resizeMode={FastImage.resizeMode.stretch}
+                                />
+                            </View>
+                        </View>
                     </View>
-                    <View style={{ width: width * 0.50, marginHorizontal: 5 }}>
-                        <FastImage
-                            style={stylesMain.BoxProduct1Image}
-                            source={{
-                                uri: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-02.jpg`,
-                            }}
-                            resizeMode={FastImage.resizeMode.stretch}
-                        />
+                    <View style={{ width: width * 0.48 }}>
+                        <View style={{ height: '90%' }}>
+                            <FastImage
+                                style={stylesMain.BoxProduct1Image}
+                                source={{
+                                    uri: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-02.jpg`,
+                                }}
+                                resizeMode={FastImage.resizeMode.stretch}
+                            />
+                        </View>
                     </View>
-                    <View style={{ width: width * 0.50, marginHorizontal: 5 }}>
-                        <FastImage
-                            style={stylesMain.BoxProduct1Image}
-                            source={{
-                                uri: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-03.jpg`,
-                            }}
-                            resizeMode={FastImage.resizeMode.stretch}
-                        />
-                    </View>
-                </ScrollView>
+                </View>
                 <View style={stylesMain.FrameBackground2}>
                     <View style={stylesMain.FrameBackgroundTextBox}>
                         <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
@@ -2239,54 +2211,46 @@ export class Fin_Mall extends React.Component {
     };
     productCate = (type) => {
         return type.map((item, index) => {
-            var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
-            return (
-                <View style={stylesMain.Popular_Box_D} key={index}>
-                    <FastImage
-                        style={stylesMain.Popular_image_Box}
-                        source={{
-                            uri: dataMySQL,
+            if (index < 2) {
+                var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
+                return (
+                    <View style={stylesMain.Popular_Box_D} key={index}>
+                        <FastImage
+                            style={stylesMain.Popular_image_Box}
+                            source={{
+                                uri: dataMySQL,
+                            }}
+                            resizeMode={FastImage.resizeMode.contain} />
+                        <View style={{ padding: 3 }}>
+                            <Text numberOfLines={1} style={[stylesFont.FontSize8, stylesFont.FontFamilyText]}>{item.name}</Text>
+                            <NumberFormat
+                                value={item.full_price}
+                                displayType={'text'}
+                                thousandSeparator={true}
+                                prefix={'฿'}
+                                renderText={value =>
+                                    <Text style={[
+                                        stylesMain.BoxProduct1ImagePrice,
+                                        stylesFont.FontSize8,
+                                        stylesFont.FontFamilyBold,
 
-                        }}
-                        resizeMode={FastImage.resizeMode.contain} />
-                    <View style={{ padding: 3 }}>
-                        <Text numberOfLines={1} style={[stylesFont.FontSize8, stylesFont.FontFamilyText]}>{item.name}</Text>
-                        <NumberFormat
-                            value={item.full_price}
-                            displayType={'text'}
-                            thousandSeparator={true}
-                            prefix={'฿'}
-                            renderText={value =>
-                                <Text style={[
-                                    stylesMain.BoxProduct1ImagePrice,
-                                    stylesFont.FontSize8,
-                                    stylesFont.FontFamilyBold,
-
-                                ]}>
-                                    {value}</Text>
-                            } />
+                                    ]}>
+                                        {value}</Text>
+                                } />
+                        </View>
                     </View>
-                </View>
-            );
+                );
+            }
         });
     };
     render() {
         const { loadData, navigation } = this.props;
         return (
-            <View style={stylesMain.FrameBackground2}>
-                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>Fin Mall </Text>
-                <View style={stylesMain.FinMall_Box}>
-                    <ScrollView horizontal >
-                        <View style={[stylesMain.ItemCenter, stylesMain.FinMall_Box_Image]}>
-                            <FastImage
-                                style={stylesMain.BoxProduct1Image}
-                                source={{
-                                    uri: `${ip}/MySQL/uploads/Image_FinMall/Finmall_Banner.jpg`,
-                                }}
-                                resizeMode={FastImage.resizeMode.cover}
-                            />
-                        </View>
-                        <View style={stylesMain.FinMall_ScrollView}>
+            <View style={[stylesMain.FlexRow, stylesMain.FinMall_Box]}>
+                <View style={{ width: width * 0.48, backgroundColor: '#FFFFFF', padding: 5 }}>
+                    <View style={{ backgroundColor: '#691F50', height: height * 0.25 }}>
+                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>Fin Mall </Text>
+                        <View style={[stylesMain.ItemCenter]}>
                             {
                                 loadData.product_hit &&
                                 <TouchableOpacity
@@ -2299,7 +2263,23 @@ export class Fin_Mall extends React.Component {
                                 </TouchableOpacity>
                             }
                         </View>
-                    </ScrollView>
+                    </View>
+                </View>
+                <View style={{ width: width * 0.48, backgroundColor: '#FFFFFF', paddingHorizontal: 5 }}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>Fin Mall </Text>
+                    <View style={stylesMain.ItemCenter}>
+                        {
+                            loadData.product_hit &&
+                            <TouchableOpacity
+                                key={'product_hit'}
+                                activeOpacity={1}
+                                onPress={() => NavigationNavigateScreen({ goScreen: 'FinMallScreen', navigation })}>
+                                <View style={stylesMain.FlexRow}>
+                                    {this.productCate(loadData.product_hit)}
+                                </View>
+                            </TouchableOpacity>
+                        }
+                    </View>
                 </View>
             </View>
         );

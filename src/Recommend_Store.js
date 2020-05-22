@@ -57,7 +57,7 @@ export default class Recommend_Store extends React.Component {
                     (activeGetSource == true || activeGetServices == true || activeStore_Detail == true) &&
                     <LoadingScreen key='LoadingScreen' />
                 }
-                <AppBar leftBar='backarrow' rightBar='chat' navigation={navigation} />
+                <AppBar backArrow cartBar chatBar navigation={navigation} />
                 <ScrollView>
                     <Header dataService={{
                         slide_image: dataService && dataService.slide_image, list_slide: dataService && dataService.list_slide

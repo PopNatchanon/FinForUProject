@@ -123,7 +123,7 @@ export default class SearchScreen extends React.Component {
             GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
         return (
             <SafeAreaView style={stylesMain.SafeAreaView} >
-                <AppBar searchBar={SearchText ? undefined : true} navigation={navigation} SearchText={SearchText} leftBar='backarrow' />
+                <AppBar searchBar={SearchText ? undefined : true} navigation={navigation} SearchText={SearchText} backArrow cartBar />
                 {
                     modeStore == true ?
                         (

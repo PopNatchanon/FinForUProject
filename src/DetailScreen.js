@@ -73,7 +73,7 @@ export default class DetailScreen extends React.PureComponent {
   render() {
     const { navigation } = this.props
     const {
-      activeDataService, currentUser, BuyProduct, dataService, getStarReview, cokie, scrollY, setActive,
+      activeDataService, activeRefresh, currentUser, BuyProduct, dataService, getStarReview, cokie, scrollY, setActive,
       setShowItemImage, showItemImage
     } = this.state
     var id_product = navigation.getParam('id_item')
@@ -153,7 +153,7 @@ export default class DetailScreen extends React.PureComponent {
             right: 0,
             overflow: 'hidden',
           }}> */}
-        <AppBar getActive={this.setActives.bind(this)} refresh={activeRefresh} leftBar='backarrow' navigation={navigation} />
+        <AppBar getActive={this.setActives.bind(this)} refresh={activeRefresh} backArrow cartBar navigation={navigation} />
         {/* </View>
         </Animatable.View> */}
         {[

@@ -1958,7 +1958,7 @@ export class CategoryProductSubPromotion extends React.Component {
                         }}
                         resizeMode='cover'
                         resizeMethod='resize'
-                        style={[stylesMain.BoxProduct1Image, { borderRadius: 6, }]} />
+                        style={[stylesMain.BoxProduct1Image, { borderRadius: 4, }]} />
                 }
             </View>
         );
@@ -1977,7 +1977,7 @@ export class CategoryProductSubPromotion extends React.Component {
                         }}
                         resizeMode='cover'
                         resizeMethod='resize'
-                        style={[stylesMain.BoxProduct1Image, { borderRadius: 6, }]} />
+                        style={[stylesMain.BoxProduct1Image, { borderRadius: 4, }]} />
                 }
             </View>
         );

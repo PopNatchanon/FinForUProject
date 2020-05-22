@@ -1949,7 +1949,7 @@ export class CategoryProductSubPromotion extends React.Component {
             `${finip}/${(dataService.banner[0].image_path)}/${(dataService.banner[0].image)}`
         if (dataMySQL == false) { return <></> }
         return (
-            <View style={[stylesMain.BoxStore1Box3, { borderWidth: 0, width: '100%', marginTop: 5 }]} key={dataService.banner[0].id} >
+            <View style={[stylesMain.BoxStore1Box3, { borderWidth: 0, width: '100%', marginTop: 6 }]} key={dataService.banner[0].id} >
                 {
                     dataService &&
                     <Image
@@ -1968,7 +1968,7 @@ export class CategoryProductSubPromotion extends React.Component {
             `${finip}/${(dataService.banner[0].image_path)}/${(dataService.banner[0].image)}`
         if (dataMySQL == false) { return <></> }
         return (
-            <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, marginTop: 5, marginBottom: 5, }]} key={dataService.banner[0].id} >
+            <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, marginTop: 6, marginBottom: 6, }]} key={dataService.banner[0].id} >
                 {
                     dataService &&
                     <Image
@@ -2009,12 +2009,12 @@ export class CategoryProductSubPromotion extends React.Component {
         return (
             <>
                 <View style={[stylesMain.FlexRow, { width: '100%', marginTop: 2 }]}>
-                    <View style={{ width: width * 0.45, flexDirection: 'column', marginRight: 5 }}>
+                    <View style={{ width: width * 0.45, flexDirection: 'column', marginRight: 6 }}>
                         {
                             dataService2 && dataService2.banner &&
                             this.dataCategoryProductSubPromotionSmall(dataService2, 1)
                         }
-                        <View style={{ width: width * 0.45, height: 70, marginTop: 5 }}>
+                        <View style={{ width: width * 0.45, height: 70, marginTop: 6 }}>
                             <CategoryProductSubStore navigation={navigation} id_type={id_type} />
                         </View>
                     </View>

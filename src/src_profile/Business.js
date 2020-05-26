@@ -8,7 +8,7 @@ export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 // import { GiftedChat, Bubble, Send } from 'react-native-gifted-chat';
 import ImagePicker from 'react-native-image-crop-picker';
-import { BarChart, Grid } from 'react-native-svg-charts'
+import { BarChart, Grid, StackedBarChart, LineChart, XAxis, YAxis } from 'react-native-svg-charts'
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -80,9 +80,8 @@ export default class Business extends React.Component {
         return (
           <>
             <AppBar1 backArrow navigation={navigation} titleHead='สมาชิกAffiliate' />
-            <BarChartExample />
-            {/* <Business_Profile />
-            <Growth /> */}
+            <Business_Profile />
+            <Growth />
           </>
         )
       case 5:
@@ -138,7 +137,7 @@ export class Register_Affiliate extends React.Component {
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,]}>เพิ่มโอกาสสร้างรายได้เสริม ด้วย Affiliate Marketing</Text>
             <TouchableOpacity
               // onPress={this.navigationNavigateScreen.bind(this, 'Business', { selectedIndex: 1 })}
-              onPress={() => NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 4 }, navigation })}
+              onPress={() => NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 1 }, navigation })}
               style={[stylesMain.ItemCenter, {
                 borderColor: '#0A55A6', borderWidth: 2,
                 margin: 10, padding: 10, borderRadius: 5
@@ -348,23 +347,6 @@ export class Income extends React.Component {
 
 
 ///----------------------------------------------------------------------------------------------->>>>
-class BarChartExample extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-  render() {
-    const fill = 'rgb(134, 65, 244)'
-    const data = [50, 10, 40, 95, -4, -24, null, 85, undefined, 0, 35, 53, -53, 24, 50, -20, -80]
-    return (
-      <BarChart style={{ height: 200 }} data={data} svg={{ fill }} contentInset={{ top: 30, bottom: 30 }}>
-        <Grid />
-      </BarChart>
-    )
-  }
-
-}
 export class Growth extends React.Component {
   constructor(props) {
     super(props);
@@ -372,6 +354,26 @@ export class Growth extends React.Component {
     };
   }
   render() {
+    const fill = 'rgb(134, 65, 244)'
+    const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    const data1 = [50, 10, 40, 95, 4, 24, 50, 35, 53, 53, 24, 50,]
+    const data2 = [10, 20, 40, 80, 1, 12, 10, 20, 30, 20, 10, 40,]
+    const data = data1.concat(data2)
+    const max = Math.max(...data)
+    const min = Math.min(...data)
+    const percen = [min, max,]
+    const barData = [
+      {
+        data: data1.map((value) => ({ value })),
+        svg: {
+          fill: 'rgb(29, 70, 204)',
+        },
+      },
+      {
+        data: data2.map((value) => ({ value })),
+      },
+    ]
+    console.log(percen)
     return (
       <>
         <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', marginTop: 10, justifyContent: 'space-between', paddingHorizontal: 10 }]}>
@@ -387,12 +389,92 @@ export class Growth extends React.Component {
             </View> */}
           </View>
         </View>
-        <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', marginTop: 5, paddingTop: 10, justifyContent: 'center' }]}>
-          <View style={[stylesMain.ItemCenter, { height: 150, width: '90%', backgroundColor: 'blue' }]}>
-            <Text>กราฟ</Text>
+        <View style={{ height: 200, padding: 20, backgroundColor: '#FFFFFF', flexDirection: 'row' }}>
+          <YAxis
+            data={percen}
+            contentInset={{ top: 30, bottom: 30 }}
+            svg={{
+              fill: 'grey', fontSize: 9,
+            }}
+            formatLabel={(value) => `${value}%`}
+            numberOfTicks={10}
+          />
+          <View style={{ flex: 1, marginLeft: 5 }}>
+            <BarChart
+              style={{ height: 160 }}
+              data={barData}
+              svg={{ fill }}
+              yAccessor={({ item }) => item.value}
+              showGrid={true}
+              contentInset={{ top: 30, bottom: 30, left: 10, right: 10, }}>
+              <Grid />
+            </BarChart>
+            <XAxis
+              style={{ marginHorizontal: 8 }}
+              data={data1}
+              formatLabel={(value, index) => month[index]}
+              contentInset={{ left: 10, right: 10, }}
+              svg={{ fontSize: 9, fill: 'grey' }}
+            />
           </View>
-
         </View>
+        {/* <View style={{ backgroundColor: '#FFFFFF', paddingHorizontal: 20, flexDirection: 'row', height: 150 }}>
+          <YAxis
+            data={data}
+            contentInset={contentInset}
+            svg={{ fill: 'grey', fontSize: 9,
+            }}
+            numberOfTicks={10}
+          />
+          <BarChart
+            data={data}
+            svg={{ fill }}
+            contentInset={{ top: 10, bottom: 10 }}>
+            <Grid />
+          </BarChart>
+          <XAxis
+            data={data}
+            formatLabel={(value, index) => index}
+            contentInset={{ left: 10, right: 10 }}
+            svg={{ fontSize: 9, fill: 'grey' }}
+          />
+        </View> */}
+        {/* <View style={{ height: 200, padding: 20 }}>
+          <LineChart
+            style={{ flex: 1 }}
+            data={data}
+            gridMin={0}
+            contentInset={{ top: 10, bottom: 10 }}
+            svg={{ stroke: 'rgb(134, 65, 244)' }}
+          >
+            <Grid />
+          </LineChart>
+          <XAxis
+            style={{ marginHorizontal: -10 }}
+            data={data}
+            formatLabel={(value, index) => index}
+            contentInset={{ left: 10, right: 10 }}
+            svg={{ fontSize: 10, fill: 'black' }}
+          />
+        </View> */}
+        {/* <View style={{ backgroundColor: '#FFFFFF', padding: 10 }}>
+          <StackedBarChart
+            style={{ height: 150, }}
+            keys={keys}
+            colors={colors}
+            data={data}
+            showGrid={false}
+            svg={{ fontSize: 10, fill: 'black' }}
+            contentInset={{ top: 20, bottom: 10 }}
+          />
+          <XAxis
+            style={{ marginHorizontal: 25}}
+            data={data}
+            formatLabel={(value, index) => index}
+            contentInset={{ left: 10, right: 10, }}
+            svg={{ fontSize: 10, fill: 'black' }}
+          />
+        </View> */}
         <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', backgroundColor: '#FFFFFF', padding: 10 }]}>
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>รายได้ประจำเดือน</Text>
           <View style={stylesMain.FlexRow}>

@@ -564,31 +564,29 @@ export default StyleSheet.create({
   },
   ///------------------------------------------------------------------------------------------///
   Popular_Box_B: {
-    width: 176,
-    height: height * 0.22,
+    width: width * 0.45,
+    height: height * 0.20,
     flexDirection: 'column',
+    paddingHorizontal: 5,
+    paddingTop: 5,
     marginLeft: 10,
-    backgroundColor: '#EDEDED',
+    borderRadius: 5
   },
   Popular_Box_D: {
-    marginHorizontal: 3,
-    marginVertical: 10,
     height: 80,
     width: 80,
   },
   Popular_image_Box: {
     height: '100%',
     width: '100%',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 5,
   },
   PopularText_A: {
     backgroundColor: '#0A55A6',
     borderColor: '#ECECEC',
     borderWidth: 0.5,
-    height: height * 0.04,
-    width: width * 0.20,
-
+    height: height * 0.035,
+    alignItems: 'center',
+    borderRadius: 5,
   },
   Image_icon_top: {
     height: 25,
@@ -743,14 +741,14 @@ export default StyleSheet.create({
   ///------------------------------------------------------------------/// ส่วน finMall
   FinMall_Box: {
     width,
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     height: 'auto',
-    aspectRatio: 2.8,
-    marginBottom: 5,
+    aspectRatio: 2.2,
+    marginTop: 10,
+    paddingHorizontal: 5,
   },
   FinMall_Box_Image: {
     width: width * 0.50,
-    borderColor: '#EDEDED',
     borderWidth: 1
   },
   FinMall_Image: {
@@ -759,7 +757,6 @@ export default StyleSheet.create({
   },
   FinMall_ScrollView: {
     marginLeft: 5,
-    backgroundColor: '#EDEDED'
   },
   ///------------------------------------------------------------------/// ส่วน FIN Supermarket
   Supermarket_Product: {

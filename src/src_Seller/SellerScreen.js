@@ -19,11 +19,11 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 import stylesProfile from '../../style/StylesProfileScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+import { AppBar1 } from '../MainScreen';
+import { NavigationNavigateScreen } from '../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip.
 import { ip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-import { AppBar1 } from '../MainScreen';
-import { NavigationNavigateScreen } from '../customComponents/Tools';
 
 export default class SellerScreen extends Component {
     constructor(props) {

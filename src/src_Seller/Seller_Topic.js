@@ -10,9 +10,6 @@ import { CheckBox } from 'react-native-elements';
 import BottomSheet from "react-native-raw-bottom-sheet";
 import PINCode from '@haskkor/react-native-pincode';
 import DatePicker from 'react-native-datepicker';
-import { PinResultStatus, hasUserSetPinCode } from "@haskkor/react-native-pincode/index";
-import delay from "@haskkor/react-native-pincode/src/delay";
-import PinCodeEnter from "@haskkor/react-native-pincode/index";
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -28,11 +25,11 @@ import stylesProfile from '../../style/StylesProfileScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 import stylesSeller from '../../style/styleSeller-src/styleSellerScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-///----------------------------------------------------------------------------------------------->>>> Ip.
-import { ip } from '.././navigator/IpConfig';
-///----------------------------------------------------------------------------------------------->>>> Main
 import { AppBar1 } from '../MainScreen';
-import { TabBar, NavigationNavigateScreen } from '../customComponents/Tools';
+import { TabBar, NavigationNavigateScreen, GetData, GetServices } from '../customComponents/Tools';
+///----------------------------------------------------------------------------------------------->>>> Ip.
+import { ip, finip } from '.././navigator/IpConfig';
+///----------------------------------------------------------------------------------------------->>>> Main
 
 export default class Seller_Topic extends Component {
     constructor(props) {
@@ -151,7 +148,7 @@ export default class Seller_Topic extends Component {
                 return (
                     <>
                         <AppBar1 backArrow navigation={navigation} titleHead='เพิ่มสินค้า' saveBar />
-                        <Up_Product_Select />
+                        <Up_Product_Select navigation={navigation} />
                     </>
                 )
             case 15:
@@ -209,7 +206,9 @@ export class PIN_Code extends Component {
         const { navigation } = this.props
         const Withdraw = navigation.getParam("Withdraw")
         // console.log('finishProcess', pinCode)
-        NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: Withdraw == "Withdraw" ? 11 : 17, }, navigation })
+        NavigationNavigateScreen({
+            goScreen: 'Seller_Topic', setData: { selectedIndex: Withdraw == "Withdraw" ? 11 : Withdraw == "History" ? 13 : 17, }, navigation
+        })
     };
     renderForgot() {
         return (
@@ -236,7 +235,7 @@ export class PIN_Code extends Component {
                 passwordLength={6}
                 bottomLeftComponent={this.renderForgot()}
                 buttonDeleteText={'delete'}
-                storedPin='123456'
+                storedPin='true'
                 touchIDDisabled
                 finishProcess={(pinCode) => this.finishProcess(pinCode)}
                 handleResultEnterPin={(code) => this.handleResultEnterPin(code)}
@@ -854,21 +853,38 @@ export class Product_income extends Component {
         );
     }
 }
-
 ///----------------------------------------------------------------------------------------------->>>>
-
 export class Withdraw_money extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            activeDataService: true,
+            activeGetSource: true,
         };
     }
+    componentDidMount() {
+        const { activeGetSource, } = this.state
+        activeGetSource == true && GetData({ getCokie: true, getUser: true, getSource: this.getSource.bind(this) })
+    }
+    getData = (dataService) => {
+        this.setState({ activeDataService: false, dataService })
+    }
+    getSource = (value) => {
+        this.setState({ activeGetSource: false, currentUser: value.currentUser, cokie: value.keycokie, activeLogin: value.activeLogin });
+    };
     render() {
         const { navigation } = this.props
+        const { activeDataService, currentUser } = this.state
+        var uri = `${finip}/store_transfer/check_pin`;
+        var dataBody = {
+            id_customer: currentUser && currentUser.id_customer
+        };
+        activeDataService == true && currentUser && GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
         return (
             <View style={{ backgroundColor: '#FFFFFF', marginTop: 5 }}>
                 <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
-                    goScreen: 'Seller_Topic', setData: { selectedIndex: 13 }, navigation
+                    goScreen: 'Seller_Topic', setData: { selectedIndex: 10, Withdraw: 'History' }, navigation
+                    // goScreen: 'Seller_Topic', setData: { selectedIndex: 13 }, navigation
                 })}>
                     <View style={stylesProfile.ListMenuList}>
                         <View style={stylesProfile.ListMenuListSub}>
@@ -908,7 +924,6 @@ export class Withdraw_money extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>>
-
 export class Confirm_Bank extends Component {
     constructor(props) {
         super(props);
@@ -1024,7 +1039,6 @@ export class Up_Product_Select extends Component {
         this.state = {
         };
     }
-
     Edit_all_Body() {
         const { price, total } = this.state
         return (
@@ -1060,7 +1074,7 @@ export class Up_Product_Select extends Component {
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ยกเลิก</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity >
                         <View style={stylesSeller.BottomSheet_Botton_OK}>
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตกลง</Text>
                         </View>
@@ -1070,6 +1084,11 @@ export class Up_Product_Select extends Component {
         )
     }
     render() {
+        const { navigation } = this.props
+        const optionName = navigation.getParam('optionName')
+        const optionValue = navigation.getParam('optionValue')
+        const optionName2 = navigation.getParam('optionName2')
+        const optionValue2 = navigation.getParam('optionValue2')
         return (
             <>
                 <BottomSheet
@@ -1107,35 +1126,87 @@ export class Up_Product_Select extends Component {
                     </View>
                 </View>
                 <View style={{ marginVertical: 5 }}>
-                    <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>สี</Text>
+                    <View style={{ flexDirection: 'row', width: '30%' }}>
+                        {
+                            optionValue && optionValue.map((value, index) => {
+                                if (index == 0 && value.name) {
+                                    return optionValue2 && optionValue2.map((value2, index2) => {
+                                        if (index2 == 0 && value2.name) {
+                                            return (
+                                                <>
+                                                    <View style={[stylesMain.ItemCenter, { width: '50%' }]}>
+                                                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>{optionName}</Text>
+                                                    </View>
+                                                    <View style={[stylesMain.ItemCenter, { width: '50%' }]}>
+                                                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>{optionName2}</Text>
+                                                    </View>
+                                                </>
+                                            )
+                                        } else if (index2 == 0) {
+                                            return (
+                                                <View style={[stylesMain.ItemCenter, { width: '100%' }]}>
+                                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>{optionName}</Text>
+                                                </View>
+                                            )
+                                        }
+                                    })
+                                }
+                            })
+                        }
                     </View>
                     <View style={{ backgroundColor: '#FFFFFF', paddingVertical: 5 }}>
-                        <View style={[stylesMain.FlexRow, stylesSeller.Up_product_Select]}>
-                            <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>ขาว</Text>
-                            </View>
-                            <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
-                                <View style={stylesSeller.SizeSheet_Boxsize}></View>
-                            </View>
-                            <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
-                                <View style={stylesSeller.SizeSheet_Boxsize}></View>
-                            </View>
-                        </View>
-                        <View style={[stylesMain.FlexRow, stylesSeller.Up_product_Select]}>
-                            <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>แดง</Text>
-                            </View>
-                            <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
-                                <View style={stylesSeller.SizeSheet_Boxsize}></View>
-                            </View>
-                            <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
-                                <View style={stylesSeller.SizeSheet_Boxsize}></View>
-                            </View>
-                        </View>
+                        {
+                            optionValue && optionValue.map((value, index) => {
+                                if (value.name) {
+                                    return optionValue2 && optionValue2.map((value2, index2) => {
+                                        if (value2.name) {
+                                            return (
+                                                <View key={`${index}:${index2}`} style={[
+                                                    stylesMain.FlexRow, stylesSeller.Up_product_Select]}>
+                                                    <View style={{ flexDirection: 'row', width: '30%' }}>
+                                                        <View style={[stylesMain.ItemCenter, { width: '50%' }]}>
+                                                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
+                                                                {index2 == 0 && value.name}</Text>
+                                                        </View>
+                                                        <View style={[stylesMain.ItemCenter, { width: '50%' }]}>
+                                                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
+                                                                {value2.name}</Text>
+                                                        </View>
+                                                    </View>
+                                                    <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                                                        <View style={stylesSeller.SizeSheet_Boxsize}></View>
+                                                    </View>
+                                                    <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                                                        <View style={stylesSeller.SizeSheet_Boxsize}></View>
+                                                    </View>
+                                                </View>
+                                            )
+                                        } else if (index2 == 0) {
+                                            return (
+                                                <View key={`${index}`} style={[stylesMain.FlexRow, stylesSeller.Up_product_Select]}>
+                                                    <View style={{ flexDirection: 'row', width: '30%' }}>
+                                                        <View style={[stylesMain.ItemCenter, { width: '100%' }]}>
+                                                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
+                                                                {index2 == 0 && value.name}</Text>
+                                                        </View>
+                                                    </View>
+                                                    <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                                                        <View style={stylesSeller.SizeSheet_Boxsize}></View>
+                                                    </View>
+                                                    <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
+                                                        <View style={stylesSeller.SizeSheet_Boxsize}></View>
+                                                    </View>
+                                                </View>
+                                            )
+
+                                        }
+                                    })
+                                }
+                            })
+                        }
                     </View>
                 </View>
-                <View style={{ marginVertical: 5 }}>
+                {/* <View style={{ marginVertical: 5 }}>
                     <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>ขนาด</Text>
                     </View>
@@ -1163,7 +1234,7 @@ export class Up_Product_Select extends Component {
                             </View>
                         </View>
                     </View>
-                </View>
+                </View> */}
             </>
         );
     }

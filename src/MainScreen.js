@@ -75,6 +75,7 @@ export default class MainScreen extends React.PureComponent {
         const { navigation } = this.props;
         const { activeDataService, activeDataService2, activeLoading, dataService, dataService2 } = this.state;
         const browerProps = navigation.getParam('browerProps');
+        const mode = navigation.getParam('mode');
         var uri = `${finip}/home/publish_mobile`;
         let itemT = [
             /////--------------------------------------------->>>Start
@@ -214,6 +215,7 @@ export default class MainScreen extends React.PureComponent {
         //         renderComponent: <CategoryProduct dataService={value} navigation={navigation} />
         //     })
         // })
+        // if (mode === 'Not_Internet') return <Not_Internet />
         return (
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                 {
@@ -301,14 +303,15 @@ export class ExitAppModule extends React.Component {
     handleBackButton = () => {
         const { backClickCount } = this.state;
         const { navigation } = this.props;
-        var routeProps = navigation.dangerouslyGetParent().state.routes.length;
-        return routeProps == 1 ? (
-            backClickCount == 1 ? BackHandler.exitApp() : this._spring(),
-            true
-        ) : (
-                navigation.pop(),
-                true
-            );
+        backClickCount == 1 ? BackHandler.exitApp() : this._spring()
+        // var routeProps = navigation.dangerouslyGetParent().state.routes.length;
+        // return routeProps == 1 ? (
+        //     backClickCount == 1 ? BackHandler.exitApp() : this._spring(),
+        //     true
+        // ) : (
+        //         navigation.pop(),
+        //         true
+        //     );
     };
     render() {
         return (
@@ -351,8 +354,8 @@ export class AppBar extends React.Component {
     };
     render() {
         const {
-            ABDColor, ABGColor, refresh, AIColor, getActive, navigation,
-            backArrow, cartBar, chatBar, filterBar, otherBar, searchBar, SearchText,
+            ABDColor, ABGColor, refresh, AIColor, getActive, navigation, backArrow, cartBar, chatBar, filterBar, otherBar, searchBar,
+            SearchText,
         } = this.props;
         const { activeRefresh, currentUser, dataService, text, } = this.state;
         const AIconEntypo = Animatable.createAnimatableComponent(IconEntypo);
@@ -376,9 +379,8 @@ export class AppBar extends React.Component {
             this.setState({ activeRefresh: true })
             getActive(false)
         }
-        dataService && console.log(dataService.cart_list.length)
         currentUser && dataBody && activeRefresh == true &&
-            GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), showConsole: 'AppBar' });
+            GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) });
         return (
             <Animatable.View style={[stylesMain.Appbar, stylesMain.FlexRow, {
                 backgroundColor: ABGColor ? ABGColor : '#1A3363',
@@ -494,12 +496,14 @@ export class AppBar extends React.Component {
                                     }) :
                                     () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true })}>
                                 {
-                                    dataService && dataService.cart_list.length > 0 &&
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, {
-                                        backgroundColor: 'red', color: '#fff', width: 17, height: 17, borderRadius: 15, textAlign: 'center',
-                                        textAlignVertical: 'center', position: 'absolute', elevation: 1, left: 18, bottom: 15,
-                                        borderColor: '#1A3363', borderWidth: 1,
-                                    }]}>{dataService.cart_list.length}</Text>
+                                    dataService && dataService.error ?
+                                        <></> :
+                                        dataService && dataService.cart_list && dataService.cart_list.length > 0 &&
+                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, {
+                                            backgroundColor: 'red', color: '#fff', width: 17, height: 17, borderRadius: 15,
+                                            textAlign: 'center', textAlignVertical: 'center', position: 'absolute', elevation: 1, left: 18,
+                                            bottom: 15, borderColor: '#1A3363', borderWidth: 1,
+                                        }]}>{dataService.cart_list.length}</Text>
                                 }
                                 <IconAntDesign name="shoppingcart" size={25} style={{ color: '#fff' }} />
                             </TouchableOpacity>
@@ -519,11 +523,11 @@ export class AppBar1 extends React.Component {
             activeGetCurrentUser: true,
         };
     };
-    componentDidMount() {
-        const { activeGetCurrentUser, } = this.state;
-        activeGetCurrentUser == true && GetData({ getSource: this.getSource.bind(this), getUser: true, });
-    }
     getSource = (value) => {
+        const { navigation } = this.props
+        // value && value.error && NavigationNavigateScreen({
+        //     goScreen: 'MainScreen', setData: { mode: 'Not_Internet' }, navigation, passHome: true,
+        // })
         this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser });
     };
     setText = (text) => {
@@ -538,7 +542,8 @@ export class AppBar1 extends React.Component {
             backArrow, backArrowColor, ButtomDeleteAll, chatBar, colorBar, deleteBar, getActivePost, goToTop, menuBar, navigation, postBar,
             saveBar, searchBar, settingBar, storeBar, titleHead, backNavigation, UpBankBar,
         } = this.props;
-        const { currentUser, } = this.state;
+        const { activeGetCurrentUser, currentUser, } = this.state;
+        activeGetCurrentUser == true && GetData({ getSource: this.getSource.bind(this), getUser: true, });
         return (
             <View style={
                 colorBar ?
@@ -726,10 +731,16 @@ export class Slide extends React.PureComponent {
         var uri = `${finip}/home/home_mobile`;
         activeDataService == true && banner == undefined &&
             GetServices({ abortController: this.abortController, uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) });
+        if (dataService && dataService.error) return <></>
         return (
             <View>
+                {/* <LinearGradient
+                    colors={['#1A3363', '#768ab5']}
+                    style={{ width, height: 50, marginTop: 10 }}>
+                </LinearGradient> */}
+                {/* <LinearGradient start={{ x: 0.2, y: 0 }} end={{ x: 8, y: 0 }} colors={['#1A3363', '#768ab5', '#1A3363']} style={{ width, height: 50, marginTop: 10 }} /> */}
                 {
-                    (banner ? banner : dataService) &&
+                    (banner || dataService) &&
                     <Carousel
                         renderItem={this._renderItem}
                         data={banner ? banner : dataService}
@@ -845,7 +856,7 @@ export class Category extends React.Component {
         const { dataService } = this.state;
         return dataService &&
             dataService.map((item, index) => {
-                var dataMySQL = `${finip}/${item.image_path}/menu/mobile/${item.image_head}`;
+                var dataMySQL = `${finip}/${item.image_path}/menu/${item.image_head}`;
                 return (
                     <TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigateScreen({
                         goScreen: 'CategoryScreen', setData: { id_type: item.id_type }, navigation
@@ -865,11 +876,12 @@ export class Category extends React.Component {
             });
     };
     render() {
-        const { activeDataService } = this.state;
+        const { activeDataService, dataService } = this.state;
         var uri = `${finip}/home/category_mobile`;
         activeDataService == true && GetServices({
             abortController: this.abortController, uriPointer: uri, getDataSource: this.getData.bind(this)
         });
+        if (dataService && dataService.error) return <></>
         return (
             <View style={stylesMain.FrameBackground2}>
                 <ScrollView horizontal>
@@ -1420,7 +1432,7 @@ export class FlashSale extends React.PureComponent {
             ),
             Minutes = Number(new Date(endTime).getMinutes()) - Number(new Date(curTime).getMinutes()),
             Seconds = Number(new Date(endTime).getSeconds()) - Number(new Date(curTime).getSeconds()),
-            activeDataService == false && Hours <= 0 && Minutes <= 0 && Seconds <= 0 && (
+            dataService.error === undefined && activeDataService == false && Hours <= 0 && Minutes <= 0 && Seconds <= 0 && (
                 this.setState({ activeDataService: true, dataService: [] })
             ),
             Hours > 0 && (Minutes < 0 || Seconds < 0) && ([
@@ -1432,6 +1444,7 @@ export class FlashSale extends React.PureComponent {
                 Seconds = 60 + Seconds
             ])
         ]);
+        if (dataService && dataService.error) return <></>
         return (
             activeDataService == false && dataService &&
             <View style={stylesMain.FrameBackground2}>
@@ -1779,11 +1792,12 @@ export class CategoryProduct extends React.Component {
             })
     };
     render() {
-        const { activeDataService } = this.state;
+        const { activeDataService, dataService } = this.state;
         var uri = `${finip}/home/category_mobile`;
         activeDataService == true && GetServices({
             abortController: this.abortController, uriPointer: uri, getDataSource: this.getData.bind(this)
         });
+        if (dataService && dataService.error) return <></>
         return (
             <View>
                 {
@@ -1823,6 +1837,7 @@ export class CategoryProductSubProduct extends React.PureComponent {
                 abortController: this.abortController, nameFunction: headerData.name, uriPointer: uri, dataBody,
                 getDataSource: this.getData.bind(this),
             });
+        if (dataService && dataService.error) return <></>
         return (
             <>
                 {
@@ -1905,6 +1920,7 @@ export class CategoryProductSubStore extends React.PureComponent {
         activeDataService == true && GetServices({
             abortController: this.abortController, uriPointer: uri, dataBody, getDataSource: this.getData.bind(this)
         });
+        if (dataService && dataService.error) return <></>
         return (
             <View>
                 {
@@ -2011,7 +2027,7 @@ export class CategoryProductSubPromotion extends React.Component {
                 <View style={[stylesMain.FlexRow, { width: '100%', marginTop: 2 }]}>
                     <View style={{ width: width * 0.45, flexDirection: 'column', marginRight: 6 }}>
                         {
-                            dataService2 && dataService2.banner &&
+                            failFetchDataService2 < 5 && dataService2 && dataService2.banner &&
                             this.dataCategoryProductSubPromotionSmall(dataService2, 1)
                         }
                         <View style={{ width: width * 0.45, height: 70, marginTop: 6 }}>
@@ -2019,7 +2035,7 @@ export class CategoryProductSubPromotion extends React.Component {
                         </View>
                     </View>
                     {
-                        dataService && dataService.banner &&
+                        failFetchDataService < 5 && dataService && dataService.banner &&
                         this.dataCategoryProductSubPromotionBig(dataService, 0)
                     }
                 </View>
@@ -2665,9 +2681,6 @@ export class Category_Image_Total extends React.Component {
     }
     render() {
         const { dataService, sizeBox } = this.props
-        console.log('Category_Image_Total')
-        console.log(dataService)
-
         return (
             <View style={{ marginTop: 10 }}>
                 <View style={{ height: 'auto', aspectRatio: 3.5, }}>
@@ -2720,6 +2733,32 @@ export class Category_Image_Total extends React.Component {
                         })
                     }
                 </View>
+            </View>
+        );
+    }
+}
+export class Not_Internet extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+    render() {
+        const { navigation } = this.props
+        return (
+            <View style={stylesMain.ItemCenter}>
+                <FastImage style={{ height: 200, width: 200 }}
+                    source={{
+                        uri: `${ip}/mysql/uploads/icon_5/wifi-connected-png-8.png`,
+                    }}
+                />
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { width: 300, textAlign: 'center', color: '#969BA0' }]}> WHOOPS! ดูเหมือนว่าจะมีปัญหาในการเชื่อมต่อเซิร์ฟเวอร์ ลองพยายามตรวจสอบ
+                การเชื่อมต่ออินเตอร์เน็ตแล้วลองใหม่อีกครั้ง </Text>
+                <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'goBack', navigation })}>
+                    <View style={[stylesMain.ItemCenter, { padding: 10, backgroundColor: '#0A55A6', borderRadius: 5, marginTop: 10 }]}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>โหลดอีกครั้ง</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
         );
     }

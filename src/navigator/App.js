@@ -62,397 +62,344 @@ import Installment_payScreen from '../src_Promotion/Installment_payScreen';
 import Detail_Campaign from '../src_Promotion/Detail_Campaign';
 // src store
 import Post_Feed from '../src_Store/Post_Feed';
+import FastImage from 'react-native-fast-image';
 ///----------------------------------------------------------------------------------------------->>>>
 const PathScreen = createStackNavigator({
   MainScreen: {
     screen: MainScreen,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null
-    }),
+      headerShown: false
+    })
   },
   StoreScreen: {
     screen: StoreScreen,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null
-    }),
+      headerShown: false
+    })
   },
   DetailScreen: {
     screen: DetailScreen,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null
+      headerShown: false
     }),
   },
   ProfileScreen: {
     screen: ProfileScreen,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   CartScreen: {
     screen: CartScreen,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   LoginScreen: {
     screen: LoginScreen,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   FeedScreen: {
     screen: FeedScreen,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   NewsScreen: {
     screen: NewsScreen,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   BellScreen: {
     screen: BellScreen,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   RegisterScreen: {
     screen: RegisterScreen,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   Recommend_Brand: {
     screen: Recommend_Brand,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   FlashSaleScreen: {
     screen: FlashSaleScreen,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   SettingScreen: {
     screen: SettingScreen,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   HighlightScreen: {
     screen: HighlightScreen,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   Popular_productScreen: {
     screen: Popular_productScreen,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   Recommend_Store: {
     screen: Recommend_Store,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   Recommend_Store: {
     screen: Recommend_Store,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   ExclusiveScreen: {
     screen: ExclusiveScreen,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   Product_for_youScreen: {
     screen: Product_for_youScreen,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   CategoryScreen: {
     screen: CategoryScreen,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   FinMallScreen: {
     screen: FinMallScreen,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   FINSupermarket: {
     screen: FINSupermarket,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   // src_Detail
   Reviews_score: {
     screen: Reviews_score,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   // src_profile
   Profile_Topic: {
     screen: Profile_Topic,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   CancelScreen: {
     screen: CancelScreen,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   Return_products: {
     screen: Return_products,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   Total_Order: {
     screen: Total_Order,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   Order_Detail: {
     screen: Order_Detail,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   Setting_Topic: {
     screen: Setting_Topic,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   Business: {
     screen: Business,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   // src_Seller
   SellerScreen: {
     screen: SellerScreen,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   Seller_Totel_Order: {
     screen: Seller_Totel_Order,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   Seller_Topic: {
     screen: Seller_Topic,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   Seller_Setting: {
     screen: Seller_Setting,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   Seller_Profile_Edit: {
     screen: Seller_Profile_Edit,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   Seller_Up_Product: {
     screen: Seller_Up_Product,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   Seller_Return: {
     screen: Seller_Return,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   Setting_TopicStore: {
     screen: Setting_TopicStore,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   Seller_Detail_Order: {
     screen: Seller_Detail_Order,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   // src-Cart
   Customer_account: {
     screen: Customer_account,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   Customer_Order: {
     screen: Customer_Order,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   Customer_Complete_Order: {
     screen: Customer_Complete_Order,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   // src_Promotion
   Deal_Topic: {
     screen: Deal_Topic,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   DealScreen: {
     screen: DealScreen,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   CoinScreen: {
     screen: CoinScreen,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   CampaignScreen: {
     screen: CampaignScreen,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   The_BestFinScreen: {
     screen: The_BestFinScreen,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   Installment_payScreen: {
     screen: Installment_payScreen,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   Detail_Campaign: {
     screen: Detail_Campaign,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   Same_StoreScreen: {
     screen: Same_StoreScreen,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   SecondScreen: {
     screen: SecondScreen,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   SearchScreen: {
     screen: SearchScreen,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   Detail_Pro: {
     screen: Detail_Pro,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
   // src_store
   Post_Feed: {
     screen: Post_Feed,
     navigationOptions: () => ({
-      tabBarVisible: false,
-      header: null,
+      headerShown: false
     })
   },
 },
   {
-    initialRouteName: 'MainScreen',
+    // initialRouteName: 'MainScreen',
     // initialRouteName: 'ProfileScreen',
-    // initialRouteName: 'SellerScreen',
+    initialRouteName: 'SellerScreen',
   }
 );
 const AppNavigator = createAppContainer(PathScreen);

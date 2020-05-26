@@ -13,9 +13,10 @@ import ModalDropdown from 'react-native-modal-dropdown';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
+import IconFontisto from 'react-native-vector-icons/Fontisto';
 ///----------------------------------------------------------------------------------------------->>>> styleSeller
 import stylesMain from '../../style/StylesMainScreen';
-import stylesFont from '../../style/stylesFont';
+import stylesFont, { normalize } from '../../style/stylesFont';
 import stylesSeller from '../../style/styleSeller-src/styleSellerScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { GetServices, NavigationNavigateScreen } from '../customComponents/Tools';
@@ -151,6 +152,9 @@ export class Seller_Up_ProductDetail extends Component {
       activeCategory: true,
       activeSubCategory: false,
       activeUnSubCategory: false,
+      categoryCursor: 0,
+      editValue: false,
+      valueName: 'สี',
       valueNumber: [{ name: 'แดง' }, { name: 'ฟ้า' }],
       valueNumber2: [{ name: '' }],
       inputNumber: 2,
@@ -163,6 +167,7 @@ export class Seller_Up_ProductDetail extends Component {
   LoadCategorySheet = () => {
     const { saveCategorySelect, saveSubCategorySelect, saveDataSubCategory, saveUnSubCategorySelect, saveDataUnSubCategory } = this.state
     this.setState({
+      categoryCursor: saveCategorySelect ? saveSubCategorySelect ? saveUnSubCategorySelect ? 2 : 1 : 0 : 0,
       categorySelect: saveCategorySelect,
       subCategorySelect: saveSubCategorySelect, dataSubCategory: saveDataSubCategory,
       unSubCategorySelect: saveUnSubCategorySelect, dataUnSubCategory: saveDataUnSubCategory
@@ -173,10 +178,16 @@ export class Seller_Up_ProductDetail extends Component {
     this.setState({ activeCategory: false, dataCategory })
   }
   getSubCategory = (dataSubCategory) => {
-    this.setState({ activeSubCategory: false, dataSubCategory })
+    const { categoryCursor } = this.state
+    this.setState({
+      activeSubCategory: false, dataSubCategory, categoryCursor: dataSubCategory.subtype_data.length > 0 ? 1 : categoryCursor,
+    })
   }
   getUnSubCategory = (dataUnSubCategory) => {
-    this.setState({ activeUnSubCategory: false, dataUnSubCategory })
+    const { categoryCursor } = this.state
+    this.setState({
+      activeUnSubCategory: false, dataUnSubCategory, categoryCursor: dataUnSubCategory.unsubtype_data.length > 0 ? 2 : categoryCursor,
+    })
   }
   SaveCategorySheet = () => {
     const { categorySelect, subCategorySelect, dataSubCategory, unSubCategorySelect, dataUnSubCategory } = this.state
@@ -191,7 +202,7 @@ export class Seller_Up_ProductDetail extends Component {
   }
   CategorySheetBody() {
     const {
-      categorySelect, dataCategory, dataSubCategory, dataUnSubCategory, subCategorySelect, unSubCategorySelect
+      categoryCursor, categorySelect, dataCategory, dataSubCategory, dataUnSubCategory, subCategorySelect, unSubCategorySelect
     } = this.state
     let ItemCategory = dataCategory && dataCategory.category.map((value, index) => {
       var dataMySQL = `${finip}/${value.image_path}/menu/${value.image_head}`;
@@ -202,17 +213,22 @@ export class Seller_Up_ProductDetail extends Component {
             dataUnSubCategory: undefined, subCategorySelect: undefined, unSubCategorySelect: undefined,
           })
         }}
-          style={stylesSeller.Category} key={index} >
+          style={[stylesSeller.Category, {
+            flexDirection: 'row', width: width * 0.88, height: 50, borderWidth: 1,
+            borderColor: '#ECECEC', marginTop: 2
+          }]} key={index} >
           <FastImage
             source={{
               uri: dataMySQL,
             }}
-            style={[stylesMain.Category_box, { borderColor: categorySelect && categorySelect.index == index ? '#0A55A6' : '#ECECEC', }]}
+            style={[stylesMain.Category_box, stylesMain.ItemCenterVertical, {
+              height: 40, width: 40, borderColor: categorySelect && categorySelect.index == index ? '#0A55A6' : '#ECECEC', marginLeft: 5
+            }]}
             resizeMode={FastImage.resizeMode.cover}
           />
-          <View style={{ height: 20 }}>
-            <Text numberOfLines={2} style={[stylesFont.FontFamilyText, stylesFont.FontSize7, stylesFont.FontCenter, {
-              color: categorySelect && categorySelect.index == index ? '#0A55A6' : '#111',
+          <View style={[stylesMain.ItemCenter]}>
+            <Text numberOfLines={2} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical, {
+              color: categorySelect && categorySelect.index == index ? '#0A55A6' : '#111', marginLeft: 4,
             }]}>
               {value.name}</Text>
           </View>
@@ -222,15 +238,63 @@ export class Seller_Up_ProductDetail extends Component {
     return (
       <>
         <View style={{ flex: 1, }}>
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>กรุณาเลือกหมวดหมู่สินค้า</Text>
-          <ScrollView>
-            <View style={stylesSeller.CatagorySheet}>
-              {ItemCategory}
+          <View>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>กรุณาเลือกหมวดหมู่สินค้า</Text>
+            <View style={{ flexDirection: 'row' }}>
+              <TouchableOpacity onPress={() => this.setState({ categoryCursor: 0 })}>
+                <View style={{
+                  marginHorizontal: 4, borderBottomColor: categoryCursor == 0 ? '#0A55A6' : 'transparent', borderBottomWidth: 4,
+                  borderTopColor: 'transparent', borderTopWidth: 4,
+                }}>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical,]}>
+                    {`${categorySelect && categorySelect.name ? categorySelect.name : 'หมวดหมู่สินค้า'}`}</Text>
+                </View>
+              </TouchableOpacity>
+              {
+                categorySelect && categorySelect.name && dataSubCategory && dataSubCategory.subtype_data.length > 0 &&
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, stylesMain.ItemCenterVertical,]}>|</Text>
+              }
+              {
+                categorySelect && categorySelect.name && dataSubCategory && dataSubCategory.subtype_data.length > 0 &&
+                <TouchableOpacity onPress={() => this.setState({ categoryCursor: 1 })}>
+                  <View style={{
+                    marginHorizontal: 4, borderBottomColor: categoryCursor == 1 ? '#0A55A6' : 'transparent', borderBottomWidth: 4,
+                    borderTopColor: 'transparent', borderTopWidth: 4,
+                  }}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical,]}>
+                      {`${subCategorySelect && subCategorySelect.name ? subCategorySelect.name : 'ประเภท'}`}</Text>
+                  </View>
+                </TouchableOpacity>
+              }
+              {
+                subCategorySelect && subCategorySelect.name && dataUnSubCategory && dataUnSubCategory.unsubtype_data.length > 0 &&
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, stylesMain.ItemCenterVertical,]}>|</Text>
+              }
+              {
+                subCategorySelect && subCategorySelect.name && dataUnSubCategory && dataUnSubCategory.unsubtype_data.length > 0 &&
+                <TouchableOpacity onPress={() => this.setState({ categoryCursor: 2 })}>
+                  <View style={{
+                    marginHorizontal: 4, borderBottomColor: categoryCursor == 2 ? '#0A55A6' : 'transparent', borderBottomWidth: 4,
+                    borderTopColor: 'transparent', borderTopWidth: 4,
+                  }}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical,]}>
+                      {`${unSubCategorySelect && unSubCategorySelect.name ? unSubCategorySelect.name : 'ชนิด'}`}</Text>
+                  </View>
+                </TouchableOpacity>
+              }
             </View>
-            {[
+          </View>
+          <ScrollView>
+            {
+              categoryCursor == 0 &&
+              <View style={stylesSeller.CatagorySheet}>
+                {ItemCategory}
+              </View>
+            }
+            {
+              categoryCursor == 1 &&
               dataSubCategory && dataSubCategory.subtype_data.length > 0 &&
-              <View key='dataSubCategory'>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 10, }]}>ประเภท</Text>
+              <View>
                 <View style={stylesSeller.cate_BoxA}>
                   {
                     dataSubCategory.subtype_data.map((value, index) => {
@@ -254,10 +318,12 @@ export class Seller_Up_ProductDetail extends Component {
                     })
                   }
                 </View>
-              </View>,
+              </View>
+            }
+            {
+              categoryCursor == 2 &&
               dataUnSubCategory && dataUnSubCategory.unsubtype_data.length > 0 &&
               <View>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ชนิด</Text>
                 <View style={stylesSeller.cate_BoxA}>
                   {
                     dataUnSubCategory.unsubtype_data.map((value, index) => {
@@ -281,7 +347,7 @@ export class Seller_Up_ProductDetail extends Component {
                   }
                 </View>
               </View>
-            ]}
+            }
           </ScrollView>
         </View>
         <View style={{ justifyContent: 'center', alignItems: 'center', }}>
@@ -464,6 +530,12 @@ export class Seller_Up_ProductDetail extends Component {
     values.push({ name: '' });
     this.setState({ valueNumber: values })
   }
+  deleteStateValue = (index) => {
+    const { valueNumber } = this.state
+    const values = [...valueNumber];
+    values.splice(index, 1);
+    this.setState({ valueNumber: values })
+  }
   setStateValue2 = (value, index) => {
     const { valueNumber2 } = this.state
     valueNumber2[index].name = value
@@ -475,61 +547,119 @@ export class Seller_Up_ProductDetail extends Component {
     values.push({ name: '' });
     this.setState({ valueNumber2: values })
   }
+  deleteStateValue2 = (index) => {
+    const { valueNumber2 } = this.state
+    const values = [...valueNumber2];
+    values.splice(index, 1);
+    this.setState({ valueNumber2: values })
+  }
   SelectSheetBody() {
     const { navigation } = this.props
-    const { valueNumber, valueNumber2 } = this.state
+    const { editValue, editValue2, valueName, valueName2, valueNumber, valueNumber2 } = this.state
     return (
       <>
         <View style={stylesSeller.SelectSheet}>
           <ScrollView>
             <View style={stylesSeller.SelectSheet_Box}>
-              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>สี</Text>
-              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#0A55A6' }]}>แก้ไข</Text>
+              <View style={[stylesSeller.SelectSheet_TextInput, {
+                width: width * 0.4, marginLeft: 0
+              }]}>
+                <TextInput
+                  style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { width: 80, textAlign: 'center', marginVertical: -10 }]}
+                  placeholder='ตัวเลือกที่ 1'
+                  maxLength={10}
+                  onChangeText={(value) => this.setState({ valueName: value })}>
+                  {valueName}</TextInput>
+              </View>
+              <TouchableOpacity onPress={() => this.setState({ editValue: !editValue })}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#0A55A6' }]}>{
+                  editValue == true ? 'ตกลง' : 'แก้ไข'}</Text>
+              </TouchableOpacity>
             </View>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
               {[
                 valueNumber.length > 0 ?
                   valueNumber.map((value, index) => {
                     return (
-                      <View key={index} style={stylesSeller.SelectSheet_TextInput}>
-                        <TextInput
-                          style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: 80, textAlign: 'center' }]}
-                          placeholder="สี"
-                          maxLength={10}
-                          onChangeText={(value) => this.setStateValue(value, index)}>
-                          {value.name}</TextInput>
-                      </View>
+                      <>
+                        <View key={index} style={[stylesSeller.SelectSheet_TextInput, {
+                          width: width * 0.4, marginRight: editValue == true ? -20 : 0,
+                        }]}>
+                          <TextInput
+                            style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: 80, textAlign: 'center', marginVertical: -10 }]}
+                            placeholder={valueName ? valueName : 'ตัวเลือกที่ 1'}
+                            maxLength={10}
+                            onChangeText={(value) => this.setStateValue(value, index)}>
+                            {value.name}</TextInput>
+                        </View>
+                        {
+                          editValue == true &&
+                          <TouchableOpacity onPress={() => this.deleteStateValue(index)}>
+                            <View style={{ backgroundColor: 'red', padding: 4, borderRadius: 20, left: 8 }}>
+                              <IconFontisto name='close-a' size={12} style={{
+                                color: '#fff',
+                              }} />
+                            </View>
+                          </TouchableOpacity>
+                        }
+                      </>
                     )
                   }) : <></>,
                 valueNumber.length < 20 &&
                 <TouchableOpacity onPress={() => this.setStateInput()}
-                  key='addInput' style={[stylesSeller.SelectSheet_TextInput, { height: 50 }]}>
+                  key='addInput' style={[stylesSeller.SelectSheet_TextInput, { width: width * 0.4, height: 30 }]}>
                   <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>+เพิ่ม</Text>
                 </TouchableOpacity>
               ]}
             </View>
             <View style={stylesSeller.SelectSheet_Box}>
-              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>ขนาด</Text>
-              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#0A55A6' }]}>แก้ไข</Text>
+              <View style={[stylesSeller.SelectSheet_TextInput, {
+                width: width * 0.4, marginLeft: 0
+              }]}>
+                <TextInput
+                  style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { width: 80, textAlign: 'center', marginVertical: -10 }]}
+                  placeholder='ตัวเลือกที่ 2'
+                  maxLength={10}
+                  onChangeText={(value) => this.setState({ valueName2: value })}>
+                  {valueName2}</TextInput>
+              </View>
+              <TouchableOpacity onPress={() => this.setState({ editValue2: !editValue2 })}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#0A55A6' }]}>{
+                  editValue2 == true ? 'ตกลง' : 'แก้ไข'}</Text>
+              </TouchableOpacity>
             </View>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
               {[
                 valueNumber2.length > 0 ?
                   valueNumber2.map((value, index) => {
                     return (
-                      <View style={stylesSeller.SelectSheet_TextInput}>
-                        <TextInput
-                          style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { textAlign: 'center', textAlignVertical: 'center', }]}
-                          placeholder="ขนาด"
-                          maxLength={10}
-                          onChangeText={(value) => this.setStateValue2(value, index)}>
-                          {value.name}</TextInput>
-                      </View>
+                      <>
+                        <View key={index} style={[stylesSeller.SelectSheet_TextInput, {
+                          width: width * 0.4, marginRight: editValue2 == true ? -20 : 0,
+                        }]}>
+                          <TextInput
+                            style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: 80, textAlign: 'center', marginVertical: -10 }]}
+                            placeholder={valueName2 ? valueName2 : 'ตัวเลือกที่ 2'}
+                            maxLength={10}
+                            onChangeText={(value) => this.setStateValue2(value, index)}>
+                            {value.name}</TextInput>
+                        </View>
+                        {
+                          editValue2 == true &&
+                          <TouchableOpacity onPress={() => this.deleteStateValue2(index)}>
+                            <View style={{ backgroundColor: 'red', padding: 4, borderRadius: 20, left: 8 }}>
+                              <IconFontisto name='close-a' size={12} style={{
+                                color: '#fff',
+                              }} />
+                            </View>
+                          </TouchableOpacity>
+                        }
+                      </>
                     )
                   }) : <></>,
                 valueNumber2.length < 20 &&
                 <TouchableOpacity onPress={() => this.setStateInput2()}
-                  key='addInput' style={[stylesSeller.SelectSheet_TextInput, { height: 50 }]}>
+                  key='addInput' style={[stylesSeller.SelectSheet_TextInput, { width: width * 0.4, height: 30 }]}>
                   <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>+เพิ่ม</Text>
                 </TouchableOpacity>
               ]}
@@ -544,7 +674,11 @@ export class Seller_Up_ProductDetail extends Component {
           </TouchableOpacity>
           <TouchableOpacity activeOpacity={1} onPress={() => {
             [
-              this.SelectSheet.close(), NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 14 }, navigation })
+              this.SelectSheet.close(), NavigationNavigateScreen({
+                goScreen: 'Seller_Topic', setData: {
+                  selectedIndex: 14, optionName: valueName, optionValue: valueNumber, optionName2: valueName2, optionValue2: valueNumber2
+                }, navigation
+              })
             ]
           }}>
             <View style={stylesSeller.BottomSheet_Botton_OK}>
@@ -778,9 +912,9 @@ export class Seller_Up_ProductDetail extends Component {
     activeCategory == true &&
       GetServices({ uriPointer: uriCategory, getDataSource: this.getCategory.bind(this), })
     activeSubCategory == true &&
-      GetServices({ uriPointer: uriSubCategory, dataBodySubCategory, getDataSource: this.getSubCategory.bind(this), })
+      GetServices({ uriPointer: uriSubCategory, dataBody: dataBodySubCategory, getDataSource: this.getSubCategory.bind(this), })
     activeUnSubCategory == true &&
-      GetServices({ uriPointer: uriUnSubCategory, dataBodyUnSubCategory, getDataSource: this.getUnSubCategory.bind(this), })
+      GetServices({ uriPointer: uriUnSubCategory, dataBody: dataBodyUnSubCategory, getDataSource: this.getUnSubCategory.bind(this), })
     return (
       <View>
         {/* หมวดหมู่สินค้า */}

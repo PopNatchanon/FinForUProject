@@ -140,15 +140,15 @@ export default StyleSheet.create({
         borderColor: '#CACACA',
         borderWidth: 1,
         height: 30,
-        width: 110,
+        width: 80,
     },
     Category: {
         marginLeft: 10,
         width: 70,
         height: 80,
         marginTop: 15,
-        justifyContent: 'center',
-        alignItems: 'center',
+        // justifyContent: 'center',
+        // alignItems: 'center',
     },
     CatagorySheet: {
         width: '100%',

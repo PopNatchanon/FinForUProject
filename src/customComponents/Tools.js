@@ -753,7 +753,10 @@ export async function GetData(props) {
                             activeLogin = true
                         })
                         .catch((error) => {
-                            console.log(error, 'background: Red; color: #FFF');
+                            console.log(error);
+                            getCokie == true && (value.keycokie = undefined);
+                            getUser == true && (value.currentUser = undefined);
+                            return getSource(value);
                         })
                 } else {
                     activeLogin = false

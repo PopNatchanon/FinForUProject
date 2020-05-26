@@ -114,18 +114,18 @@ export default class MainScreen extends React.PureComponent {
                 nameComponent: 'BannerBar_TWO',
                 renderComponent: <BannerBar_TWO />
             },
-            {
-                nameComponent: 'Exclusive',
-                renderComponent: <Exclusive navigation={navigation} loadData={dataService.exclusive} />
-            },
+            // {
+            //     nameComponent: 'Exclusive',
+            //     renderComponent: <Exclusive navigation={navigation} loadData={dataService.exclusive} />
+            // },
             {
                 nameComponent: 'NewStore',
                 renderComponent: <NewStore navigation={navigation} loadData={dataService.dont_miss} />
             },
-            // {
-            //     nameComponent: 'Fin_Mall',
-            //     renderComponent: <Fin_Mall navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />
-            // },
+            {
+                nameComponent: 'Fin_Mall',
+                renderComponent: <Fin_Mall navigation={navigation} loadData={{ product_hit: dataService.product_hit, exclusive: dataService.exclusive }} />
+            },
             {
                 nameComponent: 'BannerBar_ONE',
                 renderComponent: <BannerBar_ONE />
@@ -686,7 +686,6 @@ export class Slide extends React.PureComponent {
         this.state = {
             activeDataService: true,
             activeSlide: 0,
-            dataService: [],
         };
     };
     componentWillUnmount() {
@@ -726,10 +725,11 @@ export class Slide extends React.PureComponent {
         var uri = `${finip}/home/home_mobile`;
         activeDataService == true && banner == undefined &&
             GetServices({ abortController: this.abortController, uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) });
+        if (dataService && dataService.error) return <></>
         return (
             <View>
                 {
-                    (banner ? banner : dataService) &&
+                    (banner || dataService) &&
                     <Carousel
                         renderItem={this._renderItem}
                         data={banner ? banner : dataService}
@@ -764,31 +764,112 @@ export class Guarantee extends React.Component {
         this.state = {
         };
     };
-    render() {
+
+    _renderItem = item => {
         return (
-            <View style={{
-                flexDirection: 'row', width: '100%', height: 'auto', paddingHorizontal: 5,
-                aspectRatio: 5.2, justifyContent: 'space-between', marginTop: 5
-            }}>
-                <View style={{ width: '49%', backgroundColor: '#FFFFFF', borderRadius: 5 }}>
-                    <FastImage
-                        style={stylesMain.BoxProduct1Image}
-                        source={{
-                            uri: `${ip}/MySQL/uploads/Home/003.png`,
-                        }}
-                        resizeMode={FastImage.resizeMode.cover}
-                    />
+            <View style={[stylesMain.FlexRow, { width: width * 0.70, justifyContent: 'space-around', }]}>
+                <View style={stylesMain.FlexRow}>
+                    <View style={{ height: 30, width: 30, marginRight: 10 }}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: item.image,
+                            }}
+                            resizeMode={FastImage.resizeMode.cover} />
+                    </View>
+                    <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyBold]}>{item.text}</Text>
                 </View>
-                <View style={{ width: '50%', }}>
+                <View style={[stylesMain.ItemCenter, { height: 30, width: 30 }]}>
                     <FastImage
-                        style={stylesMain.BoxProduct1Image}
+                        style={{height:20,width:20}}
                         source={{
-                            uri: `${ip}/MySQL/uploads/Home/00083.png`,
+                            uri: `${ip}/MySQL/uploads/Guarantee/02.png`,
                         }}
-                        resizeMode={FastImage.resizeMode.stretch}
-                    />
+                        resizeMode={FastImage.resizeMode.cover} />
                 </View>
             </View>
+        );
+    };
+    render() {
+        const item = [{
+            text: 'ใบทะเบียนภาษีมูลค่าเพิ่ม',
+            image: `${ip}/MySQL/uploads/Guarantee/warranty_blue-001.png`
+        }, {
+            text: 'หนังสือจดทะเบียนบริษัท',
+            image: `${ip}/MySQL/uploads/Guarantee/warranty_blue-002.png`
+        }, {
+            text: 'มีบริการรับประกันการจัดส่ง',
+            image: `${ip}/MySQL/uploads/Guarantee/warranty_blue-003.png`
+        }, {
+            text: 'ใบจดทะเบียนเครื่องหมายการค้า',
+            image: `${ip}/MySQL/uploads/Guarantee/warranty_blue-005.png`
+        }]
+        return (
+            <>
+                <View style={{
+                    flexDirection: 'row', width: '100%', height: 'auto', paddingHorizontal: 5,
+                    aspectRatio: 4.5, justifyContent: 'space-between', marginTop: 5
+                }}>
+                    <View style={{ width: '54%', backgroundColor: '#FFFFFF', borderRadius: 5 }}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: `${ip}/MySQL/uploads/Home/001.png`,
+                            }}
+                            resizeMode={FastImage.resizeMode.cover} />
+                    </View>
+                    <View style={{ width: '44%', flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <View style={{ width: '49%', alignItems: 'center', backgroundColor: '#FFFFFF', padding: 5 }}>
+                            <View style={{ height: 50, width: 50, }}>
+                                <FastImage
+                                    style={stylesMain.BoxProduct1Image}
+                                    source={{
+                                        uri: `${ip}/MySQL/uploads/Guarantee/Samsung-logo.png`,
+                                    }}
+                                    resizeMode={FastImage.resizeMode.cover} />
+                            </View>
+                            <View style={{ backgroundColor: '#0A55A6', paddingHorizontal: 15, borderRadius: 5, marginTop: 10 }} >
+                                <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>ช้อปเลย</Text>
+                            </View>
+                        </View>
+                        <View style={{ width: '49%', alignItems: 'center', backgroundColor: '#FFFFFF', padding: 5, borderRadius: 5 }}>
+                            <View style={{ height: 50, width: 50, }}>
+                                <FastImage
+                                    style={stylesMain.BoxProduct1Image}
+                                    source={{
+                                        uri: `${ip}/MySQL/uploads/Guarantee/adidas.png`,
+                                    }}
+                                    resizeMode={FastImage.resizeMode.cover} />
+                            </View>
+                            <View style={{ backgroundColor: '#0A55A6', paddingHorizontal: 10, borderRadius: 5, marginTop: 10 }} >
+                                <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>ช้อปเลย</Text>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+                <View style={{
+                    flexDirection: 'row', width: '100%', height: 'auto', paddingHorizontal: 5,
+                    aspectRatio: 8.5, marginTop: 10, backgroundColor: '#FFFFFF', borderRadius: 5
+                }}>
+                    <View style={[stylesMain.ItemCenter, { width: '30%', borderColor: '#f5df89', borderWidth: 2 }]}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={{
+                                uri: `${ip}/MySQL/uploads/Guarantee/w4.png`,
+                            }}
+                            resizeMode={FastImage.resizeMode.cover} />
+                    </View>
+                    <View style={{ width: '30%', justifyContent: 'center' }}>
+                        <Carousel
+                            renderItem={this._renderItem}
+                            data={item}
+                            loop
+                            autoplay
+                            autoplayInterval={3000}
+                        />
+                    </View>
+                </View>
+            </>
         );
     };
 };
@@ -813,7 +894,7 @@ export class Category extends React.Component {
         const { dataService } = this.state;
         return dataService &&
             dataService.map((item, index) => {
-                var dataMySQL = `${finip}/${item.image_path}/menu/mobile/${item.image_head}`;
+                var dataMySQL = `${finip}/${item.image_path}/menu/${item.image_head}`;
                 return (
                     <TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigateScreen({
                         goScreen: 'CategoryScreen', setData: { id_type: item.id_type }, navigation
@@ -914,11 +995,11 @@ export class Trend_Hit extends React.Component {
                             />
                         </View>
                         <View style={{ alignItems: 'center' }}>
-                            <View style={{ height: 40, width: 80, marginTop: -20 }}>
+                            <View style={{ height: 30, width: 95, marginTop: -20 }}>
                                 <FastImage
-                                    style={stylesMain.BoxProduct1Image}
+                                    style={[stylesMain.BoxProduct1Image, { borderRadius: 8 }]}
                                     source={{
-                                        uri: `${ip}/MySQL/uploads/Home/Button_Gif/shopnow_button.gif`,
+                                        uri: `${ip}/MySQL/uploads/Home/Button_Gif/GIFF2.gif`,
                                     }}
                                     resizeMode={FastImage.resizeMode.stretch}
                                 />
@@ -1156,14 +1237,16 @@ export class Popular_product extends React.Component {
         return type.map((item, index) => {
             var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
             return index < 2 && (
-                <View style={stylesMain.Popular_Box_D} key={index}>
-                    <FastImage
-                        style={stylesMain.Popular_image_Box}
-                        source={{
-                            uri: dataMySQL,
-                        }}
-                        resizeMode={FastImage.resizeMode.contain} />
-                    <View style={{ padding: 3 }}>
+                <View style={{ width: width * 0.23 }} key={index}>
+                    <View style={[stylesMain.Popular_Box_D, { backgroundColor: '#FFFFFF', padding: 5, borderRadius: 5 }]}>
+                        <FastImage
+                            style={stylesMain.Popular_image_Box}
+                            source={{
+                                uri: dataMySQL,
+                            }}
+                            resizeMode={FastImage.resizeMode.cover} />
+                    </View>
+                    <View style={[stylesMain.ItemCenter, { width: 80 }]}>
                         <Text numberOfLines={1} style={[stylesFont.FontSize8, stylesFont.FontFamilyText]}>{item.name}</Text>
                         <NumberFormat
                             value={item.full_price}
@@ -1192,16 +1275,16 @@ export class Popular_product extends React.Component {
                     <View style={stylesMain.FrameBackgroundTextBox}>
                         <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
                             สินค้ายอดนิยม</Text>
-                        <TouchableOpacity
+                        {/* <TouchableOpacity
                             activeOpacity={1}
                             onPress={() => NavigationNavigateScreen({
                                 goScreen: 'Popular_productScreen', setData: { id_item: 0, loadData: loadData }, navigation
                             })}>
                             <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                                 ดูทั้งหมด</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                     </View>
-                    <View style={[stylesMain.FlexRow]}>
+                    <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 2.6, }]}>
                         <ScrollView horizontal>
                             {[
                                 loadData.product_hit &&
@@ -1211,11 +1294,11 @@ export class Popular_product extends React.Component {
                                     onPress={() => NavigationNavigateScreen({
                                         goScreen: 'Popular_productScreen', setData: { id_item: 0, loadData: loadData }, navigation
                                     })}>
-                                    <View style={stylesMain.Popular_Box_B}>
+                                    <View style={[stylesMain.Popular_Box_B, { backgroundColor: '#F0F6FA' }]}>
                                         <View style={stylesMain.PopularText_A}>
                                             <Text style={[
                                                 {
-                                                    marginLeft: 8, color: '#fff'
+                                                    marginLeft: 8, color: '#fff',
                                                 }, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
                                                 สินค้าสุดฮิต</Text>
                                         </View>
@@ -1231,11 +1314,11 @@ export class Popular_product extends React.Component {
                                     onPress={() => NavigationNavigateScreen({
                                         goScreen: 'Popular_productScreen', setData: { id_item: 1, loadData: loadData }, navigation
                                     })}>
-                                    <View style={stylesMain.Popular_Box_B}>
+                                    <View style={[stylesMain.Popular_Box_B, { backgroundColor: '#EAEEF7' }]}>
                                         <View style={stylesMain.PopularText_A}>
                                             <Text style={[{
                                                 marginLeft: 8, color: '#fff'
-                                            }, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
+                                            }, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
                                                 สินค้าราคาโดน</Text>
                                         </View>
                                         <View style={stylesMain.FlexRow}>
@@ -1250,11 +1333,11 @@ export class Popular_product extends React.Component {
                                     onPress={() => NavigationNavigateScreen({
                                         goScreen: 'Popular_productScreen', setData: { id_item: 2, loadData: loadData }, navigation
                                     })}>
-                                    <View style={stylesMain.Popular_Box_B}>
+                                    <View style={[stylesMain.Popular_Box_B, { backgroundColor: '#F0F6FA' }]}>
                                         <View style={stylesMain.PopularText_A}>
                                             <Text style={[{
                                                 marginLeft: 8, color: '#fff'
-                                            }, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
+                                            }, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
                                                 สินค้าขายดี</Text>
                                         </View>
                                         <View style={stylesMain.FlexRow}>
@@ -1269,11 +1352,11 @@ export class Popular_product extends React.Component {
                                     onPress={() => NavigationNavigateScreen({
                                         goScreen: 'Popular_productScreen', setData: { id_item: 3, loadData: loadData }, navigation
                                     })}>
-                                    <View style={stylesMain.Popular_Box_B}>
+                                    <View style={[stylesMain.Popular_Box_B, { backgroundColor: '#EAEEF7' }]}>
                                         <View style={stylesMain.PopularText_A}>
                                             <Text style={[{
                                                 marginLeft: 8, color: '#fff'
-                                            }, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
+                                            }, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
                                                 สินค้าสุดคูล</Text>
                                         </View>
                                         <View style={stylesMain.FlexRow}>
@@ -1373,7 +1456,7 @@ export class FlashSale extends React.PureComponent {
     };
     getData = (dataService) => {
         var flash_end = dataService.flash_end && dataService.flash_end.split(':');
-        this.setState({ activeDataService: false, dataService, endTime: new Date().setHours(flash_end[0], flash_end[1], flash_end[2]) });
+        this.setState({ activeDataService: false, dataService, endTime: new Date().setHours(flash_end ? flash_end[0] : 0, flash_end ? flash_end[1] : 0, flash_end ? flash_end[2] : 0) });
     };
     render() {
         const { navigation } = this.props;
@@ -2218,20 +2301,22 @@ export class Fin_Mall extends React.Component {
         this.state = {
         };
     };
-    productCate = (type) => {
+    productFinmail = (type) => {
         return type.map((item, index) => {
             if (index < 2) {
                 var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
                 return (
-                    <View style={stylesMain.Popular_Box_D} key={index}>
-                        <FastImage
-                            style={stylesMain.Popular_image_Box}
-                            source={{
-                                uri: dataMySQL,
-                            }}
-                            resizeMode={FastImage.resizeMode.contain} />
-                        <View style={{ padding: 3 }}>
-                            <Text numberOfLines={1} style={[stylesFont.FontSize8, stylesFont.FontFamilyText]}>{item.name}</Text>
+                    <View style={{ width: width * 0.235, marginTop: 10 }} key={index}>
+                        <View style={{ height: 80, width: 80, backgroundColor: '#FFFFFF', borderRadius: 5, padding: 5 }}>
+                            <FastImage
+                                style={stylesMain.Popular_image_Box}
+                                source={{
+                                    uri: dataMySQL,
+                                }}
+                                resizeMode={FastImage.resizeMode.cover} />
+                        </View>
+                        <View style={[stylesMain.ItemCenter, { width: 80 }]}>
+                            <Text numberOfLines={1} style={[stylesFont.FontSize8, stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>{item.name}</Text>
                             <NumberFormat
                                 value={item.full_price}
                                 displayType={'text'}
@@ -2242,6 +2327,7 @@ export class Fin_Mall extends React.Component {
                                         stylesMain.BoxProduct1ImagePrice,
                                         stylesFont.FontSize8,
                                         stylesFont.FontFamilyBold,
+                                        { color: '#FFFFFF' }
 
                                     ]}>
                                         {value}</Text>
@@ -2256,27 +2342,9 @@ export class Fin_Mall extends React.Component {
         const { loadData, navigation } = this.props;
         return (
             <View style={[stylesMain.FlexRow, stylesMain.FinMall_Box]}>
-                <View style={{ width: width * 0.48, backgroundColor: '#FFFFFF', padding: 5 }}>
-                    <View style={{ backgroundColor: '#691F50', height: height * 0.25 }}>
-                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>Fin Mall </Text>
-                        <View style={[stylesMain.ItemCenter]}>
-                            {
-                                loadData.product_hit &&
-                                <TouchableOpacity
-                                    key={'product_hit'}
-                                    activeOpacity={1}
-                                    onPress={() => NavigationNavigateScreen({ goScreen: 'FinMallScreen', navigation })}>
-                                    <View style={stylesMain.FlexRow}>
-                                        {this.productCate(loadData.product_hit)}
-                                    </View>
-                                </TouchableOpacity>
-                            }
-                        </View>
-                    </View>
-                </View>
                 <View style={{ width: width * 0.48, backgroundColor: '#FFFFFF', paddingHorizontal: 5 }}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>Fin Mall </Text>
-                    <View style={stylesMain.ItemCenter}>
+                    <View style={{ backgroundColor: '#691F50', padding: 5, borderRadius: 5, justifyContent: 'space-between' }}>
                         {
                             loadData.product_hit &&
                             <TouchableOpacity
@@ -2284,7 +2352,23 @@ export class Fin_Mall extends React.Component {
                                 activeOpacity={1}
                                 onPress={() => NavigationNavigateScreen({ goScreen: 'FinMallScreen', navigation })}>
                                 <View style={stylesMain.FlexRow}>
-                                    {this.productCate(loadData.product_hit)}
+                                    {this.productFinmail(loadData.product_hit)}
+                                </View>
+                            </TouchableOpacity>
+                        }
+                    </View>
+                </View>
+                <View style={{ width: width * 0.48, backgroundColor: '#FFFFFF', paddingHorizontal: 5 }}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>สินค้าสุด Exclusive</Text>
+                    <View style={{ backgroundColor: '#19508B', padding: 5, borderRadius: 5, justifyContent: 'space-between' }}>
+                        {
+                            loadData.exclusive &&
+                            <TouchableOpacity
+                                key={'exclusive'}
+                                activeOpacity={1}
+                                onPress={() => NavigationNavigateScreen({ goScreen: 'ExclusiveScreen', navigation })}>
+                                <View style={stylesMain.FlexRow}>
+                                    {this.productFinmail(loadData.exclusive)}
                                 </View>
                             </TouchableOpacity>
                         }

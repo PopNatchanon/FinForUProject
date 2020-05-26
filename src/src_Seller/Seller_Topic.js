@@ -1039,6 +1039,9 @@ export class Up_Product_Select extends Component {
         this.state = {
         };
     }
+    setStateAll = () => {
+
+    }
     Edit_all_Body() {
         const { price, total } = this.state
         return (
@@ -1074,7 +1077,7 @@ export class Up_Product_Select extends Component {
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ยกเลิก</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity >
+                    <TouchableOpacity onPress={() => this.setStateAll()}>
                         <View style={stylesSeller.BottomSheet_Botton_OK}>
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตกลง</Text>
                         </View>
@@ -1191,7 +1194,9 @@ export class Up_Product_Select extends Component {
                                                         </View>
                                                     </View>
                                                     <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
-                                                        <View style={stylesSeller.SizeSheet_Boxsize}></View>
+                                                        <View style={stylesSeller.SizeSheet_Boxsize}>
+                                                            <TextInput>
+                                                            </TextInput></View>
                                                     </View>
                                                     <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
                                                         <View style={stylesSeller.SizeSheet_Boxsize}></View>

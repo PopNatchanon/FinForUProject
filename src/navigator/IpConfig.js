@@ -7,4 +7,4 @@ export const ip = 'http://192.168.0.131';
 
 // export const finip = 'http://www.mmnie.live'
 // export const finip = 'http://192.168.0.185/finforyou'
-export const finip = 'http://192.168.0.147/finforyou'
+export const finip = 'http://192.168.0.160/finforyou'

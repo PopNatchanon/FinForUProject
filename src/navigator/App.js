@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { createStackNavigator } from 'react-navigation-stack';
-import { createAppContainer } from 'react-navigation'
+import { createStackNavigator, CardStyleInterpolators, HeaderStyleInterpolators, TransitionSpecs, } from 'react-navigation-stack';
+import { createAppContainer } from 'react-navigation';
 // Main
 import MainScreen from '../MainScreen';
 import StoreScreen from '../StoreScreen';
@@ -66,340 +66,333 @@ import FastImage from 'react-native-fast-image';
 ///----------------------------------------------------------------------------------------------->>>>
 const PathScreen = createStackNavigator({
   MainScreen: {
-    screen: MainScreen,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: MainScreen, navigationOptions: () => ({
+      headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
     })
   },
   StoreScreen: {
-    screen: StoreScreen,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: StoreScreen, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   DetailScreen: {
-    screen: DetailScreen,
-    navigationOptions: () => ({
-      headerShown: false
-    }),
+    screen: DetailScreen, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+    })
   },
   ProfileScreen: {
-    screen: ProfileScreen,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: ProfileScreen, navigationOptions: () => ({
+      headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
     })
   },
   CartScreen: {
-    screen: CartScreen,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: CartScreen, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   LoginScreen: {
-    screen: LoginScreen,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: LoginScreen, navigationOptions: () => ({
+      headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
     })
   },
   FeedScreen: {
-    screen: FeedScreen,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: FeedScreen, navigationOptions: () => ({
+      headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
     })
   },
   NewsScreen: {
-    screen: NewsScreen,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: NewsScreen, navigationOptions: () => ({
+      headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
     })
   },
   BellScreen: {
-    screen: BellScreen,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: BellScreen, navigationOptions: () => ({
+      headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
     })
   },
   RegisterScreen: {
-    screen: RegisterScreen,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: RegisterScreen, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   Recommend_Brand: {
-    screen: Recommend_Brand,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: Recommend_Brand, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   FlashSaleScreen: {
-    screen: FlashSaleScreen,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: FlashSaleScreen, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   SettingScreen: {
-    screen: SettingScreen,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: SettingScreen, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   HighlightScreen: {
-    screen: HighlightScreen,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: HighlightScreen, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   Popular_productScreen: {
-    screen: Popular_productScreen,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: Popular_productScreen, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   Recommend_Store: {
-    screen: Recommend_Store,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: Recommend_Store, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   Recommend_Store: {
-    screen: Recommend_Store,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: Recommend_Store, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   ExclusiveScreen: {
-    screen: ExclusiveScreen,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: ExclusiveScreen, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   Product_for_youScreen: {
-    screen: Product_for_youScreen,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: Product_for_youScreen, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   CategoryScreen: {
-    screen: CategoryScreen,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: CategoryScreen, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   FinMallScreen: {
-    screen: FinMallScreen,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: FinMallScreen, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   FINSupermarket: {
-    screen: FINSupermarket,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: FINSupermarket, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   // src_Detail
   Reviews_score: {
-    screen: Reviews_score,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: Reviews_score, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   // src_profile
   Profile_Topic: {
-    screen: Profile_Topic,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: Profile_Topic, navigationOptions: () => ({
+      headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
     })
   },
   CancelScreen: {
-    screen: CancelScreen,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: CancelScreen, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   Return_products: {
-    screen: Return_products,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: Return_products, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   Total_Order: {
-    screen: Total_Order,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: Total_Order, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   Order_Detail: {
-    screen: Order_Detail,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: Order_Detail, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   Setting_Topic: {
-    screen: Setting_Topic,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: Setting_Topic, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   Business: {
-    screen: Business,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: Business, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   // src_Seller
   SellerScreen: {
-    screen: SellerScreen,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: SellerScreen, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   Seller_Totel_Order: {
-    screen: Seller_Totel_Order,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: Seller_Totel_Order, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   Seller_Topic: {
-    screen: Seller_Topic,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: Seller_Topic, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   Seller_Setting: {
-    screen: Seller_Setting,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: Seller_Setting, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   Seller_Profile_Edit: {
-    screen: Seller_Profile_Edit,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: Seller_Profile_Edit, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   Seller_Up_Product: {
-    screen: Seller_Up_Product,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: Seller_Up_Product, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   Seller_Return: {
-    screen: Seller_Return,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: Seller_Return, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   Setting_TopicStore: {
-    screen: Setting_TopicStore,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: Setting_TopicStore, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   Seller_Detail_Order: {
-    screen: Seller_Detail_Order,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: Seller_Detail_Order, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   // src-Cart
   Customer_account: {
-    screen: Customer_account,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: Customer_account, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   Customer_Order: {
-    screen: Customer_Order,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: Customer_Order, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   Customer_Complete_Order: {
-    screen: Customer_Complete_Order,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: Customer_Complete_Order, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   // src_Promotion
   Deal_Topic: {
-    screen: Deal_Topic,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: Deal_Topic, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   DealScreen: {
-    screen: DealScreen,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: DealScreen, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   CoinScreen: {
-    screen: CoinScreen,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: CoinScreen, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   CampaignScreen: {
-    screen: CampaignScreen,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: CampaignScreen, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   The_BestFinScreen: {
-    screen: The_BestFinScreen,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: The_BestFinScreen, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   Installment_payScreen: {
-    screen: Installment_payScreen,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: Installment_payScreen, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   Detail_Campaign: {
-    screen: Detail_Campaign,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: Detail_Campaign, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   Same_StoreScreen: {
-    screen: Same_StoreScreen,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: Same_StoreScreen, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   SecondScreen: {
-    screen: SecondScreen,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: SecondScreen, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   SearchScreen: {
-    screen: SearchScreen,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: SearchScreen, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   Detail_Pro: {
-    screen: Detail_Pro,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: Detail_Pro, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
   // src_store
   Post_Feed: {
-    screen: Post_Feed,
-    navigationOptions: () => ({
-      headerShown: false
+    screen: Post_Feed, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
 },
   {
-    // initialRouteName: 'MainScreen',
+    initialRouteName: 'FeedScreen',
     // initialRouteName: 'ProfileScreen',
-    initialRouteName: 'SellerScreen',
+    // initialRouteName: 'SellerScreen',
   }
 );
 const AppNavigator = createAppContainer(PathScreen);

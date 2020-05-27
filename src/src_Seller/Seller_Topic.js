@@ -4,12 +4,13 @@ import {
     Dimensions, SafeAreaView, ScrollView, ImageBackground, Text, TextInput, TouchableOpacity, View, Alert
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
+import BottomSheet from "react-native-raw-bottom-sheet";
 export const { width, height } = Dimensions.get('window');
+import DatePicker from 'react-native-datepicker';
 import FastImage from 'react-native-fast-image';
 import { CheckBox } from 'react-native-elements';
-import BottomSheet from "react-native-raw-bottom-sheet";
 import PINCode from '@haskkor/react-native-pincode';
-import DatePicker from 'react-native-datepicker';
+import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -35,10 +36,19 @@ export default class Seller_Topic extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            activeGetSource: true,
         };
     }
+    componentDidMount() {
+        const { activeGetSource, } = this.state
+        activeGetSource == true && GetData({ getCokie: true, getUser: true, getSource: this.getSource.bind(this) })
+    }
+    getSource = (value) => {
+        this.setState({ activeGetSource: false, currentUser: value.currentUser, cokie: value.keycokie, activeLogin: value.activeLogin });
+    };
     PathList() {
         const { navigation } = this.props
+        const { cokie, currentUser } = this.state
         const selectedIndex = navigation.getParam('selectedIndex')
         switch (selectedIndex) {
             case 0:
@@ -110,14 +120,14 @@ export default class Seller_Topic extends Component {
                 return (
                     <>
                         <AppBar1 backArrow navigation={navigation} titleHead='ถอนเงิน' />
-                        <Withdraw_money navigation={navigation} />
+                        <Withdraw_money cokie={cokie} currentUser={currentUser} navigation={navigation} />
                     </>
                 )
             case 10:
                 return (
                     <>
                         <AppBar1 backArrow navigation={navigation} titleHead='PIN' />
-                        <PIN_Code navigation={navigation} />
+                        <PIN_Code cokie={cokie} currentUser={currentUser} navigation={navigation} />
                     </>
                 )
             case 11:
@@ -138,10 +148,7 @@ export default class Seller_Topic extends Component {
                 return (
                     <>
                         <AppBar1 backArrow navigation={navigation} titleHead='ประวัติการถอนเงิน' />
-                        <Withdrawal_history />
-                        <Withdrawal_history />
-                        <Withdrawal_history />
-                        <Withdrawal_history />
+                        <Withdrawal_history cokie={cokie} currentUser={currentUser} navigation={navigation} />
                     </>
                 )
             case 14:
@@ -196,50 +203,58 @@ export class PIN_Code extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            pinCodeStatus: 'enter',
+            activeInput: true,
+            checkFail: 0,
+            code: '',
         };
-        this.finishProcess = this.finishProcess.bind(this);
-        this.handleResultEnterPin = this.handleResultEnterPin.bind(this);
-        // this.finishProcess = this.finishProcess.bind(this)
     }
-    finishProcess(pinCode) {
-        const { navigation } = this.props
+    pinInput = React.createRef();
+    _checkCode = (code) => {
+        const { cokie, currentUser, navigation } = this.props
+        const { checkFail } = this.state
         const Withdraw = navigation.getParam("Withdraw")
-        // console.log('finishProcess', pinCode)
-        NavigationNavigateScreen({
-            goScreen: 'Seller_Topic', setData: { selectedIndex: Withdraw == "Withdraw" ? 11 : Withdraw == "History" ? 13 : 17, }, navigation
+        const uri = `${finip}/store_transfer/login_pin`
+        const dataBody = {
+            id_customer: currentUser.id_customer,
+            pin: code
+        }
+        GetServices({
+            Authorization: cokie, dataBody, uriPointer: uri, getDataSource: value => {
+                console.log(value)
+                if (value.status != true) {
+                    alert(value.message)
+                    this.setState({ checkFail: checkFail + 1, activeInput: false });
+                    this.pinInput.current.shake()
+                        .then(() => this.setState({ code: '', activeInput: true }));
+                    // setTimeout(() => this.setState({ activeInput: true, }), 2000);
+                } else {
+                    NavigationNavigateScreen({
+                        goScreen: 'Seller_Topic', setData: { selectedIndex: Withdraw == "Withdraw" ? 11 : Withdraw == "History" ? 13 : 17, }, navigation
+                    });
+                }
+            }
         })
     };
-    renderForgot() {
-        return (
-            <TouchableOpacity
-                onPress={() =>
-                    Alert.alert('Forgot Password')}
-            >
-                <Text>Forgot?</Text>
-            </TouchableOpacity>
-        )
-    }
-    handleResultEnterPin(pinCode) {
-        console.log('handleResultEnterPin', pinCode)
-        this.setState({ pinCodeStatus: 'failure' });
-    };
-    onFail(pinCode) {
-        console.log('onFail', pinCode)
-    };
     render() {
+        const { activeInput, checkFail, code, } = this.state;
         return (
-            <PINCode status={'enter'}
-                pinCodeVisible={true}
-                disableLockScreen
-                passwordLength={6}
-                bottomLeftComponent={this.renderForgot()}
-                buttonDeleteText={'delete'}
-                storedPin='true'
-                touchIDDisabled
-                finishProcess={(pinCode) => this.finishProcess(pinCode)}
-                handleResultEnterPin={(code) => this.handleResultEnterPin(code)}
-                onFail={(attempt) => this.onFail(attempt)}
+            <SmoothPinCodeInput
+                ref={this.pinInput}
+                password
+                mask="﹡"
+                value={code}
+                cellStyle={{
+                    borderWidth: 2,
+                    borderColor: activeInput == false ? 'red' : '#111',
+                }}
+                textStyle={{
+                    fontSize: 24,
+                    color: activeInput == false ? 'red' : '#111',
+                }}
+                codeLength={6}
+                onTextChange={code => this.setState({ activeInput: true, code, })}
+                onFulfill={this._checkCode}
+                onBackspace={() => console.log('No more back.')}
             />
         );
     }
@@ -859,27 +874,22 @@ export class Withdraw_money extends Component {
         super(props);
         this.state = {
             activeDataService: true,
-            activeGetSource: true,
         };
     }
-    componentDidMount() {
-        const { activeGetSource, } = this.state
-        activeGetSource == true && GetData({ getCokie: true, getUser: true, getSource: this.getSource.bind(this) })
-    }
     getData = (dataService) => {
+        console.log(dataService)
         this.setState({ activeDataService: false, dataService })
     }
-    getSource = (value) => {
-        this.setState({ activeGetSource: false, currentUser: value.currentUser, cokie: value.keycokie, activeLogin: value.activeLogin });
-    };
     render() {
-        const { navigation } = this.props
-        const { activeDataService, currentUser } = this.state
+        const { cokie, currentUser, navigation, } = this.props
+        const { activeDataService, } = this.state
         var uri = `${finip}/store_transfer/check_pin`;
         var dataBody = {
             id_customer: currentUser && currentUser.id_customer
         };
-        activeDataService == true && currentUser && GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
+        activeDataService == true && currentUser && GetServices({
+            Authorization: cokie, uriPointer: uri, dataBody, getDataSource: this.getData.bind(this)
+        })
         return (
             <View style={{ backgroundColor: '#FFFFFF', marginTop: 5 }}>
                 <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
@@ -977,6 +987,38 @@ export class Confirm_Bank extends Component {
 }
 ///----------------------------------------------------------------------------------------------->>>>
 export class Withdrawal_history extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            activeHistory: true,
+        };
+    }
+    getData = (dataService) => {
+        console.log(dataService)
+        this.setState({ activeHistory: false, dataService })
+    }
+    render() {
+        const { cokie, currentUser, navigation, } = this.props
+        const { activeHistory, dataService } = this.state
+        var uri = `${finip}/store_transfer/transfer_history`;
+        var dataBody = {
+            id_customer: currentUser && currentUser.id_customer
+        };
+        activeHistory == true && currentUser && GetServices({
+            Authorization: cokie, uriPointer: uri, dataBody, getDataSource: this.getData.bind(this)
+        })
+        return (
+            <>
+                {
+                    dataService && dataService.length > 0 ?
+                        <Withdrawal_history_sub cokie={cokie} currentUser={currentUser} navigation={navigation} /> :
+                        <></>
+                }
+            </>
+        );
+    }
+}
+export class Withdrawal_history_sub extends Component {
     constructor(props) {
         super(props);
         this.state = {

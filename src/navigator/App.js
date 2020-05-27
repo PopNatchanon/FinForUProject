@@ -390,9 +390,9 @@ const PathScreen = createStackNavigator({
   },
 },
   {
-    initialRouteName: 'FeedScreen',
+    // initialRouteName: 'FeedScreen',
     // initialRouteName: 'ProfileScreen',
-    // initialRouteName: 'SellerScreen',
+    initialRouteName: 'SellerScreen',
   }
 );
 const AppNavigator = createAppContainer(PathScreen);

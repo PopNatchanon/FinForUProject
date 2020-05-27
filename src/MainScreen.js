@@ -154,10 +154,10 @@ export default class MainScreen extends React.PureComponent {
                 nameComponent: 'Product_for_you',
                 renderComponent: <Product_for_you navigation={navigation} loadData={dataService.for_you} />
             },
-            {
-                nameComponent: 'CategoryProduct',
-                renderComponent: <CategoryProduct navigation={navigation} />
-            },
+            // {
+            //     nameComponent: 'CategoryProduct',
+            //     renderComponent: <CategoryProduct navigation={navigation} />
+            // },
             // {
             //     nameComponent: 'Category_Image_Total',
             //     renderComponent: <Category_Image_Total sizeBox={1} />
@@ -703,8 +703,8 @@ export class Slide extends React.PureComponent {
         this.setState({ activeSlide });
     };
     _renderItem = item => {
-        // var dataMySQL = `${ip}/mysql/${item.image_path}/${item.image}`;
-        var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
+        var dataMySQL = `${ip}/mysql/uploads/Banner_Mobile/T.jpg`
+        // var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
         return (
             <View style={stylesMain.child} key={item.id}>
                 <Image
@@ -787,11 +787,11 @@ export class Guarantee extends React.Component {
                             }}
                             resizeMode={FastImage.resizeMode.cover} />
                     </View>
-                    <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyBold]}>{item.text}</Text>
+                    <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyBold, { marginTop: 5 }]}>{item.text}</Text>
                 </View>
                 <View style={[stylesMain.ItemCenter, { height: 30, width: 30 }]}>
                     <FastImage
-                        style={{height:20,width:20}}
+                        style={{ height: 20, width: 20 }}
                         source={{
                             uri: `${ip}/MySQL/uploads/Guarantee/02.png`,
                         }}
@@ -820,7 +820,10 @@ export class Guarantee extends React.Component {
                     flexDirection: 'row', width: '100%', height: 'auto', paddingHorizontal: 5,
                     aspectRatio: 4.5, justifyContent: 'space-between', marginTop: 5
                 }}>
-                    <View style={{ width: '54%', backgroundColor: '#FFFFFF', borderRadius: 5 }}>
+                    <View style={{
+                        width: '54%', backgroundColor: '#FFFFFF',
+                        borderRadius: 5, borderColor: '#EAEAEA', borderWidth: 1, padding: 2
+                    }}>
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
                             source={{
@@ -829,8 +832,8 @@ export class Guarantee extends React.Component {
                             resizeMode={FastImage.resizeMode.cover} />
                     </View>
                     <View style={{ width: '44%', flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View style={{ width: '49%', alignItems: 'center', backgroundColor: '#FFFFFF', padding: 5 }}>
-                            <View style={{ height: 50, width: 50, }}>
+                        <TouchableOpacity style={{ width: '49%', alignItems: 'center', backgroundColor: '#FFFFFF', padding: 5 }}>
+                            <View style={{ height: '60%', width: width * 0.13 }}>
                                 <FastImage
                                     style={stylesMain.BoxProduct1Image}
                                     source={{
@@ -838,12 +841,12 @@ export class Guarantee extends React.Component {
                                     }}
                                     resizeMode={FastImage.resizeMode.cover} />
                             </View>
-                            <View style={{ backgroundColor: '#0A55A6', paddingHorizontal: 15, borderRadius: 5, marginTop: 10 }} >
+                            <View style={{ backgroundColor: '#0A55A6', paddingHorizontal: 15, borderRadius: 8, marginTop: 10 }} >
                                 <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>ช้อปเลย</Text>
                             </View>
-                        </View>
-                        <View style={{ width: '49%', alignItems: 'center', backgroundColor: '#FFFFFF', padding: 5, borderRadius: 5 }}>
-                            <View style={{ height: 50, width: 50, }}>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{ width: '49%', alignItems: 'center', backgroundColor: '#FFFFFF', padding: 5, borderRadius: 5 }}>
+                            <View style={{ height: '60%', width: width * 0.13 }}>
                                 <FastImage
                                     style={stylesMain.BoxProduct1Image}
                                     source={{
@@ -851,10 +854,10 @@ export class Guarantee extends React.Component {
                                     }}
                                     resizeMode={FastImage.resizeMode.cover} />
                             </View>
-                            <View style={{ backgroundColor: '#0A55A6', paddingHorizontal: 10, borderRadius: 5, marginTop: 10 }} >
+                            <View style={{ backgroundColor: '#0A55A6', paddingHorizontal: 10, borderRadius: 8, marginTop: 10 }} >
                                 <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>ช้อปเลย</Text>
                             </View>
-                        </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
                 <View style={{
@@ -875,7 +878,7 @@ export class Guarantee extends React.Component {
                             data={item}
                             loop
                             autoplay
-                            autoplayInterval={3000}
+                            autoplayInterval={5000}
                         />
                     </View>
                 </View>
@@ -1006,15 +1009,15 @@ export class Trend_Hit extends React.Component {
                             />
                         </View>
                         <View style={{ alignItems: 'center' }}>
-                            <View style={{ height: 30, width: 95, marginTop: -20 }}>
+                            <TouchableOpacity style={{ height: 30, width: 95, marginTop: -20 }}>
                                 <FastImage
                                     style={[stylesMain.BoxProduct1Image, { borderRadius: 8 }]}
                                     source={{
-                                        uri: `${ip}/MySQL/uploads/Home/Button_Gif/GIFF2.gif`,
+                                        uri: `${ip}/MySQL/uploads/Home/Button_Gif/Shop.gif`,
                                     }}
                                     resizeMode={FastImage.resizeMode.stretch}
                                 />
-                            </View>
+                            </TouchableOpacity>
                         </View>
                     </View>
                     <View style={{ width: width * 0.48 }}>
@@ -1026,6 +1029,17 @@ export class Trend_Hit extends React.Component {
                                 }}
                                 resizeMode={FastImage.resizeMode.stretch}
                             />
+                        </View>
+                        <View style={{ alignItems: 'center' }}>
+                            <TouchableOpacity style={{ height: 30, width: 95, marginTop: -20 }}>
+                                <FastImage
+                                    style={[stylesMain.BoxProduct1Image, { borderRadius: 8 }]}
+                                    source={{
+                                        uri: `${ip}/MySQL/uploads/Home/Button_Gif/Shop2.png`,
+                                    }}
+                                    resizeMode={FastImage.resizeMode.stretch}
+                                />
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>

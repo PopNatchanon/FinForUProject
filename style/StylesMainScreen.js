@@ -541,19 +541,20 @@ export default StyleSheet.create({
   },
   ///------------------------------------------------------------------------------------------///
   FrameBackground_Height: {
-    height: height * 0.155,
+    height: height * 0.18,
   },
   FrameBackground_Box: {
     flexDirection: 'column',
     flexWrap: 'wrap',
   },
   Brand_image_Box: {
-    height: 28,
-    width: width * 0.30,
+    height: 35,
+    width: width * 0.325,
     borderColor: '#ECECEC',
     borderWidth: 1,
     marginLeft: 2,
     marginTop: 2,
+    padding: 3,
   },
   Brand_image_RCM: {
     height: '100%',

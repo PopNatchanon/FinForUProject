@@ -60,10 +60,10 @@ export default class MainScreen extends React.PureComponent {
         };
     };
     componentDidMount() {
-        this.SetTimeLoading = setTimeout(() => this.setState({ activeLoading: false }), 8000);
+        this.SetTimeLoading = setTimeout(() => this.setState({ activeLoading: false }), 8000/*50000*/);
     };
     componentWillUnmount() {
-        this.abortController.abort()
+        this.abortController.abort();
         clearTimeout(this.SetTimeLoading);
     };
     getData = (dataService) => {
@@ -81,7 +81,7 @@ export default class MainScreen extends React.PureComponent {
         const maxheight = 55
         const AnimatedHeadbg = scrollY.interpolate({
             inputRange: [maxheight, maxheight * 2],
-            outputRange: ['transparent', '#1A3363'],
+            outputRange: ['transparent', mainColor],
             extrapolate: 'clamp',
             useNativeDriver: false,
         })
@@ -907,7 +907,7 @@ export class Category extends React.Component {
         return dataService &&
             dataService.map((item, index) => {
                 if (index < dataService.length) {
-                    var dataMySQL = `${finip}/${item.image_path}/menu/${item.image_head}`;
+                    var dataMySQL = `${finip}/${item.image_path}/menu/mobile/${item.image_head}`;
                     return (
                         <TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigateScreen({
                             goScreen: 'CategoryScreen', setData: { id_type: item.id_type }, navigation

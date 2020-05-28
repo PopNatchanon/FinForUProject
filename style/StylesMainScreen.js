@@ -2,8 +2,8 @@ import { StyleSheet, Dimensions } from 'react-native';
 import { normalize } from './stylesFont';
 export const { width, height } = Dimensions.get('window');
 
-// export const mainColor = '#1A3363'
 export const mainColor = '#0A55A6'
+export const appBarColor = '#1A3363'
 export default StyleSheet.create({
   ///***------------------------------------------------------------------------------------------------------***///
   animatedView: {
@@ -504,7 +504,7 @@ export default StyleSheet.create({
   },
   ///------------------------------------------------------------------------------------------///
   child: {
-    width: width,
+    width: width * 1.05,
     height: 'auto',
     aspectRatio: 2.0850,
   },

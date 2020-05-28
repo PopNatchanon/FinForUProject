@@ -2,7 +2,8 @@ import { StyleSheet, Dimensions } from 'react-native';
 import { normalize } from './stylesFont';
 export const { width, height } = Dimensions.get('window');
 
-export const mainColor = '#1A3363'
+// export const mainColor = '#1A3363'
+export const mainColor = '#0A55A6'
 export default StyleSheet.create({
   ///***------------------------------------------------------------------------------------------------------***///
   animatedView: {
@@ -277,7 +278,7 @@ export default StyleSheet.create({
   },
   BoxStore1Box2: {
     // width: width * 0.55,
-    width: '50%',
+    width: '40%',
     height: 130,
     marginTop: 10,
     marginBottom: 5,
@@ -285,8 +286,8 @@ export default StyleSheet.create({
   },
   BoxStore1Box3: {
     // width: width * 0.40,
-    width: '45%',
-    height: 85,
+    width: '65%',
+    height: 65,
     marginTop: 10,
     marginLeft: 5,
   },
@@ -385,7 +386,7 @@ export default StyleSheet.create({
     borderColor: '#ECECEC',
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
-    marginTop: 10,
+    marginTop: 8,
     paddingBottom: 4,
   },
   FrameBackground2: {
@@ -394,7 +395,7 @@ export default StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderBottomWidth: 1,
     borderTopWidth: 1,
-    marginTop: 10,
+    marginTop: 8,
     paddingBottom: 4,
   },
   FrameBackground3: {
@@ -425,8 +426,8 @@ export default StyleSheet.create({
     marginRight: 8,
   },
   Time_FlashSale_TimeBox: {
-    height: 30,
-    width: 30,
+    height: 25,
+    width: 25,
     marginLeft: 5,
     backgroundColor: '#222222',
     justifyContent: 'center',
@@ -514,7 +515,7 @@ export default StyleSheet.create({
   },
   ///------------------------------------------------------------------------------------------///
   Category: {
-    width: width * 0.19,
+    width: width * 0.199,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 2,
@@ -522,7 +523,7 @@ export default StyleSheet.create({
   category_A: {
     flexDirection: 'column',
     flexWrap: 'wrap',
-    height: 203,
+    height: 195,
     paddingBottom: 6,
     paddingTop: 4,
     justifyContent: 'space-between',
@@ -543,15 +544,15 @@ export default StyleSheet.create({
   },
   ///------------------------------------------------------------------------------------------///
   FrameBackground_Height: {
-    height: height * 0.18,
+    height: height * 0.195,
   },
   FrameBackground_Box: {
     flexDirection: 'column',
     flexWrap: 'wrap',
   },
   Brand_image_Box: {
-    height: 35,
-    width: width * 0.325,
+    height: 40,
+    width: width * 0.40,
     borderColor: '#ECECEC',
     borderWidth: 1,
     marginLeft: 2,
@@ -578,7 +579,7 @@ export default StyleSheet.create({
   Popular_Box_D: {
     height: height * 0.11,
     width: width * 0.20,
-    padding:5,
+    padding: 5,
   },
   Popular_image_Box: {
     height: '100%',
@@ -626,7 +627,7 @@ export default StyleSheet.create({
     width: '100%',
     height: '100%',
     borderColor: '#ECECEC',
-    borderRadius: 4,
+    // borderRadius: 4,
   },
   ///------------------------------------------------------------------///
   Banner_Bar: {

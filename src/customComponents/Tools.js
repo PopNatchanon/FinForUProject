@@ -1310,7 +1310,7 @@ export function RenderProduct(props) {
                         {
                             borderTopLeftRadius: radiusBox ? radiusBox : 0,
                             borderTopRightRadius: radiusBox ? radiusBox : 0,
-                            marginVertical: height * 0.015
+                            marginTop: height * 0.015
                         }
                         ]}
                         resizeMode={FastImage.resizeMode.contain} />

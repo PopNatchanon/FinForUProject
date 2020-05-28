@@ -83,7 +83,7 @@ export default class MainScreen extends React.PureComponent {
             inputRange: [maxheight, maxheight * 2],
             outputRange: ['transparent', '#1A3363'],
             extrapolate: 'clamp',
-            useNativeDriver: true,
+            useNativeDriver: false,
         })
         let itemT = [
             /////--------------------------------------------->>>Start
@@ -100,7 +100,7 @@ export default class MainScreen extends React.PureComponent {
             },
             {
                 nameComponent: 'Guarantee',
-                renderComponent: <Guarantee />
+                renderComponent: <Guarantee navigation={navigation} />
             },
             {
                 nameComponent: 'Category',
@@ -108,7 +108,7 @@ export default class MainScreen extends React.PureComponent {
             },
             {
                 nameComponent: 'Trend_Hit',
-                renderComponent: <Trend_Hit />
+                renderComponent: <Trend_Hit navigation={navigation} />
             },
             {
                 nameComponent: 'Button_Bar',
@@ -178,22 +178,22 @@ export default class MainScreen extends React.PureComponent {
             //     nameComponent: 'Category_Image_Total',
             //     renderComponent: <Category_Image_Total sizeBox={2} />
             // },
-            {
-                nameComponent: 'Second_product',
-                renderComponent: <Second_product navigation={navigation} loadData={{
-                    product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
-                    list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3,
-                    mobile_bar: dataService.mobile_bar, mobile_slide: dataService.mobile_slide,
-                }} />
-            },
+            // {
+            //     nameComponent: 'Second_product',
+            //     renderComponent: <Second_product navigation={navigation} loadData={{
+            //         product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
+            //         list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3,
+            //         mobile_bar: dataService.mobile_bar, mobile_slide: dataService.mobile_slide,
+            //     }} />
+            // },
             {
                 nameComponent: 'BannerBar_THREE',
                 renderComponent: <BannerBar_THREE />
             },
-            {
-                nameComponent: 'FIN_Supermarket',
-                renderComponent: <FIN_Supermarket navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />
-            },
+            // {
+            //     nameComponent: 'FIN_Supermarket',
+            //     renderComponent: <FIN_Supermarket navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />
+            // },
             {
                 nameComponent: 'TodayProduct',
                 renderComponent: <TodayProduct navigation={navigation} loadData={dataService.for_you2} />
@@ -209,6 +209,8 @@ export default class MainScreen extends React.PureComponent {
                     (activeDataService == true || activeLoading == true) &&
                     <LoadingScreen key='LoadingScreen' />
                 }
+                {/* <AppBar ABGColor={AnimatedHeadbg} ABDColor={AnimatedHeadbg} navigation={navigation} cartBar chatBar
+                    style={{ height: 55, }} /> */}
                 <FlatComponent
                     componentPage='MainScreen'
                     component={itemT}
@@ -820,19 +822,16 @@ export class Guarantee extends React.Component {
                     flexDirection: 'row', width: '100%', height: 'auto', paddingHorizontal: 5,
                     aspectRatio: 4.5, justifyContent: 'space-between', marginTop: 5
                 }}>
-                    <View style={{
-                        width: '54%', backgroundColor: '#FFFFFF',
-                        borderRadius: 5, borderColor: '#EAEAEA', borderWidth: 1, padding: 2
-                    }}>
+                    <View style={{ width: '54%', }}>
                         <FastImage
-                            style={stylesMain.BoxProduct1Image}
+                            style={[stylesMain.BoxProduct1Image, { borderRadius: 5 }]}
                             source={{
                                 uri: `${ip}/MySQL/uploads/Home/001.png`,
                             }}
                             resizeMode={FastImage.resizeMode.cover} />
                     </View>
                     <View style={{ width: '44%', flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <TouchableOpacity style={{ width: '49%', alignItems: 'center', backgroundColor: '#FFFFFF', padding: 5 }}>
+                        <TouchableOpacity style={{ width: '49%', alignItems: 'center', backgroundColor: '#FFFFFF', padding: 5, borderRadius: 5 }}>
                             <View style={{ height: '60%', width: width * 0.13 }}>
                                 <FastImage
                                     style={stylesMain.BoxProduct1Image}
@@ -862,7 +861,7 @@ export class Guarantee extends React.Component {
                 </View>
                 <View style={{
                     flexDirection: 'row', width: '100%', height: 'auto', paddingHorizontal: 5,
-                    aspectRatio: 8.5, marginTop: 10, backgroundColor: '#FFFFFF', borderRadius: 5
+                    aspectRatio: 8.5, marginTop: 5, backgroundColor: '#FFFFFF', borderRadius: 5
                 }}>
                     <View style={[stylesMain.ItemCenter, { width: '30%', borderColor: '#f5df89', borderWidth: 2 }]}>
                         <FastImage
@@ -876,7 +875,7 @@ export class Guarantee extends React.Component {
                         <Carousel
                             renderItem={this._renderItem}
                             data={item}
-                            loop
+                            // loop
                             autoplay
                             autoplayInterval={5000}
                         />
@@ -907,23 +906,25 @@ export class Category extends React.Component {
         const { dataService } = this.state;
         return dataService &&
             dataService.map((item, index) => {
-                var dataMySQL = `${finip}/${item.image_path}/menu/${item.image_head}`;
-                return (
-                    <TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigateScreen({
-                        goScreen: 'CategoryScreen', setData: { id_type: item.id_type }, navigation
-                    })} style={stylesMain.Category}>
-                        <FastImage
-                            source={{
-                                uri: dataMySQL,
-                            }}
-                            style={stylesMain.Category_box}
-                            resizeMode={FastImage.resizeMode.cover} />
-                        <View style={{ height: 25 }}>
-                            <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize8, stylesFont.FontCenter]}>
-                                {item.name}</Text>
-                        </View>
-                    </TouchableOpacity>
-                );
+                if (index < dataService.length) {
+                    var dataMySQL = `${finip}/${item.image_path}/menu/${item.image_head}`;
+                    return (
+                        <TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigateScreen({
+                            goScreen: 'CategoryScreen', setData: { id_type: item.id_type }, navigation
+                        })} style={stylesMain.Category}>
+                            <FastImage
+                                source={{
+                                    uri: dataMySQL,
+                                }}
+                                style={stylesMain.Category_box}
+                                resizeMode={FastImage.resizeMode.cover} />
+                            <View style={{ height: 25 }}>
+                                <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize8, stylesFont.FontCenter]}>
+                                    {item.name}</Text>
+                            </View>
+                        </TouchableOpacity>
+                    );
+                }
             });
     };
     render() {
@@ -963,7 +964,7 @@ export class Trend_Hit extends React.Component {
     _renderItem = (item, index) => {
         return (
             <View key={index} style={{ width: width * 0.48 }}>
-                <View style={{ height: '90%', }}>
+                <View style={{ height: '88%', }}>
                     <FastImage
                         style={stylesMain.BoxProduct1Image}
                         source={{
@@ -973,7 +974,7 @@ export class Trend_Hit extends React.Component {
                     />
                 </View>
                 <View style={{ alignItems: 'center' }}>
-                    <TouchableOpacity style={{ height: 30, width: 95, marginTop: -20 }}>
+                    <TouchableOpacity style={{ height: 25, width: 90, marginTop: -15 }}>
                         <FastImage
                             style={[stylesMain.BoxProduct1Image, { borderRadius: 8 }]}
                             source={{
@@ -1029,9 +1030,9 @@ export class Trend_Hit extends React.Component {
         });
         return (
             <>
-                <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 4.5, marginTop: 10, justifyContent: 'space-between', width, paddingHorizontal: 5 }]}>
+                <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 5, marginTop: 10, justifyContent: 'space-between', width, paddingHorizontal: 5 }]}>
                     <View style={{ width: width * 0.48 }}>
-                        <View style={{ height: '90%' }}>
+                        <View style={{ height: '85%' }}>
                             <FastImage
                                 style={stylesMain.BoxProduct1Image}
                                 source={{
@@ -1041,9 +1042,9 @@ export class Trend_Hit extends React.Component {
                             />
                         </View>
                         <View style={{ alignItems: 'center' }}>
-                            <TouchableOpacity style={{ height: 30, width: 95, marginTop: -20 }}>
+                            <TouchableOpacity style={{ height: 25, width: 90, marginTop: -15 }}>
                                 <FastImage
-                                    style={[stylesMain.BoxProduct1Image, { borderRadius: 8 }]}
+                                    style={stylesMain.BoxProduct1Image}
                                     source={{
                                         uri: `${ip}/MySQL/uploads/Home/Button_Gif/Shop.gif`,
                                     }}
@@ -1091,9 +1092,9 @@ export class Fin_Service extends React.Component {
                 <Image
                     style={stylesMain.BoxProduct1Image}
                     source={{
-                        uri: `${ip}/MySQL/uploads/Text/Annotation 2020-05-09 153106.png`
+                        uri: `${ip}/MySQL/uploads/Text/MB2.jpg`
                     }}
-                    resizeMode='cover'
+                    resizeMode='contain'
                     resizeMethod='resize' />
             </View>
         );
@@ -1173,7 +1174,10 @@ export class Recommend_Brand extends React.Component {
         const { loadData, navigation } = this.props;
         return loadData &&
             loadData.map((item, index) => {
-                var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
+                var dataMySQL = `${ip}/MySQL/uploads/Brand_R/${item.image}`;
+                // var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
+                console.log('Recommend_Brand')
+                console.log(dataMySQL)
                 return (
                     <TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigateScreen({
                         goScreen: 'Recommend_Brand', navigation
@@ -1185,7 +1189,7 @@ export class Recommend_Brand extends React.Component {
                                     uri: dataMySQL,
 
                                 }}
-                                resizeMode={FastImage.resizeMode.cover} />
+                                resizeMode={FastImage.resizeMode.contain} />
                         </View>
                     </TouchableOpacity>
                 );
@@ -1467,7 +1471,7 @@ export class BannerBar_THREE extends React.Component {
                 <FastImage
                     style={stylesMain.Banner_Bar_image}
                     source={{
-                        uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 1920-220แม่2.jpg`
+                        uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 222.jpg`
                     }}
                     resizeMode={FastImage.resizeMode.contain} />
             </View>
@@ -1543,21 +1547,18 @@ export class FlashSale extends React.PureComponent {
                         }]}>
                             FLASH SALE</Text>
                         <View style={[stylesMain.FlexRow, { marginTop: 4, flex: 66 }]}>
-                            <View style={{ flexDirection: 'row', flex: 30 }}>
-                                <IconFontAwesome name='clock-o' size={30} />
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>จบใน</Text>
-                            </View>
-                            <View style={{ flexDirection: 'row', flex: 70 }}>
+                            <IconFontAwesome name='clock-o' size={30} />
+                            <View style={{ flexDirection: 'row', flex: 70, paddingTop: 6 }}>
                                 <View style={[stylesMain.Time_FlashSale_TimeBox,]}>
-                                    <Text style={[stylesMain.Time_FlashSale_TimeText, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
+                                    <Text style={[stylesMain.Time_FlashSale_TimeText, stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
                                         {Hours < 10 ? Hours <= 0 ? '00' : '0' + Hours : Hours}</Text>
                                 </View>
                                 <View style={[stylesMain.Time_FlashSale_TimeBox]}>
-                                    <Text style={[stylesMain.Time_FlashSale_TimeText, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
+                                    <Text style={[stylesMain.Time_FlashSale_TimeText, stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
                                         {Minutes < 10 ? Minutes <= 0 ? '00' : '0' + Minutes : Minutes}</Text>
                                 </View>
                                 <View style={[stylesMain.Time_FlashSale_TimeBox]}>
-                                    <Text style={[stylesMain.Time_FlashSale_TimeText, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
+                                    <Text style={[stylesMain.Time_FlashSale_TimeText, stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
                                         {Seconds < 10 ? Seconds <= 0 ? '00' : '0' + Seconds : Seconds}</Text>
                                 </View>
                             </View>
@@ -1834,49 +1835,51 @@ export class CategoryProduct extends React.Component {
         // var dataMySQL = `${ip}/mysql/${item.image_path}/${item.image}`;
         return dataService &&
             dataService.map((item, index) => {
-                var dataMySQL = `${finip}/${item.image_path}/${item.image_menu}`;
-                return (
-                    <View key={index} style={[stylesMain.FrameBackground2, {
-                        marginTop: activeProductMobile == false ? 10 : 0,
-                        backgroundColor: activeProductMobile == false ? item.bg_m : 'transparent',
-                        paddingBottom: activeProductMobile == false ? 4 : 0,
-                    }]}>
-                        <>
+                if (index < 1 /*dataService.length*/) {
+                    var dataMySQL = `${finip}/${item.image_path}/${item.image_menu}`;
+                    return (
+                        <View key={index} style={[stylesMain.FrameBackground2, {
+                            marginTop: activeProductMobile == false ? 10 : 0,
+                            backgroundColor: activeProductMobile == false ? item.bg_m : 'transparent',
+                            paddingBottom: activeProductMobile == false ? 4 : 0,
+                        }]}>
+                            <>
+                                {
+                                    activeProductMobile == false &&
+                                    <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                                        goScreen: 'CategoryScreen', setData: { id_type: item.id_type }, navigation,
+                                    })}>
+                                        <FastImage
+                                            source={{
+                                                uri: dataMySQL,
+                                            }}
+                                            style={[stylesMain.CategoryProductImageHead]}
+                                            resizeMode={FastImage.resizeMode.contain} />
+                                    </TouchableOpacity>
+                                }
+                                <CategoryProductSubProduct activeProductMobile={activeProductMobile}
+                                    getActiveProductMobile={this.getActiveProductMobile.bind(this)} navigation={navigation} headerData={item}
+                                    id_type={item.id_type} />
+                            </>
                             {
-                                activeProductMobile == false &&
-                                <TouchableOpacity onPress={() => NavigationNavigateScreen({
-                                    goScreen: 'CategoryScreen', setData: { id_type: item.id_type }, navigation,
-                                })}>
-                                    <FastImage
-                                        source={{
-                                            uri: dataMySQL,
-                                        }}
-                                        style={[stylesMain.CategoryProductImageHead]}
-                                        resizeMode={FastImage.resizeMode.contain} />
-                                </TouchableOpacity>
-                            }
-                            <CategoryProductSubProduct activeProductMobile={activeProductMobile}
-                                getActiveProductMobile={this.getActiveProductMobile.bind(this)} navigation={navigation} headerData={item}
-                                id_type={item.id_type} />
-                        </>
-                        {
-                            NoStoreReCom ?
-                                <View style={{ marginBottom: 10, }}>
-                                    <View style={{ marginTop: 10, }}>
-                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
-                                            marginLeft: 8, color: '#fff'
-                                        }]}>
-                                            ร้านนี้ผ่อนได้ </Text>
+                                NoStoreReCom ?
+                                    <View style={{ marginBottom: 10, }}>
+                                        <View style={{ marginTop: 10, }}>
+                                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
+                                                marginLeft: 8, color: '#fff'
+                                            }]}>
+                                                ร้านนี้ผ่อนได้ </Text>
+                                        </View>
+                                        <CategoryProductSubStore navigation={navigation} id_type={item.id_type} />
+                                    </View> :
+                                    <View style={{ marginBottom: 0, }}>
+                                        <CategoryProductSubPromotion navigation={navigation} id_type={item.id_type} />
+                                        {/* <CategoryProductSubStore navigation={navigation} id_type={item.id_type} /> */}
                                     </View>
-                                    <CategoryProductSubStore navigation={navigation} id_type={item.id_type} />
-                                </View> :
-                                <View style={{ marginBottom: 0, }}>
-                                    <CategoryProductSubPromotion navigation={navigation} id_type={item.id_type} />
-                                    {/* <CategoryProductSubStore navigation={navigation} id_type={item.id_type} /> */}
-                                </View>
-                        }
-                    </View>
-                );
+                            }
+                        </View>
+                    );
+                }
             });
     };
     render() {
@@ -1968,7 +1971,7 @@ export class CategoryProductSubStore extends React.PureComponent {
         // );
         return (
             <TouchableOpacity activeOpacity={1} key={index}>
-                <View style={[stylesMain.CategoryProductStoreBox, { width: width * 0.45, }]}>
+                <View style={[stylesMain.CategoryProductStoreBox, { width: width * 0.56, }]}>
                     <Image
                         source={{
                             uri: dataMySQL,
@@ -2053,7 +2056,7 @@ export class CategoryProductSubPromotion extends React.Component {
             `${finip}/${(dataService.banner[0].image_path)}/${(dataService.banner[0].image)}`
         if (dataMySQL == false) { return <></> }
         return (
-            <View style={[stylesMain.BoxStore1Box3, { borderWidth: 0, width: '100%', marginTop: 6 }]} key={dataService.banner[0].id} >
+            <View style={[stylesMain.BoxStore1Box3, { borderWidth: 0, width: '100%', marginTop: 6, height: 67, }]} key={dataService.banner[0].id} >
                 {
                     dataService &&
                     <Image
@@ -2062,7 +2065,7 @@ export class CategoryProductSubPromotion extends React.Component {
                         }}
                         resizeMode='cover'
                         resizeMethod='resize'
-                        style={[stylesMain.BoxProduct1Image, { borderRadius: 4, }]} />
+                        style={stylesMain.BoxProduct1Image} />
                 }
             </View>
         );
@@ -2072,7 +2075,7 @@ export class CategoryProductSubPromotion extends React.Component {
             `${finip}/${(dataService.banner[0].image_path)}/${(dataService.banner[0].image)}`;
         if (dataMySQL == false) { return <></> };
         return (
-            <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, marginTop: 3, marginBottom: 3, }]} key={dataService.banner[0].id} >
+            <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, marginTop: 6, marginBottom: 6, }]} key={dataService.banner[0].id} >
                 {
                     dataService &&
                     <Image
@@ -2081,7 +2084,7 @@ export class CategoryProductSubPromotion extends React.Component {
                         }}
                         resizeMode='cover'
                         resizeMethod='resize'
-                        style={[stylesMain.BoxProduct1Image, { borderRadius: 4, }]} />
+                        style={stylesMain.BoxProduct1Image} />
                 }
             </View>
         );
@@ -2113,12 +2116,12 @@ export class CategoryProductSubPromotion extends React.Component {
         return (
             <>
                 <View style={[stylesMain.FlexRow, { width: '100%', marginTop: 2 }]}>
-                    <View style={{ width: width * 0.45, flexDirection: 'column', marginRight: 6 }}>
+                    <View style={{ width: width * 0.56, flexDirection: 'column', marginRight: 6 }}>
                         {
                             failFetchDataService2 < 5 && dataService2 && dataService2.banner &&
                             this.dataCategoryProductSubPromotionSmall(dataService2, 1)
                         }
-                        <View style={{ width: width * 0.45, height: 70, marginTop: 6 }}>
+                        <View style={{ width: width * 0.56, height: 56, marginTop: 6 }}>
                             <CategoryProductSubStore navigation={navigation} id_type={id_type} />
                         </View>
                     </View>

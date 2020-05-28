@@ -1032,7 +1032,7 @@ export class Trend_Hit extends React.Component {
             <>
                 <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 5, marginTop: 10, justifyContent: 'space-between', width, paddingHorizontal: 5 }]}>
                     <View style={{ width: width * 0.48 }}>
-                        <View style={{ height: '85%' }}>
+                        <View style={{ height: '88%' }}>
                             <FastImage
                                 style={stylesMain.BoxProduct1Image}
                                 source={{
@@ -1835,7 +1835,7 @@ export class CategoryProduct extends React.Component {
         // var dataMySQL = `${ip}/mysql/${item.image_path}/${item.image}`;
         return dataService &&
             dataService.map((item, index) => {
-                if (index < 1 /*dataService.length*/) {
+                if (index < 10 /*dataService.length*/) {
                     var dataMySQL = `${finip}/${item.image_path}/${item.image_menu}`;
                     return (
                         <View key={index} style={[stylesMain.FrameBackground2, {

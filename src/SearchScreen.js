@@ -10,7 +10,7 @@ import FastImage from 'react-native-fast-image';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../style/stylesFont';
-import stylesMain from '../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, BannerBar_THREE, ExitAppModule, TodayProduct, } from './MainScreen';
 import { Button_Bar, } from './ExclusiveScreen';
@@ -192,7 +192,7 @@ export class HeadBox extends React.Component {
                                 ]}>
                                     ร้านค้าอื่นๆ</Text>
                                 <IconEntypo name="chevron-right" size={18} style={[stylesMain.ItemCenterVertical, {
-                                    color: '#0A55A6'
+                                    color: mainColor
                                 }]} />
                             </View>
                         </TouchableOpacity>
@@ -248,14 +248,14 @@ export class StoreCard extends React.Component {
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                             ผู้ติดตาม : {dataService2 && dataService2.number_follow}</Text>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#AAAAAA' }]}>
-                            จำนวนสินค้า <Text style={{ color: '#0A55A6' }}>
-                                {dataService.amount_product}</Text> |  คะแนน <Text style={{ color: '#0A55A6' }}>{
+                            จำนวนสินค้า <Text style={{ color: mainColor }}>
+                                {dataService.amount_product}</Text> |  คะแนน <Text style={{ color: mainColor }}>{
                                     dataService.rating}</Text></Text>
                     </View>
                     <View style={stylesMain.FlexRow}>
                         <View style={[
                             stylesMain.ItemCenter, {
-                                width: 70, height: 25, backgroundColor: '#0A55A6', borderRadius: 6, marginHorizontal: 2
+                                width: 70, height: 25, backgroundColor: mainColor, borderRadius: 6, marginHorizontal: 2
                             }
                         ]}>
                             <TouchableOpacity onPress={() => this.setStateFollow()}>
@@ -263,7 +263,7 @@ export class StoreCard extends React.Component {
                                     {dataService2 && dataService2.output}</Text>
                             </TouchableOpacity>
                         </View>
-                        <View style={[{ width: 70, height: 25, backgroundColor: '#0A55A6', borderRadius: 6, marginHorizontal: 2 }]}>
+                        <View style={[{ width: 70, height: 25, backgroundColor: mainColor, borderRadius: 6, marginHorizontal: 2 }]}>
                             <TouchableOpacity style={[stylesMain.ItemCenter, { width: '100%', height: '100%' }]}
                                 onPress={() => NavigationNavigateScreen({
                                     goScreen: 'Profile_Topic', setData: { selectedIndex: 1, navigation }

@@ -16,7 +16,7 @@ import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommun
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TextInput } from 'react-native-gesture-handler';
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesMain from '../../../style/StylesMainScreen'
+import stylesMain, { mainColor } from '../../../style/StylesMainScreen'
 import stylesFont from '../../../style/stylesFont';
 import stylesPromotionDeal from '../../../style/stylePromotion-src/styleDealScreen';
 import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
@@ -272,18 +272,18 @@ export class Deal_ProductToday extends Component {
                                             />
                                         </View>
                                         <View style={{ borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, paddingHorizontal: 5 }}>
-                                            {/* <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6' }]}>฿3,xxx</Text> */}
+                                            {/* <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: mainColor }]}>฿3,xxx</Text> */}
                                         </View>
                                     </View>
                                 }
                             })
                         }
-                        <View style={[stylesMain.ItemCenter, { width: '25%', borderColor: '#ECECEC', borderWidth: 0.5, height: 120, padding: 5, backgroundColor: '#0A55A6' }]}>
+                        <View style={[stylesMain.ItemCenter, { width: '25%', borderColor: '#ECECEC', borderWidth: 0.5, height: 120, padding: 5, backgroundColor: mainColor }]}>
                             <View>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { color: '#FFFFFF' }]}>50%</Text>
                                 <TouchableOpacity>
                                     <View style={[stylesMain.ItemCenter, { backgroundColor: '#FFFFFF', paddingHorizontal: 5, borderRadius: 5 }]}>
-                                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#0A55A6' }]}>เก็บ</Text>
+                                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: mainColor }]}>เก็บ</Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>

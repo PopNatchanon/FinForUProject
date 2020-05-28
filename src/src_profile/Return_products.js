@@ -14,7 +14,7 @@ import IconFeather from 'react-native-vector-icons/Feather';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../../style/stylesFont';
-import stylesMain from '../../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from '../MainScreen';
@@ -118,7 +118,7 @@ export class Return extends Component {
               <Text>x 1</Text>
             </View>
           </View>
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#0A55A6', marginTop: 10, }]}>฿10,000.00</Text>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: mainColor, marginTop: 10, }]}>฿10,000.00</Text>
         </View>
       </View>
     );
@@ -196,7 +196,7 @@ export class Return_Detail extends Component {
                 avatarSource.map((item, index) => {
                   return (
                     <TouchableOpacity onPress={() => this.UploadImageSingle(index)} key={index}>
-                      <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                      <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: mainColor, borderWidth: 1, }]}>
                         <FastImage
                           source={{ uri: item.path }}
                           style={[stylesMain.ItemCenterVertical, { height: '100%', width: '100%' }]}
@@ -207,19 +207,19 @@ export class Return_Detail extends Component {
                 }),
                 avatarSource.length < 7 &&
                 <TouchableOpacity onPress={() => this.UploadImageMultiple()} key={'upload'}>
-                  <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                  <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: mainColor, borderWidth: 1, }]}>
                     <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
-                      <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
-                      <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
+                      <IconAntDesign RightItem name='camerao' size={35} color={mainColor} />
+                      <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
                     </View>
                   </View>
                 </TouchableOpacity>
               ] :
                 <TouchableOpacity onPress={() => this.UploadImageMultiple()}>
-                  <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                  <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: mainColor, borderWidth: 1, }]}>
                     <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
-                      <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
-                      <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
+                      <IconAntDesign RightItem name='camerao' size={35} color={mainColor} />
+                      <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
                     </View>
                   </View>
                 </TouchableOpacity>

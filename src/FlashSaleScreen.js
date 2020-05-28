@@ -12,7 +12,7 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../style/stylesFont';
-import stylesMain from '../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, Slide } from './MainScreen';
@@ -250,14 +250,14 @@ export class Time_FlashSale extends React.Component {
                     // widthBox={98}
                     activeColor={'#fff'}
                     type='tag'
-                    tagBottom={'#0A55A6'}
+                    tagBottom={mainColor}
                     noMarginIop />
             </Animatable.View>,
             activeselectedIndex2 == false &&
             <View style={stylesTopic.FlashSale_Tag}>
                 <ScrollView horizontal>
                     <TabBar
-                        inactiveColor='#0A55A6'
+                        inactiveColor={mainColor}
                         sendData={this.updateIndex2.bind(this)}
                         item={item2}
                         numberOfLines={1}

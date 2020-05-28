@@ -15,7 +15,7 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFontisto from 'react-native-vector-icons/Fontisto';
 ///----------------------------------------------------------------------------------------------->>>> styleSeller
-import stylesMain from '../../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesFont, { normalize } from '../../style/stylesFont';
 import stylesSeller from '../../style/styleSeller-src/styleSellerScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
@@ -102,7 +102,7 @@ export class Seller_Up_Image extends Component {
                 return (
                   <TouchableOpacity onPress={() => this.UploadImageSingle(index)} key={index}>
                     <View style={[stylesMain.ItemCenter, {
-                      marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1,
+                      marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: mainColor, borderWidth: 1,
                     }]}>
                       <FastImage
                         source={{ uri: item.path }}
@@ -115,22 +115,22 @@ export class Seller_Up_Image extends Component {
               avatarSource.length < 7 &&
               <TouchableOpacity onPress={() => this.UploadImageMultiple()} key={'upload'}>
                 <View style={[stylesMain.ItemCenter, {
-                  marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1,
+                  marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: mainColor, borderWidth: 1,
                 }]}>
                   <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
-                    <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
+                    <IconAntDesign RightItem name='camerao' size={35} color={mainColor} />
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
                   </View>
                 </View>
               </TouchableOpacity>
             ] :
               <TouchableOpacity onPress={() => this.UploadImageMultiple()}>
                 <View style={[stylesMain.ItemCenter, {
-                  marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1,
+                  marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: mainColor, borderWidth: 1,
                 }]}>
                   <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
-                    <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
+                    <IconAntDesign RightItem name='camerao' size={35} color={mainColor} />
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
                   </View>
                 </View>
               </TouchableOpacity>
@@ -222,13 +222,13 @@ export class Seller_Up_ProductDetail extends Component {
               uri: dataMySQL,
             }}
             style={[stylesMain.Category_box, stylesMain.ItemCenterVertical, {
-              height: 40, width: 40, borderColor: categorySelect && categorySelect.index == index ? '#0A55A6' : '#ECECEC', marginLeft: 5
+              height: 40, width: 40, borderColor: categorySelect && categorySelect.index == index ? mainColor : '#ECECEC', marginLeft: 5
             }]}
             resizeMode={FastImage.resizeMode.cover}
           />
           <View style={[stylesMain.ItemCenter]}>
             <Text numberOfLines={2} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical, {
-              color: categorySelect && categorySelect.index == index ? '#0A55A6' : '#111', marginLeft: 4,
+              color: categorySelect && categorySelect.index == index ? mainColor : '#111', marginLeft: 4,
             }]}>
               {value.name}</Text>
           </View>
@@ -243,7 +243,7 @@ export class Seller_Up_ProductDetail extends Component {
             <View style={{ flexDirection: 'row' }}>
               <TouchableOpacity onPress={() => this.setState({ categoryCursor: 0 })}>
                 <View style={{
-                  marginHorizontal: 4, borderBottomColor: categoryCursor == 0 ? '#0A55A6' : 'transparent', borderBottomWidth: 4,
+                  marginHorizontal: 4, borderBottomColor: categoryCursor == 0 ? mainColor : 'transparent', borderBottomWidth: 4,
                   borderTopColor: 'transparent', borderTopWidth: 4,
                 }}>
                   <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical,]}>
@@ -258,7 +258,7 @@ export class Seller_Up_ProductDetail extends Component {
                 categorySelect && categorySelect.name && dataSubCategory && dataSubCategory.subtype_data.length > 0 &&
                 <TouchableOpacity onPress={() => this.setState({ categoryCursor: 1 })}>
                   <View style={{
-                    marginHorizontal: 4, borderBottomColor: categoryCursor == 1 ? '#0A55A6' : 'transparent', borderBottomWidth: 4,
+                    marginHorizontal: 4, borderBottomColor: categoryCursor == 1 ? mainColor : 'transparent', borderBottomWidth: 4,
                     borderTopColor: 'transparent', borderTopWidth: 4,
                   }}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical,]}>
@@ -274,7 +274,7 @@ export class Seller_Up_ProductDetail extends Component {
                 subCategorySelect && subCategorySelect.name && dataUnSubCategory && dataUnSubCategory.unsubtype_data.length > 0 &&
                 <TouchableOpacity onPress={() => this.setState({ categoryCursor: 2 })}>
                   <View style={{
-                    marginHorizontal: 4, borderBottomColor: categoryCursor == 2 ? '#0A55A6' : 'transparent', borderBottomWidth: 4,
+                    marginHorizontal: 4, borderBottomColor: categoryCursor == 2 ? mainColor : 'transparent', borderBottomWidth: 4,
                     borderTopColor: 'transparent', borderTopWidth: 4,
                   }}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical,]}>
@@ -305,8 +305,8 @@ export class Seller_Up_ProductDetail extends Component {
                             dataUnSubCategory: undefined, unSubCategorySelect: undefined,
                           })
                         }} key={index} style={[stylesSeller.cate_Box, {
-                          backgroundColor: subCategorySelect && subCategorySelect.index == index ? '#0A55A6' : '#fff',
-                          borderColor: subCategorySelect && subCategorySelect.index == index ? '#0A55A6' : '##D4D4D4'
+                          backgroundColor: subCategorySelect && subCategorySelect.index == index ? mainColor : '#fff',
+                          borderColor: subCategorySelect && subCategorySelect.index == index ? mainColor : '##D4D4D4'
                         }]}>
                           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
                             textAlign: 'center', marginHorizontal: 6,
@@ -333,8 +333,8 @@ export class Seller_Up_ProductDetail extends Component {
                             unSubCategorySelect: { index, id_unsubtype: value.id_unsubtype, name: value.unsubtype_name },
                           })
                         }} key={index} style={[stylesSeller.cate_Box, {
-                          backgroundColor: unSubCategorySelect && unSubCategorySelect.index == index ? '#0A55A6' : '#fff',
-                          borderColor: unSubCategorySelect && unSubCategorySelect.index == index ? '#0A55A6' : '##D4D4D4'
+                          backgroundColor: unSubCategorySelect && unSubCategorySelect.index == index ? mainColor : '#fff',
+                          borderColor: unSubCategorySelect && unSubCategorySelect.index == index ? mainColor : '##D4D4D4'
                         }]}>
                           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
                             textAlign: 'center', marginHorizontal: 6,
@@ -572,7 +572,7 @@ export class Seller_Up_ProductDetail extends Component {
                   {valueName}</TextInput>
               </View>
               <TouchableOpacity onPress={() => this.setState({ editValue: !editValue })}>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#0A55A6' }]}>{
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: mainColor }]}>{
                   editValue == true ? 'ตกลง' : 'แก้ไข'}</Text>
               </TouchableOpacity>
             </View>
@@ -624,7 +624,7 @@ export class Seller_Up_ProductDetail extends Component {
                   {valueName2}</TextInput>
               </View>
               <TouchableOpacity onPress={() => this.setState({ editValue2: !editValue2 })}>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#0A55A6' }]}>{
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: mainColor }]}>{
                   editValue2 == true ? 'ตกลง' : 'แก้ไข'}</Text>
               </TouchableOpacity>
             </View>
@@ -712,8 +712,8 @@ export class Seller_Up_ProductDetail extends Component {
           <View style={stylesSeller.SizeSheet_Box}>
             <TouchableOpacity onPress={() => { return this.setState({ lookIndex: 1 }) }}>
               <View style={[stylesSeller.SizeSheet_Boxsize, {
-                backgroundColor: lookIndex == 1 ? '#0A55A6' : '#FFFFFF',
-                borderColor: lookIndex == 1 ? '#0A55A6' : '#CACACA',
+                backgroundColor: lookIndex == 1 ? mainColor : '#FFFFFF',
+                borderColor: lookIndex == 1 ? mainColor : '#CACACA',
               }]}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: lookIndex == 1 ? '#FFFFFF' : '#111' }]}>
                   ของใหม่</Text>
@@ -721,8 +721,8 @@ export class Seller_Up_ProductDetail extends Component {
             </TouchableOpacity>
             <TouchableOpacity onPress={() => { return this.setState({ lookIndex: 2 }) }}>
               <View style={[stylesSeller.SizeSheet_Boxsize, {
-                backgroundColor: lookIndex == 2 ? '#0A55A6' : '#FFFFFF',
-                borderColor: lookIndex == 2 ? '#0A55A6' : '#CACACA',
+                backgroundColor: lookIndex == 2 ? mainColor : '#FFFFFF',
+                borderColor: lookIndex == 2 ? mainColor : '#CACACA',
               }]}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: lookIndex == 2 ? '#FFFFFF' : '#111' }]}>
                   ของมือสอง</Text>
@@ -845,8 +845,8 @@ export class Seller_Up_ProductDetail extends Component {
           <View style={stylesSeller.SizeSheet_Box}>
             <TouchableOpacity onPress={() => this.setStateSizeProduct(0)}>
               <View style={[stylesSeller.SizeSheet_Boxsize, {
-                borderColor: sizeProduct && sizeProduct.index == 0 ? '#0A55A6' : '#CACACA',
-                backgroundColor: sizeProduct && sizeProduct.index == 0 ? '#0A55A6' : '#FFF'
+                borderColor: sizeProduct && sizeProduct.index == 0 ? mainColor : '#CACACA',
+                backgroundColor: sizeProduct && sizeProduct.index == 0 ? mainColor : '#FFF'
               }]}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, {
                   color: sizeProduct && sizeProduct.index == 0 ? '#FFF' : '#111'
@@ -856,8 +856,8 @@ export class Seller_Up_ProductDetail extends Component {
             </TouchableOpacity>
             <TouchableOpacity onPress={() => this.setStateSizeProduct(1)}>
               <View style={[stylesSeller.SizeSheet_Boxsize, {
-                borderColor: sizeProduct && sizeProduct.index == 1 ? '#0A55A6' : '#CACACA',
-                backgroundColor: sizeProduct && sizeProduct.index == 1 ? '#0A55A6' : '#FFF'
+                borderColor: sizeProduct && sizeProduct.index == 1 ? mainColor : '#CACACA',
+                backgroundColor: sizeProduct && sizeProduct.index == 1 ? mainColor : '#FFF'
               }]}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, {
                   color: sizeProduct && sizeProduct.index == 1 ? '#FFF' : '#111'
@@ -867,8 +867,8 @@ export class Seller_Up_ProductDetail extends Component {
             </TouchableOpacity>
             <TouchableOpacity onPress={() => this.setStateSizeProduct(2)}>
               <View style={[stylesSeller.SizeSheet_Boxsize, {
-                borderColor: sizeProduct && sizeProduct.index == 2 ? '#0A55A6' : '#CACACA',
-                backgroundColor: sizeProduct && sizeProduct.index == 2 ? '#0A55A6' : '#FFF'
+                borderColor: sizeProduct && sizeProduct.index == 2 ? mainColor : '#CACACA',
+                backgroundColor: sizeProduct && sizeProduct.index == 2 ? mainColor : '#FFF'
               }]}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, {
                   color: sizeProduct && sizeProduct.index == 2 ? '#FFF' : '#111'
@@ -1074,9 +1074,9 @@ export class Seller_Up_ProductDetail extends Component {
           }]}>
             {(name && name.length < 20 || name == undefined || name == '') && 'ชื่อต้องมากกว่า 20 ตัวอักษร'}</Text>
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, {
-            color: '#0A55A6', marginRight: 10, width: width * 0.50, textAlign: 'right',
+            color: mainColor, marginRight: 10, width: width * 0.50, textAlign: 'right',
           }]}>
-            <Text style={{ color: name && name.length >= 20 ? '#0A55A6' : 'red' }}>20</Text>/120 ตัวอักษร</Text>
+            <Text style={{ color: name && name.length >= 20 ? mainColor : 'red' }}>20</Text>/120 ตัวอักษร</Text>
         </View>
         {/* รายละเอียดสินค้า */}
         <View style={{ width: '100%', height: 130, backgroundColor: '#FFF', padding: 10, }}>
@@ -1095,9 +1095,9 @@ export class Seller_Up_ProductDetail extends Component {
           }]}>
             {(detail && detail.length < 100 || detail == undefined || detail == '') && 'รายละเอียดสินค้าต้องมากกว่า 100 ตัวอักษร'}</Text>
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, {
-            color: '#0A55A6', marginRight: 10, width: width * 0.50, textAlign: 'right',
+            color: mainColor, marginRight: 10, width: width * 0.50, textAlign: 'right',
           }]}>
-            <Text style={{ color: detail && detail.length >= 100 ? '#0A55A6' : 'red' }}>100</Text>/5000 ตัวอักษร</Text>
+            <Text style={{ color: detail && detail.length >= 100 ? mainColor : 'red' }}>100</Text>/5000 ตัวอักษร</Text>
         </View>
 
         {/* หมวดสินค้า */}
@@ -1111,7 +1111,7 @@ export class Seller_Up_ProductDetail extends Component {
                   (saveSubCategorySelect && (' > ' + saveSubCategorySelect.name))} ${
                   (saveUnSubCategorySelect && (' > ' + saveUnSubCategorySelect.name))}` :
                   <Text style={{ color: '#A3A3A3' }}>{'ตั้งหมวดสินค้า'}</Text>}</Text>
-              <IconEntypo name='chevron-right' size={35} style={[stylesMain.ItemCenterVertical, { color: '#0A55A6' }]} />
+              <IconEntypo name='chevron-right' size={35} style={[stylesMain.ItemCenterVertical, { color: mainColor }]} />
             </View>
           </View>
         </TouchableOpacity>
@@ -1122,7 +1122,7 @@ export class Seller_Up_ProductDetail extends Component {
             <View style={{ flexDirection: 'row' }}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical,]}>
                 {saveNameBrand ? saveNameBrand : <Text style={{ color: '#A3A3A3' }}>{'ตั้งค่าแบรนด์'}</Text>}</Text>
-              <IconEntypo name='chevron-right' size={35} style={[stylesMain.ItemCenterVertical, { color: '#0A55A6' }]} />
+              <IconEntypo name='chevron-right' size={35} style={[stylesMain.ItemCenterVertical, { color: mainColor }]} />
             </View>
           </View>
         </TouchableOpacity>
@@ -1133,7 +1133,7 @@ export class Seller_Up_ProductDetail extends Component {
             <View style={{ flexDirection: 'row' }}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical,]}>
                 {savePrice ? savePrice : <Text style={{ color: '#A3A3A3' }}>{'ตั้งราคา'}</Text>}</Text>
-              <IconEntypo name='chevron-right' size={35} style={[stylesMain.ItemCenterVertical, { color: '#0A55A6' }]} />
+              <IconEntypo name='chevron-right' size={35} style={[stylesMain.ItemCenterVertical, { color: mainColor }]} />
             </View>
           </View>
         </TouchableOpacity>
@@ -1144,7 +1144,7 @@ export class Seller_Up_ProductDetail extends Component {
             <View style={{ flexDirection: 'row' }}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical,]}>
                 {saveTotal ? saveTotal : <Text style={{ color: '#A3A3A3' }}>{'ตั้งจำนวนสินค้า'}</Text>}</Text>
-              <IconEntypo name='chevron-right' size={35} style={[stylesMain.ItemCenterVertical, { color: '#0A55A6' }]} />
+              <IconEntypo name='chevron-right' size={35} style={[stylesMain.ItemCenterVertical, { color: mainColor }]} />
             </View>
           </View>
         </TouchableOpacity>
@@ -1159,7 +1159,7 @@ export class Seller_Up_ProductDetail extends Component {
             </View>
             <View style={stylesMain.FlexRow}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#A3A3A3', marginTop: 5 }]}>เพิ่มตัวเลือกสินค้า</Text>
-              <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+              <IconEntypo name='chevron-right' size={35} color={mainColor} />
             </View>
           </View>
         </TouchableOpacity>
@@ -1172,7 +1172,7 @@ export class Seller_Up_ProductDetail extends Component {
                 {
                   saveLookIndex ? saveLookIndex == 1 ? 'ของใหม่' : 'ของมือสอง' : <Text style={{ color: '#A3A3A3', }}>{'สภาพสินค้า'}</Text>
                 }</Text>
-              <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+              <IconEntypo name='chevron-right' size={35} color={mainColor} />
             </View>
           </View>
         </TouchableOpacity>
@@ -1180,7 +1180,7 @@ export class Seller_Up_ProductDetail extends Component {
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginLeft: 10, color: '#A3A3A3' }]}>
             ฉันจะเพิ่มตัวเลือกสินค้าได้อย่างไร</Text>
           <TouchableOpacity>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#0A55A6' }]}>ไปยังศูนย์เรียนรู้ผู้ขาย</Text>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: mainColor }]}>ไปยังศูนย์เรียนรู้ผู้ขาย</Text>
           </TouchableOpacity>
         </View>
         {/* น้ำหนัก */}
@@ -1196,7 +1196,7 @@ export class Seller_Up_ProductDetail extends Component {
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical, { marginTop: 5 }]}>
                 {saveWeightProduct.value ? `${saveWeightProduct.value} ${saveWeightProduct.name}` : <Text style={{ color: '#A3A3A3', }}>
                   {'ระบุน้ำหนัก'}</Text>}</Text>
-              <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+              <IconEntypo name='chevron-right' size={35} color={mainColor} />
             </View>
           </View>
         </TouchableOpacity>
@@ -1213,7 +1213,7 @@ export class Seller_Up_ProductDetail extends Component {
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical, { marginTop: 5 }]}>
                 {saveSizeProduct.name ? saveSizeProduct.name : <Text style={{ color: '#A3A3A3', }}>
                   {'ระบุขนาดพัสดุ'}</Text>}</Text>
-              <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+              <IconEntypo name='chevron-right' size={35} color={mainColor} />
             </View>
           </View>
         </TouchableOpacity>
@@ -1231,7 +1231,7 @@ export class Seller_Up_ProductDetail extends Component {
         </View>
         <View style={stylesSeller.Seller_Up_ProductDetail}>
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เพจ Facebook</Text>
-          <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+          <IconEntypo name='chevron-right' size={35} color={mainColor} />
         </View>
       </View>
     );

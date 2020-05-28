@@ -1,10 +1,11 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import { mainColor } from '../StylesMainScreen';
 export const { width, height } = Dimensions.get('window');
 export default StyleSheet.create({
     Appbar: {
         width: '100%',
         height: 50,
-        backgroundColor: '#0A55A6',
+        backgroundColor: mainColor,
         flexDirection: 'row',
     },
     Account_Box: {

@@ -17,7 +17,7 @@ import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../style/stylesFont';
-import stylesMain from '../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../style/StylesMainScreen';
 import stylesProfile from '../style/StylesProfileScreen'
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { ExitAppModule, } from './MainScreen';
@@ -367,7 +367,7 @@ export class ListMenu extends React.Component {
                                 ]}>
                                     ดูล่าสุด</Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1}
@@ -382,14 +382,14 @@ export class ListMenu extends React.Component {
                                 ]}>
                                     สมาชิกAffiliate </Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1}
                         onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
-                                <IconAntDesign RightItem name="wechat" size={35} color='#0A55A6'
+                                <IconAntDesign RightItem name="wechat" size={35} color={mainColor}
                                     style={stylesProfile.ListMenuListSubIcon} />
                                 <Text style={[
                                     stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6,
@@ -397,7 +397,7 @@ export class ListMenu extends React.Component {
                                 ]}>
                                     แชท</Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1}
@@ -412,14 +412,14 @@ export class ListMenu extends React.Component {
                                 ]}>
                                     สิ่งที่สนใจ</Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1}
                         onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 3 }, navigation })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
-                                <IconFontisto RightItem name="shopping-store" size={30} color='#0A55A6' style={
+                                <IconFontisto RightItem name="shopping-store" size={30} color={mainColor} style={
                                     stylesProfile.ListMenuListSubIcon} />
                                 <Text style={[
                                     stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6,
@@ -427,7 +427,7 @@ export class ListMenu extends React.Component {
                                 ]}>
                                     ร้านค้าที่ติดตาม</Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1}
@@ -442,7 +442,7 @@ export class ListMenu extends React.Component {
                                 ]}>
                                     รีวิวของฉัน</Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1}
@@ -457,7 +457,7 @@ export class ListMenu extends React.Component {
                                 ]}>
                                     ช่วยเหลือ</Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
                         </View>
                     </TouchableOpacity>
                 </View>

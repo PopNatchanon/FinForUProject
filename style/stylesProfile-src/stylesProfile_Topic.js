@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import { mainColor } from '../StylesMainScreen';
 export const { width, height } = Dimensions.get('window');
 export default StyleSheet.create({
     ///-----------------------------------ChatScreen-------------------------------------------///
@@ -58,7 +59,7 @@ export default StyleSheet.create({
         borderRadius: 25,
     },
     Message_Box: {
-        borderColor: '#0A55A6',
+        borderColor: mainColor,
         borderWidth: 1,
         maxWidth: '70%',
         borderRadius: 10,
@@ -107,7 +108,7 @@ export default StyleSheet.create({
     Follow_store_Button: {
         height: 30,
         width: 100,
-        backgroundColor: '#0A55A6',
+        backgroundColor: mainColor,
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 10,
@@ -140,7 +141,7 @@ export default StyleSheet.create({
         width: 90,
     },
     Might_like_Store_Total: {
-        borderColor: '#0A55A6',
+        borderColor: mainColor,
         borderWidth: 1,
         borderRadius: 30,
     },
@@ -161,7 +162,7 @@ export default StyleSheet.create({
     Review_me_Box_head: {
         height: 30,
         width: 60,
-        backgroundColor: '#0A55A6',
+        backgroundColor: mainColor,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 5,
@@ -214,7 +215,7 @@ export default StyleSheet.create({
     Review_From_Buttonshare: {
         margin: 10,
         borderRadius: 5,
-        backgroundColor: '#0A55A6',
+        backgroundColor: mainColor,
         width: '90%',
         height: 50,
         justifyContent: 'center',
@@ -247,7 +248,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
     },
     Topic_Box_icon: {
-        color: '#0A55A6',
+        color: mainColor,
         marginLeft: 10,
         marginRight: 10,
     },
@@ -279,7 +280,7 @@ export default StyleSheet.create({
     Topic_DetailHelp_ButtonChat: {
         width: 100,
         height: 50,
-        backgroundColor: '#0A55A6',
+        backgroundColor: mainColor,
         margin: 5,
         justifyContent: 'center',
         alignItems: 'center',
@@ -326,8 +327,8 @@ export default StyleSheet.create({
         height: 80,
         width: 80,
         margin: 10,
-        borderColor:'#EAEAEA',
-        borderWidth:1,
+        borderColor: '#EAEAEA',
+        borderWidth: 1,
     },
     Order_Box_price: {
         borderColor: '#EAEAEA',
@@ -344,7 +345,8 @@ export default StyleSheet.create({
         marginTop: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        height: height * 0.5,    },
+        height: height * 0.5,
+    },
     // Return_products_From Class
     Return: {
         height: 130,
@@ -373,7 +375,7 @@ export default StyleSheet.create({
         marginLeft: 10,
         width: 100,
         height: 80,
-        borderColor: '#0A55A6',
+        borderColor: mainColor,
         borderWidth: 1,
     },
     Return_ButtonBox: {
@@ -385,7 +387,7 @@ export default StyleSheet.create({
         height: 40,
         width: 120,
         backgroundColor: '#FFFFFF',
-        borderColor: '#0A55A6',
+        borderColor: mainColor,
         borderWidth: 1,
         justifyContent: 'center',
         alignItems: 'center',
@@ -410,7 +412,7 @@ export default StyleSheet.create({
     Cancel_Detail_Button: {
         height: 30,
         width: 100,
-        borderColor: '#0A55A6',
+        borderColor: mainColor,
         borderWidth: 1,
         alignItems: 'center',
         justifyContent: 'center',
@@ -435,7 +437,7 @@ export default StyleSheet.create({
     Button_LogoutBox: {
         width: width - 30,
         height: 40,
-        backgroundColor: '#0A55A6',
+        backgroundColor: mainColor,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 5,
@@ -456,7 +458,7 @@ export default StyleSheet.create({
     Edit_Profile_Button_Save: {
         height: 40,
         width,
-        backgroundColor: '#0A55A6',
+        backgroundColor: mainColor,
         alignItems: 'center',
         justifyContent: 'center',
     },

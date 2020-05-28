@@ -11,7 +11,7 @@ import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 ///----------------------------------------------------------------------------------------------->>>> styleSeller
-import stylesMain from '../../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesFont from '../../style/stylesFont';
 import stylesSeller from '../../style/styleSeller-src/styleSellerScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
@@ -80,7 +80,7 @@ export class Seller_Setting_Topic extends Component {
                 })}>
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>หน้าร้านของฉัน</Text>
-                        <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' size={35} color={mainColor} />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => NavigationNavigateScreen({
@@ -88,7 +88,7 @@ export class Seller_Setting_Topic extends Component {
                 })}>
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>เอกสารการจดแจ้ง</Text>
-                        <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' size={35} color={mainColor} />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => NavigationNavigateScreen({
@@ -96,7 +96,7 @@ export class Seller_Setting_Topic extends Component {
                 })}>
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ที่อยู่ร้านค้าของฉัน</Text>
-                        <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' size={35} color={mainColor} />
                     </View>
                 </TouchableOpacity>
                 <View style={[stylesSeller.Seller_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
@@ -107,7 +107,7 @@ export class Seller_Setting_Topic extends Component {
                 })}>
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ตั้งค่าการแชท</Text>
-                        <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' size={35} color={mainColor} />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => NavigationNavigateScreen({
@@ -115,7 +115,7 @@ export class Seller_Setting_Topic extends Component {
                 })}>
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ตั้งค่าการแจ้งเตือน</Text>
-                        <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' size={35} color={mainColor} />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => NavigationNavigateScreen({
@@ -123,7 +123,7 @@ export class Seller_Setting_Topic extends Component {
                 })}>
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ภาษา</Text>
-                        <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' size={35} color={mainColor} />
                     </View>
                 </TouchableOpacity>
                 <View style={[stylesSeller.Seller_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
@@ -134,16 +134,16 @@ export class Seller_Setting_Topic extends Component {
                 })}>
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ศูนย์ช่วยเหลือ</Text>
-                        <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' size={35} color={mainColor} />
                     </View>
                 </TouchableOpacity>
                 <View style={stylesSeller.Seller_Setting_BoxTopic}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>กฎและข้อบังคับ</Text>
-                    <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+                    <IconEntypo name='chevron-right' size={35} color={mainColor} />
                 </View>
                 <View style={stylesSeller.Seller_Setting_BoxTopic}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ให้คะแนนเราสิ</Text>
-                    <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+                    <IconEntypo name='chevron-right' size={35} color={mainColor} />
                 </View>
                 <TouchableOpacity onPress={() => this.handleOpen()} style={{ marginTop: 10 }}>
                     <View style={stylesProfileTopic.Button_Logout}>

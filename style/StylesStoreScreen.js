@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions, PixelRatio } from 'react-native';
+import { mainColor } from './StylesMainScreen';
 
 export const { width, height } = Dimensions.get('window');
 
@@ -78,7 +79,7 @@ export default StyleSheet.create({
     marginTop: 8,
   },
   StoreHeadDetailsText2_2: {
-    color: '#0A55A6',
+    color: mainColor,
     marginLeft: 30,
     marginTop: 8,
   },
@@ -189,7 +190,7 @@ export default StyleSheet.create({
   },
   ///------------------------------FeedScreen------------------------------------///
   AppbarMenu: {
-    backgroundColor: '#1A3363',
+    backgroundColor: mainColor,
     width,
     height: 50,
     flexDirection: 'row',
@@ -198,7 +199,7 @@ export default StyleSheet.create({
     paddingBottom: 5,
   },
   Appbar: {
-    backgroundColor: '#1A3363',
+    backgroundColor: mainColor,
     width,
     height: 54,
     flexDirection: 'row',
@@ -219,7 +220,7 @@ export default StyleSheet.create({
   },
   ///-------------------------------------------------------------------------///
   Button_Bar: {
-    backgroundColor: '#0A55A6',
+    backgroundColor: mainColor,
     height: 50,
     width,
     flexDirection: 'row',
@@ -243,7 +244,7 @@ export default StyleSheet.create({
   },
   ///----------------------------NewsScreen-----------------------------------///
   Button_Bar: {
-    backgroundColor: '#0A55A6',
+    backgroundColor: mainColor,
     height: 50,
     width,
     flexDirection: 'row',

@@ -16,7 +16,7 @@ import IconFeather from 'react-native-vector-icons/Feather';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 ///----------------------------------------------------------------------------------------------->>>> stylesSeller
 import stylesFont from '../../style/stylesFont';
-import stylesMain from '../../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 import stylesProfile from '../../style/StylesProfileScreen';
 import stylesSeller from '../../style/styleSeller-src/styleSellerScreen';
@@ -200,7 +200,7 @@ export class Seller_Up_Image extends Component {
                                 avatarSource.map((item, index) => {
                                     return (
                                         <TouchableOpacity onPress={() => this.UploadImageSingle(index)} key={index}>
-                                            <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                                            <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: mainColor, borderWidth: 1, }]}>
                                                 <FastImage
                                                     source={{ uri: item.path }}
                                                     style={[stylesMain.ItemCenterVertical, { height: '100%', width: '100%' }]}
@@ -211,19 +211,19 @@ export class Seller_Up_Image extends Component {
                                 }),
                                 avatarSource.length < 7 &&
                                 <TouchableOpacity onPress={() => this.UploadImageMultiple()} key={'upload'}>
-                                    <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                                    <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: mainColor, borderWidth: 1, }]}>
                                         <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
-                                            <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
-                                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
+                                            <IconAntDesign RightItem name='camerao' size={35} color={mainColor} />
+                                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
                                         </View>
                                     </View>
                                 </TouchableOpacity>
                             ] :
                                 <TouchableOpacity onPress={() => this.UploadImageMultiple()}>
-                                    <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                                    <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: mainColor, borderWidth: 1, }]}>
                                         <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
-                                            <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
-                                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
+                                            <IconAntDesign RightItem name='camerao' size={35} color={mainColor} />
+                                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
                                         </View>
                                     </View>
                                 </TouchableOpacity>
@@ -250,8 +250,8 @@ export class Seller_Detail extends Component {
                 {/* <View style={[stylesMain.FrameBackground, { paddingVertical: 5, marginTop: 5 }]}>
                     <TouchableOpacity>
                         <View style={stylesSeller.Seller_Detail_BoxUp_Image}>
-                            <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ</Text>
+                            <IconAntDesign RightItem name='camerao' size={35} color={mainColor} />
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>+เพิ่มรูปภาพ</Text>
                         </View>
                     </TouchableOpacity>
                 </View> */}
@@ -322,12 +322,12 @@ export class Seller_SettingButton extends Component {
                 <TouchableOpacity onPress={() => { this.Phone_numberSheet.open(); }}>
                     <View style={stylesSeller.Seller_Up_ProductDetail}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โทรศัพท์</Text>
-                        <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' size={35} color={mainColor} />
                     </View>
                 </TouchableOpacity>
                 <View style={stylesSeller.Seller_Up_ProductDetail}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เพจ Facebook</Text>
-                    <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+                    <IconEntypo name='chevron-right' size={35} color={mainColor} />
                 </View>
                 <View style={stylesSeller.Seller_Up_ProductDetail}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เผยแพร่สินค้า</Text>

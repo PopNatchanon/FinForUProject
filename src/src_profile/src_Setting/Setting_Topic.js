@@ -18,7 +18,7 @@ import IconFeather from 'react-native-vector-icons/Feather';
 import IconFontisto from 'react-native-vector-icons/Fontisto';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../../../style/stylesFont';
-import stylesMain from '../../../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
 import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
 import stylesLogin from '../../../style/stylesLoginScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
@@ -260,7 +260,7 @@ export class Edit_Profile extends Component {
               checked={InputGender}
               onPress={() => this.setState({ InputGender: true })}
             />
-            <IconFontisto name='male' size={20} style={{ marginTop: 15, marginLeft: -10, color: '#0A55A6' }} />
+            <IconFontisto name='male' size={20} style={{ marginTop: 15, marginLeft: -10, color: mainColor }} />
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 15, marginLeft: 10 }]}>ชาย</Text>
             <CheckBox
               size={25}
@@ -521,7 +521,7 @@ export class Edit_Profile extends Component {
                     ชื่อ-นามสกุล
             </Text>
                 </View>
-                <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
+                <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
               </View></TouchableOpacity>
             <TouchableOpacity onPress={() => NavigationNavigateScreen({
               goScreen: 'Setting_Topic', setData: { selectedIndex: 7 }, navigation
@@ -532,7 +532,7 @@ export class Edit_Profile extends Component {
                     เปลี่ยนรหัสผ่าน
             </Text>
                 </View>
-                <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
+                <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => { (this.setState({ InputGender: Gender }), this.GenderSheet.open()); }}>
@@ -542,7 +542,7 @@ export class Edit_Profile extends Component {
                     เพศ
             </Text>
                 </View>
-                <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
+                <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => { (this.setState({ InputBirth_day: Birth_day }), this.BirthdaySheet.open()); }}>
@@ -552,7 +552,7 @@ export class Edit_Profile extends Component {
                     วันเกิด
             </Text>
                 </View>
-                <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
+                <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => { (this.setState({ InputPhone: Phone }), this.Phone_numberSheet.open()); }}>
@@ -562,7 +562,7 @@ export class Edit_Profile extends Component {
                     โทรศัพท์
             </Text>
                 </View>
-                <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
+                <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
               </View>
             </TouchableOpacity>
           </View>
@@ -666,7 +666,7 @@ export class Edit_Pass extends Component {
           <TouchableOpacity onPress={() => { this.setState({ activeGetServices: true }) }}>
             <View style={[stylesProfileTopic.Edit_Profile_Button_Save, {
               backgroundColor: current_password != '' && new_password != '' && confirm_password != '' ?
-                '#0A55A6' : '#CECECE'
+                mainColor : '#CECECE'
             }]}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>เปลี่ยนรหัสผ่าน</Text>
             </View>
@@ -769,12 +769,12 @@ export class Address_Customar extends Component {
         <View style={stylesProfileTopic.Address_Customar}>
           <View style={stylesProfileTopic.Address_Customar_Box}>
             <View style={stylesMain.FlexRow}>
-              <IconEvilIcons name='location' size={30} color='#0A55A6' />
+              <IconEvilIcons name='location' size={30} color={mainColor} />
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ที่อยู่ในการจัดส่ง</Text>
             </View>
             {
               dataService.main_address == 1 &&
-              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#0A55A6' }]}>[ค่าเริ่มต้น]</Text>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: mainColor }]}>[ค่าเริ่มต้น]</Text>
             }
           </View>
           <View style={{ marginLeft: 50, marginBottom: 10, }}>
@@ -841,7 +841,7 @@ export class Edit_Bell extends Component {
                 การแจ้งเตือน
             </Text>
             </View>
-            <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
+            <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 6 }, navigation })}>
@@ -851,7 +851,7 @@ export class Edit_Bell extends Component {
                 การแจ้งเตือนทาง E-mail
             </Text>
             </View>
-            <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
+            <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
           </View>
         </TouchableOpacity>
       </SafeAreaView>

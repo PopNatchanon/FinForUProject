@@ -21,7 +21,7 @@ import IconFoundation from 'react-native-vector-icons/Foundation';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesCart from '../style/stylesCartScreen';
 import stylesFont, { normalize } from '../style/stylesFont';
-import stylesMain from '../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from './MainScreen';
 import { GetServices, GetData, NavigationNavigateScreen } from './customComponents/Tools';
@@ -288,7 +288,7 @@ export class Product_Cart extends React.Component {
                                     renderText={value =>
                                         <Text style={[stylesFont.FontSize6, 
                                             stylesFont.FontFamilyText, {
-                                             color: '#0A55A6' 
+                                             color: mainColor 
                                             }]}>
                                             {value}</Text>
                                     } /> */
@@ -300,7 +300,7 @@ export class Product_Cart extends React.Component {
                             prefix={'฿'}
                             renderText={value =>
                                 <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyBold, {
-                                    color: '#0A55A6'
+                                    color: mainColor
                                 }]}>
                                     {value}</Text>
                             } />
@@ -844,7 +844,7 @@ export class Buy_bar extends React.Component {
                                 prefix={'฿'}
                                 renderText={value =>
                                     <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, {
-                                        marginLeft: 4, color: '#0A55A6'
+                                        marginLeft: 4, color: mainColor
                                     }]}>
                                         {value}</Text>
                                 } />
@@ -898,7 +898,7 @@ export class Coupon_Detail_BottomSheet extends React.Component {
                     <TouchableOpacity
                         onPress={() => this.saveTicket()}>
                         <View style={[stylesMain.ItemCenter, {
-                            backgroundColor: '#0A55A6', paddingHorizontal: 10,
+                            backgroundColor: mainColor, paddingHorizontal: 10,
                             borderRadius: 5
                         }]}>
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>

@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import { mainColor } from './StylesMainScreen';
 
 export const { width, height } = Dimensions.get('window');
 
@@ -7,7 +8,7 @@ export default StyleSheet.create({
         flex: 1,
     },
     Appbar: {
-        backgroundColor: '#0A55A6',
+        backgroundColor: mainColor,
         height: 50,
         width,
         flexDirection: 'row',
@@ -63,7 +64,7 @@ export default StyleSheet.create({
         borderColor: '#ECECEC',
         borderWidth: 1,
         borderRadius: 8,
-        backgroundColor: '#0A55A6',
+        backgroundColor: mainColor,
     },
     Bar_Code_Text: {
         textAlign: 'center',
@@ -98,7 +99,7 @@ export default StyleSheet.create({
         borderColor: '#ECECEC',
         borderWidth: 1,
         borderRadius: 8,
-        backgroundColor: '#0A55A6',
+        backgroundColor: mainColor,
     },
     BOX_Buy_Text: {
         textAlign: 'center',

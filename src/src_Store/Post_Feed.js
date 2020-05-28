@@ -18,7 +18,7 @@ import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommun
 import Icon from 'react-native-vector-icons/Ionicons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesDetail from '../../style/StylesDetailScreen';
-import stylesMain from '../../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesFont from '../../style/stylesFont';
 import stylesPromotionDeal from '../../style/stylePromotion-src/styleDealScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
@@ -294,7 +294,7 @@ export class Box_Rating extends React.Component {
                     </View>
                     {[
                         comment_box &&
-                        <View style={{ backgroundColor: '#0A55A6', width: 110, margin: 10 }}>
+                        <View style={{ backgroundColor: mainColor, width: 110, margin: 10 }}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#FFFFFF', textAlign: 'center' }]}>
                                 คุ้มค้าและจัดส่งเร็วดี</Text>
                         </View>,
@@ -623,7 +623,7 @@ export class Select_TagProduct extends React.Component {
                         numberOfLines={1}
                         activeColor={'#fff'}
                         activeFontColor={'#111'}
-                        tagBottomColor={'#0A55A6'}
+                        tagBottomColor={mainColor}
                         tagBottom
                         sendData={this.sendData.bind(this)}
                     />

@@ -13,7 +13,7 @@ import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../../style/stylesFont';
-import stylesMain from '../../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfile from '../../style/StylesProfileScreen'
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
@@ -89,7 +89,7 @@ export class ListMenu extends Component {
                                 หน้าของฉัน
                             </Text>
                         </View>
-                        <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => NavigationNavigateScreen({
@@ -101,7 +101,7 @@ export class ListMenu extends Component {
                                 ที่อยู่ของฉัน
                             </Text>
                         </View>
-                        <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
                     </View>
                 </TouchableOpacity>
                 <View style={stylesProfile.ListMenuList}>
@@ -120,7 +120,7 @@ export class ListMenu extends Component {
                                 ตั้งค่าการแชท
                             </Text>
                         </View>
-                        <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => NavigationNavigateScreen({
@@ -132,7 +132,7 @@ export class ListMenu extends Component {
                                 ตั้งค่าการแจ้งเตือน
                             </Text>
                         </View>
-                        <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => NavigationNavigateScreen({
@@ -142,7 +142,7 @@ export class ListMenu extends Component {
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
                             ภาษา
                             </Text>
-                        <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
                     </View>
                 </TouchableOpacity>
                 <View style={stylesProfile.ListMenuList}>
@@ -161,7 +161,7 @@ export class ListMenu extends Component {
                                 ศูนย์ช่วยเหลือ
                             </Text>
                         </View>
-                        <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity activeOpacity={1} onPress={() => console.log('กฎและข้อบังคับ')}>
@@ -171,7 +171,7 @@ export class ListMenu extends Component {
                                 กฎและข้อบังคับ
                             </Text>
                         </View>
-                        <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity activeOpacity={1} onPress={() => console.log('ให้คะแนนเราสิ')}>
@@ -181,7 +181,7 @@ export class ListMenu extends Component {
                                 ให้คะแนนเราสิ
                             </Text>
                         </View>
-                        <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.handleOpen()} style={{ marginTop: 10 }}>

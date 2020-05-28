@@ -25,7 +25,7 @@ import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommun
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesCustomerOrder from '../../style/styleCart-src/styleCustomer_Order';
 import stylesFont from '../../style/stylesFont';
-import stylesMain from '../../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from '../MainScreen';
 import { GetServices, NavigationNavigateScreen } from '../customComponents/Tools';
@@ -155,7 +155,7 @@ export class Account extends Component {
                             no_invoice: data.no_invoice
                         }, navigation
                     })}>
-                        <IconEntypo name='chevron-right' size={35} color='#0A55A6' style={stylesMain.ItemCenterVertical} />
+                        <IconEntypo name='chevron-right' size={35} color={mainColor} style={stylesMain.ItemCenterVertical} />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -209,7 +209,7 @@ export class Order extends Component {
                                 prefix={'฿'}
                                 renderText={value =>
                                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, {
-                                        marginLeft: 10, color: '#0A55A6', textAlign: 'right',
+                                        marginLeft: 10, color: mainColor, textAlign: 'right',
                                     }]}>
                                         {value}</Text>
                                 } />
@@ -230,7 +230,7 @@ export class Order extends Component {
                             thousandSeparator={true}
                             prefix={'฿'}
                             renderText={value =>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#0A55A6' }]}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: mainColor }]}>
                                     {value}</Text>
                             } />
                     </View>
@@ -484,10 +484,10 @@ export class Option_payment extends Component {
                             thousandSeparator={true}
                             prefix={'฿'}
                             renderText={value =>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#0A55A6' }]}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: mainColor }]}>
                                     {value}</Text>
                             } />
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#0A55A6', textAlign: 'right' }]}>Free</Text>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: mainColor, textAlign: 'right' }]}>Free</Text>
                     </View>
                 </View>
                 <View style={stylesCustomerOrder.Option_payment}>
@@ -585,13 +585,13 @@ export class Bar_payment extends Component {
                         prefix={'฿'}
                         renderText={value =>
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, {
-                                color: '#0A55A6',
+                                color: mainColor,
                             }]}>
                                 {value}</Text>
                         } />
                 </View>
                 <TouchableOpacity activeOpacity={1} onPress={() => this.setModalVisible(!modalVisible)}>
-                    <View style={{ width: 150, height: 50, backgroundColor: '#0A55A6', justifyContent: 'center', alignItems: 'center', }}>
+                    <View style={{ width: 150, height: 50, backgroundColor: mainColor, justifyContent: 'center', alignItems: 'center', }}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>ชำระเงิน</Text>
                     </View>
                 </TouchableOpacity>
@@ -751,7 +751,7 @@ export class OmiseBox extends Component {
                                 </Item>
                             </View>
                             <Button full onPress={() => this._createToken()} style={{
-                                borderBottomLeftRadius: 8, borderBottomRightRadius: 8, backgroundColor: '#0A55A6'
+                                borderBottomLeftRadius: 8, borderBottomRightRadius: 8, backgroundColor: mainColor
                             }}>
                                 <NumberFormat
                                     value={total}

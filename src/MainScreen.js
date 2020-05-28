@@ -35,7 +35,7 @@ import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommun
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesDeal from '../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../style/stylesFont';
-import stylesMain from '../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
@@ -56,6 +56,7 @@ export default class MainScreen extends React.PureComponent {
             activeExit: true,
             activeLoading: true,
             dataService: [],
+            scrollY: new Animated.Value(0),
         };
     };
     componentDidMount() {
@@ -73,15 +74,29 @@ export default class MainScreen extends React.PureComponent {
     };
     render() {
         const { navigation } = this.props;
-        const { activeDataService, activeDataService2, activeLoading, dataService, dataService2 } = this.state;
+        const { activeDataService, activeDataService2, activeLoading, dataService, dataService2, scrollY } = this.state;
         const browerProps = navigation.getParam('browerProps');
         const mode = navigation.getParam('mode');
         var uri = `${finip}/home/publish_mobile`;
+        const maxheight = 55
+        const AnimatedHeadbg = scrollY.interpolate({
+            inputRange: [maxheight, maxheight * 2],
+            outputRange: ['transparent', '#1A3363'],
+            extrapolate: 'clamp',
+            useNativeDriver: true,
+        })
         let itemT = [
             /////--------------------------------------------->>>Start
             {
+                nameComponent: 'AppBar',
+                renderComponent: <AppBar ABGColor={AnimatedHeadbg} ABDColor={AnimatedHeadbg} navigation={navigation} cartBar chatBar
+                    style={{ height: 55, }} />
+            },
+            {
                 nameComponent: 'Slide',
-                renderComponent: <Slide />
+                renderComponent: <View style={{ marginTop: -(maxheight) }}>
+                    <Slide />
+                </View>
             },
             {
                 nameComponent: 'Guarantee',
@@ -115,17 +130,14 @@ export default class MainScreen extends React.PureComponent {
                 nameComponent: 'BannerBar_TWO',
                 renderComponent: <BannerBar_TWO />
             },
-            // {
-            //     nameComponent: 'Exclusive',
-            //     renderComponent: <Exclusive navigation={navigation} loadData={dataService.exclusive} />
-            // },
             {
                 nameComponent: 'NewStore',
                 renderComponent: <NewStore navigation={navigation} loadData={dataService.dont_miss} />
             },
             {
                 nameComponent: 'Fin_Mall',
-                renderComponent: <Fin_Mall navigation={navigation} loadData={{ product_hit: dataService.product_hit, exclusive: dataService.exclusive }} />
+                renderComponent: <Fin_Mall navigation={navigation}
+                    loadData={{ product_hit: dataService.product_hit, exclusive: dataService.exclusive }} />
             },
             {
                 nameComponent: 'BannerBar_ONE',
@@ -188,42 +200,29 @@ export default class MainScreen extends React.PureComponent {
             },
             /////--------------------------------------------->>>End
         ];
-        // this.FlatMainScreen && console.log(this.FlatMainScreen.recordInteraction())
         activeDataService == true && GetServices({
             abortController: this.abortController, uriPointer: uri, getDataSource: this.getData.bind(this)
         });
-        // const uri2 = `${finip}/home/category_mobile`;
-        // const dataBody2 = {
-        //     type: 'categorylist'
-        // }
-        // activeDataService2 == true && GetServices({ uriPointer: uri2, getDataSource: this.getData2.bind(this) })
-        // var data = []
-        // var S
-        // var M
-        // var L
-        // if (dataService2) {
-        //     for (var n = 0; n < dataService2.length; n = n + 5) {
-        //         S = [dataService2[0 + n]]
-        //         M = [dataService2[1 + n], dataService2[2 + n]]
-        //         L = [dataService2[3 + n], dataService2[4 + n]]
-        //         data.push({ S, M, L })
-        //     }
-        // }
-        // dataService2 && dataService2.map((value, index) => {
-        //     return itemT.splice(18 + index, 0, {
-        //         nameComponent: `CategoryProduct${index}`,
-        //         renderComponent: <CategoryProduct dataService={value} navigation={navigation} />
-        //     })
-        // })
-        // if (mode === 'Not_Internet') return <Not_Internet />
         return (
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                 {
                     (activeDataService == true || activeLoading == true) &&
                     <LoadingScreen key='LoadingScreen' />
                 }
-                <AppBar navigation={navigation} cartBar chatBar style={{ flex: 5, }} />
-                <FlatComponent componentPage='MainScreen' component={itemT} />
+                <FlatComponent
+                    componentPage='MainScreen'
+                    component={itemT}
+                    stickyHeaderIndices={[0]}
+                    scrollEventThrottle={8}
+                    onScroll={
+                        Animated.event(
+                            [{
+                                nativeEvent: { contentOffset: { y: scrollY } }
+                            }],
+                            {
+                                useNativeDriver: false,
+                            })
+                    } />
                 <Botton_PopUp_FIN />
                 <Toolbar navigation={navigation} style={{ flex: 5, }} />
                 <ExitAppModule navigation={navigation} />
@@ -342,20 +341,20 @@ export class AppBar extends React.Component {
     };
     getData = (dataService) => {
         this.setState({ activeRefresh: false, dataService });
-    }
+    };
     setText = (text) => {
         this.setState({ text });
     };
     setSubmit = () => {
-        const { navigation } = this.props
+        const { navigation } = this.props;
         const { text, } = this.state;
         text != undefined && text != ' ' &&
             NavigationNavigateScreen({ goScreen: 'SearchScreen', setData: { SearchText: text }, navigation });
     };
     render() {
         const {
-            ABDColor, ABGColor, refresh, AIColor, getActive, navigation, backArrow, cartBar, chatBar, filterBar, otherBar, searchBar,
-            SearchText,
+            ABDColor, ABDColor_All, ABGColor, refresh, AIColor, getActive, navigation, backArrow, cartBar, chatBar, filterBar, otherBar,
+            searchBar, SearchText,
         } = this.props;
         const { activeRefresh, currentUser, dataService, text, } = this.state;
         const AIconEntypo = Animatable.createAnimatableComponent(IconEntypo);
@@ -383,7 +382,9 @@ export class AppBar extends React.Component {
             GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) });
         return (
             <Animatable.View style={[stylesMain.Appbar, stylesMain.FlexRow, {
+                borderWidth: 0, borderBottomWidth: 1,
                 backgroundColor: ABGColor ? ABGColor : '#1A3363',
+                borderColor: ABDColor_All ? ABDColor_All : ABDColor ? ABDColor : '#1A3363',
                 borderBottomColor: ABDColor ? ABDColor : '#1A3363',
                 borderColor: 'transparent',
             }]}>
@@ -502,7 +503,7 @@ export class AppBar extends React.Component {
                                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, {
                                             backgroundColor: 'red', color: '#fff', width: 17, height: 17, borderRadius: 15,
                                             textAlign: 'center', textAlignVertical: 'center', position: 'absolute', elevation: 1, left: 18,
-                                            bottom: 15, borderColor: '#1A3363', borderWidth: 1,
+                                            bottom: 15, borderColor: mainColor, borderWidth: 1,
                                         }]}>{dataService.cart_list.length}</Text>
                                 }
                                 <IconAntDesign name="shoppingcart" size={25} style={{ color: '#fff' }} />
@@ -524,7 +525,7 @@ export class AppBar1 extends React.Component {
         };
     };
     getSource = (value) => {
-        const { navigation } = this.props
+        const { navigation } = this.props;
         // value && value.error && NavigationNavigateScreen({
         //     goScreen: 'MainScreen', setData: { mode: 'Not_Internet' }, navigation, passHome: true,
         // })
@@ -694,7 +695,7 @@ export class Slide extends React.PureComponent {
         };
     };
     componentWillUnmount() {
-        this.abortController.abort()
+        this.abortController.abort();
     };
     getData = (dataService) => {
         this.setState({ activeDataService: false, dataService, });
@@ -702,8 +703,8 @@ export class Slide extends React.PureComponent {
     getActiveSlide = (activeSlide) => {
         this.setState({ activeSlide });
     };
-    _renderItem = item => {
-        var dataMySQL = `${ip}/mysql/uploads/Banner_Mobile/T.jpg`
+    _renderItem = (item, index) => {
+        var dataMySQL = index % 2 == 0 ? `${ip}/mysql/uploads/Banner_Mobile/T-1.jpg` : `${ip}/mysql/uploads/Banner_Mobile/T-2.jpg`
         // var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
         return (
             <View style={stylesMain.child} key={item.id}>
@@ -730,7 +731,7 @@ export class Slide extends React.PureComponent {
         var uri = `${finip}/home/home_mobile`;
         activeDataService == true && banner == undefined &&
             GetServices({ abortController: this.abortController, uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) });
-        if (dataService && dataService.error) return <></>
+        if (dataService && dataService.error) return <></>;
         return (
             <View>
                 {/* <LinearGradient
@@ -774,10 +775,9 @@ export class Guarantee extends React.Component {
         this.state = {
         };
     };
-
-    _renderItem = item => {
+    _renderItem = (item, index) => {
         return (
-            <View style={[stylesMain.FlexRow, { width: width * 0.70, justifyContent: 'space-around', }]}>
+            <View key={index} style={[stylesMain.FlexRow, { width: width * 0.70, justifyContent: 'space-around', }]}>
                 <View style={stylesMain.FlexRow}>
                     <View style={{ height: 30, width: 30, marginRight: 10 }}>
                         <FastImage
@@ -813,7 +813,7 @@ export class Guarantee extends React.Component {
         }, {
             text: 'ใบจดทะเบียนเครื่องหมายการค้า',
             image: `${ip}/MySQL/uploads/Guarantee/warranty_blue-005.png`
-        }]
+        }];
         return (
             <>
                 <View style={{
@@ -841,7 +841,7 @@ export class Guarantee extends React.Component {
                                     }}
                                     resizeMode={FastImage.resizeMode.cover} />
                             </View>
-                            <View style={{ backgroundColor: '#0A55A6', paddingHorizontal: 15, borderRadius: 8, marginTop: 10 }} >
+                            <View style={{ backgroundColor: mainColor, paddingHorizontal: 15, borderRadius: 8, marginTop: 10 }} >
                                 <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>ช้อปเลย</Text>
                             </View>
                         </TouchableOpacity>
@@ -854,7 +854,7 @@ export class Guarantee extends React.Component {
                                     }}
                                     resizeMode={FastImage.resizeMode.cover} />
                             </View>
-                            <View style={{ backgroundColor: '#0A55A6', paddingHorizontal: 10, borderRadius: 8, marginTop: 10 }} >
+                            <View style={{ backgroundColor: mainColor, paddingHorizontal: 10, borderRadius: 8, marginTop: 10 }} >
                                 <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>ช้อปเลย</Text>
                             </View>
                         </TouchableOpacity>
@@ -897,13 +897,13 @@ export class Category extends React.Component {
         };
     };
     componentWillUnmount() {
-        this.abortController.abort()
+        this.abortController.abort();
     };
     getData = (dataService) => {
         this.setState({ activeDataService: false, dataService, });
     };
     get dataCategory() {
-        const { navigation } = this.props
+        const { navigation } = this.props;
         const { dataService } = this.state;
         return dataService &&
             dataService.map((item, index) => {
@@ -955,15 +955,15 @@ export class Trend_Hit extends React.Component {
         };
     };
     componentWillUnmount() {
-        this.abortController.abort()
+        this.abortController.abort();
     };
     getData = (dataService) => {
         this.setState({ activeDataService: false, dataService, });
     };
-    _renderItem = (item,index) => {
+    _renderItem = (item, index) => {
         return (
             <View key={index} style={{ width: width * 0.48 }}>
-                <View style={{ height: '90%',  }}>
+                <View style={{ height: '90%', }}>
                     <FastImage
                         style={stylesMain.BoxProduct1Image}
                         source={{
@@ -1006,7 +1006,8 @@ export class Trend_Hit extends React.Component {
                         </View>
                         <View >
                             <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize8]}>{item.name}</Text>
-                            <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#CACACA' }]}>37K products</Text>
+                            <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#CACACA' }]}>
+                                37K products</Text>
                         </View>
                     </View>
                 );
@@ -1014,9 +1015,9 @@ export class Trend_Hit extends React.Component {
     };
     render() {
         const item = [
-            {image: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-02.jpg`},
-            {image: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-03.jpg`},
-            {image: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-01.jpg`},
+            { image: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-02.jpg` },
+            { image: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-03.jpg` },
+            { image: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-01.jpg` },
         ]
         var { activeDataService } = this.state;
         var uri = `${ip}/mysql/DataServiceMain.php`;
@@ -1051,13 +1052,13 @@ export class Trend_Hit extends React.Component {
                             </TouchableOpacity>
                         </View>
                     </View>
-                        <Carousel
-                            renderItem={this._renderItem}
-                            data={item}
-                            // loop
-                            autoplay
-                            autoplayInterval={4000}
-                        />
+                    <Carousel
+                        renderItem={this._renderItem}
+                        data={item}
+                        // loop
+                        autoplay
+                        autoplayInterval={4000}
+                    />
                 </View>
                 <View style={stylesMain.FrameBackground2}>
                     <View style={stylesMain.FrameBackgroundTextBox}>
@@ -1106,7 +1107,7 @@ export class Button_Bar extends React.Component {
         };
     };
     render() {
-        const { navigation } = this.props
+        const { navigation } = this.props;
         return (
             <>
                 <View style={stylesMain.FrameBackground3}></View>
@@ -1187,11 +1188,11 @@ export class Recommend_Brand extends React.Component {
                                 resizeMode={FastImage.resizeMode.cover} />
                         </View>
                     </TouchableOpacity>
-                )
-            })
-    }
+                );
+            });
+    };
     render() {
-        const { navigation } = this.props
+        const { navigation } = this.props;
         return (
             <View style={[stylesMain.FrameBackground2, stylesMain.FrameBackground_Height]}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
@@ -1489,7 +1490,7 @@ export class FlashSale extends React.PureComponent {
         this.intervalID = setInterval(() => this.tick(), 1000);
     };
     componentWillUnmount() {
-        this.abortController.abort()
+        this.abortController.abort();
         clearInterval(this.intervalID);
     };
     tick() {
@@ -1497,7 +1498,10 @@ export class FlashSale extends React.PureComponent {
     };
     getData = (dataService) => {
         var flash_end = dataService.flash_end && dataService.flash_end.split(':');
-        this.setState({ activeDataService: false, dataService, endTime: new Date().setHours(flash_end ? flash_end[0] : 0, flash_end ? flash_end[1] : 0, flash_end ? flash_end[2] : 0) });
+        this.setState({
+            activeDataService: false, dataService, endTime: new Date().setHours(flash_end ? flash_end[0] : 0, flash_end ? flash_end[1] : 0,
+                flash_end ? flash_end[2] : 0)
+        });
     };
     render() {
         const { navigation } = this.props;
@@ -1528,7 +1532,7 @@ export class FlashSale extends React.PureComponent {
                 Seconds = 60 + Seconds
             ])
         ]);
-        if (dataService && dataService.error) return <></>
+        if (dataService && dataService.error) return <></>;
         return (
             activeDataService == false && dataService &&
             <View style={stylesMain.FrameBackground2}>
@@ -1607,7 +1611,7 @@ export class PromotionPopular extends React.Component {
                                 style={[stylesMain.BoxStore2Image2]}
                                 resizeMode={FastImage.resizeMode.cover} />
                             <View style={{
-                                paddingHorizontal: 4, padding: 1, backgroundColor: '#0A55A6', borderBottomLeftRadius: 8, borderBottomRightRadius: 8
+                                paddingHorizontal: 4, padding: 1, backgroundColor: mainColor, borderBottomLeftRadius: 8, borderBottomRightRadius: 8
                             }}>
                                 <Text numberOfLines={1} style={[
                                     stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#fff', marginLeft: 2 }
@@ -1620,7 +1624,7 @@ export class PromotionPopular extends React.Component {
             });
     };
     render() {
-        const { navigation } = this.props
+        const { navigation } = this.props;
         // var uri = `${ip}/mysql/DataServiceMain.php`
         // var dataBody = {
         //     type: 'Promotion'
@@ -1784,7 +1788,7 @@ export class Exclusive extends React.PureComponent {
         super(props);
     };
     render() {
-        const { loadData, navigation } = this.props
+        const { loadData, navigation } = this.props;
         return (
             <View style={stylesMain.FrameBackground2}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
@@ -1816,7 +1820,7 @@ export class CategoryProduct extends React.Component {
         };
     };
     componentWillUnmount() {
-        this.abortController.abort()
+        this.abortController.abort();
     };
     getActiveProductMobile = (activeProductMobile) => {
         this.setState({ activeProductMobile });
@@ -1873,7 +1877,7 @@ export class CategoryProduct extends React.Component {
                         }
                     </View>
                 );
-            })
+            });
     };
     render() {
         const { activeDataService, dataService } = this.state;
@@ -1902,7 +1906,7 @@ export class CategoryProductSubProduct extends React.PureComponent {
         };
     };
     componentWillUnmount() {
-        this.abortController.abort()
+        this.abortController.abort();
     };
     getData = (dataService) => {
         const { getActiveProductMobile } = this.props;
@@ -1921,7 +1925,7 @@ export class CategoryProductSubProduct extends React.PureComponent {
                 abortController: this.abortController, nameFunction: headerData.name, uriPointer: uri, dataBody,
                 getDataSource: this.getData.bind(this),
             });
-        if (dataService && dataService.error) return <></>
+        if (dataService && dataService.error) return <></>;
         return (
             <>
                 {
@@ -1948,7 +1952,7 @@ export class CategoryProductSubStore extends React.PureComponent {
         };
     };
     componentWillUnmount() {
-        this.abortController.abort()
+        this.abortController.abort();
     };
     getData = (dataService) => {
         this.setState({ dataService, activeDataService: false });
@@ -1996,7 +2000,7 @@ export class CategoryProductSubStore extends React.PureComponent {
         //             item2: dataService.banner[n + 1]
         //         });
         //     };
-        var uri = `${finip}/home/publish_cate_mobile`
+        var uri = `${finip}/home/publish_cate_mobile`;
         var dataBody = {
             promotion: 'shop',
             id_type: id_type,
@@ -2065,8 +2069,8 @@ export class CategoryProductSubPromotion extends React.Component {
     };
     dataCategoryProductSubPromotionBig(dataService) {
         var dataMySQL = dataService && dataService.banner &&
-            `${finip}/${(dataService.banner[0].image_path)}/${(dataService.banner[0].image)}`
-        if (dataMySQL == false) { return <></> }
+            `${finip}/${(dataService.banner[0].image_path)}/${(dataService.banner[0].image)}`;
+        if (dataMySQL == false) { return <></> };
         return (
             <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, marginTop: 3, marginBottom: 3, }]} key={dataService.banner[0].id} >
                 {
@@ -2081,7 +2085,7 @@ export class CategoryProductSubPromotion extends React.Component {
                 }
             </View>
         );
-    }
+    };
     render() {
         const { id_type, navigation, } = this.props;
         const {
@@ -2097,9 +2101,9 @@ export class CategoryProductSubPromotion extends React.Component {
             id_type: id_type,
         };
         dataService && dataService.error == 'TypeError: Network request failed' &&
-            this.setState({ activeDataService: true, dataService: undefined, failFetchDataService: failFetchDataService + 1 })
+            this.setState({ activeDataService: true, dataService: undefined, failFetchDataService: failFetchDataService + 1 });
         dataService2 && dataService2.error == 'TypeError: Network request failed' &&
-            this.setState({ activeDataService2: true, dataService2: undefined, failFetchDataService2: failFetchDataService2 + 1 })
+            this.setState({ activeDataService2: true, dataService2: undefined, failFetchDataService2: failFetchDataService2 + 1 });
         activeDataService == true && failFetchDataService < 5 &&
             GetServices({ abortController: this.abortController, uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) });
         activeDataService2 == true && failFetchDataService2 < 5 &&
@@ -2521,7 +2525,8 @@ export class FIN_Supermarket extends React.PureComponent {
                             resizeMode={FastImage.resizeMode.stretch} />
                         <View style={[stylesMain.ItemCenter]}>
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>LOOKS</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]} numberOfLines={1}>สุดยอดแห่งบิวตี้ไอเท็มและสินค้าเพื่อสุขภาพ</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]} numberOfLines={1}>
+                                สุดยอดแห่งบิวตี้ไอเท็มและสินค้าเพื่อสุขภาพ</Text>
                         </View>
                     </View>
                     <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop]}>
@@ -2635,8 +2640,8 @@ export class TodayProduct extends React.Component {
         };
     };
     render() {
-        const { loadData, navigation, noTitle, onShow, prepath, typeip, } = this.props
-        onShow && console.log(onShow)
+        const { loadData, navigation, noTitle, onShow, prepath, typeip, } = this.props;
+        onShow && console.log(onShow);
         return (
             <View style={[stylesMain.BoxProduct2, { backgroundColor: 'transparent' }]}>
                 {
@@ -2698,7 +2703,7 @@ export class Botton_PopUp_FIN extends React.Component {
             this._translateY.setOffset(this._lastOffset.y > 0 ? 0 :
                 this._lastOffset.y < -(height - 185) ? -(height - 185) : this._lastOffset.y);
             this._translateY.setValue(0);
-        }
+        };
     };
     render() {
         const { activeSliding, activeShow } = this.state;
@@ -2771,9 +2776,9 @@ export class Category_Image_Total extends React.Component {
         super(props);
         this.state = {
         };
-    }
+    };
     render() {
-        const { dataService, sizeBox } = this.props
+        const { dataService, sizeBox } = this.props;
         return (
             <View style={{ marginTop: 10 }}>
                 <View style={{ height: 'auto', aspectRatio: 3.5, }}>
@@ -2792,7 +2797,9 @@ export class Category_Image_Total extends React.Component {
                         })
                     }
                 </View>
-                <View style={[stylesMain.FlexRow, { width: '100%', height: 'auto', aspectRatio: 3, justifyContent: 'space-between', marginTop: 5 }]}>
+                <View style={[stylesMain.FlexRow, {
+                    width: '100%', height: 'auto', aspectRatio: 3, justifyContent: 'space-between', marginTop: 5
+                }]}>
                     {
                         dataService.M.map((value, index) => {
                             return (
@@ -2809,7 +2816,9 @@ export class Category_Image_Total extends React.Component {
                         })
                     }
                 </View>
-                <View style={[stylesMain.FlexRow, { width: '100%', height: 'auto', aspectRatio: 2.5, justifyContent: 'space-between', marginTop: 5 }]}>
+                <View style={[stylesMain.FlexRow, {
+                    width: '100%', height: 'auto', aspectRatio: 2.5, justifyContent: 'space-between', marginTop: 5
+                }]}>
                     {
                         dataService.L.map((value, index) => {
                             return (
@@ -2828,14 +2837,14 @@ export class Category_Image_Total extends React.Component {
                 </View>
             </View>
         );
-    }
-}
+    };
+};
 export class Not_Internet extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
-    }
+    };
     render() {
         const { navigation } = this.props
         return (
@@ -2848,11 +2857,11 @@ export class Not_Internet extends React.Component {
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { width: 300, textAlign: 'center', color: '#969BA0' }]}> WHOOPS! ดูเหมือนว่าจะมีปัญหาในการเชื่อมต่อเซิร์ฟเวอร์ ลองพยายามตรวจสอบ
                 การเชื่อมต่ออินเตอร์เน็ตแล้วลองใหม่อีกครั้ง </Text>
                 <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'goBack', navigation })}>
-                    <View style={[stylesMain.ItemCenter, { padding: 10, backgroundColor: '#0A55A6', borderRadius: 5, marginTop: 10 }]}>
+                    <View style={[stylesMain.ItemCenter, { padding: 10, backgroundColor: mainColor, borderRadius: 5, marginTop: 10 }]}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>โหลดอีกครั้ง</Text>
                     </View>
                 </TouchableOpacity>
             </View>
         );
-    }
-}
+    };
+};

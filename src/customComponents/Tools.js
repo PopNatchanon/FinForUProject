@@ -26,7 +26,7 @@ import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
 import stylesDetail from '../../style/StylesDetailScreen'
 import stylesFont, { normalize } from '../../style/stylesFont';
-import stylesMain from '../../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesStore from '../../style/StylesStoreScreen';
 import stylesTopic from '../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
@@ -72,14 +72,14 @@ export class Toolbar extends React.Component {
                         <IconAntDesign name="home" size={25}
                             color={
                                 routeSelcet == 'MainScreen' ?
-                                    '#0A55A6' :
+                                    mainColor :
                                     '#111'
                             } />
                         <Text style={{
                             fontSize: 13, fontFamily: 'SukhumvitSet-Text',
                             color:
                                 routeSelcet == 'MainScreen' ?
-                                    '#0A55A6' :
+                                    mainColor :
                                     '#111'
                         }}>Home</Text>
                     </View>
@@ -93,13 +93,13 @@ export class Toolbar extends React.Component {
                         <IconAntDesign name="tagso" size={25}
                             color={
                                 routeSelcet == 'FeedScreen' ?
-                                    '#0A55A6' :
+                                    mainColor :
                                     '#111'} />
                         <Text style={{
                             fontSize: 13, fontFamily: 'SukhumvitSet-Text',
                             color:
                                 routeSelcet == 'FeedScreen' ?
-                                    '#0A55A6' :
+                                    mainColor :
                                     '#111'
                         }}> Feed</Text>
                     </View>
@@ -113,13 +113,13 @@ export class Toolbar extends React.Component {
                         <IconAntDesign name="notification" size={25}
                             color={
                                 routeSelcet == 'NewsScreen' ?
-                                    '#0A55A6' :
+                                    mainColor :
                                     '#111'} />
                         <Text style={{
                             fontSize: 13, fontFamily: 'SukhumvitSet-Text',
                             color:
                                 routeSelcet == 'NewsScreen' ?
-                                    '#0A55A6' :
+                                    mainColor :
                                     '#111'
                         }}>News</Text>
                     </View>
@@ -133,14 +133,14 @@ export class Toolbar extends React.Component {
                         <IconAntDesign name="bells" size={25}
                             color={
                                 routeSelcet == 'BellScreen' ?
-                                    '#0A55A6' :
+                                    mainColor :
                                     '#111'
                             } />
                         <Text style={{
                             fontSize: 13, fontFamily: 'SukhumvitSet-Text',
                             color:
                                 routeSelcet == 'BellScreen' ?
-                                    '#0A55A6' :
+                                    mainColor :
                                     '#111'
                         }}>เตือน</Text>
                     </View>
@@ -155,14 +155,14 @@ export class Toolbar extends React.Component {
                             <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                                 <IconAntDesign name="user" size={25} color={
                                     routeSelcet == 'LoginScreen' ?
-                                        '#0A55A6' :
+                                        mainColor :
                                         '#111'
                                 } />
                                 <Text style={{
                                     fontSize: 13, fontFamily: 'SukhumvitSet-Text',
                                     color:
                                         routeSelcet == 'LoginScreen' ?
-                                            '#0A55A6' :
+                                            mainColor :
                                             '#111'
                                 }}>ฉัน</Text>
                             </View>
@@ -176,14 +176,14 @@ export class Toolbar extends React.Component {
                             <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
                                 <IconAntDesign name="user" size={25} color={
                                     routeSelcet == 'ProfileScreen' ?
-                                        '#0A55A6' :
+                                        mainColor :
                                         '#111'
                                 } />
                                 <Text numberOfLines={1} style={{
                                     fontSize: 13, fontFamily: 'SukhumvitSet-Text',
                                     color:
                                         routeSelcet == 'ProfileScreen' ?
-                                            '#0A55A6' :
+                                            mainColor :
                                             '#111'
                                 }}>
                                     ฉัน
@@ -325,7 +325,7 @@ export class TabBar extends React.Component {
                                             null :
                                             activeColor ?
                                                 activeColor :
-                                                '#0A55A6',
+                                                mainColor,
                                     borderBottomWidth:
                                         type == 'tag' ?
                                             null :
@@ -375,11 +375,11 @@ export class TabBar extends React.Component {
                                             borderColor:
                                                 activeColor ?
                                                     activeColor :
-                                                    '#0A55A6',
+                                                    mainColor,
                                             backgroundColor:
                                                 activeColor ?
                                                     activeColor :
-                                                    '#0A55A6',
+                                                    mainColor,
                                             alignContent: 'center',
                                             alignItems: 'center',
                                             borderRadius:
@@ -613,7 +613,7 @@ export class TabBar extends React.Component {
                                             pathlist == index ?
                                                 tagBottomColor ?
                                                     tagBottomColor :
-                                                    '#0A55A6' :
+                                                    mainColor :
                                                 '#fff' :
                                             null,
                                     borderBottomWidth:
@@ -1028,36 +1028,36 @@ export function ProductBox(props) {
                             () => NavigationNavigateScreen({
                                 goScreen: pointerUrl, setData: (pointerid_store ? { id_item: item.id_product } : null), navigation
                             })}>
-                    <View style={[
-                        mode == 'row4col1' ?
-                            stylesMain.BoxProduct5Box :
-                            mode == 'row3col2' ?
-                                stylesMain.BoxProduct1Box2 :
-                                mode == 'row3col2_2' ?
-                                    stylesMain.BoxProduct4Box :
-                                    mode == 'row3colall' ?
-                                        stylesMain.BoxProduct2Box :
-                                        mode == 'row2colall' ?
-                                            stylesMain.BoxProduct3Box :
-                                            mode == '5item' ?
-                                                stylesDeal.Deal_Exclusive_Box :
-                                                stylesMain.BoxProduct1Box,
-                        {
-                            marginBottom: mode == 'row3col2_2' ? 4 : null,
-                            borderRadius: radiusBox ? radiusBox : 0
-                        }
-                    ]}>
-                        <View style={
-                            mode == 'row4col1' ?
-                                stylesMain.BoxProduct5ImageofLines :
+                    <View style={[stylesMain.ItemCenter,
+                    mode == 'row4col1' ?
+                        stylesMain.BoxProduct5Box :
+                        mode == 'row3col2' ?
+                            stylesMain.BoxProduct1Box2 :
+                            mode == 'row3col2_2' ?
+                                stylesMain.BoxProduct4Box :
                                 mode == 'row3colall' ?
-                                    stylesMain.BoxProduct2ImageofLines :
+                                    stylesMain.BoxProduct2Box :
                                     mode == 'row2colall' ?
-                                        stylesMain.BoxProduct3ImageofLines :
+                                        stylesMain.BoxProduct3Box :
                                         mode == '5item' ?
-                                            stylesMain.BoxProduct1ImageofLines2 :
-                                            stylesMain.BoxProduct1ImageofLines
-                        }>
+                                            stylesDeal.Deal_Exclusive_Box :
+                                            stylesMain.BoxProduct1Box,
+                    {
+                        marginBottom: mode == 'row3col2_2' ? 4 : null,
+                        borderRadius: radiusBox ? radiusBox : 0
+                    }
+                    ]}>
+                        <View style={[stylesMain.ItemCenter,
+                        mode == 'row4col1' ?
+                            stylesMain.BoxProduct5ImageofLines :
+                            mode == 'row3colall' ?
+                                stylesMain.BoxProduct2ImageofLines :
+                                mode == 'row2colall' ?
+                                    stylesMain.BoxProduct3ImageofLines :
+                                    mode == '5item' ?
+                                        stylesMain.BoxProduct1ImageofLines2 :
+                                        stylesMain.BoxProduct1ImageofLines
+                        ]}>
                             <FastImage
                                 source={{
                                     uri: dataMySQL,
@@ -1065,7 +1065,8 @@ export function ProductBox(props) {
                                 style={[stylesMain.BoxProduct2Image,
                                 {
                                     borderTopLeftRadius: radiusBox ? radiusBox : 0,
-                                    borderTopRightRadius: radiusBox ? radiusBox : 0
+                                    borderTopRightRadius: radiusBox ? radiusBox : 0,
+                                    marginVertical: height * 0.015
                                 }
                                 ]}
                                 resizeMode={FastImage.resizeMode.contain} />
@@ -1162,14 +1163,15 @@ export function ProductBox(props) {
 }
 ///----------------------------------------------------------------------------------------------->>>> FlatComponent
 export function FlatComponent(props) {
-    const { component, componentPage, onScroll, scrollEventThrottle } = props
+    const { component, componentPage, onScroll, scrollEventThrottle, stickyHeaderIndices } = props
     return (
         component &&
         <FlatList
             // ref={c => this.FlatMainScreen = c}
             scrollEventThrottle={scrollEventThrottle}
-            onScroll={onScroll}
+            onScroll={onScroll ? onScroll : undefined}
             scrollEnabled={true}
+            stickyHeaderIndices={stickyHeaderIndices ? stickyHeaderIndices : undefined}
             initialNumToRender={10}
             data={component}
             keyExtractor={(value, index) => `Component:${componentPage ? componentPage : index}_${value.nameComponent}`}
@@ -1268,26 +1270,26 @@ export function RenderProduct(props) {
                         id_item: item.id_product
                     }
                 })}>
-            <View style={[
-                mode == 'row4' ?
-                    stylesMain.BoxProduct5Box :
-                    mode == 'row3' ?
-                        stylesMain.BoxProduct1Box2 :
-                        mode == 'row3_new' ?
-                            stylesMain.BoxProduct1Box2new :
-                            mode == 'row3_2' ?
-                                stylesMain.BoxProduct4Box :
-                                mode == 'row3_all' ?
-                                    stylesMain.BoxProduct2Box :
-                                    mode == 'row2_all' ?
-                                        stylesMain.BoxProduct3Box :
-                                        mode == '5item' ?
-                                            stylesDeal.Deal_Exclusive_Box :
-                                            stylesMain.BoxProduct1Box,
-                {
-                    marginBottom: mode == 'row3_2' ? 4 : null,
-                    borderRadius: radiusBox ? radiusBox : 0
-                }
+            <View style={[stylesMain.ItemCenter,
+            mode == 'row4' ?
+                stylesMain.BoxProduct5Box :
+                mode == 'row3' ?
+                    stylesMain.BoxProduct1Box2 :
+                    mode == 'row3_new' ?
+                        stylesMain.BoxProduct1Box2new :
+                        mode == 'row3_2' ?
+                            stylesMain.BoxProduct4Box :
+                            mode == 'row3_all' ?
+                                stylesMain.BoxProduct2Box :
+                                mode == 'row2_all' ?
+                                    stylesMain.BoxProduct3Box :
+                                    mode == '5item' ?
+                                        stylesDeal.Deal_Exclusive_Box :
+                                        stylesMain.BoxProduct1Box,
+            {
+                marginBottom: mode == 'row3_2' ? 4 : null,
+                borderRadius: radiusBox ? radiusBox : 0
+            }
             ]}>
                 <View style={[stylesMain.ItemCenter,
                 mode == 'row4' ?
@@ -1308,7 +1310,7 @@ export function RenderProduct(props) {
                         {
                             borderTopLeftRadius: radiusBox ? radiusBox : 0,
                             borderTopRightRadius: radiusBox ? radiusBox : 0,
-                            marginTop: height * 0.015
+                            marginVertical: height * 0.015
                         }
                         ]}
                         resizeMode={FastImage.resizeMode.contain} />
@@ -1555,7 +1557,7 @@ export class FeedBox extends React.Component {
                     <View style={stylesMain.BoxProduct4ComBox}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                             {dataService.detail}</Text>
-                        <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: '#0A55A6' }]}>
+                        <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: mainColor }]}>
                             ที่สุดสำหรับคุณ</Text>
                         {/* <View style={stylesMain.FlexRow}>
                                 <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: '#9F9C9C' }]}>
@@ -1703,12 +1705,12 @@ export class SlideTab2 extends React.Component {
                             <View style={[stylesMain.FlexRow, { height: 70 }]}>
                                 <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
                                     <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, {
-                                        color: '#0A55A6'
+                                        color: mainColor
                                     }]}>
                                         รีเซ็ต</Text>
                                 </View>
                                 <TouchableOpacity onPress={() => { filterValue(filter) }}>
-                                    <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset, { backgroundColor: '#0A55A6' }]}>
+                                    <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset, { backgroundColor: mainColor }]}>
                                         <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, {
                                             color: '#fff'
                                         }]}>
@@ -1798,7 +1800,7 @@ export class SlideTab extends React.Component {
                                                     'ย่อ' :
                                                     'ดูเพิ่มเติม'
                                             }</Text>
-                                        <IconEntypo name={activeText == true ? 'chevron-up' : 'chevron-down'} size={25} color='#0A55A6' />
+                                        <IconEntypo name={activeText == true ? 'chevron-up' : 'chevron-down'} size={25} color={mainColor} />
                                     </View>
                                 </TouchableOpacity>
                             }

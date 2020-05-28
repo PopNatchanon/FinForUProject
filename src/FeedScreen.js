@@ -7,7 +7,7 @@ import {
 export const { width, height } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesMain from '../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, Botton_PopUp_FIN, } from './MainScreen';
@@ -93,7 +93,7 @@ export class MenuBar extends React.Component {
             noSpace
             setVertical={2}
             widthBox={100}
-            spaceColor='#0A55A6'
+            spaceColor={mainColor}
             activeColor='#fff'
             fontColor='#fff' />
         </View>

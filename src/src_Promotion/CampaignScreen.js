@@ -10,7 +10,7 @@ import FastImage from 'react-native-fast-image';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../../style/stylesFont';
-import stylesMain from '../../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import ststylePromotionDeal from '../../style/stylePromotion-src/styleDealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, Slide, } from '../MainScreen';
@@ -97,8 +97,8 @@ export class Campaign_tag extends Component {
             <TabBar
               sendData={this.getcategory.bind(this)}
               inactiveBoxColor={'#fff'}
-              inactiveColor={'#0A55A6'}
-              inactiveFontColor={'#0A55A6'}
+              inactiveColor={mainColor}
+              inactiveFontColor={mainColor}
               item={item}
               noLimit
               numberBox

@@ -125,7 +125,7 @@ export class Button_bar extends Component {
                             item={item}
                             SetValue={selectedIndex > -1 ? selectedIndex : SetselectedIndex}
                             activeColor={'#fff'}
-                            activeFontColor={'#0A55A6'}
+                            activeFontColor={mainColor}
                             type='tag'
                         />
                     </ScrollView>
@@ -238,7 +238,7 @@ export class Order_Me_Box extends Component {
                             thousandSeparator={true}
                             prefix={'฿'}
                             renderText={value =>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#0A55A6', marginTop: 10, }]}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: mainColor, marginTop: 10, }]}>
                                     {value}</Text>
                             } />
                     </View>
@@ -251,7 +251,7 @@ export class Order_Me_Box extends Component {
                                 thousandSeparator={true}
                                 prefix={'฿'}
                                 renderText={value =>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, color: '#0A55A6' }]}>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, color: mainColor }]}>
                                         {value}</Text>
                                 } />
                         </View>
@@ -265,7 +265,7 @@ export class Order_Me_Box extends Component {
                             </TouchableOpacity>
                             <TouchableOpacity >
                                 <View style={[stylesProfileTopic.Order_Button, {
-                                    borderWidth: 1, borderColor: '#0A55A6', backgroundColor: '#0A55A6'
+                                    borderWidth: 1, borderColor: mainColor, backgroundColor: mainColor
                                 }]}>
                                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>
                                         ติดต่อผู้ซื้อ</Text>

@@ -12,7 +12,7 @@ import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert'
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 ///----------------------------------------------------------------------------------------------->>>> styleSeller
-import stylesMain from '../../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesFont from '../../style/stylesFont';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 import stylesSeller from '../../style/styleSeller-src/styleSellerScreen';
@@ -131,7 +131,7 @@ export class Seller_Return_Detail extends Component {
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>x 1</Text>
               </View>
             </View>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#0A55A6' }]}>฿10,000.00</Text>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: mainColor }]}>฿10,000.00</Text>
           </View>
           <View style={{ padding: 10 }}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { margin: 5 }]}>ข้อมูลการยกเลิก</Text>
@@ -244,7 +244,7 @@ export class Treasury_store_Product extends Component {
             </View>
             <View>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>ราคาต่อชิ้น</Text>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>฿10,000.00</Text>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>฿10,000.00</Text>
             </View>
             <View>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>ตัวเลือกสินค้า</Text>

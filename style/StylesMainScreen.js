@@ -276,7 +276,7 @@ export default StyleSheet.create({
   BoxStore1Box2: {
     // width: width * 0.55,
     width: '50%',
-    height: 160,
+    height: 130,
     marginTop: 10,
     marginBottom: 5,
     marginHorizontal: 5,
@@ -574,8 +574,9 @@ export default StyleSheet.create({
     borderRadius: 5
   },
   Popular_Box_D: {
-    height: 80,
-    width: 80,
+    height: height * 0.11,
+    width: width * 0.20,
+    padding:5,
   },
   Popular_image_Box: {
     height: '100%',
@@ -588,6 +589,7 @@ export default StyleSheet.create({
     height: height * 0.035,
     alignItems: 'center',
     borderRadius: 5,
+    marginBottom: 5,
   },
   Image_icon_top: {
     height: 25,

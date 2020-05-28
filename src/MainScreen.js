@@ -154,10 +154,10 @@ export default class MainScreen extends React.PureComponent {
                 nameComponent: 'Product_for_you',
                 renderComponent: <Product_for_you navigation={navigation} loadData={dataService.for_you} />
             },
-            // {
-            //     nameComponent: 'CategoryProduct',
-            //     renderComponent: <CategoryProduct navigation={navigation} />
-            // },
+            {
+                nameComponent: 'CategoryProduct',
+                renderComponent: <CategoryProduct navigation={navigation} />
+            },
             // {
             //     nameComponent: 'Category_Image_Total',
             //     renderComponent: <Category_Image_Total sizeBox={1} />
@@ -960,6 +960,32 @@ export class Trend_Hit extends React.Component {
     getData = (dataService) => {
         this.setState({ activeDataService: false, dataService, });
     };
+    _renderItem = (item,index) => {
+        return (
+            <View key={index} style={{ width: width * 0.48 }}>
+                <View style={{ height: '90%',  }}>
+                    <FastImage
+                        style={stylesMain.BoxProduct1Image}
+                        source={{
+                            uri: item.image,
+                        }}
+                        resizeMode={FastImage.resizeMode.stretch}
+                    />
+                </View>
+                <View style={{ alignItems: 'center' }}>
+                    <TouchableOpacity style={{ height: 30, width: 95, marginTop: -20 }}>
+                        <FastImage
+                            style={[stylesMain.BoxProduct1Image, { borderRadius: 8 }]}
+                            source={{
+                                uri: `${ip}/MySQL/uploads/Home/Button_Gif/Shop2.png`,
+                            }}
+                            resizeMode={FastImage.resizeMode.stretch}
+                        />
+                    </TouchableOpacity>
+                </View>
+            </View>
+        )
+    }
     get Trend_Box() {
         var { dataService } = this.state;
         return dataService &&
@@ -987,6 +1013,11 @@ export class Trend_Hit extends React.Component {
             });
     };
     render() {
+        const item = [
+            {image: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-02.jpg`},
+            {image: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-03.jpg`},
+            {image: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-01.jpg`},
+        ]
         var { activeDataService } = this.state;
         var uri = `${ip}/mysql/DataServiceMain.php`;
         var dataBody = {
@@ -1020,28 +1051,13 @@ export class Trend_Hit extends React.Component {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <View style={{ width: width * 0.48 }}>
-                        <View style={{ height: '90%' }}>
-                            <FastImage
-                                style={stylesMain.BoxProduct1Image}
-                                source={{
-                                    uri: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-02.jpg`,
-                                }}
-                                resizeMode={FastImage.resizeMode.stretch}
-                            />
-                        </View>
-                        <View style={{ alignItems: 'center' }}>
-                            <TouchableOpacity style={{ height: 30, width: 95, marginTop: -20 }}>
-                                <FastImage
-                                    style={[stylesMain.BoxProduct1Image, { borderRadius: 8 }]}
-                                    source={{
-                                        uri: `${ip}/MySQL/uploads/Home/Button_Gif/Shop2.png`,
-                                    }}
-                                    resizeMode={FastImage.resizeMode.stretch}
-                                />
-                            </TouchableOpacity>
-                        </View>
-                    </View>
+                        <Carousel
+                            renderItem={this._renderItem}
+                            data={item}
+                            // loop
+                            autoplay
+                            autoplayInterval={4000}
+                        />
                 </View>
                 <View style={stylesMain.FrameBackground2}>
                     <View style={stylesMain.FrameBackgroundTextBox}>
@@ -1262,16 +1278,16 @@ export class Popular_product extends React.Component {
         return type.map((item, index) => {
             var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
             return index < 2 && (
-                <View style={{ width: width * 0.23 }} key={index}>
+                <View style={{ width: width * 0.22 }} key={index}>
                     <View style={[stylesMain.Popular_Box_D, { backgroundColor: '#FFFFFF', padding: 5, borderRadius: 5 }]}>
                         <FastImage
                             style={stylesMain.Popular_image_Box}
                             source={{
                                 uri: dataMySQL,
                             }}
-                            resizeMode={FastImage.resizeMode.cover} />
+                            resizeMode={FastImage.resizeMode.stretch} />
                     </View>
-                    <View style={[stylesMain.ItemCenter, { width: 80 }]}>
+                    <View style={[stylesMain.ItemCenter, { width: width * 0.20, }]}>
                         <Text numberOfLines={1} style={[stylesFont.FontSize8, stylesFont.FontFamilyText]}>{item.name}</Text>
                         <NumberFormat
                             value={item.full_price}
@@ -2052,7 +2068,7 @@ export class CategoryProductSubPromotion extends React.Component {
             `${finip}/${(dataService.banner[0].image_path)}/${(dataService.banner[0].image)}`
         if (dataMySQL == false) { return <></> }
         return (
-            <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, marginTop: 6, marginBottom: 6, }]} key={dataService.banner[0].id} >
+            <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, marginTop: 3, marginBottom: 3, }]} key={dataService.banner[0].id} >
                 {
                     dataService &&
                     <Image
@@ -2335,16 +2351,16 @@ export class Fin_Mall extends React.Component {
             if (index < 2) {
                 var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
                 return (
-                    <View style={{ width: width * 0.235, marginTop: 10 }} key={index}>
-                        <View style={{ height: 80, width: 80, backgroundColor: '#FFFFFF', borderRadius: 5, padding: 5 }}>
+                    <View style={{ width: width * 0.22, marginTop: 10, paddingLeft: 2.5 }} key={index}>
+                        <View style={{ height: height * 0.115, width: width * 0.20, backgroundColor: '#FFFFFF', padding: 5 }}>
                             <FastImage
                                 style={stylesMain.Popular_image_Box}
                                 source={{
                                     uri: dataMySQL,
                                 }}
-                                resizeMode={FastImage.resizeMode.cover} />
+                                resizeMode={FastImage.resizeMode.stretch} />
                         </View>
-                        <View style={[stylesMain.ItemCenter, { width: 80 }]}>
+                        <View style={[stylesMain.ItemCenter, { width: width * 0.20 }]}>
                             <Text numberOfLines={1} style={[stylesFont.FontSize8, stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>{item.name}</Text>
                             <NumberFormat
                                 value={item.full_price}
@@ -2373,7 +2389,7 @@ export class Fin_Mall extends React.Component {
             <View style={[stylesMain.FlexRow, stylesMain.FinMall_Box]}>
                 <View style={{ width: width * 0.48, backgroundColor: '#FFFFFF', paddingHorizontal: 5 }}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>Fin Mall </Text>
-                    <View style={{ backgroundColor: '#691F50', padding: 5, borderRadius: 5, justifyContent: 'space-between' }}>
+                    <View style={{ backgroundColor: '#691F50', borderRadius: 5, padding: 3, justifyContent: 'space-between' }}>
                         {
                             loadData.product_hit &&
                             <TouchableOpacity
@@ -2389,7 +2405,7 @@ export class Fin_Mall extends React.Component {
                 </View>
                 <View style={{ width: width * 0.48, backgroundColor: '#FFFFFF', paddingHorizontal: 5 }}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>สินค้าสุด Exclusive</Text>
-                    <View style={{ backgroundColor: '#19508B', padding: 5, borderRadius: 5, justifyContent: 'space-between' }}>
+                    <View style={{ backgroundColor: '#19508B', padding: 3, borderRadius: 5, justifyContent: 'space-between' }}>
                         {
                             loadData.exclusive &&
                             <TouchableOpacity

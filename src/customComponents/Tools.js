@@ -1205,8 +1205,8 @@ export function FlatProduct(props) {
             }}
             renderItem={(value) =>
                 <View style={{
-                    height: NumberOfcolumn == 2 ? mode == 'row3_new' ? 312 : 325 : undefined,
-                    marginTop: NumberOfcolumn == 2 ? 10 : undefined
+                    height: 'auto',
+                    marginTop: NumberOfcolumn == 2 ? 10 : undefined,
                 }}>
                     {
                         (NumberOfcolumn == 2 ? value.item.item : value.item) &&

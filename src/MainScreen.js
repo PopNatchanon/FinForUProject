@@ -899,7 +899,7 @@ export class Category extends React.Component {
         const { dataService } = this.state;
         return dataService &&
             dataService.map((item, index) => {
-                var dataMySQL = `${finip}/${item.image_path}/menu/${item.image_head}`;
+                var dataMySQL = `${finip}/${item.image_path}/menu/mobile/${item.image_head}`;
                 return (
                     <TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigateScreen({
                         goScreen: 'CategoryScreen', setData: { id_type: item.id_type }, navigation

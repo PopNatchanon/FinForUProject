@@ -10,7 +10,7 @@ import IconFeather from 'react-native-vector-icons/Feather';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../style/stylesFont';
-import stylesMain from '../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, TodayProduct, ExitAppModule, } from './MainScreen';
@@ -161,8 +161,8 @@ export class Button_Bar extends React.Component {
     }, {
       actionItem: [
         <IconMaterialIcons name='unfold-more' size={15} style={[stylesMain.ItemCenterVertical, { color: '#6C6C6C', marginLeft: 2 }]} />,
-        <IconMaterialIcons name='arrow-upward' size={15} style={[stylesMain.ItemCenterVertical, { color: '#0A55A6', marginLeft: 2 }]} />,
-        <IconMaterialIcons name='arrow-downward' size={15} style={[stylesMain.ItemCenterVertical, { color: '#0A55A6', marginLeft: 2 }]} />
+        <IconMaterialIcons name='arrow-upward' size={15} style={[stylesMain.ItemCenterVertical, { color: mainColor, marginLeft: 2 }]} />,
+        <IconMaterialIcons name='arrow-downward' size={15} style={[stylesMain.ItemCenterVertical, { color: mainColor, marginLeft: 2 }]} />
       ],
       actionList: [1, 2],
       actionReturn: ['min', 'max'],
@@ -182,12 +182,12 @@ export class Button_Bar extends React.Component {
               limitBox={width * 0.7}
               setVertical={2}
               activeColor={'#fff'}
-              activeFontColor={'#0A55A6'}
+              activeFontColor={mainColor}
               type='tag' />
           </View>
           <TouchableOpacity onPress={() => this.setSliderVisible()}>
             <View style={[stylesMain.ItemCenterVertical, stylesTopic.Button_Bar_Icon, { borderLeftColor: 'black', borderLeftWidth: 1.2 }]}>
-              <IconFeather RightItem name="filter" size={18} color='#0A55A6' />
+              <IconFeather RightItem name="filter" size={18} color={mainColor} />
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ตัวกรอง</Text>
             </View>
           </TouchableOpacity>

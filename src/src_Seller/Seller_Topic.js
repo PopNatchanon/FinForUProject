@@ -21,7 +21,7 @@ import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommun
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 ///----------------------------------------------------------------------------------------------->>>> styleSeller
 import stylesFont from '../../style/stylesFont';
-import stylesMain from '../../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfile from '../../style/StylesProfileScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 import stylesSeller from '../../style/styleSeller-src/styleSellerScreen';
@@ -315,7 +315,7 @@ export class Seller_Advertisement extends Component {
                 })}>
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>แพคเกจปัจจุบันที่ใช้อยู่</Text>
-                        <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' size={35} color={mainColor} />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => NavigationNavigateScreen({
@@ -323,7 +323,7 @@ export class Seller_Advertisement extends Component {
                 })}>
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>FIN แคมเปญ</Text>
-                        <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' size={35} color={mainColor} />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => NavigationNavigateScreen({
@@ -331,7 +331,7 @@ export class Seller_Advertisement extends Component {
                 })}>
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>โค้ดส่วนลด</Text>
-                        <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' size={35} color={mainColor} />
                     </View>
                 </TouchableOpacity>
             </View>
@@ -504,7 +504,7 @@ export class Seller_Comment_Reply extends Component {
                     </View>
                     <View style={{ alignItems: 'flex-end' }}>
                         <TouchableOpacity>
-                            <View style={[stylesMain.ItemCenter, { height: 30, width: 100, backgroundColor: '#0A55A6', borderRadius: 5, margin: 10 }]}>
+                            <View style={[stylesMain.ItemCenter, { height: 30, width: 100, backgroundColor: mainColor, borderRadius: 5, margin: 10 }]}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตอบกลับ</Text>
                             </View>
                         </TouchableOpacity>
@@ -617,7 +617,7 @@ export class Seller_Advertisement_PacketBuy extends Component {
                     </View>
                     <View style={{ alignItems: 'flex-end' }}>
                         <TouchableOpacity>
-                            <View style={[stylesMain.ItemCenter, { borderColor: '#0A55A6', borderWidth: 1, backgroundColor: '#0A55A6', padding: 5, marginLeft: 10, borderRadius: 5, width: 100 }]}>
+                            <View style={[stylesMain.ItemCenter, { borderColor: mainColor, borderWidth: 1, backgroundColor: mainColor, padding: 5, marginLeft: 10, borderRadius: 5, width: 100 }]}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ติดต่อแอดมิน</Text>
                             </View>
                         </TouchableOpacity>
@@ -766,12 +766,12 @@ export class Seller_ProductSelect extends Component {
                     </View>
                     <View style={[stylesMain.FlexRow, { marginVertical: 10, marginRight: 10 }]}>
                         <TouchableOpacity>
-                            <View style={[stylesMain.ItemCenter, { borderColor: '#0A55A6', borderWidth: 1, padding: 5, width: 100, borderRadius: 5 }]}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#0A55A6' }]}>ยกเลิก</Text>
+                            <View style={[stylesMain.ItemCenter, { borderColor: mainColor, borderWidth: 1, padding: 5, width: 100, borderRadius: 5 }]}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: mainColor }]}>ยกเลิก</Text>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity>
-                            <View style={[stylesMain.ItemCenter, { borderColor: '#0A55A6', borderWidth: 1, backgroundColor: '#0A55A6', padding: 5, marginLeft: 10, borderRadius: 5, width: 100 }]}>
+                            <View style={[stylesMain.ItemCenter, { borderColor: mainColor, borderWidth: 1, backgroundColor: mainColor, padding: 5, marginLeft: 10, borderRadius: 5, width: 100 }]}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตกลง</Text>
                             </View>
                         </TouchableOpacity>
@@ -818,8 +818,8 @@ export class My_income extends Component {
                 </View>
                 <ScrollView>
                     <View style={[stylesMain.ItemCenter, { backgroundColor: '#FFFFFF', marginTop: 5, paddingTop: 10 }]}>
-                        <View style={[stylesMain.ItemCenter, { height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 5, borderRadius: 75 }]}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: '#0A55A6' }]}>฿100,000</Text>
+                        <View style={[stylesMain.ItemCenter, { height: 150, width: 150, borderColor: mainColor, borderWidth: 5, borderRadius: 75 }]}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: mainColor }]}>฿100,000</Text>
                         </View>
                     </View>
                     <View style={[stylesMain.FrameBackground, { marginTop: -50 }]}>
@@ -863,7 +863,7 @@ export class Product_income extends Component {
                         <Text>x 1</Text>
                     </View>
                 </View>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#0A55A6' }]}>฿10,000.00</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: mainColor }]}>฿10,000.00</Text>
             </View>
         );
     }
@@ -902,7 +902,7 @@ export class Withdraw_money extends Component {
                                 ประวัติการถอนเงิน
                             </Text>
                         </View>
-                        <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
@@ -914,7 +914,7 @@ export class Withdraw_money extends Component {
                                 ถอนเงิน
                             </Text>
                         </View>
-                        <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
@@ -926,7 +926,7 @@ export class Withdraw_money extends Component {
                                 บัญชีธนาคาร
                             </Text>
                         </View>
-                        <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
                     </View>
                 </TouchableOpacity>
             </View>
@@ -977,7 +977,7 @@ export class Confirm_Bank extends Component {
                     <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
                         goScreen: 'Seller_Topic', setData: { selectedIndex: 12 }, navigation
                     })}
-                        style={[stylesMain.ItemCenter, { width: '80%', height: 50, backgroundColor: '#0A55A6', borderRadius: 5, marginVertical: 10 }]}>
+                        style={[stylesMain.ItemCenter, { width: '80%', height: 50, backgroundColor: mainColor, borderRadius: 5, marginVertical: 10 }]}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, , { color: '#FFFFFF' }]}>ยืนยันการถอนเงิน</Text>
                     </TouchableOpacity>
                 </View>
@@ -1043,7 +1043,7 @@ export class Withdrawal_history_sub extends Component {
                             <View>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2,]}>1,000,000 THB</Text>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'right', color: '#B7B7B7' }]}>กรุงไทย
-                            <IconEntypo name={activeBox == true ? 'chevron-up' : 'chevron-down'} size={20} color='#0A55A6' />
+                            <IconEntypo name={activeBox == true ? 'chevron-up' : 'chevron-down'} size={20} color={mainColor} />
                                 </Text>
                             </View>
                         </View>
@@ -1317,30 +1317,30 @@ export class Code_Sale extends Component {
                 </View>
                 <View style={[stylesMain.FlexRow, { borderBottomWidth: 2, borderTopWidth: 2, justifyContent: 'space-around', paddingVertical: 10, marginVertical: 10 }]}>
                     <View style={{ width: '30%', }}>
-                        <View style={[stylesMain.ItemCenter, { backgroundColor: '#0A55A6', paddingVertical: 5, borderRadius: 5 }]}>
+                        <View style={[stylesMain.ItemCenter, { backgroundColor: mainColor, paddingVertical: 5, borderRadius: 5 }]}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#FFFFFF' }]}>จำนวน </Text>
                         </View>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'center', marginTop: 5 }]}>100</Text>
                     </View>
                     <View style={{ width: '30%' }}>
-                        <View style={[stylesMain.ItemCenter, { backgroundColor: '#0A55A6', paddingVertical: 5, borderRadius: 5 }]}>
+                        <View style={[stylesMain.ItemCenter, { backgroundColor: mainColor, paddingVertical: 5, borderRadius: 5 }]}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#FFFFFF' }]}>ผู้ซื้อกดรับ </Text>
                         </View>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'center', marginTop: 5 }]}>50</Text>
                     </View>
                     <View style={{ width: '30%' }}>
-                        <View style={[stylesMain.ItemCenter, { backgroundColor: '#0A55A6', paddingVertical: 5, borderRadius: 5 }]}>
+                        <View style={[stylesMain.ItemCenter, { backgroundColor: mainColor, paddingVertical: 5, borderRadius: 5 }]}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#FFFFFF' }]}>ใช้แล้ว </Text>
                         </View>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'center', marginTop: 5 }]}>20</Text>
                     </View>
                 </View>
                 <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', marginBottom: 10 }]}>
-                    <TouchableOpacity style={[stylesMain.ItemCenter, { borderColor: '#0A55A6', borderWidth: 1, width: '49%' }]}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#0A55A6' }]}>แก้ไข</Text>
+                    <TouchableOpacity style={[stylesMain.ItemCenter, { borderColor: mainColor, borderWidth: 1, width: '49%' }]}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: mainColor }]}>แก้ไข</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[stylesMain.ItemCenter, { borderColor: '#0A55A6', borderWidth: 1, width: '49%' }]}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#0A55A6' }]}>ลบ</Text>
+                    <TouchableOpacity style={[stylesMain.ItemCenter, { borderColor: mainColor, borderWidth: 1, width: '49%' }]}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: mainColor }]}>ลบ</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -1373,7 +1373,7 @@ export class Code_Sale extends Component {
                 <TouchableOpacity onPress={() => NavigationNavigateScreen({
                     goScreen: 'Seller_Topic', setData: { selectedIndex: 16 }, navigation
                 })}
-                    style={[stylesMain.ItemCenter, { backgroundColor: '#0A55A6', paddingVertical: 10 }]}>
+                    style={[stylesMain.ItemCenter, { backgroundColor: mainColor, paddingVertical: 10 }]}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>
                         สร้างโปรโมชันส่วนลด
                     </Text>
@@ -1511,7 +1511,7 @@ export class Form_Code_Sale extends Component {
                 })}
                     style={stylesSeller.Seller_Up_ProductDetail}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '30%' }]}>เลือกสินค้าที่ใช้ได้</Text>
-                    <IconEntypo name='chevron-right' size={40} color='#0A55A6' />
+                    <IconEntypo name='chevron-right' size={40} color={mainColor} />
                 </TouchableOpacity>
             </ScrollView>
         );
@@ -1633,13 +1633,13 @@ export class Bank_detall extends Component {
                         <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', width: '95%', marginTop: 10, padding: 10, justifyContent: 'space-between' }]}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>หน้าบัญชีธนาคาร</Text>
                             <TouchableOpacity style={stylesMain.FlexRow}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6', marginRight: 10 }]}>ดูเอกสาร</Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor, marginRight: 10 }]}>ดูเอกสาร</Text>
                                 <IconEntypo name='eye' size={25} />
                             </TouchableOpacity>
                         </View>
                     </View>
                 </ScrollView>
-                <TouchableOpacity style={[stylesMain.ItemCenter, { height: 50, backgroundColor: '#0A55A6' }]}>
+                <TouchableOpacity style={[stylesMain.ItemCenter, { height: 50, backgroundColor: mainColor }]}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#FFFFFF' }]}>ตั้งเป็นบัญชีตั้งต้น</Text>
                 </TouchableOpacity>
             </>

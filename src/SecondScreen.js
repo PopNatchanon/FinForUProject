@@ -9,7 +9,7 @@ import FastImage from 'react-native-fast-image';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../style/stylesFont';
-import stylesMain from '../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, AppBar1, BannerBar_ONE, ExitAppModule, TodayProduct, } from './MainScreen';
 import { Button_Bar, } from './ExclusiveScreen';
@@ -224,7 +224,7 @@ export class Secon_Store extends React.Component {
           <Slide />
           <View style={{ alignItems: 'center', marginTop: 10, }}>
             <View style={{
-              backgroundColor: '#0A55A6', width: 170, height: 40, alignItems: 'center', justifyContent: 'center', borderRadius: 5,
+              backgroundColor: mainColor, width: 170, height: 40, alignItems: 'center', justifyContent: 'center', borderRadius: 5,
             }}>
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>สินค้าที่คุณอาจชอบ</Text>
             </View>

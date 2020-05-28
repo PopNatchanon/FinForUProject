@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import { mainColor } from './StylesMainScreen';
 
 export const { width, height } = Dimensions.get('window');
 
@@ -56,7 +57,7 @@ export default StyleSheet.create({
     Login_Box_Text_L: {
         marginTop: 5,
         textAlign: 'right',
-        color: '#0A55A6',
+        color: mainColor,
     },
     Login_Box_Text_B: {
         paddingHorizontal: 50,
@@ -78,7 +79,7 @@ export default StyleSheet.create({
     },
     Register_Box_Button: {
         marginTop: 5,
-        marginBottom:20,
+        marginBottom: 20,
         flexDirection: 'row',
         justifyContent: 'center',
     },
@@ -135,7 +136,7 @@ export default StyleSheet.create({
     Countdownstyle: {
         marginTop: -40,
         width: 70,
-        backgroundColor: '#0A55A6',
+        backgroundColor: mainColor,
         borderRadius: 10,
         marginLeft: '75%',
         marginBottom: 20,

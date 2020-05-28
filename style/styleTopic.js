@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import { mainColor } from './StylesMainScreen';
 export const { width, height } = Dimensions.get('window');
 export default StyleSheet.create({
     ///---------------------------------CategoryScreen----------------------------------------///
@@ -42,7 +43,7 @@ export default StyleSheet.create({
     FlashSale_ProductBox_Icon: {
         height: 40,
         width: 40,
-        backgroundColor: '#0A55A6',
+        backgroundColor: mainColor,
         borderRadius: 5,
         justifyContent: 'center',
         alignItems: 'center',
@@ -134,7 +135,7 @@ export default StyleSheet.create({
     },
     BoxReset: {
         width: width * 1 / 2.8, height: 40,
-        borderWidth: 1, borderColor: '#0A55A6',
+        borderWidth: 1, borderColor: mainColor,
         marginHorizontal: 4
     },
     maxMinValue: {
@@ -190,7 +191,7 @@ export default StyleSheet.create({
         borderWidth: 1,
     },
     Store_Name: {
-        backgroundColor: '#0A55A6',
+        backgroundColor: mainColor,
         height: 30,
         width: 100,
         borderRadius: 5,
@@ -214,7 +215,7 @@ export default StyleSheet.create({
     Store_Button: {
         justifyContent: 'center',
         width: 60,
-        borderColor: '#0A55A6',
+        borderColor: mainColor,
         backgroundColor: '#FFFFFF',
         borderWidth: 1,
         borderRadius: 5,
@@ -237,7 +238,7 @@ export default StyleSheet.create({
         margin: 10,
     },
     Store_BoxText_Product: {
-        backgroundColor: '#0A55A6',
+        backgroundColor: mainColor,
         width: 130,
         margin: 10,
     },

@@ -14,7 +14,7 @@ import IconFeather from 'react-native-vector-icons/Feather';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../../style/stylesFont';
-import stylesMain from '../../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from '../MainScreen';
@@ -180,7 +180,7 @@ export class Cancel_Product extends Component {
                 <Text>x 1</Text>
               </View>
             </View>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#0A55A6' }]}>฿10,000.00</Text>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: mainColor }]}>฿10,000.00</Text>
           </View>
         </View>
       </View>
@@ -243,12 +243,12 @@ export class Cancel_Alert extends Component {
         <View style={stylesProfileTopic.Cancel_Detail_ButtonBox}>
           <TouchableOpacity>
             <View style={stylesProfileTopic.Cancel_Detail_Button}>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>ยกเลิก</Text>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>ยกเลิก</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this.handleOpen()}>
             <View style={[stylesProfileTopic.Cancel_Detail_Button, { marginLeft: 10 }]}>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>ตกลง</Text>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>ตกลง</Text>
             </View>
           </TouchableOpacity>
         </View>

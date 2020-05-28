@@ -25,7 +25,7 @@ import IconFontisto from 'react-native-vector-icons/Fontisto';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesDetail from '../style/StylesDetailScreen'
 import stylesFont, { normalize } from '../style/stylesFont';
-import stylesMain from '../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, ExitAppModule } from './MainScreen';
 import {
@@ -610,7 +610,7 @@ export class Conpon extends React.Component {
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                           ลด ฿300.00</Text>
                       </View>
-                      <IconEntypo style={stylesDetail.Coupon_Icon} name='chevron-right' size={30} color='#0A55A6' />
+                      <IconEntypo style={stylesDetail.Coupon_Icon} name='chevron-right' size={30} color={mainColor} />
                     </View>
                   </View>
                 </TouchableOpacity>
@@ -961,7 +961,7 @@ export class Selector extends React.Component {
                     stylesDetail.Coupon_Text, stylesFont.FontSize6, stylesFont.FontFamilyText, stylesMain.ItemCenterVertical
                   ]}>
                     ตัวอย่างเช่น สี ขนาด</Text>
-                  <IconEntypo style={stylesDetail.Coupon_Icon} name='chevron-right' size={30} color='#0A55A6' />
+                  <IconEntypo style={stylesDetail.Coupon_Icon} name='chevron-right' size={30} color={mainColor} />
                 </View>
               </View>
             </TouchableOpacity>
@@ -1074,7 +1074,7 @@ export class Detail extends React.Component {
                           'ย่อ' :
                           'ดูเพิ่มเติม'
                       }</Text>
-                    <IconEntypo name={activeText == true ? 'chevron-up' : 'chevron-down'} size={25} color='#0A55A6' />
+                    <IconEntypo name={activeText == true ? 'chevron-up' : 'chevron-down'} size={25} color={mainColor} />
                   </View>
                 </TouchableOpacity>
               }
@@ -1190,7 +1190,7 @@ export class Reviews extends React.Component {
           })}>
             <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize6, { marginRight: 0 }]}>
               ดูทั้งหมด</Text>
-            <IconFeather style={stylesDetail.Score_iconB} name='edit' size={20} color='#0A55A6' />
+            <IconFeather style={stylesDetail.Score_iconB} name='edit' size={20} color={mainColor} />
           </TouchableOpacity>
         </View>
         {
@@ -1552,7 +1552,7 @@ export class Coupon_Detail_BottomSheet extends React.Component {
           <TouchableOpacity activeOpacity={dataService.ticket_picked == 'ticket_picked' ? 1 : 0.2}
             onPress={dataService.ticket_picked == 'ticket_picked' ? null : () => this.saveTicket(dataService.id_promotion)}>
             <View style={[stylesMain.ItemCenter, {
-              backgroundColor: dataService.ticket_picked == 'ticket_picked' ? '#A9A9A9' : '#0A55A6', paddingHorizontal: 10,
+              backgroundColor: dataService.ticket_picked == 'ticket_picked' ? '#A9A9A9' : mainColor, paddingHorizontal: 10,
               borderRadius: 5
             }]}>
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>

@@ -1,6 +1,8 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import { normalize } from './stylesFont';
 export const { width, height } = Dimensions.get('window');
 
+export const mainColor = '#1A3363'
 export default StyleSheet.create({
   ///***------------------------------------------------------------------------------------------------------***///
   animatedView: {
@@ -102,7 +104,7 @@ export default StyleSheet.create({
     width: '100%',
   },
   BoxProduct1ImagePrice: {
-    color: '#0A55A6',
+    color: mainColor,
   },
   BoxProduct1ImagePriceThrough: {
     color: '#fb3449',
@@ -143,7 +145,7 @@ export default StyleSheet.create({
     fontSize: 10,
     marginTop: 12,
     marginLeft: 8,
-    color: '#0A55A6',
+    color: mainColor,
   },
   BoxProduct2IconBox: {
     flex: 1,
@@ -239,7 +241,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   BoxProduct4PlusButtonFollow: {
-    backgroundColor: '#0A55A6',
+    backgroundColor: mainColor,
     height: 30,
     width: 90,
     paddingTop: 5,
@@ -414,7 +416,7 @@ export default StyleSheet.create({
     marginTop: 6,
   },
   FrameBackgroundTextEnd: {
-    color: '#0A55A6',
+    color: mainColor,
     marginRight: 8,
     marginTop: 10,
   },
@@ -501,14 +503,14 @@ export default StyleSheet.create({
   },
   ///------------------------------------------------------------------------------------------///
   child: {
-    width,
+    width: width,
     height: 'auto',
-    aspectRatio: 2.6 / 1
+    aspectRatio: 2.0850,
   },
   childSlide: {
-    width,
+    width: width,
     height: 'auto',
-    aspectRatio: 2.6 / 1
+    aspectRatio: 2.0850,
   },
   ///------------------------------------------------------------------------------------------///
   Category: {
@@ -582,7 +584,7 @@ export default StyleSheet.create({
     width: '100%',
   },
   PopularText_A: {
-    backgroundColor: '#0A55A6',
+    backgroundColor: mainColor,
     borderColor: '#ECECEC',
     borderWidth: 0.5,
     height: height * 0.035,
@@ -710,7 +712,7 @@ export default StyleSheet.create({
     height: 30,
     width: 160,
     marginLeft: 10,
-    backgroundColor: '#0A55A6',
+    backgroundColor: mainColor,
     borderBottomRightRadius: 5,
     borderBottomLeftRadius: 5,
   },
@@ -718,7 +720,7 @@ export default StyleSheet.create({
     height: '75%', width: '100%',
   },
   bigSlideText: {
-    backgroundColor: '#0A55A6', height: '23%', width: '100%',
+    backgroundColor: mainColor, height: '23%', width: '100%',
     padding: 2
   },
   litleSlideImage: {
@@ -726,7 +728,7 @@ export default StyleSheet.create({
     borderRadius: 5,
   },
   litleSlideText: {
-    backgroundColor: '#0A55A6', height: '30%', width: '100%',
+    backgroundColor: mainColor, height: '30%', width: '100%',
     borderBottomLeftRadius: 5, borderBottomRightRadius: 5,
     paddingTop: 0,
     padding: 2,
@@ -762,7 +764,7 @@ export default StyleSheet.create({
   ///------------------------------------------------------------------/// ส่วน FIN Supermarket
   Supermarket_Product: {
     width: '100%',
-    backgroundColor: '#0A55A6',
+    backgroundColor: mainColor,
     paddingVertical: 10
   },
   Supermarket_Store: {

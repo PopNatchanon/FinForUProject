@@ -12,7 +12,7 @@ import NumberFormat from 'react-number-format';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../../style/stylesFont';
-import stylesMain from '../../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, Second_product, Slide } from '../MainScreen';
 import { Button_Bar, } from './DealScreen';
@@ -76,7 +76,7 @@ export class Fin_sale extends Component {
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>Fin จัดหนักลดสูงสุด 80 % </Text>
           </View>
           <View style={stylesDeal.Fin_sale_BoxHead}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: mainColor }]}>ดูทั้งหมด</Text>
           </View>
           {
             dataService &&
@@ -170,7 +170,7 @@ export class Store_Sale extends Component {
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ร้านนี้มีของลด </Text>
           </View>
           <View style={stylesDeal.Fin_sale_BoxHead}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: mainColor }]}>ดูทั้งหมด</Text>
           </View>
           {this.Store_Sale_Box()}
         </View>
@@ -196,7 +196,7 @@ export class Product_Cool extends Component {
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>สินค้าราคาโคตรคูล </Text>
           </View>
           <View style={[stylesDeal.Fin_sale_BoxHead, { marginTop: -10 }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: mainColor }]}>ดูทั้งหมด</Text>
           </View>
           {
             dataService &&
@@ -302,14 +302,14 @@ export class Second_Store extends Component {
           <View style={[stylesDeal.BoxText_T, { backgroundColor: '#95D370', marginLeft: -3, width: 140 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ร้านมือสองลดราคา </Text>
           </View>
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB, { color: mainColor }]}>ดูทั้งหมด</Text>
         </View>
         {this.Second_StoreBody}
         <View style={stylesDeal.BoxText_Row}>
           <View style={[stylesDeal.BoxText_T, { backgroundColor: '#E43333', marginLeft: -3, width: 140 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ร้านมือสองลดราคา </Text>
           </View>
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB, { color: '#0A55A6' }]}>ดูทั้งหมด</Text>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB, { color: mainColor }]}>ดูทั้งหมด</Text>
         </View>
         {
           dataService && dataService.product_sec &&

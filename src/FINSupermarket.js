@@ -13,7 +13,7 @@ import IconFeather from 'react-native-vector-icons/Feather';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesDeal from '../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../style/stylesFont';
-import stylesMain from '../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, TodayProduct, ExitAppModule, Recommend_Brand, } from './MainScreen';
@@ -150,7 +150,7 @@ export class FIN_Supermarket extends React.Component {
             item={item}
             radiusBox={4}
             widthBox={97}
-            inactiveColor='#0A55A6'
+            inactiveColor={mainColor}
             overScrollMode={'never'}
             type='box' />
           {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 5 }}>

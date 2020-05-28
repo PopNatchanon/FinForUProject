@@ -14,7 +14,7 @@ import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../style/stylesFont';
-import stylesMain from '../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, ExitAppModule, } from './MainScreen';
@@ -211,7 +211,7 @@ export default class StoreScreen extends React.Component {
                 {
                     selectedIndex == 2 &&
                     <>
-                        <ActionButton buttonColor="#0A55A6" size={50}
+                        <ActionButton buttonColor={mainColor} size={50}
                             onPress={() => NavigationNavigateScreen({
                                 goScreen: 'Post_Feed', setData: {
                                     selectedIndex: 1, id_store: id_item, store_data: dataService.store_data,
@@ -333,7 +333,7 @@ export class StoreHeadDetails extends React.Component {
                             onPress={() => NavigationNavigateScreen({
                                 goScreen: 'Post_Feed', setData: { selectedIndex: 0, id_store: id_item }, navigation
                             })}>
-                            <IconEntypo name='chevron-right' size={25} color='#0A55A6' />
+                            <IconEntypo name='chevron-right' size={25} color={mainColor} />
                         </TouchableOpacity>
                     </View>
                 );
@@ -593,9 +593,9 @@ export class SubMenu extends React.Component {
                 <IconMaterialIcons name='unfold-more' size={15} style={[
                     stylesMain.ItemCenterVertical, { color: '#6C6C6C', marginLeft: 2 }]} />,
                 <IconMaterialIcons name='arrow-upward' size={15} style={[
-                    stylesMain.ItemCenterVertical, { color: '#0A55A6', marginLeft: 2 }]} />,
+                    stylesMain.ItemCenterVertical, { color: mainColor, marginLeft: 2 }]} />,
                 <IconMaterialIcons name='arrow-downward' size={15} style={[
-                    stylesMain.ItemCenterVertical, { color: '#0A55A6', marginLeft: 2 }]} />
+                    stylesMain.ItemCenterVertical, { color: mainColor, marginLeft: 2 }]} />
             ],
             actionList: [1, 2],
             actionReturn: ['min', 'max'],
@@ -609,7 +609,7 @@ export class SubMenu extends React.Component {
                         item={item}
                         // widthBox={98}
                         activeColor={'#fff'}
-                        activeFontColor={'#0A55A6'}
+                        activeFontColor={mainColor}
                         type='tag' />
                 </View>
             </View>

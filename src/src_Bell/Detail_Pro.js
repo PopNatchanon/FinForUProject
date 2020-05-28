@@ -139,7 +139,7 @@ export class Detail_Order extends React.Component {
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}> สรุปยอดรวมทั้งสิ้น </Text>
                     <View style={[stylesMain.FlexRow, { padding: 10, justifyContent: 'space-between' }]}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>ยอดรวม</Text>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>฿5,000.00</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>฿5,000.00</Text>
                     </View>
                     <View style={[
                         stylesMain.FlexRow, {
@@ -147,7 +147,7 @@ export class Detail_Order extends React.Component {
                         }
                     ]}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยอดรวมทั้งสิ้น</Text>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#0A55A6' }]}>฿5,000.00</Text>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: mainColor }]}>฿5,000.00</Text>
                     </View>
                 </View>
             </View>
@@ -237,7 +237,7 @@ export class Detail_Button extends React.Component {
                 goScreen: 'Detail_Pro', setData: { selectedIndex: 2 }, navigation
             })}>
                 <View style={{
-                    width: '100%', backgroundColor: '#0A55A6', height: 50, alignItems: 'center', justifyContent: 'center', marginTop: 10
+                    width: '100%', backgroundColor: mainColor, height: 50, alignItems: 'center', justifyContent: 'center', marginTop: 10
                 }}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตรวจสอบรายละเอียด</Text>
                 </View>

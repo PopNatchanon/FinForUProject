@@ -1,9 +1,10 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import { normalize } from './stylesFont';
+import { mainColor } from './StylesMainScreen';
 export const { width, height } = Dimensions.get('window');
 export default StyleSheet.create({
     Appbar: {
-        backgroundColor: '#0A55A6',
+        backgroundColor: mainColor,
         height: 50,
         flexDirection: 'row',
         width: '100%',
@@ -25,7 +26,7 @@ export default StyleSheet.create({
     HeadbarImage: {
         width,
         height: 150,
-        backgroundColor: '#1a3263',
+        backgroundColor: mainColor,
     },
     HeadbarA: {
         marginTop: -150,
@@ -38,7 +39,7 @@ export default StyleSheet.create({
     },
     HeadbarBox1Sub: {
         width: 80,
-        backgroundColor: '#0A55A6',
+        backgroundColor: mainColor,
         marginTop: 8,
         padding: 8,
         borderTopRightRadius: 8,
@@ -69,7 +70,7 @@ export default StyleSheet.create({
         height: 40,
         marginTop: 20,
         marginLeft: 60,
-        backgroundColor: '#0A55A6',
+        backgroundColor: mainColor,
         borderRadius: 6,
         marginLeft: 'auto',
         marginRight: 'auto',
@@ -96,7 +97,7 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
     },
     MenubarText2: {
-        color: '#0A55A6',
+        color: mainColor,
     },
     ///---------------------------------------------------------------------------///
     MenubarSub: {
@@ -239,7 +240,7 @@ export default StyleSheet.create({
         marginTop: 6,
         marginRight: 4,
         padding: 4,
-        backgroundColor: '#0A55A6',
+        backgroundColor: mainColor,
     },
     FinMinssionBoxPlan1Follow: {
         width,
@@ -275,7 +276,7 @@ export default StyleSheet.create({
         marginLeft: 40,
         borderRadius: 40,
         borderWidth: 1,
-        borderColor: '#0A55A6',
+        borderColor: mainColor,
         width: 160,
         height: 60,
         backgroundColor: 'white'
@@ -307,7 +308,7 @@ export default StyleSheet.create({
         // backgroundColor: '#456123'
     },
     CoinPageBodyBoxBody2Box: {
-        backgroundColor: '#0A55A6',
+        backgroundColor: mainColor,
         width: 100,
         height: 30,
         borderRadius: 4,

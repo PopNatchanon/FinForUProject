@@ -13,7 +13,7 @@ import IconEntypo from 'react-native-vector-icons/Entypo';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../../style/stylesFont';
-import stylesMain from '../../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfile from '../../style/StylesProfileScreen';
 import ststylePromotionDeal from '../../style/stylePromotion-src/styleDealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
@@ -149,8 +149,8 @@ export class CoinCollect extends Component {
                     <TabBar
                         sendData={this.getPathlist.bind(this)}
                         inactiveBoxColor={'#fff'}
-                        inactiveColor={'#0A55A6'}
-                        inactiveFontColor={'#0A55A6'}
+                        inactiveColor={mainColor}
+                        inactiveFontColor={mainColor}
                         item={item}
                         widthBox={98}
                         fontSizeStyle={12}
@@ -203,7 +203,7 @@ export class CoinPageBody extends Component {
                     justifyContent: 'center', height: 40, paddingTop: 8,
                 }]}>
                     <TouchableOpacity activeOpacity={1} onPress={() => { this.DetailCoinSheet.close() }}>
-                        <View style={{ paddingHorizontal: 25, borderColor: '#0A55A6', borderWidth: 1, borderRadius: 5 }}>
+                        <View style={{ paddingHorizontal: 25, borderColor: mainColor, borderWidth: 1, borderRadius: 5 }}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical]}>ยกเลิก</Text>
                         </View>
                     </TouchableOpacity>
@@ -218,14 +218,14 @@ export class CoinPageBody extends Component {
                             dataService.my_coupon == 'yes' ?
                                 '#ECECEC' :
                                 dataService.my_coupon == 'no' ?
-                                    '#0A55A6' :
+                                    mainColor :
                                     '#DC3545',
                         borderWidth: 1, marginLeft: 10,
                         backgroundColor:
                             dataService.my_coupon == 'yes' ?
                                 '#ECECEC' :
                                 dataService.my_coupon == 'no' ?
-                                    '#0A55A6' :
+                                    mainColor :
                                     '#ECECEC',
                         borderRadius: 5,
                         paddingHorizontal: 20
@@ -303,7 +303,7 @@ export class CoinPageBody extends Component {
                                                 dataService.my_coupon == 'yes' ?
                                                     '#ECECEC' :
                                                     dataService.my_coupon == 'no' ?
-                                                        '#0A55A6' :
+                                                        mainColor :
                                                         '#ECECEC'
                                         }]}>
                                             <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize8, {

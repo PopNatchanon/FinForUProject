@@ -19,7 +19,7 @@ import IconIonicons from 'react-native-vector-icons/Ionicons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesDetail from '../../style/StylesDetailScreen'
 import stylesFont from '../../style/stylesFont';
-import stylesMain from '../../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, TodayProduct } from '../MainScreen';
@@ -218,7 +218,7 @@ export class AppbarChat extends React.Component {
         return (
             <View style={stylesProfileTopic.AppbarChat}>
                 <TouchableOpacity activeOpacity={1} onPress={() => navigation.goBack()}>
-                    <IconEntypo name='chevron-left' size={35} color='#0A55A6' style={stylesMain.ItemCenterVertical} />
+                    <IconEntypo name='chevron-left' size={35} color={mainColor} style={stylesMain.ItemCenterVertical} />
                 </TouchableOpacity>
                 <View>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { marginTop: 5 }]}>{Title ? Title : ''}</Text>
@@ -700,7 +700,7 @@ export class Might_like_Store extends React.Component {
                                                 }]}>
                                                     {value.name}</Text>
                                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, {
-                                                    color: '#0A55A6', borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5,
+                                                    color: mainColor, borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5,
                                                     paddingHorizontal: 10, marginBottom: 5
                                                 }]}>{value.full_price}</Text>
                                             </View>
@@ -1265,7 +1265,7 @@ export class Review_From extends React.Component {
                                     avatarSource.map((item, index) => {
                                         return (
                                             <TouchableOpacity onPress={() => this.UploadImageSingle(index)} key={index}>
-                                                <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                                                <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: mainColor, borderWidth: 1, }]}>
                                                     <FastImage
                                                         source={{ uri: item.path }}
                                                         style={[stylesMain.ItemCenterVertical, stylesMain.BoxProduct1Image]}
@@ -1276,19 +1276,19 @@ export class Review_From extends React.Component {
                                     }),
                                     avatarSource.length < 3 &&
                                     <TouchableOpacity onPress={() => this.UploadImageMultiple()} key={'upload'}>
-                                        <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                                        <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: mainColor, borderWidth: 1, }]}>
                                             <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
-                                                <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
-                                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
+                                                <IconAntDesign RightItem name='camerao' size={35} color={mainColor} />
+                                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
                                             </View>
                                         </View>
                                     </TouchableOpacity>
                                 ] :
                                     <TouchableOpacity onPress={() => this.UploadImageMultiple()}>
-                                        <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                                        <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: mainColor, borderWidth: 1, }]}>
                                             <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
-                                                <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
-                                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
+                                                <IconAntDesign RightItem name='camerao' size={35} color={mainColor} />
+                                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
                                             </View>
                                         </View>
                                     </TouchableOpacity>

@@ -16,7 +16,7 @@ import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommun
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 ///----------------------------------------------------------------------------------------------->>>> styleSeller
 import stylesFont from '../../style/stylesFont';
-import stylesMain from '../../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfile from '../../style/StylesProfileScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1 } from '../MainScreen';
@@ -100,7 +100,7 @@ export class Menubar extends Component {
             <View style={stylesProfile.Menu}>
                 <View style={[stylesProfile.Menubar, { height: 35, }]}>
                     <View style={stylesMain.FlexRow}>
-                        <IconsFontAwesome5 RightItem name="store" size={20} color='#0A55A6' />
+                        <IconsFontAwesome5 RightItem name="store" size={20} color={mainColor} />
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,]}> การขายของฉัน </Text>
                     </View>
                     <View style={stylesMain.FlexRow}>
@@ -111,7 +111,7 @@ export class Menubar extends Component {
                                 ดูประวัติการขาย
                             </Text>
                         </TouchableOpacity>
-                        <IconEntypo name='chevron-right' size={25} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' size={25} color={mainColor} />
                     </View>
                 </View>
                 <MenubarSub navigation={navigation} />
@@ -198,13 +198,13 @@ export class ListMenu extends Component {
                     })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
-                                <IconAntDesign RightItem name="plussquareo" size={35} color='#0A55A6' style={stylesProfile.ListMenuListSubIcon} />
+                                <IconAntDesign RightItem name="plussquareo" size={35} color={mainColor} style={stylesProfile.ListMenuListSubIcon} />
 
                                 <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     เพิ่มสินค้า
                             </Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
@@ -217,7 +217,7 @@ export class ListMenu extends Component {
                                     ออเดอร์ล่าสุด
                             </Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
@@ -230,7 +230,7 @@ export class ListMenu extends Component {
                                     การจัดส่งของฉัน
                             </Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
@@ -243,7 +243,7 @@ export class ListMenu extends Component {
                                     รายได้ของฉัน
                             </Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
@@ -256,7 +256,7 @@ export class ListMenu extends Component {
                                     ถอนเงิน
                             </Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
@@ -269,7 +269,7 @@ export class ListMenu extends Component {
                                     จัดการโฆษณา
                             </Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
@@ -277,12 +277,12 @@ export class ListMenu extends Component {
                     })}>
                         <View style={stylesProfile.ListMenuList}>
                             <View style={stylesProfile.ListMenuListSub}>
-                                <IconEntypo RightItem name="bar-graph" size={30} color='#0A55A6' style={stylesProfile.ListMenuListSubIcon} />
+                                <IconEntypo RightItem name="bar-graph" size={30} color={mainColor} style={stylesProfile.ListMenuListSubIcon} />
                                 <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     สถิติร้านค้าของฉัน
                             </Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
@@ -295,7 +295,7 @@ export class ListMenu extends Component {
                                     คะแนนของฉัน
                             </Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
@@ -309,7 +309,7 @@ export class ListMenu extends Component {
                                     คลังสินค้าของฉัน
                                 </Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => NavigationNavigateScreen({
@@ -323,7 +323,7 @@ export class ListMenu extends Component {
                                     ช่วยเหลือ
                             </Text>
                             </View>
-                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color='#0A55A6' />
+                            <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -373,7 +373,7 @@ export class Seller_Product_Box extends Component {
                 </View>
                 <View style={{ marginTop: 10 }}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ห้องพัก Deluxe Pool Villa</Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>฿10,000</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>฿10,000</Text>
                 </View>
                 <View style={[stylesMain.FlexRow, { justifyContent: 'space-between' }]}>
                     <View style={stylesMain.FlexRow}>

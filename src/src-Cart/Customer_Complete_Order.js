@@ -12,7 +12,7 @@ import NumberFormat from 'react-number-format';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../../style/stylesFont';
-import stylesMain from '../../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, TodayProduct, } from '../MainScreen';
 import { GetServices, NavigationNavigateScreen } from '../customComponents/Tools';
@@ -91,7 +91,7 @@ export class Customer_Product extends Component {
       return (
         <View>
           <View style={{ justifyContent: 'center', alignItems: 'center', height: 150, backgroundColor: '#FFFFFF' }}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#0A55A6' }]}> ขอบคุณสำหรับคำสั่งซื้อ </Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: mainColor }]}> ขอบคุณสำหรับคำสั่งซื้อ </Text>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
               หมายเลขคำสั่งซื้อ {no_invoice} ของท่าน</Text>
           </View>
@@ -116,7 +116,7 @@ export class Customer_Product extends Component {
                 <View style={{ backgroundColor: '#D7D7D7', width: '100%', height: 3, marginTop: 10, }}></View>
                 <View style={{ alignItems: 'flex-end', margin: 10, }}>
                   <TouchableOpacity>
-                    <View style={{ backgroundColor: '#0A55A6', borderRadius: 5, paddingHorizontal: 15, paddingVertical: 5 }}>
+                    <View style={{ backgroundColor: mainColor, borderRadius: 5, paddingHorizontal: 15, paddingVertical: 5 }}>
                       <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#FFFFFF', }]}>ดูคำสั่งซื้อ</Text>
                     </View>
                   </TouchableOpacity>
@@ -148,14 +148,14 @@ export class Customer_Product extends Component {
                     thousandSeparator={true}
                     prefix={'฿'}
                     renderText={value2 =>
-                      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#0A55A6' }]}>{value2}</Text>
+                      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: mainColor }]}>{value2}</Text>
                     } />
                 </View>
               </View>
             </View>
             <View style={{ alignItems: 'center', marginTop: 10 }}>
               <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'popToTop', navigation })}>
-                <View style={{ backgroundColor: '#0A55A6', paddingHorizontal: 10, padding: 10, borderRadius: 5, }}>
+                <View style={{ backgroundColor: mainColor, paddingHorizontal: 10, padding: 10, borderRadius: 5, }}>
                   <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ช้อปต่อไม่รอแล้วนะ</Text>
                 </View>
               </TouchableOpacity>

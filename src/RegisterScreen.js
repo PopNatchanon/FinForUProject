@@ -16,7 +16,7 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../style/stylesFont';
 import stylesLogin from '../style/stylesLoginScreen';
-import stylesMain from '../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { ExitAppModule } from './MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -562,7 +562,7 @@ export class Login extends React.Component {
             <View style={[stylesLogin.Login_Box_Text_B, {
               backgroundColor:
                 item1 == true ?
-                  '#0A55A6' :
+                  mainColor :
                   '#ECECEC'
             }]}>
               <Text style={[stylesLogin.Login__Text, stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical]}>

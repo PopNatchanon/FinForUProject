@@ -15,6 +15,7 @@ import { GetServices } from './customComponents/Tools';
 import { Slide } from './src_Promotion/DealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from './navigator/IpConfig';
+import { mainColor } from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class Same_StoreScreen extends React.Component {
     constructor(props) {
@@ -87,7 +88,7 @@ export class Header extends React.Component {
         return (
             <View style={{ width: '100%', alignItems: 'center', marginVertical: 10, }}>
                 <View style={{
-                    width: 150, height: 50, backgroundColor: '#0A55A6', justifyContent: 'center', borderRadius: 5, alignItems: 'center',
+                    width: 150, height: 50, backgroundColor: mainColor, justifyContent: 'center', borderRadius: 5, alignItems: 'center',
                 }}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}> {Title} </Text></View>
             </View>

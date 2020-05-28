@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import { mainColor } from '../StylesMainScreen';
 
 export const { width, height } = Dimensions.get('window');
 
@@ -33,7 +34,7 @@ export default StyleSheet.create({
         marginLeft: 10,
         width: 130,
         height: 130,
-        borderColor: '#0A55A6',
+        borderColor: mainColor,
         borderWidth: 1,
     },
     Seller_Up_ProductDetail: {
@@ -85,7 +86,7 @@ export default StyleSheet.create({
     BottomSheet_Botton_OK: {
         width: 145,
         height: 50,
-        backgroundColor: '#0A55A6',
+        backgroundColor: mainColor,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 5,
@@ -247,7 +248,7 @@ export default StyleSheet.create({
         marginLeft: 10,
         width: 130,
         height: 100,
-        borderColor: '#0A55A6',
+        borderColor: mainColor,
         borderWidth: 1,
     },
 
@@ -289,7 +290,7 @@ export default StyleSheet.create({
     },
     Seller_Return_Button: {
         height: 30, width: 100,
-        backgroundColor: '#0A55A6',
+        backgroundColor: mainColor,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 5, marginTop: 10

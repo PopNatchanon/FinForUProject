@@ -14,7 +14,7 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import styles from '../../style/styleCart-src/styleCustomer_account';
 import stylesFont from '../../style/stylesFont';
-import stylesMain from '../../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { ExitAppModule } from '../MainScreen';
 import { GetServices } from '../customComponents/Tools';
@@ -568,7 +568,7 @@ export class Button_Bar extends Component {
             <View style={{ alignItems: 'center', justifyContent: 'flex-end', }}>
                 <TouchableOpacity activeOpacity={bool == true ? 0.2 : 1} onPress={bool == true ? () => this.activeSave() : null}>
                     <View style={{
-                        height: 40, backgroundColor: bool == true ? '#0A55A6' : '#ECECEC'
+                        height: 40, backgroundColor: bool == true ? mainColor : '#ECECEC'
                         , width, alignItems: 'center', justifyContent: 'center',
                     }}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, {

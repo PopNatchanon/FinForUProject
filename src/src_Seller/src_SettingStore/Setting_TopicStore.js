@@ -14,7 +14,7 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 ///----------------------------------------------------------------------------------------------->>>> styleSeller
-import stylesMain from '../../../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
 import stylesFont from '../../../style/stylesFont';
 import stylesLogin from '../../../style/stylesLoginScreen';
 import stylesSeller from '../../../style/styleSeller-src/styleSellerScreen';
@@ -144,7 +144,7 @@ export class Notification extends Component {
                 })}>
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>บัญชีธนาคาร</Text>
-                        <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' size={35} color={mainColor} />
                     </View>
                 </TouchableOpacity>
                 <View style={[stylesSeller.Seller_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
@@ -156,7 +156,7 @@ export class Notification extends Component {
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>
                             หนังสือจดทะเบียนบริษัท จากกรมพัฒนาธุรกิจการค้า</Text>
-                        <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' size={35} color={mainColor} />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => NavigationNavigateScreen({
@@ -165,7 +165,7 @@ export class Notification extends Component {
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>
                             สำเนาบัตรประชาชน/พาสปอร์ตของกรรมการผู้มีอำนาจลงนาม</Text>
-                        <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' size={35} color={mainColor} />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => NavigationNavigateScreen({
@@ -173,7 +173,7 @@ export class Notification extends Component {
                 })}>
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ใบทะเบียนภาษีมูลค่าเพิ่ม</Text>
-                        <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' size={35} color={mainColor} />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => NavigationNavigateScreen({
@@ -181,7 +181,7 @@ export class Notification extends Component {
                 })}>
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ใบจดทะเบียนเครื่องหมายการค้า</Text>
-                        <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' size={35} color={mainColor} />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => NavigationNavigateScreen({
@@ -190,7 +190,7 @@ export class Notification extends Component {
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>
                             หนังสือรับรองการเป็นตัวแทนจำหน่าย (ไม่จำเป็นต้องระบุ)</Text>
-                        <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' size={35} color={mainColor} />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => NavigationNavigateScreen({
@@ -198,7 +198,7 @@ export class Notification extends Component {
                 })}>
                     <View style={stylesSeller.Seller_Setting_BoxTopic}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>สำเนาบัญชีธนาคารของผู้ขาย</Text>
-                        <IconEntypo name='chevron-right' size={35} color='#0A55A6' />
+                        <IconEntypo name='chevron-right' size={35} color={mainColor} />
                     </View>
                 </TouchableOpacity>
             </View>
@@ -263,9 +263,9 @@ export class Edit_Bank extends Component {
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>หน้าบัญชีธนาคาร</Text>
                         <View style={[stylesMain.FlexRow, { height: 50, justifyContent: 'space-around', marginBottom: 10 }]}>
                             <View style={{ width: '48%', borderColor: '#E9E9E9', borderWidth: 1, backgroundColor: '#FFFFFF', borderRadius: 5 }}></View>
-                            <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.FlexRow, { width: '48%', borderColor: '#0A55A6', borderWidth: 2, backgroundColor: '#FFFFFF', borderRadius: 5 }]}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#0A55A6' }]}>อัพโหลด</Text>
-                                <IconEntypo name='upload' size={30} style={{ color: '#0A55A6', marginLeft: 10 }} />
+                            <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.FlexRow, { width: '48%', borderColor: mainColor, borderWidth: 2, backgroundColor: '#FFFFFF', borderRadius: 5 }]}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: mainColor }]}>อัพโหลด</Text>
+                                <IconEntypo name='upload' size={30} style={{ color: mainColor, marginLeft: 10 }} />
                             </TouchableOpacity>
                         </View>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8]}>สามารถอัพโหลดเอกสารได้ 1 ฉบับ ความละเอียดได้ไม่ 5 MB รองรับ .PNG .JPEG </Text>
@@ -426,7 +426,7 @@ export class Notification_From extends Component {
                                     avatarSource.map((item, index) => {
                                         return (
                                             <TouchableOpacity onPress={() => this.UploadImageSingle(index)} key={index}>
-                                                <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                                                <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: mainColor, borderWidth: 1, }]}>
                                                     <FastImage
                                                         source={{ uri: item.path }}
                                                         style={[stylesMain.ItemCenterVertical, { height: '100%', width: '100%' }]}
@@ -437,19 +437,19 @@ export class Notification_From extends Component {
                                     }),
                                     avatarSource.length < 7 &&
                                     <TouchableOpacity onPress={() => this.UploadImageMultiple()} key={'upload'}>
-                                        <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                                        <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: mainColor, borderWidth: 1, }]}>
                                             <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
-                                                <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
-                                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
+                                                <IconAntDesign RightItem name='camerao' size={35} color={mainColor} />
+                                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
                                             </View>
                                         </View>
                                     </TouchableOpacity>
                                 ] :
                                     <TouchableOpacity onPress={() => this.UploadImageMultiple()}>
-                                        <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: '#0A55A6', borderWidth: 1, }]}>
+                                        <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: mainColor, borderWidth: 1, }]}>
                                             <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
-                                                <IconAntDesign RightItem name='camerao' size={35} color='#0A55A6' />
-                                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
+                                                <IconAntDesign RightItem name='camerao' size={35} color={mainColor} />
+                                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
                                             </View>
                                         </View>
                                     </TouchableOpacity>

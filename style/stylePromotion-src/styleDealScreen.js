@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import { mainColor } from '../StylesMainScreen';
 export const { width, height } = Dimensions.get('window');
 export default StyleSheet.create({
     ///--------------------------------------DealScreen---------------------------------------///
@@ -83,9 +84,9 @@ export default StyleSheet.create({
     },
     Deal_Today_Box: {
         backgroundColor: '#FFFFFF',
-        borderColor:'#00adb5',
-        borderTopWidth:3,
-        padding:5,
+        borderColor: '#00adb5',
+        borderTopWidth: 3,
+        padding: 5,
     },
     Deal_Today_BoxImage: {
         height: 80,
@@ -157,10 +158,10 @@ export default StyleSheet.create({
     ProDed_Store: {
         height: 160,
         width: 120,
-        borderColor:'#C4C4C4',
+        borderColor: '#C4C4C4',
         backgroundColor: '#FFFFFF',
         padding: 10,
-        marginVertical:10,
+        marginVertical: 10,
         marginLeft: 10,
         borderRadius: 5,
     },
@@ -183,7 +184,7 @@ export default StyleSheet.create({
         padding: 10,
     },
     ProDed_New_Store_Button: {
-        backgroundColor: '#0A55A6',
+        backgroundColor: mainColor,
         height: 20,
         width: 60,
         marginTop: 5,
@@ -232,7 +233,7 @@ export default StyleSheet.create({
         marginTop: 3,
     },
     CampaignBody_Button: {
-        backgroundColor: '#0A55A6',
+        backgroundColor: mainColor,
         width: 80,
         alignItems: 'center',
         borderRadius: 4,

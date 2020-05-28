@@ -9,7 +9,7 @@ import FastImage from 'react-native-fast-image';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesMain from '../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 import stylesFont from '../style/stylesFont';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
@@ -82,7 +82,7 @@ export class Button_Bar extends React.Component {
             numberOfLines={1}
             activeColor={'#fff'}
             activeFontColor={'#111'}
-            tagBottomColor={'#0A55A6'}
+            tagBottomColor={mainColor}
             tagBottom
             type='tag' />
         </ScrollView>

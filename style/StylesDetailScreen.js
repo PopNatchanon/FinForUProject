@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import { mainColor } from './StylesMainScreen';
 
 export const { width, height } = Dimensions.get('window');
 
@@ -63,7 +64,7 @@ export default StyleSheet.create({
     },
     Price_Text_Int: {
         marginTop: 5,
-        color: '#0A55A6',
+        color: mainColor,
         marginLeft: 5,
     },
     Price_Text_IconBox: {
@@ -87,7 +88,7 @@ export default StyleSheet.create({
     Price_Text_RCM: {
         paddingTop: 5,
         marginLeft: 12,
-        color: '#0A55A6',
+        color: mainColor,
     },
     ///--------------------------------------------------------------------------///
     Store_Box1: {
@@ -131,7 +132,7 @@ export default StyleSheet.create({
     },
     Store_Bar_int: {
         textAlign: 'center',
-        color: '#0A55A6',
+        color: mainColor,
     },
     Store_Image: {
         height: 50,
@@ -163,7 +164,7 @@ export default StyleSheet.create({
         marginHorizontal: 5,
         borderWidth: 1,
         paddingHorizontal: 10,
-        borderColor: '#0A55A6',
+        borderColor: mainColor,
         backgroundColor: '#C0DBF9'
     },
     ///--------------------------------------------------------------------------///
@@ -177,7 +178,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
     },
     Detail_Text_A: {
-        color: '#0A55A6',
+        color: mainColor,
     },
     ///-------------------------------------------------------------------------///
     Score_iconB: {
@@ -230,7 +231,7 @@ export default StyleSheet.create({
         height: 80,
     },
     Comment_text_day: {
-        color: '#0A55A6',
+        color: mainColor,
     },
 
     ///--------------------------------------------------------------------------///
@@ -271,7 +272,7 @@ export default StyleSheet.create({
         fontSize: 10,
         marginTop: 12,
         marginLeft: 8,
-        color: '#0A55A6',
+        color: mainColor,
     },
     PopularProductIconBox: {
         flex: 1,
@@ -313,11 +314,11 @@ export default StyleSheet.create({
         borderRadius: 4,
     },
     Buy_bar_IconBuy: {
-        backgroundColor: '#0A55A6',
+        backgroundColor: mainColor,
         width: 100,
         height: 40,
         borderRadius: 4,
-        borderColor: '#0A55A6',
+        borderColor: mainColor,
         borderWidth: 1,
     },
     Buy_bar_IconBuytext: {

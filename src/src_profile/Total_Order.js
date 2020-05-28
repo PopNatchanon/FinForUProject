@@ -15,7 +15,7 @@ import IconFeather from 'react-native-vector-icons/Feather';
 import Icons from 'react-native-vector-icons/FontAwesome5';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../../style/stylesFont';
-import stylesMain from '../../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from '../MainScreen';
@@ -267,7 +267,7 @@ export class Button_bar extends Component {
                             SetValue={selectedIndex >= 0 ? selectedIndex : SetselectedIndex}
                             // widthBox={98}
                             activeColor={'#fff'}
-                            activeFontColor={'#0A55A6'}
+                            activeFontColor={mainColor}
                             type='tag'
                         />
                     </ScrollView>
@@ -309,7 +309,7 @@ export class From_Order_Box extends Component {
                             <View style={stylesProfileTopic.Order_Box_Button}>
                                 <TouchableOpacity>
                                     <View style={[stylesProfileTopic.Order_Button, stylesMain.ItemCenterVertical, {
-                                        borderWidth: 1, borderColor: '#0A55A6', backgroundColor: '#0A55A6'
+                                        borderWidth: 1, borderColor: mainColor, backgroundColor: mainColor
                                     }]}>
                                         <IconAntDesign RightItem name="wechat" size={20} color='#FFFFFF' />
                                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, {
@@ -407,7 +407,7 @@ export class From_Order_Box extends Component {
                             thousandSeparator={true}
                             prefix={'฿'}
                             renderText={value =>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#0A55A6', marginTop: 10, }]}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: mainColor, marginTop: 10, }]}>
                                     {value}</Text>
                             } />
                     </View>
@@ -420,7 +420,7 @@ export class From_Order_Box extends Component {
                                 thousandSeparator={true}
                                 prefix={'฿'}
                                 renderText={value =>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, color: '#0A55A6' }]}>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, color: mainColor }]}>
                                         {value}</Text>
                                 } />
                         </View>
@@ -431,7 +431,7 @@ export class From_Order_Box extends Component {
                                     goScreen: 'Customer_Order', setData: { no_invoice: dataService.invoice_no }, navigation
                                 })}>
                                     <View style={[stylesProfileTopic.Order_Button, {
-                                        borderWidth: 1, borderColor: '#0A55A6', backgroundColor: '#0A55A6'
+                                        borderWidth: 1, borderColor: mainColor, backgroundColor: mainColor
                                     }]}>
                                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>
                                             ดำเนินการชำระเงิน</Text>
@@ -450,8 +450,8 @@ export class From_Order_Box extends Component {
                                     goScreen: 'Return_products',
                                     setData: { selectedIndex: 1 }, navigation
                                 })}>
-                                    <View style={{ borderBottomColor: '#0A55A6', borderBottomWidth: 1, height: 20, }}>
-                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#0A55A6' }]}>
+                                    <View style={{ borderBottomColor: mainColor, borderBottomWidth: 1, height: 20, }}>
+                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>
                                             ส่งคำร้องคืนสินค้า</Text>
                                     </View>
                                 </TouchableOpacity>,
@@ -470,7 +470,7 @@ export class From_Order_Box extends Component {
                                 </TouchableOpacity>,
                                 dataService.status_purchase == 'cancel' &&
                                 <TouchableOpacity key={'buy_again_order'} >
-                                    <View style={[stylesProfileTopic.Order_Button, { backgroundColor: '#0A55A6' }]}>
+                                    <View style={[stylesProfileTopic.Order_Button, { backgroundColor: mainColor }]}>
                                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ซื้ออีกครั้ง</Text>
                                     </View>
                                 </TouchableOpacity>

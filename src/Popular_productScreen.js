@@ -7,7 +7,7 @@ import {
 export const { width, height } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesMain from '../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, TodayProduct, } from './MainScreen';
@@ -101,8 +101,8 @@ export class Button_Bar extends React.Component {
                             id_item :
                             null
                     }
-                    activeColor={'#0A55A6'}
-                    activeFontColor={'#0A55A6'}
+                    activeColor={mainColor}
+                    activeFontColor={mainColor}
                     type='tag' />
             </View>
         );

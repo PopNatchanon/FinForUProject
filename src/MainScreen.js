@@ -60,10 +60,10 @@ export default class MainScreen extends React.PureComponent {
         };
     };
     componentDidMount() {
-        this.SetTimeLoading = setTimeout(() => this.setState({ activeLoading: false }), 8000);
+        this.SetTimeLoading = setTimeout(() => this.setState({ activeLoading: false }), 8000/*50000*/);
     };
     componentWillUnmount() {
-        this.abortController.abort()
+        this.abortController.abort();
         clearTimeout(this.SetTimeLoading);
     };
     getData = (dataService) => {
@@ -81,9 +81,9 @@ export default class MainScreen extends React.PureComponent {
         const maxheight = 55
         const AnimatedHeadbg = scrollY.interpolate({
             inputRange: [maxheight, maxheight * 2],
-            outputRange: ['transparent', '#1A3363'],
+            outputRange: ['transparent', mainColor],
             extrapolate: 'clamp',
-            useNativeDriver: true,
+            useNativeDriver: false,
         })
         let itemT = [
             /////--------------------------------------------->>>Start
@@ -166,10 +166,10 @@ export default class MainScreen extends React.PureComponent {
                 nameComponent: 'Product_for_you',
                 renderComponent: <Product_for_you navigation={navigation} loadData={dataService.for_you} />
             },
-            // {
-            //     nameComponent: 'CategoryProduct',
-            //     renderComponent: <CategoryProduct navigation={navigation} />
-            // },
+            {
+                nameComponent: 'CategoryProduct',
+                renderComponent: <CategoryProduct navigation={navigation} />
+            },
             {
                 nameComponent: 'Second_product',
                 renderComponent: <Second_product navigation={navigation} loadData={{

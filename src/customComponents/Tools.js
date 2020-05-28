@@ -1205,7 +1205,7 @@ export function FlatProduct(props) {
             }}
             renderItem={(value) =>
                 <View style={{
-                    height: NumberOfcolumn == 2 ? mode == 'row3_new' ? 300 : 312 : undefined,
+                    height: NumberOfcolumn == 2 ? mode == 'row3_new' ? 312 : 325 : undefined,
                     marginTop: NumberOfcolumn == 2 ? 10 : undefined
                 }}>
                     {
@@ -1310,7 +1310,7 @@ export function RenderProduct(props) {
                         {
                             borderTopLeftRadius: radiusBox ? radiusBox : 0,
                             borderTopRightRadius: radiusBox ? radiusBox : 0,
-                            marginVertical: height * 0.015
+                            marginVertical: height * 0.015,
                         }
                         ]}
                         resizeMode={FastImage.resizeMode.contain} />
@@ -1621,7 +1621,7 @@ export class LoadingScreen extends React.Component {
                 animationType="fade"
                 transparent={true}
                 visible={modalVisible}
-                onRequestClose={this.setModalVisible.bind(this, !this.state.modalVisible)}>
+                onRequestClose={undefined/*this.setModalVisible.bind(this, !this.state.modalVisible)*/}>
                 <View style={[stylesMain.ItemCenter, { height, width }]}>
                     <View style={{ height, width, backgroundColor: '#555555', opacity: 0.5, position: 'absolute' }}></View>
                     <View style={[stylesMain.ItemCenterVertical, { height: 80, width: 80, borderRadius: 8, backgroundColor: '#ECECEC' }]}>

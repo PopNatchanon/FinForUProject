@@ -178,22 +178,22 @@ export default class MainScreen extends React.PureComponent {
             //     nameComponent: 'Category_Image_Total',
             //     renderComponent: <Category_Image_Total sizeBox={2} />
             // },
-            // {
-            //     nameComponent: 'Second_product',
-            //     renderComponent: <Second_product navigation={navigation} loadData={{
-            //         product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
-            //         list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3,
-            //         mobile_bar: dataService.mobile_bar, mobile_slide: dataService.mobile_slide,
-            //     }} />
-            // },
+            {
+                nameComponent: 'Second_product',
+                renderComponent: <Second_product navigation={navigation} loadData={{
+                    product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
+                    list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3,
+                    mobile_bar: dataService.mobile_bar, mobile_slide: dataService.mobile_slide,
+                }} />
+            },
             {
                 nameComponent: 'BannerBar_THREE',
                 renderComponent: <BannerBar_THREE />
             },
-            // {
-            //     nameComponent: 'FIN_Supermarket',
-            //     renderComponent: <FIN_Supermarket navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />
-            // },
+            {
+                nameComponent: 'FIN_Supermarket',
+                renderComponent: <FIN_Supermarket navigation={navigation} loadData={{ product_hit: dataService.product_hit }} />
+            },
             {
                 nameComponent: 'TodayProduct',
                 renderComponent: <TodayProduct navigation={navigation} loadData={dataService.for_you2} />
@@ -575,7 +575,7 @@ export class AppBar1 extends React.Component {
                         </TouchableOpacity>
                     }
                     <Text style={[
-                        stylesStore.Text_appbar, stylesFont.FontSize3, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical
+                        stylesStore.Text_appbar, stylesFont.FontSize4, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical
                     ]}>
                         {titleHead && titleHead}</Text>
                 </View>
@@ -1018,7 +1018,6 @@ export class Trend_Hit extends React.Component {
         const item = [
             { image: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-02.jpg` },
             { image: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-03.jpg` },
-            { image: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-01.jpg` },
         ]
         var { activeDataService } = this.state;
         var uri = `${ip}/mysql/DataServiceMain.php`;
@@ -1063,7 +1062,7 @@ export class Trend_Hit extends React.Component {
                 </View>
                 <View style={stylesMain.FrameBackground2}>
                     <View style={stylesMain.FrameBackgroundTextBox}>
-                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
+                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize4, stylesFont.FontFamilyBold]}>
                             เทรนฮิต</Text>
                         <TouchableOpacity>
                             <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyBold]}>
@@ -1176,8 +1175,8 @@ export class Recommend_Brand extends React.Component {
             loadData.map((item, index) => {
                 var dataMySQL = `${ip}/MySQL/uploads/Brand_R/${item.image}`;
                 // var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
-                console.log('Recommend_Brand')
-                console.log(dataMySQL)
+                // console.log('Recommend_Brand')
+                // console.log(dataMySQL)
                 return (
                     <TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigateScreen({
                         goScreen: 'Recommend_Brand', navigation
@@ -1200,7 +1199,7 @@ export class Recommend_Brand extends React.Component {
         return (
             <View style={[stylesMain.FrameBackground2, stylesMain.FrameBackground_Height]}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize4, stylesFont.FontFamilyBold]}>
                         แบรนด์แนะนำ</Text>
                     <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
                         goScreen: 'Recommend_Brand', navigation
@@ -1262,7 +1261,7 @@ export class Popular_store extends React.Component {
             <View style={stylesMain.FrameBackground2}>
                 {/* <GetServices key={'activeDataService'} uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} /> */}
                 <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
                         ร้านที่ใช่อยากให้ช้อป</Text>
                 </View>
                 <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 3.3, justifyContent: 'space-between' }]} >
@@ -1319,7 +1318,7 @@ export class Popular_product extends React.Component {
             <View>
                 <View style={[stylesMain.FrameBackground2]}>
                     <View style={stylesMain.FrameBackgroundTextBox}>
-                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
+                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
                             สินค้ายอดนิยม</Text>
                         {/* <TouchableOpacity
                             activeOpacity={1}
@@ -1542,7 +1541,7 @@ export class FlashSale extends React.PureComponent {
             <View style={stylesMain.FrameBackground2}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <View style={[stylesMain.FlexRow, { marginTop: 5, flex: 70 }]}>
-                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBoldBold, stylesFont.FontSize3, {
+                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBoldBold, stylesFont.FontSize4, {
                             color: '#dc3545', flex: 34
                         }]}>
                             FLASH SALE</Text>
@@ -1634,7 +1633,7 @@ export class PromotionPopular extends React.Component {
             <View style={stylesMain.FrameBackground2}>
                 {/* <GetServices key={'activeDataService'} uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} /> */}
                 <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
                         ลายแทงร้านค้าแนะนำ</Text>
                     <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
                         goScreen: 'Recommend_Store', navigation
@@ -1664,7 +1663,7 @@ export class Product_for_you extends React.PureComponent {
         return (
             <View style={[stylesMain.FrameBackground2]}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize4, stylesFont.FontFamilyBold]}>
                         FIN คัดมาเพื่อคุณ</Text>
                     <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
                         goScreen: 'Product_for_youScreen', navigation
@@ -1703,7 +1702,7 @@ export class Highlight extends React.PureComponent {
         return (
             <View style={stylesMain.FrameBackground2}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
                         ไฮไลท์ประจำสัปดาห์</Text>
                     <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
                         goScreen: 'HighlightScreen', navigation
@@ -1773,7 +1772,7 @@ export class NewStore extends React.Component {
             <View style={stylesMain.FrameBackground2}>
                 {/* <GetServices key={'activeDataService'} uriPointer={uri} dataBody={dataBody} getDataSource={this.getData.bind(this)} /> */}
                 <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
                         ร้านค้าห้ามพลาด!!่</Text>
                 </View>
                 <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 3.3, justifyContent: 'space-between' }]}>
@@ -1793,7 +1792,7 @@ export class Exclusive extends React.PureComponent {
         return (
             <View style={stylesMain.FrameBackground2}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize4, stylesFont.FontFamilyBold]}>
                         สินค้าสุด Exclusive</Text>
                     <TouchableOpacity
                         onPress={() => NavigationNavigateScreen({ goScreen: 'ExclusiveScreen', navigation })}>
@@ -1835,7 +1834,7 @@ export class CategoryProduct extends React.Component {
         // var dataMySQL = `${ip}/mysql/${item.image_path}/${item.image}`;
         return dataService &&
             dataService.map((item, index) => {
-                if (index < 10 /*dataService.length*/) {
+                if (index < 20 /*dataService.length*/) {
                     var dataMySQL = `${finip}/${item.image_path}/${item.image_menu}`;
                     return (
                         <View key={index} style={[stylesMain.FrameBackground2, {
@@ -1964,20 +1963,23 @@ export class CategoryProductSubStore extends React.PureComponent {
         this.setState({ activeSlide: index });
     };
     _renderItem = (item, index) => {
-        var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
+        // var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
+        var dataMySQL = `${ip}/MySQL/uploads/Category_Total/diamon1.jpg`;
+        // console.log('CategoryProductrenderItem ')
+        // console.log(dataMySQL)
         // var dataMySQL2;
         // item.item2 && (
         //     dataMySQL2 = `${finip}/${item.item2.image_path}/${item.item2.image}`
         // );
         return (
             <TouchableOpacity activeOpacity={1} key={index}>
-                <View style={[stylesMain.CategoryProductStoreBox, { width: width * 0.56, }]}>
+                <View style={{ width: width * 0.56, height: 57.8, marginLeft: 5 }}>
                     <Image
                         source={{
                             uri: dataMySQL,
                         }}
                         style={stylesMain.CategoryProductStoreImage}
-                        resizeMode='cover'
+                        resizeMode='stretch'
                         resizeMethod='resize' />
                 </View>
                 {/* <View style={[stylesMain.CategoryProductStoreBox]}>
@@ -2013,7 +2015,7 @@ export class CategoryProductSubStore extends React.PureComponent {
         });
         if (dataService && dataService.error) return <></>
         return (
-            <View>
+            <>
                 {
                     dataService && dataService.banner && dataService.banner.length > 0 && (
                         <Carousel
@@ -2026,7 +2028,7 @@ export class CategoryProductSubStore extends React.PureComponent {
                             pagination={PaginationLight} />
                     )
                 }
-            </View>
+            </>
         );
     };
 };
@@ -2052,11 +2054,14 @@ export class CategoryProductSubPromotion extends React.Component {
         this.setState({ dataService2, activeDataService2: false });
     };
     dataCategoryProductSubPromotionSmall(dataService) {
-        var dataMySQL = dataService && dataService.banner &&
-            `${finip}/${(dataService.banner[0].image_path)}/${(dataService.banner[0].image)}`
+        // var dataMySQL = dataService && dataService.banner &&
+        //     `${finip}/${(dataService.banner[0].image_path)}/${(dataService.banner[0].image)}`
+        var dataMySQL = `${ip}/MySQL/uploads/Category_Total/gem_2.jpg`;
         if (dataMySQL == false) { return <></> }
+        // console.log('CategoryProductPromotionSmall ')
+        // console.log(dataMySQL)
         return (
-            <View style={[stylesMain.BoxStore1Box3, { borderWidth: 0, width: '100%', marginTop: 6, height: 67, }]} key={dataService.banner[0].id} >
+            <View style={[stylesMain.BoxStore1Box3, { width: '100%', marginTop: 6, height: 66, }]} key={dataService.banner[0].id} >
                 {
                     dataService &&
                     <Image
@@ -2071,11 +2076,14 @@ export class CategoryProductSubPromotion extends React.Component {
         );
     };
     dataCategoryProductSubPromotionBig(dataService) {
-        var dataMySQL = dataService && dataService.banner &&
-            `${finip}/${(dataService.banner[0].image_path)}/${(dataService.banner[0].image)}`;
+        // var dataMySQL = dataService && dataService.banner &&
+        //     `${finip}/${(dataService.banner[0].image_path)}/${(dataService.banner[0].image)}`;
+        var dataMySQL = `${ip}/MySQL/uploads/Category_Total/gem_1.jpg`;
         if (dataMySQL == false) { return <></> };
+        // console.log('CategoryProductSubPromotionBig ')
+        // console.log(dataMySQL)
         return (
-            <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, marginTop: 6, marginBottom: 6, }]} key={dataService.banner[0].id} >
+            <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, marginTop: 6, marginBottom: 3, }]} key={dataService.banner[0].id} >
                 {
                     dataService &&
                     <Image
@@ -2121,8 +2129,8 @@ export class CategoryProductSubPromotion extends React.Component {
                             failFetchDataService2 < 5 && dataService2 && dataService2.banner &&
                             this.dataCategoryProductSubPromotionSmall(dataService2, 1)
                         }
-                        <View style={{ width: width * 0.56, height: 56, marginTop: 6 }}>
-                            <CategoryProductSubStore navigation={navigation} id_type={id_type} />
+                        <View style={{ width: width * 0.56, marginTop: 6 }}>
+                           <CategoryProductSubStore navigation={navigation} id_type={id_type}/>
                         </View>
                     </View>
                     {
@@ -2191,7 +2199,7 @@ export class Second_product extends React.PureComponent {
                     {
                         Header_Second ?
                             <View>
-                                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
+                                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
                                     มือสองลดราคา</Text>
                             </View> :
                             <TouchableOpacity activeOpacity={1}
@@ -2208,7 +2216,7 @@ export class Second_product extends React.PureComponent {
                     {
                         loadData.product_second &&
                         <FlatProduct navigation={navigation} dataService={loadData.product_second} NumberOfcolumn={2}
-                            nameFlatProduct='Second_product' mode='row3' nameSize={14} priceSize={15} dispriceSize={15} />
+                            nameFlatProduct='Second_product' mode='row3_new' nameSize={14} priceSize={15} dispriceSize={15} />
                     }
                     {/* <ScrollView horizontal>
                         <View style={[stylesMain.ProductForYouFlexBox, { height: 370 }]}>
@@ -2231,10 +2239,10 @@ export class Second_product extends React.PureComponent {
                     {
                         Header_Second ?
                             <View>
-                                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
+                                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
                                     ร้านมือสองลดราคา</Text>
                             </View> :
-                            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
+                            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
                                 ร้านค้ามือสองแนะนำโดย FIN </Text>
                     }
                     <View>
@@ -2395,7 +2403,7 @@ export class Fin_Mall extends React.Component {
         return (
             <View style={[stylesMain.FlexRow, stylesMain.FinMall_Box]}>
                 <View style={{ width: width * 0.48, backgroundColor: '#FFFFFF', paddingHorizontal: 5 }}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>Fin Mall </Text>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize4, stylesFont.FontFamilyBold]}>Fin Mall </Text>
                     <View style={{ backgroundColor: '#691F50', borderRadius: 5, padding: 3, justifyContent: 'space-between' }}>
                         {
                             loadData.product_hit &&
@@ -2411,7 +2419,7 @@ export class Fin_Mall extends React.Component {
                     </View>
                 </View>
                 <View style={{ width: width * 0.48, backgroundColor: '#FFFFFF', paddingHorizontal: 5 }}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>สินค้าสุด Exclusive</Text>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize4, stylesFont.FontFamilyBold]}>สินค้าสุด Exclusive</Text>
                     <View style={{ backgroundColor: '#19508B', padding: 3, borderRadius: 5, justifyContent: 'space-between' }}>
                         {
                             loadData.exclusive &&
@@ -2437,14 +2445,42 @@ export class FIN_Supermarket extends React.PureComponent {
         this.state = {
         };
     };
+    _renderItem = (item, index) => {
+        return (
+            <View key={index} style={{ width, height: 'auto', aspectRatio: 2.5, marginBottom: 10 }}>
+                <Image
+                    source={{
+                        uri: item.image,
+                    }}
+                    style={{ height: '100%', width: '100%' }}
+                    resizeMode='cover'
+                    resizeMethod='resize' />
+            </View>
+        );
+    };
     render() {
         const { loadData, navigation } = this.props;
         const { product_hit } = loadData;
+        const item = [
+            { image: `${ip}/MySQL/uploads/Banner_Super/600-225_food1.jpg` },
+            { image: `${ip}/MySQL/uploads/Banner_Super/600-225_food2.jpg` },
+            { image: `${ip}/MySQL/uploads/Banner_Super/600-225_food3.jpg` },
+            { image: `${ip}/MySQL/uploads/Banner_Super/600-225_food4.jpg` },
+        ]
         return (
             <View style={stylesMain.FrameBackground2}>
-                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
+                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize4, stylesFont.FontFamilyBold]}>
                     FIN Supermarket  </Text>
-                <Slide />
+                <View>
+                    <Carousel
+                        renderItem={this._renderItem}
+                        data={item}
+                        loop
+                        autoplay
+                        autoplayInterval={4000}
+                        pagination={PaginationLight}
+                    />
+                </View>
                 <View style={stylesMain.Supermarket_Product}>
                     {
                         product_hit &&
@@ -2455,21 +2491,21 @@ export class FIN_Supermarket extends React.PureComponent {
                 <View style={[stylesMain.FlexRow, stylesMain.Supermarket_Store]}>
                     <TouchableOpacity
                         onPress={() => NavigationNavigateScreen({ goScreen: 'FINSupermarket', navigation })}
-                        style={{ width: width * 0.64, }}>
+                        style={{ width: width * 0.60, marginRight: 5 }}>
                         <Image
                             style={stylesMain.BoxProduct1Image}
                             source={{
-                                uri: `${ip}/MySQL/uploads/Image_FinMall/market_banner01.jpg`,
+                                uri: `${ip}/MySQL/uploads/Banner_Super/Banner_L/775-325_food1.jpg`,
                             }}
                             resizeMode='stretch'
                             resizeMethod='resize' />
                     </TouchableOpacity>
-                    <View style={{ width: width * 0.35, justifyContent: 'space-between' }}>
+                    <View style={{ width: width * 0.36, justifyContent: 'space-between' }}>
                         <View style={stylesMain.Supermarket_Image}>
                             <Image
                                 style={stylesMain.BoxProduct1Image}
                                 source={{
-                                    uri: `${ip}/MySQL/uploads/Image_FinMall/supermarket-04.jpg`,
+                                    uri: `${ip}/MySQL/uploads/Banner_Super/Banner_M/430-180_food1.jpg`,
                                 }}
                                 resizeMode='stretch'
                                 resizeMethod='resize' />
@@ -2478,7 +2514,7 @@ export class FIN_Supermarket extends React.PureComponent {
                             <Image
                                 style={stylesMain.BoxProduct1Image}
                                 source={{
-                                    uri: `${ip}/MySQL/uploads/Image_FinMall/supermarket-04.jpg`,
+                                    uri: `${ip}/MySQL/uploads/Banner_Super/Banner_M/430-180_food4.jpg`,
                                 }}
                                 resizeMode='stretch'
                                 resizeMethod='resize' />
@@ -2506,12 +2542,11 @@ export class FIN_Supermarket extends React.PureComponent {
                 <FastImage
                     style={stylesMain.Banner_Bar_image}
                     source={{
-                        uri: `${ip}/MySQL/uploads/Image_FinMall/market_banner06.jpg`,
+                        uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 333.jpg`
                     }}
-                    resizeMode={FastImage.resizeMode.contain}
-                />
+                    resizeMode={FastImage.resizeMode.cover} />
                 <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize4, stylesFont.FontFamilyBold]}>
                         แบรนด์แนะนำ</Text>
                     <TouchableOpacity>
                         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
@@ -2650,7 +2685,7 @@ export class TodayProduct extends React.Component {
                 {
                     noTitle ?
                         null :
-                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
+                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
                             สินค้าคัดสรรเพื่อคุณ</Text>
                 }
                 <View style={stylesMain.BoxProduct2BoxProduct}>

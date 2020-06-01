@@ -635,8 +635,6 @@ export class Might_like_Store extends React.Component {
         };
     }
     getData = (value) => {
-        console.log('Might_like_Store')
-        console.log(value)
         this.setState({ activeGetServices: false })
     }
     render() {

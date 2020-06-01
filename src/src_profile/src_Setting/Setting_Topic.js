@@ -198,7 +198,6 @@ export class Edit_Profile extends Component {
     path && dataBody2.push({ name: 'file', filename: o[o.length - 1], type: path.mime, data: RNFetchBlob.wrap(path.path) })
     dataBody2.push({ name: 'birth_day', data: Birth_day })
     dataBody2.push({ name: 'telephone', data: Phone })
-    // console.log(dataBody2_p)
     this.setState({ activeGetServices2: true, dataBody2 })
   }
   SaveName = async () => {
@@ -247,7 +246,6 @@ export class Edit_Profile extends Component {
   }
   GenderSheetBody() {
     const { InputGender } = this.state
-    console.log(this.state.InputGender)
     return (
       <>
         <View style={stylesProfileTopic.Edit_Profile}>
@@ -283,10 +281,7 @@ export class Edit_Profile extends Component {
   }
   BirthdaySheetBody() {
     const { InputBirth_day } = this.state
-    console.log('InputBirth_day')
-    console.log(InputBirth_day)
     // currentUser.map((item) => {
-    //   console.log(item.date_of_birth)
     //   activeNow < 2 ?
     //     this.setState({ activeNow: activeNow + 1, birth_day: item.date_of_birth }) :
     //     null
@@ -398,15 +393,12 @@ export class Edit_Profile extends Component {
   setCurrentUser = () => {
     const { dataSevice } = this.state
     dataSevice && dataSevice.list_profile.map((value) => {
-      console.log(value)
       var checked
       if (value.gender == 'male') {
         checked = true
       } else {
         checked = false
       }
-      console.log('value.date_of_birth')
-      console.log(value.date_of_birth)
       const bday = new Date(value.date_of_birth)
       var dob = `${bday.getDate()}-${(bday.getMonth() + 1)}-${bday.getFullYear()}`
       this.setState({
@@ -614,7 +606,6 @@ export class Edit_Pass extends Component {
       new_password,
       confirm_password,
     }
-    console.log(current_password != '' && new_password != '' && confirm_password != '')
     activeGetSource == false && activeGetServices == true &&
       GetServices({ uriPointer: uri, dataBody: dataBody, Authorization: cokie, getDataSource: this.getData.bind(this), })
     return (

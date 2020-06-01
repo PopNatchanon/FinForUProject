@@ -30,8 +30,6 @@ export default class Reviews_score extends React.Component {
     }
     filterValue = (value) => {
         const filterValue = {}
-        // console.log('filterValue')
-        // console.log(value)
         filterValue.rating = value == 'all' ? '' : value > 0 && value <= 5 ? value : ''
         filterValue.product = value == 'thisproduct' ? 'this' : ''
         this.setState({ activeGetServices: true, filterValue, })
@@ -104,10 +102,6 @@ export class Reviews_Bar extends React.Component {
         const { activeTab, selected, } = this.state
         activeTab == true &&
             this.setState({ activeTab: false })
-        console.log('activeTab')
-        console.log(activeTab)
-        console.log('selected')
-        console.log(selected)
         const items1 = [{
             name: 'ทั้งหมด',
         }, {
@@ -208,7 +202,6 @@ export class Reviews_Box extends React.Component {
             `${finip}/${dataService.path_customer}/${dataService.img_customer}` :
             dataService.img_customer;
         var img_rate = dataService.img_rate.length > 0 && dataService.img_rate.split(';')
-        console.log(img_rate)
         return (
             <View style={{ backgroundColor: '#FFFFFF' }}>
                 <View style={stylesDetail.Comment_R}>

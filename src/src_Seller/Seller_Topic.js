@@ -220,7 +220,6 @@ export class PIN_Code extends Component {
         }
         GetServices({
             Authorization: cokie, dataBody, uriPointer: uri, getDataSource: value => {
-                console.log(value)
                 if (value.status != true) {
                     alert(value.message)
                     this.setState({ checkFail: checkFail + 1, activeInput: false });
@@ -272,15 +271,12 @@ export class PIN_Code_Mail extends Component {
     }
     finishProcess(pinCode) {
         const { navigation } = this.props
-        console.log('finishProcess', pinCode)
         NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 9, }, navigation })
     };
     handleResultEnterPin(pinCode) {
-        console.log('handleResultEnterPin', pinCode)
         this.setState({ pinCodeStatus: 'failure' });
     };
     onFail(pinCode) {
-        console.log('onFail', pinCode)
     };
     render() {
         return (
@@ -877,7 +873,6 @@ export class Withdraw_money extends Component {
         };
     }
     getData = (dataService) => {
-        console.log(dataService)
         this.setState({ activeDataService: false, dataService })
     }
     render() {
@@ -994,7 +989,6 @@ export class Withdrawal_history extends Component {
         };
     }
     getData = (dataService) => {
-        console.log(dataService)
         this.setState({ activeHistory: false, dataService })
     }
     render() {

@@ -30,7 +30,6 @@ export default class Detail_Campaign extends Component {
         };
     }
     getSource = (value) => {
-        // console.log(value)
         this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser, });
     }
     getData = (dataService) => {
@@ -77,8 +76,6 @@ export class Detail_Description extends Component {
     }
     render() {
         const { dataService } = this.props
-        // console.log('Detail_Description')
-        // console.log(dataService)
         return (
             <View style={stylesDeal.Head_BoxImageDetail}>
                 {
@@ -151,8 +148,6 @@ export class Store_Campaign extends Component {
     }
     Store_Sale_Box() {
         const { dataService } = this.props
-        console.log('Store_Campaign')
-        console.log(dataService)
         var campaign_banner_1
         dataService && dataService.campaign_banner_1.map((value) => {
             return campaign_banner_1 = `${finip}/${dataService.image_path}/${dataService.image}`

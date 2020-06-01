@@ -60,7 +60,7 @@ export default class MainScreen extends React.PureComponent {
         };
     };
     componentDidMount() {
-        this.SetTimeLoading = setTimeout(() => this.setState({ activeLoading: false }), 8000/*50000*/);
+        this.SetTimeLoading = setTimeout(() => { this.setState({ activeLoading: false }), 8000/*50000*/; });
     };
     componentWillUnmount() {
         this.abortController.abort();
@@ -78,13 +78,13 @@ export default class MainScreen extends React.PureComponent {
         const browerProps = navigation.getParam('browerProps');
         const mode = navigation.getParam('mode');
         var uri = `${finip}/home/publish_mobile`;
-        const maxheight = 55
+        const maxheight = 55;
         const AnimatedHeadbg = scrollY.interpolate({
             inputRange: [maxheight, maxheight * 2],
             outputRange: ['transparent', mainColor],
             extrapolate: 'clamp',
             useNativeDriver: false,
-        })
+        });
         let itemT = [
             /////--------------------------------------------->>>Start
             {
@@ -106,10 +106,10 @@ export default class MainScreen extends React.PureComponent {
                 nameComponent: 'Category',
                 renderComponent: <Category navigation={navigation} />
             },
-            {
-                nameComponent: 'Trend_Hit',
-                renderComponent: <Trend_Hit navigation={navigation} />
-            },
+            // {
+            //     nameComponent: 'Trend_Hit',
+            //     renderComponent: <Trend_Hit navigation={navigation} />
+            // },
             {
                 nameComponent: 'Button_Bar',
                 renderComponent: <Button_Bar navigation={navigation} />
@@ -178,14 +178,14 @@ export default class MainScreen extends React.PureComponent {
             //     nameComponent: 'Category_Image_Total',
             //     renderComponent: <Category_Image_Total sizeBox={2} />
             // },
-            // {
-            //     nameComponent: 'Second_product',
-            //     renderComponent: <Second_product navigation={navigation} loadData={{
-            //         product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
-            //         list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3,
-            //         mobile_bar: dataService.mobile_bar, mobile_slide: dataService.mobile_slide,
-            //     }} />
-            // },
+            {
+                nameComponent: 'Second_product',
+                renderComponent: <Second_product navigation={navigation} loadData={{
+                    product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
+                    list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3,
+                    mobile_bar: dataService.mobile_bar, mobile_slide: dataService.mobile_slide,
+                }} />
+            },
             {
                 nameComponent: 'BannerBar_THREE',
                 renderComponent: <BannerBar_THREE />
@@ -200,9 +200,8 @@ export default class MainScreen extends React.PureComponent {
             },
             /////--------------------------------------------->>>End
         ];
-        activeDataService == true && GetServices({
-            abortController: this.abortController, uriPointer: uri, getDataSource: this.getData.bind(this)
-        });
+        activeDataService == true &&
+            GetServices({ abortController: this.abortController, uriPointer: uri, getDataSource: this.getData.bind(this) });
         return (
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                 {
@@ -251,7 +250,7 @@ export class ExitAppModule extends React.Component {
     };
     componentDidCatch() {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton.bind(this));
-    }
+    };
     _spring = () => {
         this.setState({ backClickCount: 1 }, () => {
             Animated.sequence([
@@ -362,32 +361,32 @@ export class AppBar extends React.Component {
         const AIconEntypo = Animatable.createAnimatableComponent(IconEntypo);
         const AIconFeather = Animatable.createAnimatableComponent(IconFeather);
         const AIconFontAwesome5 = Animatable.createAnimatableComponent(IconFontAwesome5);
-        var allWidth = width - 20
-        backArrow && (allWidth = allWidth - 30)
-        cartBar && (allWidth = allWidth - 30)
-        chatBar && (allWidth = allWidth - 30)
-        filterBar && (allWidth = allWidth - 30)
-        otherBar && (allWidth = allWidth - 30)
+        var allWidth = width - 20;
+        backArrow && (allWidth = allWidth - 30);
+        cartBar && (allWidth = allWidth - 30);
+        chatBar && (allWidth = allWidth - 30);
+        filterBar && (allWidth = allWidth - 30);
+        otherBar && (allWidth = allWidth - 30);
         var uri;
         var dataBody;
-        currentUser && (
-            uri = `${finip}/cart/cart_mobile`,
+        if (currentUser) {
+            uri = `${finip}/cart/cart_mobile`;
             dataBody = {
                 id_customer: currentUser.id_customer
-            }
-        );
+            };
+        };
         if (refresh == true) {
-            this.setState({ activeRefresh: true })
-            getActive(false)
-        }
+            this.setState({ activeRefresh: true });
+            getActive(false);
+        };
         currentUser && dataBody && activeRefresh == true &&
             GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) });
         return (
             <Animatable.View style={[stylesMain.Appbar, stylesMain.FlexRow, {
                 borderWidth: 0, borderBottomWidth: 1,
-                backgroundColor: ABGColor ? ABGColor : '#1A3363',
-                borderColor: ABDColor_All ? ABDColor_All : ABDColor ? ABDColor : '#1A3363',
-                borderBottomColor: ABDColor ? ABDColor : '#1A3363',
+                backgroundColor: ABGColor ? ABGColor : mainColor,
+                borderColor: ABDColor_All ? ABDColor_All : ABDColor ? ABDColor : mainColor,
+                borderBottomColor: ABDColor ? ABDColor : mainColor,
                 borderColor: 'transparent',
             }]}>
                 {[
@@ -396,7 +395,7 @@ export class AppBar extends React.Component {
                     <View key={'backarrow'}>
                         <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]}
                             activeOpacity={1}
-                            onPress={() => NavigationNavigateScreen({ goScreen: 'goBack', navigation })}>
+                            onPress={() => { NavigationNavigateScreen({ goScreen: 'goBack', navigation }); }}>
                             <AIconEntypo name="chevron-left" size={25} style={{ color: AIColor ? AIColor : '#fff', }} />
                         </TouchableOpacity>
                     </View>,
@@ -430,9 +429,11 @@ export class AppBar extends React.Component {
                         </TouchableOpacity> :
                         <TouchableOpacity key={'searchBar'} activeOpacity={1}
                             style={{ marginRight: 3 }} onPress={
-                                () => NavigationNavigateScreen({
-                                    goScreen: SearchText ? 'goBack' : 'SearchScreen', setData: { modeStore: false }, navigation
-                                })}>
+                                () => {
+                                    NavigationNavigateScreen({
+                                        goScreen: SearchText ? 'goBack' : 'SearchScreen', setData: { modeStore: false }, navigation
+                                    });
+                                }}>
                             <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical, { height: 30 }]}>
                                 {
                                     /* <FastImage
@@ -458,46 +459,42 @@ export class AppBar extends React.Component {
                             </View>
                         </TouchableOpacity>,
                     <View key={'storebar'} style={[stylesMain.ItemCenter, stylesMain.FlexRow, stylesMain.ItemCenterVertical]}>
-                        {
+                        {[
                             filterBar &&
-                            <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
+                            <TouchableOpacity key='filterBar' style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
                                 width: 30,
                             }]}
                                 onPress={null/*() => navigation.push('CartScreen')*/}>
                                 <AIconFeather name="filter" size={25} style={{ color: AIColor ? AIColor : '#fff' }} />
-                            </TouchableOpacity>
-                        }
-                        {
+                            </TouchableOpacity>,
                             otherBar &&
-                            <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
+                            <TouchableOpacity key='otherBar' style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
                                 width: 30,
                             }]}
                                 onPress={null/*() => navigation.push('CartScreen')*/}>
                                 <AIconFontAwesome5 name="ellipsis-h" size={25} style={{ color: AIColor ? AIColor : '#fff' }} />
-                            </TouchableOpacity>
-                        }
-                        {
+                            </TouchableOpacity>,
                             chatBar &&
-                            <TouchableOpacity style={[stylesMain.ItemCenter, { width: 30, }]}
+                            <TouchableOpacity key='chatBar' style={[stylesMain.ItemCenter, { width: 30, }]}
                                 onPress={
                                     currentUser ?
-                                        () => NavigationNavigateScreen({
-                                            goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation
-                                        }) :
-                                        () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true })}>
+                                        () => {
+                                            NavigationNavigateScreen({
+                                                goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation
+                                            });
+                                        } :
+                                        () => { NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true }); }}>
                                 <IconAntDesign name="message1" size={25} style={{ color: '#fff' }} />
-                            </TouchableOpacity>
-                        }
-                        {
+                            </TouchableOpacity>,
                             cartBar &&
-                            <TouchableOpacity style={[stylesMain.ItemCenter, {
+                            <TouchableOpacity key='cartBar' style={[stylesMain.ItemCenter, {
                                 width: 30,
                             }]} onPress={
                                 currentUser ?
-                                    () => NavigationNavigateScreen({
-                                        goScreen: 'CartScreen', navigation
-                                    }) :
-                                    () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true })}>
+                                    () => {
+                                        NavigationNavigateScreen({ goScreen: 'CartScreen', navigation });
+                                    } :
+                                    () => { NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true }); }}>
                                 {
                                     dataService && dataService.error ?
                                         <></> :
@@ -510,7 +507,7 @@ export class AppBar extends React.Component {
                                 }
                                 <IconAntDesign name="shoppingcart" size={25} style={{ color: '#fff' }} />
                             </TouchableOpacity>
-                        }
+                        ]}
                     </View>
                 ]
                 }
@@ -561,13 +558,17 @@ export class AppBar1 extends React.Component {
                             activeOpacity={1}
                             onPress={
                                 goToTop ?
-                                    () => NavigationNavigateScreen({ goScreen: 'popToTop', navigation }) :
+                                    () => {
+                                        NavigationNavigateScreen({ goScreen: 'popToTop', navigation });
+                                    } :
                                     backNavigation ?
-                                        () => ([
-                                            navigation.state.params.backNavigation('goBack'),
-                                            NavigationNavigateScreen({ goScreen: 'goBack', navigation })
-                                        ]) :
-                                        () => NavigationNavigateScreen({ goScreen: 'goBack', navigation })
+                                        () => {
+                                            navigation.state.params.backNavigation('goBack');
+                                            NavigationNavigateScreen({ goScreen: 'goBack', navigation });
+                                        } :
+                                        () => {
+                                            NavigationNavigateScreen({ goScreen: 'goBack', navigation });
+                                        }
                             }>
                             <IconEntypo style={[stylesStore.Icon_appbar, {
                                 color: backArrowColor ? backArrowColor : '#ffffff'
@@ -585,9 +586,11 @@ export class AppBar1 extends React.Component {
                         <TouchableOpacity
                             key={'searchBar'}
                             style={[stylesMain.ItemCenter, { width: 40 }]}
-                            onPress={() => NavigationNavigateScreen({
-                                goScreen: 'SearchScreen', setData: { modeStore: false }, navigation
-                            })}>
+                            onPress={() => {
+                                NavigationNavigateScreen({
+                                    goScreen: 'SearchScreen', setData: { modeStore: false }, navigation
+                                });
+                            }}>
                             <IconAntDesign RightItem name="search1" size={25} style={[
                                 stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
                                     marginRight: 8
@@ -597,7 +600,7 @@ export class AppBar1 extends React.Component {
                         <TouchableOpacity
                             key={'settingBar'}
                             style={[stylesMain.ItemCenter, { width: 40 }]}
-                            onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Setting', navigation })}>
+                            onPress={() => { NavigationNavigateScreen({ goScreen: 'Seller_Setting', navigation }); }}>
                             <IconMaterialCommunityIcons name="settings-outline" size={25} style={[
                                 stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
                                     marginRight: 8
@@ -609,10 +612,12 @@ export class AppBar1 extends React.Component {
                             style={[stylesMain.ItemCenter, { width: 40 }]}
                             onPress={
                                 currentUser ?
-                                    () => NavigationNavigateScreen({
-                                        goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation
-                                    }) :
-                                    () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true })
+                                    () => {
+                                        NavigationNavigateScreen({
+                                            goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation
+                                        });
+                                    } :
+                                    () => { NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true }); }
                             }>
                             <IconAntDesign RightItem name="message1" size={25} style={[
                                 stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
@@ -623,9 +628,11 @@ export class AppBar1 extends React.Component {
                         <TouchableOpacity
                             key={'storeBar'}
                             style={[stylesMain.ItemCenter, { width: 40 }]}
-                            onPress={() => NavigationNavigateScreen({
-                                goScreen: 'Profile_Topic', setData: { selectedIndex: 3 }, navigation
-                            })}>
+                            onPress={() => {
+                                NavigationNavigateScreen({
+                                    goScreen: 'Profile_Topic', setData: { selectedIndex: 3 }, navigation
+                                });
+                            }}>
                             <IconFontAwesome5 RightItem name="store" size={20} style={[
                                 stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
                                     marginRight: 8
@@ -635,7 +642,7 @@ export class AppBar1 extends React.Component {
                         <TouchableOpacity
                             key={'postBar'}
                             style={[stylesMain.ItemCenter, { width: 60 }]}
-                            onPress={() => getActivePost(true)}>
+                            onPress={() => { getActivePost(true); }}>
                             <Text style={[
                                 stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize4, {
                                     width: 60,
@@ -658,7 +665,9 @@ export class AppBar1 extends React.Component {
                         <TouchableOpacity
                             key={'UpBankBar'}
                             style={[stylesMain.ItemCenter, { width: 80 }]}
-                            onPress={() => this.navigationNavigateScreen('Setting_TopicStore', { selectedIndex: 1 })}>
+                            onPress={() => {
+                                NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setData: { selectedIndex: 1 }, navigation });
+                            }}>
                             <Text style={[
                                 stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize4, {
                                     width: 80,
@@ -682,7 +691,7 @@ export class AppBar1 extends React.Component {
                         </TouchableOpacity>
                     ]}
                 </View>
-            </View>
+            </View >
         );
     };
 };
@@ -1176,8 +1185,6 @@ export class Recommend_Brand extends React.Component {
             loadData.map((item, index) => {
                 var dataMySQL = `${ip}/MySQL/uploads/Brand_R/${item.image}`;
                 // var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
-                console.log('Recommend_Brand')
-                console.log(dataMySQL)
                 return (
                     <TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigateScreen({
                         goScreen: 'Recommend_Brand', navigation
@@ -1740,8 +1747,6 @@ export class NewStore extends React.Component {
             loadData.map((item, index) => {
                 // return dataService &&
                 //     dataService.map((item, index) => {
-                // console.log('dataNewStore')
-                // console.log(item)
                 // var dataMySQL = `${ip}/mysql/${item.image_path}/${item.image}`;
                 var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
                 return (
@@ -1835,7 +1840,7 @@ export class CategoryProduct extends React.Component {
         // var dataMySQL = `${ip}/mysql/${item.image_path}/${item.image}`;
         return dataService &&
             dataService.map((item, index) => {
-                if (index < 10 /*dataService.length*/) {
+                if (index == 12 /*dataService.length*/) {
                     var dataMySQL = `${finip}/${item.image_path}/${item.image_menu}`;
                     return (
                         <View key={index} style={[stylesMain.FrameBackground2, {

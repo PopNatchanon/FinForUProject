@@ -718,9 +718,9 @@ function promiseProcessData(promise) {
 export async function GetData(props) {
     SplashScreen.hide();
     const { getCokie, getSource, getUser, } = props;
-    let error, result;
     var activeLogin;
     var value = {};
+    let error, result, dataCokie, dataCustomer, dataProcessCustomer;
     [error, result] = await promiseProcessData(AsyncStorage.multiGet(['@MyKey', '@MyLongin']));
     if (error) {
         console.log(error)
@@ -737,62 +737,63 @@ export async function GetData(props) {
     const currentUser = result[0][1];
     const autoLogin = result[1][1];
     if (currentUser && autoLogin) {
-        CookieManager.get(`${finip}/auth/login_customer`)
-            .then((res) => {
-                var keycokie = res.token
-                if (keycokie === undefined && autoLogin) {
-                    fetch(`${finip}/auth/login_customer`, {
-                        method: 'POST',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json',
-                        },
-                        body: autoLogin,
-                    })
-                        .then((response) => response.json())
-                        .then((responseJson) => {
-                            // console.log('responseJson')
-                            // console.log(responseJson)
-                            activeLogin = true
-                        })
-                        .catch((error) => {
-                            console.log(`Check Login Failed`);
-                            console.log(`${finip}/auth/login_customer`);
-                            console.log(error);
-                            return getSource({ error })
-                        })
-                } else {
-                    activeLogin = false
-                };
-                getCokie == true && (
-                    (
-                        keycokie ?
-                            (
-                                value.keycokie = keycokie
-                            ) : (
-                                value.keycokie = undefined
-                            )
-                    )
-                );
-                getUser == true &&
-                    (
-                        currentUser ?
-                            (
-                                value.currentUser = JSON.parse(currentUser)
-                            ) : (
-                                value.currentUser = undefined
-                            )
-                    );
-                activeLogin &&
-                    (
-                        value.activeLogin = activeLogin
-                    );
-                return (activeLogin || (value.currentUser !== undefined || value.keycokie !== undefined)) &&
-                    getSource(value);
-            });
-    } else {
-        getCokie == true && (value.keycokie = undefined)
-        getUser == true && (value.currentUser = undefined);
+        [error, dataCokie] = await promiseProcessData(CookieManager.get(`${finip}/auth/login_customer`))
+        if (error) {
+            console.log(error)
+            getCokie == true && (value.keycokie = undefined)
+            getUser == true && (value.currentUser = undefined);
+            return getSource(value)
+        }
+        if (dataCokie === undefined) {
+            console.log(`dataCokie`);
+            getCokie == true && (value.keycokie = undefined)
+            getUser == true && (value.currentUser = undefined);
+            return getSource(value)
+        };
+        var keycokie = dataCokie.token
+        if (keycokie === undefined && autoLogin) {
+            [error, dataCustomer] = await promiseConnectServices(
+                fetch(`${finip}/auth/login_customer`, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: autoLogin,
+                })
+            );
+            if (error) {
+                console.log(`AutoLogin:Phase 1`);
+                console.log(`ERROR:FETCH => ${error}`);
+                getCokie == true && (value.keycokie = undefined)
+                getUser == true && (value.currentUser = undefined);
+                return getSource(value)
+            };
+            if (dataCustomer === undefined) {
+                console.log(`AutoLogin':Phase 1`);
+                console.log('No Data!');
+                getCokie == true && (value.keycokie = undefined)
+                getUser == true && (value.currentUser = undefined);
+                return getSource(value)
+            };
+            [error, dataProcessCustomer] = await promiseProcessData(dataCustomer)
+            if (error) {
+                console.log(`AutoLogin:Phase 2`);
+                console.log(`ERROR:FETCH => ${error}`);
+                getCokie == true && (value.keycokie = undefined)
+                getUser == true && (value.currentUser = undefined);
+                return getSource(value)
+            };
+            if (dataProcessCustomer === undefined) {
+                console.log(`AutoLogin':Phase 2`);
+                console.log('No Data!');
+                getCokie == true && (value.keycokie = undefined)
+                getUser == true && (value.currentUser = undefined);
+                return getSource(value)
+            };
+        }
+        getCokie == true && (value.keycokie = dataCokie.token)
+        getUser == true && (value.currentUser = JSON.parse(currentUser));
         return getSource(value)
     }
 }
@@ -800,27 +801,29 @@ export async function GetData(props) {
 export async function GetServices(props) {
     const {
         abortController, Authorization, dataBody, uriPointer, getDataSource, nojson, showConsole, nameFunction,
-    } = props
-    showConsole && (
-        console.log(showConsole),
+    } = props;
+    if (showConsole) {
+        console.log(showConsole);
         Authorization && (
             console.log(`Authorization => ${Authorization}`)
-        ),
-        console.log(`uri => ${uriPointer}`),
-        console.log(`dataBody`),
-        console.log(dataBody)
-    );
+        );
+        console.log(`uri => ${uriPointer}`);
+        console.log(`dataBody`);
+        console.log(dataBody);
+    };
     let error, rawData, processData;
-    [error, rawData] = await promiseConnectServices(fetch(uriPointer, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': Authorization,
-            signal: abortController ? abortController.signal : undefined
-        },
-        body: JSON.stringify(dataBody),
-    }), nojson);
+    [error, rawData] = await promiseConnectServices(
+        fetch(uriPointer, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': Authorization,
+                signal: abortController ? abortController.signal : undefined
+            },
+            body: JSON.stringify(dataBody),
+        }), nojson
+    );
     if (error) {
         console.log(`${(showConsole ? nameFunction ? `${showConsole}|${nameFunction}` : showConsole : nameFunction)}':Phase 1`);
         console.log(`ERROR:FETCH => ${error}`);
@@ -832,6 +835,8 @@ export async function GetServices(props) {
     if (rawData === undefined) {
         console.log(`${(showConsole ? nameFunction ? `${showConsole}|${nameFunction}` : showConsole : nameFunction)}':Phase 1`);
         console.log('No Data!');
+        console.log(uriPointer);
+        dataBody && console.log(dataBody);
         abortController && abortController.abort();
         return getDataSource({ data: 'No Data' });
     };
@@ -846,18 +851,20 @@ export async function GetServices(props) {
         abortController && abortController.abort();
         return getDataSource({ error });
     };
-    if (processData === undefined) {
+    if (processData === undefined || processData == '404') {
         console.log(`${(showConsole ? nameFunction ? `${showConsole}|${nameFunction}` : showConsole : nameFunction)}':Phase 2`);
-        console.log('No Data!');
+        processData == '404' ? console.log(processData) : console.log('No Data!');
+        console.log(uriPointer);
+        dataBody && console.log(dataBody);
         abortController && abortController.abort();
-        return getDataSource({ data: 'Error converting to Json.' });
-    }
-    showConsole && ([
-        console.log('Complete Converting To JSON'),
-        console.log(processData),
-    ])
+        return getDataSource({ data: processData == '404' ? processData : 'Error converting to Json.' });
+    };
+    if (showConsole) {
+        console.log('Complete Converting To JSON');
+        console.log(processData);
+    };
     return getDataSource(processData);
-}
+};
 ///----------------------------------------------------------------------------------------------->>>> GetServices
 export async function GetServicesBlob(props) {
     const {
@@ -1231,6 +1238,8 @@ export function NavigationNavigateScreen(props) {
         index: 0,
         actions: [StackActions.replace({ routeName: goScreen, params: setData })],
     })
+    console.log(goScreen)
+    console.log(setData)
     setConsole && (
         console.log(setConsole.consolename),
         console.log(setConsole.consolelog)
@@ -1621,7 +1630,7 @@ export class LoadingScreen extends React.Component {
                 animationType="fade"
                 transparent={true}
                 visible={modalVisible}
-                onRequestClose={undefined/*this.setModalVisible.bind(this, !this.state.modalVisible)*/}>
+                onRequestClose={this.setModalVisible.bind(this, !this.state.modalVisible)}>
                 <View style={[stylesMain.ItemCenter, { height, width }]}>
                     <View style={{ height, width, backgroundColor: '#555555', opacity: 0.5, position: 'absolute' }}></View>
                     <View style={[stylesMain.ItemCenterVertical, { height: 80, width: 80, borderRadius: 8, backgroundColor: '#ECECEC' }]}>

@@ -28,7 +28,6 @@ export default class CampaignScreen extends Component {
     };
   }
   getSource = (value) => {
-    // console.log(value)
     this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser, });
   }
   getData = (dataService) => {
@@ -130,8 +129,6 @@ export class CampaignBody extends Component {
   }
   get Campaign() {
     const { dataService, navigation } = this.props
-    // console.log('CampaignBody')
-    // console.log(dataService)
     var dataMySQL = `${finip}/${dataService.image_path}/${dataService.image}`;
     return (
       <View style={ststylePromotionDeal.CampaignBody}>

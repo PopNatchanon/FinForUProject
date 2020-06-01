@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React from 'react';
 import {
-    Animated, Dimensions, ImageBackground, ScrollView, Text, TouchableOpacity, View,
+    Animated, Dimensions, Image, ScrollView, Text, TouchableOpacity, View, FlatList,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import * as Animatable from 'react-native-animatable';
@@ -111,7 +111,7 @@ export default class StoreScreen extends React.Component {
             min_price: '',
             max_price: ''
         }
-        const maxheight = 70
+        const maxheight = 80
         const AnimatedHeadopacity = scrollY.interpolate({
             inputRange: [0, maxheight],
             outputRange: [1, 0],
@@ -124,28 +124,30 @@ export default class StoreScreen extends React.Component {
         })
         const AnimatedHead = scrollY.interpolate({
             inputRange: [0, maxheight],
-            outputRange: [maxheight, 50],
+            outputRange: [maxheight, 55],
             extrapolate: 'clamp',
         })
         const AnimatedHeadbg = scrollY.interpolate({
             inputRange: [0, maxheight / 2],
-            outputRange: ['transparent', '#fff'],
+            outputRange: ['transparent', mainColor],
             extrapolate: 'clamp',
         })
         const AnimatedHeadbd = scrollY.interpolate({
             inputRange: [0, maxheight / 2],
-            outputRange: ['transparent', '#ECECEC'],
+            outputRange: ['transparent', mainColor],
             extrapolate: 'clamp',
         })
         const AnimatedHeadi = scrollY.interpolate({
             inputRange: [0, maxheight / 2],
-            outputRange: ['#fff', '#111'],
+            outputRange: ['#fff', '#fff'],
             extrapolate: 'clamp',
         })
         var image_header
         dataService && dataService.store_data.map((value) => {
-            return image_header = `${finip}/${value.image_head_path}/${value.image_head}`
+            image_header = `${finip}/${value.image_head_path}/${value.image_head}`
         })
+        console.log('======================================')
+        console.log(image_header)
         activeGetServices == true && id_item !== undefined &&
             GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
         activeGetServices2 == true && id_item !== undefined &&
@@ -168,12 +170,14 @@ export default class StoreScreen extends React.Component {
                     opacity: AnimatedHeadopacity,
                 }}>
                     <View style={[stylesStore.StoreHead]}>
-                        <ImageBackground
+                        <Image
                             source={{ uri: image_header }}
-                            style={stylesStore.StoreHeadImage} />
+                            style={stylesStore.StoreHeadImage}
+                            resizeMethod='resize'
+                            resizeMode='cover' />
                     </View>
                 </Animatable.View>
-                <Animatable.View style={{ height: 50 }}>
+                <Animatable.View style={{ height: 55 }}>
                     <View style={{
                         position: 'relative',
                         top: 0,
@@ -192,15 +196,21 @@ export default class StoreScreen extends React.Component {
                             nativeEvent: { contentOffset: { y: scrollY } }
                         }])
                     }>
-                    <Animatable.View style={{
-                        marginTop: -50,
+                    {/* <Animatable.View style={{
+                        marginTop: -40,
                         opacity: AnimatedHeadopacity,
                     }}>
                         <StoreHead navigation={navigation} dataService={dataService && dataService.store_data} />
-                    </Animatable.View>
+                    </Animatable.View> */}
                     <Animatable.View style={{
-                        opacity: AnimatedDetailsopacity,
-                        height: 120,
+                        width: (width),
+                        aspectRatio: 2.5,
+                        marginBottom: -55,
+                    }}></Animatable.View>
+                    <Animatable.View style={{
+                        // opacity: AnimatedDetailsopacity,
+                        // marginTop: 70,
+                        marginBottom: 8,
                     }}>
                         <StoreHeadDetails navigation={navigation} dataService={dataService && dataService.store_data} />
                     </Animatable.View>
@@ -298,43 +308,101 @@ export class StoreHeadDetails extends React.Component {
         const id_item = navigation.getParam('id_item')
         return dataService ? (
             dataService.map((value, index) => {
+                var dataMySQL = `${finip}/${value.image_path}/${value.image}`
                 return (
-                    <View style={[stylesStore.StoreHeadDetails, { paddingTop: 0, marginBottom: 10, justifyContent: 'space-between' }]}
-                        key={index}>
-                        <View>
-                            <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                คะแนนร้านค้า :</Text>
-                            <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                รายการสินค้า :</Text>
-                            <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                ระยะเวลาในการจัดเตรียมพัสดุ :</Text>
-                            <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                ประสิทธิภาพการแชท :</Text>
+                    <View style={{ height: 'auto', width, backgroundColor: '#fff' }} key={index}>
+                        <View style={[stylesStore.StoreHead]}>
+                            <View style={stylesStore.StoreHeadBox}>
+                                <View style={stylesMain.FlexRow}>
+                                    <View style={{ backgroundColor: '#222222', marginTop: 4, marginLeft: 6, paddingRight: 6, height: 60 }}>
+                                        <View style={stylesMain.ItemCenterVertical}>
+                                            <Text style={[
+                                                stylesStore.StoreHeadText, stylesFont.FontFamilyBold, stylesFont.FontSize6,
+                                            ]}>
+                                                {value.name}</Text>
+                                            <Text style={[
+                                                stylesStore.StoreHeadTextOther, stylesFont.FontFamilyText, stylesFont.FontSize8
+                                            ]}>
+                                                Active เมื่อ 1 ชั่วโมงที่ผ่านมา</Text>
+                                            <Text style={[
+                                                stylesStore.StoreHeadTextOther2, stylesFont.FontFamilyText, stylesFont.FontSize7,
+                                            ]}>
+                                                ผู้ติดตาม {value.who_follow} | กำลังติดตาม {value.follow_number}</Text>
+                                        </View>
+                                    </View>
+                                    <View style={{ marginTop: -20, marginLeft: 6, }}>
+                                        <FastImage
+                                            source={{
+                                                uri: dataMySQL,
+                                            }}
+                                            style={[stylesStore.StoreHeadFace, {
+                                                backgroundColor: '#fff', borderWidth: 1, borderColor: '#ECECEC'
+                                            }]}
+                                            resizeMode={FastImage.resizeMode.cover} />
+                                    </View>
+                                </View>
+                                <View style={[stylesStore.HeadButtom, { marginLeft: 'auto', marginRight: 'auto' }]}>
+                                    <TouchableOpacity onPress={() => undefined}>
+                                        <View style={[stylesStore.StoreHeadButtom, { backgroundColor: mainColor }]}>
+                                            <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7, {
+                                                color: '#fff'
+                                            }]}>
+                                                ติดตาม</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                                        goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation
+                                    })}>
+                                        <View style={[stylesStore.StoreHeadButtom, { backgroundColor: mainColor }]}>
+                                            <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7, {
+                                                color: '#fff'
+                                            }]}>
+                                                แชท</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
                         </View>
-                        <View>
-                            <View style={stylesMain.FlexRow}>
-                                <Text style={[stylesStore.StoreHeadDetailsText2_1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                    {value.rating != 'ยังไม่มีการรีวิว' ? `${value.rating} จาก 5` : value.rating}</Text>
-                                <Text style={[stylesStore.StoreHeadDetailsText2_3, stylesFont.FontFamilyText, stylesFont.FontSize8]}>
-                                    ({value.rating_number})</Text>
+                        <View style={{
+                            width: '85%', borderBottomColor: '#000', borderBottomWidth: 1, marginTop: 8, marginLeft: 'auto',
+                            marginRight: 'auto'
+                        }}></View>
+                        <View style={[stylesStore.StoreHeadDetails, { paddingTop: 0, marginBottom: 10, justifyContent: 'space-between' }]}>
+                            <View>
+                                <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                    คะแนนร้านค้า :</Text>
+                                <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                    รายการสินค้า :</Text>
+                                <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                    ระยะเวลาในการจัดเตรียมพัสดุ :</Text>
+                                <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                    ประสิทธิภาพการแชท :</Text>
                             </View>
-                            <Text style={[stylesStore.StoreHeadDetailsText2_2, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                {value.product_amount}</Text>
-                            <View style={stylesMain.FlexRow}>
+                            <View>
+                                <View style={stylesMain.FlexRow}>
+                                    <Text style={[stylesStore.StoreHeadDetailsText2_1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                        {value.rating != 'ยังไม่มีการรีวิว' ? `${value.rating} จาก 5` : value.rating}</Text>
+                                    <Text style={[stylesStore.StoreHeadDetailsText2_3, stylesFont.FontFamilyText, stylesFont.FontSize8]}>
+                                        ({value.rating_number})</Text>
+                                </View>
                                 <Text style={[stylesStore.StoreHeadDetailsText2_2, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                    {value.time_send}</Text>
+                                    {value.product_amount}</Text>
+                                <View style={stylesMain.FlexRow}>
+                                    <Text style={[stylesStore.StoreHeadDetailsText2_2, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                        {value.time_send}</Text>
+                                </View>
+                                <View style={stylesMain.FlexRow}>
+                                    <Text style={[stylesStore.StoreHeadDetailsText2_2, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                        {value.chat_performance}</Text>
+                                </View>
                             </View>
-                            <View style={stylesMain.FlexRow}>
-                                <Text style={[stylesStore.StoreHeadDetailsText2_2, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                    {value.chat_performance}</Text>
-                            </View>
+                            <TouchableOpacity activeOpacity={1}
+                                onPress={() => NavigationNavigateScreen({
+                                    goScreen: 'Post_Feed', setData: { selectedIndex: 0, id_store: id_item }, navigation
+                                })}>
+                                <IconEntypo name='chevron-right' size={25} color={mainColor} />
+                            </TouchableOpacity>
                         </View>
-                        <TouchableOpacity activeOpacity={1}
-                            onPress={() => NavigationNavigateScreen({
-                                goScreen: 'Post_Feed', setData: { selectedIndex: 0, id_store: id_item }, navigation
-                            })}>
-                            <IconEntypo name='chevron-right' size={25} color={mainColor} />
-                        </TouchableOpacity>
                     </View>
                 );
             })
@@ -674,8 +742,7 @@ export class BoxProduct4 extends React.Component {
             id_store: id_item
         }
         activeRef == true && id_item &&
-            GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
-
+            GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), showConsole: 'feed_news' })
         return (
             <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, { marginTop: 0, marginBottom: 10 }]}>
                 {
@@ -686,13 +753,25 @@ export class BoxProduct4 extends React.Component {
                     {
                         activeRef == false && (
                             dataService && dataService.feed_news && dataService.feed_news != 'ยังไม่มีข่าวใหม่' ?
-                                <FeedBox
-                                    Header
-                                    Follow
-                                    userOwner
-                                    getDataSource={this.getDataSource.bind(this)}
-                                    dataService={dataService.feed_news}
-                                    navigation={navigation} /> :
+                                <FlatList
+                                    scrollEnabled={true}
+                                    initialNumToRender={10}
+                                    data={dataService.feed_news}
+                                    keyExtractor={(value, index) => `Feed${index}`}
+                                    // ListHeaderComponent={this.renderHeader}
+                                    ListHeaderComponentStyle={{
+                                        flexDirection: 'column'
+                                    }}
+                                    renderItem={(value) => {
+                                        value.item.id_feed && console.log(value.item);
+                                        return <>
+                                            {
+                                                value.item.id_feed &&
+                                                <FeedBox dataService={value.item} navigation={navigation} Follow={true} Header />
+                                            }
+                                        </>;
+                                    }}
+                                /> :
                                 <View style={[stylesMain.ItemCenter, { width, height: 50, backgroundColor: '#fff' }]}>
                                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, stylesMain.ItemCenterVertical]}>
                                         {dataService && dataService.feed_news}</Text>

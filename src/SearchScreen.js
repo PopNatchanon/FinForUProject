@@ -50,27 +50,20 @@ export default class SearchScreen extends React.Component {
     }
     setStatefilterValue = (value) => {
         const { dataServiceBU, filterValue, } = this.state;
-        console.log('setStatefilterValue')
-        console.log(value.selectedIndex)
-        console.log(value.listIndex)
         filterValue.minvalue = (value && value.minvalue ? value.minvalue : '');
         filterValue.maxvalue = (value && value.maxvalue ? value.maxvalue : '');
         filterValue.id_type = ((value.selectedIndex != -1 && value.selectedIndex != '') && value.listIndex == 0) ?
             dataServiceBU.category[value.selectedIndex].id_type : ''
-        console.log('setStatefilterValue')
-        console.log(filterValue)
         this.setState({
             activeGetServices: true, filterValue, sliderVisible: false, id_type: filterValue.id_type, actionStart: false,
         });
     }
     setStateMainfilterValue = (value) => {
         const { filterValue, } = this.state;
-        console.log(value);
         filterValue.popular = value.selectedIndex == 0 ? 'popular' : '';
         filterValue.best_sale = value.selectedIndex == 1 ? 'best_sale' : '';
         filterValue.lastest = value.selectedIndex == 2 ? 'lastest' : '';
         filterValue.sort_price = value.selectedIndex == 3 ? value.actionReturn : '';
-        console.log(filterValue);
         this.setState({ activeGetServices: true, filterValue });
     }
     componentDidMount() {

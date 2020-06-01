@@ -363,16 +363,16 @@ export class Seller_Product_Box extends Component {
     render() {
         return (
             <TouchableOpacity style={{ width: '30%', borderColor: '#ECECEC', borderWidth: 1, padding: 10 }}>
-                <View style={{ alignItems: 'center', height: 100 }}>
+                <View style={{ alignItems: 'center', marginHorizontal: 8 }}>
                     <FastImage
-                        style={stylesMain.BoxProduct1Image}
+                        style={stylesMain.BoxProduct2Image}
                         source={{
                             uri: `${ip}/MySQL/uploads/products/2019-10-09-1570615168.png`,
                         }}
                     />
                 </View>
                 <View style={{ marginTop: 10 }}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ห้องพัก Deluxe Pool Villa</Text>
+                    <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ห้องพัก Deluxe Pool Villa</Text>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>฿10,000</Text>
                 </View>
                 <View style={[stylesMain.FlexRow, { justifyContent: 'space-between' }]}>

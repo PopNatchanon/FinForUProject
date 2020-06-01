@@ -1044,10 +1044,6 @@ export class Detail extends React.Component {
   get id_store() {
     const { dataService } = this.props
     const { activeText, showMoreButton, } = this.state
-    console.log('activeText')
-    console.log(activeText)
-    console.log('showMoreButton')
-    console.log(showMoreButton)
     return dataService.product_data &&
       dataService.product_data.map((item, index) => {
         return (
@@ -1061,8 +1057,10 @@ export class Detail extends React.Component {
                 paddingHorizontal: 6, maxHeight: activeText == false ? 94 : '100%', overflow: 'hidden',
               }]}
                 onLayout={({ nativeEvent: { layout: { height } } }) => this.setStateShowMoreButton(height >= normalize(94))}>
-                <HTML html={`<div>${item.detail}</div>`} baseFontStyle={{ fontFamily: 'SukhumvitSet-Text', }}
-                  imagesMaxWidth={Dimensions.get('window').width} />
+                <WebView
+                  source={{ html: '<h1>Hello world</h1>' }} />
+                {/* <HTML html={item.detail} baseFontStyle={{ fontFamily: 'SukhumvitSet-Text', }}
+                  imagesMaxWidth={Dimensions.get('window').width} /> */}
               </View>
               {
                 showMoreButton == true &&

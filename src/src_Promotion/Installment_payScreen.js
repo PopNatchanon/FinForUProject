@@ -33,8 +33,6 @@ export default class Installment_payScreen extends Component {
   render() {
     const { navigation } = this.props
     const { dataService, } = this.state
-    // console.log('Installment_payScreen')
-    // console.log(dataService)
     var uri = `${finip}/coupon/installment_data`
     activeGetServices == true && GetServices({ uriPointer: uri, getDataSource: this.getData.bind(this), })
     return (
@@ -109,15 +107,11 @@ export class CategoryProduct_pay extends Component {
   }
   render() {
     const { dataService, navigation } = this.props
-    // console.log('Installment_payScreen')
-    // console.log(dataService)
     return (
       <>
         {
           dataService && dataService.map((value, index) => {
             var mobile_head = `${finip}/${value.mobile_head}`;
-            {/* console.log('value.store')
-            console.log(value.store) */}
             return (
               <View key={index} style={stylesMain.FrameBackground}>
                 <FastImage
@@ -137,7 +131,6 @@ export class CategoryProduct_pay extends Component {
                   {
                     value.store.map((value2, index2) => {
                       var image_store = `${finip}/${value2.image_path}/${value2.image}`
-                      console.log(image_store)
                       return (
                         <View key={index2} style={[stylesMain.CategoryProductStoreBox,
                         { height: 70, borderWidth: 1, padding: 2, borderColor: '#ECECEC' }]}>

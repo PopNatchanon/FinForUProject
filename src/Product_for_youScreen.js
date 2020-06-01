@@ -38,23 +38,19 @@ export default class Product_for_youScreen extends React.Component {
     this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser, cokie: value.keycokie });
   }
   setStatefilterValue = (value) => {
-    console.log(value)
     const { dataServiceBU, filterValue, } = this.state;
     filterValue.minvalue = (value && value.minvalue ? value.minvalue : '');
     filterValue.maxvalue = (value && value.maxvalue ? value.maxvalue : '');
     filterValue.id_type = value.selectedIndex != -1 && value.selectedIndex != '' && value.listIndex == 0 ?
       dataServiceBU.category[value.selectedIndex].id_type : ''
-    console.log(filterValue)
     this.setState({ activeGetServices: true, filterValue, sliderVisible: false });
   }
   setStateMainfilterValue = (value) => {
     const { filterValue, } = this.state;
-    console.log(value);
     filterValue.popular = value.selectedIndex == 0 ? 'popular' : '';
     filterValue.best_sale = value.selectedIndex == 1 ? 'best_sale' : '';
     filterValue.lastest = value.selectedIndex == 2 ? 'lastest' : '';
     filterValue.sort_price = value.selectedIndex == 3 ? value.actionReturn : '';
-    console.log(filterValue);
     this.setState({ activeGetServices: true, filterValue });
   }
   render() {

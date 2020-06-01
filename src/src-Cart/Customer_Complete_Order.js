@@ -23,6 +23,8 @@ export default class Customer_Complete_Order extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeThank_you_bill: true,
+      activeProduct: true,
     };
   }
   getDataasync = async () => {
@@ -38,14 +40,14 @@ export default class Customer_Complete_Order extends Component {
       });
   }
   getData(dataService) {
-    this.setState({ dataService })
+    this.setState({ activeThank_you_bill: false, dataService })
   }
   getData2(dataService2) {
-    this.setState({ dataService2 })
+    this.setState({ activeProduct: false, dataService2 })
   }
   render() {
     const { navigation } = this.props
-    const { currentUser, dataService, dataService2, keycokie } = this.state
+    const { activeThank_you_bill, currentUser, dataService, dataService2, keycokie } = this.state
     var no_invoice = navigation.getParam('no_invoice');
     var uri = `${finip}/purchase_data/thank_you_bill`;
     var dataBody = {
@@ -56,11 +58,11 @@ export default class Customer_Complete_Order extends Component {
     var dataBody2 = {
       type: 'product',
     };
-    currentUser && currentUser.id_customer && keycokie &&
+    activeThank_you_bill = true && currentUser && currentUser.id_customer && keycokie &&
       GetServices({
         Authorization: keycokie, uriPointer: uri, dataBody, showConsole: 'thank_you_bill', getDataSource: this.getData.bind(this),
       })
-    GetServices({ uriPointer: uri2, dataBody: dataBody2, getDataSource: this.getData2.bind(this), })
+    activeProduct == true && GetServices({ uriPointer: uri2, dataBody: dataBody2, getDataSource: this.getData2.bind(this), })
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
         <AppBar1 backArrow goToTop navigation={navigation} />

@@ -4,7 +4,6 @@ import {
     Dimensions, SafeAreaView, ScrollView, ImageBackground, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
-import AsyncStorage from '@react-native-community/async-storage';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 ///----------------------------------------------------------------------------------------------->>>> Icon
@@ -21,6 +20,7 @@ import stylesMain, { mainColor } from '../style/StylesMainScreen';
 import stylesProfile from '../style/StylesProfileScreen'
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { ExitAppModule, } from './MainScreen';
+
 import { GetCoupon, GetData, TabBar, Toolbar, GetServices, LoadingScreen, NavigationNavigateScreen } from './customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from './navigator/IpConfig';
@@ -40,7 +40,6 @@ export default class ProfileScreen extends React.Component {
         this.setState({ activeGetServices: false, dataSevice })
     }
     getDataSource = (value) => {
-        console.log(value)
         this.setState({ activeGetServices: true })
     }
     render() {
@@ -48,9 +47,9 @@ export default class ProfileScreen extends React.Component {
         const { activeGetSource, activeGetServices, currentUser, cokie, dataSevice } = this.state;
         const uri = `${finip}/profile/profile_mobile`;
         var dataBody = {
-            id_customer: currentUser ? currentUser.id_customer : '',
+            id_customer: currentUser && currentUser.id_customer,
         }
-        activeGetSource == false && activeGetServices == true &&
+        activeGetSource == false && activeGetServices == true && currentUser &&
             GetServices({ uriPointer: uri, dataBody, Authorization: cokie, getDataSource: this.getData.bind(this) })
         activeGetSource == true &&
             GetData({ getCokie: true, getUser: true, getSource: this.getSource.bind(this), })
@@ -63,7 +62,7 @@ export default class ProfileScreen extends React.Component {
                 <ScrollView>
                     <View>
                         {
-                            currentUser && dataSevice &&
+                            currentUser && dataSevice && dataSevice.list_profile &&
                             <Headbar navigation={navigation} currentUser={currentUser} dataSevice={dataSevice}
                                 getDataSource={this.getDataSource.bind(this)} />
                         }

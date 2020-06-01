@@ -373,7 +373,6 @@ export class Growth extends React.Component {
         data: data2.map((value) => ({ value })),
       },
     ]
-    console.log(percen)
     return (
       <>
         <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', marginTop: 10, justifyContent: 'space-between', paddingHorizontal: 10 }]}>

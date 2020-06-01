@@ -88,8 +88,6 @@ export class Button_bar extends Component {
     get PathList() {
         const { currentUser, keycokie, navigation, } = this.props
         const { activeSelectedIndex, dataService, selectedIndex, } = this.state
-        console.log('selectedIndex')
-        console.log(selectedIndex)
         var uri = `${finip}/purchase_data/view_purchase`
         var dataBody = {
             id_customer: currentUser && currentUser.id_customer,
@@ -243,8 +241,6 @@ export class Button_bar extends Component {
     render() {
         const { SetselectedIndex } = this.props
         const { selectedIndex } = this.state
-        console.log('\n-------------------------------->selected: ' + SetselectedIndex)
-        console.log('\n--------------------------------\nselectedIndex: ' + selectedIndex + '\n--------------------------------')
         const item = [{
             name: 'ทั้งหมด'
         }, {
@@ -289,7 +285,6 @@ export class From_Order_Box extends Component {
     }
     render() { // 3 // Review_order return_order detail_order // buy_again_order return_order
         const { dataService, navigation } = this.props
-        console.log(dataService)
         const uri_image_store = `${finip}/${dataService.store_path}/${dataService.store_image}`
         const uri_image_product = `${finip}/${dataService.path_product}/${dataService.image_product}`
         return (

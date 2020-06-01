@@ -337,13 +337,11 @@ export class Post_New extends React.Component {
     }
     getData = (dataService) => {
         const { getActivePost, navigation } = this.props
-        console.log(dataService)
         getActivePost(false)
         navigation.state.params.getDataSource(true);
         navigation.goBack()
     }
     getData2 = (dataService2) => {
-        console.log(dataService2.feed_news)
         var Detail
         var image
         var image_path
@@ -432,7 +430,6 @@ export class Post_New extends React.Component {
         const uri = `${finip}/${(actionPost == 'edit' ? 'brand/feed_action' : 'brand/create_feed')}`;
         var o = avatarSource && avatarSource.path.split('/')
         var tagProductBody = tagProduct && tagProduct.map((value) => { return value.id_product })
-        console.log(tagProductBody)
         var dataBody = actionPost == 'edit' ?
             {
                 id_store,

@@ -30,19 +30,15 @@ export default class CategoryScreen extends React.Component {
         this.setState({ activeGetServices: false, dataService });
     };
     setStatefilterValue = (value) => {
-        console.log(value);
         const { filterValue, } = this.state;
-        console.log(filterValue);
         filterValue.minvalue = (value && value.minvalue ? value.minvalue : '');
         filterValue.maxvalue = (value && value.maxvalue ? value.maxvalue : '');
-        console.log(filterValue);
         this.setState({ activeGetServices: true, filterValue, sliderVisible: false });
     };
     setStateMainfilterValue = (value) => {
         const { filterValue, } = this.state;
         filterValue.lastest = value.selectedIndex == 2 ? 'lastest' : '';
         filterValue.sort_by = value.selectedIndex == 3 ? value.actionReturn : '';
-        console.log(filterValue);
         this.setState({ activeGetServices: true, filterValue });
     };
     setSlider = (sliderVisible) => {

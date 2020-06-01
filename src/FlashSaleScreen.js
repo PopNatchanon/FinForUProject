@@ -84,7 +84,6 @@ export default class FlashSaleScreen extends React.Component {
             endTime.setHours(end_period_2[0])
             endTime.setMinutes(end_period_2[1])
             endTime.setSeconds(end_period_2[2])
-            console.log(curTime > endTime)
             curTime > endTime &&
                 this.getReData()
         }
@@ -191,8 +190,6 @@ export class Time_FlashSale extends React.Component {
                 Seconds = 60 + Seconds
             ])
         ])
-        console.log('Hours : Minutes : Seconds');
-        console.log(`${Hours} : ${Minutes} : ${Seconds}`);
         dataService2 &&
             dataService2.map((value, index) => {
                 var start_period = value.start_period.split(' ')

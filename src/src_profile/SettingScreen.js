@@ -58,7 +58,6 @@ export class ListMenu extends Component {
         }
     }
     handleOpen = () => {
-        // console.log('show')
         this.setState({ show: true })
     }
     handleClose = () => {

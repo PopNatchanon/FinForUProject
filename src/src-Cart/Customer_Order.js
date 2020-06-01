@@ -28,7 +28,7 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from '../MainScreen';
-import { GetServices, NavigationNavigateScreen } from '../customComponents/Tools';
+import { GetServices, NavigationNavigateScreen, LoadingScreen } from '../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '.././navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -127,8 +127,6 @@ export class Account extends Component {
         const { dataService, navigation } = this.props
         var data
         dataService.bill_data.map((value) => { return data = value })
-        console.log('data')
-        console.log(data)
         return (
             <View style={stylesCustomerOrder.Account}>
                 <View style={stylesCustomerOrder.Account_Box}>
@@ -172,8 +170,6 @@ export class Order extends Component {
     render() {
         const { dataService } = this.props
         const dataMySQL = `${finip}/${dataService.image_path}/${dataService.image_product}`
-        console.log('dataService')
-        console.log(dataService)
         return (
             <View>
                 <View style={stylesCustomerOrder.Order}>
@@ -355,8 +351,6 @@ export class Option_payment extends Component {
         const { item1, modalVisible } = this.state
         var data
         dataService.bill_data.map((value) => { return data = value })
-        console.log('data')
-        console.log(data)
         return (
             <>
                 {/* <BottomSheet
@@ -610,6 +604,7 @@ export class OmiseBox extends Component {
             expiration_year: "",
             security_code: "",
             activePayment: false,
+            activeLoading: false,
         };
     }
     async _createToken() {
@@ -656,12 +651,14 @@ export class OmiseBox extends Component {
                 security_code: "",
                 dataBody,
                 activePayment: true,
+                activeLoading: true,
             });
         }
     }
     getData = (dataService2) => {
         const { dataService, getData, navigation, no_invoice } = this.props
         var data = dataService2.split('"')
+        this.setState({ activeLoading: false, })
         data.map((value) => {
             var item = value.split(':')
             item.map((value2) => {
@@ -688,13 +685,17 @@ export class OmiseBox extends Component {
             security_code,
             dataBody,
             activePayment,
+            activeLoading,
         } = this.state;
-        console.log(dataBody)
         var uri = `${finip}/e15de57976dca/pay976dca`
         activePayment == true &&
-            GetServices({ uriPointer: uri, dataBody, showConsole: 'pay976dca', nojson, getDataSource: this.getData.bind(this) })
+            GetServices({ uriPointer: uri, dataBody, showConsole: 'pay976dca', nojson: true, getDataSource: this.getData.bind(this) })
         return (
             <View style={[stylesMain.ItemCenter, { height, width }]}>
+                {
+                    activeLoading &&
+                    <LoadingScreen />
+                }
                 <View style={{ height, width, backgroundColor: '#555555', opacity: 0.5, position: 'absolute' }}></View>
                 <Content>
                     <Form style={stylesMain.ItemCenterVertical, { height }}>

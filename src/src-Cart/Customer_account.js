@@ -123,8 +123,6 @@ export default class Customer_account extends Component {
             id_customer: currentUser && currentUser.id_customer,
             id_address
         }
-        console.log('============================>render|dataBody')
-        console.log(dataBody)
         activeSave == true && keycokie && type_special == undefined &&
             GetServices({
                 uriPointer: uri, dataBody, getDataSource: this.getData3.bind(this), Authorization: keycokie, showConsole: 'address'
@@ -233,8 +231,6 @@ export class Account extends Component {
             })
                 .then((response) => response.json())
                 .then((responseJson) => {
-                    console.log('responseJson')
-                    console.log(responseJson)
                     this.setState({
                         activeData: true,
                         DataAmphoes: responseJson.amphur,

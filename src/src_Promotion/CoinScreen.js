@@ -32,7 +32,6 @@ export default class CoinScreen extends Component {
         };
     }
     getSource = (value) => {
-        // console.log(value)
         this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser, cokie: value.keycokie });
     }
     getData = (dataService) => {
@@ -42,10 +41,6 @@ export default class CoinScreen extends Component {
         const { navigation } = this.props
         const { activeGetCurrentUser, activeDataService, cokie, currentUser, dataService } = this.state
         var uri = `${finip}/coupon/fin_coin_mobile`
-        // console.log('activeGetCurrentUser')
-        // console.log(activeGetCurrentUser)
-        // console.log('activeDataService')
-        // console.log(activeDataService)
         activeGetCurrentUser == false && activeDataService == true && cokie &&
             GetServices({ uriPointer: uri, Authorization: cokie, getDataSource: this.getData.bind(this), })
         activeGetCurrentUser == true &&

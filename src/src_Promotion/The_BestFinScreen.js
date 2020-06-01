@@ -34,8 +34,6 @@ export default class The_BestFinScreen extends Component {
     const { navigation } = this.props
     const { dataService, } = this.state
     var uri = `${finip}/coupon/superfin`
-    // console.log('dataService')
-    // console.log(dataService)
     activeGetServices == true && GetServices({ uriPointer: uri, getDataSource: this.getData.bind(this), })
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
@@ -97,8 +95,6 @@ export class Store_Sale extends Component {
   }
   Store_Sale_Box() {
     const { dataService } = this.props
-    // console.log('Store_Sale')
-    // console.log(dataService)
     var discount_xl
     dataService && dataService.discount_xl.map((value) => {
       return discount_xl = `${finip}/${value.image_path}/${value.image}`
@@ -187,8 +183,6 @@ export class Product_Cool extends Component {
   }
   render() {
     const { dataService } = this.props
-    // console.log('COOL')
-    // console.log(dataService)
     return (
       <>
         <View style={[stylesMain.FrameBackground, { marginTop: 10, }]}>
@@ -234,8 +228,6 @@ export class Second_Store extends Component {
   // }
   get Second_StoreBody() {
     const { dataService } = this.props
-    // console.log('StoreBody')
-    // console.log(dataService)
     var discount_sec_xl
     dataService && dataService.discount_sec_xl.map((value) => {
       return discount_sec_xl = `${finip}/${value.image_path}/${value.image}`

@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-    Dimensions, SafeAreaView, Text, TextInput, TouchableOpacity, View, Picker, ScrollView,
+    Dimensions, SafeAreaView, Text, TextInput, TouchableOpacity, View, Picker, ScrollView, Image,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
@@ -9,21 +9,24 @@ import { Address_Customar } from '../../src_profile/src_Setting/Setting_Topic';
 import ImagePicker from 'react-native-image-crop-picker';
 import FastImage from 'react-native-fast-image';
 import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert'
+import ModalDropdown from 'react-native-modal-dropdown';
+import NumberFormat from 'react-number-format';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 ///----------------------------------------------------------------------------------------------->>>> styleSeller
 import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
-import stylesFont from '../../../style/stylesFont';
+import stylesFont, { normalize } from '../../../style/stylesFont';
 import stylesLogin from '../../../style/stylesLoginScreen';
 import stylesSeller from '../../../style/styleSeller-src/styleSellerScreen';
 import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-///----------------------------------------------------------------------------------------------->>>> Ip.
-///----------------------------------------------------------------------------------------------->>>> Main
 import { AppBar1 } from '../../MainScreen';
-import { NavigationNavigateScreen } from '../../customComponents/Tools';
+import { NavigationNavigateScreen, GetServices } from '../../customComponents/Tools';
+///----------------------------------------------------------------------------------------------->>>> Ip.
+import { finip } from '../../navigator/IpConfig';
+///----------------------------------------------------------------------------------------------->>>> Main
 
 export default class Setting_TopicStore extends Component {
     PathList() {
@@ -211,41 +214,85 @@ export class Edit_Bank extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            activeGetServices: true,
+            NameBank: 'กรุณาเลือกธนาคาร',
+            NumberBank: '',
+        };
+    }
+    getData = (dataService) => {
+        this.setState({ activeGetServices: false, dataService })
+    }
+    getPickerItem = (itemValue) => {
+        const { dataService } = this.state
+        if (itemValue != null) {
+            this.setState({
+                NameBank: itemValue,
+                selectedItem: dataService.bank_data
+                    .map((value) => { return value })
+                    .filter((value2) => { return value2.name_bank == itemValue }),
+            })
+        }
+    }
+    setStateText = (value) => {
+        const { NumberBank } = this.state
+        if (NumberBank.length < value.length && Number.isInteger(value.slice(-1) * 1) == false) {
+            value = NumberBank;
+        } else {
+                this.setState({ NumberBank: value })
         };
     }
     render() {
+        const { activeGetServices, dataService, NameBank, selectedItem, } = this.state
+        const uri = `${finip}/store_transfer/bank_data`
+        activeGetServices == true && GetServices({ uriPointer: uri, getDataSource: this.getData.bind(this) })
+        let pickerItem = []
+        if (dataService) {
+            dataService.bank_data.map((value) => {
+                return pickerItem.push(value.name_bank)
+            });
+        };
+        var url_image;
+        selectedItem && (url_image = `${finip}/${selectedItem[0].image_path}/${selectedItem[0].image}`);
         return (
             <View>
                 <View style={{ padding: 10 }}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>ชื่อธนาคาร</Text>
-                    <View style={stylesSeller.Edit_Box}>
-                        <Picker
-                            selectedValue={this.state.language}
-                            style={[stylesFont.FontFamilyText, { width: '100%' }]}
-                            onValueChange={(itemValue, itemIndex) =>
-                                this.setState({ language: itemValue })
-                            }>
-                            <Picker.Item label="กรุณาเลือกธนาคาร" value="java" />
-                            <Picker.Item label="ธนาคารกรุงเทพ" value="java" />
-                            <Picker.Item label="ธนาคารทหารไทย" value="js" />
-                            <Picker.Item label="ธนาคารกสิกรไทย" value="js1" />
-                            <Picker.Item label="ธนาคารไทยพานิชย์" value="js2" />
-                            <Picker.Item label="ธนาคารกรุงศรี" value="js3" />
-                            <Picker.Item label="ธนาคารธนชาต" value="js4" />
-                            <Picker.Item label="ธนาคารกรุงไทย" value="js5" />
-                        </Picker>
+                    <View style={[stylesSeller.Edit_Box]}>
+                        <ModalDropdown
+                            options={pickerItem}
+                            style={[stylesMain.ItemCenterVertical,]}
+                            textStyle={{ fontSize: normalize(20) }}
+                            dropdownTextStyle={[stylesFont.FontFamilyText, { width: width * 0.933, textAlign: 'center', fontSize: normalize(20) }]}
+                            renderButtonText={this.getPickerItem.bind(this)}>
+                            <View style={[stylesMain.ItemCenter, { flexDirection: 'row', width: width * 1 }]}>
+                                <View style={[stylesMain.ItemCenter, {
+                                    flexDirection: 'row', width: width * 0.8, marginLeft: -10, marginRight: -10
+                                }]}>
+                                    {
+                                        selectedItem && selectedItem[0].image &&
+                                        <Image source={{ uri: url_image }} style={{ width: 40, aspectRatio: 1, marginRight: 4 }} />
+                                    }
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, {
+                                        textAlign: 'center',
+                                    }]}>
+                                        {NameBank}</Text>
+                                </View>
+                                <IconAntDesign name='caretdown' style={[stylesMain.ItemCenterVertical]} />
+                            </View>
+                        </ModalDropdown>
                     </View>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>หมายเลขบัญชีธนาคาร</Text>
                     <View style={stylesSeller.Edit_Box}>
                         <TextInput
                             style={stylesFont.FontFamilyText}
+                            keyboardType='number-pad'
+                            // format="###-#-#####-#"
                             fontSize={15}
                             placeholder="กรุณากรอกหมายเลขบัญชีธนาคาร"
-                            multiline
                             editable
-                            maxLength={15}
+                            maxLength={10}
                             value={this.state.NumberBank}
-                            onChangeText={(NumberBank) => this.setState({ NumberBank })}></TextInput>
+                            onChangeText={this.setStateText.bind(this)}></TextInput>
                     </View>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>ชื่อบัญชีธนาคาร</Text>
                     <View style={stylesSeller.Edit_Box}>
@@ -256,8 +303,8 @@ export class Edit_Bank extends Component {
                             multiline
                             editable
                             maxLength={15}
-                            value={this.state.NameBank}
-                            onChangeText={(NameBank) => this.setState({ NameBank })}></TextInput>
+                            value={this.state.NameCusBank}
+                            onChangeText={(NameCusBank) => this.setState({ NameCusBank })}></TextInput>
                     </View>
                     <View>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>หน้าบัญชีธนาคาร</Text>

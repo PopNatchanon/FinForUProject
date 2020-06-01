@@ -6,50 +6,52 @@ export const { width, height } = Dimensions.get('window');
 export default StyleSheet.create({
   ///--------------------------------------------------------------------///
   StoreHead: {
-    width,
-    height: 132,
+    width: width,
+    // height: 132,
+    // aspectRatio: 2.0850,
   },
   StoreHeadImage: {
-    width,
-    height: 132,
-    opacity: 0.9,
-    flex: 1,
+    width: width,
+    height: 'auto',
+    aspectRatio: 2.5,
+    // flex: 1,
   },
   StoreHeadBox: {
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    // justifyContent: 'space-between'
   },
   StoreHeadFace: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    marginTop: 60,
-    marginLeft: 19,
+    width: 80,
+    height: 'auto',
+    aspectRatio: 1,
+    borderRadius: 80,
+    // marginTop: 60,
   },
   StoreHeadText: {
     color: '#FFFFFF',
-    marginTop: 62,
-    marginLeft: 20,
+    // marginTop: 62,
+    marginLeft: 6,
   },
   StoreHeadTextOther: {
-    marginLeft: 20,
+    marginLeft: 6,
     color: '#BEBDBD',
   },
   StoreHeadTextOther2: {
-    marginLeft: 20,
+    marginLeft: 6,
     color: '#FFFFFF',
   },
   HeadButtom: {
-    marginTop: 48,
-    justifyContent: 'flex-end',
-    marginRight: 8
+    // marginTop: 48,
+    // justifyContent: 'flex-end',
+    marginRight: 8,
+    // flexDirection: 'row'
   },
   StoreHeadButtom: {
     borderColor: '#FFFFFF',
     borderWidth: 1,
     borderRadius: 30,
-    width: 70,
-    height: 20,
+    width: 80,
+    height: 25,
     // marginLeft: 30,
     marginTop: 4,
   },
@@ -67,8 +69,8 @@ export default StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#FFFFFF',
     borderColor: '#ECECEC',
-    borderBottomWidth: 1,
-    paddingBottom: 14,
+    // borderBottomWidth: 1,
+    paddingBottom: 8,
   },
   StoreHeadDetailsText1: {
     marginLeft: 20,

@@ -26,7 +26,6 @@ export default class Recommend_Brand extends React.Component {
         };
     }
     getSource = (value) => {
-        // console.log(value)
         this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser, });
     }
     getData = (dataService) => {
@@ -70,8 +69,6 @@ export class Recommend_Brand_Store extends React.Component {
     }
     render() {
         const { navigation, dataService } = this.props
-        console.log('Recommend_Brand')
-        console.log(dataService)
         const image_header = `${finip}/${dataService.image_head_path}/${dataService.image_head}`;
         const image_store = `${finip}/${dataService.store_path}/${dataService.image_store}`;
         return (

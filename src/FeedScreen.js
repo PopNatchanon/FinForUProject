@@ -30,7 +30,6 @@ export default class FeedScreen extends React.Component {
     activeGetSource == true && GetData({ getCokie: true, getUser: true, getSource: this.getSource.bind(this) });
   };
   getSource = (value) => {
-    console.log(value);
     this.setState({ activeGetSource: false, currentUser: value.currentUser, cokie: value.keycokie, activeLogin: value.activeLogin });
   };
   getSelectedIndex = (selectedIndex) => {

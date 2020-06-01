@@ -52,7 +52,6 @@ export default class CartScreen extends React.Component {
         this.setState({ activeGetSource: false, currentUser: value.currentUser, cokie: value.keycokie, activeLogin: value.activeLogin });
     };
     getData = (dataService) => {
-        console.log(dataService)
         for (var n = 0; n < dataService.cart_list.length; n++) {
             dataService.cart_list[n].key = n;
         };

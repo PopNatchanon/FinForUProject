@@ -8,6 +8,8 @@ export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 // import { GiftedChat, Bubble, Send } from 'react-native-gifted-chat';
 import ImagePicker from 'react-native-image-crop-picker';
+import { CheckBox } from 'react-native-elements';
+import DatePicker from 'react-native-datepicker';
 import { BarChart, Grid, StackedBarChart, LineChart, XAxis, YAxis } from 'react-native-svg-charts'
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
@@ -42,14 +44,15 @@ export default class Business extends React.Component {
       case 0:
         return (
           <>
+            {/* หน้าเข้ามาครั้งแรก Affiliate มีปุ่มให้กดสมัครสมาชิก */}
             <AppBar1 backArrow navigation={navigation} titleHead='สมาชิกAffiliate' />
             <Register_Affiliate navigation={navigation} />
-
           </>
         )
       case 1:
         return (
           <>
+            {/* หน้าเมนูหลักของ Affiliate  */}
             <AppBar1 backArrow navigation={navigation} titleHead='สมาชิกAffiliate' />
             <Menu_Affiliate navigation={navigation} />
           </>
@@ -57,18 +60,18 @@ export default class Business extends React.Component {
       case 2:
         return (
           <>
+            {/* หน้าโปรไฟล์ของ Affiliate มีเมนูด้านล่าง */}
             <AppBar1 backArrow navigation={navigation} titleHead='สมาชิกAffiliate' />
             <ScrollView>
               <Business_Profile />
               <Business_MenuBar navigation={navigation} />
-              {/* <Business_Profile />
-              <Growth /> */}
             </ScrollView>
           </>
         )
       case 3:
         return (
           <>
+            {/* เข้าจากโปรไฟล์ของ Affiliate รายการสินค้า */}
             <AppBar1 backArrow navigation={navigation} titleHead='สมาชิกAffiliate' />
             <ScrollView>
               <Business_Profile />
@@ -79,6 +82,7 @@ export default class Business extends React.Component {
       case 4:
         return (
           <>
+            {/* เข้าจากโปรไฟล์ของ Affiliate การเติบโต */}
             <AppBar1 backArrow navigation={navigation} titleHead='สมาชิกAffiliate' />
             <Business_Profile />
             <Growth />
@@ -87,8 +91,33 @@ export default class Business extends React.Component {
       case 5:
         return (
           <>
+            {/* เข้าจากเมนูหลักของ Affiliate การเงิน */}
             <AppBar1 backArrow navigation={navigation} titleHead='การเงิน' />
             <Finance navigation={navigation} />
+          </>
+        )
+      case 6:
+        return (
+          <>
+            {/* หน้าแบบFromการสมัครสมาชิก Affiliate */}
+            <AppBar1 backArrow navigation={navigation} titleHead='สมาชิกAffiliate' />
+            <Register_Affiliate_From navigation={navigation} />
+          </>
+        )
+      case 7:
+        return (
+          <>
+            {/* หน้าเพิ่มสำเนาบัตรประชาชน เข้าจาก หน้าแบบFromการสมัครสมาชิก Affiliate */}
+            <AppBar1 backArrow navigation={navigation} titleHead='บัตรประชาชน' />
+            <ID_card />
+          </>
+        )
+      case 8:
+        return (
+          <>
+            {/* หน้าเพิ่มบัญชีธนาคาร เข้าจาก หน้าแบบFromการสมัครสมาชิก Affiliate */}
+            <AppBar1 backArrow navigation={navigation} titleHead='บัญชีธนาคาร ' />
+            <Bank_book />
           </>
         )
 
@@ -137,7 +166,7 @@ export class Register_Affiliate extends React.Component {
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,]}>เพิ่มโอกาสสร้างรายได้เสริม ด้วย Affiliate Marketing</Text>
             <TouchableOpacity
               // onPress={this.navigationNavigateScreen.bind(this, 'Business', { selectedIndex: 1 })}
-              onPress={() => NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 1 }, navigation })}
+              onPress={() => NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 6 }, navigation })}
               style={[stylesMain.ItemCenter, {
                 borderColor: mainColor, borderWidth: 2,
                 margin: 10, padding: 10, borderRadius: 5
@@ -522,6 +551,196 @@ export class Finance extends React.Component {
             <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
           </View>
         </TouchableOpacity>
+      </View>
+    );
+  }
+}
+///----------------------------------------------------------------------------------------------->>>>
+export class Register_Affiliate_From extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeData: '',
+      date: "",
+    };
+  }
+
+  render() {
+    const { navigation } = this.props
+    const { Mr, Mrs, Miss, name, last_name, Line_ID } = this.state
+    return (
+      <>
+        <ScrollView>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>เอกสารการสมัครสมาชิก</Text>
+          <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>คำนำหน้า</Text>
+            <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { height: 25, justifyContent: 'space-around' }]}>
+              <View style={[stylesMain.FlexRow, { width: '25%' }]}>
+                <CheckBox
+                  size={25}
+                  checkedIcon='dot-circle-o'
+                  uncheckedIcon='circle-o'
+                  checked={Mr}
+                  onPress={() => this.setState({ Mr: true, Mrs: false, Miss: false })}
+                />
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>นาย</Text>
+              </View>
+              <View style={[stylesMain.FlexRow, { width: '25%' }]}>
+                <CheckBox
+                  size={25}
+                  checkedIcon='dot-circle-o'
+                  uncheckedIcon='circle-o'
+                  checked={Mrs}
+                  onPress={() => this.setState({ Mrs: true, Mr: false, Miss: false })}
+                />
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>นาง</Text>
+              </View>
+              <View style={[stylesMain.FlexRow, { width: '25%' }]}>
+                <CheckBox
+                  size={25}
+                  checkedIcon='dot-circle-o'
+                  uncheckedIcon='circle-o'
+                  checked={Miss}
+                  onPress={() => this.setState({ Miss: true, Mr: false, Mrs: false })}
+                />
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>นางสาว</Text>
+              </View>
+            </View>
+          </View>
+          <View style={[stylesMain.FrameBackground, stylesMain.FlexRow, { justifyContent: 'space-between', paddingHorizontal: 10 }]}>
+            <View style={{ width: '49%', }}>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>ชื่อ</Text>
+              <TextInput
+                style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { borderWidth: 1, height: 45, borderRadius: 5 }]}
+                value={name}
+                onChangeText={(name) => this.setState({ activeData: true, name, })} />
+            </View>
+            <View style={{ width: '49%', }}>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>นามสกุล</Text>
+              <TextInput
+                style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { borderWidth: 1, height: 45, borderRadius: 5 }]}
+                value={last_name}
+                onChangeText={(last_name) => this.setState({ activeData: true, last_name, })} />
+            </View>
+          </View>
+          <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>วัน/เดือน/ปีเกิด</Text>
+            <DatePicker
+              style={{ width: '100 %' }}
+              date={this.state.date}
+              mode="date"
+              placeholder="select date"
+              format="DD-MM-YYYY"
+              minDate="01-12-1920"
+              maxDate="01-06-2020"
+              confirmBtnText="Confirm"
+              cancelBtnText="Cancel"
+              customStyles={{
+                dateIcon: {
+                  position: 'absolute',
+                  left: 0,
+                  top: 4,
+                  marginLeft: 0
+                },
+              }}
+              onDateChange={(date) => { this.setState({ date: date }) }} />
+          </View>
+          <TouchableOpacity onPress={() => NavigationNavigateScreen({
+            goScreen: 'Business', setData: { selectedIndex: 7 }, navigation
+          })}>
+            <View style={[stylesMain.FrameBackground, stylesMain.FlexRow, { paddingHorizontal: 10 }]}>
+              <View style={{ width: '95%' }}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>สำเนาบัตรประชาชน</Text>
+                <View>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>เอกสารต้องมีลายเซนต์กำกับ พร้อมยืนยันสำเนาถูกต้องโดย กรรมผู้มีอำนาจ หรือ เจ้าของร้าน ตัวอย่าง </Text>
+                </View>
+              </View>
+              <View style={stylesMain.ItemCenter}>
+                <IconEntypo name='chevron-right' size={35} color={mainColor} />
+              </View>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => NavigationNavigateScreen({
+              goScreen: 'Business', setData: { selectedIndex: 8 }, navigation
+            })} >
+            <View style={[stylesMain.FrameBackground, stylesMain.FlexRow, { paddingHorizontal: 10 }]}>
+              <View style={{ width: '95%' }}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>บัญชีธนาคาร</Text>
+                <View>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>เอกสารต้องมีลายเซนต์กำกับ พร้อมยืนยันสำเนาถูกต้องโดย กรรมผู้มีอำนาจ หรือ เจ้าของร้าน ตัวอย่าง </Text>
+                </View>
+              </View>
+              <View style={stylesMain.ItemCenter}>
+                <IconEntypo name='chevron-right' size={35} color={mainColor} />
+              </View>
+            </View>
+          </TouchableOpacity>
+          <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>Line ID</Text>
+            <TextInput
+              style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { borderWidth: 1, height: 45, borderRadius: 5 }]}
+              value={Line_ID}
+              onChangeText={(Line_ID) => this.setState({ activeData: true, Line_ID, })} />
+          </View>
+          <View style={stylesMain.FlexRow}>
+            <CheckBox
+              checked={this.state.checked}
+              onPress={() => this.setState({ checked: !this.state.checked, checked2: !this.state.checked2 })}
+            />
+            <View style={stylesMain.ItemCenter}>
+              <View style={stylesMain.FlexRow}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>  ฉันยอมรับเงื่อนไขของ FIN</Text>
+                <TouchableOpacity>
+                  <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#36B680' }]}> ข้อตกลงการใช้งาน</Text>
+                </TouchableOpacity>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}> และยินยอม</Text>
+              </View>
+              <View style={stylesMain.FlexRow}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>ดำเนินการกับข้อมูลส่วนตัวตามที่ระบุใน </Text>
+                <TouchableOpacity>
+                  <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#36B680' }]}> นโยบายส่วนตัว</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </ScrollView>
+        <TouchableOpacity style={[stylesMain.ItemCenter, { backgroundColor: '#0A55A6', height: 50 }]}>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ยืนยัน</Text>
+        </TouchableOpacity>
+      </>
+    );
+  }
+}
+///----------------------------------------------------------------------------------------------->>>>
+export class ID_card extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
+
+  render() {
+    return (
+      <View>
+        <Text> ID_card </Text>
+      </View>
+    );
+  }
+}
+
+///----------------------------------------------------------------------------------------------->>>>
+export class Bank_book extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
+
+  render() {
+    return (
+      <View>
+        <Text> Bank_book </Text>
       </View>
     );
   }

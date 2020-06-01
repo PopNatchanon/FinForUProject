@@ -426,7 +426,7 @@ export default StyleSheet.create({
     marginRight: 8,
   },
   Time_FlashSale_TimeBox: {
-    height: 25,
+    height: 22,
     width: 25,
     marginLeft: 5,
     backgroundColor: '#222222',
@@ -544,7 +544,7 @@ export default StyleSheet.create({
   },
   ///------------------------------------------------------------------------------------------///
   FrameBackground_Height: {
-    height: height * 0.195,
+    height: height * 0.19,
   },
   FrameBackground_Box: {
     flexDirection: 'column',
@@ -626,7 +626,7 @@ export default StyleSheet.create({
   CategoryProductStoreImage: {
     width: '100%',
     height: '100%',
-    borderColor: '#ECECEC',
+    // borderColor: '#ECECEC',
     // borderRadius: 4,
   },
   ///------------------------------------------------------------------///
@@ -772,21 +772,20 @@ export default StyleSheet.create({
   },
   Supermarket_Store: {
     height: 'auto',
-    aspectRatio: 2.5,
-    padding: 5,
+    aspectRatio: 2.8,
     justifyContent: 'space-between',
-    marginTop: 10
+    paddingHorizontal:5,
+    marginTop: 5
   },
   Supermarket_Image: {
-    height: '49%',
-    borderColor: '#EAEAEA',
-    borderWidth: 1,
+    height: '48%',
   },
   Supermarket_BrandBox: {
     width: '100%',
     flexDirection: 'row',
     height: 'auto',
     aspectRatio: 5.5,
+    marginTop:5,
     justifyContent: 'space-around'
   },
   Supermarket_Brand_Image: {

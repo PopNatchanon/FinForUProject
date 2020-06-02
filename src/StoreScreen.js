@@ -116,38 +116,52 @@ export default class StoreScreen extends React.Component {
             inputRange: [0, maxheight],
             outputRange: [1, 0],
             extrapolate: 'clamp',
+            useNativeDriver: false,
         })
         const AnimatedDetailsopacity = scrollY.interpolate({
             inputRange: [maxheight, maxheight + 220],
             outputRange: [1, 0],
             extrapolate: 'clamp',
+            useNativeDriver: false,
         })
         const AnimatedHead = scrollY.interpolate({
             inputRange: [0, maxheight],
             outputRange: [maxheight, 55],
             extrapolate: 'clamp',
+            useNativeDriver: false,
         })
         const AnimatedHeadbg = scrollY.interpolate({
             inputRange: [0, maxheight / 2],
             outputRange: ['transparent', mainColor],
             extrapolate: 'clamp',
+            useNativeDriver: false,
         })
         const AnimatedHeadbd = scrollY.interpolate({
             inputRange: [0, maxheight / 2],
             outputRange: ['transparent', mainColor],
             extrapolate: 'clamp',
+            useNativeDriver: false,
         })
         const AnimatedHeadi = scrollY.interpolate({
             inputRange: [0, maxheight / 2],
             outputRange: ['#fff', '#fff'],
             extrapolate: 'clamp',
+            useNativeDriver: false,
         })
         var image_header
-        dataService && dataService.store_data.map((value) => {
+        dataService && dataService.store_data && dataService.store_data.map((value) => {
             image_header = `${finip}/${value.image_head_path}/${value.image_head}`
         })
-        console.log('======================================')
+        console.log('======================================--------------------------dataService')
+        console.log(dataService)
+        console.log('======================================--------------------------image_header')
         console.log(image_header)
+        console.log('======================================--------------------------activeGetServices')
+        console.log(activeGetServices)
+        console.log('======================================--------------------------uri')
+        console.log(uri)
+        console.log('======================================--------------------------dataBody')
+        console.log(dataBody)
         activeGetServices == true && id_item !== undefined &&
             GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
         activeGetServices2 == true && id_item !== undefined &&
@@ -192,9 +206,13 @@ export default class StoreScreen extends React.Component {
                     scrollEventThrottle={8}
                     stickyHeaderIndices={[2, selectedIndex == 1 && 4]}
                     onScroll={
-                        Animated.event([{
-                            nativeEvent: { contentOffset: { y: scrollY } }
-                        }])
+                        Animated.event(
+                            [{
+                                nativeEvent: { contentOffset: { y: scrollY } }
+                            }],
+                            {
+                                useNativeDriver: false,
+                            })
                     }>
                     {/* <Animatable.View style={{
                         marginTop: -40,
@@ -478,9 +496,12 @@ export class Banner extends React.PureComponent {
         const { dataService } = this.props;
         const slideDelay = 3000;
         return dataService && dataService.map((value, index) => {
+            console.log('-------------------------------------------------------------------->>>>>>getDetail')
+            console.log(value.image_banner)
             // var uri = `https://finforyou.com/${item.name}`;
-            var image_banner = value.image_banner.split(';');
-            image_banner = image_banner.map((value2) => { return `${finip}/${value.image_banner_path}/${value2}` })
+            var image_banner
+            value.image_banner && (image_banner = value.image_banner.split(';'));
+            value.image_banner && (image_banner = image_banner.map((value2) => { return `${finip}/${value.image_banner_path}/${value2}` }));
             return (
                 <View key={index}>
                     <View style={[stylesStore.Banner, { borderLeftWidth: 0, paddingLeft: 0 }]}>

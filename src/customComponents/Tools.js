@@ -263,7 +263,7 @@ export class TabBar extends React.Component {
         } = this.props
         const { PassSetValue, pathlist, pathlist2 } = this.state
         const countItem = item.length;
-        console.log(`SetValue = > ${SetValue}`)
+        SetValue && console.log(`SetValue = > ${SetValue}`)
         SetValue >= 0 && SetValue != pathlist &&
             this.setSelectTab(SetValue)
         return item.map((item, index) => {
@@ -830,6 +830,7 @@ export async function GetServices(props) {
         console.log(uriPointer);
         dataBody && console.log(dataBody);
         abortController && abortController.abort();
+        if (error == 'TypeError: Network request failed') return getDataSource({ error: 'Network request failed' })
         return getDataSource({ error });
     };
     if (rawData === undefined) {

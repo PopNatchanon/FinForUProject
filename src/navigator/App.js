@@ -390,8 +390,8 @@ const PathScreen = createStackNavigator({
   },
 },
   {
-    // initialRouteName: 'FeedScreen',
-    initialRouteName: 'ProfileScreen',
+    initialRouteName: 'FeedScreen',
+    // initialRouteName: 'ProfileScreen',
     // initialRouteName: 'MainScreen',
   }
 );

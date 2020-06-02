@@ -1499,7 +1499,7 @@ export class FeedBox extends React.Component {
         getDataSource(activeRef)
     }
     get FeedBoxRender() {
-        const { dataService, Follow, Header, navigation, postpath, prepath, typeip, userOwner } = this.props
+        const { atStore, dataService, Follow, Header, navigation, postpath, prepath, typeip, userOwner } = this.props
         const { Button_Follow_After, } = this.state
         Button_Follow_After == null && dataService.length > 0 && (
             //     this.setStateButton(dataService.length)
@@ -1514,7 +1514,7 @@ export class FeedBox extends React.Component {
                 {
                     Header &&
                     <View style={stylesMain.BoxProduct4PlusHeader}>
-                        <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                        <TouchableOpacity onPress={() => atStore ? undefined : NavigationNavigateScreen({
                             goScreen: 'StoreScreen', setData: {
                                 id_item: dataService.id_store ? dataService.id_store : dataService.p_id_store
                             }, navigation

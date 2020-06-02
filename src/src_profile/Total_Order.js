@@ -29,6 +29,7 @@ export default class Total_Order extends Component {
         this.state = {
             IsLoading: true,
         };
+        this.IsLoading = this._IsLoading.bind(this)
     }
     getDataAsync = async () => {
         const currentUser = await AsyncStorage.getItem('@MyKey')
@@ -42,7 +43,7 @@ export default class Total_Order extends Component {
                 this.setState({ keycokie })
             });
     }
-    IsLoading = (IsLoading) => {
+    _IsLoading = (IsLoading) => {
         this.setState({ IsLoading })
     }
     render() {
@@ -56,7 +57,7 @@ export default class Total_Order extends Component {
                     <LoadingScreen />
                 }
                 <AppBar1 backArrow navigation={navigation} titleHead='การสั่งซื้อของฉัน' />
-                <Button_bar currentUser={currentUser} keycokie={keycokie} navigation={navigation} setLoading={this.IsLoading.bind(this)}
+                <Button_bar currentUser={currentUser} keycokie={keycokie} navigation={navigation} setLoading={this.IsLoading}
                     SetselectedIndex={selectedIndex} />
                 <ExitAppModule navigation={navigation} />
             </SafeAreaView>
@@ -70,17 +71,19 @@ export class Button_bar extends Component {
         this.state = {
             activeSelectedIndex: true,
         };
+        this.getData = this._getData.bind(this)
+        this.updateIndex = this._updateIndex.bind(this)
     }
     componentDidMount() {
         const { SetselectedIndex } = this.props
         SetselectedIndex == 0 && this.setState({ selectedIndex: 0 })
     }
-    getData = (dataService) => {
+    _getData = (dataService) => {
         const { setLoading } = this.props
         this.setState({ activeSelectedIndex: false, dataService })
         setLoading(false)
     }
-    updateIndex = (value) => {
+    _updateIndex = (value) => {
         const { setLoading } = this.props
         setLoading(true)
         this.setState({ selectedIndex: value.selectedIndex, activeSelectedIndex: true, })
@@ -105,7 +108,7 @@ export class Button_bar extends Component {
                 activeSelectedIndex == true && currentUser && keycokie && selectedIndex == 0 &&
                     GetServices({
                         uriPointer: uri, Authorization: keycokie, showConsole: 'view_purchase', dataBody,
-                        getDataSource: this.getData.bind(this),
+                        getDataSource: this.getData,
                     })
                 return (
                     <>
@@ -132,7 +135,7 @@ export class Button_bar extends Component {
                 activeSelectedIndex == true && currentUser && keycokie && selectedIndex == 1 &&
                     GetServices({
                         uriPointer: uri, Authorization: keycokie, showConsole: 'view_purchase', dataBody,
-                        getDataSource: this.getData.bind(this),
+                        getDataSource: this.getData,
                     })
                 return (
                     <>
@@ -159,7 +162,7 @@ export class Button_bar extends Component {
                 activeSelectedIndex == true && currentUser && keycokie && selectedIndex == 2 &&
                     GetServices({
                         uriPointer: uri, Authorization: keycokie, showConsole: 'view_purchase', dataBody,
-                        getDataSource: this.getData.bind(this),
+                        getDataSource: this.getData,
                     })
                 return (
                     <>
@@ -186,7 +189,7 @@ export class Button_bar extends Component {
                 activeSelectedIndex == true && currentUser && keycokie && selectedIndex == 3 &&
                     GetServices({
                         uriPointer: uri, Authorization: keycokie, showConsole: 'view_purchase', dataBody,
-                        getDataSource: this.getData.bind(this),
+                        getDataSource: this.getData,
                     })
                 return (
                     <>
@@ -213,7 +216,7 @@ export class Button_bar extends Component {
                 activeSelectedIndex == true && currentUser && keycokie && selectedIndex == 4 &&
                     GetServices({
                         uriPointer: uri, Authorization: keycokie, showConsole: 'view_purchase', dataBody,
-                        getDataSource: this.getData.bind(this),
+                        getDataSource: this.getData,
                     })
                 return (
                     <>
@@ -257,7 +260,7 @@ export class Button_bar extends Component {
                 <View style={stylesProfileTopic.Button_bar}>
                     <ScrollView horizontal>
                         <TabBar
-                            sendData={this.updateIndex.bind(this)}
+                            sendData={this.updateIndex}
                             item={item}
                             // noLimit
                             SetValue={selectedIndex >= 0 ? selectedIndex : SetselectedIndex}
@@ -275,7 +278,6 @@ export class Button_bar extends Component {
         );
     }
 }
-
 ///----------------------------------------------------------------------------------------------->>>> From_Order_Box
 export class From_Order_Box extends Component {
     constructor(props) {
@@ -452,7 +454,7 @@ export class From_Order_Box extends Component {
                                 </TouchableOpacity>,
                                 (dataService.status_purchase == 'paid' || dataService.status_purchase == 'accepted') &&
                                 <TouchableOpacity key={'detail_order'}
-                                    onPress={
+                                    onPress={() =>
                                         NavigationNavigateScreen({
                                             goScreen: 'Order_Detail', setData: {
                                                 id_cartdetail: dataService.id_cartdetail, insert_date: dataService.insert_date,

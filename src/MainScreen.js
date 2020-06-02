@@ -1839,7 +1839,7 @@ export class CategoryProduct extends React.Component {
         // var dataMySQL = `${ip}/mysql/${item.image_path}/${item.image}`;
         return dataService &&
             dataService.map((item, index) => {
-                if (index < 20 /*dataService.length*/) {
+                if (index < 6 /*dataService.length*/) {
                     var dataMySQL = `${finip}/${item.image_path}/${item.image_menu}`;
                     return (
                         <View key={index} style={[stylesMain.FrameBackground2, {
@@ -1877,7 +1877,7 @@ export class CategoryProduct extends React.Component {
                                         <CategoryProductSubStore navigation={navigation} id_type={item.id_type} />
                                     </View> :
                                     <View style={{ marginBottom: 0, }}>
-                                        <CategoryProductSubPromotion navigation={navigation} id_type={item.id_type} />
+                                        <CategoryProductSubPromotion numberBox={index} navigation={navigation} id_type={item.id_type} />
                                         {/* <CategoryProductSubStore navigation={navigation} id_type={item.id_type} /> */}
                                     </View>
                             }
@@ -1968,10 +1968,11 @@ export class CategoryProductSubStore extends React.PureComponent {
         this.setState({ activeSlide: index });
     };
     _renderItem = (item, index) => {
+        const {numberBox} = this.props
         // var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
-        var dataMySQL = `${ip}/MySQL/uploads/Category_Total/diamon1.jpg`;
-        // console.log('CategoryProductrenderItem ')
-        // console.log(dataMySQL)
+        var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Category_S/${item.image}`;
+        console.log(`CategoryProductrenderItem ${numberBox}`)
+        console.log(dataMySQL)
         // var dataMySQL2;
         // item.item2 && (
         //     dataMySQL2 = `${finip}/${item.item2.image_path}/${item.item2.image}`
@@ -2058,12 +2059,12 @@ export class CategoryProductSubPromotion extends React.Component {
     getData2 = (dataService2) => {
         this.setState({ dataService2, activeDataService2: false });
     };
-    dataCategoryProductSubPromotionSmall(dataService) {
+    dataCategoryProductSubPromotionSmall(dataService, numberBox) {
         // var dataMySQL = dataService && dataService.banner &&
         //     `${finip}/${(dataService.banner[0].image_path)}/${(dataService.banner[0].image)}`
-        var dataMySQL = `${ip}/MySQL/uploads/Category_Total/gem_2.jpg`;
+        var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Category_M/${(dataService.banner[0].image)}`;
         if (dataMySQL == false) { return <></> }
-        // console.log('CategoryProductPromotionSmall ')
+        // console.log(`CategoryProductPromotionSmall ${numberBox}`)
         // console.log(dataMySQL)
         return (
             <View style={[stylesMain.BoxStore1Box3, { width: '100%', marginTop: 6, height: 66, }]} key={dataService.banner[0].id} >
@@ -2083,7 +2084,7 @@ export class CategoryProductSubPromotion extends React.Component {
     dataCategoryProductSubPromotionBig(dataService) {
         // var dataMySQL = dataService && dataService.banner &&
         //     `${finip}/${(dataService.banner[0].image_path)}/${(dataService.banner[0].image)}`;
-        var dataMySQL = `${ip}/MySQL/uploads/Category_Total/gem_1.jpg`;
+        var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Category_L/${(dataService.banner[0].image)}`;
         if (dataMySQL == false) { return <></> };
         // console.log('CategoryProductSubPromotionBig ')
         // console.log(dataMySQL)
@@ -2103,7 +2104,7 @@ export class CategoryProductSubPromotion extends React.Component {
         );
     };
     render() {
-        const { id_type, navigation, } = this.props;
+        const { id_type, navigation, numberBox } = this.props;
         const {
             activeDataService, activeDataService2, dataService, dataService2, failFetchDataService, failFetchDataService2
         } = this.state;
@@ -2132,10 +2133,10 @@ export class CategoryProductSubPromotion extends React.Component {
                     <View style={{ width: width * 0.56, flexDirection: 'column', marginRight: 6 }}>
                         {
                             failFetchDataService2 < 5 && dataService2 && dataService2.banner &&
-                            this.dataCategoryProductSubPromotionSmall(dataService2, 1)
+                            this.dataCategoryProductSubPromotionSmall(dataService2, numberBox)
                         }
                         <View style={{ width: width * 0.56, marginTop: 6 }}>
-                            <CategoryProductSubStore navigation={navigation} id_type={id_type} />
+                            <CategoryProductSubStore navigation={navigation} id_type={id_type} numberBox={numberBox} />
                         </View>
                     </View>
                     {

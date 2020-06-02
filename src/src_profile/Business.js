@@ -575,7 +575,7 @@ export class Register_Affiliate_From extends React.Component {
           <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>คำนำหน้า</Text>
             <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { height: 25, justifyContent: 'space-around' }]}>
-              <View style={[stylesMain.FlexRow, { width: '25%' }]}>
+              <View style={[stylesMain.FlexRow, { width: '23%' }]}>
                 <CheckBox
                   size={25}
                   checkedIcon='dot-circle-o'
@@ -585,7 +585,7 @@ export class Register_Affiliate_From extends React.Component {
                 />
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>นาย</Text>
               </View>
-              <View style={[stylesMain.FlexRow, { width: '25%' }]}>
+              <View style={[stylesMain.FlexRow, { width: '23%' }]}>
                 <CheckBox
                   size={25}
                   checkedIcon='dot-circle-o'
@@ -595,7 +595,7 @@ export class Register_Affiliate_From extends React.Component {
                 />
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>นาง</Text>
               </View>
-              <View style={[stylesMain.FlexRow, { width: '25%' }]}>
+              <View style={[stylesMain.FlexRow, { width: '23%' }]}>
                 <CheckBox
                   size={25}
                   checkedIcon='dot-circle-o'
@@ -609,14 +609,14 @@ export class Register_Affiliate_From extends React.Component {
           </View>
           <View style={[stylesMain.FrameBackground, stylesMain.FlexRow, { justifyContent: 'space-between', paddingHorizontal: 10 }]}>
             <View style={{ width: '49%', }}>
-              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>ชื่อ</Text>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ชื่อ</Text>
               <TextInput
                 style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { borderWidth: 1, height: 45, borderRadius: 5 }]}
                 value={name}
                 onChangeText={(name) => this.setState({ activeData: true, name, })} />
             </View>
             <View style={{ width: '49%', }}>
-              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>นามสกุล</Text>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>นามสกุล</Text>
               <TextInput
                 style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { borderWidth: 1, height: 45, borderRadius: 5 }]}
                 value={last_name}
@@ -624,15 +624,15 @@ export class Register_Affiliate_From extends React.Component {
             </View>
           </View>
           <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>วัน/เดือน/ปีเกิด</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>วัน/เดือน/ปีเกิด</Text>
             <DatePicker
               style={{ width: '100 %' }}
               date={this.state.date}
               mode="date"
               placeholder="select date"
               format="DD-MM-YYYY"
-              minDate="01-12-1920"
-              maxDate="01-06-2020"
+              minDate="1-12-1920"
+              maxDate="1-07-2020"
               confirmBtnText="Confirm"
               cancelBtnText="Cancel"
               customStyles={{
@@ -650,9 +650,9 @@ export class Register_Affiliate_From extends React.Component {
           })}>
             <View style={[stylesMain.FrameBackground, stylesMain.FlexRow, { paddingHorizontal: 10 }]}>
               <View style={{ width: '95%' }}>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>สำเนาบัตรประชาชน</Text>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>สำเนาบัตรประชาชน</Text>
                 <View>
-                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>เอกสารต้องมีลายเซนต์กำกับ พร้อมยืนยันสำเนาถูกต้องโดย กรรมผู้มีอำนาจ หรือ เจ้าของร้าน ตัวอย่าง </Text>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>เอกสารต้องมีลายเซนต์กำกับ พร้อมยืนยันสำเนาถูกต้องโดย กรรมผู้มีอำนาจ หรือ เจ้าของร้าน ตัวอย่าง </Text>
                 </View>
               </View>
               <View style={stylesMain.ItemCenter}>
@@ -666,9 +666,9 @@ export class Register_Affiliate_From extends React.Component {
             })} >
             <View style={[stylesMain.FrameBackground, stylesMain.FlexRow, { paddingHorizontal: 10 }]}>
               <View style={{ width: '95%' }}>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>บัญชีธนาคาร</Text>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>บัญชีธนาคาร</Text>
                 <View>
-                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>เอกสารต้องมีลายเซนต์กำกับ พร้อมยืนยันสำเนาถูกต้องโดย กรรมผู้มีอำนาจ หรือ เจ้าของร้าน ตัวอย่าง </Text>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>เอกสารต้องมีลายเซนต์กำกับ พร้อมยืนยันสำเนาถูกต้องโดย กรรมผู้มีอำนาจ หรือ เจ้าของร้าน ตัวอย่าง </Text>
                 </View>
               </View>
               <View style={stylesMain.ItemCenter}>
@@ -677,7 +677,7 @@ export class Register_Affiliate_From extends React.Component {
             </View>
           </TouchableOpacity>
           <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>Line ID</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>Line ID</Text>
             <TextInput
               style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { borderWidth: 1, height: 45, borderRadius: 5 }]}
               value={Line_ID}
@@ -717,14 +717,57 @@ export class ID_card extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      date: "",
     };
   }
 
   render() {
     return (
-      <View>
-        <Text> ID_card </Text>
-      </View>
+      <>
+        <ScrollView>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>บัตรประชาชน</Text>
+          <View style={[stylesMain.FlexRow, { paddingHorizontal: 10, justifyContent: 'space-between' }]}>
+            <View style={[{
+              width: '68%', height: 50, backgroundColor: '#FFFFFF', paddingHorizontal: 10,
+              borderColor: '#EAEAEA', borderWidth: 1, borderRadius: 5, justifyContent: 'center'
+            }]}>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#C5C5C5' }]}>ชื่อรูปที่อัพ.jpg</Text>
+            </View>
+            <TouchableOpacity style={[stylesMain.FlexRow, stylesMain.ItemCenter,
+            { width: '30%', borderColor: mainColor, borderWidth: 2, borderRadius: 5 }]}>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: mainColor }]}>อัพโหลด</Text>
+              <IconEntypo name='upload' size={25} style={{ color: mainColor, marginLeft: 5 }} />
+            </TouchableOpacity>
+          </View>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#C5C5C5', textAlign: 'center' }]}>สามารถอัพโหลดเอกสารได้ 1 ฉบับ ความละเอียดได้ไม่ 5 MB รองรับ .PNG .JPEG .PDF</Text>
+          <View style={{ backgroundColor: '#FFFFFF', borderColor: '#EAEAEA', borderWidth: 1, borderRadius: 5, marginHorizontal: 10, padding: 10 }}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginBottom: 10 }]}>โปรดระบุวันหมดอายุ</Text>
+            <DatePicker
+              style={{ width: '100 %' }}
+              date={this.state.date}
+              mode="date"
+              placeholder="select date"
+              format="DD-MM-YYYY"
+              minDate="1-12-1920"
+              maxDate="1-07-2020"
+              confirmBtnText="Confirm"
+              cancelBtnText="Cancel"
+              customStyles={{
+                dateIcon: {
+                  position: 'absolute',
+                  left: 0,
+                  top: 4,
+                  marginLeft: 0
+                },
+              }}
+              onDateChange={(date) => { this.setState({ date: date }) }} />
+          </View>
+        </ScrollView>
+        <TouchableOpacity style={[stylesMain.ItemCenter, { backgroundColor: '#0A55A6', height: 50 }]}>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>บันทึก</Text>
+        </TouchableOpacity>
+      </>
+
     );
   }
 }

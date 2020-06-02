@@ -240,16 +240,14 @@ export class ExitAppModule extends React.Component {
         };
         this.springValue = new Animated.Value(0);
         this.transformValue = new Animated.Value(100)
+        this.handleBackButton = this._handleBackButton.bind(this)
     };
     componentDidMount() {
         YellowBox.ignoreWarnings(["Require cycle:", "*"]);
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton.bind(this));
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     };
     componentWillUnmount() {
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton.bind(this));
-    };
-    componentDidCatch() {
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton.bind(this));
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     };
     _spring = () => {
         this.setState({ backClickCount: 1 }, () => {
@@ -300,18 +298,22 @@ export class ExitAppModule extends React.Component {
             });
         });
     };
-    handleBackButton = () => {
+    _handleBackButton = () => {
         const { backClickCount } = this.state;
         const { navigation } = this.props;
-        backClickCount == 1 ? BackHandler.exitApp() : this._spring()
-        // var routeProps = navigation.dangerouslyGetParent().state.routes.length;
-        // return routeProps == 1 ? (
-        //     backClickCount == 1 ? BackHandler.exitApp() : this._spring(),
-        //     true
-        // ) : (
-        //         navigation.pop(),
-        //         true
-        //     );
+        // backClickCount == 1 ? BackHandler.exitApp() : this._spring()
+        var routeProps = navigation.dangerouslyGetParent().state.routes.length;
+        console.log('routeProps')
+        console.log(routeProps)
+        console.log('backClickCount')
+        console.log(backClickCount)
+        return routeProps == 1 ? (
+            backClickCount == 1 ? BackHandler.exitApp() : this._spring(),
+            true
+        ) : (
+                navigation.pop(),
+                true
+            );
     };
     render() {
         return (

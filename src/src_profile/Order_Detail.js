@@ -87,7 +87,7 @@ export default class Order_Detail extends Component {
                             <>
                                 {
                                     activeSelectedIndex == false && ([
-                                        dataService && dataService.transport_data &&
+                                        dataService && dataService.transport_data && dataService.transport_data.length > 0 &&
                                         <Detail dataService={dataService.transport_data[0]} key={'Detail'} />,
                                         <Order_Sending key={'Order_Sending'} no_invoice={no_invoice} onStart={insert_date} onEnd={true} />
                                     ])

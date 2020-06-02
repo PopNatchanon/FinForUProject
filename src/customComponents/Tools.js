@@ -263,7 +263,7 @@ export class TabBar extends React.Component {
         } = this.props
         const { PassSetValue, pathlist, pathlist2 } = this.state
         const countItem = item.length;
-        console.log(`SetValue = > ${SetValue}`)
+        SetValue && console.log(`SetValue = > ${SetValue}`)
         SetValue >= 0 && SetValue != pathlist &&
             this.setSelectTab(SetValue)
         return item.map((item, index) => {
@@ -830,6 +830,7 @@ export async function GetServices(props) {
         console.log(uriPointer);
         dataBody && console.log(dataBody);
         abortController && abortController.abort();
+        if (error == 'TypeError: Network request failed') return getDataSource({ error: 'Network request failed' })
         return getDataSource({ error });
     };
     if (rawData === undefined) {
@@ -1498,7 +1499,7 @@ export class FeedBox extends React.Component {
         getDataSource(activeRef)
     }
     get FeedBoxRender() {
-        const { dataService, Follow, Header, navigation, postpath, prepath, typeip, userOwner } = this.props
+        const { atStore, dataService, Follow, Header, navigation, postpath, prepath, typeip, userOwner } = this.props
         const { Button_Follow_After, } = this.state
         Button_Follow_After == null && dataService.length > 0 && (
             //     this.setStateButton(dataService.length)
@@ -1513,7 +1514,7 @@ export class FeedBox extends React.Component {
                 {
                     Header &&
                     <View style={stylesMain.BoxProduct4PlusHeader}>
-                        <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                        <TouchableOpacity onPress={() => atStore ? undefined : NavigationNavigateScreen({
                             goScreen: 'StoreScreen', setData: {
                                 id_item: dataService.id_store ? dataService.id_store : dataService.p_id_store
                             }, navigation

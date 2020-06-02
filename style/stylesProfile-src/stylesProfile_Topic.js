@@ -289,7 +289,6 @@ export default StyleSheet.create({
     ///-----------------------------------Total_Order-----------------------------------///
     Button_bar: {
         height: 40,
-        marginTop: 5,
         backgroundColor: '#FFFFFF',
     },
     Order_BoxStore: {

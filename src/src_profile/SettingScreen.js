@@ -17,7 +17,7 @@ import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfile from '../../style/StylesProfileScreen'
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule } from '../page/MainScreen';
+import { AppBar1, ExitAppModule } from '../MainScreen';
 import { NavigationNavigateScreen } from '../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 ///----------------------------------------------------------------------------------------------->>>> Main

@@ -13,16 +13,16 @@ import ActionButton from 'react-native-action-button';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesFont from '../../style/stylesFont';
-import stylesMain, { mainColor } from '../../style/StylesMainScreen';
-import stylesStore from '../../style/StylesStoreScreen';
+import stylesFont from '../style/stylesFont';
+import stylesMain, { mainColor } from '../style/StylesMainScreen';
+import stylesStore from '../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, ExitAppModule, Not_Internet, } from './MainScreen';
 import {
     FeedBox, GetCoupon, GetData, GetServices, ProductBox, TabBar, LoadingScreen, NavigationNavigateScreen, FlatProduct,
-} from '../customComponents/Tools';
+} from './customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { finip, ip, } from '../navigator/IpConfig';
+import { finip, ip, } from './navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class StoreScreen extends React.Component {
     constructor(props) {

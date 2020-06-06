@@ -64,7 +64,6 @@ import Installment_payScreen from '../src_Promotion/Installment_payScreen';
 import Detail_Campaign from '../src_Promotion/Detail_Campaign';
 // src store
 import Post_Feed from '../src_Store/Post_Feed';
-import StoryScreen from '../StoryScreen';
 ///----------------------------------------------------------------------------------------------->>>>
 const PathScreen = createStackNavigator({
   MainScreen: {
@@ -386,12 +385,6 @@ const PathScreen = createStackNavigator({
   // src_store
   Post_Feed: {
     screen: Post_Feed, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  StoryScreen: {
-    screen: StoryScreen, navigationOptions: () => ({
       headerShown: false,
       cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })

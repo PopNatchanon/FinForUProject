@@ -1841,7 +1841,7 @@ export class CategoryProduct extends React.Component {
         // var dataMySQL = `${ip}/mysql/${item.image_path}/${item.image}`;
         return dataService &&
             dataService.map((item, index) => {
-                if (index < 6 /*dataService.length*/) {
+                if (index < 10 /*dataService.length*/) {
                     var dataMySQL = `${finip}/${item.image_path}/${item.image_menu}`;
                     return (
                         <View key={index} style={[stylesMain.FrameBackground2, {
@@ -1971,8 +1971,8 @@ export class CategoryProductSubStore extends React.PureComponent {
     };
     _renderItem = (item, index) => {
         const {numberBox} = this.props
-        // var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
-        var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Category_S/${item.image}`;
+        var dataMySQL = `${finip}/${item.image_path}/mobile/${item.image}`;
+        // var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Category_S/${item.image}`;
         console.log(`CategoryProductrenderItem ${numberBox}`)
         console.log(dataMySQL)
         // var dataMySQL2;
@@ -2062,9 +2062,9 @@ export class CategoryProductSubPromotion extends React.Component {
         this.setState({ dataService2, activeDataService2: false });
     };
     dataCategoryProductSubPromotionSmall(dataService, numberBox) {
-        // var dataMySQL = dataService && dataService.banner &&
-        //     `${finip}/${(dataService.banner[0].image_path)}/${(dataService.banner[0].image)}`
-        var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Category_M/${(dataService.banner[0].image)}`;
+        var dataMySQL = dataService && dataService.banner &&
+            `${finip}/${(dataService.banner[0].image_path)}/mobile/${(dataService.banner[0].image)}`
+        // var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Category_M/${(dataService.banner[0].image)}`;
         if (dataMySQL == false) { return <></> }
         // console.log(`CategoryProductPromotionSmall ${numberBox}`)
         // console.log(dataMySQL)
@@ -2084,9 +2084,9 @@ export class CategoryProductSubPromotion extends React.Component {
         );
     };
     dataCategoryProductSubPromotionBig(dataService) {
-        // var dataMySQL = dataService && dataService.banner &&
-        //     `${finip}/${(dataService.banner[0].image_path)}/${(dataService.banner[0].image)}`;
-        var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Category_L/${(dataService.banner[0].image)}`;
+        var dataMySQL = dataService && dataService.banner &&
+            `${finip}/${(dataService.banner[0].image_path)}/mobile/${(dataService.banner[0].image)}`;
+        // var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Category_L/${(dataService.banner[0].image)}`;
         if (dataMySQL == false) { return <></> };
         // console.log('CategoryProductSubPromotionBig ')
         // console.log(dataMySQL)
@@ -2270,7 +2270,6 @@ export class Second_product extends React.PureComponent {
                             <View>
                                 {this.renderItem1(loadData.list_store2_1)}
                             </View>
-                            {this.pagination}
                         </View>,
                         loadData.list_store2_2 &&
                         <View key={'list_store2_2'}>

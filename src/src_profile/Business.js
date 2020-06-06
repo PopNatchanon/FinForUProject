@@ -10,6 +10,7 @@ import FastImage from 'react-native-fast-image';
 import ImagePicker from 'react-native-image-crop-picker';
 import { CheckBox } from 'react-native-elements';
 import DatePicker from 'react-native-datepicker';
+import ModalDropdown from 'react-native-modal-dropdown';
 import { BarChart, Grid, StackedBarChart, LineChart, XAxis, YAxis } from 'react-native-svg-charts'
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
@@ -63,8 +64,7 @@ export default class Business extends React.Component {
             {/* หน้าโปรไฟล์ของ Affiliate มีเมนูด้านล่าง */}
             <AppBar1 backArrow navigation={navigation} titleHead='สมาชิกAffiliate' />
             <ScrollView>
-              <Business_Profile />
-              <Business_MenuBar navigation={navigation} />
+              <Business_Profile navigation={navigation} />
             </ScrollView>
           </>
         )
@@ -74,7 +74,6 @@ export default class Business extends React.Component {
             {/* เข้าจากโปรไฟล์ของ Affiliate รายการสินค้า */}
             <AppBar1 backArrow navigation={navigation} titleHead='สมาชิกAffiliate' />
             <ScrollView>
-              <Business_Profile />
               <Income navigation={navigation} />
             </ScrollView>
           </>
@@ -84,7 +83,6 @@ export default class Business extends React.Component {
           <>
             {/* เข้าจากโปรไฟล์ของ Affiliate การเติบโต */}
             <AppBar1 backArrow navigation={navigation} titleHead='สมาชิกAffiliate' />
-            <Business_Profile />
             <Growth />
           </>
         )
@@ -112,15 +110,6 @@ export default class Business extends React.Component {
             <ID_card />
           </>
         )
-      case 8:
-        return (
-          <>
-            {/* หน้าเพิ่มบัญชีธนาคาร เข้าจาก หน้าแบบFromการสมัครสมาชิก Affiliate */}
-            <AppBar1 backArrow navigation={navigation} titleHead='บัญชีธนาคาร ' />
-            <Bank_book />
-          </>
-        )
-
     }
   }
   render() {
@@ -262,10 +251,21 @@ export class Business_Profile extends React.Component {
     };
   }
   render() {
+    const { navigation } = this.props
     return (
       <>
         <View style={[stylesMain.FrameBackground, { alignItems: 'center', }]}>
-          <View style={{ height: 100, width: 100, backgroundColor: '#C4C4C4', borderRadius: 50, marginTop: 20 }} />
+          <View style={{
+            height: 100, width: 100, backgroundColor: '#128BCE',
+            borderRadius: 50, marginTop: 20, padding: 10, borderWidth: 2, borderColor: mainColor
+          }} >
+            <FastImage
+              style={stylesMain.BoxProduct1Image}
+              source={{
+                uri: `${ip}/MySQL/uploads/addmin/unnamed.png`,
+              }}
+              resizeMode={FastImage.resizeMode.stretch} />
+          </View>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 10 }]}>ชื่อ นาย ชนะชัย โอชานะ</Text>
           <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', width: '80%', marginTop: 10, marginBottom: 10 }]}>
             <View style={[stylesMain.ItemCenter, stylesMain.FlexRow, { borderColor: mainColor, borderWidth: 2, width: '49%', borderRadius: 5, height: 30 }]}>
@@ -278,45 +278,52 @@ export class Business_Profile extends React.Component {
             </View>
           </View>
         </View>
-      </>
-    );
-  }
-}
-///----------------------------------------------------------------------------------------------->>>>
-export class Business_MenuBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-  render() {
-    const { navigation } = this.props
-    return (
-      <>
         <View style={{ backgroundColor: '#FFFFFF' }}>
+          <View style={[stylesProfile.ListMenuList, { justifyContent: 'center', padding: 10 }]}>
+            <View style={stylesProfile.ListMenuListSub}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginRight: 10 }]}>ระยะเวลา</Text>
+              <View style={{ borderColor: '#EAEAEA', borderWidth: 1, width: '60%', alignItems: 'center' }}>
+                <ModalDropdown
+                  options={['All', 'Today', 'Last 7 Days', 'This Month']}
+                  defaultValue={'All'}
+                  textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
+                  dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'center' }]}
+                  dropdownStyle={{ borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, width: '43%' }}>
+                </ModalDropdown>
+              </View>
+            </View>
+          </View>
+          <View style={[stylesProfile.ListMenuList, { padding: 10 }]}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>ยอดเงินสะสม</Text>
+            <View style={stylesProfile.ListMenuListSub}>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#4DCD9A', marginRight: 10 }]}>+0 (+0.00%)</Text>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>0 THB</Text>
+            </View>
+          </View>
+          <View style={[stylesProfile.ListMenuList, { padding: 10 }]}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>จำนวนคลิก</Text>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>0 ครั้ง</Text>
+          </View>
+          <View style={[stylesProfile.ListMenuList, { padding: 10 }]}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>รายได้ต่อคลิก</Text>
+            <View style={stylesProfile.ListMenuListSub}>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#4DCD9A', marginRight: 10 }]}>+0 (+0.00%)</Text>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>0 THB</Text>
+            </View>
+          </View>
           <TouchableOpacity activeOpacity={1}
             onPress={() => NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 3 }, navigation })}>
-            <View style={stylesProfile.ListMenuList}>
-              <View style={stylesProfile.ListMenuListSub}>
-                <Text style={[
-                  stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6,
-                  stylesFont.FontCenter
-                ]}>
-                  รายการสินค้า</Text>
-              </View>
+            <View style={[stylesProfile.ListMenuList, { paddingHorizontal: 10 }]}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 10 }]}>
+                รายการสินค้า</Text>
               <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
             </View>
           </TouchableOpacity>
           <TouchableOpacity activeOpacity={1}
             onPress={() => NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 4 }, navigation })}>
-            <View style={stylesProfile.ListMenuList}>
-              <View style={stylesProfile.ListMenuListSub}>
-                <Text style={[
-                  stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6,
-                  stylesFont.FontCenter
-                ]}>
-                  การเติบโต</Text>
-              </View>
+            <View style={[stylesProfile.ListMenuList, { paddingHorizontal: 10 }]}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 10 }]}>
+                การเติบโต</Text>
               <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
             </View>
           </TouchableOpacity>
@@ -404,17 +411,19 @@ export class Growth extends React.Component {
     ]
     return (
       <>
-        <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', marginTop: 10, justifyContent: 'space-between', paddingHorizontal: 10 }]}>
+        <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', marginTop: 5, justifyContent: 'space-between', padding: 10 }]}>
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>กราฟ</Text>
-          <View style={{ marginRight: 10 }}>
-            <TouchableOpacity style={[stylesMain.FlexRow, stylesMain.ItemCenter, { height: 30, borderColor: '#ECECEC', borderWidth: 1, width: 100, borderRadius: 5 }]}>
-              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,]}>ทั้งหมด</Text>
-              <IconAntDesign name='caretdown' size={15} />
-            </TouchableOpacity>
-            {/* <View style={[stylesMain.ItemCenter, { height: 60, borderColor: '#ECECEC', borderWidth: 1, width: 100 }]}>
-              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,]}>สัปดาห์</Text>
-              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,]}>เดือน</Text>
-            </View> */}
+          <View style={[stylesMain.ItemCenter, {
+            borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, width: 100, flexDirection: 'row',
+          }]}>
+            <ModalDropdown
+              options={['ทั้งหมด', 'สัปดาห์', 'เดือน', 'ปี']}
+              defaultValue={'ทั้งหมด'}
+              textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
+              dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'center' }]}
+              dropdownStyle={{ borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, width: 100 }}>
+            </ModalDropdown>
+            <IconAntDesign name='caretdown' size={15} style={{ marginLeft: 5 }} />
           </View>
         </View>
         <View style={{ height: 200, padding: 20, backgroundColor: '#FFFFFF', flexDirection: 'row' }}>
@@ -517,6 +526,20 @@ export class Growth extends React.Component {
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#4DCD9A', marginLeft: 10 }]}>+0.01%</Text>
           </View>
         </View>
+        <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', backgroundColor: '#FFFFFF', padding: 10 }]}>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>รายได้ต่อคลิก</Text>
+          <View style={stylesMain.FlexRow}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7,]}>เปอร์เซ็นการเติบโต</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#4DCD9A', marginLeft: 10 }]}>+0.01%</Text>
+          </View>
+        </View>
+        <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', backgroundColor: '#FFFFFF', padding: 10 }]}>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>จำนวนคลิก</Text>
+          <View style={stylesMain.FlexRow}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7,]}>เปอร์เซ็นการเติบโต</Text>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#4DCD9A', marginLeft: 10 }]}>+0.01%</Text>
+          </View>
+        </View>
       </>
     );
   }
@@ -533,6 +556,22 @@ export class Finance extends React.Component {
     const { navigation } = this.props
     return (
       <View>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 10 }}>
+          <View style={[stylesMain.ItemCenter, {
+            width: '49%', backgroundColor: '#FFFFFF',
+            marginVertical: 10, padding: 10, borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5
+          }]}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>0 THB </Text>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยอดเงินที่ถอนได้</Text>
+          </View>
+          <View style={[stylesMain.ItemCenter, {
+            width: '49%', backgroundColor: '#FFFFFF',
+            marginVertical: 10, padding: 10, borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5
+          }]}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>0 THB </Text>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยอดเงินที่ถอนแล้ว</Text>
+          </View>
+        </View>
         <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
           goScreen: 'Seller_Topic', setData: { selectedIndex: 13 }, navigation
         })}>
@@ -652,7 +691,7 @@ export class Register_Affiliate_From extends React.Component {
               <View style={{ width: '95%' }}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>สำเนาบัตรประชาชน</Text>
                 <View>
-                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>เอกสารต้องมีลายเซนต์กำกับ พร้อมยืนยันสำเนาถูกต้องโดย กรรมผู้มีอำนาจ หรือ เจ้าของร้าน ตัวอย่าง </Text>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>เอกสารต้องมีลายเซนต์กำกับ พร้อมยืนยันสำเนาถูกต้องโดย กรรมผู้มีอำนาจ หรือ เจ้าของร้าน</Text>
                 </View>
               </View>
               <View style={stylesMain.ItemCenter}>
@@ -660,15 +699,16 @@ export class Register_Affiliate_From extends React.Component {
               </View>
             </View>
           </TouchableOpacity>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { textAlign: 'center' }]}>ตัวอย่าง</Text>
           <TouchableOpacity
             onPress={() => NavigationNavigateScreen({
-              goScreen: 'Business', setData: { selectedIndex: 8 }, navigation
+              goScreen: 'Seller_Topic', setData: { selectedIndex: 17 }, navigation
             })} >
             <View style={[stylesMain.FrameBackground, stylesMain.FlexRow, { paddingHorizontal: 10 }]}>
               <View style={{ width: '95%' }}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>บัญชีธนาคาร</Text>
                 <View>
-                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>เอกสารต้องมีลายเซนต์กำกับ พร้อมยืนยันสำเนาถูกต้องโดย กรรมผู้มีอำนาจ หรือ เจ้าของร้าน ตัวอย่าง </Text>
+                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>เอกสารต้องมีลายเซนต์กำกับ พร้อมยืนยันสำเนาถูกต้องโดย กรรมผู้มีอำนาจ หรือ เจ้าของร้าน</Text>
                 </View>
               </View>
               <View style={stylesMain.ItemCenter}>
@@ -676,6 +716,7 @@ export class Register_Affiliate_From extends React.Component {
               </View>
             </View>
           </TouchableOpacity>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { textAlign: 'center' }]}>ตัวอย่าง</Text>
           <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>Line ID</Text>
             <TextInput
@@ -705,7 +746,9 @@ export class Register_Affiliate_From extends React.Component {
             </View>
           </View>
         </ScrollView>
-        <TouchableOpacity style={[stylesMain.ItemCenter, { backgroundColor: '#0A55A6', height: 50 }]}>
+        <TouchableOpacity onPress={() => NavigationNavigateScreen({
+          goScreen: 'Business', setData: { selectedIndex: 1 }, navigation
+        })} style={[stylesMain.ItemCenter, { backgroundColor: '#0A55A6', height: 50 }]}>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ยืนยัน</Text>
         </TouchableOpacity>
       </>

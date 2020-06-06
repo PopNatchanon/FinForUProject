@@ -845,7 +845,8 @@ export class BoxProduct4 extends React.Component {
                         activeRef == false ? (
                             dataService && dataService.feed_news && dataService.feed_news != 'ยังไม่มีข่าวใหม่' ?
                                 dataService.feed_news.map((value, index) => {
-                                    return <FeedBox atStore dataService={value} Follow={true} Header key={index} navigation={navigation} />
+                                    return value.id_feed &&
+                                        <FeedBox atStore dataService={value} Follow={true} Header key={index} navigation={navigation} />
                                 }) :
                                 <View style={[stylesMain.ItemCenter, { width, height: 50, backgroundColor: '#fff' }]}>
                                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, stylesMain.ItemCenterVertical]}>

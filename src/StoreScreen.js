@@ -13,16 +13,16 @@ import ActionButton from 'react-native-action-button';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesFont from '../style/stylesFont';
-import stylesMain, { mainColor } from '../style/StylesMainScreen';
-import stylesStore from '../style/StylesStoreScreen';
+import stylesFont from '../../style/stylesFont';
+import stylesMain, { mainColor } from '../../style/StylesMainScreen';
+import stylesStore from '../../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, ExitAppModule, Not_Internet, } from './MainScreen';
 import {
     FeedBox, GetCoupon, GetData, GetServices, ProductBox, TabBar, LoadingScreen, NavigationNavigateScreen, FlatProduct,
-} from './customComponents/Tools';
+} from '../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { finip, ip, } from './navigator/IpConfig';
+import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class StoreScreen extends React.Component {
     constructor(props) {
@@ -845,7 +845,8 @@ export class BoxProduct4 extends React.Component {
                         activeRef == false ? (
                             dataService && dataService.feed_news && dataService.feed_news != 'ยังไม่มีข่าวใหม่' ?
                                 dataService.feed_news.map((value, index) => {
-                                    return <FeedBox atStore dataService={value} Follow={true} Header key={index} navigation={navigation} />
+                                    return value.id_feed &&
+                                        <FeedBox atStore dataService={value} Follow={true} Header key={index} navigation={navigation} />
                                 }) :
                                 <View style={[stylesMain.ItemCenter, { width, height: 50, backgroundColor: '#fff' }]}>
                                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, stylesMain.ItemCenterVertical]}>

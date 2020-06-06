@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React from 'react';
 import {
-    Dimensions, SafeAreaView, ScrollView, ImageBackground, Text, TextInput, TouchableOpacity, View,
+    Dimensions, SafeAreaView, ScrollView, ImageBackground, Text, TextInput, TouchableOpacity, View, ActivityIndicator,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
@@ -55,17 +55,14 @@ export default class ProfileScreen extends React.Component {
             GetData({ getCokie: true, getUser: true, getSource: this.getSource.bind(this), })
         return (
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
-                {
+                {/* {
                     (activeGetSource == true || activeGetServices == true) &&
                     <LoadingScreen key='LoadingScreen' />
-                }
+                } */}
                 <ScrollView>
                     <View>
-                        {
-                            currentUser && dataSevice && dataSevice.list_profile &&
-                            <Headbar navigation={navigation} currentUser={currentUser} dataSevice={dataSevice}
-                                getDataSource={this.getDataSource.bind(this)} />
-                        }
+                        <Headbar navigation={navigation} currentUser={currentUser} dataSevice={dataSevice}
+                            getDataSource={this.getDataSource.bind(this)} />
                         <Menubar navigation={navigation} />
                         <Listbar currentUser={currentUser} cokie={cokie} navigation={navigation} />
                     </View>
@@ -87,7 +84,10 @@ export class Headbar extends React.Component {
     }
     render() {
         const { currentUser, dataSevice, navigation, statusOnline, } = this.props
-        const uri = `${finip}/${dataSevice.list_profile[0].image_path}/${dataSevice.list_profile[0].image}`;
+        var uri
+        dataSevice && dataSevice.list_profile && (
+            uri = `${finip}/${dataSevice.list_profile[0].image_path}/${dataSevice.list_profile[0].image}`
+        );
         return (
             <View>
                 <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
@@ -113,14 +113,20 @@ export class Headbar extends React.Component {
                                             เริ่มค้าขาย</Text>
                                     </View>
                                 </TouchableOpacity>
-                                <FastImage
-                                    source={{ uri: uri }}
-                                    style={[stylesProfile.HeadbarBoxImage, stylesMain.ItemCenter]}>
-                                </FastImage>
+                                {
+                                    dataSevice && dataSevice.list_profile ?
+                                        <FastImage
+                                            source={{ uri: uri }}
+                                            style={[stylesProfile.HeadbarBoxImage, stylesMain.ItemCenter]}>
+                                        </FastImage> :
+                                        <View style={[stylesProfile.HeadbarBoxImage, stylesMain.ItemCenter]}>
+                                            <ActivityIndicator style={stylesMain.ItemCenterVertical} color='#1A3263' size='large' />
+                                        </View>
+                                }
                             </View>
                             <View style={{ marginLeft: 15, marginTop: '21%' }}>
                                 <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>
-                                    {dataSevice.list_profile[0].name}</Text>
+                                    {dataSevice && dataSevice.list_profile ? dataSevice.list_profile[0].name : ' '}</Text>
                                 <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, {
                                     color:
                                         statusOnline ?
@@ -130,7 +136,9 @@ export class Headbar extends React.Component {
                                     <View style={{ height: 8, width: 8, borderRadius: 4, backgroundColor: '#43e855' }}>
                                     </View> Active อยู่</Text>
                                 <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: '#FFFFFF' }]}>
-                                    ผู้ติดตาม {dataSevice.who_follow_me} | กำลังติดตาม {dataSevice.my_follow}</Text>
+                                    ผู้ติดตาม {dataSevice && dataSevice.who_follow_me ?
+                                        dataSevice.who_follow_me : 0} | กำลังติดตาม {dataSevice && dataSevice.my_follow ?
+                                            dataSevice.my_follow : 0}</Text>
                             </View>
                         </View>
                         <View style={{ flexDirection: 'row', padding: 8 }}>

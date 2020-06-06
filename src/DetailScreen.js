@@ -23,16 +23,16 @@ import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import IconFontisto from 'react-native-vector-icons/Fontisto';
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesDetail from '../style/StylesDetailScreen'
-import stylesFont, { normalize } from '../style/stylesFont';
-import stylesMain, { mainColor } from '../style/StylesMainScreen';
+import stylesDetail from '../../style/StylesDetailScreen'
+import stylesFont, { normalize } from '../../style/stylesFont';
+import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, ExitAppModule } from './MainScreen';
 import {
   GetServices, ProductBox, TabBar, FlatComponent, GetData, FlatProduct, NavigationNavigateScreen,
-} from './customComponents/Tools';
+} from '../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { finip, ip, } from './navigator/IpConfig';
+import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main // complete_last_function
 export default class DetailScreen extends React.PureComponent {
   mounted = false;

@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
-  Dimensions, SafeAreaView, ScrollView, View, FlatList
+  Dimensions, SafeAreaView, ScrollView, View, FlatList, TouchableOpacity, ActivityIndicator
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
@@ -11,167 +11,147 @@ import stylesMain, { mainColor } from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, Botton_PopUp_FIN, } from './MainScreen';
-import { FeedBox, GetData, GetServices, TabBar, Toolbar, LoadingScreen } from './customComponents/Tools';
+import {
+  FeedBox, GetData, GetServices, TabBar, Toolbar, LoadingScreen, NavigationNavigateScreen,
+} from './customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from './navigator/IpConfig';
 import { normalize } from '../style/stylesFont';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class FeedScreen extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeGetSource: true,
-      activeSelectedIndex: true,
-      selectedIndex: 0
-    };
-  };
-  componentDidMount() {
-    const { activeGetSource, } = this.state;
-    activeGetSource == true && GetData({ getCokie: true, getUser: true, getSource: this.getSource.bind(this) });
-  };
-  getSource = (value) => {
-    this.setState({ activeGetSource: false, currentUser: value.currentUser, cokie: value.keycokie, activeLogin: value.activeLogin });
-  };
-  getSelectedIndex = (selectedIndex) => {
-    this.setState({ selectedIndex });
-  };
-  getActiveSelectedIndex = (activeSelectedIndex) => {
-    this.setState({ activeSelectedIndex });
-  };
-  render() {
-    const { navigation } = this.props;
-    const { activeGetSource, activeLogin, activeSelectedIndex, currentUser, selectedIndex } = this.state;
-    return (
-      <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
-        {
+export default function FeedScreen(props) {
+  const { navigation } = props
+  abortController = new AbortController();
+  const [activeGetSource, setActiveGetSource] = useState(true);
+  const [activeSelectedIndex, setActiveSelectedIndex] = useState(true);
+  const [cokie, setCokie] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  useEffect(() => {
+    GetData({
+      abortController, getCokie: true, getUser: true, getSource: value => {
+        setCurrentUser(value.currentUser);
+        setCokie(value.keycokie);
+        setActiveGetSource(false)
+      },
+    });
+  }, [activeGetSource]);
+  return (
+    <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
+      {/* {
           activeGetSource == true &&
           <LoadingScreen key='LoadingScreen' />
-        }
-        <AppBar1 titleHead='ฟีด' storeBar menuBar navigation={navigation} />
-        {
-          currentUser &&
-          <MenuBar getActiveSelectedIndex={this.getActiveSelectedIndex.bind(this)} sendText={this.getSelectedIndex.bind(this)} />
-        }
-        {
-          activeGetSource == false &&
-          <Button_Bar activeSelectedIndex={activeSelectedIndex}
-            currentUser={currentUser} getActiveSelectedIndex={this.getActiveSelectedIndex.bind(this)}
-            selectedIndex={currentUser ? selectedIndex : 1} navigation={navigation} />
-        }
-        <Botton_PopUp_FIN />
-        <Toolbar navigation={navigation} />
-        <ExitAppModule navigation={navigation} />
-      </SafeAreaView>
-    );
-  };
+        } */}
+      <AppBar1 titleHead='ฟีด' storeBar menuBar navigation={navigation} />
+      {
+        currentUser &&
+        <MenuBar getActiveSelectedIndex={activeSelectedIndex => setActiveSelectedIndex(activeSelectedIndex)}
+          sendText={selectedIndex => setSelectedIndex(selectedIndex)} />
+      }
+      {
+        activeGetSource == false ?
+          <Button_Bar abortController={abortController} activeSelectedIndex={activeSelectedIndex}
+            currentUser={currentUser} getActiveSelectedIndex={activeSelectedIndex => setActiveSelectedIndex(activeSelectedIndex)}
+            selectedIndex={currentUser ? selectedIndex : 1} navigation={navigation} /> :
+          <View style={{ width, height: height * 0.768 }}>
+            <ActivityIndicator style={stylesMain.ItemCenterVertical} color='#1A3263' size='large' />
+          </View>
+      }
+      <Botton_PopUp_FIN />
+      <Toolbar abortController={abortController} navigation={navigation} />
+      <ExitAppModule navigation={navigation} />
+    </SafeAreaView>
+  );
 };
 ///----------------------------------------------------------------------------------------------->>>> MenuBar
-export class MenuBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  };
-  getData = (value) => {
-    const { getActiveSelectedIndex, sendText } = this.props;
-    sendText(value.selectedIndex);
-    getActiveSelectedIndex(true);
-  };
-  render() {
-    const item = [{
-      name: 'กำลังติดตาม'
-    }, {
-      name: 'ไฮไลท์'
-    }];
-    return (
+export function MenuBar(props) {
+  const { getActiveSelectedIndex, sendText } = props;
+  const item = [{
+    name: 'กำลังติดตาม'
+  }, {
+    name: 'ไฮไลท์'
+  }];
+  return (
+    <View>
       <View>
-        <View>
-          <TabBar
-            sendData={this.getData.bind(this)}
-            item={item}
-            noSpace
-            setVertical={2}
-            widthBox={100}
-            spaceColor={mainColor}
-            activeColor='#fff'
-            fontColor='#fff' />
-        </View>
+        <TabBar
+          sendData={value => {
+            sendText(value.selectedIndex);
+            getActiveSelectedIndex(true);
+          }}
+          item={item}
+          noSpace
+          setVertical={2}
+          widthBox={100}
+          spaceColor={mainColor}
+          activeColor='#fff'
+          fontColor='#fff' />
       </View>
-    );
-  };
+    </View>
+  );
 };
 ///----------------------------------------------------------------------------------------------->>>> Button_Bar
-export class Button_Bar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
+export function Button_Bar(props) {
+  const { activeSelectedIndex, currentUser, getActiveSelectedIndex, navigation, selectedIndex } = props;
+  var uri = `${finip}/${(selectedIndex == 0 ? 'brand/feed_store_follow' : 'brand/feed_highlight')}`
+  var dataBody = {
+    id_customer: currentUser && currentUser.id_customer ? currentUser.id_customer : ''
   };
-  getData = (dataService) => {
-    const { getActiveSelectedIndex } = this.props;
-    getActiveSelectedIndex(false);
-    this.setState({ dataService });
-  };
-  render() {
-    const { activeSelectedIndex, currentUser, navigation, selectedIndex } = this.props;
-    const { dataService } = this.state;
-    var uri = `${finip}/${(selectedIndex == 0 ? 'brand/feed_store_follow' : 'brand/feed_highlight')}`
-    var dataBody = {
-      id_customer: currentUser && currentUser.id_customer ? currentUser.id_customer : ''
-    };
-    activeSelectedIndex == true &&
-      GetServices({
-        uriPointer: uri, dataBody: (selectedIndex == 0 ? dataBody : undefined), getDataSource: this.getData.bind(this),
-        showConsole: 'feed_store_follow'
-      });
-    return (
-      <View style={{ flex: 1, height: '100%' }}>
-        {
-          activeSelectedIndex == true &&
-          <LoadingScreen key='LoadingScreen' />
-        }
-        <Highlights dataService={dataService && dataService.feed_follow} Follow navigation={navigation} />
-      </View>
-    );
-  };
+  const [dataService, setDataService] = useState(null);
+  useEffect(() => {
+    GetServices({
+      uriPointer: uri, dataBody: (selectedIndex == 0 ? dataBody : undefined), getDataSource: value => {
+        getActiveSelectedIndex(false);
+        setDataService(value);
+      },
+    });
+  }, [selectedIndex]);
+  return (
+    <View style={{ flex: 1, height: '100%' }}>
+      {
+        activeSelectedIndex == false ?
+          dataService && dataService.feed_follow &&
+          <Highlights dataService={dataService.feed_follow} Follow navigation={navigation} /> :
+          <View style={{ width, height: height * 0.8 }}>
+            <ActivityIndicator style={stylesMain.ItemCenterVertical} color='#1A3263' size='large' />
+          </View>
+      }
+    </View>
+  );
 };
 ///----------------------------------------------------------------------------------------------->>>> Highlights
-export class Highlights extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  };
-  render() {
-    const { dataService, Follow, navigation } = this.props;
+export function Highlights(props) {
+  const { dataService, Follow, navigation } = props;
+  function headerStoryList(navigation) {
     return (
-      <View style={stylesMain.FrameBackground, stylesMain.BackgroundAreaView}>
-        <View>
-          {
-            dataService &&
-            <FlatList
-              scrollEnabled={true}
-              initialNumToRender={10}
-              data={dataService}
-              keyExtractor={(value, index) => `Feed${index}`}
-              // ListHeaderComponent={this.renderHeader}
-              ListHeaderComponentStyle={{
-                flexDirection: 'column'
-              }}
-              renderItem={(value) =>
-                <>
-                  <FeedBox dataService={value.item} navigation={navigation}
-                    Follow={
-                      Follow ?
-                        Follow :
-                        null
-                    } Header />
-                </>
-              }
-            />
-          }
-        </View>
+      <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'StoryScreen', navigation })}>
+        <View style={{ width, height: 50, backgroundColor: '#564867' }}></View>
+      </TouchableOpacity>
+    )
+  }
+  return (
+    <View style={stylesMain.FrameBackground, stylesMain.BackgroundAreaView}>
+      <View>
+        {
+          dataService &&
+          <FlatList
+            scrollEnabled={true}
+            initialNumToRender={10}
+            data={dataService}
+            keyExtractor={(value, index) => `Feed${index}`}
+            ListHeaderComponent={() => headerStoryList(navigation)}
+            renderItem={(value) => {
+              return <>
+                <FeedBox dataService={value.item} navigation={navigation}
+                  Follow={
+                    Follow ?
+                      Follow :
+                      null
+                  } Header />
+              </>
+            }}
+          />
+        }
       </View>
-    );
-  };
+    </View>
+  );
 };

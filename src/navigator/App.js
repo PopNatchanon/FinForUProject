@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { createStackNavigator, CardStyleInterpolators, HeaderStyleInterpolators, TransitionSpecs, } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 // Main
 import MainScreen from '../MainScreen';
 import StoreScreen from '../StoreScreen';
@@ -62,7 +64,7 @@ import Installment_payScreen from '../src_Promotion/Installment_payScreen';
 import Detail_Campaign from '../src_Promotion/Detail_Campaign';
 // src store
 import Post_Feed from '../src_Store/Post_Feed';
-import FastImage from 'react-native-fast-image';
+import StoryScreen from '../StoryScreen';
 ///----------------------------------------------------------------------------------------------->>>>
 const PathScreen = createStackNavigator({
   MainScreen: {
@@ -388,11 +390,17 @@ const PathScreen = createStackNavigator({
       cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     })
   },
+  StoryScreen: {
+    screen: StoryScreen, navigationOptions: () => ({
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+    })
+  },
 },
   {
-    initialRouteName: 'FeedScreen',
+    // initialRouteName: 'FeedScreen',
     // initialRouteName: 'ProfileScreen',
-    // initialRouteName: 'MainScreen',
+    initialRouteName: 'MainScreen',
   }
 );
 const AppNavigator = createAppContainer(PathScreen);

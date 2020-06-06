@@ -714,13 +714,110 @@ function promiseProcessData(promise) {
         return [null, data]
     }).catch(err => [err])
 }
+///----------------------------------------------------------------------------------------------->>>> GetData_new
+export async function GetData_new(props) {
+    SplashScreen.hide();
+    const { getCokie, getSource, getUser, } = props;
+    const [cokie, setCokie] = useState(getCokie ? getCokie : false);
+    const [user, setUser] = useState(getUser ? getUser : false);
+    const [value, setValue] = useState(undefined);
+    const [error, setError] = useState(undefined);
+    const [result, setResult] = useState(undefined);
+    const [dataCokie, setDataCokie] = useState(undefined);
+    const [dataCustomer, setDataCustomer] = useState(undefined);
+    const [dataProcessCustomer, setDataProcessCustomer] = useState(undefined);
+    useEffect(() => {
+        [setError, setResult] = promiseProcessData(AsyncStorage.multiGet(['@MyKey', '@MyLongin']))
+    });
+    console.log('error')
+    console.log(error)
+    console.log('result')
+    console.log(result)
+    // [error, result] = await promiseProcessData(AsyncStorage.multiGet(['@MyKey', '@MyLongin']));
+    // if (error) {
+    //     console.log(error)
+    //     getCokie == true && (value.keycokie = undefined)
+    //     getUser == true && (value.currentUser = undefined);
+    //     return getSource(value)
+    // }
+    // if (result[1][1] === undefined) {
+    //     console.log(result[1][1])
+    //     getCokie == true && (value.keycokie = undefined)
+    //     getUser == true && (value.currentUser = undefined);
+    //     return getSource(value)
+    // }
+    // const currentUser = result[0][1];
+    // const autoLogin = result[1][1];
+    // if (currentUser && autoLogin) {
+    //     [error, dataCokie] = await promiseProcessData(CookieManager.get(`${finip}/auth/login_customer`))
+    //     if (error) {
+    //         console.log(error)
+    //         getCokie == true && (value.keycokie = undefined)
+    //         getUser == true && (value.currentUser = undefined);
+    //         return getSource(value)
+    //     }
+    //     if (dataCokie === undefined) {
+    //         console.log(`dataCokie`);
+    //         getCokie == true && (value.keycokie = undefined)
+    //         getUser == true && (value.currentUser = undefined);
+    //         return getSource(value)
+    //     };
+    //     var keycokie = dataCokie.token
+    //     if (keycokie === undefined && autoLogin) {
+    //         [error, dataCustomer] = await promiseConnectServices(
+    //             fetch(`${finip}/auth/login_customer`, {
+    //                 method: 'POST',
+    //                 headers: {
+    //                     'Accept': 'application/json',
+    //                     'Content-Type': 'application/json',
+    //                     signal: abortController ? abortController.signal : undefined
+    //                 },
+    //                 body: autoLogin,
+    //             })
+    //         );
+    //         if (error) {
+    //             console.log(`AutoLogin:Phase 1`);
+    //             console.log(`ERROR:FETCH => ${error}`);
+    //             getCokie == true && (value.keycokie = undefined)
+    //             getUser == true && (value.currentUser = undefined);
+    //             return getSource(value)
+    //         };
+    //         if (dataCustomer === undefined) {
+    //             console.log(`AutoLogin':Phase 1`);
+    //             console.log('No Data!');
+    //             getCokie == true && (value.keycokie = undefined)
+    //             getUser == true && (value.currentUser = undefined);
+    //             return getSource(value)
+    //         };
+    //         [error, dataProcessCustomer] = await promiseProcessData(dataCustomer)
+    //         if (error) {
+    //             console.log(`AutoLogin:Phase 2`);
+    //             console.log(`ERROR:FETCH => ${error}`);
+    //             getCokie == true && (value.keycokie = undefined)
+    //             getUser == true && (value.currentUser = undefined);
+    //             return getSource(value)
+    //         };
+    //         if (dataProcessCustomer === undefined) {
+    //             console.log(`AutoLogin':Phase 2`);
+    //             console.log('No Data!');
+    //             getCokie == true && (value.keycokie = undefined)
+    //             getUser == true && (value.currentUser = undefined);
+    //             return getSource(value)
+    //         };
+    //     }
+    //     getCokie == true && (value.keycokie = dataCokie.token)
+    //     getUser == true && (value.currentUser = JSON.parse(currentUser));
+    //     return getSource(value)
+    // }
+}
 ///----------------------------------------------------------------------------------------------->>>> GetData
 export async function GetData(props) {
     SplashScreen.hide();
-    const { getCokie, getSource, getUser, } = props;
+    const { abortController, getCokie, getSource, getUser, } = props;
     var activeLogin;
     var value = {};
     let error, result, dataCokie, dataCustomer, dataProcessCustomer;
+    abortController && console.log('GetData');
     [error, result] = await promiseProcessData(AsyncStorage.multiGet(['@MyKey', '@MyLongin']));
     if (error) {
         console.log(error)
@@ -758,6 +855,7 @@ export async function GetData(props) {
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',
+                        signal: abortController ? abortController.signal : undefined
                     },
                     body: autoLogin,
                 })
@@ -811,6 +909,7 @@ export async function GetServices(props) {
         console.log(`dataBody`);
         console.log(dataBody);
     };
+    abortController && console.log(`GetServices => ${uriPointer}`);
     let error, rawData, processData;
     [error, rawData] = await promiseConnectServices(
         fetch(uriPointer, {
@@ -880,6 +979,7 @@ export async function GetServicesBlob(props) {
         console.log(`dataBody`),
         console.log(dataBody)
     );
+    abortController && console.log(`GetServicesBlob => ${uriPointer}`);
     let error, rawData, processData;
     [error, rawData] = await promiseConnectServices(RNFetchBlob.fetch(
         'POST',
@@ -887,6 +987,7 @@ export async function GetServicesBlob(props) {
         {
             Authorization: Authorization,
             'Content-Type': 'multipart/form-data',
+            signal: abortController ? abortController.signal : undefined
         },
         dataBody
     ), nojson);
@@ -1171,14 +1272,18 @@ export function ProductBox(props) {
 }
 ///----------------------------------------------------------------------------------------------->>>> FlatComponent
 export function FlatComponent(props) {
-    const { component, componentPage, onScroll, scrollEventThrottle, stickyHeaderIndices } = props
+    const {
+        component, componentPage, ListHeaderComponent, onScroll, scrollEventThrottle, showsVerticalScrollIndicator, stickyHeaderIndices
+    } = props
     return (
         component &&
         <FlatList
             // ref={c => this.FlatMainScreen = c}
             scrollEventThrottle={scrollEventThrottle}
+            showsVerticalScrollIndicator={showsVerticalScrollIndicator}
             onScroll={onScroll ? onScroll : undefined}
             scrollEnabled={true}
+            ListHeaderComponent={ListHeaderComponent ? ListHeaderComponent : undefined}
             stickyHeaderIndices={stickyHeaderIndices ? stickyHeaderIndices : undefined}
             initialNumToRender={10}
             data={component}
@@ -1234,7 +1339,9 @@ export function FlatProduct(props) {
 }
 ///----------------------------------------------------------------------------------------------->>>> NavigationNavigateScreen
 export function NavigationNavigateScreen(props) {
-    const { goScreen, setConsole, passHome, navigation: { dispatch, goBack, popToTop, push, replace, }, setData, noPush } = props
+    const {
+        goScreen, setConsole, passHome, navigation: { dispatch, goBack, popToTop, push, replace, }, setData, noPush
+    } = props
     const navigationActions = StackActions.reset({
         index: 0,
         actions: [StackActions.replace({ routeName: goScreen, params: setData })],
@@ -1508,7 +1615,7 @@ export class FeedBox extends React.Component {
         const options = userOwner ? ['แก้ไข', 'ลบ'] : ['รายงานความไม่เหมาะสม']
         var dataMySQL_p = `${finip}/${dataService.image_path}/${dataService.image}`;
         var dataMySQL_s = `${finip}/${dataService.store_path}/${dataService.store_image}`;
-        console.log(dataService)
+        // console.log(dataService)
         return (
             <View style={stylesMain.BoxProduct4Box}>
                 {

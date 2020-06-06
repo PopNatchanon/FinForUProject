@@ -1666,7 +1666,7 @@ export let CategoryProduct = (props) => {
     let dataCategory = () => {
         return dataService &&
             dataService.map((item, index) => {
-                if (index < 20 /*dataService.length*/) {
+                if (index < 10 /*dataService.length*/) {
                     var dataMySQL = `${finip}/${item.image_path}/${item.image_menu}`;
                     return (
                         <View key={index} style={[stylesMain.FrameBackground2, {
@@ -1998,7 +1998,6 @@ export let Second_product = (props) => {
                             <View>
                                 {renderItem1(loadData.list_store2_1)}
                             </View>
-                            {/* {pagination} */}
                         </View>,
                         loadData.list_store2_2 &&
                         <View key={'list_store2_2'}>

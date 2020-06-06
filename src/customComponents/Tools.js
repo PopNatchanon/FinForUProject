@@ -23,12 +23,12 @@ import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
-import stylesDetail from '../../style/StylesDetailScreen'
-import stylesFont, { normalize } from '../../style/stylesFont';
-import stylesMain, { mainColor } from '../../style/StylesMainScreen';
-import stylesStore from '../../style/StylesStoreScreen';
-import stylesTopic from '../../style/styleTopic';
+import stylesDeal from '../style/stylePromotion-src/styleDealScreen';
+import stylesDetail from '../style/StylesDetailScreen'
+import stylesFont, { normalize } from '../style/stylesFont';
+import stylesMain, { mainColor } from '../style/StylesMainScreen';
+import stylesStore from '../style/StylesStoreScreen';
+import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';

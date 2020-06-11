@@ -89,109 +89,109 @@ function MainScreen(props) {
     }, [getFetchData['flash_timer'] == undefined || (getFetchData['flash_timer'] && getFetchData['flash_timer'].isFetching)]);
     let itemT = [
         /////--------------------------------------------->>>Start
+        {
+            nameComponent: 'AppBar',
+            renderComponent: <View style={{ height: 55, /*marginTop: 27.15*/ }}>
+                <AppBar ABGColor={AnimatedHeadbg} ABDColor={AnimatedHeadbg} {...props} cartBar chatBar />
+            </View>
+        },
+        {
+            nameComponent: 'Slide',
+            renderComponent: <View style={{ marginTop: -(maxheight /*+ 27.15*/) }}>
+                <Slide {...props} />
+            </View>
+        },
         // {
-        //     nameComponent: 'AppBar',
-        //     renderComponent: <View style={{ height: 55, /*marginTop: 27.15*/ }}>
-        //         <AppBar ABGColor={AnimatedHeadbg} ABDColor={AnimatedHeadbg} {...props} cartBar chatBar />
-        //     </View>
+        //     nameComponent: 'Guarantee',
+        //     renderComponent: <Guarantee  {...props} />
         // },
+        {
+            nameComponent: 'Category',
+            renderComponent: <Category {...props} />
+        },
+        //     {
+        //         nameComponent: 'Trend_Hit',
+        //         renderComponent: <Trend_Hit  {...props} />
+        //     },
+        {
+            nameComponent: 'Button_Bar',
+            renderComponent: <Button_Bar {...props} />
+        },
+        {
+            nameComponent: 'FlashSale',
+            renderComponent: <FlashSale {...props} />
+        },
         // {
-        //     nameComponent: 'Slide',
-        //     renderComponent: <View style={{ marginTop: -(maxheight /*+ 27.15*/) }}>
-        //         <Slide {...props} />
-        //     </View>
+        //     nameComponent: 'Fin_Service',
+        //     renderComponent: <Fin_Service {...props} />
         // },
-        // // {
-        // //     nameComponent: 'Guarantee',
-        // //     renderComponent: <Guarantee  {...props} />
-        // // },
+        {
+            nameComponent: 'Recommend_Brand',
+            renderComponent: <Recommend_Brand {...props} dataService={getFetchData['publish_mobile'] &&
+                getFetchData['publish_mobile'].data} />
+        },
+        {
+            nameComponent: 'BannerBar_TWO',
+            renderComponent: <BannerBar_TWO />
+        },
+        {
+            nameComponent: 'NewStore',
+            renderComponent: <NewStore  {...props} dataService={getFetchData['publish_mobile'] && getFetchData['publish_mobile'].data} />
+        },
         // {
-        //     nameComponent: 'Category',
-        //     renderComponent: <Category {...props} />
+        //     nameComponent: 'Fin_Mall',
+        //     renderComponent: <Fin_Mall {...props} dataService={getFetchData['publish_mobile'] && getFetchData['publish_mobile'].data} />
         // },
-        // //     {
-        // //         nameComponent: 'Trend_Hit',
-        // //         renderComponent: <Trend_Hit  {...props} />
-        // //     },
-        // {
-        //     nameComponent: 'Button_Bar',
-        //     renderComponent: <Button_Bar {...props} />
-        // },
-        // {
-        //     nameComponent: 'FlashSale',
-        //     renderComponent: <FlashSale {...props} />
-        // },
-        // // {
-        // //     nameComponent: 'Fin_Service',
-        // //     renderComponent: <Fin_Service {...props} />
-        // // },
-        // {
-        //     nameComponent: 'Recommend_Brand',
-        //     renderComponent: <Recommend_Brand {...props} dataService={getFetchData['publish_mobile'] &&
-        //         getFetchData['publish_mobile'].data} />
-        // },
-        // {
-        //     nameComponent: 'BannerBar_TWO',
-        //     renderComponent: <BannerBar_TWO />
-        // },
-        // {
-        //     nameComponent: 'NewStore',
-        //     renderComponent: <NewStore  {...props} dataService={getFetchData['publish_mobile'] && getFetchData['publish_mobile'].data} />
-        // },
-        // // {
-        // //     nameComponent: 'Fin_Mall',
-        // //     renderComponent: <Fin_Mall {...props} dataService={getFetchData['publish_mobile'] && getFetchData['publish_mobile'].data} />
-        // // },
-        // {
-        //     nameComponent: 'BannerBar_ONE',
-        //     renderComponent: <BannerBar_ONE />
-        // },
-        // {
-        //     nameComponent: 'Highlight',
-        //     renderComponent: <Highlight {...props} dataService={getFetchData['publish_mobile'] && getFetchData['publish_mobile'].data} />
-        // },
-        // {
-        //     nameComponent: 'PromotionPopular',
-        //     renderComponent: <PromotionPopular  {...props} dataService={getFetchData['publish_mobile'] &&
-        //         getFetchData['publish_mobile'].data} />
-        // },
-        // {
-        //     nameComponent: 'Popular_store',
-        //     renderComponent: <Popular_store {...props} dataService={getFetchData['publish_mobile'] && getFetchData['publish_mobile'].data} />
-        // },
+        {
+            nameComponent: 'BannerBar_ONE',
+            renderComponent: <BannerBar_ONE />
+        },
+        {
+            nameComponent: 'Highlight',
+            renderComponent: <Highlight {...props} dataService={getFetchData['publish_mobile'] && getFetchData['publish_mobile'].data} />
+        },
+        {
+            nameComponent: 'PromotionPopular',
+            renderComponent: <PromotionPopular  {...props} dataService={getFetchData['publish_mobile'] &&
+                getFetchData['publish_mobile'].data} />
+        },
+        {
+            nameComponent: 'Popular_store',
+            renderComponent: <Popular_store {...props} dataService={getFetchData['publish_mobile'] && getFetchData['publish_mobile'].data} />
+        },
         {
             nameComponent: 'Popular_product',
             renderComponent: <Popular_product {...props} dataService={getFetchData['publish_mobile'] &&
                 getFetchData['publish_mobile'].data} />
         },
-        // {
-        //     nameComponent: 'Product_for_you',
-        //     renderComponent: <Product_for_you {...props} dataService={getFetchData['publish_mobile'] &&
-        //         getFetchData['publish_mobile'].data} />
-        // },
-        // {
-        //     nameComponent: 'CategoryProduct',
-        //     renderComponent: <CategoryProduct {...props} />
-        // },
-        // {
-        //     nameComponent: 'Second_product',
-        //     renderComponent: <Second_product {...props} dataService={getFetchData['publish_mobile'] &&
-        //         getFetchData['publish_mobile'].data} />
-        // },
-        // {
-        //     nameComponent: 'BannerBar_THREE',
-        //     renderComponent: <BannerBar_THREE />
-        // },
-        // {
-        //     nameComponent: 'FIN_Supermarket',
-        //     renderComponent: <FIN_Supermarket {...props} dataService={getFetchData['publish_mobile'] &&
-        //         getFetchData['publish_mobile'].data} />
-        // },
-        // {
-        //     nameComponent: 'TodayProduct',
-        //     renderComponent: <TodayProduct {...props} loadData={getFetchData['publish_mobile'] && getFetchData['publish_mobile'].data &&
-        //         getFetchData['publish_mobile'].data.for_you2} />
-        // },
+        {
+            nameComponent: 'Product_for_you',
+            renderComponent: <Product_for_you {...props} dataService={getFetchData['publish_mobile'] &&
+                getFetchData['publish_mobile'].data} />
+        },
+        {
+            nameComponent: 'CategoryProduct',
+            renderComponent: <CategoryProduct {...props} />
+        },
+        {
+            nameComponent: 'Second_product',
+            renderComponent: <Second_product {...props} dataService={getFetchData['publish_mobile'] &&
+                getFetchData['publish_mobile'].data} />
+        },
+        {
+            nameComponent: 'BannerBar_THREE',
+            renderComponent: <BannerBar_THREE />
+        },
+        {
+            nameComponent: 'FIN_Supermarket',
+            renderComponent: <FIN_Supermarket {...props} dataService={getFetchData['publish_mobile'] &&
+                getFetchData['publish_mobile'].data} />
+        },
+        {
+            nameComponent: 'TodayProduct',
+            renderComponent: <TodayProduct {...props} loadData={getFetchData['publish_mobile'] && getFetchData['publish_mobile'].data &&
+                getFetchData['publish_mobile'].data.for_you2} />
+        },
         /////--------------------------------------------->>>End
     ];
     // getFetchData['category_mobile'] && getFetchData['category_mobile'].data && getFetchData['category_mobile'].data.map((value, index) => {

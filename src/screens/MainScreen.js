@@ -677,7 +677,7 @@ export let AppBar1 = (props) => {
 export let Slide = (props) => {
     const { getFetchData, banner, } = props;
     let _renderItem = (item, index) => {
-        var dataMySQL = index % 2 == 0 ? `${ip}/mysql/uploads/Banner_Mobile/T-1.jpg` : `${ip}/mysql/uploads/Banner_Mobile/T-2.jpg`;
+        var dataMySQL = index % 2 == 0 ? `${ip}/mysql/uploads/Banner_Mobile/T-10.jpg` : `${ip}/mysql/uploads/Banner_Mobile/T-5.jpg`;
         // var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
         return (
             <View style={stylesMain.child} key={item.id}>

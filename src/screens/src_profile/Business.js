@@ -1,16 +1,17 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React from 'react';
+import React, { useState } from 'react';
 import {
-  Dimensions, ImageBackground, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
+  Dimensions, ImageBackground, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, Button, Platform
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 // import { GiftedChat, Bubble, Send } from 'react-native-gifted-chat';
-import ImagePicker from 'react-native-image-crop-picker';
 import { CheckBox } from 'react-native-elements';
 import DatePicker from 'react-native-datepicker';
 import ModalDropdown from 'react-native-modal-dropdown';
+import DocumentPicker from 'react-native-document-picker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { BarChart, Grid, StackedBarChart, LineChart, XAxis, YAxis } from 'react-native-svg-charts'
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
@@ -600,21 +601,42 @@ export class Register_Affiliate_From extends React.Component {
     super(props);
     this.state = {
       activeData: '',
-      date: "",
+      date: new Date(),
+      mode: 'date',
+      show: false,
     };
   }
+  onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    // console.log(new Date(currentDate))
+    this.setState({ show: Platform.OS === 'ios' });
+    this.setState({ date: currentDate });
+  };
+
+  showMode = currentMode => {
+    this.setState({ show: true });
+    this.setState({ mode: currentMode });
+  };
+
+  showDatepicker = () => {
+    this.showMode('date');
+  };
 
   render() {
     const { navigation } = this.props
-    const { Mr, Mrs, Miss, name, last_name, Line_ID } = this.state
+    const { Mr, Mrs, Miss, name, last_name, Line_ID, show, date, mode } = this.state
+    // console.log("date")
+    // console.log(date)
+    // console.log('show')
+    // console.log(show)
     return (
       <>
         <ScrollView>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>เอกสารการสมัครสมาชิก</Text>
           <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>คำนำหน้า</Text>
-            <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { height: 25, justifyContent: 'space-around' }]}>
-              <View style={[stylesMain.FlexRow, { width: '23%' }]}>
+            <View style={[stylesMain.FlexRow, { height: 25, justifyContent: 'space-around' }]}>
+              <View style={[stylesMain.FlexRow]}>
                 <CheckBox
                   size={25}
                   checkedIcon='dot-circle-o'
@@ -622,9 +644,9 @@ export class Register_Affiliate_From extends React.Component {
                   checked={Mr}
                   onPress={() => this.setState({ Mr: true, Mrs: false, Miss: false })}
                 />
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>นาย</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 2 }]}>นาย</Text>
               </View>
-              <View style={[stylesMain.FlexRow, { width: '23%' }]}>
+              <View style={[stylesMain.FlexRow]}>
                 <CheckBox
                   size={25}
                   checkedIcon='dot-circle-o'
@@ -632,9 +654,9 @@ export class Register_Affiliate_From extends React.Component {
                   checked={Mrs}
                   onPress={() => this.setState({ Mrs: true, Mr: false, Miss: false })}
                 />
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>นาง</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 2 }]}>นาง</Text>
               </View>
-              <View style={[stylesMain.FlexRow, { width: '23%' }]}>
+              <View style={[stylesMain.FlexRow]}>
                 <CheckBox
                   size={25}
                   checkedIcon='dot-circle-o'
@@ -642,47 +664,52 @@ export class Register_Affiliate_From extends React.Component {
                   checked={Miss}
                   onPress={() => this.setState({ Miss: true, Mr: false, Mrs: false })}
                 />
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>นางสาว</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 2 }]}>นางสาว</Text>
               </View>
             </View>
           </View>
           <View style={[stylesMain.FrameBackground, stylesMain.FlexRow, { justifyContent: 'space-between', paddingHorizontal: 10 }]}>
             <View style={{ width: '49%', }}>
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ชื่อ</Text>
-              <TextInput
-                style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { borderWidth: 1, height: 45, borderRadius: 5 }]}
-                value={name}
-                onChangeText={(name) => this.setState({ activeData: true, name, })} />
+              <TextInput style={{ borderWidth: 1, borderRadius: 5 }}
+                onChangeText={(name) => this.setState({ activeData: true, name, })}>
+                <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyBold,]}>
+                  {name}
+                </Text>
+              </TextInput>
             </View>
             <View style={{ width: '49%', }}>
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>นามสกุล</Text>
-              <TextInput
-                style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { borderWidth: 1, height: 45, borderRadius: 5 }]}
-                value={last_name}
-                onChangeText={(last_name) => this.setState({ activeData: true, last_name, })} />
+              <TextInput style={{ borderWidth: 1, borderRadius: 5 }}
+                onChangeText={(last_name) => this.setState({ activeData: true, last_name, })}>
+                <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyBold,]}>
+                  {last_name}
+                </Text>
+              </TextInput>
             </View>
           </View>
           <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>วัน/เดือน/ปีเกิด</Text>
-            <DatePicker
-              style={{ width: '100 %' }}
-              date={this.state.date}
-              mode="date"
-              placeholder="select date"
-              format="DD-MM-YYYY"
-              minDate="1-12-1920"
-              maxDate="1-07-2020"
-              confirmBtnText="Confirm"
-              cancelBtnText="Cancel"
-              customStyles={{
-                dateIcon: {
-                  position: 'absolute',
-                  left: 0,
-                  top: 4,
-                  marginLeft: 0
-                },
-              }}
-              onDateChange={(date) => { this.setState({ date: date }) }} />
+            <View>
+              <TouchableOpacity onPress={this.showDatepicker.bind(this)} style={stylesMain.ItemCenter}>
+                <View style={[stylesMain.FlexRow, stylesMain.ItemCenter,
+                { borderWidth: 2, width: '60%', borderRadius: 5, paddingVertical: 5, borderColor: '#C5C5C5' }]}>
+                  <IconFontAwesome name='calendar' size={20} color='rgb(29, 70, 204)' />
+                  <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginLeft: 10 }]}>{`${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`}</Text>
+                </View>
+              </TouchableOpacity>
+              {
+                show && (
+                  <DateTimePicker
+                    testID="dateTimePicker"
+                    value={date}
+                    mode={mode}
+                    is24Hour={true}
+                    display="spinner"
+                    onChange={this.onChange.bind(this)}
+                  />
+                )}
+            </View>
           </View>
           <TouchableOpacity onPress={() => NavigationNavigateScreen({
             goScreen: 'Business', setData: { selectedIndex: 7 }, navigation
@@ -719,10 +746,12 @@ export class Register_Affiliate_From extends React.Component {
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { textAlign: 'center' }]}>ตัวอย่าง</Text>
           <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>Line ID</Text>
-            <TextInput
-              style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { borderWidth: 1, height: 45, borderRadius: 5 }]}
-              value={Line_ID}
-              onChangeText={(Line_ID) => this.setState({ activeData: true, Line_ID, })} />
+            <TextInput style={{ borderWidth: 1, borderRadius: 5 }}
+              onChangeText={(Line_ID) => this.setState({ activeData: true, Line_ID, })}>
+              <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyBold,]}>
+                {Line_ID}
+              </Text>
+            </TextInput>
           </View>
           <View style={stylesMain.FlexRow}>
             <CheckBox
@@ -760,11 +789,61 @@ export class ID_card extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: "",
+      filename: 'ชื่อไฟล์ที่อัพ',
+      date: new Date(),
+      mode: 'date',
+      show: false,
     };
+  }
+  onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    // console.log(new Date(currentDate))
+    this.setState({ show: Platform.OS === 'ios' });
+    this.setState({ date: currentDate });
+  };
+
+  showMode = currentMode => {
+    this.setState({ show: true });
+    this.setState({ mode: currentMode });
+  };
+
+  showDatepicker = () => {
+    this.showMode('date');
+  };
+
+
+  upload_IDcode = async () => {
+    try {
+      const res = await DocumentPicker.pick({
+        type: [DocumentPicker.types.pdf, DocumentPicker.types.images],
+      });
+      console.log(
+        res.uri,
+        res.type,
+        res.name,
+        res.size
+      );
+      var patt = new RegExp(DocumentPicker.types.images)
+      if (res.type !== DocumentPicker.types.pdf) {
+        console.log(patt.exec(res.type))
+        if (patt.exec(res.type) === null) {
+          alert('ไฟล์ไม่ถูกต้อง')
+        } else {
+          this.setState({ filename: res.name });
+        }
+      } else {
+        this.setState({ filename: res.name });
+      }
+    } catch (err) {
+      if (DocumentPicker.isCancel(err)) {
+      } else {
+        throw err;
+      }
+    }
   }
 
   render() {
+    const { filename, show, date, mode } = this.state;
     return (
       <>
         <ScrollView>
@@ -774,10 +853,11 @@ export class ID_card extends React.Component {
               width: '68%', height: 50, backgroundColor: '#FFFFFF', paddingHorizontal: 10,
               borderColor: '#EAEAEA', borderWidth: 1, borderRadius: 5, justifyContent: 'center'
             }]}>
-              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#C5C5C5' }]}>ชื่อรูปที่อัพ.jpg</Text>
+              <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#C5C5C5' }]}>{filename}</Text>
             </View>
-            <TouchableOpacity style={[stylesMain.FlexRow, stylesMain.ItemCenter,
-            { width: '30%', borderColor: mainColor, borderWidth: 2, borderRadius: 5 }]}>
+            <TouchableOpacity onPress={() => this.upload_IDcode()}
+              style={[stylesMain.FlexRow, stylesMain.ItemCenter,
+              { width: '30%', borderColor: mainColor, borderWidth: 2, borderRadius: 5, backgroundColor: '#FFFFFF' }]}>
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: mainColor }]}>อัพโหลด</Text>
               <IconEntypo name='upload' size={25} style={{ color: mainColor, marginLeft: 5 }} />
             </TouchableOpacity>
@@ -785,25 +865,26 @@ export class ID_card extends React.Component {
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#C5C5C5', textAlign: 'center' }]}>สามารถอัพโหลดเอกสารได้ 1 ฉบับ ความละเอียดได้ไม่ 5 MB รองรับ .PNG .JPEG .PDF</Text>
           <View style={{ backgroundColor: '#FFFFFF', borderColor: '#EAEAEA', borderWidth: 1, borderRadius: 5, marginHorizontal: 10, padding: 10 }}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginBottom: 10 }]}>โปรดระบุวันหมดอายุ</Text>
-            <DatePicker
-              style={{ width: '100 %' }}
-              date={this.state.date}
-              mode="date"
-              placeholder="select date"
-              format="DD-MM-YYYY"
-              minDate="1-12-1920"
-              maxDate="1-07-2020"
-              confirmBtnText="Confirm"
-              cancelBtnText="Cancel"
-              customStyles={{
-                dateIcon: {
-                  position: 'absolute',
-                  left: 0,
-                  top: 4,
-                  marginLeft: 0
-                },
-              }}
-              onDateChange={(date) => { this.setState({ date: date }) }} />
+            <View>
+              <TouchableOpacity onPress={this.showDatepicker.bind(this)} style={stylesMain.ItemCenter}>
+                <View style={[stylesMain.FlexRow, stylesMain.ItemCenter,
+                { borderWidth: 2, width: '60%', borderRadius: 5, paddingVertical: 5, borderColor: '#C5C5C5' }]}>
+                  <IconFontAwesome name='calendar' size={20} color='rgb(29, 70, 204)' />
+                  <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginLeft: 10 }]}>{`${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`}</Text>
+                </View>
+              </TouchableOpacity>
+              {
+                show && (
+                  <DateTimePicker
+                    testID="dateTimePicker"
+                    value={date}
+                    mode={mode}
+                    is24Hour={true}
+                    display="spinner"
+                    onChange={this.onChange.bind(this)}
+                  />
+                )}
+            </View>
           </View>
         </ScrollView>
         <TouchableOpacity style={[stylesMain.ItemCenter, { backgroundColor: '#0A55A6', height: 50 }]}>

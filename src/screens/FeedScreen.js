@@ -1,11 +1,13 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { useState, useEffect } from 'react';
 import {
-  Dimensions, SafeAreaView, ScrollView, View, FlatList, TouchableOpacity, ActivityIndicator
+  Dimensions, SafeAreaView, Text, View, FlatList, TouchableOpacity, ActivityIndicator
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
+import ActionButton from 'react-native-action-button';
 export const { width, height } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
+import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesMain, { mainColor } from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
@@ -46,6 +48,7 @@ export default function FeedScreen(props) {
         <MenuBar getActiveSelectedIndex={activeSelectedIndex => setActiveSelectedIndex(activeSelectedIndex)}
           sendText={selectedIndex => setSelectedIndex(selectedIndex)} />
       }
+
       {
         activeGetSource == false ?
           <Button_Bar {...props} abortController={abortController} activeSelectedIndex={activeSelectedIndex}
@@ -65,26 +68,24 @@ export default function FeedScreen(props) {
 export function MenuBar(props) {
   const { getActiveSelectedIndex, sendText } = props;
   const item = [{
-    name: 'กำลังติดตาม'
+    name: <Text><IconFontAwesome5 name='grin-hearts' size={20} /> กำลังติดตาม</Text>
   }, {
-    name: 'ไฮไลท์'
+    name: <Text><IconFontAwesome5 name='hotjar' size={20} /> ฮไลท์</Text>
   }];
   return (
     <View>
-      <View>
-        <TabBar
-          sendData={value => {
-            sendText(value.selectedIndex);
-            getActiveSelectedIndex(true);
-          }}
-          item={item}
-          noSpace
-          setVertical={2}
-          widthBox={100}
-          spaceColor={mainColor}
-          activeColor='#fff'
-          fontColor='#fff' />
-      </View>
+      <TabBar
+        sendData={value => {
+          sendText(value.selectedIndex);
+          getActiveSelectedIndex(true);
+        }}
+        item={item}
+        noSpace
+        setVertical={2}
+        widthBox={110}
+        spaceColor={mainColor}
+        activeColor='#fff'
+        fontColor='#fff' />
     </View>
   );
 };
@@ -114,6 +115,13 @@ export function Button_Bar(props) {
             <ActivityIndicator style={stylesMain.ItemCenterVertical} color='#1A3263' size='large' />
           </View>
       }
+      <ActionButton buttonColor={mainColor} size={50}
+        onPress={() => NavigationNavigateScreen({
+          goScreen: 'Post_Feed', setData: {
+            selectedIndex: 1,
+          }, navigation
+        })}>
+      </ActionButton>
     </View>
   );
 };
@@ -137,7 +145,7 @@ export function Highlights(props) {
             initialNumToRender={10}
             data={dataService}
             keyExtractor={(value, index) => `Feed${index}`}
-            ListHeaderComponent={() => headerStoryList(navigation)}
+            // ListHeaderComponent={() => headerStoryList(navigation)}
             renderItem={(value) => {
               return <>
                 <FeedBox {...props} dataService={value.item} Header />

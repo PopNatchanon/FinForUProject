@@ -11,6 +11,7 @@ import FastImage from 'react-native-fast-image';
 import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert'
 import ModalDropdown from 'react-native-modal-dropdown';
 import NumberFormat from 'react-number-format';
+import DocumentPicker from 'react-native-document-picker';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -217,7 +218,29 @@ export class Edit_Bank extends Component {
             activeGetServices: true,
             NameBank: 'กรุณาเลือกธนาคาร',
             NumberBank: '',
+            filename: 'ชื่อไฟล์ที่อัพ',
+
         };
+    }
+    upload_Bookbank = async () => {
+        try {
+            const res = await DocumentPicker.pick({
+                type: [DocumentPicker.types.images],
+            });
+            console.log(
+                res.uri,
+                res.type, // mime type
+                res.name,
+                res.size
+            );
+            this.setState({ filename: res.name });
+        } catch (err) {
+            if (DocumentPicker.isCancel(err)) {
+                // User cancelled the picker, exit any dialogs or menus and move on
+            } else {
+                throw err;
+            }
+        }
     }
     getData = (dataService) => {
         this.setState({ activeGetServices: false, dataService })
@@ -238,11 +261,11 @@ export class Edit_Bank extends Component {
         if (NumberBank.length < value.length && Number.isInteger(value.slice(-1) * 1) == false) {
             value = NumberBank;
         } else {
-                this.setState({ NumberBank: value })
+            this.setState({ NumberBank: value })
         };
     }
     render() {
-        const { activeGetServices, dataService, NameBank, selectedItem, } = this.state
+        const { activeGetServices, dataService, NameBank, selectedItem, filename, } = this.state
         const uri = `${finip}/store_transfer/bank_data`
         activeGetServices == true && GetServices({ uriPointer: uri, getDataSource: this.getData.bind(this) })
         let pickerItem = []
@@ -309,11 +332,20 @@ export class Edit_Bank extends Component {
                     <View>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>หน้าบัญชีธนาคาร</Text>
                         <View style={[stylesMain.FlexRow, { height: 50, justifyContent: 'space-around', marginBottom: 10 }]}>
-                            <View style={{ width: '48%', borderColor: '#E9E9E9', borderWidth: 1, backgroundColor: '#FFFFFF', borderRadius: 5 }}></View>
-                            <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.FlexRow, { width: '48%', borderColor: mainColor, borderWidth: 2, backgroundColor: '#FFFFFF', borderRadius: 5 }]}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: mainColor }]}>อัพโหลด</Text>
-                                <IconEntypo name='upload' size={30} style={{ color: mainColor, marginLeft: 10 }} />
-                            </TouchableOpacity>
+                            <View style={[stylesMain.FlexRow, { paddingHorizontal: 10, justifyContent: 'space-between' }]}>
+                                <View style={[{
+                                    width: '68%', height: 50, backgroundColor: '#FFFFFF', paddingHorizontal: 10,
+                                    borderColor: '#EAEAEA', borderWidth: 1, borderRadius: 5, justifyContent: 'center'
+                                }]}>
+                                    <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#C5C5C5' }]}>{filename}</Text>
+                                </View>
+                                <TouchableOpacity onPress={() => this.upload_Bookbank()}
+                                    style={[stylesMain.FlexRow, stylesMain.ItemCenter,
+                                    { width: '30%', borderColor: mainColor, borderWidth: 2, borderRadius: 5, backgroundColor: '#FFFFFF' }]}>
+                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: mainColor }]}>อัพโหลด</Text>
+                                    <IconEntypo name='upload' size={30} style={{ color: mainColor, marginLeft: 10 }} />
+                                </TouchableOpacity>
+                            </View>
                         </View>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8]}>สามารถอัพโหลดเอกสารได้ 1 ฉบับ ความละเอียดได้ไม่ 5 MB รองรับ .PNG .JPEG </Text>
                     </View>

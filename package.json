@@ -35,6 +35,7 @@
     "react-native-animatable": "^1.3.3",
     "react-native-datepicker": "^1.7.2",
     "react-native-device-info": "^5.5.3",
+    "react-native-document-picker": "^3.4.0",
     "react-native-dropdownalert": "^4.2.1",
     "react-native-elements": "^1.2.7",
     "react-native-fast-image": "^7.0.2",

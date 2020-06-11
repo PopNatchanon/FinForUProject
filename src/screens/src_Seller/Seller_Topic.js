@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component } from 'react';
 import {
-    Dimensions, SafeAreaView, ScrollView, ImageBackground, Text, TextInput, TouchableOpacity, View, Alert
+    Dimensions, SafeAreaView, ScrollView, ImageBackground, Text, TextInput, TouchableOpacity, View, Alert,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import BottomSheet from "react-native-raw-bottom-sheet";
@@ -11,6 +11,7 @@ import FastImage from 'react-native-fast-image';
 import { CheckBox } from 'react-native-elements';
 import PINCode from '@haskkor/react-native-pincode';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
+import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -54,6 +55,7 @@ export default class Seller_Topic extends Component {
             case 0:
                 return (
                     <>
+                        {/* หน้าการจัดโฆษณา เข้าจาก profile seller  */}
                         <AppBar1 backArrow navigation={navigation} titleHead='จัดการโฆษณา' />
                         <Seller_Advertisement backArrow navigation={navigation} />
                     </>
@@ -61,6 +63,7 @@ export default class Seller_Topic extends Component {
             case 1:
                 return (
                     <>
+                        {/* หน้าสถิติร้านร้านค้า เข้าจาก profile seller  */}
                         <AppBar1 backArrow navigation={navigation} titleHead='สถิติร้านร้านค้า' />
                         <Seller_Statistics />
                     </>
@@ -68,6 +71,7 @@ export default class Seller_Topic extends Component {
             case 2:
                 return (
                     <>
+                        {/* หน้าคะแนนร้านค้า เข้าจาก profile seller  */}
                         <AppBar1 backArrow navigation={navigation} titleHead='คะแนนของฉัน' />
                         <ScrollView>
                             <Seller_Score navigation={navigation} />
@@ -77,6 +81,7 @@ export default class Seller_Topic extends Component {
             case 3:
                 return (
                     <>
+                        {/* แพคเกจปัจจุบันที่ใช้อยู่ เข้าจาก หน้าการจัดโฆษณา*/}
                         <AppBar1 backArrow navigation={navigation} titleHead='แพคเกจปัจจุบันที่ใช้อยู่' />
                         <Seller_Advertisement_Packet backArrow navigation={navigation} />
                     </>
@@ -126,7 +131,7 @@ export default class Seller_Topic extends Component {
             case 10:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={navigation} titleHead='PIN' />
+                        <AppBar1 backArrow navigation={navigation} titleHead='กรอกรหัส PIN' />
                         <PIN_Code cokie={cokie} currentUser={currentUser} navigation={navigation} />
                     </>
                 )
@@ -140,7 +145,7 @@ export default class Seller_Topic extends Component {
             case 12:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={navigation} titleHead='ถอนเงิน' />
+                        <AppBar1 backArrow navigation={navigation} titleHead='ยืนยันรหัส' />
                         <PIN_Code_Mail navigation={navigation} />
                     </>
                 )
@@ -237,24 +242,51 @@ export class PIN_Code extends Component {
     render() {
         const { activeInput, checkFail, code, } = this.state;
         return (
-            <SmoothPinCodeInput
-                ref={this.pinInput}
-                password
-                mask="﹡"
-                value={code}
-                cellStyle={{
-                    borderWidth: 2,
-                    borderColor: activeInput == false ? 'red' : '#111',
-                }}
-                textStyle={{
-                    fontSize: 24,
-                    color: activeInput == false ? 'red' : '#111',
-                }}
-                codeLength={6}
-                onTextChange={code => this.setState({ activeInput: true, code, })}
-                onFulfill={this._checkCode}
-                onBackspace={() => console.log('No more back.')}
-            />
+            <ScrollView>
+                <View style={{ alignItems: 'center', }}>
+                    <View style={{ padding: 10, width: width * 0.60, height: height * 0.30 }}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={require('../../../icon/001.png')}
+                        />
+                    </View>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}>ระบุ PIN</Text>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { marginBottom: 10 }]}>ใส่รหัส PIN 6 หลัก</Text>
+                    <SmoothPinCodeInput
+                        placeholder={<View style={{
+                            width: 15,
+                            height: 15,
+                            borderRadius: 25,
+                            backgroundColor: '#0A55A6',
+                        }}></View>}
+                        ref={this.pinInput}
+                        password
+                        autoFocus
+                        restrictToNumbers={true}
+                        mask={<View style={{
+                            width: 15,
+                            height: 15,
+                            borderRadius: 25,
+                            backgroundColor: '#EBB34D',
+                        }}></View>}
+                        value={code}
+                        cellStyle={{
+                            borderWidth: 2,
+                            borderColor: activeInput == false ? 'red' : '#111',
+                            borderRadius: 5,
+                        }}
+                        textStyle={{
+                            fontSize: 24,
+                            color: activeInput == false ? 'red' : '#111',
+                        }}
+                        codeLength={6}
+                        keyboardType={'numeric'}
+                        onTextChange={code => this.setState({ activeInput: true, code, })}
+                        onFulfill={this._checkCode}
+                        onBackspace={() => console.log('No more back.')}
+                    />
+                </View>
+            </ScrollView>
         );
     }
 }
@@ -263,37 +295,124 @@ export class PIN_Code_Mail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            pinCodeStatus: 'enter',
+            activeInput: true,
+            checkFail: 0,
+            code: '',
         };
-        this.finishProcess = this.finishProcess.bind(this);
-        this.handleResultEnterPin = this.handleResultEnterPin.bind(this);
-        // this.finishProcess = this.finishProcess.bind(this)
     }
-    finishProcess(pinCode) {
-        const { navigation } = this.props
-        NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 9, }, navigation })
-    };
-    handleResultEnterPin(pinCode) {
-        this.setState({ pinCodeStatus: 'failure' });
-    };
-    onFail(pinCode) {
+    pinInput = React.createRef();
+    _checkCode = (code) => {
+        const { cokie, currentUser, navigation } = this.props
+        const { checkFail } = this.state
+        const Withdraw = navigation.getParam("Withdraw")
+        const uri = `${finip}/store_transfer/login_pin`
+        const dataBody = {
+            id_customer: currentUser.id_customer,
+            pin: code
+        }
+        GetServices({
+            Authorization: cokie, dataBody, uriPointer: uri, getDataSource: value => {
+                if (value.status != true) {
+                    alert(value.message)
+                    this.setState({ checkFail: checkFail + 1, activeInput: false });
+                    this.pinInput.current.shake()
+                        .then(() => this.setState({ code: '', activeInput: true }));
+                    // setTimeout(() => this.setState({ activeInput: true, }), 2000);
+                } else {
+                    NavigationNavigateScreen({
+                        goScreen: 'Seller_Topic', setData: { selectedIndex: Withdraw == 11 }, navigation
+                    });
+                }
+            }
+        })
     };
     render() {
+        const { activeInput, checkFail, code, } = this.state;
         return (
-            <PINCode status={'enter'}
-                pinCodeVisible={true}
-                disableLockScreen
-                passwordLength={6}
-                buttonDeleteText={'delete'}
-                storedPin='111111'
-                touchIDDisabled
-                finishProcess={(pinCode) => this.finishProcess(pinCode)}
-                handleResultEnterPin={(code) => this.handleResultEnterPin(code)}
-                onFail={(attempt) => this.onFail(attempt)}
-            />
+            <ScrollView>
+                <View style={{ alignItems: 'center', }}>
+                    <View style={{ padding: 10, width: width * 0.60, height: height * 0.30 }}>
+                        <FastImage
+                            style={stylesMain.BoxProduct1Image}
+                            source={require('../../../icon/security-Icon.png')}
+                        />
+                    </View>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginBottom: 10,color:'#D54000' }]}>กรุณายืนยันที่อีเมลอีกครั้งภายในเวลา 30 นาที</Text>
+                    <SmoothPinCodeInput
+                        placeholder={<View style={{
+                            width: 15,
+                            height: 15,
+                            borderRadius: 25,
+                            backgroundColor: '#0A55A6',
+                        }}></View>}
+                        ref={this.pinInput}
+                        password
+                        autoFocus
+                        restrictToNumbers={true}
+                        mask={<View style={{
+                            width: 15,
+                            height: 15,
+                            borderRadius: 25,
+                            backgroundColor: '#1ED37B',
+                        }}></View>}
+                        value={code}
+                        cellStyle={{
+                            borderWidth: 2,
+                            borderColor: activeInput == false ? 'red' : '#111',
+                            borderRadius: 5,
+                        }}
+                        textStyle={{
+                            fontSize: 24,
+                            color: activeInput == false ? 'red' : '#111',
+                        }}
+                        codeLength={6}
+                        keyboardType={'numeric'}
+                        onTextChange={code => this.setState({ activeInput: true, code, })}
+                        onFulfill={this._checkCode}
+                        onBackspace={() => console.log('No more back.')}
+                    />
+                </View>
+            </ScrollView>
         );
     }
 }
+
+///----------------------------------------------------------------------------------------------->>>>
+// export class PIN_Code_Mail extends Component {
+//     constructor(props) {
+//         super(props);
+//         this.state = {
+//             pinCodeStatus: 'enter',
+//         };
+//         this.finishProcess = this.finishProcess.bind(this);
+//         this.handleResultEnterPin = this.handleResultEnterPin.bind(this);
+//         // this.finishProcess = this.finishProcess.bind(this)
+//     }
+//     finishProcess(pinCode) {
+//         const { navigation } = this.props
+//         NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 9, }, navigation })
+//     };
+//     handleResultEnterPin(pinCode) {
+//         this.setState({ pinCodeStatus: 'failure' });
+//     };
+//     onFail(pinCode) {
+//     };
+//     render() {
+//         return (
+//             <PINCode status={'enter'}
+//                 pinCodeVisible={true}
+//                 disableLockScreen
+//                 passwordLength={6}
+//                 buttonDeleteText={'delete'}
+//                 storedPin='111111'
+//                 touchIDDisabled
+//                 finishProcess={(pinCode) => this.finishProcess(pinCode)}
+//                 handleResultEnterPin={(code) => this.handleResultEnterPin(code)}
+//                 onFail={(attempt) => this.onFail(attempt)}
+//             />
+//         );
+//     }
+// }
 
 ///----------------------------------------------------------------------------------------------->>>>
 export class Seller_Advertisement extends Component {

@@ -733,7 +733,7 @@ export let Slide = (props) => {
         }
     }, [dataBody]);
     let _renderItem = (item, index) => {
-        var dataMySQL = index % 2 == 0 ? `${ip}/mysql/uploads/Banner_Mobile/T-1.jpg` : `${ip}/mysql/uploads/Banner_Mobile/T-2.jpg`;
+        var dataMySQL = index % 2 == 0 ? `${ip}/mysql/uploads/Banner_Mobile/T-10.jpg` : `${ip}/mysql/uploads/Banner_Mobile/T-5.jpg`;
         var imageLoading = 0;
         // var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
         return (

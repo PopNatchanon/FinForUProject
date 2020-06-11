@@ -51,7 +51,7 @@ export default class CoinScreen extends Component {
                     (activeGetCurrentUser == true || activeDataService == true) &&
                     <LoadingScreen key='LoadingScreen' />
                 }
-                <AppBar1 titleHead={'FIN COINS'} backArrow searchBar chatBar navigation={navigation} />
+                <AppBar1 {...this.props} titleHead={'FIN COINS'} backArrow searchBar chatBar />
                 <ScrollView>
                     {
                         dataService &&
@@ -66,13 +66,13 @@ export default class CoinScreen extends Component {
                     </View>
                     {
                         dataService &&
-                        <TodayProduct noTitle navigation={navigation} loadData={dataService.product_pro_coin} />
+                        <TodayProduct {...this.props} noTitle loadData={dataService.product_pro_coin} />
                     }
                 </ScrollView>
                 <View style={{ backgroundColor: '#ffffff', borderTopWidth: 1, borderColor: '#ECECEC' }}>
-                    <Button_Bar navigation={navigation} />
+                    <Button_Bar {...this.props} />
                 </View>
-                <ExitAppModule navigation={navigation} />
+                <ExitAppModule {...this.props} />
             </SafeAreaView>
         );
     }

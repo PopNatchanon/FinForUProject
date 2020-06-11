@@ -44,10 +44,10 @@ export default class Profile_Topic extends React.Component {
         this.setState({ activeGetServices: false, dataSevice })
     }
     PathList() {
-        const { navigation } = this.props
+        const { route } = this.props
         const { activeGetServices, activeGetSource, currentUser, cokie, dataSevice } = this.state
-        const selectedIndex = navigation.getParam('selectedIndex')
-        const id_cartdetail = navigation.getParam('id_cartdetail')
+        const selectedIndex = route.params?.selectedIndex
+        const id_cartdetail = route.params?.id_cartdetail
         const uri = `${finip}/${(
             selectedIndex == 2 ?
                 'profile/product_interest' :
@@ -67,15 +67,15 @@ export default class Profile_Topic extends React.Component {
             case 0:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 backArrow navigation={navigation} titleHead='ดูล่าสุด' />
-                        <LatestScreen navigation={navigation} />
+                        <AppBar1 {...this.props} backArrow titleHead='ดูล่าสุด' />
+                        <LatestScreen {...this.props} />
                     </SafeAreaView>
                 )
             case 1:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 backArrow navigation={navigation} titleHead='แชท' />
-                        <ChatScreen navigation={navigation} />
+                        <AppBar1 {...this.props} backArrow titleHead='แชท' />
+                        <ChatScreen {...this.props} />
                     </SafeAreaView>)
             case 2:
                 activeGetSource == false && activeGetServices == true && currentUser && cokie && selectedIndex == 2 &&
@@ -85,10 +85,10 @@ export default class Profile_Topic extends React.Component {
                     })
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 backArrow navigation={navigation} titleHead='สิ่งที่สนใจ' />
+                        <AppBar1 {...this.props} backArrow titleHead='สิ่งที่สนใจ' />
                         {
                             dataSevice &&
-                            <InterestedScreen dataSevice={dataSevice.product} navigation={navigation} />
+                            <InterestedScreen {...this.props} dataSevice={dataSevice.product} />
                         }
                     </SafeAreaView>
                 )
@@ -100,10 +100,10 @@ export default class Profile_Topic extends React.Component {
                     })
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 backArrow navigation={navigation} titleHead='ร้านที่ติดตาม' />
+                        <AppBar1 {...this.props} backArrow titleHead='ร้านที่ติดตาม' />
                         {
                             dataSevice &&
-                            <Follow_storeScreen cokie={cokie} currentUser={currentUser} dataSevice={dataSevice} navigation={navigation} />
+                            <Follow_storeScreen {...this.props} cokie={cokie} currentUser={currentUser} dataSevice={dataSevice} />
                         }
                     </SafeAreaView>
                 )
@@ -115,24 +115,24 @@ export default class Profile_Topic extends React.Component {
                     })
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 backArrow navigation={navigation} titleHead='รีวิวของฉัน' />
+                        <AppBar1 {...this.props} backArrow titleHead='รีวิวของฉัน' />
                         {
                             dataSevice &&
-                            <Review_meScreen dataSevice={dataSevice.my_review} navigation={navigation} />
+                            <Review_meScreen {...this.props} dataSevice={dataSevice.my_review} />
                         }
                     </SafeAreaView>
                 )
             case 5:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 backArrow navigation={navigation} titleHead='Fin Helpcenter' />
-                        <Help_meScreen navigation={navigation} />
+                        <AppBar1 {...this.props} backArrow titleHead='Fin Helpcenter' />
+                        <Help_meScreen {...this.props} />
                     </SafeAreaView>
                 )
             case 6:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppbarChat navigation={navigation} Title='Supreme Store' />
+                        <AppbarChat {...this.props} Title='Supreme Store' />
                         <Chat_Cutomer />
                     </SafeAreaView>
                 )
@@ -144,12 +144,11 @@ export default class Profile_Topic extends React.Component {
                     })
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 backArrow navigation={navigation} titleHead='รีวิวของฉัน' />
+                        <AppBar1 {...this.props} backArrow titleHead='รีวิวของฉัน' />
                         <ScrollView>
                             {
                                 dataSevice &&
-                                <Review_From cokie={cokie} currentUser={currentUser} dataSevice={dataSevice.my_review[0]}
-                                    navigation={navigation} />
+                                <Review_From {...this.props} cokie={cokie} currentUser={currentUser} dataSevice={dataSevice.my_review[0]} />
                             }
                         </ScrollView>
                     </SafeAreaView>
@@ -157,17 +156,17 @@ export default class Profile_Topic extends React.Component {
             case 8:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 backArrow navigation={navigation} titleHead='Fin Helpcenter' />
+                        <AppBar1 {...this.props} backArrow titleHead='Fin Helpcenter' />
                         <ScrollView>
-                            <Account_Help navigation={navigation} />
+                            <Account_Help {...this.props} />
                         </ScrollView>
                     </SafeAreaView>
                 )
             case 9:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 backArrow navigation={navigation} titleHead='Fin Helpcenter' />
-                        <Topic_DetailHelp navigation={navigation} />
+                        <AppBar1 {...this.props} backArrow titleHead='Fin Helpcenter' />
+                        <Topic_DetailHelp {...this.props} />
                     </SafeAreaView>
                 )
         }
@@ -184,7 +183,7 @@ export default class Profile_Topic extends React.Component {
                     <LoadingScreen key='LoadingScreen' />
                 }
                 {this.PathList()}
-                <ExitAppModule navigation={navigation} />
+                <ExitAppModule {...this.props} />
             </>
         );
     }
@@ -200,7 +199,7 @@ export class LatestScreen extends React.Component {
         const { navigation } = this.props
         return (
             <ScrollView>
-                <PopularProduct navigation={navigation} noHeadText />
+                <PopularProduct {...this.props} noHeadText />
             </ScrollView>
         );
     }
@@ -538,7 +537,7 @@ export class InterestedScreen extends React.Component {
         const { dataSevice, navigation } = this.props
         return (
             <ScrollView>
-                <TodayProduct loadData={dataSevice} navigation={navigation} noTitle onShow='InterestedScreen' />
+                <TodayProduct {...this.props} loadData={dataSevice} noTitle onShow='InterestedScreen' />
             </ScrollView>
         );
     }
@@ -556,15 +555,13 @@ export class Follow_storeScreen extends React.Component {
             <ScrollView>
                 {
                     dataSevice.store.map((value, index) => {
-                        return <Follow_store_Box cokie={cokie} currentUser={currentUser} dataSevice={value} key={index}
-                            navigation={navigation} />
+                        return <Follow_store_Box {...this.props} cokie={cokie} currentUser={currentUser} dataSevice={value} key={index} />
                     })
                 }
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 10, marginLeft: 10, }]}>ร้านค้าที่คุณอาจชอบ</Text>
                 {
                     dataSevice.unlike_store.map((value, index) => {
-                        return <Might_like_Store cokie={cokie} currentUser={currentUser} dataSevice={value} key={index}
-                            navigation={navigation} />
+                        return <Might_like_Store {...this.props} cokie={cokie} currentUser={currentUser} dataSevice={value} key={index} />
                     })
                 }
             </ScrollView>
@@ -736,7 +733,7 @@ export class Review_meScreen extends React.Component {
             <ScrollView>
                 {
                     dataSevice.map((value, index) => {
-                        return <Review_me dataSevice={value} key={index} navigation={navigation} />
+                        return <Review_me {...this.props} dataSevice={value} key={index} />
                     })
                 }
             </ScrollView>
@@ -831,9 +828,9 @@ export class Help_meScreen extends React.Component {
         return (
             <View>
                 <ScrollView>
-                    <Help_me navigation={navigation} />
-                    <Question navigation={navigation} />
-                    <Topic_Help navigation={navigation} />
+                    <Help_me {...this.props} />
+                    <Question {...this.props} />
+                    <Topic_Help {...this.props} />
                 </ScrollView>
             </View>
         );
@@ -909,8 +906,8 @@ export class Topic_Help extends React.Component {
         };
     }
     render() {
-        const { navigation } = this.props
-        const HeadTitle_Help = navigation.getParam('HeadTitle_Help')
+        const { route } = this.props
+        const HeadTitle_Help = route.params?.HeadTitle_Help
         return (
             <View style={stylesMain.FrameBackground}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}> หัวข้อ </Text>
@@ -1003,8 +1000,8 @@ export class Account_Help extends React.Component {
         };
     }
     render() {
-        const { navigation } = this.props
-        const HeadTitle_Help = navigation.getParam('HeadTitle_Help')
+        const { route } = this.props
+        const HeadTitle_Help = route.params?.HeadTitle_Help
         return (
             <View>
                 <View style={stylesProfileTopic.Account_Help}>
@@ -1050,7 +1047,7 @@ export class Account_Help extends React.Component {
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ทำไมฉันถึงลงชื่อเข้าใช้งานไม่ได้?</Text>
                     </View>
                 </TouchableOpacity>
-                <Topic_Help navigation={navigation} />
+                <Topic_Help {...this.props} />
             </View>
         );
     }
@@ -1063,8 +1060,8 @@ export class Topic_DetailHelp extends React.Component {
         };
     }
     render() {
-        const { navigation } = this.props
-        const HeadTitle_Help = navigation.getParam('HeadTitle_Help')
+        const { route } = this.props
+        const HeadTitle_Help = route.params?.HeadTitle_Help
         return (
             <View style={stylesMain.SafeAreaView}>
                 <ScrollView>
@@ -1199,9 +1196,9 @@ export class Review_From extends React.Component {
         this.setState({ activeGetServices: false })
     }
     render() {
-        const { cokie, currentUser, dataSevice, navigation } = this.props
+        const { cokie, currentUser, dataSevice, route } = this.props
         const { activeAuto, activeGetServices, avatarSource, Review, starmain } = this.state
-        const id_cartdetail = navigation.getParam('id_cartdetail')
+        const id_cartdetail = route.params?.id_cartdetail
         const image_product = `${finip}/${dataSevice.path_product}/${dataSevice.image_product}`
         const uri = `${finip}/profile/update_review`
         var dataBody = {

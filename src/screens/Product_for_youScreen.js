@@ -107,7 +107,7 @@ export default class Product_for_youScreen extends React.Component {
           (activeGetCurrentUser == true || activeGetServices == true) &&
           <LoadingScreen key='LoadingScreen' />
         }
-        <AppBar1 backArrow navigation={navigation} titleHead='FIN คัดมาเพื่อคุณ' />
+        <AppBar1 {...this.props} backArrow titleHead='FIN คัดมาเพื่อคุณ' />
         <ScrollView stickyHeaderIndices={[2]}>
           <Slide dataService={dataService && dataService.banner} />
           <View style={{ marginBottom: 10 }}></View>
@@ -117,12 +117,12 @@ export default class Product_for_youScreen extends React.Component {
             }} />
           {
             dataService && dataService.product &&
-            <TodayProduct noTitle navigation={navigation} loadData={dataService.product} />
+            <TodayProduct {...this.props} noTitle loadData={dataService.product} />
           }
         </ScrollView>
         <SlideTab2 data={data} filterValue={this.setStatefilterValue.bind(this)} sliderVisible={sliderVisible}
           setStateSliderVisible={this.setSlider.bind(this)} />
-        <ExitAppModule navigation={navigation} />
+        <ExitAppModule {...this.props} />
       </SafeAreaView>
     );
   }

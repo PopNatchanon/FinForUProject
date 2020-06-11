@@ -61,9 +61,7 @@ export default class ExclusiveScreen extends React.Component {
     this.setState({ activeGetServices: true, filterValue });
   };
   render() {
-    const { navigation } = this.props;
-    const { activeGetSource, activeGetServices, dataService, filterValue,
-      sliderVisible, } = this.state;
+    const { activeGetSource, activeGetServices, dataService, filterValue, sliderVisible, } = this.state;
     var uri = `${finip}/highlight/exclusive_mobile`;
     var dataBody = {
       popular: filterValue && filterValue.popular ? filterValue.popular : '', // ถ้าเลือกออันส่งค่า “popular” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
@@ -110,7 +108,7 @@ export default class ExclusiveScreen extends React.Component {
           (activeGetSource == true || activeGetServices == true) &&
           <LoadingScreen key='LoadingScreen' />
         }
-        <AppBar1 titleHead={'สินค้าสุด Exclusive'} backArrow searchBar chatBar navigation={navigation} />
+        <AppBar1 {...this.props} titleHead={'สินค้าสุด Exclusive'} backArrow searchBar chatBar />
         <ScrollView stickyHeaderIndices={[2]}>
           <Slide dataService={dataService && dataService.banner} />
           <View style={{ marginBottom: 10 }}></View>
@@ -120,12 +118,12 @@ export default class ExclusiveScreen extends React.Component {
             }} />
           {
             dataService && dataService.product &&
-            <TodayProduct noTitle navigation={navigation} loadData={dataService.product} />
+            <TodayProduct {...this.props} noTitle loadData={dataService.product} />
           }
         </ScrollView>
         <SlideTab2 data={data} filterValue={this.setStatefilterValue.bind(this)} sliderVisible={sliderVisible}
           setStateSliderVisible={this.setSlider.bind(this)} />
-        <ExitAppModule navigation={navigation} />
+        <ExitAppModule {...this.props} />
       </SafeAreaView>
     );
   };

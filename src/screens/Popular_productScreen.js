@@ -3,6 +3,8 @@ import React from 'react';
 import {
     Dimensions, SafeAreaView, ScrollView, View,
 } from 'react-native';
+import { connect } from 'react-redux';
+import { fetchData, setActiveFetch } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
@@ -16,59 +18,70 @@ import { TabBar, GetServices } from '../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class Popular_productScreen extends React.Component {
+class Popular_productScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             activeDataService: true,
-            id_item: null,
+            id_items: null,
         };
     }
     getData(dataService) {
-        this.setState({ dataService })
+        this.setState({ activeDataService: false, dataService })
     }
     getButton_Bar(id_item) {
-        this.setState({ id_item })
+        const { id_items } = this.state
+        id_items != id_item && this.setState({ id_items: id_item })
     }
     render() {
-        const { navigation } = this.props
-        const { activeDataService, dataService, id_item } = this.state
-        var loadData = navigation.getParam('loadData')
+        const { getFetchData, route, } = this.props
+        const { activeDataService, dataService, id_items } = this.state
+        // getFetchData['publish_mobile'] && getFetchData['publish_mobile'].data
+        const id_item = route.params?.id_item + ''
         var dataArray = {}
-        dataArray[0] = loadData.product_hit
-        dataArray[1] = loadData.best_price
-        dataArray[2] = loadData.best_sale
-        dataArray[3] = loadData.best_cool
+        dataArray[0] = getFetchData['publish_mobile']?.data?.product_hit
+        dataArray[1] = getFetchData['publish_mobile']?.data?.best_price
+        dataArray[2] = getFetchData['publish_mobile']?.data?.best_sale
+        dataArray[3] = getFetchData['publish_mobile']?.data?.best_cool
         var uri = `${finip}/home/home_mobile`;
         var dataBody = {
             slide: 'banner'
         };
-        id_item == null &&
-            this.setState({ id_item: navigation.getParam('id_item') })
+        id_items == null &&
+            this.setState({ id_items: id_item })
         activeDataService == true &&
             GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), })
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                <AppBar1 backArrow navigation={navigation} titleHead='สินค้ายอดนิยม' />
+                <AppBar1 {...this.props} backArrow titleHead='สินค้ายอดนิยม' />
                 {
-                    id_item != null ?
+                    id_items != null ?
                         <ScrollView
                             stickyHeaderIndices={[2]}
                             ref={view => this._scrollView = view}>
                             <Slide dataService={dataService} />
                             <View style={{ marginBottom: 10 }}></View>
-                            <Button_Bar id_item={id_item} getData={this.getButton_Bar.bind(this)} />
-                            <TodayProduct loadData={dataArray[id_item]} navigation={navigation} noTitle />
+                            <Button_Bar id_item={id_items} getData={this.getButton_Bar.bind(this)} />
+                            <TodayProduct {...this.props} loadData={dataArray[id_items]} noTitle />
                         </ScrollView> :
                         <ScrollView>
                             <Slide dataService={dataService} />
                         </ScrollView>
                 }
-                <ExitAppModule navigation={navigation} />
+                <ExitAppModule {...this.props} />
             </SafeAreaView>
         );
     }
 }
+const mapStateToProps = (state) => ({
+    getFetchData: state.singleFetchDataFromService,
+    activeFetchData: state.activeFetchData,
+});
+const mapDispatchToProps = ({
+    fetchData,
+    setActiveFetch,
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Popular_productScreen);
 ///----------------------------------------------------------------------------------------------->>>> Button_Bar
 export class Button_Bar extends React.Component {
     constructor(props) {

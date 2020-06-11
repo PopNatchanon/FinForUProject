@@ -29,12 +29,12 @@ export default class Seller_Totel_Order extends Component {
         };
     }
     render() {
-        const { navigation } = this.props
-        const selectedIndex = navigation.getParam('selectedIndex')
+        const { route } = this.props
+        const selectedIndex = route.params?.selectedIndex
         return (
             <SafeAreaView style={[stylesMain.SafeAreaView, { height: 'auto' }]}>
-                <AppBar1 backArrow navigation={navigation} titleHead='ประวัติการขาย' />
-                <Button_bar navigation={navigation} SetselectedIndex={selectedIndex} />
+                <AppBar1 {...this.props} backArrow titleHead='ประวัติการขาย' />
+                <Button_bar {...this.props} SetselectedIndex={selectedIndex} />
             </SafeAreaView>
         );
     }
@@ -90,7 +90,7 @@ export class Button_bar extends Component {
                         }]}>{selectedIndex == 1 && ''}</Text>,
                         dataService && dataService.purchase.length > 0 ?
                             dataService.purchase.map((value, index) => {
-                                return <Order_Me_Box dataService={value} key={index} navigation={navigation} />
+                                return <Order_Me_Box {...this.props} dataService={value} key={index} />
                             }) :
                             <View style={[stylesProfileTopic.products_pro]}>
                                 <IconFeather name='edit' size={50} color='#000000' />

@@ -32,9 +32,9 @@ export default class Seller_Setting extends Component {
         const { navigation } = this.props
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                <AppBar1 backArrow navigation={navigation} titleHead='ตั้งค่าร้านค้า' />
+                <AppBar1 {...this.props} backArrow titleHead='ตั้งค่าร้านค้า' />
                 <ScrollView>
-                    <Seller_Setting_Topic navigation={navigation} />
+                    <Seller_Setting_Topic {...this.props} />
                 </ScrollView>
             </SafeAreaView>
         );

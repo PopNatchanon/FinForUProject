@@ -74,39 +74,38 @@ export default class StoreScreen extends React.Component {
         switch (selectedIndex) {
             case 0:
                 return ([
-                    <TicketLine cokie={cokie} currentUser={currentUser} navigation={navigation}
-                        key={'TicketLine'} />,
-                    <DealTop activeGetServices={activeGetServices} dataService={dataService && dataService[0].product_big_deal}
-                        navigation={navigation} key={'product_big_deal'} titlename='ดีลเด็ด' />,
-                    <DealTop activeGetServices={activeGetServices} dataService={dataService && dataService[0].product_new}
-                        navigation={navigation} key={'product_new'} titlename='สินค้ามาใหม่' />,
-                    <PopularProduct activeGetServices={activeGetServices} dataService={dataService && dataService[0].product_best_sale}
-                        navigation={navigation} key={'product_best_sale'} />
+                    <TicketLine {...this.props} cokie={cokie} currentUser={currentUser} key={'TicketLine'} />,
+                    <DealTop {...this.props} activeGetServices={activeGetServices} dataService={dataService && dataService[0].product_big_deal}
+                        key={'product_big_deal'} titlename='ดีลเด็ด' />,
+                    <DealTop {...this.props} activeGetServices={activeGetServices} dataService={dataService && dataService[0].product_new}
+                        key={'product_new'} titlename='สินค้ามาใหม่' />,
+                    <PopularProduct {...this.props} activeGetServices={activeGetServices} dataService={dataService && dataService[0].product_best_sale}
+                        key={'product_best_sale'} />
                 ]);
             case 1:
                 return ([
                     <SubMenu getSelectedIndex2={this.getSelectedIndex2} key={'SubMenu'} />,
-                    <ShowProduct key={'ShowProduct'} activeGetServices2={activeGetServices2}
+                    <ShowProduct {...this.props} key={'ShowProduct'} activeGetServices2={activeGetServices2}
                         dataService={dataService2 && dataService2.store_data && dataService2.store_data[0].product_store}
-                        noTitle navigation={navigation} />
+                        noTitle />
                 ]);
             case 2:
                 return ([
-                    <BoxProduct4 activeRef={activeRef} getDataSource={this.getDataSource} navigation={navigation}
+                    <BoxProduct4 {...this.props} activeRef={activeRef} getDataSource={this.getDataSource}
                         key={'BoxProduct4'} />,
                 ]);
             default:
         }
     }
     render() {
-        const { navigation, } = this.props
+        const { navigation, route, } = this.props
         const {
             activeGetCurrentUser, activeGetServices, activeGetServices2, dataService, errorGetServices, filterValue, scrollY, selectedIndex,
         } = this.state
-        const id_item = navigation.getParam('id_item')
+        const id_store = route.params?.id_store
         var uri = `${finip}/brand/store_home`;
         var dataBody = {
-            id_store: id_item,
+            id_store: id_store,
             popular: 'popular', //<< ถ้าเลือกออันส่งค่า “popular” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
             lastest: '', //<< ถ้าเลือกออันส่งค่า “lastest” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
             best_sale: '',  //<< ถ้าเลือกออันส่งค่า “best_sale” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
@@ -115,7 +114,7 @@ export default class StoreScreen extends React.Component {
             max_price: ''
         }
         var dataBody2 = {
-            id_store: id_item,
+            id_store: id_store,
             popular: filterValue && filterValue.popular ? filterValue.popular : '', //<< ถ้าเลือกออันส่งค่า “popular” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
             lastest: filterValue && filterValue.lastest ? filterValue.lastest : '', //<< ถ้าเลือกออันส่งค่า “lastest” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
             best_sale: filterValue && filterValue.best_sale ? filterValue.best_sale : '',  //<< ถ้าเลือกออันส่งค่า “best_sale” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
@@ -164,9 +163,9 @@ export default class StoreScreen extends React.Component {
         dataService && dataService.store_data && dataService.store_data.map((value) => {
             image_header = `${finip}/${value.image_head_path}/${value.image_head}`
         })
-        activeGetServices == true && id_item !== undefined &&
+        activeGetServices == true && id_store !== undefined &&
             GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData })
-        selectedIndex == 1 && activeGetServices2 == true && id_item !== undefined &&
+        selectedIndex == 1 && activeGetServices2 == true && id_store !== undefined &&
             GetServices({ uriPointer: uri, dataBody: dataBody2, getDataSource: this.getData2 })
         activeGetCurrentUser == true &&
             GetData({ getCokie: true, getSource: this.getSource, getUser: true })
@@ -206,7 +205,7 @@ export default class StoreScreen extends React.Component {
                         left: 0,
                         right: 0,
                     }}>
-                        <AppBar backArrow filterBar otherBar navigation={navigation}
+                        <AppBar {...this.props} backArrow filterBar otherBar
                             ABGColor={AnimatedHeadbg} ABDColor={AnimatedHeadbd} AIColor={AnimatedHeadi} />
                     </View>
                 </Animatable.View>
@@ -226,7 +225,7 @@ export default class StoreScreen extends React.Component {
                         marginTop: -40,
                         opacity: AnimatedHeadopacity,
                     }}>
-                        <StoreHead navigation={navigation} dataService={dataService && dataService.store_data} />
+                        <StoreHead {...this.props} dataService={dataService && dataService.store_data} />
                     </Animatable.View> */}
                     <Animatable.View style={{
                         width: (width),
@@ -236,11 +235,11 @@ export default class StoreScreen extends React.Component {
                     <Animatable.View style={{
                         marginBottom: 8,
                     }}>
-                        <StoreHeadDetails activeGetServices={activeGetServices} navigation={navigation}
+                        <StoreHeadDetails {...this.props} activeGetServices={activeGetServices}
                             dataService={dataService && dataService.store_data} />
                     </Animatable.View>
-                    <Menubar navigation={navigation} getSelectedIndex={this.getSelectedIndex} />
-                    <Banner activeGetServices={activeGetServices} navigation={navigation}
+                    <Menubar {...this.props} getSelectedIndex={this.getSelectedIndex} />
+                    <Banner {...this.props} activeGetServices={activeGetServices}
                         dataService={dataService && dataService.store_data} key={'Banner'} />
                     {this.ViewSide(selectedIndex, dataService && dataService.store_data)}
                 </ScrollView>
@@ -250,14 +249,14 @@ export default class StoreScreen extends React.Component {
                         <ActionButton buttonColor={mainColor} size={50}
                             onPress={() => NavigationNavigateScreen({
                                 goScreen: 'Post_Feed', setData: {
-                                    selectedIndex: 1, id_store: id_item, store_data: dataService.store_data,
+                                    selectedIndex: 1, id_store, store_data: dataService.store_data,
                                     getDataSource: this.getDataSource
                                 }, navigation
                             })}>
                         </ActionButton>
                     </>
                 }
-                <ExitAppModule navigation={navigation} />
+                <ExitAppModule {...this.props} />
             </View>
         );
     }
@@ -330,8 +329,8 @@ export class StoreHeadDetails extends React.Component {
         };
     }
     get getDetailStore() {
-        const { activeGetServices, dataService, navigation } = this.props;
-        const id_item = navigation.getParam('id_item')
+        const { activeGetServices, dataService, navigation, route } = this.props;
+        const id_store = route.params?.id_store
         var dataMySQL
         dataService && (dataMySQL = `${finip}/${dataService[0].image_path}/${dataService[0].image}`)
         return (
@@ -368,7 +367,8 @@ export class StoreHeadDetails extends React.Component {
                                             <Text style={[
                                                 stylesStore.StoreHeadTextOther2, stylesFont.FontFamilyText, stylesFont.FontSize7,
                                             ]}>
-                                                ผู้ติดตาม {dataService && dataService[0].who_follow} | กำลังติดตาม {dataService && dataService[0].follow_number}</Text> :
+                                                ผู้ติดตาม {dataService && dataService[0].who_follow} | กำลังติดตาม {dataService &&
+                                                    dataService[0].follow_number}</Text> :
                                             <Text style={[
                                                 stylesStore.StoreHeadTextOther2, stylesFont.FontFamilyText, stylesFont.FontSize7,
                                                 { color: '#222222' }]}>
@@ -471,7 +471,7 @@ export class StoreHeadDetails extends React.Component {
                     </View>
                     <TouchableOpacity activeOpacity={1}
                         onPress={() => NavigationNavigateScreen({
-                            goScreen: 'Post_Feed', setData: { selectedIndex: 0, id_store: id_item }, navigation
+                            goScreen: 'Post_Feed', setData: { selectedIndex: 0, id_store }, navigation
                         })}>
                         <IconEntypo name='chevron-right' size={25} color={mainColor} />
                     </TouchableOpacity>
@@ -639,14 +639,14 @@ export class TicketLine extends React.Component {
         )
     }
     render() {
-        const { currentUser, cokie, navigation, } = this.props
+        const { currentUser, cokie, navigation, route } = this.props
         const { activeGetCoupon, activeGetServices, dataService, id_promotion } = this.state
-        const id_item = navigation.getParam('id_item')
+        const id_store = route.params?.id_store
         var uri = `${finip}/coupon/save_coupon_shop`;
         var dataBody = {
             id_customer: currentUser && currentUser.id_customer,
             device: 'mobile_device',
-            id_store: id_item,
+            id_store,
             id_promotion_shop: activeGetCoupon ? id_promotion : '',
         }
         activeGetServices == true && cokie &&
@@ -673,7 +673,7 @@ export class DealTop extends React.Component {
                 </View>
                 {
                     dataService && activeGetServices == false ?
-                        <FlatProduct custumNavigation='DealTop' navigation={navigation} dataService={dataService}
+                        <FlatProduct {...this.props} custumNavigation='DealTop' dataService={dataService}
                             mode='row3' nameFlatProduct='DealTop' nameSize={14} priceSize={15} dispriceSize={15} /> :
                         <View style={[stylesMain.ItemCenter, { width, height: 115 + 55 }]}>
                             <ActivityIndicator style={stylesMain.ItemCenterVertical} color='#1A3263' size='large' />
@@ -710,8 +710,8 @@ export class PopularProduct extends React.Component {
                         activeGetServices == false ?
                             dataService &&
                             <ProductBox
+                                {...this.props}
                                 dataService={dataService}
-                                navigation={navigation}
                                 mode='row2colall'
                                 pointerUrl='DetailScreen'
                                 pointerid_store
@@ -793,8 +793,8 @@ export class ShowProduct extends React.Component {
                             </View> :
                             dataService && dataService.length > 0 ?
                                 <ProductBox
+                                    {...this.props}
                                     dataService={dataService}
-                                    navigation={navigation}
                                     mode='row2colall'
                                     pointerUrl='DetailScreen'
                                     pointerid_store
@@ -825,14 +825,14 @@ export class BoxProduct4 extends React.Component {
         getDataSource(false)
     }
     render() {
-        const { activeRef, navigation } = this.props;
+        const { activeRef, navigation, route } = this.props;
         const { dataService } = this.state;
-        const id_item = navigation.getParam('id_item')
+        const id_store = route.params?.id_store
         const uri = `${finip}/brand/feed_news`;
         const dataBody = {
-            id_store: id_item
+            id_store
         }
-        activeRef == true && id_item &&
+        activeRef == true && id_store &&
             GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData, showConsole: 'feed_news' })
         return (
             <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, { marginTop: 0, marginBottom: 10 }]}>
@@ -846,7 +846,7 @@ export class BoxProduct4 extends React.Component {
                             dataService && dataService.feed_news && dataService.feed_news != 'ยังไม่มีข่าวใหม่' ?
                                 dataService.feed_news.map((value, index) => {
                                     return value.id_feed &&
-                                        <FeedBox atStore dataService={value} Follow={true} Header key={index} navigation={navigation} />
+                                        <FeedBox {...this.props} atStore dataService={value} Follow={true} Header key={index} />
                                 }) :
                                 <View style={[stylesMain.ItemCenter, { width, height: 50, backgroundColor: '#fff' }]}>
                                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, stylesMain.ItemCenterVertical]}>

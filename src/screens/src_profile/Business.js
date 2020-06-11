@@ -39,32 +39,32 @@ export default class Business extends React.Component {
     }
   }
   PathList() {
-    const { navigation } = this.props
-    const selectedIndex = navigation.getParam('selectedIndex')
+    const { route } = this.props
+    const selectedIndex = route.params?.selectedIndex
     switch (selectedIndex) {
       case 0:
         return (
           <>
             {/* หน้าเข้ามาครั้งแรก Affiliate มีปุ่มให้กดสมัครสมาชิก */}
-            <AppBar1 backArrow navigation={navigation} titleHead='สมาชิกAffiliate' />
-            <Register_Affiliate navigation={navigation} />
+            <AppBar1 {...this.props} backArrow titleHead='สมาชิกAffiliate' />
+            <Register_Affiliate {...this.props} />
           </>
         )
       case 1:
         return (
           <>
             {/* หน้าเมนูหลักของ Affiliate  */}
-            <AppBar1 backArrow navigation={navigation} titleHead='สมาชิกAffiliate' />
-            <Menu_Affiliate navigation={navigation} />
+            <AppBar1 {...this.props} backArrow titleHead='สมาชิกAffiliate' />
+            <Menu_Affiliate {...this.props} />
           </>
         )
       case 2:
         return (
           <>
             {/* หน้าโปรไฟล์ของ Affiliate มีเมนูด้านล่าง */}
-            <AppBar1 backArrow navigation={navigation} titleHead='สมาชิกAffiliate' />
+            <AppBar1 {...this.props} backArrow titleHead='สมาชิกAffiliate' />
             <ScrollView>
-              <Business_Profile navigation={navigation} />
+              <Business_Profile {...this.props} />
             </ScrollView>
           </>
         )
@@ -72,9 +72,9 @@ export default class Business extends React.Component {
         return (
           <>
             {/* เข้าจากโปรไฟล์ของ Affiliate รายการสินค้า */}
-            <AppBar1 backArrow navigation={navigation} titleHead='สมาชิกAffiliate' />
+            <AppBar1 {...this.props} backArrow titleHead='สมาชิกAffiliate' />
             <ScrollView>
-              <Income navigation={navigation} />
+              <Income {...this.props} />
             </ScrollView>
           </>
         )
@@ -82,7 +82,7 @@ export default class Business extends React.Component {
         return (
           <>
             {/* เข้าจากโปรไฟล์ของ Affiliate การเติบโต */}
-            <AppBar1 backArrow navigation={navigation} titleHead='สมาชิกAffiliate' />
+            <AppBar1 {...this.props} backArrow titleHead='สมาชิกAffiliate' />
             <Growth />
           </>
         )
@@ -90,23 +90,23 @@ export default class Business extends React.Component {
         return (
           <>
             {/* เข้าจากเมนูหลักของ Affiliate การเงิน */}
-            <AppBar1 backArrow navigation={navigation} titleHead='การเงิน' />
-            <Finance navigation={navigation} />
+            <AppBar1 {...this.props} backArrow titleHead='การเงิน' />
+            <Finance {...this.props} />
           </>
         )
       case 6:
         return (
           <>
             {/* หน้าแบบFromการสมัครสมาชิก Affiliate */}
-            <AppBar1 backArrow navigation={navigation} titleHead='สมาชิกAffiliate' />
-            <Register_Affiliate_From navigation={navigation} />
+            <AppBar1 {...this.props} backArrow titleHead='สมาชิกAffiliate' />
+            <Register_Affiliate_From {...this.props} />
           </>
         )
       case 7:
         return (
           <>
             {/* หน้าเพิ่มสำเนาบัตรประชาชน เข้าจาก หน้าแบบFromการสมัครสมาชิก Affiliate */}
-            <AppBar1 backArrow navigation={navigation} titleHead='บัตรประชาชน' />
+            <AppBar1 {...this.props} backArrowtitleHead='บัตรประชาชน' />
             <ID_card />
           </>
         )

@@ -19,7 +19,6 @@ import {
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default function FeedScreen(props) {
-  const { navigation } = props
   abortController = new AbortController();
   const [activeGetSource, setActiveGetSource] = useState(true);
   const [activeSelectedIndex, setActiveSelectedIndex] = useState(true);
@@ -41,7 +40,7 @@ export default function FeedScreen(props) {
           activeGetSource == true &&
           <LoadingScreen key='LoadingScreen' />
         } */}
-      <AppBar1 titleHead='ฟีด' storeBar menuBar navigation={navigation} />
+      <AppBar1 {...props} titleHead='ฟีด' storeBar menuBar />
       {
         currentUser &&
         <MenuBar getActiveSelectedIndex={activeSelectedIndex => setActiveSelectedIndex(activeSelectedIndex)}
@@ -49,16 +48,16 @@ export default function FeedScreen(props) {
       }
       {
         activeGetSource == false ?
-          <Button_Bar abortController={abortController} activeSelectedIndex={activeSelectedIndex}
+          <Button_Bar {...props} abortController={abortController} activeSelectedIndex={activeSelectedIndex}
             currentUser={currentUser} getActiveSelectedIndex={activeSelectedIndex => setActiveSelectedIndex(activeSelectedIndex)}
-            selectedIndex={currentUser ? selectedIndex : 1} navigation={navigation} /> :
+            selectedIndex={currentUser ? selectedIndex : 1} /> :
           <View style={{ width, height: height * 0.768 }}>
             <ActivityIndicator style={stylesMain.ItemCenterVertical} color='#1A3263' size='large' />
           </View>
       }
       <Botton_PopUp_FIN />
-      <Toolbar abortController={abortController} navigation={navigation} />
-      <ExitAppModule navigation={navigation} />
+      <Toolbar {...props} />
+      <ExitAppModule {...props} />
     </SafeAreaView>
   );
 };
@@ -91,7 +90,7 @@ export function MenuBar(props) {
 };
 ///----------------------------------------------------------------------------------------------->>>> Button_Bar
 export function Button_Bar(props) {
-  const { activeSelectedIndex, currentUser, getActiveSelectedIndex, navigation, selectedIndex } = props;
+  const { activeSelectedIndex, currentUser, getActiveSelectedIndex, selectedIndex } = props;
   var uri = `${finip}/${(selectedIndex == 0 ? 'brand/feed_store_follow' : 'brand/feed_highlight')}`
   var dataBody = {
     id_customer: currentUser && currentUser.id_customer ? currentUser.id_customer : ''
@@ -110,7 +109,7 @@ export function Button_Bar(props) {
       {
         activeSelectedIndex == false ?
           dataService && dataService.feed_follow &&
-          <Highlights dataService={dataService.feed_follow} Follow navigation={navigation} /> :
+          <Highlights {...props} dataService={dataService.feed_follow} Follow /> :
           <View style={{ width, height: height * 0.8 }}>
             <ActivityIndicator style={stylesMain.ItemCenterVertical} color='#1A3263' size='large' />
           </View>
@@ -120,7 +119,7 @@ export function Button_Bar(props) {
 };
 ///----------------------------------------------------------------------------------------------->>>> Highlights
 export function Highlights(props) {
-  const { dataService, Follow, navigation } = props;
+  const { dataService, navigation } = props;
   function headerStoryList(navigation) {
     return (
       <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'StoryScreen', navigation })}>
@@ -141,12 +140,7 @@ export function Highlights(props) {
             ListHeaderComponent={() => headerStoryList(navigation)}
             renderItem={(value) => {
               return <>
-                <FeedBox dataService={value.item} navigation={navigation}
-                  Follow={
-                    Follow ?
-                      Follow :
-                      null
-                  } Header />
+                <FeedBox {...props} dataService={value.item} Header />
               </>
             }}
           />

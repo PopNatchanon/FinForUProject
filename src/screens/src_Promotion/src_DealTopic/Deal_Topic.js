@@ -55,9 +55,9 @@ export default class Deal_Topic extends Component {
         this.setState({ activeGetServices2: true, id_category })
     }
     PathList() {
-        const { navigation } = this.props
+        const { route } = this.props
         const { activeGetCurrentUser, activeGetServices2, currentUser, dataService, dataService2, id_category, keycokie, } = this.state
-        const selectedIndex = navigation.getParam('selectedIndex')
+        const selectedIndex = route.params?.selectedIndex
         const uri2 = `${finip}/highlight/exclusive_deal`
         var dataBody2 = {
             device: 'mobile_device',
@@ -69,14 +69,14 @@ export default class Deal_Topic extends Component {
             case 0:
                 return (
                     <View style={stylesMain.SafeAreaView}>
-                        <AppBar1 backArrow navigation={navigation} titleHead='ดีลสุดคุ้ม' />
+                        <AppBar1 {...this.props} backArrow titleHead='ดีลสุดคุ้ม' />
                         <ScrollView>
                             {[
                                 dataService && dataService.banner &&
                                 <Slide banner={dataService.banner} />,
                                 currentUser &&
-                                <Deal_CuponToday currentUser={currentUser} keycokie={keycokie} navigation={navigation} />,
-                                <Button_Bar navigation={navigation} />,
+                                <Deal_CuponToday {...this.props} currentUser={currentUser} keycokie={keycokie} />,
+                                <Button_Bar {...this.props} />,
                                 dataService && dataService.store.map((value, index) => {
                                     const value2 = dataService.product_store.filter((value2) => {
                                         return value2.id_store == value.id_store
@@ -90,7 +90,7 @@ export default class Deal_Topic extends Component {
             case 1:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={navigation} titleHead='ดีลสุด Exclusive' />
+                        <AppBar1 {...this.props} backArrow titleHead='ดีลสุด Exclusive' />
                         <ScrollView stickyHeaderIndices={[2]}>
                             {
                                 dataService && dataService.banner &&
@@ -99,10 +99,10 @@ export default class Deal_Topic extends Component {
                             <View style={{ marginBottom: 10 }}></View>
                             {[
                                 dataService2 &&
-                                <Button_Bar category={dataService2.category} key='Button_Bar' getUpdateIndex={this.getUpdateIndex.bind(this)}
-                                    navigation={navigation} />,
+                                <Button_Bar {...this.props} category={dataService2.category} key='Button_Bar'
+                                    getUpdateIndex={this.getUpdateIndex.bind(this)} />,
                                 dataService2 &&
-                                <TodayProduct key='TodayProduct' noTitle navigation={navigation} loadData={dataService2.product} />
+                                <TodayProduct {...this.props} key='TodayProduct' noTitle loadData={dataService2.product} />
                             ]}
                         </ScrollView>
                     </View>
@@ -110,7 +110,7 @@ export default class Deal_Topic extends Component {
             case 2:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={navigation} titleHead='ร้านค้ามือสองลดราคา' />
+                        <AppBar1 {...this.props} backArrow titleHead='ร้านค้ามือสองลดราคา' />
                         <ScrollView stickyHeaderIndices={[2]}>
                             <Slide />
                             <View style={{ marginBottom: 10 }}></View>
@@ -122,14 +122,14 @@ export default class Deal_Topic extends Component {
             case 3:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={navigation} titleHead='สินค้ามือสองลดราคา' />
+                        <AppBar1 {...this.props} backArrow titleHead='สินค้ามือสองลดราคา' />
                         <ScrollView stickyHeaderIndices={[2]}>
                             <Slide />
                             <View style={{ marginBottom: 10 }}></View>
-                            <Button_Bar navigation={navigation} />
+                            <Button_Bar {...this.props} />
                             {
                                 dataService ?
-                                    <TodayProduct noTitle navigation={navigation} loadData={dataService} typeip prepath='mysql' /> :
+                                    <TodayProduct {...this.props} noTitle loadData={dataService} typeip prepath='mysql' /> :
                                     null
                             }
                         </ScrollView>
@@ -138,7 +138,7 @@ export default class Deal_Topic extends Component {
             case 4:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={navigation} titleHead='ร้านค้าที่มีดีล' />
+                        <AppBar1 {...this.props} backArrow titleHead='ร้านค้าที่มีดีล' />
                         <ScrollView stickyHeaderIndices={[2]}>
                             <Slide />
                             <View style={{ marginBottom: 10 }}></View>
@@ -150,7 +150,7 @@ export default class Deal_Topic extends Component {
             case 5:
                 return (
                     <View style={[stylesMain.SafeAreaView, stylesMain.ItemCenter]}>
-                        <Not_Internet navigation={navigation} />
+                        <Not_Internet {...this.props} />
                     </View>
                 )
         }
@@ -170,7 +170,7 @@ export default class Deal_Topic extends Component {
                     <LoadingScreen key='LoadingScreen' />
                 }
                 {this.PathList()}
-                <ExitAppModule navigation={navigation} />
+                <ExitAppModule {...this.props} />
             </SafeAreaView>
         );
     }

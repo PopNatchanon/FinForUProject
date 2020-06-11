@@ -39,10 +39,9 @@ export default class FINSupermarket extends React.Component {
     this.setState({ dataService })
   }
   render() {
-    const { navigation } = this.props
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
-        <AppBar1 backArrow navigation={navigation} titleHead='FIN Supermarket' />
+        <AppBar1 {...this.props} backArrow titleHead='FIN Supermarket' />
         <ScrollView>
           <View style={{ width: '100%', height: 180, marginTop: 10 }}>
             <FastImage
@@ -54,7 +53,7 @@ export default class FINSupermarket extends React.Component {
             />
           </View>
           {/* <Slide /> */}
-          <FIN_Supermarket navigation={navigation} />
+          <FIN_Supermarket {...this.props} />
           <Brand_Supermarket />
           <Product_Today_Supermarket />
           <View style={{ height: 55, width: '100%', marginTop: 10 }}>
@@ -108,7 +107,7 @@ export class FinMall_Product extends React.Component {
         </View>
         {
           dataService &&
-          <FlatProduct custumNavigation='FinMall_Product' navigation={navigation} dataService={dataService}
+          <FlatProduct {...this.props} custumNavigation='FinMall_Product' dataService={dataService}
             mode='row3' nameFlatProduct='FinMall_Product' nameSize={14} priceSize={15} dispriceSize={15} />
         }
       </View>
@@ -128,7 +127,6 @@ export class FIN_Supermarket extends React.Component {
     this.setState({ activeDataService: false, dataService })
   }
   render() {
-    const { navigation } = this.props
     const { activeDataService, dataService } = this.state
     const item = [{
       name: 'Global Items'
@@ -169,7 +167,7 @@ export class FIN_Supermarket extends React.Component {
               </View> */}
           {
             dataService &&
-            <FlatProduct navigation={navigation} dataService={dataService} NumberOfcolumn={2} nameFlatProduct='DetailScreen'
+            <FlatProduct {...this.props} dataService={dataService} numberOfColumn={2} nameFlatProduct='DetailScreen'
               mode='row3' nameSize={14} priceSize={15} dispriceSize={15} />
           }
         </View>
@@ -293,7 +291,7 @@ export class Product_Today_Supermarket extends Component {
           <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>สินค้าประจำวันที่ควรช้อป!!</Text>
           {
             dataService &&
-            <FlatProduct navigation={navigation} dataService={dataService} NumberOfcolumn={2} nameFlatProduct='DetailScreen'
+            <FlatProduct {...this.props} dataService={dataService} numberOfColumn={2} nameFlatProduct='DetailScreen'
               mode='row3' nameSize={14} priceSize={15} dispriceSize={15} />
           }
         </View>
@@ -331,7 +329,7 @@ export class Product_Shop extends React.Component {
         <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>สินค้าที่คุณควรช้อป!!!</Text>
         {
           dataService ?
-            <TodayProduct noTitle navigation={navigation} loadData={dataService} typeip prepath='mysql' /> :
+            <TodayProduct {...this.props} noTitle loadData={dataService} typeip prepath='mysql' /> :
             null
         }
       </View>

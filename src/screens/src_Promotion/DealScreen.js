@@ -21,8 +21,8 @@ import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, Second_product, TodayProduct, } from '../../screens/MainScreen';
 import {
-   GetCoupon, GetData, GetServices, ProductBox, LoadingScreen, NavigationNavigateScreen, FlatProduct, 
-  } from '../../customComponents/Tools';
+  GetCoupon, GetData, GetServices, ProductBox, LoadingScreen, NavigationNavigateScreen, FlatProduct,
+} from '../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -54,35 +54,35 @@ export default class DealScreen extends React.Component {
           (activeGetCurrentUser == true || activeGetServices == true) &&
           <LoadingScreen key='LoadingScreen' />
         }
-        <AppBar1 titleHead={'ดีลสุดคุ้ม'} backArrow searchBar chatBar navigation={navigation} />
+        <AppBar1 {...this.props} titleHead={'ดีลสุดคุ้ม'} backArrow searchBar chatBar />
         <ScrollView>
           {[
             dataService &&
-            <Slide dataService={dataService.banner} key='Slide' navigation={navigation} />,
+            <Slide {...this.props} dataService={dataService.banner} key='Slide' />,
             dataService &&
             <Deal_Calendar dataService={dataService.carlendar_banner} key='Deal_Calendar' />,
             currentUser && keycokie &&
-            <Deal_Today currentUser={currentUser} key='Deal_Today' keycokie={keycokie} navigation={navigation} />,
+            <Deal_Today {...this.props} currentUser={currentUser} key='Deal_Today' keycokie={keycokie} />,
             dataService &&
-            <Deal_Exclusive dataService={dataService.exclusive} key='Deal_Exclusive' navigation={navigation} />,
+            <Deal_Exclusive {...this.props} dataService={dataService.exclusive} key='Deal_Exclusive' />,
             dataService &&
-            <ProDed_Store dataService={dataService.store} key='ProDed_Store' navigation={navigation} />,
+            <ProDed_Store {...this.props} dataService={dataService.store} key='ProDed_Store' />,
             dataService &&
             <ProDed_New_Store dataService={dataService.store} key='ProDed_New_Store' />,
             dataService &&
-            <Second_product Header_Second key='Second_product' loadData={{
+            <Second_product {...this.props} Header_Second key='Second_product' loadData={{
               product_second: dataService.product_second, list_store2_1: dataService.second_1, list_store2_2: dataService.second_2,
               mobile_bar: dataService.second_1, mobile_slide: dataService.second_3,
-            }} navigation={navigation} />,
-            /* <Second_Store navigation={navigation} /> */
+            }} />,
+            /* <Second_Store {...this.props} /> */
             dataService &&
-            <Shop_Deal_ForU dataService={dataService.product_foryou} key='Shop_Deal_ForU' navigation={navigation} />
+            <Shop_Deal_ForU {...this.props} dataService={dataService.product_foryou} key='Shop_Deal_ForU' />
           ]}
         </ScrollView>
         <View style={{ backgroundColor: '#ffffff', borderTopWidth: 1, borderColor: '#ECECEC' }}>
-          <Button_Bar navigation={navigation} />
+          <Button_Bar {...this.props} />
         </View>
-        <ExitAppModule navigation={navigation} />
+        <ExitAppModule {...this.props} />
       </SafeAreaView>
     );
   }
@@ -346,7 +346,7 @@ export class Deal_Exclusive extends React.Component {
         {/* <View style={stylesDeal.Deal_Exclusive}> */}
         {
           dataService &&
-          <FlatProduct custumNavigation='Deal_Exclusive' navigation={navigation} dataService={dataService} NumberOfcolumn={2}
+          <FlatProduct {...this.props} custumNavigation='Deal_Exclusive' dataService={dataService} numberOfColumn={2}
             mode='row3' nameFlatProduct='Deal_Exclusive' nameSize={14} priceSize={15} dispriceSize={15} />
         }
       </View>
@@ -447,7 +447,7 @@ export class Second_Store extends React.Component {
         </View>
         {
           dataService &&
-          <FlatProduct custumNavigation='Second_Store' navigation={navigation} dataService={dataService}
+          <FlatProduct {...this.props} custumNavigation='Second_Store' dataService={dataService}
             mode='row3' nameFlatProduct='Second_Store' nameSize={14} priceSize={15} dispriceSize={15} />
         }
       </View>
@@ -561,7 +561,7 @@ export class Shop_Deal_ForU extends React.Component {
         <View style={stylesMain.BoxProduct2BoxProduct}>
           {
             dataService &&
-            <TodayProduct noTitle navigation={navigation} loadData={dataService} />
+            <TodayProduct {...this.props} noTitle  loadData={dataService} />
           }
         </View>
       </View>

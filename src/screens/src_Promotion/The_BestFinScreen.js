@@ -37,23 +37,23 @@ export default class The_BestFinScreen extends Component {
     activeGetServices == true && GetServices({ uriPointer: uri, getDataSource: this.getData.bind(this), })
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
-        <AppBar1 titleHead={'สุดคุ้มสุดฟิน'} backArrow searchBar chatBar navigation={navigation} />
+        <AppBar1 {...this.props} titleHead={'สุดคุ้มสุดฟิน'} backArrow searchBar chatBar />
         <ScrollView>
           <Slide banner={dataService && dataService.banner} />
-          <Fin_sale navigation={navigation} dataService={dataService && dataService.product_discount80} />
-          <Store_Sale navigation={navigation} dataService={dataService && dataService} />
-          <Product_Cool navigation={navigation} dataService={dataService && dataService.product_cool} />
-          {/* <Second_product navigation={navigation} loadData={{
+          <Fin_sale {...this.props} dataService={dataService && dataService.product_discount80} />
+          <Store_Sale {...this.props} dataService={dataService && dataService} />
+          <Product_Cool {...this.props} dataService={dataService && dataService.product_cool} />
+          {/* <Second_product {...this.props} loadData={{
             product_second: dataService && dataService.product_sec, list_store2_1: dataService && dataService.discount_sec_xl,
             list_store2_2: dataService && dataService.discount_sec_l, list_store2_3: dataService && dataService.discount_sec_m,
             mobile_bar: dataService && dataService.mobile_bar, mobile_slide: dataService && dataService.mobile_slide,
           }} Header_Second /> */}
-          <Second_Store navigation={navigation} dataService={dataService && dataService} />
+          <Second_Store {...this.props} dataService={dataService && dataService} />
         </ScrollView>
         <View style={{ backgroundColor: '#ffffff', borderTopWidth: 1, borderColor: '#ECECEC' }}>
-          <Button_Bar navigation={navigation} />
+          <Button_Bar {...this.props} />
         </View>
-        <ExitAppModule navigation={navigation} />
+        <ExitAppModule {...this.props} />
       </SafeAreaView>
     );
   }
@@ -78,7 +78,7 @@ export class Fin_sale extends Component {
           </View>
           {
             dataService &&
-            <FlatProduct custumNavigation='CategoryProduct_pay' navigation={navigation} dataService={dataService} NumberOfcolumn={1}
+            <FlatProduct {...this.props} custumNavigation='CategoryProduct_pay' dataService={dataService} numberOfColumn={1}
               mode='row3' nameFlatProduct='CategoryProduct_pay' nameSize={14} priceSize={15} dispriceSize={15} />
           }
         </View>
@@ -194,7 +194,7 @@ export class Product_Cool extends Component {
           </View>
           {
             dataService &&
-            <FlatProduct custumNavigation='CategoryProduct_pay' navigation={navigation} dataService={dataService} NumberOfcolumn={2}
+            <FlatProduct {...this.props} custumNavigation='CategoryProduct_pay' dataService={dataService} numberOfColumn={2}
               mode='row3' nameFlatProduct='CategoryProduct_pay' nameSize={14} priceSize={15} dispriceSize={15} />
           }
         </View>
@@ -305,7 +305,7 @@ export class Second_Store extends Component {
         </View>
         {
           dataService && dataService.product_sec &&
-          <FlatProduct custumNavigation='CategoryProduct_pay' navigation={navigation} dataService={dataService.product_sec} NumberOfcolumn={2}
+          <FlatProduct {...this.props} custumNavigation='CategoryProduct_pay' dataService={dataService.product_sec} numberOfColumn={2}
             mode='row3' nameFlatProduct='CategoryProduct_pay' nameSize={14} priceSize={15} dispriceSize={15} />
         }
       </View>

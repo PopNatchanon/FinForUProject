@@ -30,93 +30,93 @@ import { finip } from '../../../navigator/IpConfig';
 
 export default class Setting_TopicStore extends Component {
     PathList() {
-        const { navigation } = this.props
-        const selectedIndex = navigation.getParam('selectedIndex')
+        const { route } = this.props
+        const selectedIndex = route.params?.selectedIndex
         switch (selectedIndex) {
             case 0:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
-                        <Notification navigation={navigation} />
+                        <AppBar1 {...this.props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
+                        <Notification {...this.props} />
                         {/* แก้ไขเอกสารการจดแจ้ง */}
                     </View>
                 )
             case 1:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={navigation} titleHead='เพิ่มบัญชีธนาคาร' saveBar />
-                        <Edit_Bank navigation={navigation} />
+                        <AppBar1 {...this.props} backArrow titleHead='เพิ่มบัญชีธนาคาร' saveBar />
+                        <Edit_Bank {...this.props} />
                         {/* แก้ไขบัญชีธนาคาร */}
                     </View>
                 )
             case 2:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
-                        <Notification_From navigation={navigation} />
+                        <AppBar1 {...this.props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
+                        <Notification_From {...this.props} />
                         {/* หนังสือจดทะเบียนบริษัท จากกรมพัฒนาธุรกิจการค้า */}
                     </View>
                 )
             case 3:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
-                        <Notification_From navigation={navigation} DetailHead='สำเนาบัตรประชาชน/พาสปอร์ตของกรรมการผู้มีอำนาจลงนาม' />
+                        <AppBar1 {...this.props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
+                        <Notification_From {...this.props} DetailHead='สำเนาบัตรประชาชน/พาสปอร์ตของกรรมการผู้มีอำนาจลงนาม' />
                     </View>
                 )
             case 4:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
-                        <Notification_From navigation={navigation} DetailHead='ใบทะเบียนภาษีมูลค่าเพิ่ม' />
+                        <AppBar1 {...this.props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
+                        <Notification_From {...this.props} DetailHead='ใบทะเบียนภาษีมูลค่าเพิ่ม' />
                     </View>
                 )
             case 5:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
-                        <Notification_From navigation={navigation} DetailHead='ใบจดทะเบียนเครื่องหมายการค้า' />
+                        <AppBar1 {...this.props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
+                        <Notification_From {...this.props} DetailHead='ใบจดทะเบียนเครื่องหมายการค้า' />
                     </View>
                 )
             case 6:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
-                        <Notification_From navigation={navigation} DetailHead='หนังสือรับรองการเป็นตัวแทนจำหน่าย (ไม่จำเป็นต้องระบุ)' />
+                        <AppBar1 {...this.props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
+                        <Notification_From {...this.props} DetailHead='หนังสือรับรองการเป็นตัวแทนจำหน่าย (ไม่จำเป็นต้องระบุ)' />
                     </View>
                 )
             case 7:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
-                        <Notification_From navigation={navigation} DetailHead='สำเนาบัญชีธนาคารของผู้ขาย' />
+                        <AppBar1 {...this.props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
+                        <Notification_From {...this.props} DetailHead='สำเนาบัญชีธนาคารของผู้ขาย' />
                     </View>
                 )
             case 8:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={navigation} titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
-                        <Notification_From navigation={navigation} DetailHead='สำเนาบัญชีธนาคารของผู้ขาย' />
+                        <AppBar1 {...this.props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
+                        <Notification_From {...this.props} DetailHead='สำเนาบัญชีธนาคารของผู้ขาย' />
                     </View>
                 )
             case 9:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={navigation} titleHead='ที่อยู่ร้านค้าของฉัน' />
-                        <Setting_Address_Store navigation={navigation} />
+                        <AppBar1 {...this.props} backArrow titleHead='ที่อยู่ร้านค้าของฉัน' />
+                        <Setting_Address_Store {...this.props} />
                     </View>
                 )
             case 10:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={navigation} titleHead='เพิ่มเลขพัสดุ' />
+                        <AppBar1 {...this.props} backArrow titleHead='เพิ่มเลขพัสดุ' />
                         <Up_Code_Number />
                     </View>
                 )
             case 11:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={navigation} titleHead='แก้ไขเลขพัสดุ' />
+                        <AppBar1 {...this.props} backArrow titleHead='แก้ไขเลขพัสดุ' />
                         <Up_Code_Number />
                     </View>
                 )
@@ -238,7 +238,7 @@ export class Edit_Bank extends Component {
         if (NumberBank.length < value.length && Number.isInteger(value.slice(-1) * 1) == false) {
             value = NumberBank;
         } else {
-                this.setState({ NumberBank: value })
+            this.setState({ NumberBank: value })
         };
     }
     render() {

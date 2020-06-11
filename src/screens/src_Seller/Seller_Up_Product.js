@@ -35,10 +35,10 @@ export default class Seller_Up_Product extends Component {
     const { navigation } = this.props
     return (
       <SafeAreaView style={{ backgroundColor: '#E9E9E9', flex: 1, }}>
-        <AppBar1 backArrow navigation={navigation} titleHead='เพิ่มสินค้า' saveBar />
+        <AppBar1 {...this.props} backArrow titleHead='เพิ่มสินค้า' saveBar />
         <ScrollView>
           <Seller_Up_Image />
-          <Seller_Up_ProductDetail navigation={navigation} />
+          <Seller_Up_ProductDetail {...this.props} />
         </ScrollView>
       </SafeAreaView>
     );

@@ -39,49 +39,49 @@ export default class Setting_Topic extends Component {
     this.setState({ activeGetSource: false, currentUser: value.currentUser, cokie: value.keycokie })
   }
   PathList() {
-    const { navigation, } = this.props
+    const { route } = this.props
     const { activeGetSource, cokie, currentUser } = this.state
-    const selectedIndex = navigation.getParam('selectedIndex')
+    const selectedIndex = route.params?.selectedIndex
     switch (selectedIndex) {
       case 0:
         return (
-          <Edit_Profile activeGetSource={activeGetSource} cokie={cokie} currentUser={currentUser} navigation={navigation} />
+          <Edit_Profile {...this.props} activeGetSource={activeGetSource} cokie={cokie} currentUser={currentUser} />
         )
       case 1:
         return (
-          <Edit_Address activeGetSource={activeGetSource} cokie={cokie} currentUser={currentUser} navigation={navigation} />
+          <Edit_Address {...this.props} activeGetSource={activeGetSource} cokie={cokie} currentUser={currentUser} />
         )
       case 2:
         return (
-          <Edit_Chat navigation={navigation} />
+          <Edit_Chat {...this.props} />
         )
       case 3:
         return (
           <View>
-            <Edit_Bell navigation={navigation} />
+            <Edit_Bell {...this.props} />
           </View>
         )
       case 4:
         return (
           <View>
-            <Language_Screen navigation={navigation} />
+            <Language_Screen {...this.props} />
           </View>
         )
       case 5:
         return (
           <View>
-            <Edit_Setting_Bell navigation={navigation} />
+            <Edit_Setting_Bell {...this.props} />
           </View>
         )
       case 6:
         return (
           <View>
-            <Edit_Setting_Email navigation={navigation} />
+            <Edit_Setting_Email {...this.props} />
           </View>
         )
       case 7:
         return (
-          <Edit_Pass activeGetSource={activeGetSource} cokie={cokie} currentUser={currentUser} navigation={navigation} />
+          <Edit_Pass {...this.props} activeGetSource={activeGetSource} cokie={cokie} currentUser={currentUser} />
         )
     }
   }
@@ -93,7 +93,7 @@ export default class Setting_Topic extends Component {
     return (
       <SafeAreaView style={[stylesMain.SafeAreaView]}>
         {this.PathList()}
-        <ExitAppModule navigation={navigation} />
+        <ExitAppModule {...this.props} />
       </SafeAreaView>
     );
   }
@@ -502,7 +502,7 @@ export class Edit_Profile extends Component {
           }}>
           {this.Phone_numberSheetBody()}
         </BottomSheet>
-        <AppBar1 backArrow navigation={navigation} titleHead='แก้ไขโปรไฟล์' />
+        <AppBar1 {...this.props} backArrow titleHead='แก้ไขโปรไฟล์' />
         <ScrollView>
           <Seller_SettingImage image_path={image_path} image={image} sendImageProfile={this.sendImageProfile.bind(this)} />
           <View style={{ marginTop: 20, height, }}>
@@ -610,7 +610,7 @@ export class Edit_Pass extends Component {
       GetServices({ uriPointer: uri, dataBody: dataBody, Authorization: cokie, getDataSource: this.getData.bind(this), })
     return (
       <>
-        <AppBar1 backArrow navigation={navigation} titleHead='เปลี่ยนรหัสผ่าน' />
+        <AppBar1 {...this.props} backArrow titleHead='เปลี่ยนรหัสผ่าน' />
         <ScrollView>
           <View style={stylesProfileTopic.Edit_Pass}>
             <View style={{ width: '80%' }}>
@@ -689,11 +689,11 @@ export class Edit_Address extends Component {
     this.setState({ dataService2, activeReset: true })
   }
   render() {
-    const { currentUser, navigation } = this.props
+    const { currentUser, navigation, route } = this.props
     const { activeReset, dataService, keycokie } = this.state
-    const no_invoice = navigation.getParam('no_invoice')
-    const type = navigation.getParam('type')
-    const type_special = navigation.getParam('type_special')
+    const no_invoice = route.params?.no_invoice
+    const type = route.params?.type
+    const type_special = route.params?.type_special
     var uri = `${finip}/${(type == 'select' ? 'bill/bill_list' : 'profile/my_address')}`;
     var dataBody = type == 'select' ?
       {
@@ -706,12 +706,12 @@ export class Edit_Address extends Component {
       GetServices({ uriPointer: uri, dataBody, Authorization: keycokie, getDataSource: this.getData.bind(this) })
     return (
       <View style={{ flex: 1, height: '100%' }}>
-        <AppBar1 backArrow navigation={navigation} titleHead={type_special == 'tax' ? 'ที่อยู่ในใบกำกับภาษี' : 'ที่อยู่ของฉัน'} />
+        <AppBar1 {...this.props} backArrow titleHead={type_special == 'tax' ? 'ที่อยู่ในใบกำกับภาษี' : 'ที่อยู่ของฉัน'} />
         <ScrollView style={{ height: 1000 }}>
           {
             dataService && dataService.list_address && activeReset == false &&
             dataService.list_address.map((value, index) => {
-              return <Address_Customar dataService={value} index={index} key={index} navigation={navigation} type={type}
+              return <Address_Customar {...this.props} dataService={value} index={index} key={index} type={type}
                 type_special={type_special} updateData2={this.getData2.bind(this)} />
             })
           }
@@ -794,7 +794,7 @@ export class Edit_Chat extends Component {
     const { item1, } = this.state
     return (
       <>
-        <AppBar1 backArrow navigation={navigation} titleHead='ตั้งค่าการแชท' />
+        <AppBar1 {...this.props} backArrow titleHead='ตั้งค่าการแชท' />
         <View style={stylesProfileTopic.BoxTopic}>
           <View style={{ margin: 10 }}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>อนุญาตให้ทำการแชทจากหน้าโปรไฟล์</Text>
@@ -824,7 +824,7 @@ export class Edit_Bell extends Component {
     const { navigation, } = this.props
     return (
       <SafeAreaView>
-        <AppBar1 backArrow navigation={navigation} titleHead='ตั้งค่าการแจ้งเตือน' />
+        <AppBar1 {...this.props} backArrow titleHead='ตั้งค่าการแจ้งเตือน' />
         <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 5 }, navigation })}>
           <View style={stylesProfileTopic.BoxTopic}>
             <View style={stylesMain.FlexRow}>
@@ -865,7 +865,7 @@ export class Language_Screen extends Component {
     const { checked, checked2 } = this.state
     return (
       <SafeAreaView>
-        <AppBar1 backArrow navigation={navigation} titleHead='ภาษา' />
+        <AppBar1 {...this.props} backArrow titleHead='ภาษา' />
         <View style={stylesProfileTopic.BoxTopic}>
           <View style={stylesMain.FlexRow}>
             <CheckBox
@@ -921,7 +921,7 @@ export class Edit_Setting_Bell extends Component {
     const { item1, item2, item3, item4 } = this.state
     return (
       <SafeAreaView>
-        <AppBar1 backArrow navigation={navigation} titleHead='การแจ้งเตือน' />
+        <AppBar1 {...this.props} backArrow titleHead='การแจ้งเตือน' />
         <View style={stylesProfileTopic.BoxTopic}>
           <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
@@ -1003,7 +1003,7 @@ export class Edit_Setting_Email extends Component {
     const { item1, item2, item3 } = this.state
     return (
       <SafeAreaView>
-        <AppBar1 backArrow navigation={navigation} titleHead='การแจ้งเตือนทางE-mail' />
+        <AppBar1 {...this.props} backArrow titleHead='การแจ้งเตือนทางE-mail' />
         <View style={stylesProfileTopic.BoxTopic}>
           <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>

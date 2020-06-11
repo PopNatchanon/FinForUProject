@@ -35,7 +35,7 @@ export default class Seller_Profile_Edit extends Component {
         const { navigation } = this.props
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                <AppBar1 backArrow navigation={navigation} titleHead='แก้ไขรายละเอียดร้านค้า' saveBar />
+                <AppBar1 {...this.props} backArrow titleHead='แก้ไขรายละเอียดร้านค้า' saveBar />
                 <ScrollView>
                     <Seller_SettingImage />
                     <Seller_Up_Image />

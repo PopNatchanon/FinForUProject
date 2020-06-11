@@ -28,11 +28,11 @@ export default class Same_StoreScreen extends React.Component {
         this.setState({ dataService })
     }
     render() {
-        const { navigation } = this.props
+        const { route } = this.props
         const { dataService } = this.state
-        const type_product = navigation.getParam('type_product')
-        const id_type = navigation.getParam('id_type')
-        const id_store = navigation.getParam('id_store')
+        const type_product = route.params?.type_product
+        const id_type = route.params?.id_type
+        const id_store = route.params?.id_store
         var uri = `${finip}/product/product_other_mobile`;
         var dataBody
         type_product && id_type && id_store && (
@@ -60,7 +60,7 @@ export default class Same_StoreScreen extends React.Component {
             GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
         return (
             <SafeAreaView style={{ height: '100%' }}>
-                <AppBar1 titleHead={title} backArrow navigation={navigation} />
+                <AppBar1 {...this.props} titleHead={title} backArrow />
                 <ScrollView stickyHeaderIndices={[type_product == 'youlike' ? 2 : null]}>
                     <Slide />
                     <Header Title={title} />
@@ -68,10 +68,10 @@ export default class Same_StoreScreen extends React.Component {
                         type_product == 'youlike' &&
                         <Button_Bar key={'Button_Bar'} />,
                         dataService &&
-                        <TodayProduct key={type_product} noTitle navigation={navigation} loadData={dataService} />
+                        <TodayProduct {...this.props} key={type_product} noTitle loadData={dataService} />
                     ]}
                 </ScrollView>
-                <ExitAppModule navigation={navigation} />
+                <ExitAppModule {...this.props} />
             </SafeAreaView>
         );
     }

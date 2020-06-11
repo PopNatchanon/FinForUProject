@@ -47,19 +47,19 @@ export default class Total_Order extends Component {
         this.setState({ IsLoading })
     }
     render() {
-        const { navigation } = this.props
+        const { route } = this.props
         const { currentUser, IsLoading, keycokie, } = this.state
-        const selectedIndex = navigation.getParam('selectedIndex')
+        const selectedIndex = route.params?.selectedIndex
         return (
             <SafeAreaView style={[stylesMain.SafeAreaView, { height: 'auto' }]}>
                 {
                     IsLoading == true &&
                     <LoadingScreen />
                 }
-                <AppBar1 backArrow navigation={navigation} titleHead='การสั่งซื้อของฉัน' />
-                <Button_bar currentUser={currentUser} keycokie={keycokie} navigation={navigation} setLoading={this.IsLoading}
+                <AppBar1 {...this.props} backArrow titleHead='การสั่งซื้อของฉัน' />
+                <Button_bar {...this.props} currentUser={currentUser} keycokie={keycokie} setLoading={this.IsLoading}
                     SetselectedIndex={selectedIndex} />
-                <ExitAppModule navigation={navigation} />
+                <ExitAppModule {...this.props} />
             </SafeAreaView>
         );
     }
@@ -120,7 +120,7 @@ export class Button_bar extends Component {
                                     รายการคำสั่งซื้อ</Text>,
                                 dataService && dataService.purchase.length > 0 ?
                                     dataService.purchase.map((value, index) => {
-                                        return <From_Order_Box dataService={value} key={index} navigation={navigation} />
+                                        return <From_Order_Box {...this.props} dataService={value} key={index} />
                                     }) :
                                     <View style={[stylesProfileTopic.products_pro]}>
                                         <IconFeather name='edit' size={50} color='#000000' />
@@ -147,7 +147,7 @@ export class Button_bar extends Component {
                                     ที่ต้องชำระ</Text>,
                                 dataService && dataService.purchase.length > 0 ?
                                     dataService.purchase.map((value, index) => {
-                                        return <From_Order_Box dataService={value} key={index} navigation={navigation} />
+                                        return <From_Order_Box {...this.props} dataService={value} key={index} />
                                     }) :
                                     <View style={[stylesProfileTopic.products_pro, { height: height * 0.5 }]}>
                                         <IconFeather name='edit' size={50} color='#000000' />
@@ -174,7 +174,7 @@ export class Button_bar extends Component {
                                     ที่ต้องได้รับ</Text>,
                                 dataService && dataService.purchase.length > 0 ?
                                     dataService.purchase.map((value, index) => {
-                                        return <From_Order_Box dataService={value} key={index} navigation={navigation} />
+                                        return <From_Order_Box {...this.props} dataService={value} key={index} />
                                     }) :
                                     <View style={[stylesProfileTopic.products_pro, { height: height * 0.5 }]}>
                                         <IconFeather name='edit' size={50} color='#000000' />
@@ -201,7 +201,7 @@ export class Button_bar extends Component {
                                     สำเร็จแล้ว</Text>,
                                 dataService && dataService.purchase.length > 0 ?
                                     dataService.purchase.map((value, index) => {
-                                        return <From_Order_Box dataService={value} key={index} navigation={navigation} />
+                                        return <From_Order_Box {...this.props} dataService={value} key={index} />
                                     }) :
                                     <View style={[stylesProfileTopic.products_pro, { height: height * 0.5 }]}>
                                         <IconFeather name='edit' size={50} color='#000000' />
@@ -228,7 +228,7 @@ export class Button_bar extends Component {
                                     ยกเลิกสินค้า</Text>,
                                 dataService && dataService.purchase.length > 0 ?
                                     dataService.purchase.map((value, index) => {
-                                        return <From_Order_Box dataService={value} key={index} navigation={navigation} />
+                                        return <From_Order_Box {...this.props} dataService={value} key={index} />
                                     }) :
                                     <View style={[stylesProfileTopic.products_pro, { height: height * 0.5 }]}>
                                         <IconFeather name='edit' size={50} color='#000000' />

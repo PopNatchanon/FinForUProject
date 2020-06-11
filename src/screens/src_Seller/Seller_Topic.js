@@ -47,144 +47,144 @@ export default class Seller_Topic extends Component {
         this.setState({ activeGetSource: false, currentUser: value.currentUser, cokie: value.keycokie, activeLogin: value.activeLogin });
     };
     PathList() {
-        const { navigation } = this.props
+        const { route } = this.props
         const { cokie, currentUser } = this.state
-        const selectedIndex = navigation.getParam('selectedIndex')
+        const selectedIndex = route.params?.selectedIndex
         switch (selectedIndex) {
             case 0:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={navigation} titleHead='จัดการโฆษณา' />
-                        <Seller_Advertisement backArrow navigation={navigation} />
+                        <AppBar1 {...this.props} backArrow titleHead='จัดการโฆษณา' />
+                        <Seller_Advertisement {...this.props} backArrow />
                     </>
                 )
             case 1:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={navigation} titleHead='สถิติร้านร้านค้า' />
+                        <AppBar1 {...this.props} backArrow titleHead='สถิติร้านร้านค้า' />
                         <Seller_Statistics />
                     </>
                 )
             case 2:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={navigation} titleHead='คะแนนของฉัน' />
+                        <AppBar1 {...this.props} backArrow titleHead='คะแนนของฉัน' />
                         <ScrollView>
-                            <Seller_Score navigation={navigation} />
+                            <Seller_Score {...this.props} />
                         </ScrollView>
                     </>
                 )
             case 3:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={navigation} titleHead='แพคเกจปัจจุบันที่ใช้อยู่' />
-                        <Seller_Advertisement_Packet backArrow navigation={navigation} />
+                        <AppBar1 {...this.props} backArrow titleHead='แพคเกจปัจจุบันที่ใช้อยู่' />
+                        <Seller_Advertisement_Packet {...this.props} backArrow />
                     </>
                 )
             case 4:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={navigation} titleHead='จัดการโฆษณา' />
-                        <Seller_Advertisement_PacketBuy navigation={navigation} />
+                        <AppBar1 {...this.props} backArrow titleHead='จัดการโฆษณา' />
+                        <Seller_Advertisement_PacketBuy {...this.props} />
                     </>
                 )
             case 5:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={navigation} titleHead='ตอบกลับความคิดเห็น' />
+                        <AppBar1 {...this.props} backArrow titleHead='ตอบกลับความคิดเห็น' />
                         <Seller_Comment_Reply />
                     </>
                 )
             case 6:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={navigation} titleHead='FIN แคมเปญ' />
-                        <Seller_Fin_Campaign navigation={navigation} />
+                        <AppBar1 {...this.props} backArrow titleHead='FIN แคมเปญ' />
+                        <Seller_Fin_Campaign {...this.props} />
                     </>
                 )
             case 7:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={navigation} titleHead='เลือกสินค้า' />
+                        <AppBar1 {...this.props} backArrow titleHead='เลือกสินค้า' />
                         <Seller_ProductSelect />
                     </>
                 )
             case 8:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={navigation} titleHead='รายได้ของฉัน' />
+                        <AppBar1 {...this.props} backArrow titleHead='รายได้ของฉัน' />
                         <My_income />
                     </>
                 )
             case 9:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={navigation} titleHead='ถอนเงิน' />
-                        <Withdraw_money cokie={cokie} currentUser={currentUser} navigation={navigation} />
+                        <AppBar1 {...this.props} backArrow titleHead='ถอนเงิน' />
+                        <Withdraw_money {...this.props} cokie={cokie} currentUser={currentUser} />
                     </>
                 )
             case 10:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={navigation} titleHead='PIN' />
-                        <PIN_Code cokie={cokie} currentUser={currentUser} navigation={navigation} />
+                        <AppBar1 {...this.props} backArrow titleHead='PIN' />
+                        <PIN_Code {...this.props} cokie={cokie} currentUser={currentUser} />
                     </>
                 )
             case 11:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={navigation} titleHead='ถอนเงิน' />
-                        <Confirm_Bank navigation={navigation} />
+                        <AppBar1 {...this.props} backArrow titleHead='ถอนเงิน' />
+                        <Confirm_Bank {...this.props} />
                     </>
                 )
             case 12:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={navigation} titleHead='ถอนเงิน' />
-                        <PIN_Code_Mail navigation={navigation} />
+                        <AppBar1 {...this.props} backArrow titleHead='ถอนเงิน' />
+                        <PIN_Code_Mail {...this.props} />
                     </>
                 )
             case 13:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={navigation} titleHead='ประวัติการถอนเงิน' />
-                        <Withdrawal_history cokie={cokie} currentUser={currentUser} navigation={navigation} />
+                        <AppBar1 {...this.props} backArrow titleHead='ประวัติการถอนเงิน' />
+                        <Withdrawal_history {...this.props} cokie={cokie} currentUser={currentUser} />
                     </>
                 )
             case 14:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={navigation} titleHead='เพิ่มสินค้า' saveBar />
-                        <Up_Product_Select navigation={navigation} />
+                        <AppBar1 {...this.props} backArrow titleHead='เพิ่มสินค้า' saveBar />
+                        <Up_Product_Select {...this.props} />
                     </>
                 )
             case 15:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={navigation} titleHead='โค้ดส่วนลด' />
-                        <Code_Sale navigation={navigation} />
+                        <AppBar1 {...this.props} backArrow titleHead='โค้ดส่วนลด' />
+                        <Code_Sale {...this.props} />
                     </>
                 )
             case 16:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={navigation} titleHead='ข้อมูลโค้ดส่วนลด' />
-                        <Form_Code_Sale navigation={navigation} />
+                        <AppBar1 {...this.props} backArrow titleHead='ข้อมูลโค้ดส่วนลด' />
+                        <Form_Code_Sale {...this.props} />
                     </>
                 )
             case 17:
                 return (
                     <>
-                        <AppBar1 UpBankBar backArrow navigation={navigation} titleHead='บัญชีธนาคาร' />
-                        <Bank_Totel navigation={navigation} Bank_True Bank_Default />
-                        <Bank_Totel navigation={navigation} Bank_False Bank_Edit />
+                        <AppBar1 {...this.props} UpBankBar backArrow titleHead='บัญชีธนาคาร' />
+                        <Bank_Totel {...this.props} Bank_True Bank_Default />
+                        <Bank_Totel {...this.props} Bank_False Bank_Edit />
 
                     </>
                 )
             case 18:
                 return (
                     <>
-                        <AppBar1 deleteBar backArrow navigation={navigation} titleHead='บัญชีธนาคาร' />
+                        <AppBar1 {...this.props} deleteBar backArrow titleHead='บัญชีธนาคาร' />
                         <Bank_detall />
                     </>
                 )
@@ -210,9 +210,9 @@ export class PIN_Code extends Component {
     }
     pinInput = React.createRef();
     _checkCode = (code) => {
-        const { cokie, currentUser, navigation } = this.props
+        const { cokie, currentUser, navigation, route } = this.props
         const { checkFail } = this.state
-        const Withdraw = navigation.getParam("Withdraw")
+        const Withdraw = route.params?.Withdraw
         const uri = `${finip}/store_transfer/login_pin`
         const dataBody = {
             id_customer: currentUser.id_customer,
@@ -412,9 +412,9 @@ export class Seller_Score extends Component {
                 </View>
                 <View style={[stylesMain.FrameBackground, { padding: 10 }]}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>ความคิดเห็น</Text></View>
-                <Seller_Comment navigation={navigation} Comment_Reply />
-                <Seller_Comment navigation={navigation} Comment_Reply />
-                <Seller_Comment navigation={navigation} Comment_Reply />
+                <Seller_Comment {...this.props} Comment_Reply />
+                <Seller_Comment {...this.props} Comment_Reply />
+                <Seller_Comment {...this.props} Comment_Reply />
             </View>
         );
     }
@@ -1005,7 +1005,7 @@ export class Withdrawal_history extends Component {
             <>
                 {
                     dataService && dataService.length > 0 ?
-                        <Withdrawal_history_sub cokie={cokie} currentUser={currentUser} navigation={navigation} /> :
+                        <Withdrawal_history_sub {...this.props} cokie={cokie} currentUser={currentUser} /> :
                         <></>
                 }
             </>
@@ -1123,11 +1123,11 @@ export class Up_Product_Select extends Component {
         )
     }
     render() {
-        const { navigation } = this.props
-        const optionName = navigation.getParam('optionName')
-        const optionValue = navigation.getParam('optionValue')
-        const optionName2 = navigation.getParam('optionName2')
-        const optionValue2 = navigation.getParam('optionValue2')
+        const { route } = this.props
+        const optionName = route.params?.optionName
+        const optionValue = route.params?.optionValue
+        const optionName2 = route.params?.optionName2
+        const optionValue2 = route.params?.optionValue2
         return (
             <>
                 <BottomSheet

@@ -33,12 +33,12 @@ export default class SellerScreen extends Component {
         const { navigation } = this.props
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                <AppBar1 backArrow navigation={navigation} settingBar chatBar titleHead='ร้านของฉัน' />
+                <AppBar1 {...this.props} backArrow settingBar chatBar titleHead='ร้านของฉัน' />
                 <ScrollView>
                     <View>
-                        <Headbar navigation={navigation} />
-                        <Menubar navigation={navigation} />
-                        <ListMenu navigation={navigation} />
+                        <Headbar {...this.props} />
+                        <Menubar {...this.props} />
+                        <ListMenu {...this.props} />
                         <Seller_Product />
                     </View>
                 </ScrollView>
@@ -114,7 +114,7 @@ export class Menubar extends Component {
                         <IconEntypo name='chevron-right' size={25} color={mainColor} />
                     </View>
                 </View>
-                <MenubarSub navigation={navigation} />
+                <MenubarSub {...this.props} />
             </View>
         )
     }

@@ -46,15 +46,15 @@ export default class CancelScreen extends Component {
     this.setState({ IsLoading })
   }
   PathList() {
-    const { navigation } = this.props
+    const { route } = this.props
     const { currentUser, keycokie, } = this.state
-    const selectedIndex = navigation.getParam('selectedIndex')
+    const selectedIndex = route.params?.selectedIndex
     // const selectedIndex = 0
     switch (selectedIndex) {
       case 0:
         return (
           <View>
-            <CancelScreen_Product currentUser={currentUser} keycokie={keycokie} navigation={navigation}
+            <CancelScreen_Product {...this.props} currentUser={currentUser} keycokie={keycokie}
               setLoading={this.IsLoading.bind(this)} />
           </View>
         )
@@ -75,11 +75,11 @@ export default class CancelScreen extends Component {
           IsLoading == true &&
           <LoadingScreen />
         }
-        <AppBar1 backArrow navigation={navigation} titleHead='ยกเลิกสินค้า' />
+        <AppBar1 {...this.props} backArrow titleHead='ยกเลิกสินค้า' />
         <ScrollView>
           {this.PathList()}
         </ScrollView>
-        <ExitAppModule navigation={navigation} />
+        <ExitAppModule {...this.props} />
       </SafeAreaView>
     );
   }
@@ -121,7 +121,7 @@ export class CancelScreen_Product extends Component {
               รายการคำสั่งซื้อ</Text>,
             dataService && dataService.purchase.length > 0 ?
               dataService.purchase.map((value, index) => {
-                return <From_Order_Box dataService={value} key={index} navigation={navigation} />
+                return <From_Order_Box {...this.props} dataService={value} key={index} />
               }) :
               <View style={[stylesProfileTopic.products_pro, { height: height * 0.5 }]}>
                 <IconFeather name='edit' size={50} color='#A2A2A2' />

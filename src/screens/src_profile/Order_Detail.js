@@ -42,11 +42,11 @@ export default class Order_Detail extends Component {
         this.setState({ activeSelectedIndex: false, dataService })
     }
     render() {
-        const { navigation } = this.props
+        const { route } = this.props
         const { activeSelectedIndex, currentUser, dataService, keycokie } = this.state
-        const id_cartdetail = navigation.getParam('id_cartdetail')
-        const insert_date = navigation.getParam('insert_date')
-        const no_invoice = navigation.getParam('no_invoice')
+        const id_cartdetail = route.params?.id_cartdetail
+        const insert_date = route.params?.insert_date
+        const no_invoice = route.params?.no_invoice
         var uri = `${finip}/purchase_data/mobile_tranport`
         var dataBody = {
             id_customer: currentUser && currentUser.id_customer,
@@ -63,7 +63,7 @@ export default class Order_Detail extends Component {
                     activeSelectedIndex == true &&
                     <LoadingScreen key={'LoadingScreen'} />
                 }
-                <AppBar1 backArrow navigation={navigation} titleHead='รายละเอียด' />
+                <AppBar1 {...this.props} backArrow titleHead='รายละเอียด' />
                 <ScrollView>
                     {
                         dataService && dataService.result && dataService.result.length > 0 ?
@@ -95,7 +95,7 @@ export default class Order_Detail extends Component {
                             </>
                     }
                 </ScrollView>
-                <ExitAppModule navigation={navigation} />
+                <ExitAppModule {...this.props} />
             </SafeAreaView>
         );
     }

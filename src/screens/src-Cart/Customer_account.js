@@ -45,10 +45,10 @@ export default class Customer_account extends Component {
             });
     }
     getData = (value) => {
-        const { navigation } = this.props
+        const { route } = this.props
         const { currentUser, dataBody } = this.state
-        const type = navigation.getParam('type')
-        const id_address = navigation.getParam('id_address')
+        const id_address = route.params?.id_address
+        const type = route.params?.type
         dataBody.device == undefined && (
             dataBody.device = "mobile_device"
         )
@@ -91,9 +91,9 @@ export default class Customer_account extends Component {
         this.setState({ activeSave: true })
     }
     getData3 = (dataService) => {
-        const { navigation } = this.props
+        const { route } = this.props
         const { dataBody } = this.state
-        const type = navigation.getParam('type')
+        const type = route.params?.type
         if (dataBody.main == 'yes' && type != 'edit') {
             this.setState({ activeSave: false, activeSave2: true, dataService })
         } else {
@@ -111,11 +111,11 @@ export default class Customer_account extends Component {
         this.setState({ dataService3 })
     }
     render() {
-        const { navigation } = this.props
+        const { route } = this.props
         const { activeGetServices, activeSave, activeSave2, currentUser, dataBody, dataService3, keycokie } = this.state
-        const type = navigation.getParam('type')
-        const type_special = navigation.getParam('type_special')
-        const id_address = navigation.getParam('id_address')
+        const id_address = route.params?.id_address
+        const type = route.params?.type
+        const type_special = route.params?.type_special
         var uri = `${finip}/${(type == 'edit' ? '/profile/update_address' : '/profile/insert_address')}`;
         var uri2 = `${finip}/profile/add_address`;
         var uri3 = `${finip}/profile/edit_address`;
@@ -139,7 +139,7 @@ export default class Customer_account extends Component {
             })
         return (
             <SafeAreaView style={{ backgroundColor: '#E9E9E9', flex: 1, }}>
-                <Appbar navigation={navigation} type={type} />
+                <Appbar {...this.props} type={type} />
                 <ScrollView>
                     <Account currentUser={this.state.currentUser} dataService={dataService3 && dataService3.list_address}
                         getData={this.getData.bind(this)} key='Accountlist_address' type_special={type_special} />
@@ -147,7 +147,7 @@ export default class Customer_account extends Component {
                         key='Account_main' />
                 </ScrollView>
                 <Button_Bar dataBody={dataBody} getData={this.getData2.bind(this)} />
-                <ExitAppModule navigation={navigation} />
+                <ExitAppModule {...this.props} />
             </SafeAreaView>
         );
     }

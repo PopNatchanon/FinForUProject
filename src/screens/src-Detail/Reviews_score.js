@@ -35,10 +35,10 @@ export default class Reviews_score extends React.Component {
         this.setState({ activeGetServices: true, filterValue, })
     }
     render() {
-        const { navigation } = this.props
+        const { route } = this.props
         const { activeGetServices, dataService, filterValue } = this.state
-        const id_product = navigation.getParam('id_product')
-        const id_store = navigation.getParam('id_store')
+        const id_product = route.params?.id_product
+        const id_store = route.params?.id_store
         var uri = `${finip}/product/store_review`;
         var dataBody = {
             id_store: id_store,
@@ -53,7 +53,7 @@ export default class Reviews_score extends React.Component {
                     activeGetServices == true &&
                     <LoadingScreen key={'LoadingScreen'} />
                 }
-                <AppBar1 backArrow navigation={navigation} titleHead='คะแนน' />
+                <AppBar1 {...this.props} backArrow titleHead='คะแนน' />
                 <Reviews_Bar filterValue={this.filterValue.bind(this)} />
                 <ScrollView>
                     {

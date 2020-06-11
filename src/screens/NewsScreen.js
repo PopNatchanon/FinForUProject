@@ -29,7 +29,6 @@ export default class NewsScreen extends React.Component {
         this.setState({ selectedIndex });
     }
     render() {
-        const { navigation } = this.props
         const { selectedIndex } = this.state
         var titleValue
         selectedIndex == 0 ?
@@ -42,8 +41,8 @@ export default class NewsScreen extends React.Component {
                 <ScrollView>
                     <Button_Bar selectedIndex={selectedIndex} />
                 </ScrollView>
-                <Toolbar navigation={navigation} />
-                <ExitAppModule navigation={navigation} />
+                <Toolbar {...this.props} />
+                <ExitAppModule {...this.props} />
             </SafeAreaView>
         );
     }

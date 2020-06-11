@@ -50,18 +50,18 @@ export default class CampaignScreen extends Component {
           (activeGetCurrentUser == true || activeDataService == true) &&
           <LoadingScreen key='LoadingScreen' />
         }
-        <AppBar1 titleHead={'แคมเปญ'} backArrow searchBar chatBar navigation={navigation} />
+        <AppBar1 {...this.props} titleHead={'แคมเปญ'} backArrow searchBar chatBar />
         <ScrollView>
           {
             dataService &&
             <Slide banner={dataService && dataService.banner} />
           }
-          <Campaign_tag dataService={dataService && dataService} navigation={navigation} currentUser={currentUser} />
+          <Campaign_tag {...this.props} dataService={dataService && dataService} currentUser={currentUser} />
         </ScrollView>
         <View style={{ backgroundColor: '#ffffff', borderTopWidth: 1, borderColor: '#ECECEC' }}>
-          <Button_Bar navigation={navigation} />
+          <Button_Bar {...this.props} />
         </View>
-        <ExitAppModule navigation={navigation} />
+        <ExitAppModule {...this.props} />
       </SafeAreaView>
     );
   }
@@ -111,7 +111,7 @@ export class Campaign_tag extends Component {
         <View>
           {
             dataService && dataService.campaign_data.map((value, index) => {
-              return <CampaignBody currentUser={currentUser} dataService={value} key={index} navigation={navigation} />
+              return <CampaignBody {...this.props} currentUser={currentUser} dataService={value} key={index} />
             })
           }
         </View>

@@ -15,7 +15,7 @@ import NumberFormat from 'react-number-format';
 import SlidingView from 'rn-sliding-view';
 import RNFetchBlob from 'rn-fetch-blob'
 import SplashScreen from 'react-native-splash-screen';
-import { StackActions, } from 'react-navigation';
+// import { StackActions, } from 'react-navigation';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -44,21 +44,15 @@ export class Toolbar extends React.Component {
         this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser })
     }
     render() {
-        const { navigation } = this.props
+        const { navigation, route } = this.props
         const { activeGetCurrentUser, currentUser } = this.state;
         var u_name = null;
         if (currentUser != null) {
             currentUser.name &&
                 (u_name = currentUser.name)
         }
-        var routeProps = navigation.dangerouslyGetParent().state.routes
-        var routeLength = navigation.dangerouslyGetParent().state.routes.length
-        var routeSelcet
-        routeProps.map((item, index) => {
-            routeLength == index + 1 && (
-                routeSelcet = item.routeName
-            )
-        })
+        console.log(route)
+        var routeSelcet = route.name
         activeGetCurrentUser == true && GetData({ getSource: this.getSource.bind(this), getUser: true })
         return (
             <View style={stylesMain.Toolbar}>
@@ -276,12 +270,12 @@ export class TabBar extends React.Component {
                     NoSelectTab ?
                         pathlist == index ?
                             () => this.setSelectTab(-1) :
-                            () => this.setSelectTab(index) :
+                            () => this.setSelectTab(index + '') :
                         item.actionItem && pathlist == index ?
-                            () => this.setSelectTab(index, undefined, 'swap') :
+                            () => this.setSelectTab(index + '', undefined, 'swap') :
                             item.actionItem ?
-                                () => this.setSelectTab(index, undefined, 'set') :
-                                () => this.setSelectTab(index)
+                                () => this.setSelectTab(index + '', undefined, 'set') :
+                                () => this.setSelectTab(index + '')
                 }>
                     {
                         pathlist == index ?
@@ -1135,7 +1129,7 @@ export function ProductBox(props) {
                                 id_product: item.id_product, name: item.name_product ? item.name_product : item.name
                             }) :
                             () => NavigationNavigateScreen({
-                                goScreen: pointerUrl, setData: (pointerid_store ? { id_item: item.id_product } : null), navigation
+                                goScreen: pointerUrl, setData: (pointerid_store ? { id_product: item.id_product } : null), navigation
                             })}>
                     <View style={[stylesMain.ItemCenter,
                     mode == 'row4col1' ?
@@ -1272,20 +1266,13 @@ export function ProductBox(props) {
 }
 ///----------------------------------------------------------------------------------------------->>>> FlatComponent
 export function FlatComponent(props) {
-    const {
-        component, componentPage, ListHeaderComponent, onScroll, scrollEventThrottle, showsVerticalScrollIndicator, stickyHeaderIndices
-    } = props
+    const { component, componentPage, } = props
     return (
         component &&
         <FlatList
             // ref={c => this.FlatMainScreen = c}
-            scrollEventThrottle={scrollEventThrottle}
-            showsVerticalScrollIndicator={showsVerticalScrollIndicator}
-            onScroll={onScroll ? onScroll : undefined}
+            {...props}
             scrollEnabled={true}
-            ListHeaderComponent={ListHeaderComponent ? ListHeaderComponent : undefined}
-            stickyHeaderIndices={stickyHeaderIndices ? stickyHeaderIndices : undefined}
-            initialNumToRender={10}
             data={component}
             keyExtractor={(value, index) => `Component:${componentPage ? componentPage : index}_${value.nameComponent}`}
             renderItem={(value) => value.item.renderComponent}
@@ -1294,11 +1281,9 @@ export function FlatComponent(props) {
 }
 ///----------------------------------------------------------------------------------------------->>>> FlatProduct
 export function FlatProduct(props) {
-    const {
-        dataService, nameFlatProduct, NumberOfcolumn, nameSize, priceSize, dispriceSize, custumNavigation, mode, navigation, radiusBox
-    } = props
+    const { dataService, nameFlatProduct, noMarginTop, numberOfColumn, } = props
     var itemT = []
-    if (NumberOfcolumn == 2 && dataService && dataService.length > 0)
+    if (numberOfColumn == 2 && dataService && dataService.length > 0)
         for (var n = 0; n < dataService.length; n += 2) {
             itemT.push({
                 item: dataService[n],
@@ -1310,7 +1295,7 @@ export function FlatProduct(props) {
             horizontal
             scrollEnabled={true}
             initialNumToRender={10}
-            data={NumberOfcolumn == 2 ? itemT : dataService}
+            data={numberOfColumn == 2 ? itemT : dataService}
             keyExtractor={(value, index) => (nameFlatProduct ? nameFlatProduct : 'Product') + index}
             // ListHeaderComponent={this.renderHeader}
             ListHeaderComponentStyle={{
@@ -1319,18 +1304,15 @@ export function FlatProduct(props) {
             renderItem={(value) =>
                 <View style={{
                     height: 'auto',
-                    marginTop: NumberOfcolumn == 2 ? 10 : undefined,
+                    marginTop: noMarginTop != true && numberOfColumn == 2 ? 10 : undefined,
                 }}>
                     {
-                        (NumberOfcolumn == 2 ? value.item.item : value.item) &&
-                        <RenderProduct custumNavigation={custumNavigation} navigation={navigation} mode={mode} radiusBox={radiusBox}
-                            item={NumberOfcolumn == 2 ? value.item.item : value.item} nameSize={nameSize} priceSize={priceSize}
-                            dispriceSize={dispriceSize} />
+                        (numberOfColumn == 2 ? value.item.item : value.item) &&
+                        <RenderProduct {...props} item={numberOfColumn == 2 ? value.item.item : value.item} />
                     }
                     {
-                        NumberOfcolumn == 2 && value.item.item2 &&
-                        <RenderProduct custumNavigation={custumNavigation} navigation={navigation} mode={mode} radiusBox={radiusBox}
-                            item={value.item.item2} nameSize={nameSize} priceSize={priceSize} dispriceSize={dispriceSize} />
+                        numberOfColumn == 2 && value.item.item2 &&
+                        <RenderProduct {...props} item={value.item.item2} />
                     }
                 </View>
             }
@@ -1342,10 +1324,10 @@ export function NavigationNavigateScreen(props) {
     const {
         goScreen, setConsole, passHome, navigation: { dispatch, goBack, popToTop, push, replace, }, setData, noPush
     } = props
-    const navigationActions = StackActions.reset({
-        index: 0,
-        actions: [StackActions.replace({ routeName: goScreen, params: setData })],
-    })
+    // const navigationActions = StackActions.reset({
+    //     index: 0,
+    //     actions: [StackActions.replace({ routeName: goScreen, params: setData })],
+    // })
     console.log(goScreen)
     console.log(setData)
     setConsole && (
@@ -1384,7 +1366,7 @@ export function RenderProduct(props) {
                 getDataService({ id_product, name }) :
                 NavigationNavigateScreen({
                     navigation, goScreen: custumNavigation ? custumNavigation : 'DetailScreen', setData: {
-                        id_item: item.id_product
+                        id_product: item.id_product
                     }
                 })}>
             <View style={[stylesMain.ItemCenter,
@@ -1623,7 +1605,7 @@ export class FeedBox extends React.Component {
                     <View style={stylesMain.BoxProduct4PlusHeader}>
                         <TouchableOpacity onPress={() => atStore ? undefined : NavigationNavigateScreen({
                             goScreen: 'StoreScreen', setData: {
-                                id_item: dataService.id_store ? dataService.id_store : dataService.p_id_store
+                                id_store: dataService.id_store ? dataService.id_store : dataService.p_id_store
                             }, navigation
                         })}>
                             <View style={stylesMain.FlexRow}>

@@ -28,17 +28,16 @@ export default class HighlightScreen extends React.Component {
     };
   }
   render() {
-    const { navigation } = this.props
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
-        <AppBar1 backArrow navigation={navigation} titleHead='ไฮไลท์ประจำสัปดาห์' />
+        <AppBar1 {...this.props} backArrow titleHead='ไฮไลท์ประจำสัปดาห์' />
         <ScrollView stickyHeaderIndices={[2]}>
           <Slide />
           <Highlight_Brand />
           <Button_Bar />
           <Highlight_Product />
         </ScrollView>
-        <ExitAppModule navigation={navigation} />
+        <ExitAppModule {...this.props} />
       </SafeAreaView>
     );
   }

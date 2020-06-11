@@ -77,7 +77,6 @@ export default class CartScreen extends React.Component {
         this.setState({ ButtomDeleteAll: !ButtomDeleteAll, });
     };
     render() {
-        const { navigation } = this.props;
         const {
             activeDelete, activeSave, activeSave2, activeRefresh, ArrayItem, ArrayItem2, ButtomDeleteAll, checkedAll, currentUser,
             dataService, dataService2, cokie
@@ -107,7 +106,7 @@ export default class CartScreen extends React.Component {
                     <LoadingScreen />
 
                 } */}
-                <AppBar1 navigation={navigation} titleHead='รถเข็น'
+                <AppBar1 {...this.props} titleHead='รถเข็น'
                     deleteBar={dataService && dataService.cart_list.length > 0 ? true : false}
                     backArrow ButtomDeleteAll={ButtomDeleteAll} propsFunction={this.propsFunction.bind(this)} />
                 <ScrollView>
@@ -118,15 +117,15 @@ export default class CartScreen extends React.Component {
                             getCheckedAll={this.getCheckedAll.bind(this)} ArrayItem2={this.ArrayItem2.bind(this)} />
                     }
                     {/* <Product_Like /> */}
-                    <PopularProduct navigation={navigation} headText={'คุณอาจชอบสิ่งนี้'} />
+                    <PopularProduct {...this.props} headText={'คุณอาจชอบสิ่งนี้'} />
                 </ScrollView>
                 {
                     dataService && dataService.cart_list.length > 0 && dataService2 &&
-                    <Buy_bar navigation={navigation} dataService2={dataService2} checkedAll={checkedAll}
+                    <Buy_bar {...this.props} dataService2={dataService2} checkedAll={checkedAll}
                         list_order={ArrayItem.list_order} getCheckedAll={this.getCheckedAll.bind(this)} ButtomDeleteAll={ButtomDeleteAll}
                         currentUser={currentUser} DeleteAction={this.ArrayItem2.bind(this)} cokie={cokie} />
                 }
-                <ExitAppModule navigation={navigation} />
+                <ExitAppModule {...this.props} />
             </SafeAreaView>
         );
     };

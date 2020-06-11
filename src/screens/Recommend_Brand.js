@@ -45,17 +45,17 @@ export default class Recommend_Brand extends React.Component {
                     (activeGetCurrentUser == true || activeDataService == true) &&
                     <LoadingScreen key='LoadingScreen' />
                 }
-                <AppBar1 titleHead={'แบรนด์แนะนำ'} backArrow searchBar chatBar navigation={navigation} />
+                <AppBar1 {...this.props} titleHead={'แบรนด์แนะนำ'} backArrow searchBar chatBar />
                 <ScrollView>
                     {
                         dataService && dataService.store.map((value, index) => {
                             return (
-                                <Recommend_Brand_Store key={index} navigation={navigation} dataService={value} />
+                                <Recommend_Brand_Store {...this.props} key={index} dataService={value} />
                             )
                         })
                     }
                 </ScrollView>
-                <ExitAppModule navigation={navigation} />
+                <ExitAppModule {...this.props} />
             </SafeAreaView>
         );
     }
@@ -99,7 +99,7 @@ export class Recommend_Brand_Store extends React.Component {
                 </View>
                 {
                     dataService && dataService.product &&
-                    <FlatProduct custumNavigation='Recommend_Brand_Store' navigation={navigation} dataService={dataService.product}
+                    <FlatProduct {...this.props} custumNavigation='Recommend_Brand_Store' dataService={dataService.product}
                         mode='row3' nameFlatProduct='Recommend_Brand_Store' nameSize={14} priceSize={15} dispriceSize={15} />
                 }
             </View>

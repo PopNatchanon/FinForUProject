@@ -38,11 +38,11 @@ export default class Recommend_Store extends React.Component {
         this.setState({ activeGetServices: false, dataService })
     }
     render() {
-        const { navigation } = this.props;
+        const { navigation, route } = this.props;
         const { activeGetSource, activeGetServices, activeStore_Detail, cokie, currentUser, dataService } = this.state;
-        const id_slide = navigation.getParam('id_slide');
-        const uri_path = navigation.getParam('uri_path');
-        const name_path = navigation.getParam('name_path');
+        const id_slide = route.params?.id_slide
+        const name_path = route.params?.name_path
+        const uri_path = route.params?.uri_path
         const uri = `${finip}/${uri_path}`
         var dataBody = {
             id_slide,
@@ -57,7 +57,7 @@ export default class Recommend_Store extends React.Component {
                     (activeGetSource == true || activeGetServices == true || activeStore_Detail == true) &&
                     <LoadingScreen key='LoadingScreen' />
                 }
-                <AppBar backArrow cartBar chatBar navigation={navigation} />
+                <AppBar {...this.props} backArrow cartBar chatBar />
                 <ScrollView>
                     <Header dataService={{
                         slide_image: dataService && dataService.slide_image, list_slide: dataService && dataService.list_slide
@@ -65,13 +65,13 @@ export default class Recommend_Store extends React.Component {
                     {
                         dataService && dataService.list_product && dataService.list_product.length > 0 ? (
                             dataService.list_product.map((value, index) => {
-                                return <Store_Detail cokie={cokie} currentUser={currentUser} dataService={value} key={index}
-                                    navigation={navigation} activeStore_Detail={this.activeStore_Detail.bind(this)} />
+                                return <Store_Detail {...this.props} cokie={cokie} currentUser={currentUser} dataService={value} key={index}
+                                    activeStore_Detail={this.activeStore_Detail.bind(this)} />
                             })
                         ) : <></>
                     }
                 </ScrollView>
-                <ExitAppModule navigation={navigation} />
+                <ExitAppModule {...this.props} />
             </SafeAreaView>
         );
     }
@@ -261,7 +261,7 @@ export class Store_Detail extends React.Component {
                         <View style={stylesTopic.Store_Product}>
                             {
                                 dataService && dataService.product &&
-                                <FlatProduct custumNavigation='Store_Detail' navigation={navigation} dataService={dataService.product}
+                                <FlatProduct {...this.props} custumNavigation='Store_Detail' dataService={dataService.product}
                                     mode='row3' nameFlatProduct='Store_Detail' nameSize={14} priceSize={15} dispriceSize={15} />
                             }
                         </View>

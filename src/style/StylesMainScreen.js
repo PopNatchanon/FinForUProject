@@ -4,6 +4,30 @@ export const { width, height } = Dimensions.get('window');
 
 export const mainColor = '#0A55A6'
 export const appBarColor = '#1A3363'
+export let color_up = value => {
+  var color = value.toLowerCase();
+  var text = ''
+  for (var n = 0; n < color.length; n++) {
+    if (color[n] == '#' || color[n] == 'f') {
+      text += color[n]
+    } else if (Number(color[n]) >= 0 && Number(color[n]) <= 8) {
+      text += Number(color[n]) + 1
+    } else if (Number(color[n]) == 9) {
+      text += 'a'
+    } else if (color[n] == 'a') {
+      text += 'b'
+    } else if (color[n] == 'b') {
+      text += 'c'
+    } else if (color[n] == 'c') {
+      text += 'd'
+    } else if (color[n] == 'd') {
+      text += 'e'
+    } else if (color[n] == 'e') {
+      text += 'f'
+    }
+  }
+  return text
+}
 export default StyleSheet.create({
   ///***------------------------------------------------------------------------------------------------------***///
   animatedView: {
@@ -774,7 +798,7 @@ export default StyleSheet.create({
     height: 'auto',
     aspectRatio: 2.8,
     justifyContent: 'space-between',
-    paddingHorizontal:5,
+    paddingHorizontal: 5,
     marginTop: 5
   },
   Supermarket_Image: {
@@ -785,7 +809,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     height: 'auto',
     aspectRatio: 5.5,
-    marginTop:5,
+    marginTop: 5,
     justifyContent: 'space-around'
   },
   Supermarket_Brand_Image: {

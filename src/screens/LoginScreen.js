@@ -29,16 +29,15 @@ export default class LoginScreen extends React.Component {
     };
   }
   render() {
-    const { navigation } = this.props
     return (
       <SafeAreaView style={{ backgroundColor: '#071727', flex: 1 }}>
         <ScrollView>
           <Logo />
-          <Login navigation={navigation} />
-          <Register navigation={navigation} />
+          <Login {...this.props} />
+          <Register {...this.props} />
         </ScrollView>
-        <Toolbar navigation={navigation} />
-        <ExitAppModule navigation={navigation} />
+        <Toolbar {...this.props} />
+        <ExitAppModule {...this.props} />
       </SafeAreaView>
     );
   }

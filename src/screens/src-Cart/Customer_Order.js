@@ -56,10 +56,9 @@ export default class Customer_Order extends Component {
         this.setState({ dataService, activeReset: false })
     }
     getData2 = (id_address) => {
-        const { navigation } = this.props
+        const { route } = this.props
         const { currentUser, dataBody2, dataService, keycokie } = this.state
-        var no_invoice = navigation.getParam('no_invoice');
-        // var no_invoice = 'FINV4320200404124752'
+        const no_invoice = route.params?.no_invoice
         this.setState({
             dataBody2: {
                 id_customer: currentUser && currentUser.id_customer,
@@ -72,9 +71,9 @@ export default class Customer_Order extends Component {
         this.setState({ dataService2, activeIdAddress: false, activeReset: true })
     }
     render() {
-        const { navigation } = this.props
+        const { route } = this.props
         const { activeReset, activeIdAddress, currentUser, dataBody2, dataService, keycokie } = this.state
-        var no_invoice = navigation.getParam('no_invoice');
+        const no_invoice = route.params?.no_invoice
         // var no_invoice = 'FINV4320200404124752'
         var uri = `${finip}/bill/bill_list`;
         var dataBody = {
@@ -91,23 +90,23 @@ export default class Customer_Order extends Component {
             })
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                <AppBar1 backArrow titleHead='สั่งซื้อสินค้า' navigation={navigation} />
+                <AppBar1 {...this.props} backArrow titleHead='สั่งซื้อสินค้า' />
                 <ScrollView>
                     {[
                         dataService &&
-                        <Account dataService={dataService} getData={this.getData2.bind(this)} navigation={navigation} key={'Account'} />,
+                        <Account {...this.props} dataService={dataService} getData={this.getData2.bind(this)} key={'Account'} />,
                         dataService &&
                         dataService.list_cart.map((value, index) => { return <Order dataService={value} key={index} /> }),
                         dataService &&
-                        <Option_payment dataService={dataService} navigation={navigation} key={'Option_payment'} />
+                        <Option_payment {...this.props} dataService={dataService} key={'Option_payment'} />
                     ]}
                 </ScrollView>
                 {
                     dataService &&
-                    <Bar_payment currentUser={currentUser} dataService={dataService} navigation={navigation}
+                    <Bar_payment {...this.props} currentUser={currentUser} dataService={dataService}
                         no_invoice={no_invoice} />
                 }
-                <ExitAppModule navigation={navigation} />
+                <ExitAppModule {...this.props} />
             </SafeAreaView>
         );
     }
@@ -566,8 +565,8 @@ export class Bar_payment extends Component {
                     transparent={true}
                     visible={modalVisible}
                     onRequestClose={this.setModalVisible.bind(this, !modalVisible)}>
-                    <OmiseBox currentUser={currentUser} dataService={dataService} getData={this.setModalVisible.bind(this)}
-                        navigation={navigation} no_invoice={no_invoice} total={dataService.bill_data[0].total}
+                    <OmiseBox {...this.props} currentUser={currentUser} dataService={dataService} getData={this.setModalVisible.bind(this)}
+                        no_invoice={no_invoice} total={dataService.bill_data[0].total}
                     />
                 </Modal>
                 <View style={{ width: 200, justifyContent: 'center', alignItems: 'center' }}>

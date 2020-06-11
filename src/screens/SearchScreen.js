@@ -67,10 +67,10 @@ export default class SearchScreen extends React.Component {
         this.setState({ activeGetServices: true, filterValue });
     }
     componentDidMount() {
-        const { navigation } = this.props;
-        const modeStore = navigation.getParam('modeStore');
-        const SearchText = navigation.getParam('SearchText');
-        const id_type = navigation.getParam('id_type');
+        const { route } = this.props;
+        const id_type = route.params?.id_type
+        const modeStore = route.params?.modeStore
+        const SearchText = route.params?.SearchText
         this.setState({ modeStore, SearchText, id_type })
     }
     render() {
@@ -116,27 +116,27 @@ export default class SearchScreen extends React.Component {
             GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
         return (
             <SafeAreaView style={stylesMain.SafeAreaView} >
-                <AppBar searchBar={SearchText ? undefined : true} navigation={navigation} SearchText={SearchText} backArrow cartBar />
+                <AppBar {...this.props} searchBar={SearchText ? undefined : true} SearchText={SearchText} backArrow cartBar />
                 {
                     modeStore == true ?
                         (
                             <ScrollView>
-                                <HeadBox navigation={navigation} SearchText={SearchText} />
+                                <HeadBox {...this.props} SearchText={SearchText} />
                                 {
                                     dataService && dataService.store && dataService.store.map((value, index) => {
-                                        return <StoreCard cokie={cokie} currentUser={currentUser} dataService={value} key={index}
-                                            navigation={navigation} />
+                                        return <StoreCard {...this.props} cokie={cokie} currentUser={currentUser} dataService={value}
+                                            key={index} />
                                     })
                                 }
                             </ScrollView>
                         ) :
                         SearchText ? (
                             <ScrollView>
-                                <HeadBox id_type={id_type} navigation={navigation} SearchText={SearchText} otherOption />
+                                <HeadBox {...this.props} id_type={id_type} SearchText={SearchText} otherOption />
                                 {
                                     dataService && dataService.store && dataService.store.map((value, index) => {
-                                        return <StoreCard cokie={cokie} currentUser={currentUser} dataService={value} key={index}
-                                            navigation={navigation} />
+                                        return <StoreCard {...this.props} cokie={cokie} currentUser={currentUser} dataService={value}
+                                            key={index} />
                                     })
                                 }
                                 <BannerBar_THREE />
@@ -146,7 +146,7 @@ export default class SearchScreen extends React.Component {
                                     }} />
                                 {
                                     activeGetServices == false && actionStart == false && dataService && dataService.product &&
-                                    <TodayProduct noTitle navigation={navigation} loadData={dataService.product} />
+                                    <TodayProduct {...this.props} noTitle loadData={dataService.product} />
                                 }
                             </ScrollView>
                         ) :
@@ -154,7 +154,7 @@ export default class SearchScreen extends React.Component {
                 }
                 <SlideTab2 data={data} filterValue={this.setStatefilterValue.bind(this)} sliderVisible={sliderVisible}
                     setStateSliderVisible={this.setSlider.bind(this)} />
-                <ExitAppModule navigation={navigation} />
+                <ExitAppModule {...this.props} />
             </SafeAreaView>
         );
     }

@@ -26,20 +26,20 @@ export default class SecondScreen extends React.Component {
     };
   }
   get PathList() {
-    const { navigation } = this.props;
-    const selectedIndex = navigation.getParam('selectedIndex')
+    const { route } = this.props;
+    const selectedIndex = route.params?.selectedIndex
     switch (selectedIndex) {
       case 0:
         return (
           <SafeAreaView style={stylesMain.SafeAreaView}>
-            <AppBar backArrow cartBar navigation={navigation} />
-            <Second_Product navigation={navigation} />
+            <AppBar {...this.props} backArrow cartBar />
+            <Second_Product {...this.props} />
           </SafeAreaView>
         )
       case 1:
         return (
           <SafeAreaView style={stylesMain.SafeAreaView}>
-            <AppBar1 titleHead={'ร้านค้ามือสองที่แนะนำ'} backArrow navigation={navigation} />
+            <AppBar1 {...this.props} titleHead={'ร้านค้ามือสองที่แนะนำ'} backArrow />
             <Secon_Store />
           </SafeAreaView>
         )
@@ -50,7 +50,7 @@ export default class SecondScreen extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         {this.PathList}
-        <ExitAppModule navigation={navigation} />
+        <ExitAppModule {...this.props} />
       </View>
     );
   }
@@ -112,16 +112,16 @@ export class Second_Product extends React.Component {
       <View style={{ flex: 1 }}>
         <ScrollView stickyHeaderIndices={[5]}>
           <Slide />
-          <Second_Store navigation={navigation} />
-          <Second_Product_Brand navigation={navigation} />
+          <Second_Store {...this.props} />
+          <Second_Product_Brand {...this.props} />
           <BannerBar_ONE />
           <View style={{ marginBottom: 10 }}></View>
           <Button_Bar setSliderVisible={this.setSlider.bind(this)} getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
           {
             dataService &&
             <TodayProduct
+              {...this.props}
               noTitle
-              navigation={navigation}
               loadData={dataService}
               typeip
               prepath='mysql' />
@@ -203,7 +203,7 @@ export class Second_Product_Brand extends React.Component {
         </View>
         {
           dataService &&
-          <FlatProduct custumNavigation='Second_Product_Brand' navigation={navigation} dataService={dataService}
+          <FlatProduct {...this.props} custumNavigation='Second_Product_Brand' dataService={dataService}
             mode='row4' nameFlatProduct='Second_Product_Brand' nameSize={11} priceSize={12} dispriceSize={12} />
         }
       </View>

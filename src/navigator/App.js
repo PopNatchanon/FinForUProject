@@ -1,8 +1,13 @@
-import React, { Component } from 'react';
-import { createStackNavigator, CardStyleInterpolators, HeaderStyleInterpolators, TransitionSpecs, } from 'react-navigation-stack';
-import { createAppContainer } from 'react-navigation';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import React from 'react';
+// import { createStackNavigator, CardStyleInterpolators, HeaderStyleInterpolators, TransitionSpecs, } from 'react-navigation-stack';
+import { createCompatNavigatorFactory } from '@react-navigation/compat';
+import { NavigationContainer } from '@react-navigation/native';
+import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
+///----------------------------------------------------------------------------------------------->>>> Redux
+import configureStore from './configureStore';
+import { createStore, applyMiddleware } from "redux";
+import { Provider, useStore } from 'react-redux';
+import { fetchData } from '../actions'
 // Main
 import MainScreen from '../screens/MainScreen';
 import StoreScreen from '../screens/StoreScreen';
@@ -65,336 +70,286 @@ import Detail_Campaign from '../screens/src_Promotion/Detail_Campaign';
 // src store
 import Post_Feed from '../screens/src_Store/Post_Feed';
 ///----------------------------------------------------------------------------------------------->>>>
-const PathScreen = createStackNavigator({
-  MainScreen: {
-    screen: MainScreen, navigationOptions: () => ({
-      headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
-    })
-  },
-  StoreScreen: {
-    screen: StoreScreen, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  DetailScreen: {
-    screen: DetailScreen, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  ProfileScreen: {
-    screen: ProfileScreen, navigationOptions: () => ({
-      headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
-    })
-  },
-  CartScreen: {
-    screen: CartScreen, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  LoginScreen: {
-    screen: LoginScreen, navigationOptions: () => ({
-      headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
-    })
-  },
-  FeedScreen: {
-    screen: FeedScreen, navigationOptions: () => ({
-      headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
-    })
-  },
-  NewsScreen: {
-    screen: NewsScreen, navigationOptions: () => ({
-      headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
-    })
-  },
-  BellScreen: {
-    screen: BellScreen, navigationOptions: () => ({
-      headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
-    })
-  },
-  RegisterScreen: {
-    screen: RegisterScreen, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  Recommend_Brand: {
-    screen: Recommend_Brand, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  FlashSaleScreen: {
-    screen: FlashSaleScreen, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  SettingScreen: {
-    screen: SettingScreen, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  HighlightScreen: {
-    screen: HighlightScreen, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  Popular_productScreen: {
-    screen: Popular_productScreen, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  Recommend_Store: {
-    screen: Recommend_Store, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  Recommend_Store: {
-    screen: Recommend_Store, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  ExclusiveScreen: {
-    screen: ExclusiveScreen, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  Product_for_youScreen: {
-    screen: Product_for_youScreen, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  CategoryScreen: {
-    screen: CategoryScreen, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  FinMallScreen: {
-    screen: FinMallScreen, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  FINSupermarket: {
-    screen: FINSupermarket, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  // src_Detail
-  Reviews_score: {
-    screen: Reviews_score, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  // src_profile
-  Profile_Topic: {
-    screen: Profile_Topic, navigationOptions: () => ({
-      headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
-    })
-  },
-  CancelScreen: {
-    screen: CancelScreen, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  Return_products: {
-    screen: Return_products, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  Total_Order: {
-    screen: Total_Order, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  Order_Detail: {
-    screen: Order_Detail, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  Setting_Topic: {
-    screen: Setting_Topic, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  Business: {
-    screen: Business, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  // src_Seller
-  SellerScreen: {
-    screen: SellerScreen, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  Seller_Totel_Order: {
-    screen: Seller_Totel_Order, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  Seller_Topic: {
-    screen: Seller_Topic, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  Seller_Setting: {
-    screen: Seller_Setting, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  Seller_Profile_Edit: {
-    screen: Seller_Profile_Edit, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  Seller_Up_Product: {
-    screen: Seller_Up_Product, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  Seller_Return: {
-    screen: Seller_Return, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  Setting_TopicStore: {
-    screen: Setting_TopicStore, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  Seller_Detail_Order: {
-    screen: Seller_Detail_Order, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  // src-Cart
-  Customer_account: {
-    screen: Customer_account, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  Customer_Order: {
-    screen: Customer_Order, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  Customer_Complete_Order: {
-    screen: Customer_Complete_Order, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  // src_Promotion
-  Deal_Topic: {
-    screen: Deal_Topic, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  DealScreen: {
-    screen: DealScreen, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  CoinScreen: {
-    screen: CoinScreen, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  CampaignScreen: {
-    screen: CampaignScreen, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  The_BestFinScreen: {
-    screen: The_BestFinScreen, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  Installment_payScreen: {
-    screen: Installment_payScreen, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  Detail_Campaign: {
-    screen: Detail_Campaign, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  Same_StoreScreen: {
-    screen: Same_StoreScreen, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  SecondScreen: {
-    screen: SecondScreen, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  SearchScreen: {
-    screen: SearchScreen, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  Detail_Pro: {
-    screen: Detail_Pro, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-  // src_store
-  Post_Feed: {
-    screen: Post_Feed, navigationOptions: () => ({
-      headerShown: false,
-      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-    })
-  },
-},
-  {
-    // initialRouteName: 'FeedScreen',
-    // initialRouteName: 'ProfileScreen',
-    initialRouteName: 'MainScreen',
-  }
-);
-const AppNavigator = createAppContainer(PathScreen);
-export default AppNavigator;
+// const store = useStore(configureStore);
+const Stack = createStackNavigator();
+const store = configureStore();
+
+// const AppNavigator = createAppContainer(PathScreen);
+
+function App() {
+  return (
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName='MainScreen'>
+          <Stack.Screen
+            name='MainScreen'
+            component={MainScreen}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, }}
+          />
+          <Stack.Screen
+            name='FeedScreen'
+            component={FeedScreen}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, }}
+          />
+          <Stack.Screen
+            name='NewsScreen'
+            component={NewsScreen}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, }}
+          />
+          <Stack.Screen
+            name='BellScreen'
+            component={BellScreen}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, }}
+          />
+          <Stack.Screen
+            name='LoginScreen'
+            component={LoginScreen}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, }}
+          />
+          <Stack.Screen
+            name='ProfileScreen'
+            component={ProfileScreen}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, }}
+          />
+          <Stack.Screen
+            name='DetailScreen'
+            component={DetailScreen}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='StoreScreen'
+            component={StoreScreen}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='CartScreen'
+            component={CartScreen}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='RegisterScreen'
+            component={RegisterScreen}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='Recommend_Brand'
+            component={Recommend_Brand}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='FlashSaleScreen'
+            component={FlashSaleScreen}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='SettingScreen'
+            component={SettingScreen}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='HighlightScreen'
+            component={HighlightScreen}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='Popular_productScreen'
+            component={Popular_productScreen}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='Recommend_Store'
+            component={Recommend_Store}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='ExclusiveScreen'
+            component={ExclusiveScreen}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='Product_for_youScreen'
+            component={Product_for_youScreen}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='CategoryScreen'
+            component={CategoryScreen}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='FinMallScreen'
+            component={FinMallScreen}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='FINSupermarket'
+            component={FINSupermarket}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='Reviews_score'
+            component={Reviews_score}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='Profile_Topic'
+            component={Profile_Topic}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, }}
+          />
+          <Stack.Screen
+            name='CancelScreen'
+            component={CancelScreen}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='Return_products'
+            component={Return_products}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='Total_Order'
+            component={Total_Order}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='Order_Detail'
+            component={Order_Detail}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='Setting_Topic'
+            component={Setting_Topic}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='Business'
+            component={Business}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='SellerScreen'
+            component={SellerScreen}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='Seller_Totel_Order'
+            component={Seller_Totel_Order}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='Seller_Topic'
+            component={Seller_Topic}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='Seller_Setting'
+            component={Seller_Setting}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='Seller_Profile_Edit'
+            component={Seller_Profile_Edit}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='Seller_Up_Product'
+            component={Seller_Up_Product}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='Seller_Return'
+            component={Seller_Return}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='Setting_TopicStore'
+            component={Setting_TopicStore}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='Seller_Detail_Order'
+            component={Seller_Detail_Order}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='Customer_account'
+            component={Customer_account}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='Customer_Order'
+            component={Customer_Order}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='Customer_Complete_Order'
+            component={Customer_Complete_Order}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='Deal_Topic'
+            component={Deal_Topic}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='DealScreen'
+            component={DealScreen}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='CoinScreen'
+            component={CoinScreen}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='CampaignScreen'
+            component={CampaignScreen}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='The_BestFinScreen'
+            component={The_BestFinScreen}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='Installment_payScreen'
+            component={Installment_payScreen}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='Detail_Campaign'
+            component={Detail_Campaign}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='Same_StoreScreen'
+            component={Same_StoreScreen}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='SecondScreen'
+            component={SecondScreen}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='SearchScreen'
+            component={SearchScreen}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='Detail_Pro'
+            component={Detail_Pro}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='Post_Feed'
+            component={Post_Feed}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
+  )
+}
+
+export default App

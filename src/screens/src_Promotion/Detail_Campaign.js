@@ -37,9 +37,9 @@ export default class Detail_Campaign extends Component {
     }
 
     render() {
-        const { navigation } = this.props
+        const { route } = this.props
         const { activeGetCurrentUser, activeDataService, currentUser, dataService, } = this.state
-        const id_campaign = navigation.getParam('id_campaign')
+        const id_campaign = route.params?.id_campaign
         var uri = `${finip}/campaign/campaign_detail`;
         var dataBody = {
             "id_category": "",
@@ -51,15 +51,15 @@ export default class Detail_Campaign extends Component {
             GetData({ getSource: this.getSource.bind(this), getUser: true, })
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                <AppBar1 titleHead={'โปรโมชั่น'} backArrow searchBar chatBar navigation={navigation} />
+                <AppBar1 {...this.props} titleHead={'โปรโมชั่น'} backArrow searchBar chatBar />
                 <ScrollView>
                     <Slide banner={dataService && dataService.list_banner} />
-                    <Detail_Description dataService={dataService && dataService.data_campaign} navigation={navigation} />
-                    <New_year_Campaign navigation={navigation} dataService={dataService && dataService.list_product} />
-                    <Store_Campaign navigation={navigation} dataService={dataService && dataService} />
-                    <New_year_Product navigation={navigation} dataService={dataService && dataService.list_product} />
+                    <Detail_Description {...this.props} dataService={dataService && dataService.data_campaign} />
+                    <New_year_Campaign {...this.props} dataService={dataService && dataService.list_product} />
+                    <Store_Campaign {...this.props} dataService={dataService && dataService} />
+                    <New_year_Product {...this.props} dataService={dataService && dataService.list_product} />
                 </ScrollView>
-                <ExitAppModule navigation={navigation} />
+                <ExitAppModule {...this.props} />
 
             </SafeAreaView>
         );
@@ -109,7 +109,7 @@ export class New_year_Campaign extends Component {
                 </View>
                 {
                     dataService &&
-                    <FlatProduct custumNavigation='Second_Store' navigation={navigation} dataService={dataService} NumberOfcolumn={2}
+                    <FlatProduct {...this.props} custumNavigation='Second_Store' dataService={dataService} numberOfColumn={2}
                         mode='row3' nameFlatProduct='Second_Store' nameSize={14} priceSize={15} dispriceSize={15} />
                 }
             </View>
@@ -132,7 +132,7 @@ export class New_year_Product extends Component {
                 </View>
                 {
                     dataService &&
-                    <FlatProduct custumNavigation='New_year_Product' navigation={navigation} dataService={dataService} NumberOfcolumn={2}
+                    <FlatProduct {...this.props} custumNavigation='New_year_Product' dataService={dataService} numberOfColumn={2}
                         mode='row3' nameFlatProduct='New_year_Product' nameSize={14} priceSize={15} dispriceSize={15} />
                 }
             </View>

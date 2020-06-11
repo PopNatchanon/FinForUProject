@@ -49,49 +49,48 @@ export default class Post_Feed extends Component {
         this.setState({ activePost, })
     }
     PathList() {
-        const { navigation } = this.props
+        const { route } = this.props
         const { activePost, cokie, dataService } = this.state
-        const selectedIndex = navigation.getParam('selectedIndex')
-        const actionPost = navigation.getParam('actionPost')
+        const actionPost = route.params?.actionPost
+        const selectedIndex = route.params?.selectedIndex
         switch (selectedIndex) {
             case 0:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={navigation} titleHead='คะแนนประจำร้าน' />
+                        <AppBar1 {...this.props} backArrow titleHead='คะแนนประจำร้าน' />
                         <ScrollView>
-                            <Score_store cokie={cokie} navigation={navigation} />
+                            <Score_store {...this.props} cokie={cokie} />
                         </ScrollView>
                     </>
                 )
             case 1:
                 return (
                     <>
-                        <AppBar1 backArrow postBar getActivePost={this.getActivePost.bind(this)} navigation={navigation}
+                        <AppBar1 {...this.props} backArrow postBar getActivePost={this.getActivePost.bind(this)}
                             titleHead={actionPost == 'edit' ? 'แก้ไขโพสต์' : 'โพสต์ใหม่'} />
                         <ScrollView>
-                            <Post_New activePost={activePost} cokie={cokie} getActivePost={this.getActivePost.bind(this)}
-                                navigation={navigation} />
+                            <Post_New {...this.props} activePost={activePost} cokie={cokie} getActivePost={this.getActivePost.bind(this)} />
                         </ScrollView>
                     </>
                 )
             case 2:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={navigation} titleHead='เลือกสินค้า' />
-                        <Select_TagProduct cokie={cokie} navigation={navigation} />
+                        <AppBar1 {...this.props} backArrow titleHead='เลือกสินค้า' />
+                        <Select_TagProduct {...this.props} cokie={cokie} />
                     </View>
                 )
             case 3:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={navigation} titleHead='คอมเมนท์' chatBar />
+                        <AppBar1 {...this.props} backArrow titleHead='คอมเมนท์' chatBar />
                         <Feed_comment />
                     </>
                 )
             case 10:
                 return (
                     <>
-                        <AppBar1 backArrow navigation={navigation} titleHead='สินค้า' />
+                        <AppBar1 {...this.props} backArrow titleHead='สินค้า' />
                     </>
                 )
         }
@@ -162,9 +161,9 @@ export class Score_store extends React.Component {
         this.setState({ activeGetServices2: false, dataService2, })
     }
     render() {
-        const { cokie, navigation } = this.props;
+        const { cokie, route } = this.props;
         const { activeGetServices, activeGetServices2, dataService, dataService2, score } = this.state;
-        const id_store = navigation.getParam('id_store');
+        const id_store = route.params?.id_store
         var uri = `${finip}/store/score_data`;
         var dataBody = {
             id_store,
@@ -418,12 +417,12 @@ export class Post_New extends React.Component {
         )
     }
     render() {
-        const { activePost, cokie, navigation } = this.props;
+        const { activePost, cokie, navigation, route } = this.props;
         const { activePostView, avatarSource, Detail, image, image_path, tagProduct } = this.state;
-        const actionPost = navigation.getParam('actionPost');
-        const id_feed = navigation.getParam('id_feed');
-        const id_store = navigation.getParam('id_store');
-        const store_data = navigation.getParam('store_data');
+        const actionPost = route.params?.actionPost
+        const id_feed = route.params?.id_feed
+        const id_store = route.params?.id_store
+        const store_data = route.params?.store_data
         const store_data_2 = store_data && store_data[0];
         const image_storee = store_data_2 && `${finip}/${store_data_2.image_path}/${store_data_2.image}`;
         const image_post = `${finip}/${image_path}/${image}`
@@ -593,9 +592,9 @@ export class Select_TagProduct extends React.Component {
         navigation.goBack()
     }
     render() {
-        const { cokie, navigation } = this.props
+        const { cokie, route } = this.props
         const { activeGetServices, dataService, selectedIndex } = this.state
-        const id_store = navigation.getParam('id_store');
+        const id_store = route.params?.id_store
         const item = [{
             name: 'สินค้าของฉัน'
         }, {
@@ -630,7 +629,7 @@ export class Select_TagProduct extends React.Component {
                         <View style={[stylesMain.BoxProduct2BoxProduct]}>
                             {
                                 dataService &&
-                                <ProductBox dataService={dataService.product} navigation={navigation} mode='row3colall'
+                                <ProductBox {...this.props} dataService={dataService.product} mode='row3colall'
                                     getDataService={this.getDataService.bind(this)} noNavigation
                                     pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
                                 />

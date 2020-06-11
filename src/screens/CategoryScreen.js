@@ -45,9 +45,9 @@ export default class CategoryScreen extends React.Component {
         this.setState({ sliderVisible });
     };
     render() {
-        const { navigation } = this.props;
+        const { route } = this.props;
         const { activeGetServices, dataService, filterValue, sliderVisible } = this.state;
-        const id_type = navigation.getParam('id_type');
+        const id_type = route.params?.id_type
         var uri = `${finip}/category/category_mobile`;
         var dataBody = {
             category_number: id_type,
@@ -93,20 +93,20 @@ export default class CategoryScreen extends React.Component {
                     activeGetServices == true &&
                     <LoadingScreen key={'LoadingScreen'} />
                 }
-                <AppBar backArrow cartBar navigation={navigation} />
+                <AppBar {...this.props} backArrow cartBar />
                 <ScrollView stickyHeaderIndices={[5]}>
                     <Slide banner={dataService.banner} />
-                    <Recommend_Store navigation={navigation} recommend={dataService.recommend} />
-                    <Product_Brand navigation={navigation} loadData={dataService.product_popular_brand} />
+                    <Recommend_Store {...this.props} recommend={dataService.recommend} />
+                    <Product_Brand {...this.props} loadData={dataService.product_popular_brand} />
                     <BannerBar_TWO />
                     <View style={{ marginBottom: 10 }}></View>
                     <Button_Bar filterValue={this.setStateMainfilterValue.bind(this)} setSliderVisible={this.setSlider.bind(this)} />
                     {
                         dataService &&
-                        <TodayProduct noTitle navigation={navigation} loadData={dataService.product} />
+                        <TodayProduct {...this.props} noTitle loadData={dataService.product} />
                     }
                 </ScrollView>
-                <ExitAppModule navigation={navigation} />
+                <ExitAppModule {...this.props} />
                 <SlideTab2 data={data} filterValue={this.setStatefilterValue.bind(this)} sliderVisible={sliderVisible}
                     setStateSliderVisible={this.setSlider.bind(this)} />
             </SafeAreaView>
@@ -167,7 +167,7 @@ export class Product_Brand extends React.Component {
         };
     };
     render() {
-        const { loadData, navigation, } = this.props;
+        const { loadData, } = this.props;
         return (
             <View style={stylesMain.FrameBackground}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
@@ -177,7 +177,7 @@ export class Product_Brand extends React.Component {
                 </View>
                 {
                     loadData && loadData.product_hit &&
-                    <FlatProduct navigation={navigation} dataService={loadData.product_hit} NumberOfcolumn={1} radiusBox={5}
+                    <FlatProduct {...this.props} dataService={loadData.product_hit} numberOfColumn={1} radiusBox={5}
                         nameFlatProduct='Product_Brand' custumNavigation='DetailScreen' mode='row3' nameSize={14} priceSize={15}
                         dispriceSize={15} />
                 }

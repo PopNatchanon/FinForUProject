@@ -23,17 +23,16 @@ export default class BellScreen extends React.Component {
         };
     };
     render() {
-        const { navigation } = this.props;
         return (
             <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
                 <AppBar1 titleHead='การแจ้งเตือน' />
                 <ScrollView>
-                    <Popular_store navigation={navigation} />
-                    <Pro_for_U navigation={navigation} />
-                    <Update_buy navigation={navigation} />
+                    <Popular_store {...this.props} />
+                    <Pro_for_U {...this.props} />
+                    <Update_buy {...this.props} />
                 </ScrollView>
-                <Toolbar navigation={navigation} />
-                <ExitAppModule navigation={navigation} />
+                <Toolbar {...this.props} />
+                <ExitAppModule {...this.props} />
             </SafeAreaView>
         );
     };

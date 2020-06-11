@@ -57,7 +57,6 @@ export default class FlashSaleScreen extends React.Component {
         this.setState({ activeFlashStart: true, dataService: [], id_type })
     }
     render() {
-        const { navigation } = this.props
         const { activeFlashStart, activeReData, curTime, dataService, flash_start, id_type, pkid, scrollY } = this.state
         const marginTopFlashsale = scrollY.interpolate({
             inputRange: [145, 155],
@@ -95,7 +94,7 @@ export default class FlashSaleScreen extends React.Component {
                     activeFlashStart == true &&
                     <LoadingScreen key={'LoadingScreen'} />
                 }
-                <AppBar1 titleHead={'FLASH SALE'} backArrow searchBar chatBar navigation={navigation} />
+                <AppBar1 {...this.props} titleHead={'FLASH SALE'} backArrow searchBar chatBar />
                 <ScrollView
                     stickyHeaderIndices={[1]}
                     scrollEventThrottle={8}
@@ -115,8 +114,7 @@ export default class FlashSaleScreen extends React.Component {
                             activeFlashStart == false && (
                                 dataService.flash_product.length > 0 ?
                                     dataService.flash_product.map((value, index) => {
-                                        return <FlashSale_Product dataService={value} key={'FlashSale_Product'} key={index}
-                                            navigation={navigation} />
+                                        return <FlashSale_Product {...this.props} dataService={value} key={'FlashSale_Product'} key={index} />
                                     }) :
                                     <View style={[stylesMain.ItemCenter, { marginTop: 10, width, height: 100, backgroundColor: '#fff' }]}>
                                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
@@ -127,7 +125,7 @@ export default class FlashSaleScreen extends React.Component {
                         ])
                     }
                 </ScrollView>
-                <ExitAppModule navigation={navigation} />
+                <ExitAppModule {...this.props} />
             </SafeAreaView>
         );
     }

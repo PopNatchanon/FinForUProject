@@ -10,6 +10,8 @@ import {
     ScrollView,
     State,
 } from 'react-native-gesture-handler';
+import { connect, useStore } from 'react-redux';
+import { fetchData, setActiveFetch } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import ActionButton from 'react-native-action-button';
 import * as Animatable from 'react-native-animatable';
@@ -25,7 +27,6 @@ import SkeletonContent from "react-native-skeleton-content-nonexpo";
 import SplashScreen from 'react-native-splash-screen';
 import SlidingView from 'rn-sliding-view';
 import WebView from 'react-native-webview';
-import { connect } from 'react-redux';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -36,7 +37,7 @@ import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommun
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesDeal from '../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../style/stylesFont';
-import stylesMain, { mainColor } from '../style/StylesMainScreen';
+import stylesMain, { color_up, mainColor, } from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
@@ -47,207 +48,173 @@ import {
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main // complete_last_function
-export default function MainScreen(props) {
-    const { navigation } = props;
-    const browerProps = navigation.getParam('browerProps');
+const mapStateToProps = (state) => ({
+    getFetchData: state.singleFetchDataFromService,
+    activeFetchData: state.activeFetchData,
+});
+const mapDispatchToProps = ({
+    fetchData,
+    setActiveFetch,
+});
+export default connect(mapStateToProps, mapDispatchToProps)(MainScreen)
+function MainScreen(props) {
+    const { fetchData, getFetchData, } = props;
+    // const { browerProps, mode } = route.params;
     const scrollY = new Animated.Value(0);
     const maxheight = 55;
-    const mode = navigation.getParam('mode');
     const AnimatedHeadbg = scrollY.interpolate({
         inputRange: [maxheight, maxheight * 2],
         outputRange: ['transparent', mainColor],
         extrapolate: 'clamp',
         useNativeDriver: false,
     });
-    const [activeDataService, setActiveDataService] = useState(true);
-    const [activeLoading, setActiveLoading] = useState(true);
-    const [dataService, setDataService] = useState(null);
     useEffect(() => {
-        const SetTimeLoading = setTimeout(() => { setActiveLoading(false), 15000/*50000*/; });
-        return () => clearTimeout(SetTimeLoading);
-    }, [activeLoading]);
-    var uri = `${finip}/home/publish_mobile`;
+        if (getFetchData['publish_mobile'] == undefined || (getFetchData['publish_mobile'] && getFetchData['publish_mobile'].isFetching)) {
+            fetchData({
+                name: 'publish_mobile', uri: `${finip}/home/publish_mobile`,
+            })
+            fetchData({
+                name: 'category_mobile', uri: `${finip}/home/category_mobile`,
+            })
+            fetchData({
+                dataBody: { slide: 'banner' }, name: 'home_mobile', uri: `${finip}/home/home_mobile`,
+            })
+        }
+    }, [getFetchData['publish_mobile'] == undefined || (getFetchData['publish_mobile'] && getFetchData['publish_mobile'].isFetching)]);
     useEffect(() => {
-        activeDataService == true &&
-            GetServices({
-                uriPointer: uri, getDataSource: value => {
-                    setActiveDataService(false);
-                    setDataService(value);
-                },
-            });
-    }, [activeDataService]);
+        (getFetchData['flash_timer'] == undefined || (getFetchData['flash_timer'] && getFetchData['flash_timer'].isFetching)) &&
+            fetchData({
+                name: 'flash_timer', uri: `${finip}/flashsale/flash_timer`,
+            })
+    }, [getFetchData['flash_timer'] == undefined || (getFetchData['flash_timer'] && getFetchData['flash_timer'].isFetching)]);
     let itemT = [
         /////--------------------------------------------->>>Start
-        {
-            nameComponent: 'AppBar',
-            renderComponent: <View style={{ height: 55, /*marginTop: 27.15*/ }}>
-                <AppBar ABGColor={AnimatedHeadbg} ABDColor={AnimatedHeadbg} navigation={navigation} cartBar chatBar />
-            </View>
-        },
-        {
-            nameComponent: 'Slide',
-            renderComponent: <View style={{ marginTop: -(maxheight /*+ 27.15*/) }}>
-                <Slide />
-            </View>
-        },
-        {
-            nameComponent: 'Guarantee',
-            renderComponent: <Guarantee navigation={navigation} />
-        },
-        {
-            nameComponent: 'Category',
-            renderComponent: <Category navigation={navigation} />
-        },
-        {
-            nameComponent: 'Trend_Hit',
-            renderComponent: <Trend_Hit navigation={navigation} />
-        },
-        {
-            nameComponent: 'Button_Bar',
-            renderComponent: <Button_Bar navigation={navigation} />
-        },
-        {
-            nameComponent: 'FlashSale',
-            renderComponent: <FlashSale navigation={navigation} />
-        },
-        {
-            nameComponent: 'Fin_Service',
-            renderComponent: <Fin_Service navigation={navigation} />
-        },
-        {
-            nameComponent: 'Recommend_Brand',
-            renderComponent: dataService && dataService.brand ?
-                <Recommend_Brand navigation={navigation} loadData={dataService.brand} /> :
-                <View style={{ width, height: 360, backgroundColor: '#fff' }}>
-                    <ActivityIndicator color={mainColor} size='large' />
-                </View>
-        },
-        {
-            nameComponent: 'BannerBar_TWO',
-            renderComponent: <BannerBar_TWO />
-        },
-        {
-            nameComponent: 'NewStore',
-            renderComponent: dataService && dataService.dont_miss ?
-                <NewStore navigation={navigation} loadData={dataService.dont_miss} /> :
-                <View style={{ width, height: 360, backgroundColor: '#fff' }}>
-                    <ActivityIndicator color={mainColor} size='large' />
-                </View>
-        },
-        {
-            nameComponent: 'Fin_Mall',
-            renderComponent: dataService && dataService.product_hit ?
-                <Fin_Mall navigation={navigation} loadData={{ product_hit: dataService.product_hit, exclusive: dataService.exclusive }} /> :
-                <View style={{ width, height: 360, backgroundColor: '#fff' }}>
-                    <ActivityIndicator color={mainColor} size='large' />
-                </View>
-        },
-        {
-            nameComponent: 'BannerBar_ONE',
-            renderComponent: <BannerBar_ONE />
-        },
-        {
-            nameComponent: 'Highlight',
-            renderComponent: dataService && dataService.hi_week ?
-                <Highlight navigation={navigation} loadData={dataService.hi_week} /> :
-                <View style={{ width, height: 360, backgroundColor: '#fff' }}>
-                    <ActivityIndicator color={mainColor} size='large' />
-                </View>
-        },
-        {
-            nameComponent: 'PromotionPopular',
-            renderComponent: dataService && dataService.recommend_store ?
-                <PromotionPopular navigation={navigation} loadData={dataService.recommend_store} /> :
-                <View style={{ width, height: 360, backgroundColor: '#fff' }}>
-                    <ActivityIndicator color={mainColor} size='large' />
-                </View>
-        },
-        {
-            nameComponent: 'Popular_store',
-            renderComponent: dataService && dataService.store_good ?
-                <Popular_store navigation={navigation} loadData={dataService.store_good} /> :
-                <View style={{ width, height: 360, backgroundColor: '#fff' }}>
-                    <ActivityIndicator color={mainColor} size='large' />
-                </View>
-        },
+        // {
+        //     nameComponent: 'AppBar',
+        //     renderComponent: <View style={{ height: 55, /*marginTop: 27.15*/ }}>
+        //         <AppBar ABGColor={AnimatedHeadbg} ABDColor={AnimatedHeadbg} {...props} cartBar chatBar />
+        //     </View>
+        // },
+        // {
+        //     nameComponent: 'Slide',
+        //     renderComponent: <View style={{ marginTop: -(maxheight /*+ 27.15*/) }}>
+        //         <Slide {...props} />
+        //     </View>
+        // },
+        // // {
+        // //     nameComponent: 'Guarantee',
+        // //     renderComponent: <Guarantee  {...props} />
+        // // },
+        // {
+        //     nameComponent: 'Category',
+        //     renderComponent: <Category {...props} />
+        // },
+        // //     {
+        // //         nameComponent: 'Trend_Hit',
+        // //         renderComponent: <Trend_Hit  {...props} />
+        // //     },
+        // {
+        //     nameComponent: 'Button_Bar',
+        //     renderComponent: <Button_Bar {...props} />
+        // },
+        // {
+        //     nameComponent: 'FlashSale',
+        //     renderComponent: <FlashSale {...props} />
+        // },
+        // // {
+        // //     nameComponent: 'Fin_Service',
+        // //     renderComponent: <Fin_Service {...props} />
+        // // },
+        // {
+        //     nameComponent: 'Recommend_Brand',
+        //     renderComponent: <Recommend_Brand {...props} dataService={getFetchData['publish_mobile'] &&
+        //         getFetchData['publish_mobile'].data} />
+        // },
+        // {
+        //     nameComponent: 'BannerBar_TWO',
+        //     renderComponent: <BannerBar_TWO />
+        // },
+        // {
+        //     nameComponent: 'NewStore',
+        //     renderComponent: <NewStore  {...props} dataService={getFetchData['publish_mobile'] && getFetchData['publish_mobile'].data} />
+        // },
+        // // {
+        // //     nameComponent: 'Fin_Mall',
+        // //     renderComponent: <Fin_Mall {...props} dataService={getFetchData['publish_mobile'] && getFetchData['publish_mobile'].data} />
+        // // },
+        // {
+        //     nameComponent: 'BannerBar_ONE',
+        //     renderComponent: <BannerBar_ONE />
+        // },
+        // {
+        //     nameComponent: 'Highlight',
+        //     renderComponent: <Highlight {...props} dataService={getFetchData['publish_mobile'] && getFetchData['publish_mobile'].data} />
+        // },
+        // {
+        //     nameComponent: 'PromotionPopular',
+        //     renderComponent: <PromotionPopular  {...props} dataService={getFetchData['publish_mobile'] &&
+        //         getFetchData['publish_mobile'].data} />
+        // },
+        // {
+        //     nameComponent: 'Popular_store',
+        //     renderComponent: <Popular_store {...props} dataService={getFetchData['publish_mobile'] && getFetchData['publish_mobile'].data} />
+        // },
         {
             nameComponent: 'Popular_product',
-            renderComponent: dataService && dataService.product_hit ?
-                <Popular_product navigation={navigation} loadData={{
-                    product_hit: dataService.product_hit, best_price: dataService.best_price,
-                    best_sale: dataService.best_sale, best_cool: dataService.best_cool
-                }} /> :
-                <View style={{ width, height: 360, backgroundColor: '#fff' }}>
-                    <ActivityIndicator color={mainColor} size='large' />
-                </View>
-        },
-        {
-            nameComponent: 'Product_for_you',
-            renderComponent: dataService && dataService.for_you ?
-                <Product_for_you navigation={navigation} loadData={dataService.for_you} /> :
-                <View style={{ width, height: 360, backgroundColor: '#fff' }}>
-                    <ActivityIndicator color={mainColor} size='large' />
-                </View>
-        },
-        {
-            nameComponent: 'CategoryProduct',
-            renderComponent: <CategoryProduct navigation={navigation} />
+            renderComponent: <Popular_product {...props} dataService={getFetchData['publish_mobile'] &&
+                getFetchData['publish_mobile'].data} />
         },
         // {
-        //     nameComponent: 'Category_Image_Total',
-        //     renderComponent: <Category_Image_Total sizeBox={1} />
+        //     nameComponent: 'Product_for_you',
+        //     renderComponent: <Product_for_you {...props} dataService={getFetchData['publish_mobile'] &&
+        //         getFetchData['publish_mobile'].data} />
         // },
         // {
-        //     nameComponent: 'Category_Image_Total',
-        //     renderComponent: <Category_Image_Total sizeBox={2} />
+        //     nameComponent: 'CategoryProduct',
+        //     renderComponent: <CategoryProduct {...props} />
         // },
-        {
-            nameComponent: 'Second_product',
-            renderComponent: dataService && dataService.product_second ?
-                <Second_product navigation={navigation} loadData={{
-                    product_second: dataService.product_second, list_store2_1: dataService.list_store2_1,
-                    list_store2_2: dataService.list_store2_2, list_store2_3: dataService.list_store2_3,
-                    mobile_bar: dataService.mobile_bar, mobile_slide: dataService.mobile_slide,
-                }} /> :
-                <View style={{ width, height: 360, backgroundColor: '#fff' }}>
-                    <ActivityIndicator color={mainColor} size='large' />
-                </View>
-        },
-        {
-            nameComponent: 'BannerBar_THREE',
-            renderComponent: <BannerBar_THREE />
-        },
-        {
-            nameComponent: 'FIN_Supermarket',
-            renderComponent: dataService && dataService.product_hit ?
-                <FIN_Supermarket navigation={navigation} loadData={{ product_hit: dataService.product_hit }} /> :
-                <View style={{ width, height: 360, backgroundColor: '#fff' }}>
-                    <ActivityIndicator color={mainColor} size='large' />
-                </View>
-        },
-        {
-            nameComponent: 'TodayProduct',
-            renderComponent: dataService && dataService.for_you2 ?
-                <TodayProduct navigation={navigation} loadData={dataService.for_you2} /> :
-                <View style={{ width, height: 360, backgroundColor: '#fff' }}>
-                    <ActivityIndicator color={mainColor} size='large' />
-                </View>
-        },
+        // {
+        //     nameComponent: 'Second_product',
+        //     renderComponent: <Second_product {...props} dataService={getFetchData['publish_mobile'] &&
+        //         getFetchData['publish_mobile'].data} />
+        // },
+        // {
+        //     nameComponent: 'BannerBar_THREE',
+        //     renderComponent: <BannerBar_THREE />
+        // },
+        // {
+        //     nameComponent: 'FIN_Supermarket',
+        //     renderComponent: <FIN_Supermarket {...props} dataService={getFetchData['publish_mobile'] &&
+        //         getFetchData['publish_mobile'].data} />
+        // },
+        // {
+        //     nameComponent: 'TodayProduct',
+        //     renderComponent: <TodayProduct {...props} loadData={getFetchData['publish_mobile'] && getFetchData['publish_mobile'].data &&
+        //         getFetchData['publish_mobile'].data.for_you2} />
+        // },
         /////--------------------------------------------->>>End
     ];
+    // getFetchData['category_mobile'] && getFetchData['category_mobile'].data && getFetchData['category_mobile'].data.map((value, index) => {
+    //     return itemT.splice(14 + index, 0, {
+    //         nameComponent: `CategoryProduct${index}`,
+    //         renderComponent: <CategoryProduct_new {...props} dataService={value} />
+    //     })
+    // })
     return (
         <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
-            {
-                (activeDataService == true || activeLoading == true) &&
-                <LoadingScreen key='LoadingScreen' />
-            }
+            {/* {
+                dataList[numberList] && dataList[numberList].isActive ?
+                    <LoadingScreen key='LoadingScreen' /> :
+                    <></>
+            } */}
             <FlatComponent
                 componentPage='MainScreen'
                 component={itemT}
                 // ListHeaderComponent={() => {
-                //     return <AppBar ABGColor={AnimatedHeadbg} ABDColor={AnimatedHeadbg} elevation={1} navigation={navigation} cartBar chatBar
+                //     return <AppBar {...props}  ABGColor={AnimatedHeadbg} ABDColor={AnimatedHeadbg} elevation={1}cartBar chatBar
                 //         style={{ height: 55, elevation: 1 }} />
                 // }}
+                initialNumToRender={4}
                 showsVerticalScrollIndicator={false}
                 stickyHeaderIndices={[0]}
                 scrollEventThrottle={8}
@@ -261,8 +228,8 @@ export default function MainScreen(props) {
                         })
                 } />
             <Botton_PopUp_FIN />
-            <Toolbar navigation={navigation} style={{ flex: 5, }} />
-            <ExitAppModule navigation={navigation} />
+            <Toolbar {...props} style={{ flex: 5, }} />
+            <ExitAppModule {...props} />
         </SafeAreaView>
     );
 };
@@ -335,14 +302,11 @@ export class ExitAppModule extends React.Component {
     };
     _handleBackButton = () => {
         const { backClickCount } = this.state;
-        const { navigation } = this.props;
-        // backClickCount == 1 ? BackHandler.exitApp() : this._spring()
-        var routeProps = navigation.dangerouslyGetParent().state.routes.length;
-        console.log('routeProps')
-        console.log(routeProps)
-        console.log('backClickCount')
-        console.log(backClickCount)
-        return routeProps == 1 ? (
+        const { navigation, route } = this.props;
+        var routeProps = route.name;
+        const pathMain = ['MainScreen', 'FeedScreen', 'NewsScreen', 'BellScreen', 'LoginScreen', 'ProfileScreen']
+        console.log(pathMain.indexOf(routeProps) != -1)
+        return pathMain.indexOf(routeProps) != -1 ? (
             backClickCount == 1 ? BackHandler.exitApp() : this._spring(),
             true
         ) : (
@@ -711,30 +675,9 @@ export let AppBar1 = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>> Slide
 export let Slide = (props) => {
-    const { banner } = props;
-    const [activeDataService, setActiveDataService] = useState(true);
-    const [dataService, setDataService] = useState(undefined);
-    var uri = `${finip}/home/home_mobile`;
-    var dataBody = {
-        slide: 'banner'
-    };
-    // var uri = `${ip}/mysql/DataServiceMain.php`
-    // var dataBody = {
-    //     type: 'slide'
-    // };
-    useEffect(() => {
-        if (activeDataService == true && banner == undefined) {
-            GetServices({
-                uriPointer: uri, dataBody, getDataSource: value => {
-                    setActiveDataService(false);
-                    setDataService(value);
-                },
-            });
-        }
-    }, [dataBody]);
+    const { getFetchData, banner, } = props;
     let _renderItem = (item, index) => {
         var dataMySQL = index % 2 == 0 ? `${ip}/mysql/uploads/Banner_Mobile/T-1.jpg` : `${ip}/mysql/uploads/Banner_Mobile/T-2.jpg`;
-        var imageLoading = 0;
         // var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
         return (
             <View style={stylesMain.child} key={item.id}>
@@ -751,21 +694,24 @@ export let Slide = (props) => {
     return (
         <View>
             {
-                (banner || dataService) &&
-                <Carousel
-                    renderItem={_renderItem}
-                    data={banner ? banner : dataService}
-                    loop
-                    autoplay
-                    autoplayInterval={3000}
-                    pagination={PaginationLight} />
+                (banner || getFetchData['home_mobile'] && getFetchData['home_mobile'].data) ?
+                    <Carousel
+                        renderItem={_renderItem}
+                        data={banner ? banner : getFetchData['home_mobile'].data}
+                        loop
+                        autoplay
+                        autoplayInterval={3000}
+                        pagination={PaginationLight} /> :
+                    <View style={[stylesMain.child, stylesMain.ItemCenter, { backgroundColor: '#fff' }]}>
+                        <ActivityIndicator size='large' color={mainColor} />
+                    </View>
             }
         </View>
     );
 };
 ///----------------------------------------------------------------------------------------------->>>> Guarantee
 export let Guarantee = (props) => {
-    const item = [{
+    let item = [{
         text: 'ใบทะเบียนภาษีมูลค่าเพิ่ม',
         image: `${ip}/MySQL/uploads/Guarantee/warranty_blue-001.png`
     }, {
@@ -873,25 +819,27 @@ export let Guarantee = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>> Category // Loading
 export let Category = (props) => {
-    const { navigation } = props;
-    abortController = new AbortController();
-    const [activeDataService, setActiveDataService] = useState(true);
-    const [dataService, setDataService] = useState(undefined);
-    var uri = `${finip}/home/category_mobile`;
-    useEffect(() => {
-        activeDataService == true &&
-            GetServices({
-                abortController, uriPointer: uri, getDataSource: value => {
-                    setActiveDataService(false);
-                    setDataService(value);
-                },
-            });
-        return
-    }, [activeDataService]);
-    let dataCategory = () => {
-        return dataService ?
-            dataService.map((item, index) => {
-                if (index < dataService.length) {
+    const { getFetchData, navigation } = props;
+    let boxEmpty = (
+        [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,].map((_, index) => {
+            return (
+                <View key={index} style={{ width: width * 0.199, justifyContent: 'center', alignItems: 'center', padding: 2, }}>
+                    <View style={{
+                        backgroundColor: '#ECECEC', borderColor: '#ECECEC', borderWidth: 1, borderRadius: 8, height: 60, width: 60,
+                        justifyContent: 'center', alignItems: 'center'
+                    }}>
+                        <ActivityIndicator style={stylesMain.ItemCenterVertical} color={mainColor} size='large' />
+                    </View>
+                    <View style={{ height: 25 }}>
+                    </View>
+                </View>
+            )
+        })
+    )
+    let dataCategory = (
+        getFetchData['category_mobile'] && getFetchData['category_mobile'].data ?
+            getFetchData['category_mobile'].data.map((item, index) => {
+                if (index < getFetchData['category_mobile'].data.length) {
                     var dataMySQL = `${finip}/${item.image_path}/menu/mobile/${item.image_head}`;
                     return (
                         <TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigateScreen({
@@ -911,21 +859,19 @@ export let Category = (props) => {
                     );
                 }
             }) :
-            <View style={{ width, height: 195 }}>
-                <ActivityIndicator style={stylesMain.ItemCenterVertical} color={mainColor} size='large' />
-            </View>;
-    };
+            boxEmpty
+    );
     return (
         <View style={stylesMain.FrameBackground2}>
             <ScrollView horizontal>
                 <View style={stylesMain.category_A}>
-                    {dataCategory()}
+                    {dataCategory}
                 </View>
             </ScrollView>
         </View>
     );
 };
-///----------------------------------------------------------------------------------------------->>>> 
+///----------------------------------------------------------------------------------------------->>>> ??N
 export let Trend_Hit = (props) => {
     abortController = new AbortController();
     const [activeDataService, setActiveDataService] = useState(true);
@@ -1123,55 +1069,90 @@ export let Button_Bar = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>> Brand_RCM
 export let Recommend_Brand = (props) => {
-    const { loadData, navigation } = props;
-    let recommendBrand = () => {
-        return loadData &&
-            loadData.map((item, index) => {
-                var dataMySQL = `${ip}/MySQL/uploads/Brand_R/${item.image}`;
-                // var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
-                return (
-                    <TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigateScreen({
-                        goScreen: 'Recommend_Brand', navigation
-                    })}>
-                        <View style={stylesMain.Brand_image_Box}>
-                            <FastImage
-                                style={[stylesMain.Brand_image_RCM, stylesMain.ItemCenterVertical]}
-                                source={{
-                                    uri: dataMySQL,
-
-                                }}
-                                resizeMode={FastImage.resizeMode.contain} />
-                        </View>
-                    </TouchableOpacity>
-                );
-            });
-    };
-    return (
-        <View style={[stylesMain.FrameBackground2, stylesMain.FrameBackground_Height]}>
-            <View style={stylesMain.FrameBackgroundTextBox}>
-                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize4, stylesFont.FontFamilyBold]}>
-                    แบรนด์แนะนำ</Text>
-                <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+    const { dataService, navigation, } = props;
+    let boxEmpty = (
+        [0, 1, 2, 3, 4, 5].map((_, index) => {
+            return (
+                <View key={index} style={[stylesMain.Brand_image_Box, { backgroundColor: '#ECECEC' }]}>
+                    <View style={[stylesMain.Brand_image_RCM, stylesMain.ItemCenterVertical]} />
+                </View>
+            )
+        })
+    )
+    let recommendBrand = (
+        dataService &&
+        dataService.brand.map((item, index) => {
+            var dataMySQL = `${ip}/MySQL/uploads/Brand_R/${item.image}`;
+            // var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
+            return (
+                <TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigateScreen({
                     goScreen: 'Recommend_Brand', navigation
                 })}>
-                    <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
-                        ดูทั้งหมด</Text>
+                    <View style={stylesMain.Brand_image_Box}>
+                        <FastImage
+                            style={[stylesMain.Brand_image_RCM, stylesMain.ItemCenterVertical]}
+                            source={{
+                                uri: dataMySQL,
+                            }}
+                            resizeMode={FastImage.resizeMode.contain} />
+                    </View>
                 </TouchableOpacity>
-            </View>
-            <ScrollView horizontal>
-                <View style={stylesMain.FrameBackground_Box}>
-                    {recommendBrand()}
+            );
+        })
+    );
+    return (
+        dataService ?
+            <View style={[stylesMain.FrameBackground2, stylesMain.FrameBackground_Height]}>
+                <View style={stylesMain.FrameBackgroundTextBox}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize4, stylesFont.FontFamilyBold]}>
+                        แบรนด์แนะนำ</Text>
+                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Recommend_Brand', navigation
+                    })}>
+                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
+                            ดูทั้งหมด</Text>
+                    </TouchableOpacity>
                 </View>
-            </ScrollView>
-        </View>
+                <ScrollView horizontal>
+                    <View style={stylesMain.FrameBackground_Box}>
+                        {recommendBrand}
+                    </View>
+                </ScrollView>
+            </View> :
+            <View style={[stylesMain.FrameBackground2, stylesMain.FrameBackground_Height]}>
+                <View style={stylesMain.FrameBackgroundTextBox}>
+                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize4, stylesFont.FontFamilyBold]}>
+                        แบรนด์แนะนำ</Text>
+                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Recommend_Brand', navigation
+                    })}>
+                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
+                            ดูทั้งหมด</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={stylesMain.FrameBackground_Box}>
+                    {
+                        boxEmpty
+                    }
+                </View>
+            </View>
     );
 };
 ///----------------------------------------------------------------------------------------------->>>> Popular_store
 export let Popular_store = (props) => {
-    const { loadData, navigation } = props;
-    let PopularStoreItem = () => {
-        return loadData &&
-            loadData.map((item, index) => {
+    const { dataService, navigation, } = props;
+    let boxEmpty = (
+        [0, 1].map((_, index) => {
+            return (
+                <View key={index} style={stylesMain.BoxStore1Box}>
+                    <View style={[stylesMain.BoxStore1Image, { backgroundColor: '#ECECEC' }]} />
+                </View>
+            );
+        })
+    );
+    let PopularStoreItem = (
+        dataService && dataService.store_good ?
+            dataService.store_good.map((item, index) => {
                 var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
                 return (
                     <TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigateScreen({
@@ -1187,8 +1168,9 @@ export let Popular_store = (props) => {
                         </View>
                     </TouchableOpacity>
                 );
-            });
-    };
+            }) :
+            boxEmpty
+    );
     return (
         <View style={stylesMain.FrameBackground2}>
             <View style={stylesMain.FrameBackgroundTextBox}>
@@ -1196,47 +1178,62 @@ export let Popular_store = (props) => {
                     ร้านที่ใช่อยากให้ช้อป</Text>
             </View>
             <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 3.3, justifyContent: 'space-between' }]} >
-                {PopularStoreItem()}
+                {PopularStoreItem}
             </View>
         </View>
     );
 };
 ///----------------------------------------------------------------------------------------------->>>> Popular_product
 export let Popular_product = (props) => {
-    const { loadData, navigation } = props;
-    let productCate = (type) => {
-        return type.map((item, index) => {
-            var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
-            return index < 2 && (
-                <View style={{ width: width * 0.22 }} key={index}>
-                    <View style={[stylesMain.Popular_Box_D, { backgroundColor: '#FFFFFF', padding: 5, borderRadius: 5 }]}>
-                        <FastImage
-                            style={stylesMain.Popular_image_Box}
-                            source={{
-                                uri: dataMySQL,
-                            }}
-                            resizeMode={FastImage.resizeMode.stretch} />
+    const { dataService, navigation, } = props;
+    let boxEmpty = (
+        [0, 1].map((_, index) => {
+            return (
+                <View key={index} style={{ width: width * 0.22 }}>
+                    <View style={[stylesMain.Popular_Box_D, { backgroundColor: '#ECECEC', padding: 5, borderRadius: 5 }]}>
+                        <View style={stylesMain.Popular_image_Box} />
                     </View>
                     <View style={[stylesMain.ItemCenter, { width: width * 0.20, }]}>
-                        <Text numberOfLines={1} style={[stylesFont.FontSize8, stylesFont.FontFamilyText]}>{item.name}</Text>
-                        <NumberFormat
-                            value={item.full_price}
-                            displayType={'text'}
-                            thousandSeparator={true}
-                            prefix={'฿'}
-                            renderText={value =>
-                                <Text style={[
-                                    stylesMain.BoxProduct1ImagePrice,
-                                    stylesFont.FontSize8,
-                                    stylesFont.FontFamilyBold,
-
-                                ]}>
-                                    {value}</Text>
-                            } />
                     </View>
                 </View>
-            );
-        });
+            )
+        })
+    )
+    let productCate = (type) => {
+        return type ?
+            type.map((item, index) => {
+                var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
+                return index < 2 && (
+                    <View style={{ width: width * 0.22 }} key={index}>
+                        <View style={[stylesMain.Popular_Box_D, { backgroundColor: '#FFFFFF', padding: 5, borderRadius: 5 }]}>
+                            <FastImage
+                                style={stylesMain.Popular_image_Box}
+                                source={{
+                                    uri: dataMySQL,
+                                }}
+                                resizeMode={FastImage.resizeMode.stretch} />
+                        </View>
+                        <View style={[stylesMain.ItemCenter, { width: width * 0.20, }]}>
+                            <Text numberOfLines={1} style={[stylesFont.FontSize8, stylesFont.FontFamilyText]}>{item.name}</Text>
+                            <NumberFormat
+                                value={item.full_price}
+                                displayType={'text'}
+                                thousandSeparator={true}
+                                prefix={'฿'}
+                                renderText={value =>
+                                    <Text style={[
+                                        stylesMain.BoxProduct1ImagePrice,
+                                        stylesFont.FontSize8,
+                                        stylesFont.FontFamilyBold,
+
+                                    ]}>
+                                        {value}</Text>
+                                } />
+                        </View>
+                    </View>
+                );
+            }) :
+            boxEmpty;
     };
     return (
         <View>
@@ -1248,12 +1245,11 @@ export let Popular_product = (props) => {
                 <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 2.6, }]}>
                     <ScrollView horizontal>
                         {[
-                            loadData.product_hit &&
                             <TouchableOpacity
                                 key={'product_hit'}
                                 activeOpacity={1}
                                 onPress={() => NavigationNavigateScreen({
-                                    goScreen: 'Popular_productScreen', setData: { id_item: 0, loadData: loadData }, navigation
+                                    goScreen: 'Popular_productScreen', setData: { id_item: 0, }, navigation
                                 })}>
                                 <View style={[stylesMain.Popular_Box_B, { backgroundColor: '#F0F6FA' }]}>
                                     <View style={stylesMain.PopularText_A}>
@@ -1264,16 +1260,15 @@ export let Popular_product = (props) => {
                                             สินค้าสุดฮิต</Text>
                                     </View>
                                     <View style={stylesMain.FlexRow}>
-                                        {productCate(loadData.product_hit)}
+                                        {productCate(dataService && dataService.product_hit)}
                                     </View>
                                 </View>
                             </TouchableOpacity>,
-                            loadData.best_price &&
                             <TouchableOpacity
                                 key={'best_price'}
                                 activeOpacity={1}
                                 onPress={() => NavigationNavigateScreen({
-                                    goScreen: 'Popular_productScreen', setData: { id_item: 1, loadData: loadData }, navigation
+                                    goScreen: 'Popular_productScreen', setData: { id_item: 1, }, navigation
                                 })}>
                                 <View style={[stylesMain.Popular_Box_B, { backgroundColor: '#EAEEF7' }]}>
                                     <View style={stylesMain.PopularText_A}>
@@ -1283,16 +1278,15 @@ export let Popular_product = (props) => {
                                             สินค้าราคาโดน</Text>
                                     </View>
                                     <View style={stylesMain.FlexRow}>
-                                        {productCate(loadData.best_price)}
+                                        {productCate(dataService && dataService.best_price)}
                                     </View>
                                 </View>
                             </TouchableOpacity>,
-                            loadData.best_sale &&
                             <TouchableOpacity
                                 key={'best_sale'}
                                 activeOpacity={1}
                                 onPress={() => NavigationNavigateScreen({
-                                    goScreen: 'Popular_productScreen', setData: { id_item: 2, loadData: loadData }, navigation
+                                    goScreen: 'Popular_productScreen', setData: { id_item: 2, }, navigation
                                 })}>
                                 <View style={[stylesMain.Popular_Box_B, { backgroundColor: '#F0F6FA' }]}>
                                     <View style={stylesMain.PopularText_A}>
@@ -1302,16 +1296,15 @@ export let Popular_product = (props) => {
                                             สินค้าขายดี</Text>
                                     </View>
                                     <View style={stylesMain.FlexRow}>
-                                        {productCate(loadData.best_sale)}
+                                        {productCate(dataService && dataService.best_sale)}
                                     </View>
                                 </View>
                             </TouchableOpacity>,
-                            loadData.best_cool &&
                             <TouchableOpacity
                                 key={'best_cool'}
                                 activeOpacity={1}
                                 onPress={() => NavigationNavigateScreen({
-                                    goScreen: 'Popular_productScreen', setData: { id_item: 3, loadData: loadData }, navigation
+                                    goScreen: 'Popular_productScreen', setData: { id_item: 3, }, navigation
                                 })}>
                                 <View style={[stylesMain.Popular_Box_B, { backgroundColor: '#EAEEF7' }]}>
                                     <View style={stylesMain.PopularText_A}>
@@ -1321,7 +1314,7 @@ export let Popular_product = (props) => {
                                             สินค้าสุดคูล</Text>
                                     </View>
                                     <View style={stylesMain.FlexRow}>
-                                        {productCate(loadData.best_cool)}
+                                        {productCate(dataService && dataService.best_cool)}
                                     </View>
                                 </View>
                             </TouchableOpacity>
@@ -1373,46 +1366,43 @@ export let BannerBar_THREE = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>> FlashSale
 export let FlashSale = (props) => {
-    const { navigation } = props;
-    abortController = new AbortController();
-    const [activeDataService, setActiveDataService] = useState(true);
+    const { getFetchData, navigation, setFetchToStart, } = props;
     const [curTime, setCurTime] = useState(new Date());
-    const [dataService, setDataService] = useState(undefined);
     const [endTime, setEndTime] = useState(undefined);
+    const [saveTime, setSaveTime] = useState(undefined);
     const [hours, setHours] = useState(0);
     const [minutes, setMinutes] = useState(0);
     const [seconds, setSeconds] = useState(0);
     useEffect(() => {
-        let intervalID = setInterval(() => setCurTime(new Date()), 1000);
-        return () => clearInterval(intervalID);
-    })
-    var uri = `${finip}/flashsale/flash_timer`;
-    useEffect(() => {
-        activeDataService == true &&
-            GetServices({
-                abortController, uriPointer: uri, getDataSource: value => {
-                    var flash_end = value.flash_end && value.flash_end.split(':');
-                    setActiveDataService(false);
-                    setDataService(value);
+        let intervalID = setInterval(() => {
+            setCurTime(new Date());
+            if (getFetchData['flash_timer'] && getFetchData['flash_timer'].isFetching == false && getFetchData['flash_timer'].data) {
+                var flash_end = getFetchData['flash_timer'].data.flash_end && getFetchData['flash_timer'].data.flash_end.split(':');
+                if (saveTime != flash_end) {
+                    console.log('saveTime')
+                    console.log(saveTime)
+                    console.log('flash_end')
+                    console.log(flash_end)
+                    setSaveTime(flash_end)
                     setEndTime(new Date().setHours(
-                        flash_end ? Number(flash_end[0]) : 0, flash_end ? Number(flash_end[1]) : 0, flash_end ?
-                        Number(flash_end[2]) : 0)
+                        flash_end ? Number(flash_end[0]) : 0, flash_end ? Number(flash_end[1]) : 0, flash_end ? Number(flash_end[2]) : 0)
                     );
-
-                }
-            });
-    }, [activeDataService]);
+                };
+            }
+        }, 1000);
+        return () => clearInterval(intervalID);
+    });
     useEffect(() => {
         var h = 0;
         var m = 0;
         var s = 0;
-        if (endTime) {
-            h = Number(new Date(endTime).getHours()) - Number(new Date(curTime).getHours());
-            if ((Number(new Date(endTime).getDate()) - Number(new Date(curTime).getDate())) > 0) {
-                h = hours + ((Number(new Date(endTime).getDate()) - Number(new Date(curTime).getDate())) * 24);
+        if (endTime && getFetchData['flash_timer'] && getFetchData['flash_timer'].isFetching == false && getFetchData['flash_timer'].data) {
+            h = Number(new Date(endTime).getHours()) - Number(curTime.getHours());
+            if ((Number(new Date(endTime).getDate()) - Number(curTime.getDate())) > 0) {
+                h = h + ((Number(new Date(endTime).getDate()) - Number(curTime.getDate())) * 24);
             };
-            m = Number(new Date(endTime).getMinutes()) - Number(new Date(curTime).getMinutes());
-            s = Number(new Date(endTime).getSeconds()) - Number(new Date(curTime).getSeconds());
+            m = Number(new Date(endTime).getMinutes()) - Number(curTime.getMinutes());
+            s = Number(new Date(endTime).getSeconds()) - Number(curTime.getSeconds());
             if (h > 0 && (m < 0 || s < 0)) {
                 h = h - 1;
                 m = 60 + m;
@@ -1421,9 +1411,10 @@ export let FlashSale = (props) => {
                 m = m - 1;
                 s = 60 + s;
             };
-            if (dataService && dataService.error == undefined && activeDataService == false && h <= 0 && m <= 0 && s <= 0) {
-                setActiveDataService(true);
-                setDataService(undefined);
+            if (getFetchData['flash_timer'] && getFetchData['flash_timer'].data && getFetchData['flash_timer'].isError == false &&
+                getFetchData['flash_timer'].isFetching == false && hours <= 0 && m <= 0 && s <= 0) {
+                setFetchToStart({ name: 'flash_timer' });
+                setEndTime(undefined);
             };
             setHours(h);
             setMinutes(m);
@@ -1431,7 +1422,7 @@ export let FlashSale = (props) => {
         };
     }, [curTime])
     return (
-        activeDataService == false && dataService ?
+        getFetchData['flash_timer'] && getFetchData['flash_timer'].data ?
             <View style={stylesMain.FrameBackground2}>
                 <View style={stylesMain.FrameBackgroundTextBox}>
                     <View style={[stylesMain.FlexRow, { marginTop: 5, flex: 70 }]}>
@@ -1465,20 +1456,90 @@ export let FlashSale = (props) => {
                     </TouchableOpacity>
                 </View>
                 {
-                    dataService && dataService.product &&
-                    <FlatProduct custumNavigation='FlashSaleScreen' navigation={navigation} dataService={dataService.product}
+                    getFetchData['flash_timer'] && getFetchData['flash_timer'].data.product &&
+                    <FlatProduct {...props} custumNavigation='FlashSaleScreen' dataService={getFetchData['flash_timer'].data.product}
                         mode='row4' nameFlatProduct='FlashSaleProduct' nameSize={11} priceSize={12} dispriceSize={12} />
                 }
             </View> :
-            <></>
+            <View style={stylesMain.FrameBackground2}>
+                <View style={stylesMain.FrameBackgroundTextBox}>
+                    <View style={[stylesMain.FlexRow, { marginTop: 5, flex: 70 }]}>
+                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBoldBold, stylesFont.FontSize4, {
+                            color: '#dc3545', flex: 34
+                        }]}>
+                            FLASH SALE</Text>
+                        <View style={[stylesMain.FlexRow, { marginTop: 4, flex: 66 }]}>
+                            <IconFontAwesome name='clock-o' size={30} />
+                            <View style={{ flexDirection: 'row', flex: 70, paddingTop: 6 }}>
+                                <View style={[stylesMain.Time_FlashSale_TimeBox, stylesMain.ItemCenter]}>
+                                    <Text style={[stylesMain.Time_FlashSale_TimeText, stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
+                                        00</Text>
+                                </View>
+                                <View style={[stylesMain.Time_FlashSale_TimeBox, stylesMain.ItemCenter]}>
+                                    <Text style={[stylesMain.Time_FlashSale_TimeText, stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
+                                        00</Text>
+                                </View>
+                                <View style={[stylesMain.Time_FlashSale_TimeBox, stylesMain.ItemCenter]}>
+                                    <Text style={[stylesMain.Time_FlashSale_TimeText, stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
+                                        00</Text>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'FlashSaleScreen', navigation
+                    })}>
+                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText, { flex: 30 }]}>
+                            ดูทั้งหมด</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={{ flexDirection: 'row' }}>
+                    {
+                        [0, 1, 2, 3, 4].map((_, index) => {
+                            return (
+                                <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct5Box]}>
+                                    <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct5ImageofLines, {
+                                        backgroundColor: '#ECECEC'
+                                    }]}>
+                                        <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.015, }]}>
+                                        </View>
+                                    </View>
+                                    <View style={{
+                                        height: 55,
+                                        paddingHorizontal: 3
+                                    }} />
+                                </View>
+                            )
+                        })
+                    }
+                </View>
+            </View>
     );
 };
 ///----------------------------------------------------------------------------------------------->>>> PromotionPopular
 export let PromotionPopular = (props) => {
-    const { loadData, navigation } = props;
-    let dataPromotionPopular = () => {
-        return loadData &&
-            loadData.map((item, index) => {
+    const { dataService, navigation, } = props;
+    let boxEmpty = (
+        [0, 1, 2].map((_, index) => {
+            return (
+                <View key={index} style={[stylesMain.BoxStore2Box2]}>
+                    <View style={[stylesMain.BoxStore2Image2, { backgroundColor: '#ECECEC' }]}></View>
+                    <View style={{
+                        paddingHorizontal: 4, padding: 1, backgroundColor: mainColor, borderBottomLeftRadius: 8,
+                        borderBottomRightRadius: 8
+                    }}>
+                        <Text numberOfLines={1} style={[
+                            stylesFont.FontFamilyText, stylesFont.FontSize7, { color: mainColor, marginLeft: 2 }
+                        ]}>
+                            NaN</Text>
+                    </View>
+                </View>
+            )
+        })
+    )
+    let dataPromotionPopular = (
+        dataService && dataService.recommend_store ?
+            dataService.recommend_store.map((item, index) => {
                 var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
                 return (
                     <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
@@ -1504,8 +1565,9 @@ export let PromotionPopular = (props) => {
                         </View>
                     </TouchableOpacity>
                 );
-            });
-    };
+            }) :
+            boxEmpty
+    );
     return (
         <View style={stylesMain.FrameBackground2}>
             <View style={stylesMain.FrameBackgroundTextBox}>
@@ -1520,7 +1582,7 @@ export let PromotionPopular = (props) => {
             </View>
             <View style={{ height: 'auto', aspectRatio: 2.8 }}>
                 <ScrollView horizontal>
-                    {dataPromotionPopular()}
+                    {dataPromotionPopular}
                 </ScrollView>
             </View>
         </View>
@@ -1528,7 +1590,27 @@ export let PromotionPopular = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>> Product_for_you
 export let Product_for_you = (props) => {
-    const { loadData, navigation } = props;
+    const { dataService, navigation, } = props;
+    let boxEmpty = (
+        [0, 1, 2, 3, 4, 5].map((_, index) => {
+            return (
+                <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2]}>
+                    <View style={[stylesMain.ItemCenter, {
+                        backgroundColor: '#ECECEC', width: 115
+                    }]}>
+                        <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, {
+                            marginVertical: height * 0.015,
+                        }]}>
+                        </View>
+                    </View>
+                    <View style={{
+                        height: 55,
+                        paddingHorizontal: 3
+                    }} />
+                </View>
+            )
+        })
+    );
     return (
         <View style={[stylesMain.FrameBackground2]}>
             <View style={stylesMain.FrameBackgroundTextBox}>
@@ -1542,16 +1624,41 @@ export let Product_for_you = (props) => {
                 </TouchableOpacity>
             </View>
             {
-                loadData && loadData.length > 0 &&
-                <FlatProduct navigation={navigation} dataService={loadData} NumberOfcolumn={2} nameFlatProduct='Product_for_you'
-                    mode='row3' nameSize={14} priceSize={15} dispriceSize={15} />
+                dataService && dataService.for_you && dataService.for_you.length > 0 ?
+                    <FlatProduct {...props} dataService={dataService.for_you} numberOfColumn={2}
+                        nameFlatProduct='Product_for_you' mode='row3' nameSize={14} priceSize={15} dispriceSize={15} /> :
+                    <View style={{ flexDirection: 'column', flexWrap: 'wrap', height: (115 + 55) * 2, }}>
+                        {
+                            boxEmpty
+                        }
+                    </View>
             }
         </View>
     );
 };
 ///----------------------------------------------------------------------------------------------->>>> Highlight
 export let Highlight = (props) => {
-    const { loadData, navigation } = props;
+    const { dataService, navigation, } = props;
+    let boxEmpty = (
+        [0, 1, 2, 3].map((_, index) => {
+            return (
+                <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2]}>
+                    <View style={[stylesMain.ItemCenter, {
+                        backgroundColor: '#ECECEC', width: 115
+                    }]}>
+                        <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, {
+                            marginVertical: height * 0.015,
+                        }]}>
+                        </View>
+                    </View>
+                    <View style={{
+                        height: 55,
+                        paddingHorizontal: 3
+                    }} />
+                </View>
+            )
+        })
+    )
     return (
         <View style={stylesMain.FrameBackground2}>
             <View style={stylesMain.FrameBackgroundTextBox}>
@@ -1565,40 +1672,56 @@ export let Highlight = (props) => {
                 </TouchableOpacity>
             </View>
             {
-                loadData &&
-                <FlatProduct navigation={navigation} dataService={loadData} NumberOfcolumn={1}
-                    nameFlatProduct='Second_product' mode='row3' nameSize={14} priceSize={15} dispriceSize={15} />
+                dataService ?
+                    <FlatProduct {...props} dataService={dataService.hi_week} numberOfColumn={1}
+                        nameFlatProduct='Second_product' mode='row3' nameSize={14} priceSize={15} dispriceSize={15} /> :
+                    <View style={{ flexDirection: 'row' }}>
+                        {
+                            boxEmpty
+                        }
+                    </View>
             }
         </View>
     );
 };
 ///----------------------------------------------------------------------------------------------->>>> NewStore
 export let NewStore = (props) => {
-    const { loadData, navigation } = props;
-    let dataNewStore = () => {
-        return loadData &&
-            loadData.map((item, index) => {
-                var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
+    const { dataService, navigation, } = props;
+    let boxEmpty = (
+        dataService ?
+            dataNewStore :
+            [0, 1].map((_, index) => {
                 return (
-                    <TouchableOpacity activeOpacity={1} key={index}
-                        onPress={() => NavigationNavigateScreen({
-                            goScreen: 'Recommend_Store', setData: {
-                                id_slide: item.id, uri_path: 'publish_store/store_total', name_path: 'store_total'
-                            }, navigation
-                        })}
-                    >
-                        <View style={stylesMain.BoxStore1Box}>
-                            <FastImage
-                                source={{
-                                    uri: dataMySQL,
-                                }}
-                                style={stylesMain.BoxStore1Image}
-                                resizeMode={FastImage.resizeMode.cover} />
-                        </View>
-                    </TouchableOpacity>
-                );
-            });
-    };
+                    <View key={index} style={[stylesMain.BoxStore1Box, { backgroundColor: '#ECECEC' }]}>
+                        <View style={stylesMain.BoxStore1Image} />
+                    </View>
+                )
+            })
+    )
+    let dataNewStore = (
+        dataService &&
+        dataService.dont_miss.map((item, index) => {
+            var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
+            return (
+                <TouchableOpacity activeOpacity={1} key={index}
+                    onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Recommend_Store', setData: {
+                            id_slide: item.id, uri_path: 'publish_store/store_total', name_path: 'store_total'
+                        }, navigation
+                    })}
+                >
+                    <View style={stylesMain.BoxStore1Box}>
+                        <FastImage
+                            source={{
+                                uri: dataMySQL,
+                            }}
+                            style={stylesMain.BoxStore1Image}
+                            resizeMode={FastImage.resizeMode.cover} />
+                    </View>
+                </TouchableOpacity>
+            );
+        })
+    );
     return (
         <View style={stylesMain.FrameBackground2}>
             <View style={stylesMain.FrameBackgroundTextBox}>
@@ -1606,7 +1729,9 @@ export let NewStore = (props) => {
                     ร้านค้าห้ามพลาด!!่</Text>
             </View>
             <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 3.3, justifyContent: 'space-between' }]}>
-                {dataNewStore()}
+                {
+                    boxEmpty
+                }
             </View>
         </View>
     );
@@ -1614,6 +1739,26 @@ export let NewStore = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> Exclusive
 export let Exclusive = (props) => {
     const { loadData, navigation } = props;
+    let boxEmpty = (
+        [0, 1, 2, 3, 4, 5].map((_, index) => {
+            return (
+                <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2]}>
+                    <View style={[stylesMain.ItemCenter, {
+                        backgroundColor: '#ECECEC', width: 115
+                    }]}>
+                        <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, {
+                            marginVertical: height * 0.015,
+                        }]}>
+                        </View>
+                    </View>
+                    <View style={{
+                        height: 55,
+                        paddingHorizontal: 3
+                    }} />
+                </View>
+            )
+        })
+    );
     return (
         <View style={stylesMain.FrameBackground2}>
             <View style={stylesMain.FrameBackgroundTextBox}>
@@ -1626,145 +1771,226 @@ export let Exclusive = (props) => {
                 </TouchableOpacity>
             </View>
             {
-                loadData &&
-                <FlatProduct navigation={navigation} dataService={loadData} NumberOfcolumn={1} nameFlatProduct='ExclusiveProduct'
-                    mode='row3' nameSize={14} priceSize={15} dispriceSize={15} />
+                loadData ?
+                    <FlatProduct {...props} dataService={loadData} numberOfColumn={1} nameFlatProduct='ExclusiveProduct'
+                        mode='row3' nameSize={14} priceSize={15} dispriceSize={15} /> :
+                    <View style={{ flexDirection: 'row' }}>
+                        {
+                            boxEmpty
+                        }
+                    </View>
+
             }
         </View>
     );
 };
 ///----------------------------------------------------------------------------------------------->>>> CategoryProduct
-export let CategoryProduct = (props) => {
-    const { navigation, NoStoreReCom, } = props;
-    abortController = new AbortController();
-    const [activeDataService, setActiveDataService] = useState(true);
-    const [activeProductMobile, setActiveProductMobile] = useState(true);
-    const [dataService, setDataService] = useState(undefined);
-    var uri = `${finip}/home/category_mobile`;
+export function CategoryProduct_new(props) {
+    const { dataService, fetchData, getFetchData, navigation, NoStoreReCom, } = props;
+    var mix_color = color_up(dataService.bg_m);
     useEffect(() => {
-        activeDataService == true &&
-            GetServices({
-                abortController, uriPointer: uri, getDataSource: value => {
-                    setActiveDataService(false);
-                    setDataService(value);
+        if (getFetchData[`category_product|${dataService.id_type}`] == undefined ||
+            (getFetchData[`category_product|${dataService.id_type}`] &&
+                getFetchData[`category_product|${dataService.id_type}`].isFetching)) {
+            fetchData({
+                dataBody: { id_type: dataService.id_type }, name: `category_product|${dataService.id_type}`,
+                uri: `${finip}/home/product_mobile`,
+            })
+            fetchData({
+                dataBody: { promotion: 'promotions_1', id_type: dataService.id_type, }, name: `promo_1|${dataService.id_type}`,
+                uri: `${finip}/home/publish_cate_mobile`,
+            })
+            fetchData({
+                dataBody: { promotion: 'promotions_2', id_type: dataService.id_type, }, name: `promo_2|${dataService.id_type}`,
+                uri: `${finip}/home/publish_cate_mobile`,
+            })
+            fetchData({
+                dataBody: { promotion: 'shop', id_type: dataService.id_type, }, name: `shop|${dataService.id_type}`,
+                uri: `${finip}/home/publish_cate_mobile`,
+            })
+        }
+    }, [getFetchData[`category_product|${dataService.id_type}`] == undefined ||
+        (getFetchData[`category_product|${dataService.id_type}`] &&
+            getFetchData[`category_product|${dataService.id_type}`].isFetching)]);
+    var dataMySQL = `${finip}/${dataService.image_path}/${dataService.image_menu}`;
+    let dataCategory = (
+        <View style={[stylesMain.FrameBackground2, {
+            backgroundColor: dataService.bg_m,
+        }]}>
+            <>
+                {
+                    <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                        goScreen: 'CategoryScreen', setData: { id_type: dataService.id_type }, navigation,
+                    })}>
+                        <FastImage
+                            source={{
+                                uri: dataMySQL,
+                            }}
+                            style={[stylesMain.CategoryProductImageHead]}
+                            resizeMode={FastImage.resizeMode.contain} />
+                    </TouchableOpacity>
                 }
-            });
-    }, [activeDataService]);
-    let dataCategory = () => {
-        return dataService &&
-            dataService.map((item, index) => {
-                if (index < 10 /*dataService.length*/) {
-                    var dataMySQL = `${finip}/${item.image_path}/${item.image_menu}`;
-                    return (
-                        <View key={index} style={[stylesMain.FrameBackground2, {
-                            marginTop: activeProductMobile == false ? 10 : 0,
-                            backgroundColor: activeProductMobile == false ? item.bg_m : 'transparent',
-                            paddingBottom: activeProductMobile == false ? 4 : 0,
-                        }]}>
-                            <>
-                                {
-                                    activeProductMobile == false &&
-                                    <TouchableOpacity onPress={() => NavigationNavigateScreen({
-                                        goScreen: 'CategoryScreen', setData: { id_type: item.id_type }, navigation,
-                                    })}>
-                                        <FastImage
-                                            source={{
-                                                uri: dataMySQL,
-                                            }}
-                                            style={[stylesMain.CategoryProductImageHead]}
-                                            resizeMode={FastImage.resizeMode.contain} />
-                                    </TouchableOpacity>
-                                }
-                                <CategoryProductSubProduct activeProductMobile={activeProductMobile}
-                                    getActiveProductMobile={value => setActiveProductMobile(value)} navigation={navigation}
-                                    headerData={item} id_type={item.id_type} />
-                            </>
-                            {
-                                NoStoreReCom ?
-                                    <View style={{ marginBottom: 10, }}>
-                                        <View style={{ marginTop: 10, }}>
-                                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
-                                                marginLeft: 8, color: '#fff'
-                                            }]}>
-                                                ร้านนี้ผ่อนได้ </Text>
-                                        </View>
-                                        <CategoryProductSubStore navigation={navigation} id_type={item.id_type} />
-                                    </View> :
-                                    <View style={{ marginBottom: 0, }}>
-                                        <CategoryProductSubPromotion navigation={navigation} id_type={item.id_type} />
-                                    </View>
-                            }
+                <CategoryProductSubProduct {...props} id_type={dataService.id_type} />
+            </>
+            {
+                NoStoreReCom ?
+                    <View style={{ marginBottom: 10, }}>
+                        <View style={{ marginTop: 10, }}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
+                                marginLeft: 8, color: '#fff'
+                            }]}>
+                                ร้านนี้ผ่อนได้ </Text>
                         </View>
-                    );
-                }
-            });
-    };
+                        <CategoryProductSubStore {...props} id_type={dataService.id_type} mix_color={mix_color} />
+                    </View> :
+                    <View style={{ marginBottom: 0, }}>
+                        <CategoryProductSubPromotion {...props} id_type={dataService.id_type} mix_color={mix_color} />
+                    </View>
+            }
+        </View>
+    );
     return (
         <View>
-            {dataCategory()}
+            {dataCategory}
+        </View>
+    );
+};
+///----------------------------------------------------------------------------------------------->>>> CategoryProduct
+export function CategoryProduct(props) {
+    const { fetchData, getFetchData, navigation, NoStoreReCom, } = props;
+    let dataCategory = (
+        getFetchData['category_mobile'] && getFetchData['category_mobile'].data &&
+        getFetchData['category_mobile'].data.map((item, index) => {
+            var mix_color = color_up(item.bg_m);
+            if (index < 20 /*getFetchData['category_mobile'].length*/) {
+                useEffect(() => {
+                    if (getFetchData[`category_product|${item.id_type}`] == undefined ||
+                        (getFetchData[`category_product|${item.id_type}`] &&
+                            getFetchData[`category_product|${item.id_type}`].isFetching)) {
+                        fetchData({
+                            dataBody: { id_type: item.id_type }, name: `category_product|${item.id_type}`,
+                            uri: `${finip}/home/product_mobile`,
+                        })
+                        fetchData({
+                            dataBody: { promotion: 'promotions_1', id_type: item.id_type, }, name: `promo_1|${item.id_type}`,
+                            uri: `${finip}/home/publish_cate_mobile`,
+                        })
+                        fetchData({
+                            dataBody: { promotion: 'promotions_2', id_type: item.id_type, }, name: `promo_2|${item.id_type}`,
+                            uri: `${finip}/home/publish_cate_mobile`,
+                        })
+                        fetchData({
+                            dataBody: { promotion: 'shop', id_type: item.id_type, }, name: `shop|${item.id_type}`,
+                            uri: `${finip}/home/publish_cate_mobile`,
+                        })
+                    }
+                }, [getFetchData[`category_product|${item.id_type}`] == undefined ||
+                    (getFetchData[`category_product|${item.id_type}`] &&
+                        getFetchData[`category_product|${item.id_type}`].isFetching)]);
+                var dataMySQL = `${finip}/${item.image_path}/${item.image_menu}`;
+                return (
+                    <View key={index} style={[stylesMain.FrameBackground2, {
+                        backgroundColor: item.bg_m,
+                    }]}>
+                        <>
+                            {
+                                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                                    goScreen: 'CategoryScreen', setData: { id_type: item.id_type }, navigation,
+                                })}>
+                                    <FastImage
+                                        source={{
+                                            uri: dataMySQL,
+                                        }}
+                                        style={[stylesMain.CategoryProductImageHead]}
+                                        resizeMode={FastImage.resizeMode.contain} />
+                                </TouchableOpacity>
+                            }
+                            <CategoryProductSubProduct {...props} id_type={item.id_type} />
+                        </>
+                        {
+                            NoStoreReCom ?
+                                <View style={{ marginBottom: 10, }}>
+                                    <View style={{ marginTop: 10, }}>
+                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
+                                            marginLeft: 8, color: '#fff'
+                                        }]}>
+                                            ร้านนี้ผ่อนได้ </Text>
+                                    </View>
+                                    <CategoryProductSubStore {...props} id_type={item.id_type} mix_color={mix_color} />
+                                </View> :
+                                <View style={{ marginBottom: 0, }}>
+                                    <CategoryProductSubPromotion {...props} id_type={item.id_type} mix_color={mix_color} />
+                                </View>
+                        }
+                    </View>
+                );
+            };
+        })
+    );
+    return (
+        <View>
+            {dataCategory}
         </View>
     );
 };
 ///----------------------------------------------------------------------------------------------->>>> CategoryProductSubProduct
 export let CategoryProductSubProduct = (props) => {
-    const { activeProductMobile, getActiveProductMobile, headerData, id_type, navigation } = props;
-    abortController = new AbortController();
-    const [dataService, setDataService] = useState(undefined);
-    var uri = `${finip}/home/product_mobile`;
-    var dataBody = {
-        id_type: id_type
-    };
-    useEffect(() => {
-        activeProductMobile == true && id_type &&
-            GetServices({
-                abortController, nameFunction: headerData.name, uriPointer: uri, dataBody,
-                getDataSource: value => {
-                    getActiveProductMobile(false);
-                    setDataService(value)
-                }
-            });
-    }, [activeProductMobile])
+    const { getFetchData, id_type, navigation, } = props;
+    let boxEmpty = (
+        [0, 1, 2,].map((_, index) => {
+            return (
+                <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2new, { borderColor: '#DCDCDC' }]}>
+                    <View style={[stylesMain.ItemCenter, {
+                        backgroundColor: '#ECECEC', width: 119
+                    }]}>
+                        <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, {
+                            marginVertical: height * 0.015,
+                        }]}>
+                        </View>
+                    </View>
+                    <View style={{
+                        height: 55,
+                        paddingHorizontal: 3
+                    }} />
+                </View>
+            );
+        }));
     return (
         <>
             {
-                dataService && dataService.length > 0 ?
-                    <FlatProduct navigation={navigation} dataService={dataService} NumberOfcolumn={2} nameFlatProduct='CategoryProduct'
-                        mode='row3_new' nameSize={14} priceSize={15} dispriceSize={13} /> :
-                    <></>
+                getFetchData[`category_product|${id_type}`] && getFetchData[`category_product|${id_type}`].isFetching == false &&
+                    getFetchData[`category_product|${id_type}`].data.length > 0 ?
+                    <FlatProduct {...props} dataService={getFetchData[`category_product|${id_type}`].data} numberOfColumn={2}
+                        nameFlatProduct='CategoryProduct' mode='row3_new' nameSize={14} priceSize={15} dispriceSize={13} /> :
+                    <View>
+                        <View style={{ flexDirection: 'row' }}>
+                            {
+                                boxEmpty
+                            }
+                        </View>
+                        <View style={{ flexDirection: 'row' }}>
+                            {
+                                boxEmpty
+                            }
+                        </View>
+                    </View>
             }
         </>
     );
 };
 ///----------------------------------------------------------------------------------------------->>>> CategoryProductSubStore
 export let CategoryProductSubStore = (props) => {
-    const { id_type, } = props;
-    abortController = new AbortController();
-    const [activeDataService, setActiveDataService] = useState(true);
-    const [dataService, setDataService] = useState(undefined);
-    var uri = `${finip}/home/publish_cate_mobile`;
-    var dataBody = {
-        promotion: 'shop',
-        id_type: id_type,
-    };
-    useEffect(() => {
-        activeDataService == true &&
-            GetServices({
-                abortController, uriPointer: uri, dataBody, getDataSource: value => {
-                    setActiveDataService(false);
-                    setDataService(value);
-                },
-            });
-    }, [activeDataService]);
-    let _renderItem = (item, index) => {
-        var dataMySQL = `${finip}/${item.image_path}/mobile/${item.image}`;
+    const { getFetchData, id_type, mix_color } = props;
+    let _renderBanner = function (value) {
+        var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`;
         return (
-            <TouchableOpacity activeOpacity={1} key={index}>
-                <View style={{ width: width * 0.56, height: 57.8, marginLeft: 5 }}>
+            <TouchableOpacity activeOpacity={1} key={value.id}>
+                <View style={{ width: width * 0.56, height: 57.8, marginLeft: 5, backgroundColor: mix_color }}>
                     <Image
                         source={{
                             uri: dataMySQL,
                         }}
-                        style={stylesMain.CategoryProductStoreImage}
+                        style={[stylesMain.CategoryProductStoreImage, { backgroundColor: mix_color }]}
                         resizeMode='stretch'
                         resizeMethod='resize' />
                 </View>
@@ -1774,108 +2000,98 @@ export let CategoryProductSubStore = (props) => {
     return (
         <>
             {
-                dataService && dataService.banner && dataService.banner.length > 0 ?
+                getFetchData[`shop|${id_type}`] && getFetchData[`shop|${id_type}`].data && getFetchData[`shop|${id_type}`].data.banner &&
+                    getFetchData[`shop|${id_type}`].data.banner.length > 0 ?
                     <Carousel
                         key={'banner'}
-                        renderItem={_renderItem}
-                        data={dataService.banner}
+                        renderItem={_renderBanner}
+                        data={getFetchData[`shop|${id_type}`].data.banner}
                         loop
                         autoplay
                         autoplayInterval={3000}
                         pagination={PaginationLight} /> :
-                    <></>
+                    <View style={{ width: width * 0.56, height: 57.8, marginLeft: 5, backgroundColor: mix_color }}>
+                        <View style={stylesMain.CategoryProductStoreImage} />
+                    </View>
             }
         </>
     );
 };
 ///----------------------------------------------------------------------------------------------->>>> CategoryProductSubPromotion
 export let CategoryProductSubPromotion = (props) => {
-    const { id_type, navigation, } = props;
-    abortController = new AbortController();
-    const [activeDataService, setActiveDataService] = useState(true);
-    const [activeDataService2, setActiveDataService2] = useState(true);
-    const [dataService, setDataService] = useState(undefined);
-    const [dataService2, setDataService2] = useState(undefined);
-    var uri = `${finip}/home/publish_cate_mobile`;
-    var dataBody = {
-        promotion: 'promotions_1',
-        id_type: id_type,
-    };
-    var dataBody2 = {
-        promotion: 'promotions_2',
-        id_type: id_type,
-    };
-    useEffect(() => {
-        activeDataService == true &&
-            GetServices({
-                abortController, uriPointer: uri, dataBody, getDataSource: value => {
-                    setActiveDataService(false);
-                    setDataService(value);
-                },
-            });
-    }, [activeDataService])
-    useEffect(() => {
-        activeDataService2 == true &&
-            GetServices({
-                abortController, uriPointer: uri, dataBody: dataBody2, getDataSource: value => {
-                    setActiveDataService2(false);
-                    setDataService2(value);
-                },
-            });
-    }, [activeDataService2])
-    let dataCategoryProductSubPromotionSmall = (dataService) => {
-        var dataMySQL = dataService && dataService.banner &&
-            `${finip}/${(dataService.banner[0].image_path)}/mobile/${(dataService.banner[0].image)}`
-        if (dataMySQL == false) { return <></> }
-        return (
-            <View style={[stylesMain.BoxStore1Box3, { width: '100%', marginTop: 6, height: 66, }]} key={dataService.banner[0].id} >
-                {
-                    dataService &&
-                    <Image
-                        source={{
-                            uri: dataMySQL,
-                        }}
-                        resizeMode='cover'
-                        resizeMethod='resize'
-                        style={stylesMain.BoxProduct1Image} />
-                }
-            </View>
-        );
-    };
-    let dataCategoryProductSubPromotionBig = (dataService) => {
-        var dataMySQL = dataService && dataService.banner &&
-            `${finip}/${(dataService.banner[0].image_path)}/mobile/${(dataService.banner[0].image)}`;
-        if (dataMySQL == false) { return <></> }
-        return (
-            <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, marginTop: 6, marginBottom: 3, }]} key={dataService.banner[0].id} >
-                {
-                    dataService &&
-                    <Image
-                        source={{
-                            uri: dataMySQL,
-                        }}
-                        resizeMode='cover'
-                        resizeMethod='resize'
-                        style={stylesMain.BoxProduct1Image} />
-                }
-            </View>
-        );
-    };
+    const { getFetchData, id_type, mix_color } = props;
+    let boxEmptySmall = (
+        <View style={[stylesMain.BoxStore1Box3, { width: '100%', marginTop: 6, height: 66, backgroundColor: mix_color, }]} >
+            <View style={stylesMain.BoxProduct1Image} />
+        </View>
+    );
+    let dataCategoryProductSubPromotionSmall = (
+        getFetchData[`promo_2|${id_type}`] && getFetchData[`promo_2|${id_type}`].data && getFetchData[`promo_2|${id_type}`].data ?
+            getFetchData[`promo_2|${id_type}`].data.banner.map((value, index) => {
+                var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`
+                return (
+                    <View style={[stylesMain.BoxStore1Box3, { width: '100%', marginTop: 6, height: 66, }]} key={index} >
+                        {
+                            value &&
+                            <Image
+                                source={{
+                                    uri: dataMySQL,
+                                }}
+                                resizeMode='cover'
+                                resizeMethod='resize'
+                                style={stylesMain.BoxProduct1Image} />
+                        }
+                    </View>
+                );
+            }) :
+            boxEmptySmall
+    );
+    let boxEmptyBig = (
+        <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, marginTop: 6, marginBottom: 3, backgroundColor: mix_color, }]} >
+            <View style={stylesMain.BoxProduct1Image} />
+        </View>
+    );
+    let dataCategoryProductSubPromotionBig = (
+
+        getFetchData[`promo_1|${id_type}`] && getFetchData[`promo_1|${id_type}`].data && getFetchData[`promo_1|${id_type}`].data ?
+            getFetchData[`promo_1|${id_type}`].data.banner.map((value, index) => {
+                var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`;
+                return (
+                    <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, marginTop: 6, marginBottom: 3, }]} key={index} >
+                        {
+                            value &&
+                            <Image
+                                source={{
+                                    uri: dataMySQL,
+                                }}
+                                resizeMode='cover'
+                                resizeMethod='resize'
+                                style={stylesMain.BoxProduct1Image} />
+                        }
+                    </View>
+                );
+            }) :
+            boxEmptyBig
+    );
     return (
         <>
-            <View style={[stylesMain.FlexRow, { width: '100%', marginTop: 2 }]}>
+            <View style={[stylesMain.FlexRow, {
+                width: '100%',
+                marginTop: 2
+            }]}>
                 <View style={{ width: width * 0.56, flexDirection: 'column', marginRight: 6 }}>
                     {
-                        dataService2 && dataService2.banner &&
-                        dataCategoryProductSubPromotionSmall(dataService2)
+                        dataCategoryProductSubPromotionSmall
                     }
-                    <View style={{ width: width * 0.56, marginTop: 6 }}>
-                        <CategoryProductSubStore navigation={navigation} id_type={id_type} />
+                    <View style={{
+                        width: width * 0.56,
+                        marginTop: 6
+                    }}>
+                        <CategoryProductSubStore {...props} id_type={id_type} mix_color={mix_color} />
                     </View>
                 </View>
                 {
-                    dataService && dataService.banner &&
-                    dataCategoryProductSubPromotionBig(dataService)
+                    dataCategoryProductSubPromotionBig
                 }
             </View>
         </>
@@ -1883,125 +2099,173 @@ export let CategoryProductSubPromotion = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>> Second_product
 export let Second_product = (props) => {
-    const { Header_Second, loadData, navigation, } = props;
-    let renderItem1 = (item) => {
-        return item.map((item, index) => {
-            var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
+    const { dataService, Header_Second, navigation, } = props;
+    let renderItem1 = (
+        dataService && dataService.list_store2_1 ?
+            dataService.list_store2_1.map((item, index) => {
+                var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
+                return (
+                    <View key={index} style={{ width: width * 0.64, height: 196 }}>
+                        <Image
+                            source={{
+                                uri: dataMySQL,
+                            }}
+                            style={stylesMain.bigSlideImage}
+                            resizeMode='cover'
+                            resizeMethod='resize' />
+                    </View>
+                );
+            }) :
+            <View style={{ width: width * 0.64, height: 196, }}>
+                <View style={[stylesMain.bigSlideImage, { backgroundColor: '#ECECEC' }]}>
+                </View>
+            </View >
+    );
+    let boxEmptyBody = (
+        [0, 1,].map((_, index) => {
             return (
-                <View key={index} style={{ width: width * 0.64, height: 196 }}>
-                    <Image
-                        source={{
-                            uri: dataMySQL,
-                            width: width * 0.64,
-                            height: 196,
-                        }}
-                        style={stylesMain.bigSlideImage}
-                        resizeMode='cover'
-                        resizeMethod='resize' />
+                <View key={index} style={stylesMain.Second_StoreFin_ImageB_T}>
+                    <View style={{ width: width * 0.32, height: 130 }}>
+                        <View style={[stylesMain.litleSlideImage, { backgroundColor: '#ECECEC' }]}></View>
+                    </View>
                 </View>
             );
-        });
-    };
-    let renderItem2 = (item) => {
-        return item.map((item, index) => {
-            var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
+        })
+    )
+    let renderItem2 = (
+        dataService && dataService.list_store2_2 ?
+            dataService.list_store2_2.map((item, index) => {
+                var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
+                return (
+                    <View key={index} style={stylesMain.Second_StoreFin_ImageB_T}>
+                        <View style={{ width: width * 0.32, height: 130 }}>
+                            <Image
+                                source={{
+                                    uri: dataMySQL,
+                                }}
+                                style={stylesMain.litleSlideImage}
+                                resizeMode='stretch'
+                                resizeMethod='resize' />
+                        </View>
+                    </View>
+                );
+            }) :
+            boxEmptyBody
+    );
+    let boxEmptyHeader = (
+        [0, 1, 2,].map((_, index) => {
             return (
-                <View key={index} style={{ width: width * 0.32, height: 130 }}>
-                    <Image
-                        source={{
-                            uri: dataMySQL,
-                            width: width * 0.32,
-                            height: 130,
-                        }}
-                        style={stylesMain.litleSlideImage}
-                        resizeMode='stretch'
-                        resizeMethod='resize' />
+                <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2new, { borderColor: '#DCDCDC' }]}>
+                    <View style={[stylesMain.ItemCenter, {
+                        backgroundColor: '#ECECEC', width: 119
+                    }]}>
+                        <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, {
+                            marginVertical: height * 0.015,
+                        }]}>
+                        </View>
+                    </View>
+                    <View style={{
+                        height: 55,
+                        paddingHorizontal: 3
+                    }} />
                 </View>
-            );
-        });
-    };
-    let Second_Storeheader = () => {
-        var url;
-        loadData.mobile_bar &&
-            loadData.mobile_bar.map((item) => { url = `${finip}/${item.image_path}/${item.image}` });
-        return (
-            <View key={'mobile_bar'} style={[stylesMain.FrameBackground2, {
-                marginTop: 0, backgroundColor: loadData.bg_m, borderBottomWidth: null
-            }]}>
-                <View>
-                    {
-                        Header_Second ?
-                            <View>
-                                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
-                                    มือสองลดราคา</Text>
-                            </View> :
+            )
+        })
+    )
+    var header_url;
+    dataService && dataService.mobile_bar.map((item) => { header_url = `${finip}/${item.image_path}/${item.image}` });
+    let Second_Storeheader = (
+        <View key={'mobile_bar'} style={[stylesMain.FrameBackground2, {
+            marginTop: 0, borderBottomWidth: null
+        }]}>
+            <View>
+                {
+                    Header_Second ?
+                        <View>
+                            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
+                                มือสองลดราคา</Text>
+                        </View> :
+                        dataService &&
+                            dataService.mobile_bar ?
                             <TouchableOpacity activeOpacity={1}
                                 onPress={() => NavigationNavigateScreen({
                                     goScreen: 'SecondScreen', setData: { selectedIndex: 0 }, navigation,
                                 })}>
                                 <Image
                                     style={[stylesMain.CategoryProductImageHead, { marginTop: 0 }]}
-                                    source={{ uri: url }}
+                                    source={{ uri: header_url }}
                                     resizeMode='cover'
                                     resizeMethod='resize' />
-                            </TouchableOpacity>
-                    }
-                    {
-                        loadData.product_second &&
-                        <FlatProduct navigation={navigation} dataService={loadData.product_second} NumberOfcolumn={2}
-                            nameFlatProduct='Second_product' mode='row3_new' nameSize={14} priceSize={15} dispriceSize={15} />
-                    }
-                </View>
-            </View>
-        );
-    };
-    let Second_Storebody = () => {
-        return (
-            <View key={'Header_Second'} style={stylesMain.Second_StoreFin}>
-                <View style={stylesMain.Second_StoreFin_BoxHead}>
-                    {
-                        Header_Second ?
-                            <View>
-                                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
-                                    ร้านมือสองลดราคา</Text>
-                            </View> :
-                            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
-                                ร้านค้ามือสองแนะนำโดย FIN </Text>
-                    }
-                    <View>
-                        <TouchableOpacity activeOpacity={1}
-                            onPress={() => NavigationNavigateScreen({
-                                goScreen: 'SecondScreen', setData: { selectedIndex: 1 }, navigation,
-                            })}>
-                            <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                ดูทั้งหมด</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-                <View style={stylesMain.Second_StoreFin_Image}>
-                    {[
-                        loadData.list_store2_1 &&
-                        <View key={'list_store2_1'} style={stylesMain.Second_StoreFin_ImageA}>
-                            <View>
-                                {renderItem1(loadData.list_store2_1)}
+                            </TouchableOpacity> :
+                            <View style={[stylesMain.CategoryProductImageHead, {
+                                borderColor: '#DCDCDC', borderWidth: 1, borderBottomWidth: 0.5, marginTop: 0, backgroundColor: '#ECECEC'
+                            }]}></View>
+                }
+                {
+                    dataService ?
+                        <FlatProduct {...props} dataService={dataService.product_second} numberOfColumn={2} noMarginTop
+                            nameFlatProduct='Second_product' mode='row3_new' nameSize={14} priceSize={15} dispriceSize={15} /> :
+                        <View>
+                            <View style={{ flexDirection: 'row' }}>
+                                {
+                                    boxEmptyHeader
+                                }
                             </View>
-                        </View>,
-                        loadData.list_store2_2 &&
-                        <View key={'list_store2_2'}>
-                            <View style={stylesMain.Second_StoreFin_ImageB}>
-                                <View style={stylesMain.Second_StoreFin_ImageB_T}>
-                                    {renderItem2([loadData.list_store2_2[0]])}
-                                </View>
-                                <View style={[stylesMain.Second_StoreFin_ImageB_T]}>
-                                    {renderItem2([loadData.list_store2_2[1]])}
-                                </View>
+                            <View style={{ flexDirection: 'row' }}>
+                                {
+                                    boxEmptyHeader
+                                }
                             </View>
                         </View>
-                    ]}
+                }
+            </View>
+        </View>
+    );
+    let Second_Storebody = (
+        <View key={'Header_Second'} style={stylesMain.Second_StoreFin}>
+            <View style={stylesMain.Second_StoreFin_BoxHead}>
+                {
+                    Header_Second ?
+                        <View>
+                            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
+                                ร้านมือสองลดราคา</Text>
+                        </View> :
+                        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
+                            ร้านค้ามือสองแนะนำโดย FIN </Text>
+                }
+                <View>
+                    <TouchableOpacity activeOpacity={1}
+                        onPress={() => NavigationNavigateScreen({
+                            goScreen: 'SecondScreen', setData: { selectedIndex: 1 }, navigation,
+                        })}>
+                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                            ดูทั้งหมด</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
-        );
-    };
+            <View style={stylesMain.Second_StoreFin_Image}>
+                <View key={'list_store2_1'} style={stylesMain.Second_StoreFin_ImageA}>
+                    <View>
+                        {renderItem1}
+                    </View>
+                </View>
+                <View key={'list_store2_2'}>
+                    <View style={stylesMain.Second_StoreFin_ImageB}>
+                        {renderItem2}
+                    </View>
+                </View>
+            </View>
+        </View>
+    );
+    let boxEmptyFooter = (
+        [0, 1].map((_, index) => {
+            return (
+                <View key={index} style={[stylesMain.CategoryProductStoreBox]}>
+                    <View style={[stylesMain.CategoryProductStoreImage, { backgroundColor: '#ECECEC' }]}></View>
+                </View>
+            )
+        })
+    )
     let _renderFooter = (item, index) => {
         var dataMySQL = `${finip}/${item.item.image_path}/${item.item.image}`;
         var dataMySQL2;
@@ -2014,8 +2278,6 @@ export let Second_product = (props) => {
                     <Image
                         source={{
                             uri: dataMySQL,
-                            width: '98%',
-                            height: 90,
                         }}
                         style={stylesMain.CategoryProductStoreImage}
                         resizeMode='cover'
@@ -2025,8 +2287,6 @@ export let Second_product = (props) => {
                     <Image
                         source={{
                             uri: dataMySQL2,
-                            width: '98%',
-                            height: 90,
                         }}
                         style={stylesMain.CategoryProductStoreImage}
                         resizeMode='cover'
@@ -2035,47 +2295,50 @@ export let Second_product = (props) => {
             </TouchableOpacity>
         );
     };
-    let Second_Storefooter = () => {
-        var item = [];
-        if (loadData.mobile_slide)
-            for (var n = 0; n < loadData.mobile_slide.length; n += 2) {
-                item.push({
-                    item: loadData.mobile_slide[n],
-                    item2: loadData.mobile_slide[n + 1]
-                });
-            };
-        return (
-            <View key={'mobile_slide'} style={stylesMain.Second_Storefooter}>
-                <ScrollView horizontal>
-                    <View style={stylesMain.FlexRow}>
-                        {
-                            loadData.mobile_slide &&
+    var item = [];
+    if (dataService && dataService.mobile_slide)
+        for (var n = 0; n < dataService.mobile_slide.length; n += 2) {
+            item.push({
+                item: dataService.mobile_slide[n],
+                item2: dataService.mobile_slide[n + 1]
+            });
+        };
+    let Second_Storefooter = (
+        <View key={'mobile_slide'} style={stylesMain.Second_Storefooter}>
+            <ScrollView horizontal>
+                <View style={stylesMain.FlexRow}>
+                    {
+                        dataService && dataService.mobile_slide ?
                             <Carousel
                                 renderItem={_renderFooter}
                                 data={item}
                                 loop
                                 autoplay
                                 autoplayInterval={3000}
-                                pagination={PaginationLight} />
-                        }
-                    </View>
-                </ScrollView>
-            </View>
-        );
-    };
+                                pagination={PaginationLight} /> :
+                            <View style={stylesMain.FlexRow}>
+                                {
+                                    boxEmptyFooter
+                                }
+                            </View>
+                    }
+                </View>
+            </ScrollView>
+        </View>
+    );
     return (
         <View style={stylesMain.FrameBackground2}>
             {[
-                Second_Storeheader(),
-                Second_Storebody(),
-                Second_Storefooter()
+                Second_Storeheader,
+                Second_Storebody,
+                Second_Storefooter
             ]}
         </View>
     );
 };
 ///----------------------------------------------------------------------------------------------->>>>
 export let Fin_Mall = (props) => {
-    const { loadData, navigation } = props;
+    const { dataService, navigation, } = props;
     let productFinmail = (type) => {
         return type.map((item, index) => {
             if (index < 2) {
@@ -2119,15 +2382,50 @@ export let Fin_Mall = (props) => {
                 <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize4, stylesFont.FontFamilyBold]}>Fin Mall </Text>
                 <View style={{ backgroundColor: '#691F50', borderRadius: 5, padding: 3, justifyContent: 'space-between' }}>
                     {
-                        loadData.product_hit &&
-                        <TouchableOpacity
-                            key={'product_hit'}
-                            activeOpacity={1}
-                            onPress={() => NavigationNavigateScreen({ goScreen: 'FinMallScreen', navigation })}>
+                        dataService ?
+                            <TouchableOpacity
+                                key={'product_hit'}
+                                activeOpacity={1}
+                                onPress={() => NavigationNavigateScreen({ goScreen: 'FinMallScreen', navigation })}>
+                                <View style={stylesMain.FlexRow}>
+                                    {productFinmail(dataService.product_hit)}
+                                </View>
+                            </TouchableOpacity> :
                             <View style={stylesMain.FlexRow}>
-                                {productFinmail(loadData.product_hit)}
+                                {
+                                    [0, 1].map((_, index) => {
+                                        return (
+                                            <View style={{ width: width * 0.22, marginTop: 10, paddingLeft: 2.5 }} key={index}>
+                                                <View style={{
+                                                    height: height * 0.115, width: width * 0.20, backgroundColor: '#ECECEC', padding: 5
+                                                }}>
+                                                    <View style={stylesMain.Popular_image_Box} />
+                                                </View>
+                                                <View style={[stylesMain.ItemCenter, { width: width * 0.20 }]}>
+                                                    <Text numberOfLines={1} style={[stylesFont.FontSize8, stylesFont.FontFamilyBold, {
+                                                        color: '#691F50'
+                                                    }]}>NaN</Text>
+                                                    <NumberFormat
+                                                        value={0}
+                                                        displayType={'text'}
+                                                        thousandSeparator={true}
+                                                        prefix={'฿'}
+                                                        renderText={value =>
+                                                            <Text style={[
+                                                                stylesMain.BoxProduct1ImagePrice,
+                                                                stylesFont.FontSize8,
+                                                                stylesFont.FontFamilyBold,
+                                                                { color: '#691F50' }
+
+                                                            ]}>
+                                                                {value}</Text>
+                                                        } />
+                                                </View>
+                                            </View>
+                                        )
+                                    })
+                                }
                             </View>
-                        </TouchableOpacity>
                     }
                 </View>
             </View>
@@ -2135,15 +2433,50 @@ export let Fin_Mall = (props) => {
                 <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize4, stylesFont.FontFamilyBold]}>สินค้าสุด Exclusive</Text>
                 <View style={{ backgroundColor: '#19508B', padding: 3, borderRadius: 5, justifyContent: 'space-between' }}>
                     {
-                        loadData.exclusive &&
-                        <TouchableOpacity
-                            key={'exclusive'}
-                            activeOpacity={1}
-                            onPress={() => NavigationNavigateScreen({ goScreen: 'ExclusiveScreen', navigation })}>
+                        dataService ?
+                            <TouchableOpacity
+                                key={'exclusive'}
+                                activeOpacity={1}
+                                onPress={() => NavigationNavigateScreen({ goScreen: 'ExclusiveScreen', navigation })}>
+                                <View style={stylesMain.FlexRow}>
+                                    {productFinmail(dataService.exclusive)}
+                                </View>
+                            </TouchableOpacity> :
                             <View style={stylesMain.FlexRow}>
-                                {productFinmail(loadData.exclusive)}
+                                {
+                                    [0, 1].map((_, index) => {
+                                        return (
+                                            <View style={{ width: width * 0.22, marginTop: 10, paddingLeft: 2.5 }} key={index}>
+                                                <View style={{
+                                                    height: height * 0.115, width: width * 0.20, backgroundColor: '#ECECEC', padding: 5
+                                                }}>
+                                                    <View style={stylesMain.Popular_image_Box} />
+                                                </View>
+                                                <View style={[stylesMain.ItemCenter, { width: width * 0.20 }]}>
+                                                    <Text numberOfLines={1} style={[stylesFont.FontSize8, stylesFont.FontFamilyBold, {
+                                                        color: '#19508B'
+                                                    }]}>NaN</Text>
+                                                    <NumberFormat
+                                                        value={0}
+                                                        displayType={'text'}
+                                                        thousandSeparator={true}
+                                                        prefix={'฿'}
+                                                        renderText={value =>
+                                                            <Text style={[
+                                                                stylesMain.BoxProduct1ImagePrice,
+                                                                stylesFont.FontSize8,
+                                                                stylesFont.FontFamilyBold,
+                                                                { color: '#19508B' }
+
+                                                            ]}>
+                                                                {value}</Text>
+                                                        } />
+                                                </View>
+                                            </View>
+                                        )
+                                    })
+                                }
                             </View>
-                        </TouchableOpacity>
                     }
                 </View>
             </View>
@@ -2152,8 +2485,7 @@ export let Fin_Mall = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>> FIN_Supermarket
 export let FIN_Supermarket = (props) => {
-    const { loadData, navigation } = props;
-    const { product_hit } = loadData;
+    const { dataService, navigation, } = props;
     let _renderItem = (item, index) => {
         return (
             <View key={index} style={{ width, height: 'auto', aspectRatio: 2.5, marginBottom: 10 }}>
@@ -2189,9 +2521,9 @@ export let FIN_Supermarket = (props) => {
             </View>
             <View style={stylesMain.Supermarket_Product}>
                 {
-                    product_hit &&
-                    <FlatProduct navigation={navigation} dataService={product_hit} NumberOfcolumn={1} radiusBox={5}
-                        nameFlatProduct='FIN_Supermarket' mode='row3' nameSize={14} priceSize={15} dispriceSize={15} />
+                    dataService &&
+                    <FlatProduct {...props} dataService={dataService.product_hit} numberOfColumn={1}
+                        radiusBox={5} nameFlatProduct='FIN_Supermarket' mode='row3' nameSize={14} priceSize={15} dispriceSize={15} />
                 }
             </View>
             <View style={[stylesMain.FlexRow, stylesMain.Supermarket_Store]}>
@@ -2390,7 +2722,7 @@ export let TodayProduct = (props) => {
             <View style={stylesMain.BoxProduct2BoxProduct}>
                 {
                     loadData &&
-                    <ProductBox dataService={loadData} navigation={navigation} onShow={onShow} typeip={
+                    <ProductBox {...props} dataService={loadData} typeip={
                         typeip ?
                             'ip' :
                             'fin'

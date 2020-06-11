@@ -25,27 +25,27 @@ import { ip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class Seller_Return extends Component {
   PathList() {
-    const { navigation } = this.props
-    const selectedIndex = navigation.getParam('selectedIndex')
+    const { route } = this.props
+    const selectedIndex = route.params?.selectedIndex
     switch (selectedIndex) {
       case 0:
         return (
           <View style={stylesMain.SafeAreaView}>
-            <AppBar1 backArrow navigation={navigation} titleHead='คืนสินค้า/คืนเงิน' />
+            <AppBar1 {...this.props} backArrow titleHead='คืนสินค้า/คืนเงิน' />
             <ScrollView>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10 }]}>คืนสินค้า/คืนเงิน</Text>
-              <Order_Me_Box navigation={navigation} Cause_cancel detail_order_cancel Contact_buyer />
-              <Order_Me_Box navigation={navigation} Cause_cancel detail_order_cancel Contact_buyer />
-              <Order_Me_Box navigation={navigation} Cause_cancel detail_order_cancel Contact_buyer />
-              <Order_Me_Box navigation={navigation} Cause_cancel detail_order_cancel Contact_buyer />
-              <Order_Me_Box navigation={navigation} Cause_cancel detail_order_cancel Contact_buyer />
+              <Order_Me_Box {...this.props} Cause_cancel detail_order_cancel Contact_buyer />
+              <Order_Me_Box {...this.props} Cause_cancel detail_order_cancel Contact_buyer />
+              <Order_Me_Box {...this.props} Cause_cancel detail_order_cancel Contact_buyer />
+              <Order_Me_Box {...this.props} Cause_cancel detail_order_cancel Contact_buyer />
+              <Order_Me_Box {...this.props} Cause_cancel detail_order_cancel Contact_buyer />
             </ScrollView>
           </View>
         )
       case 1:
         return (
           <View style={stylesMain.SafeAreaView}>
-            <AppBar1 backArrow navigation={navigation} titleHead='รายละเอียด' />
+            <AppBar1 {...this.props} backArrow titleHead='รายละเอียด' />
             <ScrollView>
               <Seller_Return_Detail />
             </ScrollView>
@@ -54,28 +54,28 @@ export default class Seller_Return extends Component {
       case 2:
         return (
           <View style={stylesMain.SafeAreaView}>
-            <AppBar1 backArrow navigation={navigation} titleHead='คลังสินค้า' />
+            <AppBar1 {...this.props} backArrow titleHead='คลังสินค้า' />
             <ScrollView>
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { margin: 5, }]}>รายการสินค้า</Text>
-              <Treasury_store_Product navigation={navigation} />
-              <Treasury_store_Product navigation={navigation} />
-              <Treasury_store_Product navigation={navigation} />
-              <Treasury_store_Product navigation={navigation} />
-              <Treasury_store_Product navigation={navigation} />
-              <Treasury_store_Product navigation={navigation} />
+              <Treasury_store_Product {...this.props} />
+              <Treasury_store_Product {...this.props} />
+              <Treasury_store_Product {...this.props} />
+              <Treasury_store_Product {...this.props} />
+              <Treasury_store_Product {...this.props} />
+              <Treasury_store_Product {...this.props} />
             </ScrollView>
           </View>
         )
       case 3:
         return (
           <View style={stylesMain.SafeAreaView}>
-            <AppBar1 backArrow navigation={navigation} titleHead='ยกเลิกสินค้า' />
+            <AppBar1 {...this.props} backArrow titleHead='ยกเลิกสินค้า' />
             <ScrollView>
-              <Order_Me_Box navigation={navigation} cancel_order Cause_cancel detail_order_cancel Contact_buyer />
-              <Order_Me_Box navigation={navigation} cancel_order Cause_cancel detail_order_cancel Contact_buyer />
-              <Order_Me_Box navigation={navigation} cancel_order Cause_cancel detail_order_cancel Contact_buyer />
-              <Order_Me_Box navigation={navigation} cancel_order Cause_cancel detail_order_cancel Contact_buyer />
-              <Order_Me_Box navigation={navigation} cancel_order Cause_cancel detail_order_cancel Contact_buyer />
+              <Order_Me_Box {...this.props} cancel_order Cause_cancel detail_order_cancel Contact_buyer />
+              <Order_Me_Box {...this.props} cancel_order Cause_cancel detail_order_cancel Contact_buyer />
+              <Order_Me_Box {...this.props} cancel_order Cause_cancel detail_order_cancel Contact_buyer />
+              <Order_Me_Box {...this.props} cancel_order Cause_cancel detail_order_cancel Contact_buyer />
+              <Order_Me_Box {...this.props} cancel_order Cause_cancel detail_order_cancel Contact_buyer />
             </ScrollView>
           </View>
         )

@@ -28,8 +28,8 @@ export default class Return_products extends Component {
     };
   }
   PathList() {
-    const { navigation } = this.props
-    const selectedIndex = navigation.getParam('selectedIndex')
+    const { route } = this.props
+    const selectedIndex = route.params?.selectedIndex
     switch (selectedIndex) {
       case 0:
         return (
@@ -46,14 +46,13 @@ export default class Return_products extends Component {
     }
   }
   render() {
-    const { navigation } = this.props
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
-        <AppBar1 backArrow navigation={navigation} titleHead='คืนสินค้า/คืนเงิน' />
+        <AppBar1 {...this.props} backArrow titleHead='คืนสินค้า/คืนเงิน' />
         <ScrollView>
           {this.PathList()}
         </ScrollView>
-        <ExitAppModule navigation={navigation} />
+        <ExitAppModule {...this.props} />
       </SafeAreaView>
     );
   }

@@ -71,28 +71,27 @@ export default class DetailScreen extends React.PureComponent {
     this.setState({ BuyProduct })
   }
   render() {
-    const { navigation } = this.props
+    const { route } = this.props;
     const {
       activeDataService, activeRefresh, currentUser, BuyProduct, dataService, getStarReview, cokie, scrollY, setActive,
       setShowItemImage, showItemImage
-    } = this.state
-    var id_product = navigation.getParam('id_item')
+    } = this.state;
+    const id_product = route.params?.id_product;
     let itemT = [
       /////--------------------------------------------->>>Start
       {
         nameComponent: 'Detail_Image',
-        renderComponent: <Detail_Image dataService={dataService && dataService.product_data} navigation={navigation}
+        renderComponent: <Detail_Image {...this.props} dataService={dataService && dataService.product_data}
           showImage={this.showImage.bind(this)} setShowImage={this.setShowImage.bind(this)} setActive={setActive} />
       },
       {
         nameComponent: 'Detail_Data',
-        renderComponent: <Detail_Data currentUser={currentUser} dataService={dataService} getStarReview={getStarReview}
-          id_product={id_product} cokie={cokie} navigation={navigation} />
+        renderComponent: <Detail_Data {...this.props} currentUser={currentUser} dataService={dataService} getStarReview={getStarReview}
+          id_product={id_product} cokie={cokie} />
       },
       {
         nameComponent: 'Detail_Store',
-        renderComponent: <Store currentUser={currentUser} dataService={dataService} cokie={cokie}
-          navigation={navigation} />
+        renderComponent: <Store {...this.props} currentUser={currentUser} dataService={dataService} cokie={cokie} />
       },
       {
         nameComponent: 'Selector_Conpon',
@@ -100,8 +99,8 @@ export default class DetailScreen extends React.PureComponent {
       },
       {
         nameComponent: 'Selector_Product',
-        renderComponent: <Selector dataService={dataService} BuyProduct={BuyProduct} currentUser={currentUser} cokie={cokie}
-          getActive={this.setActives.bind(this)} navigation={navigation} sendProduct={this.BuyProduct.bind(this)} />
+        renderComponent: <Selector {...this.props} dataService={dataService} BuyProduct={BuyProduct} currentUser={currentUser} cokie={cokie}
+          getActive={this.setActives.bind(this)} sendProduct={this.BuyProduct.bind(this)} />
       },
       {
         nameComponent: 'Detail_Category',
@@ -113,8 +112,8 @@ export default class DetailScreen extends React.PureComponent {
       },
       {
         nameComponent: 'Reviews',
-        renderComponent: <Reviews dataService={dataService && dataService.product_data} getStarReview={this.getStarReview.bind(this)}
-          currentUser={currentUser} navigation={navigation} />
+        renderComponent: <Reviews {...this.props} currentUser={currentUser} dataService={dataService && dataService.product_data}
+          getStarReview={this.getStarReview.bind(this)} />
       },
       {
         nameComponent: 'BannerBar',
@@ -122,15 +121,15 @@ export default class DetailScreen extends React.PureComponent {
       },
       {
         nameComponent: 'Same_Store',
-        renderComponent: <Same_Store dataService={dataService} navigation={navigation} />
+        renderComponent: <Same_Store {...this.props} dataService={dataService} />
       },
       {
         nameComponent: 'Similar_Product',
-        renderComponent: <Similar_Product dataService={dataService} navigation={navigation} />
+        renderComponent: <Similar_Product {...this.props} dataService={dataService} />
       },
       {
         nameComponent: 'Might_like',
-        renderComponent: <Might_like dataService={dataService} navigation={navigation} />
+        renderComponent: <Might_like {...this.props} dataService={dataService} />
       },
       /////--------------------------------------------->>>End
     ]
@@ -153,17 +152,17 @@ export default class DetailScreen extends React.PureComponent {
             right: 0,
             overflow: 'hidden',
           }}> */}
-        <AppBar getActive={this.setActives.bind(this)} refresh={activeRefresh} backArrow cartBar navigation={navigation} />
+        <AppBar {...this.props} getActive={this.setActives.bind(this)} refresh={activeRefresh} backArrow cartBar />
         {/* </View>
         </Animatable.View> */}
         {[
           dataService &&
           <FlatComponent component={itemT} key='Main' />,
           dataService && dataService.product_data &&
-          <Buy_bar key={'Buy_bar'} navigation={navigation} currentUser={currentUser} dataService={dataService}
+          <Buy_bar {...this.props} key={'Buy_bar'} currentUser={currentUser} dataService={dataService}
             BuyProduct={this.BuyProduct.bind(this)} />
         ]}
-        <ExitAppModule navigation={navigation} />
+        <ExitAppModule {...this.props} />
       </SafeAreaView>
     );
   }
@@ -1276,7 +1275,7 @@ export class Same_Store extends React.Component {
         </View>
         {
           dataService2 &&
-          <FlatProduct navigation={navigation} dataService={dataService2} NumberOfcolumn={1} nameFlatProduct='DetailScreen'
+          <FlatProduct {...this.props} dataService={dataService2} numberOfColumn={1} nameFlatProduct='DetailScreen'
             mode='row3' nameSize={14} priceSize={15} dispriceSize={15} />
         }
       </View>
@@ -1327,7 +1326,7 @@ export class Similar_Product extends React.Component {
         </View>
         {
           dataService2 &&
-          <FlatProduct navigation={navigation} dataService={dataService2} NumberOfcolumn={1} nameFlatProduct='DetailScreen'
+          <FlatProduct {...this.props} dataService={dataService2} numberOfColumn={1} nameFlatProduct='DetailScreen'
             mode='row3' nameSize={14} priceSize={15} dispriceSize={15} />
         }
       </View>
@@ -1379,7 +1378,7 @@ export class Might_like extends React.Component {
         <View style={stylesDetail.PopularProductBoxProduct}>
           {
             dataService2 &&
-            <ProductBox dataService={dataService2} navigation={navigation} mode='row2colall' pointerUrl='DetailScreen'
+            <ProductBox {...this.props} dataService={dataService2} mode='row2colall' pointerUrl='DetailScreen'
               pointerid_store nameSize={14} priceSize={15} dispriceSize={15} />
           }
         </View>

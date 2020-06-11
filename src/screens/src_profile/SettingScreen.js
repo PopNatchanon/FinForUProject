@@ -29,13 +29,13 @@ export default class SettingScreen extends Component {
         const { navigation } = this.props
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
-                <AppBar1 backArrow navigation={navigation} titleHead='ตั้งค่าบัญชี' />
+                <AppBar1 {...this.props} backArrow titleHead='ตั้งค่าบัญชี' />
                 <ScrollView>
                     <View>
-                        <ListMenu navigation={navigation} />
+                        <ListMenu {...this.props} />
                     </View>
                 </ScrollView>
-                <ExitAppModule navigation={navigation} />
+                <ExitAppModule {...this.props} />
             </SafeAreaView>
         );
     }

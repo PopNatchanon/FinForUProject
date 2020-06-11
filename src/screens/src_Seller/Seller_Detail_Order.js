@@ -23,13 +23,13 @@ export default class Seller_Detail_Order extends Component {
         };
     }
     PathList() {
-        const { navigation } = this.props
-        const selectedIndex = navigation.getParam('selectedIndex')
+        const { route } = this.props
+        const selectedIndex = route.params?.selectedIndex
         switch (selectedIndex) {
             case 0:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 backArrow navigation={navigation} titleHead='รายละเอียด' />
+                        <AppBar1 {...this.props} backArrow titleHead='รายละเอียด' />
                         <ScrollView>
                             <Detail />
                             <Order_Sending />
@@ -39,7 +39,7 @@ export default class Seller_Detail_Order extends Component {
             case 1:
                 return (
                     <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 backArrow navigation={navigation} titleHead='รายละเอียด' />
+                        <AppBar1 {...this.props} backArrow titleHead='รายละเอียด' />
                         <ScrollView>
                             <Detail />
                             <Order_Sending />

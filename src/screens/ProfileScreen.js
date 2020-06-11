@@ -60,14 +60,14 @@ export default class ProfileScreen extends React.Component {
                 } */}
                 <ScrollView>
                     <View>
-                        <Headbar navigation={navigation} currentUser={currentUser} dataSevice={dataSevice}
+                        <Headbar {...this.props} currentUser={currentUser} dataSevice={dataSevice}
                             getDataSource={this.getDataSource.bind(this)} />
-                        <Menubar navigation={navigation} />
-                        <Listbar currentUser={currentUser} cokie={cokie} navigation={navigation} />
+                        <Menubar {...this.props} />
+                        <Listbar {...this.props} currentUser={currentUser} cokie={cokie} />
                     </View>
                 </ScrollView>
-                <Toolbar navigation={navigation} />
-                <ExitAppModule navigation={navigation} />
+                <Toolbar {...this.props} />
+                <ExitAppModule {...this.props} />
             </SafeAreaView>
         );
     }
@@ -182,7 +182,7 @@ export class Menubar extends React.Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <MenubarSub navigation={navigation} />
+                <MenubarSub {...this.props} />
             </View>
         )
     }
@@ -280,11 +280,11 @@ export class Listbar extends React.Component {
         switch (pathlist) {
             case 0:
                 return (
-                    <ListMenu navigation={navigation} />
+                    <ListMenu {...this.props} />
                 )
             case 2:
                 return (
-                    <ViewCode currentUser={currentUser} cokie={cokie} navigation={navigation} />
+                    <ViewCode {...this.props} currentUser={currentUser} cokie={cokie} />
                 )
         }
     }

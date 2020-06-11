@@ -46,9 +46,9 @@ export default class Customer_Complete_Order extends Component {
     this.setState({ activeProduct: false, dataService2 })
   }
   render() {
-    const { navigation } = this.props
+    const { route } = this.props
     const { activeThank_you_bill, currentUser, dataService, dataService2, keycokie } = this.state
-    var no_invoice = navigation.getParam('no_invoice');
+    const no_invoice = route.params?.no_invoice
     var uri = `${finip}/purchase_data/thank_you_bill`;
     var dataBody = {
       id_customer: currentUser && currentUser.id_customer,
@@ -65,16 +65,16 @@ export default class Customer_Complete_Order extends Component {
     activeProduct == true && GetServices({ uriPointer: uri2, dataBody: dataBody2, getDataSource: this.getData2.bind(this), })
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
-        <AppBar1 backArrow goToTop navigation={navigation} />
+        <AppBar1 {...this.props} backArrow goToTop />
         <ScrollView>
           {[
             dataService &&
             <Customer_Product dataService={dataService} no_invoice={no_invoice} key={'Customer_Product'} />,
             dataService2 &&
-            <TodayProduct noTitle navigation={navigation} loadData={dataService2} key={'TodayProduct'} />
+            <TodayProduct {...this.props} noTitle loadData={dataService2} key={'TodayProduct'} />
           ]}
         </ScrollView>
-        <ExitAppModule navigation={navigation} />
+        <ExitAppModule {...this.props} />
       </SafeAreaView>
     );
   }

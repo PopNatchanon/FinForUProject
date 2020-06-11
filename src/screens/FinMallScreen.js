@@ -39,11 +39,10 @@ export default class FinMallScreen extends React.Component {
     this.setState({ dataService })
   }
   render() {
-    const { navigation } = this.props
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
-        <AppBar1 backArrow navigation={navigation} titleHead='FIN Mall' />
-        <FIN_Mall navigation={navigation} />
+        <AppBar1 {...this.props} backArrow titleHead='FIN Mall' />
+        <FIN_Mall {...this.props} />
       </SafeAreaView>
     );
   }
@@ -88,9 +87,7 @@ export class FIN_Mall extends React.Component {
     this.setState({ activeGetServices: true, filterValue });
   }
   render() {
-    const { navigation } = this.props;
-    const { activeGetCurrentUser, activeGetServices, dataService, filterValue,
-      sliderVisible, } = this.state;
+    const { activeGetCurrentUser, activeGetServices, dataService, filterValue, sliderVisible, } = this.state;
     var uri = `${finip}/finmall/finmall_mobile`;
     var dataBody = {
       popular: filterValue && filterValue.popular ? filterValue.popular : '',
@@ -148,12 +145,12 @@ export class FIN_Mall extends React.Component {
             }} />
           {
             dataService && dataService.product &&
-            <TodayProduct noTitle navigation={navigation} loadData={dataService.product} />
+            <TodayProduct {...this.props} noTitle loadData={dataService.product} />
           }
         </ScrollView>
         <SlideTab2 data={data} filterValue={this.setStatefilterValue.bind(this)} sliderVisible={sliderVisible}
           setStateSliderVisible={this.setSlider.bind(this)} />
-        <ExitAppModule navigation={navigation} />
+        <ExitAppModule {...this.props} />
       </View>
     );
   }

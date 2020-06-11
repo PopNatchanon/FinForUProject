@@ -37,19 +37,19 @@ export default class Installment_payScreen extends Component {
     activeGetServices == true && GetServices({ uriPointer: uri, getDataSource: this.getData.bind(this), })
     return (
       <SafeAreaView style={stylesMain.SafeAreaView}>
-        <AppBar1 titleHead={'ผ่อน 0 % สูงสุด 10 เดือน'} backArrow searchBar chatBar navigation={navigation} />
+        <AppBar1 {...this.props} titleHead={'ผ่อน 0 % สูงสุด 10 เดือน'} backArrow searchBar chatBar />
         <ScrollView>
           <Slide banner={dataService && dataService.banner} />
           <Head_Image />
           <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginLeft: -3, width: 140 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>สินค้า 0 % 10 เดือน </Text>
           </View>
-          <CategoryProduct_pay navigation={navigation} dataService={dataService && dataService.category} />
+          <CategoryProduct_pay {...this.props} dataService={dataService && dataService.category} />
         </ScrollView>
         <View style={{ backgroundColor: '#ffffff', borderTopWidth: 1, borderColor: '#ECECEC' }}>
-          <Button_Bar navigation={navigation} />
+          <Button_Bar {...this.props} />
         </View>
-        <ExitAppModule navigation={navigation} />
+        <ExitAppModule {...this.props} />
       </SafeAreaView>
     );
   }
@@ -123,7 +123,7 @@ export class CategoryProduct_pay extends Component {
                 />
                 {
                   value && value.product &&
-                  <FlatProduct custumNavigation='CategoryProduct_pay' navigation={navigation} dataService={value.product} NumberOfcolumn={2}
+                  <FlatProduct {...this.props} custumNavigation='CategoryProduct_pay' dataService={value.product} numberOfColumn={2}
                     mode='row3' nameFlatProduct='CategoryProduct_pay' nameSize={14} priceSize={15} dispriceSize={15} />
                 }
                 <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>ร้านนี้ผ่อนได้</Text>

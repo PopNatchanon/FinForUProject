@@ -23,31 +23,31 @@ export default class Detail_Pro extends React.Component {
         };
     }
     get PathList() {
-        const { navigation } = this.props
-        const selectedIndex = navigation.getParam('selectedIndex')
+        const { route } = this.props
+        const selectedIndex = route.params?.selectedIndex
         switch (selectedIndex) {
             case 0:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={navigation} titleHead='รายละเอียดโปรโมชัน' />
-                        <Detail_Promotion navigation={navigation} />
+                        <AppBar1 {...this.props} backArrowtitleHead='รายละเอียดโปรโมชัน' />
+                        <Detail_Promotion {...this.props} />
                     </View>
                 )
             case 1:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={navigation} titleHead='รายละเอียดคำสั่งซื้อ' />
+                        <AppBar1 {...this.props} backArrow titleHead='รายละเอียดคำสั่งซื้อ' />
                         <ScrollView>
                             <Detail_Order />
                             <Detail_Product />
                         </ScrollView>
-                        <Detail_Button navigation={navigation} />
+                        <Detail_Button {...this.props} />
                     </View>
                 )
             case 2:
                 return (
                     <View>
-                        <AppBar1 backArrow navigation={navigation} titleHead='รายละเอียดคำสั่งซื้อ' />
+                        <AppBar1 {...this.props} backArrow titleHead='รายละเอียดคำสั่งซื้อ' />
                         <Detail_Product_Check />
                     </View>
                 )
@@ -59,7 +59,7 @@ export default class Detail_Pro extends React.Component {
         return (
             <SafeAreaView style={stylesMain.SafeAreaView}>
                 {this.PathList}
-                <ExitAppModule navigation={navigation} />
+                <ExitAppModule {...this.props} />
             </SafeAreaView>
         );
     }

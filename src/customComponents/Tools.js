@@ -1556,22 +1556,9 @@ export class FeedBox extends React.Component {
             alert(error.message);
         }
     }
-    setStateButton = (length) => {
-        var Button_Follow_After = []
-        for (var n = 0; n < length; n++) {
-            Button_Follow_After = { check: true, like: false }
-        }
-        this.setState({ Button_Follow_After, activeFeed: true, })
-    }
-    setStateButton_Follow_After = () => {
-        const { Button_Follow_After, } = this.state
-        Button_Follow_After.check = !Button_Follow_After.check
-        this.setState({ Button_Follow_After, activeFeed: true })
-    }
     setStateButton_Like_heart = () => {
-        const { Button_Follow_After, } = this.state
-        Button_Follow_After.like = !Button_Follow_After.like
-        this.setState({ Button_Follow_After, activeFeed: true })
+        const { like, } = this.state
+        this.setState({ like: !like, activeFeed: true })
     }
     actionOption = (selected, id_store, id_feed) => {
         const { navigation, userOwner } = this.props
@@ -1589,11 +1576,7 @@ export class FeedBox extends React.Component {
     }
     get FeedBoxRender() {
         const { atStore, dataService, Follow, Header, navigation, postpath, prepath, typeip, userOwner } = this.props
-        const { Button_Follow_After, } = this.state
-        Button_Follow_After == null && dataService.length > 0 && (
-            //     this.setStateButton(dataService.length)
-            this.setState({ Button_Follow_After: { check: true, like: false }, activeFeed: true, })
-        )
+        const { like, } = this.state
         const options = userOwner ? ['แก้ไข', 'ลบ'] : ['รายงานความไม่เหมาะสม']
         var dataMySQL_p = `${finip}/${dataService.image_path}/${dataService.image}`;
         var dataMySQL_s = `${finip}/${dataService.store_path}/${dataService.store_image}`;
@@ -1624,13 +1607,13 @@ export class FeedBox extends React.Component {
                             {
                                 Follow ?
                                     null :
-                                    <TouchableOpacity onPress={() => this.setStateButton_Follow_After()}>
+                                    <TouchableOpacity onPress={() => undefined}>
                                         <View style={stylesMain.BoxProduct4PlusButtonFollow}>
                                             <Text style={[
                                                 stylesMain.BoxProduct4PlusButtonFollowText, stylesFont.FontFamilyText,
                                                 stylesFont.FontSize6
                                             ]}>
-                                                {Button_Follow_After.check == true ? 'ติดตาม' : 'กำลังติดตาม'}</Text>
+                                                ติดตาม</Text>
                                         </View>
                                     </TouchableOpacity>
                             }
@@ -1668,12 +1651,9 @@ export class FeedBox extends React.Component {
                     <View style={stylesMain.BoxProduct4ComBox2}>
                         <TouchableOpacity activeOpacity={1} onPress={() => this.setStateButton_Like_heart()} style={
                             stylesMain.BoxProduct4ComBoxIcon}>
-                            {
-                                Button_Follow_After &&
-                                <IconFontAwesome name={Button_Follow_After.like == true ? 'heart' : 'heart-o'} size={20} style={{
-                                    color: Button_Follow_After.like == true ? '#ff0066' : '#111111'
-                                }} />
-                            }
+                            <IconFontAwesome name={like == true ? 'heart' : 'heart-o'} size={20} style={{
+                                color: like == true ? '#ff0066' : '#111111'
+                            }} />
                             <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                 ถูกใจ</Text>
                         </TouchableOpacity>

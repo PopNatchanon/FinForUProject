@@ -89,17 +89,18 @@ function MainScreen(props) {
     }, [getFetchData['flash_timer'] == undefined || (getFetchData['flash_timer'] && getFetchData['flash_timer'].isFetching)]);
     let itemT = [
         /////--------------------------------------------->>>Start
-        {
-            nameComponent: 'AppBar',
-            renderComponent: <View style={{ height: 55, /*marginTop: 27.15*/ }}>
-                <AppBar ABGColor={AnimatedHeadbg} ABDColor={AnimatedHeadbg} {...props} cartBar chatBar />
-            </View>
-        },
+        // {
+        //     nameComponent: 'AppBar',
+        //     renderComponent: <View style={{ height: 55, /*marginTop: 27.15*/ }}>
+        //         <AppBar ABGColor={AnimatedHeadbg} ABDColor={AnimatedHeadbg} {...props} cartBar chatBar />
+        //     </View>
+        // },
         {
             nameComponent: 'Slide',
-            renderComponent: <View style={{ marginTop: -(maxheight /*+ 27.15*/) }}>
-                <Slide {...props} />
-            </View>
+            renderComponent: <Slide {...props} />
+            // <View style={{ marginTop: -(maxheight /*+ 27.15*/) }}>
+            //     <Slide {...props} />
+            // </View>
         },
         // {
         //     nameComponent: 'Guarantee',
@@ -207,6 +208,7 @@ function MainScreen(props) {
                     <LoadingScreen key='LoadingScreen' /> :
                     <></>
             } */}
+            <AppBar {...props} cartBar chatBar />
             <FlatComponent
                 componentPage='MainScreen'
                 component={itemT}
@@ -216,7 +218,7 @@ function MainScreen(props) {
                 // }}
                 initialNumToRender={4}
                 showsVerticalScrollIndicator={false}
-                stickyHeaderIndices={[0]}
+                // stickyHeaderIndices={[0]}
                 scrollEventThrottle={8}
                 onScroll={
                     Animated.event(
@@ -1688,39 +1690,37 @@ export let Highlight = (props) => {
 export let NewStore = (props) => {
     const { dataService, navigation, } = props;
     let boxEmpty = (
-        dataService ?
-            dataNewStore :
-            [0, 1].map((_, index) => {
-                return (
-                    <View key={index} style={[stylesMain.BoxStore1Box, { backgroundColor: '#ECECEC' }]}>
-                        <View style={stylesMain.BoxStore1Image} />
-                    </View>
-                )
-            })
+        [0, 1].map((_, index) => {
+            return (
+                <View key={index} style={[stylesMain.BoxStore1Box, { backgroundColor: '#ECECEC' }]}>
+                    <View style={stylesMain.BoxStore1Image} />
+                </View>
+            )
+        })
     )
     let dataNewStore = (
-        dataService &&
-        dataService.dont_miss.map((item, index) => {
-            var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
-            return (
-                <TouchableOpacity activeOpacity={1} key={index}
-                    onPress={() => NavigationNavigateScreen({
-                        goScreen: 'Recommend_Store', setData: {
-                            id_slide: item.id, uri_path: 'publish_store/store_total', name_path: 'store_total'
-                        }, navigation
-                    })}
-                >
-                    <View style={stylesMain.BoxStore1Box}>
-                        <FastImage
-                            source={{
-                                uri: dataMySQL,
-                            }}
-                            style={stylesMain.BoxStore1Image}
-                            resizeMode={FastImage.resizeMode.cover} />
-                    </View>
-                </TouchableOpacity>
-            );
-        })
+        dataService && dataService.dont_miss ?
+            dataService.dont_miss.map((item, index) => {
+                var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
+                return (
+                    <TouchableOpacity activeOpacity={1} key={index}
+                        onPress={() => NavigationNavigateScreen({
+                            goScreen: 'Recommend_Store', setData: {
+                                id_slide: item.id, uri_path: 'publish_store/store_total', name_path: 'store_total'
+                            }, navigation
+                        })}
+                    >
+                        <View style={stylesMain.BoxStore1Box}>
+                            <FastImage
+                                source={{
+                                    uri: dataMySQL,
+                                }}
+                                style={stylesMain.BoxStore1Image}
+                                resizeMode={FastImage.resizeMode.cover} />
+                        </View>
+                    </TouchableOpacity>
+                );
+            }) : boxEmpty
     );
     return (
         <View style={stylesMain.FrameBackground2}>
@@ -1729,9 +1729,7 @@ export let NewStore = (props) => {
                     ร้านค้าห้ามพลาด!!่</Text>
             </View>
             <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 3.3, justifyContent: 'space-between' }]}>
-                {
-                    boxEmpty
-                }
+                {dataNewStore}
             </View>
         </View>
     );

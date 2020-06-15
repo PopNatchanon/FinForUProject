@@ -7,20 +7,20 @@ import {
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import BottomSheet from 'react-native-raw-bottom-sheet';
-import ActionButton from 'react-native-action-button';
 import ImagePicker from 'react-native-image-crop-picker';
 import { TextInput } from 'react-native-gesture-handler';
 import RNFetchBlob from 'rn-fetch-blob'
+import ModalDropdown from 'react-native-modal-dropdown';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
+import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
+import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Icon from 'react-native-vector-icons/Ionicons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesDetail from '../../style/StylesDetailScreen';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesFont from '../../style/stylesFont';
-import stylesPromotionDeal from '../../style/stylePromotion-src/styleDealScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 import stylesTopic from '../../style/styleTopic';
 import stylesProfile from '../../style/StylesProfileScreen';
@@ -28,9 +28,9 @@ import stylesProfile from '../../style/StylesProfileScreen';
 import {
     GetServices, GetCoupon, TabBar, LoadingScreen, GetData, GetServicesBlob, NavigationNavigateScreen
 } from '../../customComponents/Tools';
-import { TodayProduct, Slide, AppBar1, ExitAppModule, } from '../MainScreen';
+import { TodayProduct, Slide, AppBar1, ExitAppModule,AppBar } from '../MainScreen';
 import { Store_Detail } from '../Recommend_Store';
-import { ProductBox } from '../../customComponents/Tools';
+import { ProductBox, FeedBox, } from '../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -91,6 +91,20 @@ export default class Post_Feed extends Component {
                 return (
                     <>
                         <AppBar1 {...this.props} backArrow titleHead='สินค้า' />
+                    </>
+                )
+            case 11:
+                return (
+                    <>
+                        <AppBar1 {...this.props} backArrow titleHead='สร้างกลุ่ม' />
+                        <New_Group {...this.props} />
+                    </>
+                )
+            case 12:
+                return (
+                    <>
+                        <AppBar {...this.props} backArrow titleHead='Profile Group' otherBar />
+                        <Profile_Group {...this.props} />
                     </>
                 )
         }
@@ -701,3 +715,149 @@ export class Feed_comment extends React.Component {
         );
     }
 }
+///----------------------------------------------------------------------------------------------->>>>
+export class New_Group extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+    UploadImageGroup = () => {
+        const { ImageGroup } = this.props
+        const options = {
+            includeBase64: true
+        };
+        ImagePicker.openPicker(options).then(response => {
+            this.setState({ avatarSource2: response })
+            ImageGroup(response)
+        });
+    }
+    render() {
+        const { navigation } = this.props
+        const { name_Group, avatarSource2 } = this.state
+        return (
+            <View style={[stylesMain.FrameBackground, { padding: 10 }]}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ตั้งชื่อกลุ่ม </Text>
+                <TextInput style={{ borderWidth: 1, borderRadius: 5 }}
+                    onChangeText={(name_Group) => this.setState({ activeData: true, name_Group, })}>
+                    <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyBold,]}>
+                        {name_Group}
+                    </Text>
+                </TextInput>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>เลือกหมวดของกลุ่ม</Text>
+                <View style={{ borderWidth: 1, borderRadius: 5, height: 50, padding: 10 }}>
+                    <ModalDropdown
+                        options={['สาธารณะ', 'เพื่อน', 'เฉพาะเพื่อน', 'เฉพาะฉัน']}
+                        defaultValue={'สาธารณะ'}
+                        textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
+                        dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'center' }]}
+                        dropdownStyle={{ borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, width: 100 }}>
+                    </ModalDropdown>
+                </View>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>อัพโหลดภาพปก</Text>
+                <View style={stylesMain.FlexRow}>
+                    <View style={{ height: 50, width: 50, borderWidth: 1, borderRadius: 5, padding: 5 }}>
+                        {
+                            avatarSource2 ?
+                                <FastImage
+                                    source={{ uri: avatarSource2.path }}
+                                    style={stylesMain.BoxProduct1Image}
+                                /> :
+                                null
+                        }
+                    </View>
+                    <TouchableOpacity onPress={() => this.UploadImageGroup()}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { margin: 10 }]}>เพิ่มรูปภาพ</Text>
+                    </TouchableOpacity>
+                </View>
+                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Post_Feed', setData: {
+                        selectedIndex: 12,
+                    }, navigation
+                })}
+                    style={stylesMain.ItemCenter} >
+                    <View style={[stylesMain.ItemCenter, { backgroundColor: '#0A55A6', width: '30%', borderRadius: 5, height: 30 }]}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>+ สร้างกลุ่ม</Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
+        );
+    }
+}
+///----------------------------------------------------------------------------------------------->>>>
+export function Profile_Group(props) {
+    const { dataService, selectedIndex, } = props;
+    return (
+        <View>
+            <ScrollView>
+                <FastImage
+                    style={{ width: '100%', height: 150 }}
+                    source={{
+                        uri: `${ip}/MySQL/uploads/slide/NewStore/luxury_shop3.jpg`,
+                    }}
+                    resizeMode={FastImage.resizeMode.cover} />
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>เสื้อผ้าคุณผู้หญิง Less is more</Text>
+                <View style={{ backgroundColor: '#FFFF', width: '100%' }}>
+                    <View style={[stylesMain.FlexRow, { justifyContent: 'space-around' }]}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>สมาชิก</Text>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>1.4 แสนคน</Text>
+                    </View>
+                    <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { borderBottomWidth: 1 }]}>
+                        {
+                            [0, 1, 2, 3, 4,].map((_, index) => {
+                                return (
+                                    <View key={index} style={{ height: 50, width: 50, marginLeft: 10, borderRadius: 25, borderWidth: 1, marginBottom: 10 }}>
+                                        <FastImage
+                                            style={stylesMain.BoxProduct1Image}
+                                            source={{
+                                                uri: `${ip}/MySQL/uploads/addmin/1212.png`,
+                                            }}
+                                            resizeMode={FastImage.resizeMode.cover} />
+                                    </View>
+                                )
+                            })
+                        }
+                    </View>
+                    <View style={[stylesMain.FlexRow, { justifyContent: 'space-around', marginTop: 15 }]}>
+                        <TouchableOpacity>
+                            <View style={[stylesMain.ItemCenter, { backgroundColor: '#C4C4C4', padding: 10, borderRadius: 25, width: width * 0.30 }]}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>เกี่ยวกับกลุ่ม</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <View style={[stylesMain.ItemCenter, { backgroundColor: '#C4C4C4', padding: 10, borderRadius: 25, width: width * 0.30 }]}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>รูปภาพ</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <View style={[stylesMain.ItemCenter, { backgroundColor: '#C4C4C4', padding: 10, borderRadius: 25, width: width * 0.30 }]}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>สมาชิก</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={stylesMain.FrameBackground, stylesMain.BackgroundAreaView}>
+                        <View>
+                            {
+                                dataService &&
+                                <FlatList
+                                    scrollEnabled={true}
+                                    initialNumToRender={10}
+                                    data={dataService}
+                                    keyExtractor={(value, index) => `Feed${index}`}
+                                    ListHeaderComponent={() => headerStoryList()}
+                                    renderItem={(value) => {
+                                        return <>
+                                            <FeedBox dataService={value.item} Header />
+                                        </>
+                                    }}
+                                />
+                            }
+                        </View>
+                    </View>
+                </View>
+            </ScrollView>
+        </View>
+    );
+}
+
+

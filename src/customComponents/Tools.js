@@ -1,10 +1,11 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { useState, useEffect } from 'react';
 import {
-    ActivityIndicator, Dimensions, Modal, ScrollView, Text, TextInput, TouchableOpacity, View, Share, Image, FlatList,
+    ActivityIndicator, Animated, Dimensions, Modal, ScrollView, Text, TextInput, TouchableOpacity, View, Share, Image, FlatList,
     StyleSheet, Platform, PixelRatio,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
+import * as Animatable from 'react-native-animatable';
 import AsyncStorage from '@react-native-community/async-storage';
 import CookieManager from '@react-native-community/cookies';
 export const { width, height } = Dimensions.get('window');
@@ -40,6 +41,9 @@ export class Toolbar extends React.Component {
             activeGetCurrentUser: true,
         }
     }
+    componentDidMount() {
+        this.props?.customerData?.isChecked == false && this.props?.checkCustomer()
+    }
     getSource = (value) => {
         this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser })
     }
@@ -51,7 +55,6 @@ export class Toolbar extends React.Component {
             currentUser.name &&
                 (u_name = currentUser.name)
         }
-        console.log(route)
         var routeSelcet = route.name
         activeGetCurrentUser == true && GetData({ getSource: this.getSource.bind(this), getUser: true })
         return (
@@ -1266,17 +1269,28 @@ export function ProductBox(props) {
 }
 ///----------------------------------------------------------------------------------------------->>>> FlatComponent
 export function FlatComponent(props) {
-    const { component, componentPage, } = props
+    const { animatedView, component, componentPage, } = props
+    const AFlatList = Animatable.createAnimatableComponent(FlatList);
     return (
-        component &&
-        <FlatList
-            // ref={c => this.FlatMainScreen = c}
-            {...props}
-            scrollEnabled={true}
-            data={component}
-            keyExtractor={(value, index) => `Component:${componentPage ? componentPage : index}_${value.nameComponent}`}
-            renderItem={(value) => value.item.renderComponent}
-        />
+        component && (
+            animatedView ?
+                <Animated.FlatList
+                    // ref={c => this.FlatMainScreen = c}
+                    {...props}
+                    scrollEnabled={true}
+                    data={component}
+                    keyExtractor={(value, index) => `Component:${componentPage ? componentPage : index}_${value.nameComponent}`}
+                    renderItem={(value) => value.item.renderComponent}
+                /> :
+                <FlatList
+                    // ref={c => this.FlatMainScreen = c}
+                    {...props}
+                    scrollEnabled={true}
+                    data={component}
+                    keyExtractor={(value, index) => `Component:${componentPage ? componentPage : index}_${value.nameComponent}`}
+                    renderItem={(value) => value.item.renderComponent}
+                />
+        )
     )
 }
 ///----------------------------------------------------------------------------------------------->>>> FlatProduct

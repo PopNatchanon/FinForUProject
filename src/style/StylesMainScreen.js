@@ -513,17 +513,16 @@ export default StyleSheet.create({
     paddingVertical: 1,
   },
   Appbar: {
-    borderColor: '#ECECEC',
-    borderWidth: 1,
+    // borderColor: '#ECECEC',
+    // borderWidth: 1,
     height: 55,
-    paddingTop: 6,
-    paddingBottom: 6,
+    width,
   },
   AppbarBody: {
     marginLeft: 6,
     borderRadius: 60,
-    borderWidth: 1,
-    borderColor: '#E5E5E5',
+    // borderWidth: 1,
+    // borderColor: '#E5E5E5',
     backgroundColor: '#fff',
   },
   ///------------------------------------------------------------------------------------------///

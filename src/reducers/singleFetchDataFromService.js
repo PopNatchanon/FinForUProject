@@ -24,6 +24,7 @@ export default (state = initialState, action) => {
         case FETCH_DATA_SUCCESS:
             console.log(action.name)
             console.log(FETCH_DATA_SUCCESS)
+            state[action.name] == undefined && (state[action.name] = {})
             state[action.name].data = action.payload
             state[action.name].isFetching = false
             return { ...state, state };

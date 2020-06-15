@@ -84,7 +84,7 @@ function DetailScreen(props) {
     /////--------------------------------------------->>>Start
     {
       nameComponent: 'Detail_Image',
-      renderComponent: <Detail_Image {...props} dataService={dataService && dataService.product_data} />
+      renderComponent: <Detail_Image {...props} dataService={dataService?.product_data} />
     },
     {
       nameComponent: 'Detail_Data',
@@ -97,7 +97,7 @@ function DetailScreen(props) {
     },
     {
       nameComponent: 'Selector_Conpon',
-      renderComponent: currentUser && <Conpon dataService={dataService && dataService.product_data} currentUser={currentUser} />
+      renderComponent: currentUser && <Conpon dataService={dataService?.product_data} currentUser={currentUser} />
     },
     {
       nameComponent: 'Selector_Product',
@@ -114,7 +114,7 @@ function DetailScreen(props) {
     },
     {
       nameComponent: 'Reviews',
-      renderComponent: <Reviews {...props} currentUser={currentUser} dataService={dataService && dataService.product_data}
+      renderComponent: <Reviews {...props} currentUser={currentUser} dataService={dataService?.product_data}
         getStarReview={(value) => fgetStarReview(value)} />
     },
     {
@@ -138,7 +138,7 @@ function DetailScreen(props) {
   return (
     <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
       {
-        getFetchData['cart_mobile'].isFetching &&
+        getFetchData['cart_mobile']?.isFetching &&
         <LoadingScreen />
       }
       {/* {
@@ -159,7 +159,7 @@ function DetailScreen(props) {
       {[
         dataService &&
         <FlatComponent component={itemT} key='Main' />,
-        dataService && dataService.product_data &&
+        dataService?.product_data &&
         <Buy_bar {...props} sendBuyProduct={sendBuyProduct} key={'Buy_bar'} currentUser={currentUser} dataService={dataService} />
       ]}
       <ExitAppModule {...props} />
@@ -213,7 +213,7 @@ export let Detail_Image = (props) => {
     setCurrentImage(value.current);
   };
   let id_product = (
-    dataService && dataService.map((item, index) => {
+    dataService.map((item, index) => {
       let dataMySQL;
       item.gallery_image ?
         dataMySQL = imageGallery(item.image_full_path, item.gallery_image) :
@@ -285,12 +285,12 @@ export class Detail_Data extends React.Component {
     const { dataService, getStarReview } = this.props
     const { dataService2, newDataService } = this.state
     var dataBody
-    if (dataService.detail_product !== undefined && newDataService === undefined) {
+    if (dataService?.detail_product !== undefined && newDataService === undefined) {
       var newData = []
-      for (var n = 0; n < dataService.detail_product.length; n++) {
+      for (var n = 0; n < dataService?.detail_product?.length; n++) {
         dataBody = {
-          id_product: dataService.product_data[0].id_product,
-          detail_color: dataService.detail_product[n].detail_1
+          id_product: dataService?.product_data[0]?.id_product,
+          detail_color: dataService?.detail_product[n]?.detail_1
         }
         fetch(`${finip}/product/get_value_size`, {
           method: 'POST',
@@ -312,80 +312,79 @@ export class Detail_Data extends React.Component {
       }
       this.setState({ newDataService: newData })
     }
-    return dataService.product_data &&
-      dataService.product_data.map((item, index) => {
-        return (
-          <View style={[stylesMain.FrameBackground2, { marginTop: 0, borderTopWidth: 0 }]} key={index}>
-            <View style={[stylesDetail.Price_Box, { borderTopWidth: 0 }]}>
-              <View style={stylesDetail.Price_Text_Name_Box}>
-                <View style={[stylesMain.FlexRow, { paddingVertical: 10, }]}>
-                  <NumberFormat
-                    value={dataService.price_data}
-                    displayType={'text'}
-                    thousandSeparator={true}
-                    prefix={'฿'}
-                    renderText={
-                      value =>
-                        <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
-                          {value}</Text>} />
-                  {/* <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+    return dataService?.product_data.map((item, index) => {
+      return (
+        <View style={[stylesMain.FrameBackground2, { marginTop: 0, borderTopWidth: 0 }]} key={index}>
+          <View style={[stylesDetail.Price_Box, { borderTopWidth: 0 }]}>
+            <View style={stylesDetail.Price_Text_Name_Box}>
+              <View style={[stylesMain.FlexRow, { paddingVertical: 10, }]}>
+                <NumberFormat
+                  value={dataService.price_data}
+                  displayType={'text'}
+                  thousandSeparator={true}
+                  prefix={'฿'}
+                  renderText={
+                    value =>
+                      <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+                        {value}</Text>} />
+                {/* <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
                     {item.full_price ? null : ' - '}</Text>*/}
-                  <NumberFormat
-                    value={item.maxvalue}
-                    displayType={'text'}
-                    thousandSeparator={true}
-                    prefix={'฿'}
-                    renderText={
-                      value =>
-                        <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
-                          {value}</Text>} />
-                  {
-                    dataService.show_discount !== '' && dataService.show_discount !== undefined &&
-                    <View style={[stylesMain.Box_On_sale, { borderRadius: 20 }]}>
-                      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>
-                        {dataService.show_discount}</Text>
-                    </View>
-                  }
-                </View>
-                <View style={stylesDetail.Price_Icon_Box}>
-                  {
-                    dataService2 &&
-                    <TouchableOpacity onPress={() => this.setStateLike()}>
-                      <IconFontAwesome style={[stylesDetail.Price_Icon, {
-                        color: dataService2.message == 'like' ? '#ff0066' : '#111111'
-                      }]} name={dataService2.message == 'like' ? 'heart' : 'heart-o'} size={20} />
-                    </TouchableOpacity>
-                  }
-                  <IconEntypo style={stylesDetail.Price_Icon} name='share' size={20} />
-                </View>
+                <NumberFormat
+                  value={item.maxvalue}
+                  displayType={'text'}
+                  thousandSeparator={true}
+                  prefix={'฿'}
+                  renderText={
+                    value =>
+                      <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+                        {value}</Text>} />
+                {
+                  dataService?.show_discount !== '' && dataService?.show_discount !== undefined &&
+                  <View style={[stylesMain.Box_On_sale, { borderRadius: 20 }]}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>
+                      {dataService?.show_discount}</Text>
+                  </View>
+                }
               </View>
-              <Text numberOfLines={2} style={[stylesDetail.Price_Text_Name, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
-                {item.name}</Text>
-              <View style={[stylesDetail.Price_Text_IconBox, stylesMain.BottomSpace]}>
-                <View style={stylesDetail.Price_Text_IconBoxStar}>
-                  {
-                    getStarReview &&
-                    this.starReview(getStarReview)
-                  }
-                  <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#111' }]}>
-                  </Text>
-                </View>
+              <View style={stylesDetail.Price_Icon_Box}>
+                {
+                  dataService2 &&
+                  <TouchableOpacity onPress={() => this.setStateLike()}>
+                    <IconFontAwesome style={[stylesDetail.Price_Icon, {
+                      color: dataService2.message == 'like' ? '#ff0066' : '#111111'
+                    }]} name={dataService2.message == 'like' ? 'heart' : 'heart-o'} size={20} />
+                  </TouchableOpacity>
+                }
+                <IconEntypo style={stylesDetail.Price_Icon} name='share' size={20} />
+              </View>
+            </View>
+            <Text numberOfLines={2} style={[stylesDetail.Price_Text_Name, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
+              {item.name}</Text>
+            <View style={[stylesDetail.Price_Text_IconBox, stylesMain.BottomSpace]}>
+              <View style={stylesDetail.Price_Text_IconBoxStar}>
+                {
+                  getStarReview &&
+                  this.starReview(getStarReview)
+                }
+                <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#111' }]}>
+                </Text>
               </View>
             </View>
           </View>
-        )
-      })
+        </View>
+      )
+    })
   }
   render() {
     const { currentUser, id_product, dataService, cokie } = this.props
     const { activeLike, activeService2 } = this.state
     const uri = `${finip}/favorite_data/favorite_product`;
     var dataBody = {
-      id_customer: currentUser && currentUser.id_customer,
+      id_customer: currentUser?.id_customer,
       id_product: id_product,
       activity: activeLike == true ? 'like' : 'check'
     };
-    dataService.product_data && cokie && currentUser && id_product && activeService2 == true &&
+    dataService?.product_data && cokie && currentUser && id_product && activeService2 == true &&
       GetServices({ uriPointer: uri, dataBody, Authorization: cokie, getDataSource: this.getData.bind(this) })
     return (
       <View>
@@ -416,88 +415,86 @@ export class Store extends React.Component {
   get id_store() {
     const { dataService, navigation } = this.props
     const { dataService2, ImageStore } = this.state
-    return dataService.product_data &&
-      dataService.product_data.map((item, index) => {
-        var dataMySQL = `${finip}/${item.store_path}/${item.store_img}`;
-        return (
-          <View style={[stylesMain.FrameBackground, stylesMain.BottomSpace]} key={index}>
-            <View style={stylesDetail.Store_Box1}>
-              <View style={stylesDetail.Store_Box2}>
-                <TouchableOpacity onPress={() => NavigationNavigateScreen({
-                  goScreen: 'StoreScreen', setData: { id_item: item.id_store }, navigation
-                })}>
-                  <FastImage
-                    source={{
-                      uri: dataMySQL,
-                    }}
-                    onError={() => this.LoadingStore(false)}
-                    onLoad={() => this.LoadingStore(true)}
-                    style={[stylesDetail.Store_Image, {
-                      marginLeft: 10, backgroundColor: ImageStore == true ? 'transparent' : '#959595'
-                    }]} />
+    return dataService?.product_data.map((item, index) => {
+      var dataMySQL = `${finip}/${item.store_path}/${item.store_img}`;
+      return (
+        <View style={[stylesMain.FrameBackground, stylesMain.BottomSpace]} key={index}>
+          <View style={stylesDetail.Store_Box1}>
+            <View style={stylesDetail.Store_Box2}>
+              <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                goScreen: 'StoreScreen', setData: { id_item: item.id_store }, navigation
+              })}>
+                <FastImage
+                  source={{
+                    uri: dataMySQL,
+                  }}
+                  onError={() => this.LoadingStore(false)}
+                  onLoad={() => this.LoadingStore(true)}
+                  style={[stylesDetail.Store_Image, {
+                    marginLeft: 10, backgroundColor: ImageStore == true ? 'transparent' : '#959595'
+                  }]} />
+              </TouchableOpacity>
+              <View style={stylesDetail.Store_Text_Box}>
+                <TouchableOpacity onPress={
+                  () => NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: item.id_store }, navigation })
+                }>
+                  <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
+                    {item.store_name}</Text>
                 </TouchableOpacity>
-                <View style={stylesDetail.Store_Text_Box}>
-                  <TouchableOpacity onPress={
-                    () => NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: item.id_store }, navigation })
-                  }>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
-                      {item.store_name}</Text>
-                  </TouchableOpacity>
-                  <Text style={[stylesDetail.Store_Text, stylesFont.FontFamilyText, stylesFont.FontSize8]}>
-                    Active เมื่อ 1 ชั่วโมงที่ผ่านมา</Text>
-                  <Text style={[stylesDetail.Store_Text, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                    <IconEntypo name='location-pin' size={15} />
-                    {item.store_address}</Text>
+                <Text style={[stylesDetail.Store_Text, stylesFont.FontFamilyText, stylesFont.FontSize8]}>
+                  Active เมื่อ 1 ชั่วโมงที่ผ่านมา</Text>
+                <Text style={[stylesDetail.Store_Text, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                  <IconEntypo name='location-pin' size={15} />
+                  {item.store_address}</Text>
+              </View>
+              <TouchableOpacity onPress={() => this.setStateFollow()}>
+                <View style={stylesDetail.Store_Buttom_Box}>
+                  <Text style={[stylesDetail.Store_Text_Button, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                    {dataService2.output}</Text>
                 </View>
-                <TouchableOpacity onPress={() => this.setStateFollow()}>
-                  <View style={stylesDetail.Store_Buttom_Box}>
-                    <Text style={[stylesDetail.Store_Text_Button, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                      {dataService2.output}</Text>
-                  </View>
-                </TouchableOpacity>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={stylesDetail.Store_Bar_A}>
+            <View style={stylesDetail.Store_Bar}>
+              <View>
+                <Text style={[stylesDetail.Store_Bar_int, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                  100</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                  รายการสินค้า</Text>
+              </View>
+              <Text style={{ fontSize: 25, }}>|</Text>
+              <View>
+                <Text style={[stylesDetail.Store_Bar_int, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                  90%</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                  จัดส่งตรงเวลา</Text>
+              </View>
+              <Text style={{ fontSize: 25, }}>|</Text>
+              <View>
+                <Text style={[stylesDetail.Store_Bar_int, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
+                  90%</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                  อัตราการตอบกลับแชท</Text>
               </View>
             </View>
-            <View style={stylesDetail.Store_Bar_A}>
-              <View style={stylesDetail.Store_Bar}>
-                <View>
-                  <Text style={[stylesDetail.Store_Bar_int, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
-                    100</Text>
-                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                    รายการสินค้า</Text>
-                </View>
-                <Text style={{ fontSize: 25, }}>|</Text>
-                <View>
-                  <Text style={[stylesDetail.Store_Bar_int, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
-                    90%</Text>
-                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                    จัดส่งตรงเวลา</Text>
-                </View>
-                <Text style={{ fontSize: 25, }}>|</Text>
-                <View>
-                  <Text style={[stylesDetail.Store_Bar_int, stylesFont.FontFamilyText, stylesFont.FontSize4]}>
-                    90%</Text>
-                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                    อัตราการตอบกลับแชท</Text>
-                </View>
-              </View>
-            </View>
-          </View >
-        );
-      })
+          </View>
+        </View >
+      );
+    })
   }
   render() {
     const { currentUser, dataService, cokie } = this.props
     const { activeFollow, activeService2 } = this.state
     const uri = `${finip}/brand/follow_data`;
     var id_store
-    dataService.product_data &&
-      dataService.product_data.map((item, index) => id_store = item.id_store)
+    dataService?.product_data.map((item, index) => id_store = item.id_store)
     var dataBody = {
-      id_customer: currentUser && currentUser.id_customer,
+      id_customer: currentUser?.id_customer,
       id_store: id_store,
       follow: activeFollow == true ? 'active' : ''
     };
-    dataService.product_data && cokie && currentUser && activeService2 == true &&
+    dataService?.product_data && cokie && currentUser && activeService2 == true &&
       GetServices({ uriPointer: uri, dataBody, Authorization: cokie, getDataSource: this.getData.bind(this) })
     return (
       <View>
@@ -522,15 +519,15 @@ export class Conpon extends React.Component {
     const { dataService2 } = this.state
     const { currentUser } = this.props
     return (
-      dataService2 && dataService2.store_coupon_m && dataService2.store_coupon_m.length > 0 &&
+      dataService2?.store_coupon_m?.length > 0 &&
       <>
         <View style={{ flex: 1, paddingHorizontal: 15 }}>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { textAlign: 'center' }]}>รับคูปอง</Text>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ส่วนลดร้านค้า</Text>
           <ScrollView>
             {
-              dataService2 && dataService2.store_coupon_m && dataService2.store_coupon_m.length > 0 ?
-                dataService2.store_coupon_m.map((item, index) => {
+              dataService2?.store_coupon_m?.length > 0 ?
+                dataService2?.store_coupon_m.map((item, index) => {
                   return <Coupon_Detail_BottomSheet dataService={item} currentUser={currentUser}
                     get_id_promotion={this.get_id_promotion.bind(this)} key={index} />
                 }) :
@@ -557,7 +554,7 @@ export class Conpon extends React.Component {
       dataService.map((item) => (
         uri = `${finip}/coupon/get_store_coupon`,
         dataBody = {
-          id_customer: currentUser.id_customer,
+          id_customer: currentUser?.id_customer,
           id_product: item.id_product
         }
       ))
@@ -566,7 +563,7 @@ export class Conpon extends React.Component {
     return (
       <>
         {
-          dataService2 && dataService2.store_coupon_m && dataService2.store_coupon_m.length > 0 ?
+          dataService2?.store_coupon_m?.length > 0 ?
             <View key={'ConponSheet'}>
               <BottomSheet
                 ref={ref => {
@@ -658,251 +655,248 @@ export class Selector extends React.Component {
       sendDataCart,
     } = this.state;
     var items = [];
-    dataService.detail_product &&
-      dataService.detail_product.map((item) => {
-        items.push({ name: item.detail_1, price: item.price })
-      });
+    dataService?.detail_product.map((item) => {
+      items.push({ name: item.detail_1, price: item.price })
+    });
     var items2 = [];
-    dataService2 &&
-      dataService2.data_size.map((item) => {
-        items2.push({ name: item.detail_2, amount: item.amount, price: item.price });
-      });
-    return dataService.product_data &&
-      dataService.product_data.map((item, index) => {
-        var uri;
-        var dataBody;
-        item && items && (
-          uri = `${finip}/product/get_value_size`,
-          dataBody = {
-            id_product: item.id_product,
-            detail_color: items[selectedIndex].name
-          }
-        );
-        var sale_price;
-        var full_price;
-        var amount_product;
-        var dis_price;
-        dataService2 && dataService3 && activeSelect2 == false && (
-          sale_price = dataService3.price_data,
-          sale_price = sale_price.replace(",", ""),
-          sale_price != items2[selectedIndex2].price && (
-            full_price = items2[selectedIndex2].price
-          ),
-          amount_product = dataService3.amount_data,
-          dis_price = dataService3.dis_price
-        );
-        var uri2;
-        var dataBody2;
-        dataService2 && activeSelect2 == true && (
-          uri2 = `${finip}/product/get_product_amount`,
-          dataBody2 = {
-            detail_color: items[selectedIndex].name,
-            val_size: items2[selectedIndex2].name,
-            id_product: item.id_product,
-          }
-        );
-        var uri3 = `${finip}/product/add_to_cart`;
-        var dataMySQL = `${finip}/${item.image_full_path}/${item.image}`;
-        activeSelect == true &&
-          GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), })
-        dataService2 && activeSelect2 == true &&
-          GetServices({ uriPointer: uri2, dataBody: dataBody2, getDataSource: this.getData2.bind(this), })
-        sendDataCart && activeSelect3 == true &&
-          GetServices({ uriPointer: uri3, Authorization: cokie, dataBody: sendDataCart, getDataSource: this.getData3.bind(this) })
-        return (
-          <View style={{ flex: 1, paddingHorizontal: 15 }} key={index}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { textAlign: 'center' }]}>ตัวเลือก</Text>
-            <ScrollView>
-              <View style={{ flexDirection: 'row' }}>
-                <View style={stylesDetail.Selector_BottomSheet_BoxImage}>
-                  <FastImage
-                    source={{
-                      uri: dataMySQL,
-                    }}
-                    style={stylesMain.BoxProduct1Image}
-                    resizeMode={FastImage.resizeMode.contain} />
-                </View>
-                {
-                  dataService2 && dataService3 &&
-                  <View style={{ width: '70%', marginLeft: 10 }}>
-                    <View style={stylesMain.FlexRow}>
-                      <NumberFormat
-                        value={sale_price}
-                        displayType={'text'}
-                        thousandSeparator={true}
-                        prefix={'฿'}
-                        renderText={
-                          value =>
-                            <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize2]}>
-                              {value}</Text>
-                        } />
-                      <NumberFormat
-                        value={dis_price && dis_price}
-                        displayType={'text'}
-                        thousandSeparator={true}
-                        suffix={'%'}
-                        renderText={
-                          value =>
-                            value &&
-                            <View style={[stylesMain.ItemCenter, {
-                              height: 20, backgroundColor: '#fb3449', marginTop: 5, marginLeft: 5, width: 50, borderRadius: 20
-                            }]}>
-                              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, stylesMain.ItemCenterVertical, {
-                                color: '#FFFFFF'
-                              }]}>
-                                {value}</Text>
-                            </View>
-                        } />
-                    </View>
+    dataService2?.data_size.map((item) => {
+      items2.push({ name: item.detail_2, amount: item.amount, price: item.price });
+    });
+    return dataService?.product_data.map((item, index) => {
+      var uri;
+      var dataBody;
+      item && items && (
+        uri = `${finip}/product/get_value_size`,
+        dataBody = {
+          id_product: item.id_product,
+          detail_color: items[selectedIndex].name
+        }
+      );
+      var sale_price;
+      var full_price;
+      var amount_product;
+      var dis_price;
+      dataService2 && dataService3 && activeSelect2 == false && (
+        sale_price = dataService3.price_data,
+        sale_price = sale_price.replace(",", ""),
+        sale_price != items2[selectedIndex2].price && (
+          full_price = items2[selectedIndex2].price
+        ),
+        amount_product = dataService3.amount_data,
+        dis_price = dataService3.dis_price
+      );
+      var uri2;
+      var dataBody2;
+      dataService2 && activeSelect2 == true && (
+        uri2 = `${finip}/product/get_product_amount`,
+        dataBody2 = {
+          detail_color: items[selectedIndex].name,
+          val_size: items2[selectedIndex2].name,
+          id_product: item.id_product,
+        }
+      );
+      var uri3 = `${finip}/product/add_to_cart`;
+      var dataMySQL = `${finip}/${item.image_full_path}/${item.image}`;
+      activeSelect == true &&
+        GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), })
+      dataService2 && activeSelect2 == true &&
+        GetServices({ uriPointer: uri2, dataBody: dataBody2, getDataSource: this.getData2.bind(this), })
+      sendDataCart && activeSelect3 == true &&
+        GetServices({ uriPointer: uri3, Authorization: cokie, dataBody: sendDataCart, getDataSource: this.getData3.bind(this) })
+      return (
+        <View style={{ flex: 1, paddingHorizontal: 15 }} key={index}>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { textAlign: 'center' }]}>ตัวเลือก</Text>
+          <ScrollView>
+            <View style={{ flexDirection: 'row' }}>
+              <View style={stylesDetail.Selector_BottomSheet_BoxImage}>
+                <FastImage
+                  source={{
+                    uri: dataMySQL,
+                  }}
+                  style={stylesMain.BoxProduct1Image}
+                  resizeMode={FastImage.resizeMode.contain} />
+              </View>
+              {
+                dataService2 && dataService3 &&
+                <View style={{ width: '70%', marginLeft: 10 }}>
+                  <View style={stylesMain.FlexRow}>
                     <NumberFormat
-                      value={full_price}
+                      value={sale_price}
                       displayType={'text'}
                       thousandSeparator={true}
                       prefix={'฿'}
                       renderText={
                         value =>
-                          value &&
-                          <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize4,
-                          stylesMain.BoxProduct1ImagePriceThrough, { marginTop: 0, }]}>
+                          <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize2]}>
                             {value}</Text>
                       } />
                     <NumberFormat
-                      value={amount_product}
+                      value={dis_price && dis_price}
                       displayType={'text'}
                       thousandSeparator={true}
+                      suffix={'%'}
                       renderText={
                         value =>
-                          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
-                            คลัง {value}</Text>
+                          value &&
+                          <View style={[stylesMain.ItemCenter, {
+                            height: 20, backgroundColor: '#fb3449', marginTop: 5, marginLeft: 5, width: 50, borderRadius: 20
+                          }]}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, stylesMain.ItemCenterVertical, {
+                              color: '#FFFFFF'
+                            }]}>
+                              {value}</Text>
+                          </View>
                       } />
                   </View>
-                }
+                  <NumberFormat
+                    value={full_price}
+                    displayType={'text'}
+                    thousandSeparator={true}
+                    prefix={'฿'}
+                    renderText={
+                      value =>
+                        value &&
+                        <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize4,
+                        stylesMain.BoxProduct1ImagePriceThrough, { marginTop: 0, }]}>
+                          {value}</Text>
+                    } />
+                  <NumberFormat
+                    value={amount_product}
+                    displayType={'text'}
+                    thousandSeparator={true}
+                    renderText={
+                      value =>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
+                          คลัง {value}</Text>
+                    } />
+                </View>
+              }
+            </View>
+            <View style={{ padding: 10 }}>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>สี</Text>
+              <View style={[stylesMain.FlexRow, { width: '100%', flexWrap: 'wrap', alignItems: 'center' }]}>
+                <TabBar
+                  sendData={this.updateIndex.bind(this)}
+                  item={items}
+                  type='box'
+                  noLimit
+                  numberBox
+                  radiusBox={4} />
               </View>
+            </View>
+            {
+              items2 &&
               <View style={{ padding: 10 }}>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>สี</Text>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ขนาด</Text>
                 <View style={[stylesMain.FlexRow, { width: '100%', flexWrap: 'wrap', alignItems: 'center' }]}>
                   <TabBar
-                    sendData={this.updateIndex.bind(this)}
-                    item={items}
+                    sendData={this.updateIndex2.bind(this)}
+                    item={items2}
                     type='box'
                     noLimit
                     numberBox
                     radiusBox={4} />
                 </View>
               </View>
-              {
-                items2 &&
-                <View style={{ padding: 10 }}>
-                  <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ขนาด</Text>
-                  <View style={[stylesMain.FlexRow, { width: '100%', flexWrap: 'wrap', alignItems: 'center' }]}>
-                    <TabBar
-                      sendData={this.updateIndex2.bind(this)}
-                      item={items2}
-                      type='box'
-                      noLimit
-                      numberBox
-                      radiusBox={4} />
-                  </View>
+            }
+          </ScrollView>
+          <View style={{ alignItems: 'center' }}>
+            <View style={{ flexDirection: 'row', width: '90%', }}>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>จำนวน</Text>
+              <TouchableOpacity activeOpacity={1} onPress={
+                itemCount > 1 ?
+                  () => this.setStateItemCount(itemCount - 1) :
+                  null
+              }>
+                <View style={[stylesMain.ItemCenter, stylesDetail.Selector_BottomSheet_itemCount, {
+                  borderTopLeftRadius: 5, borderBottomLeftRadius: 5,
+                }]}>
+                  {
+                    dataService3 &&
+                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, {
+                      color:
+                        itemCount > 1 ?
+                          '#111' :
+                          '#CECECE'
+                    }]}>
+                      -</Text>
+                  }
                 </View>
-              }
-            </ScrollView>
-            <View style={{ alignItems: 'center' }}>
-              <View style={{ flexDirection: 'row', width: '90%', }}>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>จำนวน</Text>
+              </TouchableOpacity>
+              <View style={[stylesMain.ItemCenter, stylesFont.FontFamilyText, stylesDetail.Selector_BottomSheet_itemCount_TextInput]}>
+                <TextInput style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]} keyboardType={'numeric'}
+                  maxLength={6} min={1}
+                  onChangeText={this.setStateItemCount.bind(this)}>
+                  {itemCount}
+                </TextInput>
+              </View>
+              {
+                dataService3 &&
                 <TouchableOpacity activeOpacity={1} onPress={
-                  itemCount > 1 ?
-                    () => this.setStateItemCount(itemCount - 1) :
+                  itemCount < dataService3.amount_data ?
+                    () => this.setStateItemCount(itemCount + 1) :
                     null
                 }>
                   <View style={[stylesMain.ItemCenter, stylesDetail.Selector_BottomSheet_itemCount, {
-                    borderTopLeftRadius: 5, borderBottomLeftRadius: 5,
+                    borderTopRightRadius: 5, borderBottomRightRadius: 5,
                   }]}>
-                    {
-                      dataService3 &&
-                      <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, {
-                        color:
-                          itemCount > 1 ?
-                            '#111' :
-                            '#CECECE'
-                      }]}>
-                        -</Text>
-                    }
+                    < Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, {
+                      color:
+                        itemCount < dataService3.amount_data ?
+                          '#111' :
+                          '#CECECE'
+                    }]}>
+                      +</Text>
                   </View>
                 </TouchableOpacity>
-                <View style={[stylesMain.ItemCenter, stylesFont.FontFamilyText, stylesDetail.Selector_BottomSheet_itemCount_TextInput]}>
-                  <TextInput style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]} keyboardType={'numeric'}
-                    maxLength={6} min={1}
-                    onChangeText={this.setStateItemCount.bind(this)}>
-                    {itemCount}
-                  </TextInput>
-                </View>
-                {
-                  dataService3 &&
-                  <TouchableOpacity activeOpacity={1} onPress={
-                    itemCount < dataService3.amount_data ?
-                      () => this.setStateItemCount(itemCount + 1) :
-                      null
-                  }>
-                    <View style={[stylesMain.ItemCenter, stylesDetail.Selector_BottomSheet_itemCount, {
-                      borderTopRightRadius: 5, borderBottomRightRadius: 5,
-                    }]}>
-                      < Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, {
-                        color:
-                          itemCount < dataService3.amount_data ?
-                            '#111' :
-                            '#CECECE'
-                      }]}>
-                        +</Text>
-                    </View>
-                  </TouchableOpacity>
-                }
-              </View>
-              <View style={[stylesDetail.Selector_BottomSheet_BoxButtom, { justifyContent: buyProduct != 'null' ? 'center' : 'space-between' }]}>
-                {
-                  (buyProduct == 'addcart' || buyProduct == 'null') && currentUser && dataService2 &&
-                  <TouchableOpacity activeOpacity={itemCount > 0 ? 0.8 : 1} onPress={
-                    itemCount > 0 ?
-                      () => this.sendDataCart(
-                        'addcart', {
-                        id_product: item.id_product, amount: itemCount, color_value: items[selectedIndex].name,
-                        size_value: items2[selectedIndex2].name, feature_product: dataService.feature_product,
-                        id_customer: currentUser.id_customer, buy_now: "cart"
-                      }) :
-                      null
-                  }>
-                    <View style={[stylesDetail.Buy_bar_Iconshop, stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
-                      width: buyProduct == 'addcart' ? 320 : 160
-                    }]}>
-                      <IconAntDesign name='shoppingcart' size={25} />
-                      <Text style={[stylesFont.FontFamilyText, stylesFont.FontCenter, { marginLeft: 10 }]}>
-                        เพิ่มลงรถเข็น</Text>
-                    </View>
-                  </TouchableOpacity>
-                }
-                {
-                  (buyProduct == 'gocart' || buyProduct == 'null') && currentUser && dataService2 &&
-                  <TouchableOpacity activeOpacity={itemCount > 0 ? 0.8 : 1} onPress={
-                    itemCount > 0 ?
-                      () => this.sendDataCart('gocart', {
-                        id_product: item.id_product, amount: itemCount, color_value: items[selectedIndex].name,
-                        size_value: items2[selectedIndex2].name, feature_product: dataService.feature_product,
-                        id_customer: currentUser.id_customer, buy_now: "cart"
-                      }) :
-                      null
-                  }>
-                    <View style={[stylesDetail.Buy_bar_IconBuy, stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
-                      width: buyProduct == 'gocart' ? 320 : 160
-                    }]}>
-                      <Text style={[stylesDetail.Buy_bar_IconBuytext, stylesFont.FontFamilyText, stylesFont.FontCenter]}>
-                        ซื้อเลย</Text>
-                    </View>
-                  </TouchableOpacity>
-                }
-              </View>
+              }
+            </View>
+            <View style={[stylesDetail.Selector_BottomSheet_BoxButtom, { justifyContent: buyProduct != 'null' ? 'center' : 'space-between' }]}>
+              {
+                (buyProduct == 'addcart' || buyProduct == 'null') && currentUser && dataService2 &&
+                <TouchableOpacity activeOpacity={itemCount > 0 ? 0.8 : 1} onPress={
+                  itemCount > 0 ?
+                    () => this.sendDataCart(
+                      'addcart', {
+                      id_product: item.id_product, amount: itemCount, color_value: items[selectedIndex].name,
+                      size_value: items2[selectedIndex2].name, feature_product: dataService?.feature_product,
+                      id_customer: currentUser.id_customer, buy_now: "cart"
+                    }) :
+                    null
+                }>
+                  <View style={[stylesDetail.Buy_bar_Iconshop, stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
+                    width: buyProduct == 'addcart' ? 320 : 160
+                  }]}>
+                    <IconAntDesign name='shoppingcart' size={25} />
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontCenter, { marginLeft: 10 }]}>
+                      เพิ่มลงรถเข็น</Text>
+                  </View>
+                </TouchableOpacity>
+              }
+              {
+                (buyProduct == 'gocart' || buyProduct == 'null') && currentUser && dataService2 &&
+                <TouchableOpacity activeOpacity={itemCount > 0 ? 0.8 : 1} onPress={
+                  itemCount > 0 ?
+                    () => this.sendDataCart('gocart', {
+                      id_product: item.id_product, amount: itemCount, color_value: items[selectedIndex].name,
+                      size_value: items2[selectedIndex2].name, feature_product: dataService?.feature_product,
+                      id_customer: currentUser.id_customer, buy_now: "cart"
+                    }) :
+                    null
+                }>
+                  <View style={[stylesDetail.Buy_bar_IconBuy, stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
+                    width: buyProduct == 'gocart' ? 320 : 160
+                  }]}>
+                    <Text style={[stylesDetail.Buy_bar_IconBuytext, stylesFont.FontFamilyText, stylesFont.FontCenter]}>
+                      ซื้อเลย</Text>
+                  </View>
+                </TouchableOpacity>
+              }
             </View>
           </View>
-        )
-      })
+        </View>
+      )
+    })
   }
   sendProduct = (typeSelect) => {
     const { sendBuyProduct } = this.props
@@ -914,7 +908,7 @@ export class Selector extends React.Component {
   }
   render() {
     const { buyProduct, currentUser, dataService, navigation } = this.props
-    dataService.detail_product && buyProduct &&
+    dataService?.detail_product && buyProduct &&
       this.SelectorSheet.open()
     return (
       <>
@@ -935,7 +929,7 @@ export class Selector extends React.Component {
           {this.SelectorSheetBody}
         </BottomSheet>
         {
-          dataService.detail_product && dataService.detail_product.length > 0 &&
+          dataService?.detail_product?.length > 0 &&
           <View style={stylesDetail.Coupon}>
             <TouchableOpacity activeOpacity={1} onPress={
               currentUser ?
@@ -964,8 +958,7 @@ export class Selector extends React.Component {
 export let Detail_Category = (props) => {
   const { dataService } = props
   let id_store = (
-    dataService.product_data &&
-    dataService.product_data.map((item, index) => {
+    dataService?.product_data.map((item, index) => {
       return (
         <View style={[stylesMain.FrameBackground]} key={index}>
           <View style={[stylesMain.FrameBackgroundTextBox, stylesDetail.BottomTitle, stylesMain.MarginBottomTitle]}>
@@ -1016,8 +1009,7 @@ export let Detail = (props) => {
     setActiveText(value);
   };
   let id_store = (
-    dataService.product_data &&
-    dataService.product_data.map((item, index) => {
+    dataService?.product_data.map((item, index) => {
       return (
         <View style={stylesMain.FrameBackground} key={index}>
           <View style={[stylesMain.FrameBackgroundTextBox, stylesDetail.BottomTitle, stylesMain.MarginBottomTitle]}>
@@ -1091,7 +1083,7 @@ export class Reviews extends React.Component {
               source={{ uri: `${ip}/MySQL/uploads/products/2019-06-09-1560016588.jpg` }} />
             <View style={stylesDetail.Comment_R_Text}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-                {item.name ? item.name : 'ไม่ระบุตัวตน'}</Text>
+                {item.name ?? 'ไม่ระบุตัวตน'}</Text>
               <View style={stylesDetail.Comment_R_Iconstar}>
                 {
                   this.starReview(item.rating, 15)
@@ -1117,17 +1109,13 @@ export class Reviews extends React.Component {
       if (star > n) {
         starBox.push(
           <IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={
-            starSize ?
-              starSize :
-              20
+            starSize ?? 20
           } color='#FFAC33' />
         )
       } else {
         starBox.push(
           <IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={
-            starSize ?
-              starSize :
-              20
+            starSize ?? 20
           } color='#E9E9E9' />
         )
       }
@@ -1161,24 +1149,20 @@ export class Reviews extends React.Component {
             <IconFeather style={stylesDetail.Score_iconB} name='edit' size={20} color={mainColor} />
           </TouchableOpacity>
         </View>
-        {
-          dataService2 &&
-          <View style={stylesDetail.Price_Text_IconBox}>
-            <View style={stylesDetail.Price_Text_IconBoxStar}>
-              {
-                this.starReview(dataService2.rating_total)
-              }
-              <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-                {dataService2.rating_total}/5</Text>
-              <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-                ( {dataService2.review ? dataService2.review.length : '0'} รีวิว)</Text>
-            </View>
+        <View style={stylesDetail.Price_Text_IconBox}>
+          <View style={stylesDetail.Price_Text_IconBoxStar}>
+            {
+              this.starReview(dataService2?.rating_total)
+            }
+            <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+              {dataService2?.rating_total}/5</Text>
+            <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+              ( {dataService2?.review ? dataService2?.review?.length : '0'} รีวิว)</Text>
           </View>
-        }
+        </View>
         <View>
           {
-            dataService2 &&
-            this.customerReview(dataService2.review)
+            this.customerReview(dataService2?.review)
           }
         </View>
       </View>
@@ -1203,16 +1187,15 @@ export let Same_Store = (props) => {
   var dataBody;
   var id_type;
   var id_store;
-  dataService.product_data &&
-    dataService.product_data.map((item) => {
-      id_type = item.id_type
-      id_store = item.id_store
-      dataBody = {
-        id_type: item.id_type,
-        id_store: item.id_store,
-        type_product: "this_store",
-      };
-    });
+  dataService?.product_data.map((item) => {
+    id_type = item.id_type
+    id_store = item.id_store
+    dataBody = {
+      id_type: item.id_type,
+      id_store: item.id_store,
+      type_product: "this_store",
+    };
+  });
   useEffect(() => {
     activeDataService && dataBody !== undefined &&
       GetServices({
@@ -1250,16 +1233,15 @@ export let Similar_Product = (props) => {
   var dataBody;
   var id_type;
   var id_store;
-  dataService.product_data &&
-    dataService.product_data.map((item) => {
-      id_type = item.id_type
-      id_store = item.id_store
-      dataBody = {
-        id_type: item.id_type,
-        id_store: item.id_store,
-        type_product: "same_product",
-      };
-    });
+  dataService?.product_data.map((item) => {
+    id_type = item.id_type
+    id_store = item.id_store
+    dataBody = {
+      id_type: item.id_type,
+      id_store: item.id_store,
+      type_product: "same_product",
+    };
+  });
   useEffect(() => {
     activeDataService && dataBody !== undefined &&
       GetServices({
@@ -1297,16 +1279,15 @@ export let Might_like = (props) => {
   var dataBody;
   var id_type;
   var id_store;
-  dataService.product_data &&
-    dataService.product_data.map((item) => {
-      id_type = item.id_type
-      id_store = item.id_store
-      dataBody = {
-        id_type: item.id_type,
-        id_store: item.id_store,
-        type_product: "youlike",
-      };
-    });
+  dataService?.product_data.map((item) => {
+    id_type = item.id_type
+    id_store = item.id_store
+    dataBody = {
+      id_type: item.id_type,
+      id_store: item.id_store,
+      type_product: "youlike",
+    };
+  });
   useEffect(() => {
     activeDataService && dataBody !== undefined &&
       GetServices({
@@ -1345,8 +1326,7 @@ export let Buy_bar = (props) => {
     sendBuyProduct(typeSelect);
   };
   let dataServicesTab = (
-    dataService.product_data &&
-    dataService.product_data.map((item, index) => {
+    dataService?.product_data.map((item, index) => {
       return (
         < View style={stylesDetail.Buy_bar} key={index}>
           < View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>

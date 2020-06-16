@@ -1,9 +1,11 @@
-import SplashScreen from 'react-native-splash-screen';
 import AsyncStorage from '@react-native-community/async-storage';
+import CookieManager from '@react-native-community/cookies';
+import SplashScreen from 'react-native-splash-screen';
 import {
     COSTOMER_DATA, COSTOMER_DATA_FAILURE, COSTOMER_DATA_SUCCESS, COSTOMER_GET_DATA_TOKEN, COSTOMER_NOT_LOGIN, FETCH_DATA, FETCH_DATA_FAILURE,
     FETCH_DATA_START, FETCH_DATA_SUCCESS, SET_ACTIVE_FETCH_DATA,
 } from '../actions/constants';
+import { finip } from '../navigator/IpConfig';
 import { promiseConnectServices, promiseProcessData } from './api';
 //==================================================>activeFetchData
 export const setStageActiveFetch = (data, id, name) => ({

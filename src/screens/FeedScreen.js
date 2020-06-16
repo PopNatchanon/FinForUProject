@@ -245,7 +245,7 @@ export function Highlights(props) {
     </View>
   );
 };
-///----------------------------------------------------------------------------------------------->>>>
+///----------------------------------------------------------------------------------------------->>>> Feed_Login
 export function Feed_Login(props) {
   const { currentUser } = props
   const image_user = `${finip}/${currentUser.image_path}/${currentUser.image}`
@@ -287,7 +287,7 @@ export function Feed_Login(props) {
   )
 }
 
-///----------------------------------------------------------------------------------------------->>>>
+///----------------------------------------------------------------------------------------------->>>> Feed_About
 export function Feed_About(props) {
   const { navigation } = props;
   return (<ScrollView>

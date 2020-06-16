@@ -1,5 +1,5 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import {
     Dimensions, SafeAreaView, ScrollView, Text, View, TouchableOpacity, FlatList, Image,
 } from 'react-native';
@@ -11,6 +11,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import { TextInput } from 'react-native-gesture-handler';
 import RNFetchBlob from 'rn-fetch-blob'
 import ModalDropdown from 'react-native-modal-dropdown';
+import ActionButton from 'react-native-action-button';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -28,7 +29,7 @@ import stylesProfile from '../../style/StylesProfileScreen';
 import {
     GetServices, GetCoupon, TabBar, LoadingScreen, GetData, GetServicesBlob, NavigationNavigateScreen
 } from '../../customComponents/Tools';
-import { TodayProduct, Slide, AppBar1, ExitAppModule,AppBar } from '../MainScreen';
+import { TodayProduct, Slide, AppBar1, ExitAppModule, AppBar } from '../MainScreen';
 import { Store_Detail } from '../Recommend_Store';
 import { ProductBox, FeedBox, } from '../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -103,8 +104,15 @@ export default class Post_Feed extends Component {
             case 12:
                 return (
                     <>
-                        <AppBar {...this.props} backArrow titleHead='Profile Group' otherBar />
+                        <AppBar {...this.props} backArrow otherBar />
                         <Profile_Group {...this.props} />
+                    </>
+                )
+            case 13:
+                return (
+                    <>
+                        <AppBar1 {...this.props} backArrow titleHead='สร้างกลุ่ม' />
+                        <Group_About />
                     </>
                 )
         }
@@ -784,11 +792,25 @@ export class New_Group extends Component {
         );
     }
 }
-///----------------------------------------------------------------------------------------------->>>>
+///----------------------------------------------------------------------------------------------->>>> โปรไฟล์ กลุ่ม
 export function Profile_Group(props) {
-    const { dataService, selectedIndex, } = props;
+    const { navigation } = props;
+    var uri = `${finip}/${'brand/feed_highlight'}`
+    const [activeSelectedIndex, setActiveSelectedIndex] = useState(true);
+    const [dataService, setDataService] = useState(null);
+    useEffect(() => {
+        activeSelectedIndex &&
+            GetServices({
+                uriPointer: uri, getDataSource: value => {
+                    setActiveSelectedIndex(false);
+                    setDataService(value);
+                },
+            });
+    }, [activeSelectedIndex]);
+    console.log('Profile_Group')
+    console.log(dataService)
     return (
-        <View>
+        <>
             <ScrollView>
                 <FastImage
                     style={{ width: '100%', height: 150 }}
@@ -819,7 +841,11 @@ export function Profile_Group(props) {
                         }
                     </View>
                     <View style={[stylesMain.FlexRow, { justifyContent: 'space-around', marginTop: 15 }]}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                            goScreen: 'Post_Feed', setData: {
+                                selectedIndex: 13,
+                            }, navigation
+                        })}>
                             <View style={[stylesMain.ItemCenter, { backgroundColor: '#C4C4C4', padding: 10, borderRadius: 25, width: width * 0.30 }]}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>เกี่ยวกับกลุ่ม</Text>
                             </View>
@@ -835,29 +861,134 @@ export function Profile_Group(props) {
                             </View>
                         </TouchableOpacity>
                     </View>
-                    <View style={stylesMain.FrameBackground, stylesMain.BackgroundAreaView}>
-                        <View>
-                            {
-                                dataService &&
-                                <FlatList
-                                    scrollEnabled={true}
-                                    initialNumToRender={10}
-                                    data={dataService}
-                                    keyExtractor={(value, index) => `Feed${index}`}
-                                    ListHeaderComponent={() => headerStoryList()}
-                                    renderItem={(value) => {
-                                        return <>
-                                            <FeedBox dataService={value.item} Header />
-                                        </>
-                                    }}
-                                />
-                            }
-                        </View>
+                </View>
+                <View style={stylesMain.FrameBackground, stylesMain.BackgroundAreaView}>
+                    <View>
+                        {
+                            dataService?.feed_follow &&
+                            <FlatList
+                                scrollEnabled={true}
+                                initialNumToRender={10}
+                                data={dataService.feed_follow}
+                                keyExtractor={(value, index) => `Feed${index}`}
+                                renderItem={(value) => {
+                                    return <>
+                                        <FeedBox {...props} dataService={value.item} Header Follow={false} />
+                                    </>
+                                }}
+                            />
+                        }
                     </View>
                 </View>
             </ScrollView>
-        </View>
+            <ActionButton buttonColor={mainColor} size={50}
+                onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Post_Feed', setData: {
+                        selectedIndex: 1,
+                    }, navigation
+                })}>
+            </ActionButton>
+        </>
     );
+
 }
-
-
+///----------------------------------------------------------------------------------------------->>>>
+export function Group_About(props) {
+    return (
+        <>
+            <ScrollView>
+                <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>เกี่ยวกับกลุ่ม</Text>
+                    <Text numberOfLines={5} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                        🍓ตลาดสินค้า ราชบุรี🍓
+                        กลุ่มนี้เปิดไว้เพื่อคนราชบุรีและพื่นที่ใกล้เคียง
+                        ได้เข้ามาซื้อขายแลกเปลี่ยนสินค้า และประชาสัมพันธ์กิจการร้านค้าต่างๆในราชบุรี และพื้นที่ใกล้เคียง
+                        ใครมีอะไรในบ้านที่เก็บไว้ไม่ได้ใช้เอามาขายราคาถูกๆเพื่อไปเป็นประโยชน์กับคนอื่นนะค่ะ
+                        กติกาในการโพส
+                        1.ทุกครั้งที่โพสขายสินค้า
+                        ต้องแจ้งรายละเอียดสินค้าให้ครบถ้วน แจ้งราคา แจ้งสถานที่จำหน่าย แจ้งสถานที่รับสินค้า ด้วยทุกครั้ง
+                        2.ห้ามโพสขายสินค้าที่ผิดกฎหมายทุกชนิด
+                        3.ห้ามโพสเรื่องการเมือง
+                        4.ห้ามโพสถ้อยคำหยาบคาย ด่าทอกันเด็ดขาด
+                        ปฎิบัติผิดกฎ ถูกดีดออกจากกลุ่มทันที และจะไม่ได้กลับเข้ามาในกลุ่มนี้อีก
+                        ขอความร่วมมือ ช่วยนะค่ะ ขอบคุณค่ะ
+            </Text>
+                </View>
+                <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>สมาชิก</Text>
+                    <View style={[stylesMain.FlexRow, { justifyContent: 'space-between' }]}>
+                        <View style={stylesMain.FlexRow}>
+                            <FastImage
+                                style={{ height: 50, width: 50, borderRadius: 25, borderWidth: 1 }}
+                                source={{
+                                    uri: `${ip}/MySQL/uploads/addmin/unnamed.png`,
+                                }}
+                                resizeMode={FastImage.resizeMode.cover} />
+                            <View style={{ marginLeft: 10 }}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>Myn</Text>
+                                <View style={stylesMain.FlexRow}>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>กำลังติดตาม 18 ผู้ใช้งาน</Text>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ผู้ติดตาม 18 ผู้ใช้งาน</Text>
+                                </View>
+                            </View>
+                        </View>
+                        <TouchableOpacity>
+                            <IconEntypo name='dots-three-vertical' size={25} />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>แอดมินประจำกลุ่ม</Text>
+                    <View style={[stylesMain.FlexRow, { justifyContent: 'space-between' }]}>
+                        <View style={stylesMain.FlexRow}>
+                            <FastImage
+                                style={{ height: 50, width: 50, borderRadius: 25, borderWidth: 1 }}
+                                source={{
+                                    uri: `${ip}/MySQL/uploads/addmin/JALL2.jpg`,
+                                }}
+                                resizeMode={FastImage.resizeMode.cover} />
+                            <View style={{ marginLeft: 10 }}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>Pop</Text>
+                                <View style={stylesMain.FlexRow}>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>กำลังติดตาม 18 ผู้ใช้งาน</Text>
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ผู้ติดตาม 18 ผู้ใช้งาน</Text>
+                                </View>
+                            </View>
+                        </View>
+                        <TouchableOpacity>
+                            <IconEntypo name='dots-three-vertical' size={25} />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>สมาชิกกลุ่ม</Text>
+                    {
+                        [0, 1, 2, 3].map((_, index) => {
+                            return (
+                                <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', marginTop: 10 }]}>
+                                    <View style={stylesMain.FlexRow}>
+                                        <FastImage
+                                            style={{ height: 50, width: 50, borderRadius: 25, borderWidth: 1 }}
+                                            source={{
+                                                uri: `${ip}/MySQL/uploads/addmin/coffee.jpg`,
+                                            }}
+                                            resizeMode={FastImage.resizeMode.cover} />
+                                        <View style={{ marginLeft: 10 }}>
+                                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>Pop</Text>
+                                            <View style={stylesMain.FlexRow}>
+                                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>กำลังติดตาม 18 ผู้ใช้งาน</Text>
+                                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ผู้ติดตาม 18 ผู้ใช้งาน</Text>
+                                            </View>
+                                        </View>
+                                    </View>
+                                    <TouchableOpacity>
+                                        <IconEntypo name='dots-three-vertical' size={25} />
+                                    </TouchableOpacity>
+                                </View>
+                            )
+                        })}
+                </View>
+            </ScrollView>
+        </>
+    )
+}

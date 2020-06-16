@@ -133,18 +133,18 @@ function MainScreen(props) {
             nameComponent: 'Slide',
             renderComponent: <Slide {...props} />
         },
-        // {
-        //     nameComponent: 'Guarantee',
-        //     renderComponent: <Guarantee  {...props} />
-        // },
+        {
+            nameComponent: 'Guarantee',
+            renderComponent: <Guarantee  {...props} />
+        },
         {
             nameComponent: 'Category',
             renderComponent: <Category {...props} />
         },
-        //     {
-        //         nameComponent: 'Trend_Hit',
-        //         renderComponent: <Trend_Hit  {...props} />
-        //     },
+        {
+            nameComponent: 'Trend_Hit',
+            renderComponent: <Trend_Hit  {...props} />
+        },
         {
             nameComponent: 'Button_Bar',
             renderComponent: <Button_Bar {...props} />
@@ -153,10 +153,10 @@ function MainScreen(props) {
             nameComponent: 'FlashSale',
             renderComponent: <FlashSale {...props} />
         },
-        // {
-        //     nameComponent: 'Fin_Service',
-        //     renderComponent: <Fin_Service {...props} />
-        // },
+        {
+            nameComponent: 'Fin_Service',
+            renderComponent: <Fin_Service {...props} />
+        },
         {
             nameComponent: 'Recommend_Brand',
             renderComponent: <Recommend_Brand {...props} dataService={getFetchData['publish_mobile']?.data} />
@@ -169,10 +169,10 @@ function MainScreen(props) {
             nameComponent: 'NewStore',
             renderComponent: <NewStore  {...props} dataService={getFetchData['publish_mobile']?.data} />
         },
-        // {
-        //     nameComponent: 'Fin_Mall',
-        //     renderComponent: <Fin_Mall {...props} dataService={getFetchData['publish_mobile'] && getFetchData['publish_mobile'].data} />
-        // },
+        {
+            nameComponent: 'Fin_Mall',
+            renderComponent: <Fin_Mall {...props} dataService={getFetchData['publish_mobile'] && getFetchData['publish_mobile'].data} />
+        },
         {
             nameComponent: 'BannerBar_ONE',
             renderComponent: <BannerBar_ONE />
@@ -254,7 +254,7 @@ function MainScreen(props) {
             <Botton_PopUp_FIN />
             <Toolbar {...props} style={{ flex: 5, }} />
             <ExitAppModule {...props} />
-        </SafeAreaView >
+        </SafeAreaView>
     );
 };
 ///----------------------------------------------------------------------------------------------->>>> ExitAppModule
@@ -371,14 +371,14 @@ export let AppBar = (props) => {
         });
     }, [activeGetCurrentUser]);
     useEffect(() => {
-        (currentUser?.id_customer && (getFetchData['cart_mobile'] == undefined || getFetchData['cart_mobile']?.isFetching)) &&
+        (cartBar && currentUser?.id_customer && (getFetchData['cart_mobile'] == undefined || getFetchData['cart_mobile']?.isFetching)) &&
             fetchData({
                 dataBody: { id_customer: currentUser.id_customer }, name: 'cart_mobile', uri: `${finip}/cart/cart_mobile`,
             });
-    }, [(currentUser?.id_customer && (getFetchData['cart_mobile'] == undefined || getFetchData['cart_mobile']?.isFetching))])
+    }, [(cartBar && currentUser?.id_customer && (getFetchData['cart_mobile'] == undefined || getFetchData['cart_mobile']?.isFetching))])
     console.log('++++++++++++++++++++++++++++++++++++===============================>>>cartMobile')
     console.log(cartMobile)
-    cartMobile != getFetchData['cart_mobile']?.data?.cart_list.length && getFetchData['cart_mobile']?.data?.cart_list.length >= 0 &&
+    cartBar && cartMobile != getFetchData['cart_mobile']?.data?.cart_list.length && getFetchData['cart_mobile']?.data?.cart_list.length >= 0 &&
         setCartMobile(getFetchData['cart_mobile']?.data?.cart_list.length)
     let setSubmit = () => {
         const { text, } = this.state;
@@ -499,7 +499,7 @@ export let AppBar = (props) => {
                                 } :
                                 () => { NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true }); }}>
                             {
-                                getFetchData['cart_mobile'] && getFetchData['cart_mobile']?.isError && cartMobile > 0 ?
+                                cartBar && getFetchData['cart_mobile'] && getFetchData['cart_mobile']?.isError && cartMobile <= 0 ?
                                     <></> :
                                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, {
                                         backgroundColor: 'red', color: '#fff', width: 17, height: 17, borderRadius: 15,
@@ -796,7 +796,7 @@ export let Guarantee = (props) => {
                                 }}
                                 resizeMode={FastImage.resizeMode.cover} />
                         </View>
-                        <View style={{ backgroundColor: mainColor, paddingHorizontal: 10, borderRadius: 8, marginTop: 10 }} >
+                        <View style={{ backgroundColor: mainColor, paddingHorizontal: 15, borderRadius: 8, marginTop: 10 }} >
                             <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>ช้อปเลย</Text>
                         </View>
                     </TouchableOpacity>
@@ -2074,7 +2074,7 @@ export let Second_product = (props) => {
             <View style={{ width: width * 0.64, height: 196, }}>
                 <View style={[stylesMain.bigSlideImage, { backgroundColor: '#ECECEC' }]}>
                 </View>
-            </View >
+            </View>
     );
     let boxEmptyBody = (
         [0, 1,].map((_, index) => {
@@ -2577,7 +2577,7 @@ export let FIN_Supermarket = (props) => {
                         resizeMode={FastImage.resizeMode.stretch} />
                     <View style={[stylesMain.ItemCenter]}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>Exclusive Brands</Text>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]} numberOfLines={1}>สินค้าคุณภาพ คุ้มค่า คุ้มราคา</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]} numberOfLines={1}>สินค้าคุณ��าพ คุ้มค่า คุ้มราคา</Text>
                     </View>
                 </View>
                 <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop]}>

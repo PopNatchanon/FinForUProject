@@ -16,13 +16,14 @@ import NumberFormat from 'react-number-format';
 import SlidingView from 'rn-sliding-view';
 import RNFetchBlob from 'rn-fetch-blob'
 import SplashScreen from 'react-native-splash-screen';
+import BottomSheet from "react-native-raw-bottom-sheet";
 // import { StackActions, } from 'react-navigation';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-
+import IconFeather from 'react-native-vector-icons/Feather';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesDeal from '../style/stylePromotion-src/styleDealScreen';
 import stylesDetail from '../style/StylesDetailScreen'
@@ -1591,11 +1592,54 @@ export class FeedBox extends React.Component {
     get FeedBoxRender() {
         const { atStore, dataService, Follow, Header, navigation, postpath, prepath, typeip, userOwner } = this.props
         const { like, } = this.state
-        const options = userOwner ? ['แก้ไข', 'ลบ'] : ['รายงานความไม่เหมาะสม']
+        // const options = userOwner ? ['แก้ไข', 'ลบ'] : ['รายงานความไม่เหมาะสม']
         var dataMySQL_p = `${finip}/${dataService.image_path}/${dataService.image}`;
         var dataMySQL_s = `${finip}/${dataService.store_path}/${dataService.store_image}`;
         // console.log(dataService)
         return (
+            <>
+                <BottomSheet
+                    ref={ref => {
+                        this.Setting_Sheet = ref;
+                    }}
+                    height={230}
+                    // duration={250}
+                    customStyles={{
+                        container: {
+                            paddingHorizontal:25,
+                            borderTopLeftRadius: 10,
+                            borderTopRightRadius: 10,
+                        }
+                    }}
+                >
+                    <View>
+                        <TouchableOpacity style={[stylesMain.FlexRow,{marginTop:10}]}>
+                            <IconFeather name='bookmark' size={25} />
+                            <View style={{marginLeft:20}}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>บันทึกโพสต์</Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>เพิ่มสิ่งนี้ลงในรายการที่บันทึกไว้ของคุณ</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[stylesMain.FlexRow,{marginTop:10}]}>
+                            <IconAntDesign name='warning' size={25} />
+                            <View style={{marginLeft:20}}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>รายงานโพสต์</Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ฉันกังวลเกี่ยวกับโพสต์นี้</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[stylesMain.FlexRow,{marginTop:10}]}>
+                            <IconFontAwesome name='bell-o' size={25} />
+                            <View style={{marginLeft:20}}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>การแจ้งเตือน</Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>เปิดการแจ้งเตือนสำหรับโพสต์นี้</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[stylesMain.FlexRow,{marginTop:10}]}>
+                            <IconEntypo name='link' size={25}/>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,{marginLeft:20}]}>คัดลอกลิงก์</Text>
+                        </TouchableOpacity>
+                    </View>
+            </BottomSheet>
             <View style={stylesMain.BoxProduct4Box}>
                 {
                     Header &&
@@ -1631,13 +1675,16 @@ export class FeedBox extends React.Component {
                                         </View>
                                     </TouchableOpacity>
                             }
-                            <ModalDropdown
+                            <TouchableOpacity activeOpacity={1} onPress={() => { this.Setting_Sheet.open(); }}>
+                                <IconEntypo name='dots-three-vertical' size={25} />
+                            </TouchableOpacity>
+                            {/* <ModalDropdown
                                 options={options}
                                 onSelect={(selected) => { this.actionOption(selected, dataService.id_store, dataService.id_feed) }}
                                 dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}
                                 dropdownStyle={{ paddingHorizontal: 10, height: 44, borderRadius: 5 }}>
                                 <IconEntypo name='dots-three-vertical' size={25} />
-                            </ModalDropdown>
+                            </ModalDropdown> */}
                         </View>
                     </View>
                 }
@@ -1688,6 +1735,7 @@ export class FeedBox extends React.Component {
                     </View>
                 </View>
             </View>
+            </>
         );
     }
     render() {

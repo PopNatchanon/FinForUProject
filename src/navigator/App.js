@@ -81,9 +81,9 @@ function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName={
-          // 'MainScreen'
-          'FeedScreen'
-        } >
+          'MainScreen'
+          // 'ProfileScreen'
+        }>
           <Stack.Screen
             name='MainScreen'
             component={MainScreen}

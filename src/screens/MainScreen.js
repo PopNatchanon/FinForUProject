@@ -17,7 +17,6 @@ import ActionButton from 'react-native-action-button';
 import * as Animatable from 'react-native-animatable';
 import BottomSheet from "react-native-raw-bottom-sheet";
 import Carousel, { PaginationLight } from 'react-native-x-carousel';
-import CookieManager from '@react-native-community/cookies';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
@@ -63,6 +62,7 @@ const mapDispatchToProps = ({
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen)
 function MainScreen(props) {
     const { fetchData, getFetchData, multiFetchData } = props;
+    const [activeTime, setActiveTime] = useState(true);
     // const { browerProps, mode } = route.params;
     const scrollY = new Animated.Value(0);
     // const AFlatComponent = Animatable.createAnimatableComponent(FlatComponent);
@@ -73,23 +73,32 @@ function MainScreen(props) {
         extrapolate: 'clamp',
         useNativeDriver: true,
     });
+    const AnimatedCart = scrollY.interpolate({
+        inputRange: [maxheight, maxheight * 2],
+        outputRange: ['#ECECEC', mainColor],
+        extrapolate: 'clamp',
+        useNativeDriver: true,
+    });
+    useEffect(() => {
+        setTimeout(() => setActiveTime(false), 21000);
+    })
     let FetchDataMain = () => {
         multiFetchData({
             multiData: [
                 { name: 'publish_mobile', uri: `${finip}/home/publish_mobile`, },
-                { name: 'category_mobile', uri: `${finip}/home/category_mobile`, },
+                // { name: 'category_mobile', uri: `${finip}/home/category_mobile`, },
                 { dataBody: { slide: 'banner' }, name: 'home_mobile', uri: `${finip}/home/home_mobile`, }
             ]
         })
     }
     useEffect(() => {
         if ((getFetchData['publish_mobile'] == undefined || (getFetchData['publish_mobile']?.isFetching)) ||
-            (getFetchData['category_mobile'] == undefined || (getFetchData['category_mobile']?.isFetching)) ||
+            // (getFetchData['category_mobile'] == undefined || (getFetchData['category_mobile']?.isFetching)) ||
             (getFetchData['home_mobile'] == undefined || (getFetchData['home_mobile']?.isFetching))) {
             FetchDataMain()
         }
     }, [(getFetchData['publish_mobile'] == undefined || (getFetchData['publish_mobile']?.isFetching)) ||
-        (getFetchData['category_mobile'] == undefined || (getFetchData['category_mobile']?.isFetching)) ||
+        // (getFetchData['category_mobile'] == undefined || (getFetchData['category_mobile']?.isFetching)) ||
         (getFetchData['home_mobile'] == undefined || (getFetchData['home_mobile']?.isFetching))]);
     let FetchDataFlash = () => {
         fetchData({
@@ -99,34 +108,34 @@ function MainScreen(props) {
     useEffect(() => {
         if (getFetchData['flash_timer'] == undefined || (getFetchData['flash_timer']?.isFetching)) FetchDataFlash()
     }, [getFetchData['flash_timer']?.isFetching]);
-    const item_id_type = getFetchData['category_mobile']?.isFetching == false && getFetchData['category_mobile']?.data.map((value) => {
-        return value.id_type
-    });
-    let FetchDataCate = () => getFetchData['category_mobile']?.isFetching == false && item_id_type.map((value, index) => {
-        if (getFetchData[`category_product|${value}`] == undefined || (getFetchData[`category_product|${value}`]?.isFetching == true)) {
-            multiFetchData({
-                multiData: [
-                    { dataBody: { id_type: value }, name: `category_product|${value}`, uri: `${finip}/home/product_mobile`, },
-                    {
-                        dataBody: { promotion: 'promotions_1', id_type: value, }, name: `promo_1|${value}`,
-                        uri: `${finip}/home/publish_cate_mobile`,
-                    },
-                    {
-                        dataBody: { promotion: 'promotions_2', id_type: value, }, name: `promo_2|${value}`,
-                        uri: `${finip}/home/publish_cate_mobile`,
-                    },
-                    {
-                        dataBody: { promotion: 'shop', id_type: value, }, name: `shop|${value}`,
-                        uri: `${finip}/home/publish_cate_mobile`,
-                    }
-                ]
-            })
-        }
-    });
-    useEffect(() => {
-        getFetchData['category_mobile']?.isFetching == false &&
-            FetchDataCate();
-    }, [getFetchData['category_mobile']?.isFetching == false]);
+    // const item_id_type = getFetchData['category_mobile']?.isFetching == false && getFetchData['category_mobile']?.data.map((value) => {
+    //     return value.id_type
+    // });
+    // let FetchDataCate = () => getFetchData['category_mobile']?.isFetching == false && item_id_type.map((value, index) => {
+    //     if (getFetchData[`category_product|${value}`] == undefined || (getFetchData[`category_product|${value}`]?.isFetching == true)) {
+    //         multiFetchData({
+    //             multiData: [
+    //                 { dataBody: { id_type: value }, name: `category_product|${value}`, uri: `${finip}/home/product_mobile`, },
+    //                 {
+    //                     dataBody: { promotion: 'promotions_1', id_type: value, }, name: `promo_1|${value}`,
+    //                     uri: `${finip}/home/publish_cate_mobile`,
+    //                 },
+    //                 {
+    //                     dataBody: { promotion: 'promotions_2', id_type: value, }, name: `promo_2|${value}`,
+    //                     uri: `${finip}/home/publish_cate_mobile`,
+    //                 },
+    //                 {
+    //                     dataBody: { promotion: 'shop', id_type: value, }, name: `shop|${value}`,
+    //                     uri: `${finip}/home/publish_cate_mobile`,
+    //                 }
+    //             ]
+    //         })
+    //     }
+    // });
+    // useEffect(() => {
+    //     getFetchData['category_mobile']?.isFetching == false &&
+    //         FetchDataCate();
+    // }, [getFetchData['category_mobile']?.isFetching == false]);
     let itemT = [
         /////--------------------------------------------->>>Start
         {
@@ -139,7 +148,7 @@ function MainScreen(props) {
         },
         {
             nameComponent: 'Category',
-            renderComponent: <Category {...props} />
+            renderComponent: <Category {...props} dataService={getFetchData['publish_mobile']?.data} />
         },
         {
             nameComponent: 'Trend_Hit',
@@ -199,7 +208,7 @@ function MainScreen(props) {
         },
         {
             nameComponent: 'CategoryProduct',
-            renderComponent: <CategoryProduct {...props} />
+            renderComponent: <CategoryProduct {...props} dataService={getFetchData['publish_mobile']?.data} />
         },
         {
             nameComponent: 'Second_product',
@@ -227,16 +236,16 @@ function MainScreen(props) {
     // })
     return (
         <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
-            {/* {
-                dataList[numberList] && dataList[numberList].isActive ?
-                    <LoadingScreen key='LoadingScreen' /> :
+            {
+                activeTime ?
+                    < LoadingScreen key='LoadingScreen' /> :
                     <></>
-            } */}
+            }
             <Animated.View style={{
                 zIndex: 1, height: maxheight, width, top: maxheight,
                 backgroundColor: 'transparent', elevation: 1, marginTop: -(maxheight),
             }}>
-                <AppBar {...props} ABGColor={AnimatedHeadbg} ABDColor={AnimatedHeadbg} cartBar chatBar />
+                <AppBar {...props} ABGColor={AnimatedHeadbg} ABDColor={AnimatedHeadbg} ABICartColor={AnimatedCart} cartBar chatBar />
             </Animated.View>
             <FlatComponent
                 animatedView
@@ -353,7 +362,7 @@ export class ExitAppModule extends React.Component {
 ///----------------------------------------------------------------------------------------------->>>> AppBar ค้นหา
 export let AppBar = (props) => {
     const {
-        ABDColor, ABDColor_All, ABGColor, AIColor, backArrow, cartBar, chatBar, filterBar, otherBar, searchBar, SearchText,
+        ABDColor, ABDColor_All, ABGColor, AIColor, ABICartColor, backArrow, cartBar, chatBar, filterBar, otherBar, searchBar, SearchText,
     } = props;
     const {
         fetchData, getActive, getFetchData, navigation,
@@ -501,11 +510,11 @@ export let AppBar = (props) => {
                             {
                                 cartBar && getFetchData['cart_mobile'] && getFetchData['cart_mobile']?.isError && cartMobile <= 0 ?
                                     <></> :
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, {
+                                    <Animated.Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, {
                                         backgroundColor: 'red', color: '#fff', width: 17, height: 17, borderRadius: 15,
                                         textAlign: 'center', textAlignVertical: 'center', position: 'absolute', elevation: 1, left: 18,
-                                        bottom: 15, borderColor: mainColor, borderWidth: 1,
-                                    }]}>{cartMobile}</Text>
+                                        bottom: 15, borderColor: ABICartColor ?? mainColor, borderWidth: 1,
+                                    }]}>{cartMobile}</Animated.Text>
                             }
                             <IconAntDesign name="shoppingcart" size={25} style={{ color: '#fff' }} />
                         </TouchableOpacity>
@@ -829,7 +838,7 @@ export let Guarantee = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>> Category // Loading
 export let Category = (props) => {
-    const { getFetchData, navigation } = props;
+    const { dataService, navigation } = props;
     let boxEmpty = (
         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,].map((_, index) => {
             return (
@@ -847,9 +856,9 @@ export let Category = (props) => {
         })
     )
     let dataCategory = (
-        getFetchData['category_mobile']?.data ?
-            getFetchData['category_mobile']?.data.map((item, index) => {
-                if (index < getFetchData['category_mobile'].data.length) {
+        dataService?.category ?
+            dataService?.category.map((item, index) => {
+                if (index < dataService?.category.length) {
                     var dataMySQL = `${finip}/${item.image_path}/menu/mobile/${item.image_head}`;
                     return (
                         <TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigateScreen({
@@ -1846,9 +1855,36 @@ export function CategoryProduct_new(props) {
 };
 ///----------------------------------------------------------------------------------------------->>>> CategoryProduct
 export function CategoryProduct(props) {
-    const { fetchData, getFetchData, navigation, NoStoreReCom, } = props;
+    const { dataService, navigation, NoStoreReCom, } = props;
     let dataCategory = (
-        getFetchData['category_mobile'] && getFetchData['category_mobile']?.data.map((item, index) => {
+        dataService?.category?.map((item, index) => {
+            // console.log('CategoryProduct')
+            // console.log(item.id_type)
+            let productItem = []
+            let promo1Item = []
+            let promo2Item = []
+            let shopItem = []
+            dataService.product.map((value) =>
+                value.product.map((value2) =>
+                    value2.id_type == item.id_type ? productItem.push(value2) : null
+                )
+            );
+            dataService.cate_promotions_1.map((value) =>
+                value.map((value2) =>
+                    value2.id_type == item.id_type ? promo1Item.push(value2) : null
+                )
+            );
+            dataService.cate_promotions_2.map((value) =>
+                value.map((value2) =>
+                    value2.id_type == item.id_type ? promo2Item.push(value2) : null
+                )
+            );
+            dataService.cate_shop.map((value) =>
+                value.map((value2) =>
+                    value2.id_type == item.id_type ? shopItem.push(value2) : null
+                )
+            );
+            // console.log(productItem)
             var mix_color = color_up(item.bg_m);
             if (index < 20 /*getFetchData['category_mobile'].length*/) {
                 var dataMySQL = `${finip}/${item.image_path}/${item.image_menu}`;
@@ -1869,7 +1905,7 @@ export function CategoryProduct(props) {
                                         resizeMode={FastImage.resizeMode.contain} />
                                 </TouchableOpacity>
                             }
-                            <CategoryProductSubProduct {...props} id_type={item.id_type} />
+                            <CategoryProductSubProduct {...props} dataService={productItem} />
                         </>
                         {
                             NoStoreReCom ?
@@ -1880,10 +1916,11 @@ export function CategoryProduct(props) {
                                         }]}>
                                             ร้านนี้ผ่อนได้ </Text>
                                     </View>
-                                    <CategoryProductSubStore {...props} id_type={item.id_type} mix_color={mix_color} />
+                                    <CategoryProductSubStore {...props} mix_color={mix_color} shop={shopItem} />
                                 </View> :
                                 <View style={{ marginBottom: 0, }}>
-                                    <CategoryProductSubPromotion {...props} id_type={item.id_type} mix_color={mix_color} />
+                                    <CategoryProductSubPromotion {...props} mix_color={mix_color} promo_1={promo1Item} promo_2={promo2Item}
+                                        shop={shopItem} />
                                 </View>
                         }
                     </View>
@@ -1899,7 +1936,8 @@ export function CategoryProduct(props) {
 };
 ///----------------------------------------------------------------------------------------------->>>> CategoryProductSubProduct
 export let CategoryProductSubProduct = (props) => {
-    const { getFetchData, id_type, } = props;
+    const { dataService, id_type, } = props;
+    console.log(dataService)
     let boxEmpty = (
         [0, 1, 2,].map((_, index) => {
             return (
@@ -1922,10 +1960,9 @@ export let CategoryProductSubProduct = (props) => {
     return (
         <>
             {
-                getFetchData[`category_product|${id_type}`]?.isFetching == false &&
-                    getFetchData[`category_product|${id_type}`]?.data.length > 0 ?
-                    <FlatProduct {...props} dataService={getFetchData[`category_product|${id_type}`].data} numberOfColumn={2}
-                        nameFlatProduct='CategoryProduct' mode='row3_new' nameSize={14} priceSize={15} dispriceSize={13} /> :
+                dataService.length > 0 ?
+                    <FlatProduct {...props} numberOfColumn={2} nameFlatProduct='CategoryProduct' mode='row3_new' nameSize={14}
+                        priceSize={15} dispriceSize={13} /> :
                     <View>
                         <View style={{ flexDirection: 'row' }}>
                             {boxEmpty}
@@ -1940,7 +1977,7 @@ export let CategoryProductSubProduct = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>> CategoryProductSubStore
 export let CategoryProductSubStore = (props) => {
-    const { getFetchData, id_type, mix_color } = props;
+    const { getFetchData, mix_color, shop } = props;
     let _renderBanner = function (value) {
         var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`;
         return (
@@ -1960,12 +1997,12 @@ export let CategoryProductSubStore = (props) => {
     return (
         <>
             {
-                getFetchData[`shop|${id_type}`]?.data?.banner &&
-                    getFetchData[`shop|${id_type}`].data.banner.length > 0 ?
+                shop &&
+                    shop.length > 0 ?
                     <Carousel
                         key={'banner'}
                         renderItem={_renderBanner}
-                        data={getFetchData[`shop|${id_type}`].data.banner}
+                        data={shop}
                         loop
                         autoplay
                         autoplayInterval={3000}
@@ -1979,15 +2016,15 @@ export let CategoryProductSubStore = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>> CategoryProductSubPromotion
 export let CategoryProductSubPromotion = (props) => {
-    const { getFetchData, id_type, mix_color } = props;
+    const { getFetchData, mix_color, promo_1, promo_2, shop } = props;
     let boxEmptySmall = (
         <View style={[stylesMain.BoxStore1Box3, { width: '100%', marginTop: 6, height: 66, backgroundColor: mix_color, }]} >
             <View style={stylesMain.BoxProduct1Image} />
         </View>
     );
     let dataCategoryProductSubPromotionSmall = (
-        getFetchData[`promo_2|${id_type}`]?.data ?
-            getFetchData[`promo_2|${id_type}`].data.banner.map((value, index) => {
+        promo_2 ?
+            promo_2.map((value, index) => {
                 var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`
                 return (
                     <View style={[stylesMain.BoxStore1Box3, { width: '100%', marginTop: 6, height: 66, }]} key={index} >
@@ -2012,8 +2049,8 @@ export let CategoryProductSubPromotion = (props) => {
         </View>
     );
     let dataCategoryProductSubPromotionBig = (
-        getFetchData[`promo_1|${id_type}`]?.data ?
-            getFetchData[`promo_1|${id_type}`].data.banner.map((value, index) => {
+        promo_1 ?
+            promo_1.map((value, index) => {
                 var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`;
                 return (
                     <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, marginTop: 6, marginBottom: 3, }]} key={index} >
@@ -2044,7 +2081,7 @@ export let CategoryProductSubPromotion = (props) => {
                         width: width * 0.56,
                         marginTop: 6
                     }}>
-                        <CategoryProductSubStore {...props} id_type={id_type} mix_color={mix_color} />
+                        <CategoryProductSubStore {...props} mix_color={mix_color} shop={shop} />
                     </View>
                 </View>
                 {dataCategoryProductSubPromotionBig}
@@ -2437,6 +2474,12 @@ export let Fin_Mall = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> FIN_Supermarket
 export let FIN_Supermarket = (props) => {
     const { dataService, navigation, } = props;
+    const item = [
+        { image: `${ip}/MySQL/uploads/Banner_Super/600-225_food1.jpg` },
+        { image: `${ip}/MySQL/uploads/Banner_Super/600-225_food2.jpg` },
+        { image: `${ip}/MySQL/uploads/Banner_Super/600-225_food3.jpg` },
+        { image: `${ip}/MySQL/uploads/Banner_Super/600-225_food4.jpg` },
+    ]
     let _renderItem = (item, index) => {
         return (
             <View key={index} style={{ width, height: 'auto', aspectRatio: 2.5, marginBottom: 10 }}>
@@ -2450,12 +2493,6 @@ export let FIN_Supermarket = (props) => {
             </View>
         );
     };
-    const item = [
-        { image: `${ip}/MySQL/uploads/Banner_Super/600-225_food1.jpg` },
-        { image: `${ip}/MySQL/uploads/Banner_Super/600-225_food2.jpg` },
-        { image: `${ip}/MySQL/uploads/Banner_Super/600-225_food3.jpg` },
-        { image: `${ip}/MySQL/uploads/Banner_Super/600-225_food4.jpg` },
-    ]
     return (
         <View style={stylesMain.FrameBackground2}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize4, stylesFont.FontFamilyBold]}>

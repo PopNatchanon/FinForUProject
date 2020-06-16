@@ -62,6 +62,7 @@ const mapDispatchToProps = ({
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen)
 function MainScreen(props) {
     const { fetchData, getFetchData, multiFetchData } = props;
+    const [activeTime, setActiveTime] = useState(true);
     // const { browerProps, mode } = route.params;
     const scrollY = new Animated.Value(0);
     // const AFlatComponent = Animatable.createAnimatableComponent(FlatComponent);
@@ -78,6 +79,9 @@ function MainScreen(props) {
         extrapolate: 'clamp',
         useNativeDriver: true,
     });
+    useEffect(() => {
+        setTimeout(() => setActiveTime(false), 21000);
+    })
     let FetchDataMain = () => {
         multiFetchData({
             multiData: [
@@ -232,11 +236,11 @@ function MainScreen(props) {
     // })
     return (
         <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
-            {/* {
-                dataList[numberList] && dataList[numberList].isActive ?
-                    <LoadingScreen key='LoadingScreen' /> :
+            {
+                activeTime ?
+                    < LoadingScreen key='LoadingScreen' /> :
                     <></>
-            } */}
+            }
             <Animated.View style={{
                 zIndex: 1, height: maxheight, width, top: maxheight,
                 backgroundColor: 'transparent', elevation: 1, marginTop: -(maxheight),

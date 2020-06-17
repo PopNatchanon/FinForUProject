@@ -410,7 +410,7 @@ export default StyleSheet.create({
     borderColor: '#ECECEC',
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
-    marginTop: 2,
+    marginTop: 3,
     paddingBottom: 3,
   },
   FrameBackground2: {
@@ -419,7 +419,7 @@ export default StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderBottomWidth: 1,
     borderTopWidth: 1,
-    marginTop: 2,
+    marginTop: 3,
     paddingBottom: 3,
   },
   FrameBackground3: {
@@ -656,7 +656,7 @@ export default StyleSheet.create({
   Banner_Bar: {
     backgroundColor: '#FFFFFF',
     borderColor: '#ECECEC',
-    marginTop: 2,
+    marginTop: 3,
   },
   Banner_Bar_image: {
     width: width,
@@ -697,7 +697,7 @@ export default StyleSheet.create({
   Second_StoreFin_BoxHead: {
     flexDirection: 'row',
     width: 'auto',
-    height: height * 0.05,
+    // height: height * 0.05,
     // height: 'auto',
     // aspectRatio: 6,
     justifyContent: 'space-between',
@@ -726,7 +726,7 @@ export default StyleSheet.create({
   },
   Second_Storefooter: {
     width,
-    paddingBottom: 8,
+    paddingBottom: 3,
   },
   Second_Storefooter_image: {
     height: 75,

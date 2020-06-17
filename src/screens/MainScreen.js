@@ -877,7 +877,7 @@ export let Trend_Hit = (props) => {
     return (
         <>
             <View style={[stylesMain.FlexRow, {
-                height: 'auto', aspectRatio: 5, marginTop: 10, justifyContent: 'space-between', width, paddingHorizontal: 5
+                height: 'auto', aspectRatio: 5, marginTop: 3, justifyContent: 'space-between', width, paddingHorizontal: 5
             }]}>
                 <View style={{ width: width * 0.48 }}>
                     <View style={{ height: '88%' }}>
@@ -940,7 +940,7 @@ export let Button_Bar = (props) => {
     return (
         <>
             <View style={[stylesMain.FlexRow, {
-                width, justifyContent: 'space-around', marginTop: 2, backgroundColor: 'transparent', elevation: 1
+                width, justifyContent: 'space-around', marginTop: 3, backgroundColor: 'transparent', elevation: 1
             }]}>
                 <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
                     goScreen: 'DealScreen', navigation
@@ -1921,7 +1921,7 @@ export let CategoryProductSubPromotion = (props) => {
     );
     return (
         <>
-            <View style={[stylesMain.FlexRow, { width: '100%', marginTop: 2 }]}>
+            <View style={[stylesMain.FlexRow, { width: '100%', marginTop: 3 }]}>
                 <View style={{ width: width * 0.56, flexDirection: 'column', marginRight: 6 }}>
                     {dataCategoryProductSubPromotionSmall}
                     <View style={{ width: width * 0.56, marginTop: 6 }}>

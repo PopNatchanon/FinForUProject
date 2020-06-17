@@ -138,8 +138,8 @@ export class Button_Bar extends React.Component {
   };
   updateIndex = (value) => {
     const { filterValue } = this.props;
-    filterValue(value.selectedIndex);
-    this.setState({ selectedIndex: value.selectedIndex });
+    filterValue(value.selectedIndex * 1);
+    this.setState({ selectedIndex: value.selectedIndex * 1 });
   };
   setSliderVisible = () => {
     const { setSliderVisible } = this.props;

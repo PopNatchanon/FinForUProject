@@ -627,14 +627,14 @@ export let AppBar1 = (props) => {
 export let Slide = (props) => {
     const { getFetchData, banner, } = props;
     let _renderItem = (item, index) => {
-        var dataMySQL = index % 2 == 0 ? `${ip}/mysql/uploads/Banner_Mobile/T-10.jpg` : `${ip}/mysql/uploads/Banner_Mobile/T-5.jpg`;
-        // var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
+        var dataMySQL;
+        banner ?
+            (dataMySQL = `${finip}/${item.image_path}/${item.image}`) :
+            (dataMySQL = index % 2 == 0 ? `${ip}/mysql/uploads/Banner_Mobile/T-10.jpg` : `${ip}/mysql/uploads/Banner_Mobile/T-5.jpg`);
         return (
             <View style={stylesMain.child} key={item.id}>
                 <Image
-                    source={{
-                        uri: dataMySQL
-                    }}
+                    source={{ uri: dataMySQL }}
                     style={stylesMain.child}
                     resizeMode='contain'
                     resizeMethod='resize' />
@@ -681,9 +681,7 @@ export let Guarantee = (props) => {
                     <View style={{ height: 30, width: 30, marginRight: 10 }}>
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
-                            source={{
-                                uri: item.image,
-                            }}
+                            source={{ uri: item.image, }}
                             resizeMode={FastImage.resizeMode.cover} />
                     </View>
                     <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyBold, { marginTop: 5 }]}>{item.text}</Text>
@@ -691,9 +689,7 @@ export let Guarantee = (props) => {
                 <View style={[stylesMain.ItemCenter, { height: 30, width: 30 }]}>
                     <FastImage
                         style={{ height: 20, width: 20 }}
-                        source={{
-                            uri: `${ip}/MySQL/uploads/Guarantee/02.png`,
-                        }}
+                        source={{ uri: `${ip}/MySQL/uploads/Guarantee/02.png`, }}
                         resizeMode={FastImage.resizeMode.cover} />
                 </View>
             </View>
@@ -708,9 +704,7 @@ export let Guarantee = (props) => {
                 <View style={{ width: '54%', }}>
                     <FastImage
                         style={[stylesMain.BoxProduct1Image, { borderRadius: 5 }]}
-                        source={{
-                            uri: `${ip}/MySQL/uploads/Home/001.png`,
-                        }}
+                        source={{ uri: `${ip}/MySQL/uploads/Home/001.png`, }}
                         resizeMode={FastImage.resizeMode.cover} />
                 </View>
                 <View style={{ width: '44%', flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -718,9 +712,7 @@ export let Guarantee = (props) => {
                         <View style={{ height: '60%', width: width * 0.13 }}>
                             <FastImage
                                 style={stylesMain.BoxProduct1Image}
-                                source={{
-                                    uri: `${ip}/MySQL/uploads/Guarantee/Samsung-logo.png`,
-                                }}
+                                source={{ uri: `${ip}/MySQL/uploads/Guarantee/Samsung-logo.png`, }}
                                 resizeMode={FastImage.resizeMode.cover} />
                         </View>
                         <View style={{ backgroundColor: mainColor, paddingHorizontal: 15, borderRadius: 8, marginTop: 10 }} >
@@ -731,9 +723,7 @@ export let Guarantee = (props) => {
                         <View style={{ height: '60%', width: width * 0.13 }}>
                             <FastImage
                                 style={stylesMain.BoxProduct1Image}
-                                source={{
-                                    uri: `${ip}/MySQL/uploads/Guarantee/adidas.png`,
-                                }}
+                                source={{ uri: `${ip}/MySQL/uploads/Guarantee/adidas.png`, }}
                                 resizeMode={FastImage.resizeMode.cover} />
                         </View>
                         <View style={{ backgroundColor: mainColor, paddingHorizontal: 10, borderRadius: 8, marginTop: 10 }} >
@@ -749,9 +739,7 @@ export let Guarantee = (props) => {
                 <View style={[stylesMain.ItemCenter, { width: '30%', borderColor: '#f5df89', borderWidth: 2 }]}>
                     <FastImage
                         style={stylesMain.BoxProduct1Image}
-                        source={{
-                            uri: `${ip}/MySQL/uploads/Guarantee/w4.png`,
-                        }}
+                        source={{ uri: `${ip}/MySQL/uploads/Guarantee/w4.png`, }}
                         resizeMode={FastImage.resizeMode.cover} />
                 </View>
                 <View style={{ width: '30%', justifyContent: 'center' }}>
@@ -796,9 +784,7 @@ export let Category = (props) => {
                             goScreen: 'CategoryScreen', setData: { id_type: item.id_type }, navigation
                         })} style={stylesMain.Category}>
                             <FastImage
-                                source={{
-                                    uri: dataMySQL,
-                                }}
+                                source={{ uri: dataMySQL, }}
                                 style={stylesMain.Category_box}
                                 resizeMode={FastImage.resizeMode.cover} />
                             <View style={{ height: 25 }}>
@@ -848,9 +834,7 @@ export let Trend_Hit = (props) => {
                 <View style={{ height: '88%', }}>
                     <FastImage
                         style={stylesMain.BoxProduct1Image}
-                        source={{
-                            uri: item.image,
-                        }}
+                        source={{ uri: item.image, }}
                         resizeMode={FastImage.resizeMode.stretch}
                     />
                 </View>
@@ -858,9 +842,7 @@ export let Trend_Hit = (props) => {
                     <TouchableOpacity style={{ height: 25, width: 90, marginTop: -15 }}>
                         <FastImage
                             style={[stylesMain.BoxProduct1Image, { borderRadius: 8 }]}
-                            source={{
-                                uri: `${ip}/MySQL/uploads/Home/Button_Gif/Shop2.png`,
-                            }}
+                            source={{ uri: `${ip}/MySQL/uploads/Home/Button_Gif/Shop2.png`, }}
                             resizeMode={FastImage.resizeMode.stretch}
                         />
                     </TouchableOpacity>
@@ -903,9 +885,7 @@ export let Trend_Hit = (props) => {
                     <View style={{ height: '88%' }}>
                         <FastImage
                             style={stylesMain.BoxProduct1Image}
-                            source={{
-                                uri: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-01.jpg`,
-                            }}
+                            source={{ uri: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-01.jpg`, }}
                             resizeMode={FastImage.resizeMode.stretch}
                         />
                     </View>
@@ -913,9 +893,7 @@ export let Trend_Hit = (props) => {
                         <TouchableOpacity style={{ height: 25, width: 90, marginTop: -15 }}>
                             <FastImage
                                 style={stylesMain.BoxProduct1Image}
-                                source={{
-                                    uri: `${ip}/MySQL/uploads/Home/Button_Gif/Shop.gif`,
-                                }}
+                                source={{ uri: `${ip}/MySQL/uploads/Home/Button_Gif/Shop.gif`, }}
                                 resizeMode={FastImage.resizeMode.stretch}
                             />
                         </TouchableOpacity>
@@ -952,9 +930,7 @@ export let Fin_Service = (props) => {
         <View style={[stylesMain.FrameBackground2, { height: 'auto', aspectRatio: 4.5 }]}>
             <Image
                 style={stylesMain.BoxProduct1Image}
-                source={{
-                    uri: `${ip}/MySQL/uploads/Text/MB2.jpg`
-                }}
+                source={{ uri: `${ip}/MySQL/uploads/Text/MB2.jpg` }}
                 resizeMode='contain'
                 resizeMethod='resize' />
         </View>
@@ -1054,9 +1030,7 @@ export let Recommend_Brand = (props) => {
                         <View style={stylesMain.Brand_image_Box}>
                             <FastImage
                                 style={[stylesMain.Brand_image_RCM, stylesMain.ItemCenterVertical]}
-                                source={{
-                                    uri: dataMySQL,
-                                }}
+                                source={{ uri: dataMySQL, }}
                                 resizeMode={FastImage.resizeMode.contain} />
                         </View>
                     </TouchableOpacity>
@@ -1075,9 +1049,7 @@ export let Recommend_Brand = (props) => {
                         <View style={stylesMain.Brand_image_Box}>
                             <FastImage
                                 style={[stylesMain.Brand_image_RCM, stylesMain.ItemCenterVertical]}
-                                source={{
-                                    uri: dataMySQL,
-                                }}
+                                source={{ uri: dataMySQL, }}
                                 resizeMode={FastImage.resizeMode.contain} />
                         </View>
                     </TouchableOpacity>
@@ -1098,12 +1070,8 @@ export let Recommend_Brand = (props) => {
             </View>
             <ScrollView horizontal>
                 <View>
-                    <View style={{ flexDirection: 'row', }}>
-                        {recommendBrand}
-                    </View>
-                    <View style={{ flexDirection: 'row', marginBottom: 2 }}>
-                        {recommendBrand2}
-                    </View>
+                    <View style={{ flexDirection: 'row', }}>{recommendBrand}</View>
+                    <View style={{ flexDirection: 'row', marginBottom: 2 }}>{recommendBrand2}</View>
                 </View>
             </ScrollView>
         </View >
@@ -1132,9 +1100,7 @@ export let Popular_store = (props) => {
                         <View style={stylesMain.BoxStore1Box}>
                             <FastImage
                                 style={stylesMain.BoxStore1Image}
-                                source={{
-                                    uri: dataMySQL,
-                                }}
+                                source={{ uri: dataMySQL, }}
                                 resizeMode={FastImage.resizeMode.cover} />
                         </View>
                     </TouchableOpacity>
@@ -1179,9 +1145,7 @@ export let Popular_product = (props) => {
                         <View style={[stylesMain.Popular_Box_D, { backgroundColor: '#FFFFFF', padding: 5, borderRadius: 5 }]}>
                             <FastImage
                                 style={stylesMain.Popular_image_Box}
-                                source={{
-                                    uri: dataMySQL,
-                                }}
+                                source={{ uri: dataMySQL, }}
                                 resizeMode={FastImage.resizeMode.stretch} />
                         </View>
                         <View style={[stylesMain.ItemCenter, { width: width * 0.20, }]}>
@@ -1196,7 +1160,6 @@ export let Popular_product = (props) => {
                                         stylesMain.BoxProduct1ImagePrice,
                                         stylesFont.FontSize8,
                                         stylesFont.FontFamilyBold,
-
                                     ]}>{value}</Text>
                                 } />
                         </View>
@@ -1301,9 +1264,7 @@ export let BannerBar_ONE = (props) => {
         <View style={stylesMain.Banner_Bar}>
             <FastImage
                 style={stylesMain.Banner_Bar_image}
-                source={{
-                    uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 111.jpg`
-                }}
+                source={{ uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 111.jpg` }}
                 resizeMode={FastImage.resizeMode.stretch} />
         </View>
     );
@@ -1314,9 +1275,7 @@ export let BannerBar_TWO = (props) => {
         <View style={stylesMain.Banner_Bar}>
             <FastImage
                 style={stylesMain.Banner_Bar_image}
-                source={{
-                    uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 222.jpg`
-                }}
+                source={{ uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 222.jpg` }}
                 resizeMode={FastImage.resizeMode.stretch} />
         </View>
     );
@@ -1327,9 +1286,7 @@ export let BannerBar_THREE = (props) => {
         <View style={stylesMain.Banner_Bar}>
             <FastImage
                 style={stylesMain.Banner_Bar_image}
-                source={{
-                    uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 222.jpg`
-                }}
+                source={{ uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 222.jpg` }}
                 resizeMode={FastImage.resizeMode.stretch} />
         </View>
     );
@@ -1400,8 +1357,7 @@ export let FlashSale = (props) => {
                     <View style={[stylesMain.FlexRow, { marginTop: 5, flex: 70 }]}>
                         <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBoldBold, stylesFont.FontSize4, {
                             color: '#dc3545', flex: 34
-                        }]}>
-                            FLASH SALE</Text>
+                        }]}>FLASH SALE</Text>
                         <View style={[stylesMain.FlexRow, { marginTop: 4, flex: 66 }]}>
                             <IconFontAwesome name='clock-o' size={30} />
                             <View style={{ flexDirection: 'row', flex: 70, paddingTop: 6 }}>
@@ -1518,8 +1474,7 @@ export let PromotionPopular = (props) => {
                 return (
                     <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
                         goScreen: 'Recommend_Store', navigation
-                    })}
-                        key={index}>
+                    })} key={index}>
                         <View style={[stylesMain.BoxStore2Box2]}>
                             <FastImage
                                 source={{
@@ -1538,8 +1493,7 @@ export let PromotionPopular = (props) => {
                         </View>
                     </TouchableOpacity>
                 );
-            }) :
-            boxEmpty
+            }) : boxEmpty
     );
     return (
         <View style={stylesMain.FrameBackground2}>
@@ -1554,9 +1508,7 @@ export let PromotionPopular = (props) => {
                 </TouchableOpacity>
             </View>
             <View style={{ height: 'auto', aspectRatio: 2.8 }}>
-                <ScrollView horizontal>
-                    {dataPromotionPopular}
-                </ScrollView>
+                <ScrollView horizontal>{dataPromotionPopular}</ScrollView>
             </View>
         </View>
     );
@@ -1568,18 +1520,11 @@ export let Product_for_you = (props) => {
         [0, 1, 2, 3, 4, 5].map((_, index) => {
             return (
                 <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2]}>
-                    <View style={[stylesMain.ItemCenter, {
-                        backgroundColor: '#ECECEC', width: 115
-                    }]}>
-                        <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, {
-                            marginVertical: height * 0.015,
-                        }]}>
+                    <View style={[stylesMain.ItemCenter, { backgroundColor: '#ECECEC', width: 115 }]}>
+                        <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.015, }]}>
                         </View>
                     </View>
-                    <View style={{
-                        height: 55,
-                        paddingHorizontal: 3
-                    }} />
+                    <View style={{ height: 55, paddingHorizontal: 3 }} />
                 </View>
             )
         })
@@ -1592,17 +1537,14 @@ export let Product_for_you = (props) => {
                 <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
                     goScreen: 'Product_for_youScreen', navigation
                 })}>
-                    <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
-                        ดูทั้งหมด</Text>
+                    <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>ดูทั้งหมด</Text>
                 </TouchableOpacity>
             </View>
             {
                 dataService?.for_you.length > 0 ?
-                    <FlatProduct {...props} dataService={dataService.for_you} numberOfColumn={2}
-                        nameFlatProduct='Product_for_you' mode='row3' nameSize={14} priceSize={15} dispriceSize={15} /> :
-                    <View style={{ flexDirection: 'column', flexWrap: 'wrap', height: (115 + 55) * 2, }}>
-                        {boxEmpty}
-                    </View>
+                    <FlatProduct {...props} dataService={dataService.for_you} numberOfColumn={2} nameFlatProduct='Product_for_you'
+                        mode='row3' nameSize={14} priceSize={15} dispriceSize={15} /> :
+                    <View style={{ flexDirection: 'column', flexWrap: 'wrap', height: (115 + 55) * 2, }}>{boxEmpty}</View>
             }
         </View>
     );
@@ -1614,18 +1556,11 @@ export let Highlight = (props) => {
         [0, 1, 2, 3].map((_, index) => {
             return (
                 <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2]}>
-                    <View style={[stylesMain.ItemCenter, {
-                        backgroundColor: '#ECECEC', width: 115
-                    }]}>
-                        <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, {
-                            marginVertical: height * 0.015,
-                        }]}>
+                    <View style={[stylesMain.ItemCenter, { backgroundColor: '#ECECEC', width: 115 }]}>
+                        <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.015, }]}>
                         </View>
                     </View>
-                    <View style={{
-                        height: 55,
-                        paddingHorizontal: 3
-                    }} />
+                    <View style={{ height: 55, paddingHorizontal: 3 }} />
                 </View>
             )
         })
@@ -1644,11 +1579,9 @@ export let Highlight = (props) => {
             </View>
             {
                 dataService ?
-                    <FlatProduct {...props} dataService={dataService.hi_week} numberOfColumn={1}
-                        nameFlatProduct='Second_product' mode='row3' nameSize={14} priceSize={15} dispriceSize={15} /> :
-                    <View style={{ flexDirection: 'row' }}>
-                        {boxEmpty}
-                    </View>
+                    <FlatProduct {...props} dataService={dataService.hi_week} numberOfColumn={1} nameFlatProduct='Second_product'
+                        mode='row3' nameSize={14} priceSize={15} dispriceSize={15} /> :
+                    <View style={{ flexDirection: 'row' }}>{boxEmpty}</View>
             }
         </View>
     );
@@ -1679,16 +1612,13 @@ export let NewStore = (props) => {
                     >
                         <View style={stylesMain.BoxStore1Box}>
                             <FastImage
-                                source={{
-                                    uri: dataMySQL,
-                                }}
+                                source={{ uri: dataMySQL, }}
                                 style={stylesMain.BoxStore1Image}
                                 resizeMode={FastImage.resizeMode.cover} />
                         </View>
                     </TouchableOpacity>
                 );
-            }) :
-            boxEmpty
+            }) : boxEmpty
     );
     return (
         <View style={stylesMain.FrameBackground2}>
@@ -1709,18 +1639,11 @@ export let Exclusive = (props) => {
         [0, 1, 2, 3, 4, 5].map((_, index) => {
             return (
                 <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2]}>
-                    <View style={[stylesMain.ItemCenter, {
-                        backgroundColor: '#ECECEC', width: 115
-                    }]}>
-                        <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, {
-                            marginVertical: height * 0.015,
-                        }]}>
+                    <View style={[stylesMain.ItemCenter, { backgroundColor: '#ECECEC', width: 115 }]}>
+                        <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.015, }]}>
                         </View>
                     </View>
-                    <View style={{
-                        height: 55,
-                        paddingHorizontal: 3
-                    }} />
+                    <View style={{ height: 55, paddingHorizontal: 3 }} />
                 </View>
             )
         })
@@ -1740,10 +1663,7 @@ export let Exclusive = (props) => {
                 loadData ?
                     <FlatProduct {...props} dataService={loadData} numberOfColumn={1} nameFlatProduct='ExclusiveProduct'
                         mode='row3' nameSize={14} priceSize={15} dispriceSize={15} /> :
-                    <View style={{ flexDirection: 'row' }}>
-                        {boxEmpty}
-                    </View>
-
+                    <View style={{ flexDirection: 'row' }}>{boxEmpty}</View>
             }
         </View>
     );
@@ -1776,18 +1696,14 @@ export function CategoryProduct_new(props) {
         (getFetchData[`category_product|${dataService.id_type}`]?.isFetching)]);
     var dataMySQL = `${finip}/${dataService.image_path}/${dataService.image_menu}`;
     let dataCategory = (
-        <View style={[stylesMain.FrameBackground2, {
-            backgroundColor: dataService.bg_m,
-        }]}>
+        <View style={[stylesMain.FrameBackground2, { backgroundColor: dataService.bg_m, }]}>
             <>
                 {
                     <TouchableOpacity onPress={() => NavigationNavigateScreen({
                         goScreen: 'CategoryScreen', setData: { id_type: dataService.id_type }, navigation,
                     })}>
                         <FastImage
-                            source={{
-                                uri: dataMySQL,
-                            }}
+                            source={{ uri: dataMySQL, }}
                             style={[stylesMain.CategoryProductImageHead]}
                             resizeMode={FastImage.resizeMode.contain} />
                     </TouchableOpacity>
@@ -1798,9 +1714,7 @@ export function CategoryProduct_new(props) {
                 NoStoreReCom ?
                     <View style={{ marginBottom: 10, }}>
                         <View style={{ marginTop: 10, }}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
-                                marginLeft: 8, color: '#fff'
-                            }]}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 8, color: '#fff' }]}>
                                 ร้านนี้ผ่อนได้ </Text>
                         </View>
                         <CategoryProductSubStore {...props} id_type={dataService.id_type} mix_color={mix_color} />
@@ -1811,11 +1725,7 @@ export function CategoryProduct_new(props) {
             }
         </View>
     );
-    return (
-        <View>
-            {dataCategory}
-        </View>
-    );
+    return (<View>{dataCategory}</View>);
 };
 ///----------------------------------------------------------------------------------------------->>>> CategoryProduct
 export function CategoryProduct(props) {
@@ -1853,18 +1763,14 @@ export function CategoryProduct(props) {
             if (index < 20 /*getFetchData['category_mobile'].length*/) {
                 var dataMySQL = `${finip}/${item.image_path}/${item.image_menu}`;
                 return (
-                    <View key={index} style={[stylesMain.FrameBackground2, {
-                        backgroundColor: item.bg_m, paddingBottom: 3,
-                    }]}>
+                    <View key={index} style={[stylesMain.FrameBackground2, { backgroundColor: item.bg_m, paddingBottom: 3, }]}>
                         <>
                             {
                                 <TouchableOpacity onPress={() => NavigationNavigateScreen({
                                     goScreen: 'CategoryScreen', setData: { id_type: item.id_type }, navigation,
                                 })}>
                                     <FastImage
-                                        source={{
-                                            uri: dataMySQL,
-                                        }}
+                                        source={{ uri: dataMySQL, }}
                                         style={[stylesMain.CategoryProductImageHead]}
                                         resizeMode={FastImage.resizeMode.contain} />
                                 </TouchableOpacity>
@@ -1877,8 +1783,7 @@ export function CategoryProduct(props) {
                                     <View style={{ marginTop: 10, }}>
                                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, {
                                             marginLeft: 8, color: '#fff'
-                                        }]}>
-                                            ร้านนี้ผ่อนได้ </Text>
+                                        }]}>ร้านนี้ผ่อนได้</Text>
                                     </View>
                                     <CategoryProductSubStore {...props} mix_color={mix_color} shop={shopItem} />
                                 </View> :
@@ -1893,9 +1798,7 @@ export function CategoryProduct(props) {
         })
     );
     return (
-        <View>
-            {dataCategory}
-        </View>
+        <View>{dataCategory}</View>
     );
 };
 ///----------------------------------------------------------------------------------------------->>>> CategoryProductSubProduct
@@ -1905,18 +1808,11 @@ export let CategoryProductSubProduct = (props) => {
         [0, 1, 2,].map((_, index) => {
             return (
                 <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2new, { borderColor: '#DCDCDC' }]}>
-                    <View style={[stylesMain.ItemCenter, {
-                        backgroundColor: '#ECECEC', width: 119
-                    }]}>
-                        <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, {
-                            marginVertical: height * 0.015,
-                        }]}>
+                    <View style={[stylesMain.ItemCenter, { backgroundColor: '#ECECEC', width: 119 }]}>
+                        <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.015, }]}>
                         </View>
                     </View>
-                    <View style={{
-                        height: 55,
-                        paddingHorizontal: 3
-                    }} />
+                    <View style={{ height: 55, paddingHorizontal: 3 }} />
                 </View>
             );
         }));
@@ -1927,12 +1823,8 @@ export let CategoryProductSubProduct = (props) => {
                     <FlatProduct {...props} numberOfColumn={2} nameFlatProduct='CategoryProduct' mode='row3_new' nameSize={14}
                         priceSize={15} dispriceSize={13} noMarginTop /> :
                     <View>
-                        <View style={{ flexDirection: 'row' }}>
-                            {boxEmpty}
-                        </View>
-                        <View style={{ flexDirection: 'row' }}>
-                            {boxEmpty}
-                        </View>
+                        <View style={{ flexDirection: 'row' }}>{boxEmpty}</View>
+                        <View style={{ flexDirection: 'row' }}>{boxEmpty}</View>
                     </View>
             }
         </>
@@ -1947,9 +1839,7 @@ export let CategoryProductSubStore = (props) => {
             <TouchableOpacity activeOpacity={1} key={value.id}>
                 <View style={{ width: width * 0.56, height: 57.8, marginLeft: 5, backgroundColor: mix_color }}>
                     <Image
-                        source={{
-                            uri: dataMySQL,
-                        }}
+                        source={{ uri: dataMySQL, }}
                         style={[stylesMain.CategoryProductStoreImage, { backgroundColor: mix_color }]}
                         resizeMode='stretch'
                         resizeMethod='resize' />
@@ -1994,9 +1884,7 @@ export let CategoryProductSubPromotion = (props) => {
                         {
                             value &&
                             <Image
-                                source={{
-                                    uri: dataMySQL,
-                                }}
+                                source={{ uri: dataMySQL, }}
                                 resizeMode='cover'
                                 resizeMethod='resize'
                                 style={stylesMain.BoxProduct1Image} />
@@ -2007,7 +1895,7 @@ export let CategoryProductSubPromotion = (props) => {
             boxEmptySmall
     );
     let boxEmptyBig = (
-        <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, marginTop: 3, marginBottom: 3, backgroundColor: mix_color, }]} >
+        <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, marginTop: 3, marginBottom: 3, backgroundColor: mix_color, }]}>
             <View style={stylesMain.BoxProduct1Image} />
         </View>
     );
@@ -2016,13 +1904,11 @@ export let CategoryProductSubPromotion = (props) => {
             promo_1.map((value, index) => {
                 var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`;
                 return (
-                    <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, marginTop: 3, marginBottom: 3, }]} key={index} >
+                    <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, marginTop: 3, marginBottom: 3, }]} key={index}>
                         {
                             value &&
                             <Image
-                                source={{
-                                    uri: dataMySQL,
-                                }}
+                                source={{ uri: dataMySQL, }}
                                 resizeMode='cover'
                                 resizeMethod='resize'
                                 style={stylesMain.BoxProduct1Image} />
@@ -2034,16 +1920,10 @@ export let CategoryProductSubPromotion = (props) => {
     );
     return (
         <>
-            <View style={[stylesMain.FlexRow, {
-                width: '100%',
-                marginTop: 2
-            }]}>
+            <View style={[stylesMain.FlexRow, { width: '100%', marginTop: 2 }]}>
                 <View style={{ width: width * 0.56, flexDirection: 'column', marginRight: 6 }}>
                     {dataCategoryProductSubPromotionSmall}
-                    <View style={{
-                        width: width * 0.56,
-                        marginTop: 6
-                    }}>
+                    <View style={{ width: width * 0.56, marginTop: 6 }}>
                         <CategoryProductSubStore {...props} mix_color={mix_color} shop={shop} />
                     </View>
                 </View>
@@ -2062,9 +1942,7 @@ export let Second_product = (props) => {
                 return (
                     <View key={index} style={{ width: width * 0.64, height: 196 }}>
                         <Image
-                            source={{
-                                uri: dataMySQL,
-                            }}
+                            source={{ uri: dataMySQL, }}
                             style={stylesMain.bigSlideImage}
                             resizeMode='cover'
                             resizeMethod='resize' />
@@ -2095,9 +1973,7 @@ export let Second_product = (props) => {
                     <View key={index} style={stylesMain.Second_StoreFin_ImageB_T}>
                         <View style={{ width: width * 0.32, height: 130 }}>
                             <Image
-                                source={{
-                                    uri: dataMySQL,
-                                }}
+                                source={{ uri: dataMySQL, }}
                                 style={stylesMain.litleSlideImage}
                                 resizeMode='stretch'
                                 resizeMethod='resize' />
@@ -2111,18 +1987,11 @@ export let Second_product = (props) => {
         [0, 1, 2,].map((_, index) => {
             return (
                 <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2new, { borderColor: '#DCDCDC' }]}>
-                    <View style={[stylesMain.ItemCenter, {
-                        backgroundColor: '#ECECEC', width: 119
-                    }]}>
-                        <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, {
-                            marginVertical: height * 0.015,
-                        }]}>
+                    <View style={[stylesMain.ItemCenter, { backgroundColor: '#ECECEC', width: 119 }]}>
+                        <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.015, }]}>
                         </View>
                     </View>
-                    <View style={{
-                        height: 55,
-                        paddingHorizontal: 3
-                    }} />
+                    <View style={{ height: 55, paddingHorizontal: 3 }} />
                 </View>
             )
         })
@@ -2130,9 +1999,7 @@ export let Second_product = (props) => {
     var header_url;
     dataService?.mobile_bar.map((item) => { header_url = `${finip}/${item.image_path}/${item.image}` });
     let Second_Storeheader = (
-        <View key={'mobile_bar'} style={[stylesMain.FrameBackground2, {
-            marginTop: 0, borderBottomWidth: null
-        }]}>
+        <View key={'mobile_bar'} style={[stylesMain.FrameBackground2, { marginTop: 0, borderBottomWidth: null }]}>
             <View>
                 {
                     Header_Second ?
@@ -2161,12 +2028,8 @@ export let Second_product = (props) => {
                         <FlatProduct {...props} dataService={dataService.product_second} numberOfColumn={2} noMarginTop
                             nameFlatProduct='Second_product' mode='row3_new' nameSize={14} priceSize={15} dispriceSize={15} /> :
                         <View>
-                            <View style={{ flexDirection: 'row' }}>
-                                {boxEmptyHeader}
-                            </View>
-                            <View style={{ flexDirection: 'row' }}>
-                                {boxEmptyHeader}
-                            </View>
+                            <View style={{ flexDirection: 'row' }}>{boxEmptyHeader}</View>
+                            <View style={{ flexDirection: 'row' }}>{boxEmptyHeader}</View>
                         </View>
                 }
             </View>
@@ -2196,14 +2059,10 @@ export let Second_product = (props) => {
             </View>
             <View style={stylesMain.Second_StoreFin_Image}>
                 <View key={'list_store2_1'} style={stylesMain.Second_StoreFin_ImageA}>
-                    <View>
-                        {renderItem1}
-                    </View>
+                    <View>{renderItem1}</View>
                 </View>
                 <View key={'list_store2_2'}>
-                    <View style={stylesMain.Second_StoreFin_ImageB}>
-                        {renderItem2}
-                    </View>
+                    <View style={stylesMain.Second_StoreFin_ImageB}>{renderItem2}</View>
                 </View>
             </View>
         </View>
@@ -2227,18 +2086,14 @@ export let Second_product = (props) => {
             <TouchableOpacity activeOpacity={1} key={index} style={stylesMain.FlexRow}>
                 <View style={[stylesMain.CategoryProductStoreBox]}>
                     <Image
-                        source={{
-                            uri: dataMySQL,
-                        }}
+                        source={{ uri: dataMySQL, }}
                         style={stylesMain.CategoryProductStoreImage}
                         resizeMode='cover'
                         resizeMethod='resize' />
                 </View>
                 <View style={[stylesMain.CategoryProductStoreBox]}>
                     <Image
-                        source={{
-                            uri: dataMySQL2,
-                        }}
+                        source={{ uri: dataMySQL2, }}
                         style={stylesMain.CategoryProductStoreImage}
                         resizeMode='cover'
                         resizeMethod='resize' />
@@ -2249,10 +2104,7 @@ export let Second_product = (props) => {
     var item = [];
     if (dataService?.mobile_slide)
         for (var n = 0; n < dataService.mobile_slide.length; n += 2) {
-            item.push({
-                item: dataService.mobile_slide[n],
-                item2: dataService.mobile_slide[n + 1]
-            });
+            item.push({ item: dataService.mobile_slide[n], item2: dataService.mobile_slide[n + 1] });
         };
     let Second_Storefooter = (
         <View key={'mobile_slide'} style={stylesMain.Second_Storefooter}>
@@ -2267,18 +2119,14 @@ export let Second_product = (props) => {
                                 autoplay
                                 autoplayInterval={3000}
                                 pagination={PaginationLight} /> :
-                            <View style={stylesMain.FlexRow}>
-                                {boxEmptyFooter}
-                            </View>
+                            <View style={stylesMain.FlexRow}>{boxEmptyFooter}</View>
                     }
                 </View>
             </ScrollView>
         </View>
     );
     return (
-        <View style={stylesMain.FrameBackground2}>
-            {[Second_Storeheader, Second_Storebody, Second_Storefooter]}
-        </View>
+        <View style={stylesMain.FrameBackground2}>{[Second_Storeheader, Second_Storebody, Second_Storefooter]}</View>
     );
 };
 ///----------------------------------------------------------------------------------------------->>>>
@@ -2293,24 +2141,20 @@ export let Fin_Mall = (props) => {
                         <View style={{ height: height * 0.115, width: width * 0.20, backgroundColor: '#FFFFFF', padding: 5 }}>
                             <FastImage
                                 style={stylesMain.Popular_image_Box}
-                                source={{
-                                    uri: dataMySQL,
-                                }}
+                                source={{ uri: dataMySQL, }}
                                 resizeMode={FastImage.resizeMode.stretch} />
                         </View>
                         <View style={[stylesMain.ItemCenter, { width: width * 0.20 }]}>
-                            <Text numberOfLines={1} style={[stylesFont.FontSize8, stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>{item.name}</Text>
+                            <Text numberOfLines={1} style={[stylesFont.FontSize8, stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>
+                                {item.name}</Text>
                             <NumberFormat
                                 value={item.full_price}
                                 displayType={'text'}
                                 thousandSeparator={true}
                                 prefix={'฿'}
                                 renderText={value =>
-                                    <Text style={[
-                                        stylesMain.BoxProduct1ImagePrice,
-                                        stylesFont.FontSize8,
-                                        stylesFont.FontFamilyBold,
-                                        { color: '#FFFFFF' }
+                                    <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize8, stylesFont.FontFamilyBold,
+                                    { color: '#FFFFFF' }
                                     ]}>{value}</Text>
                                 } />
                         </View>
@@ -2322,7 +2166,7 @@ export let Fin_Mall = (props) => {
     return (
         <View style={[stylesMain.FlexRow, stylesMain.FinMall_Box]}>
             <View style={{ width: width * 0.48, backgroundColor: '#FFFFFF', paddingHorizontal: 5 }}>
-                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize4, stylesFont.FontFamilyBold]}>Fin Mall </Text>
+                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize4, stylesFont.FontFamilyBold]}>Fin Mall</Text>
                 <View style={{ backgroundColor: '#691F50', borderRadius: 5, padding: 3, justifyContent: 'space-between' }}>
                     {
                         dataService ?
@@ -2354,11 +2198,8 @@ export let Fin_Mall = (props) => {
                                                         thousandSeparator={true}
                                                         prefix={'฿'}
                                                         renderText={value =>
-                                                            <Text style={[
-                                                                stylesMain.BoxProduct1ImagePrice,
-                                                                stylesFont.FontSize8,
-                                                                stylesFont.FontFamilyBold,
-                                                                { color: '#691F50' }
+                                                            <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize8,
+                                                            stylesFont.FontFamilyBold, { color: '#691F50' }
                                                             ]}>{value}</Text>
                                                         } />
                                                 </View>
@@ -2403,11 +2244,8 @@ export let Fin_Mall = (props) => {
                                                         thousandSeparator={true}
                                                         prefix={'฿'}
                                                         renderText={value =>
-                                                            <Text style={[
-                                                                stylesMain.BoxProduct1ImagePrice,
-                                                                stylesFont.FontSize8,
-                                                                stylesFont.FontFamilyBold,
-                                                                { color: '#19508B' }
+                                                            <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize8,
+                                                            stylesFont.FontFamilyBold, { color: '#19508B' }
                                                             ]}>{value}</Text>
                                                         } />
                                                 </View>
@@ -2435,9 +2273,7 @@ export let FIN_Supermarket = (props) => {
         return (
             <View key={index} style={{ width, height: 'auto', aspectRatio: 2.5, marginBottom: 10 }}>
                 <Image
-                    source={{
-                        uri: item.image,
-                    }}
+                    source={{ uri: item.image, }}
                     style={{ height: '100%', width: '100%' }}
                     resizeMode='cover'
                     resizeMethod='resize' />
@@ -2446,8 +2282,7 @@ export let FIN_Supermarket = (props) => {
     };
     return (
         <View style={stylesMain.FrameBackground2}>
-            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize4, stylesFont.FontFamilyBold]}>
-                FIN Supermarket  </Text>
+            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize4, stylesFont.FontFamilyBold]}>FIN Supermarket</Text>
             <View>
                 <Carousel
                     renderItem={_renderItem}
@@ -2471,9 +2306,7 @@ export let FIN_Supermarket = (props) => {
                     style={{ width: width * 0.60, marginRight: 5 }}>
                     <Image
                         style={stylesMain.BoxProduct1Image}
-                        source={{
-                            uri: `${ip}/MySQL/uploads/Banner_Super/Banner_L/775-325_food1.jpg`,
-                        }}
+                        source={{ uri: `${ip}/MySQL/uploads/Banner_Super/Banner_L/775-325_food1.jpg`, }}
                         resizeMode='stretch'
                         resizeMethod='resize' />
                 </TouchableOpacity>
@@ -2481,18 +2314,14 @@ export let FIN_Supermarket = (props) => {
                     <View style={stylesMain.Supermarket_Image}>
                         <Image
                             style={stylesMain.BoxProduct1Image}
-                            source={{
-                                uri: `${ip}/MySQL/uploads/Banner_Super/Banner_M/430-180_food1.jpg`,
-                            }}
+                            source={{ uri: `${ip}/MySQL/uploads/Banner_Super/Banner_M/430-180_food1.jpg`, }}
                             resizeMode='stretch'
                             resizeMethod='resize' />
                     </View>
                     <View style={stylesMain.Supermarket_Image}>
                         <Image
                             style={stylesMain.BoxProduct1Image}
-                            source={{
-                                uri: `${ip}/MySQL/uploads/Banner_Super/Banner_M/430-180_food4.jpg`,
-                            }}
+                            source={{ uri: `${ip}/MySQL/uploads/Banner_Super/Banner_M/430-180_food4.jpg`, }}
                             resizeMode='stretch'
                             resizeMethod='resize' />
                     </View>
@@ -2502,25 +2331,19 @@ export let FIN_Supermarket = (props) => {
                 <View style={stylesMain.Supermarket_Brand_Image}>
                     <FastImage
                         style={stylesMain.BoxProduct1Image}
-                        source={{
-                            uri: `${ip}/MySQL/uploads/Image_FinMall/logo-foodland.png`,
-                        }}
+                        source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/logo-foodland.png`, }}
                         resizeMode={FastImage.resizeMode.stretch} />
                 </View>
                 <View style={stylesMain.Supermarket_Brand_Image}>
                     <FastImage
                         style={stylesMain.BoxProduct1Image}
-                        source={{
-                            uri: `${ip}/MySQL/uploads/Image_FinMall/logo-maxvalu.png`,
-                        }}
+                        source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/logo-maxvalu.png`, }}
                         resizeMode={FastImage.resizeMode.stretch} />
                 </View>
             </View>
             <FastImage
                 style={stylesMain.Banner_Bar_image}
-                source={{
-                    uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 333.jpg`
-                }}
+                source={{ uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 333.jpg` }}
                 resizeMode={FastImage.resizeMode.cover} />
             <View style={stylesMain.FrameBackgroundTextBox}>
                 <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize4, stylesFont.FontFamilyBold]}>
@@ -2534,9 +2357,7 @@ export let FIN_Supermarket = (props) => {
                 <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop]}>
                     <FastImage
                         style={{ height: 50, width: 100 }}
-                        source={{
-                            uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand01.jpg`,
-                        }}
+                        source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand01.jpg`, }}
                         resizeMode={FastImage.resizeMode.stretch} />
                     <View style={[stylesMain.ItemCenter]}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>LOOKS</Text>
@@ -2547,9 +2368,7 @@ export let FIN_Supermarket = (props) => {
                 <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop]}>
                     <FastImage
                         style={{ height: 50, width: 100 }}
-                        source={{
-                            uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand02.jpg`,
-                        }}
+                        source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand02.jpg`, }}
                         resizeMode={FastImage.resizeMode.stretch} />
                     <View style={[stylesMain.ItemCenter]}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>Betagro</Text>
@@ -2559,9 +2378,7 @@ export let FIN_Supermarket = (props) => {
                 <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop]}>
                     <FastImage
                         style={{ height: 50, width: 100 }}
-                        source={{
-                            uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand03.jpg`,
-                        }}
+                        source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand03.jpg`, }}
                         resizeMode={FastImage.resizeMode.stretch} />
                     <View style={[stylesMain.ItemCenter]}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>Exclusive Brands</Text>
@@ -2571,9 +2388,7 @@ export let FIN_Supermarket = (props) => {
                 <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop]}>
                     <FastImage
                         style={{ height: 50, width: 100 }}
-                        source={{
-                            uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand04.jpg`,
-                        }}
+                        source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand04.jpg`, }}
                         resizeMode={FastImage.resizeMode.stretch} />
                     <View style={[stylesMain.ItemCenter]}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>Ole</Text>
@@ -2583,9 +2398,7 @@ export let FIN_Supermarket = (props) => {
                 <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop]}>
                     <FastImage
                         style={{ height: 50, width: 100 }}
-                        source={{
-                            uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand04.jpg`,
-                        }}
+                        source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand04.jpg`, }}
                         resizeMode={FastImage.resizeMode.stretch} />
                     <View style={[stylesMain.ItemCenter]}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>Ole</Text>
@@ -2597,49 +2410,37 @@ export let FIN_Supermarket = (props) => {
                 <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop2]}>
                     <FastImage
                         style={stylesMain.BoxProduct1Image}
-                        source={{
-                            uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand02.jpg`,
-                        }}
+                        source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand02.jpg`, }}
                         resizeMode={FastImage.resizeMode.stretch} />
                 </View>
                 <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop2]}>
                     <FastImage
                         style={stylesMain.BoxProduct1Image}
-                        source={{
-                            uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand03.jpg`,
-                        }}
+                        source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand03.jpg`, }}
                         resizeMode={FastImage.resizeMode.stretch} />
                 </View>
                 <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop2]}>
                     <FastImage
                         style={stylesMain.BoxProduct1Image}
-                        source={{
-                            uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand04.jpg`,
-                        }}
+                        source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand04.jpg`, }}
                         resizeMode={FastImage.resizeMode.stretch} />
                 </View>
                 <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop2]}>
                     <FastImage
                         style={stylesMain.BoxProduct1Image}
-                        source={{
-                            uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand05.jpg`,
-                        }}
+                        source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand05.jpg`, }}
                         resizeMode={FastImage.resizeMode.stretch} />
                 </View>
                 <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop2]}>
                     <FastImage
                         style={stylesMain.BoxProduct1Image}
-                        source={{
-                            uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand06.jpg`,
-                        }}
+                        source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand06.jpg`, }}
                         resizeMode={FastImage.resizeMode.stretch} />
                 </View>
                 <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop2]}>
                     <FastImage
                         style={stylesMain.BoxProduct1Image}
-                        source={{
-                            uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand07.jpg`,
-                        }}
+                        source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand07.jpg`, }}
                         resizeMode={FastImage.resizeMode.stretch} />
                 </View>
             </ScrollView>
@@ -2653,22 +2454,14 @@ export let TodayProduct = (props) => {
     return (
         <View style={[stylesMain.BoxProduct2, { backgroundColor: 'transparent' }]}>
             {
-                noTitle ?
-                    null :
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
-                        สินค้าคัดสรรเพื่อคุณ</Text>
+                noTitle ? null : <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
+                    สินค้าคัดสรรเพื่อคุณ</Text>
             }
             <View style={stylesMain.BoxProduct2BoxProduct}>
                 {
                     loadData &&
-                    <ProductBox {...props} dataService={loadData} typeip={
-                        typeip ?
-                            'ip' :
-                            'fin'
-                    } mode='row3colall' pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15}
-                        prepath={
-                            prepath ?? null
-                        } />
+                    <ProductBox {...props} dataService={loadData} typeip={typeip ? 'ip' : 'fin'} mode='row3colall' pointerUrl='DetailScreen'
+                        pointerid_store nameSize={14} priceSize={15} dispriceSize={15} prepath={prepath ?? null} />
                 }
             </View>
         </View>
@@ -2687,14 +2480,7 @@ export class Botton_PopUp_FIN extends React.Component {
         this._translateY = new Animated.Value(0);
         this._lastOffset = { x: 0, y: 0 };
         this._onGestureEvent = Animated.event(
-            [
-                {
-                    nativeEvent: {
-                        translationX: this._translateX,
-                        translationY: this._translateY,
-                    },
-                },
-            ],
+            [{ nativeEvent: { translationX: this._translateX, translationY: this._translateY, }, },],
             { useNativeDriver: false }
         );
     };
@@ -2721,15 +2507,8 @@ export class Botton_PopUp_FIN extends React.Component {
                         onGestureEvent={this._onGestureEvent}
                         onHandlerStateChange={this._onHandlerStateChange}>
                         <Animated.View style={{
-                            elevation: 1,
-                            height: 60,
-                            width: 60,
-                            left: width - 65,
-                            marginTop: -60,
-                            transform: [
-                                { translateX: this._translateX },
-                                { translateY: this._translateY },
-                            ]
+                            elevation: 1, height: 60, width: 60, left: width - 65, marginTop: -60,
+                            transform: [{ translateX: this._translateX }, { translateY: this._translateY },]
                         }}>
                             <TouchableOpacity activeOpacity={1} onPress={() => this.setState({ activeSliding: !activeSliding })}>
                                 <FastImage
@@ -2751,11 +2530,7 @@ export class Botton_PopUp_FIN extends React.Component {
                 <SlidingView
                     disableDrag
                     componentVisible={activeSliding}
-                    containerStyle={{
-                        backgroundColor: null,
-                        width: '100%',
-                        top: '50%'
-                    }}
+                    containerStyle={{ backgroundColor: null, width: '100%', top: '50%' }}
                     position="right">
                     <TouchableOpacity onPress={() => this.setState({ activeSliding: !activeSliding })}>
                         <View style={stylesMain.Botton_PopUp_Box}>
@@ -2787,9 +2562,7 @@ export let Category_Image_Total = (props) => {
                             <FastImage
                                 key={index}
                                 style={stylesMain.BoxProduct1Image}
-                                source={{
-                                    uri: `${ip}/MySQL/${value.image_path}/${value.image}`,
-                                }}
+                                source={{ uri: `${ip}/MySQL/${value.image_path}/${value.image}`, }}
                                 resizeMode={FastImage.resizeMode.contain}
                             />
                         )
@@ -2805,9 +2578,7 @@ export let Category_Image_Total = (props) => {
                             <View key={index} style={{ width: width * 0.49 }}>
                                 <FastImage
                                     style={stylesMain.BoxProduct1Image}
-                                    source={{
-                                        uri: `${ip}/MySQL/${value.image_path}/${value.image}`,
-                                    }}
+                                    source={{ uri: `${ip}/MySQL/${value.image_path}/${value.image}`, }}
                                     resizeMode={FastImage.resizeMode.contain}
                                 />
                             </View>
@@ -2824,9 +2595,7 @@ export let Category_Image_Total = (props) => {
                             <View key={index} style={{ width: width * 0.49 }}>
                                 <FastImage
                                     style={stylesMain.BoxProduct1Image}
-                                    source={{
-                                        uri: `${ip}/MySQL/${value.image_path}/${value.image}`,
-                                    }}
+                                    source={{ uri: `${ip}/MySQL/${value.image_path}/${value.image}`, }}
                                     resizeMode={FastImage.resizeMode.contain}
                                 />
                             </View>
@@ -2843,9 +2612,7 @@ export let Not_Internet = (props) => {
     return (
         <View style={stylesMain.ItemCenter}>
             <FastImage style={{ height: 200, width: 200 }}
-                source={{
-                    uri: `${ip}/mysql/uploads/icon_5/wifi-connected-png-8.png`,
-                }}
+                source={{ uri: `${ip}/mysql/uploads/icon_5/wifi-connected-png-8.png`, }}
             />
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { width: 300, textAlign: 'center', color: '#969BA0' }]}>WHOOPS! ดูเหมือนว่าจะมีปัญหาในการเชื่อมต่อเซิร์ฟเวอร์ ลองพยายามตรวจสอบ
                 การเชื่อมต่ออินเตอร์เน็ตแล้วลองใหม่อีกครั้ง </Text>

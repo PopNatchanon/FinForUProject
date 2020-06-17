@@ -1,8 +1,10 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     SafeAreaView, ScrollView, Text, TouchableOpacity, View, Share,
 } from 'react-native';
+import { connect, useStore } from 'react-redux';
+import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> import
 import FastImage from 'react-native-fast-image';
 ///----------------------------------------------------------------------------------------------->>>> Icon
@@ -19,62 +21,74 @@ import { GetData, GetServices, ProductBox, LoadingScreen, NavigationNavigateScre
 ///----------------------------------------------------------------------------------------------->>>> ip
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class Recommend_Store extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            activeGetSource: true,
-            activeGetServices: true,
-            activeStore_Detail: true,
-        };
-    }
-    activeStore_Detail = (activeStore_Detail) => {
-        this.setState({ activeStore_Detail })
-    }
-    getSource = (value) => {
-        this.setState({ activeGetSource: false, currentUser: value.currentUser, cokie: value.keycokie })
-    }
-    getData = (dataService) => {
-        this.setState({ activeGetServices: false, dataService })
-    }
-    render() {
-        const { navigation, route } = this.props;
-        const { activeGetSource, activeGetServices, activeStore_Detail, cokie, currentUser, dataService } = this.state;
-        const id_slide = route.params?.id_slide
-        const name_path = route.params?.name_path
-        const uri_path = route.params?.uri_path
-        const uri = `${finip}/${uri_path}`
-        var dataBody = {
-            id_slide,
-        };
-        activeGetSource == false && activeGetServices == true && id_slide && cokie &&
-            GetServices({ key: name_path, uriPointer: uri, dataBody, Authorization: cokie, getDataSource: this.getData.bind(this), })
-        activeGetSource == true &&
-            GetData({ getCokie: true, getUser: true, getSource: this.getSource.bind(this), })
-        return (
-            <SafeAreaView style={stylesMain.SafeAreaView}>
-                {
-                    (activeGetSource == true || activeGetServices == true || activeStore_Detail == true) &&
-                    <LoadingScreen key='LoadingScreen' />
+const mapStateToProps = (state) => ({
+    customerData: state.customerData,
+    getFetchData: state.singleFetchDataFromService,
+    activeFetchData: state.activeFetchData,
+});
+const mapDispatchToProps = ({
+    checkCustomer,
+    fetchData,
+    multiFetchData,
+    setActiveFetch,
+    setFetchToStart,
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Recommend_Store)
+function Recommend_Store(props) {
+    const { navigation, route } = props;
+    const id_slide = route.params?.id_slide;
+    const name_path = route.params?.name_path;
+    const uri_path = route.params?.uri_path;
+    const [activeGetServices, setActiveGetServices] = useState(true);
+    const [activeGetSource, setActiveGetSource] = useState(true);
+    const [activeStore_Detail, setActiveStore_Detail] = useState(true);
+    const [cokie, setCokie] = useState(true);
+    const [currentUser, setCurrentUser] = useState(undefined);
+    const [dataService, setDataService] = useState(undefined);
+    const uri = `${finip}/${uri_path}`
+    var dataBody = { id_slide, };
+    useEffect(() => {
+        activeGetSource &&
+            GetData({
+                getCokie: true, getUser: true, getSource: value => {
+                    setActiveGetSource(false);
+                    setCokie(value.keycokie);
+                    setCurrentUser(value.currentUser);
                 }
-                <AppBar {...this.props} backArrow cartBar chatBar />
-                <ScrollView>
-                    <Header dataService={{
-                        slide_image: dataService && dataService.slide_image, list_slide: dataService && dataService.list_slide
-                    }} />
-                    {
-                        dataService && dataService.list_product && dataService.list_product.length > 0 ? (
-                            dataService.list_product.map((value, index) => {
-                                return <Store_Detail {...this.props} cokie={cokie} currentUser={currentUser} dataService={value} key={index}
-                                    activeStore_Detail={this.activeStore_Detail.bind(this)} />
-                            })
-                        ) : <></>
-                    }
-                </ScrollView>
-                <ExitAppModule {...this.props} />
-            </SafeAreaView>
-        );
-    }
+            });
+    }, [activeGetSource]);
+    useEffect(() => {
+        activeGetSource == false && activeGetServices == true && id_slide && cokie &&
+            GetServices({
+                key: name_path, uriPointer: uri, dataBody, Authorization: cokie, getDataSource: value => {
+                    setActiveGetServices(false);
+                    setDataService(value);
+                }
+            });
+    }, [activeGetSource == false && activeGetServices == true && id_slide && cokie]);
+    return (
+        <SafeAreaView style={stylesMain.SafeAreaView}>
+            {
+                (activeGetSource == true || activeGetServices == true || activeStore_Detail == true) &&
+                <LoadingScreen key='LoadingScreen' />
+            }
+            <AppBar {...props} backArrow cartBar chatBar />
+            <ScrollView>
+                <Header dataService={{
+                    slide_image: dataService && dataService.slide_image, list_slide: dataService && dataService.list_slide
+                }} />
+                {
+                    dataService && dataService.list_product && dataService.list_product.length > 0 ? (
+                        dataService.list_product.map((value, index) => {
+                            return <Store_Detail {...props} cokie={cokie} currentUser={currentUser} dataService={value} key={index}
+                                activeStore_Detail={values => setActiveStore_Detail(values)} />
+                        })
+                    ) : <></>
+                }
+            </ScrollView>
+            <ExitAppModule {...props} />
+        </SafeAreaView>
+    );
 }
 ///----------------------------------------------------------------------------------------------->>>> Header
 export class Header extends React.Component {

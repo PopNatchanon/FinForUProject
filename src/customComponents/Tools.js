@@ -1319,7 +1319,7 @@ export function FlatProduct(props) {
             renderItem={(value) =>
                 <View style={{
                     height: 'auto',
-                    marginTop: noMarginTop != true && numberOfColumn == 2 ? 10 : undefined,
+                    marginTop: noMarginTop != true && numberOfColumn == 2 ? 3 : undefined,
                 }}>
                     {
                         (numberOfColumn == 2 ? value.item.item : value.item) &&

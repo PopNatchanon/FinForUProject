@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import {
   Dimensions, SafeAreaView, Text, View, FlatList, TouchableOpacity, ActivityIndicator
 } from 'react-native';
+import { connect, } from 'react-redux';
+import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import ActionButton from 'react-native-action-button';
 export const { width, height } = Dimensions.get('window');
@@ -20,8 +22,20 @@ import {
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default function FeedScreen(props) {
-  abortController = new AbortController();
+const mapStateToProps = (state) => ({
+  customerData: state.customerData,
+  getFetchData: state.singleFetchDataFromService,
+  activeFetchData: state.activeFetchData,
+});
+const mapDispatchToProps = ({
+  checkCustomer,
+  fetchData,
+  multiFetchData,
+  setActiveFetch,
+  setFetchToStart,
+});
+export default connect(mapStateToProps, mapDispatchToProps)(FeedScreen)
+function FeedScreen(props) {
   const [activeGetSource, setActiveGetSource] = useState(true);
   const [activeSelectedIndex, setActiveSelectedIndex] = useState(true);
   const [cokie, setCokie] = useState(null);
@@ -29,7 +43,7 @@ export default function FeedScreen(props) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   useEffect(() => {
     GetData({
-      abortController, getCokie: true, getUser: true, getSource: value => {
+      getCokie: true, getUser: true, getSource: value => {
         setCurrentUser(value.currentUser);
         setCokie(value.keycokie);
         setActiveGetSource(false)
@@ -45,14 +59,13 @@ export default function FeedScreen(props) {
       <AppBar1 {...props} titleHead='ฟีด' storeBar menuBar />
       {
         currentUser &&
-        <MenuBar getActiveSelectedIndex={activeSelectedIndex => setActiveSelectedIndex(activeSelectedIndex)}
-          sendText={selectedIndex => setSelectedIndex(selectedIndex)} />
+        <MenuBar getActiveSelectedIndex={value => setActiveSelectedIndex(value)}
+          sendText={value => setSelectedIndex(value)} />
       }
-
       {
         activeGetSource == false ?
-          <Button_Bar {...props} abortController={abortController} activeSelectedIndex={activeSelectedIndex}
-            currentUser={currentUser} getActiveSelectedIndex={activeSelectedIndex => setActiveSelectedIndex(activeSelectedIndex)}
+          <Button_Bar {...props} activeSelectedIndex={activeSelectedIndex}
+            currentUser={currentUser} getActiveSelectedIndex={value => setActiveSelectedIndex(value)}
             selectedIndex={currentUser ? selectedIndex : 1} /> :
           <View style={{ width, height: height * 0.768 }}>
             <ActivityIndicator style={stylesMain.ItemCenterVertical} color='#1A3263' size='large' />
@@ -65,7 +78,7 @@ export default function FeedScreen(props) {
   );
 };
 ///----------------------------------------------------------------------------------------------->>>> MenuBar
-export function MenuBar(props) {
+export let MenuBar = (props) => {
   const { getActiveSelectedIndex, sendText } = props;
   const item = [{
     name: <Text><IconFontAwesome5 name='grin-hearts' size={20} /> กำลังติดตาม</Text>
@@ -83,6 +96,7 @@ export function MenuBar(props) {
         noSpace
         setVertical={2}
         widthBox={110}
+        bottomColor='#ececec'
         spaceColor={mainColor}
         activeColor='#fff'
         fontColor='#fff' />
@@ -90,7 +104,7 @@ export function MenuBar(props) {
   );
 };
 ///----------------------------------------------------------------------------------------------->>>> Button_Bar
-export function Button_Bar(props) {
+export let Button_Bar = (props) => {
   const { activeSelectedIndex, currentUser, getActiveSelectedIndex, selectedIndex } = props;
   var uri = `${finip}/${(selectedIndex == 0 ? 'brand/feed_store_follow' : 'brand/feed_highlight')}`
   var dataBody = {
@@ -115,18 +129,17 @@ export function Button_Bar(props) {
             <ActivityIndicator style={stylesMain.ItemCenterVertical} color='#1A3263' size='large' />
           </View>
       }
-      <ActionButton buttonColor={mainColor} size={50}
-        onPress={() => NavigationNavigateScreen({
-          goScreen: 'Post_Feed', setData: {
-            selectedIndex: 1,
-          }, navigation
-        })}>
+      <ActionButton buttonColor={mainColor} size={50} onPress={() => NavigationNavigateScreen({
+        goScreen: 'Post_Feed', setData: {
+          selectedIndex: 1,
+        }, navigation
+      })}>
       </ActionButton>
     </View>
   );
 };
 ///----------------------------------------------------------------------------------------------->>>> Highlights
-export function Highlights(props) {
+export let Highlights = (props) => {
   const { dataService, navigation } = props;
   function headerStoryList(navigation) {
     return (

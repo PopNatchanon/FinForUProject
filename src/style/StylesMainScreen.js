@@ -410,7 +410,7 @@ export default StyleSheet.create({
     borderColor: '#ECECEC',
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
-    marginTop: 8,
+    marginTop: 2,
     paddingBottom: 4,
   },
   FrameBackground2: {
@@ -419,18 +419,19 @@ export default StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderBottomWidth: 1,
     borderTopWidth: 1,
-    marginTop: 8,
+    marginTop: 2,
     paddingBottom: 4,
   },
   FrameBackground3: {
     width,
-    height: height * 0.07,
+    // height: height * 0.07,
+    aspectRatio: 7,
     borderColor: '#ECECEC',
     backgroundColor: '#fff',
     borderBottomWidth: 1,
     borderTopWidth: 1,
-    marginTop: 30,
-    marginBottom: -75,
+    // marginTop: 4,
+    // marginBottom: -75,
   },
   FrameBackgroundTextBox: {
     flexDirection: 'row',
@@ -656,12 +657,12 @@ export default StyleSheet.create({
   Banner_Bar: {
     backgroundColor: '#FFFFFF',
     borderColor: '#ECECEC',
-    marginTop: 10,
+    marginTop: 2,
   },
   Banner_Bar_image: {
     width: width,
     height: 'auto',
-    aspectRatio: 7
+    aspectRatio: 6
   },
   Product_for_you: {
     height: 320,
@@ -674,13 +675,13 @@ export default StyleSheet.create({
   },
   ///------------------------------------------------------------------///
   Button_Bar_Box: {
-    width: 70,
+    // width: 70,
     alignItems: 'center',
     alignContent: 'center',
     height: 'auto',
     aspectRatio: 0.9,
-    paddingVertical: 10,
-    paddingHorizontal: 4
+    // paddingVertical: 10,
+    paddingHorizontal: 2
   },
   Button_Bar_icon: {
     height: 65,

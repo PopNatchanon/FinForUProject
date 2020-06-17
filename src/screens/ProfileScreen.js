@@ -3,6 +3,8 @@ import React from 'react';
 import {
     Dimensions, SafeAreaView, ScrollView, ImageBackground, Text, TextInput, TouchableOpacity, View, ActivityIndicator,
 } from 'react-native';
+import { connect, } from 'react-redux';
+import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';

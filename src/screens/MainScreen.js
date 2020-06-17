@@ -80,7 +80,7 @@ function MainScreen(props) {
         useNativeDriver: true,
     });
     useEffect(() => {
-        setTimeout(() => setActiveTime(false), 21000);
+        setTimeout(() => setActiveTime(false), 5000);
     })
     let FetchDataMain = () => {
         multiFetchData({
@@ -236,11 +236,11 @@ function MainScreen(props) {
     // })
     return (
         <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
-            {
+            {/* {
                 activeTime ?
-                    < LoadingScreen key='LoadingScreen' /> :
+                    <LoadingScreen key='LoadingScreen' /> :
                     <></>
-            }
+            } */}
             <Animated.View style={{
                 zIndex: 1, height: maxheight, width, top: maxheight,
                 backgroundColor: 'transparent', elevation: 1, marginTop: -(maxheight),
@@ -508,7 +508,7 @@ export let AppBar = (props) => {
                                 } :
                                 () => { NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true }); }}>
                             {
-                                getFetchData['cart_mobile'] && getFetchData['cart_mobile']?.isError && cartMobile <= 0 ?
+                                ((getFetchData['cart_mobile'] && getFetchData['cart_mobile']?.isError) || cartMobile <= 0) ?
                                     <></> :
                                     <Animated.Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, {
                                         backgroundColor: 'red', color: '#fff', width: 17, height: 17, borderRadius: 15,
@@ -527,8 +527,8 @@ export let AppBar = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> AppBar สีคราม
 export let AppBar1 = (props) => {
     const {
-        backArrow, backArrowColor, ButtomDeleteAll, chatBar, colorBar, deleteBar, getActivePost, goToTop, menuBar, navigation, propsFunction,
-        postBar, saveBar, searchBar, settingBar, storeBar, titleHead, backNavigation, UpBankBar,
+        ABDColor, ABDColor_All, ABGColor, backArrow, backArrowColor, backNavigation, ButtomDeleteAll, chatBar, colorBar, deleteBar, getActivePost, goToTop, menuBar,
+        navigation, propsFunction, postBar, saveBar, searchBar, settingBar, storeBar, titleHead, UpBankBar,
     } = props;
     const AStatusBar = Animatable.createAnimatableComponent(StatusBar);
     const [activeGetCurrentUser, setActiveGetCurrentUser] = useState(true);
@@ -543,40 +543,36 @@ export let AppBar1 = (props) => {
             });
     }, [activeGetCurrentUser]);
     return (
-        <View style={
-            colorBar ??
-                menuBar ?
-                stylesStore.AppbarMenu :
-                stylesStore.Appbar}>
+        <View style={[colorBar ?? menuBar ? stylesStore.AppbarMenu : stylesStore.Appbar, {
+            width, height: 55,
+            borderWidth: 0, borderBottomWidth: 1,
+            backgroundColor: ABGColor ?? mainColor,
+            borderColor: ABDColor_All ?? ABDColor ?? mainColor,
+            borderBottomColor: ABDColor ?? mainColor,
+            borderColor: 'transparent',
+        }]}>
             {/* <AStatusBar backgroundColor={mainColor} /> */}
             <View style={stylesMain.FlexRow}>
                 {
                     backArrow &&
                     <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 50, height: 50 }]}
-                        activeOpacity={1}
-                        onPress={
+                        activeOpacity={1} onPress={
                             goToTop ?
-                                () => {
-                                    NavigationNavigateScreen({ goScreen: 'popToTop', navigation });
-                                } :
+                                () => { NavigationNavigateScreen({ goScreen: 'popToTop', navigation }); } :
                                 backNavigation ?
                                     () => {
                                         navigation.state.params.backNavigation('goBack');
                                         NavigationNavigateScreen({ goScreen: 'goBack', navigation });
                                     } :
-                                    () => {
-                                        NavigationNavigateScreen({ goScreen: 'goBack', navigation });
-                                    }
+                                    () => { NavigationNavigateScreen({ goScreen: 'goBack', navigation }); }
                         }>
-                        <IconEntypo style={[stylesStore.Icon_appbar, {
-                            color: backArrowColor ? backArrowColor : '#ffffff'
-                        }]} name="chevron-left" size={30} />
+                        <IconEntypo style={[stylesStore.Icon_appbar, { color: backArrowColor ? backArrowColor : '#ffffff' }]}
+                            name="chevron-left" size={30} />
                     </TouchableOpacity>
                 }
                 <Text style={[
                     stylesStore.Text_appbar, stylesFont.FontSize4, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical
-                ]}>
-                    {titleHead && titleHead}</Text>
+                ]}>{titleHead && titleHead}</Text>
             </View>
             <View style={stylesMain.FlexRow}>
                 {[
@@ -611,11 +607,8 @@ export let AppBar1 = (props) => {
                         onPress={
                             currentUser ?
                                 () => {
-                                    NavigationNavigateScreen({
-                                        goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation
-                                    });
-                                } :
-                                () => { NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true }); }
+                                    NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation });
+                                } : () => { NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true }); }
                         }>
                         <IconAntDesign RightItem name="message1" size={25} style={[
                             stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
@@ -1034,12 +1027,13 @@ export let Button_Bar = (props) => {
     const { navigation } = props;
     return (
         <>
-            <View style={stylesMain.FrameBackground3}></View>
-            <View style={[stylesMain.FlexRow, { width, justifyContent: 'space-around' }]}>
+            <View style={[stylesMain.FlexRow, {
+                width, justifyContent: 'space-around', marginTop: 2, backgroundColor: 'transparent', elevation: 1
+            }]}>
                 <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
                     goScreen: 'DealScreen', navigation
                 })}>
-                    <View style={stylesMain.Button_Bar_Box}>
+                    <View style={[stylesMain.Button_Bar_Box, { elevation: 1 }]}>
                         <FastImage style={stylesMain.Button_Bar_icon}
                             source={require('../../icon/Icon_Deal/01.jpg')}
                             resizeMode={FastImage.resizeMode.contain} />
@@ -1048,7 +1042,7 @@ export let Button_Bar = (props) => {
                 <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
                     goScreen: 'CoinScreen', navigation
                 })}>
-                    <View style={stylesMain.Button_Bar_Box}>
+                    <View style={[stylesMain.Button_Bar_Box, { elevation: 1 }]}>
                         <FastImage style={stylesMain.Button_Bar_icon}
                             source={require('../../icon/Icon_Deal/02.jpg')}
                             resizeMode={FastImage.resizeMode.contain} />
@@ -1057,7 +1051,7 @@ export let Button_Bar = (props) => {
                 <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
                     goScreen: 'CampaignScreen', navigation
                 })}>
-                    <View style={stylesMain.Button_Bar_Box}>
+                    <View style={[stylesMain.Button_Bar_Box, { elevation: 1 }]}>
                         <FastImage style={stylesMain.Button_Bar_icon}
                             source={require('../../icon/Icon_Deal/03.jpg')}
                             resizeMode={FastImage.resizeMode.contain} />
@@ -1066,7 +1060,7 @@ export let Button_Bar = (props) => {
                 <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
                     goScreen: 'The_BestFinScreen', navigation
                 })}>
-                    <View style={stylesMain.Button_Bar_Box}>
+                    <View style={[stylesMain.Button_Bar_Box, { elevation: 1 }]}>
                         <FastImage style={stylesMain.Button_Bar_icon}
                             source={require('../../icon/Icon_Deal/04.jpg')}
                             resizeMode={FastImage.resizeMode.contain} />
@@ -1075,13 +1069,14 @@ export let Button_Bar = (props) => {
                 <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
                     goScreen: 'Installment_payScreen', navigation
                 })}>
-                    <View style={stylesMain.Button_Bar_Box}>
+                    <View style={[stylesMain.Button_Bar_Box, { elevation: 1 }]}>
                         <FastImage style={stylesMain.Button_Bar_icon}
                             source={require('../../icon/Icon_Deal/05.jpg')}
                             resizeMode={FastImage.resizeMode.contain} />
                     </View>
                 </TouchableOpacity>
             </View>
+            <View style={[stylesMain.FrameBackground3, { bottom: 45, marginBottom: -45 }]}></View>
         </>
     );
 };
@@ -1335,7 +1330,7 @@ export let BannerBar_ONE = (props) => {
                 source={{
                     uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 111.jpg`
                 }}
-                resizeMode={FastImage.resizeMode.cover} />
+                resizeMode={FastImage.resizeMode.stretch} />
         </View>
     );
 };
@@ -1348,7 +1343,7 @@ export let BannerBar_TWO = (props) => {
                 source={{
                     uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 222.jpg`
                 }}
-                resizeMode={FastImage.resizeMode.cover} />
+                resizeMode={FastImage.resizeMode.stretch} />
         </View>
     );
 };
@@ -1361,7 +1356,7 @@ export let BannerBar_THREE = (props) => {
                 source={{
                     uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 222.jpg`
                 }}
-                resizeMode={FastImage.resizeMode.contain} />
+                resizeMode={FastImage.resizeMode.stretch} />
         </View>
     );
 };
@@ -1890,7 +1885,7 @@ export function CategoryProduct(props) {
                 var dataMySQL = `${finip}/${item.image_path}/${item.image_menu}`;
                 return (
                     <View key={index} style={[stylesMain.FrameBackground2, {
-                        backgroundColor: item.bg_m,
+                        backgroundColor: item.bg_m, paddingBottom: 3,
                     }]}>
                         <>
                             {
@@ -1962,7 +1957,7 @@ export let CategoryProductSubProduct = (props) => {
             {
                 dataService.length > 0 ?
                     <FlatProduct {...props} numberOfColumn={2} nameFlatProduct='CategoryProduct' mode='row3_new' nameSize={14}
-                        priceSize={15} dispriceSize={13} /> :
+                        priceSize={15} dispriceSize={13} noMarginTop /> :
                     <View>
                         <View style={{ flexDirection: 'row' }}>
                             {boxEmpty}
@@ -2018,7 +2013,7 @@ export let CategoryProductSubStore = (props) => {
 export let CategoryProductSubPromotion = (props) => {
     const { getFetchData, mix_color, promo_1, promo_2, shop } = props;
     let boxEmptySmall = (
-        <View style={[stylesMain.BoxStore1Box3, { width: '100%', marginTop: 6, height: 66, backgroundColor: mix_color, }]} >
+        <View style={[stylesMain.BoxStore1Box3, { width: '100%', marginTop: 3, height: 66, backgroundColor: mix_color, }]} >
             <View style={stylesMain.BoxProduct1Image} />
         </View>
     );
@@ -2027,7 +2022,7 @@ export let CategoryProductSubPromotion = (props) => {
             promo_2.map((value, index) => {
                 var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`
                 return (
-                    <View style={[stylesMain.BoxStore1Box3, { width: '100%', marginTop: 6, height: 66, }]} key={index} >
+                    <View style={[stylesMain.BoxStore1Box3, { width: '100%', marginTop: 3, height: 66, }]} key={index} >
                         {
                             value &&
                             <Image
@@ -2044,7 +2039,7 @@ export let CategoryProductSubPromotion = (props) => {
             boxEmptySmall
     );
     let boxEmptyBig = (
-        <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, marginTop: 6, marginBottom: 3, backgroundColor: mix_color, }]} >
+        <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, marginTop: 3, marginBottom: 3, backgroundColor: mix_color, }]} >
             <View style={stylesMain.BoxProduct1Image} />
         </View>
     );
@@ -2053,7 +2048,7 @@ export let CategoryProductSubPromotion = (props) => {
             promo_1.map((value, index) => {
                 var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`;
                 return (
-                    <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, marginTop: 6, marginBottom: 3, }]} key={index} >
+                    <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, marginTop: 3, marginBottom: 3, }]} key={index} >
                         {
                             value &&
                             <Image

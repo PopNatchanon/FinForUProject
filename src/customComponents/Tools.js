@@ -16,7 +16,7 @@ import NumberFormat from 'react-number-format';
 import SlidingView from 'rn-sliding-view';
 import RNFetchBlob from 'rn-fetch-blob'
 import SplashScreen from 'react-native-splash-screen';
-// import { StackActions, } from 'react-navigation';
+import { CommonActions, StackActions, } from '@react-navigation/native';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -254,8 +254,8 @@ export class TabBar extends React.Component {
     }
     get tab() {
         const {
-            activeColor, activeFontColor, fontColor, fontSizeStyle, inactiveBoxColor, inactiveColor, inactiveFontColor, item, limitBox,
-            noLimit, NoSelectTab, noSpace, numberBox, numberofBox, numberOfLines, radiusBox, SetValue, setHorizontal, setVertical,
+            activeColor, activeFontColor, bottomColor, fontColor, fontSizeStyle, inactiveBoxColor, inactiveColor, inactiveFontColor, item,
+            limitBox, noLimit, NoSelectTab, noSpace, numberBox, numberofBox, numberOfLines, radiusBox, SetValue, setHorizontal, setVertical,
             spaceColor, tagBottom, tagBottomColor, type, widthBox,
         } = this.props
         const { PassSetValue, pathlist, pathlist2 } = this.state
@@ -295,7 +295,7 @@ export class TabBar extends React.Component {
                                                             width * (1 / numberofBox) :
                                                             width * (1 / 4) : width * (1 / countItem) :
                                             noSpace ?
-                                                widthBox ? widthBox : width * (1 / countItem) :
+                                                widthBox ?? width * (1 / countItem) :
                                                 noLimit ?
                                                     numberofBox ?
                                                         width * (1 / numberofBox) :
@@ -320,9 +320,7 @@ export class TabBar extends React.Component {
                                     borderBottomColor:
                                         type == 'box' ?
                                             null :
-                                            activeColor ?
-                                                activeColor :
-                                                mainColor,
+                                            activeColor ?? mainColor,
                                     borderBottomWidth:
                                         type == 'tag' ?
                                             null :
@@ -335,13 +333,9 @@ export class TabBar extends React.Component {
                                             width * (1 / 60) :
                                             null,
                                     paddingVertical:
-                                        setVertical ?
-                                            setVertical :
-                                            null,
+                                        setVertical ?? null,
                                     paddingHorizontal:
-                                        setHorizontal ?
-                                            setHorizontal :
-                                            null
+                                        setHorizontal ?? null
                                 }]}>
                                 <View style={[
                                     stylesMain.ItemCenterVertical,
@@ -370,19 +364,13 @@ export class TabBar extends React.Component {
                                                     null,
                                             borderWidth: 1,
                                             borderColor:
-                                                activeColor ?
-                                                    activeColor :
-                                                    mainColor,
+                                                activeColor ?? mainColor,
                                             backgroundColor:
-                                                activeColor ?
-                                                    activeColor :
-                                                    mainColor,
+                                                activeColor ?? mainColor,
                                             alignContent: 'center',
                                             alignItems: 'center',
                                             borderRadius:
-                                                radiusBox ?
-                                                    radiusBox :
-                                                    0,
+                                                radiusBox ?? 0,
                                         } :
                                         {
                                             flexDirection: 'row'
@@ -390,20 +378,10 @@ export class TabBar extends React.Component {
                                 ]}>
                                     <Text numberOfLines={numberOfLines} style={[stylesFont.FontFamilySemiBold, {
                                         fontSize:
-                                            fontSizeStyle ?
-                                                fontSizeStyle :
-                                                16,
+                                            fontSizeStyle ?? 16,
                                         color: type == 'box' ?
-                                            activeFontColor ?
-                                                activeFontColor :
-                                                fontColor ?
-                                                    fontColor :
-                                                    'white' :
-                                            activeFontColor ?
-                                                activeFontColor :
-                                                fontColor ?
-                                                    fontColor :
-                                                    'black',
+                                            activeFontColor ?? fontColor ?? 'white' :
+                                            activeFontColor ?? fontColor ?? 'black',
                                         textAlignVertical: 'center'
                                     }]}>
                                         {item.name}
@@ -412,20 +390,10 @@ export class TabBar extends React.Component {
                                         item.nameline2 &&
                                         <Text numberOfLines={numberOfLines} style={[stylesFont.FontFamilySemiBold, {
                                             fontSize:
-                                                fontSizeStyle ?
-                                                    fontSizeStyle :
-                                                    16,
+                                                fontSizeStyle ?? 16,
                                             color: type == 'box' ?
-                                                activeFontColor ?
-                                                    activeFontColor :
-                                                    fontColor ?
-                                                        fontColor :
-                                                        'white' :
-                                                activeFontColor ?
-                                                    activeFontColor :
-                                                    fontColor ?
-                                                        fontColor :
-                                                        'black',
+                                                activeFontColor ?? fontColor ?? 'white' :
+                                                activeFontColor ?? fontColor ?? 'black',
                                             textAlignVertical: 'center'
                                         }]}>
                                             {item.nameline2}
@@ -449,7 +417,7 @@ export class TabBar extends React.Component {
                                                             width * (1 / numberofBox) :
                                                             width * (1 / 4) : width * (1 / countItem) :
                                             noSpace ?
-                                                widthBox ? widthBox : width * (1 / countItem) :
+                                                widthBox ?? width * (1 / countItem) :
                                                 noLimit ?
                                                     numberofBox ?
                                                         width * (1 / numberofBox) :
@@ -472,9 +440,7 @@ export class TabBar extends React.Component {
                                     borderBottomColor:
                                         type == 'box' ?
                                             null :
-                                            spaceColor ?
-                                                spaceColor :
-                                                '#fff',
+                                            spaceColor ?? '#fff',
                                     borderBottomWidth:
                                         type == 'tag' ?
                                             null :
@@ -487,13 +453,9 @@ export class TabBar extends React.Component {
                                             width * (1 / 60) :
                                             null,
                                     paddingVertical:
-                                        setVertical ?
-                                            setVertical :
-                                            null,
+                                        setVertical ?? null,
                                     paddingHorizontal:
-                                        setHorizontal ?
-                                            setHorizontal :
-                                            null
+                                        setHorizontal ?? null
                                 }]}>
                                 <View style={[
                                     stylesMain.ItemCenterVertical,
@@ -522,19 +484,13 @@ export class TabBar extends React.Component {
                                                     null,
                                             borderWidth: 1,
                                             backgroundColor:
-                                                inactiveBoxColor ?
-                                                    inactiveBoxColor :
-                                                    null,
+                                                inactiveBoxColor ?? null,
                                             borderColor:
-                                                inactiveColor ?
-                                                    inactiveColor :
-                                                    'black',
+                                                inactiveColor ?? 'black',
                                             alignContent: 'center',
                                             alignItems: 'center',
                                             borderRadius:
-                                                radiusBox ?
-                                                    radiusBox :
-                                                    0,
+                                                radiusBox ?? 0,
                                         } :
                                         {
                                             flexDirection: 'row'
@@ -542,15 +498,9 @@ export class TabBar extends React.Component {
                                 ]}>
                                     <Text numberOfLines={numberOfLines} style={[stylesFont.FontFamilySemiBold, {
                                         fontSize:
-                                            fontSizeStyle ?
-                                                fontSizeStyle :
-                                                16,
+                                            fontSizeStyle ?? 16,
                                         color:
-                                            inactiveFontColor ?
-                                                inactiveFontColor :
-                                                fontColor ?
-                                                    fontColor :
-                                                    'black',
+                                            inactiveFontColor ?? fontColor ?? 'black',
                                         textAlignVertical: 'center'
                                     }]}>
                                         {item.name}
@@ -559,15 +509,9 @@ export class TabBar extends React.Component {
                                         item.nameline2 &&
                                         <Text numberOfLines={numberOfLines} style={[stylesFont.FontFamilySemiBold, {
                                             fontSize:
-                                                fontSizeStyle ?
-                                                    fontSizeStyle :
-                                                    16,
+                                                fontSizeStyle ?? 16,
                                             color:
-                                                inactiveFontColor ?
-                                                    inactiveFontColor :
-                                                    fontColor ?
-                                                        fontColor :
-                                                        'black',
+                                                inactiveFontColor ?? fontColor ?? 'black',
                                             textAlignVertical: 'center'
                                         }]}>
                                             {item.nameline2}
@@ -586,9 +530,7 @@ export class TabBar extends React.Component {
                                     tagBottom ?
                                         pathlist == index ?
                                             tagBottom :
-                                            tagBottomColor ?
-                                                tagBottomColor :
-                                                '#fff' :
+                                            tagBottomColor ?? '#fff' :
                                         null,
                                 borderBottomWidth:
                                     tagBottom ?
@@ -608,9 +550,7 @@ export class TabBar extends React.Component {
                                     borderBottomColor:
                                         tagBottom ?
                                             pathlist == index ?
-                                                tagBottomColor ?
-                                                    tagBottomColor :
-                                                    mainColor :
+                                                tagBottomColor ?? mainColor :
                                                 '#fff' :
                                             null,
                                     borderBottomWidth:
@@ -627,7 +567,7 @@ export class TabBar extends React.Component {
     }
     render() {
         const {
-            alignBox, direction, noLimit, noSpace, numberBox, numberofBox, spaceColor, type,
+            alignBox, bottomColor, direction, noLimit, noSpace, numberBox, numberofBox, spaceColor, type,
         } = this.props
         return (
             numberBox ?
@@ -674,15 +614,13 @@ export class TabBar extends React.Component {
                                             null :
                                             1,
                                 backgroundColor:
-                                    spaceColor ?
-                                        spaceColor :
-                                        null,
+                                    spaceColor ?? null,
                                 borderColor:
                                     type == 'tag' ?
                                         null :
-                                        spaceColor ?
-                                            spaceColor :
-                                            '#ECECEC',
+                                        spaceColor ?? '#ECECEC',
+                                borderBottomColor:
+                                    bottomColor ?? spaceColor ?? '#ECECEC',
                                 flexDirection:
                                     direction == 'column' ?
                                         'column' :
@@ -1338,10 +1276,10 @@ export function NavigationNavigateScreen(props) {
     const {
         goScreen, setConsole, passHome, navigation: { dispatch, goBack, popToTop, push, replace, }, setData, noPush
     } = props
-    // const navigationActions = StackActions.reset({
-    //     index: 0,
-    //     actions: [StackActions.replace({ routeName: goScreen, params: setData })],
-    // })
+    const navigationActions = CommonActions.reset({
+        index: 0,
+        actions: [StackActions.replace({ routeName: goScreen, params: setData })],
+    })
     console.log(goScreen)
     console.log(setData)
     setConsole && (

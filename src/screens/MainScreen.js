@@ -79,9 +79,7 @@ function MainScreen(props) {
         extrapolate: 'clamp',
         useNativeDriver: true,
     });
-    useEffect(() => {
-        setTimeout(() => setActiveTime(false), 5000);
-    })
+    useEffect(() => { setTimeout(() => setActiveTime(false), 5000); })
     let FetchDataMain = () => {
         multiFetchData({
             multiData: [
@@ -94,19 +92,13 @@ function MainScreen(props) {
     useEffect(() => {
         if ((getFetchData['publish_mobile'] == undefined || (getFetchData['publish_mobile']?.isFetching)) ||
             // (getFetchData['category_mobile'] == undefined || (getFetchData['category_mobile']?.isFetching)) ||
-            (getFetchData['home_mobile'] == undefined || (getFetchData['home_mobile']?.isFetching))) {
-            FetchDataMain()
-        }
+            (getFetchData['home_mobile'] == undefined || (getFetchData['home_mobile']?.isFetching))) { FetchDataMain(); };
     }, [(getFetchData['publish_mobile'] == undefined || (getFetchData['publish_mobile']?.isFetching)) ||
         // (getFetchData['category_mobile'] == undefined || (getFetchData['category_mobile']?.isFetching)) ||
         (getFetchData['home_mobile'] == undefined || (getFetchData['home_mobile']?.isFetching))]);
-    let FetchDataFlash = () => {
-        fetchData({
-            name: 'flash_timer', uri: `${finip}/flashsale/flash_timer`,
-        })
-    }
+    let FetchDataFlash = () => { fetchData({ name: 'flash_timer', uri: `${finip}/flashsale/flash_timer`, }) };
     useEffect(() => {
-        if (getFetchData['flash_timer'] == undefined || (getFetchData['flash_timer']?.isFetching)) FetchDataFlash()
+        if (getFetchData['flash_timer'] == undefined || (getFetchData['flash_timer']?.isFetching)) { FetchDataFlash(); };
     }, [getFetchData['flash_timer']?.isFetching]);
     // const item_id_type = getFetchData['category_mobile']?.isFetching == false && getFetchData['category_mobile']?.data.map((value) => {
     //     return value.id_type
@@ -242,8 +234,7 @@ function MainScreen(props) {
                     <></>
             } */}
             <Animated.View style={{
-                zIndex: 1, height: maxheight, width, top: maxheight,
-                backgroundColor: 'transparent', elevation: 1, marginTop: -(maxheight),
+                zIndex: 1, height: maxheight, width, top: maxheight, backgroundColor: 'transparent', elevation: 1, marginTop: -(maxheight),
             }}>
                 <AppBar {...props} ABGColor={AnimatedHeadbg} ABDColor={AnimatedHeadbg} ABICartColor={AnimatedCart} cartBar chatBar />
             </Animated.View>
@@ -339,19 +330,15 @@ export class ExitAppModule extends React.Component {
         var routeProps = route.name;
         const pathMain = ['MainScreen', 'FeedScreen', 'NewsScreen', 'BellScreen', 'LoginScreen', 'ProfileScreen']
         console.log(pathMain.indexOf(routeProps) != -1)
-        return pathMain.indexOf(routeProps) != -1 ? (
-            backClickCount == 1 ? BackHandler.exitApp() : this._spring(),
-            true
-        ) : (
-                navigation.pop(),
-                true
-            );
+        return pathMain.indexOf(routeProps) != -1 ?
+            (backClickCount == 1 ? BackHandler.exitApp() : this._spring(), true) :
+            (navigation.pop(), true);
     };
     render() {
         return (
-            <Animatable.View style={[
-                stylesMain.animatedView, { opacity: this.springValue, transform: [{ translateY: this.transformValue }] }
-            ]}>
+            <Animatable.View style={[stylesMain.animatedView, {
+                opacity: this.springValue, transform: [{ translateY: this.transformValue }]
+            }]}>
                 <View style={stylesMain.animatedViewSub}>
                     <Text style={[stylesMain.exitTitleText, stylesFont.FontFamilyText]}>กดอีกครั้งเพื่อออก</Text>
                 </View>
@@ -374,19 +361,15 @@ export let AppBar = (props) => {
     useEffect(() => {
         activeGetCurrentUser && GetData({
             getSource: value => {
-                setActiveGetCurrentUser(false)
+                setActiveGetCurrentUser(false);
                 setCurrentUser(value.currentUser);
             }, getUser: true,
         });
     }, [activeGetCurrentUser]);
     useEffect(() => {
         (currentUser?.id_customer && (getFetchData['cart_mobile'] == undefined || getFetchData['cart_mobile']?.isFetching)) &&
-            fetchData({
-                dataBody: { id_customer: currentUser.id_customer }, name: 'cart_mobile', uri: `${finip}/cart/cart_mobile`,
-            });
+            fetchData({ dataBody: { id_customer: currentUser.id_customer }, name: 'cart_mobile', uri: `${finip}/cart/cart_mobile`, });
     }, [(currentUser?.id_customer && (getFetchData['cart_mobile'] == undefined || getFetchData['cart_mobile']?.isFetching))])
-    console.log('++++++++++++++++++++++++++++++++++++===============================>>>cartMobile')
-    console.log(cartMobile)
     cartMobile != getFetchData['cart_mobile']?.data?.cart_list.length && getFetchData['cart_mobile']?.data?.cart_list.length >= 0 &&
         setCartMobile(getFetchData['cart_mobile']?.data?.cart_list.length)
     let setSubmit = () => {
@@ -399,15 +382,14 @@ export let AppBar = (props) => {
     const AIconFontAwesome5 = Animatable.createAnimatableComponent(IconFontAwesome5);
     const AStatusBar = Animatable.createAnimatableComponent(StatusBar);
     var allWidth = width - 20;
-    backArrow && (allWidth = allWidth - 30);
-    cartBar && (allWidth = allWidth - 30);
-    chatBar && (allWidth = allWidth - 30);
-    filterBar && (allWidth = allWidth - 30);
-    otherBar && (allWidth = allWidth - 30);
+    backArrow && (allWidth -= 30);
+    cartBar && (allWidth -= 30);
+    chatBar && (allWidth -= 30);
+    filterBar && (allWidth -= 30);
+    otherBar && (allWidth -= 30);
     return (
         <Animatable.View style={[stylesMain.Appbar, stylesMain.FlexRow, {
-            width, height: 55,
-            borderWidth: 0, borderBottomWidth: 1,
+            width, height: 55, borderWidth: 0, borderBottomWidth: 1,
             backgroundColor: ABGColor ?? mainColor,
             borderColor: ABDColor_All ?? ABDColor ?? mainColor,
             borderBottomColor: ABDColor ?? mainColor,
@@ -415,27 +397,19 @@ export let AppBar = (props) => {
         }]}>
             {/* <AStatusBar backgroundColor={ABGColor ?? mainColor} translucent /> */}
             {[
-
                 backArrow &&
                 <View key={'backarrow'}>
-                    <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]}
-                        activeOpacity={1}
+                    <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]} activeOpacity={1}
                         onPress={() => { NavigationNavigateScreen({ goScreen: 'goBack', navigation }); }}>
                         <AIconEntypo name="chevron-left" size={25} style={{ color: AIColor ?? '#fff', }} />
                     </TouchableOpacity>
                 </View>,
                 searchBar ?
-                    <TouchableOpacity key={'searchBar'} activeOpacity={1}
-                        style={{ marginRight: 3 }}
-                    >
+                    <TouchableOpacity key={'searchBar'} activeOpacity={1} style={{ marginRight: 3 }}>
                         <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical, { height: 30 }]}>
-                            <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
-                                width: allWidth,
-                            }]}>
-                                <TextInput
-                                    style={[
-                                        stylesMain.TextInput, stylesFont.FontFamilyText, stylesFont.FontSize5, stylesFont.FontCenter
-                                    ]}
+                            <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: allWidth, }]}>
+                                <TextInput style={[stylesMain.TextInput, stylesFont.FontFamilyText, stylesFont.FontSize5,
+                                stylesFont.FontCenter]}
                                     placeholder="ค้นหาสินค้า/ร้านค้า"
                                     value={text}
                                     maxLength={30}
@@ -446,26 +420,15 @@ export let AppBar = (props) => {
                         </View>
                     </TouchableOpacity> :
                     <TouchableOpacity key={'searchBar'} activeOpacity={1}
-                        style={{ marginRight: 3 }} onPress={
-                            () => {
-                                NavigationNavigateScreen({
-                                    goScreen: SearchText ? 'goBack' : 'SearchScreen', setData: { modeStore: false }, navigation
-                                });
-                            }}>
+                        style={{ marginRight: 3 }} onPress={() => {
+                            NavigationNavigateScreen({
+                                goScreen: SearchText ? 'goBack' : 'SearchScreen', setData: { modeStore: false }, navigation
+                            });
+                        }}>
                         <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical, { height: 30 }]}>
-                            <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
-                                height: 30,
-                                width: allWidth,
-                            }]}>
-                                <Text style={[
-                                    stylesFont.FontFamilyText, stylesFont.FontSize5, stylesFont.FontCenter,
-                                    stylesMain.ItemCenterVertical
-                                ]}>
-                                    {
-                                        SearchText ?
-                                            SearchText :
-                                            'ค้นหาสินค้า/ร้านค้า'
-                                    }</Text>
+                            <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { height: 30, width: allWidth, }]}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesFont.FontCenter,
+                                stylesMain.ItemCenterVertical]}>{SearchText ?? 'ค้นหาสินค้า/ร้านค้า'}</Text>
                             </View>
                             <IconAntDesign name="search1" size={18} style={[{ top: 4, left: allWidth - 25, position: 'absolute', }]} />
                         </View>
@@ -473,47 +436,35 @@ export let AppBar = (props) => {
                 <View key={'storebar'} style={[stylesMain.ItemCenter, stylesMain.FlexRow, stylesMain.ItemCenterVertical]}>
                     {[
                         filterBar &&
-                        <TouchableOpacity key='filterBar' style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
-                            width: 30,
-                        }]}
+                        <TouchableOpacity key='filterBar' style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]}
                             onPress={null/*() => navigation.push('CartScreen')*/}>
                             <AIconFeather name="filter" size={25} style={{ color: AIColor ?? '#fff' }} />
                         </TouchableOpacity>,
                         otherBar &&
-                        <TouchableOpacity key='otherBar' style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
-                            width: 30,
-                        }]}
+                        <TouchableOpacity key='otherBar' style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]}
                             onPress={null/*() => navigation.push('CartScreen')*/}>
                             <AIconFontAwesome5 name="ellipsis-h" size={25} style={{ color: AIColor ?? '#fff' }} />
                         </TouchableOpacity>,
                         chatBar &&
-                        <TouchableOpacity key='chatBar' style={[stylesMain.ItemCenter, { width: 30, }]}
-                            onPress={
-                                currentUser ?
-                                    () => {
-                                        NavigationNavigateScreen({
-                                            goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation
-                                        });
-                                    } :
-                                    () => { NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true }); }}>
+                        <TouchableOpacity key='chatBar' style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]}
+                            onPress={currentUser ?
+                                () => { NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation }); } :
+                                () => { NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true }); }}>
                             <IconAntDesign name="message1" size={25} style={{ color: '#fff' }} />
                         </TouchableOpacity>,
                         cartBar &&
-                        <TouchableOpacity key='cartBar' style={[stylesMain.ItemCenter, {
-                            width: 30,
-                        }]} onPress={
-                            currentUser ?
-                                () => {
-                                    NavigationNavigateScreen({ goScreen: 'CartScreen', navigation });
-                                } :
-                                () => { NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true }); }}>
+                        <TouchableOpacity key='cartBar' style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]}
+                            onPress={
+                                currentUser ?
+                                    () => { NavigationNavigateScreen({ goScreen: 'CartScreen', navigation }); } :
+                                    () => { NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true }); }}>
                             {
                                 ((getFetchData['cart_mobile'] && getFetchData['cart_mobile']?.isError) || cartMobile <= 0) ?
                                     <></> :
                                     <Animated.Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, {
-                                        backgroundColor: 'red', color: '#fff', width: 17, height: 17, borderRadius: 15,
-                                        textAlign: 'center', textAlignVertical: 'center', position: 'absolute', elevation: 1, left: 18,
-                                        bottom: 15, borderColor: ABICartColor ?? mainColor, borderWidth: 1,
+                                        backgroundColor: 'red', color: '#fff', width: 17, height: 17, borderRadius: 15, textAlign: 'center',
+                                        textAlignVertical: 'center', position: 'absolute', elevation: 1, left: 18, bottom: 15,
+                                        borderColor: ABICartColor ?? mainColor, borderWidth: 1,
                                     }]}>{cartMobile}</Animated.Text>
                             }
                             <IconAntDesign name="shoppingcart" size={25} style={{ color: '#fff' }} />
@@ -527,25 +478,20 @@ export let AppBar = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> AppBar สีคราม
 export let AppBar1 = (props) => {
     const {
-        ABDColor, ABDColor_All, ABGColor, backArrow, backArrowColor, backNavigation, ButtomDeleteAll, chatBar, colorBar, deleteBar, getActivePost, goToTop, menuBar,
-        navigation, propsFunction, postBar, saveBar, searchBar, settingBar, storeBar, titleHead, UpBankBar,
+        ABDColor, ABDColor_All, ABGColor, backArrow, backArrowColor, backNavigation, ButtomDeleteAll, chatBar, colorBar, deleteBar,
+        getActivePost, goToTop, menuBar, navigation, propsFunction, postBar, saveBar, searchBar, settingBar, storeBar, titleHead, UpBankBar,
     } = props;
-    const AStatusBar = Animatable.createAnimatableComponent(StatusBar);
     const [activeGetCurrentUser, setActiveGetCurrentUser] = useState(true);
     const [currentUser, setCurrentUser] = useState(undefined);
     useEffect(() => {
         activeGetCurrentUser == true &&
             GetData({
-                getSource: value => {
-                    setActiveGetCurrentUser(false);
-                    setCurrentUser(value.currentUser);
-                }, getUser: true,
+                getSource: value => { setActiveGetCurrentUser(false); setCurrentUser(value.currentUser); }, getUser: true,
             });
     }, [activeGetCurrentUser]);
     return (
         <View style={[colorBar ?? menuBar ? stylesStore.AppbarMenu : stylesStore.Appbar, {
-            width, height: 55,
-            borderWidth: 0, borderBottomWidth: 1,
+            width, height: 55, borderWidth: 0, borderBottomWidth: 1,
             backgroundColor: ABGColor ?? mainColor,
             borderColor: ABDColor_All ?? ABDColor ?? mainColor,
             borderBottomColor: ABDColor ?? mainColor,
@@ -566,13 +512,12 @@ export let AppBar1 = (props) => {
                                     } :
                                     () => { NavigationNavigateScreen({ goScreen: 'goBack', navigation }); }
                         }>
-                        <IconEntypo style={[stylesStore.Icon_appbar, { color: backArrowColor ? backArrowColor : '#ffffff' }]}
-                            name="chevron-left" size={30} />
+                        <IconEntypo style={[stylesStore.Icon_appbar, { color: backArrowColor ?? '#ffffff' }]} name="chevron-left"
+                            size={30} />
                     </TouchableOpacity>
                 }
-                <Text style={[
-                    stylesStore.Text_appbar, stylesFont.FontSize4, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical
-                ]}>{titleHead && titleHead}</Text>
+                <Text style={[stylesStore.Text_appbar, stylesFont.FontSize4, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical
+                ]}>{titleHead ?? ''}</Text>
             </View>
             <View style={stylesMain.FlexRow}>
                 {[
@@ -581,34 +526,27 @@ export let AppBar1 = (props) => {
                         key={'searchBar'}
                         style={[stylesMain.ItemCenter, { width: 40 }]}
                         onPress={() => {
-                            NavigationNavigateScreen({
-                                goScreen: 'SearchScreen', setData: { modeStore: false }, navigation
-                            });
+                            NavigationNavigateScreen({ goScreen: 'SearchScreen', setData: { modeStore: false }, navigation });
                         }}>
-                        <IconAntDesign RightItem name="search1" size={25} style={[
-                            stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
-                                marginRight: 8
-                            }]} />
+                        <IconAntDesign RightItem name="search1" size={25} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
+                            marginRight: 8
+                        }]} />
                     </TouchableOpacity>,
                     settingBar &&
                     <TouchableOpacity
                         key={'settingBar'}
                         style={[stylesMain.ItemCenter, { width: 40 }]}
                         onPress={() => { NavigationNavigateScreen({ goScreen: 'Seller_Setting', navigation }); }}>
-                        <IconMaterialCommunityIcons name="settings-outline" size={25} style={[
-                            stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
-                                marginRight: 8
-                            }]} />
+                        <IconMaterialCommunityIcons name="settings-outline" size={25} style={[stylesStore.Icon_appbar,
+                        stylesMain.ItemCenterVertical, { marginRight: 8 }]} />
                     </TouchableOpacity>,
                     chatBar &&
                     <TouchableOpacity
                         key={'chatBar'}
                         style={[stylesMain.ItemCenter, { width: 40 }]}
-                        onPress={
-                            currentUser ?
-                                () => {
-                                    NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation });
-                                } : () => { NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true }); }
+                        onPress={currentUser ?
+                            () => { NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation }); } :
+                            () => { NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true }); }
                         }>
                         <IconAntDesign RightItem name="message1" size={25} style={[
                             stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
@@ -1083,6 +1021,18 @@ export let Button_Bar = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> Brand_RCM
 export let Recommend_Brand = (props) => {
     const { dataService, navigation, } = props;
+    let item_1 = [];
+    let item_2 = [];
+    if (dataService?.brand.length > 0) {
+        for (var n = 0; n < dataService.brand.length; n += 2) {
+            if (dataService.brand[n]) {
+                item_1.push(dataService.brand[n]);
+            };
+            if (dataService.brand[n + 1]) {
+                item_2.push(dataService.brand[n + 1]);
+            };
+        };
+    };
     let boxEmpty = (
         [0, 1, 2, 3, 4, 5].map((_, index) => {
             return (
@@ -1093,8 +1043,8 @@ export let Recommend_Brand = (props) => {
         })
     )
     let recommendBrand = (
-        dataService?.brand ?
-            dataService.brand.map((item, index) => {
+        dataService?.brand && item_1 ?
+            item_1.map((item, index) => {
                 var dataMySQL = `${ip}/MySQL/uploads/Brand_R/${item.image}`;
                 // var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
                 return (
@@ -1111,11 +1061,31 @@ export let Recommend_Brand = (props) => {
                         </View>
                     </TouchableOpacity>
                 );
-            }) :
-            boxEmpty
+            }) : boxEmpty
+    );
+    let recommendBrand2 = (
+        dataService?.brand && item_2 ?
+            item_2.map((item, index) => {
+                var dataMySQL = `${ip}/MySQL/uploads/Brand_R/${item.image}`;
+                // var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
+                return (
+                    <TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Recommend_Brand', navigation
+                    })}>
+                        <View style={stylesMain.Brand_image_Box}>
+                            <FastImage
+                                style={[stylesMain.Brand_image_RCM, stylesMain.ItemCenterVertical]}
+                                source={{
+                                    uri: dataMySQL,
+                                }}
+                                resizeMode={FastImage.resizeMode.contain} />
+                        </View>
+                    </TouchableOpacity>
+                );
+            }) : boxEmpty
     );
     return (
-        <View style={[stylesMain.FrameBackground2, stylesMain.FrameBackground_Height]}>
+        <View style={[stylesMain.FrameBackground2, { paddingBottom: 0, }]}>
             <View style={stylesMain.FrameBackgroundTextBox}>
                 <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize4, stylesFont.FontFamilyBold]}>
                     แบรนด์แนะนำ</Text>
@@ -1127,11 +1097,16 @@ export let Recommend_Brand = (props) => {
                 </TouchableOpacity>
             </View>
             <ScrollView horizontal>
-                <View style={stylesMain.FrameBackground_Box}>
-                    {recommendBrand}
+                <View>
+                    <View style={{ flexDirection: 'row', }}>
+                        {recommendBrand}
+                    </View>
+                    <View style={{ flexDirection: 'row', marginBottom: 2 }}>
+                        {recommendBrand2}
+                    </View>
                 </View>
             </ScrollView>
-        </View>
+        </View >
     );
 };
 ///----------------------------------------------------------------------------------------------->>>> Popular_store
@@ -1222,8 +1197,7 @@ export let Popular_product = (props) => {
                                         stylesFont.FontSize8,
                                         stylesFont.FontFamilyBold,
 
-                                    ]}>
-                                        {value}</Text>
+                                    ]}>{value}</Text>
                                 } />
                         </View>
                     </View>
@@ -1397,20 +1371,20 @@ export let FlashSale = (props) => {
         if (endTime && getFetchData['flash_timer']?.isFetching == false && getFetchData['flash_timer']?.data) {
             h = Number(new Date(endTime).getHours()) - Number(curTime.getHours());
             if ((Number(new Date(endTime).getDate()) - Number(curTime.getDate())) > 0) {
-                h = h + ((Number(new Date(endTime).getDate()) - Number(curTime.getDate())) * 24);
+                h += ((Number(new Date(endTime).getDate()) - Number(curTime.getDate())) * 24);
             };
             m = Number(new Date(endTime).getMinutes()) - Number(curTime.getMinutes());
             s = Number(new Date(endTime).getSeconds()) - Number(curTime.getSeconds());
             if (h > 0 && (m < 0 || s < 0)) {
-                h = h - 1;
-                m = 60 + m;
+                h -= 1;
+                m += 60;
             };
             if (m > 0 && s < 0) {
-                m = m - 1;
-                s = 60 + s;
+                m -= 1;
+                s += 60;
             };
             if (getFetchData['flash_timer']?.data && getFetchData['flash_timer']?.isError == false &&
-                getFetchData['flash_timer']?.isFetching == false && hours <= 0 && m <= 0 && s <= 0) {
+                getFetchData['flash_timer']?.isFetching == false && h <= 0 && m <= 0 && s <= 0) {
                 setFetchToStart({ name: 'flash_timer' });
                 setEndTime(undefined);
             };
@@ -1559,8 +1533,7 @@ export let PromotionPopular = (props) => {
                             }}>
                                 <Text numberOfLines={1} style={[
                                     stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#fff', marginLeft: 2 }
-                                ]}>
-                                    {item.detail}</Text>
+                                ]}>{item.detail}</Text>
                             </View>
                         </View>
                     </TouchableOpacity>
@@ -1628,9 +1601,7 @@ export let Product_for_you = (props) => {
                     <FlatProduct {...props} dataService={dataService.for_you} numberOfColumn={2}
                         nameFlatProduct='Product_for_you' mode='row3' nameSize={14} priceSize={15} dispriceSize={15} /> :
                     <View style={{ flexDirection: 'column', flexWrap: 'wrap', height: (115 + 55) * 2, }}>
-                        {
-                            boxEmpty
-                        }
+                        {boxEmpty}
                     </View>
             }
         </View>
@@ -1676,9 +1647,7 @@ export let Highlight = (props) => {
                     <FlatProduct {...props} dataService={dataService.hi_week} numberOfColumn={1}
                         nameFlatProduct='Second_product' mode='row3' nameSize={14} priceSize={15} dispriceSize={15} /> :
                     <View style={{ flexDirection: 'row' }}>
-                        {
-                            boxEmpty
-                        }
+                        {boxEmpty}
                     </View>
             }
         </View>
@@ -1932,7 +1901,6 @@ export function CategoryProduct(props) {
 ///----------------------------------------------------------------------------------------------->>>> CategoryProductSubProduct
 export let CategoryProductSubProduct = (props) => {
     const { dataService, id_type, } = props;
-    console.log(dataService)
     let boxEmpty = (
         [0, 1, 2,].map((_, index) => {
             return (
@@ -2300,9 +2268,7 @@ export let Second_product = (props) => {
                                 autoplayInterval={3000}
                                 pagination={PaginationLight} /> :
                             <View style={stylesMain.FlexRow}>
-                                {
-                                    boxEmptyFooter
-                                }
+                                {boxEmptyFooter}
                             </View>
                     }
                 </View>
@@ -2311,11 +2277,7 @@ export let Second_product = (props) => {
     );
     return (
         <View style={stylesMain.FrameBackground2}>
-            {[
-                Second_Storeheader,
-                Second_Storebody,
-                Second_Storefooter
-            ]}
+            {[Second_Storeheader, Second_Storebody, Second_Storefooter]}
         </View>
     );
 };
@@ -2349,9 +2311,7 @@ export let Fin_Mall = (props) => {
                                         stylesFont.FontSize8,
                                         stylesFont.FontFamilyBold,
                                         { color: '#FFFFFF' }
-
-                                    ]}>
-                                        {value}</Text>
+                                    ]}>{value}</Text>
                                 } />
                         </View>
                     </View>
@@ -2399,9 +2359,7 @@ export let Fin_Mall = (props) => {
                                                                 stylesFont.FontSize8,
                                                                 stylesFont.FontFamilyBold,
                                                                 { color: '#691F50' }
-
-                                                            ]}>
-                                                                {value}</Text>
+                                                            ]}>{value}</Text>
                                                         } />
                                                 </View>
                                             </View>
@@ -2450,9 +2408,7 @@ export let Fin_Mall = (props) => {
                                                                 stylesFont.FontSize8,
                                                                 stylesFont.FontFamilyBold,
                                                                 { color: '#19508B' }
-
-                                                            ]}>
-                                                                {value}</Text>
+                                                            ]}>{value}</Text>
                                                         } />
                                                 </View>
                                             </View>
@@ -2891,7 +2847,7 @@ export let Not_Internet = (props) => {
                     uri: `${ip}/mysql/uploads/icon_5/wifi-connected-png-8.png`,
                 }}
             />
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { width: 300, textAlign: 'center', color: '#969BA0' }]}> WHOOPS! ดูเหมือนว่าจะมีปัญหาในการเชื่อมต่อเซิร์ฟเวอร์ ลองพยายามตรวจสอบ
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { width: 300, textAlign: 'center', color: '#969BA0' }]}>WHOOPS! ดูเหมือนว่าจะมีปัญหาในการเชื่อมต่อเซิร์ฟเวอร์ ลองพยายามตรวจสอบ
                 การเชื่อมต่ออินเตอร์เน็ตแล้วลองใหม่อีกครั้ง </Text>
             <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'goBack', navigation })}>
                 <View style={[stylesMain.ItemCenter, { padding: 10, backgroundColor: mainColor, borderRadius: 5, marginTop: 10 }]}>

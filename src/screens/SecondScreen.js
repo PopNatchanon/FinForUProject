@@ -3,6 +3,8 @@ import React from 'react';
 import {
   Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
+import { connect, useStore } from 'react-redux';
+import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
@@ -19,41 +21,46 @@ import { Store_Detail, } from './Recommend_Store';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class SecondScreen extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-  get PathList() {
-    const { route } = this.props;
-    const selectedIndex = route.params?.selectedIndex
+const mapStateToProps = (state) => ({
+  customerData: state.customerData,
+  getFetchData: state.singleFetchDataFromService,
+  activeFetchData: state.activeFetchData,
+});
+const mapDispatchToProps = ({
+  checkCustomer,
+  fetchData,
+  multiFetchData,
+  setActiveFetch,
+  setFetchToStart,
+});
+export default connect(mapStateToProps, mapDispatchToProps)(SecondScreen)
+function SecondScreen(props) {
+  const { navigation, route } = props
+  const selectedIndex = route.params?.selectedIndex
+  let PathList = () => {
     switch (selectedIndex) {
       case 0:
         return (
           <SafeAreaView style={stylesMain.SafeAreaView}>
-            <AppBar {...this.props} backArrow cartBar />
-            <Second_Product {...this.props} />
+            <AppBar {...props} backArrow cartBar />
+            <Second_Product {...props} />
           </SafeAreaView>
         )
       case 1:
         return (
           <SafeAreaView style={stylesMain.SafeAreaView}>
-            <AppBar1 {...this.props} titleHead={'ร้านค้ามือสองที่แนะนำ'} backArrow />
+            <AppBar1 {...props} titleHead={'ร้านค้ามือสองที่แนะนำ'} backArrow />
             <Secon_Store />
           </SafeAreaView>
         )
     }
   }
-  render() {
-    const { navigation } = this.props
-    return (
-      <View style={{ flex: 1 }}>
-        {this.PathList}
-        <ExitAppModule {...this.props} />
-      </View>
-    );
-  }
+  return (
+    <View style={{ flex: 1 }}>
+      {PathList()}
+      <ExitAppModule {...props} />
+    </View>
+  );
 }
 ///----------------------------------------------------------------------------------------------->>>> Second_Product
 export class Second_Product extends React.Component {

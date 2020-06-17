@@ -16,13 +16,14 @@ import NumberFormat from 'react-number-format';
 import SlidingView from 'rn-sliding-view';
 import RNFetchBlob from 'rn-fetch-blob'
 import SplashScreen from 'react-native-splash-screen';
+import BottomSheet from "react-native-raw-bottom-sheet";
 import { CommonActions, StackActions, } from '@react-navigation/native';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-
+import IconFeather from 'react-native-vector-icons/Feather';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesDeal from '../style/stylePromotion-src/styleDealScreen';
 import stylesDetail from '../style/StylesDetailScreen'
@@ -1256,7 +1257,7 @@ export function FlatProduct(props) {
             renderItem={(value) =>
                 <View style={{
                     height: 'auto',
-                    marginTop: noMarginTop != true && numberOfColumn == 2 ? 10 : undefined,
+                    marginTop: noMarginTop != true && numberOfColumn == 2 ? 3 : undefined,
                 }}>
                     {
                         (numberOfColumn == 2 ? value.item.item : value.item) &&
@@ -1508,22 +1509,9 @@ export class FeedBox extends React.Component {
             alert(error.message);
         }
     }
-    setStateButton = (length) => {
-        var Button_Follow_After = []
-        for (var n = 0; n < length; n++) {
-            Button_Follow_After = { check: true, like: false }
-        }
-        this.setState({ Button_Follow_After, activeFeed: true, })
-    }
-    setStateButton_Follow_After = () => {
-        const { Button_Follow_After, } = this.state
-        Button_Follow_After.check = !Button_Follow_After.check
-        this.setState({ Button_Follow_After, activeFeed: true })
-    }
     setStateButton_Like_heart = () => {
-        const { Button_Follow_After, } = this.state
-        Button_Follow_After.like = !Button_Follow_After.like
-        this.setState({ Button_Follow_After, activeFeed: true })
+        const { like, } = this.state
+        this.setState({ like: !like, activeFeed: true })
     }
     actionOption = (selected, id_store, id_feed) => {
         const { navigation, userOwner } = this.props
@@ -1541,111 +1529,151 @@ export class FeedBox extends React.Component {
     }
     get FeedBoxRender() {
         const { atStore, dataService, Follow, Header, navigation, postpath, prepath, typeip, userOwner } = this.props
-        const { Button_Follow_After, } = this.state
-        Button_Follow_After == null && dataService.length > 0 && (
-            //     this.setStateButton(dataService.length)
-            this.setState({ Button_Follow_After: { check: true, like: false }, activeFeed: true, })
-        )
-        const options = userOwner ? ['แก้ไข', 'ลบ'] : ['รายงานความไม่เหมาะสม']
+        const { like, } = this.state
+        // const options = userOwner ? ['แก้ไข', 'ลบ'] : ['รายงานความไม่เหมาะสม']
         var dataMySQL_p = `${finip}/${dataService.image_path}/${dataService.image}`;
         var dataMySQL_s = `${finip}/${dataService.store_path}/${dataService.store_image}`;
         // console.log(dataService)
         return (
-            <View style={stylesMain.BoxProduct4Box}>
-                {
-                    Header &&
-                    <View style={stylesMain.BoxProduct4PlusHeader}>
-                        <TouchableOpacity onPress={() => atStore ? undefined : NavigationNavigateScreen({
-                            goScreen: 'StoreScreen', setData: {
-                                id_store: dataService.id_store ? dataService.id_store : dataService.p_id_store
-                            }, navigation
-                        })}>
-                            <View style={stylesMain.FlexRow}>
-                                <FastImage
-                                    style={stylesMain.BoxProduct4PlusImage}
-                                    source={{
-                                        uri: dataMySQL_s,
-                                    }} />
-                                <Text style={[
-                                    stylesMain.BoxProduct4PlusImageText, stylesFont.FontFamilyBold, stylesFont.FontSize5
-                                ]}>
-                                    {dataService.store_name}</Text>
+            <>
+                <BottomSheet
+                    ref={ref => {
+                        this.Setting_Sheet = ref;
+                    }}
+                    height={230}
+                    // duration={250}
+                    customStyles={{
+                        container: {
+                            paddingHorizontal: 25,
+                            borderTopLeftRadius: 10,
+                            borderTopRightRadius: 10,
+                        }
+                    }}
+                >
+                    <View>
+                        <TouchableOpacity style={[stylesMain.FlexRow, { marginTop: 10 }]}>
+                            <IconFeather name='bookmark' size={25} />
+                            <View style={{ marginLeft: 20 }}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>บันทึกโพสต์</Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>เพิ่มสิ่งนี้ลงในรายการที่บันทึกไว้ของคุณ</Text>
                             </View>
                         </TouchableOpacity>
-                        <View style={stylesMain.BoxProduct4PlusButtonBox}>
-                            {
-                                Follow ?
-                                    null :
-                                    <TouchableOpacity onPress={() => this.setStateButton_Follow_After()}>
-                                        <View style={stylesMain.BoxProduct4PlusButtonFollow}>
-                                            <Text style={[
-                                                stylesMain.BoxProduct4PlusButtonFollowText, stylesFont.FontFamilyText,
-                                                stylesFont.FontSize6
-                                            ]}>
-                                                {Button_Follow_After.check == true ? 'ติดตาม' : 'กำลังติดตาม'}</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                            }
-                            <ModalDropdown
+                        <TouchableOpacity style={[stylesMain.FlexRow, { marginTop: 10 }]}>
+                            <IconAntDesign name='warning' size={25} />
+                            <View style={{ marginLeft: 20 }}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>รายงานโพสต์</Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ฉันกังวลเกี่ยวกับโพสต์นี้</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[stylesMain.FlexRow, { marginTop: 10 }]}>
+                            <IconFontAwesome name='bell-o' size={25} />
+                            <View style={{ marginLeft: 20 }}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>การแจ้งเตือน</Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>เปิดการแจ้งเตือนสำหรับโพสต์นี้</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[stylesMain.FlexRow, { marginTop: 10 }]}>
+                            <IconEntypo name='link' size={25} />
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 20 }]}>คัดลอกลิงก์</Text>
+                        </TouchableOpacity>
+                    </View>
+                </BottomSheet>
+                <View style={stylesMain.BoxProduct4Box}>
+                    {
+                        Header &&
+                        <View style={stylesMain.BoxProduct4PlusHeader}>
+                            <TouchableOpacity onPress={() => atStore ? undefined : NavigationNavigateScreen({
+                                goScreen: 'StoreScreen', setData: {
+                                    id_store: dataService.id_store ? dataService.id_store : dataService.p_id_store
+                                }, navigation
+                            })}>
+                                <View style={stylesMain.FlexRow}>
+                                    <FastImage
+                                        style={stylesMain.BoxProduct4PlusImage}
+                                        source={{
+                                            uri: dataMySQL_s,
+                                        }} />
+                                    <Text style={[
+                                        stylesMain.BoxProduct4PlusImageText, stylesFont.FontFamilyBold, stylesFont.FontSize5
+                                    ]}>
+                                        {dataService.store_name}</Text>
+                                </View>
+                            </TouchableOpacity>
+                            <View style={stylesMain.BoxProduct4PlusButtonBox}>
+                                {
+                                    Follow ?
+                                        null :
+                                        <TouchableOpacity onPress={() => undefined}>
+                                            <View style={stylesMain.BoxProduct4PlusButtonFollow}>
+                                                <Text style={[
+                                                    stylesMain.BoxProduct4PlusButtonFollowText, stylesFont.FontFamilyText,
+                                                    stylesFont.FontSize6
+                                                ]}>
+                                                    ติดตาม</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                }
+                                <TouchableOpacity activeOpacity={1} onPress={() => { this.Setting_Sheet.open(); }}>
+                                    <IconEntypo name='dots-three-vertical' size={25} />
+                                </TouchableOpacity>
+                                {/* <ModalDropdown
                                 options={options}
                                 onSelect={(selected) => { this.actionOption(selected, dataService.id_store, dataService.id_feed) }}
                                 dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}
                                 dropdownStyle={{ paddingHorizontal: 10, height: 44, borderRadius: 5 }}>
                                 <IconEntypo name='dots-three-vertical' size={25} />
-                            </ModalDropdown>
+                            </ModalDropdown> */}
+                            </View>
                         </View>
-                    </View>
-                }
-                <View>
-                    <View style={[stylesMain.ItemCenter, { width: '100%' }]}>
-                        <FastImage
-                            source={{
-                                uri: dataMySQL_p,
-                            }}
-                            style={stylesMain.BoxProduct4Image}
-                            resizeMode={FastImage.resizeMode.contain} />
-                    </View>
-                    <View style={stylesMain.BoxProduct4ComBox}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                            {dataService.detail}</Text>
-                        <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: mainColor }]}>
-                            ที่สุดสำหรับคุณ</Text>
-                        {/* <View style={stylesMain.FlexRow}>
+                    }
+                    <View>
+                        <View style={[stylesMain.ItemCenter, { width: '100%' }]}>
+                            <FastImage
+                                source={{
+                                    uri: dataMySQL_p,
+                                }}
+                                style={stylesMain.BoxProduct4Image}
+                                resizeMode={FastImage.resizeMode.contain} />
+                        </View>
+                        <View style={stylesMain.BoxProduct4ComBox}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                {dataService.detail}</Text>
+                            <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: mainColor }]}>
+                                ที่สุดสำหรับคุณ</Text>
+                            {/* <View style={stylesMain.FlexRow}>
                                 <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: '#9F9C9C' }]}>
                                     200 การเข้าชม</Text>
                                 <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: '#9F9C9C' }]}>
                                     เมื่อ 3 วันที่ผ่านมา</Text>
                             </View> */}
-                    </View>
-                    <View style={stylesMain.BoxProduct4ComBox2}>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.setStateButton_Like_heart()} style={
-                            stylesMain.BoxProduct4ComBoxIcon}>
-                            {
-                                Button_Follow_After &&
-                                <IconFontAwesome name={Button_Follow_After.like == true ? 'heart' : 'heart-o'} size={20} style={{
-                                    color: Button_Follow_After.like == true ? '#ff0066' : '#111111'
+                        </View>
+                        <View style={stylesMain.BoxProduct4ComBox2}>
+                            <TouchableOpacity activeOpacity={1} onPress={() => this.setStateButton_Like_heart()} style={
+                                stylesMain.BoxProduct4ComBoxIcon}>
+                                <IconFontAwesome name={like == true ? 'heart' : 'heart-o'} size={20} style={{
+                                    color: like == true ? '#ff0066' : '#111111'
                                 }} />
-                            }
-                            <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                                ถูกใจ</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
-                            goScreen: 'Deal_Topic', setData: { selectedIndex: 9 }, navigation
-                        })}>
-                            <View style={stylesMain.BoxProduct4ComBoxIcon}>
-                                <IconFontAwesome5 name='comment-dots' size={20} />
                                 <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                                    แสดงความคิดเห็น</Text>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={stylesMain.BoxProduct4ComBoxIcon} onPress={() => this.onShare()}>
-                            <IconEntypo name='share' size={20} />
-                            <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                                แชร์</Text>
-                        </TouchableOpacity>
+                                    ถูกใจ</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                                goScreen: 'Deal_Topic', setData: { selectedIndex: 9 }, navigation
+                            })}>
+                                <View style={stylesMain.BoxProduct4ComBoxIcon}>
+                                    <IconFontAwesome5 name='comment-dots' size={20} />
+                                    <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                                        แสดงความคิดเห็น</Text>
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={stylesMain.BoxProduct4ComBoxIcon} onPress={() => this.onShare()}>
+                                <IconEntypo name='share' size={20} />
+                                <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                                    แชร์</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
-            </View>
+            </>
         );
     }
     render() {

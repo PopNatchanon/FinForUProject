@@ -294,11 +294,11 @@ export default StyleSheet.create({
   },
   ///------------///
   BoxStore1Box: {
-    width: width * 0.495,
+    width: width * 0.48,
     borderColor: '#ECECEC',
     borderWidth: 1,
-    marginTop: 10,
-    marginBottom: 8,
+    marginTop: 2,
+    marginBottom: 4,
   },
   BoxStore1Box2: {
     // width: width * 0.55,
@@ -330,10 +330,10 @@ export default StyleSheet.create({
     marginLeft: 10,
   },
   BoxStore2Box2: {
-    width: width * 0.55,
+    width: width * 0.42,
     borderColor: '#ECECEC',
-    marginTop: 10,
-    marginBottom: 8,
+    marginTop: 3,
+    marginBottom: 3,
     marginLeft: 5,
   },
   BoxStore2Image: {
@@ -344,7 +344,7 @@ export default StyleSheet.create({
   },
   BoxStore2Image2: {
     width: '100%',
-    height: height * 0.14,
+    height: height * 0.10,
     borderColor: '#ECECEC',
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
@@ -411,7 +411,7 @@ export default StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
     marginTop: 2,
-    paddingBottom: 4,
+    paddingBottom: 3,
   },
   FrameBackground2: {
     width,
@@ -420,7 +420,7 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     borderTopWidth: 1,
     marginTop: 2,
-    paddingBottom: 4,
+    paddingBottom: 3,
   },
   FrameBackground3: {
     width,
@@ -438,13 +438,13 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
   },
   FrameBackgroundTextStart: {
-    marginLeft: 8,
-    marginTop: 6,
+    marginLeft: 10,
+    marginTop: 4,
   },
   FrameBackgroundTextEnd: {
     color: mainColor,
     marginRight: 8,
-    marginTop: 10,
+    marginTop: 4,
   },
   FrameBackgroundTextEnd2: {
     color: '#fff',
@@ -593,11 +593,10 @@ export default StyleSheet.create({
   ///------------------------------------------------------------------------------------------///
   Popular_Box_B: {
     width: width * 0.45,
-    height: height * 0.20,
     flexDirection: 'column',
     paddingHorizontal: 5,
     paddingTop: 5,
-    marginLeft: 10,
+    marginLeft: 5,
     borderRadius: 5
   },
   Popular_Box_D: {
@@ -710,12 +709,12 @@ export default StyleSheet.create({
   Second_StoreFin_ImageA: {
     height: 155,
     width: width * 0.64,
-    marginTop: 6,
+    marginTop: 3,
     marginRight: 6,
   },
   Second_StoreFin_ImageB: {
     height: 155,
-    marginTop: 6,
+    marginTop: 3,
   },
   Second_StoreFin_ImageB_T: {
     height: 74,
@@ -773,8 +772,8 @@ export default StyleSheet.create({
     width,
     justifyContent: 'space-between',
     height: 'auto',
-    aspectRatio: 2.2,
-    marginTop: 10,
+    aspectRatio: 2.3,
+    marginTop: 3,
     paddingHorizontal: 5,
   },
   FinMall_Box_Image: {
@@ -835,8 +834,8 @@ export default StyleSheet.create({
   },
   ///------------------------------------------------------------------///ส่วน 
   Botton_PopUp_Image: {
-    height: 60,
-    width: 60,
+    height: 80,
+    width: 100,
   },
   Botton_PopUp_Box: {
     backgroundColor: 'transparent',

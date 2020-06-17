@@ -107,7 +107,7 @@ export default class Business extends React.Component {
         return (
           <>
             {/* หน้าเพิ่มสำเนาบัตรประชาชน เข้าจาก หน้าแบบFromการสมัครสมาชิก Affiliate */}
-            <AppBar1 {...this.props} backArrowtitleHead='บัตรประชาชน' />
+            <AppBar1 {...this.props} backArrow titleHead='บัตรประชาชน' />
             <ID_card />
           </>
         )

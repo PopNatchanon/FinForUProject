@@ -373,7 +373,6 @@ export let AppBar = (props) => {
     cartMobile != getFetchData['cart_mobile']?.data?.cart_list.length && getFetchData['cart_mobile']?.data?.cart_list.length >= 0 &&
         setCartMobile(getFetchData['cart_mobile']?.data?.cart_list.length)
     let setSubmit = () => {
-        const { text, } = this.state;
         text != undefined && text != ' ' &&
             NavigationNavigateScreen({ goScreen: 'SearchScreen', setData: { SearchText: text }, navigation });
     };
@@ -413,18 +412,17 @@ export let AppBar = (props) => {
                                     placeholder="ค้นหาสินค้า/ร้านค้า"
                                     value={text}
                                     maxLength={30}
-                                    onSubmitEditing={setSubmit}
+                                    onSubmitEditing={() => setSubmit()}
                                     onChangeText={value => setText(value)} />
                             </View>
                             <IconAntDesign name="search1" size={18} style={[{ top: 4, left: allWidth - 25, position: 'absolute' }]} />
                         </View>
                     </TouchableOpacity> :
-                    <TouchableOpacity key={'searchBar'} activeOpacity={1}
-                        style={{ marginRight: 3 }} onPress={() => {
-                            NavigationNavigateScreen({
-                                goScreen: SearchText ? 'goBack' : 'SearchScreen', setData: { modeStore: false }, navigation
-                            });
-                        }}>
+                    <TouchableOpacity key={'searchBar'} activeOpacity={1} style={{ marginRight: 3 }} onPress={() => {
+                        NavigationNavigateScreen({
+                            goScreen: SearchText ? 'goBack' : 'SearchScreen', setData: { modeStore: false }, navigation
+                        });
+                    }}>
                         <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical, { height: 30 }]}>
                             <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { height: 30, width: allWidth, }]}>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesFont.FontCenter,

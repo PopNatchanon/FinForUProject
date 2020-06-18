@@ -137,30 +137,22 @@ export class Score_store extends React.Component {
             activeGetServices2: true,
             score: '',
         };
-    }
+    };
     starReview(star, starSize) {
-        let starBox = []
+        let starBox = [];
         for (var n = 0; n < 5; n++) {
             if (star > n) {
                 starBox.push(
-                    <IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={
-                        starSize ?
-                            starSize :
-                            20
-                    } color='#FFAC33' />
-                )
+                    <IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={starSize ?? 20} color='#FFAC33' />
+                );
             } else {
                 starBox.push(
-                    <IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={
-                        starSize ?
-                            starSize :
-                            20
-                    } color='#E9E9E9' />
-                )
-            }
-        }
-        return starBox
-    }
+                    <IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={starSize ?? 20} color='#E9E9E9' />
+                );
+            };
+        };
+        return starBox;
+    };
     updateIndex = (value) => {
         var score = value.selectedIndex == 0 ? '' :
             value.selectedIndex == 1 ?
@@ -173,69 +165,68 @@ export class Score_store extends React.Component {
                             '2' :
                             value.selectedIndex == 5 ?
                                 '1' :
-                                ''
-        this.setState({ activeGetServices2: true, score, })
-    }
+                                '';
+        this.setState({ activeGetServices2: true, score, });
+    };
     getData = (dataService) => {
-        this.setState({ activeGetServices: false, dataService, })
-    }
+        this.setState({ activeGetServices: false, dataService, });
+    };
     getData2 = (dataService2) => {
-        this.setState({ activeGetServices2: false, dataService2, })
-    }
+        this.setState({ activeGetServices2: false, dataService2, });
+    };
     render() {
         const { cokie, route } = this.props;
         const { activeGetServices, activeGetServices2, dataService, dataService2, score } = this.state;
         const id_store = route.params?.id_store
-        var uri = `${finip}/store/score_data`;
-        var dataBody = {
+        const uri = `${finip}/store/score_data`;
+        const dataBody = {
             id_store,
             score,
         };
-        item = [
-            {
-                name: 'ทั้งหมด',
-                nameline2: `(${(dataService ? (dataService.rate_1 + dataService.rate_2 + dataService.rate_3 + dataService.rate_4 +
-                    dataService.rate_5) : '0')})`,
-            }, {
-                name: '5 ดาว',
-                nameline2: `(${(dataService ? dataService.rate_5 : '0')})`,
-            }, {
-                name: '4 ดาว',
-                nameline2: `(${(dataService ? dataService.rate_4 : '0')})`,
-            }, {
-                name: '3 ดาว',
-                nameline2: `(${(dataService ? dataService.rate_3 : '0')})`,
-            }, {
-                name: '2 ดาว',
-                nameline2: `(${(dataService ? dataService.rate_2 : '0')})`,
-            }, {
-                name: '1 ดาว',
-                nameline2: `(${(dataService ? dataService.rate_1 : '0')})`,
-            }
-        ]
-        activeGetServices == true && id_store && cokie &&
+        console.log('render|dataService2')
+        console.log(dataService2)
+        item = [{
+            name: 'ทั้งหมด',
+            nameline2: `(${(dataService ? (dataService.rate_1 + dataService.rate_2 + dataService.rate_3 + dataService.rate_4 +
+                dataService.rate_5) : '0')})`,
+        }, {
+            name: '5 ดาว',
+            nameline2: `(${dataService?.rate_5 ?? '0'})`,
+        }, {
+            name: '4 ดาว',
+            nameline2: `(${dataService?.rate_4 ?? '0'})`,
+        }, {
+            name: '3 ดาว',
+            nameline2: `(${dataService?.rate_3 ?? '0'})`,
+        }, {
+            name: '2 ดาว',
+            nameline2: `(${dataService?.rate_2 ?? '0'})`,
+        }, {
+            name: '1 ดาว',
+            nameline2: `(${dataService?.rate_1 ?? '0'})`,
+        }];
+        activeGetServices == true && id_store && cokie && dataBody?.id_store &&
             GetServices({
                 Authorization: cokie, uriPointer: uri, dataBody, showConsole: 'score_data', getDataSource: this.getData.bind(this),
-            })
+            });
         activeGetServices2 == true && id_store && cokie &&
-            GetServices({ Authorization: cokie, uriPointer: uri, showConsole: 'score_data', getDataSource: this.getData2.bind(this), })
+            GetServices({ Authorization: cokie, uriPointer: uri, dataBody, showConsole: 'score_data_start', getDataSource: this.getData2.bind(this), });
         return (
             <>
                 <View style={{ backgroundColor: '#4C9AE2', width: '100%', }}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF', margin: 10 }]}> เรตติ้งร้าน </Text>
                     <View style={stylesMain.ItemCenter}>
-                        <View style={[
-                            stylesMain.ItemCenter, {
-                                borderWidth: 1, backgroundColor: '#FFFFFF', height: 130, width: 130, borderRadius: 80, marginBottom: 10
-                            }]}>
+                        <View style={[stylesMain.ItemCenter, {
+                            borderWidth: 1, backgroundColor: '#FFFFFF', height: 130, width: 130, borderRadius: 80, marginBottom: 10
+                        }]}>
                             {
-                                dataService && dataService.rating_store == 'ยังไม่มีการรีวิว' ?
+                                dataService?.rating_store == 'ยังไม่มีการรีวิว' ?
                                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ยังไม่มีการรีวิว</Text> :
                                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}>
-                                        {dataService && dataService.rating_store} คะแนน</Text>
+                                        {dataService?.rating_store} คะแนน</Text>
                             }
                             <View style={stylesMain.FlexRow}>
-                                {this.starReview(dataService && dataService.rating_store, 20)}
+                                {this.starReview(dataService?.rating_store, 20)}
                             </View>
                         </View>
                     </View>
@@ -253,49 +244,41 @@ export class Score_store extends React.Component {
                         radiusBox={4} />
                 </View>
                 {
-                    dataService2 && dataService2.data_score.length > 0 ? (
-                        dataService2.data_score.map((value, index) => {
-                            return <Box_Rating dataService={value} key={index} />
-                        })
-                    ) :
-                        <View style={[stylesMain.FrameBackground, stylesMain.ItemCenter, { width, height: '100%' }]}>
+                    dataService2?.error != '[SyntaxError: JSON Parse error: Unrecognized token ' < ']' &&
+                        dataService2?.data_score?.length > 0 ? (
+                            dataService2.data_score.map((value, index) => {
+                                return <Box_Rating dataService={value} key={index} />
+                            })
+                        ) : <View style={[stylesMain.FrameBackground, stylesMain.ItemCenter, { width, height: '100%' }]}>
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4,]}>ไม่มีรีวิว</Text>
                         </View>
                 }
             </>
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>
 export class Box_Rating extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         };
-    }
+    };
     starReview(star, starSize) {
-        let starBox = []
+        let starBox = [];
         for (var n = 0; n < 5; n++) {
             if (star > n) {
                 starBox.push(
-                    <IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={
-                        starSize ?
-                            starSize :
-                            20
-                    } color='#FFAC33' />
-                )
+                    <IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={starSize ?? 20} color='#FFAC33' />
+                );
             } else {
                 starBox.push(
-                    <IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={
-                        starSize ?
-                            starSize :
-                            20
-                    } color='#E9E9E9' />
-                )
-            }
-        }
-        return starBox
-    }
+                    <IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={starSize ?? 20} color='#E9E9E9' />
+                );
+            };
+        };
+        return starBox;
+    };
     render() {
         const { comment_box, dataService } = this.props
         const image_customer = `${finip}/${dataService.path_customer}/${dataService.img_customer}`
@@ -303,39 +286,38 @@ export class Box_Rating extends React.Component {
             <View style={stylesMain.FrameBackground}>
                 <View style={[stylesMain.FlexRow, { borderColor: '#ECECEC', borderBottomWidth: 1 }]}>
                     <View style={stylesProfileTopic.Order_StorePro}>
-                        <FastImage source={{ uri: dataService.user_type == 'fin' ? image_customer : dataService.img_customer }}
+                        <FastImage source={{ uri: dataService?.user_type == 'fin' ? image_customer : dataService?.img_customer }}
                             style={{ width: '100%', height: '100%', borderRadius: 20, }} />
                     </View>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { marginTop: 10, marginLeft: 4, }]}>
-                        {dataService && dataService.name}</Text>
+                        {dataService?.name}</Text>
                 </View>
                 <View style={{ padding: 10 }}>
                     <View style={stylesMain.FlexRow}>
-                        {this.starReview(dataService && dataService.rating, 20)}
+                        {this.starReview(dataService?.rating, 20)}
                     </View>
-                    {[
+                    {
                         comment_box &&
                         <View style={{ backgroundColor: mainColor, width: 110, margin: 10 }}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#FFFFFF', textAlign: 'center' }]}>
                                 คุ้มค้าและจัดส่งเร็วดี</Text>
-                        </View>,
-                        dataService && dataService.comment &&
-                        <View>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#111', }]}>
-                                {dataService && dataService.comment}</Text>
                         </View>
-                    ]}
+                    }
+                    <View>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#111', }]}>
+                            {dataService?.comment}</Text>
+                    </View>
                 </View>
                 <View style={[stylesMain.FlexRow, { marginLeft: 10 }]}>
                     {/* <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>25-03-2020 09:40</Text>  */}
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                        สินค้า : {dataService && dataService.product} {dataService && dataService.detail} </Text>
+                        สินค้า : {dataService?.product} {dataService?.detail} </Text>
                 </View>
             </View>
 
         );
-    }
-}
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>
 export class Post_New extends React.Component {
     constructor(props) {
@@ -795,7 +777,7 @@ export class New_Group extends Component {
 ///----------------------------------------------------------------------------------------------->>>> โปรไฟล์ กลุ่ม
 export function Profile_Group(props) {
     const { navigation } = props;
-    var uri = `${finip}/${'brand/feed_highlight'}`
+    var uri = `${finip}/${'brand/feed_highlight'}`;
     const [activeSelectedIndex, setActiveSelectedIndex] = useState(true);
     const [dataService, setDataService] = useState(null);
     useEffect(() => {
@@ -814,9 +796,7 @@ export function Profile_Group(props) {
             <ScrollView>
                 <FastImage
                     style={{ width: '100%', height: 150 }}
-                    source={{
-                        uri: `${ip}/MySQL/uploads/slide/NewStore/luxury_shop3.jpg`,
-                    }}
+                    source={{ uri: `${ip}/MySQL/uploads/slide/NewStore/luxury_shop3.jpg`, }}
                     resizeMode={FastImage.resizeMode.cover} />
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>เสื้อผ้าคุณผู้หญิง Less is more</Text>
                 <View style={{ backgroundColor: '#FFFF', width: '100%' }}>
@@ -831,9 +811,7 @@ export function Profile_Group(props) {
                                     <View key={index} style={{ height: 50, width: 50, marginLeft: 10, borderRadius: 25, borderWidth: 1, marginBottom: 10 }}>
                                         <FastImage
                                             style={stylesMain.BoxProduct1Image}
-                                            source={{
-                                                uri: `${ip}/MySQL/uploads/addmin/1212.png`,
-                                            }}
+                                            source={{ uri: `${ip}/MySQL/uploads/addmin/1212.png`, }}
                                             resizeMode={FastImage.resizeMode.cover} />
                                     </View>
                                 )
@@ -842,21 +820,25 @@ export function Profile_Group(props) {
                     </View>
                     <View style={[stylesMain.FlexRow, { justifyContent: 'space-around', marginTop: 15 }]}>
                         <TouchableOpacity onPress={() => NavigationNavigateScreen({
-                            goScreen: 'Post_Feed', setData: {
-                                selectedIndex: 13,
-                            }, navigation
+                            goScreen: 'Post_Feed', setData: { selectedIndex: 13, }, navigation
                         })}>
-                            <View style={[stylesMain.ItemCenter, { backgroundColor: '#C4C4C4', padding: 10, borderRadius: 25, width: width * 0.30 }]}>
+                            <View style={[stylesMain.ItemCenter, {
+                                backgroundColor: '#C4C4C4', padding: 10, borderRadius: 25, width: width * 0.30
+                            }]}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>เกี่ยวกับกลุ่ม</Text>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity>
-                            <View style={[stylesMain.ItemCenter, { backgroundColor: '#C4C4C4', padding: 10, borderRadius: 25, width: width * 0.30 }]}>
+                            <View style={[stylesMain.ItemCenter, {
+                                backgroundColor: '#C4C4C4', padding: 10, borderRadius: 25, width: width * 0.30
+                            }]}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>รูปภาพ</Text>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity>
-                            <View style={[stylesMain.ItemCenter, { backgroundColor: '#C4C4C4', padding: 10, borderRadius: 25, width: width * 0.30 }]}>
+                            <View style={[stylesMain.ItemCenter, {
+                                backgroundColor: '#C4C4C4', padding: 10, borderRadius: 25, width: width * 0.30
+                            }]}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>สมาชิก</Text>
                             </View>
                         </TouchableOpacity>
@@ -872,9 +854,7 @@ export function Profile_Group(props) {
                                 data={dataService.feed_follow}
                                 keyExtractor={(value, index) => `Feed${index}`}
                                 renderItem={(value) => {
-                                    return <>
-                                        <FeedBox {...props} dataService={value.item} Header Follow={false} />
-                                    </>
+                                    return <> <FeedBox {...props} dataService={value.item} Header Follow={false} /></>
                                 }}
                             />
                         }
@@ -883,9 +863,7 @@ export function Profile_Group(props) {
             </ScrollView>
             <ActionButton buttonColor={mainColor} size={50}
                 onPress={() => NavigationNavigateScreen({
-                    goScreen: 'Post_Feed', setData: {
-                        selectedIndex: 1,
-                    }, navigation
+                    goScreen: 'Post_Feed', setData: { selectedIndex: 1, }, navigation
                 })}>
             </ActionButton>
         </>
@@ -920,9 +898,7 @@ export function Group_About(props) {
                         <View style={stylesMain.FlexRow}>
                             <FastImage
                                 style={{ height: 50, width: 50, borderRadius: 25, borderWidth: 1 }}
-                                source={{
-                                    uri: `${ip}/MySQL/uploads/addmin/unnamed.png`,
-                                }}
+                                source={{ uri: `${ip}/MySQL/uploads/addmin/unnamed.png`, }}
                                 resizeMode={FastImage.resizeMode.cover} />
                             <View style={{ marginLeft: 10 }}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>Myn</Text>
@@ -943,9 +919,7 @@ export function Group_About(props) {
                         <View style={stylesMain.FlexRow}>
                             <FastImage
                                 style={{ height: 50, width: 50, borderRadius: 25, borderWidth: 1 }}
-                                source={{
-                                    uri: `${ip}/MySQL/uploads/addmin/JALL2.jpg`,
-                                }}
+                                source={{ uri: `${ip}/MySQL/uploads/addmin/JALL2.jpg`, }}
                                 resizeMode={FastImage.resizeMode.cover} />
                             <View style={{ marginLeft: 10 }}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>Pop</Text>
@@ -969,9 +943,7 @@ export function Group_About(props) {
                                     <View style={stylesMain.FlexRow}>
                                         <FastImage
                                             style={{ height: 50, width: 50, borderRadius: 25, borderWidth: 1 }}
-                                            source={{
-                                                uri: `${ip}/MySQL/uploads/addmin/coffee.jpg`,
-                                            }}
+                                            source={{ uri: `${ip}/MySQL/uploads/addmin/coffee.jpg`, }}
                                             resizeMode={FastImage.resizeMode.cover} />
                                         <View style={{ marginLeft: 10 }}>
                                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>Pop</Text>
@@ -990,5 +962,5 @@ export function Group_About(props) {
                 </View>
             </ScrollView>
         </>
-    )
-}
+    );
+};

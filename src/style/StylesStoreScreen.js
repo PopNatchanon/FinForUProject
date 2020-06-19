@@ -70,7 +70,7 @@ export default StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderColor: '#ECECEC',
     // borderBottomWidth: 1,
-    paddingBottom: 8,
+    paddingBottom: 3,
   },
   StoreHeadDetailsText1: {
     marginLeft: 20,
@@ -101,21 +101,20 @@ export default StyleSheet.create({
   },
   ///---------------------------------------------------///
   Banner: {
-    // marginTop: 10,
     backgroundColor: '#FFFFFF',
     borderColor: '#ECECEC',
     borderWidth: 1,
     width,
-    padding: 8,
+    padding: 3,
   },
   BannerBox: {
     width,
-    height: 138,
+    height: height * 0.25,
+    paddingHorizontal:5
   },
   BannerSlide: {
     width: '100%',
     height: '100%',
-    resizeMode: 'stretch',
     marginBottom: 8,
   },
   BannerTextTail: {

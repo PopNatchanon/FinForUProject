@@ -246,7 +246,7 @@ function StoreScreen(props) {
                     marginBottom: -55,
                 }}></Animatable.View>
                 <Animatable.View style={{
-                    marginBottom: 8,
+                    marginBottom: 3,
                 }}>
                     <StoreHeadDetails {...props} activeGetServices={activeGetServices}
                         dataService={dataService?.store_data} />
@@ -334,7 +334,7 @@ export let StoreHeadDetails = (props) => {
             <View style={[stylesStore.StoreHead]}>
                 <View style={stylesStore.StoreHeadBox}>
                     <View style={stylesMain.FlexRow}>
-                        <View style={{ backgroundColor: '#222222', marginTop: 4, marginLeft: 6, paddingRight: 6, height: 60 }}>
+                        <View style={{ backgroundColor: '#222222', marginTop: 3, marginLeft: 6, paddingRight: 6, height: 60 }}>
                             <View style={stylesMain.ItemCenterVertical}>
                                 {
                                     activeGetServices == false ?
@@ -412,10 +412,10 @@ export let StoreHeadDetails = (props) => {
                 </View>
             </View>
             <View style={{
-                width: '85%', borderBottomColor: '#000', borderBottomWidth: 1, marginTop: 8, marginLeft: 'auto',
+                width: '85%', borderBottomColor: '#000', borderBottomWidth: 1, marginTop: 5, marginLeft: 'auto',
                 marginRight: 'auto'
             }}></View>
-            <View style={[stylesStore.StoreHeadDetails, { paddingTop: 0, marginBottom: 10, justifyContent: 'space-between' }]}>
+            <View style={[stylesStore.StoreHeadDetails, { paddingTop: 0, marginBottom: 3, justifyContent: 'space-between' }]}>
                 <View>
                     <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                         คะแนนร้านค้า :</Text>
@@ -492,7 +492,8 @@ export let Menubar = (props) => {
                 <TabBar
                     sendData={value => getSelectedIndex(value.selectedIndex)}
                     item={item}
-                    // activeColor='red'
+                    widthBox={95}
+                    alignBox='center'
                     radiusBox={4}
                     overScrollMode={'never'}
                     type='box' />
@@ -511,7 +512,8 @@ export let Banner = (props) => {
                     source={{
                         uri: item.image,
                     }}
-                    style={stylesStore.BannerSlide} />
+                    style={stylesStore.BannerSlide}
+                    resizeMode={FastImage.resizeMode.cover} />
             </View>
         );
     };
@@ -538,7 +540,7 @@ export let Banner = (props) => {
                                         pagination={PaginationLight} />
                                 }
                             </View>
-                            <View>
+                            <View style={{ paddingHorizontal: 10 }}>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     สวัสดีค่า ยินดีต้อนรับค่ะร้านนี้รบกวนไม่ถามเล่นๆ นะคะ หากต่อราคารบกวนไม่ต่อเว่อๆนะคะ ถ้าลดได้ลดให้ค่า</Text>
                             </View>
@@ -552,7 +554,7 @@ export let Banner = (props) => {
             </View>
     );
     return (
-        <View style={{ marginVertical: 10 }}>
+        <View style={{ marginVertical: 3 }}>
             {getDetail}
         </View>
     );

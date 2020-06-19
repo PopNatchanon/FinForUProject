@@ -3,7 +3,7 @@ import { normalize } from './stylesFont';
 export const { width, height } = Dimensions.get('window');
 
 export const mainColor = '#0A55A6'
-export const appBarColor = '#1A3363'
+export const appBarColor = '#0A3350'
 export let color_up = value => {
   var color = value.toLowerCase();
   var text = ''
@@ -522,8 +522,6 @@ export default StyleSheet.create({
   AppbarBody: {
     marginLeft: 6,
     borderRadius: 60,
-    // borderWidth: 1,
-    // borderColor: '#E5E5E5',
     backgroundColor: '#fff',
   },
   ///------------------------------------------------------------------------------------------///
@@ -629,7 +627,7 @@ export default StyleSheet.create({
   },
   ///------------------------------------------------------------------///
   CategoryProductImageHead: {
-    marginTop: 5,
+    // marginTop: 5,
     width,
     height: 'auto',
     aspectRatio: 6 / 1

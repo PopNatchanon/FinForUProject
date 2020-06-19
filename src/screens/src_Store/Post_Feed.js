@@ -12,6 +12,8 @@ import { TextInput } from 'react-native-gesture-handler';
 import RNFetchBlob from 'rn-fetch-blob'
 import ModalDropdown from 'react-native-modal-dropdown';
 import ActionButton from 'react-native-action-button';
+import * as Animatable from 'react-native-animatable';
+import IconFeather from 'react-native-vector-icons/Feather';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -104,15 +106,50 @@ export default class Post_Feed extends Component {
             case 12:
                 return (
                     <>
-                        <AppBar {...this.props} backArrow otherBar />
+                        <AppBar_Group {...this.props} backArrow otherBar />
                         <Profile_Group {...this.props} />
                     </>
                 )
             case 13:
                 return (
                     <>
-                        <AppBar1 {...this.props} backArrow titleHead='สร้างกลุ่ม' />
+                        <AppBar1 {...this.props} backArrow titleHead='เกี่ยวกับกลุ่ม' />
                         <Group_About />
+                    </>
+                )
+            case 14:
+                return (
+                    <>
+                        <AppBar1 {...this.props} backArrow titleHead='รูปภาพ' />
+                        <Group_Image />
+                    </>
+                )
+            case 15:
+                return (
+                    <>
+                        <AppBar1 {...this.props} backArrow titleHead='สมาชิก' />
+                        <Group_Member />
+                    </>
+                )
+            case 16:
+                return (
+                    <>
+                        <AppBar1 {...this.props} backArrow titleHead='บันทึกกิจกรรม' />
+                        <Save_Activity />
+                    </>
+                )
+            case 17:
+                return (
+                    <>
+                        <AppBar1 {...this.props} backArrow titleHead='โพสต์ที่บันทึก' />
+                        <Save_Post />
+                    </>
+                )
+            case 18:
+                return (
+                    <>
+                        <AppBar1 {...this.props} backArrow titleHead='กลุ่มทั้งหมด' />
+                        <Group_Total />
                     </>
                 )
         }
@@ -128,6 +165,82 @@ export default class Post_Feed extends Component {
         );
     }
 }
+///----------------------------------------------------------------------------------------------->>>> AppBar ค้นหา
+export let AppBar_Group = (props) => {
+    const {
+        ABDColor, ABDColor_All, ABGColor, AIColor, ABICartColor, backArrow, chatBar, otherBar, searchBar, SearchText,
+    } = props;
+    const {
+        fetchData, getActive, getFetchData, navigation,
+    } = props;
+    const [activeGetCurrentUser, setActiveGetCurrentUser] = useState(true);
+    const [text, setText] = useState(undefined);
+    useEffect(() => {
+        activeGetCurrentUser && GetData({
+            getSource: value => {
+                setActiveGetCurrentUser(false);
+                setCurrentUser(value.currentUser);
+            }, getUser: true,
+        });
+    }, [activeGetCurrentUser]);
+
+    const AIconEntypo = Animatable.createAnimatableComponent(IconEntypo);
+    const AIconFeather = Animatable.createAnimatableComponent(IconFeather);
+    const AIconFontAwesome5 = Animatable.createAnimatableComponent(IconFontAwesome5);
+    var allWidth = width - 20;
+    backArrow && (allWidth -= 30);
+    chatBar && (allWidth -= 30);
+    otherBar && (allWidth -= 30);
+    return (
+        <Animatable.View style={[stylesMain.Appbar, stylesMain.FlexRow, {
+            width, height: 55, borderWidth: 0, borderBottomWidth: 1,
+            backgroundColor: ABGColor ?? mainColor,
+            borderColor: ABDColor_All ?? ABDColor ?? mainColor,
+            borderBottomColor: ABDColor ?? mainColor,
+            borderColor: 'transparent',
+        }]}>
+            {/* <AStatusBar backgroundColor={ABGColor ?? mainColor} translucent /> */}
+            {[
+                backArrow &&
+                <View key={'backarrow'}>
+                    <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]} activeOpacity={1}
+                        onPress={() => { NavigationNavigateScreen({ goScreen: 'goBack', navigation }); }}>
+                        <AIconEntypo name="chevron-left" size={25} style={{ color: AIColor ?? '#fff', }} />
+                    </TouchableOpacity>
+                </View>,
+                searchBar ?
+                    <TouchableOpacity key={'searchBar'} activeOpacity={1} style={{ marginRight: 3 }}>
+                        <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical, { height: 30, }]}>
+                            <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: allWidth, }]}>
+                                <TextInput style={[stylesMain.TextInput, stylesFont.FontFamilyText, stylesFont.FontSize5,
+                                stylesFont.FontCenter]}
+                                    placeholder="ค้นหาสินค้า/ร้านค้า"
+                                    value={text}
+                                    maxLength={30}
+                                    onSubmitEditing={setSubmit}
+                                    onChangeText={value => setText(value)} />
+                            </View>
+                            <IconAntDesign name="search1" size={18} style={[{ top: 4, left: allWidth - 25, position: 'absolute' }]} />
+                        </View>
+                    </TouchableOpacity> :
+                    <TouchableOpacity key={'searchBar'} activeOpacity={1}
+                        style={{ marginRight: 3 }} onPress={() => {
+                            NavigationNavigateScreen({
+                                goScreen: SearchText ? 'goBack' : 'SearchScreen', setData: { modeStore: false }, navigation
+                            });
+                        }}>
+                        <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical, { height: 30 }]}>
+                            <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { height: 30, width: allWidth, }]}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesFont.FontCenter,
+                                stylesMain.ItemCenterVertical]}>{SearchText ?? 'ค้นหาสินค้า/ร้านค้า'}</Text>
+                            </View>
+                            <IconAntDesign name="search1" size={18} style={[{ top: 4, left: allWidth - 25, position: 'absolute', }]} />
+                        </View>
+                    </TouchableOpacity>
+            ]}
+        </Animatable.View>
+    );
+};
 ///----------------------------------------------------------------------------------------------->>>
 export class Score_store extends React.Component {
     constructor(props) {
@@ -828,17 +941,21 @@ export function Profile_Group(props) {
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>เกี่ยวกับกลุ่ม</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity>
-                            <View style={[stylesMain.ItemCenter, {
-                                backgroundColor: '#C4C4C4', padding: 10, borderRadius: 25, width: width * 0.30
-                            }]}>
+                        <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                            goScreen: 'Post_Feed', setData: {
+                                selectedIndex: 14,
+                            }, navigation
+                        })}>
+                            <View style={[stylesMain.ItemCenter, { backgroundColor: '#C4C4C4', padding: 10, borderRadius: 25, width: width * 0.30 }]}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>รูปภาพ</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity>
-                            <View style={[stylesMain.ItemCenter, {
-                                backgroundColor: '#C4C4C4', padding: 10, borderRadius: 25, width: width * 0.30
-                            }]}>
+                        <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                            goScreen: 'Post_Feed', setData: {
+                                selectedIndex: 15,
+                            }, navigation
+                        })}>
+                            <View style={[stylesMain.ItemCenter, { backgroundColor: '#C4C4C4', padding: 10, borderRadius: 25, width: width * 0.30 }]}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>สมาชิก</Text>
                             </View>
                         </TouchableOpacity>
@@ -873,94 +990,296 @@ export function Profile_Group(props) {
 ///----------------------------------------------------------------------------------------------->>>>
 export function Group_About(props) {
     return (
-        <>
-            <ScrollView>
-                <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>เกี่ยวกับกลุ่ม</Text>
-                    <Text numberOfLines={5} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                        🍓ตลาดสินค้า ราชบุรี🍓
-                        กลุ่มนี้เปิดไว้เพื่อคนราชบุรีและพื่นที่ใกล้เคียง
-                        ได้เข้ามาซื้อขายแลกเปลี่ยนสินค้า และประชาสัมพันธ์กิจการร้านค้าต่างๆในราชบุรี และพื้นที่ใกล้เคียง
-                        ใครมีอะไรในบ้านที่เก็บไว้ไม่ได้ใช้เอามาขายราคาถูกๆเพื่อไปเป็นประโยชน์กับคนอื่นนะค่ะ
-                        กติกาในการโพส
-                        1.ทุกครั้งที่โพสขายสินค้า
-                        ต้องแจ้งรายละเอียดสินค้าให้ครบถ้วน แจ้งราคา แจ้งสถานที่จำหน่าย แจ้งสถานที่รับสินค้า ด้วยทุกครั้ง
-                        2.ห้ามโพสขายสินค้าที่ผิดกฎหมายทุกชนิด
-                        3.ห้ามโพสเรื่องการเมือง
-                        4.ห้ามโพสถ้อยคำหยาบคาย ด่าทอกันเด็ดขาด
-                        ปฎิบัติผิดกฎ ถูกดีดออกจากกลุ่มทันที และจะไม่ได้กลับเข้ามาในกลุ่มนี้อีก
-                        ขอความร่วมมือ ช่วยนะค่ะ ขอบคุณค่ะ
+        <ScrollView>
+            <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>เกี่ยวกับกลุ่ม</Text>
+                <Text numberOfLines={5} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                    🍓ตลาดสินค้า ราชบุรี🍓
+                    กลุ่มนี้เปิดไว้เพื่อคนราชบุรีและพื่นที่ใกล้เคียง
+                    ได้เข้ามาซื้อขายแลกเปลี่ยนสินค้า และประชาสัมพันธ์กิจการร้านค้าต่างๆในราชบุรี และพื้นที่ใกล้เคียง
+                    ใครมีอะไรในบ้านที่เก็บไว้ไม่ได้ใช้เอามาขายราคาถูกๆเพื่อไปเป็นประโยชน์กับคนอื่นนะค่ะ
+                    กติกาในการโพส
+                    1.ทุกครั้งที่โพสขายสินค้า
+                    ต้องแจ้งรายละเอียดสินค้าให้ครบถ้วน แจ้งราคา แจ้งสถานที่จำหน่าย แจ้งสถานที่รับสินค้า ด้วยทุกครั้ง
+                    2.ห้ามโพสขายสินค้าที่ผิดกฎหมายทุกชนิด
+                    3.ห้ามโพสเรื่องการเมือง
+                    4.ห้ามโพสถ้อยคำหยาบคาย ด่าทอกันเด็ดขาด
+                    ปฎิบัติผิดกฎ ถูกดีดออกจากกลุ่มทันที และจะไม่ได้กลับเข้ามาในกลุ่มนี้อีก
+                    ขอความร่วมมือ ช่วยนะค่ะ ขอบคุณค่ะ
             </Text>
-                </View>
-                <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>สมาชิก</Text>
-                    <View style={[stylesMain.FlexRow, { justifyContent: 'space-between' }]}>
-                        <View style={stylesMain.FlexRow}>
-                            <FastImage
-                                style={{ height: 50, width: 50, borderRadius: 25, borderWidth: 1 }}
-                                source={{ uri: `${ip}/MySQL/uploads/addmin/unnamed.png`, }}
-                                resizeMode={FastImage.resizeMode.cover} />
-                            <View style={{ marginLeft: 10 }}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>Myn</Text>
-                                <View style={stylesMain.FlexRow}>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>กำลังติดตาม 18 ผู้ใช้งาน</Text>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ผู้ติดตาม 18 ผู้ใช้งาน</Text>
-                                </View>
+            </View>
+            <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>สมาชิก</Text>
+                <View style={[stylesMain.FlexRow, { justifyContent: 'space-between' }]}>
+                    <View style={stylesMain.FlexRow}>
+                        <FastImage
+                            style={{ height: 50, width: 50, borderRadius: 25, borderWidth: 1 }}
+                            source={{
+                                uri: `${ip}/MySQL/uploads/addmin/unnamed.png`,
+                            }}
+                            resizeMode={FastImage.resizeMode.cover} />
+                        <View style={{ marginLeft: 10 }}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>Myn</Text>
+                            <View style={stylesMain.FlexRow}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>กำลังติดตาม 18 ผู้ใช้งาน</Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ผู้ติดตาม 18 ผู้ใช้งาน</Text>
                             </View>
                         </View>
-                        <TouchableOpacity>
-                            <IconEntypo name='dots-three-vertical' size={25} />
-                        </TouchableOpacity>
                     </View>
+                    <TouchableOpacity>
+                        <IconEntypo name='dots-three-vertical' size={25} />
+                    </TouchableOpacity>
                 </View>
-                <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>แอดมินประจำกลุ่ม</Text>
-                    <View style={[stylesMain.FlexRow, { justifyContent: 'space-between' }]}>
-                        <View style={stylesMain.FlexRow}>
-                            <FastImage
-                                style={{ height: 50, width: 50, borderRadius: 25, borderWidth: 1 }}
-                                source={{ uri: `${ip}/MySQL/uploads/addmin/JALL2.jpg`, }}
-                                resizeMode={FastImage.resizeMode.cover} />
-                            <View style={{ marginLeft: 10 }}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>Pop</Text>
-                                <View style={stylesMain.FlexRow}>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>กำลังติดตาม 18 ผู้ใช้งาน</Text>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ผู้ติดตาม 18 ผู้ใช้งาน</Text>
-                                </View>
+            </View>
+            <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>แอดมินประจำกลุ่ม</Text>
+                <View style={[stylesMain.FlexRow, { justifyContent: 'space-between' }]}>
+                    <View style={stylesMain.FlexRow}>
+                        <FastImage
+                            style={{ height: 50, width: 50, borderRadius: 25, borderWidth: 1 }}
+                            source={{
+                                uri: `${ip}/MySQL/uploads/addmin/JALL2.jpg`,
+                            }}
+                            resizeMode={FastImage.resizeMode.cover} />
+                        <View style={{ marginLeft: 10 }}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>Pop</Text>
+                            <View style={stylesMain.FlexRow}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>กำลังติดตาม 18 ผู้ใช้งาน</Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ผู้ติดตาม 18 ผู้ใช้งาน</Text>
                             </View>
                         </View>
-                        <TouchableOpacity>
-                            <IconEntypo name='dots-three-vertical' size={25} />
-                        </TouchableOpacity>
                     </View>
+                    <TouchableOpacity>
+                        <IconEntypo name='dots-three-vertical' size={25} />
+                    </TouchableOpacity>
                 </View>
-                <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>สมาชิกกลุ่ม</Text>
-                    {
-                        [0, 1, 2, 3].map((_, index) => {
-                            return (
-                                <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', marginTop: 10 }]}>
-                                    <View style={stylesMain.FlexRow}>
+            </View>
+            <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>สมาชิกกลุ่ม</Text>
+                {
+                    [0, 1, 2, 3, 4].map((_, index) => {
+                        return (
+                            <View key={index} style={[stylesMain.FlexRow, { justifyContent: 'space-between', marginTop: 10 }]}>
+                                <View style={stylesMain.FlexRow}>
+                                    <FastImage
+                                        style={{ height: 50, width: 50, borderRadius: 25, borderWidth: 1 }}
+                                        source={{
+                                            uri: `${ip}/MySQL/uploads/addmin/JALL2.jpg`,
+                                        }}
+                                        resizeMode={FastImage.resizeMode.cover} />
+                                    <View style={{ marginLeft: 10 }}>
+                                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>Pop</Text>
+                                        <View style={stylesMain.FlexRow}>
+                                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>กำลังติดตาม 18 ผู้ใช้งาน</Text>
+                                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ผู้ติดตาม 18 ผู้ใช้งาน</Text>
+                                        </View>
+                                    </View>
+                                </View>
+                                <TouchableOpacity>
+                                    <IconEntypo name='dots-three-vertical' size={25} />
+                                </TouchableOpacity>
+                            </View>
+                        )
+                    })}
+            </View>
+        </ScrollView>
+    )
+}
+///----------------------------------------------------------------------------------------------->>>>
+export function Group_Image(props) {
+    return (
+        <ScrollView>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginLeft: 10 }]}>รูปภาพในกลุ่ม</Text>
+            <View style={[stylesMain.FlexRow, { flexWrap: 'wrap', justifyContent: 'space-between', paddingHorizontal: 5 }]}>
+                {
+                    [0, 1, 2, 3, 4, 5,].map((_, index) => {
+                        return (
+                            <View key={index}
+                                style={{ height: height * 0.15, width: width * 0.315, marginTop: 5 }}>
+                                <FastImage
+                                    style={{ width: '100%', height: '100%' }}
+                                    source={{
+                                        uri: `${ip}/MySQL/uploads/Group_image/1.jpg`,
+                                    }}
+                                    resizeMode={FastImage.resizeMode.cover} />
+                            </View>
+                        )
+                    })}
+            </View>
+        </ScrollView>
+    )
+}
+///----------------------------------------------------------------------------------------------->>>>
+export function Group_Member(props) {
+    return (
+        <View>
+            <Text>สมาชิก</Text>
+        </View>
+    )
+}
+///----------------------------------------------------------------------------------------------->>>>
+export function Save_Activity(props) {
+
+    return (
+        <ScrollView style={{ backgroundColor: '#FFFF' }}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>วันนี้</Text>
+            {
+                [0, 1, 2, 3].map((_, index) => {
+                    return (
+                        <TouchableOpacity key={index}>
+                            <View style={[stylesMain.FlexRow,
+                            { justifyContent: 'space-around', height: 74, paddingHorizontal: 10, marginTop: 10 }]}>
+                                <View style={stylesMain.FlexRow}>
+                                    <View>
                                         <FastImage
-                                            style={{ height: 50, width: 50, borderRadius: 25, borderWidth: 1 }}
-                                            source={{ uri: `${ip}/MySQL/uploads/addmin/coffee.jpg`, }}
+                                            style={{ height: 50, width: 50, borderRadius: 25, }}
+                                            source={{
+                                                uri: `${ip}/MySQL/uploads/Group_image/1.jpg`,
+                                            }}
                                             resizeMode={FastImage.resizeMode.cover} />
-                                        <View style={{ marginLeft: 10 }}>
-                                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>Pop</Text>
-                                            <View style={stylesMain.FlexRow}>
-                                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>กำลังติดตาม 18 ผู้ใช้งาน</Text>
-                                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ผู้ติดตาม 18 ผู้ใช้งาน</Text>
+                                        <View style={{ alignItems: 'flex-end', top: -20 }}>
+                                            <View style={[stylesMain.ItemCenter,
+                                            { width: 25, height: 25, backgroundColor: '#0A55A6', borderRadius: 15 }]}>
+                                                <IconAntDesign name='like1' size={15} color='#FFFFFF' />
                                             </View>
                                         </View>
                                     </View>
+                                    <View style={{ marginLeft: 10, width: width * 0.70, justifyContent: 'space-between' }}>
+                                        <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                            สติ๊ก กี้ ถูกใจโพสต์ของ Chanun Nurainee สติ๊กกี้ถูกใจโพสต์ของChanunNurainee
+                                            สติ๊กกี้ถูกใจโพสต์ของ Chanun Nurainee
+                                        </Text>
+                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A9A9A9' }]}>
+                                            1 ชั่วโมงที่แล้ว</Text>
+                                    </View>
+                                </View>
+                                <TouchableOpacity>
+                                    <View style={[stylesMain.ItemCenter,
+                                    { height: 30, width: 30, borderRadius: 15 }]}>
+                                        <IconEntypo name='dots-three-vertical' size={20} />
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                        </TouchableOpacity>
+                    )
+                })}
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>เก่ากว่า</Text>
+            {
+                [0, 1, 2, 3].map((_, index) => {
+                    return (
+                        <TouchableOpacity key={index}>
+                            <View style={[stylesMain.FlexRow,
+                            { justifyContent: 'space-around', height: 74, paddingHorizontal: 10, marginTop: 10 }]}>
+                                <View style={stylesMain.FlexRow}>
+                                    <View>
+                                        <FastImage
+                                            style={{ height: 50, width: 50, borderRadius: 25, }}
+                                            source={{
+                                                uri: `${ip}/MySQL/uploads/Group_image/1.jpg`,
+                                            }}
+                                            resizeMode={FastImage.resizeMode.cover} />
+                                        <View style={{ alignItems: 'flex-end', top: -20 }}>
+                                            <View style={[stylesMain.ItemCenter,
+                                            { width: 25, height: 25, backgroundColor: '#20BDA1', borderRadius: 15 }]}>
+                                                <IconEntypo name='message' size={15} color='#FFFFFF' />
+                                            </View>
+                                        </View>
+                                    </View>
+                                    <View style={{ marginLeft: 10, width: width * 0.70, justifyContent: 'space-between' }}>
+                                        <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                            สติ๊ก กี้ ถูกใจโพสต์ของ Chanun Nurainee สติ๊กกี้ถูกใจโพสต์ของChanunNurainee
+                                            สติ๊กกี้ถูกใจโพสต์ของ Chanun Nurainee
+                                        </Text>
+                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A9A9A9' }]}>
+                                            1 ชั่วโมงที่แล้ว</Text>
+                                    </View>
+                                </View>
+                                <TouchableOpacity>
+                                    <View style={[stylesMain.ItemCenter,
+                                    { height: 30, width: 30, borderRadius: 15 }]}>
+                                        <IconEntypo name='dots-three-vertical' size={20} />
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                        </TouchableOpacity>
+                    )
+                })}
+        </ScrollView>
+    )
+}
+///----------------------------------------------------------------------------------------------->>>>
+export function Save_Post(props) {
+    return (
+        <ScrollView>
+            <View style={{ backgroundColor: '#FFFF' }}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>ล่าสุด</Text>
+                {
+                    [0, 1, 2, 3].map((_, index) => {
+                        return (
+                            <TouchableOpacity key={index}>
+                                <View style={[stylesMain.FlexRow,
+                                { justifyContent: 'space-between', padding: 5, height: 80 }]}>
+                                    <View style={stylesMain.FlexRow}>
+                                        <FastImage
+                                            style={{ height: 80, width: 80, }}
+                                            source={{
+                                                uri: `${ip}/MySQL/uploads/Group_image/4.jpg`,
+                                            }}
+                                            resizeMode={FastImage.resizeMode.cover} />
+                                        <View style={{ marginLeft: 10, width: '70%', justifyContent: 'space-between' }}>
+                                            <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                                ผู้บริหาร Walmart เชื่อ ”ออฟฟิศ” ยังคงเป็นสิ่งสำคัญของธุรกิจ
+                                    </Text>
+                                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A9A9A9' }]}>
+                                                ยังไม่อ่าน</Text>
+                                        </View>
+                                    </View>
                                     <TouchableOpacity>
-                                        <IconEntypo name='dots-three-vertical' size={25} />
+                                        <IconEntypo name='dots-three-vertical' size={20} />
                                     </TouchableOpacity>
                                 </View>
-                            )
-                        })}
-                </View>
-            </ScrollView>
-        </>
-    );
-};
+                            </TouchableOpacity>
+                        )
+                    })}
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>เก่ากว่า</Text>
+                {
+                    [0, 1, 2, 3].map((_, index) => {
+                        return (
+                            <TouchableOpacity key={index}>
+                                <View style={[stylesMain.FlexRow,
+                                { justifyContent: 'space-between', padding: 5, height: 80, }]}>
+                                    <View style={stylesMain.FlexRow}>
+                                        <FastImage
+                                            style={{ height: 80, width: 80, }}
+                                            source={{
+                                                uri: `${ip}/MySQL/uploads/Group_image/3.jpg`,
+                                            }}
+                                            resizeMode={FastImage.resizeMode.cover} />
+                                        <View style={{ marginLeft: 10, width: '70%', justifyContent: 'space-between' }}>
+                                            <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                                ผู้บริหาร Walmart เชื่อ ”ออฟฟิศ” ยังคงเป็นสิ่งสำคัญของธุรกิจ
+                                    </Text>
+                                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A9A9A9' }]}>
+                                                อ่านแล้ว</Text>
+                                        </View>
+                                    </View>
+                                    <TouchableOpacity>
+                                        <IconEntypo name='dots-three-vertical' size={20} />
+                                    </TouchableOpacity>
+                                </View>
+                            </TouchableOpacity>
+                        )
+                    })}
+            </View>
+        </ScrollView>
+    )
+}
+///----------------------------------------------------------------------------------------------->>>>
+export function Group_Total(props) {
+    return (
+        <View>
+            <Text>กลุ่มทั้งหมด</Text>
+        </View>
+    )
+}
+///----------------------------------------------------------------------------------------------->>>>

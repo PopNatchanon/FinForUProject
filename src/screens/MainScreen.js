@@ -36,7 +36,7 @@ import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommun
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesDeal from '../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../style/stylesFont';
-import stylesMain, { color_up, mainColor, } from '../style/StylesMainScreen';
+import stylesMain, { color_up, mainColor, appBarColor, } from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
@@ -69,13 +69,13 @@ function MainScreen(props) {
     const maxheight = 55;
     const AnimatedHeadbg = scrollY.interpolate({
         inputRange: [maxheight, maxheight * 2],
-        outputRange: ['transparent', mainColor],
+        outputRange: ['transparent', appBarColor],
         extrapolate: 'clamp',
         useNativeDriver: true,
     });
     const AnimatedCart = scrollY.interpolate({
         inputRange: [maxheight, maxheight * 2],
-        outputRange: ['#ECECEC', mainColor],
+        outputRange: ['#ECECEC', appBarColor],
         extrapolate: 'clamp',
         useNativeDriver: true,
     });
@@ -405,7 +405,7 @@ export let AppBar = (props) => {
                 </View>,
                 searchBar ?
                     <TouchableOpacity key={'searchBar'} activeOpacity={1} style={{ marginRight: 3 }}>
-                        <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical, { height: 30 }]}>
+                        <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical, { height: 30, }]}>
                             <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: allWidth, }]}>
                                 <TextInput style={[stylesMain.TextInput, stylesFont.FontFamilyText, stylesFont.FontSize5,
                                 stylesFont.FontCenter]}
@@ -418,12 +418,15 @@ export let AppBar = (props) => {
                             <IconAntDesign name="search1" size={18} style={[{ top: 4, left: allWidth - 25, position: 'absolute' }]} />
                         </View>
                     </TouchableOpacity> :
-                    <TouchableOpacity key={'searchBar'} activeOpacity={1} style={{ marginRight: 3 }} onPress={() => {
-                        NavigationNavigateScreen({
-                            goScreen: SearchText ? 'goBack' : 'SearchScreen', setData: { modeStore: false }, navigation
-                        });
-                    }}>
-                        <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical, { height: 30 }]}>
+                    <TouchableOpacity key={'searchBar'} activeOpacity={1}
+                        style={{ marginRight: 3 }} onPress={() => {
+                            NavigationNavigateScreen({
+                                goScreen: SearchText ? 'goBack' : 'SearchScreen', setData: { modeStore: false }, navigation
+                            });
+                        }}>
+                        <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical, {
+                            height: 30, borderWidth: 2, borderColor: '#f5df89',
+                        }]}>
                             <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { height: 30, width: allWidth, }]}>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesFont.FontCenter,
                                 stylesMain.ItemCenterVertical]}>{SearchText ?? 'ค้นหาสินค้า/ร้านค้า'}</Text>
@@ -1691,8 +1694,10 @@ export function CategoryProduct_new(props) {
     }, [getFetchData[`category_product|${dataService.id_type}`] == undefined ||
         (getFetchData[`category_product|${dataService.id_type}`]?.isFetching)]);
     var dataMySQL = `${finip}/${dataService.image_path}/${dataService.image_menu}`;
+    console.log('CategoryProduct_new')
+    console.log(dataService)
     let dataCategory = (
-        <View style={[stylesMain.FrameBackground2, { backgroundColor: dataService.bg_m, }]}>
+        <View style={[stylesMain.FrameBackground2, { backgroundColor: '#800c0a' }]}>
             <>
                 {
                     <TouchableOpacity onPress={() => NavigationNavigateScreen({
@@ -1756,10 +1761,14 @@ export function CategoryProduct(props) {
             );
             // console.log(productItem)
             var mix_color = color_up(item.bg_m);
+            var bmix_color = item.name == 'เครื่องประดับ' ? '#800c0a' : '#151d3f';
             if (index < 2 /*getFetchData['category_mobile'].length*/) {
-                var dataMySQL = `${finip}/${item.image_path}/${item.image_menu}`;
+                console.log('CategoryProduct')
+                console.log(item)
+                // var dataMySQL = `${finip}/${item.image_path}/${item.image_menu}`;
+                var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Promo_Cate/New/${item.image_menu}`;
                 return (
-                    <View key={index} style={[stylesMain.FrameBackground2, { backgroundColor: item.bg_m, paddingBottom: 3, }]}>
+                    <View key={index} style={[stylesMain.FrameBackground2, { backgroundColor: bmix_color, paddingBottom: 3, }]}>
                         <>
                             {
                                 <TouchableOpacity onPress={() => NavigationNavigateScreen({
@@ -1831,7 +1840,7 @@ export let CategoryProductSubStore = (props) => {
     const { getFetchData, mix_color, shop } = props;
     let _renderBanner = function (value) {
         // var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`;
-        var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Promo_Cate/${value.image}`;
+        var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Promo_Cate/New/${value.image}`;
         return (
             <TouchableOpacity activeOpacity={1} key={value.id}>
                 <View style={{ width: width * 0.56, height: 57.8, marginLeft: 5, backgroundColor: mix_color }}>
@@ -1868,14 +1877,16 @@ export let CategoryProductSubStore = (props) => {
 export let CategoryProductSubPromotion = (props) => {
     const { getFetchData, mix_color, promo_1, promo_2, shop } = props;
     let boxEmptySmall = (
-        <View style={[stylesMain.BoxStore1Box3, { width: '100%', marginTop: 3, height: 66, backgroundColor: mix_color, }]} >
+        <View style={[stylesMain.BoxStore1Box3, {
+            width: '100%', marginTop: 3, height: 66, backgroundColor: mix_color,
+        }]} >
             <View style={stylesMain.BoxProduct1Image} />
         </View>
     );
     let dataCategoryProductSubPromotionSmall = (
         promo_2 ?
             promo_2.map((value, index) => {
-                var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Promo_Cate/${value.image}`;
+                var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Promo_Cate/New/${value.image}`;
                 // var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`
                 return (
                     <View style={[stylesMain.BoxStore1Box3, { width: '100%', marginTop: 3, height: 66, }]} key={index} >
@@ -1901,7 +1912,7 @@ export let CategoryProductSubPromotion = (props) => {
         promo_1 ?
             promo_1.map((value, index) => {
                 // var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`;
-                var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Promo_Cate/${value.image}`;
+                var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Promo_Cate/New/${value.image}`;
                 return (
                     <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, marginTop: 3, marginBottom: 3, }]} key={index}>
                         {
@@ -2340,10 +2351,12 @@ export let FIN_Supermarket = (props) => {
                         resizeMode={FastImage.resizeMode.stretch} />
                 </View>
             </View>
-            <FastImage
-                style={stylesMain.Banner_Bar_image}
-                source={{ uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 333.jpg` }}
-                resizeMode={FastImage.resizeMode.cover} />
+            <View style={stylesMain.Banner_Bar}>
+                <FastImage
+                    style={stylesMain.Banner_Bar_image}
+                    source={{ uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 333.jpg` }}
+                    resizeMode={FastImage.resizeMode.stretch} />
+            </View>
             <View style={stylesMain.FrameBackgroundTextBox}>
                 <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
                     แบรนด์แนะนำ</Text>
@@ -2487,7 +2500,7 @@ export class Botton_PopUp_FIN extends React.Component {
         if (event.nativeEvent.oldState === State.ACTIVE) {
             this._lastOffset.x += event.nativeEvent.translationX;
             this._lastOffset.y += event.nativeEvent.translationY;
-            this._translateX.setOffset(this._lastOffset.x < -(width * 0.5) ? -(width - 68) : 0);
+            this._translateX.setOffset(this._lastOffset.x < -(width * 0.5) ? -(width - 126) : 0);
             this._translateX.setValue(0);
             this.setState({ rotate: this._lastOffset.x < -(width * 0.5) ? 1 : 0 })
             this._translateY.setOffset(this._lastOffset.y > 0 ? 0 :
@@ -2506,7 +2519,7 @@ export class Botton_PopUp_FIN extends React.Component {
                         onGestureEvent={this._onGestureEvent}
                         onHandlerStateChange={this._onHandlerStateChange}>
                         <Animated.View style={{
-                            elevation: 1, height: 60, width: 60, left: width - 65, marginTop: -60,
+                            elevation: 1, height: 60, width: 60, left: width - 65, bottom: 20, marginTop: -60,
                             transform: [{ translateX: this._translateX }, { translateY: this._translateY },]
                         }}>
                             <TouchableOpacity activeOpacity={1} onPress={() => this.setState({ activeSliding: !activeSliding })}>

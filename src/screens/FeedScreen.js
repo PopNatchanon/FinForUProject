@@ -1,5 +1,5 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState, } from 'react';
 import {
   Dimensions, SafeAreaView, Text, View, FlatList, TouchableOpacity, ActivityIndicator, ScrollView, Button
 } from 'react-native';
@@ -271,7 +271,7 @@ export function Feed_Login(props) {
       />
       <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>ลงชื่อเข้าฟีด</Text>
       <View style={[stylesMain.ItemCenter, { backgroundColor: '#FFFFFF', padding: 10, borderRadius: 10, width: width * 0.75 }]}>
-        <TouchableOpacity>
+        <TouchableOpacity >
           <View style={[stylesMain.FlexRow,
           { borderColor: '#0A55A6', borderWidth: 1, borderRadius: 20, padding: 5, width: width * 0.60, }]}>
             <FastImage
@@ -315,21 +315,35 @@ export function Feed_About(props) {
         <Text style={[stylesFont.FontSize3, stylesFont.FontFamilyBold, { margin: 10 }]}>Myn</Text>
       </View>
       <View style={{ borderColor: '#C4C4C4', borderBottomWidth: 3, paddingVertical: 5, alignItems: 'center' }}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => NavigationNavigateScreen({
+          goScreen: 'Post_Feed', setData: {
+            selectedIndex: 16,
+          }, navigation
+        })}>
           <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText]}>บันทึกกิจกรรมของฉัน</Text>
         </TouchableOpacity>
       </View>
       <View style={{ borderColor: '#C4C4C4', borderBottomWidth: 3, paddingVertical: 5, alignItems: 'center' }}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => NavigationNavigateScreen({
+            goScreen: 'Post_Feed', setData: {
+              selectedIndex: 17,
+            }, navigation
+          })}>
           <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText]}>รายการที่บันทึกไว้</Text>
         </TouchableOpacity>
       </View>
       <View style={{ borderColor: '#C4C4C4', borderBottomWidth: 3, paddingVertical: 5, alignItems: 'center' }}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => NavigationNavigateScreen({
+            goScreen: 'Post_Feed', setData: {
+              selectedIndex: 18,
+            }, navigation
+          })}>
           <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText]}>กลุ่มทั้งหมด</Text>
         </TouchableOpacity>
       </View>
-      <View style={[stylesMain.FlexRow, { backgroundColor: '#E0EFFF', padding: 10, borderRadius: 5 }]}>
+      <View style={[stylesMain.FlexRow, { backgroundColor: '#E0EFFF', padding: 10, borderRadius: 5, marginTop: 10 }]}>
         <View style={{ height: 100, width: 170, }}>
           <FastImage
             style={stylesMain.BoxProduct1Image}

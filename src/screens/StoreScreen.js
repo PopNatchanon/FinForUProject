@@ -169,21 +169,56 @@ function StoreScreen(props) {
                 <AppBar {...props} backArrow filterBar otherBar ABGColor={AnimatedHeadbg} ABDColor={AnimatedHeadbd} AIColor={AnimatedHeadi} />
             </View>
         </Animatable.View>
-        <ScrollView scrollEventThrottle={8} stickyHeaderIndices={[2, selectedIndex == 1 ? 4 : 2]} onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: false, })}>
-            <Animatable.View style={{ width: (width), aspectRatio: 2.5, marginBottom: -55, }} />
-            <Animatable.View style={{ marginBottom: 8, }}>
-                <StoreHeadDetails {...props} activeGetServices={activeGetServices} dataService={dataService?.store_data} />
+        <ScrollView
+            scrollEventThrottle={8}
+            stickyHeaderIndices={[2, selectedIndex == 1 ? 4 : 2]}
+            onScroll={
+                Animated.event(
+                    [{
+                        nativeEvent: { contentOffset: { y: scrollY } }
+                    }],
+                    {
+                        useNativeDriver: false,
+                    })
+            }>
+            {/* <Animatable.View style={{
+                        marginTop: -40,
+                        opacity: AnimatedHeadopacity,
+                    }}>
+                        <StoreHead {...props} dataService={dataService && dataService.store_data} />
+                    </Animatable.View> */}
+            <Animatable.View style={{
+                width: (width),
+                aspectRatio: 2.5,
+                marginBottom: -55,
+            }}></Animatable.View>
+            <Animatable.View style={{
+                marginBottom: 3,
+            }}>
+                <StoreHeadDetails {...props} activeGetServices={activeGetServices}
+                    dataService={dataService?.store_data} />
             </Animatable.View>
             <Menubar {...props} getSelectedIndex={value => getSelectedIndex(value)} />
-            <Banner {...props} activeGetServices={activeGetServices} dataService={dataService?.store_data} key={'Banner'} />
+            <Banner {...props} activeGetServices={activeGetServices}
+                dataService={dataService?.store_data} key={'Banner'} />
             {ViewSide()}
         </ScrollView>
-        {selectedIndex == 2 &&
+        {
+            selectedIndex == 2 &&
             <>
-                <ActionButton buttonColor={mainColor} size={50} onPress={() => NavigationNavigateScreen({ goScreen: 'Post_Feed', setData: { selectedIndex: 1, id_store, store_data: dataService.store_data, getDataSource: value => setActiveRef(value) }, navigation })} />
-            </>}
+                <ActionButton buttonColor={mainColor} size={50}
+                    onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Post_Feed', setData: {
+                            selectedIndex: 1, id_store, store_data: dataService.store_data,
+                            getDataSource: value => setActiveRef(value)
+                        }, navigation
+                    })}>
+                </ActionButton>
+            </>
+        }
         <ExitAppModule {...props} />
-    </View>);
+    </View>
+    );
 };
 ///----------------------------------------------------------------------------------------------->>>> StoreHead
 export let StoreHead = (props) => {
@@ -226,21 +261,64 @@ export let StoreHeadDetails = (props) => {
     const id_store = route.params?.id_store;
     var dataMySQL;
     dataService && (dataMySQL = `${finip}/${dataService[0]?.image_path}/${dataService[0]?.image}`);
-    let getDetailStore = (<View style={{ height: 'auto', width, backgroundColor: '#fff' }}>
-        <View style={[stylesStore.StoreHead]}>
-            <View style={stylesStore.StoreHeadBox}>
-                <View style={stylesMain.FlexRow}>
-                    <View style={{ backgroundColor: '#222222', marginTop: 4, marginLeft: 6, paddingRight: 6, height: 60 }}>
-                        <View style={stylesMain.ItemCenterVertical}>
-                            {activeGetServices == false ?
-                                <Text style={[stylesStore.StoreHeadText, stylesFont.FontFamilyBold, stylesFont.FontSize6,]}>{dataService && dataService[0]?.name}</Text> :
-                                <Text style={[stylesStore.StoreHeadText, stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#222222' }]}>Store</Text>}
-                            {activeGetServices == false ?
-                                <Text style={[stylesStore.StoreHeadTextOther, stylesFont.FontFamilyText, stylesFont.FontSize8]}>Active เมื่อ 1 ชั่วโมงที่ผ่านมา</Text> :
-                                <Text style={[stylesStore.StoreHeadTextOther, stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#222222' }]}>Active เมื่อ 1 ชั่วโมงที่ผ่านมา</Text>}
-                            {activeGetServices == false ?
-                                <Text style={[stylesStore.StoreHeadTextOther2, stylesFont.FontFamilyText, stylesFont.FontSize7,]}>ผู้ติดตาม {dataService && dataService[0]?.who_follow} | กำลังติดตาม {dataService && dataService[0]?.follow_number}</Text> :
-                                <Text style={[stylesStore.StoreHeadTextOther2, stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#222222' }]}>ผู้ติดตาม 0 | กำลังติดตาม 0</Text>}
+    let getDetailStore = (
+        <View style={{ height: 'auto', width, backgroundColor: '#fff' }}>
+            <View style={[stylesStore.StoreHead]}>
+                <View style={stylesStore.StoreHeadBox}>
+                    <View style={stylesMain.FlexRow}>
+                        <View style={{ backgroundColor: '#222222', marginTop: 3, marginLeft: 6, paddingRight: 6, height: 60 }}>
+                            <View style={stylesMain.ItemCenterVertical}>
+                                {
+                                    activeGetServices == false ?
+                                        <Text style={[
+                                            stylesStore.StoreHeadText, stylesFont.FontFamilyBold, stylesFont.FontSize6,
+                                        ]}>
+                                            {dataService && dataService[0]?.name}</Text> :
+                                        <Text style={[
+                                            stylesStore.StoreHeadText, stylesFont.FontFamilyBold, stylesFont.FontSize6,
+                                            { color: '#222222' }]}>
+                                            Store</Text>
+                                }
+                                {
+                                    activeGetServices == false ?
+                                        <Text style={[
+                                            stylesStore.StoreHeadTextOther, stylesFont.FontFamilyText, stylesFont.FontSize8
+                                        ]}>
+                                            Active เมื่อ 1 ชั่วโมงที่ผ่านมา</Text> :
+                                        <Text style={[
+                                            stylesStore.StoreHeadTextOther, stylesFont.FontFamilyText, stylesFont.FontSize8,
+                                            { color: '#222222' }]}>
+                                            Active เมื่อ 1 ชั่วโมงที่ผ่านมา</Text>
+                                }
+                                {
+                                    activeGetServices == false ?
+                                        <Text style={[
+                                            stylesStore.StoreHeadTextOther2, stylesFont.FontFamilyText, stylesFont.FontSize7,
+                                        ]}>
+                                            ผู้ติดตาม {dataService && dataService[0]?.who_follow} | กำลังติดตาม {dataService &&
+                                                dataService[0]?.follow_number}</Text> :
+                                        <Text style={[
+                                            stylesStore.StoreHeadTextOther2, stylesFont.FontFamilyText, stylesFont.FontSize7,
+                                            { color: '#222222' }]}>
+                                            ผู้ติดตาม 0 | กำลังติดตาม 0</Text>
+                                }
+                            </View>
+                        </View>
+                        <View style={[stylesStore.StoreHeadFace, {
+                            marginTop: -20, marginLeft: 6, backgroundColor: '#fff', borderWidth: 1, borderColor: '#ECECEC'
+                        }]}>
+                            {
+                                activeGetServices == false ?
+                                    <FastImage
+                                        source={{
+                                            uri: dataMySQL,
+                                        }}
+                                        style={[stylesStore.StoreHeadFace, {
+                                            backgroundColor: '#fff', borderWidth: 1, borderColor: '#ECECEC'
+                                        }]}
+                                        resizeMode={FastImage.resizeMode.cover} /> :
+                                    <ActivityIndicator style={stylesMain.ItemCenterVertical} size={20} />
+                            }
                         </View>
                     </View>
                     <View style={[stylesStore.StoreHeadFace, { marginTop: -20, marginLeft: 6, backgroundColor: '#fff', borderWidth: 1, borderColor: '#ECECEC' }]}>
@@ -263,23 +341,20 @@ export let StoreHeadDetails = (props) => {
                     </TouchableOpacity>
                 </View>
             </View>
-        </View>
-        <View style={{ width: '85%', borderBottomColor: '#000', borderBottomWidth: 1, marginTop: 8, marginLeft: 'auto', marginRight: 'auto' }} />
-        <View style={[stylesStore.StoreHeadDetails, { paddingTop: 0, marginBottom: 10, justifyContent: 'space-between' }]}>
-            <View>
-                <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>คะแนนร้านค้า :</Text>
-                <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>รายการสินค้า :</Text>
-                <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>ระยะเวลาในการจัดเตรียมพัสดุ :</Text>
-                <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>ประสิทธิภาพการแชท :</Text>
-            </View>
-            <View>
-                <View style={stylesMain.FlexRow}>
-                    {activeGetServices == false ?
-                        <Text style={[stylesStore.StoreHeadDetailsText2_1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>{dataService && dataService[0]?.rating != 'ยังไม่มีการรีวิว' ? `${dataService && dataService[0]?.rating} จาก 5` : dataService && dataService[0]?.rating}</Text> :
-                        <></>}
-                    {activeGetServices == false ?
-                        <Text style={[stylesStore.StoreHeadDetailsText2_3, stylesFont.FontFamilyText, stylesFont.FontSize8]}>({dataService && dataService[0]?.rating_number})</Text> :
-                        <></>}
+            <View style={{
+                width: '85%', borderBottomColor: '#000', borderBottomWidth: 1, marginTop: 5, marginLeft: 'auto',
+                marginRight: 'auto'
+            }}></View>
+            <View style={[stylesStore.StoreHeadDetails, { paddingTop: 0, marginBottom: 3, justifyContent: 'space-between' }]}>
+                <View>
+                    <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                        คะแนนร้านค้า :</Text>
+                    <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                        รายการสินค้า :</Text>
+                    <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                        ระยะเวลาในการจัดเตรียมพัสดุ :</Text>
+                    <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                        ประสิทธิภาพการแชท :</Text>
                 </View>
                 {activeGetServices == false ?
                     <Text style={[stylesStore.StoreHeadDetailsText2_2, stylesFont.FontFamilyText, stylesFont.FontSize7]}>{dataService && dataService[0]?.product_amount}</Text> :
@@ -299,52 +374,90 @@ export let StoreHeadDetails = (props) => {
                 <IconEntypo name='chevron-right' size={25} color={mainColor} />
             </TouchableOpacity>
         </View>
-    </View>);
+    );
     return getDetailStore;
 };
 ///----------------------------------------------------------------------------------------------->>>> Menubar
 export let Menubar = (props) => {
     const { getSelectedIndex } = props;
-    const item = [{ name: 'หน้าหลัก' }, { name: 'สินค้าทั้งหมด' }, { name: 'ฟีด' }];
-    return (<View>
-        <View style={[stylesStore.Menubar]}>
-            <TabBar sendData={value => getSelectedIndex(value.selectedIndex)} item={item} radiusBox={4} overScrollMode={'never'} type='box' />
-        </View>
-    </View>);
+    const item = [{
+        name: 'หน้าหลัก'
+    }, {
+        name: 'สินค้าทั้งหมด'
+    }, {
+        name: 'ฟีด'
+    }];
+    return (
+        <View>
+            <View style={[stylesStore.Menubar]}>
+                <TabBar
+                    sendData={value => getSelectedIndex(value.selectedIndex)}
+                    item={item}
+                    widthBox={95}
+                    alignBox='center'
+                    radiusBox={4}
+                    overScrollMode={'never'}
+                    type='box' />
+            </View>
+        </View>);
 };
 ///----------------------------------------------------------------------------------------------->>>> Banner
 export let Banner = (props) => {
     const { activeGetServices, dataService } = props;
     const slideDelay = 3000;
-    let _renderItem = (item, index) => {
-        return (<View style={stylesStore.BannerBox} key={index}>
-            <FastImage source={{ uri: item.image, }} style={stylesStore.BannerSlide} />
-        </View>);
+    let renderItem = (item, index) => {
+        return (
+            <View style={stylesStore.BannerBox} key={index}>
+                <FastImage
+                    source={{
+                        uri: item.image,
+                    }}
+                    style={stylesStore.BannerSlide}
+                    resizeMode={FastImage.resizeMode.cover} />
+            </View>
+        );
     };
-    let getDetail = (activeGetServices == false ?
-        dataService && dataService.map((value, index) => {
-            var image_banner_sub
-            value.image_banner && (image_banner_sub = value.image_banner.split(';'));
-            value.image_banner && (image_banner_sub = image_banner_sub.map((value2) => { return { image: `${finip}/${value.image_banner_path}/${value2}` } }));
-            return (<View key={index}>
-                <View style={[stylesStore.Banner, { borderLeftWidth: 0, paddingLeft: 0 }]}>
-                    <View>
-                        {image_banner_sub && <Carousel renderItem={_renderItem} data={image_banner_sub} loop autoplay
-                            autoplayInterval={slideDelay} pagination={PaginationLight} />}
+    let getDetail = (
+        activeGetServices == false ?
+            dataService && dataService.map((value, index) => {
+                var image_banner_sub
+                value.image_banner && (image_banner_sub = value.image_banner.split(';'));
+                value.image_banner && (image_banner_sub = image_banner_sub.map((value2) => {
+                    return { image: `${finip}/${value.image_banner_path}/${value2}` }
+                }));
+                return (
+                    <View key={index}>
+                        <View style={[stylesStore.Banner, { borderLeftWidth: 0, paddingLeft: 0 }]}>
+                            <View>
+                                {
+                                    image_banner_sub &&
+                                    <Carousel
+                                        renderItem={renderItem}
+                                        data={image_banner_sub}
+                                        loop
+                                        autoplay
+                                        autoplayInterval={slideDelay}
+                                        pagination={PaginationLight} />
+                                }
+                            </View>
+                            <View style={{ paddingHorizontal: 10 }}>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                                    สวัสดีค่า ยินดีต้อนรับค่ะร้านนี้รบกวนไม่ถามเล่นๆ นะคะ หากต่อราคารบกวนไม่ต่อเว่อๆนะคะ ถ้าลดได้ลดให้ค่า</Text>
+                            </View>
+                        </View>
+                        {/* <View stD */}
                     </View>
-                    <View>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>สวัสดีค่า ยินดีต้อนรับค่ะร้านนี้รบกวนไม่ถามเล่นๆ นะคะ หากต่อราคารบกวนไม่ต่อเว่อๆนะคะ ถ้าลดได้ลดให้ค่า</Text>
-                    </View>
-                </View>
-                {/* <View stD */}
-            </View>);
-        }) :
-        <View style={[stylesMain.ItemCenter, { width, height: 138 }]}>
-            <ActivityIndicator style={stylesMain.ItemCenterVertical} color='#1A3263' size='large' />
-        </View>);
-    return (<View style={{ marginVertical: 10 }}>
-        {getDetail}
-    </View>);
+                );
+            }) :
+            <View style={[stylesMain.ItemCenter, { width, height: 138 }]}>
+                <ActivityIndicator style={stylesMain.ItemCenterVertical} color='#1A3263' size='large' />
+            </View>
+    );
+    return (
+        <View style={{ marginVertical: 3 }}>
+            {getDetail}
+        </View>
+    );
 };
 ///----------------------------------------------------------------------------------------------->>>> TicketLine
 export let TicketLine = (props) => {

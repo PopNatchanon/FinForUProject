@@ -86,11 +86,11 @@ export default StyleSheet.create({
     ///-----------------------------------------------------------------------------///
     Menu: {
         backgroundColor: '#fff',
-        marginTop: '3%',
+        marginTop: 25,
     },
     Menubar: {
         padding: 4,
-        height: 45,
+        height: 40,
         flexDirection: 'row',
         borderBottomColor: '#EAEAEA',
         borderBottomWidth: 1,
@@ -103,7 +103,7 @@ export default StyleSheet.create({
     MenubarSub: {
         borderBottomWidth: 1,
         borderBottomColor: '#EAEAEA',
-        marginTop: 20,
+        marginTop: 6,
     },
     MenubarSubLine1: {
         flexDirection: 'row',
@@ -116,7 +116,7 @@ export default StyleSheet.create({
         marginTop: 8,
     },
     MenubarSubLine2: {
-        marginTop: 18,
+        marginTop: 8,
         paddingBottom: 8,
     },
     MenubarSubLine2Box: {
@@ -133,7 +133,7 @@ export default StyleSheet.create({
     ///--------------------------------------------------------------------///
     ListMenu: {
         width,
-        marginTop: 10,
+        marginTop: 3,
         borderColor: '#EAEAEA',
         backgroundColor: '#fff',
         borderWidth: 0.5,
@@ -176,8 +176,8 @@ export default StyleSheet.create({
         borderColor: '#EAEAEA',
         backgroundColor: '#fff',
         borderWidth: 1,
-        marginTop: 10,
-        paddingVertical: 6,
+        marginTop: 3,
+        paddingVertical: 3,
     },
     ListbarMainRadius: {
         width: 60,
@@ -192,12 +192,12 @@ export default StyleSheet.create({
     ///--------------------------------------------------------------------///
     ViewCode: {
         width,
-        marginTop: 10,
+        marginTop: 3,
         borderWidth: 1,
         borderColor: '#ECECEC',
         backgroundColor: '#fff',
         // padding: 10,
-        paddingVertical: 10,
+        paddingVertical: 5,
     },
     ViewCodeInputCode: {
         color: 'white',
@@ -216,7 +216,7 @@ export default StyleSheet.create({
         borderBottomWidth: 0.5,
         borderWidth: 1,
         borderColor: '#ECECEC',
-        marginTop: 10
+        marginTop: 3
     },
     FinMinssionBox: {
         borderBottomWidth: 0.5,
@@ -228,7 +228,7 @@ export default StyleSheet.create({
         borderBottomWidth: 0.5,
         borderWidth: 1,
         borderColor: '#ECECEC',
-        padding: 10,
+        padding: 5,
     },
     FinMinssionBoxPlan1Image: {
         backgroundColor: '#ECECEC',
@@ -251,7 +251,7 @@ export default StyleSheet.create({
     FinMinssionBoxPlan1FollowBox: {
         borderWidth: 1,
         borderRadius: 20,
-        height: 30,
+        height: 25,
         width: 90,
     },
     AllFinMinssion: {

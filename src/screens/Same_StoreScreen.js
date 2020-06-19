@@ -1,8 +1,10 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Dimensions, SafeAreaView, ScrollView, Text, View,
 } from 'react-native';
+import { connect, useStore } from 'react-redux';
+import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
@@ -17,81 +19,56 @@ import { Slide } from './src_Promotion/DealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class Same_StoreScreen extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            dataService: []
-        };
-    }
-    getData = (dataService) => {
-        this.setState({ dataService })
-    }
-    render() {
-        const { route } = this.props
-        const { dataService } = this.state
-        const type_product = route.params?.type_product
-        const id_type = route.params?.id_type
-        const id_store = route.params?.id_store
-        var uri = `${finip}/product/product_other_mobile`;
-        var dataBody
-        type_product && id_type && id_store && (
-            dataBody = {
-                id_type: id_type,
-                id_store: id_store,
-                type_product: type_product,
-            }
-        )
-        var title
-        switch (type_product) {
-            case 'this_store':
-                title = 'สินค้าจากร้านเดียวกัน'
-                break;
-            case 'same_product':
-                title = 'สินค้าที่คล้ายกัน'
-                break;
-            case 'youlike':
-                title = 'สินค้าที่คุณอาจชอบ'
-                break;
-            default:
-                break;
-        }
-        dataBody !== undefined &&
-            GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
-        return (
-            <SafeAreaView style={{ height: '100%' }}>
-                <AppBar1 {...this.props} titleHead={title} backArrow />
-                <ScrollView stickyHeaderIndices={[type_product == 'youlike' ? 2 : null]}>
-                    <Slide />
-                    <Header Title={title} />
-                    {[
-                        type_product == 'youlike' &&
-                        <Button_Bar key={'Button_Bar'} />,
-                        dataService &&
-                        <TodayProduct {...this.props} key={type_product} noTitle loadData={dataService} />
-                    ]}
-                </ScrollView>
-                <ExitAppModule {...this.props} />
-            </SafeAreaView>
-        );
-    }
-}
+const mapStateToProps = (state) => ({
+    customerData: state.customerData,
+    getFetchData: state.singleFetchDataFromService,
+    activeFetchData: state.activeFetchData,
+});
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
+export default connect(mapStateToProps, mapDispatchToProps)(Same_StoreScreen);
+function Same_StoreScreen(props) {
+    const { route } = this.props;
+    const type_product = route.params?.type_product;
+    const id_type = route.params?.id_type;
+    const id_store = route.params?.id_store;
+    const [activeDataService, setActiveDataService] = useState(true);
+    const [dataService, setDataService] = useState(undefined);
+    var dataBody;
+    var title;
+    var uri = `${finip}/product/product_other_mobile`;
+    switch (type_product) {
+        case 'this_store': title = 'สินค้าจากร้านเดียวกัน'; break;
+        case 'same_product': title = 'สินค้าที่คล้ายกัน'; break;
+        case 'youlike': title = 'สินค้าที่คุณอาจชอบ'; break;
+        default: break;
+    };
+    type_product && id_type && id_store && (dataBody = {
+        id_type: id_type,
+        id_store: id_store,
+        type_product: type_product,
+    });
+    let getData = value => {
+        setActiveDataService(false);
+        setDataService(value);
+    };
+    useEffect(() => { activeDataService && dataBody !== undefined && GetServices({ uriPointer: uri, dataBody, getDataSource: value => getData(value) }); }, [activeDataService && dataBody !== undefined]);
+    return (<SafeAreaView style={{ height: '100%' }}>
+        <AppBar1 {...props} titleHead={title} backArrow />
+        <ScrollView stickyHeaderIndices={[type_product == 'youlike' ? 2 : null]}>
+            <Slide />
+            <Header Title={title} />
+            {type_product == 'youlike' && <Button_Bar key={'Button_Bar'} />}
+            {dataService && <TodayProduct {...props} key={type_product} noTitle loadData={dataService} />}
+        </ScrollView>
+        <ExitAppModule {...props} />
+    </SafeAreaView>);
+};
 ///----------------------------------------------------------------------------------------------->>>> Header
-export class Header extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    render() {
-        const { Title } = this.props
-        return (
-            <View style={{ width: '100%', alignItems: 'center', marginVertical: 10, }}>
-                <View style={{
-                    width: 150, height: 50, backgroundColor: mainColor, justifyContent: 'center', borderRadius: 5, alignItems: 'center',
-                }}>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}> {Title} </Text></View>
-            </View>
-        );
-    }
-}
+export let Header = (props) => {
+    const { Title } = props;
+    return (<View style={{ width: '100%', alignItems: 'center', marginVertical: 10, }}>
+        <View style={{ width: 150, height: 50, backgroundColor: mainColor, justifyContent: 'center', borderRadius: 5, alignItems: 'center', }}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>{Title}</Text>
+        </View>
+    </View>);
+};

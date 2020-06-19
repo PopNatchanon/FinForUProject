@@ -1,15 +1,17 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { useEffect, useState } from 'react';
 import {
-    SafeAreaView, ScrollView, Text, TouchableOpacity, View,
+    SafeAreaView, ScrollView, Text, TouchableOpacity, View, Dimensions, ActivityIndicator,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
+export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 ///----------------------------------------------------------------------------------------------->>>> Icon
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesMain from '../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../style/StylesMainScreen';
 import stylesFont from '../style/stylesFont';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, BannerBar_TWO, ExitAppModule, Slide, TodayProduct, } from './MainScreen';
@@ -23,14 +25,8 @@ const mapStateToProps = (state) => ({
     getFetchData: state.singleFetchDataFromService,
     activeFetchData: state.activeFetchData,
 });
-const mapDispatchToProps = ({
-    checkCustomer,
-    fetchData,
-    multiFetchData,
-    setActiveFetch,
-    setFetchToStart,
-});
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryScreen)
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryScreen);
 function CategoryScreen(props) {
     const { route } = props;
     const id_type = route.params?.id_type;
@@ -38,7 +34,6 @@ function CategoryScreen(props) {
     const [dataService, setDataService] = useState(undefined);
     const [filterValue, setFilterValue] = useState({});
     const [sliderVisible, setSliderVisible] = useState(false);
-    var uri = `${finip}/category/category_mobile`;
     var dataBody = {
         category_number: id_type,
         sort_by: filterValue && filterValue.sort_by ? filterValue.sort_by : '',
@@ -46,15 +41,8 @@ function CategoryScreen(props) {
         max_price: filterValue && filterValue.maxvalue ? Number(filterValue.maxvalue) : '',
         lastest: filterValue && filterValue.lastest ? filterValue.lastest : '',
     };
-    useEffect(() => {
-        activeGetServices &&
-            GetServices({
-                uriPointer: uri, dataBody, getDataSource: value => {
-                    setActiveGetServices(false);
-                    setDataService(value);
-                },
-            });
-    }, [activeGetServices]);
+    var uri = `${finip}/category/category_mobile`;
+    useEffect(() => { activeGetServices && GetServices({ uriPointer: uri, dataBody, getDataSource: value => { setActiveGetServices(false); setDataService(value); }, }); }, [activeGetServices]);
     let setStatefilterValue = (value) => {
         filterValue.minvalue = value.minvalue ?? '';
         filterValue.maxvalue = value.maxvalue ?? '';
@@ -69,125 +57,85 @@ function CategoryScreen(props) {
         setFilterValue(filterValue);
     };
     const data = [{
-        title: 'หมวดหมู่',
-        subtitle: [{
-            name: 'กระเป๋าสะพายข้าง'
-        }, {
-            name: 'กระเป๋าสะพายหลัง'
-        }, {
-            name: 'กระเป๋าสตางค์'
-        }, {
-            name: 'กระเป๋าใส่นามบัตร'
-        }, {
-            name: 'กระเป๋าใส่เหรียญ'
-        }, {
-            name: 'กระเป๋าถือ'
-        }, {
-            name: 'อื่นๆ'
-        }]
+        title: 'หมวดหมู่', subtitle: [{ name: 'กระเป๋าสะพายข้าง' }, { name: 'กระเป๋าสะพายหลัง' }, { name: 'กระเป๋าสตางค์' }, { name: 'กระเป๋าใส่นามบัตร' },
+        { name: 'กระเป๋าใส่เหรียญ' }, { name: 'กระเป๋าถือ' }, { name: 'อื่นๆ' }]
     }, {
-        title: 'แบรนด์',
-        subtitle: [{
-            name: 'BP world'
-        }, {
-            name: 'Tokyo boy'
-        }, {
-            name: 'JJ'
-        }, {
-            name: 'ETONWEAG'
-        }]
+        title: 'แบรนด์', subtitle: [{ name: 'BP world' }, { name: 'Tokyo boy' }, { name: 'JJ' }, { name: 'ETONWEAG' }]
     }];
-    return (
-        <SafeAreaView style={[stylesMain.SafeAreaView]}>
-            {
-                activeGetServices == true &&
-                <LoadingScreen key={'LoadingScreen'} />
-            }
-            <AppBar {...props} backArrow cartBar />
-            <ScrollView stickyHeaderIndices={[5]}>
-                <Slide {...props} banner={dataService?.banner} />
-                <Recommend_Store {...props} recommend={dataService?.recommend} />
-                <Product_Brand {...props} loadData={dataService?.product_popular_brand} />
-                <BannerBar_TWO />
-                <View style={{ marginBottom: 2 }}></View>
-                <Button_Bar filterValue={value => setStateMainfilterValue(value)} setSliderVisible={value => setSliderVisible(value)} />
-                <TodayProduct {...props} noTitle loadData={dataService?.product} />
-            </ScrollView>
-            <ExitAppModule {...props} />
-            <SlideTab2 data={data} filterValue={value => setStatefilterValue(value)} sliderVisible={sliderVisible}
-                setStateSliderVisible={value => setSliderVisible(value)} />
-        </SafeAreaView>
-    );
+    return (<SafeAreaView style={[stylesMain.SafeAreaView]}>
+        {activeGetServices == true &&
+            <LoadingScreen key={'LoadingScreen'} />}
+        <AppBar {...props} backArrow cartBar />
+        <ScrollView stickyHeaderIndices={[5]}>
+            <Slide {...props} banner={dataService?.banner} />
+            <Recommend_Store {...props} recommend={dataService?.recommend} />
+            <Product_Brand {...props} loadData={dataService?.product_popular_brand} />
+            <BannerBar_TWO />
+            <View style={{ marginBottom: 2 }}></View>
+            <Button_Bar filterValue={value => setStateMainfilterValue(value)} setSliderVisible={value => setSliderVisible(value)} />
+            <TodayProduct {...props} noTitle loadData={dataService?.product} />
+        </ScrollView>
+        <ExitAppModule {...props} />
+        <SlideTab2 data={data} filterValue={value => setStatefilterValue(value)} sliderVisible={sliderVisible}
+            setStateSliderVisible={value => setSliderVisible(value)} />
+    </SafeAreaView>);
 };
 ///----------------------------------------------------------------------------------------------->>>> Recommend_Store
-export class Recommend_Store extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            dataService: [],
-        };
-    };
-    get dataPromotionPopular() {
-        const { navigation, recommend } = this.props;
-        return recommend &&
-            recommend.map((item, index) => {
-                var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
-                return (
-                    <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Recommend_Store', navigation })} key={index}>
-                        <View style={stylesMain.BoxStore1Box}>
-                            <FastImage
-                                source={{
-                                    uri: dataMySQL,
-                                }}
-                                style={stylesMain.BoxStore1Image}
-                                resizeMode={FastImage.resizeMode.contain} />
-                        </View>
-                    </TouchableOpacity>
-                );
-            });
-    };
-    render() {
-        const { navigation } = this.props;
-        return (
-            <View style={stylesMain.FrameBackground}>
-                <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
-                        ร้านค้าที่แนะนำ</Text>
-                    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Recommend_Store', navigation })}>
-                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
-                            ดูทั้งหมด</Text>
-                    </TouchableOpacity>
+export let Recommend_Store = (props) => {
+    const { navigation, recommend } = props;
+    // const recommend = []; 
+    let boxEmpty = ([0, 1,].map((_, index) => {
+        return (<View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxStore1Box, { backgroundColor: '#ECECEC' }]}>
+            <ActivityIndicator size={50} color={mainColor} />
+        </View>);
+    }));
+    let dataPromotionPopular = (recommend.length > 0 ?
+        recommend.map((item, index) => {
+            var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
+            return (<TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Recommend_Store', navigation })} key={index}>
+                <View style={stylesMain.BoxStore1Box}>
+                    <FastImage source={{ uri: dataMySQL, }} style={stylesMain.BoxStore1Image} resizeMode={FastImage.resizeMode.contain} />
                 </View>
-                <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 4, justifyContent: 'space-between' }]}>
-                    {this.dataPromotionPopular}
-                </View>
-            </View>
-        );
-    };
+            </TouchableOpacity>);
+        }) :
+        boxEmpty);
+    return (<View style={stylesMain.FrameBackground}>
+        <View style={stylesMain.FrameBackgroundTextBox}>
+            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ร้านค้าที่แนะนำ</Text>
+            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Recommend_Store', navigation })}>
+                <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>ดูทั้งหมด</Text>
+            </TouchableOpacity>
+        </View>
+        <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 4, }]}>
+            <ScrollView horizontal>
+                {dataPromotionPopular}
+            </ScrollView>
+        </View>
+    </View>);
 };
 ///----------------------------------------------------------------------------------------------->>>> Product_Brand
-export class Product_Brand extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    };
-    render() {
-        const { loadData, } = this.props;
-        return (
-            <View style={stylesMain.FrameBackground}>
-                <View style={stylesMain.FrameBackgroundTextBox}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
-                        สินค้าแบรนด์ดัง
-                    </Text>
+export let Product_Brand = (props) => {
+    const { loadData, } = props;
+    // const loadData = [];
+    let boxEmpty = ([0, 1, 2, 3, 4, 5, 6, 7].map((_, index) => {
+        return (<View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2new, { borderColor: '#DCDCDC' }]}>
+            <View style={[stylesMain.ItemCenter, { backgroundColor: '#ECECEC', width: 119, borderBottomWidth: 0.5, borderBottomColor: '#DCDCDC' }]}>
+                <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.015, }]}>
+                    <ActivityIndicator size={50} color={mainColor} />
                 </View>
-                {
-                    loadData && loadData.product_hit &&
-                    <FlatProduct {...this.props} dataService={loadData.product_hit} numberOfColumn={1} radiusBox={5}
-                        nameFlatProduct='Product_Brand' custumNavigation='DetailScreen' mode='row3' nameSize={14} priceSize={15}
-                        dispriceSize={15} />
-                }
             </View>
-        );
-    };
+            <View style={{ height: 55, paddingHorizontal: 3 }} />
+        </View>);
+    }));
+    return (<View style={stylesMain.FrameBackground}>
+        <View style={stylesMain.FrameBackgroundTextBox}>
+            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>สินค้าแบรนด์ดัง</Text>
+        </View>
+        {loadData?.length > 0 ?
+            <FlatProduct {...props} dataService={loadData} numberOfColumn={1} radiusBox={5} nameFlatProduct='Product_Brand' mode='row3_new'
+                custumNavigation='DetailScreen' nameSize={14} priceSize={15} dispriceSize={15} /> :
+            <ScrollView horizontal>
+                {boxEmpty}
+            </ScrollView>}
+    </View>);
 };

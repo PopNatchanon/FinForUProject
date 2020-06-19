@@ -145,8 +145,8 @@ export default StyleSheet.create({
     paddingRight: 4,
   },
   BoxProduct2BoxProduct: {
-    width,
-    marginTop: 4,
+    width: '100%',
+    marginTop: 3,
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
@@ -299,6 +299,7 @@ export default StyleSheet.create({
     borderWidth: 1,
     marginTop: 2,
     marginBottom: 4,
+    marginLeft: 3,
   },
   BoxStore1Box2: {
     // width: width * 0.55,

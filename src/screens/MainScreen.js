@@ -849,8 +849,8 @@ export let Trend_Hit = (props) => {
         )
     }
     let Trend_Box = () => {
-        return dataService &&
-            dataService.map((item, index) => {
+        return dataService && dataService?.error == undefined &&
+            dataService?.map((item, index) => {
                 var dataMySQL = `${ip}/mysql/${item.image_path}/${item.image}`;
                 return (
                     <View key={index} style={[stylesMain.ItemCenter, {

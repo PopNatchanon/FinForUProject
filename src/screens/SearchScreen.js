@@ -25,14 +25,8 @@ const mapStateToProps = (state) => ({
     getFetchData: state.singleFetchDataFromService,
     activeFetchData: state.activeFetchData,
 });
-const mapDispatchToProps = ({
-    checkCustomer,
-    fetchData,
-    multiFetchData,
-    setActiveFetch,
-    setFetchToStart,
-});
-export default connect(mapStateToProps, mapDispatchToProps)(SearchScreen)
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
+export default connect(mapStateToProps, mapDispatchToProps)(SearchScreen);
 function SearchScreen(props) {
     const { navigation, route } = props;
     const id_types = route.params?.id_type;
@@ -52,7 +46,6 @@ function SearchScreen(props) {
     const [filterValue, setFilterValue] = useState({ popular: 'popular' });
     const [id_type, setId_type] = useState(undefined);
     const [sliderVisible, setSliderVisible] = useState(false);
-    var uri = `${finip}/search/search_product`
     var dataBody = {
         id_customer: currentUser?.id_customer ?? '',
         key: SearchText, //<< ใช้ค้นหาสินค้า
@@ -64,58 +57,14 @@ function SearchScreen(props) {
         max_price: filterValue?.maxvalue ?? '',
         id_type: filterValue?.id_type ?? '' //<< กรณีเลือกแบบระเลียด
     };
-    var uri2 = `${finip}/search/other_store`
     var dataBody2 = {
         id_customer: currentUser?.id_customer ?? '',
         id_type
     };
-    useEffect(() => {
-        if (actionFirstEnter) {
-            setActionFirstEnter(false);
-            setId_type(id_types);
-        };
-    }, [actionFirstEnter]);
-    useEffect(() => {
-        activeGetCurrentUser &&
-            GetData({
-                getCokie: true, getSource: value => {
-                    setActiveGetCurrentUser(false);
-                    setCokie(value.keycokie);
-                    setCurrentUser(value.currentUser);
-                }, getUser: true,
-            });
-    }, [activeGetCurrentUser]);
-    useEffect(() => {
-        modeStore && activeGetCurrentUser == false && activeGetServices &&
-            GetServices({
-                uriPointer: uri2, dataBody: dataBody2, getDataSource: value => {
-                    setActiveGetServices(false);
-                    setDataService(value);
-                },
-            });
-    }, [modeStore && activeGetCurrentUser == false && activeGetServices]);
-    useEffect(() => {
-        SearchText && activeGetCurrentUser == false && activeGetServices &&
-            GetServices({
-                uriPointer: uri, dataBody, getDataSource: value => {
-                    setActiveGetServices(false);
-                    setDataService(value);
-                }
-            });
-    }, [SearchText && activeGetCurrentUser == false && activeGetServices]);
-    if (modeStore == undefined && dataService && activeArray) {
-        var title = 'หมวดหมู่';
-        var subtitle = [];
-        for (var n = 0; n < dataService.category.length; n++) {
-            subtitle.push({ name: dataService.category[n].name });
-        };
-        data.push({ title, subtitle });
-        setActiveArray(false);
-        setData(data);
-        setDataServiceBU(dataService);
-    };
+    var uri = `${finip}/search/search_product`;
+    var uri2 = `${finip}/search/other_store`;
     let setStart = () => {
-        filterValue.id_type = dataServiceBU.category[0].id_type
+        filterValue.id_type = dataServiceBU.category[0].id_type;
         setActiveGetServices(true);
         setActionStart(false);
         setFilterValue(filterValue);
@@ -124,8 +73,7 @@ function SearchScreen(props) {
     let setStatefilterValue = (value) => {
         filterValue.minvalue = value?.minvalue ?? '';
         filterValue.maxvalue = value?.maxvalue ?? '';
-        filterValue.id_type = ((value.selectedIndex != -1 && value.selectedIndex != '') && value.listIndex == 0) ?
-            dataServiceBU.category[value.selectedIndex].id_type : ''
+        filterValue.id_type = ((value.selectedIndex != -1 && value.selectedIndex != '') && value.listIndex == 0) ? dataServiceBU.category[value.selectedIndex].id_type : '';
         setActiveGetServices(true);
         setActionStart(false);
         setFilterValue(filterValue);
@@ -140,159 +88,108 @@ function SearchScreen(props) {
         setActiveGetServices(true);
         setFilterValue(filterValue);
     };
-    if (actionStart && dataService && dataServiceBU && filterValue?.id_type == undefined) {
-        setStart();
+    useEffect(() => { if (actionFirstEnter) { setActionFirstEnter(false); setId_type(id_types); }; }, [actionFirstEnter]);
+    useEffect(() => { activeGetCurrentUser && GetData({ getCokie: true, getSource: value => { setActiveGetCurrentUser(false); setCokie(value.keycokie); setCurrentUser(value.currentUser); }, getUser: true, }); }, [activeGetCurrentUser]);
+    useEffect(() => { modeStore && activeGetCurrentUser == false && activeGetServices && GetServices({ uriPointer: uri2, dataBody: dataBody2, getDataSource: value => { setActiveGetServices(false); setDataService(value); }, }); }, [modeStore && activeGetCurrentUser == false && activeGetServices]);
+    useEffect(() => { SearchText && activeGetCurrentUser == false && activeGetServices && GetServices({ uriPointer: uri, dataBody, getDataSource: value => { setActiveGetServices(false); setDataService(value); } }); }, [SearchText && activeGetCurrentUser == false && activeGetServices]);
+    if (modeStore == undefined && dataService && activeArray) {
+        var title = 'หมวดหมู่';
+        var subtitle = [];
+        for (var n = 0; n < dataService.category.length; n++) { subtitle.push({ name: dataService.category[n].name }); };
+        data.push({ title, subtitle });
+        setActiveArray(false);
+        setData(data);
+        setDataServiceBU(dataService);
     };
-    return (
-        <SafeAreaView style={stylesMain.SafeAreaView}>
-            <AppBar {...props} searchBar={SearchText ? undefined : true} SearchText={SearchText} backArrow cartBar />
-            {
-                modeStore == true ?
-                    (
-                        <ScrollView>
-                            <HeadBox {...props} SearchText={SearchText} />
-                            {
-                                dataService?.store && dataService.store.map((value, index) => {
-                                    return <StoreCard {...props} cokie={cokie} currentUser={currentUser} dataService={value} key={index} />
-                                })
-                            }
-                        </ScrollView>
-                    ) :
-                    SearchText ? (
-                        <ScrollView>
-                            <HeadBox {...props} id_type={id_type} SearchText={SearchText} otherOption />
-                            {
-                                dataService?.store && dataService.store.map((value, index) => {
-                                    return <StoreCard {...props} cokie={cokie} currentUser={currentUser} dataService={value} key={index} />
-                                })
-                            }
-                            <BannerBar_THREE />
-                            <Button_Bar filterValue={value => setStateMainfilterValue(value)}
-                                setSliderVisible={value => setSliderVisible(value)} getSliderVisible={{
-                                    getSlider: sliderVisible, count: 0
-                                }} />
-                            {
-                                activeGetServices == false && actionStart == false && dataService?.product &&
-                                <TodayProduct {...props} noTitle loadData={dataService.product} />
-                            }
-                        </ScrollView>
-                    ) : <View></View>
-            }
-            <SlideTab2 data={data} filterValue={value => setStatefilterValue(value)} sliderVisible={sliderVisible}
-                setStateSliderVisible={value => setSliderVisible(value)} />
-            <ExitAppModule {...props} />
-        </SafeAreaView>
-    );
+    if (actionStart && dataService && dataServiceBU && filterValue?.id_type == undefined) { setStart(); };
+    return (<SafeAreaView style={stylesMain.SafeAreaView}>
+        <AppBar {...props} searchBar={SearchText ? undefined : true} SearchText={SearchText} backArrow cartBar />
+        {modeStore ?
+            (<ScrollView>
+                <HeadBox {...props} SearchText={SearchText} />
+                {dataService?.store && dataService.store.map((value, index) => {
+                    return <StoreCard {...props} cokie={cokie} currentUser={currentUser} dataService={value} key={index} />
+                })}
+            </ScrollView>) :
+            SearchText ?
+                (<ScrollView>
+                    <HeadBox {...props} id_type={id_type} SearchText={SearchText} otherOption />
+                    {dataService?.store && dataService.store.map((value, index) => {
+                        return <StoreCard {...props} cokie={cokie} currentUser={currentUser} dataService={value} key={index} />
+                    })}
+                    <BannerBar_THREE />
+                    <Button_Bar filterValue={value => setStateMainfilterValue(value)} setSliderVisible={value => setSliderVisible(value)}
+                        getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
+                    {activeGetServices == false && actionStart == false && dataService?.product &&
+                        <TodayProduct {...props} noTitle loadData={dataService.product} />}
+                </ScrollView>) :
+                <View></View>}
+        <SlideTab2 data={data} filterValue={value => setStatefilterValue(value)} sliderVisible={sliderVisible}
+            setStateSliderVisible={value => setSliderVisible(value)} />
+        <ExitAppModule {...props} />
+    </SafeAreaView>);
 };
 ///----------------------------------------------------------------------------------------------->>>> HeadBox
-export class HeadBox extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-    render() {
-        const { navigation, otherOption, SearchText, id_type } = this.props
-        return (
+export let HeadBox = (props) => {
+    const { id_type, navigation, otherOption, SearchText, } = props;
+    return (<View>
+        <View style={[stylesMain.FrameBackgroundTextBox]}>
+            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyText, stylesFont.FontSize5]}>ร้านค้าที่เกี่ยวข้องกับ <Text>"{SearchText}"</Text></Text>
+            {otherOption &&
+                <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'SearchScreen', setData: { modeStore: true, SearchText, id_type }, navigation })}>
+                    <View style={[stylesMain.FlexRow, { marginRight: 4, marginTop: 8 }]}>
+                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7, stylesMain.ItemCenterVertical, { marginRight: 0, }]}>ร้านค้าอื่นๆ</Text>
+                        <IconEntypo name="chevron-right" size={18} style={[stylesMain.ItemCenterVertical, { color: mainColor }]} />
+                    </View>
+                </TouchableOpacity>}
+        </View>
+    </View>);
+};
+///----------------------------------------------------------------------------------------------->>>> StoreCard
+export let StoreCard = (props) => {
+    const { cokie, currentUser, dataService, navigation } = props;
+    const [activeFollow, setActiveFollow] = useState(false);
+    const [activeGetServices, setActiveGetServices] = useState(true);
+    const [dataService2, setDataService2] = useState(undefined);
+    var dataBody = {
+        id_customer: currentUser && currentUser.id_customer,
+        id_store: dataService.id_store,
+        follow: activeFollow ? "active" : '',
+    };
+    var dataMySQL = `${finip}/${dataService.store_path}/${dataService.image_store}`;
+    var uri = `${finip}/brand/follow_data`;
+    let getData = value => {
+        setActiveFollow(true);
+        setActiveGetServices(true);
+        setDataService2(value);
+    };
+    let setStateFollow = () => {
+        setActiveFollow(true);
+        setActiveGetServices(true);
+    };
+    useEffect(() => { activeGetServices && GetServices({ Authorization: cokie, uriPointer: uri, dataBody, getDataSource: value => getData(value) }); }, [activeGetServices]);
+    return (<View style={stylesMain.BoxStore5Box}>
+        <TouchableOpacity style={stylesMain.FlexRow} onPress={() => NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: 24 }, navigation })}>
+            <View style={[stylesMain.BoxStore5Image, stylesMain.ItemCenterVertical, { width: 45, height: 45, marginRight: 10, }]}>
+                <FastImage source={{ uri: dataMySQL, }} style={[stylesMain.BoxStore5Image]} />
+            </View>
             <View>
-                <View style={[stylesMain.FrameBackgroundTextBox]}>
-                    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-                        ร้านค้าที่เกี่ยวข้องกับ <Text>"{SearchText}"</Text></Text>
-                    {
-                        otherOption &&
-                        <TouchableOpacity onPress={() => NavigationNavigateScreen({
-                            goScreen: 'SearchScreen', setData: { modeStore: true, SearchText, id_type }, navigation
-                        })}>
-                            <View style={[stylesMain.FlexRow, { marginRight: 4, marginTop: 8 }]}>
-                                <Text style={[
-                                    stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7,
-                                    stylesMain.ItemCenterVertical, {
-                                        marginRight: 0,
-                                    }
-                                ]}>
-                                    ร้านค้าอื่นๆ</Text>
-                                <IconEntypo name="chevron-right" size={18} style={[stylesMain.ItemCenterVertical, {
-                                    color: mainColor
-                                }]} />
-                            </View>
-                        </TouchableOpacity>
-                    }
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>{dataService.store_name}</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ผู้ติดตาม : {dataService2 && dataService2.number_follow}</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#AAAAAA' }]}>จำนวนสินค้า <Text style={{ color: mainColor }}> {dataService.amount_product}</Text> |  คะแนน <Text style={{ color: mainColor }}>{dataService.rating}</Text></Text>
+            </View>
+            <View style={stylesMain.FlexRow}>
+                <View style={[stylesMain.ItemCenter, { width: 70, height: 25, backgroundColor: mainColor, borderRadius: 6, marginHorizontal: 2 }]}>
+                    <TouchableOpacity onPress={() => setStateFollow()}>
+                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize7, { color: '#fff' }]}>{dataService2?.output}</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={[{ width: 70, height: 25, backgroundColor: mainColor, borderRadius: 6, marginHorizontal: 2 }]}>
+                    <TouchableOpacity style={[stylesMain.ItemCenter, { width: '100%', height: '100%' }]} onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1, navigation } })}>
+                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize7, { color: '#fff' }]}>พูดคุย</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
-        )
-    }
-}
-///----------------------------------------------------------------------------------------------->>>> StoreCard
-export class StoreCard extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            activeGetServices: true,
-        }
-    }
-    getData = (dataService2) => {
-        this.setState({ activeFollow: false, activeGetServices: false, dataService2 })
-    }
-    setStateFollow = () => {
-        this.setState({ activeFollow: true, activeGetServices: true })
-    }
-    render() {
-        const { cokie, currentUser, dataService, navigation } = this.props
-        const { activeFollow, activeGetServices, dataService2, } = this.state
-        var uri = `${finip}/brand/follow_data`;
-        var dataBody = {
-            id_customer: currentUser && currentUser.id_customer,
-            id_store: dataService.id_store,
-            follow: activeFollow == true ? "active" : '',
-
-        };
-        var dataMySQL = `${finip}/${dataService.store_path}/${dataService.image_store}`;
-        activeGetServices == true &&
-            GetServices({ Authorization: cokie, uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
-        return (
-            <View style={stylesMain.BoxStore5Box}>
-                <TouchableOpacity style={stylesMain.FlexRow}
-                    onPress={() => NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: 24 }, navigation })}>
-                    <View style={[stylesMain.BoxStore5Image, stylesMain.ItemCenterVertical, {
-                        width: 45, height: 45, marginRight: 10,
-                    }]}>
-                        <FastImage
-                            source={{
-                                uri: dataMySQL,
-                            }}
-                            style={[stylesMain.BoxStore5Image]} />
-                    </View>
-                    <View>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
-                            {dataService.store_name}</Text>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                            ผู้ติดตาม : {dataService2 && dataService2.number_follow}</Text>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#AAAAAA' }]}>
-                            จำนวนสินค้า <Text style={{ color: mainColor }}>
-                                {dataService.amount_product}</Text> |  คะแนน <Text style={{ color: mainColor }}>{
-                                    dataService.rating}</Text></Text>
-                    </View>
-                    <View style={stylesMain.FlexRow}>
-                        <View style={[
-                            stylesMain.ItemCenter, {
-                                width: 70, height: 25, backgroundColor: mainColor, borderRadius: 6, marginHorizontal: 2
-                            }
-                        ]}>
-                            <TouchableOpacity onPress={() => this.setStateFollow()}>
-                                <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize7, { color: '#fff' }]}>
-                                    {dataService2 && dataService2.output}</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={[{ width: 70, height: 25, backgroundColor: mainColor, borderRadius: 6, marginHorizontal: 2 }]}>
-                            <TouchableOpacity style={[stylesMain.ItemCenter, { width: '100%', height: '100%' }]}
-                                onPress={() => NavigationNavigateScreen({
-                                    goScreen: 'Profile_Topic', setData: { selectedIndex: 1, navigation }
-                                })}>
-                                <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize7, { color: '#fff' }]}>
-                                    พูดคุย</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </TouchableOpacity>
-            </View>
-        )
-    }
-}
+        </TouchableOpacity>
+    </View>);
+};

@@ -304,42 +304,27 @@ export let StoreHeadDetails = (props) => {
                                 }
                             </View>
                         </View>
-                        <View style={[stylesStore.StoreHeadFace, {
-                            marginTop: -20, marginLeft: 6, backgroundColor: '#fff', borderWidth: 1, borderColor: '#ECECEC'
-                        }]}>
-                            {
-                                activeGetServices == false ?
-                                    <FastImage
-                                        source={{
-                                            uri: dataMySQL,
-                                        }}
-                                        style={[stylesStore.StoreHeadFace, {
-                                            backgroundColor: '#fff', borderWidth: 1, borderColor: '#ECECEC'
-                                        }]}
-                                        resizeMode={FastImage.resizeMode.cover} /> :
-                                    <ActivityIndicator style={stylesMain.ItemCenterVertical} size={20} />
-                            }
+                        <View style={[stylesStore.StoreHeadFace, { marginTop: -20, marginLeft: 6, backgroundColor: '#fff', borderWidth: 1, borderColor: '#ECECEC' }]}>
+                            {activeGetServices == false ?
+                                <FastImage source={{ uri: dataMySQL, }} style={[stylesStore.StoreHeadFace, { backgroundColor: '#fff', borderWidth: 1, borderColor: '#ECECEC' }]}
+                                    resizeMode={FastImage.resizeMode.cover} /> :
+                                <ActivityIndicator style={stylesMain.ItemCenterVertical} size={20} />}
+                        </View>
+                        <View style={[stylesStore.HeadButtom, { marginLeft: 'auto', marginRight: 'auto' }]}>
+                            <TouchableOpacity onPress={() => undefined}>
+                                <View style={[stylesStore.StoreHeadButtom, { backgroundColor: mainColor }]}>
+                                    <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#fff' }]}>ติดตาม</Text>
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation })}>
+                                <View style={[stylesStore.StoreHeadButtom, { backgroundColor: mainColor }]}>
+                                    <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#fff' }]}>แชท</Text>
+                                </View>
+                            </TouchableOpacity>
                         </View>
                     </View>
-                    <View style={[stylesStore.StoreHeadFace, { marginTop: -20, marginLeft: 6, backgroundColor: '#fff', borderWidth: 1, borderColor: '#ECECEC' }]}>
-                        {activeGetServices == false ?
-                            <FastImage source={{ uri: dataMySQL, }} style={[stylesStore.StoreHeadFace, { backgroundColor: '#fff', borderWidth: 1, borderColor: '#ECECEC' }]}
-                                resizeMode={FastImage.resizeMode.cover} /> :
-                            <ActivityIndicator style={stylesMain.ItemCenterVertical} size={20} />}
-                    </View>
                 </View>
-                <View style={[stylesStore.HeadButtom, { marginLeft: 'auto', marginRight: 'auto' }]}>
-                    <TouchableOpacity onPress={() => undefined}>
-                        <View style={[stylesStore.StoreHeadButtom, { backgroundColor: mainColor }]}>
-                            <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#fff' }]}>ติดตาม</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation })}>
-                        <View style={[stylesStore.StoreHeadButtom, { backgroundColor: mainColor }]}>
-                            <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#fff' }]}>แชท</Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
+
             </View>
             <View style={{
                 width: '85%', borderBottomColor: '#000', borderBottomWidth: 1, marginTop: 5, marginLeft: 'auto',

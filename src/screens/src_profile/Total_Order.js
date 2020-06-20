@@ -44,7 +44,9 @@ function Total_Order(props) {
         setCokie(value.keycokie);
         setCurrentUser(value.currentUser);
     }
-    useEffect(() => { activeGetSource && GetData({ getCokie: true, getUser: true, getSource: value => getDataSource(value) }); }, [activeGetSource]);
+    useEffect(() => {
+        activeGetSource && GetData({ getCokie: true, getUser: true, getSource: value => getDataSource(value) });
+    }, [activeGetSource]);
     return (<SafeAreaView style={[stylesMain.SafeAreaView, { height: 'auto' }]}>
         {isLoading &&
             <LoadingScreen />}

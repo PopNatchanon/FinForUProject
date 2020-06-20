@@ -53,7 +53,9 @@ function Profile_Topic(props) {
         setActiveGetServices(false);
         setDataSevice(value);
     };
-    useEffect(() => { activeGetSource && GetData({ getCokie: true, getUser: true, getSource: value => getSource(value), }); }, [activeGetSource]);
+    useEffect(() => {
+        activeGetSource && GetData({ getCokie: true, getUser: true, getSource: value => getSource(value), });
+    }, [activeGetSource]);
     let PathList = () => {
         const selectedIndex = route.params?.selectedIndex;
         const id_cartdetail = route.params?.id_cartdetail;
@@ -459,7 +461,9 @@ export let Follow_store_Box = (props) => {
         setButton_Follow_Before(!Button_Follow_Before);
     };
     let getData = (value) => { setActiveGetServices(false); };
-    useEffect(() => { activeGetServices && GetServices({ uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'product_interest', getDataSource: value => getData(value), }); }, [activeGetServices]);
+    useEffect(() => {
+        activeGetServices && GetServices({ uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'product_interest', getDataSource: value => getData(value), });
+    }, [activeGetServices]);
     return (<>
         <View style={stylesProfileTopic.Follow_store_Box}>
             <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: dataSevice.id_store }, navigation })} style={{ flexDirection: 'row', }}>
@@ -492,7 +496,9 @@ export let Might_like_Store = (props) => {
         setButton_Follow_After(!Button_Follow_After);
     };
     let getData = (value) => { setActiveGetServices(false); };
-    useEffect(() => { activeGetServices && GetServices({ uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'product_interest', getDataSource: value => getData(value), }); }, [activeGetServices]);
+    useEffect(() => {
+        activeGetServices && GetServices({ uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'product_interest', getDataSource: value => getData(value), });
+    }, [activeGetServices]);
     return (
         <View>
             <View style={stylesProfileTopic.Might_like_Store}>

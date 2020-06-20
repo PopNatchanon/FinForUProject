@@ -50,7 +50,7 @@ export let Popular_store = (props) => {
         setDataService(value);
     }
     useEffect(() => { activeGetServices && GetServices({ uriPointer: uri, dataBody, getDataSource: value => getDataSource(value) }); }, [activeGetServices]);
-    let dataNewStore = (dataService.map((item, index) => {
+    let dataNewStore = (dataService?.map((item, index) => {
         var dataMySQL = `${ip}/mysql/uploads/slide/${item.image}`;
         return (<TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: item.id_store }, navigation })}>
             <View style={stylesMain.BoxStore3Box}>

@@ -1,8 +1,10 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import {
   Dimensions, Picker, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
+import { connect, useStore } from 'react-redux';
+import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
 import BottomSheet from "react-native-raw-bottom-sheet";
@@ -28,76 +30,60 @@ import { Seller_SettingImage } from '../../src_Seller/Seller_Profile_Edit';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class Setting_Topic extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeGetSource: true,
-    }
-  }
-  getSource = (value) => {
-    this.setState({ activeGetSource: false, currentUser: value.currentUser, cokie: value.keycokie })
-  }
-  PathList() {
-    const { route } = this.props
-    const { activeGetSource, cokie, currentUser } = this.state
-    const selectedIndex = route.params?.selectedIndex
+const mapStateToProps = (state) => ({
+  customerData: state.customerData,
+  getFetchData: state.singleFetchDataFromService,
+  activeFetchData: state.activeFetchData,
+});
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
+export default connect(mapStateToProps, mapDispatchToProps)(Setting_Topic);
+function Setting_Topic(props) {
+  const { route } = props;
+  const selectedIndex = route.params?.selectedIndex;
+  const [activeGetSource, setActiveGetSource] = useState(true);
+  const [cokie, setCokie] = useState(undefined);
+  const [currentUser, setCurrentUser] = useState(undefined);
+  let getSource = (value) => {
+    setActiveGetSource(false);
+    setCokie(value.keycokie);
+    setCurrentUser(value.currentUser);
+  };
+  useEffect(() => {
+    activeGetSource && GetServices({ getCokie: true, getUser: true, getSource: value => getSource(value), });
+  }, [activeGetSource]);
+  let PathList = () => {
     switch (selectedIndex) {
       case 0:
-        return (
-          <Edit_Profile {...this.props} activeGetSource={activeGetSource} cokie={cokie} currentUser={currentUser} />
-        )
+        return <Edit_Profile {...props} activeGetSource={activeGetSource} cokie={cokie} currentUser={currentUser} />;
       case 1:
-        return (
-          <Edit_Address {...this.props} activeGetSource={activeGetSource} cokie={cokie} currentUser={currentUser} />
-        )
+        return <Edit_Address {...props} activeGetSource={activeGetSource} cokie={cokie} currentUser={currentUser} />;
       case 2:
-        return (
-          <Edit_Chat {...this.props} />
-        )
+        return <Edit_Chat {...props} />;
       case 3:
-        return (
-          <View>
-            <Edit_Bell {...this.props} />
-          </View>
-        )
+        return <View>
+          <Edit_Bell {...props} />
+        </View>;
       case 4:
-        return (
-          <View>
-            <Language_Screen {...this.props} />
-          </View>
-        )
+        return <View>
+          <Language_Screen {...props} />
+        </View>;
       case 5:
-        return (
-          <View>
-            <Edit_Setting_Bell {...this.props} />
-          </View>
-        )
+        return <View>
+          <Edit_Setting_Bell {...props} />
+        </View>;
       case 6:
-        return (
-          <View>
-            <Edit_Setting_Email {...this.props} />
-          </View>
-        )
+        return <View>
+          <Edit_Setting_Email {...props} />
+        </View>;
       case 7:
-        return (
-          <Edit_Pass {...this.props} activeGetSource={activeGetSource} cokie={cokie} currentUser={currentUser} />
-        )
-    }
-  }
-  render() {
-    const { navigation, } = this.props
-    const { activeGetSource } = this.state
-    activeGetSource == true &&
-      GetServices({ getCokie: true, getUser: true, getSource: this.getSource.bind(this), })
-    return (
-      <SafeAreaView style={[stylesMain.SafeAreaView]}>
-        {this.PathList()}
-        <ExitAppModule {...this.props} />
-      </SafeAreaView>
-    );
-  }
-}
+        return <Edit_Pass {...props} activeGetSource={activeGetSource} cokie={cokie} currentUser={currentUser} />;
+    };
+  };
+  return (<SafeAreaView style={[stylesMain.SafeAreaView]}>
+    {PathList()}
+    <ExitAppModule {...props} />
+  </SafeAreaView>);
+};
 ///----------------------------------------------------------------------------------------------->>>> Edit_Profile
 export class Edit_Profile extends Component {
   constructor(props) {
@@ -194,7 +180,7 @@ export class Edit_Profile extends Component {
     var dataBody2 = []
     dataBody2.push({ name: 'id_customer', data: currentUser.id_customer })
     dataBody2.push({ name: 'first_name', data: Name })
-    dataBody2.push({ name: 'gender', data: Gender == true ? 'male' : 'female' })
+    dataBody2.push({ name: 'gender', data: Gender ? 'male' : 'female' })
     path && dataBody2.push({ name: 'file', filename: o[o.length - 1], type: path.mime, data: RNFetchBlob.wrap(path.path) })
     dataBody2.push({ name: 'birth_day', data: Birth_day })
     dataBody2.push({ name: 'telephone', data: Phone })
@@ -434,9 +420,9 @@ export class Edit_Profile extends Component {
     const uri2 = `${finip}/profile/update_profile_mobile`
     currentUser != null && Name == null &&
       this.setCurrentUser()
-    activeGetSource == false && activeGetServices == true &&
+    activeGetSource == false && activeGetServices &&
       GetServices({ uriPointer: uri, dataBody: dataBody, Authorization: cokie, getDataSource: this.getData.bind(this), })
-    activeGetServices2 == true &&
+    activeGetServices2 &&
       GetServicesBlob({
         FormData: true, uriPointer: uri2, dataBody: dataBody2, Authorization: cokie, getDataSource: this.getData2.bind(this),
       })
@@ -606,7 +592,7 @@ export class Edit_Pass extends Component {
       new_password,
       confirm_password,
     }
-    activeGetSource == false && activeGetServices == true &&
+    activeGetSource == false && activeGetServices &&
       GetServices({ uriPointer: uri, dataBody: dataBody, Authorization: cokie, getDataSource: this.getData.bind(this), })
     return (
       <>
@@ -702,7 +688,7 @@ export class Edit_Address extends Component {
       } : {
         id_customer: currentUser && currentUser.id_customer,
       };
-    currentUser && keycokie && currentUser.id_customer && activeReset == true &&
+    currentUser && keycokie && currentUser.id_customer && activeReset &&
       GetServices({ uriPointer: uri, dataBody, Authorization: keycokie, getDataSource: this.getData.bind(this) })
     return (
       <View style={{ flex: 1, height: '100%' }}>
@@ -730,323 +716,146 @@ export class Edit_Address extends Component {
   }
 }
 ///----------------------------------------------------------------------------------------------->>>> Address_Customar
-export class Address_Customar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-  getData2 = (dataService2) => {
-    const { updateData2 } = this.props
-    updateData2(dataService2)
-  }
-  returnValue = (value) => {
-    const { navigation } = this.props
+export let Address_Customar = (props) => {
+  const { dataService, index, navigation, type, type_special, updateData2 } = props;
+  let returnValue = (value) => {
     navigation.state.params.updateData(value);
     navigation.goBack();
-  }
-  render() {
-    const { dataService, index, navigation, type, type_special } = this.props
-    return (
-      <TouchableOpacity key={index} onPress={
-        type == 'select' ?
-          () => this.returnValue(dataService.id_address) :
-          () => NavigationNavigateScreen({
-            goScreen: 'Customer_account', setData: {
-              type: 'edit', type_special, id_address: dataService.id_address, updateData2: this.getData2.bind(this),
-            }, navigation
-          })
-      }>
-        <View style={stylesProfileTopic.Address_Customar}>
-          <View style={stylesProfileTopic.Address_Customar_Box}>
-            <View style={stylesMain.FlexRow}>
-              <IconEvilIcons name='location' size={30} color={mainColor} />
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ที่อยู่ในการจัดส่ง</Text>
-            </View>
-            {
-              dataService.main_address == 1 &&
-              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: mainColor }]}>[ค่าเริ่มต้น]</Text>
-            }
-          </View>
-          <View style={{ marginLeft: 50, marginBottom: 10, }}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { paddingLeft: 8 }]}>
-              {`${dataService.customer_name} | ${dataService.telephone_number}`}</Text>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { paddingLeft: 8, width: '90%', }]}>
-              {dataService.address}</Text>
-          </View>
+  };
+  return (<TouchableOpacity key={index} onPress={type == 'select' ?
+    () => returnValue(dataService.id_address) :
+    () => NavigationNavigateScreen({ goScreen: 'Customer_account', setData: { type: 'edit', type_special, id_address: dataService.id_address, updateData2: value => updateData2(value), }, navigation })}>
+    <View style={stylesProfileTopic.Address_Customar}>
+      <View style={stylesProfileTopic.Address_Customar_Box}>
+        <View style={stylesMain.FlexRow}>
+          <IconEvilIcons name='location' size={30} color={mainColor} />
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ที่อยู่ในการจัดส่ง</Text>
+        </View>
+        {dataService.main_address == 1 && <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: mainColor }]}>[ค่าเริ่มต้น]</Text>}
+      </View>
+      <View style={{ marginLeft: 50, marginBottom: 10, }}>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { paddingLeft: 8 }]}>{`${dataService.customer_name} | ${dataService.telephone_number}`}</Text>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { paddingLeft: 8, width: '90%', }]}>{dataService.address}</Text>
+      </View>
+    </View>
+  </TouchableOpacity>);
+};
+///----------------------------------------------------------------------------------------------->>>> Edit_Chat
+export let Edit_Chat = (props) => {
+  const [settingChat, setSettingChat] = useState({ publicChat: true });
+  return (<>
+    <AppBar1 {...props} backArrow titleHead='ตั้งค่าการแชท' />
+    <View style={stylesProfileTopic.BoxTopic}>
+      <View style={{ margin: 10 }}>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>อนุญาตให้ทำการแชทจากหน้าโปรไฟล์</Text>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#CECECE' }]}>เปิดใช้งานเพื่ออนุญาตให้ผู้ใช้สามารถพูดคุยผ่านหน้าโปรไฟล์ได้</Text>
+      </View>
+      <CheckBox size={25} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={settingChat.publicChat} onPress={() => setSettingChat({ ...settingChat, publicChat: !settingChat.publicChat })} />
+    </View>
+  </>);
+};
+///----------------------------------------------------------------------------------------------->>>> Edit_Bell
+export let Edit_Bell = (props) => {
+  const { navigation, } = props;
+  return (<SafeAreaView>
+    <AppBar1 {...props} backArrow titleHead='ตั้งค่าการแจ้งเตือน' />
+    <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 5 }, navigation })}>
+      <View style={stylesProfileTopic.BoxTopic}>
+        <View style={stylesMain.FlexRow}>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>การแจ้งเตือน</Text>
+        </View>
+        <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
+      </View>
+    </TouchableOpacity>
+    <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 6 }, navigation })}>
+      <View style={stylesProfileTopic.BoxTopic}>
+        <View style={stylesMain.FlexRow}>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>การแจ้งเตือนทาง E-mail</Text>
+        </View>
+        <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
+      </View>
+    </TouchableOpacity>
+  </SafeAreaView>);
+};
+///----------------------------------------------------------------------------------------------->>>> Language_Screen
+export let Language_Screen = (props) => {
+  const [settingLanguage, setSettingLanguage] = useState('th');
+  return (<SafeAreaView>
+    <AppBar1 {...props} backArrow titleHead='ภาษา' />
+    <View style={stylesProfileTopic.BoxTopic}>
+      <View style={stylesMain.FlexRow}>
+        <CheckBox checked={settingLanguage == 'en'} onPress={() => setSettingLanguage('en')} />
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10, }]}>English</Text>
+      </View>
+    </View>
+    <View style={stylesProfileTopic.BoxTopic}>
+      <View style={stylesMain.FlexRow}>
+        <CheckBox checked={settingLanguage == 'th'} onPress={() => setSettingLanguage('th')} />
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10, }]}>ไทย</Text>
+      </View>
+    </View>
+    <View style={{ alignItems: 'center', justifyContent: 'flex-end', height: 620, }}>
+      <TouchableOpacity>
+        <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึกการเปลี่ยนแปลง</Text>
         </View>
       </TouchableOpacity>
-    );
-  }
-}
-///----------------------------------------------------------------------------------------------->>>> Edit_Chat
-export class Edit_Chat extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-  setStateItem1 = (item1) => {
-    this.setState({ item1 })
-  }
-  render() {
-    const { navigation, } = this.props
-    const { item1, } = this.state
-    return (
-      <>
-        <AppBar1 {...this.props} backArrow titleHead='ตั้งค่าการแชท' />
-        <View style={stylesProfileTopic.BoxTopic}>
-          <View style={{ margin: 10 }}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>อนุญาตให้ทำการแชทจากหน้าโปรไฟล์</Text>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#CECECE' }]}>
-              เปิดใช้งานเพื่ออนุญาตให้ผู้ใช้สามารถพูดคุยผ่านหน้าโปรไฟล์ได้</Text>
-          </View>
-          <CheckBox
-            size={25}
-            checkedIcon='toggle-on'
-            checkedColor='#95F29F'
-            uncheckedIcon='toggle-off'
-            checked={item1}
-            onPress={() => this.setStateItem1(!item1)} />
-        </View>
-      </>
-    );
-  }
-}
-///----------------------------------------------------------------------------------------------->>>> Edit_Bell
-export class Edit_Bell extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-  render() {
-    const { navigation, } = this.props
-    return (
-      <SafeAreaView>
-        <AppBar1 {...this.props} backArrow titleHead='ตั้งค่าการแจ้งเตือน' />
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 5 }, navigation })}>
-          <View style={stylesProfileTopic.BoxTopic}>
-            <View style={stylesMain.FlexRow}>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
-                การแจ้งเตือน
-            </Text>
-            </View>
-            <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 6 }, navigation })}>
-          <View style={stylesProfileTopic.BoxTopic}>
-            <View style={stylesMain.FlexRow}>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
-                การแจ้งเตือนทาง E-mail
-            </Text>
-            </View>
-            <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
-          </View>
-        </TouchableOpacity>
-      </SafeAreaView>
-    );
-  }
-}
-///----------------------------------------------------------------------------------------------->>>> Language_Screen
-export class Language_Screen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      checked2: true,
-    };
-  }
-  setStateChecked = (checked, checked2) => {
-    this.setState({ checked, checked2 })
-  }
-  render() {
-    const { navigation, } = this.props
-    const { checked, checked2 } = this.state
-    return (
-      <SafeAreaView>
-        <AppBar1 {...this.props} backArrow titleHead='ภาษา' />
-        <View style={stylesProfileTopic.BoxTopic}>
-          <View style={stylesMain.FlexRow}>
-            <CheckBox
-              checked={checked}
-              onPress={() => this.setStateChecked(true, false)} />
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10, }]}>
-              English
-               </Text>
-          </View>
-        </View>
-        <View style={stylesProfileTopic.BoxTopic}>
-          <View style={stylesMain.FlexRow}>
-            <CheckBox
-              checked={checked2}
-              onPress={() => this.setStateChecked(false, true)} />
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10, }]}>
-              ไทย
-            </Text>
-          </View>
-        </View>
-        <View style={{ alignItems: 'center', justifyContent: 'flex-end', height: 620, }}>
-          <TouchableOpacity>
-            <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึกการเปลี่ยนแปลง</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </SafeAreaView>
-    );
-  }
-}
+    </View>
+  </SafeAreaView>);
+};
 ///----------------------------------------------------------------------------------------------->>>> Edit_Setting_Bell
-export class Edit_Setting_Bell extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-  setStateItem1 = (item1) => {
-    this.setState({ item1 })
-  }
-  setStateItem2 = (item2) => {
-    this.setState({ item2 })
-  }
-  setStateItem3 = (item3) => {
-    this.setState({ item3 })
-  }
-  setStateItem4 = (item4) => {
-    this.setState({ item4 })
-  }
-  render() {
-    const { navigation, } = this.props
-    const { item1, item2, item3, item4 } = this.state
-    return (
-      <SafeAreaView>
-        <AppBar1 {...this.props} backArrow titleHead='การแจ้งเตือน' />
-        <View style={stylesProfileTopic.BoxTopic}>
-          <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
-              การแจ้งเตือน
-             </Text>
-          </View>
-          <CheckBox
-            size={25}
-            checkedIcon='toggle-on'
-            checkedColor='#95F29F'
-            uncheckedIcon='toggle-off'
-            checked={item1}
-            onPress={() => this.setStateItem1(!item1)} />
-        </View>
-        <View style={stylesProfileTopic.BoxTopic}>
-          <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
-              อัพเดทคำสั่งซื้อ
-             </Text>
-          </View>
-          <CheckBox
-            size={25}
-            checkedIcon='toggle-on'
-            checkedColor='#95F29F'
-            uncheckedIcon='toggle-off'
-            checked={item2}
-            onPress={() => this.setStateItem2(!item2)} />
-        </View>
-        <View style={stylesProfileTopic.BoxTopic}>
-          <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
-              พูดคุย
-             </Text>
-          </View>
-          <CheckBox
-            size={25}
-            checkedIcon='toggle-on'
-            checkedColor='#95F29F'
-            uncheckedIcon='toggle-off'
-            checked={item3}
-            onPress={() => this.setStateItem3(!item3)} />
-        </View>
-        <View style={stylesProfileTopic.BoxTopic}>
-          <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
-              โปรโมชั่น
-             </Text>
-          </View>
-          <CheckBox
-            size={25}
-            checkedIcon='toggle-on'
-            checkedColor='#95F29F'
-            uncheckedIcon='toggle-off'
-            checked={item4}
-            onPress={() => this.setStateItem4(!item4)} />
-        </View>
-      </SafeAreaView>
-    );
-  }
-}
+export let Edit_Setting_Bell = (props) => {
+  const [settingAlert, setSettingAlert] = useState({ alertOnMobile: true, chat: true, promotion: true, updateBuy: true, });
+  return (<SafeAreaView>
+    <AppBar1 {...props} backArrow titleHead='การแจ้งเตือน' />
+    <View style={stylesProfileTopic.BoxTopic}>
+      <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>การแจ้งเตือน</Text>
+      </View>
+      <CheckBox size={25} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={settingAlert.alertOnMobile} onPress={() => setSettingAlert({ ...settingAlert, alertOnMobile: !settingAlert.alertOnMobile })} />
+    </View>
+    <View style={stylesProfileTopic.BoxTopic}>
+      <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>อัพเดทคำสั่งซื้อ</Text>
+      </View>
+      <CheckBox size={25} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={settingAlert.updateBuy} onPress={() => setSettingAlert({ ...settingAlert, updateBuy: !settingAlert.updateBuy })} />
+    </View>
+    <View style={stylesProfileTopic.BoxTopic}>
+      <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>พูดคุย</Text>
+      </View>
+      <CheckBox size={25} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={settingAlert.chat} onPress={() => setSettingAlert({ ...settingAlert, chat: !settingAlert.chat })} />
+    </View>
+    <View style={stylesProfileTopic.BoxTopic}>
+      <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>โปรโมชั่น</Text>
+      </View>
+      <CheckBox size={25} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={settingAlert.promotion} onPress={() => setSettingAlert({ ...settingAlert, promotion: !settingAlert.promotion })} />
+    </View>
+  </SafeAreaView>);
+};
 ///----------------------------------------------------------------------------------------------->>>> Edit_Setting_Email
-export class Edit_Setting_Email extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-  setStateItem1 = (item1) => {
-    this.setState({ item1 })
-  }
-  setStateItem2 = (item2) => {
-    this.setState({ item2 })
-  }
-  setStateItem3 = (item3) => {
-    this.setState({ item3 })
-  }
-  render() {
-    const { navigation, } = this.props
-    const { item1, item2, item3 } = this.state
-    return (
-      <SafeAreaView>
-        <AppBar1 {...this.props} backArrow titleHead='การแจ้งเตือนทางE-mail' />
-        <View style={stylesProfileTopic.BoxTopic}>
-          <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
-              การแจ้งเตือนทาง E-mail
-             </Text>
-          </View>
-          <CheckBox
-            size={25}
-            checkedIcon='toggle-on'
-            checkedColor='#95F29F'
-            uncheckedIcon='toggle-off'
-            checked={item1}
-            onPress={() => this.setStateItem1(!item1)} />
-        </View>
-        <View style={stylesProfileTopic.BoxTopic}>
-          <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
-              อัพเดทคำสั่งซื้อ
-             </Text>
-          </View>
-          <CheckBox
-            size={25}
-            checkedIcon='toggle-on'
-            checkedColor='#95F29F'
-            uncheckedIcon='toggle-off'
-            checked={item2}
-            onPress={() => this.setStateItem2(!item2)} />
-        </View>
-        <View style={stylesProfileTopic.BoxTopic}>
-          <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>
-              จดหมายข่าว
-             </Text>
-          </View>
-          <CheckBox
-            size={25}
-            checkedIcon='toggle-on'
-            checkedColor='#95F29F'
-            uncheckedIcon='toggle-off'
-            checked={item3}
-            onPress={() => this.setStateItem3(!item3)} />
-        </View>
-      </SafeAreaView>
-    );
-  }
-}
+export let Edit_Setting_Email = (props) => {
+  const [settingEmail, setSettingEmail] = useState({ alertEmail: true, mailNews: true, updateBuy: true, });
+  return (<SafeAreaView>
+    <AppBar1 {...props} backArrow titleHead='การแจ้งเตือนทางE-mail' />
+    <View style={stylesProfileTopic.BoxTopic}>
+      <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>การแจ้งเตือนทาง E-mail</Text>
+      </View>
+      <CheckBox size={25} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={settingEmail.alertEmail} onPress={() => setSettingEmail({ ...settingEmail, alertEmail: !settingEmail.alertEmail })} />
+    </View>
+    <View style={stylesProfileTopic.BoxTopic}>
+      <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>อัพเดทคำสั่งซื้อ</Text>
+      </View>
+      <CheckBox size={25} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={settingEmail.updateBuy} onPress={() => setSettingEmail({ ...settingEmail, updateBuy: !settingEmail.updateBuy })} />
+    </View>
+    <View style={stylesProfileTopic.BoxTopic}>
+      <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>จดหมายข่าว</Text>
+      </View>
+      <CheckBox size={25} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={settingEmail.mailNews} onPress={() => setSettingEmail({ ...settingEmail, mailNews: !settingEmail.mailNews })} />
+    </View>
+  </SafeAreaView>);
+};

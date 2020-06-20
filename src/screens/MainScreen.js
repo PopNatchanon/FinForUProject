@@ -104,7 +104,7 @@ function MainScreen(props) {
     //     return value.id_type
     // });
     // let FetchDataCate = () => getFetchData['category_mobile']?.isFetching == false && item_id_type.map((value, index) => {
-    //     if (getFetchData[`category_product|${value}`] == undefined || (getFetchData[`category_product|${value}`]?.isFetching == true)) {
+    //     if (getFetchData[`category_product|${value}`] == undefined || (getFetchData[`category_product|${value}`]?.isFetching )) {
     //         multiFetchData({
     //             multiData: [
     //                 { dataBody: { id_type: value }, name: `category_product|${value}`, uri: `${finip}/home/product_mobile`, },
@@ -485,144 +485,49 @@ export let AppBar1 = (props) => {
     const [activeGetCurrentUser, setActiveGetCurrentUser] = useState(true);
     const [currentUser, setCurrentUser] = useState(undefined);
     useEffect(() => {
-        activeGetCurrentUser == true &&
-            GetData({
-                getSource: value => { setActiveGetCurrentUser(false); setCurrentUser(value.currentUser); }, getUser: true,
-            });
+        activeGetCurrentUser && GetData({ getSource: value => { setActiveGetCurrentUser(false); setCurrentUser(value.currentUser); }, getUser: true, });
     }, [activeGetCurrentUser]);
-    return (
-        <View style={[colorBar ?? menuBar ? stylesStore.AppbarMenu : stylesStore.Appbar, {
-            width, height: 55, borderWidth: 0, borderBottomWidth: 1,
-            backgroundColor: ABGColor ?? mainColor,
-            borderColor: ABDColor_All ?? ABDColor ?? mainColor,
-            borderBottomColor: ABDColor ?? mainColor,
-            borderColor: 'transparent',
-        }]}>
-            {/* <AStatusBar backgroundColor={mainColor} /> */}
-            <View style={stylesMain.FlexRow}>
-                {
-                    backArrow &&
-                    <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 50, height: 50 }]}
-                        activeOpacity={1} onPress={
-                            goToTop ?
-                                () => { NavigationNavigateScreen({ goScreen: 'popToTop', navigation }); } :
-                                backNavigation ?
-                                    () => {
-                                        navigation.state.params.backNavigation('goBack');
-                                        NavigationNavigateScreen({ goScreen: 'goBack', navigation });
-                                    } :
-                                    () => { NavigationNavigateScreen({ goScreen: 'goBack', navigation }); }
-                        }>
-                        <IconEntypo style={[stylesStore.Icon_appbar, { color: backArrowColor ?? '#ffffff' }]} name="chevron-left"
-                            size={30} />
-                    </TouchableOpacity>
-                }
-                <Text style={[stylesStore.Text_appbar, stylesFont.FontSize4, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical
-                ]}>{titleHead ?? ''}</Text>
-            </View>
-            <View style={stylesMain.FlexRow}>
-                {[
-                    searchBar &&
-                    <TouchableOpacity
-                        key={'searchBar'}
-                        style={[stylesMain.ItemCenter, { width: 40 }]}
-                        onPress={() => {
-                            NavigationNavigateScreen({ goScreen: 'SearchScreen', setData: { modeStore: false }, navigation });
-                        }}>
-                        <IconAntDesign RightItem name="search1" size={25} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
-                            marginRight: 8
-                        }]} />
-                    </TouchableOpacity>,
-                    settingBar &&
-                    <TouchableOpacity
-                        key={'settingBar'}
-                        style={[stylesMain.ItemCenter, { width: 40 }]}
-                        onPress={() => { NavigationNavigateScreen({ goScreen: 'Seller_Setting', navigation }); }}>
-                        <IconMaterialCommunityIcons name="settings-outline" size={25} style={[stylesStore.Icon_appbar,
-                        stylesMain.ItemCenterVertical, { marginRight: 8 }]} />
-                    </TouchableOpacity>,
-                    chatBar &&
-                    <TouchableOpacity
-                        key={'chatBar'}
-                        style={[stylesMain.ItemCenter, { width: 40 }]}
-                        onPress={currentUser ?
-                            () => { NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation }); } :
-                            () => { NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true }); }
-                        }>
-                        <IconAntDesign RightItem name="message1" size={25} style={[
-                            stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
-                                marginRight: 8
-                            }]} />
-                    </TouchableOpacity>,
-                    storeBar &&
-                    <TouchableOpacity
-                        key={'storeBar'}
-                        style={[stylesMain.ItemCenter, { width: 40 }]}
-                        onPress={() => {
-                            NavigationNavigateScreen({
-                                goScreen: 'Profile_Topic', setData: { selectedIndex: 3 }, navigation
-                            });
-                        }}>
-                        <IconFontAwesome5 RightItem name="store" size={20} style={[
-                            stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, {
-                                marginRight: 8
-                            }]} />
-                    </TouchableOpacity>,
-                    postBar &&
-                    <TouchableOpacity
-                        key={'postBar'}
-                        style={[stylesMain.ItemCenter, { width: 60 }]}
-                        onPress={() => { getActivePost(true); }}>
-                        <Text style={[
-                            stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize4, {
-                                width: 60,
-                                marginRight: 8,
-                            }]}>
-                            โพสต์</Text>
-                    </TouchableOpacity>,
-                    saveBar &&
-                    <TouchableOpacity
-                        key={'saveBar'}
-                        style={[stylesMain.ItemCenter, { width: 60 }]}>
-                        <Text style={[
-                            stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize4, {
-                                width: 60,
-                                marginRight: 8,
-                            }]}>
-                            บันทึก</Text>
-                    </TouchableOpacity>,
-                    UpBankBar &&
-                    <TouchableOpacity
-                        key={'UpBankBar'}
-                        style={[stylesMain.ItemCenter, { width: 80 }]}
-                        onPress={() => {
-                            NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setData: { selectedIndex: 1 }, navigation });
-                        }}>
-                        <Text style={[
-                            stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize4, {
-                                width: 80,
-                                marginRight: 8,
-                            }]}>
-                            เพิ่มบัญชี</Text>
-                    </TouchableOpacity>,
-                    deleteBar &&
-                    <TouchableOpacity
-                        key={'deleteBar'}
-                        onPress={() => propsFunction()}
-                        style={[stylesMain.ItemCenter, { width: 60 }]}>
-                        <Text style={[
-                            stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize4, {
-                                width: 60,
-                                textAlign: 'center'
-                            }]}>
-                            {
-                                ButtomDeleteAll == true ? 'เสร็จสิ้น' : 'ลบ'
-                            }</Text>
-                    </TouchableOpacity>
-                ]}
-            </View>
-        </View >
-    );
+    return (<View style={[colorBar ?? menuBar ? stylesStore.AppbarMenu : stylesStore.Appbar, { width, height: 55, borderWidth: 0, borderBottomWidth: 1, backgroundColor: ABGColor ?? mainColor, borderColor: ABDColor_All ?? ABDColor ?? mainColor, borderBottomColor: ABDColor ?? mainColor, borderColor: 'transparent', }]}>
+        {/* <AStatusBar backgroundColor={mainColor} /> */}
+        <View style={stylesMain.FlexRow}>
+            {backArrow && <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 50, height: 50 }]} activeOpacity={1} onPress={goToTop ?
+                () => { NavigationNavigateScreen({ goScreen: 'popToTop', navigation }); } : backNavigation ?
+                    () => { navigation.state.params.backNavigation('goBack'); NavigationNavigateScreen({ goScreen: 'goBack', navigation }); } :
+                    () => { NavigationNavigateScreen({ goScreen: 'goBack', navigation }); }}>
+                <IconEntypo style={[stylesStore.Icon_appbar, { color: backArrowColor ?? '#ffffff' }]} name="chevron-left" size={30} />
+            </TouchableOpacity>}
+            <Text style={[stylesStore.Text_appbar, stylesFont.FontSize4, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical]}>{titleHead ?? ''}</Text>
+        </View>
+        <View style={stylesMain.FlexRow}>
+            {[searchBar && <TouchableOpacity key={'searchBar'} style={[stylesMain.ItemCenter, { width: 40 }]} onPress={() => { NavigationNavigateScreen({ goScreen: 'SearchScreen', setData: { modeStore: false }, navigation }); }}>
+                <IconAntDesign RightItem name="search1" size={25} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, { marginRight: 8 }]} />
+            </TouchableOpacity>,
+            settingBar && <TouchableOpacity key={'settingBar'} style={[stylesMain.ItemCenter, { width: 40 }]} onPress={() => { NavigationNavigateScreen({ goScreen: 'Seller_Setting', navigation }); }}>
+                <IconMaterialCommunityIcons name="settings-outline" size={25} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, { marginRight: 8 }]} />
+            </TouchableOpacity>,
+            chatBar && <TouchableOpacity key={'chatBar'} style={[stylesMain.ItemCenter, { width: 40 }]} onPress={currentUser ?
+                () => { NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation }); } :
+                () => { NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true }); }}>
+                <IconAntDesign RightItem name="message1" size={25} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, { marginRight: 8 }]} />
+            </TouchableOpacity>,
+            storeBar && <TouchableOpacity key={'storeBar'} style={[stylesMain.ItemCenter, { width: 40 }]} onPress={() => { NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 3 }, navigation }); }}>
+                <IconFontAwesome5 RightItem name="store" size={20} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, { marginRight: 8 }]} />
+            </TouchableOpacity>,
+            postBar && <TouchableOpacity key={'postBar'} style={[stylesMain.ItemCenter, { width: 60 }]} onPress={() => { getActivePost(true); }}>
+                <Text style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize4, { width: 60, marginRight: 8, }]}>โพสต์</Text>
+            </TouchableOpacity>,
+            saveBar && <TouchableOpacity key={'saveBar'} style={[stylesMain.ItemCenter, { width: 60 }]}>
+                <Text style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize4, { width: 60, marginRight: 8, }]}>บันทึก</Text>
+            </TouchableOpacity>,
+            UpBankBar && <TouchableOpacity key={'UpBankBar'} style={[stylesMain.ItemCenter, { width: 80 }]} onPress={() => { NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setData: { selectedIndex: 1 }, navigation }); }}>
+                <Text style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize4, { width: 80, marginRight: 8, }]}>เพิ่มบัญชี</Text>
+            </TouchableOpacity>,
+            deleteBar && <TouchableOpacity key={'deleteBar'} onPress={() => propsFunction()} style={[stylesMain.ItemCenter, { width: 60 }]}>
+                <Text style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize4, { width: 60, textAlign: 'center' }]}>{ButtomDeleteAll ? 'เสร็จสิ้น' : 'ลบ'}</Text>
+            </TouchableOpacity>
+            ]}
+        </View>
+    </View>);
 };
 ///----------------------------------------------------------------------------------------------->>>> Slide
 export let Slide = (props) => {
@@ -821,7 +726,7 @@ export let Trend_Hit = (props) => {
         type: 'Trend_Hit',
     };
     useEffect(() => {
-        activeDataService == true &&
+        activeDataService &&
             GetServices({
                 uriPointer: uri, dataBody, getDataSource: value => {
                     setActiveDataService(false);
@@ -2513,7 +2418,7 @@ export class Botton_PopUp_FIN extends React.Component {
         return (
             <>
                 {
-                    activeShow == true &&
+                    activeShow &&
                     <PanGestureHandler
                         {...this.props}
                         onGestureEvent={this._onGestureEvent}

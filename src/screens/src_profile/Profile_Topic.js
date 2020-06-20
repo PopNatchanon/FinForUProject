@@ -67,81 +67,81 @@ function Profile_Topic(props) {
         };
         switch (selectedIndex) {
             case 0:
-                return (<SafeAreaView style={stylesMain.SafeAreaView}>
+                return <SafeAreaView style={stylesMain.SafeAreaView}>
                     <AppBar1 {...props} backArrow titleHead='ดูล่าสุด' />
                     <LatestScreen {...props} />
-                </SafeAreaView>);
+                </SafeAreaView>;
             case 1:
-                return (<SafeAreaView style={stylesMain.SafeAreaView}>
+                return <SafeAreaView style={stylesMain.SafeAreaView}>
                     <AppBar1 {...props} backArrow titleHead='แชท' />
                     <ChatScreen {...props} />
-                </SafeAreaView>);
+                </SafeAreaView>;
             case 2:
                 !activeGetSource && activeGetServices && currentUser && cokie && selectedIndex == 2 && GetServices({ uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'product_interest', getDataSource: value => getData(value), });
-                return (<SafeAreaView style={stylesMain.SafeAreaView}>
+                return <SafeAreaView style={stylesMain.SafeAreaView}>
                     <AppBar1 {...props} backArrow titleHead='สิ่งที่สนใจ' />
                     {dataSevice && <InterestedScreen {...props} dataSevice={dataSevice.product} />}
-                </SafeAreaView>)
+                </SafeAreaView>;
             case 3:
                 !activeGetSource && activeGetServices && currentUser && cokie && selectedIndex == 3 && GetServices({ uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'store_follow', getDataSource: value => getData(value), });
-                return (<SafeAreaView style={stylesMain.SafeAreaView}>
+                return <SafeAreaView style={stylesMain.SafeAreaView}>
                     <AppBar1 {...props} backArrow titleHead='ร้านที่ติดตาม' />
                     {dataSevice && <Follow_storeScreen {...props} cokie={cokie} currentUser={currentUser} dataSevice={dataSevice} />}
-                </SafeAreaView>);
+                </SafeAreaView>;
             case 4:
                 !activeGetSource && activeGetServices && currentUser && cokie && selectedIndex == 4 && GetServices({ uriPointer: uri, dataBody: dataBody2, Authorization: cokie, showConsole: '4|review_product', getDataSource: value => getData(value), });
-                return (<SafeAreaView style={stylesMain.SafeAreaView}>
+                return <SafeAreaView style={stylesMain.SafeAreaView}>
                     <AppBar1 {...props} backArrow titleHead='รีวิวของฉัน' />
                     {dataSevice && <Review_meScreen {...props} dataSevice={dataSevice.my_review} />}
-                </SafeAreaView>);
+                </SafeAreaView>;
             case 5:
-                return (<SafeAreaView style={stylesMain.SafeAreaView}>
+                return <SafeAreaView style={stylesMain.SafeAreaView}>
                     <AppBar1 {...props} backArrow titleHead='Fin Helpcenter' />
                     <Help_meScreen {...props} />
-                </SafeAreaView>);
+                </SafeAreaView>;
             case 6:
-                return (<SafeAreaView style={stylesMain.SafeAreaView}>
+                return <SafeAreaView style={stylesMain.SafeAreaView}>
                     <AppbarChat {...props} Title='Supreme Store' />
                     <Chat_Cutomer />
-                </SafeAreaView>);
+                </SafeAreaView>;
             case 7:
                 !activeGetSource && activeGetServices && currentUser && cokie && selectedIndex == 7 && GetServices({ uriPointer: uri, dataBody: dataBody2, Authorization: cokie, showConsole: '7|review_product', getDataSource: value => getData(value), });
-                return (<SafeAreaView style={stylesMain.SafeAreaView}>
+                return <SafeAreaView style={stylesMain.SafeAreaView}>
                     <AppBar1 {...props} backArrow titleHead='รีวิวของฉัน' />
                     <ScrollView>
                         {dataSevice && <Review_From {...props} cokie={cokie} currentUser={currentUser} dataSevice={dataSevice.my_review[0]} />}
                     </ScrollView>
-                </SafeAreaView>);
+                </SafeAreaView>;
             case 8:
-                return (<SafeAreaView style={stylesMain.SafeAreaView}>
+                return <SafeAreaView style={stylesMain.SafeAreaView}>
                     <AppBar1 {...props} backArrow titleHead='Fin Helpcenter' />
                     <ScrollView>
                         <Account_Help {...props} />
                     </ScrollView>
-                </SafeAreaView>);
+                </SafeAreaView>;
             case 9:
-                return (<SafeAreaView style={stylesMain.SafeAreaView}>
+                return <SafeAreaView style={stylesMain.SafeAreaView}>
                     <AppBar1 {...props} backArrow titleHead='Fin Helpcenter' />
                     <Topic_DetailHelp {...props} />
-                </SafeAreaView>);
+                </SafeAreaView>;
         };
     };
-    return (<>
+    return <>
         {(activeGetSource || activeGetServices) && <LoadingScreen key='LoadingScreen' />}
         {PathList()}
         <ExitAppModule {...props} />
-    </>);
+    </>;
 };
 ///----------------------------------------------------------------------------------------------->>>> LatestScreen
 export let LatestScreen = (props) => {
-    return (<ScrollView>
+    return <ScrollView>
         <PopularProduct {...props} noHeadText />
-    </ScrollView>);
+    </ScrollView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> AppbarChat
 export let AppbarChat = (props) => {
     const { navigation, Title } = props;
-    return (<View style={stylesProfileTopic.AppbarChat}>
+    return <View style={stylesProfileTopic.AppbarChat}>
         <TouchableOpacity activeOpacity={1} onPress={() => navigation.goBack()}>
             <IconEntypo name='chevron-left' size={35} color={mainColor} style={stylesMain.ItemCenterVertical} />
         </TouchableOpacity>
@@ -149,21 +149,19 @@ export let AppbarChat = (props) => {
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { marginTop: 5 }]}>{Title ? Title : ''}</Text>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#ADADAD', marginTop: -2 }]}>ใช้งานล่าสุดเมือ 5นาที ที่แล้ว</Text>
         </View>
-    </View>);
+    </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> ChatScreen
 export let ChatScreen = (props) => {
     const { navigation } = props
-    return (
-        <ScrollView>
-            <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 6 }, navigation })}>
-                <Chat_Tag />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 6 }, navigation })}>
-                <Chat_Tag />
-            </TouchableOpacity>
-        </ScrollView>
-    );
+    return <ScrollView>
+        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 6 }, navigation })}>
+            <Chat_Tag />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 6 }, navigation })}>
+            <Chat_Tag />
+        </TouchableOpacity>
+    </ScrollView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Chat_Box
 // class Chat_Cutomer extends React.Component {
@@ -403,7 +401,7 @@ class Chat_Cutomer extends React.Component {
 }
 ///----------------------------------------------------------------------------------------------->>>> Chat_Box
 export let Chat_Tag = (props) => {
-    return (<View>
+    return <View>
         <View style={stylesProfileTopic.Chat_Tag}>
             <View style={stylesMain.FlexRow}>
                 <View style={stylesMain.ItemCenterVertical}>
@@ -422,19 +420,19 @@ export let Chat_Tag = (props) => {
                 <IconFontAwesome style={{ marginLeft: 10, }} name='trash-o' size={25} />
             </View>
         </View>
-    </View>);
+    </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> InterestedScreen
 export let InterestedScreen = (props) => {
     const { dataSevice, navigation } = props
-    return (<ScrollView>
+    return <ScrollView>
         <TodayProduct {...props} loadData={dataSevice} noTitle onShow='InterestedScreen' />
-    </ScrollView>);
+    </ScrollView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Follow_storeScreen
 export let Follow_storeScreen = (props) => {
     const { cokie, currentUser, dataSevice, navigation } = props
-    return (<ScrollView>
+    return <ScrollView>
         {dataSevice.store.map((value, index) => {
             return <Follow_store_Box {...props} cokie={cokie} currentUser={currentUser} dataSevice={value} key={index} />
         })}
@@ -442,7 +440,7 @@ export let Follow_storeScreen = (props) => {
         {dataSevice.unlike_store.map((value, index) => {
             return <Might_like_Store {...props} cokie={cokie} currentUser={currentUser} dataSevice={value} key={index} />
         })}
-    </ScrollView>);
+    </ScrollView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Follow_store_Box
 export let Follow_store_Box = (props) => {
@@ -464,7 +462,7 @@ export let Follow_store_Box = (props) => {
     useEffect(() => {
         activeGetServices && GetServices({ uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'product_interest', getDataSource: value => getData(value), });
     }, [activeGetServices]);
-    return (<>
+    return <>
         <View style={stylesProfileTopic.Follow_store_Box}>
             <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: dataSevice.id_store }, navigation })} style={{ flexDirection: 'row', }}>
                 <FastImage style={stylesProfileTopic.Follow_store_Box_image} source={{ uri: image_store, }} resizeMode={FastImage.resizeMode.contain} />
@@ -477,7 +475,7 @@ export let Follow_store_Box = (props) => {
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>{Button_Follow_Before ? 'กำลังติดตาม' : 'ติดตาม'}</Text>
             </TouchableOpacity>
         </View>
-    </>);
+    </>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Might_like_Store
 export let Might_like_Store = (props) => {
@@ -499,63 +497,61 @@ export let Might_like_Store = (props) => {
     useEffect(() => {
         activeGetServices && GetServices({ uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'product_interest', getDataSource: value => getData(value), });
     }, [activeGetServices]);
-    return (
-        <View>
-            <View style={stylesProfileTopic.Might_like_Store}>
-                <View style={stylesProfileTopic.Follow_store_Box}>
-                    <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: dataSevice.id_store }, navigation })} style={{ flexDirection: 'row', }}>
-                        <FastImage style={stylesProfileTopic.Follow_store_Box_image} source={{ uri: image_store, }} resizeMode={FastImage.resizeMode.contain} />
-                        <View style={stylesProfileTopic.Follow_store_Box_text}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>{dataSevice.store_name}</Text>
-                            {/* <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>81% คะแนนร้านค้า</Text> */}
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => getButton_Follow_After()}>
-                        <View style={stylesProfileTopic.Follow_store_Button}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>{Button_Follow_After ? 'ติดตาม' : 'กำลังติดตาม'}</Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-                <ScrollView horizontal>
-                    <View style={stylesProfileTopic.Might_like_Store_Box}>
-                        <View style={stylesProfileTopic.Might_like_Store_BoxP}>
-                            {dataSevice.product.map((value, index) => {
-                                const image_product = `${finip}/${value.image_path}/${value.image}`
-                                return (index < 4 && <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
-                                    <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage} source={{ uri: image_product, }}
-                                        resizeMode={FastImage.resizeMode.contain} />
-                                    <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { paddingHorizontal: 5 }]}>{value.name}</Text>
-                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: mainColor, borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, paddingHorizontal: 10, marginBottom: 5 }]}>{value.full_price}</Text>
-                                </View>)
-                            })}
-                            <TouchableOpacity style={stylesProfileTopic.Might_like_Store_BoxPro}>
-                                <View>
-                                    <View style={stylesProfileTopic.Might_like_Store_Total}>
-                                        <IconEntypo name='chevron-right' size={35} />
-                                    </View>
-                                    <Text style={stylesFont.FontFamilyBold}>ดูทั้งหมด</Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
+    return <View>
+        <View style={stylesProfileTopic.Might_like_Store}>
+            <View style={stylesProfileTopic.Follow_store_Box}>
+                <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: dataSevice.id_store }, navigation })} style={{ flexDirection: 'row', }}>
+                    <FastImage style={stylesProfileTopic.Follow_store_Box_image} source={{ uri: image_store, }} resizeMode={FastImage.resizeMode.contain} />
+                    <View style={stylesProfileTopic.Follow_store_Box_text}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>{dataSevice.store_name}</Text>
+                        {/* <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>81% คะแนนร้านค้า</Text> */}
                     </View>
-                </ScrollView>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'right', margin: 10, color: '#7E7979' }]}>{dataSevice.product_total} สินค้า</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => getButton_Follow_After()}>
+                    <View style={stylesProfileTopic.Follow_store_Button}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>{Button_Follow_After ? 'ติดตาม' : 'กำลังติดตาม'}</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
+            <ScrollView horizontal>
+                <View style={stylesProfileTopic.Might_like_Store_Box}>
+                    <View style={stylesProfileTopic.Might_like_Store_BoxP}>
+                        {dataSevice.product.map((value, index) => {
+                            const image_product = `${finip}/${value.image_path}/${value.image}`
+                            return (index < 4 && <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
+                                <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage} source={{ uri: image_product, }}
+                                    resizeMode={FastImage.resizeMode.contain} />
+                                <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { paddingHorizontal: 5 }]}>{value.name}</Text>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: mainColor, borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, paddingHorizontal: 10, marginBottom: 5 }]}>{value.full_price}</Text>
+                            </View>)
+                        })}
+                        <TouchableOpacity style={stylesProfileTopic.Might_like_Store_BoxPro}>
+                            <View>
+                                <View style={stylesProfileTopic.Might_like_Store_Total}>
+                                    <IconEntypo name='chevron-right' size={35} />
+                                </View>
+                                <Text style={stylesFont.FontFamilyBold}>ดูทั้งหมด</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </ScrollView>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'right', margin: 10, color: '#7E7979' }]}>{dataSevice.product_total} สินค้า</Text>
         </View>
-    );
+    </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Review_meScreen
 export let Review_meScreen = (props) => {
     const { dataSevice, navigation } = props
-    return (<ScrollView>
+    return <ScrollView>
         {dataSevice.map((value, index) => { return <Review_me {...props} dataSevice={value} key={index} /> })}
-    </ScrollView>);
+    </ScrollView>;
 }
 ///----------------------------------------------------------------------------------------------->>>> Review_me
 export let Review_me = (props) => {
     const { dataSevice, navigation } = props
     const image_product = `${finip}/${dataSevice.path_product}/${dataSevice.image_product}`;
-    return (<View>
+    return <View>
         <View style={stylesProfileTopic.Review_me}>
             <View style={stylesProfileTopic.Review_me_Box}>
                 <View>
@@ -584,22 +580,22 @@ export let Review_me = (props) => {
                 </View>
             </View>
         </View>
-    </View>);
+    </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Help_meScreen
 export let Help_meScreen = (props) => {
-    return (<View>
+    return <View>
         <ScrollView>
             <Help_me {...props} />
             <Question {...props} />
             <Topic_Help {...props} />
         </ScrollView>
-    </View>);
+    </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Help_me
 export let Help_me = (props) => {
     const [text, setText] = useState(undefined);
-    return (<View>
+    return <View>
         <ImageBackground source={require('../../../icon/bgprofile.jpg')} style={stylesProfileTopic.Help_me_ImageBackground}>
             <View style={stylesProfileTopic.Help_me_Box_text}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>สวัสดีค่ะ คุณ xxxxxxxxx</Text>
@@ -615,11 +611,11 @@ export let Help_me = (props) => {
                 </View>
             </View>
         </ImageBackground>
-    </View>);
+    </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Question
 export let Question = (props) => {
-    return (<View>
+    return <View>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { margin: 5 }]}>คำถามยอดฮิต</Text>
         <View style={stylesProfileTopic.Question_Box}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ฉันจะเริ่มซื้อของใน FinShoppingMallต้องทำอย่างไร</Text>
@@ -630,13 +626,13 @@ export let Question = (props) => {
         <View style={stylesProfileTopic.Question_Box}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ฉันตรวจสอบสินค้าได้อย่างไร</Text>
         </View>
-    </View>);
+    </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Topic_Help
 export let Topic_Help = (props) => {
     const { route } = props
     const HeadTitle_Help = route.params?.HeadTitle_Help
-    return (<View style={stylesMain.FrameBackground}>
+    return <View style={stylesMain.FrameBackground}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>หัวข้อ</Text>
         <View style={{ justifyContent: 'center', alignItems: 'center', paddingBottom: 10 }}>
             <TouchableOpacity style={stylesProfileTopic.Topic_Box} onPress={HeadTitle_Help ?
@@ -675,54 +671,52 @@ export let Topic_Help = (props) => {
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>หัวข้ออื่นๆ</Text>
             </TouchableOpacity>
         </View>
-    </View>);
+    </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>>Account_Help
 export let Account_Help = (props) => {
     const { route } = props;
     const HeadTitle_Help = route.params?.HeadTitle_Help;
     const [text, setText] = useState(undefined);
-    return (
-        <View>
-            <View style={stylesProfileTopic.Account_Help}>
-                <View style={stylesProfileTopic.Account_Help_TextInput}>
-                    <TextInput style={{ width: '90%' }} fontSize={15} placeholder="กรุณากรอกสิ่งที่ให้เราช่วยเหลือ" value={text} onChangeText={(value) => setText(value)} />
-                    <TouchableOpacity>
-                        <IconAntDesign RightItem name="search1" size={20} style={{ margin: 10 }} />
-                    </TouchableOpacity>
-                </View>
+    return <View>
+        <View style={stylesProfileTopic.Account_Help}>
+            <View style={stylesProfileTopic.Account_Help_TextInput}>
+                <TextInput style={{ width: '90%' }} fontSize={15} placeholder="กรุณากรอกสิ่งที่ให้เราช่วยเหลือ" value={text} onChangeText={(value) => setText(value)} />
+                <TouchableOpacity>
+                    <IconAntDesign RightItem name="search1" size={20} style={{ margin: 10 }} />
+                </TouchableOpacity>
             </View>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { margin: 10 }]}>{HeadTitle_Help}</Text>
-            <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help }, navigation })}>
-                <View style={stylesProfileTopic.Question_Box}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ทำไมฉันจึงไม่สามารถเปลี่ยนเบอร์โทรศัพท์ที่ลงทะเบียนไว้ได้?</Text>
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help }, navigation })}>
-                <View style={stylesProfileTopic.Question_Box}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ทำไมคำขอลบบัญชีของฉันจึงถูกปฏิเสธ?</Text>
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help }, navigation })}>
-                <View style={stylesProfileTopic.Question_Box}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ฉันสามารถเปลี่ยนบัญชีผู้ใช้และเปลี่ยนชื่อของร้านค้าได้อย่างไร</Text>
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help }, navigation })}>
-                <View style={stylesProfileTopic.Question_Box}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ทำไมฉันถึงลงชื่อเข้าใช้งานไม่ได้?</Text>
-                </View>
-            </TouchableOpacity>
-            <Topic_Help {...props} />
         </View>
-    );
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { margin: 10 }]}>{HeadTitle_Help}</Text>
+        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help }, navigation })}>
+            <View style={stylesProfileTopic.Question_Box}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ทำไมฉันจึงไม่สามารถเปลี่ยนเบอร์โทรศัพท์ที่ลงทะเบียนไว้ได้?</Text>
+            </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help }, navigation })}>
+            <View style={stylesProfileTopic.Question_Box}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ทำไมคำขอลบบัญชีของฉันจึงถูกปฏิเสธ?</Text>
+            </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help }, navigation })}>
+            <View style={stylesProfileTopic.Question_Box}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ฉันสามารถเปลี่ยนบัญชีผู้ใช้และเปลี่ยนชื่อของร้านค้าได้อย่างไร</Text>
+            </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help }, navigation })}>
+            <View style={stylesProfileTopic.Question_Box}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ทำไมฉันถึงลงชื่อเข้าใช้งานไม่ได้?</Text>
+            </View>
+        </TouchableOpacity>
+        <Topic_Help {...props} />
+    </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>>Topic_DetailHelp
 export let Topic_DetailHelp = (props) => {
     const { route } = props
     const HeadTitle_Help = route.params?.HeadTitle_Help
     const [text, setText] = useState(undefined);
-    return (<View style={stylesMain.SafeAreaView}>
+    return <View style={stylesMain.SafeAreaView}>
         <ScrollView>
             <View style={stylesProfileTopic.Account_Help}>
                 <View style={stylesProfileTopic.Account_Help_TextInput}>
@@ -779,7 +773,7 @@ export let Topic_DetailHelp = (props) => {
                 </TouchableOpacity>
             </View>
         </ScrollView>
-    </View>);
+    </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Review_From
 export class Review_From extends React.Component {

@@ -58,20 +58,19 @@ function Order_Detail(props) {
     useEffect(() => {
         activeSelectedIndex && currentUser && id_cartdetail && cokie && GetServices({ uriPointer: uri, Authorization: cokie, showConsole: 'mobile_tranport', dataBody, getDataSource: value => getData(value), });
     }, [activeSelectedIndex && currentUser && id_cartdetail && cokie]);
-    return (<SafeAreaView style={stylesMain.SafeAreaView}>
+    return <SafeAreaView style={stylesMain.SafeAreaView}>
         {activeSelectedIndex && <LoadingScreen key={'LoadingScreen'} />}
         <AppBar1 {...props} backArrow titleHead='รายละเอียด' />
         <ScrollView>
             {dataService && dataService.result && dataService.result.length > 0 ?
                 dataService.result.map((value, index) => {
-                    return (<View key={index}>
+                    return <View key={index}>
                         {!activeSelectedIndex && ([index == 0 && ([
                             <Detail dataService={dataService.transport_data[0]} key={'Detail'} />,
                             insert_date && <Order_Sending key={'Order_Sending'} onStart={insert_date} />
                         ]),
-                        <Order_Sending dataService={value} key={'Order_Sending'} no_invoice={no_invoice} onEnd={index == dataService.result.length - 1 ? true : false} />
-                        ])}
-                    </View>)
+                        <Order_Sending dataService={value} key={'Order_Sending'} no_invoice={no_invoice} onEnd={index == dataService.result.length - 1 ? true : false} />])}
+                    </View>
                 }) :
                 <>{!activeSelectedIndex && ([
                     dataService && dataService.transport_data && dataService.transport_data.length > 0 && <Detail
@@ -80,13 +79,13 @@ function Order_Detail(props) {
                 ])}</>}
         </ScrollView>
         <ExitAppModule {...props} />
-    </SafeAreaView>);
+    </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Detail
 export let Detail = (props) => {
     const { dataService } = props;
     const uri_image_tracking = `${finip}/${dataService.image_path}/${(dataService.image ? dataService.image : dataService.image_name)}`;
-    return (<>
+    return <>
         <View style={[stylesProfileTopic.Order_Detail, { borderColor: '#ECECEC', borderBottomWidth: 1, }]}>
             <View style={stylesProfileTopic.Order_Detail_ICON}>
                 <FastImage style={{ width: '100%', height: '100%' }} source={{ uri: uri_image_tracking, }} resizeMode={FastImage.resizeMode.contain} />
@@ -98,12 +97,12 @@ export let Detail = (props) => {
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 20, }]}>
                         123 ม.5 ต.อ่างทอง อ.เมือง จ.ราชบุรี 70000</Text>
                 </View> */}
-    </>);
+    </>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Order_Sending
 export let Order_Sending = (props) => {
     const { dataService, no_invoice, onEnd, onStart } = props
-    return (<>
+    return <>
         <View style={{ backgroundColor: '#FFFFFF', paddingTop: 8, paddingBottom: 8, }}>
             {/* <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10, }]}>ระหว่างการจัดส่ง</Text> */}
             <View style={{ flexDirection: 'row', marginLeft: 10, }}>
@@ -123,5 +122,5 @@ export let Order_Sending = (props) => {
         {onEnd && <View style={{ backgroundColor: '#FFFFFF', padding: 8, borderColor: '#ECECEC', borderTopWidth: 1, }}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>หมายเลขคำสั่งซื้อ : {no_invoice}</Text>
         </View>}
-    </>);
+    </>;
 };

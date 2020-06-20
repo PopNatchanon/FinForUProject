@@ -47,59 +47,59 @@ function Business(props) {
   let PathList = () => {
     switch (selectedIndex) {
       case 0: // หน้าเข้ามาครั้งแรก Affiliate มีปุ่มให้กดสมัครสมาชิก  
-        return (<>
+        return <>
           <AppBar1 {...props} backArrow titleHead='สมาชิกAffiliate' />
           <Register_Affiliate {...props} />
-        </>)
+        </>;
       case 1: // หน้าเมนูหลักของ Affiliate
-        return (<>
+        return <>
           <AppBar1 {...props} backArrow titleHead='สมาชิกAffiliate' />
           <Menu_Affiliate {...props} />
-        </>)
+        </>;
       case 2: //  หน้าโปรไฟล์ของ Affiliate มีเมนูด้านล่าง 
-        return (<>
+        return <>
           <AppBar1 {...props} backArrow titleHead='สมาชิกAffiliate' />
           <ScrollView>
             <Business_Profile {...props} />
           </ScrollView>
-        </>)
+        </>;
       case 3: //  เข้าจากโปรไฟล์ของ Affiliate รายการสินค้า 
-        return (<>
+        return <>
           <AppBar1 {...props} backArrow titleHead='สมาชิกAffiliate' />
           <ScrollView>
             <Income {...props} />
           </ScrollView>
-        </>)
+        </>;
       case 4: //  เข้าจากโปรไฟล์ของ Affiliate การเติบโต 
-        return (<>
+        return <>
           <AppBar1 {...props} backArrow titleHead='สมาชิกAffiliate' />
           <Growth />
-        </>)
+        </>;
       case 5: //  เข้าจากเมนูหลักของ Affiliate การเงิน 
-        return (<>
+        return <>
           <AppBar1 {...props} backArrow titleHead='การเงิน' />
           <Finance {...props} />
-        </>)
+        </>;
       case 6: // หน้าแบบFromการสมัครสมาชิก Affiliate
-        return (<>
+        return <>
           <AppBar1 {...props} backArrow titleHead='สมาชิกAffiliate' />
           <Register_Affiliate_From {...props} />
-        </>)
+        </>;
       case 7: // หน้าเพิ่มสำเนาบัตรประชาชน เข้าจาก หน้าแบบFromการสมัครสมาชิก Affiliate 
-        return (<>
+        return <>
           <AppBar1 {...props} backArrow titleHead='บัตรประชาชน' />
           <ID_card />
-        </>)
-    }
-  }
-  return (<SafeAreaView style={stylesMain.SafeAreaView}>
+        </>;
+    };
+  };
+  return <SafeAreaView style={stylesMain.SafeAreaView}>
     {PathList()}
-  </SafeAreaView>);
+  </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>>
 export let Register_Affiliate = (props) => {
   const { navigation } = props;
-  return (<View style={[stylesMain.ItemCenter, stylesMain.FrameBackground]}>
+  return <View style={[stylesMain.ItemCenter, stylesMain.FrameBackground]}>
     <View style={[stylesMain.ItemCenter, { width: '95%', marginVertical: 10 }]}>
       <View style={[stylesMain.ItemCenter, { backgroundColor: '#FFFFFF', borderColor: mainColor, borderWidth: 2, width: width * 0.40, borderRadius: 5, marginBottom: -10, elevation: 1, paddingVertical: 5 }]}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,]}>สมาชิกAffiliate</Text>
@@ -120,12 +120,12 @@ export let Register_Affiliate = (props) => {
         </TouchableOpacity>
       </View>
     </View>
-  </View>);
+  </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>>
 export let Menu_Affiliate = (props) => {
   const { navigation } = props;
-  return (<View style={[stylesMain.ItemCenter, stylesMain.FrameBackground]}>
+  return <View style={[stylesMain.ItemCenter, stylesMain.FrameBackground]}>
     <View style={[stylesMain.ItemCenter, { width: '98%', marginVertical: 10 }]}>
       <View style={[stylesMain.ItemCenter, { backgroundColor: '#FFFFFF', borderColor: mainColor, borderWidth: 2, width: width * 0.40, borderRadius: 5, marginBottom: -10, elevation: 1, paddingVertical: 5 }]}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { textAlign: 'center' }]}>สมาชิกAffiliate</Text>
@@ -169,12 +169,12 @@ export let Menu_Affiliate = (props) => {
         </View>
       </View>
     </View>
-  </View>);
+  </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>>
 export let Business_Profile = (props) => {
   const { navigation } = this.props;
-  return (<>
+  return <>
     <View style={[stylesMain.FrameBackground, { alignItems: 'center', }]}>
       <View style={{ height: 100, width: 100, backgroundColor: '#128BCE', borderRadius: 50, marginTop: 20, padding: 10, borderWidth: 2, borderColor: mainColor }} >
         <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: `${ip}/MySQL/uploads/addmin/unnamed.png`, }} resizeMode={FastImage.resizeMode.stretch} />
@@ -233,39 +233,32 @@ export let Business_Profile = (props) => {
         </View>
       </TouchableOpacity>
     </View>
-  </>);
+  </>;
 };
 ///----------------------------------------------------------------------------------------------->>>>
 export let Income = (props) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const items1 = [{ name: 'ยังไม่สำเร็จ' }, { name: 'สำเร็จแล้ว' },];
   let dataItem = (items1) => {
-    return (
-      <View style={[stylesMain.FlexRow, { width: '100%', justifyContent: 'center', backgroundColor: '#FFFFFF', height: 30 }]}>
-        <TabBar sendData={(value) => setSelectedIndex(value.selectedIndex)} item={items1} numberBox radiusBox={4} />
-      </View>
-    )
-  }
-  return (
-    <View>
-      <View style={{ backgroundColor: '#FFFFFF', padding: 10, marginTop: 10 }}>
-        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>รายการสินค้า</Text>
-      </View>
-      <View style={{ backgroundColor: '#FFFFFF', marginTop: 10 }}>
-        {dataItem(items1)}
-      </View>
-      <View style={{ backgroundColor: '#FFFFFF', marginTop: 10 }}>
-        <Product_income />
-        <Product_income />
-        <Product_income />
-        <Product_income />
-      </View>
+    return <View style={[stylesMain.FlexRow, { width: '100%', justifyContent: 'center', backgroundColor: '#FFFFFF', height: 30 }]}>
+      <TabBar sendData={(value) => setSelectedIndex(value.selectedIndex)} item={items1} numberBox radiusBox={4} />
+    </View>;
+  };
+  return <View>
+    <View style={{ backgroundColor: '#FFFFFF', padding: 10, marginTop: 10 }}>
+      <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>รายการสินค้า</Text>
     </View>
-  )
-}
-
-
-
+    <View style={{ backgroundColor: '#FFFFFF', marginTop: 10 }}>
+      {dataItem(items1)}
+    </View>
+    <View style={{ backgroundColor: '#FFFFFF', marginTop: 10 }}>
+      <Product_income />
+      <Product_income />
+      <Product_income />
+      <Product_income />
+    </View>
+  </View>;
+};
 ///----------------------------------------------------------------------------------------------->>>>
 export let Growth = (props) => {
   const arrayData1 = [50, 10, 40, 95, 4, 24, 50, 35, 53, 53, 24, 50,];
@@ -283,7 +276,7 @@ export let Growth = (props) => {
     },
     { data: data2.map((value) => ({ value })), },
   ]
-  return (<>
+  return <>
     <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', marginTop: 5, justifyContent: 'space-between', padding: 10 }]}>
       <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>กราฟ</Text>
       <View style={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, width: 100, flexDirection: 'row', }]}>
@@ -390,12 +383,12 @@ export let Growth = (props) => {
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#4DCD9A', marginLeft: 10 }]}>+0.01%</Text>
       </View>
     </View>
-  </>);
+  </>;
 };
 ///----------------------------------------------------------------------------------------------->>>>
 export let Finance = (props) => {
   const { navigation } = props;
-  return (<View>
+  return <View>
     <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 10 }}>
       <View style={[stylesMain.ItemCenter, { width: '49%', backgroundColor: '#FFFFFF', marginVertical: 10, padding: 10, borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5 }]}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>0 THB </Text>
@@ -418,7 +411,7 @@ export let Finance = (props) => {
         <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
       </View>
     </TouchableOpacity>
-  </View>);
+  </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>>
 export let Register_Affiliate_From = (props) => {
@@ -456,7 +449,7 @@ export let Register_Affiliate_From = (props) => {
     setShow(true);
     setMode(currentMode);
   };
-  return (<>
+  return <>
     <ScrollView>
       <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>เอกสารการสมัครสมาชิก</Text>
       <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
@@ -559,7 +552,7 @@ export let Register_Affiliate_From = (props) => {
     <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 1 }, navigation })} style={[stylesMain.ItemCenter, { backgroundColor: '#0A55A6', height: 50 }]}>
       <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ยืนยัน</Text>
     </TouchableOpacity>
-  </>);
+  </>;
 };
 ///----------------------------------------------------------------------------------------------->>>>
 export class ID_card extends React.Component {
@@ -668,14 +661,13 @@ export class ID_card extends React.Component {
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>บันทึก</Text>
         </TouchableOpacity>
       </>
-
     );
   }
 }
 
 ///----------------------------------------------------------------------------------------------->>>>
 export let Bank_book = (props) => {
-  return (<View>
+  return <View>
     <Text> Bank_book </Text>
-  </View>);
+  </View>;
 };

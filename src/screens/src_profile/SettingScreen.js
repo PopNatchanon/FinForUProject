@@ -31,7 +31,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(SettingScreen);
 function SettingScreen(props) {
-    return (<SafeAreaView style={stylesMain.SafeAreaView}>
+    return <SafeAreaView style={stylesMain.SafeAreaView}>
         <AppBar1 {...props} backArrow titleHead='ตั้งค่าบัญชี' />
         <ScrollView>
             <View>
@@ -39,7 +39,7 @@ function SettingScreen(props) {
             </View>
         </ScrollView>
         <ExitAppModule {...props} />
-    </SafeAreaView>);
+    </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Main
 export let ListMenu = (props) => {
@@ -54,8 +54,8 @@ export let ListMenu = (props) => {
             // clear error
         };
     };
-    let _renderHeader = (<IconMaterialIcons name='exit-to-app' size={50} color='white' />);
-    return (<>
+    let _renderHeader = <IconMaterialIcons name='exit-to-app' size={50} color='white' />;
+    return <>
         <View style={stylesProfile.ListMenuList}>
             <View style={stylesMain.FlexRow}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>บัญชีของฉัน</Text>
@@ -153,5 +153,5 @@ export let ListMenu = (props) => {
                     containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ใช่</SCLAlertButton>
             </View>
         </SCLAlert>
-    </>);
+    </>;
 };

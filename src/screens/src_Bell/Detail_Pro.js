@@ -51,14 +51,14 @@ function Detail_Pro(props) {
                 </View>;
         };
     };
-    return (<SafeAreaView style={stylesMain.SafeAreaView}>
+    return <SafeAreaView style={stylesMain.SafeAreaView}>
         {PathList()}
         <ExitAppModule {...props} />
-    </SafeAreaView>);
+    </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Detail_Promotion
 export let Detail_Promotion = (props) => {
-    return (<View>
+    return <View>
         <View style={{ width: '100%', height: 150, marginVertical: 10, alignItems: 'center', }}>
             <FastImage style={{ height: '100%', width: '95%', }} source={{ uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop1.jpg`, }} />
         </View>
@@ -72,11 +72,11 @@ export let Detail_Promotion = (props) => {
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>7.บริษัทฯ ขอสงวนสิทธิ์ในการพิจารณาเปลี่ยนยอดซื้อสินค้าแบบปกติเป็นแบ่งจ่ายรายเดือนตาม หลักเกณฑ์ของบริษัทฯ หากพบว่าประวัติของสมาชิกบัตร ไม่ตรงตามหลักเกณฑของบริษัทฯ</Text>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>8.บริษัทฯขอสงวนสิทธิ์ในการเปลี่ยนแปลง แก้ไข และยกเลิกรายการส่งเสริมการตลาด รวมถึง เงื่อนไขต่างๆโดยไม่ต้องแจ้งให้ทราบล่วงหน้า</Text>
         </View>
-    </View>);
+    </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Detail_Order
 export let Detail_Order = (props) => {
-    return (<View>
+    return <View>
         <View style={stylesMain.FrameBackground}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ยกเลิกแล้ว</Text>
             <Text style={[stylesFont.FontFamilyText, { marginLeft: 20, }]}>คำสั่งซื้อของคุณถูกยกเลิกแล้วเนื่องจากคุณไม่ชำระเงินตามเวลาที่กำหนด</Text>
@@ -96,15 +96,13 @@ export let Detail_Order = (props) => {
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: mainColor }]}>฿5,000.00</Text>
             </View>
         </View>
-    </View>);
+    </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Detail_Product
 export let Detail_Product = (props) => {
-    return (<View style={stylesMain.FrameBackground}>
-        <View style={[stylesMain.FlexRow, {
-            justifyContent: 'space-between', padding: 10, borderColor: '#ECECEC', borderWidth: 1,
-        }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}> PPooy </Text>
+    return <View style={stylesMain.FrameBackground}>
+        <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', padding: 10, borderColor: '#ECECEC', borderWidth: 1, }]}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>PPooy</Text>
         </View>
         <View style={{ borderColor: '#ECECEC', borderWidth: 1, padding: 10, marginTop: 5, flexDirection: 'row', justifyContent: 'space-between' }}>
             <View style={{ height: 100, width: 100, flexDirection: 'row' }}>
@@ -119,11 +117,11 @@ export let Detail_Product = (props) => {
         <View style={{ padding: 10, borderColor: '#ECECEC', borderWidth: 1, }}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>หมายเลขคำสั่งซื้อ 2223994239012 ของท่าน</Text>
         </View>
-    </View>);
+    </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Detail_Product_Check
 export let Detail_Product_Check = (props) => {
-    return (<View style={stylesMain.FrameBackground}>
+    return <View style={stylesMain.FrameBackground}>
         <View style={[stylesMain.FlexRow, { padding: 10, justifyContent: 'space-between', borderColor: '#ECECEC', borderWidth: 1 }]}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}> ยกเลิกโดย </Text>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>FIN</Text>
@@ -136,14 +134,14 @@ export let Detail_Product_Check = (props) => {
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>เหตุผลการยกเลิก</Text>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 20, }]}>ไม่มีการชำระเงิน</Text>
         </View>
-    </View>);
+    </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Detail_Button
 export let Detail_Button = (props) => {
     const { navigation } = props;
-    return (<TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Detail_Pro', setData: { selectedIndex: 2 }, navigation })}>
+    return <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Detail_Pro', setData: { selectedIndex: 2 }, navigation })}>
         <View style={{ width: '100%', backgroundColor: mainColor, height: 50, alignItems: 'center', justifyContent: 'center', marginTop: 10 }}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตรวจสอบรายละเอียด</Text>
         </View>
-    </TouchableOpacity>);
+    </TouchableOpacity>;
 };

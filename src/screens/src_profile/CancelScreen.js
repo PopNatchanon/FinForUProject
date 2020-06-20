@@ -51,23 +51,23 @@ function CancelScreen(props) {
     // const selectedIndex = 0
     switch (selectedIndex) {
       case 0:
-        return (<View>
+        return <View>
           <CancelScreen_Product {...props} currentUser={currentUser} cokie={cokie} setLoading={value => setIsLoading(value)} />
-        </View>)
+        </View>;
       case 1:
-        return (<View>
+        return <View>
           <CancelScreen_From />
-        </View>)
+        </View>;
     };
   };
-  return (<SafeAreaView style={stylesMain.SafeAreaView}>
+  return <SafeAreaView style={stylesMain.SafeAreaView}>
     {isLoading && <LoadingScreen />}
     <AppBar1 {...props} backArrow titleHead='ยกเลิกสินค้า' />
     <ScrollView>
       {PathList()}
     </ScrollView>
     <ExitAppModule {...props} />
-  </SafeAreaView>);
+  </SafeAreaView>;
 }
 ///----------------------------------------------------------------------------------------------->>>> CancelScreen_Product
 export let CancelScreen_Product = (props) => {
@@ -88,7 +88,7 @@ export let CancelScreen_Product = (props) => {
   useEffect(() => {
     activeSelectedIndex && currentUser && cokie && GetServices({ uriPointer: uri, Authorization: cokie, showConsole: 'view_purchase', dataBody, getDataSource: value => getData(value), });
   }, [activeSelectedIndex && currentUser && cokie]);
-  return (<>{!activeSelectedIndex && ([
+  return <>{!activeSelectedIndex && ([
     <Text key={'all'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, marginTop: 10, }]}>รายการคำสั่งซื้อ</Text>,
     dataService?.purchase?.length > 0 ?
       dataService.purchase.map((value, index) => { return <From_Order_Box {...props} dataService={value} key={index} /> }) :
@@ -96,20 +96,20 @@ export let CancelScreen_Product = (props) => {
         <IconFeather name='edit' size={50} color='#A2A2A2' />
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>ยังไม่มีคำสั่งซื้อ</Text>
       </View>
-  ])}</>);
+  ])}</>;
 };
 ///----------------------------------------------------------------------------------------------->>>> CancelScreen_From
 export let CancelScreen_From = (props) => {
-  return (<SafeAreaView>
+  return <SafeAreaView>
     <ScrollView>
       <Cancel_Product />
       <Cancel_Detail />
     </ScrollView>
-  </SafeAreaView>);
+  </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Cancel_Product
 export let Cancel_Product = (props) => {
-  return (<View>
+  return <View>
     <View style={stylesMain.FrameBackground}>
       <View style={stylesProfileTopic.Order_Product}>
         <View style={stylesMain.FlexRow}>
@@ -127,12 +127,12 @@ export let Cancel_Product = (props) => {
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: mainColor }]}>฿10,000.00</Text>
       </View>
     </View>
-  </View>);
+  </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Cancel_Detail
 export let Cancel_Detail = (props) => {
   const [language, setLanguage] = useState(undefined);
-  return (<View style={stylesMain.FrameBackground}>
+  return <View style={stylesMain.FrameBackground}>
     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, }]}>สาเหตุการยกเลิกสินค้า</Text>
     <View style={stylesProfileTopic.Cancel_Detail}>
       <View style={stylesProfileTopic.Cancel_Detail_Box}>
@@ -145,14 +145,14 @@ export let Cancel_Detail = (props) => {
       </View>
       <Cancel_Alert />
     </View>
-  </View>);
+  </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> 
 export let Cancel_Alert = (props) => {
   const [show, setShow] = useState(false);
   let handle = (value) => { setShow(value); };
-  let _renderHeader = (<IconFontAwesome name='close' size={50} color='white' />)
-  return (<View>
+  let _renderHeader = <IconFontAwesome name='close' size={50} color='white' />
+  return <View>
     <View style={stylesProfileTopic.Cancel_Detail_ButtonBox}>
       <TouchableOpacity>
         <View style={stylesProfileTopic.Cancel_Detail_Button}>
@@ -173,5 +173,5 @@ export let Cancel_Alert = (props) => {
         <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={() => handle(false)} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยืนยัน</SCLAlertButton>
       </View>
     </SCLAlert>
-  </View>);
+  </View>;
 };

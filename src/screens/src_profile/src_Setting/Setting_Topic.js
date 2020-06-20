@@ -79,10 +79,10 @@ function Setting_Topic(props) {
         return <Edit_Pass {...props} activeGetSource={activeGetSource} cokie={cokie} currentUser={currentUser} />;
     };
   };
-  return (<SafeAreaView style={[stylesMain.SafeAreaView]}>
+  return <SafeAreaView style={[stylesMain.SafeAreaView]}>
     {PathList()}
     <ExitAppModule {...props} />
-  </SafeAreaView>);
+  </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Edit_Profile
 export class Edit_Profile extends Component {
@@ -722,7 +722,7 @@ export let Address_Customar = (props) => {
     navigation.state.params.updateData(value);
     navigation.goBack();
   };
-  return (<TouchableOpacity key={index} onPress={type == 'select' ?
+  return <TouchableOpacity key={index} onPress={type == 'select' ?
     () => returnValue(dataService.id_address) :
     () => NavigationNavigateScreen({ goScreen: 'Customer_account', setData: { type: 'edit', type_special, id_address: dataService.id_address, updateData2: value => updateData2(value), }, navigation })}>
     <View style={stylesProfileTopic.Address_Customar}>
@@ -738,12 +738,12 @@ export let Address_Customar = (props) => {
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { paddingLeft: 8, width: '90%', }]}>{dataService.address}</Text>
       </View>
     </View>
-  </TouchableOpacity>);
+  </TouchableOpacity>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Edit_Chat
 export let Edit_Chat = (props) => {
   const [settingChat, setSettingChat] = useState({ publicChat: true });
-  return (<>
+  return <>
     <AppBar1 {...props} backArrow titleHead='ตั้งค่าการแชท' />
     <View style={stylesProfileTopic.BoxTopic}>
       <View style={{ margin: 10 }}>
@@ -752,12 +752,12 @@ export let Edit_Chat = (props) => {
       </View>
       <CheckBox size={25} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={settingChat.publicChat} onPress={() => setSettingChat({ ...settingChat, publicChat: !settingChat.publicChat })} />
     </View>
-  </>);
+  </>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Edit_Bell
 export let Edit_Bell = (props) => {
   const { navigation, } = props;
-  return (<SafeAreaView>
+  return <SafeAreaView>
     <AppBar1 {...props} backArrow titleHead='ตั้งค่าการแจ้งเตือน' />
     <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 5 }, navigation })}>
       <View style={stylesProfileTopic.BoxTopic}>
@@ -775,12 +775,12 @@ export let Edit_Bell = (props) => {
         <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
       </View>
     </TouchableOpacity>
-  </SafeAreaView>);
+  </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Language_Screen
 export let Language_Screen = (props) => {
   const [settingLanguage, setSettingLanguage] = useState('th');
-  return (<SafeAreaView>
+  return <SafeAreaView>
     <AppBar1 {...props} backArrow titleHead='ภาษา' />
     <View style={stylesProfileTopic.BoxTopic}>
       <View style={stylesMain.FlexRow}>
@@ -801,12 +801,12 @@ export let Language_Screen = (props) => {
         </View>
       </TouchableOpacity>
     </View>
-  </SafeAreaView>);
+  </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Edit_Setting_Bell
 export let Edit_Setting_Bell = (props) => {
   const [settingAlert, setSettingAlert] = useState({ alertOnMobile: true, chat: true, promotion: true, updateBuy: true, });
-  return (<SafeAreaView>
+  return <SafeAreaView>
     <AppBar1 {...props} backArrow titleHead='การแจ้งเตือน' />
     <View style={stylesProfileTopic.BoxTopic}>
       <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
@@ -832,12 +832,12 @@ export let Edit_Setting_Bell = (props) => {
       </View>
       <CheckBox size={25} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={settingAlert.promotion} onPress={() => setSettingAlert({ ...settingAlert, promotion: !settingAlert.promotion })} />
     </View>
-  </SafeAreaView>);
+  </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Edit_Setting_Email
 export let Edit_Setting_Email = (props) => {
   const [settingEmail, setSettingEmail] = useState({ alertEmail: true, mailNews: true, updateBuy: true, });
-  return (<SafeAreaView>
+  return <SafeAreaView>
     <AppBar1 {...props} backArrow titleHead='การแจ้งเตือนทางE-mail' />
     <View style={stylesProfileTopic.BoxTopic}>
       <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
@@ -857,5 +857,5 @@ export let Edit_Setting_Email = (props) => {
       </View>
       <CheckBox size={25} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={settingEmail.mailNews} onPress={() => setSettingEmail({ ...settingEmail, mailNews: !settingEmail.mailNews })} />
     </View>
-  </SafeAreaView>);
+  </SafeAreaView>;
 };

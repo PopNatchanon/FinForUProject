@@ -43,18 +43,17 @@ function Total_Order(props) {
         setActiveGetSource(false);
         setCokie(value.keycokie);
         setCurrentUser(value.currentUser);
-    }
+    };
     useEffect(() => {
         activeGetSource && GetData({ getCokie: true, getUser: true, getSource: value => getDataSource(value) });
     }, [activeGetSource]);
-    return (<SafeAreaView style={[stylesMain.SafeAreaView, { height: 'auto' }]}>
-        {isLoading &&
-            <LoadingScreen />}
+    return <SafeAreaView style={[stylesMain.SafeAreaView, { height: 'auto' }]}>
+        {isLoading && <LoadingScreen />}
         <AppBar1 {...props} backArrow titleHead='การสั่งซื้อของฉัน' />
         <Button_bar {...props} currentUser={currentUser} cokie={cokie} setLoading={value => setIsLoading(value)}
             setFSelectedIndex={selectedIndex * 1} />
         <ExitAppModule {...props} />
-    </SafeAreaView>);
+    </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Button_bar
 export let Button_bar = (props) => {
@@ -85,7 +84,7 @@ export let Button_bar = (props) => {
         switch (selectedIndex) {
             case 0:
                 activeSelectedIndex && currentUser && cokie && selectedIndex == 0 && GetServices({ uriPointer: uri, Authorization: cokie, showConsole: 'view_purchase', dataBody, getDataSource: value => getData(value), })
-                return (<>
+                return <>
                     {!activeSelectedIndex && selectedIndex == 0 && ([
                         <Text key={'all'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, marginTop: 10, }]}> รายการคำสั่งซื้อ</Text>,
                         dataService && dataService.purchase.length > 0 ?
@@ -95,10 +94,10 @@ export let Button_bar = (props) => {
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>ยังไม่มีคำสั่งซื้อ</Text>
                             </View>
                     ])}
-                </>);
+                </>;
             case 1:
                 activeSelectedIndex && currentUser && cokie && selectedIndex == 1 && GetServices({ uriPointer: uri, Authorization: cokie, showConsole: 'view_purchase', dataBody, getDataSource: value => getData(value), })
-                return (<>
+                return <>
                     {!activeSelectedIndex && selectedIndex == 1 && ([
                         <Text key={'wait'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, marginTop: 10, }]}>ที่ต้องชำระ</Text>,
                         dataService && dataService.purchase.length > 0 ?
@@ -108,10 +107,10 @@ export let Button_bar = (props) => {
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>ยังไม่มีคำสั่งซื้อ</Text>
                             </View>
                     ])}
-                </>);
+                </>;
             case 2:
                 activeSelectedIndex && currentUser && cokie && selectedIndex == 2 && GetServices({ uriPointer: uri, Authorization: cokie, showConsole: 'view_purchase', dataBody, getDataSource: value => getData(value), })
-                return (<>
+                return <>
                     {!activeSelectedIndex && selectedIndex == 2 && ([
                         <Text key={'paid'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, marginTop: 10, }]}>ที่ต้องได้รับ</Text>,
                         dataService && dataService.purchase.length > 0 ?
@@ -121,10 +120,10 @@ export let Button_bar = (props) => {
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>ยังไม่มีคำสั่งซื้อ</Text>
                             </View>
                     ])}
-                </>);
+                </>;
             case 3:
                 activeSelectedIndex && currentUser && cokie && selectedIndex == 3 && GetServices({ uriPointer: uri, Authorization: cokie, showConsole: 'view_purchase', dataBody, getDataSource: value => getData(value), })
-                return (<>
+                return <>
                     {!activeSelectedIndex && selectedIndex == 3 && ([
                         <Text key={'accepted'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, marginTop: 10, }]}>สำเร็จแล้ว</Text>,
                         dataService && dataService.purchase.length > 0 ?
@@ -134,10 +133,10 @@ export let Button_bar = (props) => {
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>ยังไม่มีคำสั่งซื้อ</Text>
                             </View>
                     ])}
-                </>);
+                </>;
             case 4:
                 activeSelectedIndex && currentUser && cokie && selectedIndex == 4 && GetServices({ uriPointer: uri, Authorization: cokie, showConsole: 'view_purchase', dataBody, getDataSource: value => getData(value), });
-                return (<>
+                return <>
                     {!activeSelectedIndex && selectedIndex == 4 && ([
                         <Text key={'cancel'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, marginTop: 10, }]}>ยกเลิกสินค้า</Text>,
                         dataService && dataService.purchase.length > 0 ?
@@ -147,10 +146,10 @@ export let Button_bar = (props) => {
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>ยังไม่มีคำสั่งซื้อ</Text>
                             </View>
                     ])}
-                </>);
+                </>;
         };
     };
-    return (<>
+    return <>
         <View style={stylesProfileTopic.Button_bar}>
             <ScrollView horizontal>
                 <TabBar sendData={value => updateIndex(value)} item={item} SetValue={selectedIndex >= 0 ? selectedIndex : setFSelectedIndex}
@@ -160,7 +159,7 @@ export let Button_bar = (props) => {
         <ScrollView>
             {PathList()}
         </ScrollView>
-    </>);
+    </>;
 };
 ///----------------------------------------------------------------------------------------------->>>> From_Order_Box
 export let From_Order_Box = (props) => {
@@ -168,7 +167,7 @@ export let From_Order_Box = (props) => {
     const uri_image_store = `${finip}/${dataService.store_path}/${dataService.store_image}`;
     const uri_image_product = `${finip}/${dataService.path_product}/${dataService.image_product}`;
     const setDataDetailOrder = { id_cartdetail: dataService.id_cartdetail, insert_date: dataService.insert_date, no_invoice: dataService.invoice_no };
-    return (<View>
+    return <View>
         <View style={stylesMain.FrameBackground}>
             <View style={[stylesProfileTopic.Order_BoxStore]}>
                 <View style={stylesMain.FlexRow}>
@@ -260,5 +259,5 @@ export let From_Order_Box = (props) => {
                 </View>
             </View>
         </View>
-    </View>);
+    </View>;
 };

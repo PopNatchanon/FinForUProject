@@ -46,11 +46,11 @@ function ProfileScreen(props) {
         setDataSevice(value);
     };
     let getSource = (value) => {
-        setActiveGetCurrentUser(false);
+        setActiveGetSource(false);
         setCokie(value.keycokie);
         setCurrentUser(value.currentUser);
     };
-    useEffect(() => { activeGetServices && activeGetSource == false && dataBody && currentUser?.id_customer && GetServices({ uriPointer: uri, dataBody, Authorization: cokie, getDataSource: value => getData(value) }); }, [activeGetServices && activeGetSource == false && dataBody && currentUser?.id_customer]);
+    useEffect(() => { activeGetServices && !activeGetSource && dataBody && currentUser?.id_customer && GetServices({ uriPointer: uri, dataBody, Authorization: cokie, getDataSource: value => getData(value) }); }, [activeGetServices && !activeGetSource && dataBody && currentUser?.id_customer]);
     useEffect(() => { activeGetSource && GetData({ getCokie: true, getUser: true, getSource: value => getSource(value) }); }, [activeGetSource]);
     return (<SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
         <ScrollView>
@@ -357,7 +357,7 @@ export let MyCode = (props) => {
         });
         setData(data);
     };
-    activeFollow == false && data.map((value) => { value.follow === undefined && followStore(value.id_store, false); });
+    !activeFollow && data.map((value) => { value.follow === undefined && followStore(value.id_store, false); });
     return (codeList == 'available' ?
         <View>
             {activeFollow &&

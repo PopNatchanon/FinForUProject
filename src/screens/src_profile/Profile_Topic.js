@@ -1,8 +1,10 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Dimensions, ImageBackground, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
+import { connect, useStore } from 'react-redux';
+import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import { CheckBox } from 'react-native-elements';
 export const { width, height } = Dimensions.get('window');
@@ -23,235 +25,144 @@ import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, TodayProduct } from '../MainScreen';
-import { GetData, GetServices, LoadingScreen, NavigationNavigateScreen } from '../../customComponents/Tools';
+import { GetData, GetServices, LoadingScreen, NavigationNavigateScreen, starReview } from '../../customComponents/Tools';
 import { PopularProduct } from '../StoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class Profile_Topic extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            text: '',
-            activeGetServices: true,
-            activeGetSource: true,
-        };
-    }
-    getSource = (value) => {
-        this.setState({ activeGetSource: false, currentUser: value.currentUser, cokie: value.keycokie })
-    }
-    getData = (dataSevice) => {
-        this.setState({ activeGetServices: false, dataSevice })
-    }
-    PathList() {
-        const { route } = this.props
-        const { activeGetServices, activeGetSource, currentUser, cokie, dataSevice } = this.state
-        const selectedIndex = route.params?.selectedIndex
-        const id_cartdetail = route.params?.id_cartdetail
-        const uri = `${finip}/${(
-            selectedIndex == 2 ?
-                'profile/product_interest' :
-                selectedIndex == 3 ?
-                    'profile/store_follow' :
-                    (selectedIndex == 4 || selectedIndex == 7) ?
-                        'profile/review_product' :
-                        '')}`
-        var dataBody = {
-            id_customer: currentUser && currentUser.id_customer,
-        }
+const mapStateToProps = (state) => ({
+    customerData: state.customerData,
+    getFetchData: state.singleFetchDataFromService,
+    activeFetchData: state.activeFetchData,
+});
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
+export default connect(mapStateToProps, mapDispatchToProps)(Profile_Topic);
+function Profile_Topic(props) {
+    const { route } = props;
+    const [activeGetServices, setActiveGetServices] = useState(true);
+    const [activeGetSource, setActiveGetSource] = useState(true);
+    const [cokie, setCokie] = useState(undefined);
+    const [currentUser, setCurrentUser] = useState(undefined);
+    const [dataSevice, setDataSevice] = useState(undefined);
+    let getSource = value => {
+        setActiveGetSource(false);
+        setCokie(value.currentUser);
+        setCurrentUser(value.keycokie);
+    };
+    let getData = value => {
+        setActiveGetServices(false);
+        setDataSevice(value);
+    };
+    useEffect(() => { activeGetSource && GetData({ getCokie: true, getUser: true, getSource: value => getSource(value), }); }, [activeGetSource]);
+    let PathList = () => {
+        const selectedIndex = route.params?.selectedIndex;
+        const id_cartdetail = route.params?.id_cartdetail;
+        const uri = `${finip}/${(selectedIndex == 2 ? 'profile/product_interest' : selectedIndex == 3 ? 'profile/store_follow' : (selectedIndex == 4 || selectedIndex == 7) ? 'profile/review_product' : '')}`;
+        var dataBody = { id_customer: currentUser?.id_customer, };
         var dataBody2 = {
-            id_customer: currentUser && currentUser.id_customer,
+            id_customer: currentUser?.id_customer,
             id_cartdetail: selectedIndex == 7 && id_cartdetail ? id_cartdetail : '',
-        }
+        };
         switch (selectedIndex) {
             case 0:
-                return (
-                    <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 {...this.props} backArrow titleHead='ดูล่าสุด' />
-                        <LatestScreen {...this.props} />
-                    </SafeAreaView>
-                )
+                return (<SafeAreaView style={stylesMain.SafeAreaView}>
+                    <AppBar1 {...props} backArrow titleHead='ดูล่าสุด' />
+                    <LatestScreen {...props} />
+                </SafeAreaView>);
             case 1:
-                return (
-                    <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 {...this.props} backArrow titleHead='แชท' />
-                        <ChatScreen {...this.props} />
-                    </SafeAreaView>)
+                return (<SafeAreaView style={stylesMain.SafeAreaView}>
+                    <AppBar1 {...props} backArrow titleHead='แชท' />
+                    <ChatScreen {...props} />
+                </SafeAreaView>);
             case 2:
-                activeGetSource == false && activeGetServices == true && currentUser && cokie && selectedIndex == 2 &&
-                    GetServices({
-                        uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'product_interest',
-                        getDataSource: this.getData.bind(this),
-                    })
-                return (
-                    <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 {...this.props} backArrow titleHead='สิ่งที่สนใจ' />
-                        {
-                            dataSevice &&
-                            <InterestedScreen {...this.props} dataSevice={dataSevice.product} />
-                        }
-                    </SafeAreaView>
-                )
+                !activeGetSource && activeGetServices && currentUser && cokie && selectedIndex == 2 && GetServices({ uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'product_interest', getDataSource: value => getData(value), });
+                return (<SafeAreaView style={stylesMain.SafeAreaView}>
+                    <AppBar1 {...props} backArrow titleHead='สิ่งที่สนใจ' />
+                    {dataSevice && <InterestedScreen {...props} dataSevice={dataSevice.product} />}
+                </SafeAreaView>)
             case 3:
-                activeGetSource == false && activeGetServices == true && currentUser && cokie && selectedIndex == 3 &&
-                    GetServices({
-                        uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'store_follow',
-                        getDataSource: this.getData.bind(this),
-                    })
-                return (
-                    <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 {...this.props} backArrow titleHead='ร้านที่ติดตาม' />
-                        {
-                            dataSevice &&
-                            <Follow_storeScreen {...this.props} cokie={cokie} currentUser={currentUser} dataSevice={dataSevice} />
-                        }
-                    </SafeAreaView>
-                )
+                !activeGetSource && activeGetServices && currentUser && cokie && selectedIndex == 3 && GetServices({ uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'store_follow', getDataSource: value => getData(value), });
+                return (<SafeAreaView style={stylesMain.SafeAreaView}>
+                    <AppBar1 {...props} backArrow titleHead='ร้านที่ติดตาม' />
+                    {dataSevice && <Follow_storeScreen {...props} cokie={cokie} currentUser={currentUser} dataSevice={dataSevice} />}
+                </SafeAreaView>);
             case 4:
-                activeGetSource == false && activeGetServices == true && currentUser && cokie && selectedIndex == 4 &&
-                    GetServices({
-                        uriPointer: uri, dataBody: dataBody2, Authorization: cokie, showConsole: '4|review_product',
-                        getDataSource: this.getData.bind(this),
-                    })
-                return (
-                    <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 {...this.props} backArrow titleHead='รีวิวของฉัน' />
-                        {
-                            dataSevice &&
-                            <Review_meScreen {...this.props} dataSevice={dataSevice.my_review} />
-                        }
-                    </SafeAreaView>
-                )
+                !activeGetSource && activeGetServices && currentUser && cokie && selectedIndex == 4 && GetServices({ uriPointer: uri, dataBody: dataBody2, Authorization: cokie, showConsole: '4|review_product', getDataSource: value => getData(value), });
+                return (<SafeAreaView style={stylesMain.SafeAreaView}>
+                    <AppBar1 {...props} backArrow titleHead='รีวิวของฉัน' />
+                    {dataSevice && <Review_meScreen {...props} dataSevice={dataSevice.my_review} />}
+                </SafeAreaView>);
             case 5:
-                return (
-                    <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 {...this.props} backArrow titleHead='Fin Helpcenter' />
-                        <Help_meScreen {...this.props} />
-                    </SafeAreaView>
-                )
+                return (<SafeAreaView style={stylesMain.SafeAreaView}>
+                    <AppBar1 {...props} backArrow titleHead='Fin Helpcenter' />
+                    <Help_meScreen {...props} />
+                </SafeAreaView>);
             case 6:
-                return (
-                    <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppbarChat {...this.props} Title='Supreme Store' />
-                        <Chat_Cutomer />
-                    </SafeAreaView>
-                )
+                return (<SafeAreaView style={stylesMain.SafeAreaView}>
+                    <AppbarChat {...props} Title='Supreme Store' />
+                    <Chat_Cutomer />
+                </SafeAreaView>);
             case 7:
-                activeGetSource == false && activeGetServices == true && currentUser && cokie && selectedIndex == 7 &&
-                    GetServices({
-                        uriPointer: uri, dataBody: dataBody2, Authorization: cokie, showConsole: '7|review_product',
-                        getDataSource: this.getData.bind(this),
-                    })
-                return (
-                    <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 {...this.props} backArrow titleHead='รีวิวของฉัน' />
-                        <ScrollView>
-                            {
-                                dataSevice &&
-                                <Review_From {...this.props} cokie={cokie} currentUser={currentUser} dataSevice={dataSevice.my_review[0]} />
-                            }
-                        </ScrollView>
-                    </SafeAreaView>
-                )
+                !activeGetSource && activeGetServices && currentUser && cokie && selectedIndex == 7 && GetServices({ uriPointer: uri, dataBody: dataBody2, Authorization: cokie, showConsole: '7|review_product', getDataSource: value => getData(value), });
+                return (<SafeAreaView style={stylesMain.SafeAreaView}>
+                    <AppBar1 {...props} backArrow titleHead='รีวิวของฉัน' />
+                    <ScrollView>
+                        {dataSevice && <Review_From {...props} cokie={cokie} currentUser={currentUser} dataSevice={dataSevice.my_review[0]} />}
+                    </ScrollView>
+                </SafeAreaView>);
             case 8:
-                return (
-                    <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 {...this.props} backArrow titleHead='Fin Helpcenter' />
-                        <ScrollView>
-                            <Account_Help {...this.props} />
-                        </ScrollView>
-                    </SafeAreaView>
-                )
+                return (<SafeAreaView style={stylesMain.SafeAreaView}>
+                    <AppBar1 {...props} backArrow titleHead='Fin Helpcenter' />
+                    <ScrollView>
+                        <Account_Help {...props} />
+                    </ScrollView>
+                </SafeAreaView>);
             case 9:
-                return (
-                    <SafeAreaView style={stylesMain.SafeAreaView}>
-                        <AppBar1 {...this.props} backArrow titleHead='Fin Helpcenter' />
-                        <Topic_DetailHelp {...this.props} />
-                    </SafeAreaView>
-                )
-        }
-    }
-    render() {
-        const { navigation } = this.props
-        const { activeGetServices, activeGetSource, } = this.state
-        activeGetSource == true &&
-            GetData({ getCokie: true, getUser: true, getSource: this.getSource.bind(this), })
-        return (
-            <>
-                {
-                    (activeGetSource == true || activeGetServices == true) &&
-                    <LoadingScreen key='LoadingScreen' />
-                }
-                {this.PathList()}
-                <ExitAppModule {...this.props} />
-            </>
-        );
-    }
-}
+                return (<SafeAreaView style={stylesMain.SafeAreaView}>
+                    <AppBar1 {...props} backArrow titleHead='Fin Helpcenter' />
+                    <Topic_DetailHelp {...props} />
+                </SafeAreaView>);
+        };
+    };
+    return (<>
+        {(activeGetSource || activeGetServices) && <LoadingScreen key='LoadingScreen' />}
+        {PathList()}
+        <ExitAppModule {...props} />
+    </>);
+};
 ///----------------------------------------------------------------------------------------------->>>> LatestScreen
-export class LatestScreen extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    render() {
-        const { navigation } = this.props
-        return (
-            <ScrollView>
-                <PopularProduct {...this.props} noHeadText />
-            </ScrollView>
-        );
-    }
-}
-
+export let LatestScreen = (props) => {
+    return (<ScrollView>
+        <PopularProduct {...props} noHeadText />
+    </ScrollView>);
+};
 ///----------------------------------------------------------------------------------------------->>>> AppbarChat
-export class AppbarChat extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    render() {
-        const { navigation, Title } = this.props
-        return (
-            <View style={stylesProfileTopic.AppbarChat}>
-                <TouchableOpacity activeOpacity={1} onPress={() => navigation.goBack()}>
-                    <IconEntypo name='chevron-left' size={35} color={mainColor} style={stylesMain.ItemCenterVertical} />
-                </TouchableOpacity>
-                <View>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { marginTop: 5 }]}>{Title ? Title : ''}</Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#ADADAD', marginTop: -2 }]}>ใช้งานล่าสุดเมือ 5นาที ที่แล้ว</Text>
-                </View>
-            </View>
-        );
-    }
-}
+export let AppbarChat = (props) => {
+    const { navigation, Title } = props;
+    return (<View style={stylesProfileTopic.AppbarChat}>
+        <TouchableOpacity activeOpacity={1} onPress={() => navigation.goBack()}>
+            <IconEntypo name='chevron-left' size={35} color={mainColor} style={stylesMain.ItemCenterVertical} />
+        </TouchableOpacity>
+        <View>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { marginTop: 5 }]}>{Title ? Title : ''}</Text>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#ADADAD', marginTop: -2 }]}>ใช้งานล่าสุดเมือ 5นาที ที่แล้ว</Text>
+        </View>
+    </View>);
+};
 ///----------------------------------------------------------------------------------------------->>>> ChatScreen
-export class ChatScreen extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    render() {
-        const { navigation } = this.props
-        return (
-            <ScrollView>
-                <TouchableOpacity onPress={() => NavigationNavigateScreen({
-                    goScreen: 'Profile_Topic', setData: { selectedIndex: 6 }, navigation
-                })}>
-                    <Chat_Tag />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => NavigationNavigateScreen({
-                    goScreen: 'Profile_Topic', setData: { selectedIndex: 6 }, navigation
-                })}>
-                    <Chat_Tag />
-                </TouchableOpacity>
-            </ScrollView>
-        );
-    }
-}
+export let ChatScreen = (props) => {
+    const { navigation } = props
+    return (
+        <ScrollView>
+            <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 6 }, navigation })}>
+                <Chat_Tag />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 6 }, navigation })}>
+                <Chat_Tag />
+            </TouchableOpacity>
+        </ScrollView>
+    );
+};
 ///----------------------------------------------------------------------------------------------->>>> Chat_Box
 // class Chat_Cutomer extends React.Component {
 //     state = {
@@ -444,9 +355,7 @@ class Chat_Cutomer extends React.Component {
     }
     renderMessageImage = props => {
         return (
-            <FastImage
-                {...props}
-            />
+            <FastImage {...props} />
         )
     }
     render() {
@@ -491,644 +400,381 @@ class Chat_Cutomer extends React.Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> Chat_Box
-export class Chat_Tag extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    render() {
-        return (
-            <View>
-                <View style={stylesProfileTopic.Chat_Tag}>
-                    <View style={stylesMain.FlexRow}>
-                        <View style={stylesMain.ItemCenterVertical}>
-                            <FastImage style={stylesProfileTopic.Chat_Tag_image}
-                                source={{
-                                    uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop1.jpg`,
-                                }}
-                            />
-                            <View style={stylesProfileTopic.Chat_Tag_online}>
-                                <View style={stylesProfileTopic.Chat_Tag_online_point}></View>
-                            </View>
-                        </View>
-                        <View style={stylesProfileTopic.Chat_Tag_text}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ppooooo</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>สินค้าได้ถูกขายแล้วค่ะ</Text>
-                        </View>
-                    </View>
-                    <View style={stylesProfileTopic.Chat_Tag_icon}>
-                        <IconFontAwesome5 name='bell' size={25} />
-                        <IconFontAwesome style={{ marginLeft: 10, }} name='trash-o' size={25} />
+export let Chat_Tag = (props) => {
+    return (<View>
+        <View style={stylesProfileTopic.Chat_Tag}>
+            <View style={stylesMain.FlexRow}>
+                <View style={stylesMain.ItemCenterVertical}>
+                    <FastImage style={stylesProfileTopic.Chat_Tag_image} source={{ uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop1.jpg`, }} />
+                    <View style={stylesProfileTopic.Chat_Tag_online}>
+                        <View style={stylesProfileTopic.Chat_Tag_online_point}></View>
                     </View>
                 </View>
+                <View style={stylesProfileTopic.Chat_Tag_text}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ppooooo</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>สินค้าได้ถูกขายแล้วค่ะ</Text>
+                </View>
             </View>
-        );
-    }
-}
+            <View style={stylesProfileTopic.Chat_Tag_icon}>
+                <IconFontAwesome5 name='bell' size={25} />
+                <IconFontAwesome style={{ marginLeft: 10, }} name='trash-o' size={25} />
+            </View>
+        </View>
+    </View>);
+};
 ///----------------------------------------------------------------------------------------------->>>> InterestedScreen
-export class InterestedScreen extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    render() {
-        const { dataSevice, navigation } = this.props
-        return (
-            <ScrollView>
-                <TodayProduct {...this.props} loadData={dataSevice} noTitle onShow='InterestedScreen' />
-            </ScrollView>
-        );
-    }
-}
+export let InterestedScreen = (props) => {
+    const { dataSevice, navigation } = props
+    return (<ScrollView>
+        <TodayProduct {...props} loadData={dataSevice} noTitle onShow='InterestedScreen' />
+    </ScrollView>);
+};
 ///----------------------------------------------------------------------------------------------->>>> Follow_storeScreen
-export class Follow_storeScreen extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    render() {
-        const { cokie, currentUser, dataSevice, navigation } = this.props
-        return (
-            <ScrollView>
-                {
-                    dataSevice.store.map((value, index) => {
-                        return <Follow_store_Box {...this.props} cokie={cokie} currentUser={currentUser} dataSevice={value} key={index} />
-                    })
-                }
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 10, marginLeft: 10, }]}>ร้านค้าที่คุณอาจชอบ</Text>
-                {
-                    dataSevice.unlike_store.map((value, index) => {
-                        return <Might_like_Store {...this.props} cokie={cokie} currentUser={currentUser} dataSevice={value} key={index} />
-                    })
-                }
-            </ScrollView>
-        );
-    }
-}
+export let Follow_storeScreen = (props) => {
+    const { cokie, currentUser, dataSevice, navigation } = props
+    return (<ScrollView>
+        {dataSevice.store.map((value, index) => {
+            return <Follow_store_Box {...props} cokie={cokie} currentUser={currentUser} dataSevice={value} key={index} />
+        })}
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 10, marginLeft: 10, }]}>ร้านค้าที่คุณอาจชอบ</Text>
+        {dataSevice.unlike_store.map((value, index) => {
+            return <Might_like_Store {...props} cokie={cokie} currentUser={currentUser} dataSevice={value} key={index} />
+        })}
+    </ScrollView>);
+};
 ///----------------------------------------------------------------------------------------------->>>> Follow_store_Box
-export class Follow_store_Box extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            Button_Follow_Before: true,
-        };
-    }
-    getData = (value) => {
-        this.setState({ activeGetServices: false })
-    }
-    render() {
-        const { cokie, currentUser, dataSevice, navigation } = this.props
-        const { activeGetServices, Button_Follow_Before } = this.state
-        const image_store = `${finip}/${dataSevice.store_path}/${dataSevice.image_store}`
-        const uri = `${finip}/brand/follow_data`
-        var dataBody = {
-            id_customer: currentUser && currentUser.id_customer,
-            id_store: dataSevice.id_store,
-            follow: "active",
-        }
-        activeGetServices == true &&
-            GetServices({
-                uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'product_interest',
-                getDataSource: this.getData.bind(this),
-            })
-        return (
-            <>
+export let Follow_store_Box = (props) => {
+    const { cokie, currentUser, dataSevice, navigation } = props;
+    const [activeGetServices, setActiveGetServices] = useState(true);
+    const [Button_Follow_Before, setButton_Follow_Before] = useState(true);
+    const image_store = `${finip}/${dataSevice.store_path}/${dataSevice.image_store}`;
+    var dataBody = {
+        id_customer: currentUser?.id_customer,
+        id_store: dataSevice.id_store,
+        follow: "active",
+    };
+    var uri = `${finip}/brand/follow_data`;
+    let getButton_Follow_Before = (value) => {
+        setActiveGetServices(true);
+        setButton_Follow_Before(!Button_Follow_Before);
+    };
+    let getData = (value) => { setActiveGetServices(false); };
+    useEffect(() => { activeGetServices && GetServices({ uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'product_interest', getDataSource: value => getData(value), }); }, [activeGetServices]);
+    return (<>
+        <View style={stylesProfileTopic.Follow_store_Box}>
+            <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: dataSevice.id_store }, navigation })} style={{ flexDirection: 'row', }}>
+                <FastImage style={stylesProfileTopic.Follow_store_Box_image} source={{ uri: image_store, }} resizeMode={FastImage.resizeMode.contain} />
+                <View style={stylesProfileTopic.Follow_store_Box_text}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>{dataSevice.store_name}</Text>
+                    {/* <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>@asusthailand</Text> */}
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={stylesProfileTopic.Follow_store_Button} onPress={() => getButton_Follow_Before()}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>{Button_Follow_Before ? 'กำลังติดตาม' : 'ติดตาม'}</Text>
+            </TouchableOpacity>
+        </View>
+    </>);
+};
+///----------------------------------------------------------------------------------------------->>>> Might_like_Store
+export let Might_like_Store = (props) => {
+    const { cokie, currentUser, dataSevice, navigation } = props;
+    const [activeGetServices, setActiveGetServices] = useState(true);
+    const [Button_Follow_After, setButton_Follow_After] = useState(true);
+    const image_store = `${finip}/${dataSevice.store_path}/${dataSevice.image_store}`;
+    var dataBody = {
+        id_customer: currentUser?.id_customer,
+        id_store: dataSevice.id_store,
+        follow: "active",
+    };
+    var uri = `${finip}/brand/follow_data`;
+    let getButton_Follow_After = (value) => {
+        setActiveGetServices(true);
+        setButton_Follow_After(!Button_Follow_After);
+    };
+    let getData = (value) => { setActiveGetServices(false); };
+    useEffect(() => { activeGetServices && GetServices({ uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'product_interest', getDataSource: value => getData(value), }); }, [activeGetServices]);
+    return (
+        <View>
+            <View style={stylesProfileTopic.Might_like_Store}>
                 <View style={stylesProfileTopic.Follow_store_Box}>
-                    <TouchableOpacity onPress={() => NavigationNavigateScreen({
-                        goScreen: 'StoreScreen', setData: { id_item: dataSevice.id_store }, navigation
-                    })}
-                        style={{ flexDirection: 'row', }}>
-                        <FastImage style={stylesProfileTopic.Follow_store_Box_image}
-                            source={{
-                                uri: image_store,
-                            }}
-                            resizeMode={FastImage.resizeMode.contain}
-                        />
+                    <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: dataSevice.id_store }, navigation })} style={{ flexDirection: 'row', }}>
+                        <FastImage style={stylesProfileTopic.Follow_store_Box_image} source={{ uri: image_store, }} resizeMode={FastImage.resizeMode.contain} />
                         <View style={stylesProfileTopic.Follow_store_Box_text}>
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>{dataSevice.store_name}</Text>
-                            {/* <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>@asusthailand</Text> */}
+                            {/* <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>81% คะแนนร้านค้า</Text> */}
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity style={stylesProfileTopic.Follow_store_Button}
-                        onPress={() => this.setState({ Button_Follow_Before: !Button_Follow_Before, activeGetServices: true })}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>
-                            {Button_Follow_Before == true ? 'กำลังติดตาม' : 'ติดตาม'}</Text>
+                    <TouchableOpacity onPress={() => getButton_Follow_After()}>
+                        <View style={stylesProfileTopic.Follow_store_Button}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>{Button_Follow_After ? 'ติดตาม' : 'กำลังติดตาม'}</Text>
+                        </View>
                     </TouchableOpacity>
                 </View>
-            </>
-        );
-    }
-}
-///----------------------------------------------------------------------------------------------->>>> Might_like_Store
-export class Might_like_Store extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            activeGetServices: false,
-            Button_Follow_After: true,
-        };
-    }
-    getData = (value) => {
-        this.setState({ activeGetServices: false })
-    }
-    render() {
-        const { cokie, currentUser, dataSevice, navigation } = this.props
-        const { activeGetServices, Button_Follow_After } = this.state
-        const image_store = `${finip}/${dataSevice.store_path}/${dataSevice.image_store}`
-        const uri = `${finip}/brand/follow_data`
-        var dataBody = {
-            id_customer: currentUser && currentUser.id_customer,
-            id_store: dataSevice.id_store,
-            follow: "active",
-        }
-        activeGetServices == true &&
-            GetServices({
-                uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'product_interest',
-                getDataSource: this.getData.bind(this),
-            })
-        return (
-            <View>
-                <View style={stylesProfileTopic.Might_like_Store}>
-                    <View style={stylesProfileTopic.Follow_store_Box}>
-                        <TouchableOpacity onPress={() => NavigationNavigateScreen({
-                            goScreen: 'StoreScreen', setData: { id_item: dataSevice.id_store }, navigation
-                        })}
-                            style={{ flexDirection: 'row', }}>
-                            <FastImage style={stylesProfileTopic.Follow_store_Box_image}
-                                source={{
-                                    uri: image_store,
-                                }}
-                                resizeMode={FastImage.resizeMode.contain}
-                            />
-                            <View style={stylesProfileTopic.Follow_store_Box_text}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>{dataSevice.store_name}</Text>
-                                {/* <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>81% คะแนนร้านค้า</Text> */}
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => this.setState({ Button_Follow_After: !Button_Follow_After, activeGetServices: true })}>
-                            <View style={stylesProfileTopic.Follow_store_Button}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>
-                                    {Button_Follow_After == true ? 'ติดตาม' : 'กำลังติดตาม'}</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                    <ScrollView horizontal>
-                        <View style={stylesProfileTopic.Might_like_Store_Box}>
-                            <View style={stylesProfileTopic.Might_like_Store_BoxP}>
-                                {
-                                    dataSevice.product.map((value, index) => {
-                                        const image_product = `${finip}/${value.image_path}/${value.image}`
-                                        return (index < 4 &&
-                                            <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
-                                                <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage}
-                                                    source={{
-                                                        uri: image_product,
-                                                    }}
-                                                    resizeMode={FastImage.resizeMode.contain}
-                                                />
-                                                <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize8, {
-                                                    paddingHorizontal: 5
-                                                }]}>
-                                                    {value.name}</Text>
-                                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, {
-                                                    color: mainColor, borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5,
-                                                    paddingHorizontal: 10, marginBottom: 5
-                                                }]}>{value.full_price}</Text>
-                                            </View>
-                                        )
-                                    })
-                                }
-                                <TouchableOpacity style={stylesProfileTopic.Might_like_Store_BoxPro}>
-                                    <View>
-                                        <View style={stylesProfileTopic.Might_like_Store_Total}>
-                                            <IconEntypo name='chevron-right' size={35} />
-                                        </View>
-                                        <Text style={stylesFont.FontFamilyBold}>ดูทั้งหมด</Text>
+                <ScrollView horizontal>
+                    <View style={stylesProfileTopic.Might_like_Store_Box}>
+                        <View style={stylesProfileTopic.Might_like_Store_BoxP}>
+                            {dataSevice.product.map((value, index) => {
+                                const image_product = `${finip}/${value.image_path}/${value.image}`
+                                return (index < 4 && <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
+                                    <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage} source={{ uri: image_product, }}
+                                        resizeMode={FastImage.resizeMode.contain} />
+                                    <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { paddingHorizontal: 5 }]}>{value.name}</Text>
+                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: mainColor, borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, paddingHorizontal: 10, marginBottom: 5 }]}>{value.full_price}</Text>
+                                </View>)
+                            })}
+                            <TouchableOpacity style={stylesProfileTopic.Might_like_Store_BoxPro}>
+                                <View>
+                                    <View style={stylesProfileTopic.Might_like_Store_Total}>
+                                        <IconEntypo name='chevron-right' size={35} />
                                     </View>
-                                </TouchableOpacity>
-                            </View>
+                                    <Text style={stylesFont.FontFamilyBold}>ดูทั้งหมด</Text>
+                                </View>
+                            </TouchableOpacity>
                         </View>
-                    </ScrollView>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'right', margin: 10, color: '#7E7979' }]}>
-                        {dataSevice.product_total} สินค้า</Text>
-                </View>
+                    </View>
+                </ScrollView>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'right', margin: 10, color: '#7E7979' }]}>{dataSevice.product_total} สินค้า</Text>
             </View>
-        );
-    }
-}
+        </View>
+    );
+};
 ///----------------------------------------------------------------------------------------------->>>> Review_meScreen
-export class Review_meScreen extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    render() {
-        const { dataSevice, navigation } = this.props
-        return (
-            <ScrollView>
-                {
-                    dataSevice.map((value, index) => {
-                        return <Review_me {...this.props} dataSevice={value} key={index} />
-                    })
-                }
-            </ScrollView>
-        );
-    }
+export let Review_meScreen = (props) => {
+    const { dataSevice, navigation } = props
+    return (<ScrollView>
+        {dataSevice.map((value, index) => { return <Review_me {...props} dataSevice={value} key={index} /> })}
+    </ScrollView>);
 }
 ///----------------------------------------------------------------------------------------------->>>> Review_me
-export class Review_me extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    starReview(star, starSize) {
-        let starBox = []
-        for (var n = 0; n < 5; n++) {
-            if (star > n) {
-                starBox.push(
-                    <IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={
-                        starSize ?
-                            starSize :
-                            20
-                    } color='#FFAC33' />
-                )
-            } else {
-                starBox.push(
-                    <IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={
-                        starSize ?
-                            starSize :
-                            20
-                    } color='#E9E9E9' />
-                )
-            }
-        }
-        return starBox
-    }
-    render() {
-        const { dataSevice, navigation } = this.props
-        const image_product = `${finip}/${dataSevice.path_product}/${dataSevice.image_product}`;
-        return (
-            <View>
-                <View style={stylesProfileTopic.Review_me}>
-                    <View style={stylesProfileTopic.Review_me_Box}>
-                        <View>
-                            {/* <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>Mlife</Text> */}
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#8F8F8F' }]}>
-                                สั่งซื้อวันที่ 12 ธ.ค.2019 </Text>
-                        </View>
-                        <View style={{ flexDirection: 'row', width: 120, justifyContent: 'space-between' }}>
-                            {this.starReview(dataSevice.rating, 20)}
-                        </View>
-                        <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
-                            goScreen: 'Profile_Topic', setData: { selectedIndex: 7, id_cartdetail: dataSevice.id_cartdetail }, navigation
-                        })}>
-                            <View style={stylesProfileTopic.Review_me_Box_head}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>
-                                    {dataSevice.id_reviews ? 'Edit' : 'รีวิว'}</Text>
-                            </View>
-                        </TouchableOpacity>
+export let Review_me = (props) => {
+    const { dataSevice, navigation } = props
+    const image_product = `${finip}/${dataSevice.path_product}/${dataSevice.image_product}`;
+    return (<View>
+        <View style={stylesProfileTopic.Review_me}>
+            <View style={stylesProfileTopic.Review_me_Box}>
+                <View>
+                    {/* <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>Mlife</Text> */}
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#8F8F8F' }]}>สั่งซื้อวันที่ 12 ธ.ค.2019 </Text>
+                </View>
+                <View style={{ flexDirection: 'row', width: 120, justifyContent: 'space-between' }}>
+                    {starReview(dataSevice.rating, 20)}
+                </View>
+                <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 7, id_cartdetail: dataSevice.id_cartdetail }, navigation })}>
+                    <View style={stylesProfileTopic.Review_me_Box_head}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>{dataSevice.id_reviews ? 'Edit' : 'รีวิว'}</Text>
                     </View>
-                    <View style={stylesProfileTopic.Review_me_Box_image}>
-                        <View style={stylesProfileTopic.Review_me_Box_imageA}>
-                            <View style={{ flexDirection: 'row', }}>
-                                <FastImage style={stylesProfileTopic.Review_me_image}
-                                    source={{
-                                        uri: image_product,
-                                    }}
-                                    resizeMode={FastImage.resizeMode.contain}
-                                />
-                                <View style={{ marginLeft: 10, }}>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{dataSevice.product_name}</Text>
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{dataSevice.detail}</Text>
-                                </View>
-                            </View>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>จัดส่งสินค้าแล้ว</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={stylesProfileTopic.Review_me_Box_image}>
+                <View style={stylesProfileTopic.Review_me_Box_imageA}>
+                    <View style={{ flexDirection: 'row', }}>
+                        <FastImage style={stylesProfileTopic.Review_me_image} source={{ uri: image_product, }} resizeMode={FastImage.resizeMode.contain} />
+                        <View style={{ marginLeft: 10, }}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{dataSevice.product_name}</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{dataSevice.detail}</Text>
                         </View>
                     </View>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>จัดส่งสินค้าแล้ว</Text>
                 </View>
             </View>
-        );
-    }
-}
+        </View>
+    </View>);
+};
 ///----------------------------------------------------------------------------------------------->>>> Help_meScreen
-export class Help_meScreen extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    render() {
-        const { navigation } = this.props
-        return (
-            <View>
-                <ScrollView>
-                    <Help_me {...this.props} />
-                    <Question {...this.props} />
-                    <Topic_Help {...this.props} />
-                </ScrollView>
-            </View>
-        );
-    }
-}
+export let Help_meScreen = (props) => {
+    return (<View>
+        <ScrollView>
+            <Help_me {...props} />
+            <Question {...props} />
+            <Topic_Help {...props} />
+        </ScrollView>
+    </View>);
+};
 ///----------------------------------------------------------------------------------------------->>>> Help_me
-export class Help_me extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            text: ''
-        };
-    }
-    render() {
-        return (
-            <View>
-                <ImageBackground
-                    source={require('../../../icon/bgprofile.jpg')}
-                    style={stylesProfileTopic.Help_me_ImageBackground}>
-                    <View style={stylesProfileTopic.Help_me_Box_text}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>สวัสดีค่ะ คุณ xxxxxxxxx </Text>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>
-                            คุณต้องการความช่วยเหลือด้านใดคะ?</Text>
-                        <View>
-                            <View style={{ flexDirection: 'row', width: '85%', paddingLeft: 10, backgroundColor: '#FFFFFF', borderRadius: 5 }}>
-                                <TextInput style={{ width: '90%' }}
-                                    fontSize={15}
-                                    placeholder="กรุณากรอกสิ่งที่ให้เราช่วยเหลือ"
-                                    value={this.state.text}
-                                    // maxLength={20}
-                                    onChangeText={(text) => this.setState({ text })}>
-                                </TextInput>
-                                <TouchableOpacity>
-                                    <IconAntDesign RightItem name="search1" size={20} style={{ margin: 10 }} />
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </View>
-                </ImageBackground>
-            </View>
-        );
-    }
-}
-///----------------------------------------------------------------------------------------------->>>> Question
-export class Question extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    render() {
-        return (
-            <View>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { margin: 5 }]}>คำถามยอดฮิต </Text>
-                <View style={stylesProfileTopic.Question_Box}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ฉันจะเริ่มซื้อของใน FinShoppingMallต้องทำอย่างไร</Text>
-                </View>
-                <View style={stylesProfileTopic.Question_Box}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ช่องทางการเงินมีกี่ประเภท</Text>
-                </View>
-                <View style={stylesProfileTopic.Question_Box}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ฉันตรวจสอบสินค้าได้อย่างไร</Text>
-                </View>
-            </View>
-        );
-    }
-}
-///----------------------------------------------------------------------------------------------->>>> Topic_Help
-export class Topic_Help extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    render() {
-        const { route } = this.props
-        const HeadTitle_Help = route.params?.HeadTitle_Help
-        return (
-            <View style={stylesMain.FrameBackground}>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}> หัวข้อ </Text>
-                <View style={{ justifyContent: 'center', alignItems: 'center', paddingBottom: 10 }}>
-                    <TouchableOpacity style={stylesProfileTopic.Topic_Box} onPress={
-                        HeadTitle_Help ?
-                            HeadTitle_Help == 'บัญชีของฉัน' ?
-                                null :
-                                () => NavigationNavigateScreen({
-                                    goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'บัญชีของฉัน' }, navigation,
-                                    noPush: true
-                                }) :
-                            () => NavigationNavigateScreen({
-                                goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'บัญชีของฉัน' }, navigation,
-                            })
-                    }>
-                        <IconAntDesign RightItem name="user" size={30} style={stylesProfileTopic.Topic_Box_icon} />
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>บัญชีของฉัน</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={stylesProfileTopic.Topic_Box} onPress={() =>
-                        HeadTitle_Help ?
-                            HeadTitle_Help == 'การคืนสินค้า' ?
-                                null :
-                                () => NavigationNavigateScreen({
-                                    goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การคืนสินค้า' }, navigation,
-                                    noPush: true
-                                }) :
-                            () => NavigationNavigateScreen({
-                                goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การคืนสินค้า' }, navigation,
-                            })
-                    }>
-                        <IconAntDesign RightItem name="retweet" size={30} style={stylesProfileTopic.Topic_Box_icon} />
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>การคืนสินค้า</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={stylesProfileTopic.Topic_Box} onPress={() =>
-                        HeadTitle_Help ?
-                            HeadTitle_Help == 'การชำระเงิน' ?
-                                null :
-                                () => NavigationNavigateScreen({
-                                    goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การชำระเงิน' }, navigation,
-                                    noPush: true
-                                }) :
-                            () => NavigationNavigateScreen({
-                                goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การชำระเงิน' }, navigation,
-                            })
-                    }>
-                        <IconEntypo RightItem name="credit-card" size={30} style={stylesProfileTopic.Topic_Box_icon} />
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>การชำระเงิน</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={stylesProfileTopic.Topic_Box} onPress={() =>
-                        HeadTitle_Help ?
-                            HeadTitle_Help == 'การสั่งซื้อ' ?
-                                null :
-                                () => NavigationNavigateScreen({
-                                    goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การสั่งซื้อ' }, navigation,
-                                    noPush: true
-                                }) :
-                            () => NavigationNavigateScreen({
-                                goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การสั่งซื้อ' }, navigation,
-                            })
-                    }>
-                        <IconAntDesign RightItem name="shoppingcart" size={30} style={stylesProfileTopic.Topic_Box_icon} />
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>การสั่งซื้อ</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={stylesProfileTopic.Topic_Box} onPress={() =>
-                        HeadTitle_Help ?
-                            HeadTitle_Help == 'หัวข้ออื่นๆ' ?
-                                null :
-                                () => NavigationNavigateScreen({
-                                    goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'หัวข้ออื่นๆ' }, navigation,
-                                    noPush: true
-                                }) :
-                            () => NavigationNavigateScreen({
-                                goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'หัวข้ออื่นๆ' }, navigation,
-                            })
-                    }>
-                        <IconAntDesign RightItem name="ellipsis1" size={30} style={stylesProfileTopic.Topic_Box_icon} />
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>หัวข้ออื่นๆ</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-        );
-    }
-}
-///----------------------------------------------------------------------------------------------->>>>Account_Help
-export class Account_Help extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    render() {
-        const { route } = this.props
-        const HeadTitle_Help = route.params?.HeadTitle_Help
-        return (
-            <View>
-                <View style={stylesProfileTopic.Account_Help}>
-                    <View style={stylesProfileTopic.Account_Help_TextInput}>
-                        <TextInput style={{ width: '90%' }}
-                            fontSize={15}
-                            placeholder="กรุณากรอกสิ่งที่ให้เราช่วยเหลือ"
-                            value={this.state.text}
-                            // maxLength={20}
-                            onChangeText={(text) => this.setState({ text })}>
+export let Help_me = (props) => {
+    const [text, setText] = useState(undefined);
+    return (<View>
+        <ImageBackground source={require('../../../icon/bgprofile.jpg')} style={stylesProfileTopic.Help_me_ImageBackground}>
+            <View style={stylesProfileTopic.Help_me_Box_text}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>สวัสดีค่ะ คุณ xxxxxxxxx</Text>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>คุณต้องการความช่วยเหลือด้านใดคะ?</Text>
+                <View>
+                    <View style={{ flexDirection: 'row', width: '85%', paddingLeft: 10, backgroundColor: '#FFFFFF', borderRadius: 5 }}>
+                        <TextInput style={{ width: '90%' }} fontSize={15} placeholder="กรุณากรอกสิ่งที่ให้เราช่วยเหลือ" value={text} onChangeText={(value) => setText(value)}>
                         </TextInput>
                         <TouchableOpacity>
                             <IconAntDesign RightItem name="search1" size={20} style={{ margin: 10 }} />
                         </TouchableOpacity>
                     </View>
                 </View>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { margin: 10 }]}> {HeadTitle_Help} </Text>
-                <TouchableOpacity onPress={() => NavigationNavigateScreen({
-                    goScreen: 'Profile_Topic', setData: { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help }, navigation
-                })}>
-                    <View style={stylesProfileTopic.Question_Box}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ทำไมฉันจึงไม่สามารถเปลี่ยนเบอร์โทรศัพท์ที่ลงทะเบียนไว้ได้?</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => NavigationNavigateScreen({
-                    goScreen: 'Profile_Topic', setData: { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help }, navigation
-                })}>
-                    <View style={stylesProfileTopic.Question_Box}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ทำไมคำขอลบบัญชีของฉันจึงถูกปฏิเสธ?</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => NavigationNavigateScreen({
-                    goScreen: 'Profile_Topic', setData: { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help }, navigation
-                })}>
-                    <View style={stylesProfileTopic.Question_Box}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ฉันสามารถเปลี่ยนบัญชีผู้ใช้และเปลี่ยนชื่อของร้านค้าได้อย่างไร</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => NavigationNavigateScreen({
-                    goScreen: 'Profile_Topic', setData: { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help }, navigation
-                })}>
-                    <View style={stylesProfileTopic.Question_Box}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ทำไมฉันถึงลงชื่อเข้าใช้งานไม่ได้?</Text>
-                    </View>
-                </TouchableOpacity>
-                <Topic_Help {...this.props} />
             </View>
-        );
-    }
-}
+        </ImageBackground>
+    </View>);
+};
+///----------------------------------------------------------------------------------------------->>>> Question
+export let Question = (props) => {
+    return (<View>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { margin: 5 }]}>คำถามยอดฮิต</Text>
+        <View style={stylesProfileTopic.Question_Box}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ฉันจะเริ่มซื้อของใน FinShoppingMallต้องทำอย่างไร</Text>
+        </View>
+        <View style={stylesProfileTopic.Question_Box}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ช่องทางการเงินมีกี่ประเภท</Text>
+        </View>
+        <View style={stylesProfileTopic.Question_Box}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ฉันตรวจสอบสินค้าได้อย่างไร</Text>
+        </View>
+    </View>);
+};
+///----------------------------------------------------------------------------------------------->>>> Topic_Help
+export let Topic_Help = (props) => {
+    const { route } = props
+    const HeadTitle_Help = route.params?.HeadTitle_Help
+    return (<View style={stylesMain.FrameBackground}>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>หัวข้อ</Text>
+        <View style={{ justifyContent: 'center', alignItems: 'center', paddingBottom: 10 }}>
+            <TouchableOpacity style={stylesProfileTopic.Topic_Box} onPress={HeadTitle_Help ?
+                HeadTitle_Help == 'บัญชีของฉัน' ?
+                    null : () => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'บัญชีของฉัน' }, navigation, noPush: true }) :
+                () => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'บัญชีของฉัน' }, navigation, })}>
+                <IconAntDesign RightItem name="user" size={30} style={stylesProfileTopic.Topic_Box_icon} />
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>บัญชีของฉัน</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={stylesProfileTopic.Topic_Box} onPress={HeadTitle_Help ?
+                HeadTitle_Help == 'การคืนสินค้า' ?
+                    null : () => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การคืนสินค้า' }, navigation, noPush: true }) :
+                () => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การคืนสินค้า' }, navigation, })}>
+                <IconAntDesign RightItem name="retweet" size={30} style={stylesProfileTopic.Topic_Box_icon} />
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>การคืนสินค้า</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={stylesProfileTopic.Topic_Box} onPress={HeadTitle_Help ?
+                HeadTitle_Help == 'การชำระเงิน' ?
+                    null : () => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การชำระเงิน' }, navigation, noPush: true }) :
+                () => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การชำระเงิน' }, navigation, })}>
+                <IconEntypo RightItem name="credit-card" size={30} style={stylesProfileTopic.Topic_Box_icon} />
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>การชำระเงิน</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={stylesProfileTopic.Topic_Box} onPress={HeadTitle_Help ?
+                HeadTitle_Help == 'การสั่งซื้อ' ?
+                    null : () => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การสั่งซื้อ' }, navigation, noPush: true }) :
+                () => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การสั่งซื้อ' }, navigation, })}>
+                <IconAntDesign RightItem name="shoppingcart" size={30} style={stylesProfileTopic.Topic_Box_icon} />
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>การสั่งซื้อ</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={stylesProfileTopic.Topic_Box} onPress={HeadTitle_Help ?
+                HeadTitle_Help == 'หัวข้ออื่นๆ' ?
+                    null : () => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'หัวข้ออื่นๆ' }, navigation, noPush: true }) :
+                () => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'หัวข้ออื่นๆ' }, navigation, })}>
+                <IconAntDesign RightItem name="ellipsis1" size={30} style={stylesProfileTopic.Topic_Box_icon} />
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>หัวข้ออื่นๆ</Text>
+            </TouchableOpacity>
+        </View>
+    </View>);
+};
+///----------------------------------------------------------------------------------------------->>>>Account_Help
+export let Account_Help = (props) => {
+    const { route } = props;
+    const HeadTitle_Help = route.params?.HeadTitle_Help;
+    const [text, setText] = useState(undefined);
+    return (
+        <View>
+            <View style={stylesProfileTopic.Account_Help}>
+                <View style={stylesProfileTopic.Account_Help_TextInput}>
+                    <TextInput style={{ width: '90%' }} fontSize={15} placeholder="กรุณากรอกสิ่งที่ให้เราช่วยเหลือ" value={text} onChangeText={(value) => setText(value)} />
+                    <TouchableOpacity>
+                        <IconAntDesign RightItem name="search1" size={20} style={{ margin: 10 }} />
+                    </TouchableOpacity>
+                </View>
+            </View>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { margin: 10 }]}>{HeadTitle_Help}</Text>
+            <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help }, navigation })}>
+                <View style={stylesProfileTopic.Question_Box}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ทำไมฉันจึงไม่สามารถเปลี่ยนเบอร์โทรศัพท์ที่ลงทะเบียนไว้ได้?</Text>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help }, navigation })}>
+                <View style={stylesProfileTopic.Question_Box}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ทำไมคำขอลบบัญชีของฉันจึงถูกปฏิเสธ?</Text>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help }, navigation })}>
+                <View style={stylesProfileTopic.Question_Box}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ฉันสามารถเปลี่ยนบัญชีผู้ใช้และเปลี่ยนชื่อของร้านค้าได้อย่างไร</Text>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help }, navigation })}>
+                <View style={stylesProfileTopic.Question_Box}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ทำไมฉันถึงลงชื่อเข้าใช้งานไม่ได้?</Text>
+                </View>
+            </TouchableOpacity>
+            <Topic_Help {...props} />
+        </View>
+    );
+};
 ///----------------------------------------------------------------------------------------------->>>>Topic_DetailHelp
-export class Topic_DetailHelp extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    render() {
-        const { route } = this.props
-        const HeadTitle_Help = route.params?.HeadTitle_Help
-        return (
-            <View style={stylesMain.SafeAreaView}>
-                <ScrollView>
-                    <View style={stylesProfileTopic.Account_Help}>
-                        <View style={stylesProfileTopic.Account_Help_TextInput}>
-                            <TextInput style={{ width: '90%' }}
-                                fontSize={15}
-                                placeholder="กรุณากรอกสิ่งที่ให้เราช่วยเหลือ"
-                                value={this.state.text}
-                                // maxLength={20}
-                                onChangeText={(text) => this.setState({ text })}>
-                            </TextInput>
-                            <TouchableOpacity>
-                                <IconAntDesign RightItem name="search1" size={20} style={{ margin: 10 }} />
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { margin: 10 }]}> {HeadTitle_Help} </Text>
-                    <View style={stylesProfileTopic.Topic_DetailHelp_BoxText}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                            ในกรณีที่คุณไม่สามารถเปลี่ยนเบอร์โทรศัพท์ได้ อาจเป็นเพราะเข้าข่ายเหตุผลดังต่อไปนี้:
-                            เลขบัตรเครดิต หรือ เลขบัญชีธนาคารที่ลงทะเบียนไว้ ไม่ถูกต้อง
-                            ใส่รหัสผ่าน  ไม่ถูกต้อง
-                            ใส่วันที่หมดอายุของบัตรเครดิต ไม่ถูกต้อง
-                            ใส่เลขบัญชีธนาคาร ไม่ถูกต้อง</Text>
-                        <View style={{ height: 80, width: '100%', backgroundColor: '#ECECEC', alignItems: 'center', justifyContent: 'center', borderWidth: 1, marginVertical: 10 }}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize1]}>ภาพประกอบ</Text>
-                        </View>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                            หากคุณไม่สามารถเปลี่ยนเบอร์โทรศัพท์เองได้ กรุณาลองใหม่อีกครั้งในอีก 24 ชม. หรือ
-                            กรอกแบบฟอร์มยื่นเรื่องเปลี่ยนเบอร์โทรศัพท์ ผ่านลิ้งก์ คลิกที่นี่
-                            ในกรณีที่คุณไม่สะดวก สามารถติดต่อ Call center  เพื่อทำการเปลี่ยนเบอร์โทรศัพท์
-                            โดยให้ข้อมูลดังต่อไปนี้เมื่อคุณติดต่อ กรุณาให้ข้อมูลดังต่อไปนี้เมื่อคุณติดต่อ : Username
-                            เบอร์โทรศัพท์ปัจจุบัน เบอร์โทรศัพท์ใหม่ที่ต้องการเปลี่ยน อีเมลล์ สำเนาบัตรประชาชน
-                            หมายเหตุ:
-                            ชื่อตามสำเนาบัตรประชาชนต้องตรงกับชื่อผู้ใช้งานในแอพพลิเคชั่น พรัอมทั้งเซ็นต์ลายเซ็นกำกับ และระบุข้อความ ดังนี้
-                            - รับรองสำเนาถูกต้อง
-                            - เพื่อเปลี่ยนเบอร์โทรศัพท์ของ Username: xxxxxxx เป็นเบอร์ 08x-xxxxxxx
-                            เพื่อความปลอดภัยของบัญชีผู้ใช้ มีกระบวนการตรวจสอบสำหรับการยืนยันตัวตนเมื่อมีคำร้องขอเปลี่ยนเบอร์โทรศัพท์ที่ลงทะเบียนไว้
-                    </Text>
-                    </View>
-                    <View style={[stylesMain.FrameBackground]}>
-                        <View style={stylesProfileTopic.Topic_DetailHelp_Tag}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>บทความที่เกี่ยวข้อง</Text>
-                        </View>
-                        <View style={stylesProfileTopic.Topic_DetailHelp_Tag}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>การลงทะเบียนและเข้าใช้งาน</Text>
-                        </View>
-                        <View style={stylesProfileTopic.Topic_DetailHelp_Tag}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>จัดการบัญชี</Text>
-                        </View>
-                        <View style={stylesProfileTopic.Topic_DetailHelp_Tag}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>ชวนเพื่อน</Text>
-                        </View>
-                    </View>
-                    <View style={{ alignItems: 'center' }}>
-                        <TouchableOpacity>
-                            <View style={stylesProfileTopic.Topic_DetailHelp_ButtonChat}>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>แชทกับ FIN</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                </ScrollView>
+export let Topic_DetailHelp = (props) => {
+    const { route } = props
+    const HeadTitle_Help = route.params?.HeadTitle_Help
+    const [text, setText] = useState(undefined);
+    return (<View style={stylesMain.SafeAreaView}>
+        <ScrollView>
+            <View style={stylesProfileTopic.Account_Help}>
+                <View style={stylesProfileTopic.Account_Help_TextInput}>
+                    <TextInput style={{ width: '90%' }} fontSize={15} placeholder="กรุณากรอกสิ่งที่ให้เราช่วยเหลือ" value={text} onChangeText={(value) => setText(value)}>
+                    </TextInput>
+                    <TouchableOpacity>
+                        <IconAntDesign RightItem name="search1" size={20} style={{ margin: 10 }} />
+                    </TouchableOpacity>
+                </View>
             </View>
-        );
-    }
-}
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { margin: 10 }]}>{HeadTitle_Help}</Text>
+            <View style={stylesProfileTopic.Topic_DetailHelp_BoxText}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                    ในกรณีที่คุณไม่สามารถเปลี่ยนเบอร์โทรศัพท์ได้ อาจเป็นเพราะเข้าข่ายเหตุผลดังต่อไปนี้:
+                    เลขบัตรเครดิต หรือ เลขบัญชีธนาคารที่ลงทะเบียนไว้ ไม่ถูกต้อง
+                    ใส่รหัสผ่าน  ไม่ถูกต้อง
+                    ใส่วันที่หมดอายุของบัตรเครดิต ไม่ถูกต้อง
+                            ใส่เลขบัญชีธนาคาร ไม่ถูกต้อง</Text>
+                <View style={{ height: 80, width: '100%', backgroundColor: '#ECECEC', alignItems: 'center', justifyContent: 'center', borderWidth: 1, marginVertical: 10 }}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize1]}>ภาพประกอบ</Text>
+                </View>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                    หากคุณไม่สามารถเปลี่ยนเบอร์โทรศัพท์เองได้ กรุณาลองใหม่อีกครั้งในอีก 24 ชม. หรือ
+                    กรอกแบบฟอร์มยื่นเรื่องเปลี่ยนเบอร์โทรศัพท์ ผ่านลิ้งก์ คลิกที่นี่
+                    ในกรณีที่คุณไม่สะดวก สามารถติดต่อ Call center  เพื่อทำการเปลี่ยนเบอร์โทรศัพท์
+                    โดยให้ข้อมูลดังต่อไปนี้เมื่อคุณติดต่อ กรุณาให้ข้อมูลดังต่อไปนี้เมื่อคุณติดต่อ : Username
+                    เบอร์โทรศัพท์ปัจจุบัน เบอร์โทรศัพท์ใหม่ที่ต้องการเปลี่ยน อีเมลล์ สำเนาบัตรประชาชน
+                    หมายเหตุ:
+                    ชื่อตามสำเนาบัตรประชาชนต้องตรงกับชื่อผู้ใช้งานในแอพพลิเคชั่น พรัอมทั้งเซ็นต์ลายเซ็นกำกับ และระบุข้อความ ดังนี้
+                    - รับรองสำเนาถูกต้อง
+                    - เพื่อเปลี่ยนเบอร์โทรศัพท์ของ Username: xxxxxxx เป็นเบอร์ 08x-xxxxxxx
+                    เพื่อความปลอดภัยของบัญชีผู้ใช้ มีกระบวนการตรวจสอบสำหรับการยืนยันตัวตนเมื่อมีคำร้องขอเปลี่ยนเบอร์โทรศัพท์ที่ลงทะเบียนไว้
+                    </Text>
+            </View>
+            <View style={[stylesMain.FrameBackground]}>
+                <View style={stylesProfileTopic.Topic_DetailHelp_Tag}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>บทความที่เกี่ยวข้อง</Text>
+                </View>
+                <View style={stylesProfileTopic.Topic_DetailHelp_Tag}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>การลงทะเบียนและเข้าใช้งาน</Text>
+                </View>
+                <View style={stylesProfileTopic.Topic_DetailHelp_Tag}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>จัดการบัญชี</Text>
+                </View>
+                <View style={stylesProfileTopic.Topic_DetailHelp_Tag}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>ชวนเพื่อน</Text>
+                </View>
+            </View>
+            <View style={{ alignItems: 'center' }}>
+                <TouchableOpacity>
+                    <View style={stylesProfileTopic.Topic_DetailHelp_ButtonChat}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>แชทกับ FIN</Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
+        </ScrollView>
+    </View>);
+};
 ///----------------------------------------------------------------------------------------------->>>> Review_From
 export class Review_From extends React.Component {
     constructor(props) {
@@ -1144,25 +790,6 @@ export class Review_From extends React.Component {
     }
     selectStar = (starmain) => {
         this.setState({ starmain })
-    }
-    starReview(star) {
-        let starBox = []
-        for (var n = 0; n < 5; n++) {
-            if (star > n) {
-                starBox.push(
-                    <TouchableOpacity activeOpacity={1} key={n} onPress={() => this.selectStar(n + 1)}>
-                        <IconFontAwesome name='star' size={40} color='#FFAC33' />
-                    </TouchableOpacity>
-                )
-            } else {
-                starBox.push(
-                    <TouchableOpacity key={n} activeOpacity={1} onPress={() => this.selectStar(n + 1)}>
-                        <IconFontAwesome name='star' size={40} color='#E9E9E9' />
-                    </TouchableOpacity>
-                )
-            }
-        }
-        return starBox
     }
     UploadImageSingle = (index) => {
         const { avatarSource } = this.state
@@ -1206,8 +833,8 @@ export class Review_From extends React.Component {
             id_cartdetail,
             comment: Review
         }
-        activeAuto == true && this.setStatus()
-        activeGetServices == true &&
+        activeAuto && this.setStatus()
+        activeGetServices &&
             GetServices({
                 uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'product_interest',
                 getDataSource: this.getData.bind(this),
@@ -1231,7 +858,7 @@ export class Review_From extends React.Component {
                         </View>
                     </View>
                     <View style={stylesProfileTopic.Review_From_Star_Box}>
-                        {this.starReview(starmain)}
+                        {starReview(starmain)}
                     </View>
                     <View style={stylesProfileTopic.Review_From_TextInput}>
                         <TextInput

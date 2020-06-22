@@ -1119,16 +1119,14 @@ export function Group_Member(props) {
 }
 ///----------------------------------------------------------------------------------------------->>>>
 export function Save_Activity(props) {
-
     return (
-        <ScrollView style={{ backgroundColor: '#FFFF' }}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>วันนี้</Text>
+        <ScrollView>
             {
-                [0, 1, 2, 3].map((_, index) => {
+                [0, 1, 2, 3, 4, 5, 6, 7].map((_, index) => {
                     return (
                         <TouchableOpacity key={index}>
                             <View style={[stylesMain.FlexRow,
-                            { justifyContent: 'space-around', height: 74, paddingHorizontal: 10, marginTop: 10 }]}>
+                            { justifyContent: 'space-between', paddingHorizontal: 10, marginTop: 10 }]}>
                                 <View style={stylesMain.FlexRow}>
                                     <View>
                                         <FastImage
@@ -1137,62 +1135,39 @@ export function Save_Activity(props) {
                                                 uri: `${ip}/MySQL/uploads/Group_image/1.jpg`,
                                             }}
                                             resizeMode={FastImage.resizeMode.cover} />
-                                        <View style={{ alignItems: 'flex-end', top: -20 }}>
-                                            <View style={[stylesMain.ItemCenter,
-                                            { width: 25, height: 25, backgroundColor: '#0A55A6', borderRadius: 15 }]}>
-                                                <IconAntDesign name='like1' size={15} color='#FFFFFF' />
+                                        {
+                                            index % 2 == 0 ?
+                                                <View style={{ alignItems: 'flex-end', top: -20 }}>
+                                                    <View style={[stylesMain.ItemCenter,
+                                                    { width: 25, height: 25, backgroundColor: '#0A55A6', borderRadius: 15 }]}>
+                                                        <IconAntDesign name='like1' size={15} color='#FFFFFF' />
+                                                    </View>
+                                                </View> : <View style={{ alignItems: 'flex-end', top: -20 }}>
+                                                    <View style={[stylesMain.ItemCenter,
+                                                    { width: 25, height: 25, backgroundColor: '#20BDA1', borderRadius: 15 }]}>
+                                                        <IconEntypo name='message' size={15} color='#FFFFFF' />
+                                                    </View>
+                                                </View>
+                                        }
+                                    </View>
+                                    {
+                                        index % 2 == 0 ?
+                                            <View style={{ marginLeft: 10, width: width * 0.68, justifyContent: 'space-between' }}>
+                                                <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                                    สติ๊ก กี้ ถูกใจโพสต์ของ Chanun Nurainee สติ๊กกี้ถูกใจโพสต์ของChanunNurainee
+                                                    สติ๊กกี้ถูกใจโพสต์ของ Chanun Nurainee
+                                                </Text>
+                                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A9A9A9' }]}>
+                                                    1 ชั่วโมงที่แล้ว</Text>
+                                            </View> : <View style={{ marginLeft: 10, width: width * 0.68, justifyContent: 'space-between' }}>
+                                                <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                                    สติ๊ก กี้ คอมเมนท์โพสต์ของ Chanun Nurainee สติ๊กกี้ถูกใจโพสต์ของChanunNurainee
+                                                    สติ๊กกี้ถูกใจโพสต์ของ Chanun Nurainee
+                                                </Text>
+                                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A9A9A9' }]}>
+                                                    1 ชั่วโมงที่แล้ว</Text>
                                             </View>
-                                        </View>
-                                    </View>
-                                    <View style={{ marginLeft: 10, width: width * 0.70, justifyContent: 'space-between' }}>
-                                        <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                            สติ๊ก กี้ ถูกใจโพสต์ของ Chanun Nurainee สติ๊กกี้ถูกใจโพสต์ของChanunNurainee
-                                            สติ๊กกี้ถูกใจโพสต์ของ Chanun Nurainee
-                                        </Text>
-                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A9A9A9' }]}>
-                                            1 ชั่วโมงที่แล้ว</Text>
-                                    </View>
-                                </View>
-                                <TouchableOpacity>
-                                    <View style={[stylesMain.ItemCenter,
-                                    { height: 30, width: 30, borderRadius: 15 }]}>
-                                        <IconEntypo name='dots-three-vertical' size={20} />
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
-                        </TouchableOpacity>
-                    )
-                })}
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>เก่ากว่า</Text>
-            {
-                [0, 1, 2, 3].map((_, index) => {
-                    return (
-                        <TouchableOpacity key={index}>
-                            <View style={[stylesMain.FlexRow,
-                            { justifyContent: 'space-around', height: 74, paddingHorizontal: 10, marginTop: 10 }]}>
-                                <View style={stylesMain.FlexRow}>
-                                    <View>
-                                        <FastImage
-                                            style={{ height: 50, width: 50, borderRadius: 25, }}
-                                            source={{
-                                                uri: `${ip}/MySQL/uploads/Group_image/1.jpg`,
-                                            }}
-                                            resizeMode={FastImage.resizeMode.cover} />
-                                        <View style={{ alignItems: 'flex-end', top: -20 }}>
-                                            <View style={[stylesMain.ItemCenter,
-                                            { width: 25, height: 25, backgroundColor: '#20BDA1', borderRadius: 15 }]}>
-                                                <IconEntypo name='message' size={15} color='#FFFFFF' />
-                                            </View>
-                                        </View>
-                                    </View>
-                                    <View style={{ marginLeft: 10, width: width * 0.70, justifyContent: 'space-between' }}>
-                                        <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                            สติ๊ก กี้ ถูกใจโพสต์ของ Chanun Nurainee สติ๊กกี้ถูกใจโพสต์ของChanunNurainee
-                                            สติ๊กกี้ถูกใจโพสต์ของ Chanun Nurainee
-                                        </Text>
-                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A9A9A9' }]}>
-                                            1 ชั่วโมงที่แล้ว</Text>
-                                    </View>
+                                    }
                                 </View>
                                 <TouchableOpacity>
                                     <View style={[stylesMain.ItemCenter,
@@ -1212,42 +1187,12 @@ export function Save_Post(props) {
     return (
         <ScrollView>
             <View style={{ backgroundColor: '#FFFF' }}>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>ล่าสุด</Text>
                 {
-                    [0, 1, 2, 3].map((_, index) => {
+                    [0, 1, 2, 3, 4, 5, 6, 7].map((_, index) => {
                         return (
                             <TouchableOpacity key={index}>
                                 <View style={[stylesMain.FlexRow,
-                                { justifyContent: 'space-between', padding: 5, height: 80 }]}>
-                                    <View style={stylesMain.FlexRow}>
-                                        <FastImage
-                                            style={{ height: 80, width: 80, }}
-                                            source={{
-                                                uri: `${ip}/MySQL/uploads/Group_image/4.jpg`,
-                                            }}
-                                            resizeMode={FastImage.resizeMode.cover} />
-                                        <View style={{ marginLeft: 10, width: '70%', justifyContent: 'space-between' }}>
-                                            <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                                ผู้บริหาร Walmart เชื่อ ”ออฟฟิศ” ยังคงเป็นสิ่งสำคัญของธุรกิจ
-                                    </Text>
-                                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A9A9A9' }]}>
-                                                ยังไม่อ่าน</Text>
-                                        </View>
-                                    </View>
-                                    <TouchableOpacity>
-                                        <IconEntypo name='dots-three-vertical' size={20} />
-                                    </TouchableOpacity>
-                                </View>
-                            </TouchableOpacity>
-                        )
-                    })}
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>เก่ากว่า</Text>
-                {
-                    [0, 1, 2, 3].map((_, index) => {
-                        return (
-                            <TouchableOpacity key={index}>
-                                <View style={[stylesMain.FlexRow,
-                                { justifyContent: 'space-between', padding: 5, height: 80, }]}>
+                                { justifyContent: 'space-between', paddingHorizontal: 10, marginTop: 10 }]}>
                                     <View style={stylesMain.FlexRow}>
                                         <FastImage
                                             style={{ height: 80, width: 80, }}
@@ -1255,12 +1200,15 @@ export function Save_Post(props) {
                                                 uri: `${ip}/MySQL/uploads/Group_image/3.jpg`,
                                             }}
                                             resizeMode={FastImage.resizeMode.cover} />
-                                        <View style={{ marginLeft: 10, width: '70%', justifyContent: 'space-between' }}>
+                                        <View style={{ marginLeft: 10, width: width * 0.65, justifyContent: 'space-between' }}>
                                             <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                                                 ผู้บริหาร Walmart เชื่อ ”ออฟฟิศ” ยังคงเป็นสิ่งสำคัญของธุรกิจ
                                     </Text>
-                                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A9A9A9' }]}>
-                                                อ่านแล้ว</Text>
+                                            {index % 2 == 0 ?
+                                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A9A9A9' }]}>
+                                                    อ่านแล้ว</Text> : <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A9A9A9' }]}>
+                                                    ยังไม่อ่าน</Text>
+                                            }
                                         </View>
                                     </View>
                                     <TouchableOpacity>

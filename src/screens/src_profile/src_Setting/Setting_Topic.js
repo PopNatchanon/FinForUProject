@@ -418,14 +418,9 @@ export class Edit_Profile extends Component {
       id_customer: currentUser ? currentUser.id_customer : '',
     }
     const uri2 = `${finip}/profile/update_profile_mobile`
-    currentUser != null && Name == null &&
-      this.setCurrentUser()
-    activeGetSource == false && activeGetServices &&
-      GetServices({ uriPointer: uri, dataBody: dataBody, Authorization: cokie, getDataSource: this.getData.bind(this), })
-    activeGetServices2 &&
-      GetServicesBlob({
-        FormData: true, uriPointer: uri2, dataBody: dataBody2, Authorization: cokie, getDataSource: this.getData2.bind(this),
-      })
+    currentUser != null && Name == null && this.setCurrentUser()
+    activeGetSource == false && activeGetServices && GetServices({ uriPointer: uri, dataBody: dataBody, Authorization: cokie, getDataSource: this.getData.bind(this), })
+    activeGetServices2 && GetServicesBlob({ FormData: true, uriPointer: uri2, dataBody: dataBody2, Authorization: cokie, getDataSource: this.getData2.bind(this), })
     return (
       <>
         {/* ชื่อ-นามสกุล */}
@@ -592,8 +587,7 @@ export class Edit_Pass extends Component {
       new_password,
       confirm_password,
     }
-    activeGetSource == false && activeGetServices &&
-      GetServices({ uriPointer: uri, dataBody: dataBody, Authorization: cokie, getDataSource: this.getData.bind(this), })
+    activeGetSource == false && activeGetServices && GetServices({ uriPointer: uri, dataBody: dataBody, Authorization: cokie, getDataSource: this.getData.bind(this), })
     return (
       <>
         <AppBar1 {...this.props} backArrow titleHead='เปลี่ยนรหัสผ่าน' />
@@ -641,10 +635,7 @@ export class Edit_Pass extends Component {
         </ScrollView>
         <View style={{ alignItems: 'center' }}>
           <TouchableOpacity onPress={() => { this.setState({ activeGetServices: true }) }}>
-            <View style={[stylesProfileTopic.Edit_Profile_Button_Save, {
-              backgroundColor: current_password != '' && new_password != '' && confirm_password != '' ?
-                mainColor : '#CECECE'
-            }]}>
+            <View style={[stylesProfileTopic.Edit_Profile_Button_Save, { backgroundColor: current_password != '' && new_password != '' && confirm_password != '' ? mainColor : '#CECECE' }]}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>เปลี่ยนรหัสผ่าน</Text>
             </View>
           </TouchableOpacity>
@@ -688,15 +679,13 @@ export class Edit_Address extends Component {
       } : {
         id_customer: currentUser && currentUser.id_customer,
       };
-    currentUser && keycokie && currentUser.id_customer && activeReset &&
-      GetServices({ uriPointer: uri, dataBody, Authorization: keycokie, getDataSource: this.getData.bind(this) })
+    currentUser && keycokie && currentUser.id_customer && activeReset && GetServices({ uriPointer: uri, dataBody, Authorization: keycokie, getDataSource: this.getData.bind(this) })
     return (
       <View style={{ flex: 1, height: '100%' }}>
         <AppBar1 {...this.props} backArrow titleHead={type_special == 'tax' ? 'ที่อยู่ในใบกำกับภาษี' : 'ที่อยู่ของฉัน'} />
         <ScrollView style={{ height: 1000 }}>
           {
-            dataService && dataService.list_address && activeReset == false &&
-            dataService.list_address.map((value, index) => {
+            dataService && dataService.list_address && activeReset == false && dataService.list_address.map((value, index) => {
               return <Address_Customar {...this.props} dataService={value} index={index} key={index} type={type}
                 type_special={type_special} updateData2={this.getData2.bind(this)} />
             })

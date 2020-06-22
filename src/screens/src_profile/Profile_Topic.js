@@ -834,11 +834,7 @@ export class Review_From extends React.Component {
             comment: Review
         }
         activeAuto && this.setStatus()
-        activeGetServices &&
-            GetServices({
-                uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'product_interest',
-                getDataSource: this.getData.bind(this),
-            })
+        activeGetServices && GetServices({ uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'product_interest', getDataSource: this.getData.bind(this), })
         return (
             <View style={stylesMain.SafeAreaView}>
                 <View style={stylesProfileTopic.Review_From}>
@@ -896,8 +892,7 @@ export class Review_From extends React.Component {
                                             </TouchableOpacity>
                                         )
                                     }),
-                                    avatarSource.length < 3 &&
-                                    <TouchableOpacity onPress={() => this.UploadImageMultiple()} key={'upload'}>
+                                    avatarSource.length < 3 && <TouchableOpacity onPress={() => this.UploadImageMultiple()} key={'upload'}>
                                         <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: mainColor, borderWidth: 1, }]}>
                                             <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
                                                 <IconAntDesign RightItem name='camerao' size={35} color={mainColor} />

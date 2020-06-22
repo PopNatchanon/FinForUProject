@@ -643,17 +643,7 @@ export class ID_card extends React.Component {
                   <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginLeft: 10 }]}>{`${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`}</Text>
                 </View>
               </TouchableOpacity>
-              {
-                show && (
-                  <DateTimePicker
-                    testID="dateTimePicker"
-                    value={date}
-                    mode={mode}
-                    is24Hour={true}
-                    display="spinner"
-                    onChange={this.onChange.bind(this)}
-                  />
-                )}
+              {show && (<DateTimePicker testID="dateTimePicker" value={date} mode={mode} is24Hour={true} display="spinner" onChange={this.onChange.bind(this)} />)}
             </View>
           </View>
         </ScrollView>

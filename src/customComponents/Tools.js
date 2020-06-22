@@ -57,7 +57,7 @@ export class Toolbar extends React.Component {
                 (u_name = currentUser.name)
         }
         var routeSelcet = route.name
-        activeGetCurrentUser == true && GetData({ getSource: this.getSource.bind(this), getUser: true })
+        activeGetCurrentUser && GetData({ getSource: this.getSource.bind(this), getUser: true })
         return (
             <View style={stylesMain.Toolbar}>
                 <TouchableOpacity activeOpacity={1}
@@ -672,14 +672,14 @@ export async function GetData_new(props) {
     // [error, result] = await promiseProcessData(AsyncStorage.multiGet(['@MyKey', '@MyLongin']));
     // if (error) {
     //     console.log(error)
-    //     getCokie == true && (value.keycokie = undefined)
-    //     getUser == true && (value.currentUser = undefined);
+    //     getCokie  && (value.keycokie = undefined)
+    //     getUser  && (value.currentUser = undefined);
     //     return getSource(value)
     // }
     // if (result[1][1] === undefined) {
     //     console.log(result[1][1])
-    //     getCokie == true && (value.keycokie = undefined)
-    //     getUser == true && (value.currentUser = undefined);
+    //     getCokie  && (value.keycokie = undefined)
+    //     getUser  && (value.currentUser = undefined);
     //     return getSource(value)
     // }
     // const currentUser = result[0][1];
@@ -688,14 +688,14 @@ export async function GetData_new(props) {
     //     [error, dataCokie] = await promiseProcessData(CookieManager.get(`${finip}/auth/login_customer`))
     //     if (error) {
     //         console.log(error)
-    //         getCokie == true && (value.keycokie = undefined)
-    //         getUser == true && (value.currentUser = undefined);
+    //         getCokie  && (value.keycokie = undefined)
+    //         getUser  && (value.currentUser = undefined);
     //         return getSource(value)
     //     }
     //     if (dataCokie === undefined) {
     //         console.log(`dataCokie`);
-    //         getCokie == true && (value.keycokie = undefined)
-    //         getUser == true && (value.currentUser = undefined);
+    //         getCokie  && (value.keycokie = undefined)
+    //         getUser  && (value.currentUser = undefined);
     //         return getSource(value)
     //     };
     //     var keycokie = dataCokie.token
@@ -714,35 +714,35 @@ export async function GetData_new(props) {
     //         if (error) {
     //             console.log(`AutoLogin:Phase 1`);
     //             console.log(`ERROR:FETCH => ${error}`);
-    //             getCokie == true && (value.keycokie = undefined)
-    //             getUser == true && (value.currentUser = undefined);
+    //             getCokie  && (value.keycokie = undefined)
+    //             getUser  && (value.currentUser = undefined);
     //             return getSource(value)
     //         };
     //         if (dataCustomer === undefined) {
     //             console.log(`AutoLogin':Phase 1`);
     //             console.log('No Data!');
-    //             getCokie == true && (value.keycokie = undefined)
-    //             getUser == true && (value.currentUser = undefined);
+    //             getCokie  && (value.keycokie = undefined)
+    //             getUser  && (value.currentUser = undefined);
     //             return getSource(value)
     //         };
     //         [error, dataProcessCustomer] = await promiseProcessData(dataCustomer)
     //         if (error) {
     //             console.log(`AutoLogin:Phase 2`);
     //             console.log(`ERROR:FETCH => ${error}`);
-    //             getCokie == true && (value.keycokie = undefined)
-    //             getUser == true && (value.currentUser = undefined);
+    //             getCokie  && (value.keycokie = undefined)
+    //             getUser  && (value.currentUser = undefined);
     //             return getSource(value)
     //         };
     //         if (dataProcessCustomer === undefined) {
     //             console.log(`AutoLogin':Phase 2`);
     //             console.log('No Data!');
-    //             getCokie == true && (value.keycokie = undefined)
-    //             getUser == true && (value.currentUser = undefined);
+    //             getCokie  && (value.keycokie = undefined)
+    //             getUser  && (value.currentUser = undefined);
     //             return getSource(value)
     //         };
     //     }
-    //     getCokie == true && (value.keycokie = dataCokie.token)
-    //     getUser == true && (value.currentUser = JSON.parse(currentUser));
+    //     getCokie  && (value.keycokie = dataCokie.token)
+    //     getUser  && (value.currentUser = JSON.parse(currentUser));
     //     return getSource(value)
     // }
 }
@@ -757,14 +757,14 @@ export async function GetData(props) {
     [error, result] = await promiseProcessData(AsyncStorage.multiGet(['@MyKey', '@MyLongin']));
     if (error) {
         console.log(error)
-        getCokie == true && (value.keycokie = undefined)
-        getUser == true && (value.currentUser = undefined);
+        getCokie && (value.keycokie = undefined)
+        getUser && (value.currentUser = undefined);
         return getSource(value)
     }
     if (result[1][1] === undefined) {
         console.log(result[1][1])
-        getCokie == true && (value.keycokie = undefined)
-        getUser == true && (value.currentUser = undefined);
+        getCokie && (value.keycokie = undefined)
+        getUser && (value.currentUser = undefined);
         return getSource(value)
     }
     const currentUser = result[0][1];
@@ -773,14 +773,14 @@ export async function GetData(props) {
         [error, dataCokie] = await promiseProcessData(CookieManager.get(`${finip}/auth/login_customer`))
         if (error) {
             console.log(error)
-            getCokie == true && (value.keycokie = undefined)
-            getUser == true && (value.currentUser = undefined);
+            getCokie && (value.keycokie = undefined)
+            getUser && (value.currentUser = undefined);
             return getSource(value)
         }
         if (dataCokie === undefined) {
             console.log(`dataCokie`);
-            getCokie == true && (value.keycokie = undefined)
-            getUser == true && (value.currentUser = undefined);
+            getCokie && (value.keycokie = undefined)
+            getUser && (value.currentUser = undefined);
             return getSource(value)
         };
         var keycokie = dataCokie.token
@@ -799,35 +799,35 @@ export async function GetData(props) {
             if (error) {
                 console.log(`AutoLogin:Phase 1`);
                 console.log(`ERROR:FETCH => ${error}`);
-                getCokie == true && (value.keycokie = undefined)
-                getUser == true && (value.currentUser = undefined);
+                getCokie && (value.keycokie = undefined)
+                getUser && (value.currentUser = undefined);
                 return getSource(value)
             };
             if (dataCustomer === undefined) {
                 console.log(`AutoLogin':Phase 1`);
                 console.log('No Data!');
-                getCokie == true && (value.keycokie = undefined)
-                getUser == true && (value.currentUser = undefined);
+                getCokie && (value.keycokie = undefined)
+                getUser && (value.currentUser = undefined);
                 return getSource(value)
             };
             [error, dataProcessCustomer] = await promiseProcessData(dataCustomer)
             if (error) {
                 console.log(`AutoLogin:Phase 2`);
                 console.log(`ERROR:FETCH => ${error}`);
-                getCokie == true && (value.keycokie = undefined)
-                getUser == true && (value.currentUser = undefined);
+                getCokie && (value.keycokie = undefined)
+                getUser && (value.currentUser = undefined);
                 return getSource(value)
             };
             if (dataProcessCustomer === undefined) {
                 console.log(`AutoLogin':Phase 2`);
                 console.log('No Data!');
-                getCokie == true && (value.keycokie = undefined)
-                getUser == true && (value.currentUser = undefined);
+                getCokie && (value.keycokie = undefined)
+                getUser && (value.currentUser = undefined);
                 return getSource(value)
             };
         }
-        getCokie == true && (value.keycokie = dataCokie.token)
-        getUser == true && (value.currentUser = JSON.parse(currentUser));
+        getCokie && (value.keycokie = dataCokie.token)
+        getUser && (value.currentUser = JSON.parse(currentUser));
         return getSource(value)
     }
 }
@@ -967,7 +967,7 @@ export async function GetServicesBlob(props) {
 ///----------------------------------------------------------------------------------------------->>>> GetCoupon
 export function GetCoupon(props) {
     const {
-        codeList, colorCoupon, couponText, getCoupon, flexRow, saveCoupon, setDataService, textDetail, timeOut, useCoupon,
+        codeList, colorCoupon, couponText, getCoupon, flexRow, marginL, saveCoupon, setDataService, textDetail, timeOut, useCoupon,
     } = props
     return (
         <View style={[
@@ -977,7 +977,8 @@ export function GetCoupon(props) {
                 backgroundColor:
                     codeList != 'available' ?
                         '#C4C4C4' :
-                        null
+                        null,
+                marginLeft: marginL ?? 10
             }]}>
             <View style={{
                 opacity:
@@ -1289,11 +1290,11 @@ export function NavigationNavigateScreen(props) {
     )
     goScreen == 'goBack' ?
         goBack() :
-        passHome == true ?
+        passHome ?
             dispatch(navigationActions) :
             goScreen == 'popToTop' ?
                 popToTop() :
-                noPush == true ?
+                noPush ?
                     replace(goScreen, setData) :
                     push(goScreen, setData);
 
@@ -1650,8 +1651,8 @@ export class FeedBox extends React.Component {
                         <View style={stylesMain.BoxProduct4ComBox2}>
                             <TouchableOpacity activeOpacity={1} onPress={() => this.setStateButton_Like_heart()} style={
                                 stylesMain.BoxProduct4ComBoxIcon}>
-                                <IconFontAwesome name={like == true ? 'heart' : 'heart-o'} size={20} style={{
-                                    color: like == true ? '#ff0066' : '#111111'
+                                <IconFontAwesome name={like ? 'heart' : 'heart-o'} size={20} style={{
+                                    color: like ? '#ff0066' : '#111111'
                                 }} />
                                 <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     ถูกใจ</Text>
@@ -1832,7 +1833,7 @@ export class SlideTab extends React.Component {
             <View style={[stylesMain.FlexRow, { width: '100%', flexWrap: 'wrap' }]}>
                 <TabBar
                     sendData={this.updateIndex.bind(this)}
-                    SetValue={activeTabBar == true ? selectedIndex != null ? selectedIndex : -1 : undefined}
+                    SetValue={activeTabBar ? selectedIndex != null ? selectedIndex : -1 : undefined}
                     item={item}
                     type='box'
                     noLimit
@@ -1854,12 +1855,12 @@ export class SlideTab extends React.Component {
                         <View style={{
                             width: '100%',
                             height:
-                                activeText == true ?
+                                activeText ?
                                     85 + ((Math.ceil(item.subtitle.length / 2) - 1) * 35) :
                                     85 + (35 * 1)
                         }}>
                             {
-                                activeText == true ?
+                                activeText ?
                                     this.dataItem(item.subtitle) :
                                     <ScrollView scrollEnabled={false}>
                                         {this.dataItem(item.subtitle)}
@@ -1875,11 +1876,11 @@ export class SlideTab extends React.Component {
                                             fontFamily: 'SukhumvitSet-Text',
                                         }]}>
                                             {
-                                                activeText == true ?
+                                                activeText ?
                                                     'ย่อ' :
                                                     'ดูเพิ่มเติม'
                                             }</Text>
-                                        <IconEntypo name={activeText == true ? 'chevron-up' : 'chevron-down'} size={25} color={mainColor} />
+                                        <IconEntypo name={activeText ? 'chevron-up' : 'chevron-down'} size={25} color={mainColor} />
                                     </View>
                                 </TouchableOpacity>
                             }

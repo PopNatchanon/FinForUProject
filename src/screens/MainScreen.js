@@ -449,7 +449,7 @@ export let AppBar = (props) => {
                         chatBar &&
                         <TouchableOpacity key='chatBar' style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]}
                             onPress={currentUser ?
-                                () => { NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation }); } :
+                                () => { NavigationNavigateScreens({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation }); } :
                                 () => { NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true }); }}>
                             <IconAntDesign name="message1" size={25} style={{ color: '#fff' }} />
                         </TouchableOpacity>,

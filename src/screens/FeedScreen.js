@@ -318,23 +318,23 @@ export function Feed_About(props) {
   }]
   const item_Group = [{
     image: `${ip}/MySQL/uploads/Group_image/AMARIN.jpg`,
-    name: 'เสื้อผ้าคุณผู้หญิง Less is more เสื้อผ้าคุณผู้หญิง Less is more',
+    name: 'เสื้อผ้าคุณผู้หญิง Less is more เสื้อผ้าคุณผู้หญิง Less is more เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี',
   }, {
     image: `${ip}/MySQL/uploads/Group_image/con7.jpg`,
-    name: 'Sneaker อินเทรนด์หนักๆ สาย Sneaker อินเทรนด์หนักๆ สาย',
+    name: 'Sneaker อินเทรนด์หนักๆ สาย Sneaker อินเทรนด์หนักๆ สาย Sneaker อินเทรนด์หนักๆ สาย Sneaker อินเทรนด์หนักๆ สาย',
   }, {
     image: `${ip}/MySQL/uploads/Group_image/HomePro.png`,
     name: 'ชวนชาว FIN มาต่อจิ๊กซอว์กัน ชวนชาว FIN มาต่อจิ๊กซอว์กัน',
   }, {
     image: `${ip}/MySQL/uploads/Group_image/con1.jpg`,
-    name: 'เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี',
+    name: 'เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี',
   }]
   let StoreItem = (
     item_Store.map((value, index) => {
       return <View key={index} style={[stylesMain.FlexRow, { justifyContent: 'space-between', marginTop: 2, padding: 10 }]}>
         <View style={stylesMain.FlexRow}>
           <FastImage
-            style={{ height: 50, width: 50, borderRadius: 25, }}
+            style={{ height: 50, width: 50, borderRadius: 25, borderWidth: 1 }}
             source={{
               uri: value.image,
             }}
@@ -348,29 +348,40 @@ export function Feed_About(props) {
     }))
   let GroupItem = (
     item_Group.map((value, index) => {
-      return <View key={index} style={[stylesMain.FlexRow, { marginTop: 2, padding: 10 }]}>
+      return <TouchableOpacity key={index} onPress={() => NavigationNavigateScreen({
+        goScreen: 'Post_Feed', setData: {
+          selectedIndex: 12,
+        }, navigation
+      })}
+        style={[stylesMain.FlexRow, { marginTop: 2, padding: 10 }]}>
         <View style={stylesMain.FlexRow}>
           <FastImage
-            style={{ height: 50, width: 50, borderRadius: 25, }}
+            style={{ height: 50, width: 50, borderRadius: 25, borderWidth: 1 }}
             source={{
               uri: value.image,
             }}
             resizeMode={FastImage.resizeMode.cover} />
-          <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { margin: 10 }]}>{value.name}</Text>
+          <Text numberOfLines={2} style={[stylesFont.FontSize6, stylesFont.FontFamilyText,
+          { margin: 10, width: '80%' }]}>{value.name}</Text>
         </View>
-      </View>
+      </TouchableOpacity>
     }))
   return (<ScrollView>
     <View style={{ flex: 1, backgroundColor: '#FFFFFF', padding: 10 }}>
-      <View style={[stylesMain.FlexRow, { backgroundColor: '#E0EFFF', padding: 10, borderRadius: 5 }]}>
+      <TouchableOpacity onPress={() => NavigationNavigateScreen({
+        goScreen: 'Post_Feed', setData: {
+          selectedIndex: 21,
+        }, navigation
+      })}
+        style={[stylesMain.FlexRow, { backgroundColor: '#E0EFFF', padding: 10, borderRadius: 5 }]}>
         <FastImage
-          style={{ height: 50, width: 50, borderRadius: 25, borderWidth: 2 }}
+          style={{ height: 50, width: 50, borderRadius: 25, borderWidth: 1 }}
           source={{
-            uri: `${ip}/MySQL/uploads/addmin/unnamed.png`,
+            uri: `${ip}/MySQL/uploads/Group_image/woman.png`,
           }}
           resizeMode={FastImage.resizeMode.cover} />
         <Text style={[stylesFont.FontSize3, stylesFont.FontFamilyBold, { margin: 10 }]}>Myn</Text>
-      </View>
+      </TouchableOpacity>
       <View style={{ borderColor: '#C4C4C4', borderBottomWidth: 3, paddingVertical: 5, }}>
         <TouchableOpacity onPress={() => NavigationNavigateScreen({
           goScreen: 'Post_Feed', setData: {
@@ -437,7 +448,7 @@ export function Feed_About(props) {
         }, navigation
       })}>
         <View style={[stylesMain.FlexRow, { padding: 10, borderRadius: 5 }]}>
-          <View style={[stylesMain.ItemCenter, { height: 50, width: 50, borderRadius: 25, borderWidth: 2 }]}>
+          <View style={[stylesMain.ItemCenter, { height: 50, width: 50, borderRadius: 25, borderWidth: 1 }]}>
             <IconAntDesign name='plus' size={30} />
           </View>
           <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { margin: 10 }]}>สร้างกลุ่ม</Text>

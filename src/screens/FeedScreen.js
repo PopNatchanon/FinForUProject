@@ -303,44 +303,122 @@ export function Feed_Login(props) {
 ///----------------------------------------------------------------------------------------------->>>> Feed_About
 export function Feed_About(props) {
   const { navigation } = props;
+  const item_Store = [{
+    image: `${ip}/MySQL/uploads/Group_image/Walmart.png`,
+    name: 'BP World',
+  }, {
+    image: `${ip}/MySQL/uploads/Group_image/central.png`,
+    name: 'Ducati',
+  }, {
+    image: `${ip}/MySQL/uploads/Group_image/paradise.jpg`,
+    name: 'GUCCI',
+  }, {
+    image: `${ip}/MySQL/uploads/Group_image/10.jpg`,
+    name: 'LACOSTE',
+  }]
+  const item_Group = [{
+    image: `${ip}/MySQL/uploads/Group_image/AMARIN.jpg`,
+    name: 'เสื้อผ้าคุณผู้หญิง Less is more เสื้อผ้าคุณผู้หญิง Less is more เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี',
+  }, {
+    image: `${ip}/MySQL/uploads/Group_image/con7.jpg`,
+    name: 'Sneaker อินเทรนด์หนักๆ สาย Sneaker อินเทรนด์หนักๆ สาย Sneaker อินเทรนด์หนักๆ สาย Sneaker อินเทรนด์หนักๆ สาย',
+  }, {
+    image: `${ip}/MySQL/uploads/Group_image/HomePro.png`,
+    name: 'ชวนชาว FIN มาต่อจิ๊กซอว์กัน ชวนชาว FIN มาต่อจิ๊กซอว์กัน',
+  }, {
+    image: `${ip}/MySQL/uploads/Group_image/con1.jpg`,
+    name: 'เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี',
+  }]
+  let StoreItem = (
+    item_Store.map((value, index) => {
+      return <View key={index} style={[stylesMain.FlexRow, { justifyContent: 'space-between', marginTop: 2, padding: 10 }]}>
+        <View style={stylesMain.FlexRow}>
+          <FastImage
+            style={{ height: 50, width: 50, borderRadius: 25, borderWidth: 1 }}
+            source={{
+              uri: value.image,
+            }}
+            resizeMode={FastImage.resizeMode.cover} />
+          <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { margin: 10 }]}>{value.name}</Text>
+        </View>
+        <TouchableOpacity style={[stylesMain.ItemCenter, { backgroundColor: '#0A55A6', borderRadius: 10, paddingHorizontal: 15, height: 30, marginTop: 5 }]}>
+          <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>กำลังติดตาม</Text>
+        </TouchableOpacity>
+      </View>
+    }))
+  let GroupItem = (
+    item_Group.map((value, index) => {
+      return <TouchableOpacity key={index} onPress={() => NavigationNavigateScreen({
+        goScreen: 'Post_Feed', setData: {
+          selectedIndex: 12,
+        }, navigation
+      })}
+        style={[stylesMain.FlexRow, { marginTop: 2, padding: 10 }]}>
+        <View style={stylesMain.FlexRow}>
+          <FastImage
+            style={{ height: 50, width: 50, borderRadius: 25, borderWidth: 1 }}
+            source={{
+              uri: value.image,
+            }}
+            resizeMode={FastImage.resizeMode.cover} />
+          <Text numberOfLines={2} style={[stylesFont.FontSize6, stylesFont.FontFamilyText,
+          { margin: 10, width: '80%' }]}>{value.name}</Text>
+        </View>
+      </TouchableOpacity>
+    }))
   return (<ScrollView>
     <View style={{ flex: 1, backgroundColor: '#FFFFFF', padding: 10 }}>
-      <View style={[stylesMain.FlexRow, { backgroundColor: '#E0EFFF', padding: 10, borderRadius: 5 }]}>
+      <TouchableOpacity onPress={() => NavigationNavigateScreen({
+        goScreen: 'Post_Feed', setData: {
+          selectedIndex: 21,
+        }, navigation
+      })}
+        style={[stylesMain.FlexRow, { backgroundColor: '#E0EFFF', padding: 10, borderRadius: 5 }]}>
         <FastImage
-          style={{ height: 50, width: 50, borderRadius: 25, borderWidth: 2 }}
+          style={{ height: 50, width: 50, borderRadius: 25, borderWidth: 1 }}
           source={{
-            uri: `${ip}/MySQL/uploads/addmin/unnamed.png`,
+            uri: `${ip}/MySQL/uploads/Group_image/woman.png`,
           }}
           resizeMode={FastImage.resizeMode.cover} />
         <Text style={[stylesFont.FontSize3, stylesFont.FontFamilyBold, { margin: 10 }]}>Myn</Text>
-      </View>
-      <View style={{ borderColor: '#C4C4C4', borderBottomWidth: 3, paddingVertical: 5, alignItems: 'center' }}>
+      </TouchableOpacity>
+      <View style={{ borderColor: '#C4C4C4', borderBottomWidth: 3, paddingVertical: 5, }}>
         <TouchableOpacity onPress={() => NavigationNavigateScreen({
           goScreen: 'Post_Feed', setData: {
             selectedIndex: 16,
           }, navigation
         })}>
-          <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText]}>บันทึกกิจกรรมของฉัน</Text>
+          <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { marginLeft: 30 }]}>บันทึกกิจกรรมของฉัน</Text>
         </TouchableOpacity>
       </View>
-      <View style={{ borderColor: '#C4C4C4', borderBottomWidth: 3, paddingVertical: 5, alignItems: 'center' }}>
+      <View style={{ borderColor: '#C4C4C4', borderBottomWidth: 3, paddingVertical: 5, }}>
         <TouchableOpacity
           onPress={() => NavigationNavigateScreen({
             goScreen: 'Post_Feed', setData: {
               selectedIndex: 17,
             }, navigation
           })}>
-          <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText]}>รายการที่บันทึกไว้</Text>
+          <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { marginLeft: 30 }]}>รายการที่บันทึกไว้</Text>
         </TouchableOpacity>
       </View>
-      <View style={{ borderColor: '#C4C4C4', borderBottomWidth: 3, paddingVertical: 5, alignItems: 'center' }}>
+      <View style={{ borderColor: '#C4C4C4', borderBottomWidth: 3, paddingVertical: 5, }}>
         <TouchableOpacity
           onPress={() => NavigationNavigateScreen({
             goScreen: 'Post_Feed', setData: {
               selectedIndex: 18,
             }, navigation
           })}>
-          <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText]}>กลุ่มทั้งหมด</Text>
+          <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { marginLeft: 30 }]}>กลุ่มทั้งหมด</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={{ borderColor: '#C4C4C4', borderBottomWidth: 3, paddingVertical: 5, }}>
+        <TouchableOpacity
+          onPress={() => NavigationNavigateScreen({
+            goScreen: 'Post_Feed', setData: {
+              selectedIndex: 19,
+            }, navigation
+          })}>
+          <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { marginLeft: 30 }]}>การแจ้งเตือน</Text>
         </TouchableOpacity>
       </View>
       <View style={[stylesMain.FlexRow, { backgroundColor: '#E0EFFF', padding: 10, borderRadius: 5, marginTop: 10 }]}>
@@ -358,29 +436,11 @@ export function Feed_About(props) {
         </View>
       </View>
       <Text style={[stylesFont.FontSize4, stylesFont.FontFamilyBold, { margin: 5 }]}>กำลังติดตาม</Text>
-      {
-        [0, 1, 2, 3].map((_, index) => {
-          return (
-            <View key={index} style={[stylesMain.FlexRow, { justifyContent: 'space-between', marginTop: 2, padding: 10 }]}>
-              <View style={stylesMain.FlexRow}>
-                <FastImage
-                  style={{ height: 50, width: 50, borderRadius: 25, }}
-                  source={{
-                    uri: `${ip}/MySQL/uploads/Resize/Promotion/002.jpg`,
-                  }}
-                  resizeMode={FastImage.resizeMode.cover} />
-                <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { margin: 10 }]}>BP World</Text>
-              </View>
-              <TouchableOpacity style={[stylesMain.ItemCenter, { backgroundColor: '#0A55A6', borderRadius: 10, paddingHorizontal: 15, height: 30, marginTop: 5 }]}>
-                <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>กำลังติดตาม</Text>
-              </TouchableOpacity>
-            </View>
-          )
-        })}
-      <View style={[stylesMain.FlexRow, stylesMain.ItemCenter]}>
+      {StoreItem}
+      <TouchableOpacity style={[stylesMain.FlexRow, stylesMain.ItemCenter]}>
         <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyBold]}>เพิ่มเติม</Text>
         <IconEntypo name='chevron-down' size={25} />
-      </View>
+      </TouchableOpacity>
       <Text style={[stylesFont.FontSize4, stylesFont.FontFamilyBold, { margin: 5 }]}>กลุ่มของคุณ</Text>
       <TouchableOpacity onPress={() => NavigationNavigateScreen({
         goScreen: 'Post_Feed', setData: {
@@ -388,32 +448,17 @@ export function Feed_About(props) {
         }, navigation
       })}>
         <View style={[stylesMain.FlexRow, { padding: 10, borderRadius: 5 }]}>
-          <View style={[stylesMain.ItemCenter, { height: 50, width: 50, borderRadius: 25, borderWidth: 2 }]}>
+          <View style={[stylesMain.ItemCenter, { height: 50, width: 50, borderRadius: 25, borderWidth: 1 }]}>
             <IconAntDesign name='plus' size={30} />
           </View>
           <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { margin: 10 }]}>สร้างกลุ่ม</Text>
         </View>
       </TouchableOpacity>
-      {
-        [0, 1, 2, 3].map((_, index) => {
-          return (
-            <View key={index} style={[stylesMain.FlexRow, { marginTop: 2, padding: 10 }]}>
-              <View style={stylesMain.FlexRow}>
-                <FastImage
-                  style={{ height: 50, width: 50, borderRadius: 25, borderWidth: 2 }}
-                  source={{
-                    uri: `${ip}/MySQL/uploads/Resize/Promotion/003.jpg`,
-                  }}
-                  resizeMode={FastImage.resizeMode.cover} />
-                <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { margin: 10 }]}>เสื้อผ้าคุณผู้หญิง Less is more</Text>
-              </View>
-            </View>
-          )
-        })}
-      <View style={[stylesMain.FlexRow, stylesMain.ItemCenter]}>
+      {GroupItem}
+      <TouchableOpacity style={[stylesMain.FlexRow, stylesMain.ItemCenter]}>
         <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyBold]}>เพิ่มเติม</Text>
         <IconEntypo name='chevron-down' size={25} />
-      </View>
+      </TouchableOpacity>
     </View>
   </ScrollView>
   )

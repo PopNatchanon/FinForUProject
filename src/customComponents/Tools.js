@@ -23,6 +23,7 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconFeather from 'react-native-vector-icons/Feather';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesDeal from '../style/stylePromotion-src/styleDealScreen';
@@ -1553,7 +1554,7 @@ export class FeedBox extends React.Component {
                 >
                     <View>
                         <TouchableOpacity style={[stylesMain.FlexRow, { marginTop: 10 }]}>
-                            <IconFeather name='bookmark' size={25} />
+                            <IconMaterialCommunityIcons name='bookmark-outline' size={25} />
                             <View style={{ marginLeft: 20 }}>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>บันทึกโพสต์</Text>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>เพิ่มสิ่งนี้ลงในรายการที่บันทึกไว้ของคุณ</Text>

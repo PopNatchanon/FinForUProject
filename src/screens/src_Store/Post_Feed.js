@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component, useState, useEffect, useRef } from 'react';
 import {
-    Dimensions, SafeAreaView, ScrollView, Text, View, TouchableOpacity, FlatList, Image,
+    Dimensions, SafeAreaView, ScrollView, Text, View, TouchableOpacity, FlatList, Image, ListView,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
@@ -30,7 +30,7 @@ import stylesTopic from '../../style/styleTopic';
 import stylesProfile from '../../style/StylesProfileScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import {
-    GetServices, GetCoupon, TabBar, LoadingScreen, GetData, GetServicesBlob, NavigationNavigateScreen
+    GetServices, GetCoupon, TabBar, LoadingScreen, GetData, GetServicesBlob, NavigationNavigateScreen, GenArreyNumber
 } from '../../customComponents/Tools';
 import { TodayProduct, Slide, AppBar1, ExitAppModule, AppBar } from '../MainScreen';
 import { Store_Detail } from '../Recommend_Store';
@@ -1254,28 +1254,74 @@ export function Group_About(props) {
 }
 ///----------------------------------------------------------------------------------------------->>>>
 export function Group_Image(props) {
-    let imageGrid = (value, _index, boxwidth, boxheight) => {
-        return <View key={_index} style={{ height: (height * 0.15 * boxwidth) + ((boxwidth - 1) * 5), width: (width * 0.315 * boxheight) + ((boxwidth - 1) * 5), marginTop: 5, marginLeft: 5 }}>
+    const [activeGetServices, setActiveGetServices] = useState(true);
+    const [aStoreIndex, setAStoreIndex] = useState({});
+    const [bStoreIndex, setBStoreIndex] = useState([]);
+    const [dataService, setDataService] = useState(undefined);
+    const itemT = [
+        { image_path: 'MySQL/uploads/backstore/image/profile', image: '2019-05-13-1557767048.jpg' },
+        { image_path: 'mysql/uploads/Supermarketfin', image: 'Food and Market_200327_0026.jpg' },
+        { image_path: 'mysql/uploads/Supermarketfin', image: 'Food and Market_200327_0013.jpg' },
+        { image_path: 'mysql/uploads/Supermarketfin', image: 'Food and Market_200327_0007.jpg' },
+        { image_path: 'mysql/uploads/page_News', image: 'page_J_News.jpg' },
+        { image_path: 'mysql/uploads/slide/bannerstore', image: 'brand1.png' }
+    ];
+    useEffect(() => {
+        if (activeGetServices) {
+            setActiveGetServices(false);
+            setDataService(GenArreyNumber(20, itemT));
+        }
+    }, [activeGetServices]);
+    let imageColumn = (value, index, boxwidth, boxheight) => {
+        return <View key={index} style={{ height: height * 0.15, width: width * 0.315, marginTop: 5, marginLeft: 5 }}>
             <FastImage
                 style={{ width: '100%', height: '100%' }}
-                source={{
-                    uri: `${ip}/MySQL/uploads/Group_image/1.jpg`,
-                }}
+                source={{ uri: `${ip}/${value.image_path}/${value.image}`, }}
                 resizeMode={FastImage.resizeMode.cover} />
-        </View>
+        </View>;
+    };
+    let imageRow = (value, index, boxwidth, boxheight, position) => {
+        if (boxwidth < 3 && boxheight > 1 && aStoreIndex[index] == undefined) {
+            var indexbox = [];
+            aStoreIndex[index] = {};
+            for (var n = 0; n < boxheight; n++) {
+                indexbox.push({ index: index + n + 1, listdata: dataService[index + n + 1] });
+                bStoreIndex.indexOf(index + n + 1) == -1 && bStoreIndex.push(index + n + 1)
+                bStoreIndex.indexOf(index + n + 1) == -1 && setBStoreIndex(bStoreIndex);
+            };
+            aStoreIndex[index].data = indexbox;
+            setAStoreIndex(aStoreIndex);
+        };
+        return <View key={index} style={{ flexDirection: 'row' }}>
+            {position == 'left' && boxwidth < 3 && boxheight > 1 && <View>
+                {aStoreIndex[index].data.map((value2, index2) => imageColumn(value2.listdata, index2, boxwidth, boxheight))}
+            </View>}
+            <View style={{ height: (height * 0.15 * boxheight) + ((boxheight - 1) * 5), width: (width * 0.315 * boxwidth) + ((boxwidth - 1) * 5), marginTop: 5, marginLeft: 5 }}>
+                <FastImage
+                    style={{ width: '100%', height: '100%' }}
+                    source={{ uri: `${ip}/${value.image_path}/${value.image}`, }}
+                    resizeMode={FastImage.resizeMode.cover} />
+            </View>
+            {position != 'left' && boxwidth < 3 && boxheight > 1 && <View>
+                {aStoreIndex[index].data.map((value2, index2) => imageColumn(value2.listdata, index2, boxwidth, boxheight))}
+            </View>}
+        </View>;
     };
     return (
         <ScrollView>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginLeft: 10 }]}>รูปภาพในกลุ่ม</Text>
-            <View style={[stylesMain.FlexRow, { flexWrap: 'wrap', width: '100%',/*justifyContent: 'space-between', paddingHorizontal: 5*/ }]}>
-                {
-                    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((_, index) => {
-                        return index == 3 ?
-                            imageGrid(_, index, 3, 3) :
-                            index == 7 ?
-                                imageGrid(_, index, 2, 2) :
-                                imageGrid(_, index, 1, 1)
-                    })}
+            <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', }}>
+                {dataService?.map((value, index) => {
+                    return index == 3 ?
+                        imageRow(value, index, 3, 2) :
+                        index == 7 ?
+                            imageRow(value, index, 2, 3) :
+                            index == 11 ?
+                                imageRow(value, index, 2, 3, 'left') :
+                                bStoreIndex.indexOf(index) == -1 ?
+                                    imageRow(value, index, 1, 1) :
+                                    null
+                })}
             </View>
         </ScrollView>
     )
@@ -1646,8 +1692,8 @@ export function Group_Search(props) {
 export function Profile_Feed(props) {
 
     const TabBar_Profile = [{
-        name:  <Text style={stylesFont.FontSize6}>
-        <IconFontAwesome5 name='grin-hearts' size={20} />โพสต์</Text>
+        name: <Text style={stylesFont.FontSize6}>
+            <IconFontAwesome5 name='grin-hearts' size={20} />โพสต์</Text>
     }, {
         name: 'ชุมชน',
     },]
@@ -1704,7 +1750,7 @@ export function Profile_Feed(props) {
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ลิงค์ร้านค้า: https://finforyou.com/ppooo</Text>
                 </View>
             </View>
-            <View style={[stylesMain.FlexRow, stylesMain.FrameBackground,{ ustifyContent:'center'}]}>
+            <View style={[stylesMain.FlexRow, stylesMain.FrameBackground, { ustifyContent: 'center' }]}>
                 <TabBar
                     // sendData={updateIndex2}
                     item={TabBar_Profile}

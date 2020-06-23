@@ -78,7 +78,7 @@ function DealScreen(props) {
     </View>
     <ExitAppModule {...props} />
   </SafeAreaView>;
-}
+};
 ///----------------------------------------------------------------------------------------------->>>> Slide
 export let Slide = (props) => {
   const { dataService } = props;
@@ -128,7 +128,7 @@ export let Button_Bar = (props) => {
       </View>
     </TouchableOpacity>
   </View>;
-}
+};
 ///----------------------------------------------------------------------------------------------->>>> Deal_Calendar
 export let Deal_Calendar = (props) => {
   const { dataService } = props;
@@ -267,7 +267,7 @@ export let Deal_Today = (props) => {
       </View>
     </View>
   </View>;
-}
+};
 ///----------------------------------------------------------------------------------------------->>>> Deal_Exclusive
 export let Deal_Exclusive = (props) => {
   const { dataService, navigation } = props;
@@ -288,8 +288,8 @@ export let Deal_Exclusive = (props) => {
       </TouchableOpacity>
     </View>
     {dataService?.length > 0 ?
-      <FlatProduct {...props} custumNavigation='Deal_Exclusive' dataService={dataService} numberOfColumn={2} mode='row3'
-        nameFlatProduct='Deal_Exclusive' nameSize={14} priceSize={15} dispriceSize={15} /> :
+      <FlatProduct {...props} custumNavigation='Deal_Exclusive' dataService={dataService} numberOfColumn={2} mode='row3' nameFlatProduct='Deal_Exclusive'
+        nameSize={14} priceSize={15} dispriceSize={15} /> :
       <View>
         <View style={{ flexDirection: 'row' }}>
           {emptyBox}
@@ -299,7 +299,7 @@ export let Deal_Exclusive = (props) => {
         </View>
       </View>}
   </View>;
-}
+};
 ///----------------------------------------------------------------------------------------------->>>> Second_Store
 export class Second_Store extends React.Component {
   constructor(props) {
@@ -311,58 +311,29 @@ export class Second_Store extends React.Component {
       dataService2: [],
       activeSlide: 0,
     };
-  }
+  };
   getData(dataService) {
-    this.setState({ activeGetServices: false, dataService })
-  }
+    this.setState({ activeGetServices: false, dataService });
+  };
   getData2(dataService2) {
-    this.setState({ activeGetServices2: false, dataService2 })
-  }
+    this.setState({ activeGetServices2: false, dataService2 });
+  };
   _renderItem = ({ item, index }) => {
     var dataMySQL = `${finip}/${dataService.image_path}/${dataService.image}`
-    return (
-      <View key={index}>
-        <FastImage
-          source={{
-            uri: dataMySQL,
-          }}
-          style={stylesDeal.Second_Store_Slide_image}
-        />
-        <View style={stylesDeal.Second_Store_Slide_BoxText}>
-          <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ร้าน K.O.D สินค้ามือสอง ลดสูงสุด 50 %</Text>
-        </View>
+    return <View key={index}>
+      <FastImage source={{ uri: dataMySQL, }} style={stylesDeal.Second_Store_Slide_image} />
+      <View style={stylesDeal.Second_Store_Slide_BoxText}>
+        <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ร้าน K.O.D สินค้ามือสอง ลดสูงสุด 50 %</Text>
       </View>
-    );
-  }
+    </View>;
+  };
   get pagination() {
     const { dataService2, activeSlide } = this.state;
-    return (
-      <View style={{ marginTop: -60 }}>
-        <Pagination
-          dotsLength={dataService2.length}
-          activeDotIndex={activeSlide}
-          // containerStyle={{ backgroundColor: 'rgba(120, 120, 120, 0.1)' }}
-          dotStyle={{
-            width: 15,
-            height: 15,
-            borderRadius: 30,
-            backgroundColor: 'rgba(0, 0, 0, 0)',
-            borderColor: 'rgba(255, 255, 255, 0.92)',
-            borderWidth: 2,
-          }}
-          inactiveDotStyle={{
-            width: 15,
-            height: 5,
-            borderRadius: 5,
-            backgroundColor: 'rgba(255, 255, 255, 0.92)',
-          }}
-          carouselRef={this.activeSlide}
-          tappableDots={!!this.activeSlide}
-          // inactiveDotOpacity={0.6}
-          inactiveDotScale={0.6}
-        />
-      </View>
-    );
+    return <View style={{ marginTop: -60 }}>
+      <Pagination dotsLength={dataService2.length} activeDotIndex={activeSlide} dotStyle={{ width: 15, height: 15, borderRadius: 30, backgroundColor: 'rgba(0, 0, 0, 0)', borderColor: 'rgba(255, 255, 255, 0.92)', borderWidth: 2, }}
+        inactiveDotStyle={{ width: 15, height: 5, borderRadius: 5, backgroundColor: 'rgba(255, 255, 255, 0.92)', }} carouselRef={this.activeSlide}
+        tappableDots={!!this.activeSlide} inactiveDotScale={0.6} />
+    </View>;
   }
   render() {
     const { navigation } = this.props
@@ -391,12 +362,11 @@ export class Second_Store extends React.Component {
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB]}>ดูทั้งหมด</Text>
         </TouchableOpacity>
       </View>
-      {dataService &&
-        <FlatProduct {...this.props} custumNavigation='Second_Store' dataService={dataService} mode='row3' nameFlatProduct='Second_Store'
-          nameSize={14} priceSize={15} dispriceSize={15} />}
+      {dataService && <FlatProduct {...this.props} custumNavigation='Second_Store' dataService={dataService} mode='row3' nameFlatProduct='Second_Store'
+        nameSize={14} priceSize={15} dispriceSize={15} />}
     </View>;
-  }
-}
+  };
+};
 ///----------------------------------------------------------------------------------------------->>>> ProDed_Store
 export let ProDed_Store = (props) => {
   const { dataService, navigation } = props
@@ -416,7 +386,7 @@ export let ProDed_Store = (props) => {
         </View>;
       }) :
       emptyBox
-  }
+  };
   return <View style={[stylesMain.FrameBackground, { backgroundColor: '#9887E0', width: '100%' }]}>
     <View style={stylesDeal.BoxText_Row}>
       <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ร้านนี้มีดีล</Text>
@@ -428,7 +398,7 @@ export let ProDed_Store = (props) => {
       {dataNewStore()}
     </ScrollView>
   </View>;
-}
+};
 ///----------------------------------------------------------------------------------------------->>>> ProDed_New_Store
 export let ProDed_New_Store = (props) => {
   const { dataService } = props;
@@ -463,7 +433,7 @@ export let ProDed_New_Store = (props) => {
       </ScrollView>
     </View>
   </View>;
-}
+};
 ///----------------------------------------------------------------------------------------------->>>> TodayProduct
 export let Shop_Deal_ForU = (props) => {
   const { dataService, } = props
@@ -475,4 +445,4 @@ export let Shop_Deal_ForU = (props) => {
       {<TodayProduct {...props} noTitle loadData={dataService ?? undefined} />}
     </View>
   </View>;
-}
+};

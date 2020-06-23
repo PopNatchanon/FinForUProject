@@ -143,14 +143,11 @@ export let ListMenu = (props) => {
         <View style={{ alignItems: 'center', marginTop: 10 }}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginTop: 5 }]}>FIN Shopping V 1.0.01</Text>
         </View>
-        <SCLAlert theme="danger" headerIconComponent={_renderHeader} show={show} title="ออกจากระบบ"
-            titleStyle={[stylesFont.FontFamilyBold, stylesFont.FontSize2]} subtitle="คุณต้องการออกจากระบบหรือไม่?"
-            subtitleStyle={stylesFont.FontFamilyText} onRequestClose={() => null}>
+        <SCLAlert theme="danger" headerIconComponent={_renderHeader} show={show} title="ออกจากระบบ" titleStyle={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}
+            subtitle="คุณต้องการออกจากระบบหรือไม่?" subtitleStyle={stylesFont.FontFamilyText} onRequestClose={() => null}>
             <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
-                <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={() => setShow(false)}
-                    containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ไม่</SCLAlertButton>
-                <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={() => logoutPress()}
-                    containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ใช่</SCLAlertButton>
+                <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={() => setShow(false)} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ไม่</SCLAlertButton>
+                <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={() => logoutPress()} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ใช่</SCLAlertButton>
             </View>
         </SCLAlert>
     </>;

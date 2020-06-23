@@ -74,7 +74,7 @@ export let Head_Image = (props) => {
       <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>8.บริษัทฯขอสงวนสิทธิ์ในการเปลี่ยนแปลง แก้ไข และยกเลิกรายการส่งเสริมการตลาด รวมถึง เงื่อนไขต่างๆโดยไม่ต้องแจ้งให้ทราบล่วงหน้า</Text>
     </View>
   </View>;
-}
+};
 ///----------------------------------------------------------------------------------------------->>>> Product_Pay
 export let CategoryProduct_pay = (props) => {
   const { dataService, } = props;
@@ -97,4 +97,4 @@ export let CategoryProduct_pay = (props) => {
       </View>;
     })}
   </>;
-}
+};

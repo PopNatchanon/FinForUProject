@@ -63,7 +63,7 @@ export default class Deal_Topic extends Component {
             device: 'mobile_device',
             id_category: id_category ?? ''
         };
-        selectedIndex == 1 && activeGetCurrentUser == false && activeGetServices2 && GetServices({ dataBody: dataBody2, uriPointer: uri2, getDataSource: this.getData2.bind(this), showConsole: 'exclusive_deal' });
+        selectedIndex == 1 && !activeGetCurrentUser && activeGetServices2 && GetServices({ dataBody: dataBody2, uriPointer: uri2, getDataSource: this.getData2.bind(this), showConsole: 'exclusive_deal' });
         switch (selectedIndex) {
             case 0:
                 return <View style={stylesMain.SafeAreaView}>
@@ -132,7 +132,7 @@ export default class Deal_Topic extends Component {
         const { navigation } = this.props
         const { activeGetCurrentUser, activeGetServices, activeGetServices2, cokie, } = this.state
         const uri = `${finip}/coupon/coupon_day_mobile`
-        activeGetCurrentUser == false && activeGetServices && GetServices({ Authorization: cokie, uriPointer: uri, getDataSource: this.getData.bind(this), })
+        !activeGetCurrentUser && activeGetServices && GetServices({ Authorization: cokie, uriPointer: uri, getDataSource: this.getData.bind(this), })
         activeGetCurrentUser && GetData({ getCokie: true, getSource: this.getSource.bind(this), getUser: true, })
         return <SafeAreaView style={stylesMain.SafeAreaView}>
             {(activeGetCurrentUser || activeGetServices || activeGetServices2) && <LoadingScreen key='LoadingScreen' />}
@@ -173,8 +173,8 @@ export let Deal_CuponToday = (props) => {
                 <ScrollView horizontal>
                     {dataService && dataService.coupon.map((value, index) => {
                         return <GetCoupon codeList={value.my_coupon == 'no' ? 'available' : ''} colorCoupon='#86CFFF' couponText={value.name}
-                            getCoupon={value => getCoupon(value)} key={index} saveCoupon
-                            setDataService={{ list: 'fin', id_promotion: value.id_promotion }} textDetail={value.detail} timeOut={value.end_period} />
+                            getCoupon={value => getCoupon(value)} key={index} saveCoupon setDataService={{ list: 'fin', id_promotion: value.id_promotion }}
+                            textDetail={value.detail} timeOut={value.end_period} />
                     })}
                 </ScrollView>
             </View>

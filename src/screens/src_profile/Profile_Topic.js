@@ -153,7 +153,7 @@ export let AppbarChat = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>> ChatScreen
 export let ChatScreen = (props) => {
-    const { navigation } = props
+    const { navigation } = props;
     return <ScrollView>
         <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 6 }, navigation })}>
             <Chat_Tag />
@@ -254,41 +254,34 @@ class Chat_Cutomer extends React.Component {
     state = {
         messages: [],
         countmessage: 0,
-    }
+    };
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { messages } = this.state
-        if (
-            messages !== nextState.messages
-        ) {
-            return true
-        }
-        return false
-    }
+        const { messages } = this.state;
+        if (messages !== nextState.messages) {
+            return true;
+        };
+        return false;
+    };
     shouldComponentUpdate = (nextProps, nextState) => {
-        const { messages } = this.state
-        if (
-            messages !== nextState.messages
-        ) {
-            return true
-        }
-        return false
-    }
+        const { messages } = this.state;
+        if (messages !== nextState.messages) {
+            return true;
+        };
+        return false;
+    };
     componentDidMount() {
-        this.intervalID = setInterval(() =>
-            this.tick(),
-            1000
-        );
-    }
+        this.intervalID = setInterval(() => this.tick(), 1000);
+    };
     componentWillUnmount() {
         clearInterval(this.intervalID);
-    }
+    };
     tick() {
         var user = {
             type: 'message',
             user_id: 9,
             msg_to: 10
-        }
-        var messages = []
+        };
+        var messages = [];
         fetch('http://192.168.0.132/mysql/chatpoint.php', {
             method: 'POST',
             headers: {
@@ -296,36 +289,33 @@ class Chat_Cutomer extends React.Component {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(user),
-        })
-            .then((response) => response.json())
-            .then((responseJson) => {
-                responseJson.map((item) => {
-                    messages.push(
-                        {
-                            _id: item.id,
-                            text: item.message,
-                            createdAt: item.timestamp,
-                            user: {
-                                _id: item.msg_from,
-                                name: item.name,
-                                avatar: 'https://placeimg.com/140/140/any',
-                            },
+        }).then((response) => response.json()).then((responseJson) => {
+            responseJson.map((item) => {
+                messages.push(
+                    {
+                        _id: item.id,
+                        text: item.message,
+                        createdAt: item.timestamp,
+                        user: {
+                            _id: item.msg_from,
+                            name: item.name,
+                            avatar: 'https://placeimg.com/140/140/any',
                         },
-                    )
-                })
-                this.setState({ messages })
-            })
-            .catch((error) => {
-                console.error(error);
-            })
-    }
+                    },
+                );
+            });
+            this.setState({ messages });
+        }).catch((error) => {
+            console.error(error);
+        });
+    };
     onSend(messages = []) {
         var user = {
             type: 'sendmessage',
             msg_to: 10,
             messages: messages[0].text,
             user_id: messages[0].user._id,
-        }
+        };
         fetch('http://192.168.0.132/mysql/chatpoint.php', {
             method: 'POST',
             headers: {
@@ -333,44 +323,29 @@ class Chat_Cutomer extends React.Component {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(user),
-        })
-            .then((response) => response.json())
-            .then((responseJson) => {
-            })
-            .catch((error) => {
-                console.error(error);
-            })
-    }
+        }).then((response) => response.json()).then((responseJson) => {
+        }).catch((error) => {
+            console.error(error);
+        });
+    };
     renderBubble = props => {
-        return (
-            <Bubble
-                {...props}
-                wrapperStyle={{
-                    left: {
-                        backgroundColor: '#f0f0f0',
-                    },
+        return <Bubble {...props} wrapperStyle={{ left: { backgroundColor: '#f0f0f0', }, }} />;
+    };
+    renderMessageImage = props => {
+        return <FastImage {...props} />;
+    };
+    render() {
+        return <View style={{ height: '96%', width: '100%', backgroundColor: '#FFFFFF' }}>
+            <GiftedChat
+                messages={this.state.messages}
+                renderSend={this.renderSend}
+                textStyle={stylesFont.FontFamilyText, stylesFont.FontSize6}
+                onSend={messages => this.onSend(messages)}
+                user={{
+                    _id: '10',
                 }}
             />
-        )
-    }
-    renderMessageImage = props => {
-        return (
-            <FastImage {...props} />
-        )
-    }
-    render() {
-        return (
-            <View style={{ height: '96%', width: '100%', backgroundColor: '#FFFFFF' }}>
-                <GiftedChat
-                    messages={this.state.messages}
-                    renderSend={this.renderSend}
-                    textStyle={stylesFont.FontFamilyText, stylesFont.FontSize6}
-                    onSend={messages => this.onSend(messages)}
-                    user={{
-                        _id: '10',
-                    }}
-                />
-                {/* <GiftedChat
+            {/* <GiftedChat
                     messages={this.state.messages}
                     onSend={messages => this.onSend(messages)}
                     loadEarlier={this.state.loadEarlier}
@@ -395,10 +370,9 @@ class Chat_Cutomer extends React.Component {
                     renderQuickReplySend={this.renderQuickReplySend}
                     timeTextStyle={{ left: { color: 'red' }, right: { color: 'yellow' } }} 
                 /> */}
-            </View>
-        )
-    }
-}
+        </View>;
+    };
+};
 ///----------------------------------------------------------------------------------------------->>>> Chat_Box
 export let Chat_Tag = (props) => {
     return <View>
@@ -464,7 +438,8 @@ export let Follow_store_Box = (props) => {
     }, [activeGetServices]);
     return <>
         <View style={stylesProfileTopic.Follow_store_Box}>
-            <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: dataSevice.id_store }, navigation })} style={{ flexDirection: 'row', }}>
+            <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: dataSevice.id_store }, navigation })}
+                style={{ flexDirection: 'row', }}>
                 <FastImage style={stylesProfileTopic.Follow_store_Box_image} source={{ uri: image_store, }} resizeMode={FastImage.resizeMode.contain} />
                 <View style={stylesProfileTopic.Follow_store_Box_text}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>{dataSevice.store_name}</Text>
@@ -500,7 +475,8 @@ export let Might_like_Store = (props) => {
     return <View>
         <View style={stylesProfileTopic.Might_like_Store}>
             <View style={stylesProfileTopic.Follow_store_Box}>
-                <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: dataSevice.id_store }, navigation })} style={{ flexDirection: 'row', }}>
+                <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: dataSevice.id_store }, navigation })}
+                    style={{ flexDirection: 'row', }}>
                     <FastImage style={stylesProfileTopic.Follow_store_Box_image} source={{ uri: image_store, }} resizeMode={FastImage.resizeMode.contain} />
                     <View style={stylesProfileTopic.Follow_store_Box_text}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>{dataSevice.store_name}</Text>
@@ -519,8 +495,7 @@ export let Might_like_Store = (props) => {
                         {dataSevice.product.map((value, index) => {
                             const image_product = `${finip}/${value.image_path}/${value.image}`
                             return (index < 4 && <View style={stylesProfileTopic.Might_like_Store_BoxPro}>
-                                <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage} source={{ uri: image_product, }}
-                                    resizeMode={FastImage.resizeMode.contain} />
+                                <FastImage style={stylesProfileTopic.Might_like_Store_BoxImage} source={{ uri: image_product, }} resizeMode={FastImage.resizeMode.contain} />
                                 <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { paddingHorizontal: 5 }]}>{value.name}</Text>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: mainColor, borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, paddingHorizontal: 10, marginBottom: 5 }]}>{value.full_price}</Text>
                             </View>)
@@ -542,11 +517,11 @@ export let Might_like_Store = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>> Review_meScreen
 export let Review_meScreen = (props) => {
-    const { dataSevice, navigation } = props
+    const { dataSevice, navigation } = props;
     return <ScrollView>
         {dataSevice.map((value, index) => { return <Review_me {...props} dataSevice={value} key={index} /> })}
     </ScrollView>;
-}
+};
 ///----------------------------------------------------------------------------------------------->>>> Review_me
 export let Review_me = (props) => {
     const { dataSevice, navigation } = props
@@ -630,8 +605,8 @@ export let Question = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>> Topic_Help
 export let Topic_Help = (props) => {
-    const { route } = props
-    const HeadTitle_Help = route.params?.HeadTitle_Help
+    const { route } = props;
+    const HeadTitle_Help = route.params?.HeadTitle_Help;
     return <View style={stylesMain.FrameBackground}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>หัวข้อ</Text>
         <View style={{ justifyContent: 'center', alignItems: 'center', paddingBottom: 10 }}>
@@ -787,20 +762,20 @@ export class Review_From extends React.Component {
             avatarSource: [],
             starmain: 0
         };
-    }
+    };
     selectStar = (starmain) => {
-        this.setState({ starmain })
-    }
+        this.setState({ starmain });
+    };
     UploadImageSingle = (index) => {
         const { avatarSource } = this.state
         const options = {
             includeBase64: true
         };
         ImagePicker.openPicker(options).then(response => {
-            avatarSource[index] = response
-            this.setState({ avatarSource })
+            avatarSource[index] = response;
+            this.setState({ avatarSource });
         });
-    }
+    };
     UploadImageMultiple = () => {
         const { avatarSource } = this.state
         const options = {
@@ -808,20 +783,16 @@ export class Review_From extends React.Component {
             includeBase64: true
         };
         ImagePicker.openPicker(options).then(response => {
-            response.map((item, index) => index + avatarSource.length <= 3 && avatarSource.push(item))
-            this.setState({ avatarSource })
+            response.map((item, index) => index + avatarSource.length <= 3 && avatarSource.push(item));
+            this.setState({ avatarSource });
         });
-    }
+    };
     setStatus = () => {
-        const { dataSevice } = this.props
-        this.setState({ activeAuto: false, Review: dataSevice.reviews_detail, starmain: dataSevice.rating })
-    }
-    UploadReview = () => {
-        this.setState({ activeGetServices: true, })
-    }
-    getData = (value) => {
-        this.setState({ activeGetServices: false })
-    }
+        const { dataSevice } = this.props;
+        this.setState({ activeAuto: false, Review: dataSevice.reviews_detail, starmain: dataSevice.rating });
+    };
+    UploadReview = () => { this.setState({ activeGetServices: true, }); };
+    getData = (value) => { this.setState({ activeGetServices: false }); };
     render() {
         const { cokie, currentUser, dataSevice, route } = this.props
         const { activeAuto, activeGetServices, avatarSource, Review, starmain } = this.state
@@ -835,104 +806,73 @@ export class Review_From extends React.Component {
         }
         activeAuto && this.setStatus()
         activeGetServices && GetServices({ uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'product_interest', getDataSource: this.getData.bind(this), })
-        return (
-            <View style={stylesMain.SafeAreaView}>
-                <View style={stylesProfileTopic.Review_From}>
-                    <IconIonicons name='md-key' size={30} />
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}> คุณภาพสินค้า </Text>
-                </View>
-                <View style={stylesProfileTopic.Review_From_Boximage}>
-                    <View style={stylesProfileTopic.Review_From_image}>
-                        <FastImage style={stylesProfileTopic.Review_me_image}
-                            source={{
-                                uri: image_product,
-                            }}
-                        />
-                        <View style={{ marginLeft: 10, }}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{dataSevice.product_name}</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{dataSevice.detail}</Text>
-                        </View>
-                    </View>
-                    <View style={stylesProfileTopic.Review_From_Star_Box}>
-                        {starReview(starmain)}
-                    </View>
-                    <View style={stylesProfileTopic.Review_From_TextInput}>
-                        <TextInput
-                            style={[stylesFont.FontFamilyText, { margin: 10, width: '95%' }]}
-                            fontSize={18}
-                            placeholder="ไม่ต้องอาย โปรดมาช่วยรีวิวเรา"
-                            multiline
-                            editable
-                            // maxLength={5000}
-                            value={this.state.Review}
-                            onChangeText={(Review) => this.setState({ Review })}></TextInput>
-                    </View>
-                    <View style={{ width: '100%', }}>
-                        <View style={{ flexDirection: 'row', }}>
-                            <CheckBox
-                                checked={this.state.checked1}
-                                onPress={() => this.setState({ checked1: !this.state.checked1, checked2: !this.state.checked2 })}
-                            />
-                            <Text style={[
-                                stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#EAEAEA', marginTop: 15, marginLeft: -10 }]}>
-                                ไม่ระบุตัวตน</Text>
-                        </View>
-                        <View style={{ flexDirection: 'row', borderWidth: 1, padding: 10, borderColor: '#EAEAEA' }}>
-                            {
-                                avatarSource ? [
-                                    avatarSource.map((item, index) => {
-                                        return (
-                                            <TouchableOpacity onPress={() => this.UploadImageSingle(index)} key={index}>
-                                                <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: mainColor, borderWidth: 1, }]}>
-                                                    <FastImage
-                                                        source={{ uri: item.path }}
-                                                        style={[stylesMain.ItemCenterVertical, stylesMain.BoxProduct1Image]}
-                                                    />
-                                                </View>
-                                            </TouchableOpacity>
-                                        )
-                                    }),
-                                    avatarSource.length < 3 && <TouchableOpacity onPress={() => this.UploadImageMultiple()} key={'upload'}>
-                                        <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: mainColor, borderWidth: 1, }]}>
-                                            <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
-                                                <IconAntDesign RightItem name='camerao' size={35} color={mainColor} />
-                                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
-                                            </View>
-                                        </View>
-                                    </TouchableOpacity>
-                                ] :
-                                    <TouchableOpacity onPress={() => this.UploadImageMultiple()}>
-                                        <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: mainColor, borderWidth: 1, }]}>
-                                            <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
-                                                <IconAntDesign RightItem name='camerao' size={35} color={mainColor} />
-                                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
-                                            </View>
-                                        </View>
-                                    </TouchableOpacity>
-                            }
-                        </View>
-                    </View>
-                    <View style={[stylesMain.FlexRow, { marginLeft: -10 }]}>
-                        <CheckBox
-                            checked={this.state.checked3}
-                            onPress={() => this.setState({ checked3: !this.state.checked3, checked4: !this.state.checked4 })}
-                        />
-                        <View style={[stylesMain.FlexRow, { marginTop: 20, marginLeft: -15 }]}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                ข้าพเจ้ายอมรับและทราบข้อตกลงตาม </Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#36B680' }]}>
-                                นโยบายความเป็นส่วนตัวของ FIN</Text>
-                        </View>
+        return <View style={stylesMain.SafeAreaView}>
+            <View style={stylesProfileTopic.Review_From}>
+                <IconIonicons name='md-key' size={30} />
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}> คุณภาพสินค้า </Text>
+            </View>
+            <View style={stylesProfileTopic.Review_From_Boximage}>
+                <View style={stylesProfileTopic.Review_From_image}>
+                    <FastImage style={stylesProfileTopic.Review_me_image} source={{ uri: image_product, }} />
+                    <View style={{ marginLeft: 10, }}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{dataSevice.product_name}</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{dataSevice.detail}</Text>
                     </View>
                 </View>
-                <View>
-                    <View style={{ alignItems: 'center', width: '100%' }}>
-                        <TouchableOpacity onPress={() => this.UploadReview()} style={stylesProfileTopic.Review_From_Buttonshare}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>แชร์รีวิว</Text>
-                        </TouchableOpacity>
+                <View style={stylesProfileTopic.Review_From_Star_Box}>
+                    {starReview(starmain)}
+                </View>
+                <View style={stylesProfileTopic.Review_From_TextInput}>
+                    <TextInput style={[stylesFont.FontFamilyText, { margin: 10, width: '95%' }]} fontSize={18} placeholder="ไม่ต้องอาย โปรดมาช่วยรีวิวเรา"
+                        multiline editable value={this.state.Review} onChangeText={(Review) => this.setState({ Review })}></TextInput>
+                </View>
+                <View style={{ width: '100%', }}>
+                    <View style={{ flexDirection: 'row', }}>
+                        <CheckBox checked={this.state.checked1} onPress={() => this.setState({ checked1: !this.state.checked1, checked2: !this.state.checked2 })} />
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#EAEAEA', marginTop: 15, marginLeft: -10 }]}>ไม่ระบุตัวตน</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', borderWidth: 1, padding: 10, borderColor: '#EAEAEA' }}>
+                        {avatarSource ?
+                            [avatarSource.map((item, index) => {
+                                return <TouchableOpacity onPress={() => this.UploadImageSingle(index)} key={index}>
+                                    <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: mainColor, borderWidth: 1, }]}>
+                                        <FastImage source={{ uri: item.path }} style={[stylesMain.ItemCenterVertical, stylesMain.BoxProduct1Image]} />
+                                    </View>
+                                </TouchableOpacity>;
+                            }),
+                            avatarSource.length < 3 && <TouchableOpacity onPress={() => this.UploadImageMultiple()} key={'upload'}>
+                                <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: mainColor, borderWidth: 1, }]}>
+                                    <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
+                                        <IconAntDesign RightItem name='camerao' size={35} color={mainColor} />
+                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
+                                    </View>
+                                </View>
+                            </TouchableOpacity>] :
+                            <TouchableOpacity onPress={() => this.UploadImageMultiple()}>
+                                <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: mainColor, borderWidth: 1, }]}>
+                                    <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
+                                        <IconAntDesign RightItem name='camerao' size={35} color={mainColor} />
+                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
+                                    </View>
+                                </View>
+                            </TouchableOpacity>}
+                    </View>
+                </View>
+                <View style={[stylesMain.FlexRow, { marginLeft: -10 }]}>
+                    <CheckBox checked={this.state.checked3} onPress={() => this.setState({ checked3: !this.state.checked3, checked4: !this.state.checked4 })} />
+                    <View style={[stylesMain.FlexRow, { marginTop: 20, marginLeft: -15 }]}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ข้าพเจ้ายอมรับและทราบข้อตกลงตาม </Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#36B680' }]}>นโยบายความเป็นส่วนตัวของ FIN</Text>
                     </View>
                 </View>
             </View>
-        );
-    }
-}
+            <View>
+                <View style={{ alignItems: 'center', width: '100%' }}>
+                    <TouchableOpacity onPress={() => this.UploadReview()} style={stylesProfileTopic.Review_From_Buttonshare}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>แชร์รีวิว</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </View>;
+    };
+};

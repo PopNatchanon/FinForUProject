@@ -40,7 +40,7 @@ function Detail_Campaign(props) {
     var dataBody = {
         id_category: '',
         id_campaign: id_campaign,
-    }
+    };
     var uri = `${finip}/campaign/campaign_detail`;
     let getData = (value) => {
         setActiveDataService(false);
@@ -56,8 +56,6 @@ function Detail_Campaign(props) {
     useEffect(() => {
         activeGetCurrentUser && GetData({ getSource: value => getSource(value), getUser: true, });
     }, [activeGetCurrentUser]);
-    dataService && console.log('Detail_Description')
-    dataService && console.log(dataService)
     return <SafeAreaView style={stylesMain.SafeAreaView}>
         <AppBar1 {...props} titleHead={'โปรโมชั่น'} backArrow searchBar chatBar />
         <ScrollView>
@@ -70,7 +68,6 @@ function Detail_Campaign(props) {
         <ExitAppModule {...props} />
     </SafeAreaView>;
 };
-
 ///----------------------------------------------------------------------------------------------->>>> Description
 export let Detail_Description = (props) => {
     const { activeDataService, dataService } = props;
@@ -84,15 +81,14 @@ export let Detail_Description = (props) => {
                 </View>;
             })}
         </View> :
-        activeDataService &&
-        <View style={stylesDeal.Head_BoxImageDetail}>
+        activeDataService && <View style={stylesDeal.Head_BoxImageDetail}>
             <View>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>{' '} </Text>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>{' '}</Text>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>{' '}</Text>
             </View>
-        </View>
-}
+        </View>;
+};
 ///----------------------------------------------------------------------------------------------->>>> New_year_NewA
 export let New_year_Campaign = (props) => {
     const { dataService } = props;
@@ -104,7 +100,7 @@ export let New_year_Campaign = (props) => {
                 </View>
             </View>
             <View style={{ height: 55, paddingHorizontal: 3 }} />
-        </View>
+        </View>;
     });
     return <View style={stylesMain.FrameBackground}>
         <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', }]}>
@@ -124,7 +120,7 @@ export let New_year_Campaign = (props) => {
                 </View>}
         </View>
     </View>;
-}
+};
 ///----------------------------------------------------------------------------------------------->>>> New_year_NewB
 export let New_year_Product = (props) => {
     const { dataService } = props;
@@ -135,7 +131,7 @@ export let New_year_Product = (props) => {
                 </View>
             </View>
             <View style={{ height: 55, paddingHorizontal: 3 }} />
-        </View>
+        </View>;
     });
     return <View style={stylesMain.FrameBackground}>
         <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', width: 180 }]}>
@@ -161,17 +157,8 @@ export let Store_Campaign = (props) => {
     const { dataService } = props;
     // const dataService = []
     var campaign_banner_1;
-    dataService?.campaign_banner_1?.map((value) => {
-        return campaign_banner_1 = `${finip}/${value.image_path}/${value.image}`;
-    });
     var campaign_banner_2 = [];
-    dataService?.campaign_banner_2?.map((value) => {
-        return campaign_banner_2.push(`${finip}/${value.image_path}/${value.image}`);
-    });
     var campaign_banner_3 = [];
-    dataService?.campaign_banner_3?.map((value) => {
-        return campaign_banner_3.push(`${finip}/${value.image_path}/${value.image}`);
-    });
     let emptyBox = <View style={[stylesDeal.Store_Sale_BoxA_Carousel, { backgroundColor: '#ECECEC' }]}>
         <View style={stylesDeal.Store_Sale_Image} ></View>
     </View>;
@@ -184,6 +171,15 @@ export let Store_Campaign = (props) => {
         return <View key={index} style={[stylesDeal.Store_Sale_BoxB_image, { backgroundColor: '#ECECEC' }]}>
             <View style={stylesDeal.Store_Sale_Image}></View>
         </View>;
+    });
+    dataService?.campaign_banner_1?.map((value) => {
+        return campaign_banner_1 = `${finip}/${value.image_path}/${value.image}`;
+    });
+    dataService?.campaign_banner_2?.map((value) => {
+        return campaign_banner_2.push(`${finip}/${value.image_path}/${value.image}`);
+    });
+    dataService?.campaign_banner_3?.map((value) => {
+        return campaign_banner_3.push(`${finip}/${value.image_path}/${value.image}`);
     });
     let Store_Sale_Box = <View style={stylesDeal.Store_Sale}>
         <View style={stylesDeal.Store_Sale_Box}>
@@ -227,4 +223,4 @@ export let Store_Campaign = (props) => {
             {Store_Sale_Box}
         </View>
     </View>;
-}
+};

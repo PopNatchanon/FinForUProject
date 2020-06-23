@@ -43,8 +43,8 @@ function Return_products(props) {
         return <View>
           <Return_products_From />
         </View>
-    }
-  }
+    };
+  };
   return <SafeAreaView style={stylesMain.SafeAreaView}>
     <AppBar1 {...props} backArrow titleHead='คืนสินค้า/คืนเงิน' />
     <ScrollView>
@@ -97,10 +97,10 @@ export let Return_Detail = (props) => {
   let UploadImageSingle = (index) => {
     const options = { includeBase64: true };
     ImagePicker.openPicker(options).then(response => {
-      avatarSource[index] = response
+      avatarSource[index] = response;
       setAvatarSource(avatarSource);
     });
-  }
+  };
   let UploadImageMultiple = () => {
     const options = {
       multiple: true,
@@ -110,7 +110,7 @@ export let Return_Detail = (props) => {
       response.map((item, index) => index + avatarSource.length <= 7 && avatarSource.push(item));
       setAvatarSource(avatarSource);
     });
-  }
+  };
   return <View style={{ padding: 10, }}>
     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ยอดเงินคืน</Text>
     <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesProfileTopic.Return_Detail_Box]} placeholder="กรอกจำนวนยอดเงินคืน"
@@ -125,8 +125,7 @@ export let Return_Detail = (props) => {
     </View>
     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ความคิดเห็นเพิ่มเติม</Text>
     <View style={stylesProfileTopic.Return_Detail_TextInput}>
-      <TextInput fontSize={15} placeholder="แจ้งให้เราทราบเพิ่มเติมเกี่ยวสินค้า" multiline editable maxLength={5000} value={detail}
-        onChangeText={value => setDetail(value)} />
+      <TextInput fontSize={15} placeholder="แจ้งให้เราทราบเพิ่มเติมเกี่ยวสินค้า" multiline editable maxLength={5000} value={detail} onChangeText={value => setDetail(value)} />
     </View>
     <View style={{ width: '100%', backgroundColor: '#FFFFFF', borderColor: '#D5D5D5', borderWidth: 1, paddingVertical: 10, marginTop: 5 }}>
       <ScrollView horizontal>
@@ -158,7 +157,7 @@ export let Return_Detail = (props) => {
     </View>
     <Return_Alert />
   </View>;
-}
+};
 ///----------------------------------------------------------------------------------------------->>>>
 export let Return_Alert = (props) => {
   const [show, setShow] = useState(false);
@@ -175,10 +174,8 @@ export let Return_Alert = (props) => {
     <SCLAlert theme="success" headerIconComponent={_renderHeader} show={show} title="เปลี่ยนสินค้า" subtitle="กรุณารอการตรวจสอบจากร้านค้า"
       titleStyle={[stylesFont.FontFamilyBold, stylesFont.FontSize2]} subtitleStyle={stylesFont.FontFamilyText} onRequestClose={() => null}>
       <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
-        <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={() => handle(false)}
-          containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยกเลิก</SCLAlertButton>
-        <SCLAlertButton theme="success" textStyle={stylesFont.FontFamilyText} onPress={() => handle(false)}
-          containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยืนยัน</SCLAlertButton>
+        <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={() => handle(false)} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยกเลิก</SCLAlertButton>
+        <SCLAlertButton theme="success" textStyle={stylesFont.FontFamilyText} onPress={() => handle(false)} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยืนยัน</SCLAlertButton>
       </View>
     </SCLAlert>
   </View>;

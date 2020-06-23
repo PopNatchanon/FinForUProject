@@ -57,7 +57,7 @@ function The_BestFinScreen(props) {
     </View>
     <ExitAppModule {...props} />
   </SafeAreaView>;
-}
+};
 ///----------------------------------------------------------------------------------------------->>>> Fin_sale
 export let Fin_sale = (props) => {
   const { dataService } = props;
@@ -73,7 +73,7 @@ export let Fin_sale = (props) => {
         nameFlatProduct='CategoryProduct_pay' nameSize={14} priceSize={15} dispriceSize={15} />}
     </View>
   </>;
-}
+};
 ///----------------------------------------------------------------------------------------------->>>> Store_Sale
 export let Store_Sale = (props) => {
   const { dataService } = props;
@@ -135,7 +135,7 @@ export let Product_Cool = (props) => {
         nameFlatProduct='CategoryProduct_pay' nameSize={14} priceSize={15} dispriceSize={15} />}
     </View>
   </>;
-}
+};
 ///----------------------------------------------------------------------------------------------->>>> Second_Store
 export let Second_Store = (props) => {
   const { dataService, } = props;

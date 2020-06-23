@@ -290,8 +290,7 @@ export let Growth = (props) => {
       <YAxis data={percen} contentInset={{ top: 30, bottom: 30 }} svg={{ fill: 'grey', fontSize: 9, }} formatLabel={(value) => `${value}%`}
         numberOfTicks={10} />
       <View style={{ flex: 1, marginLeft: 5 }}>
-        <BarChart style={{ height: 160 }} data={barData} svg={{ fill }} yAccessor={({ item }) => item.value} showGrid={true}
-          contentInset={{ top: 30, bottom: 30, left: 10, right: 10, }}>
+        <BarChart style={{ height: 160 }} data={barData} svg={{ fill }} yAccessor={({ item }) => item.value} showGrid={true} contentInset={{ top: 30, bottom: 30, left: 10, right: 10, }}>
           <Grid />
         </BarChart>
         <XAxis style={{ marginHorizontal: 8 }} data={data1} formatLabel={(value, index) => month[index]} contentInset={{ left: 10, right: 10, }}
@@ -415,7 +414,7 @@ export let Finance = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>>
 export let Register_Affiliate_From = (props) => {
-  const { navigation } = props
+  const { navigation } = props;
   const [activeData, setActiveData] = useState(false);
   const [checked, setChecked] = useState(new Date());
   const [date, setDate] = useState(new Date());
@@ -492,8 +491,7 @@ export let Register_Affiliate_From = (props) => {
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginLeft: 10 }]}>{`${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`}</Text>
             </View>
           </TouchableOpacity>
-          {show && (<DateTimePicker testID="dateTimePicker" value={date} mode={mode} is24Hour={true} display="spinner"
-            onChange={(event, selectedDate) => onChange(event, selectedDate)} />)}
+          {show && (<DateTimePicker testID="dateTimePicker" value={date} mode={mode} is24Hour={true} display="spinner" onChange={(event, selectedDate) => onChange(event, selectedDate)} />)}
         </View>
       </View>
       <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 7 }, navigation })}>
@@ -564,24 +562,20 @@ export class ID_card extends React.Component {
       mode: 'date',
       show: false,
     };
-  }
+  };
   onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     // console.log(new Date(currentDate))
     this.setState({ show: Platform.OS === 'ios' });
     this.setState({ date: currentDate });
   };
-
   showMode = currentMode => {
     this.setState({ show: true });
     this.setState({ mode: currentMode });
   };
-
   showDatepicker = () => {
     this.showMode('date');
   };
-
-
   upload_IDcode = async () => {
     try {
       const res = await DocumentPicker.pick({
@@ -593,67 +587,58 @@ export class ID_card extends React.Component {
         res.name,
         res.size
       );
-      var patt = new RegExp(DocumentPicker.types.images)
+      var patt = new RegExp(DocumentPicker.types.images);
       if (res.type !== DocumentPicker.types.pdf) {
-        console.log(patt.exec(res.type))
+        console.log(patt.exec(res.type));
         if (patt.exec(res.type) === null) {
-          alert('ไฟล์ไม่ถูกต้อง')
+          alert('ไฟล์ไม่ถูกต้อง');
         } else {
           this.setState({ filename: res.name });
-        }
+        };
       } else {
         this.setState({ filename: res.name });
-      }
+      };
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
       } else {
         throw err;
-      }
-    }
-  }
-
+      };
+    };
+  };
   render() {
     const { filename, show, date, mode } = this.state;
-    return (
-      <>
-        <ScrollView>
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>บัตรประชาชน</Text>
-          <View style={[stylesMain.FlexRow, { paddingHorizontal: 10, justifyContent: 'space-between' }]}>
-            <View style={[{
-              width: '68%', height: 50, backgroundColor: '#FFFFFF', paddingHorizontal: 10,
-              borderColor: '#EAEAEA', borderWidth: 1, borderRadius: 5, justifyContent: 'center'
-            }]}>
-              <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#C5C5C5' }]}>{filename}</Text>
-            </View>
-            <TouchableOpacity onPress={() => this.upload_IDcode()}
-              style={[stylesMain.FlexRow, stylesMain.ItemCenter,
-              { width: '30%', borderColor: mainColor, borderWidth: 2, borderRadius: 5, backgroundColor: '#FFFFFF' }]}>
-              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: mainColor }]}>อัพโหลด</Text>
-              <IconEntypo name='upload' size={25} style={{ color: mainColor, marginLeft: 5 }} />
+    return <>
+      <ScrollView>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>บัตรประชาชน</Text>
+        <View style={[stylesMain.FlexRow, { paddingHorizontal: 10, justifyContent: 'space-between' }]}>
+          <View style={[{ width: '68%', height: 50, backgroundColor: '#FFFFFF', paddingHorizontal: 10, borderColor: '#EAEAEA', borderWidth: 1, borderRadius: 5, justifyContent: 'center' }]}>
+            <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#C5C5C5' }]}>{filename}</Text>
+          </View>
+          <TouchableOpacity onPress={() => this.upload_IDcode()} style={[stylesMain.FlexRow, stylesMain.ItemCenter, { width: '30%', borderColor: mainColor, borderWidth: 2, borderRadius: 5, backgroundColor: '#FFFFFF' }]}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: mainColor }]}>อัพโหลด</Text>
+            <IconEntypo name='upload' size={25} style={{ color: mainColor, marginLeft: 5 }} />
+          </TouchableOpacity>
+        </View>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#C5C5C5', textAlign: 'center' }]}>สามารถอัพโหลดเอกสารได้ 1 ฉบับ ความละเอียดได้ไม่ 5 MB รองรับ .PNG .JPEG .PDF</Text>
+        <View style={{ backgroundColor: '#FFFFFF', borderColor: '#EAEAEA', borderWidth: 1, borderRadius: 5, marginHorizontal: 10, padding: 10 }}>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginBottom: 10 }]}>โปรดระบุวันหมดอายุ</Text>
+          <View>
+            <TouchableOpacity onPress={this.showDatepicker.bind(this)} style={stylesMain.ItemCenter}>
+              <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { borderWidth: 2, width: '60%', borderRadius: 5, paddingVertical: 5, borderColor: '#C5C5C5' }]}>
+                <IconFontAwesome name='calendar' size={20} color='rgb(29, 70, 204)' />
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginLeft: 10 }]}>{`${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`}</Text>
+              </View>
             </TouchableOpacity>
+            {show && (<DateTimePicker testID="dateTimePicker" value={date} mode={mode} is24Hour={true} display="spinner" onChange={this.onChange.bind(this)} />)}
           </View>
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#C5C5C5', textAlign: 'center' }]}>สามารถอัพโหลดเอกสารได้ 1 ฉบับ ความละเอียดได้ไม่ 5 MB รองรับ .PNG .JPEG .PDF</Text>
-          <View style={{ backgroundColor: '#FFFFFF', borderColor: '#EAEAEA', borderWidth: 1, borderRadius: 5, marginHorizontal: 10, padding: 10 }}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginBottom: 10 }]}>โปรดระบุวันหมดอายุ</Text>
-            <View>
-              <TouchableOpacity onPress={this.showDatepicker.bind(this)} style={stylesMain.ItemCenter}>
-                <View style={[stylesMain.FlexRow, stylesMain.ItemCenter,
-                { borderWidth: 2, width: '60%', borderRadius: 5, paddingVertical: 5, borderColor: '#C5C5C5' }]}>
-                  <IconFontAwesome name='calendar' size={20} color='rgb(29, 70, 204)' />
-                  <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginLeft: 10 }]}>{`${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`}</Text>
-                </View>
-              </TouchableOpacity>
-              {show && (<DateTimePicker testID="dateTimePicker" value={date} mode={mode} is24Hour={true} display="spinner" onChange={this.onChange.bind(this)} />)}
-            </View>
-          </View>
-        </ScrollView>
-        <TouchableOpacity style={[stylesMain.ItemCenter, { backgroundColor: '#0A55A6', height: 50 }]}>
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>บันทึก</Text>
-        </TouchableOpacity>
-      </>
-    );
-  }
-}
+        </View>
+      </ScrollView>
+      <TouchableOpacity style={[stylesMain.ItemCenter, { backgroundColor: '#0A55A6', height: 50 }]}>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>บันทึก</Text>
+      </TouchableOpacity>
+    </>;
+  };
+};
 
 ///----------------------------------------------------------------------------------------------->>>>
 export let Bank_book = (props) => {

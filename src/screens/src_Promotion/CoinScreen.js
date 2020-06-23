@@ -109,8 +109,8 @@ export let CoinCollect = (props) => {
                 <View style={stylesProfile.CoinCollectBox}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { marginTop: 10, marginLeft: 20, }]}>FIN COIN</Text>
                     <View style={stylesMain.ItemCenter}>
-                        <NumberFormat value={dataService?.coin} displayType={'text'} thousandSeparator={true}
-                            renderText={value => <Text style={[stylesFont.FontSize4, stylesFont.FontFamilyBold]}>{value}</Text>} />
+                        <NumberFormat value={dataService?.coin} displayType={'text'} thousandSeparator={true} renderText={value =>
+                            <Text style={[stylesFont.FontSize4, stylesFont.FontFamilyBold]}>{value}</Text>} />
                     </View>
                 </View>
             </View>
@@ -172,8 +172,7 @@ export let CoinPageBody = (props) => {
     return <View style={stylesMain.FrameBackground}>
         <View style={{ alignItems: 'center' }}>
             <View>
-                <BottomSheet ref={DetailCoinSheet} height={500} duration={250}
-                    customStyles={{ container: { padding: 10, borderTopLeftRadius: 10, borderTopRightRadius: 10, } }}>
+                <BottomSheet ref={DetailCoinSheet} height={500} duration={250} customStyles={{ container: { padding: 10, borderTopLeftRadius: 10, borderTopRightRadius: 10, } }}>
                     {DetailCoin()}
                 </BottomSheet>
                 <View style={ststylePromotionDeal.CampaignBody}>

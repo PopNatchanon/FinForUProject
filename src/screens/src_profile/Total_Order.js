@@ -43,16 +43,16 @@ function Total_Order(props) {
         setActiveGetSource(false);
         setCokie(value.keycokie);
         setCurrentUser(value.currentUser);
-    }
-    useEffect(() => { activeGetSource && GetData({ getCokie: true, getUser: true, getSource: value => getDataSource(value) }); }, [activeGetSource]);
-    return (<SafeAreaView style={[stylesMain.SafeAreaView, { height: 'auto' }]}>
-        {isLoading &&
-            <LoadingScreen />}
+    };
+    useEffect(() => {
+        activeGetSource && GetData({ getCokie: true, getUser: true, getSource: value => getDataSource(value) });
+    }, [activeGetSource]);
+    return <SafeAreaView style={[stylesMain.SafeAreaView, { height: 'auto' }]}>
+        {isLoading && <LoadingScreen />}
         <AppBar1 {...props} backArrow titleHead='การสั่งซื้อของฉัน' />
-        <Button_bar {...props} currentUser={currentUser} cokie={cokie} setLoading={value => setIsLoading(value)}
-            setFSelectedIndex={selectedIndex * 1} />
+        <Button_bar {...props} currentUser={currentUser} cokie={cokie} setLoading={value => setIsLoading(value)} setFSelectedIndex={selectedIndex * 1} />
         <ExitAppModule {...props} />
-    </SafeAreaView>);
+    </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Button_bar
 export let Button_bar = (props) => {
@@ -83,7 +83,7 @@ export let Button_bar = (props) => {
         switch (selectedIndex) {
             case 0:
                 activeSelectedIndex && currentUser && cokie && selectedIndex == 0 && GetServices({ uriPointer: uri, Authorization: cokie, showConsole: 'view_purchase', dataBody, getDataSource: value => getData(value), })
-                return (<>
+                return <>
                     {!activeSelectedIndex && selectedIndex == 0 && ([
                         <Text key={'all'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, marginTop: 10, }]}> รายการคำสั่งซื้อ</Text>,
                         dataService && dataService.purchase.length > 0 ?
@@ -93,10 +93,10 @@ export let Button_bar = (props) => {
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>ยังไม่มีคำสั่งซื้อ</Text>
                             </View>
                     ])}
-                </>);
+                </>;
             case 1:
                 activeSelectedIndex && currentUser && cokie && selectedIndex == 1 && GetServices({ uriPointer: uri, Authorization: cokie, showConsole: 'view_purchase', dataBody, getDataSource: value => getData(value), })
-                return (<>
+                return <>
                     {!activeSelectedIndex && selectedIndex == 1 && ([
                         <Text key={'wait'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, marginTop: 10, }]}>ที่ต้องชำระ</Text>,
                         dataService && dataService.purchase.length > 0 ?
@@ -106,10 +106,10 @@ export let Button_bar = (props) => {
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>ยังไม่มีคำสั่งซื้อ</Text>
                             </View>
                     ])}
-                </>);
+                </>;
             case 2:
                 activeSelectedIndex && currentUser && cokie && selectedIndex == 2 && GetServices({ uriPointer: uri, Authorization: cokie, showConsole: 'view_purchase', dataBody, getDataSource: value => getData(value), })
-                return (<>
+                return <>
                     {!activeSelectedIndex && selectedIndex == 2 && ([
                         <Text key={'paid'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, marginTop: 10, }]}>ที่ต้องได้รับ</Text>,
                         dataService && dataService.purchase.length > 0 ?
@@ -119,10 +119,10 @@ export let Button_bar = (props) => {
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>ยังไม่มีคำสั่งซื้อ</Text>
                             </View>
                     ])}
-                </>);
+                </>;
             case 3:
                 activeSelectedIndex && currentUser && cokie && selectedIndex == 3 && GetServices({ uriPointer: uri, Authorization: cokie, showConsole: 'view_purchase', dataBody, getDataSource: value => getData(value), })
-                return (<>
+                return <>
                     {!activeSelectedIndex && selectedIndex == 3 && ([
                         <Text key={'accepted'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, marginTop: 10, }]}>สำเร็จแล้ว</Text>,
                         dataService && dataService.purchase.length > 0 ?
@@ -132,10 +132,10 @@ export let Button_bar = (props) => {
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>ยังไม่มีคำสั่งซื้อ</Text>
                             </View>
                     ])}
-                </>);
+                </>;
             case 4:
                 activeSelectedIndex && currentUser && cokie && selectedIndex == 4 && GetServices({ uriPointer: uri, Authorization: cokie, showConsole: 'view_purchase', dataBody, getDataSource: value => getData(value), });
-                return (<>
+                return <>
                     {!activeSelectedIndex && selectedIndex == 4 && ([
                         <Text key={'cancel'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, marginTop: 10, }]}>ยกเลิกสินค้า</Text>,
                         dataService && dataService.purchase.length > 0 ?
@@ -145,10 +145,10 @@ export let Button_bar = (props) => {
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>ยังไม่มีคำสั่งซื้อ</Text>
                             </View>
                     ])}
-                </>);
+                </>;
         };
     };
-    return (<>
+    return <>
         <View style={stylesProfileTopic.Button_bar}>
             <ScrollView horizontal>
                 <TabBar sendData={value => updateIndex(value)} item={item} SetValue={selectedIndex >= 0 ? selectedIndex : setFSelectedIndex}
@@ -158,7 +158,7 @@ export let Button_bar = (props) => {
         <ScrollView>
             {PathList()}
         </ScrollView>
-    </>);
+    </>;
 };
 ///----------------------------------------------------------------------------------------------->>>> From_Order_Box
 export let From_Order_Box = (props) => {
@@ -166,7 +166,7 @@ export let From_Order_Box = (props) => {
     const uri_image_store = `${finip}/${dataService.store_path}/${dataService.store_image}`;
     const uri_image_product = `${finip}/${dataService.path_product}/${dataService.image_product}`;
     const setDataDetailOrder = { id_cartdetail: dataService.id_cartdetail, insert_date: dataService.insert_date, no_invoice: dataService.invoice_no };
-    return (<View>
+    return <View>
         <View style={stylesMain.FrameBackground}>
             <View style={[stylesProfileTopic.Order_BoxStore]}>
                 <View style={stylesMain.FlexRow}>
@@ -188,19 +188,16 @@ export let From_Order_Box = (props) => {
                         </TouchableOpacity>
                     </View>
                 </View>
-                {dataService.status_purchase == 'wait' && <TouchableOpacity key={'Review_order'} activeOpacity={1}
-                    onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 7 }, navigation })}>
+                {dataService.status_purchase == 'wait' && <TouchableOpacity key={'Review_order'} activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 7 }, navigation })}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical, { color: '#111', width: width * 0.3, textAlign: 'center', color: '#20BDA1' }]}>รอชำระ</Text>
                 </TouchableOpacity>}
                 {dataService.status_purchase == 'paid' && (dataService.tracking_number == null ?
                     <Text key={'shipping_order'} style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical, { color: '#111', width: width * 0.3, textAlign: 'center', }]}>{'เตรียมจัดส่ง'}</Text> :
                     <Text key={'shipping_order'} style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical, { color: '#111', width: width * 0.3, textAlign: 'center', }]}>{'กำลังจัดส่ง\n'}<Text style={{ color: '#111' }}>[{dataService.tracking_number}]</Text></Text>)}
-                {dataService.status_purchase == 'accepted' && <TouchableOpacity key={'Review_order'} activeOpacity={1}
-                    onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 7 }, navigation })}>
+                {dataService.status_purchase == 'accepted' && <TouchableOpacity key={'Review_order'} activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 7 }, navigation })}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical, { color: '#20BDA1', width: width * 0.3, textAlign: 'center', }]}><IconFeather name='edit' size={15} />เขียนรีวิว</Text>
                 </TouchableOpacity>}
-                {dataService.status_purchase == 'cancel' && <TouchableOpacity key={'Review_order'} activeOpacity={1}
-                    onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 7 }, navigation })}>
+                {dataService.status_purchase == 'cancel' && <TouchableOpacity key={'Review_order'} activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 7 }, navigation })}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical, { color: '#111', width: width * 0.3, textAlign: 'center', }]}>ยกเลิก</Text>
                 </TouchableOpacity>}
             </View>
@@ -212,40 +209,37 @@ export let From_Order_Box = (props) => {
                     <View style={{ marginTop: 10, width: width * 0.5 }}>
                         <Text numberOfLines={2} style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>{dataService.product_name}</Text>
                         <Text numberOfLines={2} style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A2A2A2' }]}>{`${dataService.detail_1} ${dataService.detail_2}`}</Text>
-                        <NumberFormat value={dataService.quantity} displayType={'text'} thousandSeparator={true} prefix={''}
-                            renderText={value => <Text>x {value}</Text>} />
+                        <NumberFormat value={dataService.quantity} displayType={'text'} thousandSeparator={true} prefix={''} renderText={value =>
+                            <Text>x {value}</Text>} />
                     </View>
                 </View>
-                <NumberFormat value={dataService.price} displayType={'text'} thousandSeparator={true} prefix={'฿'}
-                    renderText={value => <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: mainColor, marginTop: 10, }]}>{value}</Text>} />
+                <NumberFormat value={dataService.price} displayType={'text'} thousandSeparator={true} prefix={'฿'} renderText={value =>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: mainColor, marginTop: 10, }]}>{value}</Text>} />
             </View>
             <View style={stylesProfileTopic.Order_Box_price}>
                 <View style={stylesProfileTopic.Order_Box_priceText}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยอดคำสั่งซื้อทั้งหมด</Text>
-                    <NumberFormat value={dataService.price_total} displayType={'text'} thousandSeparator={true} prefix={'฿'}
-                        renderText={value => <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, color: mainColor }]}>{value}</Text>} />
+                    <NumberFormat value={dataService.price_total} displayType={'text'} thousandSeparator={true} prefix={'฿'} renderText={value =>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, color: mainColor }]}>{value}</Text>} />
                 </View>
                 <View style={[stylesProfileTopic.Order_Box_priceText, { marginTop: 5, }]}>
-                    {dataService.status_purchase == 'wait' && <TouchableOpacity key={'payment_order'}
-                        onPress={() => NavigationNavigateScreen({ goScreen: 'Customer_Order', setData: { no_invoice: dataService.invoice_no }, navigation })}>
+                    {dataService.status_purchase == 'wait' && <TouchableOpacity key={'payment_order'} onPress={() => NavigationNavigateScreen({ goScreen: 'Customer_Order', setData: { no_invoice: dataService.invoice_no }, navigation })}>
                         <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, borderColor: mainColor, backgroundColor: mainColor }]}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ดำเนินการชำระเงิน</Text>
                         </View>
                     </TouchableOpacity>}
-                    {dataService.status_purchase == 'wait' && <TouchableOpacity key={'cancel_order'}
-                        onPress={() => NavigationNavigateScreen({ goScreen: 'CancelScreen', setData: { selectedIndex: 1 }, navigation })}>
+                    {dataService.status_purchase == 'wait' && <TouchableOpacity key={'cancel_order'} onPress={() => NavigationNavigateScreen({ goScreen: 'CancelScreen', setData: { selectedIndex: 1 }, navigation })}>
                         <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยกเลิกสินค้า</Text>
                         </View>
                     </TouchableOpacity>}
-                    {dataService.status_purchase == 'accepted' && <TouchableOpacity key={'return_order'}
-                        onPress={() => NavigationNavigateScreen({ goScreen: 'Return_products', setData: { selectedIndex: 1 }, navigation })}>
+                    {dataService.status_purchase == 'accepted' && <TouchableOpacity key={'return_order'} onPress={() => NavigationNavigateScreen({ goScreen: 'Return_products', setData: { selectedIndex: 1 }, navigation })}>
                         <View style={{ borderBottomColor: mainColor, borderBottomWidth: 1, height: 20, }}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>ส่งคำร้องคืนสินค้า</Text>
                         </View>
                     </TouchableOpacity>}
-                    {(dataService.status_purchase == 'paid' || dataService.status_purchase == 'accepted') && <TouchableOpacity
-                        key={'detail_order'} onPress={() => NavigationNavigateScreen({ goScreen: 'Order_Detail', setData: setDataDetailOrder, navigation })}>
+                    {(dataService.status_purchase == 'paid' || dataService.status_purchase == 'accepted') && <TouchableOpacity key={'detail_order'}
+                        onPress={() => NavigationNavigateScreen({ goScreen: 'Order_Detail', setData: setDataDetailOrder, navigation })}>
                         <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
                         </View>
@@ -258,5 +252,5 @@ export let From_Order_Box = (props) => {
                 </View>
             </View>
         </View>
-    </View>);
+    </View>;
 };

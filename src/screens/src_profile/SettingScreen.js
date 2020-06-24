@@ -31,7 +31,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(SettingScreen);
 function SettingScreen(props) {
-    return (<SafeAreaView style={stylesMain.SafeAreaView}>
+    return <SafeAreaView style={stylesMain.SafeAreaView}>
         <AppBar1 {...props} backArrow titleHead='ตั้งค่าบัญชี' />
         <ScrollView>
             <View>
@@ -39,7 +39,7 @@ function SettingScreen(props) {
             </View>
         </ScrollView>
         <ExitAppModule {...props} />
-    </SafeAreaView>);
+    </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Main
 export let ListMenu = (props) => {
@@ -54,8 +54,8 @@ export let ListMenu = (props) => {
             // clear error
         };
     };
-    let _renderHeader = (<IconMaterialIcons name='exit-to-app' size={50} color='white' />);
-    return (<>
+    let _renderHeader = <IconMaterialIcons name='exit-to-app' size={50} color='white' />;
+    return <>
         <View style={stylesProfile.ListMenuList}>
             <View style={stylesMain.FlexRow}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>บัญชีของฉัน</Text>
@@ -143,15 +143,12 @@ export let ListMenu = (props) => {
         <View style={{ alignItems: 'center', marginTop: 10 }}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginTop: 5 }]}>FIN Shopping V 1.0.01</Text>
         </View>
-        <SCLAlert theme="danger" headerIconComponent={_renderHeader} show={show} title="ออกจากระบบ"
-            titleStyle={[stylesFont.FontFamilyBold, stylesFont.FontSize2]} subtitle="คุณต้องการออกจากระบบหรือไม่?"
-            subtitleStyle={stylesFont.FontFamilyText} onRequestClose={() => null}>
+        <SCLAlert theme="danger" headerIconComponent={_renderHeader} show={show} title="ออกจากระบบ" titleStyle={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}
+            subtitle="คุณต้องการออกจากระบบหรือไม่?" subtitleStyle={stylesFont.FontFamilyText} onRequestClose={() => null}>
             <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
-                <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={() => setShow(false)}
-                    containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ไม่</SCLAlertButton>
-                <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={() => logoutPress()}
-                    containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ใช่</SCLAlertButton>
+                <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={() => setShow(false)} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ไม่</SCLAlertButton>
+                <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={() => logoutPress()} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ใช่</SCLAlertButton>
             </View>
         </SCLAlert>
-    </>);
+    </>;
 };

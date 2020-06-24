@@ -36,43 +36,43 @@ function Return_products(props) {
   let PathList = () => {
     switch (selectedIndex) {
       case 0:
-        return (<View>
+        return <View>
           <Return_products_pro />
-        </View>)
+        </View>
       case 1:
-        return (<View>
+        return <View>
           <Return_products_From />
-        </View>)
-    }
-  }
-  return (<SafeAreaView style={stylesMain.SafeAreaView}>
+        </View>
+    };
+  };
+  return <SafeAreaView style={stylesMain.SafeAreaView}>
     <AppBar1 {...props} backArrow titleHead='คืนสินค้า/คืนเงิน' />
     <ScrollView>
       {PathList()}
     </ScrollView>
     <ExitAppModule {...props} />
-  </SafeAreaView>);
+  </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Return_products_pro
 export let Return_products_pro = (props) => {
-  return (<View style={stylesProfileTopic.products_pro}>
+  return <View style={stylesProfileTopic.products_pro}>
     <IconFeather name='edit' size={50} color='#A2A2A2' />
     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>ยังไม่มีคำสั่งซื้อ</Text>
-  </View>);
+  </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Return_products_From
 export let Return_products_From = (props) => {
-  return (<SafeAreaView style={stylesMain.SafeAreaView}>
+  return <SafeAreaView style={stylesMain.SafeAreaView}>
     <ScrollView>
       <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, marginTop: 10, }]}>สินค้าที่ต้องการคืน</Text>
       <Return />
       <Return_Detail />
     </ScrollView>
-  </SafeAreaView>);
+  </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Return
 export let Return = (props) => {
-  return (<View style={stylesMain.FrameBackground}>
+  return <View style={stylesMain.FrameBackground}>
     <View style={stylesProfileTopic.Return}>
       <View style={stylesMain.FlexRow}>
         <View style={stylesProfileTopic.Order_Product_Pro}>
@@ -86,7 +86,7 @@ export let Return = (props) => {
       </View>
       <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: mainColor, marginTop: 10, }]}>฿10,000.00</Text>
     </View>
-  </View>);
+  </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Return_Detail
 export let Return_Detail = (props) => {
@@ -97,10 +97,10 @@ export let Return_Detail = (props) => {
   let UploadImageSingle = (index) => {
     const options = { includeBase64: true };
     ImagePicker.openPicker(options).then(response => {
-      avatarSource[index] = response
+      avatarSource[index] = response;
       setAvatarSource(avatarSource);
     });
-  }
+  };
   let UploadImageMultiple = () => {
     const options = {
       multiple: true,
@@ -110,8 +110,8 @@ export let Return_Detail = (props) => {
       response.map((item, index) => index + avatarSource.length <= 7 && avatarSource.push(item));
       setAvatarSource(avatarSource);
     });
-  }
-  return (<View style={{ padding: 10, }}>
+  };
+  return <View style={{ padding: 10, }}>
     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ยอดเงินคืน</Text>
     <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesProfileTopic.Return_Detail_Box]} placeholder="กรอกจำนวนยอดเงินคืน"
       maxLength={40} value={text} onChangeText={value => setText(value)}>
@@ -125,8 +125,7 @@ export let Return_Detail = (props) => {
     </View>
     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ความคิดเห็นเพิ่มเติม</Text>
     <View style={stylesProfileTopic.Return_Detail_TextInput}>
-      <TextInput fontSize={15} placeholder="แจ้งให้เราทราบเพิ่มเติมเกี่ยวสินค้า" multiline editable maxLength={5000} value={detail}
-        onChangeText={value => setDetail(value)} />
+      <TextInput fontSize={15} placeholder="แจ้งให้เราทราบเพิ่มเติมเกี่ยวสินค้า" multiline editable maxLength={5000} value={detail} onChangeText={value => setDetail(value)} />
     </View>
     <View style={{ width: '100%', backgroundColor: '#FFFFFF', borderColor: '#D5D5D5', borderWidth: 1, paddingVertical: 10, marginTop: 5 }}>
       <ScrollView horizontal>
@@ -157,14 +156,14 @@ export let Return_Detail = (props) => {
       </ScrollView>
     </View>
     <Return_Alert />
-  </View>);
-}
+  </View>;
+};
 ///----------------------------------------------------------------------------------------------->>>>
 export let Return_Alert = (props) => {
   const [show, setShow] = useState(false);
   let handle = (value) => { setShow(value); };
-  let _renderHeader = (<IconFontAwesome name='edit' size={50} color='white' />);
-  return (<View>
+  let _renderHeader = <IconFontAwesome name='edit' size={50} color='white' />;
+  return <View>
     <View style={stylesProfileTopic.Return_ButtonBox}>
       <TouchableOpacity onPress={() => handle(true)} style={stylesMain.ItemCenter}>
         <View style={stylesProfileTopic.Return_Button}>
@@ -175,11 +174,9 @@ export let Return_Alert = (props) => {
     <SCLAlert theme="success" headerIconComponent={_renderHeader} show={show} title="เปลี่ยนสินค้า" subtitle="กรุณารอการตรวจสอบจากร้านค้า"
       titleStyle={[stylesFont.FontFamilyBold, stylesFont.FontSize2]} subtitleStyle={stylesFont.FontFamilyText} onRequestClose={() => null}>
       <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
-        <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={() => handle(false)}
-          containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยกเลิก</SCLAlertButton>
-        <SCLAlertButton theme="success" textStyle={stylesFont.FontFamilyText} onPress={() => handle(false)}
-          containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยืนยัน</SCLAlertButton>
+        <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={() => handle(false)} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยกเลิก</SCLAlertButton>
+        <SCLAlertButton theme="success" textStyle={stylesFont.FontFamilyText} onPress={() => handle(false)} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยืนยัน</SCLAlertButton>
       </View>
     </SCLAlert>
-  </View>);
+  </View>;
 };

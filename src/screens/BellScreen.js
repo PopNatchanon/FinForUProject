@@ -26,7 +26,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(BellScreen);
 function BellScreen(props) {
-    return (<SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
+    return <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
         <AppBar1 titleHead='การแจ้งเตือน' />
         <ScrollView>
             <Popular_store {...props} />
@@ -35,7 +35,7 @@ function BellScreen(props) {
         </ScrollView>
         <Toolbar {...props} />
         <ExitAppModule {...props} />
-    </SafeAreaView>);
+    </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Popular_store
 export let Popular_store = (props) => {
@@ -50,16 +50,16 @@ export let Popular_store = (props) => {
         setDataService(value);
     }
     useEffect(() => { activeGetServices && GetServices({ uriPointer: uri, dataBody, getDataSource: value => getDataSource(value) }); }, [activeGetServices]);
-    let dataNewStore = (dataService.map((item, index) => {
+    let dataNewStore = (dataService?.map((item, index) => {
         var dataMySQL = `${ip}/mysql/uploads/slide/${item.image}`;
-        return (<TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: item.id_store }, navigation })}>
+        return <TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: item.id_store }, navigation })}>
             <View style={stylesMain.BoxStore3Box}>
                 <FastImage source={{ uri: dataMySQL, }} style={stylesMain.BoxStore3Image} />
                 <Text numberOfLines={5} style={[stylesMain.BoxStore3Text, stylesFont.FontFamilyText, stylesFont.FontSize6, { height: height * 0.15 }]}>{text}</Text>
             </View>
-        </TouchableOpacity>);
+        </TouchableOpacity>;
     }));
-    return (<View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView]}>
+    return <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView]}>
         <View style={stylesMain.FrameBackgroundTextBox}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>ร้านเด็ด</Text>
             <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize6]}>ดูทั้งหมด</Text>
@@ -67,12 +67,12 @@ export let Popular_store = (props) => {
         <ScrollView horizontal>
             {dataNewStore}
         </ScrollView>
-    </View>);
+    </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Pro_for_U
 export let Pro_for_U = (props) => {
     const { navigation } = props;
-    return (<View>
+    return <View>
         <View style={stylesMain.FrameBackgroundTextBox}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>โปรเด็ดที่คัดมาเพื่อคุณ</Text>
         </View>
@@ -102,12 +102,12 @@ export let Pro_for_U = (props) => {
                 </View>
             </TouchableOpacity>
         </View>
-    </View>);
+    </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Pro_for_U
 export let Update_buy = (props) => {
     const { navigation } = props;
-    return (<View>
+    return <View>
         <View style={stylesMain.FrameBackgroundTextBox}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>อัพเดทคำสั่งซื้อ</Text>
         </View>
@@ -131,5 +131,5 @@ export let Update_buy = (props) => {
                 <Text numberOfLines={4} style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>กรุณาชำระเงิน ........ บาท สำหรับคำสั่งซื้อ ภายในวันที่ 19-12-2019 </Text>
             </View>
         </View>
-    </View>);
+    </View>;
 };

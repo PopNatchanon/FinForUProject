@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component, useState, useEffect, useRef } from 'react';
 import {
-    Dimensions, SafeAreaView, ScrollView, Text, View, TouchableOpacity, FlatList, Image,
+    Dimensions, SafeAreaView, ScrollView, Text, View, TouchableOpacity, FlatList, Image, ListView,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
@@ -30,7 +30,7 @@ import stylesTopic from '../../style/styleTopic';
 import stylesProfile from '../../style/StylesProfileScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import {
-    GetServices, GetCoupon, TabBar, LoadingScreen, GetData, GetServicesBlob, NavigationNavigateScreen
+    GetServices, GetCoupon, TabBar, LoadingScreen, GetData, GetServicesBlob, NavigationNavigateScreen, GenArreyNumber, ImageGallery
 } from '../../customComponents/Tools';
 import { TodayProduct, Slide, AppBar1, ExitAppModule, AppBar } from '../MainScreen';
 import { Store_Detail } from '../Recommend_Store';
@@ -212,16 +212,7 @@ export function AppBar_Group(props) {
     const {
         fetchData, getActive, getFetchData, navigation,
     } = props;
-    const [activeGetCurrentUser, setActiveGetCurrentUser] = useState(true);
     const [text, setText] = useState(undefined);
-    useEffect(() => {
-        activeGetCurrentUser && GetData({
-            getSource: value => {
-                setActiveGetCurrentUser(false);
-                setCurrentUser(value.currentUser);
-            }, getUser: true,
-        });
-    }, [activeGetCurrentUser]);
     const setSubmit = () => {
         text != undefined && text != ' ' &&
             NavigationNavigateScreen({ goScreen: 'SearchScreen', setData: { SearchText: text }, navigation });
@@ -1254,29 +1245,30 @@ export function Group_About(props) {
 }
 ///----------------------------------------------------------------------------------------------->>>>
 export function Group_Image(props) {
-    let imageGrid = (value, _index, boxwidth, boxheight) => {
-        return <View key={_index} style={{ height: (height * 0.15 * boxwidth) + ((boxwidth - 1) * 5), width: (width * 0.315 * boxheight) + ((boxwidth - 1) * 5), marginTop: 5, marginLeft: 5 }}>
-            <FastImage
-                style={{ width: '100%', height: '100%' }}
-                source={{
-                    uri: `${ip}/MySQL/uploads/Group_image/1.jpg`,
-                }}
-                resizeMode={FastImage.resizeMode.cover} />
-        </View>
-    };
+    const [activeGetServices, setActiveGetServices] = useState(true);
+    const [dataService, setDataService] = useState(undefined);
+    const itemT = [
+        { image_path: 'MySQL/uploads/icon_5', image: '05.jpg' },
+        { image_path: 'mysql/uploads/Supermarketfin', image: 'Food and Market_200327_0026.jpg' },
+        { image_path: 'mysql/uploads/Supermarketfin', image: 'Food and Market_200327_0013.jpg' },
+        { image_path: 'mysql/uploads/Supermarketfin', image: 'Food and Market_200327_0007.jpg' },
+        { image_path: 'mysql/uploads/page_News', image: 'Supreme.jpg' },
+        { image_path: 'mysql/uploads/slide/bannerstore', image: 'brand1.png' },
+        { image_path: 'mysql/uploads/addmin/image/type', image: '2019-05-12-1557696686.jpg' },
+        { image_path: 'mysql/uploads/Deal_Today', image: 'ded3.jpg' },
+        { image_path: 'mysql/uploads/banner-20200203T090816Z-001/banner/banner มือ1', image: 'gem jewelry.jpg' },
+    ];
+    useEffect(() => {
+        if (activeGetServices) {
+            setActiveGetServices(false);
+            setDataService(GenArreyNumber(20, itemT));
+        }
+    }, [activeGetServices]);
+    console.log(activeGetServices);
     return (
         <ScrollView>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginLeft: 10 }]}>รูปภาพในกลุ่ม</Text>
-            <View style={[stylesMain.FlexRow, { flexWrap: 'wrap', width: '100%',/*justifyContent: 'space-between', paddingHorizontal: 5*/ }]}>
-                {
-                    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((_, index) => {
-                        return index == 3 ?
-                            imageGrid(_, index, 3, 3) :
-                            index == 7 ?
-                                imageGrid(_, index, 2, 2) :
-                                imageGrid(_, index, 1, 1)
-                    })}
-            </View>
+            <ImageGallery dataService={dataService} />
         </ScrollView>
     )
 }

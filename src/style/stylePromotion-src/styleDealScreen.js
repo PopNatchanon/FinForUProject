@@ -12,7 +12,7 @@ export default StyleSheet.create({
         marginTop: 5,
     },
     child: {
-        marginTop: 10,
+        marginTop: 3,
         height: 150,
         width,
     },
@@ -261,7 +261,7 @@ export default StyleSheet.create({
     Store_Sale: {
         height: 180,
         width: '100%',
-        marginTop: 10,
+        marginTop: 3,
         alignItems: 'center',
         marginBottom: 10,
     },
@@ -316,7 +316,7 @@ export default StyleSheet.create({
     Head_BoxImageDetail: {
         width: '100%',
         height: 150,
-        marginTop: 5,
+        marginTop: 3,
         backgroundColor: '#FFFFFF',
         padding: 10,
     },

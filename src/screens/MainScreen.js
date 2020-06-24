@@ -104,7 +104,7 @@ function MainScreen(props) {
     //     return value.id_type
     // });
     // let FetchDataCate = () => getFetchData['category_mobile']?.isFetching == false && item_id_type.map((value, index) => {
-    //     if (getFetchData[`category_product|${value}`] == undefined || (getFetchData[`category_product|${value}`]?.isFetching == true)) {
+    //     if (getFetchData[`category_product|${value}`] == undefined || (getFetchData[`category_product|${value}`]?.isFetching )) {
     //         multiFetchData({
     //             multiData: [
     //                 { dataBody: { id_type: value }, name: `category_product|${value}`, uri: `${finip}/home/product_mobile`, },
@@ -485,10 +485,7 @@ export let AppBar1 = (props) => {
     const [activeGetCurrentUser, setActiveGetCurrentUser] = useState(true);
     const [currentUser, setCurrentUser] = useState(undefined);
     useEffect(() => {
-        activeGetCurrentUser == true &&
-            GetData({
-                getSource: value => { setActiveGetCurrentUser(false); setCurrentUser(value.currentUser); }, getUser: true,
-            });
+        activeGetCurrentUser && GetData({ getSource: value => { setActiveGetCurrentUser(false); setCurrentUser(value.currentUser); }, getUser: true, });
     }, [activeGetCurrentUser]);
     return (
         <View style={[colorBar ?? menuBar ? stylesStore.AppbarMenu : stylesStore.Appbar, {
@@ -626,7 +623,7 @@ export let AppBar1 = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>> Slide
 export let Slide = (props) => {
-    const { getFetchData, banner, } = props;
+    const { isOutData, banner, getFetchData, } = props;
     let _renderItem = (item, index) => {
         var dataMySQL;
         banner ?
@@ -645,7 +642,7 @@ export let Slide = (props) => {
     return (
         <View>
             {
-                (banner || getFetchData['home_mobile']?.data) ?
+                (banner || !isOutData && getFetchData['home_mobile']?.data) ?
                     <Carousel
                         renderItem={_renderItem}
                         data={banner ?? getFetchData['home_mobile']?.data}
@@ -821,7 +818,7 @@ export let Trend_Hit = (props) => {
         type: 'Trend_Hit',
     };
     useEffect(() => {
-        activeDataService == true &&
+        activeDataService &&
             GetServices({
                 uriPointer: uri, dataBody, getDataSource: value => {
                     setActiveDataService(false);
@@ -941,7 +938,7 @@ export let Button_Bar = (props) => {
     return (
         <>
             <View style={[stylesMain.FlexRow, {
-                width, justifyContent: 'space-around', marginTop: 3, backgroundColor: 'transparent', elevation: 1
+                zIndex: 1, width, justifyContent: 'space-around', marginTop: 3, backgroundColor: 'transparent', elevation: 1
             }]}>
                 <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
                     goScreen: 'DealScreen', navigation
@@ -2007,7 +2004,7 @@ export let Second_product = (props) => {
         })
     )
     var header_url;
-    dataService?.mobile_bar.map((item) => { header_url = `${finip}/${item.image_path}/${item.image}` });
+    dataService?.mobile_bar?.map((item) => { header_url = `${finip}/${item.image_path}/${item.image}` });
     let Second_Storeheader = (
         <View key={'mobile_bar'} style={[stylesMain.FrameBackground2, { marginTop: 0, borderBottomWidth: null }]}>
             <View>
@@ -2017,8 +2014,7 @@ export let Second_product = (props) => {
                             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
                                 มือสองลดราคา</Text>
                         </View> :
-                        dataService &&
-                            dataService.mobile_bar ?
+                        dataService?.mobile_bar ?
                             <TouchableOpacity activeOpacity={1}
                                 onPress={() => NavigationNavigateScreen({
                                     goScreen: 'SecondScreen', setData: { selectedIndex: 0 }, navigation,
@@ -2034,7 +2030,7 @@ export let Second_product = (props) => {
                             }]}></View>
                 }
                 {
-                    dataService ?
+                    dataService?.product_second ?
                         <FlatProduct {...props} dataService={dataService.product_second} numberOfColumn={2} noMarginTop
                             nameFlatProduct='Second_product' mode='row3_new' nameSize={14} priceSize={15} dispriceSize={15} /> :
                         <View>
@@ -2513,7 +2509,7 @@ export class Botton_PopUp_FIN extends React.Component {
         return (
             <>
                 {
-                    activeShow == true &&
+                    activeShow &&
                     <PanGestureHandler
                         {...this.props}
                         onGestureEvent={this._onGestureEvent}

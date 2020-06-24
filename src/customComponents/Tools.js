@@ -58,7 +58,7 @@ export class Toolbar extends React.Component {
                 (u_name = currentUser.name)
         }
         var routeSelcet = route.name
-        activeGetCurrentUser == true && GetData({ getSource: this.getSource.bind(this), getUser: true })
+        activeGetCurrentUser && GetData({ getSource: this.getSource.bind(this), getUser: true })
         return (
             <View style={stylesMain.Toolbar}>
                 <TouchableOpacity activeOpacity={1}
@@ -673,14 +673,14 @@ export async function GetData_new(props) {
     // [error, result] = await promiseProcessData(AsyncStorage.multiGet(['@MyKey', '@MyLongin']));
     // if (error) {
     //     console.log(error)
-    //     getCokie == true && (value.keycokie = undefined)
-    //     getUser == true && (value.currentUser = undefined);
+    //     getCokie  && (value.keycokie = undefined)
+    //     getUser  && (value.currentUser = undefined);
     //     return getSource(value)
     // }
     // if (result[1][1] === undefined) {
     //     console.log(result[1][1])
-    //     getCokie == true && (value.keycokie = undefined)
-    //     getUser == true && (value.currentUser = undefined);
+    //     getCokie  && (value.keycokie = undefined)
+    //     getUser  && (value.currentUser = undefined);
     //     return getSource(value)
     // }
     // const currentUser = result[0][1];
@@ -689,14 +689,14 @@ export async function GetData_new(props) {
     //     [error, dataCokie] = await promiseProcessData(CookieManager.get(`${finip}/auth/login_customer`))
     //     if (error) {
     //         console.log(error)
-    //         getCokie == true && (value.keycokie = undefined)
-    //         getUser == true && (value.currentUser = undefined);
+    //         getCokie  && (value.keycokie = undefined)
+    //         getUser  && (value.currentUser = undefined);
     //         return getSource(value)
     //     }
     //     if (dataCokie === undefined) {
     //         console.log(`dataCokie`);
-    //         getCokie == true && (value.keycokie = undefined)
-    //         getUser == true && (value.currentUser = undefined);
+    //         getCokie  && (value.keycokie = undefined)
+    //         getUser  && (value.currentUser = undefined);
     //         return getSource(value)
     //     };
     //     var keycokie = dataCokie.token
@@ -715,35 +715,35 @@ export async function GetData_new(props) {
     //         if (error) {
     //             console.log(`AutoLogin:Phase 1`);
     //             console.log(`ERROR:FETCH => ${error}`);
-    //             getCokie == true && (value.keycokie = undefined)
-    //             getUser == true && (value.currentUser = undefined);
+    //             getCokie  && (value.keycokie = undefined)
+    //             getUser  && (value.currentUser = undefined);
     //             return getSource(value)
     //         };
     //         if (dataCustomer === undefined) {
     //             console.log(`AutoLogin':Phase 1`);
     //             console.log('No Data!');
-    //             getCokie == true && (value.keycokie = undefined)
-    //             getUser == true && (value.currentUser = undefined);
+    //             getCokie  && (value.keycokie = undefined)
+    //             getUser  && (value.currentUser = undefined);
     //             return getSource(value)
     //         };
     //         [error, dataProcessCustomer] = await promiseProcessData(dataCustomer)
     //         if (error) {
     //             console.log(`AutoLogin:Phase 2`);
     //             console.log(`ERROR:FETCH => ${error}`);
-    //             getCokie == true && (value.keycokie = undefined)
-    //             getUser == true && (value.currentUser = undefined);
+    //             getCokie  && (value.keycokie = undefined)
+    //             getUser  && (value.currentUser = undefined);
     //             return getSource(value)
     //         };
     //         if (dataProcessCustomer === undefined) {
     //             console.log(`AutoLogin':Phase 2`);
     //             console.log('No Data!');
-    //             getCokie == true && (value.keycokie = undefined)
-    //             getUser == true && (value.currentUser = undefined);
+    //             getCokie  && (value.keycokie = undefined)
+    //             getUser  && (value.currentUser = undefined);
     //             return getSource(value)
     //         };
     //     }
-    //     getCokie == true && (value.keycokie = dataCokie.token)
-    //     getUser == true && (value.currentUser = JSON.parse(currentUser));
+    //     getCokie  && (value.keycokie = dataCokie.token)
+    //     getUser  && (value.currentUser = JSON.parse(currentUser));
     //     return getSource(value)
     // }
 }
@@ -758,14 +758,14 @@ export async function GetData(props) {
     [error, result] = await promiseProcessData(AsyncStorage.multiGet(['@MyKey', '@MyLongin']));
     if (error) {
         console.log(error)
-        getCokie == true && (value.keycokie = undefined)
-        getUser == true && (value.currentUser = undefined);
+        getCokie && (value.keycokie = undefined)
+        getUser && (value.currentUser = undefined);
         return getSource(value)
     }
     if (result[1][1] === undefined) {
         console.log(result[1][1])
-        getCokie == true && (value.keycokie = undefined)
-        getUser == true && (value.currentUser = undefined);
+        getCokie && (value.keycokie = undefined)
+        getUser && (value.currentUser = undefined);
         return getSource(value)
     }
     const currentUser = result[0][1];
@@ -774,14 +774,14 @@ export async function GetData(props) {
         [error, dataCokie] = await promiseProcessData(CookieManager.get(`${finip}/auth/login_customer`))
         if (error) {
             console.log(error)
-            getCokie == true && (value.keycokie = undefined)
-            getUser == true && (value.currentUser = undefined);
+            getCokie && (value.keycokie = undefined)
+            getUser && (value.currentUser = undefined);
             return getSource(value)
         }
         if (dataCokie === undefined) {
             console.log(`dataCokie`);
-            getCokie == true && (value.keycokie = undefined)
-            getUser == true && (value.currentUser = undefined);
+            getCokie && (value.keycokie = undefined)
+            getUser && (value.currentUser = undefined);
             return getSource(value)
         };
         var keycokie = dataCokie.token
@@ -800,35 +800,35 @@ export async function GetData(props) {
             if (error) {
                 console.log(`AutoLogin:Phase 1`);
                 console.log(`ERROR:FETCH => ${error}`);
-                getCokie == true && (value.keycokie = undefined)
-                getUser == true && (value.currentUser = undefined);
+                getCokie && (value.keycokie = undefined)
+                getUser && (value.currentUser = undefined);
                 return getSource(value)
             };
             if (dataCustomer === undefined) {
                 console.log(`AutoLogin':Phase 1`);
                 console.log('No Data!');
-                getCokie == true && (value.keycokie = undefined)
-                getUser == true && (value.currentUser = undefined);
+                getCokie && (value.keycokie = undefined)
+                getUser && (value.currentUser = undefined);
                 return getSource(value)
             };
             [error, dataProcessCustomer] = await promiseProcessData(dataCustomer)
             if (error) {
                 console.log(`AutoLogin:Phase 2`);
                 console.log(`ERROR:FETCH => ${error}`);
-                getCokie == true && (value.keycokie = undefined)
-                getUser == true && (value.currentUser = undefined);
+                getCokie && (value.keycokie = undefined)
+                getUser && (value.currentUser = undefined);
                 return getSource(value)
             };
             if (dataProcessCustomer === undefined) {
                 console.log(`AutoLogin':Phase 2`);
                 console.log('No Data!');
-                getCokie == true && (value.keycokie = undefined)
-                getUser == true && (value.currentUser = undefined);
+                getCokie && (value.keycokie = undefined)
+                getUser && (value.currentUser = undefined);
                 return getSource(value)
             };
         }
-        getCokie == true && (value.keycokie = dataCokie.token)
-        getUser == true && (value.currentUser = JSON.parse(currentUser));
+        getCokie && (value.keycokie = dataCokie.token)
+        getUser && (value.currentUser = JSON.parse(currentUser));
         return getSource(value)
     }
 }
@@ -968,7 +968,7 @@ export async function GetServicesBlob(props) {
 ///----------------------------------------------------------------------------------------------->>>> GetCoupon
 export function GetCoupon(props) {
     const {
-        codeList, colorCoupon, couponText, getCoupon, flexRow, saveCoupon, setDataService, textDetail, timeOut, useCoupon,
+        codeList, colorCoupon, couponText, getCoupon, flexRow, marginL, saveCoupon, setDataService, textDetail, timeOut, useCoupon,
     } = props
     return (
         <View style={[
@@ -978,7 +978,8 @@ export function GetCoupon(props) {
                 backgroundColor:
                     codeList != 'available' ?
                         '#C4C4C4' :
-                        null
+                        null,
+                marginLeft: marginL ?? 10
             }]}>
             <View style={{
                 opacity:
@@ -1290,11 +1291,11 @@ export function NavigationNavigateScreen(props) {
     )
     goScreen == 'goBack' ?
         goBack() :
-        passHome == true ?
+        passHome ?
             dispatch(navigationActions) :
             goScreen == 'popToTop' ?
                 popToTop() :
-                noPush == true ?
+                noPush ?
                     replace(goScreen, setData) :
                     push(goScreen, setData);
 
@@ -1651,8 +1652,8 @@ export class FeedBox extends React.Component {
                         <View style={stylesMain.BoxProduct4ComBox2}>
                             <TouchableOpacity activeOpacity={1} onPress={() => this.setStateButton_Like_heart()} style={
                                 stylesMain.BoxProduct4ComBoxIcon}>
-                                <IconFontAwesome name={like == true ? 'heart' : 'heart-o'} size={20} style={{
-                                    color: like == true ? '#ff0066' : '#111111'
+                                <IconFontAwesome name={like ? 'heart' : 'heart-o'} size={20} style={{
+                                    color: like ? '#ff0066' : '#111111'
                                 }} />
                                 <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     ถูกใจ</Text>
@@ -1833,7 +1834,7 @@ export class SlideTab extends React.Component {
             <View style={[stylesMain.FlexRow, { width: '100%', flexWrap: 'wrap' }]}>
                 <TabBar
                     sendData={this.updateIndex.bind(this)}
-                    SetValue={activeTabBar == true ? selectedIndex != null ? selectedIndex : -1 : undefined}
+                    SetValue={activeTabBar ? selectedIndex != null ? selectedIndex : -1 : undefined}
                     item={item}
                     type='box'
                     noLimit
@@ -1855,12 +1856,12 @@ export class SlideTab extends React.Component {
                         <View style={{
                             width: '100%',
                             height:
-                                activeText == true ?
+                                activeText ?
                                     85 + ((Math.ceil(item.subtitle.length / 2) - 1) * 35) :
                                     85 + (35 * 1)
                         }}>
                             {
-                                activeText == true ?
+                                activeText ?
                                     this.dataItem(item.subtitle) :
                                     <ScrollView scrollEnabled={false}>
                                         {this.dataItem(item.subtitle)}
@@ -1876,11 +1877,11 @@ export class SlideTab extends React.Component {
                                             fontFamily: 'SukhumvitSet-Text',
                                         }]}>
                                             {
-                                                activeText == true ?
+                                                activeText ?
                                                     'ย่อ' :
                                                     'ดูเพิ่มเติม'
                                             }</Text>
-                                        <IconEntypo name={activeText == true ? 'chevron-up' : 'chevron-down'} size={25} color={mainColor} />
+                                        <IconEntypo name={activeText ? 'chevron-up' : 'chevron-down'} size={25} color={mainColor} />
                                     </View>
                                 </TouchableOpacity>
                             }
@@ -1958,4 +1959,128 @@ export function starReview(star, starSize) {
         };
     };
     return starBox;
+};
+///----------------------------------------------------------------------------------------------->>>>
+export let GenArreyNumber = (numberofBox, arrayList) => {
+    const numberOfList = arrayList?.length;
+    var countOfList = 0;
+    var box = [];
+    for (var n = 0; n < numberofBox; n++) {
+        box.push(numberOfList ? arrayList[countOfList] : n);
+        if (numberOfList) {
+            if (countOfList == numberOfList - 1) {
+                countOfList = 0;
+            } else {
+                countOfList++;
+            };
+        };
+    };
+    return box;
+};
+///----------------------------------------------------------------------------------------------->>>>
+export function ImageGallery(props) {
+    const { dataService } = props;
+    const [aStoreIndex, setAStoreIndex] = useState({});
+    const [bStoreIndex, setBStoreIndex] = useState([]);
+    const [cStoreIndex, setCStoreIndex] = useState([]);
+    const [randomLayout, setRandomLayout] = useState({});
+    let imageColumn = (value, index, boxwidth, boxheight) => {
+        return <View key={index} style={{ width: (width * 0.315 * boxwidth) + ((boxwidth - 1) * 5), height: (height * 0.15 * boxheight) + ((boxheight - 1) * 5), marginTop: 5, marginLeft: 5 }}>
+            <TouchableOpacity onPress={() => console.log(`click => ${index} boxwidth => ${boxwidth} boxheight => ${boxheight}`)}>
+                <FastImage
+                    style={{ width: '100%', height: '100%' }}
+                    source={{ uri: `${ip}/${value?.image_path}/${value?.image}`, }}
+                    resizeMode={FastImage.resizeMode.cover} />
+            </TouchableOpacity>
+        </View >;
+    };
+    let imageRow = (value, index, boxwidth, boxheight, position, setbox) => {
+        if (setbox == 'row3' && cStoreIndex.indexOf(index) == -1) {
+            for (var n = 0; n < 3; n++) {
+                cStoreIndex.indexOf(index + n) == -1 && cStoreIndex.push(index + n)
+                cStoreIndex.indexOf(index + n) == -1 && setCStoreIndex(cStoreIndex);
+            };
+        }
+        if (boxwidth < 3 && boxheight > 1 && aStoreIndex[index] == undefined) {
+            var indexbox = [];
+            aStoreIndex[index] = {};
+            for (var n = 1; n <= boxheight; n++) {
+                indexbox.push({ index: index + n, listdata: dataService[index + n] });
+                bStoreIndex.indexOf(index + n) == -1 && bStoreIndex.push(index + n)
+                bStoreIndex.indexOf(index + n) == -1 && setBStoreIndex(bStoreIndex);
+            };
+            aStoreIndex[index].data = indexbox;
+            setAStoreIndex(aStoreIndex);
+        }
+        console.log('boxwidth|boxheight')
+        console.log(`${boxwidth}|${boxheight}`)
+        return <View key={index} style={{ flexDirection: 'row' }}>
+            {position == 'left' && boxwidth < 3 && boxheight > 1 && <View>
+                {aStoreIndex[index].data.map((value2) => value2.index < dataService.length && imageColumn(value2.listdata, value2.index, 1, 1))}
+            </View>}
+            <View style={{ width: (width * 0.315 * boxwidth) + ((boxwidth - 1) * 5), height: (height * 0.15 * boxheight) + ((boxheight - 1) * 5), marginTop: 5, marginLeft: 5 }}>
+                <TouchableOpacity onPress={() => console.log(`click => ${index} boxwidth => ${boxwidth} boxheight => ${boxheight}`)}>
+                    <FastImage
+                        style={{ width: '100%', height: '100%' }}
+                        source={{ uri: `${ip}/${value?.image_path}/${value?.image}`, }}
+                        resizeMode={FastImage.resizeMode.cover} />
+                </TouchableOpacity>
+            </View>
+            {position != 'left' && boxwidth < 3 && boxheight > 1 && <View>
+                {aStoreIndex[index].data.map((value2) => value2.index < dataService.length && imageColumn(value2?.listdata, value2.index, 1, 1))}
+            </View>}
+        </View>;
+    };
+    ///bStoreIndex.indexOf(index) == -1
+    let imagebox = dataService ?
+        <>
+            {/* <View style={{ width, flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+                <TouchableOpacity onPress={() => console.log(aStoreIndex)} style={{ backgroundColor: '#465468', height: 50, width: 50 }}><Text>a</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => {
+                    console.log('=====================================>aStoreIndex')
+                    for (var n = 0; n < dataService.length; n++) {
+                        aStoreIndex[n] && console.log(n)
+                        aStoreIndex[n] && console.log(aStoreIndex[n].data)
+                    }
+                }} style={{ backgroundColor: '#465468', height: 50, width: 50 }}><Text>a.2</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => console.log(bStoreIndex)} style={{ backgroundColor: '#894562', height: 50, width: 50 }}><Text>b</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => console.log(cStoreIndex)} style={{ backgroundColor: '#145788', height: 50, width: 50 }}><Text>c</Text></TouchableOpacity>
+            </View> */}
+            <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', }}>
+                {dataService?.map((value, index) => {
+                    if (randomLayout[index] == undefined) {
+                        randomLayout[index] = cStoreIndex.indexOf(index) == -1 ?
+                            bStoreIndex.indexOf(index) == -1 ?
+                                index < dataService.length - 3 ?
+                                    Math.floor(Math.random() * 6) :
+                                    99 :
+                                '999' :
+                            99;
+                        setRandomLayout(randomLayout);
+                    };
+                    return randomLayout[index] == 0 ?
+                        imageRow(value, index, 1, 1, undefined, 'row3') :
+                        randomLayout[index] == 1 ?
+                            // index != 1 ?
+                            imageRow(value, index, 2, 2, 'right') :
+                            // imageRow(value, index, 2, 2, 'left') :
+                            randomLayout[index] == 2 ?
+                                // index != 0 && index != 1 ?
+                                imageRow(value, index, 2, 2, 'left') :
+                                // imageRow(value, index, 1, 1, undefined) :
+                                randomLayout[index] == 3 ?
+                                    imageRow(value, index, 3, 2, undefined) :
+                                    randomLayout[index] == 4 ?
+                                        imageRow(value, index, 2, 3, 'right') :
+                                        randomLayout[index] == 5 ?
+                                            imageRow(value, index, 2, 3, 'left') :
+                                            randomLayout[index] == 6 ?
+                                                imageRow(value, index, 3, 3, undefined) :
+                                                randomLayout[index] == 99 ?
+                                                    imageRow(value, index, 1, 1, undefined) :
+                                                    null
+                })}
+            </View>
+        </> : <></>;
+    return imagebox;
 };

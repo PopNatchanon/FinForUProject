@@ -353,7 +353,7 @@ export function Feed_About(props) {
           selectedIndex: 12,
         }, navigation
       })}
-        style={[stylesMain.FlexRow, { marginTop: 2, padding: 10 }]}>
+        style={[stylesMain.FlexRow, { marginTop: 2, padding: 5 }]}>
         <View style={stylesMain.FlexRow}>
           <FastImage
             style={{ height: 50, width: 50, borderRadius: 25, borderWidth: 1 }}
@@ -447,7 +447,7 @@ export function Feed_About(props) {
           selectedIndex: 11,
         }, navigation
       })}>
-        <View style={[stylesMain.FlexRow, { padding: 10, borderRadius: 5 }]}>
+        <View style={[stylesMain.FlexRow, { padding: 5, borderRadius: 5, marginBottom: 15 }]}>
           <View style={[stylesMain.ItemCenter, { height: 50, width: 50, borderRadius: 25, borderWidth: 1 }]}>
             <IconAntDesign name='plus' size={30} />
           </View>

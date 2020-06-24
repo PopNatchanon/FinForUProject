@@ -1644,12 +1644,25 @@ export function Group_Search(props) {
 }
 ///----------------------------------------------------------------------------------------------->>>>
 export function Profile_Feed(props) {
-
+    const { navigation } = props;
+    var uri = `${finip}/${'brand/feed_highlight'}`;
+    const [activeSelectedIndex, setActiveSelectedIndex] = useState(true);
+    const [dataService, setDataService] = useState(null);
+    useEffect(() => {
+        activeSelectedIndex &&
+            GetServices({
+                uriPointer: uri, getDataSource: value => {
+                    setActiveSelectedIndex(false);
+                    setDataService(value);
+                },
+            });
+    }, [activeSelectedIndex]);
     const TabBar_Profile = [{
-        name:  <Text style={stylesFont.FontSize6}>
-        <IconFontAwesome5 name='grin-hearts' size={20} />โพสต์</Text>
+        name: <Text style={stylesFont.FontSize6}>
+            <IconFeather name='layout' size={20} />โพสต์</Text>
     }, {
-        name: 'ชุมชน',
+        name: <Text style={stylesFont.FontSize6}>
+            <IconAntDesign name='solution1' size={20} />ชุมชน</Text>
     },]
     return (
         <ScrollView>
@@ -1658,17 +1671,26 @@ export function Profile_Feed(props) {
                     style={{ width: '100%', height: 150 }}
                     source={{ uri: `${ip}/MySQL/uploads/slide/NewStore/luxury_shop3.jpg`, }}
                     resizeMode={FastImage.resizeMode.cover} />
-                <View style={[stylesMain.FlexRow, { borderBottomWidth: 2, marginHorizontal: 10 }]}>
+                <View style={[stylesMain.FlexRow, { borderBottomWidth: 2, marginHorizontal: 5 }]}>
                     <FastImage
                         style={{ height: 80, width: 80, marginLeft: 10, borderRadius: 40, bottom: 20 }}
                         source={{
                             uri: `${ip}/MySQL/uploads/Resize/Promotion/002.jpg`,
                         }}
                         resizeMode={FastImage.resizeMode.cover} />
-                    <View style={{ marginLeft: 10 }}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>ppooo</Text>
+                    <View style={{ marginLeft: 10, width: '50%' }}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>ppooo</Text>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#BEBDBD' }]}>Active เมื่อ 1 ชั่วโมงที่ผ่านมา</Text>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>200 โพสต์ ผู้ติดตาม 200K คน กำลังติดตาม 20 คน</Text>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8]}>200 โพสต์  </Text>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8]}>ผู้ติดตาม 200K คน กำลังติดตาม 20 คน</Text>
+                    </View>
+                    <View>
+                        <View style={{backgroundColor:'#0A55A6'}}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7,{color:'#FFFFFF'}]}>กำลงติดตาม</Text>
+                        </View>
+                        <View style={{backgroundColor:'#0A55A6'}}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7,{color:'#FFFFFF'}]}>แชท</Text>
+                        </View>
                     </View>
                 </View>
                 <View style={[stylesMain.FlexRow, { paddingHorizontal: 10 }]}>
@@ -1701,10 +1723,41 @@ export function Profile_Feed(props) {
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>เกี่ยวกับ</Text>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                         สวัสดีค่า ยินดีต้อนรับค่ะร้านนี้รบกวนไม่ถามเล่นๆ นะคะ หากต่อราคารบกวนไม่ต่อเว่อๆนะคะ ถ้าลดได้ลดให้ค่า</Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ลิงค์ร้านค้า: https://finforyou.com/ppooo</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#0A55A6' }]}>
+                        ลิงค์ร้านค้า: https://finforyou.com/ppooo</Text>
                 </View>
             </View>
-            <View style={[stylesMain.FlexRow, stylesMain.FrameBackground,{ ustifyContent:'center'}]}>
+            <View style={[stylesMain.FlexRow, stylesMain.FrameBackground, { justifyContent: 'center', marginTop: 5 }]}>
+                <MenuBar_Feed />
+            </View>
+            {
+                dataService &&
+                <FlatList
+                    scrollEnabled={true}
+                    initialNumToRender={10}
+                    data={dataService.feed_follow}
+                    keyExtractor={(value, index) => `Feed${index}`}
+                    renderItem={(value) => {
+                        return <FeedBox {...props} dataService={value.item} Header Follow={false} />
+                    }}
+                />
+            }
+        </ScrollView>
+    )
+}
+///----------------------------------------------------------------------------------------------->>>>
+export function MenuBar_Feed(props) {
+    const { getActiveSelectedIndex, selectedIndex, sendText } = props;
+    const TabBar_Profile = [{
+        name: <Text style={stylesFont.FontSize6}>
+            <IconFeather name='layout' size={20} />โพสต์</Text>
+    }, {
+        name: <Text style={stylesFont.FontSize6}>
+            <IconAntDesign name='solution1' size={20} />ชุมชน</Text>
+    }];
+    return (
+        <View>
+            <>
                 <TabBar
                     // sendData={updateIndex2}
                     item={TabBar_Profile}
@@ -1712,7 +1765,8 @@ export function Profile_Feed(props) {
                     // noLimit
                     widthBox={96}
                     radiusBox={4} />
-            </View>
-        </ScrollView>
-    )
-}
+            </>
+
+        </View>
+    );
+};

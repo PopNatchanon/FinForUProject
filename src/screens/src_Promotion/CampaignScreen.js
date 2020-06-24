@@ -160,7 +160,7 @@ export class CampaignBody extends Component {
             </TouchableOpacity>
           </View>
         </View>
-      </View >
+      </View>
     )
   }
   render() {

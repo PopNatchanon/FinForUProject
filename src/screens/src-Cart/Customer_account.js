@@ -107,39 +107,32 @@ function Customer_account(props) {
         activeSave && cokie && type_special == undefined && GetServices({ uriPointer: uri, dataBody, getDataSource: value => getData3(value), Authorization: cokie, showConsole: 'address' });
     }, [activeSave && cokie && type_special == undefined]);
     return <SafeAreaView style={{ backgroundColor: '#E9E9E9', flex: 1, }}>
-        <Appbar {...this.props} type={type} />
+        <Appbar {...props} type={type} />
         <ScrollView>
             <Account currentUser={this.state.currentUser} dataService={dataService3?.list_address} getData={value => getData(value)} key='Accountlist_address'
                 type_special={type_special} />
             <Account_main dataService={dataService3?.list_address} getData={value => getData(value)} key='Account_main' />
         </ScrollView>
         <Button_Bar dataBody={dataBody} getData={value => getData2(value)} />
-        <ExitAppModule {...this.props} />
+        <ExitAppModule {...props} />
     </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Appbar
-export class Appbar extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    };
-    render() {
-        const { navigation, type } = this.props;
-        return <View style={[styles.Appbar]}>
-            <View style={stylesMain.SafeAreaViewNB}>
-                <View style={[stylesMain.ItemCenter, { width: '100%', height: 50, flexDirection: 'row' }]}>
-                    <View style={[stylesMain.ItemCenter, { flexDirection: 'row', marginLeft: '30%', marginRight: '30%' }]}>
-                        <IconAntDesign name='mail' size={30} color='#FFFFFF' />
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF', }]}>{type == 'edit' ? 'แก้ไขที่อยู่' : 'ที่อยู่ใหม่'}</Text>
-                    </View>
-                    <TouchableOpacity activeOpacity={1} onPress={() => navigation.goBack()} >
-                        <IconAntDesign name='closecircleo' size={25} color='#FFFFFF' style={[stylesMain.ItemCenterVertical,]} />
-                    </TouchableOpacity>
+export let Appbar = (props) => {
+    const { navigation, type } = props;
+    return <View style={[styles.Appbar]}>
+        <View style={stylesMain.SafeAreaViewNB}>
+            <View style={[stylesMain.ItemCenter, { width: '100%', height: 50, flexDirection: 'row' }]}>
+                <View style={[stylesMain.ItemCenter, { flexDirection: 'row', marginLeft: '30%', marginRight: '30%' }]}>
+                    <IconAntDesign name='mail' size={30} color='#FFFFFF' />
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF', }]}>{type == 'edit' ? 'แก้ไขที่อยู่' : 'ที่อยู่ใหม่'}</Text>
                 </View>
+                <TouchableOpacity activeOpacity={1} onPress={() => navigation.goBack()} >
+                    <IconAntDesign name='closecircleo' size={25} color='#FFFFFF' style={[stylesMain.ItemCenterVertical,]} />
+                </TouchableOpacity>
             </View>
-        </View>;
-    };
+        </View>
+    </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Account
 export class Account extends Component {
@@ -336,37 +329,34 @@ export class Account extends Component {
     };
 };
 ///----------------------------------------------------------------------------------------------->>>> Account_main
-export class Account_main extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            activeData: true,
-            activeServices: true,
-        };
+export let Account_main = (props) => {
+    const { dataService, getData } = props;
+    const { activeData, activeServices, item1, item2 } = this.state;
+    const [activeData, setActiveData] = useState(true);
+    const [activeServices, setActiveServices] = useState(true);
+    const [item1, setItem1] = useState(true);
+    const [item2, setItem2] = useState(true);
+    let setStateItem1 = (value) => {
+        setActiveData(true);
+        setItem1(value);
     };
-    setStateItem1 = (item1) => {
-        this.setState({ activeData: true, item1 });
+    let setStateItem2 = (value) => {
+        setActiveData(true);
+        setItem2(value);
     };
-    setStateItem2 = (item2) => {
-        this.setState({ activeData: true, item2 });
-    };
-    getData = (item2) => {
-        const { getData } = this.props;
+    let getDatas = (item2) => {
         var mc;
         item2 ? mc = 'yes' : mc = 'no';
-        this.setState({ activeData: false });
+        setActiveData(false);
         getData({ main: mc });
     };
-    render() {
-        const { dataService } = this.props;
-        const { activeData, activeServices, item1, item2 } = this.state;
-        activeData && this.getData(item2);
-        activeServices && dataService && dataService.map((value) => {
-            this.setStateItem2(value.main_address == 0 ? false : true);
-            this.setState({ activeServices: false });
-        });
-        return <View>
-            {/* <View style={[styles.Account_Box]}>
+    activeData && getDatas(item2);
+    activeServices && dataService && dataService.map((value) => {
+        setStateItem2(value.main_address == 0 ? false : true);
+        setActiveServices(false);
+    });
+    return <View>
+        {/* <View style={[styles.Account_Box]}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>ตั้งเป็นที่อยู่ตั้งต้น</Text>
                     <CheckBox
                         size={25}
@@ -377,34 +367,25 @@ export class Account_main extends Component {
                         onPress={()=>this.setStateItem1(!item1)}
                     />
                 </View> */}
-            <View style={styles.Account_Box}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>เลือกเป็นที่อยู่หลัก</Text>
-                <CheckBox size={25} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={item2} onPress={() => this.setStateItem2(!item2)} />
-            </View>
-        </View>;
-    };
+        <View style={styles.Account_Box}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>เลือกเป็นที่อยู่หลัก</Text>
+            <CheckBox size={25} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={item2} onPress={() => setStateItem2(!item2)} />
+        </View>
+    </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Button_Bar
-export class Button_Bar extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    };
-    activeSave = () => {
-        const { getData } = this.props;
+export let Button_Bar = (props) => {
+    const { dataBody, getData } = props;
+    const [bool, setBool] = useState(false)
+    let activeSave = () => {
         getData('AAA');
     };
-    render() {
-        const { dataBody } = this.props;
-        var bool;
-        dataBody && dataBody.amphur !== 'เขต/อำเภอ' && dataBody.province !== 'จังหวัด' && dataBody.tumbol !== 'แขวง/ตำบล' && dataBody.firstname !== undefined && dataBody.lastname !== undefined && dataBody.telephone_number !== undefined ? bool = true : bool = false;
-        return <View style={{ alignItems: 'center', justifyContent: 'flex-end', }}>
-            <TouchableOpacity activeOpacity={bool ? 0.2 : 1} onPress={bool ? () => this.activeSave() : null}>
-                <View style={{ height: 40, backgroundColor: bool ? mainColor : '#ECECEC', width, alignItems: 'center', justifyContent: 'center', }}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: bool ? '#FFFFFF' : '#919191' }]}>บันทึก</Text>
-                </View>
-            </TouchableOpacity>
-        </View>;
-    };
+    dataBody && dataBody.amphur !== 'เขต/อำเภอ' && dataBody.province !== 'จังหวัด' && dataBody.tumbol !== 'แขวง/ตำบล' && dataBody.firstname !== undefined && dataBody.lastname !== undefined && dataBody.telephone_number !== undefined ? setBool(true) : setBool(false);
+    return <View style={{ alignItems: 'center', justifyContent: 'flex-end', }}>
+        <TouchableOpacity activeOpacity={bool ? 0.2 : 1} onPress={bool ? () => activeSave() : null}>
+            <View style={{ height: 40, backgroundColor: bool ? mainColor : '#ECECEC', width, alignItems: 'center', justifyContent: 'center', }}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: bool ? '#FFFFFF' : '#919191' }]}>บันทึก</Text>
+            </View>
+        </TouchableOpacity>
+    </View>;
 };

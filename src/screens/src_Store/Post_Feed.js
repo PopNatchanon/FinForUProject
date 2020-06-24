@@ -30,7 +30,7 @@ import stylesTopic from '../../style/styleTopic';
 import stylesProfile from '../../style/StylesProfileScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import {
-    GetServices, GetCoupon, TabBar, LoadingScreen, GetData, GetServicesBlob, NavigationNavigateScreen, GenArreyNumber
+    GetServices, GetCoupon, TabBar, LoadingScreen, GetData, GetServicesBlob, NavigationNavigateScreen, GenArreyNumber, ImageGallery
 } from '../../customComponents/Tools';
 import { TodayProduct, Slide, AppBar1, ExitAppModule, AppBar } from '../MainScreen';
 import { Store_Detail } from '../Recommend_Store';
@@ -212,16 +212,7 @@ export function AppBar_Group(props) {
     const {
         fetchData, getActive, getFetchData, navigation,
     } = props;
-    const [activeGetCurrentUser, setActiveGetCurrentUser] = useState(true);
     const [text, setText] = useState(undefined);
-    useEffect(() => {
-        activeGetCurrentUser && GetData({
-            getSource: value => {
-                setActiveGetCurrentUser(false);
-                setCurrentUser(value.currentUser);
-            }, getUser: true,
-        });
-    }, [activeGetCurrentUser]);
     const setSubmit = () => {
         text != undefined && text != ' ' &&
             NavigationNavigateScreen({ goScreen: 'SearchScreen', setData: { SearchText: text }, navigation });
@@ -1255,16 +1246,17 @@ export function Group_About(props) {
 ///----------------------------------------------------------------------------------------------->>>>
 export function Group_Image(props) {
     const [activeGetServices, setActiveGetServices] = useState(true);
-    const [aStoreIndex, setAStoreIndex] = useState({});
-    const [bStoreIndex, setBStoreIndex] = useState([]);
     const [dataService, setDataService] = useState(undefined);
     const itemT = [
-        { image_path: 'MySQL/uploads/backstore/image/profile', image: '2019-05-13-1557767048.jpg' },
+        { image_path: 'MySQL/uploads/icon_5', image: '05.jpg' },
         { image_path: 'mysql/uploads/Supermarketfin', image: 'Food and Market_200327_0026.jpg' },
         { image_path: 'mysql/uploads/Supermarketfin', image: 'Food and Market_200327_0013.jpg' },
         { image_path: 'mysql/uploads/Supermarketfin', image: 'Food and Market_200327_0007.jpg' },
-        { image_path: 'mysql/uploads/page_News', image: 'page_J_News.jpg' },
-        { image_path: 'mysql/uploads/slide/bannerstore', image: 'brand1.png' }
+        { image_path: 'mysql/uploads/page_News', image: 'Supreme.jpg' },
+        { image_path: 'mysql/uploads/slide/bannerstore', image: 'brand1.png' },
+        { image_path: 'mysql/uploads/addmin/image/type', image: '2019-05-12-1557696686.jpg' },
+        { image_path: 'mysql/uploads/Deal_Today', image: 'ded3.jpg' },
+        { image_path: 'mysql/uploads/banner-20200203T090816Z-001/banner/banner มือ1', image: 'gem jewelry.jpg' },
     ];
     useEffect(() => {
         if (activeGetServices) {
@@ -1272,57 +1264,11 @@ export function Group_Image(props) {
             setDataService(GenArreyNumber(20, itemT));
         }
     }, [activeGetServices]);
-    let imageColumn = (value, index, boxwidth, boxheight) => {
-        return <View key={index} style={{ height: height * 0.15, width: width * 0.315, marginTop: 5, marginLeft: 5 }}>
-            <FastImage
-                style={{ width: '100%', height: '100%' }}
-                source={{ uri: `${ip}/${value.image_path}/${value.image}`, }}
-                resizeMode={FastImage.resizeMode.cover} />
-        </View>;
-    };
-    let imageRow = (value, index, boxwidth, boxheight, position) => {
-        if (boxwidth < 3 && boxheight > 1 && aStoreIndex[index] == undefined) {
-            var indexbox = [];
-            aStoreIndex[index] = {};
-            for (var n = 0; n < boxheight; n++) {
-                indexbox.push({ index: index + n + 1, listdata: dataService[index + n + 1] });
-                bStoreIndex.indexOf(index + n + 1) == -1 && bStoreIndex.push(index + n + 1)
-                bStoreIndex.indexOf(index + n + 1) == -1 && setBStoreIndex(bStoreIndex);
-            };
-            aStoreIndex[index].data = indexbox;
-            setAStoreIndex(aStoreIndex);
-        };
-        return <View key={index} style={{ flexDirection: 'row' }}>
-            {position == 'left' && boxwidth < 3 && boxheight > 1 && <View>
-                {aStoreIndex[index].data.map((value2, index2) => imageColumn(value2.listdata, index2, boxwidth, boxheight))}
-            </View>}
-            <View style={{ height: (height * 0.15 * boxheight) + ((boxheight - 1) * 5), width: (width * 0.315 * boxwidth) + ((boxwidth - 1) * 5), marginTop: 5, marginLeft: 5 }}>
-                <FastImage
-                    style={{ width: '100%', height: '100%' }}
-                    source={{ uri: `${ip}/${value.image_path}/${value.image}`, }}
-                    resizeMode={FastImage.resizeMode.cover} />
-            </View>
-            {position != 'left' && boxwidth < 3 && boxheight > 1 && <View>
-                {aStoreIndex[index].data.map((value2, index2) => imageColumn(value2.listdata, index2, boxwidth, boxheight))}
-            </View>}
-        </View>;
-    };
+    console.log(activeGetServices);
     return (
         <ScrollView>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginLeft: 10 }]}>รูปภาพในกลุ่ม</Text>
-            <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', }}>
-                {dataService?.map((value, index) => {
-                    return index == 3 ?
-                        imageRow(value, index, 3, 2) :
-                        index == 7 ?
-                            imageRow(value, index, 2, 3) :
-                            index == 11 ?
-                                imageRow(value, index, 2, 3, 'left') :
-                                bStoreIndex.indexOf(index) == -1 ?
-                                    imageRow(value, index, 1, 1) :
-                                    null
-                })}
-            </View>
+            <ImageGallery dataService={dataService} />
         </ScrollView>
     )
 }

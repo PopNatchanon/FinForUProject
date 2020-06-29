@@ -13,7 +13,8 @@ import RNFetchBlob from 'rn-fetch-blob'
 import ModalDropdown from 'react-native-modal-dropdown';
 import ActionButton from 'react-native-action-button';
 import * as Animatable from 'react-native-animatable';
-import IconFeather from 'react-native-vector-icons/Feather';
+import { CheckBox } from 'react-native-elements';
+import DateTimePicker from '@react-native-community/datetimepicker';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -21,6 +22,8 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import IconFontisto from 'react-native-vector-icons/Fontisto';
+import IconFeather from 'react-native-vector-icons/Feather';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesDetail from '../../style/StylesDetailScreen';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
@@ -38,6 +41,7 @@ import { ProductBox, FeedBox, } from '../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../../navigator/IpConfig';
 import { Icon } from 'react-native-elements';
+import { Button } from 'native-base';
 ///----------------------------------------------------------------------------------------------->>>> Main
 export default class Post_Feed extends Component {
     constructor(props) {
@@ -60,137 +64,112 @@ export default class Post_Feed extends Component {
         const selectedIndex = route.params?.selectedIndex
         switch (selectedIndex) {
             case 0:
-                return (
-                    <>
-                        {/* หน้า คะแนนร้านค้า เข้าจากหน้า Store  */}
-                        <AppBar1 {...this.props} backArrow titleHead='คะแนนประจำร้าน' />
-                        <ScrollView>
-                            <Score_store {...this.props} cokie={cokie} />
-                        </ScrollView>
-                    </>
-                )
+                return <>
+                    {/* หน้า คะแนนร้านค้า เข้าจากหน้า Store  */}
+                    <AppBar1 {...this.props} backArrow titleHead='คะแนนประจำร้าน' />
+                    <Score_store {...this.props} cokie={cokie} />
+                </>
             case 1:
-                return (
-                    <>
-                        {/* หน้าสร้างโพสต์ เข้าจากปุ่มบวกหน้า Feed*/}
-                        <AppBar1 {...this.props} backArrow postBar getActivePost={this.getActivePost.bind(this)}
-                            titleHead={actionPost == 'edit' ? 'แก้ไขโพสต์' : 'โพสต์ใหม่'} />
-                        <ScrollView>
-                            <Post_New {...this.props} activePost={activePost} cokie={cokie} getActivePost={this.getActivePost.bind(this)} />
-                        </ScrollView>
-                    </>
-                )
+                return <>
+                    {/* หน้าสร้างโพสต์ เข้าจากปุ่มบวกหน้า Feed*/}
+                    <AppBar1 {...this.props} backArrow postBar getActivePost={this.getActivePost.bind(this)}
+                        titleHead={actionPost == 'edit' ? 'แก้ไขโพสต์' : 'สร้างโพสต์'} />
+                    <Post_New {...this.props} activePost={activePost} cokie={cokie} getActivePost={this.getActivePost.bind(this)} />
+                </>
             case 2:
-                return (
-                    <>
-                        {/* หน้า แท็กสินค้า เข้าจากหน้า Feed */}
-                        <AppBar1 {...this.props} backArrow titleHead='เลือกสินค้า' />
-                        <Select_TagProduct {...this.props} cokie={cokie} />
-                    </>
-                )
+                return <>
+                    {/* หน้า แท็กสินค้า เข้าจากหน้า Feed */}
+                    <AppBar1 {...this.props} backArrow titleHead='เลือกสินค้า' />
+                    <Select_TagProduct {...this.props} cokie={cokie} />
+                </>
             case 3:
-                return (
-                    <>
-                        {/* หน้า คอมเมนท์ เข้าจากหน้า Feed ปุ่มแสดงความคิดเห็น */}
-                        <AppBar1 {...this.props} backArrow titleHead='คอมเมนท์' chatBar />
-                        <Feed_comment />
-                    </>
-                )
+                return <>
+                    {/* หน้า คอมเมนท์ เข้าจากหน้า Feed ปุ่มแสดงความคิดเห็น */}
+                    <AppBar1 {...this.props} backArrow titleHead='คอมเมนท์' chatBar />
+                    <Feed_comment />
+                </>
             case 10:
-                return (
-                    <>
-                        <AppBar1 {...this.props} backArrow titleHead='สินค้า' />
-                    </>
-                )
+                return <>
+                    <AppBar1 {...this.props} backArrow titleHead='สินค้า' />
+                </>
             case 11:
-                return (
-                    <>
-                        {/* หน้าสร้าง กลุ่มเข้าจาก หน้า Feed_About */}
-                        <AppBar1 {...this.props} backArrow titleHead='สร้างกลุ่ม' />
-                        <New_Group {...this.props} />
-                    </>
-                )
+                return <>
+                    {/* หน้าสร้าง กลุ่มเข้าจาก หน้า Feed_About */}
+                    <AppBar1 {...this.props} backArrow titleHead='สร้างกลุ่ม' />
+                    <New_Group {...this.props} />
+                </>
             case 12:
-                return (
-                    <>
-                        {/* หน้า โปรไฟล์กลุ่ม เข้าจากหน้าสร้างกลุ่มเสร็จ กับ ดูกลุ่ม หน้า Feed_About */}
-                        <AppBar_Group {...this.props} backArrow searchBar otherBar />
-                        <Profile_Group {...this.props} />
-                    </>
-                )
+                return <>
+                    {/* หน้า โปรไฟล์กลุ่ม เข้าจากหน้าสร้างกลุ่มเสร็จ กับ ดูกลุ่ม หน้า Feed_About */}
+                    <AppBar_Group {...this.props} backArrow searchBar otherBar />
+                    <Profile_Group {...this.props} />
+                </>
             case 13:
-                return (
-                    <>
-                        {/* หน้าเกี่ยวกับ กลุ่ม เข้าจาก หน้า โปรไฟล์กลุ่ม ปุ่มเกี่ยวกับกลุ่ม */}
-                        <AppBar1 {...this.props} backArrow titleHead='เกี่ยวกับกลุ่ม' />
-                        <Group_About />
-                    </>
-                )
+                return <>
+                    {/* หน้าเกี่ยวกับ กลุ่ม เข้าจาก หน้า โปรไฟล์กลุ่ม ปุ่มเกี่ยวกับกลุ่ม */}
+                    <AppBar1 {...this.props} backArrow titleHead='เกี่ยวกับกลุ่ม' />
+                    <Group_About />
+                </>
             case 14:
-                return (
-                    <>
-                        {/* หน้ารูปภาพ กลุ่ม เข้าจาก หน้าโปรไฟล์กลุ่ม ปุ่มรูปภาพกลุ่ม */}
-                        <AppBar1 {...this.props} backArrow titleHead='รูปภาพ' />
-                        <Group_Image />
-                    </>
-                )
+                return <>
+                    {/* หน้ารูปภาพ กลุ่ม เข้าจาก หน้าโปรไฟล์กลุ่ม ปุ่มรูปภาพกลุ่ม */}
+                    <AppBar1 {...this.props} backArrow titleHead='รูปภาพ' />
+                    <Group_Image />
+                </>
             case 15:
-                return (
-                    <>
-                        {/* หน้าสมาชิก กลุ่ม เข้าจาก หน้าโปรไฟล์ ปุ่มสมาชิกกลุ่ม */}
-                        <AppBar1 {...this.props} backArrow titleHead='สมาชิก' />
-                        <Group_Member />
-                    </>
-                )
+                return <>
+                    {/* หน้าสมาชิก กลุ่ม เข้าจาก หน้าโปรไฟล์ ปุ่มสมาชิกกลุ่ม */}
+                    <AppBar1 {...this.props} backArrow titleHead='สมาชิก' />
+                    <Group_Member />
+                </>
             case 16:
-                return (
-                    <>
-                        {/* หน้า บันทึกกิจกรรม เข้าจาก หน้า Feed_About */}
-                        <AppBar1 {...this.props} backArrow titleHead='บันทึกกิจกรรม' />
-                        <Save_Activity />
-                    </>
-                )
+                return <>
+                    {/* หน้า บันทึกกิจกรรม เข้าจาก หน้า Feed_About */}
+                    <AppBar1 {...this.props} backArrow titleHead='บันทึกกิจกรรม' />
+                    <Save_Activity />
+                </>
             case 17:
-                return (
-                    <>
-                        {/* หน้า รายการที่บันทึกไว้ เข้าจาก หน้า Feed_About */}
-                        <AppBar1 {...this.props} backArrow titleHead='โพสต์ที่บันทึก' />
-                        <Save_Post />
-                    </>
-                )
+                return <>
+                    {/* หน้า รายการที่บันทึกไว้ เข้าจาก หน้า Feed_About */}
+                    <AppBar1 {...this.props} backArrow titleHead='โพสต์ที่บันทึก' />
+                    <Save_Post />
+                </>
             case 18:
-                return (
-                    <>
-                        {/* หน้า กลุ่มทั้งหมด เข้าจาก หน้า Feed_About */}
-                        <AppBar1 {...this.props} backArrow titleHead='กลุ่มทั้งหมด' />
-                        <Group_Total />
-                    </>
-                )
+                return <>
+                    {/* หน้า กลุ่มทั้งหมด เข้าจาก หน้า Feed_About */}
+                    <AppBar1 {...this.props} backArrow titleHead='กลุ่มทั้งหมด' />
+                    <Group_Total />
+                </>
             case 19:
-                return (
-                    <>
-                        {/* หน้า การแจ้งเตือน เข้าจาก หน้า Feed_About */}
-                        <AppBar1 {...this.props} backArrow titleHead='การแจ้งเตือน' />
-                        <Feed_Notification />
-                    </>
-                )
+                return <>
+                    {/* หน้า การแจ้งเตือน เข้าจาก หน้า Feed_About */}
+                    <AppBar1 {...this.props} backArrow titleHead='การแจ้งเตือน' />
+                    <Feed_Notification />
+                </>
             case 20:
-                return (
-                    <>
-                        {/* หน้า ค้นหา เข้าจากหน้า Profile กลุ่ม */}
-                        <AppBar_Group {...this.props} backArrow searchBar otherBar />
-                        <Group_Search />
-                    </>
-                )
+                return <>
+                    {/* หน้า ค้นหา เข้าจากหน้า Profile กลุ่ม */}
+                    <AppBar_Group {...this.props} backArrow searchBar otherBar />
+                    <Group_Search />
+                </>
             case 21:
-                return (
-                    <>
-                        {/* หน้า โปรไฟล์กลุ่ม เข้าจากหน้า โปรร้านค้า-แท๊บโพสต์ร้าน  */}
-                        <AppBar_Group {...this.props} backArrow />
-                        <Profile_Feed />
-                    </>
-                )
-
+                return <>
+                    {/* หน้า โปรไฟล์กลุ่ม เข้าจากหน้า โปรร้านค้า-แท๊บโพสต์ร้าน  */}
+                    <AppBar_Group {...this.props} backArrow />
+                    <Profile_FeedStore />
+                </>
+            case 22:
+                return <>
+                    {/* หน้า โปรไฟล์กลุ่ม เข้าจากหน้า โปรร้านค้า-แท๊บโพสต์ร้าน  */}
+                    <AppBar_Group {...this.props} backArrow />
+                    <Profile_FeedCustomer {...this.props} otherBar />
+                </>
+            case 23:
+                return <>
+                    {/* หน้า โปรไฟล์กลุ่ม เข้าจากหน้า โปรร้านค้า-แท๊บโพสต์ร้าน  */}
+                    <AppBar1 {...this.props} backArrow saveBar />
+                    <Profile_Edit />
+                </>
         }
     }
     render() {
@@ -204,7 +183,7 @@ export default class Post_Feed extends Component {
         );
     }
 }
-///----------------------------------------------------------------------------------------------->>>> AppBar ค้นหา
+/// AppBar สำหรับกลุ่มของ Feed ----------------------------------------------------------------------->>>>
 export function AppBar_Group(props) {
     const {
         ABDColor, ABDColor_All, ABGColor, AIColor, ABICartColor, backArrow, chatBar, otherBar, searchBar, SearchText,
@@ -226,34 +205,26 @@ export function AppBar_Group(props) {
     otherBar && (allWidth -= 30);
     const selectorSheet = useRef(null)
     const selectorSheetA = useRef(null)
-    const item = [{
-        name: 'ภาพโป๊เปลือย'
-    }, {
-        name: 'การก่อกวน'
-    }, {
-        name: 'สแปม'
-    }, {
-        name: 'ข่าวปลอม'
-    }, {
-        name: 'การขายที่ไม่ได้รับอนุญาต'
-    }, {
-        name: 'การก่อการร้าย'
-    }, {
-        name: 'ความรุนแรง'
-    }, {
-        name: 'การฆ่าตัวตายหรือทำร้ายตัวเอง'
-    }, {
-        name: 'คำพูดที่แสดงความเกลียดชัง'
-    }, {
-        name: 'อื่นๆ'
-    }]
+    const item = [
+        /*ส่วนตัวเลือกในการรายงาน AppBarFeed กลุ่ม*/
+        { name: 'ภาพโป๊เปลือย' },
+        { name: 'การก่อกวน' },
+        { name: 'สแปม' },
+        { name: 'ข่าวปลอม' },
+        { name: 'การขายที่ไม่ได้รับอนุญาต' },
+        { name: 'การก่อการร้าย' },
+        { name: 'ความรุนแรง' },
+        { name: 'การฆ่าตัวตายหรือทำร้ายตัวเอง' },
+        { name: 'คำพูดที่แสดงความเกลียดชัง' },
+        { name: 'อื่นๆ' }
+    ]
     let ReportBox = (
         item.map((value, index) => {
             return <TouchableOpacity key={index} style={{
                 backgroundColor: '#F3F3F3',
-                borderRadius: 50, padding: 10
+                borderRadius: 50, padding: 5
             }}>
-                <Text>{value.name}</Text>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>{value.name}</Text>
             </TouchableOpacity>
         })
     )
@@ -267,26 +238,25 @@ export function AppBar_Group(props) {
         }]}>
             <BottomSheet
                 ref={selectorSheetA}
-                height={300}
+                height={height * 0.44}
                 duration={250}
                 customStyles={{
                     container: {
                         borderTopLeftRadius: 10,
                         borderTopRightRadius: 10,
-                        paddingTop: 10,
                     }
                 }}>
-                <View style={{ padding: 10, }} >
-                    <View style={{ borderBottomColor: '#979797', borderBottomWidth: 1, paddingBottom: 10 }}>
+                <View style={{ justifyContent: 'space-between', height: '100%', padding: 10 }} >
+                    <View style={{ borderBottomColor: '#979797', borderBottomWidth: 1, }}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>โปรดเลือกปัญหาเพื่อดำเนินการต่อ</Text>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                            คุณสามารถรายงานโพสต์นี้ได้หลังจากเลือกปัญหาแล้ว
-                        โปรดทราบว่าขณะนี้เรามีผู้ตรวจสอบน้อยลง</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>คุณสามารถรายงานโพสต์นี้ได้หลังจากเลือกปัญหาแล้ว โปรดทราบว่าขณะนี้เรามีผู้ตรวจสอบน้อยลง</Text>
                     </View>
-                    <View style={[stylesMain.FlexRow, { flexWrap: 'wrap', paddingTop: 10, justifyContent: 'space-between' }]}>
+                    <View style={[stylesMain.FlexRow, { flexWrap: 'wrap', paddingTop: 10, }]}>
                         {ReportBox}
                     </View>
-
+                    <TouchableOpacity style={[stylesMain.ItemCenter, { backgroundColor: mainColor, padding: 5, borderRadius: 5 }]}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ส่ง</Text>
+                    </TouchableOpacity>
                 </View>
             </BottomSheet>
             <BottomSheet
@@ -350,8 +320,7 @@ export function AppBar_Group(props) {
                 </TouchableOpacity>,
                 otherBar &&
                 <TouchableOpacity key='otherBar' onPress={() => { selectorSheet.current.open() }}
-                    style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]}
-                >
+                    style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]}>
                     <AIconFontAwesome5 name="ellipsis-h" size={25} style={{ color: AIColor ?? '#fff' }} />
                 </TouchableOpacity>,
             ]}
@@ -372,12 +341,10 @@ export class Score_store extends React.Component {
         let starBox = [];
         for (var n = 0; n < 5; n++) {
             if (star > n) {
-                starBox.push(
-                    <IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={starSize ?? 20} color='#FFAC33' />
+                starBox.push(<IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={starSize ?? 20} color='#FFAC33' />
                 );
             } else {
-                starBox.push(
-                    <IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={starSize ?? 20} color='#E9E9E9' />
+                starBox.push(<IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={starSize ?? 20} color='#E9E9E9' />
                 );
             };
         };
@@ -385,17 +352,11 @@ export class Score_store extends React.Component {
     };
     updateIndex = (value) => {
         var score = value.selectedIndex == 0 ? '' :
-            value.selectedIndex == 1 ?
-                '5' :
-                value.selectedIndex == 2 ?
-                    '4' :
-                    value.selectedIndex == 3 ?
-                        '3' :
-                        value.selectedIndex == 4 ?
-                            '2' :
-                            value.selectedIndex == 5 ?
-                                '1' :
-                                '';
+            value.selectedIndex == 1 ? '5' :
+                value.selectedIndex == 2 ? '4' :
+                    value.selectedIndex == 3 ? '3' :
+                        value.selectedIndex == 4 ? '2' :
+                            value.selectedIndex == 5 ? '1' : '';
         this.setState({ activeGetServices2: true, score, });
     };
     getData = (dataService) => {
@@ -409,13 +370,10 @@ export class Score_store extends React.Component {
         const { activeGetServices, activeGetServices2, dataService, dataService2, score } = this.state;
         const id_store = route.params?.id_store
         const uri = `${finip}/store/score_data`;
-        const dataBody = {
-            id_store,
-            score,
-        };
+        const dataBody = { id_store, score, };
         console.log('render|dataService2')
         console.log(dataService2)
-        item = [{
+        const item = [{
             name: 'ทั้งหมด',
             nameline2: `(${(dataService ? (dataService.rate_1 + dataService.rate_2 + dataService.rate_3 + dataService.rate_4 +
                 dataService.rate_5) : '0')})`,
@@ -442,7 +400,7 @@ export class Score_store extends React.Component {
         activeGetServices2 == true && id_store && cokie &&
             GetServices({ Authorization: cokie, uriPointer: uri, dataBody, showConsole: 'score_data_start', getDataSource: this.getData2.bind(this), });
         return (
-            <>
+            <ScrollView>
                 <View style={{ backgroundColor: '#4C9AE2', width: '100%', }}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF', margin: 10 }]}> เรตติ้งร้าน </Text>
                     <View style={stylesMain.ItemCenter}>
@@ -483,7 +441,7 @@ export class Score_store extends React.Component {
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4,]}>ไม่มีรีวิว</Text>
                         </View>
                 }
-            </>
+            </ScrollView>
         );
     };
 };
@@ -598,53 +556,32 @@ export class Post_New extends React.Component {
         this.setState({ tagProduct })
     }
     Framesticker() {
+        const FrameImage = [
+            { image: `${ip}/MySQL/uploads/Framesticker/Framesticker01.jpg` },
+            { image: `${ip}/MySQL/uploads/Framesticker/Framesticker02.jpg` },
+            { image: `${ip}/MySQL/uploads/Framesticker/Framesticker03.jpg` },
+            { image: `${ip}/MySQL/uploads/Framesticker/Framesticker04.jpg` },
+            { image: `${ip}/MySQL/uploads/Framesticker/Framesticker05.jpg` },
+            { image: `${ip}/MySQL/uploads/Framesticker/Framesticker06.jpg` },
+        ]
+        let FrameItem = (
+            FrameImage.map((value, index) => {
+                if (index < 6) {
+                    return <View key={index}>
+                        <TouchableOpacity>
+                            <FastImage style={{ height: 120, width: 120, marginBottom: 10 }}
+                                source={{ uri: value.image, }}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                }
+            }))
         return (
             <>
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}>กรอบ/สติ๊กเกอร์</Text>
                     <View style={[stylesMain.FlexRow, { flexWrap: 'wrap', justifyContent: 'space-around', marginTop: 10 }]}>
-                        <TouchableOpacity>
-                            <FastImage style={{ height: 120, width: 120, marginBottom: 10 }}
-                                source={{
-                                    uri: `${ip}/MySQL/uploads/Framesticker/Framesticker01.jpg`,
-                                }}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <FastImage style={{ height: 120, width: 120, }}
-                                source={{
-                                    uri: `${ip}/MySQL/uploads/Framesticker/Framesticker02.jpg`,
-                                }}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <FastImage style={{ height: 120, width: 120, }}
-                                source={{
-                                    uri: `${ip}/MySQL/uploads/Framesticker/Framesticker03.jpg`,
-                                }}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <FastImage style={{ height: 120, width: 120, }}
-                                source={{
-                                    uri: `${ip}/MySQL/uploads/Framesticker/Framesticker04.jpg`,
-                                }}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <FastImage style={{ height: 120, width: 120, }}
-                                source={{
-                                    uri: `${ip}/MySQL/uploads/Framesticker/Framesticker05.jpg`,
-                                }}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <FastImage style={{ height: 120, width: 120, }}
-                                source={{
-                                    uri: `${ip}/MySQL/uploads/Framesticker/Framesticker06.jpg`,
-                                }}
-                            />
-                        </TouchableOpacity>
+                        {FrameItem}
                     </View>
                 </View>
             </>
@@ -724,62 +661,71 @@ export class Post_New extends React.Component {
                     }}>
                     {this.Framesticker()}
                 </BottomSheet>
-                <View style={{ backgroundColor: '#FFFFFF' }}>
-                    <View style={[stylesMain.FlexRow, { borderColor: '#ECECEC', borderBottomWidth: 1, }]}>
-                        {
-                            store_data_2 &&
+                <ScrollView>
+                    <View style={{ backgroundColor: '#FFFFFF' }}>
+                        <View style={[stylesMain.FlexRow, { borderColor: '#ECECEC', borderBottomWidth: 1, }]}>
+                            {/* {
+                            store_data_2 && */}
                             <View style={stylesProfileTopic.Order_StorePro}>
                                 <FastImage
-                                    source={{ uri: image_storee }}
+                                    // source={{uri: image_storee }}
+                                    source={{
+                                        uri: `${ip}/MySQL/uploads/addmin/unnamed.png`,
+                                    }}
                                     style={{ width: '100%', height: '100%', backgroundColor: '#FFFFFF', borderRadius: 20, }}
                                 />
                             </View>
-                        }
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { marginTop: 10 }]}>
-                            {store_data_2 && store_data_2.name}</Text>
-                    </View>
-                    <View style={{ paddingHorizontal: 10 }}>
-                        <TextInput
-                            style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}
-                            placeholder="เขียนบางอย่างสิ...."
-                            multiline
-                            editable
-                            // maxLength={5000}
-                            value={Detail}
-                            onChangeText={(Detail) => this.setState({ Detail })}>
-                        </TextInput>
-                    </View>
-                    <View>
-                        <View style={{ padding: 10, alignItems: 'center' }}>
-                            <FastImage
-                                source={{ uri: avatarSource ? avatarSource.path : image ? image_post : null }}
-                                style={{ width: 400, height: 400, backgroundColor: '#FFFFFF' }}
-                            />
+                            {/* } */}
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 10 }]}>
+                                {/* {store_data_2 && store_data_2.name} */}
+                            ชื่อผู้ที่จะโพสต์
+                            </Text>
+                        </View>
+                        <View style={{ paddingHorizontal: 10, }}>
+                            <TextInput
+                                style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}
+                                placeholder="คุณกำลังคิดอะไรอยู่..."
+                                multiline
+                                editable
+                                // maxLength={5000}
+                                value={Detail}
+                                onChangeText={(Detail) => this.setState({ Detail })}>
+                            </TextInput>
+                        </View>
+                        <View>
+                            <View style={{ padding: 10, alignItems: 'center' }}>
+                                <FastImage
+                                    source={{ uri: avatarSource ? avatarSource.path : image ? image_post : null }}
+                                    style={{ width: 400, height: 400, backgroundColor: '#FFFFFF' }}
+                                />
+                            </View>
+                        </View>
+                        <View style={{ flexDirection: 'row', flexWrap: 'wrap', width, }}>
+                            {
+                                tagProduct.length > 0 && tagProduct.map((value, index) => {
+                                    return (
+                                        <View key={index} style={{
+                                            backgroundColor: '#066996', height: 22, borderRadius: 8, marginLeft: 6, flexDirection: 'row',
+                                            marginTop: 6,
+                                        }}>
+                                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, stylesMain.ItemCenterVertical, {
+                                                color: '#fff', marginLeft: 8,
+                                            }]}>{value.name}</Text>
+                                            <TouchableOpacity onPress={() => this.deleteTag(index)}
+                                                style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
+                                                    marginLeft: 4, backgroundColor: '#ECECEC', height: 15, width: 15, borderRadius: 15,
+                                                    marginRight: 4,
+                                                }]}>
+                                                <IconAntDesign name='close' size={10} style={[stylesMain.ItemCenterVertical, { color: 'red' }]} />
+                                            </TouchableOpacity>
+                                        </View>
+                                    )
+                                })
+                            }
                         </View>
                     </View>
-                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', width, }}>
-                        {
-                            tagProduct.length > 0 && tagProduct.map((value, index) => {
-                                return (
-                                    <View key={index} style={{
-                                        backgroundColor: '#066996', height: 22, borderRadius: 8, marginLeft: 6, flexDirection: 'row',
-                                        marginTop: 6,
-                                    }}>
-                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, stylesMain.ItemCenterVertical, {
-                                            color: '#fff', marginLeft: 8,
-                                        }]}>{value.name}</Text>
-                                        <TouchableOpacity onPress={() => this.deleteTag(index)}
-                                            style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, {
-                                                marginLeft: 4, backgroundColor: '#ECECEC', height: 15, width: 15, borderRadius: 15,
-                                                marginRight: 4,
-                                            }]}>
-                                            <IconAntDesign name='close' size={10} style={[stylesMain.ItemCenterVertical, { color: 'red' }]} />
-                                        </TouchableOpacity>
-                                    </View>
-                                )
-                            })
-                        }
-                    </View>
+                </ScrollView>
+                <View style={{ backgroundColor: '#FFFFFF' }}>
                     <TouchableOpacity style={[stylesMain.FlexRow, { borderColor: '#ECECEC', borderBottomWidth: 1, padding: 10 }]}
                         onPress={() => this.UploadImagePostFeed()}>
                         <IconFontAwesome name='image' size={25} color='#43A047' style={{ marginRight: 10, }} />
@@ -1019,21 +965,14 @@ export function Profile_Group(props) {
                 },
             });
     }, [activeSelectedIndex]);
-    const Group_Member = [{
-        image: `${ip}/MySQL/uploads/Group_image/HomePro.png`,
-    }, {
-        image: `${ip}/MySQL/uploads/Group_image/con7.jpg`,
-    }, {
-        image: `${ip}/MySQL/uploads/Group_image/ThaiR.jpg`,
-    }, {
-        image: `${ip}/MySQL/uploads/Group_image/workpoint.jpg`,
-    }, {
-        image: `${ip}/MySQL/uploads/Group_image/pantip.png`,
-    }, {
-        image: `${ip}/MySQL/uploads/Group_image/con1.jpg`,
-    }]
+    const Group_Member = [
+        { image: `${ip}/MySQL/uploads/Group_image/HomePro.png` },
+        { image: `${ip}/MySQL/uploads/Group_image/con7.jpg` },
+        { image: `${ip}/MySQL/uploads/Group_image/ThaiR.jpg` },
+        { image: `${ip}/MySQL/uploads/Group_image/workpoint.jpg` },
+        { image: `${ip}/MySQL/uploads/Group_image/pantip.png` },
+        { image: `${ip}/MySQL/uploads/Group_image/con1.jpg` }]
     let GroupMemberItem = (
-
         Group_Member.map((value, index) => {
             if (index < 6) {
                 return <View key={index}>
@@ -1044,8 +983,6 @@ export function Profile_Group(props) {
                 </View>
             }
         }))
-    // console.log('Profile_Group')
-    // console.log(dataService)
     return (
         <>
             <ScrollView>
@@ -1122,32 +1059,13 @@ export function Profile_Group(props) {
 }
 ///----------------------------------------------------------------------------------------------->>>>
 export function Group_About(props) {
-    const Group_Member = [{
-        image: `${ip}/MySQL/uploads/Group_image/HomePro.png`,
-        name: 'สติ๊ก กี้ ',
-        Following: '20',
-        membar_Follow: '30',
-    }, {
-        image: `${ip}/MySQL/uploads/Group_image/con7.jpg`,
-        name: 'Chanun Nurainee',
-        Following: '20',
-        membar_Follow: '30',
-    }, {
-        image: `${ip}/MySQL/uploads/Group_image/ThaiR.jpg`,
-        name: 'Rattapol Meejun',
-        Following: '20',
-        membar_Follow: '30',
-    }, {
-        image: `${ip}/MySQL/uploads/Group_image/workpoint.jpg`,
-        name: 'May Methawee',
-        Following: '20',
-        membar_Follow: '30',
-    }, {
-        image: `${ip}/MySQL/uploads/Group_image/pantip.png`,
-        name: 'pantip com',
-        Following: '20',
-        membar_Follow: '30',
-    }]
+    const Group_Member = [
+        { image: `${ip}/MySQL/uploads/Group_image/HomePro.png`, name: 'สติ๊ก กี้ ', Following: '20', membar_Follow: '30', },
+        { image: `${ip}/MySQL/uploads/Group_image/con7.jpg`, name: 'Chanun Nurainee', Following: '20', membar_Follow: '30', },
+        { image: `${ip}/MySQL/uploads/Group_image/ThaiR.jpg`, name: 'Rattapol Meejun', Following: '20', membar_Follow: '30', },
+        { image: `${ip}/MySQL/uploads/Group_image/workpoint.jpg`, name: 'May Methawee', Following: '20', membar_Follow: '30', },
+        { image: `${ip}/MySQL/uploads/Group_image/pantip.png`, name: 'pantip com', Following: '20', membar_Follow: '30', }
+    ]
     let GroupMemberItem = (
         Group_Member.map((value, index) => {
             return <TouchableOpacity key={index} style={[stylesMain.FlexRow, { justifyContent: 'space-between', marginTop: 10 }]}>
@@ -1261,7 +1179,7 @@ export function Group_Image(props) {
     useEffect(() => {
         if (activeGetServices) {
             setActiveGetServices(false);
-            setDataService(GenArreyNumber(20, itemT));
+            setDataService(GenArreyNumber(40, itemT));
         }
     }, [activeGetServices]);
     console.log(activeGetServices);
@@ -1283,42 +1201,19 @@ export function Group_Member(props) {
 ///----------------------------------------------------------------------------------------------->>>>
 export function Save_Activity(props) {
     const selectorSheet = useRef(null)
-    const item = [{
-        image: `${ip}/MySQL/uploads/Group_image/HomePro.png`,
-        name: 'สติ๊ก กี้ ถูกใจโพสต์ของ Chanun Nurainee สติ๊กกี้ถูกใจโพสต์ของChanunNurainee สติ๊กกี้ถูกใจโพสต์ของ Chanun Nurainee',
-        Time: '1 ชั่วโมงที่แล้ว'
-    }, {
-        image: `${ip}/MySQL/uploads/Group_image/workpoint.jpg`,
-        name: 'สติ๊ก กี้ ได้ตอบกลับความคิดเห็นของ Rattapol Meejun สติ๊ก กี้ได้ตอบกลับความคิดเห็นของRattapolMeejunสติ๊กกี้ได้ตอบกลับความคิดเห็นของRattapol Meejunสติ๊ก กี้ ได้ตอบกลับความคิดเห็นของ Rattapol Meejun',
-        Time: '1 ชั่วโมงที่แล้ว '
-    }, {
-        image: `${ip}/MySQL/uploads/Group_image/con8.png`,
-        name: 'สติ๊ก กี้ ได้ตอบกลับความคิดเห็นของ Rattapol Meejun สติ๊ก กี้ได้ตอบกลับความคิดเห็นของRattapolMeejun',
-        Time: '1 ชั่วโมงที่แล้ว'
-    }, {
-        image: `${ip}/MySQL/uploads/Group_image/con3.jpg`,
-        name: 'สติ๊ก กี้ ได้ตอบกลับความคิดเห็นของ Rattapol Meejun สติ๊ก กี้ได้ตอบกลับความคิดเห็นของRattapolMeejunสติ๊กกี้ได้ตอบกลับความคิดเห็นของRattapol Meejun',
-        Time: '1 ชั่วโมงที่แล้ว'
-    }, {
-        image: `${ip}/MySQL/uploads/Group_image/con1.jpg`,
-        name: 'สติ๊ก กี้ ได้ตอบกลับความคิดเห็นของ Rattapol Meejun สติ๊ก กี้ได้ตอบกลับความคิดเห็นของRattapolMeejunสติ๊กกี้ได้ตอบกลับความคิดเห็นของRattapol Meejunสติ๊ก กี้ ได้ตอบกลับความคิดเห็นของ Rattapol Meejun',
-        Time: '1 ชั่วโมงที่แล้ว'
-    }, {
-        image: `${ip}/MySQL/uploads/Group_image/con7.jpg`,
-        name: 'สติ๊ก กี้ ได้ตอบกลับความคิดเห็นของ Rattapol Meejun สติ๊ก กี้ได้ตอบกลับความคิดเห็นของRattapolMeejunสติ๊กกี้ได้ตอบกลับความคิดเห็นของRattapol Meejunสติ๊ก กี้ ได้ตอบกลับความคิดเห็นของ Rattapol Meejun',
-        Time: '1 ชั่วโมงที่แล้ว'
-    }, {
-        image: `${ip}/MySQL/uploads/Group_image/ThaiR.jpg`,
-        name: 'สติ๊ก กี้ ได้ตอบกลับความคิดเห็นของ Rattapol Meejun สติ๊ก กี้ได้ตอบกลับความคิดเห็นของRattapolMeejunสติ๊กกี้ได้ตอบกลับความคิดเห็นของRattapol Meejunสติ๊ก กี้ ได้ตอบกลับความคิดเห็นของ Rattapol Meejun',
-        Time: '1 ชั่วโมงที่แล้ว'
-    }, {
-        image: `${ip}/MySQL/uploads/Group_image/AMARIN.jpg`,
-        name: 'สติ๊ก กี้ ได้ตอบกลับความคิดเห็นของ Rattapol Meejun สติ๊ก กี้ได้ตอบกลับความคิดเห็นของRattapolMeejunสติ๊กกี้ได้ตอบกลับความคิดเห็นของRattapol Meejunสติ๊ก กี้ ได้ตอบกลับความคิดเห็นของ Rattapol Meejun',
-        Time: '1 ชั่วโมงที่แล้ว'
-    }]
+    const item = [
+        { image: `${ip}/MySQL/uploads/Group_image/HomePro.png`, name: 'สติ๊ก กี้ ถูกใจโพสต์ของ Chanun Nurainee สติ๊กกี้ถูกใจโพสต์ของChanunNurainee สติ๊กกี้ถูกใจโพสต์ของ Chanun Nurainee', Time: '1 ชั่วโมงที่แล้ว' },
+        { image: `${ip}/MySQL/uploads/Group_image/workpoint.jpg`, name: 'สติ๊ก กี้ ได้ตอบกลับความคิดเห็นของ Rattapol Meejun สติ๊ก กี้ได้ตอบกลับความคิดเห็นของRattapolMeejunสติ๊กกี้ได้ตอบกลับความคิดเห็นของRattapol Meejunสติ๊ก กี้ ได้ตอบกลับความคิดเห็นของ Rattapol Meejun', Time: '1 ชั่วโมงที่แล้ว ' },
+        { image: `${ip}/MySQL/uploads/Group_image/con8.png`, name: 'สติ๊ก กี้ ได้ตอบกลับความคิดเห็นของ Rattapol Meejun สติ๊ก กี้ได้ตอบกลับความคิดเห็นของRattapolMeejun', Time: '1 ชั่วโมงที่แล้ว' },
+        { image: `${ip}/MySQL/uploads/Group_image/con3.jpg`, name: 'สติ๊ก กี้ ได้ตอบกลับความคิดเห็นของ Rattapol Meejun สติ๊ก กี้ได้ตอบกลับความคิดเห็นของRattapolMeejunสติ๊กกี้ได้ตอบกลับความคิดเห็นของRattapol Meejun', Time: '1 ชั่วโมงที่แล้ว' },
+        { image: `${ip}/MySQL/uploads/Group_image/con1.jpg`, name: 'สติ๊ก กี้ ได้ตอบกลับความคิดเห็นของ Rattapol Meejun สติ๊ก กี้ได้ตอบกลับความคิดเห็นของRattapolMeejunสติ๊กกี้ได้ตอบกลับความคิดเห็นของRattapol Meejunสติ๊ก กี้ ได้ตอบกลับความคิดเห็นของ Rattapol Meejun', Time: '1 ชั่วโมงที่แล้ว' },
+        { image: `${ip}/MySQL/uploads/Group_image/con7.jpg`, name: 'สติ๊ก กี้ ได้ตอบกลับความคิดเห็นของ Rattapol Meejun สติ๊ก กี้ได้ตอบกลับความคิดเห็นของRattapolMeejunสติ๊กกี้ได้ตอบกลับความคิดเห็นของRattapol Meejunสติ๊ก กี้ ได้ตอบกลับความคิดเห็นของ Rattapol Meejun', Time: '1 ชั่วโมงที่แล้ว' },
+        { image: `${ip}/MySQL/uploads/Group_image/ThaiR.jpg`, name: 'สติ๊ก กี้ ได้ตอบกลับความคิดเห็นของ Rattapol Meejun สติ๊ก กี้ได้ตอบกลับความคิดเห็นของRattapolMeejunสติ๊กกี้ได้ตอบกลับความคิดเห็นของRattapol Meejunสติ๊ก กี้ ได้ตอบกลับความคิดเห็นของ Rattapol Meejun', Time: '1 ชั่วโมงที่แล้ว' },
+        { image: `${ip}/MySQL/uploads/Group_image/AMARIN.jpg`, name: 'สติ๊ก กี้ ได้ตอบกลับความคิดเห็นของ Rattapol Meejun สติ๊ก กี้ได้ตอบกลับความคิดเห็นของRattapolMeejunสติ๊กกี้ได้ตอบกลับความคิดเห็นของRattapol Meejunสติ๊ก กี้ ได้ตอบกลับความคิดเห็นของ Rattapol Meejun', Time: '1 ชั่วโมงที่แล้ว' }
+    ]
     let ActivityItem = (
         item.map((value, index) => {
-            return <TouchableOpacity style={[stylesMain.FlexRow, { marginTop: 10 }]} key={index}>
+            return <TouchableOpacity key={index}>
                 <BottomSheet
                     ref={selectorSheet}
                     height={110}
@@ -1341,32 +1236,34 @@ export function Save_Activity(props) {
                         </TouchableOpacity>
                     </View>
                 </BottomSheet>
-                <View>
-                    <FastImage
-                        style={{ height: 50, width: 50, borderRadius: 25, }}
-                        source={{
-                            uri: value.image,
-                        }}
-                        resizeMode={FastImage.resizeMode.cover} />
-                    <View style={{ alignItems: 'flex-end', bottom: 20 }}>
-                        <View style={[stylesMain.ItemCenter,
-                        { width: 25, height: 25, backgroundColor: '#0A55A6', borderRadius: 15 }]}>
-                            <IconAntDesign name='like1' size={15} color='#FFFFFF' />
+                <View style={[stylesMain.FlexRow, { marginTop: 10, justifyContent: 'space-between' }]}>
+                    <View>
+                        <FastImage
+                            style={{ height: 50, width: 50, borderRadius: 25, }}
+                            source={{
+                                uri: value.image,
+                            }}
+                            resizeMode={FastImage.resizeMode.cover} />
+                        <View style={{ alignItems: 'flex-end', bottom: 20 }}>
+                            <View style={[stylesMain.ItemCenter,
+                            { width: 25, height: 25, backgroundColor: '#0A55A6', borderRadius: 15 }]}>
+                                <IconAntDesign name='like1' size={15} color='#FFFFFF' />
+                            </View>
                         </View>
                     </View>
-                </View>
-                <View style={{ marginLeft: 10, width: width * 0.70, }}>
-                    <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                        {value.name}
-                    </Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A9A9A9' }]}>
-                        {value.Time}</Text>
-                </View>
-                <TouchableOpacity onPress={() => { selectorSheet.current.open() }} >
-                    <View style={[stylesMain.ItemCenter, { marginLeft: 10 }]}>
-                        <IconEntypo name='dots-three-horizontal' size={20} />
+                    <View style={{ marginLeft: 5, width: width * 0.68, }}>
+                        <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                            {value.name}
+                        </Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A9A9A9' }]}>
+                            {value.Time}</Text>
                     </View>
-                </TouchableOpacity>
+                    <TouchableOpacity onPress={() => { selectorSheet.current.open() }} >
+                        <View style={[stylesMain.ItemCenter, { marginTop: 5 }]}>
+                            <IconEntypo name='dots-three-vertical' size={20} />
+                        </View>
+                    </TouchableOpacity>
+                </View>
             </TouchableOpacity>
         })
     )
@@ -1381,35 +1278,15 @@ export function Save_Activity(props) {
 ///----------------------------------------------------------------------------------------------->>>>
 export function Save_Post(props) {
     const selectorSheet = useRef(null)
-    const item = [{
-        image: `${ip}/MySQL/uploads/Group_image/Walmart.png`,
-        name: 'ผู้บริหาร Walmart เชื่อ ”ออฟฟิศ” ยังคงเป็นสิ่งสำคัญของธุรกิจ',
-        status: 'อ่านแล้ว',
-    }, {
-        image: `${ip}/MySQL/uploads/Group_image/paradise.jpg`,
-        name: 'ศูนย์การค้า พาราไดซ์ พาร์ค บริหารงานโดยบริษัท เอ็ม บี เค จำกัด (มหาชน) ผู้บริหารศูนย์การค้า เอ็ม บี เค เซ็นเตอร์ ด้วยมูลค่าโครงการรวมกว่า 3,200 ล้านบาท บนถนนศรีนครินทร์ ภายใต้แนวคิด “สวนสวรรค์แห่งการช้อปปิ้งที่ยิ่งใหญ่ที่สุดของกรุงเทพตะวันออก',
-        status: 'ยังไม่อ่าน'
-    }, {
-        image: `${ip}/MySQL/uploads/Group_image/1.jpg`,
-        name: 'มีให้เลือกแบบ Delivery หลายช่องทางจากทางร้าน หรือแวะมาซื้อกลับไปรับประทานพร้อมหน้าที่บ้านแบบ Take Away ที่ชั้น G สยามพารากอน ซึ่งยังเปิดให้บริการ เปลี่ยนวันอยู่บ้านธรรมดาให้สุดพิเศษระดับโลกไปกับความอร่อย ได้ตั้งแต่เวลา 11.00-20.00 น',
-        status: 'อ่านแล้ว '
-    }, {
-        image: `${ip}/MySQL/uploads/Group_image/pantip.png`,
-        name: 'ได้ติดต่อผู้ออกแบบโลโก้คนนึงด้วยการแชทผ่านapplicationชื่อดัง โดยได้ข้อมูลมาจากเว็บพันทิป จากเว็บระบุราคาไว้ถูกมาก',
-        status: 'ยังไม่อ่าน '
-    }, {
-        image: `${ip}/MySQL/uploads/Group_image/MK.jpg`,
-        name: 'มีให้เลือกแบบ Delivery หลายช่องทางจากทางร้าน หรือแวะมาซื้อกลับไปรับประทานพร้อมหน้าที่บ้านแบบ Take Away ที่ชั้น G สยามพารากอน ซึ่งยังเปิดให้บริการ เปลี่ยนวันอยู่บ้านธรรมดาให้สุดพิเศษระดับโลกไปกับความอร่อย ได้ตั้งแต่เวลา 11.00-20.00 น',
-        status: 'อ่านแล้ว '
-    }, {
-        image: `${ip}/MySQL/uploads/Group_image/ThaiR.jpg`,
-        name: 'มีให้เลือกแบบ Delivery หลายช่องทางจากทางร้าน หรือแวะมาซื้อกลับไปรับประทานพร้อมหน้าที่บ้านแบบ Take Away ที่ชั้น G สยามพารากอน ซึ่งยังเปิดให้บริการ เปลี่ยนวันอยู่บ้านธรรมดาให้สุดพิเศษระดับโลกไปกับความอร่อย ได้ตั้งแต่เวลา 11.00-20.00 น',
-        status: 'อ่านแล้ว '
-    }, {
-        image: `${ip}/MySQL/uploads/Group_image/workpoint.jpg`,
-        name: 'มีให้เลือกแบบ Delivery หลายช่องทางจากทางร้าน หรือแวะมาซื้อกลับไปรับประทานพร้อมหน้าที่บ้านแบบ Take Away ที่ชั้น G สยามพารากอน ซึ่งยังเปิดให้บริการ เปลี่ยนวันอยู่บ้านธรรมดาให้สุดพิเศษระดับโลกไปกับความอร่อย ได้ตั้งแต่เวลา 11.00-20.00 น',
-        status: 'อ่านแล้ว '
-    }]
+    const item = [
+        { image: `${ip}/MySQL/uploads/Group_image/Walmart.png`, name: 'ผู้บริหาร Walmart เชื่อ ”ออฟฟิศ” ยังคงเป็นสิ่งสำคัญของธุรกิจ', status: 'อ่านแล้ว', },
+        { image: `${ip}/MySQL/uploads/Group_image/paradise.jpg`, name: 'ศูนย์การค้า พาราไดซ์ พาร์ค บริหารงานโดยบริษัท เอ็ม บี เค จำกัด (มหาชน) ผู้บริหารศูนย์การค้า เอ็ม บี เค เซ็นเตอร์ ด้วยมูลค่าโครงการรวมกว่า 3,200 ล้านบาท บนถนนศรีนครินทร์ ภายใต้แนวคิด “สวนสวรรค์แห่งการช้อปปิ้งที่ยิ่งใหญ่ที่สุดของกรุงเทพตะวันออก', status: 'ยังไม่อ่าน' },
+        { image: `${ip}/MySQL/uploads/Group_image/1.jpg`, name: 'มีให้เลือกแบบ Delivery หลายช่องทางจากทางร้าน หรือแวะมาซื้อกลับไปรับประทานพร้อมหน้าที่บ้านแบบ Take Away ที่ชั้น G สยามพารากอน ซึ่งยังเปิดให้บริการ เปลี่ยนวันอยู่บ้านธรรมดาให้สุดพิเศษระดับโลกไปกับความอร่อย ได้ตั้งแต่เวลา 11.00-20.00 น', status: 'อ่านแล้ว ' },
+        { image: `${ip}/MySQL/uploads/Group_image/pantip.png`, name: 'ได้ติดต่อผู้ออกแบบโลโก้คนนึงด้วยการแชทผ่านapplicationชื่อดัง โดยได้ข้อมูลมาจากเว็บพันทิป จากเว็บระบุราคาไว้ถูกมาก', status: 'ยังไม่อ่าน ' },
+        { image: `${ip}/MySQL/uploads/Group_image/MK.jpg`, name: 'มีให้เลือกแบบ Delivery หลายช่องทางจากทางร้าน หรือแวะมาซื้อกลับไปรับประทานพร้อมหน้าที่บ้านแบบ Take Away ที่ชั้น G สยามพารากอน ซึ่งยังเปิดให้บริการ เปลี่ยนวันอยู่บ้านธรรมดาให้สุดพิเศษระดับโลกไปกับความอร่อย ได้ตั้งแต่เวลา 11.00-20.00 น', status: 'อ่านแล้ว ' },
+        { image: `${ip}/MySQL/uploads/Group_image/ThaiR.jpg`, name: 'มีให้เลือกแบบ Delivery หลายช่องทางจากทางร้าน หรือแวะมาซื้อกลับไปรับประทานพร้อมหน้าที่บ้านแบบ Take Away ที่ชั้น G สยามพารากอน ซึ่งยังเปิดให้บริการ เปลี่ยนวันอยู่บ้านธรรมดาให้สุดพิเศษระดับโลกไปกับความอร่อย ได้ตั้งแต่เวลา 11.00-20.00 น', status: 'อ่านแล้ว ' },
+        { image: `${ip}/MySQL/uploads/Group_image/workpoint.jpg`, name: 'มีให้เลือกแบบ Delivery หลายช่องทางจากทางร้าน หรือแวะมาซื้อกลับไปรับประทานพร้อมหน้าที่บ้านแบบ Take Away ที่ชั้น G สยามพารากอน ซึ่งยังเปิดให้บริการ เปลี่ยนวันอยู่บ้านธรรมดาให้สุดพิเศษระดับโลกไปกับความอร่อย ได้ตั้งแต่เวลา 11.00-20.00 น', status: 'อ่านแล้ว ' }
+    ]
     let PostItem = (
         item.map((value, index) => {
             return <View style={[stylesMain.FlexRow, { marginVertical: 2.5 }]} key={index}>
@@ -1492,6 +1369,7 @@ export function Group_Total(props) {
 ///----------------------------------------------------------------------------------------------->>>>
 export function Feed_Notification(props) {
     const selectorSheet = useRef(null)
+
     return (
         <ScrollView>
             <View>
@@ -1635,7 +1513,7 @@ export function Group_Search(props) {
     )
 }
 ///----------------------------------------------------------------------------------------------->>>>
-export function Profile_Feed(props) {
+export function Profile_FeedStore(props) {
     const { navigation } = props;
     var uri = `${finip}/${'brand/feed_highlight'}`;
     const [activeSelectedIndex, setActiveSelectedIndex] = useState(true);
@@ -1655,17 +1533,20 @@ export function Profile_Feed(props) {
     }, {
         name: <Text style={stylesFont.FontSize6}>
             <IconAntDesign name='solution1' size={20} />ชุมชน</Text>
-    },]
+    }];
     return (
         <ScrollView>
             <View style={{ backgroundColor: '#FFFFFF' }}>
                 <FastImage
-                    style={{ width: '100%', height: 150 }}
+                    style={{ width: '100%', height: 150, }}
                     source={{ uri: `${ip}/MySQL/uploads/slide/NewStore/luxury_shop3.jpg`, }}
                     resizeMode={FastImage.resizeMode.cover} />
                 <View style={[stylesMain.FlexRow, { borderBottomWidth: 2, marginHorizontal: 5 }]}>
                     <FastImage
-                        style={{ height: 80, width: 80, marginLeft: 10, borderRadius: 40, bottom: 20 }}
+                        style={{
+                            height: 80, width: 80, marginLeft: 10, borderRadius: 40,
+                            bottom: 20, borderColor: '#FFFFFF', borderWidth: 3
+                        }}
                         source={{
                             uri: `${ip}/MySQL/uploads/Resize/Promotion/002.jpg`,
                         }}
@@ -1677,12 +1558,18 @@ export function Profile_Feed(props) {
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8]}>ผู้ติดตาม 200K คน กำลังติดตาม 20 คน</Text>
                     </View>
                     <View>
-                        <View style={{backgroundColor:'#0A55A6'}}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7,{color:'#FFFFFF'}]}>กำลงติดตาม</Text>
-                        </View>
-                        <View style={{backgroundColor:'#0A55A6'}}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7,{color:'#FFFFFF'}]}>แชท</Text>
-                        </View>
+                        <TouchableOpacity style={[stylesMain.ItemCenter, {
+                            backgroundColor: '#0A55A6',
+                            marginTop: 5, paddingHorizontal: 10, paddingVertical: 5, borderRadius: 15
+                        }]}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FFFFFF' }]}>กำลงติดตาม</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[stylesMain.ItemCenter, {
+                            backgroundColor: '#0A55A6',
+                            marginTop: 5, paddingHorizontal: 10, paddingVertical: 5, borderRadius: 15
+                        }]}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FFFFFF' }]}>แชท</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
                 <View style={[stylesMain.FlexRow, { paddingHorizontal: 10 }]}>
@@ -1720,7 +1607,13 @@ export function Profile_Feed(props) {
                 </View>
             </View>
             <View style={[stylesMain.FlexRow, stylesMain.FrameBackground, { justifyContent: 'center', marginTop: 5 }]}>
-                <MenuBar_Feed />
+                <TabBar
+                    // sendData={updateIndex2}
+                    item={TabBar_Profile}
+                    type='box'
+                    // noLimit
+                    widthBox={96}
+                    radiusBox={4} />
             </View>
             {
                 dataService &&
@@ -1738,8 +1631,20 @@ export function Profile_Feed(props) {
     )
 }
 ///----------------------------------------------------------------------------------------------->>>>
-export function MenuBar_Feed(props) {
-    const { getActiveSelectedIndex, selectedIndex, sendText } = props;
+export function Profile_FeedCustomer(props) {
+    const { navigation, Bottom, otherBar } = props;
+    var uri = `${finip}/${'brand/feed_highlight'}`;
+    const [activeSelectedIndex, setActiveSelectedIndex] = useState(true);
+    const [dataService, setDataService] = useState(null);
+    useEffect(() => {
+        activeSelectedIndex &&
+            GetServices({
+                uriPointer: uri, getDataSource: value => {
+                    setActiveSelectedIndex(false);
+                    setDataService(value);
+                },
+            });
+    }, [activeSelectedIndex]);
     const TabBar_Profile = [{
         name: <Text style={stylesFont.FontSize6}>
             <IconFeather name='layout' size={20} />โพสต์</Text>
@@ -1748,8 +1653,84 @@ export function MenuBar_Feed(props) {
             <IconAntDesign name='solution1' size={20} />ชุมชน</Text>
     }];
     return (
-        <View>
-            <>
+        <ScrollView>
+            <View style={{ backgroundColor: '#FFFFFF' }}>
+                <FastImage
+                    style={{ width: '100%', height: 150, }}
+                    source={{ uri: `${ip}/MySQL/uploads/slide/NewStore/luxury_shop3.jpg`, }}
+                    resizeMode={FastImage.resizeMode.cover} />
+                <View style={{ justifyContent: 'space-between' }}>
+                    <View style={[stylesMain.FlexRow, { borderBottomWidth: 2, marginHorizontal: 5 }]}>
+                        <View style={stylesMain.FlexRow}>
+                            <FastImage
+                                style={{
+                                    height: 90, width: 90, marginLeft: 5, borderRadius: 45,
+                                    bottom: 20, borderColor: '#FFFFFF', borderWidth: 3
+                                }}
+                                source={{
+                                    uri: `${ip}/MySQL/uploads/Resize/Promotion/002.jpg`,
+                                }}
+                                resizeMode={FastImage.resizeMode.cover} />
+                            <View style={{ marginLeft: 5, width: '52%', marginTop: 5 }}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>ppooo</Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#BEBDBD' }]}>Active เมื่อ 1 ชั่วโมงที่ผ่านมา</Text>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>200 โพสต์  </Text>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>ผู้ติดตาม 200K คน กำลังติดตาม 20 คน</Text>
+                            </View>
+                        </View>
+                        {
+                            Bottom &&
+                            <View>
+                                <TouchableOpacity style={[stylesMain.ItemCenter, {
+                                    backgroundColor: '#0A55A6',
+                                    marginTop: 5, paddingHorizontal: 10, paddingVertical: 5, borderRadius: 15
+                                }]}>
+                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FFFFFF' }]}>กำลงติดตาม</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={[stylesMain.ItemCenter, {
+                                    backgroundColor: '#0A55A6',
+                                    marginTop: 5, paddingHorizontal: 10, paddingVertical: 5, borderRadius: 15
+                                }]}>
+                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FFFFFF' }]}>แชท</Text>
+                                </TouchableOpacity>
+                            </View>
+                        }
+                        {
+                            otherBar &&
+                            <TouchableOpacity key='otherBar' onPress={() => NavigationNavigateScreen({
+                                goScreen: 'Post_Feed', setData: {
+                                    selectedIndex: 23,
+                                }, navigation
+                            })}
+                                style={{ alignItems: 'flex-end', width: width * 0.15, marginTop: 10 }}>
+                                <IconFontAwesome5 name="ellipsis-v" size={20} />
+                            </TouchableOpacity>
+                        }
+                    </View>
+                </View>
+                <View style={[stylesMain.FrameBackground]}>
+                    <View style={{ borderBottomWidth: 2, paddingBottom: 10, marginHorizontal: 5, paddingHorizontal: 10 }}>
+                        <View style={stylesMain.FlexRow}>
+                            <IconEntypo name='location-pin' size={20} />
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginLeft: 10 }]}>จ.นครศรีธรรมราช, ประเทศไทย</Text>
+                        </View>
+                        <View style={stylesMain.FlexRow}>
+                            <IconFontAwesome name='birthday-cake' size={20} />
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginLeft: 10 }]}>เกิดเมื่อ 29 มิถุนายน ค.ศ. 1995</Text>
+                        </View>
+                    </View>
+
+                </View>
+                <View style={{ paddingHorizontal: 10 }}>
+                    <View style={{ padding: 10 }}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>เกี่ยวกับ</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>S.adnight 420K ❤ แคปชั่นโดนใจ คำคมไทยแปลอังกฤษ Since :
+                        16.5.2019 📌อยากให้ลบรูปแจ้ง DM เครดิตใส่ไว้ในรูปนะคะ😊</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#0A55A6' }]}>ลิงค์ร้านค้า: https://finforyou.com/ppooo</Text>
+                    </View>
+                </View>
+            </View>
+            <View style={[stylesMain.FlexRow, stylesMain.FrameBackground, { justifyContent: 'center', marginTop: 5 }]}>
                 <TabBar
                     // sendData={updateIndex2}
                     item={TabBar_Profile}
@@ -1757,8 +1738,220 @@ export function MenuBar_Feed(props) {
                     // noLimit
                     widthBox={96}
                     radiusBox={4} />
-            </>
+            </View>
+            {
+                dataService &&
+                <FlatList
+                    scrollEnabled={true}
+                    initialNumToRender={10}
+                    data={dataService.feed_follow}
+                    keyExtractor={(value, index) => `Feed${index}`}
+                    renderItem={(value) => {
+                        return <FeedBox {...props} dataService={value.item} Header Follow={false} />
+                    }}
+                />
+            }
+        </ScrollView>
+    )
+}
+///----------------------------------------------------------------------------------------------->>>>
+export let Profile_Edit = (props) => {
+    const [name, setName] = useState('');
+    const [Details, setDetails] = useState('');
+    const [website, setwebsite] = useState('');
+    const [Address, setAddress] = useState('');
+    const [Birthday, setBirthday] = useState('');
+    const [InputGender, setGender] = useState(false);
+    const [item1, setItem1] = useState(false)
+    const Address_Sheet = useRef(null)
+    const Birthday_Sheet = useRef(null)
+    const Gender_Sheet = useRef(null)
+    const [date, setDate] = useState(new Date());
+    const [mode, setMode] = useState('date');
+    const [show, setShow] = useState(false);
+    let getName = (value) => {
+        setActiveData(true);
+        setName(value);
+    };
+    let onChange = (event, selectedDate) => {
+        const currentDate = selectedDate || date;
+        setShow(Platform.OS === 'ios');
+        setDate(currentDate);
+    };
+    let showMode = currentMode => {
+        setShow(true);
+        setMode(currentMode);
+    };
+    return (
+        <ScrollView>
+            {/* ที่อยู่ */}
+            <BottomSheet
+                ref={Address_Sheet}
+                height={150}
+                duration={250}
+                customStyles={{
+                    container: {
+                        borderTopLeftRadius: 10,
+                        borderTopRightRadius: 10,
+                        paddingTop: 10,
+                    }
+                }}>
+                <View style={{ paddingHorizontal: 10 }}>
+                    <View style={stylesMain.ItemCenter}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ที่อยู่</Text>
+                    </View>
+                    <View style={{ height: 100, borderWidth: 1, borderRadius: 5 }}>
+                        <TextInput
+                            style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
+                            multiline
+                            editable
+                            maxLength={200}
+                            value={Address} onChangeText={(value) => setAddress(value)}>
+                        </TextInput>
+                    </View>
 
-        </View>
-    );
-};
+                </View>
+            </BottomSheet>
+            {/* วันเกิด */}
+            <BottomSheet
+                ref={Birthday_Sheet}
+                height={110}
+                duration={250}
+                customStyles={{
+                    container: {
+                        borderTopLeftRadius: 10,
+                        borderTopRightRadius: 10,
+                        paddingTop: 10,
+                    }
+                }}>
+                <View style={{ paddingHorizontal: 10 }}>
+                    <View style={stylesMain.ItemCenter}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>วันเกิด</Text>
+                    </View>
+                    <View>
+                        <TouchableOpacity onPress={() => showMode('date')} style={stylesMain.ItemCenter}>
+                            <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { borderWidth: 2, width: '60%', borderRadius: 5, paddingVertical: 5, borderColor: '#C5C5C5' }]}>
+                                <IconFontAwesome name='calendar' size={20} color='rgb(29, 70, 204)' />
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginLeft: 10 }]}>{`${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`}</Text>
+                            </View>
+                        </TouchableOpacity>
+                        {show && (<DateTimePicker testID="dateTimePicker" value={date} mode={mode} is24Hour={true} display="spinner" onChange={(event, selectedDate) => onChange(event, selectedDate)} />)}
+                    </View>
+                </View>
+            </BottomSheet>
+            {/* เพศ */}
+            <BottomSheet
+                ref={Gender_Sheet}
+                height={100}
+                duration={250}
+                customStyles={{
+                    container: {
+                        borderTopLeftRadius: 10,
+                        borderTopRightRadius: 10,
+                        paddingTop: 10,
+                    }
+                }}>
+                <View style={{ alignItems: 'center' }}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>เพศ</Text>
+                    <View style={stylesMain.FlexRow}>
+                        <CheckBox size={25} checkedIcon='dot-circle-o' uncheckedIcon='circle-o' checked={InputGender} onPress={() => setGender({ InputGender: true, })} />
+                        <IconFontisto name='male' size={20} style={{ marginTop: 15, marginLeft: -10, color: mainColor }} />
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 15, marginLeft: 10 }]}>ชาย</Text>
+                        <CheckBox size={25} checkedIcon='dot-circle-o' uncheckedIcon='circle-o' checked={InputGender} onPress={() => setGender({ InputGender: false, })} />
+                        <IconFontisto name='female' size={20} style={{ marginTop: 15, marginLeft: -10, color: '#ff1ac6' }} />
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 15, marginLeft: 10 }]}>หญิง</Text>
+                    </View>
+                </View>
+            </BottomSheet>
+            <FastImage
+                style={{ width: '100%', height: 150, }}
+                source={{ uri: `${ip}/MySQL/uploads/slide/NewStore/luxury_shop3.jpg`, }}
+                resizeMode={FastImage.resizeMode.cover} />
+            <View style={{ backgroundColor: '#FFFFFF' }}>
+                <View style={[stylesMain.FlexRow, { justifyContent: 'center', marginTop: -30, }]}>
+                    <FastImage
+                        style={{
+                            height: 110, width: 110, borderRadius: 60,
+                            borderColor: '#FFFFFF', borderWidth: 3,
+                        }}
+                        source={{
+                            uri: `${ip}/MySQL/uploads/Resize/Promotion/002.jpg`,
+                        }}
+                        resizeMode={FastImage.resizeMode.cover}
+                    />
+                    <TouchableOpacity style={[stylesMain.ItemCenter, {
+                        backgroundColor: '#C4C4C4', padding: 10, borderRadius: 20,
+                        borderColor: '#FFFFFF', borderWidth: 2, width: 40, height: 40, left: -40, top: 70
+                    }]}>
+                        <IconFeather name='camera' size={17} />
+                    </TouchableOpacity>
+                </View>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, }]}>ชื่อ</Text>
+                <View style={{ marginHorizontal: 10, borderWidth: 1, borderRadius: 5 }}>
+                    <TextInput
+                        style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
+                        multiline
+                        editable
+                        maxLength={30}
+                        value={name} onChangeText={(value) => setName(value)}>
+                    </TextInput>
+                </View>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, }]}>ประวัติ</Text>
+                <View style={{ marginHorizontal: 10, borderWidth: 1, borderRadius: 5, height: 150 }}>
+                    <TextInput
+                        style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
+                        multiline
+                        editable
+                        maxLength={5000}
+                        value={Details} onChangeText={(value) => setDetails(value)}>
+                    </TextInput>
+                </View>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, }]}>เว็บไซต์</Text>
+                <View style={{ marginHorizontal: 10, borderWidth: 1, borderRadius: 5, marginBottom: 10 }}>
+                    <TextInput
+                        style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
+                        multiline
+                        editable
+                        maxLength={30}
+                        value={website} onChangeText={(value) => setwebsite(value)}>
+                    </TextInput>
+                </View>
+            </View>
+            <View style={{ backgroundColor: '#C4C4C4' }}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10 }]}>ข้อมูลโปรไฟล์</Text>
+            </View>
+            <View style={{ backgroundColor: '#FFFFFF' }}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10 }]}>ที่อยู่</Text>
+                <View style={[stylesMain.FlexRow, { alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 10 }]}>
+                    <View style={[stylesMain.FlexRow, { alignItems: 'center' }]}>
+                        <CheckBox size={25} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={item1} />
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { width: '65%' }]}>อำเภอเชียรใหญ่ เป็นอำเภอหนึ่งในจังหวัดนครศรีธรรมราช</Text>
+                    </View>
+                    <TouchableOpacity onPress={() => { Address_Sheet.current.open() }}>
+                        <IconFeather name='edit' size={20} />
+                    </TouchableOpacity>
+                </View>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10 }]}>วันเกิด</Text>
+                <View style={[stylesMain.FlexRow, { alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 10 }]}>
+                    <View style={[stylesMain.FlexRow, { alignItems: 'center' }]}>
+                        <CheckBox size={25} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={item1} />
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>29 มิถุนายน ค.ศ. 1995</Text>
+                    </View>
+                    <TouchableOpacity onPress={() => { Birthday_Sheet.current.open() }}>
+                        <IconFeather name='edit' size={20} />
+                    </TouchableOpacity>
+                </View>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10 }]}>เพศ</Text>
+                <View style={[stylesMain.FlexRow, { alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 10 }]}>
+                    <View style={[stylesMain.FlexRow, { alignItems: 'center' }]}>
+                        <CheckBox size={25} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={item1} />
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>ชาย</Text>
+                    </View>
+                    <TouchableOpacity onPress={() => { Gender_Sheet.current.open() }}>
+                        <IconFeather name='edit' size={20} />
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </ScrollView>
+    )
+}

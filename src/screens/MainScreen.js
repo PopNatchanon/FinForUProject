@@ -713,7 +713,7 @@ export let Guarantee = (props) => {
                                 source={{ uri: `${ip}/MySQL/uploads/Guarantee/Samsung-logo.png`, }}
                                 resizeMode={FastImage.resizeMode.cover} />
                         </View>
-                        <View style={{ backgroundColor: mainColor, paddingHorizontal: 15, borderRadius: 8, marginTop: 10 }} >
+                        <View style={{ backgroundColor: mainColor, paddingHorizontal: 10, borderRadius: 8, marginTop: 10 }} >
                             <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>ช้อปเลย</Text>
                         </View>
                     </TouchableOpacity>
@@ -724,7 +724,7 @@ export let Guarantee = (props) => {
                                 source={{ uri: `${ip}/MySQL/uploads/Guarantee/adidas.png`, }}
                                 resizeMode={FastImage.resizeMode.cover} />
                         </View>
-                        <View style={{ backgroundColor: mainColor, paddingHorizontal: 15, borderRadius: 8, marginTop: 10 }} >
+                        <View style={{ backgroundColor: mainColor, paddingHorizontal: 10, borderRadius: 8, marginTop: 10 }} >
                             <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>ช้อปเลย</Text>
                         </View>
                     </TouchableOpacity>
@@ -1017,8 +1017,8 @@ export let Recommend_Brand = (props) => {
     let recommendBrand = (
         dataService?.brand && item_1 ?
             item_1.map((item, index) => {
-                var dataMySQL = `${ip}/MySQL/uploads/Brand_R/${item.image}`;
-                // var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
+                // var dataMySQL = `${ip}/MySQL/uploads/Brand_R/${item.image}`;
+                var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
                 return (
                     <TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigateScreen({
                         goScreen: 'Recommend_Brand', navigation
@@ -1036,8 +1036,8 @@ export let Recommend_Brand = (props) => {
     let recommendBrand2 = (
         dataService?.brand && item_2 ?
             item_2.map((item, index) => {
-                var dataMySQL = `${ip}/MySQL/uploads/Brand_R/${item.image}`;
-                // var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
+                // var dataMySQL = `${ip}/MySQL/uploads/Brand_R/${item.image}`;
+                var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
                 return (
                     <TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigateScreen({
                         goScreen: 'Recommend_Brand', navigation
@@ -1070,7 +1070,7 @@ export let Recommend_Brand = (props) => {
                     <View style={{ flexDirection: 'row', marginBottom: 2 }}>{recommendBrand2}</View>
                 </View>
             </ScrollView>
-        </View >
+        </View>
     );
 };
 ///----------------------------------------------------------------------------------------------->>>> Popular_store

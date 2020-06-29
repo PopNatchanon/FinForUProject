@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { Component, useState, useEffect, useRef } from 'react';
 import {
-    Dimensions, SafeAreaView, ScrollView, Text, View, TouchableOpacity, FlatList, Image, ListView,
+    Animated, Dimensions, SafeAreaView, ScrollView, Text, View, TouchableOpacity, FlatList, Image, ListView,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
@@ -26,7 +26,7 @@ import IconFontisto from 'react-native-vector-icons/Fontisto';
 import IconFeather from 'react-native-vector-icons/Feather';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesDetail from '../../style/StylesDetailScreen';
-import stylesMain, { mainColor } from '../../style/StylesMainScreen';
+import stylesMain, { mainColor, appBarColor } from '../../style/StylesMainScreen';
 import stylesFont from '../../style/stylesFont';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 import stylesTopic from '../../style/styleTopic';
@@ -50,6 +50,7 @@ export default class Post_Feed extends Component {
             activeGetCurrentUser: true,
             activePost: false,
         };
+        this.scrollY = new Animated.Value(0)
     }
     getSource(value) {
         this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser, cokie: value.keycokie })
@@ -62,6 +63,19 @@ export default class Post_Feed extends Component {
         const { activePost, cokie, dataService } = this.state
         const actionPost = route.params?.actionPost
         const selectedIndex = route.params?.selectedIndex
+        const maxheight = 55;
+        const AnimatedHeadbg = this.scrollY.interpolate({
+            inputRange: [maxheight, maxheight * 2],
+            outputRange: ['transparent', appBarColor],
+            extrapolate: 'clamp',
+            useNativeDriver: true,
+        });
+        const AnimatedCart = this.scrollY.interpolate({
+            inputRange: [maxheight, maxheight * 2],
+            outputRange: ['#ECECEC', appBarColor],
+            extrapolate: 'clamp',
+            useNativeDriver: true,
+        });
         switch (selectedIndex) {
             case 0:
                 return <>
@@ -101,8 +115,12 @@ export default class Post_Feed extends Component {
             case 12:
                 return <>
                     {/* หน้า โปรไฟล์กลุ่ม เข้าจากหน้าสร้างกลุ่มเสร็จ กับ ดูกลุ่ม หน้า Feed_About */}
-                    <AppBar_Group {...this.props} backArrow searchBar otherBar />
-                    <Profile_Group {...this.props} />
+                    <Animated.View style={{ zIndex: 1, height: maxheight, width, top: maxheight, backgroundColor: 'transparent', elevation: 1, marginTop: -(maxheight), }}>
+                        <AppBar_Group {...this.props} ABGColor={AnimatedHeadbg} ABDColor={AnimatedHeadbg} ABICartColor={AnimatedCart} backArrow searchBar otherBar />
+                    </Animated.View>
+                    <Profile_Group {...this.props} onScroll={Animated.event([{
+                        nativeEvent: { contentOffset: { y: this.scrollY } }
+                    }], { useNativeDriver: false, })} />
                 </>
             case 13:
                 return <>
@@ -161,8 +179,12 @@ export default class Post_Feed extends Component {
             case 22:
                 return <>
                     {/* หน้า โปรไฟล์กลุ่ม เข้าจากหน้า โปรร้านค้า-แท๊บโพสต์ร้าน  */}
-                    <AppBar_Group {...this.props} backArrow />
-                    <Profile_FeedCustomer {...this.props} otherBar />
+                    <Animated.View style={{ zIndex: 1, height: maxheight, width, top: maxheight, backgroundColor: 'transparent', elevation: 1, marginTop: -(maxheight), }}>
+                        <AppBar_Group {...this.props} ABGColor={AnimatedHeadbg} ABDColor={AnimatedHeadbg} ABICartColor={AnimatedCart} backArrow />
+                    </Animated.View>
+                    <Profile_FeedCustomer {...this.props} otherBar onScroll={Animated.event([{
+                        nativeEvent: { contentOffset: { y: this.scrollY } }
+                    }], { useNativeDriver: false, })} />
                 </>
             case 23:
                 return <>
@@ -174,12 +196,12 @@ export default class Post_Feed extends Component {
     }
     render() {
         const { activeGetCurrentUser } = this.state
-        activeGetCurrentUser  &&
+        activeGetCurrentUser &&
             GetData({ getCokie: true, getSource: this.getSource.bind(this), getUse: true, })
         return (
-            <SafeAreaView style={{ height: '100%' }}>
-                {this.PathList()}
-            </SafeAreaView>
+            // <SafeAreaView style={{ height: '100%' }}>
+            this.PathList()
+            // </SafeAreaView>
         );
     }
 }
@@ -393,11 +415,11 @@ export class Score_store extends React.Component {
             name: '1 ดาว',
             nameline2: `(${dataService?.rate_1 ?? '0'})`,
         }];
-        activeGetServices  && id_store && cokie && dataBody?.id_store &&
+        activeGetServices && id_store && cokie && dataBody?.id_store &&
             GetServices({
                 Authorization: cokie, uriPointer: uri, dataBody, showConsole: 'score_data', getDataSource: this.getData.bind(this),
             });
-        activeGetServices2  && id_store && cokie &&
+        activeGetServices2 && id_store && cokie &&
             GetServices({ Authorization: cokie, uriPointer: uri, dataBody, showConsole: 'score_data_start', getDataSource: this.getData2.bind(this), });
         return (
             <ScrollView>
@@ -628,7 +650,7 @@ export class Post_New extends React.Component {
                 act: 'view'
             } : {};
 
-        activePost  && (
+        activePost && (
             actionPost == 'edit' ?
                 GetServices({
                     uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'feed_action_update',
@@ -639,7 +661,7 @@ export class Post_New extends React.Component {
                     getDataSource: this.getData.bind(this),
                 })
         ),
-            activePostView  && actionPost == 'edit' && id_feed && id_store && cokie &&
+            activePostView && actionPost == 'edit' && id_feed && id_store && cokie &&
             GetServices({
                 uriPointer: uri2, dataBody: dataBody2, Authorization: cokie, showConsole: 'feed_action_view',
                 getDataSource: this.getData2.bind(this),
@@ -785,7 +807,7 @@ export class Select_TagProduct extends React.Component {
             id_store,
             level: selectedIndex == 0 ? 'normal' : selectedIndex == 1 ? 'favorite' : 'normal'
         }
-        activeGetServices  && cokie &&
+        activeGetServices && cokie &&
             GetServices({
                 uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'feed_tag_product',
                 getDataSource: this.getData.bind(this),
@@ -975,9 +997,9 @@ export function Profile_Group(props) {
     let GroupMemberItem = (
         Group_Member.map((value, index) => {
             if (index < 6) {
-                return <View key={index}>
+                return <View key={index} style={{ height: 'auto', aspectRatio: 1.2, marginBottom: 5 }}>
                     <FastImage
-                        style={{ height: 50, width: 50, marginLeft: 10, borderRadius: 25, marginBottom: 10 }}
+                        style={{ height: '100%', width: width * 0.10, marginLeft: 5, borderRadius: 50, marginBottom: 10 }}
                         source={{ uri: value.image, }}
                         resizeMode={FastImage.resizeMode.cover} />
                 </View>
@@ -985,7 +1007,7 @@ export function Profile_Group(props) {
         }))
     return (
         <>
-            <ScrollView>
+            <ScrollView {...props}>
                 <FastImage
                     style={{ width: '100%', height: 150 }}
                     source={{ uri: `${ip}/MySQL/uploads/slide/NewStore/luxury_shop3.jpg`, }}
@@ -1653,7 +1675,7 @@ export function Profile_FeedCustomer(props) {
             <IconAntDesign name='solution1' size={20} />ชุมชน</Text>
     }];
     return (
-        <ScrollView>
+        <ScrollView {...props}>
             <View style={{ backgroundColor: '#FFFFFF' }}>
                 <FastImage
                     style={{ width: '100%', height: 150, }}

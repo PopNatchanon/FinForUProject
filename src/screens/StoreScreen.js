@@ -122,7 +122,7 @@ function StoreScreen(props) {
     let getSource = (value) => { setActiveGetCurrentUser(false); setCokie(value.keycokie); setCurrentUser(value.currentUser); };
     useEffect(() => {
         activeGetServices && id_store !== undefined &&
-            GetServices({ uriPointer: uri, dataBody, getDataSource: (value) => getData(value) });
+            GetServices({ uriPointer: uri, dataBody, getDataSource: (value) => getData(value), });
     }, [activeGetServices && id_store !== undefined]);
     useEffect(() => {
         selectedIndex == 1 && activeGetServices2 && id_store !== undefined &&
